@@ -122,4 +122,8 @@ int main()
   //testVariable();
   testDataGraphSimple();
   testDataGraphComplex();
+
+#ifdef WIN32
+  system("pause");
+#endif
 }
