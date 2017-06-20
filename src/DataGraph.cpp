@@ -76,7 +76,7 @@ namespace taskvm
   {
     if (!internalDependenciesAreSet_)
     {
-      fillOutputDependencies();
+      fillInternalDependencies();
       internalDependenciesAreSet_ = true;
     }
     return internalDependencies_;
@@ -86,7 +86,7 @@ namespace taskvm
   {
     if (!inputDependenciesAreSet_)
     {
-      fillOutputDependencies();
+      fillUpdateDependencies();
       inputDependenciesAreSet_ = true;
     }
     return inputDependencies_;
@@ -115,7 +115,7 @@ namespace taskvm
 
     if (!internalDependenciesAreSet_)
     {
-      fillOutputDependencies();
+      fillInternalDependencies();
       internalDependenciesAreSet_ = true;
     }
 
@@ -132,7 +132,7 @@ namespace taskvm
 
     if (!inputDependenciesAreSet_)
     {
-      fillOutputDependencies();
+      fillUpdateDependencies();
       inputDependenciesAreSet_ = true;
     }
 
