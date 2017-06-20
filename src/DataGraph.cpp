@@ -158,10 +158,12 @@ namespace taskvm
 
   std::vector<int> UpdateGraph::add(std::shared_ptr<DataSource> source, internal::UnifiedEnumValue input)
   {
-    auto p = visitedInputs_.insert({ source.get(), input });
-    std::vector<int> updateId;
-    if (p.second)
+    auto p = visitedInputs_.find({ source.get(), input });
+    if (p != visitedInputs_.end())
+      return p->second;
+    else
     {
+      std::vector<int> updateId;
       auto sourceNode = std::dynamic_pointer_cast<DataNode>(source);
       if (sourceNode)
       {
@@ -169,8 +171,9 @@ namespace taskvm
         for (auto u : outputDependencies)
           updateId.push_back(addUpdate({ sourceNode, u }));
       }
+      visitedInputs_[{ source.get(), input }] = updateId;
+      return updateId;
     }
-    return updateId;
   }
 
   int UpdateGraph::addUpdate(Update u)
@@ -217,9 +220,61 @@ namespace taskvm
     root_[to] = false; //update #dependencyId has a parent
   }
 
+  UpdatePlan::UpdatePlan(const UpdateGraph& graph)
+  {
+    buildPlan(graph);
+  }
+
   void UpdatePlan::execute() const
   {
     for (auto& e : plan_)
-      e.first->update(e.second);
+      e.nodePtr->update(e.updateId);
+  }
+
+  void UpdatePlan::buildPlan(const UpdateGraph& graph)
+  {
+    //number of vertices
+    auto n = static_cast<int>(graph.update_.size());
+
+    //initialize temporary data
+    order_.clear();
+    order_.reserve(n);
+    visited_ = std::vector<bool>(n, false);
+    stack_ = std::vector<bool>(n, false);
+
+    for (size_t i = 0; i < n; ++i)
+    {
+      if (graph.root_[i])
+        recursiveBuild(graph, i);
+    }
+
+    for (auto id : order_)
+      plan_.push_back(*graph.update_[id]);
+  }
+
+  void UpdatePlan::recursiveBuild(const UpdateGraph& graph, size_t v)
+  {
+    //code adapted from http://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+    if (visited_[v] == false)
+    {
+      // Mark the current node as visited and part of recursion stack
+      visited_[v] = true;
+      stack_[v] = true;
+
+      // Recur for all the vertices adjacent to this vertex
+      for (auto i : graph.dependencies_[v])
+      {
+        if (!visited_[i])
+          recursiveBuild(graph, i);
+        else if (stack_[i])
+          throw std::logic_error("The graph contains a cycle");
+      }
+
+    }
+    stack_[v] = false;  // remove the vertex from recursion stack
+    // all the descendants of this this node have been processed, i.e. all the
+    // updates this node depends on have been discovered and added to order. No
+    // we can push this node.
+    order_.push_back(v);  
   }
 }

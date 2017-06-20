@@ -12,12 +12,12 @@ private:
   int i_;
 };
 
-class VariableMockup// : public taskvm::DataSource
+class VariableMockup
 {
 public:
   enum Output {Value};
 
-  VariableMockup() {}// : DataSource(Value) {}
+  VariableMockup() {}
   void setValue(double v) {}
   double value() const  { return 0; }
 };
@@ -55,6 +55,7 @@ private:
   int k, v, d, a;
 };
 
+/** Base class for a time-dependent function*/
 class FunctionMockup : public taskvm::DataNode
 {
 public:
@@ -74,6 +75,7 @@ protected:
 
 };
 
+/** Base class for a function relying on a robot to compute its own outputs*/
 class RobotFunction : public FunctionMockup
 {
 protected:
@@ -106,13 +108,14 @@ protected:
   void fillOutputDependencies();
 };
 
+/** Base class for a linear expression Ax+b*/
 class LinearConstraint: public taskvm::DataNode
 {
 public:
   enum class Output { Value, A, b };
   enum class Update { Matrices };
 
-  LinearConstraint();
+  LinearConstraint(const std::string& name);
 
   //example of method with argument
   Dummy<int(Output::Value)> value(int x) const;
@@ -126,12 +129,16 @@ protected:
   virtual void updateMatrices() = 0;
 
   int A_, b_;
+
+private:
+  std::string name_;
 };
 
+/** Mockup for a constraint J\dot{q} + \dot{e}*/
 class KinematicLinearizedConstraint : public LinearConstraint
 {
 public:
-  KinematicLinearizedConstraint(std::shared_ptr<FunctionMockup> function);
+  KinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
 
 protected:
   void fillUpdateDependencies();
@@ -141,10 +148,11 @@ private:
   std::shared_ptr<FunctionMockup> function_;
 };
 
+/** Mockup for a constraint J\ddot{q} + \dot{J}\dot{q} + \ddot{e}*/
 class DynamicLinearizedConstraint : public LinearConstraint
 {
 public:
-  DynamicLinearizedConstraint(std::shared_ptr<FunctionMockup> function);
+  DynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
 
 protected:
   void fillUpdateDependencies();
@@ -154,10 +162,11 @@ private:
   std::shared_ptr<FunctionMockup> function_;
 };
 
+/** Mockup for a constraint M\ddot{q} + N(q,\dot{q})*/
 class DynamicEquation : public LinearConstraint
 {
 public:
-  DynamicEquation(std::shared_ptr<RobotMockup> robot);
+  DynamicEquation(const std::string& name, std::shared_ptr<RobotMockup> robot);
 
 protected:
   void fillUpdateDependencies();

@@ -32,8 +32,13 @@ namespace taskvm
        remove UnifiedEnumValue from the exposed API, while keeping it at the heart 
        of the data mechanism and thus retaining a commonn base class. 
        An alternative leading to the same result is to have DataSourceT being 
-       templated by Function to force Function to declare Output and Update.*/
+       templated by Function to force Function to declare Output and Update.
+     - for now, errors are not really meaningful when the graph input-update-output is
+       ill-formed. Better error report could be done by associating string with the
+       enumerations, or being able to iterate over the enumerations.*/
 
+
+  /** A list of outputs specified as a set of enum values*/
   class TVM_API DataSource
   {
   public:
@@ -54,6 +59,9 @@ namespace taskvm
   };
 
 
+  /** Essentially a list of inputs, specified as couple (DataSource, enum value), 
+    * where enum value is one of the value in the output list of DataSource.
+    */
   class TVM_API DataUser
   {
   public:
@@ -83,7 +91,14 @@ namespace taskvm
     std::map<const DataSource*, std::vector<internal::UnifiedEnumValue>> inputs_;
   };
 
-
+  /** A class processing inputs into outputs through updates.
+    * The goal of the class is to store the dependency relations between these
+    * inputs, updates and outputs.
+    * Three type of dependency are considered:
+    * - between outputs and updates (i.e. how outputs depend on updates)
+    * - within updates
+    * - between updates and inputs.
+    */
   class TVM_API DataNode: public DataSource, public DataUser
   {
   public:
@@ -170,27 +185,34 @@ namespace taskvm
   };
 
   
+  /** Helper class for UpdateGraph and UdaptePlan*/
+  struct Update
+  {
+    std::shared_ptr<DataNode>   nodePtr;
+    internal::UnifiedEnumValue  updateId;
+  };
+
+  /** Equivalent to what the specialization std::less<Update> would be*/
+  struct CompareUpdate
+  {
+    bool operator()(const Update& u1, const Update& u2) const
+    {
+      return (u1.nodePtr < u2.nodePtr)
+        || (u1.nodePtr == u2.nodePtr && u1.updateId < u2.updateId);
+    }
+  };
+
+  /** A Direct Acyclic Graph representing the dependencies between updates (where
+    * and edge (from, to) means that from depends on to).
+    * The update present in the graph depend on the inputs of the DataUser added 
+    * to the graph.
+    */
   class TVM_API UpdateGraph
   {
   public:
     void add(std::shared_ptr<DataUser> user);
 
   private:
-    struct Update 
-    {
-      std::shared_ptr<DataNode>   nodePtr;
-      internal::UnifiedEnumValue  updateId;
-    };
-
-    struct CompareUpdate
-    {
-      bool operator()(const Update& u1, const Update& u2) const
-      {
-        return (u1.nodePtr < u2.nodePtr) 
-            || (u1.nodePtr == u2.nodePtr && u1.updateId < u2.updateId);
-      }
-    };
-   
     /** Add the updates the given input depends on and return the id of these updates. 
       * If the added updates depend on other updates, they will be added reccursively.*/
     std::vector<int> add(std::shared_ptr<DataSource> source, internal::UnifiedEnumValue input);
@@ -204,12 +226,14 @@ namespace taskvm
     std::vector<std::vector<int>> dependencies_;    //dependencies id of each update (graph edges)
     std::vector<bool> root_;                        //wether or not an update is a root in the graph
 
-    std::set<std::pair<const DataSource*, internal::UnifiedEnumValue>> visitedInputs_;
+    std::map<std::pair<const DataSource*, internal::UnifiedEnumValue>, std::vector<int>> visitedInputs_;
 
     friend class UpdatePlan;
   };
 
-
+  /** An ordered sequence of updates such that an update with index i in the 
+    * sequence does no depend on any update with index j>i.
+    */
   class TVM_API UpdatePlan
   {
   public:
@@ -218,7 +242,15 @@ namespace taskvm
     void execute() const;
 
   private:
-    std::vector<std::pair<std::shared_ptr<DataNode>, internal::UnifiedEnumValue>> plan_;
+    void buildPlan(const UpdateGraph& graph);
+    void recursiveBuild(const UpdateGraph& graph, size_t v);
+
+    std::vector<Update> plan_;
+
+    //temp values for building process
+    std::vector<size_t> order_;
+    std::vector<bool> visited_;
+    std::vector<bool> stack_;
   };
 
 
@@ -354,7 +386,7 @@ namespace taskvm
           throw std::logic_error("No such input.");
       }
       else
-        throw std::logic_error("No such update.");
+        throw std::logic_error("No such source.");
     }
     else
       throw std::logic_error("No such dependent update.");

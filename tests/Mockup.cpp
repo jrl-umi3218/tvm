@@ -1,10 +1,10 @@
 #include "Mockup.h"
+#include <string>
 
 RobotMockup::RobotMockup()
   : DataNode({ K1, K2, K3, V1, V2, D1, D2, A1 }, { Kinematics, Velocity, Dynamics, Acceleration })
   , k(0), v(0), d(0), a(0)
 {
-  //addInput(std::shared_ptr<DataSource>(&q), VariableMockup::Value);
 }
 
 void RobotMockup::update_(const taskvm::internal::UnifiedEnumValue& u)
@@ -36,8 +36,7 @@ void RobotMockup::fillInternalDependencies()
 
 void RobotMockup::fillUpdateDependencies()
 {
-  //addInputDependency(Kinematics,q, VariableMockup::Value);
-  //addInputDependency({Velocity, Dynamics, Acceleration}, q, VariableMockup::Value);
+  //do nothing
 }
 
 FunctionMockup::FunctionMockup(std::initializer_list<Output> outputs, std::initializer_list<Update> updates)
@@ -128,15 +127,14 @@ void SomeRobotFunction2::update_(const taskvm::internal::UnifiedEnumValue & u)
 
 void SomeRobotFunction2::fillOutputDependencies()
 {
-  addInputDependency(Update::Value, *robot_, RobotMockup::K1);
-  addInputDependency(Update::Value, *robot_, RobotMockup::K2);
-  addInputDependency(Update::Velocity, *robot_, RobotMockup::V1);
-  addInputDependency(Update::Velocity, *robot_, RobotMockup::V2);
+  addOutputDependency(Output::Value, Update::Value);
+  addOutputDependency(Output::Jacobian, Update::Velocity);
 }
 
 
-LinearConstraint::LinearConstraint()
-  :DataNode({Output::Value, Output::A, Output::b}, {Update::Matrices})
+LinearConstraint::LinearConstraint(const std::string& name)
+  : DataNode({Output::Value, Output::A, Output::b}, {Update::Matrices})
+  , name_(name)
 {
 }
 
@@ -161,7 +159,7 @@ void LinearConstraint::update_(const taskvm::internal::UnifiedEnumValue& u)
   switch (Update(u))
   {
   case Update::Matrices:
-    std::cout << "update LinearConstraint::Matrices" << std::endl;
+    std::cout << "update LinearConstraint(" << name_ << ")::Matrices" << std::endl;
     updateMatrices();
     break;
   default:
@@ -181,10 +179,11 @@ void LinearConstraint::fillInternalDependencies()
 
 
 
-KinematicLinearizedConstraint::KinematicLinearizedConstraint(std::shared_ptr<FunctionMockup> function)
-  : LinearConstraint()
+KinematicLinearizedConstraint::KinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
+  : LinearConstraint(name)
   , function_(function)
 {
+  addInput(function, { FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian });
 }
 
 void KinematicLinearizedConstraint::fillUpdateDependencies()
@@ -199,11 +198,14 @@ void KinematicLinearizedConstraint::updateMatrices()
   b_ = function_->value();
 }
 
-DynamicLinearizedConstraint::DynamicLinearizedConstraint(std::shared_ptr<FunctionMockup> function)
-  : LinearConstraint()
+DynamicLinearizedConstraint::DynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
+  : LinearConstraint(name)
   , function_(function)
 {
-
+  addInput(function, { FunctionMockup::Output::Value, 
+                       FunctionMockup::Output::Jacobian,
+                       FunctionMockup::Output::Velocity, 
+                       FunctionMockup::Output::NormalAcceleration });
 }
 
 void DynamicLinearizedConstraint::fillUpdateDependencies()
@@ -220,11 +222,11 @@ void DynamicLinearizedConstraint::updateMatrices()
   b_ = function_->value() + function_->velocity() + function_->normalAcc();
 }
 
-DynamicEquation::DynamicEquation(std::shared_ptr<RobotMockup> robot)
-  : LinearConstraint()
+DynamicEquation::DynamicEquation(const std::string& name, std::shared_ptr<RobotMockup> robot)
+  : LinearConstraint(name)
   , robot_(robot)
 {
-
+  addInput(robot, { RobotMockup::D1, RobotMockup::D2 });
 }
 
 void DynamicEquation::fillUpdateDependencies()
