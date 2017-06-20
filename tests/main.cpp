@@ -43,6 +43,4 @@ int main()
 {
   //testVariable();
   testDataGraph();
-
-  system("pause");
 }

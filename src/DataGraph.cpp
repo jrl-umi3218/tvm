@@ -1,6 +1,7 @@
 #include "DataGraph.h"
 
 #include <assert.h>
+#include <exception>
 #include <utility>
 
 namespace taskvm
@@ -53,11 +54,11 @@ namespace taskvm
       //The const_cast is licit: we do not perform non-const operation on ds
       auto ret = sources_.find(ptr);
       if (ret == sources_.end())
-        throw std::exception("Pointer ds does not refer to a source of this instance.");
+        throw std::range_error("Pointer ds does not refer to a source of this instance.");
       return *ret;
     }
     else
-      throw std::exception("Pointer ds does not refer to a source of this instance.");
+      throw std::range_error("Pointer ds does not refer to a source of this instance.");
   }
 
 
