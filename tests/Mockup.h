@@ -108,6 +108,16 @@ protected:
   void fillOutputDependencies();
 };
 
+class BadRobotFunction : public RobotFunction
+{
+public:
+  BadRobotFunction(std::shared_ptr<RobotMockup> robot);
+
+protected:
+  void update_(const taskvm::internal::UnifiedEnumValue& u);
+  void fillOutputDependencies();
+};
+
 /** Base class for a linear expression Ax+b*/
 class LinearConstraint: public taskvm::DataNode
 {

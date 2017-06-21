@@ -132,6 +132,24 @@ void SomeRobotFunction2::fillOutputDependencies()
 }
 
 
+BadRobotFunction::BadRobotFunction(std::shared_ptr<RobotMockup> robot)
+  :RobotFunction({ Output::Value, Output::Jacobian }, robot)
+{
+
+}
+
+void BadRobotFunction::update_(const taskvm::internal::UnifiedEnumValue& u)
+{
+
+}
+
+void BadRobotFunction::fillOutputDependencies()
+{
+  addOutputDependency(Output::Value, Update::Value);
+  addOutputDependency(Output::Jacobian, Update::Velocity);
+  addInternalDependency(Update::Velocity, Update::JDot); //BAAAAAD
+}
+
 LinearConstraint::LinearConstraint(const std::string& name)
   : DataNode({Output::Value, Output::A, Output::b}, {Update::Matrices})
   , name_(name)

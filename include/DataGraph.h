@@ -282,8 +282,13 @@ namespace taskvm
   template<typename InputEnum>
   inline void DataUser::addInput(std::shared_ptr<DataSource> source, InputEnum e)
   {
-    sources_.insert(source);
-    inputs_[source.get()].push_back(e);
+    if (source->hasOutput(e))
+    {
+      sources_.insert(source);
+      inputs_[source.get()].push_back(e);
+    }
+    else
+      throw std::logic_error("The source does not provide this output.");
   }
 
   template<typename InputEnum>

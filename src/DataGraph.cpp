@@ -222,6 +222,7 @@ namespace taskvm
 
   UpdatePlan::UpdatePlan(const UpdateGraph& graph)
   {
+    //TODO: buildPlan throws. This is not correct in a constructor
     buildPlan(graph);
   }
 
@@ -236,17 +237,27 @@ namespace taskvm
     //number of vertices
     auto n = static_cast<int>(graph.update_.size());
 
+    if (n == 0)
+      return;
+
     //initialize temporary data
     order_.clear();
     order_.reserve(n);
     visited_ = std::vector<bool>(n, false);
     stack_ = std::vector<bool>(n, false);
 
+    bool has_root = false;
     for (size_t i = 0; i < n; ++i)
     {
       if (graph.root_[i])
+      {
         recursiveBuild(graph, i);
+        has_root = true;
+      }
     }
+
+    if (!has_root)
+      throw std::logic_error("This graph is not empty but has no root. It contains cycles.");
 
     for (auto id : order_)
       plan_.push_back(*graph.update_[id]);
