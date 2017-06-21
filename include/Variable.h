@@ -6,7 +6,6 @@
 #include <vector>
 #include <string>
 
-#include "DataGraph.h"
 #include "tvm_api.h"
 
 namespace taskvm
@@ -34,11 +33,9 @@ namespace taskvm
 
   std::shared_ptr<Variable> TVM_API dot(std::shared_ptr<Variable> var, int ndiff=1);
 
-  class TVM_API Variable: public DataSource
+  class TVM_API Variable
   {
   public:
-    enum Output {Value};
-
     const std::string& name() const;
     int size() const;
     const Space& space() const;

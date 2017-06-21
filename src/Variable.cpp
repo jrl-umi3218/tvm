@@ -43,7 +43,7 @@ namespace taskvm
 
   std::shared_ptr<Variable> dot(std::shared_ptr<Variable> var, int ndiff)
   {
-    assert(ndiff > 0 && "you cannot derive a less than 1 time.");
+    assert(ndiff > 0 && "you cannot derive less than 1 time.");
     int i;
     std::shared_ptr<Variable> derivative = var;
 
@@ -118,8 +118,7 @@ namespace taskvm
   }
 
   Variable::Variable(const Space & s, const std::string & name)
-    : DataSource(Output::Value)
-    , name_(name)
+    : name_(name)
     , space_(s)
     , value_(s.rSize())
     , derivativeNumber_(0)
@@ -129,8 +128,7 @@ namespace taskvm
   }
 
   Variable::Variable(std::shared_ptr<Variable> var)
-    : DataSource(Output::Value)
-    , space_(var->space_)
+    : space_(var->space_)
     , value_(var->space_.tSize())
     , derivativeNumber_(var->derivativeNumber_ + 1)
     , primitive_(var)
