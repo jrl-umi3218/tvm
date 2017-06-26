@@ -6,6 +6,11 @@ set(TESTHEADERS
     Mockup.h
 )
 
-add_executable(Main ${TESTSOURCES} ${TESTHEADERS})
-target_link_libraries(Main PUBLIC VariableManagement)
-GENERATE_MSVC_DOT_USER_FILE(Main)
+#add_executable(main ${TESTSOURCES} ${TESTHEADERS})
+#target_link_libraries(main PUBLIC TVM)
+#GENERATE_MSVC_DOT_USER_FILE(main)
+
+add_executable(TestData TestData.cpp)
+target_link_libraries(TestData PUBLIC TVM)
+add_test(TestData TestData)
+GENERATE_MSVC_DOT_USER_FILE(TestData)
