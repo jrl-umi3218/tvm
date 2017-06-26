@@ -27,6 +27,8 @@
 namespace tvm
 {
 
+struct CallGraph;
+
 namespace data
 {
 
@@ -39,7 +41,7 @@ struct AbstractNode : public Inputs, Outputs
   template<typename T>
   friend struct Node;
 
-  friend struct CallGraph;
+  friend struct tvm::CallGraph;
 
   /** Base Update enumeration. Empty */
   enum class Update {};

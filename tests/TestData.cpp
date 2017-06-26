@@ -1,6 +1,11 @@
+#include <tvm/CallGraph.h>
 #include <tvm/data/Node.h>
 
 #include <iostream>
+
+#include <benchmark/benchmark.h>
+
+#include <Eigen/Core>
 
 struct Derived : public tvm::data::Outputs
 {
@@ -55,13 +60,16 @@ struct Robot : public tvm::data::Node<Robot>
 
   virtual void updateKinematics()
   {
-    std::cout << "Robot::updateKinematics()" << std::endl;
+    k = k.transpose();
   }
 
   virtual void updateVelocity()
   {
-    std::cout << "Robot::updateVelocity()" << std::endl;
+    v = v*v;
   }
+
+  Eigen::Matrix3d k = Eigen::Matrix3d::Random();
+  Eigen::Matrix3d v = Eigen::Matrix3d::Random();
 };
 
 struct Robot2 : public Robot
@@ -81,20 +89,22 @@ struct Robot2 : public Robot
 
   void updateKinematics() override
   {
-    std::cout << "Robot2::updateKinematics()" << std::endl;
+    k = k*k;
   }
 
   virtual void updateDynamics()
   {
-    std::cout << "Robot2::updateDynamics()" << std::endl;
+    d = d*d;
   }
+
+  Eigen::Matrix3d d = Eigen::Matrix3d::Random();
 };
 
 struct RobotFunction : public tvm::data::Node<RobotFunction>
 {
 };
 
-int main()
+void compile_check()
 {
   static_assert(Derived::OutputSize == 3, "");
   static_assert(Derived2::OutputSize == 4, "");
@@ -108,9 +118,42 @@ int main()
   static_assert(Robot::UpdateSize == 2, "");
   static_assert(Robot2::OutputSize == 7, "");
   static_assert(Robot2::UpdateSize == 3, "");
-
-  Robot r;
-  Robot2 r2;
-
-  return 0;
 }
+
+static void BM_ManualGraph(benchmark::State & state)
+{
+  auto r2 = std::make_shared<Robot2>();
+
+  auto update = [&]()
+  {
+    r2->update(static_cast<int>(Robot::Update::Kinematics));
+    r2->update(static_cast<int>(Robot::Update::Velocity));
+    r2->update(static_cast<int>(Robot2::Update::Dynamics));
+  };
+  while(state.KeepRunning())
+  {
+    update();
+  }
+}
+BENCHMARK(BM_ManualGraph);
+
+static void BM_CallGraph(benchmark::State & state)
+{
+  auto r2 = std::make_shared<Robot2>();
+
+  // Use the CallGraph to generate the same code
+  auto userID = std::make_shared<tvm::data::Inputs>();
+  userID->addInput(r2, Robot2::Output::D1, Robot2::Output::D2);
+
+  tvm::CallGraph g;
+  g.add(userID);
+  g.update();
+
+  while(state.KeepRunning())
+  {
+    g.execute();
+  }
+}
+BENCHMARK(BM_CallGraph);
+
+BENCHMARK_MAIN()

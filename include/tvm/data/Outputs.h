@@ -27,6 +27,8 @@
 namespace tvm
 {
 
+struct CallGraph;
+
 namespace data
 {
 
@@ -40,7 +42,7 @@ namespace data
  */
 struct TVM_DLLAPI Outputs
 {
-  friend struct CallGraph;
+  friend struct tvm::CallGraph;
 
   virtual ~Outputs() = default;
 

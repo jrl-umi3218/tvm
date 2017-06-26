@@ -1,4 +1,5 @@
 set(TVM_SOURCES
+  CallGraph.cpp
 
 # Temporary
   EventGraph.cpp
@@ -8,6 +9,7 @@ set(TVM_SOURCES
 set(TVM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include/tvm)
 set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/api.h
+  ${TVM_INCLUDE_DIR}/CallGraph.h
   ${TVM_INCLUDE_DIR}/data/AbstractNode.h
   ${TVM_INCLUDE_DIR}/data/Inputs.h
   ${TVM_INCLUDE_DIR}/data/Inputs.hpp
