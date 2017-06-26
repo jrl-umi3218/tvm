@@ -27,7 +27,7 @@
 # else
 // Depending on whether one is building or using the
 // library define DLLAPI to import or export.
-#  ifdef variablemanagement_EXPORTS
+#  ifdef TVM_EXPORTS
 #   define TVM_DLLAPI TVM_DLLEXPORT
 #  else
 #   define TVM_DLLAPI TVM_DLLIMPORT

@@ -63,7 +63,7 @@ protected:
   void addInternalDependency(EnumU1 uDependent, EnumU2 u);
 
   /** Add a dependency of an update function to an input signal and its source */
-  template<typename EnumU, typename S, typename EnumO>
+  template<typename U = T, typename EnumU, typename S, typename EnumO>
   void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i);
 };
 

@@ -52,16 +52,16 @@ void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
 }
 
 template<typename T>
-template<typename EnumU, typename S, typename EnumO>
+template<typename U, typename EnumU, typename S, typename EnumO>
 void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
 {
-  static_assert(is_valid_update<T>(u), "Invalid update for this type.");
-  static_assert(is_valid_output<S>(i), "Invalid output for this type of source.");
+  static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type.");
+  static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
   // Make sure we have this input
   addInput(source, i);
   if(inputDependencies_.count(static_cast<int>(u)))
   {
-    auto & inputDependency = inputDependencies_[u];
+    auto & inputDependency = inputDependencies_[static_cast<int>(u)];
     auto depIt = std::find_if(inputDependency.begin(), inputDependency.end(),
                               [&source](const input_dependency_t::value_type & p)
                               {
@@ -78,7 +78,7 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
   }
   else
   {
-    inputDependencies_[u] = {{source, {static_cast<int>(i)}}};
+    inputDependencies_[static_cast<int>(u)] = {{source, {static_cast<int>(i)}}};
   }
 }
 

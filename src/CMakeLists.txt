@@ -1,4 +1,5 @@
 set(TVM_SOURCES
+  data/Inputs.cpp
   CallGraph.cpp
 
 # Temporary
@@ -20,11 +21,11 @@ set(TVM_HEADERS
 
 # Temporary
   ${TVM_INCLUDE_DIR}/../EventGraph.h
-  ${TVM_INCLUDE_DIR}/../tvm_api.h
   ${TVM_INCLUDE_DIR}/../Variable.h
 )
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
+set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 
 install(TARGETS TVM
   RUNTIME DESTINATION bin
