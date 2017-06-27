@@ -54,6 +54,10 @@ protected:
   template<typename U = T, typename EnumO, typename EnumU>
   void addOutputDependency(EnumO o, EnumU u);
 
+  /** Add a dependency of multiple outputs to an update call */
+  template<typename U = T, typename EnumO, typename EnumU>
+  void addOutputDependency(std::initializer_list<EnumO> os, EnumU u);
+
   /** Add a dependency between two update calls.
    *
    * The first argument of this function depends on the second argument.

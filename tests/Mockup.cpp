@@ -9,13 +9,9 @@ RobotMockup::RobotMockup()
                   Update::Dynamics, &RobotMockup::updateD,
                   Update::Acceleration, &RobotMockup::updateA);
 
-  addOutputDependency(Output::K1, Update::Kinematics);
-  addOutputDependency(Output::K2, Update::Kinematics);
-  addOutputDependency(Output::K3, Update::Kinematics);
-  addOutputDependency(Output::V1, Update::Velocity);
-  addOutputDependency(Output::V2, Update::Velocity);
-  addOutputDependency(Output::D1, Update::Dynamics);
-  addOutputDependency(Output::D2, Update::Dynamics);
+  addOutputDependency({Output::K1, Output::K2, Output::K3}, Update::Kinematics);
+  addOutputDependency({Output::V1, Output::V2}, Update::Velocity);
+  addOutputDependency({Output::D1, Output::D2}, Update::Dynamics);
   addOutputDependency(Output::A1, Update::Acceleration);
 
   addInternalDependency(Update::Velocity, Update::Kinematics);
@@ -103,9 +99,7 @@ LinearConstraint::LinearConstraint(const std::string& name)
 {
   registerUpdates(Update::Matrices, &LinearConstraint::updateMatrices);
 
-  addOutputDependency(Output::Value, Update::Matrices);
-  addOutputDependency(Output::A, Update::Matrices);
-  addOutputDependency(Output::b, Update::Matrices);
+  addOutputDependency({Output::Value, Output::A, Output::b}, Update::Matrices);
 }
 
 Dummy<int(LinearConstraint::Output::Value)> LinearConstraint::value(int x) const

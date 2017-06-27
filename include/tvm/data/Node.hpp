@@ -43,6 +43,16 @@ void Node<T>::addOutputDependency(EnumO o, EnumU u)
 }
 
 template<typename T>
+template<typename U, typename EnumO, typename EnumU>
+void Node<T>::addOutputDependency(std::initializer_list<EnumO> os, EnumU u)
+{
+  for(auto o : os)
+  {
+    addOutputDependency<U>(o, u);
+  }
+}
+
+template<typename T>
 template<typename U, typename EnumU1, typename EnumU2>
 void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
 {
