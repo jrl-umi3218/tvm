@@ -39,13 +39,9 @@ RobotFunction::RobotFunction(std::shared_ptr<RobotMockup> robot)
   addInternalDependency(Update::Velocity, Update::Value);
   addInternalDependency(Update::JDot, Update::Velocity);
 
-  addInputDependency(Update::Value, robot_, RobotMockup::Output::K1);
-  addInputDependency(Update::Value, robot_, RobotMockup::Output::K2);
-  addInputDependency(Update::Value, robot_, RobotMockup::Output::K3);
-  addInputDependency(Update::Velocity, robot_, RobotMockup::Output::V1);
-  addInputDependency(Update::Velocity, robot_, RobotMockup::Output::V2);
-  addInputDependency(Update::JDot, robot_, RobotMockup::Output::V1);
-  addInputDependency(Update::JDot, robot_, RobotMockup::Output::V2);
+  addInputDependency(Update::Value, robot_, RobotMockup::Output::K1, RobotMockup::Output::K2, RobotMockup::Output::K3);
+  addInputDependency(Update::Velocity, robot_, RobotMockup::Output::V1, RobotMockup::Output::V2);
+  addInputDependency(Update::JDot, robot_, RobotMockup::Output::V1, RobotMockup::Output::V2);
 }
 
 SomeRobotFunction1::SomeRobotFunction1(std::shared_ptr<RobotMockup> robot)
@@ -133,8 +129,7 @@ KinematicLinearizedConstraint::KinematicLinearizedConstraint(const std::string& 
   , function_(function)
 {
   addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value);
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Jacobian);
+  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
 }
 
 void KinematicLinearizedConstraint::updateMatrices()
@@ -152,10 +147,10 @@ DynamicLinearizedConstraint::DynamicLinearizedConstraint(const std::string& name
                      FunctionMockup::Output::Velocity,
                      FunctionMockup::Output::NormalAcceleration);
 
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value);
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Jacobian);
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Velocity);
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::NormalAcceleration);
+  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value,
+                                                  FunctionMockup::Output::Jacobian,
+                                                  FunctionMockup::Output::Velocity,
+                                                  FunctionMockup::Output::NormalAcceleration);
 }
 
 void DynamicLinearizedConstraint::updateMatrices()
@@ -170,8 +165,7 @@ DynamicEquation::DynamicEquation(const std::string& name, std::shared_ptr<RobotM
 {
   addInput(robot, RobotMockup::Output::D1, RobotMockup::Output::D2);
 
-  addInputDependency(Update::Matrices, robot_, RobotMockup::Output::D1);
-  addInputDependency(Update::Matrices, robot_, RobotMockup::Output::D2);
+  addInputDependency(Update::Matrices, robot_, RobotMockup::Output::D1, RobotMockup::Output::D2);
 }
 
 void DynamicEquation::updateMatrices()

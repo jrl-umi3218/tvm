@@ -65,6 +65,10 @@ protected:
   /** Add a dependency of an update function to an input signal and its source */
   template<typename U = T, typename EnumU, typename S, typename EnumO>
   void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i);
+
+  /** Add a dependency of an update function to multiple input signals from a source */
+  template<typename U = T, typename EnumU, typename S, typename EnumO, typename ... Args>
+  void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args ... args);
 };
 
 } // namespace data

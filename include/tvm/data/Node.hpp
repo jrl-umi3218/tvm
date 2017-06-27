@@ -82,6 +82,17 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
   }
 }
 
+template<typename T>
+template<typename U, typename EnumU, typename S, typename EnumO, typename ... Args>
+void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args ... args)
+{
+  addInputDependency<U>(u, source, i);
+  if(sizeof...(args))
+  {
+    addInputDependency<U>(u, source, args...);
+  }
+}
+
 } // namespace data
 
 } // namespace tvm
