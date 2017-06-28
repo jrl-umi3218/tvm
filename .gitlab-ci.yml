@@ -1,0 +1,31 @@
+variables:
+  CI_TOOL: gitlab-ci
+  APT_DEPENDENCIES: "doxygen doxygen-latex libboost-all-dev"
+  GIT_DEPENDENCIES: "google/benchmark"
+  CMAKE_ADDITIONAL_OPTIONS: "-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr"
+
+before_script:
+  - git submodule sync
+  - git submodule update --init --recursive
+  - ./.jrl-ci/dependencies/eigen-3.2
+
+build_gcc:
+  stage: build
+  script:
+    - ./.jrl-ci/run before_install
+    - ./.jrl-ci/run build
+    - ./.jrl-ci/run after_success
+  tags:
+    - GCC
+
+build_clang:
+  stage: build
+  script:
+    - ./.jrl-ci/run before_install
+    - ./.jrl-ci/run build
+    - ./.jrl-ci/run after_success
+  tags:
+    - clang
+
+stages:
+  - build
