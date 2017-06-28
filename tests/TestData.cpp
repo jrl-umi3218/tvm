@@ -31,6 +31,11 @@ struct Derived5 : public Derived4
   DISABLE_OUTPUTS(Output::O4, Derived::Output::O0)
 };
 
+struct Derived6 : public Derived5
+{
+  CLEAR_DISABLED_OUTPUTS()
+};
+
 struct AnotherOutput : public tvm::data::Outputs
 {
   SET_OUTPUTS(AnotherOutput, O0, O1)
@@ -122,6 +127,11 @@ void compile_check()
   static_assert(Derived5::OutputEnabled(Derived4::Output::O7), "");
   static_assert(!Derived5::OutputEnabled(Derived::Output::O0), "");
   static_assert(Derived5::OutputEnabled(Derived::Output::O1), "");
+
+  static_assert(Derived6::OutputEnabled(Derived4::Output::O4), "");
+  static_assert(Derived6::OutputEnabled(Derived4::Output::O7), "");
+  static_assert(Derived6::OutputEnabled(Derived::Output::O0), "");
+  static_assert(Derived6::OutputEnabled(Derived::Output::O1), "");
 
   static_assert(Robot::OutputSize == 5, "");
   static_assert(Robot::UpdateSize == 2, "");

@@ -101,6 +101,10 @@ protected:
 #define DISABLE_OUTPUTS(...)\
   DISABLE_SIGNALS(Output, __VA_ARGS__)
 
+/** Mark all outputs as enabled */
+#define CLEAR_DISABLED_OUTPUTS()\
+  CLEAR_DISABLED_SIGNALS(Output)
+
 /** Check if a value of EnumT is a valid output for Outputs type T */
 template<typename T, typename EnumT>
 constexpr bool is_valid_output(EnumT v)

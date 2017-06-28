@@ -167,6 +167,11 @@ static_assert(COUNT_VA_ARGS(1,2,3) == 3, "COUNT_VA_ARGS failed for 3 arguments."
 #define DISABLE_SIGNALS_BODY(EnumT, name) \
   static_cast<int>(v) == static_cast<int>(name) ? false : 
 
+#define CLEAR_DISABLED_SIGNALS(EnumName) \
+  bool is##EnumName##Enabled(int) override { return true; }\
+  template<typename EnumT> \
+  static constexpr bool EnumName##Enabled(EnumT) { return true; }
+
 } // namespace utils
 
 } // namespace tvm

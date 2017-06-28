@@ -116,6 +116,10 @@ private:
 #define DISABLE_UPDATES(...)\
   DISABLE_SIGNALS(Update, __VA_ARGS__)
 
+/** Mark all updates as enabled */
+#define CLEAR_DISABLED_UPDATES()\
+  CLEAR_DISABLED_SIGNALS(Update)
+
 /** Check if a value of EnumT is a valid update for Node type T */
 template<typename T, typename EnumT>
 constexpr bool is_valid_update(EnumT v)
