@@ -45,12 +45,38 @@ struct AbstractNode : public Inputs, Outputs
 
   /** Base Update enumeration. Empty */
   enum class Update {};
+
   /** Store the size of the Update enumeration */
-  static const unsigned int UpdateSize = 0;
+  static constexpr unsigned int UpdateSize = 0;
+
   /** Meta-information regarding the class inheritance diagram */
-  using UpdatesParent = AbstractNode;
+  using UpdateParent = AbstractNode;
+
   /** Meta-information used during inheritance to retrieve the base-class output size */
-  using UpdatesBase = AbstractNode;
+  using UpdateBase = AbstractNode;
+
+  /** Meta-information holding the name of the class to which the Update enum belong */
+  static constexpr auto UpdateBaseName = "AbstractNode";
+
+  /** Return the name of a given update */
+  static constexpr const char * UpdateName(Output) { return "INVALID"; }
+
+  /** Check if a given update is enabled (run-time)
+   *
+   * The default implementation always return true. The
+   * expected parameter is int to swallow the different
+   * update types.
+   *
+   */
+  virtual bool isUpdateEnabled(int) { return true; }
+
+  /** Check if a given update is enabled (compile-time)
+   *
+   * The default implementation always return true.
+   *
+   */
+  template<typename EnumT>
+  static constexpr bool UpdateEnabled(EnumT) { return true; }
 
   virtual ~AbstractNode() = default;
 
@@ -83,8 +109,12 @@ private:
  * call this macro.
  *
  */
-#define SET_UPDATES(SelfT, Update0, ...)\
-  EXTEND_ENUM(SelfT, UpdatesParent, UpdatesBase, Update, Update0, __VA_ARGS__)
+#define SET_UPDATES(SelfT, ...)\
+  EXTEND_ENUM(Update, SelfT, __VA_ARGS__)
+
+/** Mark some update signals as disabled for that class */
+#define DISABLE_UPDATES(...)\
+  DISABLE_SIGNALS(Update, __VA_ARGS__)
 
 /** Check if a value of EnumT is a valid update for Node type T */
 template<typename T, typename EnumT>
@@ -93,8 +123,8 @@ constexpr bool is_valid_update(EnumT v)
   static_assert(std::is_base_of<AbstractNode, T>::value, "Cannot test update validity for a type that is not derived of Updates");
   static_assert(std::is_enum<EnumT>::value, "Cannot test update validity for a value that is not an enumeration");
   return std::is_same<typename T::Update, EnumT>::value ||
-         ( (!std::is_same<typename T::UpdatesParent, typename T::UpdatesBase>::value) &&
-           is_valid_update<typename T::UpdatesParent>(v) );
+         ( (!std::is_same<typename T::UpdateParent, typename T::UpdateBase>::value) &&
+           is_valid_update<typename T::UpdateParent>(v) );
 }
 
 /** Check if all values of a given set are valid updates for Updates type T */

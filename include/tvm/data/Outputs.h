@@ -48,12 +48,38 @@ struct TVM_DLLAPI Outputs
 
   /** Base Output enumeration. Empty */
   enum class Output {};
+
   /** Store the size of the Output enumeration */
-  static const unsigned int OutputSize = 0;
+  static constexpr unsigned int OutputSize = 0;
+
   /** Meta-information regarding the class inheritance diagram */
-  using OutputsParent = Outputs;
+  using OutputParent = Outputs;
+
   /** Meta-information used during inheritance to retrieve the base-class output size */
-  using OutputsBase = Outputs;
+  using OutputBase = Outputs;
+
+  /** Meta-information holding the name of the class to which the Output enum belong */
+  static constexpr auto OutputBaseName = "Outputs";
+
+  /** Return the name of a given output */
+  static constexpr const char * OutputName(Output) { return "INVALID"; }
+
+  /** Check if a given output is enabled (run-time)
+   *
+   * The default implementation always return true. The
+   * expected parameter is int to swallow the different
+   * output types.
+   *
+   */
+  virtual bool isOutputEnabled(int) { return true; }
+
+  /** Check if a given output is enabled (compile-time)
+   *
+   * The default implementation always return true.
+   *
+   */
+  template<typename EnumT>
+  static constexpr bool OutputEnabled(EnumT) { return true; }
 protected:
   /** Used to avoid a dynamic cast when working on Outputs that may be tvm::data::Node */
   bool is_node_ = false;
@@ -68,8 +94,12 @@ protected:
  * call this macro.
  *
  */
-#define SET_OUTPUTS(SelfT, Output0, ...)\
-  EXTEND_ENUM(SelfT, OutputsParent, OutputsBase, Output, Output0, __VA_ARGS__)
+#define SET_OUTPUTS(SelfT, ...)\
+  EXTEND_ENUM(Output, SelfT, __VA_ARGS__)
+
+/** Mark some output signals as disabled for that class */
+#define DISABLE_OUTPUTS(...)\
+  DISABLE_SIGNALS(Output, __VA_ARGS__)
 
 /** Check if a value of EnumT is a valid output for Outputs type T */
 template<typename T, typename EnumT>
@@ -78,8 +108,8 @@ constexpr bool is_valid_output(EnumT v)
   static_assert(std::is_base_of<Outputs, T>::value, "Cannot test output validity for a type that is not derived of Outputs");
   static_assert(std::is_enum<EnumT>::value, "Cannot test output validity for a value that is not an enumeration");
   return std::is_same<typename T::Output, EnumT>::value ||
-         ( (!std::is_same<typename T::OutputsParent, typename T::OutputsBase>::value) &&
-           is_valid_output<typename T::OutputsParent>(v) );
+         ( (!std::is_same<typename T::OutputParent, typename T::OutputBase>::value) &&
+           is_valid_output<typename T::OutputParent>(v) );
 }
 
 /** Check if all values of a given set are valid outputs for Outputs type T */

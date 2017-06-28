@@ -17,3 +17,8 @@ if(NOT WIN32)
 endif()
 add_test(TestData TestData)
 GENERATE_MSVC_DOT_USER_FILE(TestData)
+
+add_executable(TestDisabled TestDisabled.cpp)
+target_link_libraries(TestDisabled PUBLIC TVM)
+add_test(TestDisabled TestDisabled)
+GENERATE_MSVC_DOT_USER_FILE(TestDisabled)

@@ -58,7 +58,7 @@ struct TVM_DLLAPI Inputs
 
   /** Add outputs from a given Output object */
   template<typename T, typename ... Args>
-  void addInput(std::shared_ptr<T> source, const Args ... args);
+  void addInput(std::shared_ptr<T> source, Args ... args);
   /** Retrieve an input from a given Output object */
   template<typename T>
   Iterator getInput(std::shared_ptr<T> source);

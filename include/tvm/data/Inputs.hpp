@@ -1,6 +1,28 @@
 #pragma once
 
 #include <algorithm>
+#include <sstream>
+
+namespace
+{
+  template<typename T>
+  inline void check_output_enabled(const std::shared_ptr<T> &) {}
+
+  template<typename T, typename EnumT, typename ... Args>
+  inline void check_output_enabled(const std::shared_ptr<T> & s, EnumT o, Args ... args)
+  {
+    if(!s->isOutputEnabled(static_cast<int>(o)))
+    {
+      std::stringstream ss;
+      ss << "Output " << T::OutputName(o) << " is not enabled in " << T::OutputBaseName << " (or derived)";
+      throw std::runtime_error(ss.str());
+    }
+    if(sizeof...(Args))
+    {
+      check_output_enabled(s, args...);
+    }
+  }
+}
 
 namespace tvm
 {
@@ -9,9 +31,10 @@ namespace data
 {
 
 template<typename T, typename ... Args>
-void Inputs::addInput(std::shared_ptr<T> source, const Args ... args)
+void Inputs::addInput(std::shared_ptr<T> source, Args ... args)
 {
   static_assert(is_valid_output<T>(Args()...), "One of the outputs you requested is not part of the provided source");
+  check_output_enabled(source, args...);
   auto it = getInput(source);
   std::set<int> v { static_cast<int>(args)... };
   if(!it)
