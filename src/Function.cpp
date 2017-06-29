@@ -6,7 +6,7 @@ namespace taskvm
 {
   const Eigen::VectorXd& Function::velocity() const
   {
-    if (hasOutput(Output::Velocity))
+    if (isOutputEnabled((int)Output::Velocity))
       return velocityNoCheck();
     else
       throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -14,7 +14,7 @@ namespace taskvm
 
   const Eigen::VectorXd& Function::normalAcceleration() const
   {
-    if (hasOutput(Output::NormalAcceleration))
+    if (isOutputEnabled((int)Output::NormalAcceleration))
       return normalAccelerationNoCheck();
     else
       throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -22,7 +22,7 @@ namespace taskvm
 
   const Eigen::MatrixXd& Function::JDot(const Variable& x) const
   {
-    if (hasOutput(Output::JDot))
+    if (isOutputEnabled((int)Output::JDot))
       return JDotNoCheck(x);
     else
       throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -48,13 +48,13 @@ namespace taskvm
   {
     FirstOrderProvider::resizeCache();
 
-    if (hasOutput(Output::Velocity))
+    if (isOutputEnabled((int)Output::Velocity))
       velocity_.resize(size());
 
-    if (hasOutput(Output::NormalAcceleration))
+    if (isOutputEnabled((int)Output::NormalAcceleration))
       normalAcceleration_.resize(size());
 
-    if (hasOutput(Output::JDot))
+    if (isOutputEnabled((int)Output::JDot))
     {
       for (auto v : variables())
         JDot_[v.get()].resize(size(), v->size());

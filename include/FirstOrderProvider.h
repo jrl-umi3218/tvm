@@ -6,7 +6,7 @@
 
 #include <Eigen/Core>
 
-#include "DataGraph.h"
+#include  <tvm/data/Node.h>
 
 namespace taskvm
 {
@@ -16,7 +16,7 @@ namespace taskvm
   {
     /* Describes an entity that can provide a value and its jacobian*/
 
-    class FirstOrderProvider : public DataNode
+    class FirstOrderProvider : public tvm::data::Node<FirstOrderProvider>
     {
     public:
       enum class Output { Value, Jacobian};

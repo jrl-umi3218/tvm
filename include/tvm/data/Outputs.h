@@ -71,7 +71,7 @@ struct TVM_DLLAPI Outputs
    * output types.
    *
    */
-  virtual bool isOutputEnabled(int) { return true; }
+  virtual bool isOutputEnabled(int) const { return true; }
 
   /** Check if a given output is enabled (compile-time)
    *
@@ -95,15 +95,15 @@ protected:
  *
  */
 #define SET_OUTPUTS(SelfT, ...)\
-  EXTEND_ENUM(Output, SelfT, __VA_ARGS__)
+  PP_ID(EXTEND_ENUM(Output, SelfT, __VA_ARGS__))
 
 /** Mark some output signals as disabled for that class */
 #define DISABLE_OUTPUTS(...)\
-  DISABLE_SIGNALS(Output, __VA_ARGS__)
+  PP_ID(DISABLE_SIGNALS(Output, __VA_ARGS__))
 
 /** Mark all outputs as enabled */
 #define CLEAR_DISABLED_OUTPUTS()\
-  CLEAR_DISABLED_SIGNALS(Output)
+  PP_ID(CLEAR_DISABLED_SIGNALS(Output))
 
 /** Check if a value of EnumT is a valid output for Outputs type T */
 template<typename T, typename EnumT>

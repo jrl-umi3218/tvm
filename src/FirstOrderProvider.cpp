@@ -8,7 +8,7 @@ namespace taskvm
   {
     const Eigen::VectorXd& FirstOrderProvider::value() const
     {
-      if (hasOutput(Output::Value))
+      if (isOutputEnabled((int)Output::Value))
         return valueNoCheck();
       else
         throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -16,7 +16,7 @@ namespace taskvm
 
     const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
     {
-      if (hasOutput(Output::Jacobian))
+      if (isOutputEnabled((int)Output::Jacobian))
         return jacobianNoCheck(x);
       else
         throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -44,10 +44,10 @@ namespace taskvm
 
     void FirstOrderProvider::resizeCache()
     {
-      if (hasOutput(Output::Value))
+      if (isOutputEnabled((int)Output::Value))
         value_.resize(m_);
 
-      if (hasOutput(Output::Jacobian))
+      if (isOutputEnabled((int)Output::Jacobian))
       {
         for (auto v : variables_)
           jacobian_[v.get()].resize(m_, v->size());

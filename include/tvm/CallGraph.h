@@ -29,7 +29,7 @@ namespace tvm
  * The calls present in the graph depend on the inputs of the Inputs
  * objects added to the graph.
  */
-struct CallGraph
+struct TVM_DLLAPI CallGraph
 {
   /** Add a given Inputs object to the graph */
   void add(std::shared_ptr<data::Inputs> inputs);

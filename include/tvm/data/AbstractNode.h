@@ -23,6 +23,8 @@
 #include "Inputs.h"
 
 #include <cassert>
+#include <functional>
+#include <vector>
 
 namespace tvm
 {
@@ -68,7 +70,7 @@ struct AbstractNode : public Inputs, Outputs
    * update types.
    *
    */
-  virtual bool isUpdateEnabled(int) { return true; }
+  virtual bool isUpdateEnabled(int) const { return true; }
 
   /** Check if a given update is enabled (compile-time)
    *
@@ -110,15 +112,15 @@ private:
  *
  */
 #define SET_UPDATES(SelfT, ...)\
-  EXTEND_ENUM(Update, SelfT, __VA_ARGS__)
+  PP_ID(EXTEND_ENUM(Update, SelfT, __VA_ARGS__))
 
 /** Mark some update signals as disabled for that class */
 #define DISABLE_UPDATES(...)\
-  DISABLE_SIGNALS(Update, __VA_ARGS__)
+  PP_ID(DISABLE_SIGNALS(Update, __VA_ARGS__))
 
 /** Mark all updates as enabled */
 #define CLEAR_DISABLED_UPDATES()\
-  CLEAR_DISABLED_SIGNALS(Update)
+  PP_ID(CLEAR_DISABLED_SIGNALS(Update))
 
 /** Check if a value of EnumT is a valid update for Node type T */
 template<typename T, typename EnumT>

@@ -46,7 +46,7 @@ struct TVM_DLLAPI Inputs
    * iterator, allowing to cast the iterator to a boolean value.
    *
    */
-  struct Iterator : public inputs_t::iterator
+  struct TVM_DLLAPI Iterator : public inputs_t::iterator
   {
     /** Construct from an existing iterator and the end iterator */
     Iterator(inputs_t::iterator it, inputs_t::iterator end);
