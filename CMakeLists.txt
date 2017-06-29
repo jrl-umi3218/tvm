@@ -5,7 +5,7 @@ INCLUDE(cmake/boost.cmake)
 INCLUDE(cmake/eigen.cmake)
 INCLUDE(cmake/msvc-specific.cmake)
 
-SET(PROJECT_NAME VariableManagement)
+SET(PROJECT_NAME TVM)
 SET(PROJECT_DESCRIPTION "...")
 SET(PROJECT_URL "https://gite.lirmm.fr/adrien_escande_at_gmail_com/VariableManagement")
 SET(PROJECT_DEBUG_POSTFIX "_d")
@@ -35,6 +35,6 @@ add_subdirectory(src)
 add_subdirectory(tests)
 
 # Add dependency towards the library in the pkg-config file.
-PKG_CONFIG_APPEND_LIBS(VariableManagement)
+PKG_CONFIG_APPEND_LIBS(TVM)
 
 SETUP_PROJECT_FINALIZE()

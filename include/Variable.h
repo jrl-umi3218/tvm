@@ -6,13 +6,13 @@
 #include <vector>
 #include <string>
 
-#include "tvm_api.h"
+#include "tvm/api.h"
 
 namespace taskvm
 {
   class Variable;
 
-  class TVM_API Space
+  class TVM_DLLAPI Space
   {
   public:
     Space(int size);
@@ -31,9 +31,9 @@ namespace taskvm
     int tSize_;   //size of a vector representing a velocity in this space
   };
 
-  std::shared_ptr<Variable> TVM_API dot(std::shared_ptr<Variable> var, int ndiff=1);
+  std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable> var, int ndiff=1);
 
-  class TVM_API Variable
+  class TVM_DLLAPI Variable
   {
   public:
     const std::string& name() const;
@@ -79,7 +79,7 @@ namespace taskvm
 
 
     /** friendship declaration */
-    friend class TVM_API Space;
-    friend std::shared_ptr<Variable> TVM_API dot(std::shared_ptr<Variable>, int);
+    friend class TVM_DLLAPI Space;
+    friend std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable>, int);
   };
 }

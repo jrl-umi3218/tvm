@@ -1,6 +1,9 @@
 #include "Variable.h"
 #include "Mockup.h"
 
+#include "tvm/data/Node.h"
+#include "tvm/CallGraph.h"
+
 #include <iostream>
 
 void testCompiledAssignment();
@@ -30,54 +33,54 @@ void testDataGraphSimple()
 {
   auto robot = std::make_shared<RobotMockup>();
   auto f1 = std::make_shared<SomeRobotFunction1>(robot);
-  auto user = std::make_shared<DataUser>();
-  user->addInput(f1, { SomeRobotFunction1::Output::Value,
-                      SomeRobotFunction1::Output::Jacobian,
-                      SomeRobotFunction1::Output::Velocity,
-                      SomeRobotFunction1::Output::NormalAcceleration,
-                      SomeRobotFunction1::Output::JDot });
+  auto user = std::make_shared<tvm::data::Inputs>();
+  user->addInput(f1, SomeRobotFunction1::Output::Value,
+                     SomeRobotFunction1::Output::Jacobian,
+                     SomeRobotFunction1::Output::Velocity,
+                     SomeRobotFunction1::Output::NormalAcceleration,
+                     SomeRobotFunction1::Output::JDot);
 
 
   std::cout << "g0: adding only the robot" << std::endl;
-  UpdateGraph g0;
+  tvm::CallGraph g0;
   g0.add(robot);
-  UpdatePlan p0(g0);
-  p0.execute();
-  std::cout << "p0 is empty. This is normal: as a user, robot does not depend on any update." << std::endl;
+  g0.update();
+  g0.execute();
+  std::cout << "g0 execution is empty. This is normal: as a user, robot does not depend on any update." << std::endl;
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g1: f1" << std::endl;
-  UpdateGraph g1;
+  tvm::CallGraph g1;
   g1.add(f1);
-  UpdatePlan p1(g1);
-  p1.execute();
+  g1.update();
+  g1.execute();
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g2: user" << std::endl;
-  UpdateGraph g2;
+  tvm::CallGraph g2;
   g2.add(user);
-  UpdatePlan p2(g2);
-  p2.execute();
+  g2.update();
+  g2.execute();
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g3: f1, user" << std::endl;
-  UpdateGraph g3;
+  tvm::CallGraph g3;
   g3.add(f1);
   g3.add(user);
-  UpdatePlan p3(g3);
-  p3.execute();
+  g3.update();
+  g3.execute();
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g4: user, f1" << std::endl;
-  UpdateGraph g4;
+  tvm::CallGraph g4;
   g4.add(user);
   g4.add(f1);
-  UpdatePlan p4(g4);
-  p4.execute();
+  g4.update();
+  g4.execute();
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
@@ -89,14 +92,14 @@ void testBadGraph()
   auto robot = std::make_shared<RobotMockup>();
   auto f1 = std::make_shared<SomeRobotFunction2>(robot);
   auto f2 = std::make_shared<BadRobotFunction>(robot);
-  auto user1 = std::make_shared<DataUser>();
+  auto user1 = std::make_shared<tvm::data::Inputs>();
   try
   {
-    user1->addInput(f1, { SomeRobotFunction2::Output::Value,
-                          SomeRobotFunction2::Output::Jacobian,
-                          SomeRobotFunction2::Output::Velocity,
-                          SomeRobotFunction2::Output::NormalAcceleration,
-                          SomeRobotFunction2::Output::JDot });
+    user1->addInput(f1, SomeRobotFunction2::Output::Value,
+                        SomeRobotFunction2::Output::Jacobian,
+                        SomeRobotFunction2::Output::Velocity,
+                        SomeRobotFunction2::Output::NormalAcceleration,
+                        SomeRobotFunction2::Output::JDot);
   }
   catch (std::exception e)
   {
@@ -105,23 +108,23 @@ void testBadGraph()
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
-  auto user2 = std::make_shared<DataUser>();
+  auto user2 = std::make_shared<tvm::data::Inputs>();
   user2->addInput(f2, BadRobotFunction::Output::Jacobian);
 
-  UpdateGraph g2;
+  tvm::CallGraph g2;
   g2.add(user2);
-  try { UpdatePlan p2(g2); }
-  catch (std::exception e) { std::cout << e.what() << std::endl; }
+  try { g2.update(); }
+  catch (std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   auto cik = std::make_shared<KinematicLinearizedConstraint>("IK", f2);
-  auto user3 = std::make_shared<DataUser>();
-  user3->addInput(cik, {LinearConstraint::Output::A, LinearConstraint::Output::b});
-  UpdateGraph g3;
+  auto user3 = std::make_shared<tvm::data::Inputs>();
+  user3->addInput(cik, LinearConstraint::Output::A, LinearConstraint::Output::b);
+  tvm::CallGraph g3;
   g3.add(user3);
-  try { UpdatePlan p3(g3); }
-  catch (std::exception e) { std::cout << e.what() << std::endl; }
+  try { g3.update(); }
+  catch (std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
@@ -137,14 +140,14 @@ void testDataGraphComplex()
   auto cik1 = std::make_shared<KinematicLinearizedConstraint>("Linearized f1", f1);
   auto cik2 = std::make_shared<KinematicLinearizedConstraint>("Linearized f2", f2);
 
-  auto userIK = std::make_shared<DataUser>();
-  userIK->addInput(cik1, { LinearConstraint::Output::A, LinearConstraint::Output::b });
-  userIK->addInput(cik2, { LinearConstraint::Output::A, LinearConstraint::Output::b });
+  auto userIK = std::make_shared<tvm::data::Inputs>();
+  userIK->addInput(cik1, LinearConstraint::Output::A, LinearConstraint::Output::b);
+  userIK->addInput(cik2, LinearConstraint::Output::A, LinearConstraint::Output::b);
 
-  UpdateGraph gik;
+  tvm::CallGraph gik;
   gik.add(userIK);
-  UpdatePlan pik(gik);
-  pik.execute();
+  gik.update();
+  gik.execute();
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
@@ -152,14 +155,14 @@ void testDataGraphComplex()
   auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
   auto cid1 = std::make_shared<DynamicLinearizedConstraint>("Linearized f1", f1);
 
-  auto userID = std::make_shared<DataUser>();
-  userID->addInput(cid0, { LinearConstraint::Output::A, LinearConstraint::Output::b });
-  userID->addInput(cid1, { LinearConstraint::Output::A, LinearConstraint::Output::b });
+  auto userID = std::make_shared<tvm::data::Inputs>();
+  userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
+  userID->addInput(cid1, LinearConstraint::Output::A, LinearConstraint::Output::b);
 
-  UpdateGraph gid;
+  tvm::CallGraph gid;
   gid.add(userID);
-  UpdatePlan pid(gid);
-  pid.execute();
+  gid.update();
+  gid.execute();
 }
 
 int main()

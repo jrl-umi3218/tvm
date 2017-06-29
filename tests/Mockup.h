@@ -1,9 +1,10 @@
-#include "DataGraph.h"
+#include "tvm/data/Node.h"
+#include "tvm/CallGraph.h"
 
 #include <iostream>
 
 template <int ReturnType>
-class Dummy 
+class Dummy
 {
 public:
   Dummy(int i) :i_(i) {}
@@ -18,34 +19,28 @@ public:
   enum Output {Value};
 
   VariableMockup() {}
-  void setValue(double v) {}
+  void setValue(double) {}
   double value() const  { return 0; }
 };
 
-class RobotMockup : public taskvm::DataNode
+class RobotMockup : public tvm::data::Node<RobotMockup>
 {
 public:
-  enum Update { Kinematics, Velocity, Dynamics, Acceleration };
-  enum Ouput { K1, K2, K3, V1, V2, D1, D2, A1 };
+  SET_UPDATES(RobotMockup, Kinematics, Velocity, Dynamics, Acceleration)
+  SET_OUTPUTS(RobotMockup, K1, K2, K3, V1, V2, D1, D2, A1)
 
   RobotMockup();
 
-  Dummy<K1> getK1() const { return k; }
-  Dummy<K2> getK2() const { return k; }
-  Dummy<K3> getK3() const { return k; }
-  Dummy<V1> getV1() const { return v; }
-  Dummy<V2> getV2() const { return v; }
-  Dummy<D1> getD1() const { return d; }
-  Dummy<D2> getD2() const { return d; }
-  Dummy<A1> getA1() const { return a; }
+  Dummy<static_cast<int>(Output::K1)> getK1() const { return k; }
+  Dummy<static_cast<int>(Output::K2)> getK2() const { return k; }
+  Dummy<static_cast<int>(Output::K3)> getK3() const { return k; }
+  Dummy<static_cast<int>(Output::V1)> getV1() const { return v; }
+  Dummy<static_cast<int>(Output::V2)> getV2() const { return v; }
+  Dummy<static_cast<int>(Output::D1)> getD1() const { return d; }
+  Dummy<static_cast<int>(Output::D2)> getD2() const { return d; }
+  Dummy<static_cast<int>(Output::A1)> getA1() const { return a; }
 
 protected:
-  void update_(const taskvm::internal::UnifiedEnumValue& u);
-  void fillOutputDependencies();
-  void fillInternalDependencies();
-  void fillUpdateDependencies();
-
-private:
   void updateK() { std::cout << "update robot kinematics" << std::endl; ++k; }
   void updateV() { std::cout << "update robot velocity" << std::endl; ++v; }
   void updateD() { std::cout << "update robot dynamics" << std::endl; ++d; }
@@ -56,20 +51,23 @@ private:
 };
 
 /** Base class for a time-dependent function*/
-class FunctionMockup : public taskvm::DataNode
+class FunctionMockup : public tvm::data::Node<FunctionMockup>
 {
 public:
-  enum class Update {Value, Velocity, JDot};
-  enum class Output {Value, Jacobian, Velocity, NormalAcceleration, JDot};
+  SET_UPDATES(FunctionMockup, Value, Velocity, JDot)
+  SET_OUTPUTS(FunctionMockup, Value, Jacobian, Velocity, NormalAcceleration, JDot)
 
   Dummy<int(Output::Value)> value() const { return val; }
   Dummy<int(Output::Value)> jacobian() const { return j; }
   Dummy<int(Output::Value)> velocity() const { return vel; }
   Dummy<int(Output::Value)> normalAcc() const { return na; }
   Dummy<int(Output::Value)> Jdot() const { return jdot; }
-
 protected:
-  FunctionMockup(std::initializer_list<Output> outputs, std::initializer_list<Update> updates);
+  FunctionMockup();
+
+  virtual void updateValue() {}
+  virtual void updateVelocity() {}
+  virtual void updateJDot() {}
 
   int val, j, vel, na, jdot;
 
@@ -79,12 +77,9 @@ protected:
 class RobotFunction : public FunctionMockup
 {
 protected:
-  RobotFunction(std::initializer_list<Output> outputs, std::shared_ptr<RobotMockup> robot);
+  RobotFunction(std::shared_ptr<RobotMockup> robot);
 
 protected:
-  void fillInternalDependencies();
-  void fillUpdateDependencies();
-
   std::shared_ptr<RobotMockup> robot_;
 };
 
@@ -92,38 +87,35 @@ class SomeRobotFunction1 : public RobotFunction
 {
 public:
   SomeRobotFunction1(std::shared_ptr<RobotMockup> robot);
-
 protected:
-  void update_(const taskvm::internal::UnifiedEnumValue& u);
-  void fillOutputDependencies();
+  void updateValue() override;
+  void updateVelocity() override;
+  void updateJDot() override;
 };
 
 class SomeRobotFunction2 : public RobotFunction
 {
 public:
   SomeRobotFunction2(std::shared_ptr<RobotMockup> robot);
-
 protected:
-  void update_(const taskvm::internal::UnifiedEnumValue& u);
-  void fillOutputDependencies();
+  void updateValue() override;
+  void updateVelocity() override;
 };
 
 class BadRobotFunction : public RobotFunction
 {
 public:
   BadRobotFunction(std::shared_ptr<RobotMockup> robot);
-
 protected:
-  void update_(const taskvm::internal::UnifiedEnumValue& u);
-  void fillOutputDependencies();
+  void update();
 };
 
 /** Base class for a linear expression Ax+b*/
-class LinearConstraint: public taskvm::DataNode
+class LinearConstraint: public tvm::data::Node<LinearConstraint>
 {
 public:
-  enum class Output { Value, A, b };
-  enum class Update { Matrices };
+  SET_OUTPUTS(LinearConstraint, Value, A, b)
+  SET_UPDATES(LinearConstraint, Matrices)
 
   LinearConstraint(const std::string& name);
 
@@ -133,9 +125,6 @@ public:
   Dummy<int(Output::b)> b() const;
 
 protected:
-  void update_(const taskvm::internal::UnifiedEnumValue& u);
-  void fillOutputDependencies();
-  void fillInternalDependencies();
   virtual void updateMatrices() = 0;
 
   int A_, b_;
@@ -151,7 +140,6 @@ public:
   KinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
 
 protected:
-  void fillUpdateDependencies();
   void updateMatrices() override;
 
 private:
@@ -165,7 +153,6 @@ public:
   DynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
 
 protected:
-  void fillUpdateDependencies();
   void updateMatrices() override;
 
 private:
@@ -179,7 +166,6 @@ public:
   DynamicEquation(const std::string& name, std::shared_ptr<RobotMockup> robot);
 
 protected:
-  void fillUpdateDependencies();
   void updateMatrices() override;
 
 private:
