@@ -1,13 +1,13 @@
 set(SOURCES
   #Constraint.cpp
-  #ControlProblem.cpp
+  ControlProblem.cpp
   DataGraph.cpp
   EventGraph.cpp
   #FirstOrderProvider.cpp
   #Function.cpp
-  #ResolutionScheme.cpp
+  ResolutionScheme.cpp
   Robot.cpp
-  #Time.cpp
+  Time.cpp
   Variable.cpp)
 SET(VM_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(HEADERS 
@@ -23,7 +23,7 @@ set(HEADERS
   ${VM_INCLUDE_DIR}/ResolutionScheme.h
   ${VM_INCLUDE_DIR}/Robot.h
   ${VM_INCLUDE_DIR}/Task.h
-  #${VM_INCLUDE_DIR}/Time.h
+  ${VM_INCLUDE_DIR}/Time.h
   ${VM_INCLUDE_DIR}/tvm_api.h
   #${VM_INCLUDE_DIR}/UpdateChecker.h
   ${VM_INCLUDE_DIR}/Variable.h)

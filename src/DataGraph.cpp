@@ -62,6 +62,12 @@ namespace taskvm
   }
 
 
+  void DataNode::updateAll()
+  {
+    for (auto u : updates_)
+      update(u);
+  }
+
   const DataNode::OuputDependencies& DataNode::outputDependencies()
   {
     if (!outputDependenciesAreSet_)
@@ -167,6 +173,7 @@ namespace taskvm
       auto sourceNode = std::dynamic_pointer_cast<DataNode>(source);
       if (sourceNode)
       {
+        nodes_.insert(sourceNode);
         auto& outputDependencies = sourceNode->outputDependencies(input);
         for (auto u : outputDependencies)
           updateId.push_back(addUpdate({ sourceNode, u }));
