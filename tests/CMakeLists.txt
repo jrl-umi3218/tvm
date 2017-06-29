@@ -1,4 +1,5 @@
 set(TESTSOURCES
+    CompiledAssignmentTest.cpp
     main.cpp
     Mockup.cpp)
 

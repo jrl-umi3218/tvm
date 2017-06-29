@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+void testCompiledAssignment();
+
 using namespace taskvm;
 
 void testVariable()
@@ -163,9 +165,11 @@ void testDataGraphComplex()
 int main()
 {
   //testVariable();
-  testDataGraphSimple();
-  testBadGraph();
-  testDataGraphComplex();
+  //testDataGraphSimple();
+  //testBadGraph();
+  //testDataGraphComplex();
+
+  testCompiledAssignment();
 
 #ifdef WIN32
   system("pause");
