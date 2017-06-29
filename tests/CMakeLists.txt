@@ -1,3 +1,5 @@
+find_package(benchmark)
+
 set(TESTSOURCES
     main.cpp
     Mockup.cpp)
