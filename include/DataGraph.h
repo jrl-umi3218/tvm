@@ -123,6 +123,8 @@ namespace taskvm
     template <typename UpdateEnum> 
     void update(UpdateEnum e);
 
+    void updateAll();
+
     /* note: it would make sense for the following methods to be const.
       However, because of the lazy filling of the dependencies, this would require 
       all fillXXXDependencies and addXXXDependency to be const and all 
@@ -212,6 +214,12 @@ namespace taskvm
   public:
     void add(std::shared_ptr<DataUser> user);
 
+    /** Force the entire graph to be up-to-date.
+      * Suppose that for any update, calling it twice in a row does not change the outputs.
+      * Warning: this function is for debugging purpose and is extremely inefficient as
+      * each update is called n times, where n is the total number of updates.*/
+    void forceUpdate() const;
+
   private:
     /** Add the updates the given input depends on and return the id of these updates. 
       * If the added updates depend on other updates, they will be added reccursively.*/
@@ -227,6 +235,7 @@ namespace taskvm
     std::vector<bool> root_;                        //wether or not an update is a root in the graph
 
     std::map<std::pair<const DataSource*, internal::UnifiedEnumValue>, std::vector<int>> visitedInputs_;
+    std::set<std::shared_ptr<DataNode>> nodes_; //set of all DataNode appearing during the graph construction
 
     friend class UpdatePlan;
   };
