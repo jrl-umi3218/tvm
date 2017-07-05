@@ -1,6 +1,6 @@
 #include "EventGraph.h"
 
-namespace taskvm
+namespace tvm
 {
   void EventSource::registerUser(std::shared_ptr<EventListener> user, DataEvent evt)
   {

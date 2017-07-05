@@ -1,6 +1,6 @@
 #pragma once
 
-namespace taskvm
+namespace tvm
 {
   /** Base class for solving a ControlProblem*/
   class ResolutionScheme

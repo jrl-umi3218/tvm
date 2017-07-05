@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace taskvm
+namespace tvm
 {
   /* Rationale: we have a unique timer allowed in a ControlProblem (more would 
      be possible easily but what for ?). When updating the problem, the following
