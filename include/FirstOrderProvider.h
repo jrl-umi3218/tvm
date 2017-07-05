@@ -8,7 +8,7 @@
 
 #include  <tvm/data/Node.h>
 
-namespace taskvm
+namespace tvm
 {
   class Variable;
 
@@ -16,10 +16,10 @@ namespace taskvm
   {
     /* Describes an entity that can provide a value and its jacobian*/
 
-    class FirstOrderProvider : public tvm::data::Node<FirstOrderProvider>
+    class TVM_DLLAPI FirstOrderProvider : public data::Node<FirstOrderProvider>
     {
     public:
-      enum class Output { Value, Jacobian};
+      SET_OUTPUTS(FirstOrderProvider, Value, Jacobian)
 
       const Eigen::VectorXd& value() const;
       const Eigen::MatrixXd& jacobian(const Variable& x) const;
@@ -28,6 +28,8 @@ namespace taskvm
       * However, they are virtual in case the user might want to bypass the cache.
       * This would be typically the case if he/she wants to directly return the
       * output of another method, e.g. return the jacobian of an other Function.
+      *
+      * Question: should they be made protected or stay public
       */
       virtual const Eigen::VectorXd& valueNoCheck() const;
       virtual const Eigen::MatrixXd& jacobianNoCheck(const Variable& x) const;
@@ -39,13 +41,14 @@ namespace taskvm
       const std::vector<std::shared_ptr<Variable>>& variables() const;
 
     protected:
-      FirstOrderProvider();
+      FirstOrderProvider(int m);
 
       /** Resize all cache members corresponding to active output.
         * Do not forget to call it if you override it in derived classes.
         */
       virtual void resizeCache();
 
+      /** Add or remove variables. Cache is automatically updated*/
       void addVariable(std::shared_ptr<Variable>);
       void removeVariable(std::shared_ptr<Variable>);
 
@@ -55,13 +58,17 @@ namespace taskvm
       virtual void addVariable_(std::shared_ptr<Variable>);
       virtual void removeVariable_(std::shared_ptr<Variable>);
 
+      // cache
+      //FIXME should this be made private with protected accessor? 
+      //In particular, we would like to be sure that elements of jacobian are
+      //accessed with the at() method, not the [] operator, so as to avoid adding
+      //accidentally a variable.
+      Eigen::VectorXd value_;
+      std::map<Variable const*, Eigen::MatrixXd> jacobian_;
+
     private:
       int m_; //output size
       std::vector<std::shared_ptr<Variable>> variables_;
-
-      // cache
-      Eigen::VectorXd value_;
-      std::map<Variable const*, Eigen::MatrixXd> jacobian_;
     };
   }
 }

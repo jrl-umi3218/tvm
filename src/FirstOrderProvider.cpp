@@ -2,13 +2,18 @@
 #include "FirstOrderProvider.h"
 #include "Variable.h"
 
-namespace taskvm
+namespace tvm
 {
   namespace internal
   {
+    FirstOrderProvider::FirstOrderProvider(int m)
+      : m_(m)
+    {
+    }
+
     const Eigen::VectorXd& FirstOrderProvider::value() const
     {
-      if (isOutputEnabled((int)Output::Value))
+      if (isOutputEnabled(Output::Value))
         return valueNoCheck();
       else
         throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -16,7 +21,7 @@ namespace taskvm
 
     const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
     {
-      if (isOutputEnabled((int)Output::Jacobian))
+      if (isOutputEnabled(Output::Jacobian))
         return jacobianNoCheck(x);
       else
         throw UnusedOutput(/*description*/); //TODO add description of the error
@@ -76,6 +81,8 @@ namespace taskvm
         variables_.erase(it);
         jacobian_.erase(v.get());
       }
+
+      removeVariable_(v);
     }
 
     void FirstOrderProvider::addVariable_(std::shared_ptr<Variable>)
