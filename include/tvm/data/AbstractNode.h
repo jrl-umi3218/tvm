@@ -63,14 +63,32 @@ struct AbstractNode : public Inputs, Outputs
   /** Return the name of a given update */
   static constexpr const char * UpdateName(Output) { return "INVALID"; }
 
-  /** Check if a given update is enabled (run-time)
-   *
-   * The default implementation always return true. The
-   * expected parameter is int to swallow the different
-   * update types.
-   *
-   */
-  virtual bool isUpdateEnabled(int) const { return true; }
+  /** Check if a given update is enabled, be it at the class (static) or
+  * instance (dynamic) level).
+  */
+  template <typename EnumT>
+  bool isUpdateEnabled(EnumT e) const
+  {
+    // FIXME is there a way to check that the enum has the good type here ?
+    int i = static_cast<int>(e);
+    return isUpdateStaticallyEnabled(i) && isUpdateCustomEnabled(i);
+  }
+
+  /** Check if a given update is enabled at the class level (run-time).
+  *
+  * The default implementation always returns true. The
+  * expected parameter is int to swallow the different
+  * update types.
+  *
+  */
+  virtual bool isUpdateStaticallyEnabled(int) const { return true; }
+
+  /** Check if an update is enabled given a custom criterion
+  *
+  * The default implementation always return true.
+  * This is a handle for the user to override.
+  **/
+  virtual bool isUpdateCustomEnabled(int) const { return true; }
 
   /** Check if a given update is enabled (compile-time)
    *
@@ -78,7 +96,7 @@ struct AbstractNode : public Inputs, Outputs
    *
    */
   template<typename EnumT>
-  static constexpr bool UpdateEnabled(EnumT) { return true; }
+  static constexpr bool UpdateStaticallyEnabled(EnumT) { return true; }
 
   virtual ~AbstractNode() = default;
 

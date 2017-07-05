@@ -3,7 +3,8 @@ find_package(benchmark)
 set(TESTSOURCES
     CompiledAssignmentTest.cpp
     main.cpp
-    Mockup.cpp)
+    Mockup.cpp
+    OutputSelectorTest.cpp)
 
 set(TESTHEADERS
     Mockup.h

@@ -162,17 +162,17 @@ static_assert(COUNT_VA_ARGS(1,2,3) == 3, "COUNT_VA_ARGS failed for 3 arguments."
   static constexpr auto EnumName##BaseName = #SelfT;
 
 #define DISABLE_SIGNALS(EnumName, ...)\
-  bool is##EnumName##Enabled(int v) const override { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; } \
+  bool is##EnumName##StaticallyEnabled(int v) const override { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; } \
   template<typename EnumT> \
-  static constexpr bool EnumName##Enabled(EnumT v) { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; }
+  static constexpr bool EnumName##StaticallyEnabled(EnumT v) { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; }
 
 #define DISABLE_SIGNALS_BODY(EnumT, name) \
   static_cast<int>(v) == static_cast<int>(name) ? false : 
 
 #define CLEAR_DISABLED_SIGNALS(EnumName) \
-  bool is##EnumName##Enabled(int) const override { return true; }\
+  bool is##EnumName##StaticallyEnabled(int) const override { return true; }\
   template<typename EnumT> \
-  static constexpr bool EnumName##Enabled(EnumT) { return true; }
+  static constexpr bool EnumName##StaticallyEnabled(EnumT) { return true; }
 
 } // namespace utils
 

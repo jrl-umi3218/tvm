@@ -123,15 +123,15 @@ void compile_check()
   static_assert(tvm::data::is_valid_output<Derived3>(Derived::Output::O2), "");
   static_assert(!tvm::data::is_valid_output<Derived3>(AnotherOutput::Output::O1), "");
   static_assert(tvm::data::is_valid_output<Derived4>(Derived4::Output::O8, Derived2::Output::O3, Derived::Output::O0), "");
-  static_assert(!Derived5::OutputEnabled(Derived4::Output::O4), "");
-  static_assert(Derived5::OutputEnabled(Derived4::Output::O7), "");
-  static_assert(!Derived5::OutputEnabled(Derived::Output::O0), "");
-  static_assert(Derived5::OutputEnabled(Derived::Output::O1), "");
+  static_assert(!Derived5::OutputStaticallyEnabled(Derived4::Output::O4), "");
+  static_assert(Derived5::OutputStaticallyEnabled(Derived4::Output::O7), "");
+  static_assert(!Derived5::OutputStaticallyEnabled(Derived::Output::O0), "");
+  static_assert(Derived5::OutputStaticallyEnabled(Derived::Output::O1), "");
 
-  static_assert(Derived6::OutputEnabled(Derived4::Output::O4), "");
-  static_assert(Derived6::OutputEnabled(Derived4::Output::O7), "");
-  static_assert(Derived6::OutputEnabled(Derived::Output::O0), "");
-  static_assert(Derived6::OutputEnabled(Derived::Output::O1), "");
+  static_assert(Derived6::OutputStaticallyEnabled(Derived4::Output::O4), "");
+  static_assert(Derived6::OutputStaticallyEnabled(Derived4::Output::O7), "");
+  static_assert(Derived6::OutputStaticallyEnabled(Derived::Output::O0), "");
+  static_assert(Derived6::OutputStaticallyEnabled(Derived::Output::O1), "");
 
   static_assert(Robot::OutputSize == 5, "");
   static_assert(Robot::UpdateSize == 2, "");

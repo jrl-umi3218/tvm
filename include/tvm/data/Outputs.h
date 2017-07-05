@@ -64,22 +64,47 @@ struct TVM_DLLAPI Outputs
   /** Return the name of a given output */
   static constexpr const char * OutputName(Output) { return "INVALID"; }
 
-  /** Check if a given output is enabled (run-time)
-   *
-   * The default implementation always return true. The
-   * expected parameter is int to swallow the different
-   * output types.
-   *
+  /** Check if a given output is enabled, be it at the class (static) or 
+   * instance (dynamic) level).
    */
-  virtual bool isOutputEnabled(int) const { return true; }
+  template <typename EnumT>
+  bool isOutputEnabled(EnumT e) const 
+  { 
+    // FIXME is there a way to check that the enum has the good type here ?
+    int i = static_cast<int>(e);
+    return isOutputEnabled(i);
+  }
 
-  /** Check if a given output is enabled (compile-time)
+  /** Same as above, but taking int, for conveniency*/
+  bool isOutputEnabled(int i) const
+  {
+    return isOutputStaticallyEnabled(i) && isOutputCustomEnabled(i);
+  }
+
+  /** Check if a given output is enabled at the class level (run-time).
+  *
+  * The default implementation always returns true. The
+  * expected parameter is int to swallow the different
+  * output types.
+  *
+  */
+  virtual bool isOutputStaticallyEnabled(int) const { return true; }
+
+  /** Check if an output is enabled given a custom criterion 
    *
-   * The default implementation always return true.
+   * The default implementation always returns true.
+   * This is a handle for the user to override.
+   **/
+  virtual bool isOutputCustomEnabled(int) const { return true;}
+
+  /** Check if a given output is enabled at the class level (compile-time)
+   *
+   * The default implementation always returns true.
    *
    */
   template<typename EnumT>
-  static constexpr bool OutputEnabled(EnumT) { return true; }
+  static constexpr bool OutputStaticallyEnabled(EnumT) { return true; }
+
 protected:
   /** Used to avoid a dynamic cast when working on Outputs that may be tvm::data::Node */
   bool is_node_ = false;
@@ -97,7 +122,9 @@ protected:
 #define SET_OUTPUTS(SelfT, ...)\
   PP_ID(EXTEND_ENUM(Output, SelfT, __VA_ARGS__))
 
-/** Mark some output signals as disabled for that class */
+/** Mark some output signals as disabled for that class 
+  * This overrides Outputs::isOutputEnabled.
+  */
 #define DISABLE_OUTPUTS(...)\
   PP_ID(DISABLE_SIGNALS(Output, __VA_ARGS__))
 

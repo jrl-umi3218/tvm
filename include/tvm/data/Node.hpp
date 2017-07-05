@@ -24,7 +24,7 @@ template<typename EnumT, typename U>
 void Node<T>::registerUpdates(EnumT u, void(U::*fn)())
 {
   static_assert(is_valid_update<U>(EnumT()), "This update signal is not part of this Node");
-  if(!U::UpdateEnabled(u))
+  if(!U::UpdateStaticallyEnabled(u))
   {
     std::stringstream ss;
     ss << "Update " << U::UpdateName(u) << " is disabled within " << U::UpdateBaseName;
@@ -45,9 +45,9 @@ template<typename T>
 template<typename U, typename EnumO, typename EnumU>
 void Node<T>::addOutputDependency(EnumO o, EnumU u)
 {
-  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type.");
-  static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type.");
-  if(!U::OutputEnabled(o))
+  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  if(!U::OutputStaticallyEnabled(o))
   {
     std::stringstream ss;
     ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
@@ -72,13 +72,13 @@ void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
 {
   static_assert(is_valid_update<U>(EnumU1()), "Invalid dependent update for this type.");
   static_assert(is_valid_update<U>(EnumU2()), "Invalid update for this type.");
-  if(!U::UpdateEnabled(uDependent))
+  if(!U::UpdateStaticallyEnabled(uDependent))
   {
     std::stringstream ss;
     ss << "Update " << U::UpdateName(uDependent) << " is disabled within " << U::UpdateBaseName;
     throw std::runtime_error(ss.str());
   }
-  if(!U::UpdateEnabled(u))
+  if(!U::UpdateStaticallyEnabled(u))
   {
     std::stringstream ss;
     ss << "Update " << U::UpdateName(u) << " is disabled within " << U::UpdateBaseName;
@@ -93,7 +93,7 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
 {
   static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type.");
   static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
-  if(!U::UpdateEnabled(u))
+  if(!U::UpdateStaticallyEnabled(u))
   {
     std::stringstream ss;
     ss << "Update " << U::UpdateName(u) << " is disabled within " << U::UpdateBaseName;
