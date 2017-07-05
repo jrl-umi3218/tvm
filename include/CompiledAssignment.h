@@ -5,7 +5,7 @@
 #define EIGEN_RUNTIME_NO_MALLOC
 #include <Eigen/Core>
 
-namespace taskvm
+namespace tvm
 {
   namespace utils
   {
@@ -22,7 +22,7 @@ namespace taskvm
     {
       NONE,         // from
       MINUS,        // -from
-      SCALAR        // alpha*from
+      SCALAR        // s*from
     };
 
     enum MatrixMult
@@ -227,7 +227,18 @@ namespace taskvm
 
 
 
-    /** The main class */
+    /** The main class. Its run method perfoms the assignment T = op(T, s*M*F)
+      * where
+      *  - T is the target matrix/vector
+      *  - F is the source matrix/vector
+      *  - op is described by A
+      *  - s is a scalar, user supplied if S is SCALAR, +/-1 otherwise
+      *  - M is a matrix, either the identity or user-supplied, depending on 
+      *    the template parameter M (see MatrixMult)
+      *
+      * This class is meant to be a helper class and should not live on its own,
+      * but be create by a higher-level class ensuring its data are valid.
+      */
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
     struct CompiledAssignment
       : public CachedResult<MatrixType, cache_traits<MatrixType, A, S, M, P>::value>
@@ -235,20 +246,31 @@ namespace taskvm
       , public ScalarMultBase<S>
       , public MatrixMultBase<M, P>
     {
-      CompiledAssignment(const Eigen::Ref<const MatrixType>& from, Eigen::Ref<MatrixType> to, double s = 0, const typename MatrixMultBase<M, P>::MultType* const m = nullptr)
+      CompiledAssignment(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to, double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr)
         : ScalarMultBase<S>(s)
         , MatrixMultBase<M, P>(m)
         , from_(from)
         , to_(to) {}
 
+      //FIXME shall we use the operator() instead of run, and make this class a functor ?
       void run()
       {
         assign(cache(applyScalarMult(applyMatrixMult(from_))), to_);
       }
 
+      void setFrom(const Eigen::Ref<const MatrixType>& from)
+      {
+        from_ = from;
+      }
+
+      void setTo(const Eigen::Ref<MatrixType>& to)
+      {
+        to_ = to;
+      }
+
     private:
       /** Warning: it is the user responsability to ensure that the matrix/vector
-      * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
+        * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
       Eigen::Ref<const MatrixType> from_;
       Eigen::Ref<MatrixType> to_;
     };

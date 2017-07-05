@@ -4,7 +4,7 @@
 #include "CompiledAssignment.h"
 
 using namespace Eigen;
-using namespace taskvm::utils;
+using namespace tvm::utils;
 
 MatrixXd runOperator(AssignType A, const MatrixXd& from, const MatrixXd& to)
 {
