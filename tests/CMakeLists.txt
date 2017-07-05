@@ -2,6 +2,7 @@ find_package(benchmark)
 
 set(TESTSOURCES
     CompiledAssignmentTest.cpp
+    ConstraintTest.cpp
     main.cpp
     Mockup.cpp
     OutputSelectorTest.cpp)

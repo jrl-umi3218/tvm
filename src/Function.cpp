@@ -2,7 +2,7 @@
 #include "Function.h"
 #include "Variable.h"
 
-namespace taskvm
+namespace tvm
 {
   const Eigen::VectorXd& Function::velocity() const
   {

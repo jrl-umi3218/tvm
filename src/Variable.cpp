@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-namespace taskvm
+namespace tvm
 { 
   Space::Space(int size)
     : Space(size, size, size)
@@ -91,6 +91,14 @@ namespace taskvm
   const Eigen::VectorXd & Variable::value() const
   {
     return value_;
+  }
+
+  void Variable::setValue(const VectorConstRef& x)
+  {
+    if (x.size() == size())
+      value_ = x;
+    else
+      throw std::runtime_error("x has not the correct size.");
   }
 
   int Variable::derivativeNumber() const

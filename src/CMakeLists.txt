@@ -6,6 +6,7 @@ set(TVM_SOURCES
   EventGraph.cpp
   FirstOrderProvider.cpp
   Function.cpp
+  LinearConstraint.cpp
   ResolutionScheme.cpp
   Robot.cpp
   Time.cpp
@@ -27,10 +28,12 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
+  ${TVM_INCLUDE_DIR}/../defs.h
   ${TVM_INCLUDE_DIR}/../errors.h
   ${TVM_INCLUDE_DIR}/../EventGraph.h
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h
+  ${TVM_INCLUDE_DIR}/../LinearConstraint.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../Task.h

@@ -6,7 +6,7 @@
 
 #include "FirstOrderProvider.h"
 
-namespace taskvm
+namespace tvm
 {
   class Variable;
 
@@ -15,7 +15,7 @@ namespace taskvm
   class Function : public internal::FirstOrderProvider
   {
   public:
-    enum class Output {Value, Jacobian, Velocity, NormalAcceleration, JDot};
+    SET_OUTPUTS(Function, Velocity, NormalAcceleration, JDot);
 
     const Eigen::VectorXd& velocity() const;
     const Eigen::VectorXd& normalAcceleration() const;
@@ -25,6 +25,8 @@ namespace taskvm
       * However, they are virtual in case the user might want to bypass the cache.
       * This would be typically the case if he/she wants to directly return the
       * output of another method, e.g. return the jacobian of an other Function.
+      * 
+      * Question: should they be made protected or stay public
       */
     virtual const Eigen::VectorXd& velocityNoCheck() const;
     virtual const Eigen::VectorXd& normalAccelerationNoCheck() const;

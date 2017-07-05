@@ -1,12 +1,14 @@
 #pragma once
 
-#include "FirstOrderProvider.h"
+#include <memory>
 
 #include <Eigen/Core>
 
-#include <memory>
+#include "FirstOrderProvider.h"
+#include <tvm/data/OutputSelector.h>
+#include <tvm/api.h>
 
-namespace taskvm
+namespace tvm
 {
   /** For a function f(x), and a right hand side rhs (and rhs2):
     * EQUAL        f(x) =  rhs
@@ -36,30 +38,61 @@ namespace taskvm
 
   class Variable;
 
-  class Constraint : public internal::FirstOrderProvider
+  /** This is a helper class to define Constraint. Its sole purpose is to
+    * declare the outputs L and U, so that Constraint can the dynamically 
+    * disable what it does not use.
+    */
+  class TVM_DLLAPI ConstraintBase : public internal::FirstOrderProvider
   {
   public:
-    /** Note: I don't like the denomination rhs very much. 
-      * It would be cleare to have lowerBound() and upperBound() (or l()/u()), 
-      * but this would require to test when one or the other is valid, depending 
-      * on the constraint type.
-      * With rhs and rhs2, we still have the problem that one or both might be
-      * undefined.
-      */
-    const Eigen::VectorXd& l() const;
-    const Eigen::VectorXd& u() const;
+    SET_OUTPUTS(ConstraintBase, L, U, E);
 
   protected:
+    ConstraintBase(int m);
+  };
+
+  /** Base class for representing a constraint. 
+    *
+    * It manages the enabling/disabling of the outputs L, U and E (depending 
+    * on its type), and the memory of the associated cache.
+    */
+  class TVM_DLLAPI Constraint : public data::OutputSelector<ConstraintBase>
+  {
+  public:
+    using ConstraintBase::Output;
+
+    const Eigen::VectorXd& l() const;
+    const Eigen::VectorXd& u() const;
+    const Eigen::VectorXd& e() const;
+
+    ConstraintType constraintType() const;
+    RHSType rhsType() const;
+
+    /** Note: by default, these methods return the cached value.
+      * However, they are virtual in case the user might want to bypass the cache.
+      * This would be typically the case if he/she wants to directly return the
+      * output of another method.
+      *
+      * Question: should they be made protected or stay public
+      */
+    virtual const Eigen::VectorXd& lNoCheck() const;
+    virtual const Eigen::VectorXd& uNoCheck() const;
+    virtual const Eigen::VectorXd& eNoCheck() const;
+
+  protected:
+    Constraint(ConstraintType ct, RHSType rt, int m=0);
     void resizeCache() override;
 
-    Eigen::VectorXd& l();
-    Eigen::VectorXd& u();
+    Eigen::VectorXd l_;
+    Eigen::VectorXd u_;
+    Eigen::VectorXd e_;
 
   private:
     ConstraintType  cstrType_;
     RHSType         rhsType_;
 
-    Eigen::VectorXd l_;
-    Eigen::VectorXd u_;
+    bool usel_;
+    bool useu_;
+    bool usee_;
   };
 }

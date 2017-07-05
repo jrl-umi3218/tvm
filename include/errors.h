@@ -2,7 +2,7 @@
 
 #include <exception>
 
-namespace taskvm
+namespace tvm
 {
   class DataError : public std::exception
   {

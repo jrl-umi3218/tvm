@@ -6,9 +6,10 @@
 #include <vector>
 #include <string>
 
+#include "defs.h"
 #include "tvm/api.h"
 
-namespace taskvm
+namespace tvm
 {
   class Variable;
 
@@ -40,6 +41,7 @@ namespace taskvm
     int size() const;
     const Space& space() const;
     const Eigen::VectorXd& value() const;
+    void setValue(const VectorConstRef& x);
     int derivativeNumber() const;
     bool isBasePrimitive() const;
     std::shared_ptr<Variable> primitive() const;
