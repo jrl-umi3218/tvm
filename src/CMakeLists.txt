@@ -9,6 +9,7 @@ set(TVM_SOURCES
   LinearConstraint.cpp
   ResolutionScheme.cpp
   Robot.cpp
+  SolvingRequirements
   Time.cpp
   Variable.cpp)
 
@@ -36,6 +37,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
+  ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
   ${TVM_INCLUDE_DIR}/../Task.h
   ${TVM_INCLUDE_DIR}/../Time.h
   #${TVM_INCLUDE_DIR}/../UpdateChecker.h

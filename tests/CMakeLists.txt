@@ -5,7 +5,8 @@ set(TESTSOURCES
     ConstraintTest.cpp
     main.cpp
     Mockup.cpp
-    OutputSelectorTest.cpp)
+    OutputSelectorTest.cpp
+    SolvingRequirements.cpp)
 
 set(TESTHEADERS
     Mockup.h

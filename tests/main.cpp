@@ -7,8 +7,11 @@
 #include <iostream>
 
 void testCompiledAssignment();
+void outputSelectorTest();
+void linearConstraintTest();
+void testSolvingRequirements();
 
-using namespace taskvm;
+using namespace tvm;
 
 void testVariable()
 {
@@ -171,8 +174,12 @@ int main()
   //testDataGraphSimple();
   //testBadGraph();
   //testDataGraphComplex();
+  //outputSelectorTest();
+  //linearConstraintTest();
+  testSolvingRequirements();
 
-  testCompiledAssignment();
+
+  //testCompiledAssignment();
 
 #ifdef WIN32
   system("pause");
