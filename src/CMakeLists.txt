@@ -7,7 +7,7 @@ set(TVM_SOURCES
   FirstOrderProvider.cpp
   Function.cpp
   LinearConstraint.cpp
-  #LinearizedTaskConstraint.cpp
+  LinearizedTaskConstraint.cpp
   ResolutionScheme.cpp
   Robot.cpp
   SolvingRequirements.cpp
@@ -39,7 +39,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
-  #${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
+  ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
