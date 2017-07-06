@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sstream>
+#include "Node.h"
 
 namespace tvm
 {
@@ -53,6 +54,12 @@ void Node<T>::addOutputDependency(EnumO o, EnumU u)
     ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
     throw std::runtime_error(ss.str());
   }
+  if (directDependencies_.count(static_cast<int>(u)))
+  {
+    std::stringstream ss;
+    ss << "Output " << U::OutputName(o) << " already has a direct dependency. You cannot mix direct and output dependencies";
+    throw std::runtime_error(ss.str());
+  }
   outputDependencies_[static_cast<int>(o)].push_back(static_cast<int>(u));
 }
 
@@ -70,8 +77,8 @@ template<typename T>
 template<typename U, typename EnumU1, typename EnumU2>
 void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
 {
-  static_assert(is_valid_update<U>(EnumU1()), "Invalid dependent update for this type.");
-  static_assert(is_valid_update<U>(EnumU2()), "Invalid update for this type.");
+  static_assert(is_valid_update<U>(EnumU1()), "Invalid dependent update for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_update<U>(EnumU2()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
   if(!U::UpdateStaticallyEnabled(uDependent))
   {
     std::stringstream ss;
@@ -91,7 +98,7 @@ template<typename T>
 template<typename U, typename EnumU, typename S, typename EnumO>
 void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
 {
-  static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type.");
+  static_assert(is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
   static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
   if(!U::UpdateStaticallyEnabled(u))
   {
@@ -133,6 +140,37 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Ar
   {
     addInputDependency<U>(u, source, args...);
   }
+}
+
+template<typename T>
+template<typename U, typename EnumU, typename S, typename EnumO>
+inline void Node<T>::addDirectDependency(EnumU o, std::shared_ptr<S> source, EnumO i)
+{
+  static_assert(is_valid_output<U>(EnumU()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
+  if (!U::OutputStaticallyEnabled(o))
+  {
+    std::stringstream ss;
+    ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
+    throw std::runtime_error(ss.str());
+  }
+  if (directDependencies_.count(static_cast<int>(o)))
+  {
+    std::stringstream ss;
+    ss << "Output " << U::OutputName(o) << " already has a direct dependency. ";
+    throw std::runtime_error(ss.str());
+  }
+  if (outputDependencies_.count(static_cast<int>(o)))
+  {
+    std::stringstream ss;
+    ss << "Output " << U::OutputName(o) << " already has output dependencies. You cannot mix direct and output dependencies";
+    throw std::runtime_error(ss.str());
+  }
+  // Make sure we have this input
+  addInput(source, i);
+  
+  // Add the dependency
+  directDependencies_[static_cast<int>(o)] = { source, static_cast<int>(i) };
 }
 
 } // namespace data

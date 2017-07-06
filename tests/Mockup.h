@@ -171,3 +171,54 @@ protected:
 private:
   std::shared_ptr<RobotMockup> robot_;
 };
+
+
+/** Base class for a linear expression Ax+b*/
+class BetterLinearConstraint : public tvm::data::Node<BetterLinearConstraint>
+{
+public:
+  SET_OUTPUTS(BetterLinearConstraint, Value, A, b)
+
+  BetterLinearConstraint(const std::string& name);
+
+  //example of method with argument
+  Dummy<int(Output::Value)> value(int x) const;
+  virtual Dummy<int(Output::A)> A() const;
+  virtual Dummy<int(Output::b)> b() const;
+
+protected:
+  int A_, b_;
+
+private:
+  std::string name_;
+};
+
+/** Mockup for a constraint J\dot{q} + \dot{e}*/
+class BetterKinematicLinearizedConstraint : public BetterLinearConstraint
+{
+public:
+  BetterKinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
+
+  virtual Dummy<int(Output::A)> A() const override;
+  virtual Dummy<int(Output::b)> b() const override;
+
+private:
+  std::shared_ptr<FunctionMockup> function_;
+};
+
+/** Mockup for a constraint J\ddot{q} + \dot{J}\dot{q} + \ddot{e}*/
+class BetterDynamicLinearizedConstraint : public BetterLinearConstraint
+{
+public:
+  SET_UPDATES(BetterDynamicLinearizedConstraint, Updateb)
+
+  BetterDynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function);
+  void updateb();
+
+  virtual Dummy<int(Output::A)> A() const override;
+
+protected:
+
+private:
+  std::shared_ptr<FunctionMockup> function_;
+};

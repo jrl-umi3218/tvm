@@ -40,6 +40,11 @@ std::vector<int> CallGraph::addOutput(const std::shared_ptr<data::Outputs> & sou
         callId.push_back(addCall({node, u}));
       }
     }
+    else if (node->directDependencies_.count(output))
+    {
+      const auto& p = node->directDependencies_[output];
+      callId = addOutput(p.first, p.second);
+    }
   }
   if(!visited_.count(ptr))
   {

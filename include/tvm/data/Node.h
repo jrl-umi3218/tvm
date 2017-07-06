@@ -50,7 +50,12 @@ protected:
   template<typename EnumT, typename U>
   void registerUpdates(EnumT u, void(U::*fn)());
 
-  /** Add a dependency of an output to an update call */
+  /** Add a dependency of an output to an update call 
+   *
+   * It is not possible for an output to have a direct and some update 
+   * dependencies at the same time.
+   *
+   */
   template<typename U = T, typename EnumO, typename EnumU>
   void addOutputDependency(EnumO o, EnumU u);
 
@@ -73,6 +78,19 @@ protected:
   /** Add a dependency of an update function to multiple input signals from a source */
   template<typename U = T, typename EnumU, typename S, typename EnumO, typename ... Args>
   void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args ... args);
+
+  /** Add a dependency of an output to an input signal and its source 
+   *
+   * This is used when an output directly use the input signal without 
+   * requiring an update, and a cache. This is the case when an output directly
+   * forward an input, and it should be the only use-case.
+   *
+   * It is not possible for an output to have a direct and some update 
+   * dependencies at the same time.
+   *
+   */
+  template<typename U = T, typename EnumU, typename S, typename EnumO>
+  void addDirectDependency(EnumU o, std::shared_ptr<S> source, EnumO i);
 };
 
 } // namespace data

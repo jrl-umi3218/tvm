@@ -135,37 +135,73 @@ void testBadGraph()
 
 void testDataGraphComplex()
 {
-  auto robot = std::make_shared<RobotMockup>();
-  auto f1 = std::make_shared<SomeRobotFunction1>(robot);
-  auto f2 = std::make_shared<SomeRobotFunction2>(robot);
+  {
+    auto robot = std::make_shared<RobotMockup>();
+    auto f1 = std::make_shared<SomeRobotFunction1>(robot);
+    auto f2 = std::make_shared<SomeRobotFunction2>(robot);
 
-  //IK-like
-  auto cik1 = std::make_shared<KinematicLinearizedConstraint>("Linearized f1", f1);
-  auto cik2 = std::make_shared<KinematicLinearizedConstraint>("Linearized f2", f2);
+    //IK-like
+    auto cik1 = std::make_shared<KinematicLinearizedConstraint>("Linearized f1", f1);
+    auto cik2 = std::make_shared<KinematicLinearizedConstraint>("Linearized f2", f2);
 
-  auto userIK = std::make_shared<tvm::data::Inputs>();
-  userIK->addInput(cik1, LinearConstraint::Output::A, LinearConstraint::Output::b);
-  userIK->addInput(cik2, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    auto userIK = std::make_shared<tvm::data::Inputs>();
+    userIK->addInput(cik1, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userIK->addInput(cik2, LinearConstraint::Output::A, LinearConstraint::Output::b);
 
-  tvm::CallGraph gik;
-  gik.add(userIK);
-  gik.update();
-  gik.execute();
+    tvm::CallGraph gik;
+    gik.add(userIK);
+    gik.update();
+    gik.execute();
 
-  std::cout << std::endl << "----------------------" << std::endl << std::endl;
+    std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
-  //ID-like
-  auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
-  auto cid1 = std::make_shared<DynamicLinearizedConstraint>("Linearized f1", f1);
+    //ID-like
+    auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
+    auto cid1 = std::make_shared<DynamicLinearizedConstraint>("Linearized f1", f1);
 
-  auto userID = std::make_shared<tvm::data::Inputs>();
-  userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
-  userID->addInput(cid1, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    auto userID = std::make_shared<tvm::data::Inputs>();
+    userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userID->addInput(cid1, LinearConstraint::Output::A, LinearConstraint::Output::b);
 
-  tvm::CallGraph gid;
-  gid.add(userID);
-  gid.update();
-  gid.execute();
+    tvm::CallGraph gid;
+    gid.add(userID);
+    gid.update();
+    gid.execute();
+  }
+  std::cout << std::endl << std::endl << "Now with direct dependency" << std::endl << std::endl;
+  {
+    auto robot = std::make_shared<RobotMockup>();
+    auto f1 = std::make_shared<SomeRobotFunction1>(robot);
+    auto f2 = std::make_shared<SomeRobotFunction2>(robot);
+
+    //IK-like
+    auto cik1 = std::make_shared<BetterKinematicLinearizedConstraint>("Linearized f1", f1);
+    auto cik2 = std::make_shared<BetterKinematicLinearizedConstraint>("Linearized f2", f2);
+
+    auto userIK = std::make_shared<tvm::data::Inputs>();
+    userIK->addInput(cik1, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
+    userIK->addInput(cik2, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
+
+    tvm::CallGraph gik;
+    gik.add(userIK);
+    gik.update();
+    gik.execute();
+
+    std::cout << std::endl << "----------------------" << std::endl << std::endl;
+
+    //ID-like
+    auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
+    auto cid1 = std::make_shared<BetterDynamicLinearizedConstraint>("Linearized f1", f1);
+
+    auto userID = std::make_shared<tvm::data::Inputs>();
+    userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userID->addInput(cid1, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
+
+    tvm::CallGraph gid;
+    gid.add(userID);
+    gid.update();
+    gid.execute();
+  }
 }
 
 int main()
@@ -173,10 +209,10 @@ int main()
   //testVariable();
   //testDataGraphSimple();
   //testBadGraph();
-  //testDataGraphComplex();
+  testDataGraphComplex();
   //outputSelectorTest();
   //linearConstraintTest();
-  testSolvingRequirements();
+  //testSolvingRequirements();
 
 
   //testCompiledAssignment();

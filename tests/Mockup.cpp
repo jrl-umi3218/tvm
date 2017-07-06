@@ -130,6 +130,7 @@ void KinematicLinearizedConstraint::updateMatrices()
 {
   A_ = function_->jacobian();
   b_ = function_->value();
+  std::cout << "update KinematicLinearizedConstraint::updateMatrices" << std::endl;
 }
 
 DynamicLinearizedConstraint::DynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
@@ -151,6 +152,7 @@ void DynamicLinearizedConstraint::updateMatrices()
 {
   A_ = function_->jacobian();
   b_ = function_->value() + function_->velocity() + function_->normalAcc();
+  std::cout << "update DynamicLinearizedConstraint::updateMatrices" << std::endl;
 }
 
 DynamicEquation::DynamicEquation(const std::string& name, std::shared_ptr<RobotMockup> robot)
@@ -166,4 +168,78 @@ void DynamicEquation::updateMatrices()
 {
   A_ = robot_->getD1();
   b_ = robot_->getD2();
+  std::cout << "update DynamicEquation::updateMatrices" << std::endl;
 }
+
+BetterLinearConstraint::BetterLinearConstraint(const std::string& name)
+  : name_(name)
+{
+}
+
+Dummy<int(BetterLinearConstraint::Output::Value)> BetterLinearConstraint::value(int x) const
+{
+  //obviously, in real setting we would depend from a variable and take its value
+  return A_*x + b_;
+}
+
+Dummy<int(BetterLinearConstraint::Output::A)> BetterLinearConstraint::A() const
+{
+  return A_;
+}
+
+Dummy<int(BetterLinearConstraint::Output::b)> BetterLinearConstraint::b() const
+{
+  return b_;
+}
+
+BetterKinematicLinearizedConstraint::BetterKinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
+  : BetterLinearConstraint(name)
+  , function_(function)
+{
+  addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
+  addDirectDependency(Output::A, function, FunctionMockup::Output::Jacobian);
+  addDirectDependency(Output::b, function, FunctionMockup::Output::Value);
+}
+
+Dummy<int(BetterLinearConstraint::Output::b)> BetterKinematicLinearizedConstraint::b() const
+{
+  return static_cast<int>(function_->value());
+}
+
+Dummy<int(BetterLinearConstraint::Output::A)> BetterKinematicLinearizedConstraint::A() const
+{
+  return static_cast<int>(function_->jacobian());
+}
+
+BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
+  : BetterLinearConstraint(name)
+  , function_(function)
+{
+  registerUpdates(Update::Updateb, &BetterDynamicLinearizedConstraint::updateb);
+
+
+  addInput(function, FunctionMockup::Output::Value,
+           FunctionMockup::Output::Jacobian,
+           FunctionMockup::Output::Velocity,
+           FunctionMockup::Output::NormalAcceleration);
+
+  addInputDependency<BetterDynamicLinearizedConstraint>(Update::Updateb, function_, 
+                                                        FunctionMockup::Output::Value,
+                                                        FunctionMockup::Output::Velocity,
+                                                        FunctionMockup::Output::NormalAcceleration);
+
+  addOutputDependency<BetterDynamicLinearizedConstraint>(Output::b, Update::Updateb);
+  addDirectDependency(Output::A, function_, FunctionMockup::Output::Jacobian);
+}
+
+Dummy<int(BetterLinearConstraint::Output::A)> BetterDynamicLinearizedConstraint::A() const
+{
+  return static_cast<int>(function_->jacobian());
+}
+
+void BetterDynamicLinearizedConstraint::updateb()
+{
+  b_ = function_->value() + function_->velocity() + function_->normalAcc();
+  std::cout << "update BetterDynamicLinearizedConstraint::updateb" << std::endl;
+}
+
