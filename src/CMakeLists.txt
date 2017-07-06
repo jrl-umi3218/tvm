@@ -10,6 +10,7 @@ set(TVM_SOURCES
   ResolutionScheme.cpp
   Robot.cpp
   SolvingRequirements
+  TaskDynamics.cpp
   Time.cpp
   Variable.cpp)
 
@@ -39,6 +40,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
   ${TVM_INCLUDE_DIR}/../Task.h
+  ${TVM_INCLUDE_DIR}/../TaskDynamics.h
   ${TVM_INCLUDE_DIR}/../Time.h
   #${TVM_INCLUDE_DIR}/../UpdateChecker.h
   ${TVM_INCLUDE_DIR}/../Variable.h)
