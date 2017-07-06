@@ -89,8 +89,8 @@ protected:
    * dependencies at the same time.
    *
    */
-  template<typename U = T, typename EnumU, typename S, typename EnumO>
-  void addDirectDependency(EnumU o, std::shared_ptr<S> source, EnumO i);
+  template<typename U = T, typename EnumO, typename S, typename EnumI>
+  void addDirectDependency(EnumO o, std::shared_ptr<S> source, EnumI i);
 };
 
 } // namespace data

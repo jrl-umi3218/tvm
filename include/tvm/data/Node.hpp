@@ -143,11 +143,11 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Ar
 }
 
 template<typename T>
-template<typename U, typename EnumU, typename S, typename EnumO>
-inline void Node<T>::addDirectDependency(EnumU o, std::shared_ptr<S> source, EnumO i)
+template<typename U, typename EnumO, typename S, typename EnumI>
+inline void Node<T>::addDirectDependency(EnumO o, std::shared_ptr<S> source, EnumI i)
 {
-  static_assert(is_valid_output<U>(EnumU()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
-  static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
+  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_output<S>(EnumI()), "Invalid output for this type of source.");
   if (!U::OutputStaticallyEnabled(o))
   {
     std::stringstream ss;
