@@ -7,9 +7,11 @@ set(TVM_SOURCES
   FirstOrderProvider.cpp
   Function.cpp
   LinearConstraint.cpp
+  #LinearizedTaskConstraint.cpp
   ResolutionScheme.cpp
   Robot.cpp
-  SolvingRequirements
+  SolvingRequirements.cpp
+  Task.cpp
   TaskDynamics.cpp
   Time.cpp
   Variable.cpp)
@@ -29,6 +31,7 @@ set(TVM_HEADERS
 # Temporary
   ${TVM_INCLUDE_DIR}/../CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
+  ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../defs.h
   ${TVM_INCLUDE_DIR}/../errors.h
@@ -36,6 +39,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
+  #${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h

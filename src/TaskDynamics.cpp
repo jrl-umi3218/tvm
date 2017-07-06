@@ -19,7 +19,7 @@ namespace tvm
       addInputDependency(Update::UpdateValue, f, internal::FirstOrderProvider::Output::Value);
       if (order_ == TDOrder::Dynamics)
       {
-        addInput(f, Function::Output::Velocity); //FIXME it's not great to have to resort to internal::FirstOrderProvider
+        addInput(f, Function::Output::Velocity);
         addInputDependency(Update::UpdateValue, f, Function::Output::Velocity);
       }
       value_.resize(f->size());

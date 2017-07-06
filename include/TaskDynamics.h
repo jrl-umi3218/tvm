@@ -4,8 +4,10 @@
 
 #include <Eigen/Core>
 
+#include <tvm/api.h>
 #include <tvm/data/Node.h>
 
+//FIXME add mechanisms for when the function's output is resized
 
 namespace tvm
 {
@@ -17,7 +19,7 @@ namespace tvm
 
   class Function;
 
-  class TaskDynamics : public data::Node<TaskDynamics>
+  class TVM_DLLAPI TaskDynamics : public data::Node<TaskDynamics>
   {
   public:
     SET_OUTPUTS(TaskDynamics, Value)
@@ -45,7 +47,7 @@ namespace tvm
     *
     * FIXME have a version with diagonal or sdp gain matrix
     */
-  class ProportionalDynamics : public TaskDynamics
+  class TVM_DLLAPI ProportionalDynamics : public TaskDynamics
   {
   public:
     ProportionalDynamics(double kp);
@@ -60,7 +62,7 @@ namespace tvm
   *
   * FIXME have a version with diagonal or sdp gain matrices
   */
-  class ProportionalDerivativeDynamics : public TaskDynamics
+  class TVM_DLLAPI ProportionalDerivativeDynamics : public TaskDynamics
   {
   public:
     /** General constructor*/

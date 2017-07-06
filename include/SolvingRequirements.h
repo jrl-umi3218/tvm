@@ -19,6 +19,8 @@ namespace tvm
     *  - while not having to multiply the overload for the method adding the 
     *    task (there are 65 combinations!) and avoiding heavy variadic template 
     *    shenanigans.
+    *
+    * FIXME: should we add the notion of row selection here as well ?
     */
 
   /** The different type of requirements on how to solve a constraint. See the
