@@ -10,16 +10,16 @@ namespace tvm
 {
   namespace utils
   {
+    /** This class wraps a CompiledAssignment so as to hide the template
+      * machinery. The three member functions of CompiledAssignment are 
+      * exposed: run, setFrom, setTo.
+      */
     template<typename MatrixType>
     struct CompiledAssignmentWrapper
     {
-      CompiledAssignmentWrapper() {
-        std::cout << "default constructor" << std::endl;
-      }
       CompiledAssignmentWrapper(const CompiledAssignmentWrapper<MatrixType>& other);
       CompiledAssignmentWrapper(CompiledAssignmentWrapper<MatrixType>&& other);
-      CompiledAssignmentWrapper<MatrixType>& operator=(const CompiledAssignmentWrapper<MatrixType>& other);
-      CompiledAssignmentWrapper<MatrixType>& operator=(CompiledAssignmentWrapper<MatrixType>&& other);
+      CompiledAssignmentWrapper<MatrixType>& operator=(CompiledAssignmentWrapper<MatrixType> other);
       ~CompiledAssignmentWrapper();
 
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
@@ -34,6 +34,11 @@ namespace tvm
       std::function<void(const Eigen::Ref<MatrixType>&)> setTo;
 
     private:
+      CompiledAssignmentWrapper() = default;
+
+      template<typename T>
+      friend void pseudoSwap(CompiledAssignmentWrapper<T>&, CompiledAssignmentWrapper<T>&);
+
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
       void construct(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to,
         double s, const typename MatrixMultBase<M, P>::MultType* const m);
@@ -53,49 +58,29 @@ namespace tvm
 
       std::function<void()> delete_;
       std::function<void(CompiledAssignmentWrapper*)> copy_;
-      std::function<void(CompiledAssignmentWrapper*)> move_;
       std::function<void(CompiledAssignmentWrapper*)> build_;
     };
 
     template<typename MatrixType>
     inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(const CompiledAssignmentWrapper<MatrixType>& other)
     {
-      std::cout << "copy constructor" << std::endl;
       other.copy_(this);
       this->build_ = other.build_;
-      other.build_(this);
+      build_(this);
     }
 
     template<typename MatrixType>
     inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(CompiledAssignmentWrapper<MatrixType>&& other)
     {
-      std::cout << "move constructor" << std::endl;
-      other.move_(this);
-      this->build_ = other.build_;
-      other.build_(this);
+      pseudoSwap(*this, other);
+      build_(this);
     }
 
     template<typename MatrixType>
-    inline CompiledAssignmentWrapper<MatrixType>& CompiledAssignmentWrapper<MatrixType>::operator=(const CompiledAssignmentWrapper<MatrixType>& other)
+    inline CompiledAssignmentWrapper<MatrixType>& CompiledAssignmentWrapper<MatrixType>::operator=(CompiledAssignmentWrapper<MatrixType> other)
     {
-      std::cout << "assign operator" << std::endl;
-
-      if (&other == this) { return *this; }
-      delete_();
-      other.copy_(this);
-      other.build_(this);
-      return *this;
-
-    }
-    template<typename MatrixType>
-    inline CompiledAssignmentWrapper<MatrixType>& CompiledAssignmentWrapper<MatrixType>::operator=(CompiledAssignmentWrapper<MatrixType>&& other)
-    {
-      std::cout << "move assign operator" << std::endl;
-      
-      if (&other == this) { return *this; }
-      delete_();
-      other.move_(this);
-      other.build_(this);
+      pseudoSwap(*this, other);
+      build_(this);
       return *this;
     }
 
@@ -153,19 +138,11 @@ namespace tvm
       {
         wrapper->delete_ = [wrapper]()
         {
-          std::cout << "delete lambda" << std::endl;
           delete static_cast<CA*>(wrapper->compiledAssignment_);
         };
         wrapper->copy_ = [wrapper](Wrapper* other)
         {
-          std::cout << "copy lambda" << std::endl;
           other->compiledAssignment_ = static_cast<void*>(new CA(*(static_cast<CA*>(wrapper->compiledAssignment_))));
-        };
-        wrapper->move_ = [wrapper](Wrapper* other)
-        {
-          std::cout << "move lambda" << std::endl;
-          other->compiledAssignment_ = wrapper->compiledAssignment_;
-          wrapper->compiledAssignment_ = nullptr;
         };
 
         wrapper->run = [wrapper]()
@@ -181,6 +158,21 @@ namespace tvm
           static_cast<CA*>(wrapper->compiledAssignment_)->setTo(to);
         };
       };
+    }
+
+    template<typename MatrixType>
+    inline void pseudoSwap(CompiledAssignmentWrapper<MatrixType>& first, CompiledAssignmentWrapper<MatrixType>& second)
+    {
+      using std::swap;
+      swap(first.compiledAssignment_, second.compiledAssignment_);
+      swap(first.build_, second.build_);
+
+      /* if we want to make it a real swap, we need to ad this:
+      if (first.build_) first.build_(first);
+      if (second.build_) second.build_(second);
+
+      However, this adds some costs for something we don't really need.
+      */
     }
   } // utils
 } // tvm

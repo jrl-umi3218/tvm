@@ -7,6 +7,7 @@
 #include <iostream>
 
 void testCompiledAssignment();
+void testCompiledAssignmentWrapper();
 void outputSelectorTest();
 void linearConstraintTest();
 void testSolvingRequirements();
@@ -209,13 +210,14 @@ int main()
   //testVariable();
   //testDataGraphSimple();
   //testBadGraph();
-  testDataGraphComplex();
+  //testDataGraphComplex();
   //outputSelectorTest();
   //linearConstraintTest();
   //testSolvingRequirements();
 
 
   //testCompiledAssignment();
+  testCompiledAssignmentWrapper();
 
 #ifdef WIN32
   system("pause");

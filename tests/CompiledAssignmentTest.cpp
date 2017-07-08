@@ -306,5 +306,11 @@ void testCompiledAssignmentWrapper()
   for (const auto& assignment : a)
     assignment.run();
 
+  MatrixXd C(3, 7);
+  a[2].setFrom(A1);
+  a[2].setTo(C);
+  a[2].run();
+
   std::cout << B << std::endl;
+  std::cout << C << std::endl;
 }
