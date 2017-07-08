@@ -235,11 +235,12 @@ namespace tvm
       *  - s is a scalar, user supplied if S is SCALAR, +/-1 otherwise
       *  - M is a matrix, either the identity or user-supplied, depending on 
       *    the template parameter M (see MatrixMult)
+      * If UseFrom is set to false, we have F=0.
       *
       * This class is meant to be a helper class and should not live on its own,
       * but be create by a higher-level class ensuring its data are valid.
       */
-    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, bool UseFrom=true>
     struct CompiledAssignment
       : public CachedResult<MatrixType, cache_traits<MatrixType, A, S, M, P>::value>
       , public AssignBase<A>
@@ -260,18 +261,61 @@ namespace tvm
 
       void setFrom(const Eigen::Ref<const MatrixType>& from)
       {
-        from_ = from;
+        // We want to do from_ = from but there is no operator= for Eigen::Ref, 
+        // so we need to use a placement new.
+        new (&from_) Eigen::Ref<const MatrixType>(from);
       }
 
       void setTo(const Eigen::Ref<MatrixType>& to)
       {
-        to_ = to;
+        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+        // so we need to use a placement new.
+        new (&to_) Eigen::Ref<MatrixType>(to);
       }
 
     private:
       /** Warning: it is the user responsability to ensure that the matrix/vector
         * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
       Eigen::Ref<const MatrixType> from_;
+      Eigen::Ref<MatrixType> to_;
+    };
+
+
+    /** Specialization for F=0. The class does nothing in the general case.*/
+    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+    struct CompiledAssignment<MatrixType, A, S, M, P, false>
+    {
+      CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
+      void run() {/* Do nothing */ }
+      void setFrom(const Eigen::Ref<const MatrixType>& from) {/* Do nothing */}
+      void setTo(const Eigen::Ref<MatrixType>& to) 
+      { 
+        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+        // so we need to use a placement new.
+        new (&to_) Eigen::Ref<MatrixType>(to);
+      }
+
+    private:
+      Eigen::Ref<typename MatrixType> to_;
+    };
+
+
+    /** Specialization for F=0 and A=REPLACE.*/
+    template<typename MatrixType, ScalarMult S, MatrixMult M, MultPos P>
+    struct CompiledAssignment<MatrixType, REPLACE, S, M, P, false>
+    {
+      CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
+
+      void run() { to_.setZero(); }
+      void setFrom(const Eigen::Ref<const MatrixType>& from) {/* Do nothing */ }
+      void setTo(const Eigen::Ref<MatrixType>& to) 
+      { 
+        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+        // so we need to use a placement new.
+        new (&to_) Eigen::Ref<MatrixType>(to);
+      }
+
+    private:
       Eigen::Ref<MatrixType> to_;
     };
 

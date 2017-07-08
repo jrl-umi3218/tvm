@@ -14,7 +14,8 @@ set(TVM_SOURCES
   Task.cpp
   TaskDynamics.cpp
   Time.cpp
-  Variable.cpp)
+  Variable.cpp
+  VariableVector.cpp)
 
 set(TVM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include/tvm)
 set(TVM_HEADERS
@@ -29,7 +30,9 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/enums.h
 
 # Temporary
+  ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../CompiledAssignment.h
+  ${TVM_INCLUDE_DIR}/../CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
@@ -47,7 +50,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../TaskDynamics.h
   ${TVM_INCLUDE_DIR}/../Time.h
   #${TVM_INCLUDE_DIR}/../UpdateChecker.h
-  ${TVM_INCLUDE_DIR}/../Variable.h)
+  ${TVM_INCLUDE_DIR}/../Variable.h
+  ${TVM_INCLUDE_DIR}/../VariableVector.h)
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")

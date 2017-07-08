@@ -1,7 +1,9 @@
 #include <iostream>
+#include <vector>
 
 #define AUTHORIZE_MALLOC_FOR_CACHE
 #include "CompiledAssignment.h"
+#include "CompiledAssignmentWrapper.h"
 
 using namespace Eigen;
 using namespace tvm::utils;
@@ -50,6 +52,12 @@ void assign(AssignType A, ScalarMult S, MatrixMult M, MultPos P,
   MatrixXd tmp2 = scalarMult(S, s, tmp1);
   MatrixXd tmp3 = runOperator(A, tmp2, to);
   to = tmp3;
+}
+
+void assign(AssignType A, Ref<MatrixXd> to)
+{
+  if (A == REPLACE)
+    to.setZero();
 }
 
 template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
@@ -114,6 +122,42 @@ struct Test
   {
     std::cout << "run (" << A << ", " << S << ", " << M << ", " << P << ")    " << std::flush;
     bool b = run(from, to);
+    std::cout << (b ? "ok" : "error") << std::endl;
+  }
+};
+
+template<AssignType A>
+struct TestNoFrom
+{
+  template<typename U>
+  static bool run(U& to)
+  {
+    typedef U MatrixType;
+    enum {
+      RowsAtCompileTime = MatrixType::RowsAtCompileTime,
+      ColsAtCompileTime = MatrixType::ColsAtCompileTime,
+      MaxRowsAtCompileTime = MatrixType::MaxRowsAtCompileTime,
+      MaxColsAtCompileTime = MatrixType::MaxColsAtCompileTime
+    };
+    typedef typename MatrixType::Scalar Scalar;
+    typedef Matrix<Scalar, RowsAtCompileTime, ColsAtCompileTime, ColMajor, MaxRowsAtCompileTime, MaxColsAtCompileTime> Type;
+
+    MatrixXd t = to;
+
+    Eigen::internal::set_is_malloc_allowed(false);
+    CompiledAssignment<Type, A, NONE, IDENTITY, POST, false> ca(to);
+    ca.run();
+    Eigen::internal::set_is_malloc_allowed(true);
+    assign(A, t);
+
+    return t.isApprox(to);
+  }
+
+  template<typename U>
+  static void runAndPrint(U& to)
+  {
+    std::cout << "no from run " << A << "    " << std::flush;
+    bool b = run(to);
     std::cout << (b ? "ok" : "error") << std::endl;
   }
 };
@@ -215,7 +259,19 @@ void testBatch(const U& from, V& to)
   Test<MAX, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
   Test<MAX, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
   Test<MAX, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+
+  TestNoFrom<REPLACE>::runAndPrint(to);
+  to.setRandom();
+  TestNoFrom<ADD>::runAndPrint(to);
+  to.setRandom();
+  TestNoFrom<SUB>::runAndPrint(to);
+  to.setRandom();
+  TestNoFrom<MIN>::runAndPrint(to);
+  to.setRandom();
+  TestNoFrom<MAX>::runAndPrint(to);
 }
+
+
 
 void testCompiledAssignment()
 {
@@ -228,4 +284,27 @@ void testCompiledAssignment()
   VectorXd a = VectorXd::Ones(5);
   VectorXd b = VectorXd::Zero(5);
   testBatch(a, b);
+}
+
+void testCompiledAssignmentWrapper()
+{
+  typedef CompiledAssignmentWrapper<MatrixXd> MatrixAssignment;
+  MatrixXd A1 = MatrixXd::Constant(3, 7, 1);
+  MatrixXd A2 = MatrixXd::Constant(2, 7, 2);
+  MatrixXd A3 = MatrixXd::Constant(3, 7, 3);
+  MatrixXd A4 = MatrixXd::Constant(4, 7, 4);
+  MatrixXd B = MatrixXd::Ones(12, 7);
+  double s = 2;
+  VectorXd w = Vector3d(1, 2, 3);
+
+  std::vector<MatrixAssignment> a;
+  a.push_back(MatrixAssignment::make<ADD, NONE, IDENTITY, PRE>(A1, B.middleRows(0, 3)));
+  a.push_back(MatrixAssignment::make<REPLACE, MINUS, IDENTITY, PRE>(A2, B.middleRows(3, 2)));
+  a.push_back(MatrixAssignment::make<REPLACE, NONE, DIAGONAL, PRE>(A3, B.middleRows(5, 3), 1, &w));
+  a.push_back(MatrixAssignment::make<REPLACE, SCALAR, IDENTITY, PRE>(A4, B.middleRows(8, 4), s));
+
+  for (const auto& assignment : a)
+    assignment.run();
+
+  std::cout << B << std::endl;
 }
