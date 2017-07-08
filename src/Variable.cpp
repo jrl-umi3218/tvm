@@ -1,4 +1,5 @@
 #include "Variable.h"
+#include "VariableVector.h"
 
 #include <sstream>
 
@@ -123,6 +124,22 @@ namespace tvm
       ptr = ptr->primitive_.get();
 
     return ptr->primitive_;
+  }
+
+  Range Variable::getMappingIn(const VariableVector& variables) const
+  {
+    if (mappingHelper_.stamp == variables.stamp())
+      return{ mappingHelper_.start, size() };
+    else
+    {
+      if (variables.contains(*this))
+      {
+        variables.computeMapping();
+        return{ mappingHelper_.start, size() };
+      }
+      else
+        throw std::runtime_error("This variables is not part of the vector of variables.");
+    }
   }
 
   Variable::Variable(const Space & s, const std::string & name)

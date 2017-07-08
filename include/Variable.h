@@ -12,6 +12,14 @@
 namespace tvm
 {
   class Variable;
+  class VariableVector;
+  
+  struct Range
+  {
+    int start;
+    int dim;
+  };
+
 
   class TVM_DLLAPI Space
   {
@@ -47,9 +55,17 @@ namespace tvm
     std::shared_ptr<Variable> primitive() const;
     std::shared_ptr<Variable> basePrimitive() const;
 
+    Range getMappingIn(const VariableVector& variables) const;
+
   protected:
 
   private:
+    struct MappingHelper
+    {
+      int start;
+      int stamp;
+    };
+
     /** Constructor for a new variable */
     Variable(const Space& s, const std::string& name);
 
@@ -79,9 +95,12 @@ namespace tvm
     /** If the variable has a time derivative, keep a pointer on it */
     std::weak_ptr<Variable> derivative_;
 
+    /** A helper structure for mapping purpose*/
+    mutable MappingHelper mappingHelper_;
 
     /** friendship declaration */
     friend class TVM_DLLAPI Space;
     friend std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable>, int);
+    friend class TVM_DLLAPI VariableVector;
   };
 }
