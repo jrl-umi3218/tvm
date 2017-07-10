@@ -8,6 +8,8 @@
 
 namespace tvm
 {
+  class Assignment;
+
   namespace utils
   {
     /** This class wraps a CompiledAssignment so as to hide the template
@@ -38,6 +40,7 @@ namespace tvm
 
       template<typename T>
       friend void pseudoSwap(CompiledAssignmentWrapper<T>&, CompiledAssignmentWrapper<T>&);
+      friend class ::tvm::Assignment;
 
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
       void construct(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to,
@@ -46,7 +49,7 @@ namespace tvm
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
       void construct(const Eigen::Ref<MatrixType>& to);
 
-      template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, bool UseFrom>
+      template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
       void constructFunctions();
 
       /** We store the wrapped CompiledAssignment as a void*. This allows us to
@@ -113,8 +116,8 @@ namespace tvm
     inline void CompiledAssignmentWrapper<MatrixType>::construct(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to,
       double s, const typename MatrixMultBase<M, P>::MultType* const m)
     {
-      compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, true>(from, to, s, m);
-      constructFunctions<A, S, M, P, true>();
+      compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, EXTERNAL>(from, to, s, m);
+      constructFunctions<A, S, M, P, EXTERNAL>();
       build_(this);
     }
 
@@ -122,16 +125,16 @@ namespace tvm
     template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
     inline void CompiledAssignmentWrapper<MatrixType>::construct(const Eigen::Ref<MatrixType>& to)
     {
-      compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, false>(to);
-      constructFunctions<A, S, M, P, false>();
+      compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, ZERO>(to);
+      constructFunctions<A, S, M, P, ZERO>();
       build_(this);
     }
 
     template<typename MatrixType>
-    template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, bool UseFrom>
+    template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
     inline void CompiledAssignmentWrapper<MatrixType>::constructFunctions()
     {
-      typedef CompiledAssignment<MatrixType, A, S, M, P, UseFrom> CA;
+      typedef CompiledAssignment<MatrixType, A, S, M, P, F> CA;
       typedef CompiledAssignmentWrapper<MatrixType> Wrapper;
 
       build_ = [](Wrapper* wrapper)

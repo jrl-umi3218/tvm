@@ -16,8 +16,8 @@ MatrixXd runOperator(AssignType A, const MatrixXd& from, const MatrixXd& to)
   case REPLACE: return from; break;
   case ADD: return to + from; break;
   case SUB: return to - from; break;
-  case MIN: tmp = to; tmp.array().min(from.array()); return tmp; break;
-  case MAX: tmp = to; tmp.array().max(from.array()); return tmp; break;
+  case MIN: tmp = to.array().min(from.array()); return tmp; break;
+  case MAX: tmp = to.array().max(from.array()); return tmp; break;
   default: return{};
   }
 }
@@ -54,21 +54,49 @@ void assign(AssignType A, ScalarMult S, MatrixMult M, MultPos P,
   to = tmp3;
 }
 
+//s*M*F or s*F*M
+void assign(AssignType A, ScalarMult S, MatrixMult M, MultPos P,
+  double from, Ref<MatrixXd> to, double s = 0, const MatrixXd& wOrM = MatrixXd())
+{
+  Eigen::DenseIndex r, c;
+  if (P == PRE)
+  {
+    c = to.cols();
+    if (M == GENERAL)
+      r = wOrM.cols();
+    else
+      r = to.rows();
+  }
+  else
+  {
+    r = to.rows();
+    if (M == GENERAL)
+      c = wOrM.rows();
+    else
+      c = to.cols();
+  }
+
+  MatrixXd tmp1 = matrixMult(M, P, MatrixXd::Constant(r,c,from), wOrM);
+  MatrixXd tmp2 = scalarMult(S, s, tmp1);
+  MatrixXd tmp3 = runOperator(A, tmp2, to);
+  to = tmp3;
+}
+
 void assign(AssignType A, Ref<MatrixXd> to)
 {
   if (A == REPLACE)
     to.setZero();
 }
 
-template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
 struct Test
 {
-  template<typename Derived1, typename U>
-  static bool run(const MatrixBase<Derived1>& from, U& to)
+  template<typename Derived, typename U>
+  static bool run(const MatrixBase<Derived>& from, U& to)
   {
     assert(from.rows() == to.rows() && from.cols() == to.cols());
 
-    typedef MatrixBase<Derived1> MatrixType;
+    typedef MatrixBase<Derived> MatrixType;
     enum {
       RowsAtCompileTime = MatrixType::RowsAtCompileTime,
       ColsAtCompileTime = MatrixType::ColsAtCompileTime,
@@ -109,7 +137,7 @@ struct Test
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    CompiledAssignment<Type, A, S, M, P> ca(from, to, s, &wOrM);
+    CompiledAssignment<Type, A, S, M, P, F> ca(from, to, s, &wOrM);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, S, M, P, f, t, s, wOrM);
@@ -117,12 +145,60 @@ struct Test
     return t.isApprox(to);
   }
 
-  template<typename Derived1, typename U>
-  static void runAndPrint(const MatrixBase<Derived1>& from, U& to)
+  template<typename U>
+  static bool run(double from, U& to)
   {
-    std::cout << "run (" << A << ", " << S << ", " << M << ", " << P << ")    " << std::flush;
+    //generate possibly needed multipliers
+    double s = 3;
+    Eigen::DenseIndex r, c;
+    if (M == DIAGONAL)
+    {
+      c = 1;
+      if (P == PRE)
+        r = to.rows();
+      else
+        r = 1;
+    }
+    else
+    {
+      if (P == PRE)
+      {
+        r = to.rows();
+        c = to.rows();
+      }
+      else
+      {
+        r = 1;
+        c = to.cols();
+      }
+    }
+    typename std::conditional<M == DIAGONAL, VectorXd, MatrixXd>::type wOrM(r, c);
+    wOrM.setRandom();
+
+    double f = from;
+    MatrixXd t = to;
+
+    Eigen::internal::set_is_malloc_allowed(false);
+    CompiledAssignment<VectorXd, A, S, M, P, F> ca(from, to, s, &wOrM);
+    ca.run();
+    Eigen::internal::set_is_malloc_allowed(true);
+    assign(A, S, M, P, f, t, s, wOrM);
+
+    return t.isApprox(to);
+  }
+
+  template<typename V, typename U>
+  static void runAndPrint(const U& from, V& to, typename std::enable_if<F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE)>::type * = nullptr)
+  {
+    std::cout << "run (" << A << ", " << S << ", " << M << ", " << P << ", " << F  << ")    " << std::flush;
     bool b = run(from, to);
     std::cout << (b ? "ok" : "error") << std::endl;
+  }
+
+  template<typename V, typename U>
+  static void runAndPrint(const U& from, V& to, typename std::enable_if<!(F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE))>::type * = nullptr)
+  {
+    std::cout << "run (" << A << ", " << S << ", " << M << ", " << P << ", " << F << ")    skiped (invalid combination)" << std::endl;
   }
 };
 
@@ -145,7 +221,7 @@ struct TestNoFrom
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    CompiledAssignment<Type, A, NONE, IDENTITY, POST, false> ca(to);
+    CompiledAssignment<Type, A, NONE, IDENTITY, POST, ZERO> ca(to);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, t);
@@ -162,103 +238,103 @@ struct TestNoFrom
   }
 };
 
-template<typename U, typename V>
+template<Source F=EXTERNAL, typename U, typename V>
 void testBatch(const U& from, V& to)
 {
-  Test<REPLACE, NONE, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<REPLACE, NONE, IDENTITY, POST>::runAndPrint(from, to);
-  Test<REPLACE, NONE, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, NONE, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<REPLACE, NONE, GENERAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, NONE, GENERAL, POST>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, IDENTITY, POST>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, GENERAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, MINUS, GENERAL, POST>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, IDENTITY, POST>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
-  Test<REPLACE, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+  Test<REPLACE, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, NONE, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, NONE, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, NONE, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, NONE, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, NONE, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, MINUS, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<REPLACE, SCALAR, GENERAL, POST, F>::runAndPrint(from, to);
 
-  Test<ADD, NONE, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<ADD, NONE, IDENTITY, POST>::runAndPrint(from, to);
-  Test<ADD, NONE, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<ADD, NONE, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<ADD, NONE, GENERAL, PRE>::runAndPrint(from, to);
-  Test<ADD, NONE, GENERAL, POST>::runAndPrint(from, to);
-  Test<ADD, MINUS, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<ADD, MINUS, IDENTITY, POST>::runAndPrint(from, to);
-  Test<ADD, MINUS, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<ADD, MINUS, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<ADD, MINUS, GENERAL, PRE>::runAndPrint(from, to);
-  Test<ADD, MINUS, GENERAL, POST>::runAndPrint(from, to);
-  Test<ADD, SCALAR, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<ADD, SCALAR, IDENTITY, POST>::runAndPrint(from, to);
-  Test<ADD, SCALAR, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<ADD, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<ADD, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
-  Test<ADD, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+  Test<ADD, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<ADD, NONE, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<ADD, NONE, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, NONE, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<ADD, NONE, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, NONE, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, MINUS, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<ADD, SCALAR, GENERAL, POST, F>::runAndPrint(from, to);
 
-  Test<SUB, NONE, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<SUB, NONE, IDENTITY, POST>::runAndPrint(from, to);
-  Test<SUB, NONE, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<SUB, NONE, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<SUB, NONE, GENERAL, PRE>::runAndPrint(from, to);
-  Test<SUB, NONE, GENERAL, POST>::runAndPrint(from, to);
-  Test<SUB, MINUS, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<SUB, MINUS, IDENTITY, POST>::runAndPrint(from, to);
-  Test<SUB, MINUS, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<SUB, MINUS, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<SUB, MINUS, GENERAL, PRE>::runAndPrint(from, to);
-  Test<SUB, MINUS, GENERAL, POST>::runAndPrint(from, to);
-  Test<SUB, SCALAR, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<SUB, SCALAR, IDENTITY, POST>::runAndPrint(from, to);
-  Test<SUB, SCALAR, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<SUB, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<SUB, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
-  Test<SUB, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+  Test<SUB, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<SUB, NONE, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<SUB, NONE, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, NONE, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<SUB, NONE, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, NONE, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, MINUS, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<SUB, SCALAR, GENERAL, POST, F>::runAndPrint(from, to);
 
-  Test<MIN, NONE, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MIN, NONE, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MIN, NONE, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MIN, NONE, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MIN, NONE, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MIN, NONE, GENERAL, POST>::runAndPrint(from, to);
-  Test<MIN, MINUS, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MIN, MINUS, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MIN, MINUS, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MIN, MINUS, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MIN, MINUS, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MIN, MINUS, GENERAL, POST>::runAndPrint(from, to);
-  Test<MIN, SCALAR, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MIN, SCALAR, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MIN, SCALAR, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MIN, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MIN, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MIN, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+  Test<MIN, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MIN, NONE, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MIN, NONE, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, NONE, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MIN, NONE, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, NONE, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, MINUS, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MIN, SCALAR, GENERAL, POST, F>::runAndPrint(from, to);
 
-  Test<MAX, NONE, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MAX, NONE, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MAX, NONE, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MAX, NONE, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MAX, NONE, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MAX, NONE, GENERAL, POST>::runAndPrint(from, to);
-  Test<MAX, MINUS, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MAX, MINUS, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MAX, MINUS, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MAX, MINUS, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MAX, MINUS, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MAX, MINUS, GENERAL, POST>::runAndPrint(from, to);
-  Test<MAX, SCALAR, IDENTITY, PRE>::runAndPrint(from, to);
-  Test<MAX, SCALAR, IDENTITY, POST>::runAndPrint(from, to);
-  Test<MAX, SCALAR, DIAGONAL, PRE>::runAndPrint(from, to);
-  Test<MAX, SCALAR, DIAGONAL, POST>::runAndPrint(from, to);
-  Test<MAX, SCALAR, GENERAL, PRE>::runAndPrint(from, to);
-  Test<MAX, SCALAR, GENERAL, POST>::runAndPrint(from, to);
+  Test<MAX, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MAX, NONE, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MAX, NONE, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, NONE, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MAX, NONE, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, NONE, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, MINUS, GENERAL, POST, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, IDENTITY, PRE, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, IDENTITY, POST, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, DIAGONAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, DIAGONAL, POST, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, GENERAL, PRE, F>::runAndPrint(from, to);
+  Test<MAX, SCALAR, GENERAL, POST, F>::runAndPrint(from, to);
 
   TestNoFrom<REPLACE>::runAndPrint(to);
   to.setRandom();
@@ -284,6 +360,7 @@ void testCompiledAssignment()
   VectorXd a = VectorXd::Ones(5);
   VectorXd b = VectorXd::Zero(5);
   testBatch(a, b);
+  testBatch<CONSTANT>(3, b);
 }
 
 void testCompiledAssignmentWrapper()

@@ -39,6 +39,12 @@ namespace tvm
       POST          // from*M
     };
 
+    enum Source
+    {
+      EXTERNAL,     // source is an external vector or matrix (main use-case)
+      ZERO,         // source is zero
+      CONSTANT      // source is a (non-zero) constant
+    };
 
     template<typename MatrixType, bool Cache>
     struct CachedResult
@@ -72,15 +78,18 @@ namespace tvm
 
 
     /** Traits for deciding whether or not to use a cache. By default, no cache is used.*/
-    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
     struct cache_traits : public std::false_type {};
 
     /** Specialization for min/max with general matrix product. In this case, we use the cache*/
     template<typename MatrixType, ScalarMult S, MultPos P>
-    struct cache_traits<MatrixType, MIN, S, GENERAL, P> : public std::true_type {};
+    struct cache_traits<MatrixType, MIN, S, GENERAL, P, EXTERNAL> : public std::true_type {};
     template<typename MatrixType, ScalarMult S, MultPos P>
-    struct cache_traits<MatrixType, MAX, S, GENERAL, P> : public std::true_type {};
-
+    struct cache_traits<MatrixType, MAX, S, GENERAL, P, EXTERNAL> : public std::true_type {};
+    /** Specialization for GENERAL*CONSTANT. This should not be necessary, but 
+      * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
+    template<typename MatrixType, AssignType A, ScalarMult S, MultPos P>
+    struct cache_traits<MatrixType, A, S, GENERAL, P, CONSTANT> : public std::true_type {};
 
     /** Base struct for the assignation */
     template<AssignType A>  struct AssignBase {};
@@ -90,6 +99,9 @@ namespace tvm
     {
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() = in; }
+
+      template <typename U>
+      void assign(double in, U& out) { out.setConstant(in); }
     };
 
     template<>
@@ -97,6 +109,9 @@ namespace tvm
     {
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() += in; }
+
+      template <typename U>
+      void assign(double in, U& out) { out.array() += in; }
     };
 
     template<>
@@ -104,20 +119,29 @@ namespace tvm
     {
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() -= in; }
+
+      template <typename U>
+      void assign(double in, U& out) { out.array() -= in; }
     };
 
     template<>
     struct AssignBase<MIN>
     {
       template <typename T, typename U>
-      void assign(const T& in, U& out) { out.array().min(in.array()); }
+      void assign(const T& in, U& out) { out.array() = out.array().min(in.array()); }
+
+      template <typename U>
+      void assign(double in, U& out) { out.array() = out.array().min(in); }
     };
 
     template<>
     struct AssignBase<MAX>
     {
       template <typename T, typename U>
-      void assign(const T& in, U& out) { out.array().max(in.array()); }
+      void assign(const T& in, U& out) { out.array() = out.array().max(in.array()); }
+
+      template <typename U>
+      void assign(double in, U& out) { out.array() = out.array().max(in); }
     };
 
 
@@ -139,6 +163,8 @@ namespace tvm
     struct ScalarMultBase<MINUS>
     {
       ScalarMultBase(double) {};
+
+      double applyScalarMult(const double& M) { return -M; }
 
       template<typename Derived>
       decltype(-std::declval<Eigen::MatrixBase<Derived> >()) applyScalarMult(const Eigen::MatrixBase<Derived>& M) { return -M; }
@@ -198,6 +224,12 @@ namespace tvm
       template<typename T>
       ReturnType<T, P> applyMatrixMult(const T& M);
 
+      /** overload for T=double, i.e. we emulate w_.asDiagonal()*VectorXd::Constant(size,cst)*/
+      decltype(double()*Eigen::VectorXd()) applyMatrixMult(const double& d)
+      {
+        return d*w_;
+      }
+
     private:
       const Eigen::VectorXd& w_;
     };
@@ -221,49 +253,85 @@ namespace tvm
       template<typename T>
       ReturnType<T, P> applyMatrixMult(const T& M);
 
+      decltype(Eigen::MatrixXd()*Eigen::VectorXd::Constant(1, 1)) applyMatrixMult(const double& d)
+      {
+        return M_*Eigen::VectorXd::Constant(M_.cols(), d);
+      }
+
     private:
       const Eigen::MatrixXd& M_;
     };
 
 
+    /** Base struct for managing the source*/
+    template<typename MatrixType, Source F>
+    struct SourceBase
+    {
+      using SourceType = typename std::conditional<F==CONSTANT, double, Eigen::Ref<const MatrixType>>::type;
 
-    /** The main class. Its run method perfoms the assignment T = op(T, s*M*F)
+      SourceBase(const SourceType& from) : from_(from) {}
+
+      const SourceType& from() const 
+      {
+        return from_;
+      }
+      
+      void setFrom(const SourceType& from)
+      {
+        // We want to do from_ = from but there is no operator= for Eigen::Ref, 
+        // so we need to use a placement new.
+        new (&from_) SourceType(from);
+      }
+
+    private:
+      SourceType from_;
+    };
+
+    /** Partial specialization for ZERO*/
+    template<typename MatrixType> 
+    struct SourceBase<MatrixType, ZERO> {};
+
+
+
+    /** The main class. Its run method perfoms the assignment t = op(t, s*M*f)
+      * (for P=PRE) or t = op(t, s*f*M) (for P=POST)
       * where
-      *  - T is the target matrix/vector
-      *  - F is the source matrix/vector
+      *  - t is the target matrix/vector
+      *  - f is the source matrix/vector
       *  - op is described by A
       *  - s is a scalar, user supplied if S is SCALAR, +/-1 otherwise
       *  - M is a matrix, either the identity or user-supplied, depending on 
       *    the template parameter M (see MatrixMult)
-      * If UseFrom is set to false, we have F=0.
+      * If F=EXTERNAl f is a user supplied Eigen::Ref<MatrixType>, if F=ZERO, 
+      * f=0 and if F=CONSTANT, f is a constant vector (vector only).
       *
       * This class is meant to be a helper class and should not live on its own,
       * but be create by a higher-level class ensuring its data are valid.
+      *
+      * FIXME get rid of PRE/POST and have the assignment t = op(t, s*M1*f*M2) 
+      * instead (needed for substitution in constraints with anistropic weight.
       */
-    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, bool UseFrom=true>
+    template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F=EXTERNAL>
     struct CompiledAssignment
-      : public CachedResult<MatrixType, cache_traits<MatrixType, A, S, M, P>::value>
+      : public CachedResult<MatrixType, cache_traits<MatrixType, A, S, M, P, F>::value>
       , public AssignBase<A>
       , public ScalarMultBase<S>
       , public MatrixMultBase<M, P>
+      , public SourceBase<MatrixType, F>
     {
-      CompiledAssignment(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to, double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr)
+      CompiledAssignment(const typename SourceBase<MatrixType, F>::SourceType& from, const Eigen::Ref<MatrixType>& to, double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr)
         : ScalarMultBase<S>(s)
         , MatrixMultBase<M, P>(m)
-        , from_(from)
-        , to_(to) {}
+        , SourceBase<MatrixType,F>(from)
+        , to_(to) 
+      {
+        static_assert(F == EXTERNAL || (MatrixType::ColsAtCompileTime == 1 && P == PRE), "For F=CONSTANT, only vector type and pre-multiplications are allowed");
+      }
 
       //FIXME shall we use the operator() instead of run, and make this class a functor ?
       void run()
       {
-        assign(cache(applyScalarMult(applyMatrixMult(from_))), to_);
-      }
-
-      void setFrom(const Eigen::Ref<const MatrixType>& from)
-      {
-        // We want to do from_ = from but there is no operator= for Eigen::Ref, 
-        // so we need to use a placement new.
-        new (&from_) Eigen::Ref<const MatrixType>(from);
+        assign(cache(applyScalarMult(applyMatrixMult(from()))), to_);
       }
 
       void setTo(const Eigen::Ref<MatrixType>& to)
@@ -276,14 +344,13 @@ namespace tvm
     private:
       /** Warning: it is the user responsability to ensure that the matrix/vector
         * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
-      Eigen::Ref<const MatrixType> from_;
       Eigen::Ref<MatrixType> to_;
     };
 
 
     /** Specialization for F=0. The class does nothing in the general case.*/
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
-    struct CompiledAssignment<MatrixType, A, S, M, P, false>
+    struct CompiledAssignment<MatrixType, A, S, M, P, ZERO>
     {
       CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
       void run() {/* Do nothing */ }
@@ -302,7 +369,7 @@ namespace tvm
 
     /** Specialization for F=0 and A=REPLACE.*/
     template<typename MatrixType, ScalarMult S, MatrixMult M, MultPos P>
-    struct CompiledAssignment<MatrixType, REPLACE, S, M, P, false>
+    struct CompiledAssignment<MatrixType, REPLACE, S, M, P, ZERO>
     {
       CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
 

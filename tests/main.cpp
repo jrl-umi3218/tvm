@@ -216,8 +216,8 @@ int main()
   //testSolvingRequirements();
 
 
-  //testCompiledAssignment();
-  testCompiledAssignmentWrapper();
+  testCompiledAssignment();
+  //testCompiledAssignmentWrapper();
 
 #ifdef WIN32
   system("pause");
