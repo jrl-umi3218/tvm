@@ -24,16 +24,18 @@ namespace tvm
       CompiledAssignmentWrapper<MatrixType>& operator=(CompiledAssignmentWrapper<MatrixType> other);
       ~CompiledAssignmentWrapper();
 
-      template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
-      static CompiledAssignmentWrapper make(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to,
+      template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, typename T>
+      static CompiledAssignmentWrapper make(const T& from, const Eigen::Ref<MatrixType>& to,
         double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr);
 
       template<AssignType A>
       static CompiledAssignmentWrapper makeNoFrom(const Eigen::Ref<MatrixType>& to);
 
       std::function<void()> run;
-      std::function<void(const Eigen::Ref<const MatrixType>&)> setFrom;
       std::function<void(const Eigen::Ref<MatrixType>&)> setTo;
+
+      void setFrom(double from);
+      void setFrom(const Eigen::Ref<const MatrixType>& from);
 
     private:
       CompiledAssignmentWrapper() = default;
@@ -44,6 +46,10 @@ namespace tvm
 
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
       void construct(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to,
+        double s, const typename MatrixMultBase<M, P>::MultType* const m);
+
+      template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+      void construct(double from, const Eigen::Ref<MatrixType>& to,
         double s, const typename MatrixMultBase<M, P>::MultType* const m);
 
       template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
@@ -62,6 +68,49 @@ namespace tvm
       std::function<void()> delete_;
       std::function<void(CompiledAssignmentWrapper*)> copy_;
       std::function<void(CompiledAssignmentWrapper*)> build_;
+      std::function<void(const Eigen::Ref<const MatrixType>&)> setFrom_;
+
+      template<Source F>
+      friend struct setFromHelper;
+    };
+
+    template<Source F>
+    struct setFromHelper
+    {
+      template<typename CA, typename MatrixType>
+      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
+      {
+        return [wrapper](const Eigen::Ref<const MatrixType>& from)
+        {
+          static_cast<CA*>(wrapper->compiledAssignment_)->setFrom(from);
+        };
+      }
+    };
+
+    template<>
+    struct setFromHelper<ZERO>
+    {
+      template<typename CA, typename MatrixType>
+      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
+      {
+        return [wrapper](const Eigen::Ref<const MatrixType>& from)
+        {
+          //do nothing
+        };
+      }
+    };
+
+    template<>
+    struct setFromHelper<CONSTANT>
+    {
+      template<typename CA, typename MatrixType>
+      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
+      {
+        return [wrapper](const Eigen::Ref<const MatrixType>& from)
+        {
+          static_cast<CA*>(wrapper->compiledAssignment_)->setFrom(from[0]);
+        };
+      }
     };
 
     template<typename MatrixType>
@@ -94,8 +143,20 @@ namespace tvm
     }
 
     template<typename MatrixType>
-    template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
-    inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixType>::make(const Eigen::Ref<const MatrixType>& from, const Eigen::Ref<MatrixType>& to, double s, const typename MatrixMultBase<M, P>::MultType * const m)
+    inline void CompiledAssignmentWrapper<MatrixType>::setFrom(double from)
+    {
+      setFrom(Eigen::Matrix<double, 1, 1>::Constant(from));
+    }
+
+    template<typename MatrixType>
+    inline void CompiledAssignmentWrapper<MatrixType>::setFrom(const Eigen::Ref<const MatrixType>& from)
+    {
+      setFrom_(from);
+    }
+
+    template<typename MatrixType>
+    template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, typename T>
+    inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixType>::make(const T& from, const Eigen::Ref<MatrixType>& to, double s, const typename MatrixMultBase<M, P>::MultType * const m)
     {
       CompiledAssignmentWrapper<MatrixType> wrapper;
       wrapper.construct<A, S, M, P>(from, to, s, m);
@@ -118,6 +179,16 @@ namespace tvm
     {
       compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, EXTERNAL>(from, to, s, m);
       constructFunctions<A, S, M, P, EXTERNAL>();
+      build_(this);
+    }
+
+    template<typename MatrixType>
+    template<AssignType A, ScalarMult S, MatrixMult M, MultPos P>
+    inline void CompiledAssignmentWrapper<MatrixType>::construct(double from, const Eigen::Ref<MatrixType>& to,
+      double s, const typename MatrixMultBase<M, P>::MultType* const m)
+    {
+      compiledAssignment_ = new CompiledAssignment<MatrixType, A, S, M, P, CONSTANT>(from, to, s, m);
+      constructFunctions<A, S, M, P, CONSTANT>();
       build_(this);
     }
 
@@ -152,10 +223,9 @@ namespace tvm
         {
           static_cast<CA*>(wrapper->compiledAssignment_)->run();
         };
-        wrapper->setFrom = [wrapper](const Eigen::Ref<const MatrixType>& from)
-        {
-          static_cast<CA*>(wrapper->compiledAssignment_)->setFrom(from);
-        };
+
+        wrapper->setFrom_ = setFromHelper<F>::construct<CA>(wrapper);
+
         wrapper->setTo = [wrapper](const Eigen::Ref<MatrixType>& to)
         {
           static_cast<CA*>(wrapper->compiledAssignment_)->setTo(to);
