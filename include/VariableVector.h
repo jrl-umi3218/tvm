@@ -44,7 +44,7 @@ namespace tvm
     /** Number of variables*/
     int numberOfVariables() const;
     /** Elementwise access*/
-    std::shared_ptr<Variable> operator[](int i) const;
+    const std::shared_ptr<Variable> operator[](int i) const;
     /** whole vector access*/
     const std::vector<std::shared_ptr<Variable>>& variables() const;
 

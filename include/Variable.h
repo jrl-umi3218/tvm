@@ -16,6 +16,8 @@ namespace tvm
   
   struct Range
   {
+    Range() = default;
+    Range(int s, int d) : start(s), dim(d) {}
     int start;
     int dim;
   };

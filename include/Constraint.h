@@ -30,6 +30,8 @@ namespace tvm
     *
     * It manages the enabling/disabling of the outputs L, U and E (depending 
     * on its type), and the memory of the associated cache.
+    *
+    * FIXME: have the updateValue here and add an output check()
     */
   class TVM_DLLAPI Constraint : public data::OutputSelector<ConstraintBase>
   {

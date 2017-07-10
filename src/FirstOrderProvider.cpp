@@ -9,6 +9,7 @@ namespace tvm
     FirstOrderProvider::FirstOrderProvider(int m)
       : m_(m)
     {
+      resizeCache(); //resize value_
     }
 
     const Eigen::VectorXd& FirstOrderProvider::value() const

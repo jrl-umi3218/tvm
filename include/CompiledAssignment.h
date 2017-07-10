@@ -39,6 +39,13 @@ namespace tvm
       POST          // from*M
     };
 
+    /** Note there are two considerations for explicitly introducing the 
+      * CONSTANT case (versus requiring the user to give a Ref to a constant
+      * vector):
+      *  - we can deal with it more efficiently
+      *  - we take care automatically of any change of size of to or of the
+      *    multiplier matrix.
+      */
     enum Source
     {
       EXTERNAL,     // source is an external vector or matrix (main use-case)

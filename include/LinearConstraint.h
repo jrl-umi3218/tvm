@@ -51,7 +51,7 @@ namespace tvm
     void setA(const MatrixConstRef& A);
     void setb(const VectorConstRef& b);
     void setl(const VectorConstRef& l);
-    void setu(const VectorConstRef& l);
+    void setu(const VectorConstRef& u);
 
   private:
     void add(const Eigen::MatrixXd& A, std::shared_ptr<Variable> x);

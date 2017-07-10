@@ -8,6 +8,7 @@
 #include <tvm/data/Node.h>
 
 //FIXME add mechanisms for when the function's output is resized
+//FIXME Consider the possibility of having variables in task dynamics?
 
 namespace tvm
 {

@@ -68,7 +68,7 @@ namespace tvm
     return static_cast<int>(variables_.size());
   }
 
-  std::shared_ptr<Variable> VariableVector::operator[](int i) const
+  const std::shared_ptr<Variable> VariableVector::operator[](int i) const
   {
     assert(i >= 0 && i < numberOfVariables());
     return variables_[i];

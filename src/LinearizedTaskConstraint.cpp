@@ -1,6 +1,7 @@
 #include "Function.h"
 #include "LinearizedTaskConstraint.h"
 #include "TaskDynamics.h"
+#include "Variable.h"
 
 
 namespace tvm
@@ -36,9 +37,15 @@ namespace tvm
     }
 
     if (task.taskDynamics()->order() == TDOrder::Kinematics)
+    {
+      for (auto& v : f_->variables())
+        addVariable(dot(v));
       registerUpdates(Update::UpdateRHS, kin);
+    }
     else
     {
+      for (auto& v : f_->variables())
+        addVariable(dot(v,2));
       registerUpdates(Update::UpdateRHS, dyn);
       addInputDependency<LTC>(Update::UpdateRHS, f_, Function::Output::NormalAcceleration);
     }
