@@ -8,6 +8,7 @@
 
 void testCompiledAssignment();
 void testCompiledAssignmentWrapper();
+void testAssignment();
 void outputSelectorTest();
 void linearConstraintTest();
 void testSolvingRequirements();
@@ -216,8 +217,9 @@ int main()
   //testSolvingRequirements();
 
 
-  testCompiledAssignment();
+  //testCompiledAssignment();
   //testCompiledAssignmentWrapper();
+  testAssignment();
 
 #ifdef WIN32
   system("pause");

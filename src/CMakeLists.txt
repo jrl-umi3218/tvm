@@ -1,5 +1,7 @@
 set(TVM_SOURCES
   data/Inputs.cpp
+  Assignment.cpp
+  AssignmentTarget.cpp
   CallGraph.cpp
   Constraint.cpp
   ControlProblem.cpp
@@ -31,6 +33,7 @@ set(TVM_HEADERS
 
 # Temporary
   ${TVM_INCLUDE_DIR}/../Assignment.h
+  ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/../CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/../CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/../Constraint.h

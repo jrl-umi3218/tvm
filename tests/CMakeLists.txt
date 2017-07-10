@@ -6,6 +6,7 @@ if(WIN32)
 endif()
 
 set(TESTSOURCES
+    AssignmentTest.cpp
     CompiledAssignmentTest.cpp
     ConstraintTest.cpp
     main.cpp
