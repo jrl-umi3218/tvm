@@ -53,7 +53,7 @@ void testSolvingRequirements()
   {
     SolvingRequirements s({ PriorityLevel(1), PriorityLevel(2) });
   }
-  catch (std::exception e)
+  catch (const std::exception & e)
   {
     std::cout << "catch expected exception: " << e.what() << std::endl;
   }
@@ -62,7 +62,7 @@ void testSolvingRequirements()
   {
     SolvingRequirements s({ PriorityLevel(-1) });
   }
-  catch (std::exception e)
+  catch (const std::exception & e)
   {
     std::cout << "catch expected exception: " << e.what() << std::endl;
   }
@@ -71,7 +71,7 @@ void testSolvingRequirements()
   {
     SolvingRequirements s({ Weight(-1) });
   }
-  catch (std::exception e)
+  catch (const std::exception & e)
   {
     std::cout << "catch expected exception: " << e.what() << std::endl;
   }
@@ -80,7 +80,7 @@ void testSolvingRequirements()
   {
     SolvingRequirements s({ AnisotropicWeight(Vector3d(-1,2,3)) });
   }
-  catch (std::exception e)
+  catch (const std::exception & e)
   {
     std::cout << "catch expected exception: " << e.what() << std::endl;
   }

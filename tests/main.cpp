@@ -106,7 +106,7 @@ void testBadGraph()
                         SomeRobotFunction2::Output::NormalAcceleration,
                         SomeRobotFunction2::Output::JDot);
   }
-  catch (std::exception e)
+  catch (const std::exception & e)
   {
     std::cout << e.what() << std::endl;
   }
@@ -119,7 +119,7 @@ void testBadGraph()
   tvm::CallGraph g2;
   g2.add(user2);
   try { g2.update(); }
-  catch (std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
+  catch (const std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
@@ -129,7 +129,7 @@ void testBadGraph()
   tvm::CallGraph g3;
   g3.add(user3);
   try { g3.update(); }
-  catch (std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
+  catch (const std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 

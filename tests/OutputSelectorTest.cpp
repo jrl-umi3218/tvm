@@ -87,8 +87,8 @@ void outputSelectorTest()
 
   p5.manualEnable(Provider4::Output::O6);
   try { p5.manualEnable(Provider1::Output::O1); }
-  catch (std::exception e) { std::cout << "catched exception: " << e.what() << std::endl; }
+  catch (const std::exception & e) { std::cout << "catched exception: " << e.what() << std::endl; }
   p5.lock();
   try { p5.manualDisable(Provider1::Output::O2); }
-  catch (std::exception e) { std::cout << "catched exception: " << e.what() << std::endl; }
+  catch (const std::exception & e) { std::cout << "catched exception: " << e.what() << std::endl; }
 }
