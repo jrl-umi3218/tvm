@@ -49,7 +49,7 @@ namespace tvm
       */
     template <typename T>
     constexpr bool is_output_selector() {
-      return decltype(is_output_selector_impl(std::declval<T>()))::value;
+      return decltype(is_output_selector_impl(std::declval<const T&>()))::value;
     }
 
     /** This class adds to its template argument the capability to enable or
@@ -81,17 +81,17 @@ namespace tvm
         : OutputProvider(std::forward<Args>(args)...)
       {
         static_assert(std::is_base_of<Outputs, OutputProvider>::value, "Cannot build for a type that is not derived of Outputs");
-        dynamicallyEnabled_.resize(OutputProvider::OutputSize, true);
+        this->dynamicallyEnabled_.resize(OutputProvider::OutputSize, true);
       }
 
       /** Lock the outputs, preventing them to be enabled or disabled. */
-      void lock() { locked_ = true; }
+      void lock() { this->locked_ = true; }
 
       /** Unlock the outputs, allowing them to be enabled or disabled. */
-      void unlock() { locked_ = false; }
+      void unlock() { this->locked_ = false; }
 
       /** Check if the outputs are locked. */
-      bool isLocked() const { return locked_; }
+      bool isLocked() const { return this->locked_; }
 
     protected:
       /** Disable an output. The enum must refer to an existing output. */
@@ -101,8 +101,8 @@ namespace tvm
         if (!is_valid_output<OutputProvider>(e))
           throw std::runtime_error("You can only disable outputs that are part of the class.");
         
-        if (!locked_)
-          dynamicallyEnabled_[static_cast<size_t>(e)] = false;
+        if (!this->locked_)
+          this->dynamicallyEnabled_[static_cast<size_t>(e)] = false;
         else
           throw std::runtime_error("Outputs have been locked, you cannot disable one.");
       }
@@ -122,11 +122,11 @@ namespace tvm
         if (!is_valid_output<OutputProvider>(e))
           throw std::runtime_error("You can only disable outputs that are part of the class.");
 
-        if (!isOutputStaticallyEnabled(static_cast<int>(e)))
+        if (!this->isOutputStaticallyEnabled(static_cast<int>(e)))
           throw std::runtime_error("You can not enable outputs that are statically disabled.");
 
-        if (!locked_)
-          dynamicallyEnabled_[static_cast<size_t>(e)] = true;
+        if (!this->locked_)
+          this->dynamicallyEnabled_[static_cast<size_t>(e)] = true;
         else
           throw std::runtime_error("Outputs have been locked, you cannot enable one.");
       }
@@ -142,9 +142,9 @@ namespace tvm
       /** Override the method of Outputs to get the desired enable/disable behavior. */
       virtual bool isOutputCustomEnabled(int e) const override
       {
-        if (e < 0 || e >= static_cast<int>(dynamicallyEnabled_.size()))
+        if (e < 0 || e >= static_cast<int>(this->dynamicallyEnabled_.size()))
           throw std::runtime_error("Enum value is invalid");
-        return dynamicallyEnabled_[e];
+        return this->dynamicallyEnabled_[e];
       }
     };
   }

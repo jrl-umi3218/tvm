@@ -196,7 +196,7 @@ struct Test
   }
 
   template<typename V, typename U>
-  static void runAndPrint(const U& from, V& to, typename std::enable_if<!(F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE))>::type * = nullptr)
+  static void runAndPrint(const U&/*from*/, V& /*to*/, typename std::enable_if<!(F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE))>::type * = nullptr)
   {
     std::cout << "run (" << A << ", " << S << ", " << M << ", " << P << ", " << F << ")    skiped (invalid combination)" << std::endl;
   }
@@ -239,7 +239,7 @@ struct TestNoFrom
 };
 
 template<Source F=EXTERNAL, typename U, typename V>
-void testBatch(const U& from, V& to)
+void testBatch(const U & from, V && to)
 {
   Test<REPLACE, NONE, IDENTITY, PRE, F>::runAndPrint(from, to);
   Test<REPLACE, NONE, IDENTITY, POST, F>::runAndPrint(from, to);

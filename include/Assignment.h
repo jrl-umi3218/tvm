@@ -94,31 +94,31 @@ namespace tvm
   inline utils::CompiledAssignmentWrapper<T> Assignment::createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip)
   {
     using namespace utils;
-    typedef typename CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type> Wrapper;
+    typedef typename utils::CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type> Wrapper;
 
     if (requirements_.anisotropicWeight().isDefault())
     {
       if (requirements_.weight().isDefault())
       {
         if (flip)
-          return Wrapper::make<REPLACE, MINUS, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<REPLACE, MINUS, IDENTITY, PRE>(from, to);
         else
-          return Wrapper::make<REPLACE, NONE, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<REPLACE, NONE, IDENTITY, PRE>(from, to);
       }
       else
       {
         if (flip)
-          return Wrapper::make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
+          return Wrapper::template make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
         else
-          return Wrapper::make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, alpha_);
+          return Wrapper::template make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, alpha_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
+        return Wrapper::template make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
       else
-        return Wrapper::make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
+        return Wrapper::template make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
     }
   }
 }

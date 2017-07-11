@@ -225,11 +225,11 @@ namespace tvm
       /** Return type of T*VectorXd.asDiagonal() */
       template<typename T>
       using PostType = decltype(std::declval<T>()*Eigen::VectorXd().asDiagonal());
-      template<typename T, MultPos P>
+      template<typename T>
       using ReturnType = typename std::conditional<P == PRE, PreType<T>, PostType<T>>::type;
 
       template<typename T>
-      ReturnType<T, P> applyMatrixMult(const T& M);
+      ReturnType<T> applyMatrixMult(const T& M);
 
       /** overload for T=double, i.e. we emulate w_.asDiagonal()*VectorXd::Constant(size,cst)*/
       decltype(double()*Eigen::VectorXd()) applyMatrixMult(const double& d)
@@ -254,11 +254,11 @@ namespace tvm
       /** Return type of T*MatrixXd */
       template<typename T>
       using PostType = decltype(std::declval<T>()*Eigen::MatrixXd());
-      template<typename T, MultPos P>
+      template<typename T>
       using ReturnType = typename std::conditional<P == PRE, PreType<T>, PostType<T>>::type;
 
       template<typename T>
-      ReturnType<T, P> applyMatrixMult(const T& M);
+      ReturnType<T> applyMatrixMult(const T& M);
 
       decltype(Eigen::MatrixXd()*Eigen::VectorXd::Constant(1, 1)) applyMatrixMult(const double& d)
       {
@@ -338,7 +338,7 @@ namespace tvm
       //FIXME shall we use the operator() instead of run, and make this class a functor ?
       void run()
       {
-        assign(cache(applyScalarMult(applyMatrixMult(from()))), to_);
+        this->assign(this->cache(this->applyScalarMult(this->applyMatrixMult(this->from()))), to_);
       }
 
       void setTo(const Eigen::Ref<MatrixType>& to)
@@ -361,7 +361,7 @@ namespace tvm
     {
       CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
       void run() {/* Do nothing */ }
-      void setFrom(const Eigen::Ref<const MatrixType>& from) {/* Do nothing */}
+      void setFrom(const Eigen::Ref<const MatrixType>&) {/* Do nothing */}
       void setTo(const Eigen::Ref<MatrixType>& to) 
       { 
         // We want to do to_ = to but there is no operator= for Eigen::Ref, 
@@ -370,7 +370,7 @@ namespace tvm
       }
 
     private:
-      Eigen::Ref<typename MatrixType> to_;
+      Eigen::Ref<MatrixType> to_;
     };
 
 
@@ -381,7 +381,7 @@ namespace tvm
       CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
 
       void run() { to_.setZero(); }
-      void setFrom(const Eigen::Ref<const MatrixType>& from) {/* Do nothing */ }
+      void setFrom(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
       void setTo(const Eigen::Ref<MatrixType>& to) 
       { 
         // We want to do to_ = to but there is no operator= for Eigen::Ref, 
@@ -398,28 +398,28 @@ namespace tvm
 
     template<>
     template<typename T>
-    inline MatrixMultBase<DIAGONAL, PRE>::ReturnType<T, PRE> MatrixMultBase<DIAGONAL, PRE>::applyMatrixMult(const T& M)
+    inline MatrixMultBase<DIAGONAL, PRE>::ReturnType<T> MatrixMultBase<DIAGONAL, PRE>::applyMatrixMult(const T& M)
     {
       return w_.asDiagonal()*M;
     }
 
     template<>
     template<typename T>
-    inline MatrixMultBase<DIAGONAL, POST>::ReturnType<T, POST> MatrixMultBase<DIAGONAL, POST>::applyMatrixMult(const T& M)
+    inline MatrixMultBase<DIAGONAL, POST>::ReturnType<T> MatrixMultBase<DIAGONAL, POST>::applyMatrixMult(const T& M)
     {
       return M*w_.asDiagonal();
     }
 
     template<>
     template<typename T>
-    inline MatrixMultBase<GENERAL, PRE>::ReturnType<T, PRE> MatrixMultBase<GENERAL, PRE>::applyMatrixMult(const T& M)
+    inline MatrixMultBase<GENERAL, PRE>::ReturnType<T> MatrixMultBase<GENERAL, PRE>::applyMatrixMult(const T& M)
     {
       return M_*M;
     }
 
     template<>
     template<typename T>
-    inline MatrixMultBase<GENERAL, PRE>::ReturnType<T, POST> MatrixMultBase<GENERAL, POST>::applyMatrixMult(const T& M)
+    inline MatrixMultBase<GENERAL, POST>::ReturnType<T> MatrixMultBase<GENERAL, POST>::applyMatrixMult(const T& M)
     {
       return M*M_;
     }

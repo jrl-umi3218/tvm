@@ -93,7 +93,7 @@ namespace tvm
       template<typename CA, typename MatrixType>
       static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
       {
-        return [wrapper](const Eigen::Ref<const MatrixType>& from)
+        return [wrapper](const Eigen::Ref<const MatrixType>&)
         {
           //do nothing
         };
@@ -224,7 +224,7 @@ namespace tvm
           static_cast<CA*>(wrapper->compiledAssignment_)->run();
         };
 
-        wrapper->setFrom_ = setFromHelper<F>::construct<CA>(wrapper);
+        wrapper->setFrom_ = setFromHelper<F>::template construct<CA>(wrapper);
 
         wrapper->setTo = [wrapper](const Eigen::Ref<MatrixType>& to)
         {
