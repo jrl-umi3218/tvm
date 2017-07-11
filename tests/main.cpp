@@ -208,17 +208,17 @@ void testDataGraphComplex()
 
 int main()
 {
-  //testVariable();
-  //testDataGraphSimple();
-  //testBadGraph();
-  //testDataGraphComplex();
-  //outputSelectorTest();
-  //linearConstraintTest();
-  //testSolvingRequirements();
+  testVariable();
+  testDataGraphSimple();
+  testBadGraph();
+  testDataGraphComplex();
+  outputSelectorTest();
+  linearConstraintTest();
+  testSolvingRequirements();
 
 
-  //testCompiledAssignment();
-  //testCompiledAssignmentWrapper();
+  testCompiledAssignment();
+  testCompiledAssignmentWrapper();
   testAssignment();
 
 #ifdef WIN32

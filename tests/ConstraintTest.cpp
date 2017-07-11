@@ -1,5 +1,6 @@
 #include "LinearConstraint.h"
 #include "Variable.h"
+#include "errors.h"
 
 #include <iostream>
 
@@ -29,5 +30,13 @@ void linearConstraintTest()
 
   std::cout << C2.value().isApprox(C3.value()) << std::endl;
   std::cout << C2.u() << std::endl;
-  std::cout << C2.l() << std::endl;
+  try
+  {
+    // Should throw since C2 is LOWER_THAN
+    std::cout << C2.l() << std::endl;
+  }
+  catch(const tvm::UnusedOutput & exc)
+  {
+    std::cout << "Catch exception trying to access lower bound on a LOWER_THAN linear constraint: " << exc.what() << std::endl;
+  }
 }
