@@ -1,6 +1,10 @@
 #include <tvm/data/Node.h>
 #include <tvm/data/OutputSelector.h>
 
+// boost
+#define BOOST_TEST_MODULE OutputSelectorTest
+#include <boost/test/unit_test.hpp>
+
 #include <iostream>
 
 using namespace tvm::data;
@@ -12,7 +16,6 @@ public:
 
   Provider1()
   {
-    std::cout << " - adding O0 O1 O2" << std::endl;
   }
 };
 
@@ -24,8 +27,6 @@ public:
 
   Provider2()
   {
-    std::cout << " - adding O3 O4" << std::endl;
-    std::cout << " - statically disabling O1" << std::endl;
   }
 };
 
@@ -35,7 +36,6 @@ public:
   Provider3()
   {
     disableOutput(Provider1::Output::O1, Provider2::Output::O3);
-    std::cout << " - dynamically disabling O1 and O3" << std::endl;
   }
 };
 
@@ -46,7 +46,6 @@ public:
 
   Provider4()
   {
-    std::cout << " - adding O5 O6 O7" << std::endl;
   }
 };
 
@@ -56,7 +55,6 @@ public:
   Provider5()
   {
     disableOutput(Provider1::Output::O0, Provider4::Output::O6);
-    std::cout << " - dynamically disabling O0 and O6" << std::endl;
   }
 
   template<typename EnumT>
@@ -67,28 +65,30 @@ public:
 };
 
 
-void outputSelectorTest()
+BOOST_AUTO_TEST_CASE(OutputSelectorTest)
 {
-  std::cout << "Building Provider3" << std::endl;
   Provider3 p3;
-  std::cout << std::endl;
-  std::cout << "O0: " << p3.isOutputEnabled(Provider1::Output::O0) << std::endl;
-  std::cout << "O1: " << p3.isOutputEnabled(Provider1::Output::O1) << std::endl;
-  std::cout << "O2: " << p3.isOutputEnabled(Provider1::Output::O2) << std::endl;
-  std::cout << "O3: " << p3.isOutputEnabled(Provider2::Output::O3) << std::endl;
-  std::cout << "O4: " << p3.isOutputEnabled(Provider2::Output::O4) << std::endl;
-  std::cout << std::endl;
+  BOOST_CHECK(p3.isOutputEnabled(Provider1::Output::O0));
+  BOOST_CHECK(!p3.isOutputEnabled(Provider1::Output::O1));
+  BOOST_CHECK(p3.isOutputEnabled(Provider1::Output::O2));
+  BOOST_CHECK(!p3.isOutputEnabled(Provider2::Output::O3));
+  BOOST_CHECK(p3.isOutputEnabled(Provider2::Output::O4));
 
-  std::cout << "Building Provider5" << std::endl;
   Provider5 p5;
-  std::cout << std::endl;
   for (int i = 0; i < 8; ++i)
-    std::cout << "O" << i << ": " << p5.isOutputEnabled(i) << std::endl;
+  {
+    if(i != 0 && i != 1 && i != 3 && i != 6)
+    {
+      BOOST_CHECK(p5.isOutputEnabled(i));
+    }
+    else
+    {
+      BOOST_CHECK(!p5.isOutputEnabled(i));
+    }
+  }
 
   p5.manualEnable(Provider4::Output::O6);
-  try { p5.manualEnable(Provider1::Output::O1); }
-  catch (const std::exception & e) { std::cout << "catched exception: " << e.what() << std::endl; }
+  BOOST_CHECK_THROW(p5.manualEnable(Provider1::Output::O1), std::runtime_error);
   p5.lock();
-  try { p5.manualDisable(Provider1::Output::O2); }
-  catch (const std::exception & e) { std::cout << "catched exception: " << e.what() << std::endl; }
+  BOOST_CHECK_THROW(p5.manualDisable(Provider1::Output::O2), std::runtime_error);
 }

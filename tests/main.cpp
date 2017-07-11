@@ -6,13 +6,6 @@
 
 #include <iostream>
 
-void testCompiledAssignment();
-void testCompiledAssignmentWrapper();
-void testAssignment();
-void outputSelectorTest();
-void linearConstraintTest();
-void testSolvingRequirements();
-
 using namespace tvm;
 
 void testVariable()
@@ -212,14 +205,6 @@ int main()
   testDataGraphSimple();
   testBadGraph();
   testDataGraphComplex();
-  outputSelectorTest();
-  linearConstraintTest();
-  testSolvingRequirements();
-
-
-  testCompiledAssignment();
-  testCompiledAssignmentWrapper();
-  testAssignment();
 
 #ifdef WIN32
   system("pause");

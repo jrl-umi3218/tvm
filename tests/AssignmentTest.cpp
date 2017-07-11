@@ -10,11 +10,17 @@
 #include <Eigen/Core>
 #include <Eigen/QR>
 
+// boost
+#define BOOST_TEST_MODULE AssignmentTest
+#include <boost/test/unit_test.hpp>
 
 using namespace Eigen;
 
 using namespace tvm;
 using namespace tvm::utils;
+
+//FIXME see src/Assignment.cpp
+static const double large = 1e6;
 
 struct Constraints
 {
@@ -37,24 +43,19 @@ struct Constraints
 
 struct Memory
 {
-  Memory(int m, int n) : A(m, n), b(m), l(m), u(m) 
+  Memory(int m, int n) : A(m, n), b(m), l(m), u(m)
   {
     A.setZero();
     b.setZero();
     l.setZero();
     u.setZero();
   }
-    
+
   MatrixXd A;
   VectorXd b;
   VectorXd l;
   VectorXd u;
 };
-
-//struct Targets
-//{
-//  AssignmentTarget
-//};
 
 //Check if the constraint is satisfied for the current value of the variable
 bool check(std::shared_ptr<BasicLinearConstraint> c, const VectorXd& x)
@@ -128,12 +129,12 @@ Constraints buildConstraints(int m, int n)
 {
   Constraints cstr;
   std::shared_ptr<Variable> x = Space(n).createVariable("x");
-    
+
   //generate matrix
   MatrixXd A = MatrixXd::Random(m, n);
   VectorXd l = -VectorXd::Random(m).cwiseAbs();
   VectorXd u = VectorXd::Random(m).cwiseAbs();
-    
+
   //Point p0 such that Ap0 = 0
   cstr.p0 = A.householderQr().solve(VectorXd::Zero(m));
   //Point pl such that Apl = l
@@ -158,14 +159,13 @@ Constraints buildConstraints(int m, int n)
   return cstr;
 }
 
-void testAssignment()
+BOOST_AUTO_TEST_CASE(AssignmentTest)
 {
   Constraints cstr = buildConstraints(3, 7);
 
-  
   {
     auto mem = std::make_shared<Memory>(6, 7);
-    //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b 
+    //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, RHSType::AS_GIVEN);
     SolvingRequirements req({ Weight(2.) });
@@ -173,18 +173,17 @@ void testAssignment()
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
     a.run();
 
-    std::cout << "A=\n" << mem->A << std::endl;
-    std::cout << "l=\n" << mem->l.transpose() << std::endl;
-    std::cout << "u=\n" << mem->u.transpose() << std::endl;
+    {
+      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto & cstr_l = cstr.Ax_geq_minus_b->lNoCheck();
+      BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
+      BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
+      BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
+    }
 
-    bool b0 = (check(cstr.Ax_geq_minus_b, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
-    bool bl = (check(cstr.Ax_geq_minus_b, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
-    bool bu = (check(cstr.Ax_geq_minus_b, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
-    std::cout << "p0 is on the same side for original constraint and assigned constraint: " << b0 << std::endl;
-    std::cout << "pl is on the same side for original constraint and assigned constraint: " << bl << std::endl;
-    std::cout << "pu is on the same side for original constraint and assigned constraint: " << bu << std::endl;
-
-    std::cout << "\n --------------------------- \n" << std::endl;
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
 
     //now we change the range of the target and refresh the assignment
     range->start = 0;
@@ -194,31 +193,41 @@ void testAssignment()
     mem->u.setZero();
     a.run();
 
-    std::cout << "A=\n" << mem->A << std::endl;
-    std::cout << "l=\n" << mem->l.transpose() << std::endl;
-    std::cout << "u=\n" << mem->u.transpose() << std::endl;
-    std::cout << "\n --------------------------- \n" << std::endl;
-
+    {
+      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto & cstr_l = cstr.Ax_geq_minus_b->lNoCheck();
+      BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
+      BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
+      BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
+    }
   }
 
   {
     auto mem = std::make_shared<Memory>(6, 7);
-    //assignment to a target with convention Ax <= b, from convention l <= Ax <= u 
+    //assignment to a target with convention Ax <= b, from convention l <= Ax <= u
     auto range = std::make_shared<Range>(0, 6); //we need double range
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, RHSType::AS_GIVEN);
-    SolvingRequirements req({ AnisotropicWeight(Vector3d(1,2,3)) });
+    Eigen::Vector3d aW = {1., 2., 3.};
+    SolvingRequirements req({ AnisotropicWeight(aW) });
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();
 
-    std::cout << "A=\n" << mem->A << std::endl;
-    std::cout << "l=\n" << mem->b.transpose() << std::endl;
+    {
+      const auto & cstr_A = cstr.l_leq_Ax_leq_u->jacobian(*cstr.l_leq_Ax_leq_u->variables()[0]);
+      const auto & cstr_l = cstr.l_leq_Ax_leq_u->lNoCheck();
+      const auto & cstr_u = cstr.l_leq_Ax_leq_u->uNoCheck();
+      for(size_t i = 0; i < 3; ++i)
+      {
+        BOOST_CHECK(mem->A.row(i) == sqrt(aW(i))*cstr_A.row(i));
+        BOOST_CHECK(mem->A.row(i + 3) == -sqrt(aW(i))*cstr_A.row(i));
+        BOOST_CHECK(mem->b(i) == sqrt(aW(i))*cstr_u(i));
+        BOOST_CHECK(mem->b(i + 3) == -sqrt(aW(i))*cstr_l(i));
+      }
+    }
 
-    bool b0 = (check(cstr.l_leq_Ax_leq_u, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
-    bool bl = (check(cstr.l_leq_Ax_leq_u, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
-    bool bu = (check(cstr.l_leq_Ax_leq_u, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
-    std::cout << "p0 is on the same side for original constraint and assigned constraint: " << b0 << std::endl;
-    std::cout << "pl is on the same side for original constraint and assigned constraint: " << bl << std::endl;
-    std::cout << "pu is on the same side for original constraint and assigned constraint: " << bu << std::endl;
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
   }
 }
