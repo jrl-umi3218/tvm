@@ -18,8 +18,8 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   std::shared_ptr<Variable> x1 = Space(5).createVariable("x1");
   std::shared_ptr<Variable> x2 = Space(2).createVariable("x2");
 
-  x1->setValue(VectorXd::Random(5));
-  x2->setValue(VectorXd::Random(2));
+  x1->value(VectorXd::Random(5));
+  x2->value(VectorXd::Random(2));
 
   //A1x >= 0
   BasicLinearConstraint C1(A1, x1, ConstraintType::GREATER_THAN);

@@ -16,7 +16,7 @@ namespace tvm
   
   struct Range
   {
-    Range() = default;
+    Range() : start(0), dim(0) {}
     Range(int s, int d) : start(s), dim(d) {}
     int start;
     int dim;
@@ -51,7 +51,7 @@ namespace tvm
     int size() const;
     const Space& space() const;
     const Eigen::VectorXd& value() const;
-    void setValue(const VectorConstRef& x);
+    void value(const VectorConstRef& x);
     int derivativeNumber() const;
     bool isBasePrimitive() const;
     std::shared_ptr<Variable> primitive() const;

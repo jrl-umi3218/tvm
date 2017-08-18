@@ -38,7 +38,7 @@ namespace tvm
   void VariableVector::add(const std::vector<std::shared_ptr<Variable>>& variables, bool mergeDuplicate)
   {
     for (auto& v : variables)
-      add(v);
+      add(v, mergeDuplicate);
   }
 
   void VariableVector::remove(const Variable& v, bool ignoreAbsence)

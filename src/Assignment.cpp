@@ -26,22 +26,22 @@ namespace tvm
   void Assignment::refreshTarget()
   {
     for (auto& a : matrixAssignments_)
-      a.assignment.setTo((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
     for (auto& a : vectorAssignments_)
-      a.assignment.setTo((target_.*a.getTargetVector)());
+      a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::refreshMapping(const VariableVector & variables)
+  void Assignment::refreshMapping(const VariableVector& variables)
   {
     //TODO
   }
 
-  void Assignment::changeWeight(double alpha)
+  void Assignment::weight(double alpha)
   {
     //TODO
   }
 
-  void Assignment::changeWeight(const Eigen::VectorXd & w)
+  void Assignment::weight(const Eigen::VectorXd& w)
   {
     //TODO
   }
@@ -82,11 +82,11 @@ namespace tvm
       switch (target_.constraintType())
       {
       case ConstraintType::EQUAL:
-        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::getb, false);
+        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::b, false);
         break;
       case ConstraintType::DOUBLE_SIDED:
-        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::getl, false);
-        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::getu, false);
+        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::l, false);
+        addVectorAssignment(&LinearConstraint::e, &AssignmentTarget::u, false);
         break;
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
@@ -94,7 +94,7 @@ namespace tvm
       for (const auto& x : variables.variables())
       {
         Range cols = x->getMappingIn(variables);
-        addMatrixAssignment(x.get(), &AssignmentTarget::getA, cols, false);
+        addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
       }
     }
     else
@@ -115,10 +115,10 @@ namespace tvm
           for (const auto& x : variables.variables())
           {
             Range cols = x->getMappingIn(variables);
-            addMatrixAssignment(x.get(), &AssignmentTarget::getA, cols, false);
+            addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
           }
-          addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::getl, false);
-          addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::getu, false);
+          addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::l, false);
+          addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::u, false);
         }
         else
         {
@@ -126,20 +126,20 @@ namespace tvm
           for (const auto& x : variables.variables())
           {
             Range cols = x->getMappingIn(variables);
-            addMatrixAssignment(x.get(), &AssignmentTarget::getAFirstHalf, cols, false);
-            addMatrixAssignment(x.get(), &AssignmentTarget::getASecondHalf, cols, true);
+            addMatrixAssignment(x.get(), &AssignmentTarget::AFirstHalf, cols, false);
+            addMatrixAssignment(x.get(), &AssignmentTarget::ASecondHalf, cols, true);
           }
           if (target_.constraintType() == ConstraintType::GREATER_THAN)
           {
             //case 7
-            addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::getbFirstHalf, false);
-            addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::getbSecondHalf, true);
+            addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::bFirstHalf, false);
+            addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::bSecondHalf, true);
           }
           else
           {
             //case 8
-            addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::getbFirstHalf, false);
-            addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::getbSecondHalf, true);
+            addVectorAssignment(&LinearConstraint::u, &AssignmentTarget::bFirstHalf, false);
+            addVectorAssignment(&LinearConstraint::l, &AssignmentTarget::bSecondHalf, true);
           }
         }
       }
@@ -158,24 +158,24 @@ namespace tvm
         case ConstraintType::EQUAL:
           throw std::runtime_error("Impossible to assign inequality source for equality target.");
         case ConstraintType::GREATER_THAN:
-          addVectorAssignment(f, &AssignmentTarget::getb, flip);  // RHS for cases 1 and 4
+          addVectorAssignment(f, &AssignmentTarget::b, flip);  // RHS for cases 1 and 4
           break;
         case ConstraintType::LOWER_THAN:
-          addVectorAssignment(f, &AssignmentTarget::getb, !flip);  // RHS for cases 2 and 5
+          addVectorAssignment(f, &AssignmentTarget::b, !flip);  // RHS for cases 2 and 5
           break;
         case ConstraintType::DOUBLE_SIDED:
           flip = false; // for case 3 and 6, the signe of A and C are the same
           if (source_->constraintType() == ConstraintType::GREATER_THAN)
           {
             //case 3
-            addVectorAssignment(f, &AssignmentTarget::getl, false);
-            addConstantAssignment(large, &AssignmentTarget::getu);
+            addVectorAssignment(f, &AssignmentTarget::l, false);
+            addConstantAssignment(large, &AssignmentTarget::u);
           }
           else
           {
             //case 5
-            addVectorAssignment(f, &AssignmentTarget::getu, false);
-            addConstantAssignment(-large, &AssignmentTarget::getl);
+            addVectorAssignment(f, &AssignmentTarget::u, false);
+            addConstantAssignment(-large, &AssignmentTarget::l);
           }
           break;
         }
@@ -183,7 +183,7 @@ namespace tvm
         for (const auto& x : variables.variables())
         {
           Range cols = x->getMappingIn(variables);
-          addMatrixAssignment(x.get(), &AssignmentTarget::getA, cols, flip);
+          addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, flip);
         }
       }
     }
@@ -236,7 +236,7 @@ namespace tvm
     }
     else
     {
-      auto w = utils::CompiledAssignmentWrapper<Eigen::VectorXd>::makeNoFrom<utils::REPLACE>(to);
+      auto w = utils::CompiledAssignmentWrapper<Eigen::VectorXd>::make<utils::COPY>(to);
       vectorAssignments_.push_back({ w, false, nullptr, v });
     }
   }

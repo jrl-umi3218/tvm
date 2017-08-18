@@ -8,13 +8,63 @@
 
 namespace tvm
 {
+  namespace utils
+  {
+    template<typename MatrixType> struct CompiledAssignmentWrapper;
+  }
+}
+
+namespace
+{
+  template<tvm::utils::Source F>
+  struct from_FunctionBuilder
+  {
+    template<typename CA, typename MatrixType>
+    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+    {
+      return [wrapper](const Eigen::Ref<const MatrixType>& from)
+      {
+        static_cast<CA*>(wrapper->compiledAssignment_)->from(from);
+      };
+    }
+  };
+
+  template<>
+  struct from_FunctionBuilder<tvm::utils::Source::ZERO>
+  {
+    template<typename CA, typename MatrixType>
+    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+    {
+      return [wrapper](const Eigen::Ref<const MatrixType>&)
+      {
+        //do nothing
+      };
+    }
+  };
+
+  template<>
+  struct from_FunctionBuilder<tvm::utils::Source::CONSTANT>
+  {
+    template<typename CA, typename MatrixType>
+    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+    {
+      return [wrapper](const Eigen::Ref<const MatrixType>& from)
+      {
+        static_cast<CA*>(wrapper->compiledAssignment_)->from(from[0]);
+      };
+    }
+  };
+}
+
+namespace tvm
+{
   class Assignment;
 
   namespace utils
   {
     /** This class wraps a CompiledAssignment so as to hide the template
       * machinery. The three member functions of CompiledAssignment are 
-      * exposed: run, setFrom, setTo.
+      * exposed: run, from, to.
       */
     template<typename MatrixType>
     struct CompiledAssignmentWrapper
@@ -29,13 +79,13 @@ namespace tvm
         double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr);
 
       template<AssignType A>
-      static CompiledAssignmentWrapper makeNoFrom(const Eigen::Ref<MatrixType>& to);
+      static CompiledAssignmentWrapper make(const Eigen::Ref<MatrixType>& to);
 
       std::function<void()> run;
-      std::function<void(const Eigen::Ref<MatrixType>&)> setTo;
+      std::function<void(const Eigen::Ref<MatrixType>&)> to;
 
-      void setFrom(double from);
-      void setFrom(const Eigen::Ref<const MatrixType>& from);
+      void from(double from);
+      void from(const Eigen::Ref<const MatrixType>& from);
 
     private:
       CompiledAssignmentWrapper() = default;
@@ -68,49 +118,10 @@ namespace tvm
       std::function<void()> delete_;
       std::function<void(CompiledAssignmentWrapper*)> copy_;
       std::function<void(CompiledAssignmentWrapper*)> build_;
-      std::function<void(const Eigen::Ref<const MatrixType>&)> setFrom_;
+      std::function<void(const Eigen::Ref<const MatrixType>&)> from_;
 
       template<Source F>
-      friend struct setFromHelper;
-    };
-
-    template<Source F>
-    struct setFromHelper
-    {
-      template<typename CA, typename MatrixType>
-      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
-      {
-        return [wrapper](const Eigen::Ref<const MatrixType>& from)
-        {
-          static_cast<CA*>(wrapper->compiledAssignment_)->setFrom(from);
-        };
-      }
-    };
-
-    template<>
-    struct setFromHelper<ZERO>
-    {
-      template<typename CA, typename MatrixType>
-      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
-      {
-        return [wrapper](const Eigen::Ref<const MatrixType>&)
-        {
-          //do nothing
-        };
-      }
-    };
-
-    template<>
-    struct setFromHelper<CONSTANT>
-    {
-      template<typename CA, typename MatrixType>
-      static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(CompiledAssignmentWrapper<MatrixType>* wrapper)
-      {
-        return [wrapper](const Eigen::Ref<const MatrixType>& from)
-        {
-          static_cast<CA*>(wrapper->compiledAssignment_)->setFrom(from[0]);
-        };
-      }
+      friend struct from_FunctionBuilder;
     };
 
     template<typename MatrixType>
@@ -143,15 +154,15 @@ namespace tvm
     }
 
     template<typename MatrixType>
-    inline void CompiledAssignmentWrapper<MatrixType>::setFrom(double from)
+    inline void CompiledAssignmentWrapper<MatrixType>::from(double from)
     {
-      setFrom(Eigen::Matrix<double, 1, 1>::Constant(from));
+      from(Eigen::Matrix<double, 1, 1>::Constant(from));
     }
 
     template<typename MatrixType>
-    inline void CompiledAssignmentWrapper<MatrixType>::setFrom(const Eigen::Ref<const MatrixType>& from)
+    inline void CompiledAssignmentWrapper<MatrixType>::from(const Eigen::Ref<const MatrixType>& from)
     {
-      setFrom_(from);
+      from_(from);
     }
 
     template<typename MatrixType>
@@ -165,7 +176,7 @@ namespace tvm
 
     template<typename MatrixType>
     template<AssignType A>
-    inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixType>::makeNoFrom(const Eigen::Ref<MatrixType>& to)
+    inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixType>::make(const Eigen::Ref<MatrixType>& to)
     {
       CompiledAssignmentWrapper<MatrixType> wrapper;
       wrapper.construct<A, NONE, IDENTITY, PRE>(to);
@@ -224,11 +235,11 @@ namespace tvm
           static_cast<CA*>(wrapper->compiledAssignment_)->run();
         };
 
-        wrapper->setFrom_ = setFromHelper<F>::template construct<CA>(wrapper);
+        wrapper->from_ = from_FunctionBuilder<F>::template construct<CA>(wrapper);
 
-        wrapper->setTo = [wrapper](const Eigen::Ref<MatrixType>& to)
+        wrapper->to = [wrapper](const Eigen::Ref<MatrixType>& to)
         {
-          static_cast<CA*>(wrapper->compiledAssignment_)->setTo(to);
+          static_cast<CA*>(wrapper->compiledAssignment_)->to(to);
         };
       };
     }

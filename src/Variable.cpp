@@ -94,7 +94,7 @@ namespace tvm
     return value_;
   }
 
-  void Variable::setValue(const VectorConstRef& x)
+  void Variable::value(const VectorConstRef& x)
   {
     if (x.size() == size())
       value_ = x;

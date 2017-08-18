@@ -9,15 +9,19 @@ namespace tvm
 {
   namespace utils
   {
+    /** Specify in which way \a from is assigned to \a to.*/
     enum AssignType
     {
-      REPLACE,      // to =  from
+      COPY,         // to =  from
       ADD,          // to += from
       SUB,          // to -= from
       MIN,          // to = min(to, from)
       MAX           // to = max(to, from)
     };
 
+    /** Specify whether \a from is to be multiplied by 1, -1 or a user 
+      * specified scalar.
+      */
     enum ScalarMult
     {
       NONE,         // from
@@ -25,6 +29,9 @@ namespace tvm
       SCALAR        // s*from
     };
 
+    /** Specify if from is to be multiplied a matrix, and if so, what is the 
+      * type of the matrix.
+      */
     enum MatrixMult
     {
       IDENTITY,     // from
@@ -33,13 +40,15 @@ namespace tvm
       TBD
     };
 
+    /** Specify if from is to be left- or right- multiplied by the matrix.*/
     enum MultPos
     {
       PRE,          // M*from
       POST          // from*M
     };
 
-    /** Note there are two considerations for explicitly introducing the 
+    /** The type of the source.
+      * Note there are two considerations for explicitly introducing the 
       * CONSTANT case (versus requiring the user to give a Ref to a constant
       * vector):
       *  - we can deal with it more efficiently
@@ -102,7 +111,7 @@ namespace tvm
     template<AssignType A>  struct AssignBase {};
 
     template<>
-    struct AssignBase<REPLACE>
+    struct AssignBase<COPY>
     {
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() = in; }
@@ -283,7 +292,7 @@ namespace tvm
         return from_;
       }
       
-      void setFrom(const SourceType& from)
+      void from(const SourceType& from)
       {
         // We want to do from_ = from but there is no operator= for Eigen::Ref, 
         // so we need to use a placement new.
@@ -341,7 +350,7 @@ namespace tvm
         this->assign(this->cache(this->applyScalarMult(this->applyMatrixMult(this->from()))), to_);
       }
 
-      void setTo(const Eigen::Ref<MatrixType>& to)
+      void to(const Eigen::Ref<MatrixType>& to)
       {
         // We want to do to_ = to but there is no operator= for Eigen::Ref, 
         // so we need to use a placement new.
@@ -361,8 +370,8 @@ namespace tvm
     {
       CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
       void run() {/* Do nothing */ }
-      void setFrom(const Eigen::Ref<const MatrixType>&) {/* Do nothing */}
-      void setTo(const Eigen::Ref<MatrixType>& to) 
+      void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */}
+      void to(const Eigen::Ref<MatrixType>& to) 
       { 
         // We want to do to_ = to but there is no operator= for Eigen::Ref, 
         // so we need to use a placement new.
@@ -374,15 +383,15 @@ namespace tvm
     };
 
 
-    /** Specialization for F=0 and A=REPLACE.*/
+    /** Specialization for F=0 and A=COPY.*/
     template<typename MatrixType, ScalarMult S, MatrixMult M, MultPos P>
-    struct CompiledAssignment<MatrixType, REPLACE, S, M, P, ZERO>
+    struct CompiledAssignment<MatrixType, COPY, S, M, P, ZERO>
     {
       CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
 
       void run() { to_.setZero(); }
-      void setFrom(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
-      void setTo(const Eigen::Ref<MatrixType>& to) 
+      void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
+      void to(const Eigen::Ref<MatrixType>& to) 
       { 
         // We want to do to_ = to but there is no operator= for Eigen::Ref, 
         // so we need to use a placement new.

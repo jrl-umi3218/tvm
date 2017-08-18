@@ -46,22 +46,22 @@ namespace tvm
 
     /** Return the (range.dim x colDim) block of A starting at
     *(range.start,colStart) */
-    MatrixRef getA(int colStart, int colDim) const;
+    MatrixRef A(int colStart, int colDim) const;
     /** Return the segment of l defined by range. */
-    VectorRef getl() const;
+    VectorRef l() const;
     /** Return the segment of u defined by range. */
-    VectorRef getu() const;
+    VectorRef u() const;
     /** Return the segment of b defined by range. */
-    VectorRef getb() const;
+    VectorRef b() const;
 
-    /** Same as getA, and getb, but return only the first or second half of 
+    /** Same as A(...), and b(), but return only the first or second half of 
       * the row range. This is necessary when double-sided constraints are
       * assigned to matrix/vector with single-sided convention
       */
-    MatrixRef getAFirstHalf(int colStart, int colDim) const;
-    MatrixRef getASecondHalf(int colStart, int colDim) const;
-    VectorRef getbFirstHalf() const;
-    VectorRef getbSecondHalf() const;
+    MatrixRef AFirstHalf(int colStart, int colDim) const;
+    MatrixRef ASecondHalf(int colStart, int colDim) const;
+    VectorRef bFirstHalf() const;
+    VectorRef bSecondHalf() const;
 
   private:
     /** Constraint type convention*/

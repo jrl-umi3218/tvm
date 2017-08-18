@@ -32,45 +32,45 @@ namespace tvm
     return rhsType_;
   }
 
-  MatrixRef AssignmentTarget::getA(int colStart, int colDim) const
+  MatrixRef AssignmentTarget::A(int colStart, int colDim) const
   {
     return MatrixRef((*A_).block(range_->start, colStart, range_->dim, colDim));
   }
 
-  VectorRef AssignmentTarget::getl() const
+  VectorRef AssignmentTarget::l() const
   {
     return VectorRef((*l_).segment(range_->start, range_->dim));
   }
   
-  VectorRef AssignmentTarget::getu() const
+  VectorRef AssignmentTarget::u() const
   {
     return VectorRef((*u_).segment(range_->start, range_->dim));
   }
   
-  VectorRef AssignmentTarget::getb() const
+  VectorRef AssignmentTarget::b() const
   {
     return VectorRef((*b_).segment(range_->start, range_->dim));
   }
 
-  MatrixRef AssignmentTarget::getAFirstHalf(int colStart, int colDim) const
+  MatrixRef AssignmentTarget::AFirstHalf(int colStart, int colDim) const
   {
     const int half = range_->dim / 2;
     return MatrixRef((*A_).block(range_->start, colStart, half, colDim));
   }
   
-  MatrixRef AssignmentTarget::getASecondHalf(int colStart, int colDim) const
+  MatrixRef AssignmentTarget::ASecondHalf(int colStart, int colDim) const
   {
     const int half = range_->dim / 2;
     return MatrixRef((*A_).block(range_->start+half, colStart, half, colDim));
   }
   
-  VectorRef AssignmentTarget::getbFirstHalf() const
+  VectorRef AssignmentTarget::bFirstHalf() const
   {
     const int half = range_->dim / 2;
     return VectorRef((*b_).segment(range_->start, half));
   }
   
-  VectorRef AssignmentTarget::getbSecondHalf() const
+  VectorRef AssignmentTarget::bSecondHalf() const
   {
     const int half = range_->dim / 2;
     return VectorRef((*b_).segment(range_->start + half, half));

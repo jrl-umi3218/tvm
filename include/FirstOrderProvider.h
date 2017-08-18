@@ -59,10 +59,6 @@ namespace tvm
       virtual void removeVariable_(std::shared_ptr<Variable>);
 
       // cache
-      //FIXME should this be made private with protected accessor? 
-      //In particular, we would like to be sure that elements of jacobian are
-      //accessed with the at() method, not the [] operator, so as to avoid adding
-      //accidentally a variable.
       Eigen::VectorXd value_;
       std::map<Variable const*, Eigen::MatrixXd> jacobian_;
 

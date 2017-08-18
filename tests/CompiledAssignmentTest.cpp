@@ -16,7 +16,7 @@ MatrixXd runOperator(AssignType A, const MatrixXd& from, const MatrixXd& to)
   MatrixXd tmp;
   switch (A)
   {
-  case REPLACE: return from; break;
+  case COPY: return from; break;
   case ADD: return to + from; break;
   case SUB: return to - from; break;
   case MIN: tmp = to.array().min(from.array()); return tmp; break;
@@ -87,7 +87,7 @@ void assign(AssignType A, ScalarMult S, MatrixMult M, MultPos P,
 
 void assign(AssignType A, Ref<MatrixXd> to)
 {
-  if (A == REPLACE)
+  if (A == COPY)
     to.setZero();
 }
 
@@ -233,24 +233,24 @@ struct TestNoFrom
 template<Source F=EXTERNAL, typename U, typename V>
 void testBatch(const U & from, V && to)
 {
-  Test<REPLACE, NONE, IDENTITY, PRE, F>::run(from, to);
-  Test<REPLACE, NONE, IDENTITY, POST, F>::run(from, to);
-  Test<REPLACE, NONE, DIAGONAL, PRE, F>::run(from, to);
-  Test<REPLACE, NONE, DIAGONAL, POST, F>::run(from, to);
-  Test<REPLACE, NONE, GENERAL, PRE, F>::run(from, to);
-  Test<REPLACE, NONE, GENERAL, POST, F>::run(from, to);
-  Test<REPLACE, MINUS, IDENTITY, PRE, F>::run(from, to);
-  Test<REPLACE, MINUS, IDENTITY, POST, F>::run(from, to);
-  Test<REPLACE, MINUS, DIAGONAL, PRE, F>::run(from, to);
-  Test<REPLACE, MINUS, DIAGONAL, POST, F>::run(from, to);
-  Test<REPLACE, MINUS, GENERAL, PRE, F>::run(from, to);
-  Test<REPLACE, MINUS, GENERAL, POST, F>::run(from, to);
-  Test<REPLACE, SCALAR, IDENTITY, PRE, F>::run(from, to);
-  Test<REPLACE, SCALAR, IDENTITY, POST, F>::run(from, to);
-  Test<REPLACE, SCALAR, DIAGONAL, PRE, F>::run(from, to);
-  Test<REPLACE, SCALAR, DIAGONAL, POST, F>::run(from, to);
-  Test<REPLACE, SCALAR, GENERAL, PRE, F>::run(from, to);
-  Test<REPLACE, SCALAR, GENERAL, POST, F>::run(from, to);
+  Test<COPY, NONE, IDENTITY, PRE, F>::run(from, to);
+  Test<COPY, NONE, IDENTITY, POST, F>::run(from, to);
+  Test<COPY, NONE, DIAGONAL, PRE, F>::run(from, to);
+  Test<COPY, NONE, DIAGONAL, POST, F>::run(from, to);
+  Test<COPY, NONE, GENERAL, PRE, F>::run(from, to);
+  Test<COPY, NONE, GENERAL, POST, F>::run(from, to);
+  Test<COPY, MINUS, IDENTITY, PRE, F>::run(from, to);
+  Test<COPY, MINUS, IDENTITY, POST, F>::run(from, to);
+  Test<COPY, MINUS, DIAGONAL, PRE, F>::run(from, to);
+  Test<COPY, MINUS, DIAGONAL, POST, F>::run(from, to);
+  Test<COPY, MINUS, GENERAL, PRE, F>::run(from, to);
+  Test<COPY, MINUS, GENERAL, POST, F>::run(from, to);
+  Test<COPY, SCALAR, IDENTITY, PRE, F>::run(from, to);
+  Test<COPY, SCALAR, IDENTITY, POST, F>::run(from, to);
+  Test<COPY, SCALAR, DIAGONAL, PRE, F>::run(from, to);
+  Test<COPY, SCALAR, DIAGONAL, POST, F>::run(from, to);
+  Test<COPY, SCALAR, GENERAL, PRE, F>::run(from, to);
+  Test<COPY, SCALAR, GENERAL, POST, F>::run(from, to);
 
   Test<ADD, NONE, IDENTITY, PRE, F>::run(from, to);
   Test<ADD, NONE, IDENTITY, POST, F>::run(from, to);
@@ -328,7 +328,7 @@ void testBatch(const U & from, V && to)
   Test<MAX, SCALAR, GENERAL, PRE, F>::run(from, to);
   Test<MAX, SCALAR, GENERAL, POST, F>::run(from, to);
 
-  TestNoFrom<REPLACE>::run(to);
+  TestNoFrom<COPY>::run(to);
   to.setRandom();
   TestNoFrom<ADD>::run(to);
   to.setRandom();
@@ -369,16 +369,16 @@ BOOST_AUTO_TEST_CASE(CompiledAssignmentWrapperTest)
 
   std::vector<MatrixAssignment> a;
   a.push_back(MatrixAssignment::make<ADD, NONE, IDENTITY, PRE>(A1, B.middleRows(0, 3)));
-  a.push_back(MatrixAssignment::make<REPLACE, MINUS, IDENTITY, PRE>(A2, B.middleRows(3, 2)));
-  a.push_back(MatrixAssignment::make<REPLACE, NONE, DIAGONAL, PRE>(A3, B.middleRows(5, 3), 1, &w));
-  a.push_back(MatrixAssignment::make<REPLACE, SCALAR, IDENTITY, PRE>(A4, B.middleRows(8, 4), s));
+  a.push_back(MatrixAssignment::make<COPY, MINUS, IDENTITY, PRE>(A2, B.middleRows(3, 2)));
+  a.push_back(MatrixAssignment::make<COPY, NONE, DIAGONAL, PRE>(A3, B.middleRows(5, 3), 1, &w));
+  a.push_back(MatrixAssignment::make<COPY, SCALAR, IDENTITY, PRE>(A4, B.middleRows(8, 4), s));
 
   for (const auto& assignment : a)
     assignment.run();
 
   MatrixXd C(3, 7);
-  a[2].setFrom(A1);
-  a[2].setTo(C);
+  a[2].from(A1);
+  a[2].to(C);
   a[2].run();
 
   BOOST_CHECK(B.middleRows(0, 3) == A1 + B_ref.middleRows(0,3));

@@ -19,17 +19,17 @@ namespace tvm
   class VariableVector;
 
   /** A class whose role is to assign efficiently the matrix and vector(s) of a
-    * LinearConstraint to a part of matrix and vector(s) specified by the a
-    * ResolutionScheme and the mapping of variables. This is done while taking
+    * LinearConstraint to a part of matrix and vector(s) specified by a
+    * ResolutionScheme and a mapping of variables. This is done while taking
     * into account the possible convention differences between the constraint
     * and the scheme, as well as the requirements on the constraint.
     */
   class TVM_DLLAPI Assignment
   {
   public:
-    typedef const Eigen::VectorXd& (LinearConstraint::*RHSFunction)() const;
-    typedef MatrixRef(AssignmentTarget::*MatrixFunction)(int, int) const;
-    typedef VectorRef (AssignmentTarget::*VectorFunction)() const;
+    using RHSFunction = const Eigen::VectorXd& (LinearConstraint::*)() const;
+    using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
+    using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
     Assignment(std::shared_ptr<LinearConstraint> source, const SolvingRequirements& req,
                const AssignmentTarget& target, const VariableVector& variables);
@@ -40,9 +40,9 @@ namespace tvm
     void refreshTarget();
     /** To be called when the variables change.*/
     void refreshMapping(const VariableVector& variables);
-    /** */
-    void changeWeight(double alpha);
-    void changeWeight(const Eigen::VectorXd& w);
+    /** Change the weight of constraint. TODO: how to specify the constraint?*/
+    void weight(double alpha);
+    void weight(const Eigen::VectorXd& w);
 
     /** Perform the assignment.*/
     void run();
@@ -65,7 +65,7 @@ namespace tvm
     };
 
 
-    static bool checkTarget();
+    bool checkTarget();
 
     /** Where the magic happens*/
     void build(const VariableVector& variables);
@@ -101,24 +101,24 @@ namespace tvm
       if (requirements_.weight().isDefault())
       {
         if (flip)
-          return Wrapper::template make<REPLACE, MINUS, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);
         else
-          return Wrapper::template make<REPLACE, NONE, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<COPY, NONE, IDENTITY, PRE>(from, to);
       }
       else
       {
         if (flip)
-          return Wrapper::template make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
         else
-          return Wrapper::template make<REPLACE, SCALAR, IDENTITY, PRE>(from, to, alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, alpha_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
       else
-        return Wrapper::template make<REPLACE, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
     }
   }
 }

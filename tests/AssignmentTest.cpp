@@ -61,7 +61,7 @@ struct Memory
 bool check(std::shared_ptr<BasicLinearConstraint> c, const VectorXd& x)
 {
   const double eps = 1e-12;
-  c->variables()[0]->setValue(x);
+  c->variables()[0]->value(x);
   c->updateValue();
   auto v = c->value();
   if (c->constraintType() == ConstraintType::DOUBLE_SIDED)

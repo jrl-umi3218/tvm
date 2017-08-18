@@ -14,8 +14,10 @@ namespace tvm
   class Variable;
 
   /** This is a helper class to define Constraint. Its sole purpose is to
-    * declare the outputs L and U, so that Constraint can the dynamically 
-    * disable what it does not use.
+    * declare the outputs L, U and E, (L and U being the lower and upper bounds
+    * for inequality constraints, and E the term the constraint is equal to for
+    * equality constraints), so that Constraint can the dynamically disable 
+    * what it does not use.
     */
   class TVM_DLLAPI ConstraintBase : public internal::FirstOrderProvider
   {

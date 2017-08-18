@@ -93,10 +93,10 @@ namespace tvm
     }
 
     // Second, we copy the requirements present. The other ones stay to default
-    if (indexes[0] >= 0) priority_ = *reinterpret_cast<const PriorityLevel*>      (it + indexes[0]);
-    if (indexes[1] >= 0) weight_   = *reinterpret_cast<const Weight*>             (it + indexes[1]);
-    if (indexes[2] >= 0) aWeight_  = *reinterpret_cast<const AnisotropicWeight*>  (it + indexes[2]);
-    if (indexes[3] >= 0) evalType_ = *reinterpret_cast<const ViolationEvaluation*>(it + indexes[3]);
+    if (indexes[0] >= 0) priority_ = *static_cast<const PriorityLevel*>      (it + indexes[0]);
+    if (indexes[1] >= 0) weight_   = *static_cast<const Weight*>             (it + indexes[1]);
+    if (indexes[2] >= 0) aWeight_  = *static_cast<const AnisotropicWeight*>  (it + indexes[2]);
+    if (indexes[3] >= 0) evalType_ = *static_cast<const ViolationEvaluation*>(it + indexes[3]);
   }
 
   const PriorityLevel& SolvingRequirements::priorityLevel() const
