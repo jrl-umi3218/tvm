@@ -8,6 +8,7 @@ endif()
 set(BOOST_COMPONENTS unit_test_framework timer system)
 search_for_boost()
 add_definitions(-DBOOST_TEST_DYN_LINK)
+include_directories(${Boost_INCLUDE_DIRS}) #is this line needed only for Windows?
 if(WIN32)
   #This is one of the way to avoid link errors related to static variables in program_options
   add_definitions( -DBOOST_ALL_DYN_LINK )
