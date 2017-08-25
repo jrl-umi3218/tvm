@@ -53,34 +53,28 @@ namespace tvm
     *
     * This is a base class for the sole purpose of conveniency.
     */
-  class TVM_DLLAPI SingleSolvingRequirement
+  template<typename T>
+  class SingleSolvingRequirement
   {
   public:
+    const T& value() const;
     bool isDefault() const;
-    RequirementType type() const;
 
   protected:
-    SingleSolvingRequirement(RequirementType type, bool isDefault);
+    SingleSolvingRequirement(const T& val, bool isDefault);
 
-    /**Type of requirement*/
-    RequirementType type_;
     /** Is this requirement at it default value*/
     bool default_;
     
-    int level_;
-    double alpha_;
-    Eigen::VectorXd w_;
-    ViolationEvaluationType evalType_;
+    T value_;
   };
 
   /** This class represents the priority level of a constraint*/
-  class TVM_DLLAPI PriorityLevel : public SingleSolvingRequirement
+  class TVM_DLLAPI PriorityLevel : public SingleSolvingRequirement<int>
   {
   public:
     /** Priority level p>=0*/
     PriorityLevel(int p=0);
-
-    int value() const;
   };
 
   /** This class represents the scalar weight alpha of a constraint, within its 
@@ -89,12 +83,10 @@ namespace tvm
     * Given a scalar weight alpha, and a constraint violation measurement f(x), 
     * the product alpha*f(x) will be minimized.
     */
-  class TVM_DLLAPI Weight : public SingleSolvingRequirement
+  class TVM_DLLAPI Weight : public SingleSolvingRequirement<double>
   {
   public:
     Weight(double alpha=1);
-
-    double value() const;
   };
 
   /** This class represents an anisotropic weight to give more or less 
@@ -115,40 +107,88 @@ namespace tvm
     * FIXME Do we want to implement some kind of mechanism for constraints 
     * whose size can change? 
     */
-  class TVM_DLLAPI AnisotropicWeight : public SingleSolvingRequirement
+  class TVM_DLLAPI AnisotropicWeight : public SingleSolvingRequirement<Eigen::VectorXd>
   {
   public:
     AnisotropicWeight();
     AnisotropicWeight(const Eigen::VectorXd& w);
-
-    const Eigen::VectorXd& value() const;
   };
 
 
-  class TVM_DLLAPI ViolationEvaluation : public SingleSolvingRequirement
+  class TVM_DLLAPI ViolationEvaluation : public SingleSolvingRequirement<ViolationEvaluationType>
   {
   public:
     ViolationEvaluation(ViolationEvaluationType t = ViolationEvaluationType::L2);
-
-    ViolationEvaluationType value() const;
   };
 
 
-  /** One class to rule them all. This*/
+  /** This macro adds a member of type T named \a member to a class, and a 
+    * method \a \name to access this member
+    */
+  #define ADD_REQUIREMENT(T, name, member) \
+  public: \
+    const T& name() const { return member; } \
+  private: \
+    T member; \
+    template<typename ... Args> \
+    void build(const T& m, const Args& ... args) \
+    { \
+      static_assert(!check_args<T, Args...>(), \
+                    #T" has already been specified"); \
+      member = m; \
+      build(args...); \
+    }
+
+
+  /** One class to rule them all.*/
   class TVM_DLLAPI SolvingRequirements
   {
   public:
-    SolvingRequirements(std::initializer_list<SingleSolvingRequirement> requirements = {});
-
-    const PriorityLevel& priorityLevel() const;
-    const Weight& weight() const;
-    const AnisotropicWeight& anisotropicWeight() const;
-    const ViolationEvaluation& violationEvaluation() const;
+    template<typename ... Args>
+    SolvingRequirements(const Args & ... args)
+    {
+      build(args...);
+    }
 
   private:
-    PriorityLevel       priority_;
-    Weight              weight_;
-    AnisotropicWeight   aWeight_;
-    ViolationEvaluation evalType_;
+    template<typename T, typename Arg0, typename ... Args>
+    static constexpr bool check_args()
+    {
+      return std::is_same<T, Arg0>::value || check_args<T, Args...>();
+    }
+
+    template<typename T>
+    static constexpr bool check_args()
+    {
+      return false;
+    }
+
+    ADD_REQUIREMENT(PriorityLevel, priorityLevel, priority_)
+    ADD_REQUIREMENT(Weight, weight, weight_)
+    ADD_REQUIREMENT(AnisotropicWeight, anisotropicWeight, aWeight_)
+    ADD_REQUIREMENT(ViolationEvaluation, violationEvaluation, evalType_)
+
+    void build() {}
   };
+
+
+
+
+  template<typename T>
+  bool SingleSolvingRequirement<T>::isDefault() const
+  {
+    return default_;
+  }
+
+  template<typename T>
+  SingleSolvingRequirement<T>::SingleSolvingRequirement(const T& val, bool isDefault)
+    : default_(isDefault), value_(val)
+  {
+  }
+
+  template<typename T>
+  const T& SingleSolvingRequirement<T>::value() const
+  {
+    return value_;
+  }
 }
