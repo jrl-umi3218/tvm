@@ -40,7 +40,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../defs.h
-  ${TVM_INCLUDE_DIR}/../errors.h
+  ${TVM_INCLUDE_DIR}/../exceptions.h
   ${TVM_INCLUDE_DIR}/../EventGraph.h
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h

@@ -1,5 +1,5 @@
 #include "Constraint.h"
-#include "errors.h"
+#include "exceptions.h"
 
 namespace tvm
 {

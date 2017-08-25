@@ -1,4 +1,4 @@
-#include "errors.h"
+#include "exceptions.h"
 #include "FirstOrderProvider.h"
 #include "Variable.h"
 

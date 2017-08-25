@@ -1,4 +1,4 @@
-#include "errors.h"
+#include "exceptions.h"
 #include "Function.h"
 #include "Variable.h"
 

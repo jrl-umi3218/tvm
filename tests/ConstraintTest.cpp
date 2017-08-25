@@ -1,6 +1,6 @@
 #include "LinearConstraint.h"
 #include "Variable.h"
-#include "errors.h"
+#include "exceptions.h"
 
 // boost
 #define BOOST_TEST_MODULE ConstraintTest
