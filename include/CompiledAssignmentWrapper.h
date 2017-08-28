@@ -6,18 +6,19 @@
 
 #include "CompiledAssignment.h"
 
-namespace
-{
-  template <tvm::utils::Source F>
-  struct from_FunctionBuilder;
-}
-
 namespace tvm
 {
   class Assignment;
 
   namespace utils
   {
+    namespace private_
+    {
+      template<Source F>
+      struct from_FunctionBuilder;
+    };
+
+
     /** This class wraps a CompiledAssignment so as to hide the template
       * machinery. The three member functions of CompiledAssignment are
       * exposed: run, from, to.
@@ -77,57 +78,52 @@ namespace tvm
       std::function<void(const Eigen::Ref<const MatrixType>&)> from_;
 
       template<Source F>
-      friend struct ::from_FunctionBuilder;
+      friend struct private_::from_FunctionBuilder;
     };
-  }
-}
 
-namespace
-{
-  template<tvm::utils::Source F>
-  struct from_FunctionBuilder
-  {
-    template<typename CA, typename MatrixType>
-    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+    namespace private_
     {
-      return [wrapper](const Eigen::Ref<const MatrixType>& from)
+      template<tvm::utils::Source F>
+      struct from_FunctionBuilder
       {
-        static_cast<CA*>(wrapper->compiledAssignment_)->from(from);
+        template<typename CA, typename MatrixType>
+        static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+        {
+          return [wrapper](const Eigen::Ref<const MatrixType>& from)
+          {
+            static_cast<CA*>(wrapper->compiledAssignment_)->from(from);
+          };
+        }
+      };
+
+      template<>
+      struct from_FunctionBuilder<tvm::utils::Source::ZERO>
+      {
+        template<typename CA, typename MatrixType>
+        static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+        {
+          return [wrapper](const Eigen::Ref<const MatrixType>&)
+          {
+            //do nothing
+          };
+        }
+      };
+
+      template<>
+      struct from_FunctionBuilder<tvm::utils::Source::CONSTANT>
+      {
+        template<typename CA, typename MatrixType>
+        static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+        {
+          return [wrapper](const Eigen::Ref<const MatrixType>& from)
+          {
+            static_cast<CA*>(wrapper->compiledAssignment_)->from(from[0]);
+          };
+        }
       };
     }
-  };
 
-  template<>
-  struct from_FunctionBuilder<tvm::utils::Source::ZERO>
-  {
-    template<typename CA, typename MatrixType>
-    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
-    {
-      return [wrapper](const Eigen::Ref<const MatrixType>&)
-      {
-        //do nothing
-      };
-    }
-  };
 
-  template<>
-  struct from_FunctionBuilder<tvm::utils::Source::CONSTANT>
-  {
-    template<typename CA, typename MatrixType>
-    static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
-    {
-      return [wrapper](const Eigen::Ref<const MatrixType>& from)
-      {
-        static_cast<CA*>(wrapper->compiledAssignment_)->from(from[0]);
-      };
-    }
-  };
-}
-
-namespace tvm
-{
-  namespace utils
-  {
     template<typename MatrixType>
     inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(const CompiledAssignmentWrapper<MatrixType>& other)
     {
@@ -239,7 +235,7 @@ namespace tvm
           static_cast<CA*>(wrapper->compiledAssignment_)->run();
         };
 
-        wrapper->from_ = ::from_FunctionBuilder<F>::template construct<CA>(wrapper);
+        wrapper->from_ = private_::from_FunctionBuilder<F>::template construct<CA>(wrapper);
 
         wrapper->to = [wrapper](const Eigen::Ref<MatrixType>& to)
         {
