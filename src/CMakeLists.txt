@@ -4,7 +4,7 @@ set(TVM_SOURCES
   AssignmentTarget.cpp
   CallGraph.cpp
   Constraint.cpp
-  ControlProblem.cpp
+#  ControlProblem.cpp
   EventGraph.cpp
   FirstOrderProvider.cpp
   Function.cpp
@@ -36,7 +36,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
-  ${TVM_INCLUDE_DIR}/../ControlProblem.h
+#  ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../defs.h
   ${TVM_INCLUDE_DIR}/../exceptions.h
   ${TVM_INCLUDE_DIR}/../EventGraph.h
