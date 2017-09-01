@@ -335,6 +335,7 @@ namespace tvm
       , public MatrixMultBase<M, P>
       , public SourceBase<MatrixType, F>
     {
+    private:
       CompiledAssignment(const typename SourceBase<MatrixType, F>::SourceType& from, const Eigen::Ref<MatrixType>& to, double s = 1, const typename MatrixMultBase<M, P>::MultType* const m = nullptr)
         : ScalarMultBase<S>(s)
         , MatrixMultBase<M, P>(m)
@@ -344,6 +345,7 @@ namespace tvm
         static_assert(F == EXTERNAL || (MatrixType::ColsAtCompileTime == 1 && P == PRE), "For F=CONSTANT, only vector type and pre-multiplications are allowed");
       }
 
+    public:
       //FIXME shall we use the operator() instead of run, and make this class a functor ?
       void run()
       {
@@ -361,6 +363,9 @@ namespace tvm
       /** Warning: it is the user responsability to ensure that the matrix/vector
         * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
       Eigen::Ref<MatrixType> to_;
+
+      template<typename MatrixType>
+      friend struct CompiledAssignmentWrapper;
     };
 
 
@@ -368,7 +373,10 @@ namespace tvm
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
     struct CompiledAssignment<MatrixType, A, S, M, P, ZERO>
     {
+    private:
       CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
+
+    public:
       void run() {/* Do nothing */ }
       void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */}
       void to(const Eigen::Ref<MatrixType>& to) 
@@ -380,6 +388,9 @@ namespace tvm
 
     private:
       Eigen::Ref<MatrixType> to_;
+
+      template<typename MatrixType>
+      friend struct CompiledAssignmentWrapper;
     };
 
 
@@ -387,8 +398,10 @@ namespace tvm
     template<typename MatrixType, ScalarMult S, MatrixMult M, MultPos P>
     struct CompiledAssignment<MatrixType, COPY, S, M, P, ZERO>
     {
+    private:
       CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
 
+    public:
       void run() { to_.setZero(); }
       void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
       void to(const Eigen::Ref<MatrixType>& to) 
@@ -400,6 +413,9 @@ namespace tvm
 
     private:
       Eigen::Ref<MatrixType> to_;
+
+      template<typename MatrixType>
+      friend struct CompiledAssignmentWrapper;
     };
 
 

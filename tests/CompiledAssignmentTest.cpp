@@ -140,7 +140,7 @@ struct Test
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    CompiledAssignment<Type, A, S, M, P, F> ca(from, to, s, &wOrM);
+    auto ca = CompiledAssignmentWrapper<Type>::make<A, S, M, P>(from, to, s, &wOrM);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, S, M, P, f, t, s, wOrM);
@@ -182,7 +182,7 @@ struct Test
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    CompiledAssignment<VectorXd, A, S, M, P, F> ca(from, to, s, &wOrM);
+    auto ca = CompiledAssignmentWrapper<VectorXd>::make<A, S, M, P>(from, to, s, &wOrM);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, S, M, P, f, t, s, wOrM);
@@ -221,7 +221,7 @@ struct TestNoFrom
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    CompiledAssignment<Type, A, NONE, IDENTITY, POST, ZERO> ca(to);
+    auto ca = CompiledAssignmentWrapper<Type>::make<A>(to);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, t);
