@@ -8,7 +8,7 @@
 
 #include <tvm/api.h>
 #include "AssignmentTarget.h"
-#include "CompiledAssignmentWrapper.h"
+#include "tvm/utils/CompiledAssignmentWrapper.h"
 #include "ConstraintEnums.h"
 #include "SolvingRequirements.h"
 #include "Variable.h" //for Range

@@ -34,8 +34,6 @@ set(TVM_HEADERS
 # Temporary
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
-  ${TVM_INCLUDE_DIR}/../CompiledAssignment.h
-  ${TVM_INCLUDE_DIR}/../CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
@@ -54,7 +52,9 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../Time.h
   #${TVM_INCLUDE_DIR}/../UpdateChecker.h
   ${TVM_INCLUDE_DIR}/../Variable.h
-  ${TVM_INCLUDE_DIR}/../VariableVector.h)
+  ${TVM_INCLUDE_DIR}/../VariableVector.h
+  ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
+  ${TVM_INCLUDE_DIR}/utils/CompiledAssignmentWrapper.h)
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")

@@ -5,8 +5,8 @@
 #include <boost/test/unit_test.hpp>
 
 #define AUTHORIZE_MALLOC_FOR_CACHE
-#include "CompiledAssignment.h"
-#include "CompiledAssignmentWrapper.h"
+#include "tvm/utils/CompiledAssignment.h"
+#include "tvm/utils/CompiledAssignmentWrapper.h"
 
 using namespace Eigen;
 using namespace tvm::utils;
