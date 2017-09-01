@@ -21,7 +21,7 @@ namespace tvm
     void updateValue();
 
   protected:
-    LinearConstraint(ConstraintType ct, RHSType rt, int m);
+    LinearConstraint(ConstraintType ct, ConstraintRHS cr, int m);
   };
 
 
@@ -36,14 +36,14 @@ namespace tvm
     BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, ConstraintType ct);
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b */
     BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, const VectorConstRef& b,
-                          ConstraintType ct, RHSType rt = RHSType::AS_GIVEN);
+                          ConstraintType ct, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
     BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, const VectorConstRef& b,
-                          ConstraintType ct, RHSType rt = RHSType::AS_GIVEN);
+                          ConstraintType ct, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
     /** l <= Ax <= u */
     BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x,
-                          const VectorConstRef& l, const VectorConstRef& u, RHSType rt = RHSType::AS_GIVEN);
+                          const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
     BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x,
-                          const VectorConstRef& l, const VectorConstRef& u, RHSType rt = RHSType::AS_GIVEN);
+                          const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
 
     /** Set the matrix A corresponding to variable x.*/
     void setA(const MatrixConstRef& A, const Variable& x);

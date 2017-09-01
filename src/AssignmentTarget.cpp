@@ -4,22 +4,22 @@
 namespace tvm
 {
   AssignmentTarget::AssignmentTarget(RangePtr range, MatrixPtr A, ConstraintType ct)
-    : AssignmentTarget(range, A, nullptr, ct, RHSType::ZERO)
+    : AssignmentTarget(range, A, nullptr, ct, ConstraintRHS::ZERO)
   {
   }
 
-  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, RHSType rt)
-    : cstrType_(ct), rhsType_(rt), range_(range), A_(A), b_(b)
+  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, ConstraintRHS cr)
+    : cstrType_(ct), constraintRhs_(cr), range_(range), A_(A), b_(b)
   {
     if (ct == ConstraintType::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is only for single-sided constraints.");
   }
 
-  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, RHSType rt)
-    : cstrType_(ConstraintType::DOUBLE_SIDED), rhsType_(rt), range_(range), A_(A), l_(l), u_(u)
+  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, ConstraintRHS cr)
+    : cstrType_(ConstraintType::DOUBLE_SIDED), constraintRhs_(cr), range_(range), A_(A), l_(l), u_(u)
   {
-    if (rt == RHSType::ZERO)
-      throw std::runtime_error("RHSType::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
+    if (cr == ConstraintRHS::ZERO)
+      throw std::runtime_error("ConstraintRHS::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
   }
 
   ConstraintType AssignmentTarget::constraintType() const
@@ -27,9 +27,9 @@ namespace tvm
     return cstrType_;
   }
 
-  RHSType AssignmentTarget::rhsType() const
+  ConstraintRHS AssignmentTarget::constraintRhs() const
   {
-    return rhsType_;
+    return constraintRhs_;
   }
 
   MatrixRef AssignmentTarget::A(int colStart, int colDim) const

@@ -7,7 +7,7 @@
 namespace tvm
 {
   LinearizedTaskConstraint::LinearizedTaskConstraint(const Task& task)
-    : LinearConstraint(task.type(), RHSType::AS_GIVEN, task.function()->size())
+    : LinearConstraint(task.type(), ConstraintRHS::AS_GIVEN, task.function()->size())
     , f_(task.function())
     , td_(task.taskDynamics())
   {

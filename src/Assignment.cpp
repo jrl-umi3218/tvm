@@ -220,14 +220,14 @@ namespace tvm
   {
     const VectorRef& to = (target_.*v)();
 
-    bool useSource = source_->rhsType() != RHSType::ZERO;
+    bool useSource = source_->constraintRhs() != ConstraintRHS::ZERO;
     if (useSource)
     {
       // So far, the sign flip has been deduced only from the ConstraintType of the source
-      // and the target. Now we need to take into account the RHSType as well.
-      if (source_->rhsType() == RHSType::OPPOSITE)
+      // and the target. Now we need to take into account the ConstraintRHS as well.
+      if (source_->constraintRhs() == ConstraintRHS::OPPOSITE)
         flip = !flip;
-      if (target_.rhsType() == RHSType::OPPOSITE)
+      if (target_.constraintRhs() == ConstraintRHS::OPPOSITE)
         flip = !flip;
 
       const VectorConstRef& from = (source_.get()->*f)();

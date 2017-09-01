@@ -45,7 +45,7 @@ namespace tvm
     const Eigen::VectorXd& e() const;
 
     ConstraintType constraintType() const;
-    RHSType rhsType() const;
+    ConstraintRHS constraintRhs() const;
 
     /** Note: by default, these methods return the cached value.
       * However, they are virtual in case the user might want to bypass the cache.
@@ -59,7 +59,7 @@ namespace tvm
     virtual const Eigen::VectorXd& eNoCheck() const;
 
   protected:
-    Constraint(ConstraintType ct, RHSType rt, int m=0);
+    Constraint(ConstraintType ct, ConstraintRHS cr, int m=0);
     void resizeCache() override;
 
     Eigen::VectorXd l_;
@@ -68,7 +68,7 @@ namespace tvm
 
   private:
     ConstraintType  cstrType_;
-    RHSType         rhsType_;
+    ConstraintRHS   constraintRhs_;
 
     bool usel_;
     bool useu_;

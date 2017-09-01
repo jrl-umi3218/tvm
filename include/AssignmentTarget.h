@@ -36,13 +36,13 @@ namespace tvm
     /** Ax = 0, Ax <= 0 or Ax >= 0. */
     AssignmentTarget(RangePtr range, MatrixPtr A, ConstraintType ct);
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b */
-    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, RHSType rt);
+    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, ConstraintRHS cr);
     /** l <= Ax <= u */
-    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, RHSType rt);
+    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, ConstraintRHS cr);
 
 
     ConstraintType constraintType() const;
-    RHSType rhsType() const;
+    ConstraintRHS constraintRhs() const;
 
     /** Return the (range.dim x colDim) block of A starting at
     *(range.start,colStart) */
@@ -67,7 +67,7 @@ namespace tvm
     /** Constraint type convention*/
     ConstraintType cstrType_;
     /** RHS type convention*/
-    RHSType rhsType_;
+    ConstraintRHS constraintRhs_;
     /** Pointer to the row range*/
     RangePtr range_;
     /** Pointers to the target matrix and vectors (when applicable) */

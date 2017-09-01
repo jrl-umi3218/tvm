@@ -66,7 +66,7 @@ bool check(std::shared_ptr<BasicLinearConstraint> c, const VectorXd& x)
   auto v = c->value();
   if (c->constraintType() == ConstraintType::DOUBLE_SIDED)
   {
-    if (c->rhsType() == RHSType::AS_GIVEN)
+    if (c->constraintRhs() == ConstraintRHS::AS_GIVEN)
       return (c->l().array()-eps <= v.array()).all() && (v.array() <= c->u().array()+eps).all();
     else
       return (-c->l().array()-eps <= v.array()).all() && (v.array() <= -c->u().array()+eps).all();
@@ -82,24 +82,24 @@ bool check(std::shared_ptr<BasicLinearConstraint> c, const VectorXd& x)
     case ConstraintType::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; rhs = &BasicLinearConstraint::u; break;
     default: break;
     }
-    switch (c->rhsType())
+    switch (c->constraintRhs())
     {
-    case RHSType::AS_GIVEN: return comp(v, (c.get()->*rhs)()); break;
-    case RHSType::OPPOSITE: return comp(v, -(c.get()->*rhs)()); break;
-    case RHSType::ZERO: return comp(v, VectorXd::Zero(c->size())); break;
+    case ConstraintRHS::AS_GIVEN: return comp(v, (c.get()->*rhs)()); break;
+    case ConstraintRHS::OPPOSITE: return comp(v, -(c.get()->*rhs)()); break;
+    case ConstraintRHS::ZERO: return comp(v, VectorXd::Zero(c->size())); break;
     default:
       return false;
     }
   }
 }
 
-bool check(const Memory& mem, ConstraintType ct, RHSType rt, const VectorXd& x)
+bool check(const Memory& mem, ConstraintType ct, ConstraintRHS cr, const VectorXd& x)
 {
   const double eps = 1e-12;
   VectorXd v = mem.A*x;
   if (ct == ConstraintType::DOUBLE_SIDED)
   {
-    if (rt == RHSType::AS_GIVEN)
+    if (cr == ConstraintRHS::AS_GIVEN)
       return (mem.l.array() - eps <= v.array()).all() && (v.array() <= mem.u.array() + eps).all();
     else
       return (-mem.l.array() - eps <= v.array()).all() && (v.array() <= -mem.u.array() + eps).all();
@@ -114,11 +114,11 @@ bool check(const Memory& mem, ConstraintType ct, RHSType rt, const VectorXd& x)
     case ConstraintType::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; break;
     default: break;
     }
-    switch (rt)
+    switch (cr)
     {
-    case RHSType::AS_GIVEN: return comp(v, mem.b); break;
-    case RHSType::OPPOSITE: return comp(v, -mem.b); break;
-    case RHSType::ZERO: return comp(v, VectorXd::Zero(mem.b.rows())); break;
+    case ConstraintRHS::AS_GIVEN: return comp(v, mem.b); break;
+    case ConstraintRHS::OPPOSITE: return comp(v, -mem.b); break;
+    case ConstraintRHS::ZERO: return comp(v, VectorXd::Zero(mem.b.rows())); break;
     default:
       return false;
     }
@@ -150,12 +150,12 @@ Constraints buildConstraints(int m, int n)
   cstr.Ax_geq_b = std::make_shared<BasicLinearConstraint>(A, x, l, ConstraintType::GREATER_THAN);
   cstr.Ax_leq_b = std::make_shared<BasicLinearConstraint>(A, x, u, ConstraintType::LOWER_THAN);
 
-  cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::EQUAL, RHSType::OPPOSITE);
-  cstr.Ax_geq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::GREATER_THAN, RHSType::OPPOSITE);
-  cstr.Ax_leq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -u, ConstraintType::LOWER_THAN, RHSType::OPPOSITE);
+  cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::EQUAL, ConstraintRHS::OPPOSITE);
+  cstr.Ax_geq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::GREATER_THAN, ConstraintRHS::OPPOSITE);
+  cstr.Ax_leq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -u, ConstraintType::LOWER_THAN, ConstraintRHS::OPPOSITE);
 
   cstr.l_leq_Ax_leq_u = std::make_shared<BasicLinearConstraint>(A, x, l, u);
-  cstr.minus_l_leq_Ax_leq_minus_u = std::make_shared<BasicLinearConstraint>(A, x, -l, -u, RHSType::OPPOSITE);
+  cstr.minus_l_leq_Ax_leq_minus_u = std::make_shared<BasicLinearConstraint>(A, x, -l, -u, ConstraintRHS::OPPOSITE);
   return cstr;
 }
 
@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
-    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, RHSType::AS_GIVEN);
+    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, ConstraintRHS::AS_GIVEN);
     SolvingRequirements req(Weight(2.));
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
@@ -181,9 +181,9 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
       BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
     }
 
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.p0) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pl) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pu) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
 
     //now we change the range of the target and refresh the assignment
     range->start = 0;
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention Ax <= b, from convention l <= Ax <= u
     auto range = std::make_shared<Range>(0, 6); //we need double range
-    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, RHSType::AS_GIVEN);
+    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, ConstraintRHS::AS_GIVEN);
     Eigen::Vector3d aW = {1., 2., 3.};
     SolvingRequirements req(AnisotropicWeight{ aW });
     VariableVector vv(cstr.Ax_eq_0->variables());
@@ -226,8 +226,8 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
       }
     }
 
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.p0) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.p0));
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pl) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pl));
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pu) == check(*mem.get(), at.constraintType(), at.rhsType(), cstr.pu));
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.p0) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pl) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pu) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
   }
 }

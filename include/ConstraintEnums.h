@@ -21,7 +21,7 @@ namespace tvm
     * AS_GIVEN  rhs = u
     * OPPOSITE  rhs = -u
     */
-  enum class RHSType
+  enum class ConstraintRHS
   {
     ZERO,
     AS_GIVEN,

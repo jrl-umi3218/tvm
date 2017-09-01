@@ -8,17 +8,17 @@ namespace tvm
   {
   }
 
-  Constraint::Constraint(ConstraintType ct, RHSType rt, int m)
+  Constraint::Constraint(ConstraintType ct, ConstraintRHS cr, int m)
     : data::OutputSelector<ConstraintBase>(m)
     , cstrType_(ct)
-    , rhsType_(rt)
-    , usel_((ct == ConstraintType::GREATER_THAN || ct == ConstraintType::DOUBLE_SIDED) && rt != RHSType::ZERO)
-    , useu_((ct == ConstraintType::LOWER_THAN || ct == ConstraintType::DOUBLE_SIDED) && rt != RHSType::ZERO)
-    , usee_(ct == ConstraintType::EQUAL && rt != RHSType::ZERO)
+    , constraintRhs_(cr)
+    , usel_((ct == ConstraintType::GREATER_THAN || ct == ConstraintType::DOUBLE_SIDED) && cr != ConstraintRHS::ZERO)
+    , useu_((ct == ConstraintType::LOWER_THAN || ct == ConstraintType::DOUBLE_SIDED) && cr != ConstraintRHS::ZERO)
+    , usee_(ct == ConstraintType::EQUAL && cr != ConstraintRHS::ZERO)
   {
-    if (ct == ConstraintType::DOUBLE_SIDED && rt == RHSType::ZERO)
-      throw std::runtime_error("The combination (ConstraintType::DOUBLE_SIDED, RHSType::ZERO) is forbidden. Please use (ConstraintType::EQUAL, RHSType::ZERO) instead.");
-    //FIXME: we make the choice here to have no "rhs" output when the RHSType is zero. 
+    if (ct == ConstraintType::DOUBLE_SIDED && cr == ConstraintRHS::ZERO)
+      throw std::runtime_error("The combination (ConstraintType::DOUBLE_SIDED, ConstraintRHS::ZERO) is forbidden. Please use (ConstraintType::EQUAL, ConstraintRHS::ZERO) instead.");
+    //FIXME: we make the choice here to have no "rhs" output when the ConstraintRHS is zero. 
     //An alternative is to use and set to zero the relevant vectors, but then we need 
     //to prevent a derived class to change their value.
     resizeCache();
@@ -86,8 +86,8 @@ namespace tvm
     return cstrType_;
   }
 
-  RHSType Constraint::rhsType() const
+  ConstraintRHS Constraint::constraintRhs() const
   {
-    return rhsType_;
+    return constraintRhs_;
   }
 }

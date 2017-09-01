@@ -3,8 +3,8 @@
 
 namespace tvm
 {
-  LinearConstraint::LinearConstraint(ConstraintType ct, RHSType rt, int m)
-    :Constraint(ct,rt,m)
+  LinearConstraint::LinearConstraint(ConstraintType ct, ConstraintRHS cr, int m)
+    :Constraint(ct,cr,m)
   {
     registerUpdates(LinearConstraint::Update::Value,&LinearConstraint::updateValue);
     addOutputDependency<LinearConstraint>(FirstOrderProvider::Output::Value, LinearConstraint::Update::Value);
@@ -25,7 +25,7 @@ namespace tvm
   }
 
   BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, ConstraintType ct)
-    : LinearConstraint(ct, RHSType::ZERO, static_cast<int>(A.begin()->rows()))
+    : LinearConstraint(ct, ConstraintRHS::ZERO, static_cast<int>(A.begin()->rows()))
   {
     if (ct == ConstraintType::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is only for single-sided constraints.");
@@ -39,18 +39,18 @@ namespace tvm
     }
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, const VectorConstRef& b, ConstraintType ct, RHSType rt)
-    : BasicLinearConstraint({ A }, { x }, b, ct, rt)
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
+    : BasicLinearConstraint({ A }, { x }, b, ct, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, const VectorConstRef& b, ConstraintType ct, RHSType rt)
-    : LinearConstraint(ct, rt, static_cast<int>(A.begin()->rows()))
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
+    : LinearConstraint(ct, cr, static_cast<int>(A.begin()->rows()))
   {
     if (ct == ConstraintType::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is only for single-sided constraints.");
-    if (rt == RHSType::ZERO)
-      throw std::runtime_error("RHSType::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
+    if (cr == ConstraintRHS::ZERO)
+      throw std::runtime_error("ConstraintRHS::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
     if (A.size() != x.size())
       throw std::runtime_error("The number of matrices and variables is incoherent.");
     if (b.size() != size())
@@ -66,17 +66,17 @@ namespace tvm
   }
 
   BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, 
-                                               const VectorConstRef& l, const VectorConstRef& u, RHSType rt)
-    :BasicLinearConstraint({ A }, { x }, l, u, rt)
+                                               const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
+    :BasicLinearConstraint({ A }, { x }, l, u, cr)
   {
   }
 
   BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, 
-                                               const VectorConstRef& l, const VectorConstRef& u, RHSType rt)
-    : LinearConstraint(ConstraintType::DOUBLE_SIDED, rt, static_cast<int>(A.begin()->rows()))
+                                               const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
+    : LinearConstraint(ConstraintType::DOUBLE_SIDED, cr, static_cast<int>(A.begin()->rows()))
   {
-    if (rt == RHSType::ZERO)
-      throw std::runtime_error("RHSType::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
+    if (cr == ConstraintRHS::ZERO)
+      throw std::runtime_error("ConstraintRHS::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
     if (A.size() != x.size())
       throw std::runtime_error("The number of matrices and variables is incoherent.");
     if (l.size() != size())
@@ -113,7 +113,7 @@ namespace tvm
 
   void BasicLinearConstraint::setb(const VectorConstRef& b)
   {
-    if (constraintType() != ConstraintType::DOUBLE_SIDED && rhsType() != RHSType::ZERO)
+    if (constraintType() != ConstraintType::DOUBLE_SIDED && constraintRhs() != ConstraintRHS::ZERO)
     {
       if (b.size() == size())
       {
@@ -133,7 +133,7 @@ namespace tvm
 
   void BasicLinearConstraint::setl(const VectorConstRef& l)
   {
-    if (constraintType() == ConstraintType::DOUBLE_SIDED && rhsType() != RHSType::ZERO)
+    if (constraintType() == ConstraintType::DOUBLE_SIDED && constraintRhs() != ConstraintRHS::ZERO)
     {
       if (l.size() == size())
         l_ = l;
@@ -146,7 +146,7 @@ namespace tvm
 
   void BasicLinearConstraint::setu(const VectorConstRef& u)
   {
-    if (constraintType() == ConstraintType::DOUBLE_SIDED && rhsType() != RHSType::ZERO)
+    if (constraintType() == ConstraintType::DOUBLE_SIDED && constraintRhs() != ConstraintRHS::ZERO)
     {
       if (u.size() == size())
         u_ = u;
