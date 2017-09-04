@@ -364,7 +364,7 @@ namespace tvm
         * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
       Eigen::Ref<MatrixType> to_;
 
-      template<typename MatrixType>
+      template<typename MatrixType_>
       friend struct CompiledAssignmentWrapper;
     };
 
@@ -389,7 +389,7 @@ namespace tvm
     private:
       Eigen::Ref<MatrixType> to_;
 
-      template<typename MatrixType>
+      template<typename MatrixType_>
       friend struct CompiledAssignmentWrapper;
     };
 
@@ -414,7 +414,7 @@ namespace tvm
     private:
       Eigen::Ref<MatrixType> to_;
 
-      template<typename MatrixType>
+      template<typename MatrixType_>
       friend struct CompiledAssignmentWrapper;
     };
 
