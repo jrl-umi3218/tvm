@@ -27,15 +27,16 @@
 namespace tvm
 {
 
-struct CallGraph;
+class CallGraph;
 
 namespace data
 {
 
 /** Inputs store a list of Outputs and the required output signals */
-struct TVM_DLLAPI Inputs
+class TVM_DLLAPI Inputs
 {
-  friend struct tvm::CallGraph;
+public:
+  friend class tvm::CallGraph;
 
   virtual ~Inputs() = default;
 
@@ -46,7 +47,7 @@ struct TVM_DLLAPI Inputs
    * iterator, allowing to cast the iterator to a boolean value.
    *
    */
-  struct Iterator : public inputs_t::iterator
+  struct TVM_DLLAPI Iterator : public inputs_t::iterator
   {
     /** Construct from an existing iterator and the end iterator */
     Iterator(inputs_t::iterator it, inputs_t::iterator end);

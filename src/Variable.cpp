@@ -1,8 +1,9 @@
 #include "Variable.h"
+#include "VariableVector.h"
 
 #include <sstream>
 
-namespace taskvm
+namespace tvm
 { 
   Space::Space(int size)
     : Space(size, size, size)
@@ -41,11 +42,11 @@ namespace taskvm
 
 
 
-  std::shared_ptr<Variable> dot(std::shared_ptr<Variable> var, int ndiff)
+  VariablePtr dot(VariablePtr var, int ndiff)
   {
     assert(ndiff > 0 && "you cannot derive less than 1 time.");
     int i;
-    std::shared_ptr<Variable> derivative = var;
+    VariablePtr derivative = var;
 
     //find the ndiff-th derivative of var, or the largest i such that the i-th
     //derivative exists.
@@ -64,7 +65,7 @@ namespace taskvm
       for (; i < ndiff; ++i)
       {
         auto primitive = derivative;
-        derivative = std::shared_ptr<Variable>(new Variable(derivative));
+        derivative = VariablePtr(new Variable(derivative));
         primitive->derivative_ = derivative;
       }
       return derivative;
@@ -93,6 +94,14 @@ namespace taskvm
     return value_;
   }
 
+  void Variable::value(const VectorConstRef& x)
+  {
+    if (x.size() == size())
+      value_ = x;
+    else
+      throw std::runtime_error("x has not the correct size.");
+  }
+
   int Variable::derivativeNumber() const
   {
     return derivativeNumber_;
@@ -103,18 +112,34 @@ namespace taskvm
     return derivativeNumber_ == 0;
   }
 
-  std::shared_ptr<Variable> Variable::primitive() const
+  VariablePtr Variable::primitive() const
   {
     return primitive_;
   }
 
-  std::shared_ptr<Variable> Variable::basePrimitive() const
+  VariablePtr Variable::basePrimitive() const
   {
     const Variable* ptr = this;
     for (int i = 0; i < derivativeNumber_-1; ++i)
       ptr = ptr->primitive_.get();
 
     return ptr->primitive_;
+  }
+
+  Range Variable::getMappingIn(const VariableVector& variables) const
+  {
+    if (mappingHelper_.stamp == variables.stamp())
+      return{ mappingHelper_.start, size() };
+    else
+    {
+      if (variables.contains(*this))
+      {
+        variables.computeMapping();
+        return{ mappingHelper_.start, size() };
+      }
+      else
+        throw std::runtime_error("This variables is not part of the vector of variables.");
+    }
   }
 
   Variable::Variable(const Space & s, const std::string & name)
@@ -127,7 +152,7 @@ namespace taskvm
   {
   }
 
-  Variable::Variable(std::shared_ptr<Variable> var)
+  Variable::Variable(VariablePtr var)
     : space_(var->space_)
     , value_(var->space_.tSize())
     , derivativeNumber_(var->derivativeNumber_ + 1)

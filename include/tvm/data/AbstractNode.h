@@ -23,11 +23,13 @@
 #include "Inputs.h"
 
 #include <cassert>
+#include <functional>
+#include <vector>
 
 namespace tvm
 {
 
-struct CallGraph;
+class CallGraph;
 
 namespace data
 {
@@ -36,12 +38,13 @@ namespace data
  * actual type of the node.
  *
  */
-struct AbstractNode : public Inputs, Outputs
+class AbstractNode : public Inputs, public Outputs
 {
+public:
   template<typename T>
-  friend struct Node;
+  friend class Node;
 
-  friend struct tvm::CallGraph;
+  friend class tvm::CallGraph;
 
   /** Base Update enumeration. Empty */
   enum class Update {};
@@ -61,14 +64,31 @@ struct AbstractNode : public Inputs, Outputs
   /** Return the name of a given update */
   static constexpr const char * UpdateName(Output) { return "INVALID"; }
 
-  /** Check if a given update is enabled (run-time)
-   *
-   * The default implementation always return true. The
-   * expected parameter is int to swallow the different
-   * update types.
-   *
-   */
-  virtual bool isUpdateEnabled(int) { return true; }
+  /** Check if a given update is enabled, be it at the class (static) or
+  * instance (dynamic) level).
+  */
+  template <typename EnumT>
+  bool isUpdateEnabled(EnumT e) const
+  {
+    int i = static_cast<int>(e);
+    return isUpdateStaticallyEnabled(i) && isUpdateCustomEnabled(i);
+  }
+
+  /** Check if a given update is enabled at the class level (run-time).
+  *
+  * The default implementation always returns true. The
+  * expected parameter is int to swallow the different
+  * update types.
+  *
+  */
+  virtual bool isUpdateStaticallyEnabled(int) const { return true; }
+
+  /** Check if an update is enabled given a custom criterion
+  *
+  * The default implementation always return true.
+  * This is a handle for the user to override.
+  **/
+  virtual bool isUpdateCustomEnabled(int) const { return true; }
 
   /** Check if a given update is enabled (compile-time)
    *
@@ -76,7 +96,7 @@ struct AbstractNode : public Inputs, Outputs
    *
    */
   template<typename EnumT>
-  static constexpr bool UpdateEnabled(EnumT) { return true; }
+  static constexpr bool UpdateStaticallyEnabled(EnumT) { return true; }
 
   virtual ~AbstractNode() = default;
 
@@ -87,12 +107,18 @@ struct AbstractNode : public Inputs, Outputs
     updates_[i]();
   }
 protected:
+  /** Map from a update id to  corresponding dependency function.*/
   std::map<int, std::function<void()>> updates_;
 
+  /** Map from an output to the list of updates it depends on (expressed by the respective ids).*/
   std::map<int, std::vector<int>> outputDependencies_;
+  /** Map from an update to the list of updates it depends on (expressed by the respective ids).*/
   std::map<int, std::vector<int>> internalDependencies_;
+  /** Map from an update to the list of inputs it depends on (expressed by the respective ids).*/
   using input_dependency_t = std::map<std::shared_ptr<Outputs>, std::set<int>>;
   std::map<int, input_dependency_t> inputDependencies_;
+  /** Map from an output to the input it directly uses, without requiring an update (expressed by the respective ids).*/
+  std::map<int, std::pair<std::shared_ptr<Outputs>, int>> directDependencies_;
 private:
   AbstractNode()
   {
@@ -110,15 +136,15 @@ private:
  *
  */
 #define SET_UPDATES(SelfT, ...)\
-  EXTEND_ENUM(Update, SelfT, __VA_ARGS__)
+  PP_ID(EXTEND_ENUM(Update, SelfT, __VA_ARGS__))
 
 /** Mark some update signals as disabled for that class */
 #define DISABLE_UPDATES(...)\
-  DISABLE_SIGNALS(Update, __VA_ARGS__)
+  PP_ID(DISABLE_SIGNALS(Update, __VA_ARGS__))
 
 /** Mark all updates as enabled */
 #define CLEAR_DISABLED_UPDATES()\
-  CLEAR_DISABLED_SIGNALS(Update)
+  PP_ID(CLEAR_DISABLED_SIGNALS(Update))
 
 /** Check if a value of EnumT is a valid update for Node type T */
 template<typename T, typename EnumT>

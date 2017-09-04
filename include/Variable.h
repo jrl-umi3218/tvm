@@ -6,11 +6,23 @@
 #include <vector>
 #include <string>
 
+#include "defs.h"
 #include "tvm/api.h"
 
-namespace taskvm
+namespace tvm
 {
   class Variable;
+  class VariableVector;
+  
+  class Range
+  {
+  public:
+    Range() : start(0), dim(0) {}
+    Range(int s, int d) : start(s), dim(d) {}
+    int start;
+    int dim;
+  };
+
 
   class TVM_DLLAPI Space
   {
@@ -31,7 +43,7 @@ namespace taskvm
     int tSize_;   //size of a vector representing a velocity in this space
   };
 
-  std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable> var, int ndiff=1);
+  VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff=1);
 
   class TVM_DLLAPI Variable
   {
@@ -40,19 +52,28 @@ namespace taskvm
     int size() const;
     const Space& space() const;
     const Eigen::VectorXd& value() const;
+    void value(const VectorConstRef& x);
     int derivativeNumber() const;
     bool isBasePrimitive() const;
-    std::shared_ptr<Variable> primitive() const;
-    std::shared_ptr<Variable> basePrimitive() const;
+    VariablePtr primitive() const;
+    VariablePtr basePrimitive() const;
+
+    Range getMappingIn(const VariableVector& variables) const;
 
   protected:
 
   private:
+    struct MappingHelper
+    {
+      int start;
+      int stamp;
+    };
+
     /** Constructor for a new variable */
     Variable(const Space& s, const std::string& name);
 
     /** Constructor for the derivative of var */
-    Variable(std::shared_ptr<Variable> var);
+    Variable(VariablePtr var);
 
 
     /** name */
@@ -72,14 +93,17 @@ namespace taskvm
     /** If the variable is the time derivative of another one, primitive_ is a 
       * reference to the latter, otherwise it is uninitialized.
       */
-    std::shared_ptr<Variable> primitive_;
+    VariablePtr primitive_;
 
     /** If the variable has a time derivative, keep a pointer on it */
     std::weak_ptr<Variable> derivative_;
 
+    /** A helper structure for mapping purpose*/
+    mutable MappingHelper mappingHelper_;
 
     /** friendship declaration */
     friend class TVM_DLLAPI Space;
-    friend std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable>, int);
+    friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
+    friend class TVM_DLLAPI VariableVector;
   };
 }

@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-namespace taskvm
+namespace tvm
 {
   class EventListener;
 
