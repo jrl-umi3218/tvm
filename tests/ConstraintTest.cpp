@@ -26,8 +26,6 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   C1.updateValue();
 
   BOOST_CHECK(C1.value().isApprox(A1*x1->value()));
-  BOOST_CHECK_THROW(C1.u(), tvm::UnusedOutput);
-  BOOST_CHECK_THROW(C1.l(), tvm::UnusedOutput);
 
   // [A1 A2] [x1' x2']' <= b
   BasicLinearConstraint C2({ A1,A2 }, { x1,x2 }, b, ConstraintType::LOWER_THAN);
@@ -38,5 +36,4 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   BOOST_CHECK(C2.value().isApprox(A1*x1->value() + A2*x2->value()));
   BOOST_CHECK(C2.value().isApprox(C3.value()));
   BOOST_CHECK(C2.u().isApprox(b));
-  BOOST_CHECK_THROW(C2.l(), tvm::UnusedOutput);
 }
