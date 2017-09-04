@@ -140,7 +140,7 @@ struct Test
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    auto ca = CompiledAssignmentWrapper<Type>::make<A, S, M, P>(from, to, s, &wOrM);
+    auto ca = CompiledAssignmentWrapper<Type>::template make<A, S, M, P>(from, to, s, &wOrM);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, S, M, P, f, t, s, wOrM);
@@ -221,7 +221,7 @@ struct TestNoFrom
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    auto ca = CompiledAssignmentWrapper<Type>::make<A>(to);
+    auto ca = CompiledAssignmentWrapper<Type>::template make<A>(to);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, t);
