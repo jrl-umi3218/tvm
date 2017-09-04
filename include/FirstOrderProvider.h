@@ -20,18 +20,13 @@ namespace tvm
     public:
       SET_OUTPUTS(FirstOrderProvider, Value, Jacobian)
 
-      const Eigen::VectorXd& value() const;
-      const Eigen::MatrixXd& jacobian(const Variable& x) const;
-
       /** Note: by default, these methods return the cached value.
       * However, they are virtual in case the user might want to bypass the cache.
       * This would be typically the case if he/she wants to directly return the
       * output of another method, e.g. return the jacobian of an other Function.
-      *
-      * Question: should they be made protected or stay public
       */
-      virtual const Eigen::VectorXd& valueNoCheck() const;
-      virtual const Eigen::MatrixXd& jacobianNoCheck(const Variable& x) const;
+      virtual const Eigen::VectorXd& value() const;
+      virtual const Eigen::MatrixXd& jacobian(const Variable& x) const;
 
       /** Return the output size m*/
       int size() const;
@@ -65,5 +60,26 @@ namespace tvm
       int m_; //output size
       std::vector<VariablePtr> variables_;
     };
+
+
+    inline const Eigen::VectorXd& FirstOrderProvider::value() const
+    {
+      return value_;
+    }
+
+    inline const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
+    {
+      return jacobian_.at(&x);
+    }
+
+    inline int FirstOrderProvider::size() const
+    {
+      return m_;
+    }
+
+    inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
+    {
+      return variables_;
+    }
   }
 }

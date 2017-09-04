@@ -30,45 +30,6 @@ namespace tvm
       disableOutput(Output::E);
   }
 
-  const Eigen::VectorXd& Constraint::l() const
-  {
-    if (isOutputEnabled(Output::L))
-      return lNoCheck();
-    else
-      throw UnusedOutput(/*description*/); //TODO add description of the error
-  }
-
-  const Eigen::VectorXd& Constraint::u() const
-  {
-    if (isOutputEnabled(Output::U))
-      return uNoCheck();
-    else
-      throw UnusedOutput(/*description*/); //TODO add description of the error
-  }
-
-  const Eigen::VectorXd& Constraint::e() const
-  {
-    if (isOutputEnabled(Output::E))
-      return eNoCheck();
-    else
-      throw UnusedOutput(/*description*/); //TODO add description of the error
-  }
-
-  const Eigen::VectorXd& Constraint::lNoCheck() const
-  {
-    return l_;
-  }
-
-  const Eigen::VectorXd& Constraint::uNoCheck() const
-  {
-    return u_;
-  }
-
-  const Eigen::VectorXd& Constraint::eNoCheck() const
-  {
-    return e_;
-  }
-
   void Constraint::resizeCache()
   {
     if (usel_)

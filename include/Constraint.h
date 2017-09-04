@@ -38,23 +38,17 @@ namespace tvm
   public:
     using ConstraintBase::Output;
 
-    const Eigen::VectorXd& l() const;
-    const Eigen::VectorXd& u() const;
-    const Eigen::VectorXd& e() const;
+    /** Note: by default, these methods return the cached value.
+    * However, they are virtual in case the user might want to bypass the cache.
+    * This would be typically the case if he/she wants to directly return the
+    * output of another method.
+    */
+    virtual const Eigen::VectorXd& l() const;
+    virtual const Eigen::VectorXd& u() const;
+    virtual const Eigen::VectorXd& e() const;
 
     ConstraintType constraintType() const;
     ConstraintRHS constraintRhs() const;
-
-    /** Note: by default, these methods return the cached value.
-      * However, they are virtual in case the user might want to bypass the cache.
-      * This would be typically the case if he/she wants to directly return the
-      * output of another method.
-      *
-      * Question: should they be made protected or stay public
-      */
-    virtual const Eigen::VectorXd& lNoCheck() const;
-    virtual const Eigen::VectorXd& uNoCheck() const;
-    virtual const Eigen::VectorXd& eNoCheck() const;
 
   protected:
     Constraint(ConstraintType ct, ConstraintRHS cr, int m=0);
@@ -72,4 +66,20 @@ namespace tvm
     bool useu_;
     bool usee_;
   };
+
+
+  inline const Eigen::VectorXd& Constraint::l() const
+  {
+    return l_;
+  }
+
+  inline const Eigen::VectorXd& Constraint::u() const
+  {
+    return u_;
+  }
+
+  inline const Eigen::VectorXd& Constraint::e() const
+  {
+    return e_;
+  }
 }

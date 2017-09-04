@@ -69,7 +69,6 @@ struct AbstractNode : public Inputs, Outputs
   template <typename EnumT>
   bool isUpdateEnabled(EnumT e) const
   {
-    // FIXME is there a way to check that the enum has the good type here ?
     int i = static_cast<int>(e);
     return isUpdateStaticallyEnabled(i) && isUpdateCustomEnabled(i);
   }

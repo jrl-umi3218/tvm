@@ -12,42 +12,6 @@ namespace tvm
       resizeCache(); //resize value_
     }
 
-    const Eigen::VectorXd& FirstOrderProvider::value() const
-    {
-      if (isOutputEnabled(Output::Value))
-        return valueNoCheck();
-      else
-        throw UnusedOutput(/*description*/); //TODO add description of the error
-    }
-
-    const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
-    {
-      if (isOutputEnabled(Output::Jacobian))
-        return jacobianNoCheck(x);
-      else
-        throw UnusedOutput(/*description*/); //TODO add description of the error
-    }
-
-    const Eigen::VectorXd& FirstOrderProvider::valueNoCheck() const
-    {
-      return value_;
-    }
-
-    const Eigen::MatrixXd& FirstOrderProvider::jacobianNoCheck(const Variable& x) const
-    {
-      return jacobian_.at(&x);
-    }
-
-    int FirstOrderProvider::size() const
-    {
-      return m_;
-    }
-
-    const std::vector<VariablePtr>& FirstOrderProvider::variables() const
-    {
-      return variables_;
-    }
-
     void FirstOrderProvider::resizeCache()
     {
       if (isOutputEnabled((int)Output::Value))

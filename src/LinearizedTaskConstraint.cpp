@@ -67,9 +67,7 @@ namespace tvm
 
   void LinearizedTaskConstraint::updateLDyn()
   {
-    // We can call noCheck version because the existence of the output has been
-    // tested when declaring the dependencies.
-    l_ = td_->value() - f_->normalAccelerationNoCheck();
+    l_ = td_->value() - f_->normalAcceleration();
   }
   
   void LinearizedTaskConstraint::updateUKin()
@@ -79,7 +77,7 @@ namespace tvm
   
   void LinearizedTaskConstraint::updateUDyn()
   {
-    u_ = td_->value() - f_->normalAccelerationNoCheck();
+    u_ = td_->value() - f_->normalAcceleration();
   }
   
   void LinearizedTaskConstraint::updateEKin()
@@ -89,11 +87,11 @@ namespace tvm
   
   void LinearizedTaskConstraint::updateEDyn()
   {
-    e_ = td_->value() - f_->normalAccelerationNoCheck();
+    e_ = td_->value() - f_->normalAcceleration();
   }
 
-  const Eigen::MatrixXd& LinearizedTaskConstraint::jacobianNoCheck(const Variable& x) const
+  const Eigen::MatrixXd& LinearizedTaskConstraint::jacobian(const Variable& x) const
   {
-    return f_->jacobianNoCheck(x);
+    return f_->jacobian(x);
   }
 }

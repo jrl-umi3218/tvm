@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
 
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
-      const auto & cstr_l = cstr.Ax_geq_minus_b->lNoCheck();
+      const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
       BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
       BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
 
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
-      const auto & cstr_l = cstr.Ax_geq_minus_b->lNoCheck();
+      const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
       BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
       BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
@@ -215,8 +215,8 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
 
     {
       const auto & cstr_A = cstr.l_leq_Ax_leq_u->jacobian(*cstr.l_leq_Ax_leq_u->variables()[0]);
-      const auto & cstr_l = cstr.l_leq_Ax_leq_u->lNoCheck();
-      const auto & cstr_u = cstr.l_leq_Ax_leq_u->uNoCheck();
+      const auto & cstr_l = cstr.l_leq_Ax_leq_u->l();
+      const auto & cstr_u = cstr.l_leq_Ax_leq_u->u();
       for(size_t i = 0; i < 3; ++i)
       {
         BOOST_CHECK(mem->A.row(i) == sqrt(aW(i))*cstr_A.row(i));
