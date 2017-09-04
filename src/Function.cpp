@@ -61,12 +61,12 @@ namespace tvm
     }
   }
 
-  void Function::addVariable_(std::shared_ptr<Variable> v)
+  void Function::addVariable_(VariablePtr v)
   {
     JDot_[v.get()].resize(size(), v->size());
   }
 
-  void Function::removeVariable_(std::shared_ptr<Variable> v)
+  void Function::removeVariable_(VariablePtr v)
   {
     JDot_.erase(v.get());
   }

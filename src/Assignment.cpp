@@ -5,7 +5,7 @@
 
 namespace tvm
 {
-  Assignment::Assignment(std::shared_ptr<LinearConstraint> source, const SolvingRequirements& req,
+  Assignment::Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
                          const AssignmentTarget& target, const VariableVector& variables)
     : source_(source)
     , target_(target)
@@ -18,12 +18,12 @@ namespace tvm
     build(variables);
   }
 
-  void Assignment::refreshSource()
+  void Assignment::onUpdatedSource()
   {
     //TODO
   }
 
-  void Assignment::refreshTarget()
+  void Assignment::onUpdatedTarget()
   {
     for (auto& a : matrixAssignments_)
       a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
@@ -31,7 +31,7 @@ namespace tvm
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::refreshMapping(const VariableVector& variables)
+  void Assignment::onUpdatedMapping(const VariableVector& variables)
   {
     //TODO
   }

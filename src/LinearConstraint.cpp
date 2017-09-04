@@ -19,12 +19,12 @@ namespace tvm
 
 
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, ConstraintType ct)
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, ConstraintType ct)
     : BasicLinearConstraint({ A }, { x }, ct)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, ConstraintType ct)
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, ConstraintType ct)
     : LinearConstraint(ct, ConstraintRHS::ZERO, static_cast<int>(A.begin()->rows()))
   {
     if (ct == ConstraintType::DOUBLE_SIDED)
@@ -39,12 +39,12 @@ namespace tvm
     }
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
     : BasicLinearConstraint({ A }, { x }, b, ct, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, const VectorConstRef& b, ConstraintType ct, ConstraintRHS cr)
     : LinearConstraint(ct, cr, static_cast<int>(A.begin()->rows()))
   {
     if (ct == ConstraintType::DOUBLE_SIDED)
@@ -65,13 +65,13 @@ namespace tvm
     setb(b);
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, 
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, 
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     :BasicLinearConstraint({ A }, { x }, l, u, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, 
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, 
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     : LinearConstraint(ConstraintType::DOUBLE_SIDED, cr, static_cast<int>(A.begin()->rows()))
   {
@@ -157,7 +157,7 @@ namespace tvm
       throw std::runtime_error("setu is not allowed for this constraint.");
   }
 
-  void BasicLinearConstraint::add(const Eigen::MatrixXd& A, std::shared_ptr<Variable> x)
+  void BasicLinearConstraint::add(const Eigen::MatrixXd& A, VariablePtr x)
   {
     if (A.rows() != size())
       throw std::runtime_error("Matrix A doesn't have coherent row size.");

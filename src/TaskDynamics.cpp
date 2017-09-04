@@ -10,7 +10,7 @@ namespace tvm
     addOutputDependency(Output::Value, Update::UpdateValue);
   }
 
-  void TaskDynamics::setFunction(std::shared_ptr<Function> f)
+  void TaskDynamics::setFunction(FunctionPtr f)
   {
     if (!f_)
     {

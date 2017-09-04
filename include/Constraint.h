@@ -11,8 +11,6 @@
 
 namespace tvm
 {
-  class Variable;
-
   /** This is a helper class to define Constraint. Its sole purpose is to
     * declare the outputs L, U and E, (L and U being the lower and upper bounds
     * for inequality constraints, and E the term the constraint is equal to for

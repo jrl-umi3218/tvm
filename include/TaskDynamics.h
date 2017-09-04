@@ -6,6 +6,7 @@
 
 #include <tvm/api.h>
 #include <tvm/data/Node.h>
+#include "defs.h"
 
 //FIXME add mechanisms for when the function's output is resized
 //FIXME Consider the possibility of having variables in task dynamics?
@@ -26,7 +27,7 @@ namespace tvm
     SET_OUTPUTS(TaskDynamics, Value)
     SET_UPDATES(TaskDynamics, UpdateValue)
 
-    void setFunction(std::shared_ptr<Function> f);
+    void setFunction(FunctionPtr f);
 
     const Eigen::VectorXd& value() const;
     TDOrder order() const;
@@ -41,7 +42,7 @@ namespace tvm
 
   private:
     TDOrder order_;
-    std::shared_ptr<Function> f_;
+    FunctionPtr f_;
   };
 
   /** Compute -kp*f

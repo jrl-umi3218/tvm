@@ -10,14 +10,7 @@
 
 namespace tvm
 {
-  struct Range;
   class Requirements;
-  class Variable;
-  class VariableVector;
-
-  typedef std::shared_ptr<Eigen::MatrixXd> MatrixPtr;
-  typedef std::shared_ptr<Eigen::VectorXd> VectorPtr;
-  typedef std::shared_ptr<Range> RangePtr;
 
   /** This class describes the matrix and vector(s) rows in which a given
   * constraint needs to be copied, and the convention to be used for those

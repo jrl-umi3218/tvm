@@ -8,8 +8,6 @@
 
 namespace tvm
 {
-  class Variable;
-
   /* Notes: we define the classical outputs for a function*/
 
   class Function : public internal::FirstOrderProvider
@@ -38,8 +36,8 @@ namespace tvm
     /** Resize all cache members corresponding to active output*/
     void resizeCache() override;
 
-    virtual void addVariable_(std::shared_ptr<Variable> v) override;
-    virtual void removeVariable_(std::shared_ptr<Variable> v) override;
+    virtual void addVariable_(VariablePtr v) override;
+    virtual void removeVariable_(VariablePtr v) override;
 
   private:
     // cache

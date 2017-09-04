@@ -15,8 +15,8 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   MatrixXd A2 = MatrixXd::Random(4, 2);
   VectorXd b = VectorXd::Random(4);
 
-  std::shared_ptr<Variable> x1 = Space(5).createVariable("x1");
-  std::shared_ptr<Variable> x2 = Space(2).createVariable("x2");
+  VariablePtr x1 = Space(5).createVariable("x1");
+  VariablePtr x2 = Space(2).createVariable("x2");
 
   x1->value(VectorXd::Random(5));
   x2->value(VectorXd::Random(2));

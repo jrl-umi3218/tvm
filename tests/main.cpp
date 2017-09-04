@@ -10,7 +10,7 @@ using namespace tvm;
 
 void testVariable()
 {
-  std::shared_ptr<Variable> v = Space(3).createVariable("v");
+  VariablePtr v = Space(3).createVariable("v");
   std::cout << v->name() << std::endl;
   auto dv = dot(v);
   std::cout << dv->name() << std::endl;
@@ -118,7 +118,7 @@ void testBadGraph()
 
   auto cik = std::make_shared<KinematicLinearizedConstraint>("IK", f2);
   auto user3 = std::make_shared<tvm::data::Inputs>();
-  user3->addInput(cik, LinearConstraint::Output::A, LinearConstraint::Output::b);
+  user3->addInput(cik, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
   tvm::CallGraph g3;
   g3.add(user3);
   try { g3.update(); }
@@ -140,8 +140,8 @@ void testDataGraphComplex()
     auto cik2 = std::make_shared<KinematicLinearizedConstraint>("Linearized f2", f2);
 
     auto userIK = std::make_shared<tvm::data::Inputs>();
-    userIK->addInput(cik1, LinearConstraint::Output::A, LinearConstraint::Output::b);
-    userIK->addInput(cik2, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userIK->addInput(cik1, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
+    userIK->addInput(cik2, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
 
     tvm::CallGraph gik;
     gik.add(userIK);
@@ -155,8 +155,8 @@ void testDataGraphComplex()
     auto cid1 = std::make_shared<DynamicLinearizedConstraint>("Linearized f1", f1);
 
     auto userID = std::make_shared<tvm::data::Inputs>();
-    userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
-    userID->addInput(cid1, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userID->addInput(cid0, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
+    userID->addInput(cid1, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
 
     tvm::CallGraph gid;
     gid.add(userID);
@@ -189,7 +189,7 @@ void testDataGraphComplex()
     auto cid1 = std::make_shared<BetterDynamicLinearizedConstraint>("Linearized f1", f1);
 
     auto userID = std::make_shared<tvm::data::Inputs>();
-    userID->addInput(cid0, LinearConstraint::Output::A, LinearConstraint::Output::b);
+    userID->addInput(cid0, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
     userID->addInput(cid1, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
 
     tvm::CallGraph gid;

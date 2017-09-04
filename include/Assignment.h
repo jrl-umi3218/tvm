@@ -10,14 +10,12 @@
 #include "AssignmentTarget.h"
 #include "tvm/utils/CompiledAssignmentWrapper.h"
 #include "ConstraintEnums.h"
+#include "defs.h"
 #include "SolvingRequirements.h"
 #include "Variable.h" //for Range
 
 namespace tvm
 {
-  class LinearConstraint;
-  class VariableVector;
-
   /** A class whose role is to assign efficiently the matrix and vector(s) of a
     * LinearConstraint to a part of matrix and vector(s) specified by a
     * ResolutionScheme and a mapping of variables. This is done while taking
@@ -31,15 +29,15 @@ namespace tvm
     using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
     using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
-    Assignment(std::shared_ptr<LinearConstraint> source, const SolvingRequirements& req,
+    Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
                const AssignmentTarget& target, const VariableVector& variables);
   
     /** To be called when the source has been resized*/
-    void refreshSource();
+    void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
-    void refreshTarget();
+    void onUpdatedTarget();
     /** To be called when the variables change.*/
-    void refreshMapping(const VariableVector& variables);
+    void onUpdatedMapping(const VariableVector& variables);
     /** Change the weight of constraint. TODO: how to specify the constraint?*/
     void weight(double alpha);
     void weight(const Eigen::VectorXd& w);
@@ -77,7 +75,7 @@ namespace tvm
     template<typename T, typename U>
     utils::CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip);
 
-    std::shared_ptr<LinearConstraint> source_;
+    LinearConstraintPtr source_;
     AssignmentTarget target_;
     SolvingRequirements requirements_;
     std::vector<MatrixAssignment> matrixAssignments_;

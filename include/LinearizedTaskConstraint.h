@@ -5,8 +5,6 @@
 
 namespace tvm
 {
-  class TaskDynamics;
-
   /** Given a task (e, op, e*), this class derives the constraint 
     * d^k e/dt^k op  (d^k e/dt^k)*, where e is an error function, op is ==, >=
     * or <= and e* is a desired error dynamics.
@@ -32,7 +30,7 @@ namespace tvm
     const Eigen::MatrixXd& jacobianNoCheck(const Variable& x) const override;
 
   private:
-    std::shared_ptr<Function> f_;
+    FunctionPtr f_;
     std::shared_ptr<TaskDynamics> td_;
   };
 }

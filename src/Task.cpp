@@ -6,7 +6,7 @@
 
 namespace tvm
 {
-  ProtoTask operator==(std::shared_ptr<Function> f, double rhs)
+  ProtoTask operator==(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
       return{ f, ConstraintType::EQUAL };
@@ -14,7 +14,7 @@ namespace tvm
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
 
-  ProtoTask operator>=(std::shared_ptr<Function> f, double rhs)
+  ProtoTask operator>=(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
       return{ f, ConstraintType::GREATER_THAN };
@@ -22,7 +22,7 @@ namespace tvm
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
 
-  ProtoTask operator<=(std::shared_ptr<Function> f, double rhs)
+  ProtoTask operator<=(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
       return{ f, ConstraintType::LOWER_THAN };
@@ -30,7 +30,7 @@ namespace tvm
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
 
-  Task::Task(std::shared_ptr<Function> f, ConstraintType t, std::shared_ptr<TaskDynamics> td)
+  Task::Task(FunctionPtr f, ConstraintType t, std::shared_ptr<TaskDynamics> td)
     : f_(f)
     , type_(t)
     , td_(td)
@@ -45,7 +45,7 @@ namespace tvm
   {
   }
 
-  std::shared_ptr<Function> Task::function() const
+  FunctionPtr Task::function() const
   {
     return f_;
   }

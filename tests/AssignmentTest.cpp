@@ -128,7 +128,7 @@ bool check(const Memory& mem, ConstraintType ct, ConstraintRHS cr, const VectorX
 Constraints buildConstraints(int m, int n)
 {
   Constraints cstr;
-  std::shared_ptr<Variable> x = Space(n).createVariable("x");
+  VariablePtr x = Space(n).createVariable("x");
 
   //generate matrix
   MatrixXd A = MatrixXd::Random(m, n);
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
 
     //now we change the range of the target and refresh the assignment
     range->start = 0;
-    a.refreshTarget();
+    a.onUpdatedTarget();
     mem->A.setZero();
     mem->l.setZero();
     mem->u.setZero();

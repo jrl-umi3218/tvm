@@ -43,7 +43,7 @@ namespace tvm
       return m_;
     }
 
-    const std::vector<std::shared_ptr<Variable>>& FirstOrderProvider::variables() const
+    const std::vector<VariablePtr>& FirstOrderProvider::variables() const
     {
       return variables_;
     }
@@ -60,7 +60,7 @@ namespace tvm
       }
     }
 
-    void FirstOrderProvider::addVariable(std::shared_ptr<Variable> v)
+    void FirstOrderProvider::addVariable(VariablePtr v)
     {
       if (std::find(variables_.begin(), variables_.end(), v) == variables_.end())
         variables_.push_back(v);
@@ -72,7 +72,7 @@ namespace tvm
       addVariable_(v);
     }
 
-    void FirstOrderProvider::removeVariable(std::shared_ptr<Variable> v)
+    void FirstOrderProvider::removeVariable(VariablePtr v)
     {
       auto it = std::find(variables_.begin(), variables_.end(), v);
       if (it == variables_.end())
@@ -86,12 +86,12 @@ namespace tvm
       removeVariable_(v);
     }
 
-    void FirstOrderProvider::addVariable_(std::shared_ptr<Variable>)
+    void FirstOrderProvider::addVariable_(VariablePtr)
     {
       //do nothing
     }
 
-    void FirstOrderProvider::removeVariable_(std::shared_ptr<Variable>)
+    void FirstOrderProvider::removeVariable_(VariablePtr)
     {
       //do nothing
     }

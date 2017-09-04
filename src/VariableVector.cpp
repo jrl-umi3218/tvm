@@ -9,18 +9,18 @@ namespace tvm
   {
   }
 
-  VariableVector::VariableVector(const std::vector<std::shared_ptr<Variable>>& variables)
+  VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
   {
     add(variables);
   }
 
-  VariableVector::VariableVector(std::initializer_list<std::shared_ptr<Variable>> variables)
+  VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
   {
     for (auto& v : variables)
       add(v);
   }
 
-  void VariableVector::add(std::shared_ptr<Variable> v, bool mergeDuplicate)
+  void VariableVector::add(VariablePtr v, bool mergeDuplicate)
   {
     if (contains(*v.get()))
     {
@@ -35,7 +35,7 @@ namespace tvm
     getNewStamp();
   }
 
-  void VariableVector::add(const std::vector<std::shared_ptr<Variable>>& variables, bool mergeDuplicate)
+  void VariableVector::add(const std::vector<VariablePtr>& variables, bool mergeDuplicate)
   {
     for (auto& v : variables)
       add(v, mergeDuplicate);
@@ -45,7 +45,7 @@ namespace tvm
   {
     if (contains(v))
     {
-      auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const std::shared_ptr<Variable>& it) {return (it.get() == &v); });
+      auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
       variables_.erase(it);
       variableSet_.erase(&v);
       size_ -= v.size();
@@ -68,13 +68,13 @@ namespace tvm
     return static_cast<int>(variables_.size());
   }
 
-  const std::shared_ptr<Variable> VariableVector::operator[](int i) const
+  const VariablePtr VariableVector::operator[](int i) const
   {
     assert(i >= 0 && i < numberOfVariables());
     return variables_[i];
   }
 
-  const std::vector<std::shared_ptr<Variable>>& VariableVector::variables() const
+  const std::vector<VariablePtr>& VariableVector::variables() const
   {
     return variables_;
   }

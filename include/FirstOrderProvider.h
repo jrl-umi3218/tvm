@@ -6,12 +6,11 @@
 
 #include <Eigen/Core>
 
-#include  <tvm/data/Node.h>
+#include <tvm/data/Node.h>
+#include "defs.h"
 
 namespace tvm
 {
-  class Variable;
-
   namespace internal
   {
     /* Describes an entity that can provide a value and its jacobian*/
@@ -38,7 +37,7 @@ namespace tvm
       int size() const;
 
       /** Return the variables*/
-      const std::vector<std::shared_ptr<Variable>>& variables() const;
+      const std::vector<VariablePtr>& variables() const;
 
     protected:
       FirstOrderProvider(int m);
@@ -49,14 +48,14 @@ namespace tvm
       virtual void resizeCache();
 
       /** Add or remove variables. Cache is automatically updated*/
-      void addVariable(std::shared_ptr<Variable>);
-      void removeVariable(std::shared_ptr<Variable>);
+      void addVariable(VariablePtr);
+      void removeVariable(VariablePtr);
 
       /** To be overriden by derived classes that need to react to
         * the addition of a variable. Called at the end of addVariable();
         */
-      virtual void addVariable_(std::shared_ptr<Variable>);
-      virtual void removeVariable_(std::shared_ptr<Variable>);
+      virtual void addVariable_(VariablePtr);
+      virtual void removeVariable_(VariablePtr);
 
       // cache
       Eigen::VectorXd value_;
@@ -64,7 +63,7 @@ namespace tvm
 
     private:
       int m_; //output size
-      std::vector<std::shared_ptr<Variable>> variables_;
+      std::vector<VariablePtr> variables_;
     };
   }
 }

@@ -42,7 +42,7 @@ namespace tvm
     int tSize_;   //size of a vector representing a velocity in this space
   };
 
-  std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable> var, int ndiff=1);
+  VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff=1);
 
   class TVM_DLLAPI Variable
   {
@@ -54,8 +54,8 @@ namespace tvm
     void value(const VectorConstRef& x);
     int derivativeNumber() const;
     bool isBasePrimitive() const;
-    std::shared_ptr<Variable> primitive() const;
-    std::shared_ptr<Variable> basePrimitive() const;
+    VariablePtr primitive() const;
+    VariablePtr basePrimitive() const;
 
     Range getMappingIn(const VariableVector& variables) const;
 
@@ -72,7 +72,7 @@ namespace tvm
     Variable(const Space& s, const std::string& name);
 
     /** Constructor for the derivative of var */
-    Variable(std::shared_ptr<Variable> var);
+    Variable(VariablePtr var);
 
 
     /** name */
@@ -92,7 +92,7 @@ namespace tvm
     /** If the variable is the time derivative of another one, primitive_ is a 
       * reference to the latter, otherwise it is uninitialized.
       */
-    std::shared_ptr<Variable> primitive_;
+    VariablePtr primitive_;
 
     /** If the variable has a time derivative, keep a pointer on it */
     std::weak_ptr<Variable> derivative_;
@@ -102,7 +102,7 @@ namespace tvm
 
     /** friendship declaration */
     friend class TVM_DLLAPI Space;
-    friend std::shared_ptr<Variable> TVM_DLLAPI dot(std::shared_ptr<Variable>, int);
+    friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
     friend class TVM_DLLAPI VariableVector;
   };
 }

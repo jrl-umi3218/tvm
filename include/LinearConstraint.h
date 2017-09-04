@@ -11,8 +11,6 @@
 
 namespace tvm
 {
-  class Variable;
-
   class TVM_DLLAPI LinearConstraint : public Constraint
   {
   public:
@@ -32,17 +30,17 @@ namespace tvm
   {
   public:
     /** Ax = 0, Ax <= 0 or Ax >= 0. */
-    BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, ConstraintType ct);
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, ConstraintType ct);
+    BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, ConstraintType ct);
+    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, ConstraintType ct);
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b */
-    BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x, const VectorConstRef& b,
+    BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b,
                           ConstraintType ct, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x, const VectorConstRef& b,
+    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, const VectorConstRef& b,
                           ConstraintType ct, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
     /** l <= Ax <= u */
-    BasicLinearConstraint(const MatrixConstRef& A, std::shared_ptr<Variable> x,
+    BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x,
                           const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<std::shared_ptr<Variable>> x,
+    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x,
                           const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr = ConstraintRHS::AS_GIVEN);
 
     /** Set the matrix A corresponding to variable x.*/
@@ -54,6 +52,6 @@ namespace tvm
     void setu(const VectorConstRef& u);
 
   private:
-    void add(const Eigen::MatrixXd& A, std::shared_ptr<Variable> x);
+    void add(const Eigen::MatrixXd& A, VariablePtr x);
   };
 }

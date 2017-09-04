@@ -6,11 +6,10 @@
 #include <vector>
 
 #include <tvm/api.h>
+#include "defs.h"
 
 namespace tvm
 {
-  class Variable;
-
   /** A vector of variables, with some useful manipulation/analysis functions.
     *
     * One of the main use of this class is to determine variable mapping, i.e.
@@ -32,11 +31,11 @@ namespace tvm
   {
   public:
     VariableVector();
-    VariableVector(const std::vector<std::shared_ptr<Variable>>& variables);
-    VariableVector(std::initializer_list<std::shared_ptr<Variable>> variables);
+    VariableVector(const std::vector<VariablePtr>& variables);
+    VariableVector(std::initializer_list<VariablePtr> variables);
 
-    void add(std::shared_ptr<Variable> v, bool mergeDuplicate = false);
-    void add(const std::vector<std::shared_ptr<Variable>>& variables, bool mergeDuplicate = false);
+    void add(VariablePtr v, bool mergeDuplicate = false);
+    void add(const std::vector<VariablePtr>& variables, bool mergeDuplicate = false);
     void remove(const Variable& v, bool ignoreAbsence = false);
 
     /** Sum of the sizes of all the variables.*/
@@ -44,9 +43,9 @@ namespace tvm
     /** Number of variables*/
     int numberOfVariables() const;
     /** Elementwise access*/
-    const std::shared_ptr<Variable> operator[](int i) const;
+    const VariablePtr operator[](int i) const;
     /** whole vector access*/
-    const std::vector<std::shared_ptr<Variable>>& variables() const;
+    const std::vector<VariablePtr>& variables() const;
 
     //mapping related methods
     void computeMapping() const;
@@ -61,7 +60,7 @@ namespace tvm
 
     mutable int stamp_;
     int size_;
-    std::vector<std::shared_ptr<Variable>> variables_;
+    std::vector<VariablePtr> variables_;
     /** This set is a helper to quickly test the presence of a variable without
       * iterating through the whole vector.
       */

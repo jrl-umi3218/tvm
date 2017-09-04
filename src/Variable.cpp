@@ -42,11 +42,11 @@ namespace tvm
 
 
 
-  std::shared_ptr<Variable> dot(std::shared_ptr<Variable> var, int ndiff)
+  VariablePtr dot(VariablePtr var, int ndiff)
   {
     assert(ndiff > 0 && "you cannot derive less than 1 time.");
     int i;
-    std::shared_ptr<Variable> derivative = var;
+    VariablePtr derivative = var;
 
     //find the ndiff-th derivative of var, or the largest i such that the i-th
     //derivative exists.
@@ -65,7 +65,7 @@ namespace tvm
       for (; i < ndiff; ++i)
       {
         auto primitive = derivative;
-        derivative = std::shared_ptr<Variable>(new Variable(derivative));
+        derivative = VariablePtr(new Variable(derivative));
         primitive->derivative_ = derivative;
       }
       return derivative;
@@ -112,12 +112,12 @@ namespace tvm
     return derivativeNumber_ == 0;
   }
 
-  std::shared_ptr<Variable> Variable::primitive() const
+  VariablePtr Variable::primitive() const
   {
     return primitive_;
   }
 
-  std::shared_ptr<Variable> Variable::basePrimitive() const
+  VariablePtr Variable::basePrimitive() const
   {
     const Variable* ptr = this;
     for (int i = 0; i < derivativeNumber_-1; ++i)
@@ -152,7 +152,7 @@ namespace tvm
   {
   }
 
-  Variable::Variable(std::shared_ptr<Variable> var)
+  Variable::Variable(VariablePtr var)
     : space_(var->space_)
     , value_(var->space_.tSize())
     , derivativeNumber_(var->derivativeNumber_ + 1)
