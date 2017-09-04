@@ -63,15 +63,17 @@ namespace tvm
     };
 
     template<typename MatrixType, bool Cache>
-    struct CachedResult
+    class CachedResult
     {
+    public:
       template<typename T>
       const T& cache(const T& M) { return M; }
     };
 
     template<typename MatrixType>
-    struct CachedResult<MatrixType, true>
+    class CachedResult<MatrixType, true>
     {
+    public:
       template<typename T>
       const MatrixType& cache(const T& M)
       {
@@ -95,24 +97,25 @@ namespace tvm
 
     /** Traits for deciding whether or not to use a cache. By default, no cache is used.*/
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
-    struct cache_traits : public std::false_type {};
+    class cache_traits : public std::false_type {};
 
     /** Specialization for min/max with general matrix product. In this case, we use the cache*/
     template<typename MatrixType, ScalarMult S, MultPos P>
-    struct cache_traits<MatrixType, MIN, S, GENERAL, P, EXTERNAL> : public std::true_type {};
+    class cache_traits<MatrixType, MIN, S, GENERAL, P, EXTERNAL> : public std::true_type {};
     template<typename MatrixType, ScalarMult S, MultPos P>
-    struct cache_traits<MatrixType, MAX, S, GENERAL, P, EXTERNAL> : public std::true_type {};
+    class cache_traits<MatrixType, MAX, S, GENERAL, P, EXTERNAL> : public std::true_type {};
     /** Specialization for GENERAL*CONSTANT. This should not be necessary, but 
       * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
     template<typename MatrixType, AssignType A, ScalarMult S, MultPos P>
-    struct cache_traits<MatrixType, A, S, GENERAL, P, CONSTANT> : public std::true_type {};
+    class cache_traits<MatrixType, A, S, GENERAL, P, CONSTANT> : public std::true_type {};
 
-    /** Base struct for the assignation */
-    template<AssignType A>  struct AssignBase {};
+    /** Base class for the assignation */
+    template<AssignType A>  class AssignBase {};
 
     template<>
-    struct AssignBase<COPY>
+    class AssignBase<COPY>
     {
+    public:
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() = in; }
 
@@ -121,8 +124,9 @@ namespace tvm
     };
 
     template<>
-    struct AssignBase<ADD>
+    class AssignBase<ADD>
     {
+    public:
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() += in; }
 
@@ -131,8 +135,9 @@ namespace tvm
     };
 
     template<>
-    struct AssignBase<SUB>
+    class AssignBase<SUB>
     {
+    public:
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.noalias() -= in; }
 
@@ -141,8 +146,9 @@ namespace tvm
     };
 
     template<>
-    struct AssignBase<MIN>
+    class AssignBase<MIN>
     {
+    public:
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.array() = out.array().min(in.array()); }
 
@@ -151,8 +157,9 @@ namespace tvm
     };
 
     template<>
-    struct AssignBase<MAX>
+    class AssignBase<MAX>
     {
+    public:
       template <typename T, typename U>
       void assign(const T& in, U& out) { out.array() = out.array().max(in.array()); }
 
@@ -161,13 +168,14 @@ namespace tvm
     };
 
 
-    /** Base struct for the multiplication by a scalar*/
-    template<ScalarMult S> struct ScalarMultBase {};
+    /** Base class for the multiplication by a scalar*/
+    template<ScalarMult S> class ScalarMultBase {};
 
     /** Specialization for NONE */
     template<>
-    struct ScalarMultBase<NONE>
+    class ScalarMultBase<NONE>
     {
+    public:
       ScalarMultBase(double) {};
 
       template<typename T>
@@ -176,8 +184,9 @@ namespace tvm
 
     /** Specialization for MINUS */
     template<>
-    struct ScalarMultBase<MINUS>
+    class ScalarMultBase<MINUS>
     {
+    public:
       ScalarMultBase(double) {};
 
       double applyScalarMult(const double& M) { return -M; }
@@ -195,8 +204,9 @@ namespace tvm
 
     /** Specialization for SCALAR */
     template<>
-    struct ScalarMultBase<SCALAR>
+    class ScalarMultBase<SCALAR>
     {
+    public:
       ScalarMultBase(double s) : s_(s) {};
 
       template<typename T>
@@ -207,13 +217,14 @@ namespace tvm
     };
 
 
-    /** Base struct for the multiplication by a matrix*/
-    template<MatrixMult M, MultPos P> struct MatrixMultBase {};
+    /** Base class for the multiplication by a matrix*/
+    template<MatrixMult M, MultPos P> class MatrixMultBase {};
 
     /** Partial specialization for IDENTITY*/
     template<MultPos P>
-    struct MatrixMultBase<IDENTITY, P>
+    class MatrixMultBase<IDENTITY, P>
     {
+    public:
       typedef void MultType;
       MatrixMultBase(const MultType* const) {}
 
@@ -223,8 +234,9 @@ namespace tvm
 
     /** Partial specialization for DIAGONAL*/
     template<MultPos P>
-    struct MatrixMultBase<DIAGONAL, P>
+    class MatrixMultBase<DIAGONAL, P>
     {
+    public:
       typedef Eigen::VectorXd MultType;
       MatrixMultBase(const MultType* const w) : w_(*w) { assert(w != nullptr); }
 
@@ -252,8 +264,9 @@ namespace tvm
 
     /** Partial specialization for GENERAL*/
     template<MultPos P>
-    struct MatrixMultBase<GENERAL, P>
+    class MatrixMultBase<GENERAL, P>
     {
+    public:
       typedef Eigen::MatrixXd MultType;
       MatrixMultBase(const MultType* const M) : M_(*M) { assert(M != nullptr); }
 
@@ -279,10 +292,11 @@ namespace tvm
     };
 
 
-    /** Base struct for managing the source*/
+    /** Base class for managing the source*/
     template<typename MatrixType, Source F>
-    struct SourceBase
+    class SourceBase
     {
+    public:
       using SourceType = typename std::conditional<F==CONSTANT, double, Eigen::Ref<const MatrixType>>::type;
 
       SourceBase(const SourceType& from) : from_(from) {}
@@ -305,7 +319,7 @@ namespace tvm
 
     /** Partial specialization for ZERO*/
     template<typename MatrixType> 
-    struct SourceBase<MatrixType, ZERO> {};
+    class SourceBase<MatrixType, ZERO> {};
 
 
 
@@ -328,7 +342,7 @@ namespace tvm
       * instead (needed for substitution in constraints with anistropic weight.
       */
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F=EXTERNAL>
-    struct CompiledAssignment
+    class CompiledAssignment
       : public CachedResult<MatrixType, cache_traits<MatrixType, A, S, M, P, F>::value>
       , public AssignBase<A>
       , public ScalarMultBase<S>
@@ -365,13 +379,13 @@ namespace tvm
       Eigen::Ref<MatrixType> to_;
 
       template<typename MatrixType_>
-      friend struct CompiledAssignmentWrapper;
+      friend class CompiledAssignmentWrapper;
     };
 
 
     /** Specialization for F=0. The class does nothing in the general case.*/
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P>
-    struct CompiledAssignment<MatrixType, A, S, M, P, ZERO>
+    class CompiledAssignment<MatrixType, A, S, M, P, ZERO>
     {
     private:
       CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
@@ -390,13 +404,13 @@ namespace tvm
       Eigen::Ref<MatrixType> to_;
 
       template<typename MatrixType_>
-      friend struct CompiledAssignmentWrapper;
+      friend class CompiledAssignmentWrapper;
     };
 
 
     /** Specialization for F=0 and A=COPY.*/
     template<typename MatrixType, ScalarMult S, MatrixMult M, MultPos P>
-    struct CompiledAssignment<MatrixType, COPY, S, M, P, ZERO>
+    class CompiledAssignment<MatrixType, COPY, S, M, P, ZERO>
     {
     private:
       CompiledAssignment(const Eigen::Ref<MatrixType>& to): to_(to) {}
@@ -415,7 +429,7 @@ namespace tvm
       Eigen::Ref<MatrixType> to_;
 
       template<typename MatrixType_>
-      friend struct CompiledAssignmentWrapper;
+      friend class CompiledAssignmentWrapper;
     };
 
 

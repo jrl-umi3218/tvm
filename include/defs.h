@@ -9,7 +9,7 @@ namespace tvm
   //forward declarations
   class Variable;
   class VariableVector;
-  struct Range;
+  class Range;
   class Function;
   class TaskDynamics;
   class LinearConstraint;

@@ -14,8 +14,9 @@ namespace tvm
   class Variable;
   class VariableVector;
   
-  struct Range
+  class Range
   {
+  public:
     Range() : start(0), dim(0) {}
     Range(int s, int d) : start(s), dim(d) {}
     int start;

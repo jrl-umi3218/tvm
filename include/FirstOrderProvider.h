@@ -38,7 +38,11 @@ namespace tvm
       FirstOrderProvider(int m);
 
       /** Resize all cache members corresponding to active output.
-        * Do not forget to call it if you override it in derived classes.
+        *
+        * This can be overriden in case you do not need all of the default
+        * mechanism (typically if you will not use part of the cache).
+        * If you override to perform additional operations, do not forget to 
+        * call this base version in the derived classes.
         */
       virtual void resizeCache();
 

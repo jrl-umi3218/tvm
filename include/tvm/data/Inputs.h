@@ -27,15 +27,16 @@
 namespace tvm
 {
 
-struct CallGraph;
+class CallGraph;
 
 namespace data
 {
 
 /** Inputs store a list of Outputs and the required output signals */
-struct TVM_DLLAPI Inputs
+class TVM_DLLAPI Inputs
 {
-  friend struct tvm::CallGraph;
+public:
+  friend class tvm::CallGraph;
 
   virtual ~Inputs() = default;
 

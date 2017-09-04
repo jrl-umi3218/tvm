@@ -34,7 +34,7 @@ namespace data
  *
  */
 template<typename T>
-struct Node : public AbstractNode
+class Node : public AbstractNode
 {
 protected:
   /** Register updates

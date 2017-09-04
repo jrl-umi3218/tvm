@@ -29,7 +29,7 @@
 namespace tvm
 {
 
-struct CallGraph;
+class CallGraph;
 
 namespace data
 {
@@ -38,12 +38,13 @@ namespace data
  * actual type of the node.
  *
  */
-struct AbstractNode : public Inputs, Outputs
+class AbstractNode : public Inputs, public Outputs
 {
+public:
   template<typename T>
-  friend struct Node;
+  friend class Node;
 
-  friend struct tvm::CallGraph;
+  friend class tvm::CallGraph;
 
   /** Base Update enumeration. Empty */
   enum class Update {};

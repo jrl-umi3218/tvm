@@ -15,7 +15,7 @@ namespace tvm
     namespace private_
     {
       template<Source F>
-      struct from_FunctionBuilder;
+      class from_FunctionBuilder;
     };
 
 
@@ -24,8 +24,9 @@ namespace tvm
       * exposed: run, from, to.
       */
     template<typename MatrixType>
-    struct CompiledAssignmentWrapper
+    class CompiledAssignmentWrapper
     {
+    public:
       CompiledAssignmentWrapper(const CompiledAssignmentWrapper<MatrixType>& other);
       CompiledAssignmentWrapper(CompiledAssignmentWrapper<MatrixType>&& other);
       CompiledAssignmentWrapper<MatrixType>& operator=(CompiledAssignmentWrapper<MatrixType> other);
@@ -78,14 +79,15 @@ namespace tvm
       std::function<void(const Eigen::Ref<const MatrixType>&)> from_;
 
       template<Source F>
-      friend struct private_::from_FunctionBuilder;
+      friend class private_::from_FunctionBuilder;
     };
 
     namespace private_
     {
       template<tvm::utils::Source F>
-      struct from_FunctionBuilder
+      class from_FunctionBuilder
       {
+      public:
         template<typename CA, typename MatrixType>
         static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
         {
@@ -97,8 +99,9 @@ namespace tvm
       };
 
       template<>
-      struct from_FunctionBuilder<tvm::utils::Source::ZERO>
+      class from_FunctionBuilder<tvm::utils::Source::ZERO>
       {
+      public:
         template<typename CA, typename MatrixType>
         static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
         {
@@ -110,8 +113,9 @@ namespace tvm
       };
 
       template<>
-      struct from_FunctionBuilder<tvm::utils::Source::CONSTANT>
+      class from_FunctionBuilder<tvm::utils::Source::CONSTANT>
       {
+      public:
         template<typename CA, typename MatrixType>
         static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
         {

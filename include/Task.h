@@ -9,8 +9,9 @@ namespace tvm
   /** A conveniency proxy to represents expression f==0, f>=0 or f<=0 where f
     * is a function
     */
-  struct TVM_DLLAPI ProtoTask
+  class TVM_DLLAPI ProtoTask
   {
+  public:
     FunctionPtr f_;
     ConstraintType type_;
   };

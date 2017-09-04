@@ -27,7 +27,7 @@
 namespace tvm
 {
 
-struct CallGraph;
+class CallGraph;
 
 namespace data
 {
@@ -40,9 +40,10 @@ namespace data
  * (i.e. a new Ouputs must follow a direct inheritance line).
  *
  */
-struct TVM_DLLAPI Outputs
+class TVM_DLLAPI Outputs
 {
-  friend struct tvm::CallGraph;
+public:
+  friend class tvm::CallGraph;
 
   virtual ~Outputs() = default;
 
