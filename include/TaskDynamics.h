@@ -19,8 +19,6 @@ namespace tvm
     Dynamics
   };
 
-  class Function;
-
   class TVM_DLLAPI TaskDynamics : public data::Node<TaskDynamics>
   {
   public:

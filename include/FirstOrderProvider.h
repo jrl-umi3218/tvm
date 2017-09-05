@@ -37,7 +37,7 @@ namespace tvm
     protected:
       FirstOrderProvider(int m);
 
-      /** Resize all cache members corresponding to active output.
+      /** Resize all cache members corresponding to active outputs.
         *
         * This can be overriden in case you do not need all of the default
         * mechanism (typically if you will not use part of the cache).
@@ -45,6 +45,12 @@ namespace tvm
         * call this base version in the derived classes.
         */
       virtual void resizeCache();
+
+      /** Sub-methods of resizeCache to be used by derived classes that need 
+        * this level of granularity.
+        */
+      void resizeValueCache();
+      void resizeJacobianCache();
 
       /** Add or remove variables. Cache is automatically updated*/
       void addVariable(VariablePtr);

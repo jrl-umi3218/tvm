@@ -7,13 +7,25 @@ namespace tvm
   void Function::resizeCache()
   {
     FirstOrderProvider::resizeCache();
+    resizeVelocityCache();
+    resizeNormalAccelerationCache();
+    resizeJDotCache();
+  }
 
+  void Function::resizeVelocityCache()
+  {
     if (isOutputEnabled((int)Output::Velocity))
       velocity_.resize(size());
+  }
 
+  void Function::resizeNormalAccelerationCache()
+  {
     if (isOutputEnabled((int)Output::NormalAcceleration))
       normalAcceleration_.resize(size());
+  }
 
+  void Function::resizeJDotCache()
+  {
     if (isOutputEnabled((int)Output::JDot))
     {
       for (auto v : variables())
