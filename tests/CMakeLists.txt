@@ -12,6 +12,7 @@ include_directories(${Boost_INCLUDE_DIRS}) #is this line needed only for Windows
 if(WIN32)
   #This is one of the way to avoid link errors related to static variables in program_options
   add_definitions( -DBOOST_ALL_DYN_LINK )
+  add_definitions(/bigobj)
 endif(WIN32)
 
 macro(addUnitTest name)
@@ -25,6 +26,7 @@ endmacro(addUnitTest)
 addUnitTest(AssignmentTest)
 addUnitTest(CompiledAssignmentTest)
 addUnitTest(ConstraintTest)
+addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
 addUnitTest(SolvingRequirementsTest)
 

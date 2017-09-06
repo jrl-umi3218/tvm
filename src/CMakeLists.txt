@@ -10,6 +10,7 @@ set(TVM_SOURCES
   Function.cpp
   LinearConstraint.cpp
   LinearizedTaskConstraint.cpp
+  MatrixProperties.cpp
   ResolutionScheme.cpp
   Robot.cpp
   SolvingRequirements.cpp
@@ -44,6 +45,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../Function.h
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
   ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
+  ${TVM_INCLUDE_DIR}/../MatrixProperties.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
