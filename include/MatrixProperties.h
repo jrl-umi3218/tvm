@@ -20,15 +20,15 @@ namespace tvm
   /** Positiveness property of the matrix. Any options other than NA implies
     * that the matrix is symmetric
     */
-  enum class Positivness
+  enum class Positiveness
   {
     NA,                     // not applicable (matrix is not symmetric) / unknown
     POSITIVE_SEMIDEFINITE,  // all eigenvalues are >=0
     POSITIVE_DEFINITE,      // all eigenvalues are >0
     NEGATIVE_SEMIDEFINITE,  // all eigenvalues are <=0
     NEGATIVE_DEFINITE,      // all eigenvalues are <0
-    UNDEFINITE,             // eigenvalues are a mix of positive, negative and 0
-    NON_ZERO_UNDEFINITE,    // eigenvalues are a mix of positive, negative but not 0
+    INDEFINITE,             // eigenvalues are a mix of positive, negative and 0
+    NON_ZERO_INDEFINITE,    // eigenvalues are a mix of positive, negative but not 0
   };
 
   /** This class describes some mathematical properties of a matrix.
@@ -39,7 +39,7 @@ namespace tvm
     /** The data given to the constructors may be redundant. For example an 
       * identity matrix is constant, invertible and positive definite. The 
       * constructors are deducing automatically all what they can from the 
-      * shape and the positivness.
+      * shape and the positiveness.
       * The constructors use user-given data when they add information to what
       * they can deduce. If the user-given data are less precise but compatible
       * with what has been deduced, they are discarded. If they are 
@@ -57,12 +57,12 @@ namespace tvm
       * contradicts what can be deduced.
       * - if a matrix is triangular and symmetric, then it is diagonal.
       */
-    MatrixProperties(MatrixShape shape = MatrixShape::GENERAL, Positivness positivness = Positivness::NA);
-    MatrixProperties(bool constant, MatrixShape shape = MatrixShape::GENERAL, Positivness positivness = Positivness::NA);
-    MatrixProperties(bool invertible, bool constant = false, MatrixShape shape = MatrixShape::GENERAL, Positivness positivness = Positivness::NA);
+    MatrixProperties(MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
+    MatrixProperties(bool constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
+    MatrixProperties(bool invertible, bool constant = false, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
 
     MatrixShape shape() const;
-    Positivness positivness() const;
+    Positiveness positiveness() const;
 
     bool isConstant() const;
     bool isInvertible() const;
@@ -79,15 +79,15 @@ namespace tvm
     bool isPositiveDefinite() const;
     bool isNegativeSemidefinite() const;
     bool isNegativeDefinite() const;
-    bool isUndefinite() const;
-    bool isNonZeroUndefinite() const;
+    bool isIndefinite() const;
+    bool isNonZeroIndefinite() const;
 
   private:
     bool        constant_;
     bool        invertible_;
     MatrixShape shape_;
     bool        symmetric_;
-    Positivness positivness_;
+    Positiveness positiveness_;
   };
 
   inline MatrixShape MatrixProperties::shape() const
@@ -95,9 +95,9 @@ namespace tvm
     return shape_;
   }
 
-  inline Positivness MatrixProperties::positivness() const
+  inline Positiveness MatrixProperties::positiveness() const
   {
-    return positivness_;
+    return positiveness_;
   }
 
   inline bool MatrixProperties::isConstant() const
@@ -160,39 +160,39 @@ namespace tvm
 
   inline bool MatrixProperties::isPositiveSemiDefinite() const
   {
-    return positivness_ == Positivness::POSITIVE_SEMIDEFINITE 
+    return positiveness_ == Positiveness::POSITIVE_SEMIDEFINITE 
         || isPositiveDefinite() 
         || isZero();
   }
 
   inline bool MatrixProperties::isPositiveDefinite() const
   {
-    return positivness_ == Positivness::POSITIVE_DEFINITE;
+    return positiveness_ == Positiveness::POSITIVE_DEFINITE;
   }
 
   inline bool MatrixProperties::isNegativeSemidefinite() const
   {
-    return positivness_ == Positivness::NEGATIVE_SEMIDEFINITE 
+    return positiveness_ == Positiveness::NEGATIVE_SEMIDEFINITE 
         || isNegativeDefinite()
         || isZero();
   }
 
   inline bool MatrixProperties::isNegativeDefinite() const
   {
-    return positivness_ == Positivness::NEGATIVE_DEFINITE;
+    return positiveness_ == Positiveness::NEGATIVE_DEFINITE;
   }
 
-  inline bool MatrixProperties::isUndefinite() const
+  inline bool MatrixProperties::isIndefinite() const
   {
-    return positivness_ == Positivness::UNDEFINITE 
-        || isNonZeroUndefinite() 
+    return positiveness_ == Positiveness::INDEFINITE 
+        || isNonZeroIndefinite() 
         || isPositiveSemiDefinite()
         || isNegativeSemidefinite();
   }
 
-  inline bool MatrixProperties::isNonZeroUndefinite() const
+  inline bool MatrixProperties::isNonZeroIndefinite() const
   {
-    return positivness_ == Positivness::NON_ZERO_UNDEFINITE
+    return positiveness_ == Positiveness::NON_ZERO_INDEFINITE
         || isPositiveDefinite()
         || isNegativeDefinite();
   }

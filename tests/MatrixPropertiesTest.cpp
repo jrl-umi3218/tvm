@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 {
   MatrixProperties p0;
   BOOST_CHECK(p0.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p0.positivness() == Positivness::NA);
+  BOOST_CHECK(p0.positiveness() == Positiveness::NA);
   BOOST_CHECK(!p0.isConstant());
   BOOST_CHECK(!p0.isDiagonal());
   BOOST_CHECK(!p0.isIdentity());
@@ -19,11 +19,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(!p0.isMultipleOfIdentity());
   BOOST_CHECK(!p0.isNegativeDefinite());
   BOOST_CHECK(!p0.isNegativeSemidefinite());
-  BOOST_CHECK(!p0.isNonZeroUndefinite());
+  BOOST_CHECK(!p0.isNonZeroIndefinite());
   BOOST_CHECK(!p0.isPositiveDefinite());
   BOOST_CHECK(!p0.isPositiveSemiDefinite());
   BOOST_CHECK(!p0.isSymmetric());
-  BOOST_CHECK(!p0.isUndefinite());
+  BOOST_CHECK(!p0.isIndefinite());
   BOOST_CHECK(!p0.isZero());
   BOOST_CHECK(!p0.isTriangular());
   BOOST_CHECK(!p0.isLowerTriangular());
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p1(MatrixShape::LOWER_TRIANGULAR);
   BOOST_CHECK(p1.shape() == MatrixShape::LOWER_TRIANGULAR);
-  BOOST_CHECK(p1.positivness() == Positivness::NA);
+  BOOST_CHECK(p1.positiveness() == Positiveness::NA);
   BOOST_CHECK(!p1.isConstant());
   BOOST_CHECK(!p1.isDiagonal());
   BOOST_CHECK(!p1.isIdentity());
@@ -40,11 +40,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(!p1.isMultipleOfIdentity());
   BOOST_CHECK(!p1.isNegativeDefinite());
   BOOST_CHECK(!p1.isNegativeSemidefinite());
-  BOOST_CHECK(!p1.isNonZeroUndefinite());
+  BOOST_CHECK(!p1.isNonZeroIndefinite());
   BOOST_CHECK(!p1.isPositiveDefinite());
   BOOST_CHECK(!p1.isPositiveSemiDefinite());
   BOOST_CHECK(!p1.isSymmetric());
-  BOOST_CHECK(!p1.isUndefinite());
+  BOOST_CHECK(!p1.isIndefinite());
   BOOST_CHECK(!p1.isZero());
   BOOST_CHECK(p1.isTriangular());
   BOOST_CHECK(p1.isLowerTriangular());
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p2(MatrixShape::UPPER_TRIANGULAR);
   BOOST_CHECK(p2.shape() == MatrixShape::UPPER_TRIANGULAR);
-  BOOST_CHECK(p2.positivness() == Positivness::NA);
+  BOOST_CHECK(p2.positiveness() == Positiveness::NA);
   BOOST_CHECK(!p2.isConstant());
   BOOST_CHECK(!p2.isDiagonal());
   BOOST_CHECK(!p2.isIdentity());
@@ -61,11 +61,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(!p2.isMultipleOfIdentity());
   BOOST_CHECK(!p2.isNegativeDefinite());
   BOOST_CHECK(!p2.isNegativeSemidefinite());
-  BOOST_CHECK(!p2.isNonZeroUndefinite());
+  BOOST_CHECK(!p2.isNonZeroIndefinite());
   BOOST_CHECK(!p2.isPositiveDefinite());
   BOOST_CHECK(!p2.isPositiveSemiDefinite());
   BOOST_CHECK(!p2.isSymmetric());
-  BOOST_CHECK(!p2.isUndefinite());
+  BOOST_CHECK(!p2.isIndefinite());
   BOOST_CHECK(!p2.isZero());
   BOOST_CHECK(p2.isTriangular());
   BOOST_CHECK(!p2.isLowerTriangular());
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p3(MatrixShape::DIAGONAL);
   BOOST_CHECK(p3.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p3.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p3.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p3.isConstant());
   BOOST_CHECK(p3.isDiagonal());
   BOOST_CHECK(!p3.isIdentity());
@@ -82,11 +82,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(!p3.isMultipleOfIdentity());
   BOOST_CHECK(!p3.isNegativeDefinite());
   BOOST_CHECK(!p3.isNegativeSemidefinite());
-  BOOST_CHECK(!p3.isNonZeroUndefinite());
+  BOOST_CHECK(!p3.isNonZeroIndefinite());
   BOOST_CHECK(!p3.isPositiveDefinite());
   BOOST_CHECK(!p3.isPositiveSemiDefinite());
   BOOST_CHECK(p3.isSymmetric());
-  BOOST_CHECK(p3.isUndefinite());
+  BOOST_CHECK(p3.isIndefinite());
   BOOST_CHECK(!p3.isZero());
   BOOST_CHECK(p3.isTriangular());
   BOOST_CHECK(p3.isLowerTriangular());
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p4(MatrixShape::MULTIPLE_OF_IDENTITY);
   BOOST_CHECK(p4.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p4.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p4.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p4.isConstant());
   BOOST_CHECK(p4.isDiagonal());
   BOOST_CHECK(!p4.isIdentity());
@@ -103,11 +103,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(p4.isMultipleOfIdentity());
   BOOST_CHECK(!p4.isNegativeDefinite());
   BOOST_CHECK(!p4.isNegativeSemidefinite());
-  BOOST_CHECK(!p4.isNonZeroUndefinite());
+  BOOST_CHECK(!p4.isNonZeroIndefinite());
   BOOST_CHECK(!p4.isPositiveDefinite());
   BOOST_CHECK(!p4.isPositiveSemiDefinite());
   BOOST_CHECK(p4.isSymmetric());
-  BOOST_CHECK(p4.isUndefinite());
+  BOOST_CHECK(p4.isIndefinite());
   BOOST_CHECK(!p4.isZero());
   BOOST_CHECK(p4.isTriangular());
   BOOST_CHECK(p4.isLowerTriangular());
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p5(MatrixShape::IDENTITY);
   BOOST_CHECK(p5.shape() == MatrixShape::IDENTITY);
-  BOOST_CHECK(p5.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p5.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p5.isConstant());
   BOOST_CHECK(p5.isDiagonal());
   BOOST_CHECK(p5.isIdentity());
@@ -124,11 +124,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(p5.isMultipleOfIdentity());
   BOOST_CHECK(!p5.isNegativeDefinite());
   BOOST_CHECK(!p5.isNegativeSemidefinite());
-  BOOST_CHECK(p5.isNonZeroUndefinite());
+  BOOST_CHECK(p5.isNonZeroIndefinite());
   BOOST_CHECK(p5.isPositiveDefinite());
   BOOST_CHECK(p5.isPositiveSemiDefinite());
   BOOST_CHECK(p5.isSymmetric());
-  BOOST_CHECK(p5.isUndefinite());
+  BOOST_CHECK(p5.isIndefinite());
   BOOST_CHECK(!p5.isZero());
   BOOST_CHECK(p5.isTriangular());
   BOOST_CHECK(p5.isLowerTriangular());
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p6(MatrixShape::MINUS_IDENTITY);
   BOOST_CHECK(p6.shape() == MatrixShape::MINUS_IDENTITY);
-  BOOST_CHECK(p6.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p6.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p6.isConstant());
   BOOST_CHECK(p6.isDiagonal());
   BOOST_CHECK(!p6.isIdentity());
@@ -145,11 +145,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(p6.isMultipleOfIdentity());
   BOOST_CHECK(p6.isNegativeDefinite());
   BOOST_CHECK(p6.isNegativeSemidefinite());
-  BOOST_CHECK(p6.isNonZeroUndefinite());
+  BOOST_CHECK(p6.isNonZeroIndefinite());
   BOOST_CHECK(!p6.isPositiveDefinite());
   BOOST_CHECK(!p6.isPositiveSemiDefinite());
   BOOST_CHECK(p6.isSymmetric());
-  BOOST_CHECK(p6.isUndefinite());
+  BOOST_CHECK(p6.isIndefinite());
   BOOST_CHECK(!p6.isZero());
   BOOST_CHECK(p6.isTriangular());
   BOOST_CHECK(p6.isLowerTriangular());
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
   MatrixProperties p7(MatrixShape::ZERO);
   BOOST_CHECK(p7.shape() == MatrixShape::ZERO);
-  BOOST_CHECK(p7.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p7.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(p7.isConstant());
   BOOST_CHECK(p7.isDiagonal());
   BOOST_CHECK(!p7.isIdentity());
@@ -166,11 +166,11 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
   BOOST_CHECK(p7.isMultipleOfIdentity());
   BOOST_CHECK(!p7.isNegativeDefinite());
   BOOST_CHECK(p7.isNegativeSemidefinite());
-  BOOST_CHECK(!p7.isNonZeroUndefinite());
+  BOOST_CHECK(!p7.isNonZeroIndefinite());
   BOOST_CHECK(!p7.isPositiveDefinite());
   BOOST_CHECK(p7.isPositiveSemiDefinite());
   BOOST_CHECK(p7.isSymmetric());
-  BOOST_CHECK(p7.isUndefinite());
+  BOOST_CHECK(p7.isIndefinite());
   BOOST_CHECK(p7.isZero());
   BOOST_CHECK(p7.isTriangular());
   BOOST_CHECK(p7.isLowerTriangular());
@@ -179,9 +179,9 @@ BOOST_AUTO_TEST_CASE(ShapePropertiesTest)
 
 BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
 {
-  MatrixProperties p01(MatrixShape::GENERAL, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p01(MatrixShape::GENERAL, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p01.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p01.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p01.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(!p01.isConstant());
   BOOST_CHECK(!p01.isDiagonal());
   BOOST_CHECK(!p01.isIdentity());
@@ -190,19 +190,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p01.isMultipleOfIdentity());
   BOOST_CHECK(!p01.isNegativeDefinite());
   BOOST_CHECK(!p01.isNegativeSemidefinite());
-  BOOST_CHECK(!p01.isNonZeroUndefinite());
+  BOOST_CHECK(!p01.isNonZeroIndefinite());
   BOOST_CHECK(!p01.isPositiveDefinite());
   BOOST_CHECK(p01.isPositiveSemiDefinite());
   BOOST_CHECK(p01.isSymmetric());
-  BOOST_CHECK(p01.isUndefinite());
+  BOOST_CHECK(p01.isIndefinite());
   BOOST_CHECK(!p01.isZero());
   BOOST_CHECK(!p01.isTriangular());
   BOOST_CHECK(!p01.isLowerTriangular());
   BOOST_CHECK(!p01.isUpperTriangular());
 
-  MatrixProperties p02(MatrixShape::GENERAL, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p02(MatrixShape::GENERAL, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p02.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p02.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p02.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(!p02.isConstant());
   BOOST_CHECK(!p02.isDiagonal());
   BOOST_CHECK(!p02.isIdentity());
@@ -211,19 +211,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p02.isMultipleOfIdentity());
   BOOST_CHECK(!p02.isNegativeDefinite());
   BOOST_CHECK(!p02.isNegativeSemidefinite());
-  BOOST_CHECK(p02.isNonZeroUndefinite());
+  BOOST_CHECK(p02.isNonZeroIndefinite());
   BOOST_CHECK(p02.isPositiveDefinite());
   BOOST_CHECK(p02.isPositiveSemiDefinite());
   BOOST_CHECK(p02.isSymmetric());
-  BOOST_CHECK(p02.isUndefinite());
+  BOOST_CHECK(p02.isIndefinite());
   BOOST_CHECK(!p02.isZero());
   BOOST_CHECK(!p02.isTriangular());
   BOOST_CHECK(!p02.isLowerTriangular());
   BOOST_CHECK(!p02.isUpperTriangular());
 
-  MatrixProperties p03(MatrixShape::GENERAL, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p03(MatrixShape::GENERAL, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p03.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p03.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p03.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(!p03.isConstant());
   BOOST_CHECK(!p03.isDiagonal());
   BOOST_CHECK(!p03.isIdentity());
@@ -232,19 +232,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p03.isMultipleOfIdentity());
   BOOST_CHECK(!p03.isNegativeDefinite());
   BOOST_CHECK(p03.isNegativeSemidefinite());
-  BOOST_CHECK(!p03.isNonZeroUndefinite());
+  BOOST_CHECK(!p03.isNonZeroIndefinite());
   BOOST_CHECK(!p03.isPositiveDefinite());
   BOOST_CHECK(!p03.isPositiveSemiDefinite());
   BOOST_CHECK(p03.isSymmetric());
-  BOOST_CHECK(p03.isUndefinite());
+  BOOST_CHECK(p03.isIndefinite());
   BOOST_CHECK(!p03.isZero());
   BOOST_CHECK(!p03.isTriangular());
   BOOST_CHECK(!p03.isLowerTriangular());
   BOOST_CHECK(!p03.isUpperTriangular());
 
-  MatrixProperties p04(MatrixShape::GENERAL, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p04(MatrixShape::GENERAL, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p04.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p04.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p04.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(!p04.isConstant());
   BOOST_CHECK(!p04.isDiagonal());
   BOOST_CHECK(!p04.isIdentity());
@@ -253,19 +253,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p04.isMultipleOfIdentity());
   BOOST_CHECK(p04.isNegativeDefinite());
   BOOST_CHECK(p04.isNegativeSemidefinite());
-  BOOST_CHECK(p04.isNonZeroUndefinite());
+  BOOST_CHECK(p04.isNonZeroIndefinite());
   BOOST_CHECK(!p04.isPositiveDefinite());
   BOOST_CHECK(!p04.isPositiveSemiDefinite());
   BOOST_CHECK(p04.isSymmetric());
-  BOOST_CHECK(p04.isUndefinite());
+  BOOST_CHECK(p04.isIndefinite());
   BOOST_CHECK(!p04.isZero());
   BOOST_CHECK(!p04.isTriangular());
   BOOST_CHECK(!p04.isLowerTriangular());
   BOOST_CHECK(!p04.isUpperTriangular());
 
-  MatrixProperties p05(MatrixShape::GENERAL, Positivness::UNDEFINITE);
+  MatrixProperties p05(MatrixShape::GENERAL, Positiveness::INDEFINITE);
   BOOST_CHECK(p05.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p05.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p05.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p05.isConstant());
   BOOST_CHECK(!p05.isDiagonal());
   BOOST_CHECK(!p05.isIdentity());
@@ -274,19 +274,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p05.isMultipleOfIdentity());
   BOOST_CHECK(!p05.isNegativeDefinite());
   BOOST_CHECK(!p05.isNegativeSemidefinite());
-  BOOST_CHECK(!p05.isNonZeroUndefinite());
+  BOOST_CHECK(!p05.isNonZeroIndefinite());
   BOOST_CHECK(!p05.isPositiveDefinite());
   BOOST_CHECK(!p05.isPositiveSemiDefinite());
   BOOST_CHECK(p05.isSymmetric());
-  BOOST_CHECK(p05.isUndefinite());
+  BOOST_CHECK(p05.isIndefinite());
   BOOST_CHECK(!p05.isZero());
   BOOST_CHECK(!p05.isTriangular());
   BOOST_CHECK(!p05.isLowerTriangular());
   BOOST_CHECK(!p05.isUpperTriangular());
 
-  MatrixProperties p06(MatrixShape::GENERAL, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p06(MatrixShape::GENERAL, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p06.shape() == MatrixShape::GENERAL);
-  BOOST_CHECK(p06.positivness() == Positivness::NON_ZERO_UNDEFINITE);
+  BOOST_CHECK(p06.positiveness() == Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(!p06.isConstant());
   BOOST_CHECK(!p06.isDiagonal());
   BOOST_CHECK(!p06.isIdentity());
@@ -295,19 +295,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p06.isMultipleOfIdentity());
   BOOST_CHECK(!p06.isNegativeDefinite());
   BOOST_CHECK(!p06.isNegativeSemidefinite());
-  BOOST_CHECK(p06.isNonZeroUndefinite());
+  BOOST_CHECK(p06.isNonZeroIndefinite());
   BOOST_CHECK(!p06.isPositiveDefinite());
   BOOST_CHECK(!p06.isPositiveSemiDefinite());
   BOOST_CHECK(p06.isSymmetric());
-  BOOST_CHECK(p06.isUndefinite());
+  BOOST_CHECK(p06.isIndefinite());
   BOOST_CHECK(!p06.isZero());
   BOOST_CHECK(!p06.isTriangular());
   BOOST_CHECK(!p06.isLowerTriangular());
   BOOST_CHECK(!p06.isUpperTriangular());
 
-  MatrixProperties p11(MatrixShape::LOWER_TRIANGULAR, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p11(MatrixShape::LOWER_TRIANGULAR, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p11.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p11.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p11.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(!p11.isConstant());
   BOOST_CHECK(p11.isDiagonal());
   BOOST_CHECK(!p11.isIdentity());
@@ -316,19 +316,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p11.isMultipleOfIdentity());
   BOOST_CHECK(!p11.isNegativeDefinite());
   BOOST_CHECK(!p11.isNegativeSemidefinite());
-  BOOST_CHECK(!p11.isNonZeroUndefinite());
+  BOOST_CHECK(!p11.isNonZeroIndefinite());
   BOOST_CHECK(!p11.isPositiveDefinite());
   BOOST_CHECK(p11.isPositiveSemiDefinite());
   BOOST_CHECK(p11.isSymmetric());
-  BOOST_CHECK(p11.isUndefinite());
+  BOOST_CHECK(p11.isIndefinite());
   BOOST_CHECK(!p11.isZero());
   BOOST_CHECK(p11.isTriangular());
   BOOST_CHECK(p11.isLowerTriangular());
   BOOST_CHECK(p11.isUpperTriangular());
 
-  MatrixProperties p12(MatrixShape::LOWER_TRIANGULAR, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p12(MatrixShape::LOWER_TRIANGULAR, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p12.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p12.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p12.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(!p12.isConstant());
   BOOST_CHECK(p12.isDiagonal());
   BOOST_CHECK(!p12.isIdentity());
@@ -337,19 +337,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p12.isMultipleOfIdentity());
   BOOST_CHECK(!p12.isNegativeDefinite());
   BOOST_CHECK(!p12.isNegativeSemidefinite());
-  BOOST_CHECK(p12.isNonZeroUndefinite());
+  BOOST_CHECK(p12.isNonZeroIndefinite());
   BOOST_CHECK(p12.isPositiveDefinite());
   BOOST_CHECK(p12.isPositiveSemiDefinite());
   BOOST_CHECK(p12.isSymmetric());
-  BOOST_CHECK(p12.isUndefinite());
+  BOOST_CHECK(p12.isIndefinite());
   BOOST_CHECK(!p12.isZero());
   BOOST_CHECK(p12.isTriangular());
   BOOST_CHECK(p12.isLowerTriangular());
   BOOST_CHECK(p12.isUpperTriangular());
 
-  MatrixProperties p13(MatrixShape::LOWER_TRIANGULAR, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p13(MatrixShape::LOWER_TRIANGULAR, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p13.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p13.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p13.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(!p13.isConstant());
   BOOST_CHECK(p13.isDiagonal());
   BOOST_CHECK(!p13.isIdentity());
@@ -358,19 +358,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p13.isMultipleOfIdentity());
   BOOST_CHECK(!p13.isNegativeDefinite());
   BOOST_CHECK(p13.isNegativeSemidefinite());
-  BOOST_CHECK(!p13.isNonZeroUndefinite());
+  BOOST_CHECK(!p13.isNonZeroIndefinite());
   BOOST_CHECK(!p13.isPositiveDefinite());
   BOOST_CHECK(!p13.isPositiveSemiDefinite());
   BOOST_CHECK(p13.isSymmetric());
-  BOOST_CHECK(p13.isUndefinite());
+  BOOST_CHECK(p13.isIndefinite());
   BOOST_CHECK(!p13.isZero());
   BOOST_CHECK(p13.isTriangular());
   BOOST_CHECK(p13.isLowerTriangular());
   BOOST_CHECK(p13.isUpperTriangular());
 
-  MatrixProperties p14(MatrixShape::LOWER_TRIANGULAR, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p14(MatrixShape::LOWER_TRIANGULAR, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p14.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p14.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p14.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(!p14.isConstant());
   BOOST_CHECK(p14.isDiagonal());
   BOOST_CHECK(!p14.isIdentity());
@@ -379,19 +379,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p14.isMultipleOfIdentity());
   BOOST_CHECK(p14.isNegativeDefinite());
   BOOST_CHECK(p14.isNegativeSemidefinite());
-  BOOST_CHECK(p14.isNonZeroUndefinite());
+  BOOST_CHECK(p14.isNonZeroIndefinite());
   BOOST_CHECK(!p14.isPositiveDefinite());
   BOOST_CHECK(!p14.isPositiveSemiDefinite());
   BOOST_CHECK(p14.isSymmetric());
-  BOOST_CHECK(p14.isUndefinite());
+  BOOST_CHECK(p14.isIndefinite());
   BOOST_CHECK(!p14.isZero());
   BOOST_CHECK(p14.isTriangular());
   BOOST_CHECK(p14.isLowerTriangular());
   BOOST_CHECK(p14.isUpperTriangular());
 
-  MatrixProperties p15(MatrixShape::LOWER_TRIANGULAR, Positivness::UNDEFINITE);
+  MatrixProperties p15(MatrixShape::LOWER_TRIANGULAR, Positiveness::INDEFINITE);
   BOOST_CHECK(p15.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p15.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p15.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p15.isConstant());
   BOOST_CHECK(p15.isDiagonal());
   BOOST_CHECK(!p15.isIdentity());
@@ -400,19 +400,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p15.isMultipleOfIdentity());
   BOOST_CHECK(!p15.isNegativeDefinite());
   BOOST_CHECK(!p15.isNegativeSemidefinite());
-  BOOST_CHECK(!p15.isNonZeroUndefinite());
+  BOOST_CHECK(!p15.isNonZeroIndefinite());
   BOOST_CHECK(!p15.isPositiveDefinite());
   BOOST_CHECK(!p15.isPositiveSemiDefinite());
   BOOST_CHECK(p15.isSymmetric());
-  BOOST_CHECK(p15.isUndefinite());
+  BOOST_CHECK(p15.isIndefinite());
   BOOST_CHECK(!p15.isZero());
   BOOST_CHECK(p15.isTriangular());
   BOOST_CHECK(p15.isLowerTriangular());
   BOOST_CHECK(p15.isUpperTriangular());
 
-  MatrixProperties p16(MatrixShape::LOWER_TRIANGULAR, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p16(MatrixShape::LOWER_TRIANGULAR, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p16.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p16.positivness() == Positivness::NON_ZERO_UNDEFINITE);
+  BOOST_CHECK(p16.positiveness() == Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(!p16.isConstant());
   BOOST_CHECK(p16.isDiagonal());
   BOOST_CHECK(!p16.isIdentity());
@@ -421,20 +421,20 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p16.isMultipleOfIdentity());
   BOOST_CHECK(!p16.isNegativeDefinite());
   BOOST_CHECK(!p16.isNegativeSemidefinite());
-  BOOST_CHECK(p16.isNonZeroUndefinite());
+  BOOST_CHECK(p16.isNonZeroIndefinite());
   BOOST_CHECK(!p16.isPositiveDefinite());
   BOOST_CHECK(!p16.isPositiveSemiDefinite());
   BOOST_CHECK(p16.isSymmetric());
-  BOOST_CHECK(p16.isUndefinite());
+  BOOST_CHECK(p16.isIndefinite());
   BOOST_CHECK(!p16.isZero());
   BOOST_CHECK(p16.isTriangular());
   BOOST_CHECK(p16.isLowerTriangular());
   BOOST_CHECK(p16.isUpperTriangular());
 
 
-  MatrixProperties p21(MatrixShape::UPPER_TRIANGULAR, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p21(MatrixShape::UPPER_TRIANGULAR, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p21.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p21.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p21.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(!p21.isConstant());
   BOOST_CHECK(p21.isDiagonal());
   BOOST_CHECK(!p21.isIdentity());
@@ -443,19 +443,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p21.isMultipleOfIdentity());
   BOOST_CHECK(!p21.isNegativeDefinite());
   BOOST_CHECK(!p21.isNegativeSemidefinite());
-  BOOST_CHECK(!p21.isNonZeroUndefinite());
+  BOOST_CHECK(!p21.isNonZeroIndefinite());
   BOOST_CHECK(!p21.isPositiveDefinite());
   BOOST_CHECK(p21.isPositiveSemiDefinite());
   BOOST_CHECK(p21.isSymmetric());
-  BOOST_CHECK(p21.isUndefinite());
+  BOOST_CHECK(p21.isIndefinite());
   BOOST_CHECK(!p21.isZero());
   BOOST_CHECK(p21.isTriangular());
   BOOST_CHECK(p21.isLowerTriangular());
   BOOST_CHECK(p21.isUpperTriangular());
 
-  MatrixProperties p22(MatrixShape::UPPER_TRIANGULAR, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p22(MatrixShape::UPPER_TRIANGULAR, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p22.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p22.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p22.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(!p22.isConstant());
   BOOST_CHECK(p22.isDiagonal());
   BOOST_CHECK(!p22.isIdentity());
@@ -464,19 +464,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p22.isMultipleOfIdentity());
   BOOST_CHECK(!p22.isNegativeDefinite());
   BOOST_CHECK(!p22.isNegativeSemidefinite());
-  BOOST_CHECK(p22.isNonZeroUndefinite());
+  BOOST_CHECK(p22.isNonZeroIndefinite());
   BOOST_CHECK(p22.isPositiveDefinite());
   BOOST_CHECK(p22.isPositiveSemiDefinite());
   BOOST_CHECK(p22.isSymmetric());
-  BOOST_CHECK(p22.isUndefinite());
+  BOOST_CHECK(p22.isIndefinite());
   BOOST_CHECK(!p22.isZero());
   BOOST_CHECK(p22.isTriangular());
   BOOST_CHECK(p22.isLowerTriangular());
   BOOST_CHECK(p22.isUpperTriangular());
 
-  MatrixProperties p23(MatrixShape::UPPER_TRIANGULAR, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p23(MatrixShape::UPPER_TRIANGULAR, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p23.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p23.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p23.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(!p23.isConstant());
   BOOST_CHECK(p23.isDiagonal());
   BOOST_CHECK(!p23.isIdentity());
@@ -485,19 +485,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p23.isMultipleOfIdentity());
   BOOST_CHECK(!p23.isNegativeDefinite());
   BOOST_CHECK(p23.isNegativeSemidefinite());
-  BOOST_CHECK(!p23.isNonZeroUndefinite());
+  BOOST_CHECK(!p23.isNonZeroIndefinite());
   BOOST_CHECK(!p23.isPositiveDefinite());
   BOOST_CHECK(!p23.isPositiveSemiDefinite());
   BOOST_CHECK(p23.isSymmetric());
-  BOOST_CHECK(p23.isUndefinite());
+  BOOST_CHECK(p23.isIndefinite());
   BOOST_CHECK(!p23.isZero());
   BOOST_CHECK(p23.isTriangular());
   BOOST_CHECK(p23.isLowerTriangular());
   BOOST_CHECK(p23.isUpperTriangular());
 
-  MatrixProperties p24(MatrixShape::UPPER_TRIANGULAR, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p24(MatrixShape::UPPER_TRIANGULAR, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p24.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p24.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p24.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(!p24.isConstant());
   BOOST_CHECK(p24.isDiagonal());
   BOOST_CHECK(!p24.isIdentity());
@@ -506,19 +506,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p24.isMultipleOfIdentity());
   BOOST_CHECK(p24.isNegativeDefinite());
   BOOST_CHECK(p24.isNegativeSemidefinite());
-  BOOST_CHECK(p24.isNonZeroUndefinite());
+  BOOST_CHECK(p24.isNonZeroIndefinite());
   BOOST_CHECK(!p24.isPositiveDefinite());
   BOOST_CHECK(!p24.isPositiveSemiDefinite());
   BOOST_CHECK(p24.isSymmetric());
-  BOOST_CHECK(p24.isUndefinite());
+  BOOST_CHECK(p24.isIndefinite());
   BOOST_CHECK(!p24.isZero());
   BOOST_CHECK(p24.isTriangular());
   BOOST_CHECK(p24.isLowerTriangular());
   BOOST_CHECK(p24.isUpperTriangular());
 
-  MatrixProperties p25(MatrixShape::UPPER_TRIANGULAR, Positivness::UNDEFINITE);
+  MatrixProperties p25(MatrixShape::UPPER_TRIANGULAR, Positiveness::INDEFINITE);
   BOOST_CHECK(p25.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p25.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p25.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p25.isConstant());
   BOOST_CHECK(p25.isDiagonal());
   BOOST_CHECK(!p25.isIdentity());
@@ -527,19 +527,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p25.isMultipleOfIdentity());
   BOOST_CHECK(!p25.isNegativeDefinite());
   BOOST_CHECK(!p25.isNegativeSemidefinite());
-  BOOST_CHECK(!p25.isNonZeroUndefinite());
+  BOOST_CHECK(!p25.isNonZeroIndefinite());
   BOOST_CHECK(!p25.isPositiveDefinite());
   BOOST_CHECK(!p25.isPositiveSemiDefinite());
   BOOST_CHECK(p25.isSymmetric());
-  BOOST_CHECK(p25.isUndefinite());
+  BOOST_CHECK(p25.isIndefinite());
   BOOST_CHECK(!p25.isZero());
   BOOST_CHECK(p25.isTriangular());
   BOOST_CHECK(p25.isLowerTriangular());
   BOOST_CHECK(p25.isUpperTriangular());
 
-  MatrixProperties p26(MatrixShape::UPPER_TRIANGULAR, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p26(MatrixShape::UPPER_TRIANGULAR, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p26.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p26.positivness() == Positivness::NON_ZERO_UNDEFINITE);
+  BOOST_CHECK(p26.positiveness() == Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(!p26.isConstant());
   BOOST_CHECK(p26.isDiagonal());
   BOOST_CHECK(!p26.isIdentity());
@@ -548,20 +548,20 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p26.isMultipleOfIdentity());
   BOOST_CHECK(!p26.isNegativeDefinite());
   BOOST_CHECK(!p26.isNegativeSemidefinite());
-  BOOST_CHECK(p26.isNonZeroUndefinite());
+  BOOST_CHECK(p26.isNonZeroIndefinite());
   BOOST_CHECK(!p26.isPositiveDefinite());
   BOOST_CHECK(!p26.isPositiveSemiDefinite());
   BOOST_CHECK(p26.isSymmetric());
-  BOOST_CHECK(p26.isUndefinite());
+  BOOST_CHECK(p26.isIndefinite());
   BOOST_CHECK(!p26.isZero());
   BOOST_CHECK(p26.isTriangular());
   BOOST_CHECK(p26.isLowerTriangular());
   BOOST_CHECK(p26.isUpperTriangular());
 
 
-  MatrixProperties p31(MatrixShape::DIAGONAL, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p31(MatrixShape::DIAGONAL, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p31.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p31.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p31.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(!p31.isConstant());
   BOOST_CHECK(p31.isDiagonal());
   BOOST_CHECK(!p31.isIdentity());
@@ -570,19 +570,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p31.isMultipleOfIdentity());
   BOOST_CHECK(!p31.isNegativeDefinite());
   BOOST_CHECK(!p31.isNegativeSemidefinite());
-  BOOST_CHECK(!p31.isNonZeroUndefinite());
+  BOOST_CHECK(!p31.isNonZeroIndefinite());
   BOOST_CHECK(!p31.isPositiveDefinite());
   BOOST_CHECK(p31.isPositiveSemiDefinite());
   BOOST_CHECK(p31.isSymmetric());
-  BOOST_CHECK(p31.isUndefinite());
+  BOOST_CHECK(p31.isIndefinite());
   BOOST_CHECK(!p31.isZero());
   BOOST_CHECK(p31.isTriangular());
   BOOST_CHECK(p31.isLowerTriangular());
   BOOST_CHECK(p31.isUpperTriangular());
 
-  MatrixProperties p32(MatrixShape::DIAGONAL, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p32(MatrixShape::DIAGONAL, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p32.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p32.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p32.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(!p32.isConstant());
   BOOST_CHECK(p32.isDiagonal());
   BOOST_CHECK(!p32.isIdentity());
@@ -591,19 +591,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p32.isMultipleOfIdentity());
   BOOST_CHECK(!p32.isNegativeDefinite());
   BOOST_CHECK(!p32.isNegativeSemidefinite());
-  BOOST_CHECK(p32.isNonZeroUndefinite());
+  BOOST_CHECK(p32.isNonZeroIndefinite());
   BOOST_CHECK(p32.isPositiveDefinite());
   BOOST_CHECK(p32.isPositiveSemiDefinite());
   BOOST_CHECK(p32.isSymmetric());
-  BOOST_CHECK(p32.isUndefinite());
+  BOOST_CHECK(p32.isIndefinite());
   BOOST_CHECK(!p32.isZero());
   BOOST_CHECK(p32.isTriangular());
   BOOST_CHECK(p32.isLowerTriangular());
   BOOST_CHECK(p32.isUpperTriangular());
 
-  MatrixProperties p33(MatrixShape::DIAGONAL, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p33(MatrixShape::DIAGONAL, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p33.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p33.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p33.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(!p33.isConstant());
   BOOST_CHECK(p33.isDiagonal());
   BOOST_CHECK(!p33.isIdentity());
@@ -612,19 +612,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p33.isMultipleOfIdentity());
   BOOST_CHECK(!p33.isNegativeDefinite());
   BOOST_CHECK(p33.isNegativeSemidefinite());
-  BOOST_CHECK(!p33.isNonZeroUndefinite());
+  BOOST_CHECK(!p33.isNonZeroIndefinite());
   BOOST_CHECK(!p33.isPositiveDefinite());
   BOOST_CHECK(!p33.isPositiveSemiDefinite());
   BOOST_CHECK(p33.isSymmetric());
-  BOOST_CHECK(p33.isUndefinite());
+  BOOST_CHECK(p33.isIndefinite());
   BOOST_CHECK(!p33.isZero());
   BOOST_CHECK(p33.isTriangular());
   BOOST_CHECK(p33.isLowerTriangular());
   BOOST_CHECK(p33.isUpperTriangular());
 
-  MatrixProperties p34(MatrixShape::DIAGONAL, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p34(MatrixShape::DIAGONAL, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p34.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p34.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p34.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(!p34.isConstant());
   BOOST_CHECK(p34.isDiagonal());
   BOOST_CHECK(!p34.isIdentity());
@@ -633,19 +633,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p34.isMultipleOfIdentity());
   BOOST_CHECK(p34.isNegativeDefinite());
   BOOST_CHECK(p34.isNegativeSemidefinite());
-  BOOST_CHECK(p34.isNonZeroUndefinite());
+  BOOST_CHECK(p34.isNonZeroIndefinite());
   BOOST_CHECK(!p34.isPositiveDefinite());
   BOOST_CHECK(!p34.isPositiveSemiDefinite());
   BOOST_CHECK(p34.isSymmetric());
-  BOOST_CHECK(p34.isUndefinite());
+  BOOST_CHECK(p34.isIndefinite());
   BOOST_CHECK(!p34.isZero());
   BOOST_CHECK(p34.isTriangular());
   BOOST_CHECK(p34.isLowerTriangular());
   BOOST_CHECK(p34.isUpperTriangular());
 
-  MatrixProperties p35(MatrixShape::DIAGONAL, Positivness::UNDEFINITE);
+  MatrixProperties p35(MatrixShape::DIAGONAL, Positiveness::INDEFINITE);
   BOOST_CHECK(p35.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p35.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p35.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p35.isConstant());
   BOOST_CHECK(p35.isDiagonal());
   BOOST_CHECK(!p35.isIdentity());
@@ -654,19 +654,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p35.isMultipleOfIdentity());
   BOOST_CHECK(!p35.isNegativeDefinite());
   BOOST_CHECK(!p35.isNegativeSemidefinite());
-  BOOST_CHECK(!p35.isNonZeroUndefinite());
+  BOOST_CHECK(!p35.isNonZeroIndefinite());
   BOOST_CHECK(!p35.isPositiveDefinite());
   BOOST_CHECK(!p35.isPositiveSemiDefinite());
   BOOST_CHECK(p35.isSymmetric());
-  BOOST_CHECK(p35.isUndefinite());
+  BOOST_CHECK(p35.isIndefinite());
   BOOST_CHECK(!p35.isZero());
   BOOST_CHECK(p35.isTriangular());
   BOOST_CHECK(p35.isLowerTriangular());
   BOOST_CHECK(p35.isUpperTriangular());
 
-  MatrixProperties p36(MatrixShape::DIAGONAL, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p36(MatrixShape::DIAGONAL, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p36.shape() == MatrixShape::DIAGONAL);
-  BOOST_CHECK(p36.positivness() == Positivness::NON_ZERO_UNDEFINITE);
+  BOOST_CHECK(p36.positiveness() == Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(!p36.isConstant());
   BOOST_CHECK(p36.isDiagonal());
   BOOST_CHECK(!p36.isIdentity());
@@ -675,20 +675,20 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(!p36.isMultipleOfIdentity());
   BOOST_CHECK(!p36.isNegativeDefinite());
   BOOST_CHECK(!p36.isNegativeSemidefinite());
-  BOOST_CHECK(p36.isNonZeroUndefinite());
+  BOOST_CHECK(p36.isNonZeroIndefinite());
   BOOST_CHECK(!p36.isPositiveDefinite());
   BOOST_CHECK(!p36.isPositiveSemiDefinite());
   BOOST_CHECK(p36.isSymmetric());
-  BOOST_CHECK(p36.isUndefinite());
+  BOOST_CHECK(p36.isIndefinite());
   BOOST_CHECK(!p36.isZero());
   BOOST_CHECK(p36.isTriangular());
   BOOST_CHECK(p36.isLowerTriangular());
   BOOST_CHECK(p36.isUpperTriangular());
   
 
-  MatrixProperties p41(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p41(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p41.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p41.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p41.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(!p41.isConstant());
   BOOST_CHECK(p41.isDiagonal());
   BOOST_CHECK(!p41.isIdentity());
@@ -697,19 +697,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p41.isMultipleOfIdentity());
   BOOST_CHECK(!p41.isNegativeDefinite());
   BOOST_CHECK(!p41.isNegativeSemidefinite());
-  BOOST_CHECK(!p41.isNonZeroUndefinite());
+  BOOST_CHECK(!p41.isNonZeroIndefinite());
   BOOST_CHECK(!p41.isPositiveDefinite());
   BOOST_CHECK(p41.isPositiveSemiDefinite());
   BOOST_CHECK(p41.isSymmetric());
-  BOOST_CHECK(p41.isUndefinite());
+  BOOST_CHECK(p41.isIndefinite());
   BOOST_CHECK(!p41.isZero());
   BOOST_CHECK(p41.isTriangular());
   BOOST_CHECK(p41.isLowerTriangular());
   BOOST_CHECK(p41.isUpperTriangular());
 
-  MatrixProperties p42(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p42(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p42.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p42.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p42.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(!p42.isConstant());
   BOOST_CHECK(p42.isDiagonal());
   BOOST_CHECK(!p42.isIdentity());
@@ -718,19 +718,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p42.isMultipleOfIdentity());
   BOOST_CHECK(!p42.isNegativeDefinite());
   BOOST_CHECK(!p42.isNegativeSemidefinite());
-  BOOST_CHECK(p42.isNonZeroUndefinite());
+  BOOST_CHECK(p42.isNonZeroIndefinite());
   BOOST_CHECK(p42.isPositiveDefinite());
   BOOST_CHECK(p42.isPositiveSemiDefinite());
   BOOST_CHECK(p42.isSymmetric());
-  BOOST_CHECK(p42.isUndefinite());
+  BOOST_CHECK(p42.isIndefinite());
   BOOST_CHECK(!p42.isZero());
   BOOST_CHECK(p42.isTriangular());
   BOOST_CHECK(p42.isLowerTriangular());
   BOOST_CHECK(p42.isUpperTriangular());
 
-  MatrixProperties p43(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p43(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p43.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p43.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p43.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(!p43.isConstant());
   BOOST_CHECK(p43.isDiagonal());
   BOOST_CHECK(!p43.isIdentity());
@@ -739,19 +739,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p43.isMultipleOfIdentity());
   BOOST_CHECK(!p43.isNegativeDefinite());
   BOOST_CHECK(p43.isNegativeSemidefinite());
-  BOOST_CHECK(!p43.isNonZeroUndefinite());
+  BOOST_CHECK(!p43.isNonZeroIndefinite());
   BOOST_CHECK(!p43.isPositiveDefinite());
   BOOST_CHECK(!p43.isPositiveSemiDefinite());
   BOOST_CHECK(p43.isSymmetric());
-  BOOST_CHECK(p43.isUndefinite());
+  BOOST_CHECK(p43.isIndefinite());
   BOOST_CHECK(!p43.isZero());
   BOOST_CHECK(p43.isTriangular());
   BOOST_CHECK(p43.isLowerTriangular());
   BOOST_CHECK(p43.isUpperTriangular());
 
-  MatrixProperties p44(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p44(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p44.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p44.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p44.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(!p44.isConstant());
   BOOST_CHECK(p44.isDiagonal());
   BOOST_CHECK(!p44.isIdentity());
@@ -760,19 +760,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p44.isMultipleOfIdentity());
   BOOST_CHECK(p44.isNegativeDefinite());
   BOOST_CHECK(p44.isNegativeSemidefinite());
-  BOOST_CHECK(p44.isNonZeroUndefinite());
+  BOOST_CHECK(p44.isNonZeroIndefinite());
   BOOST_CHECK(!p44.isPositiveDefinite());
   BOOST_CHECK(!p44.isPositiveSemiDefinite());
   BOOST_CHECK(p44.isSymmetric());
-  BOOST_CHECK(p44.isUndefinite());
+  BOOST_CHECK(p44.isIndefinite());
   BOOST_CHECK(!p44.isZero());
   BOOST_CHECK(p44.isTriangular());
   BOOST_CHECK(p44.isLowerTriangular());
   BOOST_CHECK(p44.isUpperTriangular());
 
-  MatrixProperties p45(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::UNDEFINITE);
+  MatrixProperties p45(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::INDEFINITE);
   BOOST_CHECK(p45.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p45.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p45.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(!p45.isConstant());
   BOOST_CHECK(p45.isDiagonal());
   BOOST_CHECK(!p45.isIdentity());
@@ -781,19 +781,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p45.isMultipleOfIdentity());
   BOOST_CHECK(!p45.isNegativeDefinite());
   BOOST_CHECK(!p45.isNegativeSemidefinite());
-  BOOST_CHECK(!p45.isNonZeroUndefinite());
+  BOOST_CHECK(!p45.isNonZeroIndefinite());
   BOOST_CHECK(!p45.isPositiveDefinite());
   BOOST_CHECK(!p45.isPositiveSemiDefinite());
   BOOST_CHECK(p45.isSymmetric());
-  BOOST_CHECK(p45.isUndefinite());
+  BOOST_CHECK(p45.isIndefinite());
   BOOST_CHECK(!p45.isZero());
   BOOST_CHECK(p45.isTriangular());
   BOOST_CHECK(p45.isLowerTriangular());
   BOOST_CHECK(p45.isUpperTriangular());
 
-  MatrixProperties p46(MatrixShape::MULTIPLE_OF_IDENTITY, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p46(MatrixShape::MULTIPLE_OF_IDENTITY, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p46.shape() == MatrixShape::MULTIPLE_OF_IDENTITY);
-  BOOST_CHECK(p46.positivness() == Positivness::NON_ZERO_UNDEFINITE);
+  BOOST_CHECK(p46.positiveness() == Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(!p46.isConstant());
   BOOST_CHECK(p46.isDiagonal());
   BOOST_CHECK(!p46.isIdentity());
@@ -802,19 +802,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p46.isMultipleOfIdentity());
   BOOST_CHECK(!p46.isNegativeDefinite());
   BOOST_CHECK(!p46.isNegativeSemidefinite());
-  BOOST_CHECK(p46.isNonZeroUndefinite());
+  BOOST_CHECK(p46.isNonZeroIndefinite());
   BOOST_CHECK(!p46.isPositiveDefinite());
   BOOST_CHECK(!p46.isPositiveSemiDefinite());
   BOOST_CHECK(p46.isSymmetric());
-  BOOST_CHECK(p46.isUndefinite());
+  BOOST_CHECK(p46.isIndefinite());
   BOOST_CHECK(!p46.isZero());
   BOOST_CHECK(p46.isTriangular());
   BOOST_CHECK(p46.isLowerTriangular());
   BOOST_CHECK(p46.isUpperTriangular());
 
-  MatrixProperties p51(MatrixShape::IDENTITY, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p51(MatrixShape::IDENTITY, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p51.shape() == MatrixShape::IDENTITY);
-  BOOST_CHECK(p51.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p51.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p51.isConstant());
   BOOST_CHECK(p51.isDiagonal());
   BOOST_CHECK(p51.isIdentity());
@@ -823,19 +823,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p51.isMultipleOfIdentity());
   BOOST_CHECK(!p51.isNegativeDefinite());
   BOOST_CHECK(!p51.isNegativeSemidefinite());
-  BOOST_CHECK(p51.isNonZeroUndefinite());
+  BOOST_CHECK(p51.isNonZeroIndefinite());
   BOOST_CHECK(p51.isPositiveDefinite());
   BOOST_CHECK(p51.isPositiveSemiDefinite());
   BOOST_CHECK(p51.isSymmetric());
-  BOOST_CHECK(p51.isUndefinite());
+  BOOST_CHECK(p51.isIndefinite());
   BOOST_CHECK(!p51.isZero());
   BOOST_CHECK(p51.isTriangular());
   BOOST_CHECK(p51.isLowerTriangular());
   BOOST_CHECK(p51.isUpperTriangular());
 
-  MatrixProperties p52(MatrixShape::IDENTITY, Positivness::POSITIVE_DEFINITE);
+  MatrixProperties p52(MatrixShape::IDENTITY, Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p52.shape() == MatrixShape::IDENTITY);
-  BOOST_CHECK(p52.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p52.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p52.isConstant());
   BOOST_CHECK(p52.isDiagonal());
   BOOST_CHECK(p52.isIdentity());
@@ -844,23 +844,23 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p52.isMultipleOfIdentity());
   BOOST_CHECK(!p52.isNegativeDefinite());
   BOOST_CHECK(!p52.isNegativeSemidefinite());
-  BOOST_CHECK(p52.isNonZeroUndefinite());
+  BOOST_CHECK(p52.isNonZeroIndefinite());
   BOOST_CHECK(p52.isPositiveDefinite());
   BOOST_CHECK(p52.isPositiveSemiDefinite());
   BOOST_CHECK(p52.isSymmetric());
-  BOOST_CHECK(p52.isUndefinite());
+  BOOST_CHECK(p52.isIndefinite());
   BOOST_CHECK(!p52.isZero());
   BOOST_CHECK(p52.isTriangular());
   BOOST_CHECK(p52.isLowerTriangular());
   BOOST_CHECK(p52.isUpperTriangular());
 
   //Fire assert (rightly)
-  //MatrixProperties p53(MatrixShape::IDENTITY, Positivness::NEGATIVE_SEMIDEFINITE);
-  //MatrixProperties p54(MatrixShape::IDENTITY, Positivness::NEGATIVE_DEFINITE);
+  //MatrixProperties p53(MatrixShape::IDENTITY, Positiveness::NEGATIVE_SEMIDEFINITE);
+  //MatrixProperties p54(MatrixShape::IDENTITY, Positiveness::NEGATIVE_DEFINITE);
 
-  MatrixProperties p55(MatrixShape::IDENTITY, Positivness::UNDEFINITE);
+  MatrixProperties p55(MatrixShape::IDENTITY, Positiveness::INDEFINITE);
   BOOST_CHECK(p55.shape() == MatrixShape::IDENTITY);
-  BOOST_CHECK(p55.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p55.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p55.isConstant());
   BOOST_CHECK(p55.isDiagonal());
   BOOST_CHECK(p55.isIdentity());
@@ -869,19 +869,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p55.isMultipleOfIdentity());
   BOOST_CHECK(!p55.isNegativeDefinite());
   BOOST_CHECK(!p55.isNegativeSemidefinite());
-  BOOST_CHECK(p55.isNonZeroUndefinite());
+  BOOST_CHECK(p55.isNonZeroIndefinite());
   BOOST_CHECK(p55.isPositiveDefinite());
   BOOST_CHECK(p55.isPositiveSemiDefinite());
   BOOST_CHECK(p55.isSymmetric());
-  BOOST_CHECK(p55.isUndefinite());
+  BOOST_CHECK(p55.isIndefinite());
   BOOST_CHECK(!p55.isZero());
   BOOST_CHECK(p55.isTriangular());
   BOOST_CHECK(p55.isLowerTriangular());
   BOOST_CHECK(p55.isUpperTriangular());
 
-  MatrixProperties p56(MatrixShape::IDENTITY, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p56(MatrixShape::IDENTITY, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p56.shape() == MatrixShape::IDENTITY);
-  BOOST_CHECK(p56.positivness() == Positivness::POSITIVE_DEFINITE);
+  BOOST_CHECK(p56.positiveness() == Positiveness::POSITIVE_DEFINITE);
   BOOST_CHECK(p56.isConstant());
   BOOST_CHECK(p56.isDiagonal());
   BOOST_CHECK(p56.isIdentity());
@@ -890,24 +890,24 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p56.isMultipleOfIdentity());
   BOOST_CHECK(!p56.isNegativeDefinite());
   BOOST_CHECK(!p56.isNegativeSemidefinite());
-  BOOST_CHECK(p56.isNonZeroUndefinite());
+  BOOST_CHECK(p56.isNonZeroIndefinite());
   BOOST_CHECK(p56.isPositiveDefinite());
   BOOST_CHECK(p56.isPositiveSemiDefinite());
   BOOST_CHECK(p56.isSymmetric());
-  BOOST_CHECK(p56.isUndefinite());
+  BOOST_CHECK(p56.isIndefinite());
   BOOST_CHECK(!p56.isZero());
   BOOST_CHECK(p56.isTriangular());
   BOOST_CHECK(p56.isLowerTriangular());
   BOOST_CHECK(p56.isUpperTriangular());
 
   //Fire assert (rightly)
-  //MatrixProperties p61(MatrixShape::MINUS_IDENTITY, Positivness::POSITIVE_SEMIDEFINITE);
-  //MatrixProperties p62(MatrixShape::MINUS_IDENTITY, Positivness::POSITIVE_DEFINITE);
+  //MatrixProperties p61(MatrixShape::MINUS_IDENTITY, Positiveness::POSITIVE_SEMIDEFINITE);
+  //MatrixProperties p62(MatrixShape::MINUS_IDENTITY, Positiveness::POSITIVE_DEFINITE);
   
   
-  MatrixProperties p63(MatrixShape::MINUS_IDENTITY, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p63(MatrixShape::MINUS_IDENTITY, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p63.shape() == MatrixShape::MINUS_IDENTITY);
-  BOOST_CHECK(p63.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p63.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p63.isConstant());
   BOOST_CHECK(p63.isDiagonal());
   BOOST_CHECK(!p63.isIdentity());
@@ -916,19 +916,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p63.isMultipleOfIdentity());
   BOOST_CHECK(p63.isNegativeDefinite());
   BOOST_CHECK(p63.isNegativeSemidefinite());
-  BOOST_CHECK(p63.isNonZeroUndefinite());
+  BOOST_CHECK(p63.isNonZeroIndefinite());
   BOOST_CHECK(!p63.isPositiveDefinite());
   BOOST_CHECK(!p63.isPositiveSemiDefinite());
   BOOST_CHECK(p63.isSymmetric());
-  BOOST_CHECK(p63.isUndefinite());
+  BOOST_CHECK(p63.isIndefinite());
   BOOST_CHECK(!p63.isZero());
   BOOST_CHECK(p63.isTriangular());
   BOOST_CHECK(p63.isLowerTriangular());
   BOOST_CHECK(p63.isUpperTriangular());
 
-  MatrixProperties p64(MatrixShape::MINUS_IDENTITY, Positivness::NEGATIVE_DEFINITE);
+  MatrixProperties p64(MatrixShape::MINUS_IDENTITY, Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p64.shape() == MatrixShape::MINUS_IDENTITY);
-  BOOST_CHECK(p64.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p64.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p64.isConstant());
   BOOST_CHECK(p64.isDiagonal());
   BOOST_CHECK(!p64.isIdentity());
@@ -937,19 +937,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p64.isMultipleOfIdentity());
   BOOST_CHECK(p64.isNegativeDefinite());
   BOOST_CHECK(p64.isNegativeSemidefinite());
-  BOOST_CHECK(p64.isNonZeroUndefinite());
+  BOOST_CHECK(p64.isNonZeroIndefinite());
   BOOST_CHECK(!p64.isPositiveDefinite());
   BOOST_CHECK(!p64.isPositiveSemiDefinite());
   BOOST_CHECK(p64.isSymmetric());
-  BOOST_CHECK(p64.isUndefinite());
+  BOOST_CHECK(p64.isIndefinite());
   BOOST_CHECK(!p64.isZero());
   BOOST_CHECK(p64.isTriangular());
   BOOST_CHECK(p64.isLowerTriangular());
   BOOST_CHECK(p64.isUpperTriangular());
 
-  MatrixProperties p65(MatrixShape::MINUS_IDENTITY, Positivness::UNDEFINITE);
+  MatrixProperties p65(MatrixShape::MINUS_IDENTITY, Positiveness::INDEFINITE);
   BOOST_CHECK(p65.shape() == MatrixShape::MINUS_IDENTITY);
-  BOOST_CHECK(p65.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p65.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p65.isConstant());
   BOOST_CHECK(p65.isDiagonal());
   BOOST_CHECK(!p65.isIdentity());
@@ -958,19 +958,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p65.isMultipleOfIdentity());
   BOOST_CHECK(p65.isNegativeDefinite());
   BOOST_CHECK(p65.isNegativeSemidefinite());
-  BOOST_CHECK(p65.isNonZeroUndefinite());
+  BOOST_CHECK(p65.isNonZeroIndefinite());
   BOOST_CHECK(!p65.isPositiveDefinite());
   BOOST_CHECK(!p65.isPositiveSemiDefinite());
   BOOST_CHECK(p65.isSymmetric());
-  BOOST_CHECK(p65.isUndefinite());
+  BOOST_CHECK(p65.isIndefinite());
   BOOST_CHECK(!p65.isZero());
   BOOST_CHECK(p65.isTriangular());
   BOOST_CHECK(p65.isLowerTriangular());
   BOOST_CHECK(p65.isUpperTriangular());
 
-  MatrixProperties p66(MatrixShape::MINUS_IDENTITY, Positivness::NON_ZERO_UNDEFINITE);
+  MatrixProperties p66(MatrixShape::MINUS_IDENTITY, Positiveness::NON_ZERO_INDEFINITE);
   BOOST_CHECK(p66.shape() == MatrixShape::MINUS_IDENTITY);
-  BOOST_CHECK(p66.positivness() == Positivness::NEGATIVE_DEFINITE);
+  BOOST_CHECK(p66.positiveness() == Positiveness::NEGATIVE_DEFINITE);
   BOOST_CHECK(p66.isConstant());
   BOOST_CHECK(p66.isDiagonal());
   BOOST_CHECK(!p66.isIdentity());
@@ -979,19 +979,19 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p66.isMultipleOfIdentity());
   BOOST_CHECK(p66.isNegativeDefinite());
   BOOST_CHECK(p66.isNegativeSemidefinite());
-  BOOST_CHECK(p66.isNonZeroUndefinite());
+  BOOST_CHECK(p66.isNonZeroIndefinite());
   BOOST_CHECK(!p66.isPositiveDefinite());
   BOOST_CHECK(!p66.isPositiveSemiDefinite());
   BOOST_CHECK(p66.isSymmetric());
-  BOOST_CHECK(p66.isUndefinite());
+  BOOST_CHECK(p66.isIndefinite());
   BOOST_CHECK(!p66.isZero());
   BOOST_CHECK(p66.isTriangular());
   BOOST_CHECK(p66.isLowerTriangular());
   BOOST_CHECK(p66.isUpperTriangular());
   
-  MatrixProperties p71(MatrixShape::ZERO, Positivness::POSITIVE_SEMIDEFINITE);
+  MatrixProperties p71(MatrixShape::ZERO, Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p71.shape() == MatrixShape::ZERO);
-  BOOST_CHECK(p71.positivness() == Positivness::POSITIVE_SEMIDEFINITE);
+  BOOST_CHECK(p71.positiveness() == Positiveness::POSITIVE_SEMIDEFINITE);
   BOOST_CHECK(p71.isConstant());
   BOOST_CHECK(p71.isDiagonal());
   BOOST_CHECK(!p71.isIdentity());
@@ -1000,11 +1000,11 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p71.isMultipleOfIdentity());
   BOOST_CHECK(!p71.isNegativeDefinite());
   BOOST_CHECK(p71.isNegativeSemidefinite());
-  BOOST_CHECK(!p71.isNonZeroUndefinite());
+  BOOST_CHECK(!p71.isNonZeroIndefinite());
   BOOST_CHECK(!p71.isPositiveDefinite());
   BOOST_CHECK(p71.isPositiveSemiDefinite());
   BOOST_CHECK(p71.isSymmetric());
-  BOOST_CHECK(p71.isUndefinite());
+  BOOST_CHECK(p71.isIndefinite());
   BOOST_CHECK(p71.isZero());
   BOOST_CHECK(p71.isTriangular());
   BOOST_CHECK(p71.isLowerTriangular());
@@ -1012,11 +1012,11 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
 
   
   //Fire assert (rightly)
-  //MatrixProperties p72(MatrixShape::ZERO, Positivness::POSITIVE_DEFINITE);
+  //MatrixProperties p72(MatrixShape::ZERO, Positiveness::POSITIVE_DEFINITE);
   
-  MatrixProperties p73(MatrixShape::ZERO, Positivness::NEGATIVE_SEMIDEFINITE);
+  MatrixProperties p73(MatrixShape::ZERO, Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p73.shape() == MatrixShape::ZERO);
-  BOOST_CHECK(p73.positivness() == Positivness::NEGATIVE_SEMIDEFINITE);
+  BOOST_CHECK(p73.positiveness() == Positiveness::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p73.isConstant());
   BOOST_CHECK(p73.isDiagonal());
   BOOST_CHECK(!p73.isIdentity());
@@ -1025,22 +1025,22 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p73.isMultipleOfIdentity());
   BOOST_CHECK(!p73.isNegativeDefinite());
   BOOST_CHECK(p73.isNegativeSemidefinite());
-  BOOST_CHECK(!p73.isNonZeroUndefinite());
+  BOOST_CHECK(!p73.isNonZeroIndefinite());
   BOOST_CHECK(!p73.isPositiveDefinite());
   BOOST_CHECK(p73.isPositiveSemiDefinite());
   BOOST_CHECK(p73.isSymmetric());
-  BOOST_CHECK(p73.isUndefinite());
+  BOOST_CHECK(p73.isIndefinite());
   BOOST_CHECK(p73.isZero());
   BOOST_CHECK(p73.isTriangular());
   BOOST_CHECK(p73.isLowerTriangular());
   BOOST_CHECK(p73.isUpperTriangular());
 
   //Fire assert (rightly)
-  //MatrixProperties p74(MatrixShape::ZERO, Positivness::NEGATIVE_DEFINITE);
+  //MatrixProperties p74(MatrixShape::ZERO, Positiveness::NEGATIVE_DEFINITE);
 
-  MatrixProperties p75(MatrixShape::ZERO, Positivness::UNDEFINITE);
+  MatrixProperties p75(MatrixShape::ZERO, Positiveness::INDEFINITE);
   BOOST_CHECK(p75.shape() == MatrixShape::ZERO);
-  BOOST_CHECK(p75.positivness() == Positivness::UNDEFINITE);
+  BOOST_CHECK(p75.positiveness() == Positiveness::INDEFINITE);
   BOOST_CHECK(p75.isConstant());
   BOOST_CHECK(p75.isDiagonal());
   BOOST_CHECK(!p75.isIdentity());
@@ -1049,16 +1049,16 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p75.isMultipleOfIdentity());
   BOOST_CHECK(!p75.isNegativeDefinite());
   BOOST_CHECK(p75.isNegativeSemidefinite());
-  BOOST_CHECK(!p75.isNonZeroUndefinite());
+  BOOST_CHECK(!p75.isNonZeroIndefinite());
   BOOST_CHECK(!p75.isPositiveDefinite());
   BOOST_CHECK(p75.isPositiveSemiDefinite());
   BOOST_CHECK(p75.isSymmetric());
-  BOOST_CHECK(p75.isUndefinite());
+  BOOST_CHECK(p75.isIndefinite());
   BOOST_CHECK(p75.isZero());
   BOOST_CHECK(p75.isTriangular());
   BOOST_CHECK(p75.isLowerTriangular());
   BOOST_CHECK(p75.isUpperTriangular());
 
   //Fire assert (rightly)
-  //MatrixProperties p76(MatrixShape::ZERO, Positivness::NON_ZERO_UNDEFINITE);
+  //MatrixProperties p76(MatrixShape::ZERO, Positiveness::NON_ZERO_INDEFINITE);
 }
