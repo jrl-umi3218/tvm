@@ -83,7 +83,7 @@ namespace
 
   bool deduceSymmetry(MatrixShape shape, Positivness positivness)
   {
-    return shape > MatrixShape::GENERAL || positivness != Positivness::NA;
+    return shape >= MatrixShape::DIAGONAL || positivness != Positivness::NA;
   }
 
   bool deduceInvertibility(MatrixShape shape, Positivness positivness)
@@ -95,6 +95,18 @@ namespace
         || positivness == Positivness::NON_ZERO_UNDEFINITE;
   }
 
+  MatrixShape deduceShape(MatrixShape shape, Positivness positivness)
+  {
+    //if triangular and symmetric we deduce diagonal
+    if ((shape == MatrixShape::LOWER_TRIANGULAR || shape == MatrixShape::UPPER_TRIANGULAR)
+      && positivness != Positivness::NA)
+    {
+      return MatrixShape::DIAGONAL;
+    }
+    else
+      return shape;
+  }
+
   Positivness deducePositivness(MatrixShape shape, Positivness positivness, bool invertible)
   {
     Positivness p;
@@ -102,6 +114,8 @@ namespace
     switch (shape)
     {
     case MatrixShape::GENERAL:              p = Positivness::NA;                break;
+    case MatrixShape::LOWER_TRIANGULAR:     p = Positivness::NA;                break;
+    case MatrixShape::UPPER_TRIANGULAR:     p = Positivness::NA;                break;
     case MatrixShape::DIAGONAL:             p = Positivness::UNDEFINITE;        break;
     case MatrixShape::MULTIPLE_OF_IDENTITY: p = Positivness::UNDEFINITE;        break;
     case MatrixShape::IDENTITY:             p = Positivness::POSITIVE_DEFINITE; break;
@@ -130,7 +144,7 @@ namespace tvm
   MatrixProperties::MatrixProperties(bool invertible, bool constant, MatrixShape shape, Positivness positivness)
     : constant_(constant || deduceConstance(shape))
     , invertible_(invertible || deduceInvertibility(shape,positivness))
-    , shape_(shape)
+    , shape_(deduceShape(shape,positivness))
     , symmetric_(deduceSymmetry(shape, positivness))
     , positivness_(deducePositivness(shape,positivness,invertible))
   {

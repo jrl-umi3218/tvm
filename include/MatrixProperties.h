@@ -4,9 +4,12 @@
 
 namespace tvm
 {
+  /** Shape of a matrix*/
   enum class MatrixShape
   {
     GENERAL,
+    LOWER_TRIANGULAR,
+    UPPER_TRIANGULAR,
     DIAGONAL,
     MULTIPLE_OF_IDENTITY,
     IDENTITY,
@@ -14,6 +17,9 @@ namespace tvm
     ZERO
   };
 
+  /** Positiveness property of the matrix. Any options other than NA implies
+    * that the matrix is symmetric
+    */
   enum class Positivness
   {
     NA,                     // not applicable (matrix is not symmetric) / unknown
@@ -33,8 +39,7 @@ namespace tvm
     /** The data given to the constructors may be redundant. For example an 
       * identity matrix is constant, invertible and positive definite. The 
       * constructors are deducing automatically all what they can from the 
-      * arguments, first from the shape only, then from the shape and 
-      * the positivness.
+      * shape and the positivness.
       * The constructors use user-given data when they add information to what
       * they can deduce. If the user-given data are less precise but compatible
       * with what has been deduced, they are discarded. If they are 
@@ -50,6 +55,7 @@ namespace tvm
       * the matrix is negative definite. If it is said to be positive definite,
       * non constant or non invertible, an assertion will be fire as this
       * contradicts what can be deduced.
+      * - if a matrix is triangular and symmetric, then it is diagonal.
       */
     MatrixProperties(MatrixShape shape = MatrixShape::GENERAL, Positivness positivness = Positivness::NA);
     MatrixProperties(bool constant, MatrixShape shape = MatrixShape::GENERAL, Positivness positivness = Positivness::NA);
@@ -60,6 +66,9 @@ namespace tvm
 
     bool isConstant() const;
     bool isInvertible() const;
+    bool isTriangular() const;
+    bool isLowerTriangular() const;
+    bool isUpperTriangular() const;
     bool isDiagonal() const;
     bool isMultipleOfIdentity() const;
     bool isIdentity() const;
@@ -99,6 +108,21 @@ namespace tvm
   inline bool MatrixProperties::isInvertible() const
   {
     return invertible_;
+  }
+
+  inline bool MatrixProperties::isTriangular() const
+  {
+    return isLowerTriangular() || isUpperTriangular();
+  }
+
+  inline bool MatrixProperties::isLowerTriangular() const
+  {
+    return shape_ == MatrixShape::LOWER_TRIANGULAR || isDiagonal();
+  }
+
+  inline bool MatrixProperties::isUpperTriangular() const
+  {
+    return shape_ == MatrixShape::UPPER_TRIANGULAR || isDiagonal();
   }
 
   inline bool MatrixProperties::isDiagonal() const
