@@ -41,6 +41,7 @@ namespace tvm
         throw DuplicateVariable(/*desc*/); //TODO
 
       jacobian_[v.get()].resize(m_, v->size());
+      jacobianProperties_[v.get()] = MatrixProperties();
 
       addVariable_(v);
     }
@@ -54,6 +55,7 @@ namespace tvm
       {
         variables_.erase(it);
         jacobian_.erase(v.get());
+        jacobianProperties_.erase(v.get());
       }
 
       removeVariable_(v);
@@ -67,6 +69,11 @@ namespace tvm
     void FirstOrderProvider::removeVariable_(VariablePtr)
     {
       //do nothing
+    }
+
+    void FirstOrderProvider::jacobianProperties(const Variable& x, MatrixProperties p)
+    {
+      jacobianProperties_.at(&x) = p;
     }
   }
 }

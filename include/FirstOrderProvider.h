@@ -8,6 +8,7 @@
 
 #include <tvm/data/Node.h>
 #include "defs.h"
+#include "MatrixProperties.h"
 
 namespace tvm
 {
@@ -33,6 +34,9 @@ namespace tvm
 
       /** Return the variables*/
       const std::vector<VariablePtr>& variables() const;
+
+      /** Properties of the jacobian matrix related to variable x.*/
+      const MatrixProperties& jacobianProperties(const Variable& x) const;
 
     protected:
       FirstOrderProvider(int m);
@@ -62,6 +66,9 @@ namespace tvm
       virtual void addVariable_(VariablePtr);
       virtual void removeVariable_(VariablePtr);
 
+      /** Setter for the properties if the jacobian matrix related to variable x.*/
+      void jacobianProperties(const Variable& x, MatrixProperties p);
+
       // cache
       Eigen::VectorXd value_;
       std::map<Variable const*, Eigen::MatrixXd> jacobian_;
@@ -69,6 +76,7 @@ namespace tvm
     private:
       int m_; //output size
       std::vector<VariablePtr> variables_;
+      std::map<Variable const*, MatrixProperties> jacobianProperties_;
     };
 
 
@@ -90,6 +98,11 @@ namespace tvm
     inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
     {
       return variables_;
+    }
+
+    inline const MatrixProperties& FirstOrderProvider::jacobianProperties(const Variable& x) const
+    {
+      return jacobianProperties_.at(&x);
     }
   }
 }
