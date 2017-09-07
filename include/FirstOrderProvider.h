@@ -66,7 +66,7 @@ namespace tvm
       virtual void addVariable_(VariablePtr);
       virtual void removeVariable_(VariablePtr);
 
-      /** Setter for the properties if the jacobian matrix related to variable x.*/
+      /** Setter for the properties of the jacobian matrix related to variable x.*/
       void jacobianProperties(const Variable& x, MatrixProperties p);
 
       // cache

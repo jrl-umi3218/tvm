@@ -7,14 +7,14 @@ namespace tvm
   /** Shape of a matrix*/
   enum class MatrixShape
   {
-    GENERAL,
-    LOWER_TRIANGULAR,
-    UPPER_TRIANGULAR,
-    DIAGONAL,
-    MULTIPLE_OF_IDENTITY,
-    IDENTITY,
-    MINUS_IDENTITY,
-    ZERO
+    GENERAL,              //general shape. This includes all other shapes.
+    LOWER_TRIANGULAR,     //lower triangular matrix. This includes diagonal matrices.
+    UPPER_TRIANGULAR,     //upper triangular matrix. This includes diagonal matrices.
+    DIAGONAL,             //diagonal matrices. This includes multiple of the identity matrices (including zero matrix)
+    MULTIPLE_OF_IDENTITY, //a*I, where a is a real number. This includes the case a=-1, a=0, and a=1.
+    IDENTITY,             //identity matrix I
+    MINUS_IDENTITY,       //-I
+    ZERO                  //zero matrix
   };
 
   /** Positiveness property of the matrix. Any options other than NA implies
@@ -112,7 +112,7 @@ namespace tvm
 
   inline bool MatrixProperties::isTriangular() const
   {
-    return isLowerTriangular() || isUpperTriangular();
+    return shape_ >= MatrixShape::LOWER_TRIANGULAR;
   }
 
   inline bool MatrixProperties::isLowerTriangular() const
@@ -122,20 +122,17 @@ namespace tvm
 
   inline bool MatrixProperties::isUpperTriangular() const
   {
-    return shape_ == MatrixShape::UPPER_TRIANGULAR || isDiagonal();
+    return shape_ >= MatrixShape::UPPER_TRIANGULAR;
   }
 
   inline bool MatrixProperties::isDiagonal() const
   {
-    return shape_ == MatrixShape::DIAGONAL || isMultipleOfIdentity();
+    return shape_ >= MatrixShape::DIAGONAL;
   }
 
   inline bool MatrixProperties::isMultipleOfIdentity() const
   {
-    return shape_ == MatrixShape::MULTIPLE_OF_IDENTITY 
-        || isIdentity()
-        || isMinusIdentity()
-        || isZero();
+    return shape_ >= MatrixShape::MULTIPLE_OF_IDENTITY;
   }
 
   inline bool MatrixProperties::isIdentity() const
@@ -184,10 +181,7 @@ namespace tvm
 
   inline bool MatrixProperties::isIndefinite() const
   {
-    return positiveness_ == Positiveness::INDEFINITE 
-        || isNonZeroIndefinite() 
-        || isPositiveSemiDefinite()
-        || isNegativeSemidefinite();
+    return positiveness_ != Positiveness::NA;
   }
 
   inline bool MatrixProperties::isNonZeroIndefinite() const
