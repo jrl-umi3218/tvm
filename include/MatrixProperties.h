@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "tvm/api.h"
 
 namespace tvm
@@ -41,7 +43,7 @@ namespace tvm
     {
     public:
       Constness(bool b = false) : b_(b) {}
-      operator bool() { return b_; }
+      operator bool() const { return b_; }
     private:
       bool b_;
     };
@@ -51,11 +53,10 @@ namespace tvm
     {
     public:
       Invertibility(bool b = false) : b_(b) {}
-      operator bool() { return b_; }
+      operator bool() const { return b_; }
     private:
       bool b_;
     };
-
 
     /** The data given to the constructors may be redundant. For example an 
       * identity matrix is constant, invertible and positive definite. The 
@@ -78,9 +79,9 @@ namespace tvm
       * contradicts what can be deduced.
       * - if a matrix is triangular and symmetric, then it is diagonal.
       */
-    MatrixProperties(MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
-    MatrixProperties(Constness constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
-    MatrixProperties(Invertibility invertible, Constness constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
+    MatrixProperties();
+    template<typename ... Args>
+    MatrixProperties(Args && ... args);
 
     MatrixShape shape() const;
     Positiveness positiveness() const;
@@ -104,12 +105,65 @@ namespace tvm
     bool isNonZeroIndefinite() const;
 
   private:
+    /** This macro adds a member of type T named \a member to a struct, and
+      * a method \a processArgs to process it when it appears in a list of
+      * arguments.
+      * processArgs return a pair of boolean that is the memberwise "or" of
+      * another pair it gets by recursive call and {b1, b2}
+      */
+#define ADD_ARGUMENT(T, member, b1, b2) \
+    T member = T(); \
+    template<typename ... Args> \
+    std::pair<bool,bool> processArgs(const T& m, const Args& ... args) \
+    { \
+      static_assert(!check_args<T, Args...>(), \
+                    #T" has already been specified"); \
+      member = m; \
+      auto p = processArgs(args...); \
+      return {p.first || b1, p.second || b2}; \
+    }
+
+    struct Arguments
+    {
+      ADD_ARGUMENT(MatrixShape, shape, false, false);
+      ADD_ARGUMENT(Positiveness, positiveness, false, false);
+      ADD_ARGUMENT(Constness, constant, true, false);
+      ADD_ARGUMENT(Invertibility, invertible, false, true);
+
+      std::pair<bool, bool> processArgs() { return{ false, false }; }
+
+    private:
+      template<typename T, typename Arg0, typename ... Args>
+      static constexpr bool check_args()
+      {
+        return std::is_same<T, Arg0>::value || check_args<T, Args...>();
+      }
+
+      template<typename T>
+      static constexpr bool check_args()
+      {
+        return false;
+      }
+    };
+
+    void build(const Arguments& args, const std::pair<bool, bool>& checks);
+
     bool        constant_;
     bool        invertible_;
     MatrixShape shape_;
     bool        symmetric_;
     Positiveness positiveness_;
   };
+
+
+  template<typename ... Args>
+  inline MatrixProperties::MatrixProperties(Args && ... args)
+  {
+    Arguments a;
+    auto p = a.processArgs(args...);
+    build(a, p);
+  }
+
 
   inline MatrixProperties::MatrixShape MatrixProperties::shape() const
   {

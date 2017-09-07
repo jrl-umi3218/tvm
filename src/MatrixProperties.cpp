@@ -1,4 +1,7 @@
 #include <assert.h>
+#include <stdexcept>
+
+
 #include "MatrixProperties.h"
 
 namespace
@@ -130,34 +133,42 @@ namespace
 
 namespace tvm
 {
-  MatrixProperties::MatrixProperties(MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
-    : MatrixProperties(deduceConstance(shape), shape, positiveness)
+  MatrixProperties::MatrixProperties()
+    : constant_(false)
+    , invertible_(false)
+    , shape_(MatrixProperties::GENERAL)
+    , symmetric_(false)
+    , positiveness_(MatrixProperties::NA)
   {
   }
 
-  MatrixProperties::MatrixProperties(Constness constant, MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
-    : MatrixProperties(deduceInvertibility(shape, positiveness), constant, shape, positiveness)
-  {
-    assert((constant || !deduceConstance(shape)) && "You marked as non constant a matrix that is necessarily constant");
-  }
 
-  MatrixProperties::MatrixProperties(Invertibility invertible, Constness constant, MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
-    : constant_(constant || deduceConstance(shape))
-    , invertible_(invertible || deduceInvertibility(shape,positiveness))
-    , shape_(deduceShape(shape,positiveness))
-    , symmetric_(deduceSymmetry(shape, positiveness))
-    , positiveness_(deducePositiveness(shape,positiveness,invertible))
+  void MatrixProperties::build(const MatrixProperties::Arguments& args, const std::pair<bool, bool>& checks)
   {
-    assert((constant || !deduceConstance(shape)) && "You marked as non constant a matrix that is necessarily constant.");
-    assert((invertible || !deduceInvertibility(shape, positiveness)) && "You marked as non-invertible a matrix that is necessarily invertible.");
-    assert(!(invertible && shape == MatrixShape::ZERO));
-    assert(!(shape == MatrixShape::ZERO && positiveness == Positiveness::POSITIVE_DEFINITE));
-    assert(!(shape == MatrixShape::ZERO && positiveness == Positiveness::NEGATIVE_DEFINITE));
-    assert(!(shape == MatrixShape::ZERO && positiveness == Positiveness::NON_ZERO_INDEFINITE));
-    assert(!(shape == MatrixShape::IDENTITY && positiveness == Positiveness::NEGATIVE_SEMIDEFINITE));
-    assert(!(shape == MatrixShape::IDENTITY && positiveness == Positiveness::NEGATIVE_DEFINITE));
-    assert(!(shape == MatrixShape::MINUS_IDENTITY && positiveness == Positiveness::POSITIVE_SEMIDEFINITE));
-    assert(!(shape == MatrixShape::MINUS_IDENTITY && positiveness == Positiveness::POSITIVE_DEFINITE));
+    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::POSITIVE_DEFINITE));
+    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NEGATIVE_DEFINITE));
+    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NON_ZERO_INDEFINITE));
+    assert(!(args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_SEMIDEFINITE));
+    assert(!(args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_DEFINITE));
+    assert(!(args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_SEMIDEFINITE));
+    assert(!(args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_DEFINITE));
+
+    if (checks.first && !args.constant && deduceConstance(args.shape))
+      throw std::runtime_error("You marked as non constant a matrix that is necessarily constant.");
+
+    if (checks.second)
+    {
+      if (!args.invertible && deduceInvertibility(args.shape, args.positiveness))
+        throw std::runtime_error("You marked as non-invertible a matrix that is necessarily invertible.");
+      if (args.invertible && args.shape == MatrixShape::ZERO)
+        throw std::runtime_error("You marked as invertible the matrix 0.");
+    }
+
+    constant_ = args.constant || deduceConstance(args.shape);
+    invertible_ = args.invertible || deduceInvertibility(args.shape, args.positiveness);
+    shape_ = deduceShape(args.shape, args.positiveness);
+    symmetric_ = deduceSymmetry(args.shape, args.positiveness);
+    positiveness_ = deducePositiveness(args.shape, args.positiveness, args.invertible);
   }
 
 }
