@@ -4,38 +4,59 @@
 
 namespace tvm
 {
-  /** Shape of a matrix*/
-  enum class MatrixShape
-  {
-    GENERAL,              //general shape. This includes all other shapes.
-    LOWER_TRIANGULAR,     //lower triangular matrix. This includes diagonal matrices.
-    UPPER_TRIANGULAR,     //upper triangular matrix. This includes diagonal matrices.
-    DIAGONAL,             //diagonal matrices. This includes multiple of the identity matrices (including zero matrix)
-    MULTIPLE_OF_IDENTITY, //a*I, where a is a real number. This includes the case a=-1, a=0, and a=1.
-    IDENTITY,             //identity matrix I
-    MINUS_IDENTITY,       //-I
-    ZERO                  //zero matrix
-  };
-
-  /** Positiveness property of the matrix. Any options other than NA implies
-    * that the matrix is symmetric
-    */
-  enum class Positiveness
-  {
-    NA,                     // not applicable (matrix is not symmetric) / unknown
-    POSITIVE_SEMIDEFINITE,  // all eigenvalues are >=0
-    POSITIVE_DEFINITE,      // all eigenvalues are >0
-    NEGATIVE_SEMIDEFINITE,  // all eigenvalues are <=0
-    NEGATIVE_DEFINITE,      // all eigenvalues are <0
-    INDEFINITE,             // eigenvalues are a mix of positive, negative and 0
-    NON_ZERO_INDEFINITE,    // eigenvalues are a mix of positive, negative but not 0
-  };
-
   /** This class describes some mathematical properties of a matrix.
     */
   class TVM_DLLAPI MatrixProperties
   {
   public:
+    /** Shape of a matrix*/
+    enum MatrixShape
+    {
+      GENERAL,              //general shape. This includes all other shapes.
+      LOWER_TRIANGULAR,     //lower triangular matrix. This includes diagonal matrices.
+      UPPER_TRIANGULAR,     //upper triangular matrix. This includes diagonal matrices.
+      DIAGONAL,             //diagonal matrices. This includes multiple of the identity matrices (including zero matrix)
+      MULTIPLE_OF_IDENTITY, //a*I, where a is a real number. This includes the case a=-1, a=0, and a=1.
+      IDENTITY,             //identity matrix I
+      MINUS_IDENTITY,       //-I
+      ZERO                  //zero matrix
+    };
+
+    /** Positiveness property of the matrix. Any options other than NA implies
+    * that the matrix is symmetric
+    */
+    enum Positiveness
+    {
+      NA,                     // not applicable (matrix is not symmetric) / unknown
+      POSITIVE_SEMIDEFINITE,  // all eigenvalues are >=0
+      POSITIVE_DEFINITE,      // all eigenvalues are >0
+      NEGATIVE_SEMIDEFINITE,  // all eigenvalues are <=0
+      NEGATIVE_DEFINITE,      // all eigenvalues are <0
+      INDEFINITE,             // eigenvalues are a mix of positive, negative and 0
+      NON_ZERO_INDEFINITE,    // eigenvalues are a mix of positive, negative but not 0
+    };
+
+    /** A wrapper over a boolean representing the constness of a matrix.*/
+    class Constness
+    {
+    public:
+      Constness(bool b = false) : b_(b) {}
+      operator bool() { return b_; }
+    private:
+      bool b_;
+    };
+
+    /** A wrapper over a boolean representing the invertibility of a matrix.*/
+    class Invertibility
+    {
+    public:
+      Invertibility(bool b = false) : b_(b) {}
+      operator bool() { return b_; }
+    private:
+      bool b_;
+    };
+
+
     /** The data given to the constructors may be redundant. For example an 
       * identity matrix is constant, invertible and positive definite. The 
       * constructors are deducing automatically all what they can from the 
@@ -58,8 +79,8 @@ namespace tvm
       * - if a matrix is triangular and symmetric, then it is diagonal.
       */
     MatrixProperties(MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
-    MatrixProperties(bool constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
-    MatrixProperties(bool invertible, bool constant = false, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
+    MatrixProperties(Constness constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
+    MatrixProperties(Invertibility invertible, Constness constant, MatrixShape shape = MatrixShape::GENERAL, Positiveness positiveness = Positiveness::NA);
 
     MatrixShape shape() const;
     Positiveness positiveness() const;
@@ -90,12 +111,12 @@ namespace tvm
     Positiveness positiveness_;
   };
 
-  inline MatrixShape MatrixProperties::shape() const
+  inline MatrixProperties::MatrixShape MatrixProperties::shape() const
   {
     return shape_;
   }
 
-  inline Positiveness MatrixProperties::positiveness() const
+  inline MatrixProperties::Positiveness MatrixProperties::positiveness() const
   {
     return positiveness_;
   }
