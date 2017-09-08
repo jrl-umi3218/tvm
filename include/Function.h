@@ -29,6 +29,9 @@ namespace tvm
 
     /** Resize all cache members corresponding to active output*/
     void resizeCache() override;
+    void resizeVelocityCache();
+    void resizeNormalAccelerationCache();
+    void resizeJDotCache();
 
     virtual void addVariable_(VariablePtr v) override;
     virtual void removeVariable_(VariablePtr v) override;

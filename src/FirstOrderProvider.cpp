@@ -11,12 +11,21 @@ namespace tvm
     {
       resizeCache(); //resize value_
     }
-
+    
     void FirstOrderProvider::resizeCache()
+    {
+      resizeValueCache();
+      resizeJacobianCache();
+    }
+
+    void FirstOrderProvider::resizeValueCache()
     {
       if (isOutputEnabled((int)Output::Value))
         value_.resize(m_);
+    }
 
+    void FirstOrderProvider::resizeJacobianCache()
+    {
       if (isOutputEnabled((int)Output::Jacobian))
       {
         for (auto v : variables_)

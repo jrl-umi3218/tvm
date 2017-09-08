@@ -8,6 +8,7 @@
 
 #include <tvm/data/Node.h>
 #include "defs.h"
+#include "MatrixWithProperties.h"
 
 namespace tvm
 {
@@ -26,7 +27,7 @@ namespace tvm
       * output of another method, e.g. return the jacobian of an other Function.
       */
       virtual const Eigen::VectorXd& value() const;
-      virtual const Eigen::MatrixXd& jacobian(const Variable& x) const;
+      virtual const MatrixWithProperties& jacobian(const Variable& x) const;
 
       /** Return the output size m*/
       int size() const;
@@ -37,7 +38,7 @@ namespace tvm
     protected:
       FirstOrderProvider(int m);
 
-      /** Resize all cache members corresponding to active output.
+      /** Resize all cache members corresponding to active outputs.
         *
         * This can be overriden in case you do not need all of the default
         * mechanism (typically if you will not use part of the cache).
@@ -45,6 +46,12 @@ namespace tvm
         * call this base version in the derived classes.
         */
       virtual void resizeCache();
+
+      /** Sub-methods of resizeCache to be used by derived classes that need 
+        * this level of granularity.
+        */
+      void resizeValueCache();
+      void resizeJacobianCache();
 
       /** Add or remove variables. Cache is automatically updated*/
       void addVariable(VariablePtr);
@@ -58,7 +65,7 @@ namespace tvm
 
       // cache
       Eigen::VectorXd value_;
-      std::map<Variable const*, Eigen::MatrixXd> jacobian_;
+      std::map<Variable const*, MatrixWithProperties> jacobian_;
 
     private:
       int m_; //output size
@@ -71,7 +78,7 @@ namespace tvm
       return value_;
     }
 
-    inline const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
+    inline const MatrixWithProperties& FirstOrderProvider::jacobian(const Variable& x) const
     {
       return jacobian_.at(&x);
     }

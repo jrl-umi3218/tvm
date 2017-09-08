@@ -32,6 +32,12 @@ namespace tvm
 
   void Constraint::resizeCache()
   {
+    FirstOrderProvider::resizeCache();
+    resizeRHS();
+  }
+
+  void Constraint::resizeRHS()
+  {
     if (usel_)
       l_.resize(size());
 

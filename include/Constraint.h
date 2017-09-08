@@ -53,6 +53,7 @@ namespace tvm
   protected:
     Constraint(ConstraintType ct, ConstraintRHS cr, int m=0);
     void resizeCache() override;
+    void resizeRHS(); 
 
     Eigen::VectorXd l_;
     Eigen::VectorXd u_;
