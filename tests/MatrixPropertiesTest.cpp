@@ -854,9 +854,12 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p52.isLowerTriangular());
   BOOST_CHECK(p52.isUpperTriangular());
 
-  //Fire assert (rightly)
-  //MatrixProperties p53(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
-  //MatrixProperties p54(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  BOOST_CHECK_THROW(
+    MatrixProperties p53(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE)
+    , std::runtime_error);
+  BOOST_CHECK_THROW(
+    MatrixProperties p54(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE)
+    , std::runtime_error);
 
   MatrixProperties p55(MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
   BOOST_CHECK(p55.shape() == MatrixProperties::IDENTITY);
@@ -900,9 +903,12 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p56.isLowerTriangular());
   BOOST_CHECK(p56.isUpperTriangular());
 
-  //Fire assert (rightly)
-  //MatrixProperties p61(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
-  //MatrixProperties p62(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  BOOST_CHECK_THROW(
+    MatrixProperties p61(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE)
+    , std::runtime_error);
+  BOOST_CHECK_THROW(
+    MatrixProperties p62(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE)
+    , std::runtime_error);
   
   
   MatrixProperties p63(MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
@@ -1011,8 +1017,9 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p71.isUpperTriangular());
 
   
-  //Fire assert (rightly)
-  //MatrixProperties p72(MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE);
+  BOOST_CHECK_THROW(
+    MatrixProperties p72(MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE)
+    , std::runtime_error);
   
   MatrixProperties p73(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
   BOOST_CHECK(p73.shape() == MatrixProperties::ZERO);
@@ -1035,8 +1042,9 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p73.isLowerTriangular());
   BOOST_CHECK(p73.isUpperTriangular());
 
-  //Fire assert (rightly)
-  //MatrixProperties p74(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE);
+  BOOST_CHECK_THROW(
+    MatrixProperties p74(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE)
+    , std::runtime_error);
 
   MatrixProperties p75(MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
   BOOST_CHECK(p75.shape() == MatrixProperties::ZERO);
@@ -1059,6 +1067,366 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
   BOOST_CHECK(p75.isLowerTriangular());
   BOOST_CHECK(p75.isUpperTriangular());
 
-  //Fire assert (rightly)
-  //MatrixProperties p76(MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE);
+  BOOST_CHECK_THROW(
+    MatrixProperties p76(MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE)
+    , std::runtime_error);
+}
+
+
+#define buildAndCheck(shouldThrow, ... ) \
+  if (shouldThrow) \
+    BOOST_CHECK_THROW(MatrixProperties(__VA_ARGS__), std::runtime_error); \
+  else \
+    BOOST_CHECK_NO_THROW(MatrixProperties(__VA_ARGS__));
+
+BOOST_AUTO_TEST_CASE(ConstnessCompatibility)
+{
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::GENERAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::DIAGONAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(false), MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE);
+
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::GENERAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::DIAGONAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Constness(true), MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE);
+}
+
+BOOST_AUTO_TEST_CASE(InvertibilityCompatibility)
+{
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::GENERAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::DIAGONAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(false), MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE);
+
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::GENERAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::LOWER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::UPPER_TRIANGULAR, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::DIAGONAL, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::NA);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::INDEFINITE);
+  buildAndCheck(false, MatrixProperties::Invertibility(true), MatrixProperties::MINUS_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::NA);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::POSITIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
+  buildAndCheck(true, MatrixProperties::Invertibility(true), MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE);
+}
+
+BOOST_AUTO_TEST_CASE(ArgumentOrderAndRepetition)
+{
+  MatrixProperties::MatrixShape s = MatrixProperties::GENERAL;
+  MatrixProperties::Positiveness p = MatrixProperties::NA;
+  MatrixProperties::Constness c;
+  MatrixProperties::Invertibility i;
+
+  buildAndCheck(false, s);
+  buildAndCheck(false, s);
+  buildAndCheck(false, c);
+  buildAndCheck(false, i);
+
+
+  buildAndCheck(false, s, p);
+  buildAndCheck(false, s, c);
+  buildAndCheck(false, s, i);
+
+  buildAndCheck(false, p, s);
+  buildAndCheck(false, p, c);
+  buildAndCheck(false, p, i);
+
+  buildAndCheck(false, c, s);
+  buildAndCheck(false, c, p);
+  buildAndCheck(false, c, i);
+
+  buildAndCheck(false, i, s);
+  buildAndCheck(false, i, p);
+  buildAndCheck(false, i, c);
+
+
+  buildAndCheck(false, s, p, c);
+  buildAndCheck(false, s, p, i);
+  buildAndCheck(false, s, c, p);
+  buildAndCheck(false, s, c, i);
+  buildAndCheck(false, s, i, p);
+  buildAndCheck(false, s, i, c);
+
+  buildAndCheck(false, p, s, c);
+  buildAndCheck(false, p, s, i);
+  buildAndCheck(false, p, c, s);
+  buildAndCheck(false, p, c, i);
+  buildAndCheck(false, p, i, s);
+  buildAndCheck(false, p, i, c);
+
+  buildAndCheck(false, c, s, p);
+  buildAndCheck(false, c, s, i);
+  buildAndCheck(false, c, p, s);
+  buildAndCheck(false, c, p, i);
+  buildAndCheck(false, c, i, s);
+  buildAndCheck(false, c, i, p);
+
+  buildAndCheck(false, i, s, p);
+  buildAndCheck(false, i, s, c);
+  buildAndCheck(false, i, p, s);
+  buildAndCheck(false, i, p, c);
+  buildAndCheck(false, i, c, s);
+  buildAndCheck(false, i, c, p);
+
+
+  buildAndCheck(false, s, p, c, i);
+  buildAndCheck(false, s, p, i, c);
+  buildAndCheck(false, s, c, p, i);
+  buildAndCheck(false, s, c, i, p);
+  buildAndCheck(false, s, i, p, c);
+  buildAndCheck(false, s, i, c, p);
+
+  buildAndCheck(false, p, s, c, i);
+  buildAndCheck(false, p, s, i, c);
+  buildAndCheck(false, p, c, s, i);
+  buildAndCheck(false, p, c, i, s);
+  buildAndCheck(false, p, i, s, c);
+  buildAndCheck(false, p, i, c, s);
+
+  buildAndCheck(false, c, s, p, i);
+  buildAndCheck(false, c, s, i, p);
+  buildAndCheck(false, c, p, s, i);
+  buildAndCheck(false, c, p, i, s);
+  buildAndCheck(false, c, i, s, p);
+  buildAndCheck(false, c, i, p, s);
+
+  buildAndCheck(false, i, s, p, c);
+  buildAndCheck(false, i, s, c, p);
+  buildAndCheck(false, i, p, s, c);
+  buildAndCheck(false, i, p, c, s);
+  buildAndCheck(false, i, c, s, p);
+  buildAndCheck(false, i, c, p, s);
 }

@@ -48,7 +48,8 @@ namespace
                   /* ND  */  {  1  ,  0  ,  0  ,  1  , -1  ,  1  ,  1  },
                   /*  I  */  {  1  , -1  , -1  , -1  , -1  , -1  , -1  },
                   /* INZ */  {  1  ,  0  , -1  ,  0  , -1  ,  1  ,  1  }};
-    assert(table[static_cast<int>(a)][static_cast<int>(b)] != 0 && "Invalid comparison");
+    if (table[static_cast<int>(a)][static_cast<int>(b)] == 0) 
+      throw std::runtime_error("Invalid comparison");
 
     return table[static_cast<int>(a)][static_cast<int>(b)] > 0;
   }
@@ -145,13 +146,16 @@ namespace tvm
 
   void MatrixProperties::build(const MatrixProperties::Arguments& args, const std::pair<bool, bool>& checks)
   {
-    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::POSITIVE_DEFINITE));
-    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NEGATIVE_DEFINITE));
-    assert(!(args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NON_ZERO_INDEFINITE));
-    assert(!(args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_SEMIDEFINITE));
-    assert(!(args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_DEFINITE));
-    assert(!(args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_SEMIDEFINITE));
-    assert(!(args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_DEFINITE));
+    if ((args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::POSITIVE_DEFINITE)
+      || (args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
+      || (args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NON_ZERO_INDEFINITE)
+      || (args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_SEMIDEFINITE)
+      || (args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
+      || (args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_SEMIDEFINITE)
+      || (args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_DEFINITE))
+    {
+      throw std::runtime_error("Incompatible shape and positiveness properties.");
+    }
 
     if (checks.first && !args.constant && deduceConstance(args.shape))
       throw std::runtime_error("You marked as non constant a matrix that is necessarily constant.");
