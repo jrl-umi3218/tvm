@@ -1345,7 +1345,7 @@ BOOST_AUTO_TEST_CASE(InvertibilityCompatibility)
 
 BOOST_AUTO_TEST_CASE(ArgumentOrderAndRepetition)
 {
-  MatrixProperties::MatrixShape s = MatrixProperties::GENERAL;
+  MatrixProperties::Shape s = MatrixProperties::GENERAL;
   MatrixProperties::Positiveness p = MatrixProperties::NA;
   MatrixProperties::Constness c;
   MatrixProperties::Invertibility i;

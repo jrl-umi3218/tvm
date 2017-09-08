@@ -12,7 +12,7 @@ namespace tvm
   {
   public:
     /** Shape of a matrix*/
-    enum MatrixShape
+    enum Shape
     {
       GENERAL,              //general shape. This includes all other shapes.
       LOWER_TRIANGULAR,     //lower triangular matrix. This includes diagonal matrices.
@@ -39,7 +39,7 @@ namespace tvm
     };
 
     /** A wrapper over a boolean representing the constness of a matrix.*/
-    class Constness
+    struct Constness
     {
     public:
       Constness(bool b = false) : b_(b) {}
@@ -49,7 +49,7 @@ namespace tvm
     };
 
     /** A wrapper over a boolean representing the invertibility of a matrix.*/
-    class Invertibility
+    struct Invertibility
     {
     public:
       Invertibility(bool b = false) : b_(b) {}
@@ -83,7 +83,7 @@ namespace tvm
     template<typename ... Args>
     MatrixProperties(Args && ... args);
 
-    MatrixShape shape() const;
+    Shape shape() const;
     Positiveness positiveness() const;
 
     bool isConstant() const;
@@ -125,7 +125,7 @@ namespace tvm
 
     struct Arguments
     {
-      ADD_ARGUMENT(MatrixShape, shape, false, false);
+      ADD_ARGUMENT(Shape, shape, false, false);
       ADD_ARGUMENT(Positiveness, positiveness, false, false);
       ADD_ARGUMENT(Constness, constant, true, false);
       ADD_ARGUMENT(Invertibility, invertible, false, true);
@@ -150,7 +150,7 @@ namespace tvm
 
     bool        constant_;
     bool        invertible_;
-    MatrixShape shape_;
+    Shape       shape_;
     bool        symmetric_;
     Positiveness positiveness_;
   };
@@ -165,7 +165,7 @@ namespace tvm
   }
 
 
-  inline MatrixProperties::MatrixShape MatrixProperties::shape() const
+  inline MatrixProperties::Shape MatrixProperties::shape() const
   {
     return shape_;
   }
@@ -187,42 +187,42 @@ namespace tvm
 
   inline bool MatrixProperties::isTriangular() const
   {
-    return shape_ >= MatrixShape::LOWER_TRIANGULAR;
+    return shape_ >= Shape::LOWER_TRIANGULAR;
   }
 
   inline bool MatrixProperties::isLowerTriangular() const
   {
-    return shape_ == MatrixShape::LOWER_TRIANGULAR || isDiagonal();
+    return shape_ == Shape::LOWER_TRIANGULAR || isDiagonal();
   }
 
   inline bool MatrixProperties::isUpperTriangular() const
   {
-    return shape_ >= MatrixShape::UPPER_TRIANGULAR;
+    return shape_ >= Shape::UPPER_TRIANGULAR;
   }
 
   inline bool MatrixProperties::isDiagonal() const
   {
-    return shape_ >= MatrixShape::DIAGONAL;
+    return shape_ >= Shape::DIAGONAL;
   }
 
   inline bool MatrixProperties::isMultipleOfIdentity() const
   {
-    return shape_ >= MatrixShape::MULTIPLE_OF_IDENTITY;
+    return shape_ >= Shape::MULTIPLE_OF_IDENTITY;
   }
 
   inline bool MatrixProperties::isIdentity() const
   {
-    return shape_ == MatrixShape::IDENTITY;
+    return shape_ == Shape::IDENTITY;
   }
 
   inline bool MatrixProperties::isMinusIdentity() const
   {
-    return shape_ == MatrixShape::MINUS_IDENTITY;
+    return shape_ == Shape::MINUS_IDENTITY;
   }
 
   inline bool MatrixProperties::isZero() const
   {
-    return shape_ == MatrixShape::ZERO;
+    return shape_ == Shape::ZERO;
   }
 
   inline bool MatrixProperties::isSymmetric() const

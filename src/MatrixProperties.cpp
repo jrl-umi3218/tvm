@@ -78,53 +78,53 @@ namespace
     return p;
   }
 
-  bool deduceConstance(MatrixProperties::MatrixShape shape)
+  bool deduceConstance(MatrixProperties::Shape shape)
   {
-    return shape == MatrixProperties::MatrixShape::IDENTITY
-        || shape == MatrixProperties::MatrixShape::MINUS_IDENTITY
-        || shape == MatrixProperties::MatrixShape::ZERO;
+    return shape == MatrixProperties::Shape::IDENTITY
+        || shape == MatrixProperties::Shape::MINUS_IDENTITY
+        || shape == MatrixProperties::Shape::ZERO;
   }
 
-  bool deduceSymmetry(MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
+  bool deduceSymmetry(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
   {
-    return shape >= MatrixProperties::MatrixShape::DIAGONAL || positiveness != MatrixProperties::Positiveness::NA;
+    return shape >= MatrixProperties::Shape::DIAGONAL || positiveness != MatrixProperties::Positiveness::NA;
   }
 
-  bool deduceInvertibility(MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
+  bool deduceInvertibility(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
   {
-    return shape == MatrixProperties::MatrixShape::IDENTITY
-        || shape == MatrixProperties::MatrixShape::MINUS_IDENTITY
+    return shape == MatrixProperties::Shape::IDENTITY
+        || shape == MatrixProperties::Shape::MINUS_IDENTITY
         || positiveness == MatrixProperties::Positiveness::POSITIVE_DEFINITE
         || positiveness == MatrixProperties::Positiveness::NEGATIVE_DEFINITE
         || positiveness == MatrixProperties::Positiveness::NON_ZERO_INDEFINITE;
   }
 
-  MatrixProperties::MatrixShape deduceShape(MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness)
+  MatrixProperties::Shape deduceShape(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
   {
     //if triangular and symmetric we deduce diagonal
-    if ((shape == MatrixProperties::MatrixShape::LOWER_TRIANGULAR || shape == MatrixProperties::MatrixShape::UPPER_TRIANGULAR)
+    if ((shape == MatrixProperties::Shape::LOWER_TRIANGULAR || shape == MatrixProperties::Shape::UPPER_TRIANGULAR)
       && positiveness != MatrixProperties::Positiveness::NA)
     {
-      return MatrixProperties::MatrixShape::DIAGONAL;
+      return MatrixProperties::Shape::DIAGONAL;
     }
     else
       return shape;
   }
 
-  MatrixProperties::Positiveness deducePositiveness(MatrixProperties::MatrixShape shape, MatrixProperties::Positiveness positiveness, bool invertible)
+  MatrixProperties::Positiveness deducePositiveness(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness, bool invertible)
   {
     MatrixProperties::Positiveness p;
     //get default positiveness for the shape
     switch (shape)
     {
-    case MatrixProperties::MatrixShape::GENERAL:              p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::MatrixShape::LOWER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::MatrixShape::UPPER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::MatrixShape::DIAGONAL:             p = MatrixProperties::Positiveness::INDEFINITE;        break;
-    case MatrixProperties::MatrixShape::MULTIPLE_OF_IDENTITY: p = MatrixProperties::Positiveness::INDEFINITE;        break;
-    case MatrixProperties::MatrixShape::IDENTITY:             p = MatrixProperties::Positiveness::POSITIVE_DEFINITE; break;
-    case MatrixProperties::MatrixShape::MINUS_IDENTITY:       p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE; break;
-    case MatrixProperties::MatrixShape::ZERO:                 p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    case MatrixProperties::Shape::GENERAL:              p = MatrixProperties::Positiveness::NA;                break;
+    case MatrixProperties::Shape::LOWER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
+    case MatrixProperties::Shape::UPPER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
+    case MatrixProperties::Shape::DIAGONAL:             p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    case MatrixProperties::Shape::MULTIPLE_OF_IDENTITY: p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    case MatrixProperties::Shape::IDENTITY:             p = MatrixProperties::Positiveness::POSITIVE_DEFINITE; break;
+    case MatrixProperties::Shape::MINUS_IDENTITY:       p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE; break;
+    case MatrixProperties::Shape::ZERO:                 p = MatrixProperties::Positiveness::INDEFINITE;        break;
     }
 
     //get tighter positiveness between default one and user-provided one, possibly promoted if invertible
@@ -146,13 +146,13 @@ namespace tvm
 
   void MatrixProperties::build(const MatrixProperties::Arguments& args, const std::pair<bool, bool>& checks)
   {
-    if ((args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::POSITIVE_DEFINITE)
-      || (args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
-      || (args.shape == MatrixShape::ZERO && args.positiveness == Positiveness::NON_ZERO_INDEFINITE)
-      || (args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_SEMIDEFINITE)
-      || (args.shape == MatrixShape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
-      || (args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_SEMIDEFINITE)
-      || (args.shape == MatrixShape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_DEFINITE))
+    if ((args.shape == Shape::ZERO && args.positiveness == Positiveness::POSITIVE_DEFINITE)
+      || (args.shape == Shape::ZERO && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
+      || (args.shape == Shape::ZERO && args.positiveness == Positiveness::NON_ZERO_INDEFINITE)
+      || (args.shape == Shape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_SEMIDEFINITE)
+      || (args.shape == Shape::IDENTITY && args.positiveness == Positiveness::NEGATIVE_DEFINITE)
+      || (args.shape == Shape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_SEMIDEFINITE)
+      || (args.shape == Shape::MINUS_IDENTITY && args.positiveness == Positiveness::POSITIVE_DEFINITE))
     {
       throw std::runtime_error("Incompatible shape and positiveness properties.");
     }
@@ -164,7 +164,7 @@ namespace tvm
     {
       if (!args.invertible && deduceInvertibility(args.shape, args.positiveness))
         throw std::runtime_error("You marked as non-invertible a matrix that is necessarily invertible.");
-      if (args.invertible && args.shape == MatrixShape::ZERO)
+      if (args.invertible && args.shape == Shape::ZERO)
         throw std::runtime_error("You marked as invertible the matrix 0.");
     }
 
