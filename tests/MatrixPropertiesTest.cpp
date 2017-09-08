@@ -1074,10 +1074,10 @@ BOOST_AUTO_TEST_CASE(DeductionPropertiesTest)
 
 
 #define buildAndCheck(shouldThrow, ... ) \
-  if (shouldThrow) \
+  if (shouldThrow) {\
     BOOST_CHECK_THROW(MatrixProperties(__VA_ARGS__), std::runtime_error); \
-  else \
-    BOOST_CHECK_NO_THROW(MatrixProperties(__VA_ARGS__));
+  } else {\
+    BOOST_CHECK_NO_THROW(MatrixProperties(__VA_ARGS__)); }
 
 BOOST_AUTO_TEST_CASE(ConstnessCompatibility)
 {
