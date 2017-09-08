@@ -28,7 +28,7 @@ namespace tvm
     void updateEKin();
     void updateEDyn();
 
-    const Eigen::MatrixXd& jacobian(const Variable& x) const override;
+    const MatrixWithProperties& jacobian(const Variable& x) const override;
 
   private:
     FunctionPtr f_;

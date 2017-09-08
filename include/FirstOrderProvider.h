@@ -8,7 +8,7 @@
 
 #include <tvm/data/Node.h>
 #include "defs.h"
-#include "MatrixProperties.h"
+#include "MatrixWithProperties.h"
 
 namespace tvm
 {
@@ -27,16 +27,13 @@ namespace tvm
       * output of another method, e.g. return the jacobian of an other Function.
       */
       virtual const Eigen::VectorXd& value() const;
-      virtual const Eigen::MatrixXd& jacobian(const Variable& x) const;
+      virtual const MatrixWithProperties& jacobian(const Variable& x) const;
 
       /** Return the output size m*/
       int size() const;
 
       /** Return the variables*/
       const std::vector<VariablePtr>& variables() const;
-
-      /** Properties of the jacobian matrix related to variable x.*/
-      const MatrixProperties& jacobianProperties(const Variable& x) const;
 
     protected:
       FirstOrderProvider(int m);
@@ -66,17 +63,13 @@ namespace tvm
       virtual void addVariable_(VariablePtr);
       virtual void removeVariable_(VariablePtr);
 
-      /** Setter for the properties of the jacobian matrix related to variable x.*/
-      void jacobianProperties(const Variable& x, MatrixProperties p);
-
       // cache
       Eigen::VectorXd value_;
-      std::map<Variable const*, Eigen::MatrixXd> jacobian_;
+      std::map<Variable const*, MatrixWithProperties> jacobian_;
 
     private:
       int m_; //output size
       std::vector<VariablePtr> variables_;
-      std::map<Variable const*, MatrixProperties> jacobianProperties_;
     };
 
 
@@ -85,7 +78,7 @@ namespace tvm
       return value_;
     }
 
-    inline const Eigen::MatrixXd& FirstOrderProvider::jacobian(const Variable& x) const
+    inline const MatrixWithProperties& FirstOrderProvider::jacobian(const Variable& x) const
     {
       return jacobian_.at(&x);
     }
@@ -98,11 +91,6 @@ namespace tvm
     inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
     {
       return variables_;
-    }
-
-    inline const MatrixProperties& FirstOrderProvider::jacobianProperties(const Variable& x) const
-    {
-      return jacobianProperties_.at(&x);
     }
   }
 }

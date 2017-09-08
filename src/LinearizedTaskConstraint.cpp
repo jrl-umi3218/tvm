@@ -90,7 +90,7 @@ namespace tvm
     e_ = td_->value() - f_->normalAcceleration();
   }
 
-  const Eigen::MatrixXd& LinearizedTaskConstraint::jacobian(const Variable& x) const
+  const MatrixWithProperties& LinearizedTaskConstraint::jacobian(const Variable& x) const
   {
     return f_->jacobian(x);
   }

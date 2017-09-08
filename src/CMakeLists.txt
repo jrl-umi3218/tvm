@@ -46,6 +46,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
   ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
   ${TVM_INCLUDE_DIR}/../MatrixProperties.h
+  ${TVM_INCLUDE_DIR}/../MatrixWithProperties.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
