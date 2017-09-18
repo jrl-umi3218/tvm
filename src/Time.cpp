@@ -12,17 +12,12 @@ void tvm::Clock::increment(double dt)
   t_ += dt;
 }
 
+void tvm::Clock::reset(double resetTime)
+{
+  t_ = resetTime;
+}
+
 double tvm::Clock::currentTime() const
 {
   return t_;
-}
-
-tvm::ExplicitlyTimeDependent::ExplicitlyTimeDependent(std::shared_ptr<Clock> clock)
-  : clock_(clock)
-{
-}
-
-void tvm::ExplicitlyTimeDependent::updateTimeDependency()
-{
-  updateTimeDependency_();
 }

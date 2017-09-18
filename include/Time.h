@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include "tvm/data/Outputs.h"
 
 namespace tvm
 {
@@ -10,30 +10,18 @@ namespace tvm
      (iii) call the update plan.*/
 
 
-  class Clock
+  class Clock: public data::Outputs
   {
   public:
+    SET_OUTPUTS(Clock, CurrentTime)
+
     Clock(double initTime=0);
 
     void increment(double dt);
+    void reset(double resetTime = 0);
     double currentTime() const;
 
   private:
     double t_;
-  };
-
-
-  class ExplicitlyTimeDependent
-  {
-  public:
-    ExplicitlyTimeDependent(std::shared_ptr<Clock> clock);
-
-    void updateTimeDependency();
-
-  protected:
-    virtual void updateTimeDependency_() = 0;
-
-    std::shared_ptr<Clock> clock_;
-
   };
 }
