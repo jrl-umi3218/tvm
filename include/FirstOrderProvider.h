@@ -29,6 +29,9 @@ namespace tvm
       virtual const Eigen::VectorXd& value() const;
       virtual const MatrixWithProperties& jacobian(const Variable& x) const;
 
+      /** Linearity w.r.t x*/
+      bool linearIn(const Variable& x) const;
+
       /** Return the output size m*/
       int size() const;
 
@@ -53,8 +56,8 @@ namespace tvm
       void resizeValueCache();
       void resizeJacobianCache();
 
-      /** Add or remove variables. Cache is automatically updated*/
-      void addVariable(VariablePtr);
+      /** Add or remove variables. Cache is automatically updated.*/
+      void addVariable(VariablePtr, bool linear = false);
       void removeVariable(VariablePtr);
 
       /** To be overriden by derived classes that need to react to
@@ -70,6 +73,7 @@ namespace tvm
     private:
       int m_; //output size
       std::vector<VariablePtr> variables_;
+      std::map<Variable const*, bool> linear_;
     };
 
 
@@ -81,6 +85,11 @@ namespace tvm
     inline const MatrixWithProperties& FirstOrderProvider::jacobian(const Variable& x) const
     {
       return jacobian_.at(&x);
+    }
+
+    inline bool FirstOrderProvider::linearIn(const Variable& x) const
+    {
+      return linear_.at(&x);
     }
 
     inline int FirstOrderProvider::size() const

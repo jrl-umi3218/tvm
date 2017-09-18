@@ -39,13 +39,13 @@ namespace tvm
     if (task.taskDynamics()->order() == TDOrder::Kinematics)
     {
       for (auto& v : f_->variables())
-        addVariable(dot(v));
+        addVariable(dot(v), true);
       registerUpdates(Update::UpdateRHS, kin);
     }
     else
     {
       for (auto& v : f_->variables())
-        addVariable(dot(v,2));
+        addVariable(dot(v,2), true);
       registerUpdates(Update::UpdateRHS, dyn);
       addInputDependency<LTC>(Update::UpdateRHS, f_, Function::Output::NormalAcceleration);
     }

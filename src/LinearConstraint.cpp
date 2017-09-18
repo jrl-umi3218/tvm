@@ -163,7 +163,7 @@ namespace tvm
       throw std::runtime_error("Matrix A doesn't have coherent row size.");
     if (A.cols() != x->size())
       throw std::runtime_error("Matrix A doesn't have its column size coherent with its corresponding variable.");
-    addVariable(x);
+    addVariable(x, true);
     jacobian_.at(x.get()) = A;
   }
 }

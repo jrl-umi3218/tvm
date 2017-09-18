@@ -33,7 +33,7 @@ namespace tvm
       }
     }
 
-    void FirstOrderProvider::addVariable(VariablePtr v)
+    void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
     {
       if (std::find(variables_.begin(), variables_.end(), v) == variables_.end())
         variables_.push_back(v);
@@ -41,6 +41,7 @@ namespace tvm
         throw DuplicateVariable(/*desc*/); //TODO
 
       jacobian_[v.get()].resize(m_, v->size());
+      linear_[v.get()] = linear;
 
       addVariable_(v);
     }
