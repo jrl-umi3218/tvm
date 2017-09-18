@@ -21,6 +21,16 @@ void CallGraph::update()
   plan_.build(*this);
 }
 
+void CallGraph::clear()
+{
+  callId_.clear();
+  calls_.clear();
+  dependencies_.clear();
+  root_.clear();
+  visited_.clear();
+  plan_.clear();
+}
+
 std::vector<int> CallGraph::addOutput(const std::shared_ptr<data::Outputs> & source,
                                       int output)
 {
@@ -125,6 +135,11 @@ void CallGraph::Plan::build(const CallGraph & graph)
   {
     plan_.push_back(graph.calls_[i]);
   }
+}
+
+void CallGraph::Plan::clear()
+{
+  plan_.clear();
 }
 
 void CallGraph::Plan::recursiveBuild(const CallGraph & graph, size_t v,
