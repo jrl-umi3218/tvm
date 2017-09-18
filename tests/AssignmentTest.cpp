@@ -1,5 +1,6 @@
 #include <functional>
 #include <iostream>
+#include <memory>
 
 #include "Assignment.h"
 #include "AssignmentTarget.h"
@@ -168,7 +169,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, ConstraintRHS::AS_GIVEN);
-    SolvingRequirements req(Weight(2.));
+    auto req = std::make_shared<SolvingRequirements>(Weight(2.));
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
     a.run();
@@ -208,7 +209,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     auto range = std::make_shared<Range>(0, 6); //we need double range
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, ConstraintRHS::AS_GIVEN);
     Eigen::Vector3d aW = {1., 2., 3.};
-    SolvingRequirements req(AnisotropicWeight{ aW });
+    auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight{ aW });
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();

@@ -29,7 +29,7 @@ namespace tvm
     using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
     using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
-    Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
+    Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
                const AssignmentTarget& target, const VariableVector& variables);
   
     /** To be called when the source has been resized*/
@@ -77,7 +77,7 @@ namespace tvm
 
     LinearConstraintPtr source_;
     AssignmentTarget target_;
-    SolvingRequirements requirements_;
+    std::shared_ptr<SolvingRequirements> requirements_;
     std::vector<MatrixAssignment> matrixAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
 
@@ -94,9 +94,9 @@ namespace tvm
     using namespace utils;
     typedef typename utils::CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type> Wrapper;
 
-    if (requirements_.anisotropicWeight().isDefault())
+    if (requirements_->anisotropicWeight().isDefault())
     {
-      if (requirements_.weight().isDefault())
+      if (requirements_->weight().isDefault())
       {
         if (flip)
           return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);

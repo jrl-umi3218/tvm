@@ -5,7 +5,7 @@
 
 namespace tvm
 {
-  Assignment::Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
+  Assignment::Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
                          const AssignmentTarget& target, const VariableVector& variables)
     : source_(source)
     , target_(target)
@@ -191,14 +191,14 @@ namespace tvm
 
   void Assignment::processRequirements()
   {
-    switch (requirements_.violationEvaluation().value())
+    switch (requirements_->violationEvaluation().value())
     {
     case ViolationEvaluationType::L1: 
       throw std::runtime_error("Unimplemented violation evaluation type.");
     case ViolationEvaluationType::L2:
-      alpha_ = std::sqrt(requirements_.weight().value());
-      weight_ = requirements_.anisotropicWeight().value().array().sqrt().matrix();
-      if (!requirements_.weight().isDefault() && !requirements_.anisotropicWeight().isDefault())
+      alpha_ = std::sqrt(requirements_->weight().value());
+      weight_ = requirements_->anisotropicWeight().value().array().sqrt().matrix();
+      if (!requirements_->weight().isDefault() && !requirements_->anisotropicWeight().isDefault())
         weight_ *= alpha_;
       minusWeight_ = -weight_;
       break;
