@@ -17,37 +17,25 @@ namespace tvm
     *    value for the others.
     *  - allowing to use any order to give the arguments
     *  - while not having to multiply the overload for the method adding the 
-    *    task (there are 65 combinations!) and avoiding heavy variadic template 
-    *    shenanigans.
+    *    task (there are 65 combinations!).
     *
     * FIXME: should we add the notion of row selection here as well ?
     */
 
-  /** The different type of requirements on how to solve a constraint. See the
-    * eponym class for more details.
-    */
-  enum class RequirementType
-  {
-    PriorityLevel = 0,          //We do rely on the fact that this enumeration starts at zero and is continuous
-    Weight,
-    AnisotropicWeight,
-    ViolationEvaluation
-  };
-
-  /** Given a constraint, let the vector v(x) its componentwise violation. For
-    * example, for the constraint c(x) = 0, we simply have v(x) = c(x), for
+  /** Given a constraint, let the vector v(x) be its componentwise violation. 
+    * For example, for the constraint c(x) = 0, we simply have v(x) = c(x), for
     * c(x) >= b, we have v(x) = max(b-c(x),0). 
-    * This enumeration specify how v(x) is made into a scalar measure f(x) of
+    * This enumeration specifies how v(x) is made into a scalar measure f(x) of
     * this violation.
     */
   enum class ViolationEvaluationType
   {
-    L1,     // f(x) = sum(v(x))
+    L1,     // f(x) = sum(v_i(x))
     L2,     // f(x) = v(x)'*v(x)
-    LINF    // f(x) = max(v(x))
+    LINF    // f(x) = max(v_i(x))
   };
 
-  /** Class representing the way a constraint has to be solved and how it 
+  /** A class representing the way a constraint has to be solved and how it 
     * interacts with other constraints in term of hierarchical and weighted
     * priorities.
     *
