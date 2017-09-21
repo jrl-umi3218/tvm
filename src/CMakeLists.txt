@@ -3,17 +3,20 @@ set(TVM_SOURCES
   Assignment.cpp
   AssignmentTarget.cpp
   CallGraph.cpp
+  ClassicWeightedLS.cpp
   Constraint.cpp
   ControlProblem.cpp
   EventGraph.cpp
   FirstOrderProvider.cpp
   Function.cpp
   LinearConstraint.cpp
+  LinearFunction.cpp
   LinearizedControlProblem.cpp
   LinearizedTaskConstraint.cpp
   MatrixProperties.cpp
   ResolutionScheme.cpp
   Robot.cpp
+  ResolutionScheme.cpp
   SchemeAbilities.cpp
   SolvingRequirements.cpp
   Task.cpp
@@ -37,6 +40,7 @@ set(TVM_HEADERS
 # Temporary
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
+  ${TVM_INCLUDE_DIR}/../ClassicWeightedLS.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
@@ -46,6 +50,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
+  ${TVM_INCLUDE_DIR}/../LinearFunction.h
   ${TVM_INCLUDE_DIR}/../LinearizedControlProblem.h
   ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
   ${TVM_INCLUDE_DIR}/../MatrixProperties.h

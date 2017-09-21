@@ -4,9 +4,13 @@
 #include "tvm/data/Node.h"
 #include "tvm/CallGraph.h"
 
+#include "SchemeAbilities.h"
+
 #include <iostream>
 
 using namespace tvm;
+
+void solverTest01();
 
 void testVariable()
 {
@@ -201,10 +205,12 @@ void testDataGraphComplex()
 
 int main()
 {
-  testVariable();
-  testDataGraphSimple();
-  testBadGraph();
-  testDataGraphComplex();
+  //testVariable();
+  //testDataGraphSimple();
+  //testBadGraph();
+  //testDataGraphComplex();
+  solverTest01();
+
 
 #ifdef WIN32
   system("pause");

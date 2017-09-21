@@ -33,6 +33,7 @@ addUnitTest(SolvingRequirementsTest)
 set(TESTSOURCES
     main.cpp
     Mockup.cpp
+    SolverTest.cpp
 )
 
 set(TESTHEADERS
