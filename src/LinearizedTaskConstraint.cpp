@@ -36,21 +36,30 @@ namespace tvm
     default: assert(false); break;
     }
 
-    if (task.taskDynamics()->order() == TDOrder::Kinematics)
+    switch (task.taskDynamics()->order())
+    {
+    case TDOrder::Geometric:
+      throw std::runtime_error("This case is not implemented yet.");
+    case TDOrder::Kinematics:
     {
       for (auto& v : f_->variables())
         addVariable(dot(v), true);
       registerUpdates(Update::UpdateRHS, kin);
     }
-    else
+    break;
+    case TDOrder::Dynamics:
     {
       for (auto& v : f_->variables())
-        addVariable(dot(v,2), true);
+        addVariable(dot(v, 2), true);
       registerUpdates(Update::UpdateRHS, dyn);
       addInputDependency<LTC>(Update::UpdateRHS, f_, Function::Output::NormalAcceleration);
     }
+    break;
+    }
+
     using BaseOutput = internal::FirstOrderProvider::Output;
-    addInputDependency<LTC>(Update::UpdateRHS, f_, BaseOutput::Value);
+    addInputDependency<LTC>(Update::UpdateRHS, td_, TaskDynamics::Output::Value);
+    addInputDependency<LinearConstraint>(LinearConstraint::Update::Value, f_, BaseOutput::Jacobian);
     addOutputDependency<LTC>(output, Update::UpdateRHS);
     addDirectDependency<LTC>(BaseOutput::Jacobian, f_, BaseOutput::Jacobian);
   }
@@ -92,6 +101,13 @@ namespace tvm
 
   const MatrixWithProperties& LinearizedTaskConstraint::jacobian(const Variable& x) const
   {
-    return f_->jacobian(x);
+    switch (td_->order())
+    {
+    case TDOrder::Geometric: return f_->jacobian(x); break;
+    case TDOrder::Kinematics: return f_->jacobian(*x.primitive()); break;
+    case TDOrder::Dynamics: return f_->jacobian(*x.primitive<2>()); break;
+    default:
+      throw std::runtime_error("Unimplemented case.");
+    }
   }
 }

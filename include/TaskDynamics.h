@@ -107,7 +107,7 @@ namespace tvm
 
   inline TDOrder TaskDynamics::order() const
   {
-    return TDOrder();
+    return order_;
   }
 
   inline Function* const TaskDynamics::function() const
