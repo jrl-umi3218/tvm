@@ -30,7 +30,7 @@ namespace tvm
     using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
     Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
-               const AssignmentTarget& target, const VariableVector& variables);
+               const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
   
     /** To be called when the source has been resized*/
     void onUpdatedSource();
@@ -77,6 +77,7 @@ namespace tvm
 
     LinearConstraintPtr source_;
     AssignmentTarget target_;
+    double scalarizationWeight_;
     std::shared_ptr<SolvingRequirements> requirements_;
     std::vector<MatrixAssignment> matrixAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
@@ -96,7 +97,7 @@ namespace tvm
 
     if (requirements_->anisotropicWeight().isDefault())
     {
-      if (requirements_->weight().isDefault())
+      if (alpha_ == 1)
       {
         if (flip)
           return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);

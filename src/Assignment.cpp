@@ -6,10 +6,11 @@
 namespace tvm
 {
   Assignment::Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
-                         const AssignmentTarget& target, const VariableVector& variables)
+                         const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight)
     : source_(source)
     , target_(target)
     , requirements_(req)
+    , scalarizationWeight_(scalarizationWeight)
   {
     if (!checkTarget())
       throw std::runtime_error("target conventions are not compatible with the source.");
@@ -91,7 +92,7 @@ namespace tvm
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
       }
-      for (const auto& x : variables.variables())
+      for (const auto& x : source_->variables())
       {
         Range cols = x->getMappingIn(variables);
         addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
@@ -196,9 +197,9 @@ namespace tvm
     case ViolationEvaluationType::L1: 
       throw std::runtime_error("Unimplemented violation evaluation type.");
     case ViolationEvaluationType::L2:
-      alpha_ = std::sqrt(requirements_->weight().value());
+      alpha_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
       weight_ = requirements_->anisotropicWeight().value().array().sqrt().matrix();
-      if (!requirements_->weight().isDefault() && !requirements_->anisotropicWeight().isDefault())
+      if (alpha_ != 1 && !requirements_->anisotropicWeight().isDefault())
         weight_ *= alpha_;
       minusWeight_ = -weight_;
       break;
