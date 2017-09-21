@@ -73,7 +73,7 @@ inline void Inputs::removeInput(T* source, Args ... args)
   auto it = getInput(source);
   if (!it)
   {
-    throw std::runtime_error("You attempted to remove inputs from a source that is not part of this object.")
+    throw std::runtime_error("You attempted to remove inputs from a source that is not part of this object.");
   }
   else
   {
@@ -81,7 +81,7 @@ inline void Inputs::removeInput(T* source, Args ... args)
     for (auto i : v)
     {
       if (it->second.erase(i) == 0)
-        throw std::runtime_error("You attempted to remove an input that was not there.")
+        throw std::runtime_error("You attempted to remove an input that was not there.");
     }
     if (it->second.size() == 0)
       inputs_.erase(it);
