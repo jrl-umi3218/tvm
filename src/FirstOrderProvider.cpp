@@ -29,7 +29,7 @@ namespace tvm
       if (isOutputEnabled((int)Output::Jacobian))
       {
         for (auto v : variables_)
-          jacobian_[v.get()].resize(m_, v->size());
+          jacobian_[v.get()].resize(m_, v->space().tSize());
       }
     }
 
@@ -40,7 +40,7 @@ namespace tvm
       else
         throw DuplicateVariable(/*desc*/); //TODO
 
-      jacobian_[v.get()].resize(m_, v->size());
+      jacobian_[v.get()].resize(m_, v->space().tSize());
       linear_[v.get()] = linear;
 
       addVariable_(v);

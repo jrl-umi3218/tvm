@@ -159,11 +159,14 @@ namespace tvm
 
   void BasicLinearConstraint::add(const Eigen::MatrixXd& A, VariablePtr x)
   {
+    if (!x->space().isEuclidean())
+      throw std::runtime_error("We allow linear constraint only on Euclidean variables.");
     if (A.rows() != size())
       throw std::runtime_error("Matrix A doesn't have coherent row size.");
     if (A.cols() != x->size())
       throw std::runtime_error("Matrix A doesn't have its column size coherent with its corresponding variable.");
     addVariable(x, true);
     jacobian_.at(x.get()) = A;
+    jacobian_.at(x.get()).properties({ MatrixProperties::Constness(true) });
   }
 }
