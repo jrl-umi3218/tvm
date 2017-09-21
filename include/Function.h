@@ -5,12 +5,13 @@
 #include <Eigen/Core>
 
 #include "FirstOrderProvider.h"
+#include "tvm/api.h"
 
 namespace tvm
 {
   /* Notes: we define the classical outputs for a function*/
 
-  class Function : public internal::FirstOrderProvider
+  class TVM_DLLAPI Function : public internal::FirstOrderProvider
   {
   public:
     SET_OUTPUTS(Function, Velocity, NormalAcceleration, JDot);
@@ -25,7 +26,7 @@ namespace tvm
     virtual const Eigen::MatrixXd& JDot(const Variable& x) const;
 
   protected:
-    Function();
+    Function(int m=0);
 
     /** Resize all cache members corresponding to active output*/
     void resizeCache() override;
@@ -36,11 +37,14 @@ namespace tvm
     virtual void addVariable_(VariablePtr v) override;
     virtual void removeVariable_(VariablePtr v) override;
 
-  private:
     // cache
     Eigen::VectorXd velocity_;
     Eigen::VectorXd normalAcceleration_;
     std::map<Variable const *, Eigen::MatrixXd> JDot_;
+
+  private:
+    //we retain the variables' derivatives shared_ptr to ensure the reference is never lost
+    std::vector<VariablePtr> variablesDot_; 
   };
 
 
