@@ -47,6 +47,13 @@ namespace tvm
     /** whole vector access*/
     const std::vector<VariablePtr>& variables() const;
 
+    /** read/write
+      *
+      * be careful that the read operation needs to allocate memory
+      */
+    Eigen::VectorXd value() const;
+    void value(const VectorConstRef& val);
+
     //mapping related methods
     void computeMapping() const;
     std::map<const Variable*, Range> computeMappingMap() const;
@@ -63,6 +70,8 @@ namespace tvm
     std::vector<VariablePtr> variables_;
     /** This set is a helper to quickly test the presence of a variable without
       * iterating through the whole vector.
+      *
+      * FIXME: is it faster though, given that we will never have a lot of variables?
       */
     std::set<const Variable*> variableSet_;
   };

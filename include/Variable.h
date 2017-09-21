@@ -36,6 +36,7 @@ namespace tvm
     int size() const;
     int rSize() const;
     int tSize() const;
+    bool isEuclidean() const;
 
   private:
     int mSize_;   //size of this space (as a manifold)
@@ -55,6 +56,7 @@ namespace tvm
     void value(const VectorConstRef& x);
     int derivativeNumber() const;
     bool isBasePrimitive() const;
+    template <int n=1>
     VariablePtr primitive() const;
     VariablePtr basePrimitive() const;
 
@@ -75,6 +77,8 @@ namespace tvm
     /** Constructor for the derivative of var */
     Variable(VariablePtr var);
 
+    template <int n>
+    VariablePtr primitiveNoCheck() const;
 
     /** name */
     std::string name_;
@@ -106,4 +110,26 @@ namespace tvm
     friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
     friend class TVM_DLLAPI VariableVector;
   };
+
+  template <int n>
+  inline VariablePtr Variable::primitive() const
+  {
+    if (n <= derivativeNumber_)
+      return primitiveNoCheck<n>();
+    else
+      throw std::runtime_error("This variable is not the n-th derivative of an other variable.");
+  }
+
+  template <int n>
+  inline VariablePtr Variable::primitiveNoCheck() const
+  {
+    static_assert(n > 0, "Works only for non-negative numbers.");
+    return primitive_->primitive<n - 1>();
+  }
+
+  template <>
+  inline VariablePtr Variable::primitiveNoCheck<1>() const
+  {
+    return primitive_;
+  }
 }
