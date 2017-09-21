@@ -4,7 +4,7 @@ set(TVM_SOURCES
   AssignmentTarget.cpp
   CallGraph.cpp
   Constraint.cpp
-#  ControlProblem.cpp
+  #ControlProblem.cpp
   EventGraph.cpp
   FirstOrderProvider.cpp
   Function.cpp
@@ -13,6 +13,7 @@ set(TVM_SOURCES
   MatrixProperties.cpp
   ResolutionScheme.cpp
   Robot.cpp
+  SchemeAbilities.cpp
   SolvingRequirements.cpp
   Task.cpp
   TaskDynamics.cpp
@@ -36,8 +37,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
+  #${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
-#  ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../defs.h
   ${TVM_INCLUDE_DIR}/../exceptions.h
   ${TVM_INCLUDE_DIR}/../EventGraph.h
@@ -49,11 +50,11 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../MatrixWithProperties.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
+  ${TVM_INCLUDE_DIR}/../SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
   ${TVM_INCLUDE_DIR}/../Task.h
   ${TVM_INCLUDE_DIR}/../TaskDynamics.h
   ${TVM_INCLUDE_DIR}/../Time.h
-  #${TVM_INCLUDE_DIR}/../UpdateChecker.h
   ${TVM_INCLUDE_DIR}/../Variable.h
   ${TVM_INCLUDE_DIR}/../VariableVector.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
