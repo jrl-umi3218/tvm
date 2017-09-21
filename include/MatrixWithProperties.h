@@ -13,8 +13,8 @@ namespace tvm
     template<typename OtherDerived>
     MatrixWithProperties& operator=(const Eigen::MatrixBase<OtherDerived>& other)
     {
-      assert(this->rows() == other.rows() && this->cols() == other.cols() 
-              && "It is not allowed to assign an expression with a different size. Please explicitely resize the matrix before.")
+      assert(this->rows() == other.rows() && this->cols() == other.cols()
+        && "It is not allowed to assign an expression with a different size. Please explicitely resize the matrix before.");
       this->Eigen::MatrixXd::operator=(other);
       properties_ = MatrixProperties();
       return *this;
