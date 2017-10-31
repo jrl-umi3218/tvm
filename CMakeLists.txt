@@ -31,6 +31,7 @@ IF(MSVC)
   SET(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration)")
 ENDIF(MSVC)
 
+add_subdirectory(3rd-party)
 add_subdirectory(src)
 add_subdirectory(tests)
 

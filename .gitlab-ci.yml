@@ -1,7 +1,6 @@
 variables:
   CI_TOOL: gitlab-ci
   APT_DEPENDENCIES: "doxygen doxygen-latex libboost-all-dev"
-  GIT_DEPENDENCIES: "google/benchmark"
   CMAKE_ADDITIONAL_OPTIONS: "-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr"
 
 before_script:

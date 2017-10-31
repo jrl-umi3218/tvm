@@ -4,3 +4,6 @@
 [submodule ".jrl-ci"]
 	path = .jrl-ci
 	url = https://github.com/jrl-umi3218/jrl-travis
+[submodule "3rd-party/benchmark"]
+	path = 3rd-party/benchmark
+	url = https://github.com/google/benchmark

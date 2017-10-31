@@ -1,4 +1,3 @@
-find_package(benchmark)
 if(WIN32)
   #temporary hard code
   include_directories("F:/Duplicate_work/Work/Code/Dependencies/install/msvc14/include")
