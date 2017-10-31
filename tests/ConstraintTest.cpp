@@ -2,14 +2,15 @@
 #include "Variable.h"
 #include "exceptions.h"
 
-// boost
-#define BOOST_TEST_MODULE ConstraintTest
-#include <boost/test/unit_test.hpp>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+#include "doctest/doctest.h"
+
 
 using namespace Eigen;
 using namespace tvm;
 
-BOOST_AUTO_TEST_CASE(ConstraintTest)
+TEST_CASE("Test constraint")
 {
   MatrixXd A1 = MatrixXd::Random(4, 5);
   MatrixXd A2 = MatrixXd::Random(4, 2);
@@ -25,7 +26,7 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   BasicLinearConstraint C1(A1, x1, ConstraintType::GREATER_THAN);
   C1.updateValue();
 
-  BOOST_CHECK(C1.value().isApprox(A1*x1->value()));
+  FAST_CHECK_UNARY(C1.value().isApprox(A1*x1->value()));
 
   // [A1 A2] [x1' x2']' <= b
   BasicLinearConstraint C2({ A1,A2 }, { x1,x2 }, b, ConstraintType::LOWER_THAN);
@@ -33,7 +34,7 @@ BOOST_AUTO_TEST_CASE(ConstraintTest)
   BasicLinearConstraint C3({ A2,A1 }, { x2,x1 }, b, ConstraintType::LOWER_THAN);
   C3.updateValue();
 
-  BOOST_CHECK(C2.value().isApprox(A1*x1->value() + A2*x2->value()));
-  BOOST_CHECK(C2.value().isApprox(C3.value()));
-  BOOST_CHECK(C2.u().isApprox(b));
+  FAST_CHECK_UNARY(C2.value().isApprox(A1*x1->value() + A2*x2->value()));
+  FAST_CHECK_UNARY(C2.value().isApprox(C3.value()));
+  FAST_CHECK_UNARY(C2.u().isApprox(b));
 }

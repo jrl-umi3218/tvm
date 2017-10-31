@@ -1,9 +1,9 @@
 #include <tvm/data/Node.h>
 #include <tvm/data/OutputSelector.h>
 
-// boost
-#define BOOST_TEST_MODULE OutputSelectorTest
-#include <boost/test/unit_test.hpp>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+#include "doctest/doctest.h"
 
 #include <iostream>
 
@@ -65,30 +65,30 @@ public:
 };
 
 
-BOOST_AUTO_TEST_CASE(OutputSelectorTest)
+TEST_CASE("Test outputs selector")
 {
   Provider3 p3;
-  BOOST_CHECK(p3.isOutputEnabled(Provider1::Output::O0));
-  BOOST_CHECK(!p3.isOutputEnabled(Provider1::Output::O1));
-  BOOST_CHECK(p3.isOutputEnabled(Provider1::Output::O2));
-  BOOST_CHECK(!p3.isOutputEnabled(Provider2::Output::O3));
-  BOOST_CHECK(p3.isOutputEnabled(Provider2::Output::O4));
+  FAST_CHECK_UNARY(p3.isOutputEnabled(Provider1::Output::O0));
+  FAST_CHECK_UNARY_FALSE(p3.isOutputEnabled(Provider1::Output::O1));
+  FAST_CHECK_UNARY(p3.isOutputEnabled(Provider1::Output::O2));
+  FAST_CHECK_UNARY_FALSE(p3.isOutputEnabled(Provider2::Output::O3));
+  FAST_CHECK_UNARY(p3.isOutputEnabled(Provider2::Output::O4));
 
   Provider5 p5;
   for (int i = 0; i < 8; ++i)
   {
     if(i != 0 && i != 1 && i != 3 && i != 6)
     {
-      BOOST_CHECK(p5.isOutputEnabled(i));
+      FAST_CHECK_UNARY(p5.isOutputEnabled(i));
     }
     else
     {
-      BOOST_CHECK(!p5.isOutputEnabled(i));
+      FAST_CHECK_UNARY_FALSE(p5.isOutputEnabled(i));
     }
   }
 
   p5.manualEnable(Provider4::Output::O6);
-  BOOST_CHECK_THROW(p5.manualEnable(Provider1::Output::O1), std::runtime_error);
+  CHECK_THROWS_AS(p5.manualEnable(Provider1::Output::O1), std::runtime_error);
   p5.lock();
-  BOOST_CHECK_THROW(p5.manualDisable(Provider1::Output::O2), std::runtime_error);
+  CHECK_THROWS_AS(p5.manualDisable(Provider1::Output::O2), std::runtime_error);
 }
