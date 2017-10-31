@@ -1,8 +1,8 @@
 #include <vector>
 
-// boost
-#define BOOST_TEST_MODULE CompiledAssignmentTest
-#include <boost/test/unit_test.hpp>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+#include "doctest/doctest.h"
 
 #define AUTHORIZE_MALLOC_FOR_CACHE
 #include "tvm/utils/CompiledAssignment.h"
@@ -193,7 +193,7 @@ struct Test
   template<typename V, typename U>
   static void run(const U& from, V& to, typename std::enable_if<F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE)>::type * = nullptr)
   {
-    BOOST_CHECK(run_check(from, to));
+    FAST_CHECK_UNARY(run_check(from, to));
   }
 
   template<typename V, typename U>
@@ -226,7 +226,7 @@ struct TestNoFrom
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, t);
 
-    BOOST_CHECK(t.isApprox(to));
+    FAST_CHECK_UNARY(t.isApprox(to));
   }
 };
 
@@ -341,7 +341,7 @@ void testBatch(const U & from, V && to)
 
 
 
-BOOST_AUTO_TEST_CASE(CompiledAssignmentTest)
+TEST_CASE("Test compiled assignments")
 {
   MatrixXd A = MatrixXd::Ones(5, 5);
   MatrixXd B = MatrixXd::Zero(5, 5);
@@ -355,7 +355,7 @@ BOOST_AUTO_TEST_CASE(CompiledAssignmentTest)
   testBatch<CONSTANT>(3, b);
 }
 
-BOOST_AUTO_TEST_CASE(CompiledAssignmentWrapperTest)
+TEST_CASE("Test compiled assignments wrapper")
 {
   typedef CompiledAssignmentWrapper<MatrixXd> MatrixAssignment;
   MatrixXd A1 = MatrixXd::Constant(3, 7, 1);
@@ -381,10 +381,10 @@ BOOST_AUTO_TEST_CASE(CompiledAssignmentWrapperTest)
   a[2].to(C);
   a[2].run();
 
-  BOOST_CHECK(B.middleRows(0, 3) == A1 + B_ref.middleRows(0,3));
-  BOOST_CHECK(B.middleRows(3, 2) == -A2);
-  BOOST_CHECK(B.middleRows(5, 3) == w.asDiagonal() * A3);
-  BOOST_CHECK(B.middleRows(8, 4) == s * A4);
+  FAST_CHECK_EQ(B.middleRows(0, 3), A1 + B_ref.middleRows(0,3));
+  FAST_CHECK_EQ(B.middleRows(3, 2), -A2);
+  FAST_CHECK_EQ(B.middleRows(5, 3), w.asDiagonal() * A3);
+  FAST_CHECK_EQ(B.middleRows(8, 4), s * A4);
 
-  BOOST_CHECK(C == w.asDiagonal() * A1);
+  FAST_CHECK_EQ(C, w.asDiagonal() * A1);
 }
