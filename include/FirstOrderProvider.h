@@ -39,6 +39,10 @@ namespace tvm
       const std::vector<VariablePtr>& variables() const;
 
     protected:
+      /** Constructor
+        * /param m the output size of the function/constraint, i.e. the size of
+        * the value (or equivalently the row size of the jacobians).
+        */
       FirstOrderProvider(int m);
 
       /** Resize all cache members corresponding to active outputs.

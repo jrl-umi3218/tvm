@@ -18,7 +18,7 @@ namespace tvm
     ConstraintType type_;
   };
 
-  /** For now, we only accept rhs=0
+  /** Convenient operators to form ProtoTask. For now, we only accept rhs=0
     *
     * Note that you explicitely need to write 0., otherwise the compiler won't
     * be able to decide wich overload to pick between this and shared_ptr 

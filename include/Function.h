@@ -26,6 +26,10 @@ namespace tvm
     virtual const Eigen::MatrixXd& JDot(const Variable& x) const;
 
   protected:
+    /** Constructor
+      * /param m the output size of the function, i.e. the size of the value (or
+      * equivalently the row size of the jacobians).
+      */
     Function(int m=0);
 
     /** Resize all cache members corresponding to active output*/
