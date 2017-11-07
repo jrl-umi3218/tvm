@@ -4,6 +4,7 @@ set(TVM_SOURCES
   AssignmentTarget.cpp
   CallGraph.cpp
   ClassicWeightedLS.cpp
+  Clock.cpp
   Constraint.cpp
   ControlProblem.cpp
   EventGraph.cpp
@@ -21,7 +22,6 @@ set(TVM_SOURCES
   SolvingRequirements.cpp
   Task.cpp
   TaskDynamics.cpp
-  Time.cpp
   Variable.cpp
   VariableVector.cpp)
 
@@ -41,6 +41,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/../ClassicWeightedLS.h
+  ${TVM_INCLUDE_DIR}/../Clock.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
@@ -61,7 +62,6 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
   ${TVM_INCLUDE_DIR}/../Task.h
   ${TVM_INCLUDE_DIR}/../TaskDynamics.h
-  ${TVM_INCLUDE_DIR}/../Time.h
   ${TVM_INCLUDE_DIR}/../Variable.h
   ${TVM_INCLUDE_DIR}/../VariableVector.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
