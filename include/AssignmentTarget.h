@@ -37,12 +37,18 @@ namespace tvm
     AssignmentTarget(RangePtr range, MatrixPtr A, ConstraintType ct);
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b 
       * 
-      * shift shifts the range for the vectors, i.e. the target is the rows 
+      * \param shift shifts the range for the vectors, i.e. the target is the rows 
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
     AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, ConstraintRHS cr, int shift=0);
-    /** l <= Ax <= u */
+
+    /** l <= Ax <= u 
+      *
+      * \param shift shifts the range for the vectors, i.e. the target is the rows 
+      * starting at range.start for A, but range.start+shift for b (and l and u).
+      */
     AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, ConstraintRHS cr, int shift=0);
+
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
     AssignmentTarget(MatrixPtr Q, VectorPtr q, ConstraintRHS cr);
 
