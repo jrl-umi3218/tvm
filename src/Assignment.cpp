@@ -197,11 +197,13 @@ namespace tvm
     case ViolationEvaluationType::L1: 
       throw std::runtime_error("Unimplemented violation evaluation type.");
     case ViolationEvaluationType::L2:
-      alpha_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
-      weight_ = requirements_->anisotropicWeight().value().array().sqrt().matrix();
-      if (alpha_ != 1 && !requirements_->anisotropicWeight().isDefault())
-        weight_ *= alpha_;
-      minusWeight_ = -weight_;
+      scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      if (!requirements_->anisotropicWeight().isDefault())
+      {
+        anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+        anisotropicWeight_ *= scalarWeight_;
+        minusAnisotropicWeight_ = -anisotropicWeight_;
+      }
       break;
     case ViolationEvaluationType::LINF:
       throw std::runtime_error("Unimplemented violation evaluation type.");

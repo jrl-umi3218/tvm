@@ -29,6 +29,17 @@ namespace tvm
     using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
     using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
+    /** Assignment constructor
+      * \param source The linear constraints whose matrix and vector(s) will be
+      * assigned.
+      * \param req Solving requirements attached to this constraint.
+      * \param target The target of the assignment.
+      * \param variables The vector of variables corresponding to the target.
+      * It must be such that its total dimension is equal to the column size of
+      * the target matrix.
+      * \param scalarizationWeight An additional scalar weight to apply on the
+      * constraint, used by the solver to emulate priority.
+      */
     Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
                const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
   
@@ -83,9 +94,9 @@ namespace tvm
     std::vector<VectorAssignment> vectorAssignments_;
 
     /** Processed requirements*/
-    double alpha_;
-    Eigen::VectorXd weight_;
-    Eigen::VectorXd minusWeight_;
+    double scalarWeight_;
+    Eigen::VectorXd anisotropicWeight_;
+    Eigen::VectorXd minusAnisotropicWeight_;
     Eigen::MatrixXd mult_; //unused for now, will serve when substituting variables
   };
 
@@ -97,7 +108,7 @@ namespace tvm
 
     if (requirements_->anisotropicWeight().isDefault())
     {
-      if (alpha_ == 1)
+      if (scalarWeight_ == 1)
       {
         if (flip)
           return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);
@@ -107,17 +118,17 @@ namespace tvm
       else
       {
         if (flip)
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -scalarWeight_);
         else
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusAnisotropicWeight_);
       else
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &anisotropicWeight_);
     }
   }
 }
