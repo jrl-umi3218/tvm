@@ -90,7 +90,7 @@ SphereFunction::SphereFunction(VariablePtr x, const VectorXd & x0, double radius
   addOutputDependency<SphereFunction>(FirstOrderProvider::Output::Jacobian, SphereFunction::Update::Jacobian);
   addOutputDependency<SphereFunction>({ Function::Output::Velocity, Function::Output::NormalAcceleration }, SphereFunction::Update::VelocityAndAcc);
 
-  addVariable(x);
+  addVariable(x, false);
 }
 
 void SphereFunction::updateValue()
@@ -151,7 +151,7 @@ Simple2dRobotEE::Simple2dRobotEE(VariablePtr x, const Vector2d& base, const Vect
   addOutputDependency<Simple2dRobotEE>({ Function::Output::Velocity, Function::Output::NormalAcceleration }, Simple2dRobotEE::Update::VelocityAndAcc);
   addInternalDependency<Simple2dRobotEE>(Simple2dRobotEE::Update::VelocityAndAcc, Simple2dRobotEE::Update::Jacobian);
 
-  addVariable(x);
+  addVariable(x, false);
 }
 
 void Simple2dRobotEE::updateValue()
@@ -256,12 +256,12 @@ Difference::Difference(FunctionPtr f, FunctionPtr g)
   //Note: if we copy this class later, we need to take care of the linearity of each variable properly
   const auto& fvars = f->variables();
   for (const auto& v : fvars)
-    addVariable(v);
+    addVariable(v, false);
 
   for (const auto& v : g->variables())
   {
     if (std::find(fvars.begin(), fvars.end(), v) == fvars.end())
-      addVariable(v);
+      addVariable(v, false);
   }
 }
 

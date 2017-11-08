@@ -14,8 +14,7 @@ namespace tvm
 {
   namespace internal
   {
-    /* Describes an entity that can provide a value and its jacobian*/
-
+    /** Describes an entity that can provide a value and its jacobian*/
     class TVM_DLLAPI FirstOrderProvider : public data::Node<FirstOrderProvider>
     {
     public:
@@ -60,9 +59,14 @@ namespace tvm
       void resizeValueCache();
       void resizeJacobianCache();
 
-      /** Add or remove variables. Cache is automatically updated.*/
-      void addVariable(VariablePtr, bool linear = false);
-      void removeVariable(VariablePtr);
+      /** Add a variable. Cache is automatically updated.
+        * \param v The variable to add/remove
+        * \param linear Specify that the entity is depending linearly on the
+        * variable or not.
+        */
+      void addVariable(VariablePtr v, bool linear);
+      /** Remove a variable. Cache is automatically updated. */
+      void removeVariable(VariablePtr v);
 
       /** To be overriden by derived classes that need to react to
         * the addition of a variable. Called at the end of addVariable();
