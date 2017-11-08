@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "tvm/CallGraph.h"
-#include "ClassicWeightedLS.h"
+#include "ControlProblem.h"
 #include "Function.h"
 #include "LinearFunction.h"
-#include "ControlProblem.h"
-#include "Variable.h"
-#include "tvm/data/OutputSelector.h"
 #include "LinearizedControlProblem.h"
+#include "Variable.h"
+#include "WeightedLeastSquares.h"
+#include "tvm/CallGraph.h"
+#include "tvm/data/OutputSelector.h"
 
 using namespace tvm;
 using namespace Eigen;
@@ -430,6 +430,6 @@ void solverTest01()
 
   auto lpb = std::make_shared<LinearizedControlProblem>(pb);
 
-  scheme::ClassicWeightedLS solver(lpb);
+  scheme::WeightedLeastSquares solver(lpb);
   solver.solve();
 }

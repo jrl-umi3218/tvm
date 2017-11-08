@@ -3,7 +3,6 @@ set(TVM_SOURCES
   Assignment.cpp
   AssignmentTarget.cpp
   CallGraph.cpp
-  ClassicWeightedLS.cpp
   Clock.cpp
   Constraint.cpp
   ControlProblem.cpp
@@ -23,7 +22,8 @@ set(TVM_SOURCES
   Task.cpp
   TaskDynamics.cpp
   Variable.cpp
-  VariableVector.cpp)
+  VariableVector.cpp
+  WeightedLeastSquares.cpp)
 
 set(TVM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include/tvm)
 set(TVM_HEADERS
@@ -40,7 +40,6 @@ set(TVM_HEADERS
 # Temporary
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
-  ${TVM_INCLUDE_DIR}/../ClassicWeightedLS.h
   ${TVM_INCLUDE_DIR}/../Clock.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
   ${TVM_INCLUDE_DIR}/../ControlProblem.h
@@ -64,6 +63,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/../TaskDynamics.h
   ${TVM_INCLUDE_DIR}/../Variable.h
   ${TVM_INCLUDE_DIR}/../VariableVector.h
+  ${TVM_INCLUDE_DIR}/../WeightedLeastSquares.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignmentWrapper.h)
 

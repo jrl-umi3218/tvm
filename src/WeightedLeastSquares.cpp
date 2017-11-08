@@ -1,22 +1,22 @@
 #include <iostream>
 
-#include "ClassicWeightedLS.h"
 #include "LinearizedControlProblem.h"
 #include "LinearizedTaskConstraint.h"
+#include "WeightedLeastSquares.h"
 
 namespace tvm
 {
   namespace scheme
   {
     using VET = ViolationEvaluationType;
-    ClassicWeightedLS::ClassicWeightedLS(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight)
+    WeightedLeastSquares::WeightedLeastSquares(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight)
       : LinearResolutionScheme({ 2, {{0, {true, {VET::L2}}}, {1,{false, {VET::L2}}}}, true }, pb)
       , scalarizationWeight_(scalarizationWeight)
     {
       build();
     }
 
-    void ClassicWeightedLS::solve_()
+    void WeightedLeastSquares::solve_()
     {
       for (auto& a : assignments_)
         a.run();
@@ -29,7 +29,7 @@ namespace tvm
 
     }
 
-    void ClassicWeightedLS::build()
+    void WeightedLeastSquares::build()
     {
       const auto& constraints = problem_->constraints();
 
@@ -73,7 +73,7 @@ namespace tvm
       }
     }
 
-    ClassicWeightedLS::Memory::Memory(int n, int m0, int m1)
+    WeightedLeastSquares::Memory::Memory(int n, int m0, int m1)
       : A(Eigen::MatrixXd::Zero(m1, n))
       , C(Eigen::MatrixXd::Zero(m0, n))
       , b(Eigen::VectorXd::Zero(m1))

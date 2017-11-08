@@ -7,10 +7,12 @@ namespace tvm
 {
   namespace scheme
   {
-    class TVM_DLLAPI ClassicWeightedLS : public LinearResolutionScheme
+    /** This class implements the classic weighted least square scheme
+      */
+    class TVM_DLLAPI WeightedLeastSquares : public LinearResolutionScheme
     {
     public:
-      ClassicWeightedLS(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight = 1000);
+      WeightedLeastSquares(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight = 1000);
 
     protected:
       void solve_();
