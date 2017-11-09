@@ -6,8 +6,23 @@ namespace tvm
   namespace scheme
   {
     ResolutionScheme::ResolutionScheme(const SchemeAbilities& abilities)
+    ResolutionScheme::ResolutionScheme(const SchemeAbilities& abilities, double big)
       : abilities_(abilities)
+      , id_(ResolutionScheme::idProvider_.getId())
+      , big_number_(big)
     {
+      assert(big > 0);
+    }
+
+    double ResolutionScheme::big_number() const
+    {
+      return big_number_;
+    }
+
+    void ResolutionScheme::big_number(double big)
+    {
+      assert(big > 0);
+      big_number_ = big;
     }
 
     void ResolutionScheme::addVariable(VariablePtr var)
@@ -39,8 +54,8 @@ namespace tvm
       solve_();
     }
 
-    LinearResolutionScheme::LinearResolutionScheme(const SchemeAbilities& abilities, std::shared_ptr<LinearizedControlProblem> pb)
-      : ResolutionScheme(abilities)
+    LinearResolutionScheme::LinearResolutionScheme(const SchemeAbilities& abilities, std::shared_ptr<LinearizedControlProblem> pb, double big)
+      : ResolutionScheme(abilities, big)
       , problem_(pb)
     {
     }

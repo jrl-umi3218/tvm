@@ -48,7 +48,7 @@ namespace tvm
       }
 
       //allocating memory for the solver
-      memory_ = std::shared_ptr<Memory>(new Memory(x_.size(), m0, m1));
+      memory_ = std::shared_ptr<Memory>(new Memory(x_.size(), m0, m1, big_number_));
 
       //assigments
       m0 = 0;
@@ -73,12 +73,12 @@ namespace tvm
       }
     }
 
-    WeightedLeastSquares::Memory::Memory(int n, int m0, int m1)
+    WeightedLeastSquares::Memory::Memory(int n, int m0, int m1, double big_number)
       : A(Eigen::MatrixXd::Zero(m1, n))
       , C(Eigen::MatrixXd::Zero(m0, n))
       , b(Eigen::VectorXd::Zero(m1))
-      , l(Eigen::VectorXd::Constant(m0 + n, -1e6))
-      , u(Eigen::VectorXd::Constant(m0 + n, +1e6))
+      , l(Eigen::VectorXd::Constant(m0 + n, -big_number))
+      , u(Eigen::VectorXd::Constant(m0 + n, +big_number))
     {
     }
   }

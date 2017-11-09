@@ -20,7 +20,7 @@ namespace tvm
     private:
       struct Memory
       {
-        Memory(int n, int m0, int m1);
+        Memory(int n, int m0, int m1, double big_number);
 
         Eigen::MatrixXd A;
         Eigen::MatrixXd C;
