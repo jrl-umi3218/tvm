@@ -15,7 +15,7 @@ namespace tvm
       WeightedLeastSquares(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight = 1000);
 
     protected:
-      void solve_();
+      void solve_() override;
 
     private:
       struct Memory

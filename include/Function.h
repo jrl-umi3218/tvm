@@ -38,8 +38,8 @@ namespace tvm
     void resizeNormalAccelerationCache();
     void resizeJDotCache();
 
-    virtual void addVariable_(VariablePtr v) override;
-    virtual void removeVariable_(VariablePtr v) override;
+    void addVariable_(VariablePtr v) override;
+    void removeVariable_(VariablePtr v) override;
 
     // cache
     Eigen::VectorXd velocity_;

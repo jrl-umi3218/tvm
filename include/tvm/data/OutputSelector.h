@@ -141,7 +141,7 @@ namespace tvm
       }
 
       /** Override the method of Outputs to get the desired enable/disable behavior. */
-      virtual bool isOutputCustomEnabled(int e) const override
+      bool isOutputCustomEnabled(int e) const override
       {
         if (e < 0 || e >= static_cast<int>(this->dynamicallyEnabled_.size()))
           throw std::runtime_error("Enum value is invalid");
