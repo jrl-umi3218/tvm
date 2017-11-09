@@ -45,7 +45,7 @@ namespace tvm
       void solve();
 
     protected:
-      LinearResolutionScheme(const SchemeAbilities& abilities, std::shared_ptr<LinearizedControlProblem> pb);
+      LinearResolutionScheme(const SchemeAbilities& abilities, std::shared_ptr<LinearizedControlProblem> pb, double big = std::numeric_limits<double>::max() / 2);
 
       virtual void solve_() = 0;
 

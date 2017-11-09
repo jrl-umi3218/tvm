@@ -5,10 +5,8 @@ namespace tvm
 {
   namespace scheme
   {
-    ResolutionScheme::ResolutionScheme(const SchemeAbilities& abilities)
     ResolutionScheme::ResolutionScheme(const SchemeAbilities& abilities, double big)
       : abilities_(abilities)
-      , id_(ResolutionScheme::idProvider_.getId())
       , big_number_(big)
     {
       assert(big > 0);
