@@ -12,8 +12,18 @@ namespace tvm
     /** Base class for solving a ControlProblem*/
     class TVM_DLLAPI ResolutionScheme
     {
+    public:
+      double big_number() const;
+      void big_number(double big);
+
     protected:
-      ResolutionScheme(const SchemeAbilities& abilities);
+      /** Constructor, meant only for derived classes 
+        *
+        * \param abilities The set of abilities for this scheme.
+        * \param big A big number use to represent infinity, in particular when
+        * specifying non-existing bounds (e.g. x <= Inf is given as x <= big).
+        */
+      ResolutionScheme(const SchemeAbilities& abilities, double big = std::numeric_limits<double>::max()/2);
 
       void addVariable(VariablePtr var);
       void addVariable(const std::vector<VariablePtr>& vars);
@@ -23,6 +33,9 @@ namespace tvm
       /** The problem variable*/
       VariableVector x_;
       SchemeAbilities abilities_;
+
+      /** A number to use for infinite bounds*/
+      double big_number_;
     };
 
     /** Base class for scheme solving linear problems*/
