@@ -65,13 +65,13 @@ namespace tvm
     setb(b);
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, 
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x,
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     :BasicLinearConstraint({ A }, { x }, l, u, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, 
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x,
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     : LinearConstraint(ConstraintType::DOUBLE_SIDED, cr, static_cast<int>(A.begin()->rows()))
   {
@@ -122,6 +122,7 @@ namespace tvm
         case ConstraintType::EQUAL: e_ = b; break;
         case ConstraintType::GREATER_THAN: l_ = b; break;
         case ConstraintType::LOWER_THAN: u_ = b; break;
+        default: break;
         }
       }
       else
@@ -159,11 +160,14 @@ namespace tvm
 
   void BasicLinearConstraint::add(const Eigen::MatrixXd& A, VariablePtr x)
   {
+    if (!x->space().isEuclidean())
+      throw std::runtime_error("We allow linear constraint only on Euclidean variables.");
     if (A.rows() != size())
       throw std::runtime_error("Matrix A doesn't have coherent row size.");
     if (A.cols() != x->size())
       throw std::runtime_error("Matrix A doesn't have its column size coherent with its corresponding variable.");
-    addVariable(x);
+    addVariable(x, true);
     jacobian_.at(x.get()) = A;
+    jacobian_.at(x.get()).properties({ MatrixProperties::Constness(true) });
   }
 }

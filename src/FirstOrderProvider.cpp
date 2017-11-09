@@ -11,7 +11,7 @@ namespace tvm
     {
       resizeCache(); //resize value_
     }
-    
+
     void FirstOrderProvider::resizeCache()
     {
       resizeValueCache();
@@ -29,18 +29,19 @@ namespace tvm
       if (isOutputEnabled((int)Output::Jacobian))
       {
         for (auto v : variables_)
-          jacobian_[v.get()].resize(m_, v->size());
+          jacobian_[v.get()].resize(m_, v->space().tSize());
       }
     }
 
-    void FirstOrderProvider::addVariable(VariablePtr v)
+    void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
     {
       if (std::find(variables_.begin(), variables_.end(), v) == variables_.end())
         variables_.push_back(v);
       else
         throw DuplicateVariable(/*desc*/); //TODO
 
-      jacobian_[v.get()].resize(m_, v->size());
+      jacobian_[v.get()].resize(m_, v->space().tSize());
+      linear_[v.get()] = linear;
 
       addVariable_(v);
     }

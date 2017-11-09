@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 
 #include <tvm/api.h>
@@ -16,10 +18,17 @@ namespace tvm
     ConstraintType type_;
   };
 
-  /** For now, we only accept rhs=0*/
-  ProtoTask operator==(FunctionPtr f, double rhs);
-  ProtoTask operator>=(FunctionPtr f, double rhs);
-  ProtoTask operator<=(FunctionPtr f, double rhs);
+  /** Convenient operators to form ProtoTask. For now, we only accept rhs=0
+    *
+    * Note that you explicitely need to write 0., otherwise the compiler won't
+    * be able to decide wich overload to pick between this and shared_ptr
+    * operator.
+    * (and it is not possible to have an overload with "int rhs", for the same
+    * reason)
+    */
+  ProtoTask TVM_DLLAPI operator==(FunctionPtr f, double rhs);
+  ProtoTask TVM_DLLAPI operator>=(FunctionPtr f, double rhs);
+  ProtoTask TVM_DLLAPI operator<=(FunctionPtr f, double rhs);
 
 
   /** A task is a triplet (Function, operator, TaskDynamics) where operator is

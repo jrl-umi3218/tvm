@@ -1,9 +1,10 @@
 #include "SolvingRequirements.h"
 
 #include <iostream>
-// boost
-#define BOOST_TEST_MODULE SolvingRequirementsTest
-#include <boost/test/unit_test.hpp>
+
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+#include "doctest/doctest.h"
 
 using namespace tvm;
 using namespace Eigen;
@@ -25,26 +26,26 @@ bool checkRequirements(const SolvingRequirements& sr,
   return b;
 }
 
-BOOST_AUTO_TEST_CASE(SolvingRequirementsTest)
+TEST_CASE("Test SolvingRequirements")
 {
   SolvingRequirements s0;
-  BOOST_CHECK(checkRequirements(s0, true, 0, true, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
+  FAST_CHECK_UNARY(checkRequirements(s0, true, 0, true, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s1(PriorityLevel(2), Weight(3));
-  BOOST_CHECK(checkRequirements(s1, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
+  FAST_CHECK_UNARY(checkRequirements(s1, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s2(PriorityLevel(2), Weight(1));
-  BOOST_CHECK(checkRequirements(s2, false, 2, true, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
+  FAST_CHECK_UNARY(checkRequirements(s2, false, 2, true, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s3(Weight(3), PriorityLevel(2));
-  BOOST_CHECK(checkRequirements(s3, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
+  FAST_CHECK_UNARY(checkRequirements(s3, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s4(AnisotropicWeight((VectorXd(3) << 3,4,5).finished()), Weight(3), ViolationEvaluation(ViolationEvaluationType::L1), PriorityLevel(2));
-  BOOST_CHECK(checkRequirements(s4, false, 2, false, 3, false, (VectorXd(3) << 3, 4, 5).finished(), false, ViolationEvaluationType::L1));
+  FAST_CHECK_UNARY(checkRequirements(s4, false, 2, false, 3, false, (VectorXd(3) << 3, 4, 5).finished(), false, ViolationEvaluationType::L1));
 
-  BOOST_CHECK_THROW(SolvingRequirements s(PriorityLevel(-1)), std::runtime_error);
+  CHECK_THROWS_AS(SolvingRequirements s(PriorityLevel(-1)), std::runtime_error);
 
-  BOOST_CHECK_THROW(SolvingRequirements s(Weight(-1)), std::runtime_error);
+  CHECK_THROWS_AS(SolvingRequirements s(Weight(-1)), std::runtime_error);
 
-  BOOST_CHECK_THROW(SolvingRequirements s(AnisotropicWeight(Vector3d(-1,2,3))), std::runtime_error);
+  CHECK_THROWS_AS(SolvingRequirements s(AnisotropicWeight(Vector3d(-1,2,3))), std::runtime_error);
 }

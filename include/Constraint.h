@@ -14,21 +14,21 @@ namespace tvm
   /** This is a helper class to define Constraint. Its sole purpose is to
     * declare the outputs L, U and E, (L and U being the lower and upper bounds
     * for inequality constraints, and E the term the constraint is equal to for
-    * equality constraints), so that Constraint can the dynamically disable 
+    * equality constraints), so that Constraint can the dynamically disable
     * what it does not use.
     */
   class TVM_DLLAPI ConstraintBase : public internal::FirstOrderProvider
   {
   public:
-    SET_OUTPUTS(ConstraintBase, L, U, E);
+    SET_OUTPUTS(ConstraintBase, L, U, E)
 
   protected:
     ConstraintBase(int m);
   };
 
-  /** Base class for representing a constraint. 
+  /** Base class for representing a constraint.
     *
-    * It manages the enabling/disabling of the outputs L, U and E (depending 
+    * It manages the enabling/disabling of the outputs L, U and E (depending
     * on its type), and the memory of the associated cache.
     *
     * FIXME: have the updateValue here and add an output check()
@@ -53,7 +53,7 @@ namespace tvm
   protected:
     Constraint(ConstraintType ct, ConstraintRHS cr, int m=0);
     void resizeCache() override;
-    void resizeRHS(); 
+    void resizeRHS();
 
     Eigen::VectorXd l_;
     Eigen::VectorXd u_;

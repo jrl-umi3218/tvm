@@ -168,7 +168,7 @@ inline void Node<T>::addDirectDependency(EnumO o, std::shared_ptr<S> source, Enu
   }
   // Make sure we have this input
   addInput(source, i);
-  
+
   // Add the dependency
   directDependencies_[static_cast<int>(o)] = { source, static_cast<int>(i) };
 }

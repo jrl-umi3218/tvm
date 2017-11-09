@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <vector>
 
 #include <tvm/data/Outputs.h>
 
@@ -42,9 +43,9 @@ namespace tvm
     /** Check at compile-time if T derives from OutputSelector
       *
       * We cannot use std::is_base_of because OutputSelector is a template class.
-      * Instead, we rely on (the declaration only of the two overloads of 
-      * is_output_selector_impl. If (and only if T derives from OutputSelector 
-      * the overload returning std::true_type will be selected, and thus the 
+      * Instead, we rely on the declaration (only) of the two overloads of
+      * is_output_selector_impl. If (and only if) T derives from OutputSelector
+      * the overload returning std::true_type will be selected, and thus the
       * following function returns true.
       */
     template <typename T>
@@ -55,7 +56,7 @@ namespace tvm
     /** This class adds to its template argument the capability to enable or
       * disable some of its outputs.
       *
-      * We use here a bit of template metaprogramming for taking care of the
+      * We use here a bit of template metaprogramming to take care of the
       * following problem:
       * imagine we have the following inheritance structure
       * class A
@@ -63,13 +64,13 @@ namespace tvm
       * class C : public B
       * class D : public OutputSelector<C>
       * We want D to hold a single vector of bool for tracking enabled outputs
-      * and a single bool for lock. In our example, this means that 
+      * and a single bool for lock. In our example, this means that
       * OutputSelector<A> holds the data, and OutputSelector<C> reuse the same
       * data. We implement this by checking if the template parameter is a
       * derived class of OutputSelector. If it is not (case of A in our example)
-      * we make OutputSelector inherit from SelectorMembers<true> so that it 
+      * we make OutputSelector inherit from SelectorMembers<true> so that it
       * inherits the data. If it is (case of C), we make OutputSelector inherit
-      * from SelectorMembers<true> so that no data is added.
+      * from SelectorMembers<false> so that no data is added.
       */
     template <typename OutputProvider>
     class OutputSelector : public OutputProvider, protected SelectorMembers<!is_output_selector<OutputProvider>()>
@@ -100,7 +101,7 @@ namespace tvm
       {
         if (!is_valid_output<OutputProvider>(e))
           throw std::runtime_error("You can only disable outputs that are part of the class.");
-        
+
         if (!this->locked_)
           this->dynamicallyEnabled_[static_cast<size_t>(e)] = false;
         else
@@ -140,7 +141,7 @@ namespace tvm
       }
 
       /** Override the method of Outputs to get the desired enable/disable behavior. */
-      virtual bool isOutputCustomEnabled(int e) const override
+      bool isOutputCustomEnabled(int e) const override
       {
         if (e < 0 || e >= static_cast<int>(this->dynamicallyEnabled_.size()))
           throw std::runtime_error("Enum value is invalid");

@@ -43,6 +43,10 @@ public:
   {
     plan_.execute();
   }
+
+  /** Clear the object.*/
+  void clear();
+
 protected:
   /** A call is formed by the combination of a Node and and id */
   struct Call
@@ -66,6 +70,9 @@ protected:
   {
     /** Build the plan from the CallGraph */
     void build(const CallGraph & graph);
+
+    /** Clear the plan*/
+    void clear();
 
     /** Execute the plan */
     inline void execute() const

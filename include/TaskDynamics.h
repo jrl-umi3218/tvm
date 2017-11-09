@@ -15,6 +15,7 @@ namespace tvm
 {
   enum class TDOrder
   {
+    Geometric,
     Kinematics,
     Dynamics
   };
@@ -30,11 +31,14 @@ namespace tvm
     const Eigen::VectorXd& value() const;
     TDOrder order() const;
 
-    virtual void UpdateValue() = 0;
+    virtual void updateValue() = 0;
 
   protected:
     TaskDynamics(TDOrder order);
-    Function* const function() const;
+    const Function & function() const;
+
+    /** Hook for derived class, called at the end of setFunction.*/
+    virtual void setFunction_();
 
     Eigen::VectorXd value_;
 
@@ -43,7 +47,21 @@ namespace tvm
     FunctionPtr f_;
   };
 
-  /** Compute -kp*f
+
+  /**
+    */
+  class TVM_DLLAPI NoDynamics : public TaskDynamics
+  {
+  public:
+    NoDynamics(const Eigen::VectorXd& v = Eigen::VectorXd());
+
+    void updateValue() override;
+
+  protected:
+    void setFunction_() override;
+  };
+
+  /** Compute \dot{e}* = -kp*f (Kinematic order)
     *
     * FIXME have a version with diagonal or sdp gain matrix
     */
@@ -52,13 +70,13 @@ namespace tvm
   public:
     ProportionalDynamics(double kp);
 
-    void UpdateValue() override;
+    void updateValue() override;
 
   private:
     double kp_;
   };
 
-  /** Compute -kv*dot(f)-kp*f
+  /** Compute \ddot{e}* = -kv*dot{f}-kp*f (dynamic order)
   *
   * FIXME have a version with diagonal or sdp gain matrices
   */
@@ -71,10 +89,31 @@ namespace tvm
     /** Critically damped version*/
     ProportionalDerivativeDynamics(double kp);
 
-    void UpdateValue() override;
+    void updateValue() override;
 
   private:
     double kp_;
     double kv_;
   };
+
+
+  inline const Eigen::VectorXd& TaskDynamics::value() const
+  {
+    return value_;
+  }
+
+  inline TDOrder TaskDynamics::order() const
+  {
+    return order_;
+  }
+
+  inline const Function & TaskDynamics::function() const
+  {
+    assert(f_);
+    return *f_;
+  }
+
+  inline void TaskDynamics::setFunction_()
+  {
+  }
 }

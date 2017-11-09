@@ -1,5 +1,10 @@
 #include <functional>
 #include <iostream>
+#include <memory>
+
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+#include "doctest/doctest.h"
 
 #include "Assignment.h"
 #include "AssignmentTarget.h"
@@ -9,10 +14,6 @@
 
 #include <Eigen/Core>
 #include <Eigen/QR>
-
-// boost
-#define BOOST_TEST_MODULE AssignmentTest
-#include <boost/test/unit_test.hpp>
 
 using namespace Eigen;
 
@@ -159,7 +160,7 @@ Constraints buildConstraints(int m, int n)
   return cstr;
 }
 
-BOOST_AUTO_TEST_CASE(AssignmentTest)
+TEST_CASE("Test assigments")
 {
   Constraints cstr = buildConstraints(3, 7);
 
@@ -168,7 +169,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, ConstraintRHS::AS_GIVEN);
-    SolvingRequirements req(Weight(2.));
+    auto req = std::make_shared<SolvingRequirements>(Weight(2.));
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
     a.run();
@@ -176,14 +177,14 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
-      BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
-      BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2)*cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2)*cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2)*Eigen::VectorXd(3).setConstant(large));
     }
 
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.p0) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pl) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
-    BOOST_CHECK(check(cstr.Ax_geq_minus_b, cstr.pu) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.p0), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pl), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
 
     //now we change the range of the target and refresh the assignment
     range->start = 0;
@@ -196,9 +197,9 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      BOOST_CHECK(mem->A.block(range->start, 0, 3, 7) == sqrt(2)*cstr_A);
-      BOOST_CHECK(mem->l.block(range->start, 0, 3, 1) == -sqrt(2)*cstr_l);
-      BOOST_CHECK(mem->u.block(range->start, 0, 3, 1) == sqrt(2)*Eigen::VectorXd(3).setConstant(large));
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2)*cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2)*cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2)*Eigen::VectorXd(3).setConstant(large));
     }
   }
 
@@ -208,7 +209,7 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
     auto range = std::make_shared<Range>(0, 6); //we need double range
     AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, ConstraintRHS::AS_GIVEN);
     Eigen::Vector3d aW = {1., 2., 3.};
-    SolvingRequirements req(AnisotropicWeight{ aW });
+    auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight{ aW });
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();
@@ -219,15 +220,15 @@ BOOST_AUTO_TEST_CASE(AssignmentTest)
       const auto & cstr_u = cstr.l_leq_Ax_leq_u->u();
       for(size_t i = 0; i < 3; ++i)
       {
-        BOOST_CHECK(mem->A.row(i) == sqrt(aW(i))*cstr_A.row(i));
-        BOOST_CHECK(mem->A.row(i + 3) == -sqrt(aW(i))*cstr_A.row(i));
-        BOOST_CHECK(mem->b(i) == sqrt(aW(i))*cstr_u(i));
-        BOOST_CHECK(mem->b(i + 3) == -sqrt(aW(i))*cstr_l(i));
+        FAST_CHECK_EQ(mem->A.row(i), sqrt(aW(i))*cstr_A.row(i));
+        FAST_CHECK_EQ(mem->A.row(i + 3), -sqrt(aW(i))*cstr_A.row(i));
+        FAST_CHECK_EQ(mem->b(i), sqrt(aW(i))*cstr_u(i));
+        FAST_CHECK_EQ(mem->b(i + 3), -sqrt(aW(i))*cstr_l(i));
       }
     }
 
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.p0) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pl) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
-    BOOST_CHECK(check(cstr.l_leq_Ax_leq_u, cstr.pu) == check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.p0), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pl), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
   }
 }

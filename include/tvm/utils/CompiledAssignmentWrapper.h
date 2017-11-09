@@ -16,7 +16,7 @@ namespace tvm
     {
       template<Source F>
       class from_FunctionBuilder;
-    };
+    }
 
 
     /** This class wraps a CompiledAssignment so as to hide the template
@@ -103,9 +103,9 @@ namespace tvm
       {
       public:
         template<typename CA, typename MatrixType>
-        static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>* wrapper)
+        static std::function<void(const Eigen::Ref<const MatrixType>&)> construct(tvm::utils::CompiledAssignmentWrapper<MatrixType>*)
         {
-          return [wrapper](const Eigen::Ref<const MatrixType>&)
+          return [](const Eigen::Ref<const MatrixType>&)
           {
             //do nothing
           };

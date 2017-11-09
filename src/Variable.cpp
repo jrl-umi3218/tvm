@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace tvm
-{ 
+{
   Space::Space(int size)
     : Space(size, size, size)
   {
@@ -40,6 +40,10 @@ namespace tvm
     return tSize_;
   }
 
+  bool Space::isEuclidean() const
+  {
+    return mSize_ == rSize_;
+  }
 
 
   VariablePtr dot(VariablePtr var, int ndiff)
@@ -110,11 +114,6 @@ namespace tvm
   bool Variable::isBasePrimitive() const
   {
     return derivativeNumber_ == 0;
-  }
-
-  VariablePtr Variable::primitive() const
-  {
-    return primitive_;
   }
 
   VariablePtr Variable::basePrimitive() const

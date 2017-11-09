@@ -21,6 +21,16 @@ void CallGraph::update()
   plan_.build(*this);
 }
 
+void CallGraph::clear()
+{
+  callId_.clear();
+  calls_.clear();
+  dependencies_.clear();
+  root_.clear();
+  visited_.clear();
+  plan_.clear();
+}
+
 std::vector<int> CallGraph::addOutput(const std::shared_ptr<data::Outputs> & source,
                                       int output)
 {
@@ -92,8 +102,8 @@ int CallGraph::addCall(Call c)
 
 void CallGraph::addEdge(int from, int to)
 {
-  assert(from < dependencies_.size());
-  assert(to < root_.size());
+  assert(static_cast<size_t>(from) < dependencies_.size());
+  assert(static_cast<size_t>(to) < root_.size());
   dependencies_[from].push_back(to);
   root_[to] = false;
 }
@@ -125,6 +135,11 @@ void CallGraph::Plan::build(const CallGraph & graph)
   {
     plan_.push_back(graph.calls_[i]);
   }
+}
+
+void CallGraph::Plan::clear()
+{
+  plan_.clear();
 }
 
 void CallGraph::Plan::recursiveBuild(const CallGraph & graph, size_t v,

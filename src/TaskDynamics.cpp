@@ -6,7 +6,7 @@ namespace tvm
   TaskDynamics::TaskDynamics(TDOrder order)
     : order_(order)
   {
-    registerUpdates(Update::UpdateValue, &TaskDynamics::UpdateValue);
+    registerUpdates(Update::UpdateValue, &TaskDynamics::updateValue);
     addOutputDependency(Output::Value, Update::UpdateValue);
   }
 
@@ -26,21 +26,28 @@ namespace tvm
     }
     else
       throw std::runtime_error("This task dynamics was already assigned a function.");
+
+    setFunction_();
   }
 
-  const Eigen::VectorXd& TaskDynamics::value() const
+
+  NoDynamics::NoDynamics(const Eigen::VectorXd& v)
+    : TaskDynamics(TDOrder::Geometric)
   {
-    return value_;
+    value_ = v;
   }
 
-  TDOrder TaskDynamics::order() const
+  void NoDynamics::updateValue()
   {
-    return TDOrder();
+    // do nothing
   }
 
-  Function* const TaskDynamics::function() const
+  void NoDynamics::setFunction_()
   {
-    return f_.get();
+    if (value_.size() == 0)
+      value_.setZero(function().size());
+    else
+      assert(value_.size() == function().size());
   }
 
   ProportionalDynamics::ProportionalDynamics(double kp)
@@ -49,9 +56,9 @@ namespace tvm
   {
   }
 
-  void ProportionalDynamics::UpdateValue()
+  void ProportionalDynamics::updateValue()
   {
-    value_ = -kp_ * function()->value();
+    value_ = -kp_ * function().value();
   }
 
   ProportionalDerivativeDynamics::ProportionalDerivativeDynamics(double kp, double kv)
@@ -66,8 +73,8 @@ namespace tvm
   {
   }
 
-  void ProportionalDerivativeDynamics::UpdateValue()
+  void ProportionalDerivativeDynamics::updateValue()
   {
-    value_ = -kv_ * function()->velocity() - kp_ * function()->value();
+    value_ = -kv_ * function().velocity() - kp_ * function().value();
   }
 }

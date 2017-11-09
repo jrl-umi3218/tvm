@@ -60,9 +60,17 @@ public:
   /** Add outputs from a given Output object */
   template<typename T, typename ... Args>
   void addInput(std::shared_ptr<T> source, Args ... args);
+  /** Remove all outputs from a given Output object */
+  template<typename T>
+  void removeInput(T* source);
+  /** Remove outputs from a given Output object */
+  template<typename T, typename ... Args>
+  void removeInput(T* source, Args ... args);
   /** Retrieve an input from a given Output object */
   template<typename T>
-  Iterator getInput(std::shared_ptr<T> source);
+  Iterator getInput(T* source);
+  template<typename T>
+  Iterator getInput(const std::shared_ptr<T>& source);
 private:
   inputs_t inputs_;
 };

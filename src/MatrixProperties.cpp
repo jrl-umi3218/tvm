@@ -21,7 +21,7 @@ namespace
     *    \     /
     *      nsd
     *
-    * with 
+    * with
     *  - pd  = positive definite
     *  - psd = positive semidefinite
     *  - nd  = negative definite
@@ -39,7 +39,7 @@ namespace
     //  - table[i][j] = 1 if i > j
     //  - table[i][j] = -1 if i <= j
     //  - table[i][j] = 0 if the comparison is not valid.
-                            // NA  | PSD | PD  | NSD | ND  |  I  | INZ  
+                            // NA  | PSD | PD  | NSD | ND  |  I  | INZ
     const int table[7][7] = {
                   /* NA  */  { -1  , -1  , -1  , -1  , -1  , -1  , -1  },
                   /* PSD */  {  1  , -1  , -1  ,  0  ,  0  ,  1  ,  0  },
@@ -48,7 +48,7 @@ namespace
                   /* ND  */  {  1  ,  0  ,  0  ,  1  , -1  ,  1  ,  1  },
                   /*  I  */  {  1  , -1  , -1  , -1  , -1  , -1  , -1  },
                   /* INZ */  {  1  ,  0  , -1  ,  0  , -1  ,  1  ,  1  }};
-    if (table[static_cast<int>(a)][static_cast<int>(b)] == 0) 
+    if (table[static_cast<int>(a)][static_cast<int>(b)] == 0)
       throw std::runtime_error("Invalid comparison");
 
     return table[static_cast<int>(a)][static_cast<int>(b)] > 0;
@@ -113,18 +113,16 @@ namespace
 
   MatrixProperties::Positiveness deducePositiveness(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness, bool invertible)
   {
-    MatrixProperties::Positiveness p;
+    MatrixProperties::Positiveness p = MatrixProperties::Positiveness::NA;
     //get default positiveness for the shape
     switch (shape)
     {
-    case MatrixProperties::Shape::GENERAL:              p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::Shape::LOWER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::Shape::UPPER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
     case MatrixProperties::Shape::DIAGONAL:             p = MatrixProperties::Positiveness::INDEFINITE;        break;
     case MatrixProperties::Shape::MULTIPLE_OF_IDENTITY: p = MatrixProperties::Positiveness::INDEFINITE;        break;
     case MatrixProperties::Shape::IDENTITY:             p = MatrixProperties::Positiveness::POSITIVE_DEFINITE; break;
     case MatrixProperties::Shape::MINUS_IDENTITY:       p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE; break;
     case MatrixProperties::Shape::ZERO:                 p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    default: break;
     }
 
     //get tighter positiveness between default one and user-provided one, possibly promoted if invertible

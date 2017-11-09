@@ -3,22 +3,27 @@ set(TVM_SOURCES
   Assignment.cpp
   AssignmentTarget.cpp
   CallGraph.cpp
+  Clock.cpp
   Constraint.cpp
-#  ControlProblem.cpp
+  ControlProblem.cpp
   EventGraph.cpp
   FirstOrderProvider.cpp
   Function.cpp
   LinearConstraint.cpp
+  LinearFunction.cpp
+  LinearizedControlProblem.cpp
   LinearizedTaskConstraint.cpp
   MatrixProperties.cpp
   ResolutionScheme.cpp
   Robot.cpp
+  ResolutionScheme.cpp
+  SchemeAbilities.cpp
   SolvingRequirements.cpp
   Task.cpp
   TaskDynamics.cpp
-  Time.cpp
   Variable.cpp
-  VariableVector.cpp)
+  VariableVector.cpp
+  WeightedLeastSquares.cpp)
 
 set(TVM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include/tvm)
 set(TVM_HEADERS
@@ -35,27 +40,30 @@ set(TVM_HEADERS
 # Temporary
   ${TVM_INCLUDE_DIR}/../Assignment.h
   ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
+  ${TVM_INCLUDE_DIR}/../Clock.h
   ${TVM_INCLUDE_DIR}/../Constraint.h
+  ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
-#  ${TVM_INCLUDE_DIR}/../ControlProblem.h
   ${TVM_INCLUDE_DIR}/../defs.h
   ${TVM_INCLUDE_DIR}/../exceptions.h
   ${TVM_INCLUDE_DIR}/../EventGraph.h
   ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/../Function.h
   ${TVM_INCLUDE_DIR}/../LinearConstraint.h
+  ${TVM_INCLUDE_DIR}/../LinearFunction.h
+  ${TVM_INCLUDE_DIR}/../LinearizedControlProblem.h
   ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
   ${TVM_INCLUDE_DIR}/../MatrixProperties.h
   ${TVM_INCLUDE_DIR}/../MatrixWithProperties.h
   ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/../Robot.h
+  ${TVM_INCLUDE_DIR}/../SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
   ${TVM_INCLUDE_DIR}/../Task.h
   ${TVM_INCLUDE_DIR}/../TaskDynamics.h
-  ${TVM_INCLUDE_DIR}/../Time.h
-  #${TVM_INCLUDE_DIR}/../UpdateChecker.h
   ${TVM_INCLUDE_DIR}/../Variable.h
   ${TVM_INCLUDE_DIR}/../VariableVector.h
+  ${TVM_INCLUDE_DIR}/../WeightedLeastSquares.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/utils/CompiledAssignmentWrapper.h)
 

@@ -29,9 +29,20 @@ namespace tvm
     using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
     using VectorFunction = VectorRef (AssignmentTarget::*)() const;
 
-    Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
-               const AssignmentTarget& target, const VariableVector& variables);
-  
+    /** Assignment constructor
+      * \param source The linear constraints whose matrix and vector(s) will be
+      * assigned.
+      * \param req Solving requirements attached to this constraint.
+      * \param target The target of the assignment.
+      * \param variables The vector of variables corresponding to the target.
+      * It must be such that its total dimension is equal to the column size of
+      * the target matrix.
+      * \param scalarizationWeight An additional scalar weight to apply on the
+      * constraint, used by the solver to emulate priority.
+      */
+    Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
+               const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
+
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
@@ -77,14 +88,15 @@ namespace tvm
 
     LinearConstraintPtr source_;
     AssignmentTarget target_;
-    SolvingRequirements requirements_;
+    double scalarizationWeight_;
+    std::shared_ptr<SolvingRequirements> requirements_;
     std::vector<MatrixAssignment> matrixAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
 
     /** Processed requirements*/
-    double alpha_;
-    Eigen::VectorXd weight_;
-    Eigen::VectorXd minusWeight_;
+    double scalarWeight_;
+    Eigen::VectorXd anisotropicWeight_;
+    Eigen::VectorXd minusAnisotropicWeight_;
     Eigen::MatrixXd mult_; //unused for now, will serve when substituting variables
   };
 
@@ -94,9 +106,9 @@ namespace tvm
     using namespace utils;
     typedef typename utils::CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type> Wrapper;
 
-    if (requirements_.anisotropicWeight().isDefault())
+    if (requirements_->anisotropicWeight().isDefault())
     {
-      if (requirements_.weight().isDefault())
+      if (scalarWeight_ == 1)
       {
         if (flip)
           return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);
@@ -106,17 +118,17 @@ namespace tvm
       else
       {
         if (flip)
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -scalarWeight_);
         else
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, alpha_);
+          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusWeight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusAnisotropicWeight_);
       else
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &weight_);
+        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &anisotropicWeight_);
     }
   }
 }

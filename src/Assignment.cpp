@@ -5,10 +5,11 @@
 
 namespace tvm
 {
-  Assignment::Assignment(LinearConstraintPtr source, const SolvingRequirements& req,
-                         const AssignmentTarget& target, const VariableVector& variables)
+  Assignment::Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
+                         const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight)
     : source_(source)
     , target_(target)
+    , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
   {
     if (!checkTarget())
@@ -31,17 +32,17 @@ namespace tvm
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::onUpdatedMapping(const VariableVector& variables)
+  void Assignment::onUpdatedMapping(const VariableVector& /*variables*/)
   {
     //TODO
   }
 
-  void Assignment::weight(double alpha)
+  void Assignment::weight(double /*alpha*/)
   {
     //TODO
   }
 
-  void Assignment::weight(const Eigen::VectorXd& w)
+  void Assignment::weight(const Eigen::VectorXd& /*w*/)
   {
     //TODO
   }
@@ -91,7 +92,7 @@ namespace tvm
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
       }
-      for (const auto& x : variables.variables())
+      for (const auto& x : source_->variables())
       {
         Range cols = x->getMappingIn(variables);
         addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
@@ -191,16 +192,18 @@ namespace tvm
 
   void Assignment::processRequirements()
   {
-    switch (requirements_.violationEvaluation().value())
+    switch (requirements_->violationEvaluation().value())
     {
-    case ViolationEvaluationType::L1: 
+    case ViolationEvaluationType::L1:
       throw std::runtime_error("Unimplemented violation evaluation type.");
     case ViolationEvaluationType::L2:
-      alpha_ = std::sqrt(requirements_.weight().value());
-      weight_ = requirements_.anisotropicWeight().value().array().sqrt().matrix();
-      if (!requirements_.weight().isDefault() && !requirements_.anisotropicWeight().isDefault())
-        weight_ *= alpha_;
-      minusWeight_ = -weight_;
+      scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      if (!requirements_->anisotropicWeight().isDefault())
+      {
+        anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+        anisotropicWeight_ *= scalarWeight_;
+        minusAnisotropicWeight_ = -anisotropicWeight_;
+      }
       break;
     case ViolationEvaluationType::LINF:
       throw std::runtime_error("Unimplemented violation evaluation type.");

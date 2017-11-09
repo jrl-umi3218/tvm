@@ -6,6 +6,8 @@ namespace tvm
   int VariableVector::counter = 0;
 
   VariableVector::VariableVector()
+    : stamp_(counter)
+    , size_(0)
   {
   }
 
@@ -77,6 +79,31 @@ namespace tvm
   const std::vector<VariablePtr>& VariableVector::variables() const
   {
     return variables_;
+  }
+
+  Eigen::VectorXd VariableVector::value() const
+  {
+    Eigen::VectorXd val(size_);
+    int n = 0;
+    for (const auto& v : variables_)
+    {
+      int s = v->size();
+      val.segment(n, s) = v->value();
+      n += s;
+    }
+    return val;
+  }
+
+  void VariableVector::value(const VectorConstRef& val)
+  {
+    assert(val.size() == size());
+    int n = 0;
+    for (const auto& v : variables_)
+    {
+      int s = v->size();
+      v->value(val.segment(n, s));
+      n += s;
+    }
   }
 
   void VariableVector::computeMapping() const

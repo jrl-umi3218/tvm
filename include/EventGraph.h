@@ -13,10 +13,10 @@ namespace tvm
     CONTACT_NUMBER_CHANGED,
   };
 
-  /* todo or to consider: 
+  /* todo or to consider:
     - delayed notify in case the same notification might be issue several time in a row
       (for example, several contacts are added/remove at several point in the code)
-    - time-stamped events or lazy processing, so that a same event arriving by two 
+    - time-stamped events or lazy processing, so that a same event arriving by two
       different way to a listener is not processed twice.*/
 
   class EventSource

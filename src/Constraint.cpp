@@ -18,8 +18,8 @@ namespace tvm
   {
     if (ct == ConstraintType::DOUBLE_SIDED && cr == ConstraintRHS::ZERO)
       throw std::runtime_error("The combination (ConstraintType::DOUBLE_SIDED, ConstraintRHS::ZERO) is forbidden. Please use (ConstraintType::EQUAL, ConstraintRHS::ZERO) instead.");
-    //FIXME: we make the choice here to have no "rhs" output when the ConstraintRHS is zero. 
-    //An alternative is to use and set to zero the relevant vectors, but then we need 
+    //FIXME: we make the choice here to have no "rhs" output when the ConstraintRHS is zero.
+    //An alternative is to use and set to zero the relevant vectors, but then we need
     //to prevent a derived class to change their value.
     resizeCache();
     if (!usel_)
