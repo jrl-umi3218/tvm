@@ -194,7 +194,7 @@ namespace tvm
   {
     switch (requirements_->violationEvaluation().value())
     {
-    case ViolationEvaluationType::L1: 
+    case ViolationEvaluationType::L1:
       throw std::runtime_error("Unimplemented violation evaluation type.");
     case ViolationEvaluationType::L2:
       scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;

@@ -58,21 +58,21 @@ namespace tvm
       bool b_;
     };
 
-    /** The data given to the constructors may be redundant. For example an 
-      * identity matrix is constant, invertible and positive definite. The 
-      * constructors are deducing automatically all what they can from the 
+    /** The data given to the constructors may be redundant. For example an
+      * identity matrix is constant, invertible and positive definite. The
+      * constructors are deducing automatically all what they can from the
       * shape and the positiveness.
       * The constructors use user-given data when they add information to what
       * they can deduce. If the user-given data are less precise but compatible
-      * with what has been deduced, they are discarded. If they are 
+      * with what has been deduced, they are discarded. If they are
       * contradicting the deductions, an assertion is fired.
       *
       * Here are some examples:
       * - a multiple-of-identity matrix can only be said to be symmetric and
-      * undefinite. If the user specifies it is positive-semidefinite, this 
+      * undefinite. If the user specifies it is positive-semidefinite, this
       * will be recorded. If additionnally it is specified to be invertible, it
       * will be deduced that the matrix is positive definite.
-      * - if a minus-identity matrix is said to be non-zero undefinite, this 
+      * - if a minus-identity matrix is said to be non-zero undefinite, this
       * caracteristic will be discarded as it can be automatically deduced that
       * the matrix is negative definite. If it is said to be positive definite,
       * non constant or non invertible, an assertion will be fire as this
@@ -232,8 +232,8 @@ namespace tvm
 
   inline bool MatrixProperties::isPositiveSemiDefinite() const
   {
-    return positiveness_ == Positiveness::POSITIVE_SEMIDEFINITE 
-        || isPositiveDefinite() 
+    return positiveness_ == Positiveness::POSITIVE_SEMIDEFINITE
+        || isPositiveDefinite()
         || isZero();
   }
 
@@ -244,7 +244,7 @@ namespace tvm
 
   inline bool MatrixProperties::isNegativeSemidefinite() const
   {
-    return positiveness_ == Positiveness::NEGATIVE_SEMIDEFINITE 
+    return positiveness_ == Positiveness::NEGATIVE_SEMIDEFINITE
         || isNegativeDefinite()
         || isZero();
   }

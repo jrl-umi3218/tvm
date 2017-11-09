@@ -222,7 +222,7 @@ void Simple2dRobotEE::updateVelocityAndNormalAcc()
 
         for (int i = l.second- 1; i >= l.first+1; --i)
           v = H(x[i], lengths_[i]) * v;
-        
+
         v = dH(x[l.first], lengths_[l.first]) * v;
 
         for (int i = l.first-1; i >= 0; --i)

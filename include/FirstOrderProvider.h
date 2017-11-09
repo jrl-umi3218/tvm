@@ -48,12 +48,12 @@ namespace tvm
         *
         * This can be overriden in case you do not need all of the default
         * mechanism (typically if you will not use part of the cache).
-        * If you override to perform additional operations, do not forget to 
+        * If you override to perform additional operations, do not forget to
         * call this base version in the derived classes.
         */
       virtual void resizeCache();
 
-      /** Sub-methods of resizeCache to be used by derived classes that need 
+      /** Sub-methods of resizeCache to be used by derived classes that need
         * this level of granularity.
         */
       void resizeValueCache();

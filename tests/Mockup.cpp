@@ -52,19 +52,19 @@ SomeRobotFunction1::SomeRobotFunction1(std::shared_ptr<RobotMockup> robot)
 
 void SomeRobotFunction1::updateValue()
 {
-  std::cout << "update SomeRobotFunction1::Value" << std::endl; 
+  std::cout << "update SomeRobotFunction1::Value" << std::endl;
   val = (int)robot_->getK1() + (int)robot_->getK2();
 }
 void SomeRobotFunction1::updateVelocity()
 {
-  std::cout << "update SomeRobotFunction1::Velocity" << std::endl; 
+  std::cout << "update SomeRobotFunction1::Velocity" << std::endl;
   j = (int)robot_->getV1();
   vel = (int)robot_->getV2();
   na = (int)robot_->getK3()*(int)robot_->getV1();
 }
 void SomeRobotFunction1::updateJDot()
 {
-  std::cout << "update SomeRobotFunction1::JDot" << std::endl; 
+  std::cout << "update SomeRobotFunction1::JDot" << std::endl;
   jdot = (int)robot_->getK3()*(int)robot_->getV1() + (int)robot_->getV2();
 }
 
@@ -78,12 +78,12 @@ SomeRobotFunction2::SomeRobotFunction2(std::shared_ptr<RobotMockup> robot)
 void SomeRobotFunction2::updateValue()
 {
   val = robot_->getK1();
-  std::cout << "update SomeRobotFunction2::Value" << std::endl; 
+  std::cout << "update SomeRobotFunction2::Value" << std::endl;
 }
 void SomeRobotFunction2::updateVelocity()
 {
   j = robot_->getV1();
-  std::cout << "update SomeRobotFunction2::Velocity" << std::endl; 
+  std::cout << "update SomeRobotFunction2::Velocity" << std::endl;
 }
 
 BadRobotFunction::BadRobotFunction(std::shared_ptr<RobotMockup> robot)
@@ -223,7 +223,7 @@ BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::
            FunctionMockup::Output::Velocity,
            FunctionMockup::Output::NormalAcceleration);
 
-  addInputDependency<BetterDynamicLinearizedConstraint>(Update::Updateb, function_, 
+  addInputDependency<BetterDynamicLinearizedConstraint>(Update::Updateb, function_,
                                                         FunctionMockup::Output::Value,
                                                         FunctionMockup::Output::Velocity,
                                                         FunctionMockup::Output::NormalAcceleration);

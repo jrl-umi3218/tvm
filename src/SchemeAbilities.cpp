@@ -75,7 +75,7 @@ namespace tvm
         {
           if (emitWarnings)
           {
-            std::cout << "Warning: required priority level (" << p 
+            std::cout << "Warning: required priority level (" << p
                       << ") cannot be handled as a strict hierarchy level by the resolution scheme. "
                       << "Using scalarization to revert to weighted approach.";
           }

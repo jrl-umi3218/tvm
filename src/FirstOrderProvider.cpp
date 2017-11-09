@@ -11,7 +11,7 @@ namespace tvm
     {
       resizeCache(); //resize value_
     }
-    
+
     void FirstOrderProvider::resizeCache()
     {
       resizeValueCache();

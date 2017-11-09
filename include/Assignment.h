@@ -42,7 +42,7 @@ namespace tvm
       */
     Assignment(LinearConstraintPtr source, std::shared_ptr<SolvingRequirements> req,
                const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
-  
+
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/

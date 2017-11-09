@@ -48,7 +48,7 @@ namespace tvm
 
   private:
     //we retain the variables' derivatives shared_ptr to ensure the reference is never lost
-    std::vector<VariablePtr> variablesDot_; 
+    std::vector<VariablePtr> variablesDot_;
   };
 
 

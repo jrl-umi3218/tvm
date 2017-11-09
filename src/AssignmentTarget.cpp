@@ -56,12 +56,12 @@ namespace tvm
   {
     return VectorRef((*l_).segment(range_->start + shift_, range_->dim));
   }
-  
+
   VectorRef AssignmentTarget::u() const
   {
     return VectorRef((*u_).segment(range_->start + shift_, range_->dim));
   }
-  
+
   VectorRef AssignmentTarget::b() const
   {
     return VectorRef((*b_).segment(range_->start + shift_, range_->dim));
@@ -77,19 +77,19 @@ namespace tvm
     const int half = range_->dim / 2;
     return MatrixRef((*A_).block(range_->start, colStart, half, colDim));
   }
-  
+
   MatrixRef AssignmentTarget::ASecondHalf(int colStart, int colDim) const
   {
     const int half = range_->dim / 2;
     return MatrixRef((*A_).block(range_->start+half, colStart, half, colDim));
   }
-  
+
   VectorRef AssignmentTarget::bFirstHalf() const
   {
     const int half = range_->dim / 2;
     return VectorRef((*b_).segment(range_->start + shift_, half));
   }
-  
+
   VectorRef AssignmentTarget::bSecondHalf() const
   {
     const int half = range_->dim / 2;

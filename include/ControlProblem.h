@@ -33,8 +33,8 @@ namespace tvm
 
   private:
     //Note: we want to keep the tasks in the order they were introduced, mostly
-    //for human understanding and debugging purposes, so that we take a 
-    //std::vector. 
+    //for human understanding and debugging purposes, so that we take a
+    //std::vector.
     //If this induce too much overhead when adding/removing a constraint, then
     //we should consider std::set.
     std::vector<TaskWithRequirementsPtr> tr_;

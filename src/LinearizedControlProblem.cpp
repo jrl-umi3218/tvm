@@ -28,12 +28,12 @@ namespace tvm
   void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
   {
     ControlProblem::add(tr);
-    
+
     //FIXME A lot of work can be done here based on the properties of the task's jacobian.
     //In particular, we could detect bounds, pairs of tasks forming a double-sided constraints...
     LinearConstraintWithRequirements lcr;
     lcr.constraint = std::make_shared<LinearizedTaskConstraint>(tr->task);
-    //we use the aliasing constructor of std::shared_ptr to ensure that 
+    //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
     lcr.requirements = std::shared_ptr<SolvingRequirements>(tr, &tr->requirements);
     constraints_[tr.get()] = lcr;

@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace tvm
-{ 
+{
   Space::Space(int size)
     : Space(size, size, size)
   {

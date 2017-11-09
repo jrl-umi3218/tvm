@@ -684,7 +684,7 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p36.isTriangular());
   FAST_CHECK_UNARY(p36.isLowerTriangular());
   FAST_CHECK_UNARY(p36.isUpperTriangular());
-  
+
 
   MatrixProperties p41(MatrixProperties::MULTIPLE_OF_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE);
   FAST_CHECK_EQ(p41.shape(), MatrixProperties::MULTIPLE_OF_IDENTITY);
@@ -909,8 +909,8 @@ TEST_CASE("Test properties deductions")
   CHECK_THROWS_AS(
     MatrixProperties p62(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE)
     , std::runtime_error);
-  
-  
+
+
   MatrixProperties p63(MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
   FAST_CHECK_EQ(p63.shape(), MatrixProperties::MINUS_IDENTITY);
   FAST_CHECK_EQ(p63.positiveness(), MatrixProperties::NEGATIVE_DEFINITE);
@@ -994,7 +994,7 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p66.isTriangular());
   FAST_CHECK_UNARY(p66.isLowerTriangular());
   FAST_CHECK_UNARY(p66.isUpperTriangular());
-  
+
   MatrixProperties p71(MatrixProperties::ZERO, MatrixProperties::POSITIVE_SEMIDEFINITE);
   FAST_CHECK_EQ(p71.shape(), MatrixProperties::ZERO);
   FAST_CHECK_EQ(p71.positiveness(), MatrixProperties::POSITIVE_SEMIDEFINITE);
@@ -1016,11 +1016,11 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p71.isLowerTriangular());
   FAST_CHECK_UNARY(p71.isUpperTriangular());
 
-  
+
   CHECK_THROWS_AS(
     MatrixProperties p72(MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE)
     , std::runtime_error);
-  
+
   MatrixProperties p73(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
   FAST_CHECK_EQ(p73.shape(), MatrixProperties::ZERO);
   FAST_CHECK_EQ(p73.positiveness(), MatrixProperties::NEGATIVE_SEMIDEFINITE);

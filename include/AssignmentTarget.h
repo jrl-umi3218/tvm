@@ -35,16 +35,16 @@ namespace tvm
   public:
     /** Ax = 0, Ax <= 0 or Ax >= 0. */
     AssignmentTarget(RangePtr range, MatrixPtr A, ConstraintType ct);
-    /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b 
-      * 
-      * \param shift shifts the range for the vectors, i.e. the target is the rows 
+    /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b
+      *
+      * \param shift shifts the range for the vectors, i.e. the target is the rows
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
     AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, ConstraintType ct, ConstraintRHS cr, int shift=0);
 
-    /** l <= Ax <= u 
+    /** l <= Ax <= u
       *
-      * \param shift shifts the range for the vectors, i.e. the target is the rows 
+      * \param shift shifts the range for the vectors, i.e. the target is the rows
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
     AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, ConstraintRHS cr, int shift=0);
@@ -71,7 +71,7 @@ namespace tvm
     /** Return the whole vector q.*/
     VectorRef q() const;
 
-    /** Same as A(...), and b(), but return only the first or second half of 
+    /** Same as A(...), and b(), but return only the first or second half of
       * the row range. This is necessary when double-sided constraints are
       * assigned to matrix/vector with single-sided convention
       */

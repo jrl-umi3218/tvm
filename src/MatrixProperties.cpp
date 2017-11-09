@@ -21,7 +21,7 @@ namespace
     *    \     /
     *      nsd
     *
-    * with 
+    * with
     *  - pd  = positive definite
     *  - psd = positive semidefinite
     *  - nd  = negative definite
@@ -39,7 +39,7 @@ namespace
     //  - table[i][j] = 1 if i > j
     //  - table[i][j] = -1 if i <= j
     //  - table[i][j] = 0 if the comparison is not valid.
-                            // NA  | PSD | PD  | NSD | ND  |  I  | INZ  
+                            // NA  | PSD | PD  | NSD | ND  |  I  | INZ
     const int table[7][7] = {
                   /* NA  */  { -1  , -1  , -1  , -1  , -1  , -1  , -1  },
                   /* PSD */  {  1  , -1  , -1  ,  0  ,  0  ,  1  ,  0  },
@@ -48,7 +48,7 @@ namespace
                   /* ND  */  {  1  ,  0  ,  0  ,  1  , -1  ,  1  ,  1  },
                   /*  I  */  {  1  , -1  , -1  , -1  , -1  , -1  , -1  },
                   /* INZ */  {  1  ,  0  , -1  ,  0  , -1  ,  1  ,  1  }};
-    if (table[static_cast<int>(a)][static_cast<int>(b)] == 0) 
+    if (table[static_cast<int>(a)][static_cast<int>(b)] == 0)
       throw std::runtime_error("Invalid comparison");
 
     return table[static_cast<int>(a)][static_cast<int>(b)] > 0;

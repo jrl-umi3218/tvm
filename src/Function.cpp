@@ -11,7 +11,7 @@ namespace tvm
     resizeNormalAccelerationCache();
     resizeJDotCache();
   }
-  
+
   void Function::resizeCache()
   {
     FirstOrderProvider::resizeCache();

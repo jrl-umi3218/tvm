@@ -19,7 +19,7 @@ namespace tvm
       MAX           // to = max(to, from)
     };
 
-    /** Specify whether \a from is to be multiplied by 1, -1 or a user 
+    /** Specify whether \a from is to be multiplied by 1, -1 or a user
       * specified scalar.
       */
     enum ScalarMult
@@ -29,7 +29,7 @@ namespace tvm
       SCALAR        // s*from
     };
 
-    /** Specify if from is to be multiplied a matrix, and if so, what is the 
+    /** Specify if from is to be multiplied a matrix, and if so, what is the
       * type of the matrix.
       */
     enum MatrixMult
@@ -48,7 +48,7 @@ namespace tvm
     };
 
     /** The type of the source.
-      * Note there are two considerations for explicitly introducing the 
+      * Note there are two considerations for explicitly introducing the
       * CONSTANT case (versus requiring the user to give a Ref to a constant
       * vector):
       *  - we can deal with it more efficiently
@@ -104,7 +104,7 @@ namespace tvm
     class cache_traits<MatrixType, MIN, S, GENERAL, P, EXTERNAL> : public std::true_type {};
     template<typename MatrixType, ScalarMult S, MultPos P>
     class cache_traits<MatrixType, MAX, S, GENERAL, P, EXTERNAL> : public std::true_type {};
-    /** Specialization for GENERAL*CONSTANT. This should not be necessary, but 
+    /** Specialization for GENERAL*CONSTANT. This should not be necessary, but
       * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
     template<typename MatrixType, AssignType A, ScalarMult S, MultPos P>
     class cache_traits<MatrixType, A, S, GENERAL, P, CONSTANT> : public std::true_type {};
@@ -301,14 +301,14 @@ namespace tvm
 
       SourceBase(const SourceType& from) : from_(from) {}
 
-      const SourceType& from() const 
+      const SourceType& from() const
       {
         return from_;
       }
-      
+
       void from(const SourceType& from)
       {
-        // We want to do from_ = from but there is no operator= for Eigen::Ref, 
+        // We want to do from_ = from but there is no operator= for Eigen::Ref,
         // so we need to use a placement new.
         new (&from_) SourceType(from);
       }
@@ -318,7 +318,7 @@ namespace tvm
     };
 
     /** Partial specialization for ZERO*/
-    template<typename MatrixType> 
+    template<typename MatrixType>
     class SourceBase<MatrixType, ZERO> {};
 
 
@@ -330,15 +330,15 @@ namespace tvm
       *  - f is the source matrix/vector
       *  - op is described by A
       *  - s is a scalar, user supplied if S is SCALAR, +/-1 otherwise
-      *  - M is a matrix, either the identity or user-supplied, depending on 
+      *  - M is a matrix, either the identity or user-supplied, depending on
       *    the template parameter M (see MatrixMult)
-      * If F=EXTERNAl f is a user supplied Eigen::Ref<MatrixType>, if F=ZERO, 
+      * If F=EXTERNAl f is a user supplied Eigen::Ref<MatrixType>, if F=ZERO,
       * f=0 and if F=CONSTANT, f is a constant vector (vector only).
       *
       * This class is meant to be a helper class and should not live on its own,
       * but be create by a higher-level class ensuring its data are valid.
       *
-      * FIXME get rid of PRE/POST and have the assignment t = op(t, s*M1*f*M2) 
+      * FIXME get rid of PRE/POST and have the assignment t = op(t, s*M1*f*M2)
       * instead (needed for substitution in constraints with anistropic weight.
       */
     template<typename MatrixType, AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F=EXTERNAL>
@@ -354,7 +354,7 @@ namespace tvm
         : ScalarMultBase<S>(s)
         , MatrixMultBase<M, P>(m)
         , SourceBase<MatrixType,F>(from)
-        , to_(to) 
+        , to_(to)
       {
         static_assert(F == EXTERNAL || (MatrixType::ColsAtCompileTime == 1 && P == PRE), "For F=CONSTANT, only vector type and pre-multiplications are allowed");
       }
@@ -368,7 +368,7 @@ namespace tvm
 
       void to(const Eigen::Ref<MatrixType>& to)
       {
-        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+        // We want to do to_ = to but there is no operator= for Eigen::Ref,
         // so we need to use a placement new.
         new (&to_) Eigen::Ref<MatrixType>(to);
       }
@@ -393,9 +393,9 @@ namespace tvm
     public:
       void run() {/* Do nothing */ }
       void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */}
-      void to(const Eigen::Ref<MatrixType>& to) 
-      { 
-        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+      void to(const Eigen::Ref<MatrixType>& to)
+      {
+        // We want to do to_ = to but there is no operator= for Eigen::Ref,
         // so we need to use a placement new.
         new (&to_) Eigen::Ref<MatrixType>(to);
       }
@@ -418,9 +418,9 @@ namespace tvm
     public:
       void run() { to_.setZero(); }
       void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
-      void to(const Eigen::Ref<MatrixType>& to) 
-      { 
-        // We want to do to_ = to but there is no operator= for Eigen::Ref, 
+      void to(const Eigen::Ref<MatrixType>& to)
+      {
+        // We want to do to_ = to but there is no operator= for Eigen::Ref,
         // so we need to use a placement new.
         new (&to_) Eigen::Ref<MatrixType>(to);
       }

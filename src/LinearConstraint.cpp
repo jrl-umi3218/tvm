@@ -65,13 +65,13 @@ namespace tvm
     setb(b);
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, 
+  BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x,
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     :BasicLinearConstraint({ A }, { x }, l, u, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, 
+  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x,
                                                const VectorConstRef& l, const VectorConstRef& u, ConstraintRHS cr)
     : LinearConstraint(ConstraintType::DOUBLE_SIDED, cr, static_cast<int>(A.begin()->rows()))
   {

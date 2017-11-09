@@ -17,7 +17,7 @@ namespace tvm
       void big_number(double big);
 
     protected:
-      /** Constructor, meant only for derived classes 
+      /** Constructor, meant only for derived classes
         *
         * \param abilities The set of abilities for this scheme.
         * \param big A big number use to represent infinity, in particular when

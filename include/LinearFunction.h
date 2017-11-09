@@ -30,7 +30,7 @@ namespace tvm
   };
 
 
-  /** The most basic linear function f(x_1, ..., x_k) = sum A_i x_i + b where 
+  /** The most basic linear function f(x_1, ..., x_k) = sum A_i x_i + b where
     * the matrices are constant.
     */
   class TVM_DLLAPI BasicLinearFunction : public LinearFunction

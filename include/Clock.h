@@ -4,7 +4,7 @@
 
 namespace tvm
 {
-  /* Rationale: we have a unique timer allowed in a ControlProblem (more would 
+  /* Rationale: we have a unique timer allowed in a ControlProblem (more would
      be possible easily but what for ?). When updating the problem, the following
      order is applied: (i) increment the clock, (ii) call all updateTimeDependency,
      (iii) call the update plan.*/

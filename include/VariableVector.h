@@ -15,7 +15,7 @@ namespace tvm
     * One of the main use of this class is to determine variable mapping, i.e.
     * given a vector aggregating all variables, which section of this vector
     * would correspond to a given variable.
-    * There is two approaches for that: either build a map with 
+    * There is two approaches for that: either build a map with
     * computeMappingMap or use the method Variable::getMappingIn. The latter
     * uses a cache in Variable in a way that if one invoke Variable::getMappingIn
     * on any variable contained in a VariableVector, the mapping of all other
@@ -39,7 +39,7 @@ namespace tvm
     /** Add a variable to the vector.
       *
       * /param v the variable to be added
-      * /param mergeDuplicate if true, attempting to add a variable that is 
+      * /param mergeDuplicate if true, attempting to add a variable that is
       * already in the vector will be ignored. If false, it will raise an exception.
       */
     void add(VariablePtr v, bool mergeDuplicate = false);
@@ -48,7 +48,7 @@ namespace tvm
     /** Remove a variable from the vector.
       *
       * /param v the variable to be removed
-      * /param ignoreAbsence if true, attempting to remove a variable that is 
+      * /param ignoreAbsence if true, attempting to remove a variable that is
       * not present in the vector will be ignored, If false, it will raise an
       * exception.
       */
@@ -80,12 +80,12 @@ namespace tvm
     std::map<const Variable*, Range> computeMappingMap() const;
     /** Check if this vector contains variable v or not.*/
     bool contains(const Variable& v) const;
-    
-    /** A timestamp, used internally to determine if a mapping needs to be 
+
+    /** A timestamp, used internally to determine if a mapping needs to be
       * recomputed or not.
       */
     int stamp() const;
-  
+
   private:
     void getNewStamp() const;
 
