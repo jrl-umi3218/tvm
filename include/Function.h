@@ -14,7 +14,7 @@ namespace tvm
   class TVM_DLLAPI Function : public internal::FirstOrderProvider
   {
   public:
-    SET_OUTPUTS(Function, Velocity, NormalAcceleration, JDot);
+    SET_OUTPUTS(Function, Velocity, NormalAcceleration, JDot)
 
     /** Note: by default, these methods return the cached value.
       * However, they are virtual in case the user might want to bypass the cache.

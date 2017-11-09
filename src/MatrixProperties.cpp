@@ -113,18 +113,16 @@ namespace
 
   MatrixProperties::Positiveness deducePositiveness(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness, bool invertible)
   {
-    MatrixProperties::Positiveness p;
+    MatrixProperties::Positiveness p = MatrixProperties::Positiveness::NA;
     //get default positiveness for the shape
     switch (shape)
     {
-    case MatrixProperties::Shape::GENERAL:              p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::Shape::LOWER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
-    case MatrixProperties::Shape::UPPER_TRIANGULAR:     p = MatrixProperties::Positiveness::NA;                break;
     case MatrixProperties::Shape::DIAGONAL:             p = MatrixProperties::Positiveness::INDEFINITE;        break;
     case MatrixProperties::Shape::MULTIPLE_OF_IDENTITY: p = MatrixProperties::Positiveness::INDEFINITE;        break;
     case MatrixProperties::Shape::IDENTITY:             p = MatrixProperties::Positiveness::POSITIVE_DEFINITE; break;
     case MatrixProperties::Shape::MINUS_IDENTITY:       p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE; break;
     case MatrixProperties::Shape::ZERO:                 p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    default: break;
     }
 
     //get tighter positiveness between default one and user-provided one, possibly promoted if invertible

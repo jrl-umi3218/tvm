@@ -18,7 +18,7 @@ namespace tvm
     {
     }
 
-    void LevelAbilities::check(const ConstraintPtr& c, const SolvingRequirementsPtr& req, bool emitWarnings) const
+    void LevelAbilities::check(const ConstraintPtr& c, const SolvingRequirementsPtr& req, bool /*emitWarnings*/) const
     {
       //checking the constraint type
       if (c->constraintType() != ConstraintType::EQUAL && !inequalities_)

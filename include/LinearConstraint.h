@@ -14,7 +14,7 @@ namespace tvm
   class TVM_DLLAPI LinearConstraint : public Constraint
   {
   public:
-    SET_UPDATES(LinearConstraint, Value);
+    SET_UPDATES(LinearConstraint, Value)
 
     void updateValue();
 

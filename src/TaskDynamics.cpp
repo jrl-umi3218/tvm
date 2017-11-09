@@ -45,9 +45,9 @@ namespace tvm
   void NoDynamics::setFunction_()
   {
     if (value_.size() == 0)
-      value_.setZero(function()->size());
+      value_.setZero(function().size());
     else
-      assert(value_.size() == function()->size());
+      assert(value_.size() == function().size());
   }
 
   ProportionalDynamics::ProportionalDynamics(double kp)
@@ -58,7 +58,7 @@ namespace tvm
 
   void ProportionalDynamics::updateValue()
   {
-    value_ = -kp_ * function()->value();
+    value_ = -kp_ * function().value();
   }
 
   ProportionalDerivativeDynamics::ProportionalDerivativeDynamics(double kp, double kv)
@@ -75,6 +75,6 @@ namespace tvm
 
   void ProportionalDerivativeDynamics::updateValue()
   {
-    value_ = -kv_ * function()->velocity() - kp_ * function()->value();
+    value_ = -kv_ * function().velocity() - kp_ * function().value();
   }
 }

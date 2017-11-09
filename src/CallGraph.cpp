@@ -102,8 +102,8 @@ int CallGraph::addCall(Call c)
 
 void CallGraph::addEdge(int from, int to)
 {
-  assert(from < dependencies_.size());
-  assert(to < root_.size());
+  assert(static_cast<size_t>(from) < dependencies_.size());
+  assert(static_cast<size_t>(to) < root_.size());
   dependencies_[from].push_back(to);
   root_[to] = false;
 }

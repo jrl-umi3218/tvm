@@ -78,6 +78,7 @@ namespace tvm
       add(a, *v);
       ++v;
     }
+    setb(b);
   }
 
   void BasicLinearFunction::setA(const MatrixConstRef& A, const Variable& x)
@@ -124,17 +125,17 @@ namespace tvm
     jacobian_.begin()->second.properties({ MatrixProperties::Shape::IDENTITY });
   }
 
-  void IdentityFunction::setA(const MatrixConstRef & A, const Variable & x)
+  void IdentityFunction::setA(const MatrixConstRef &, const Variable &)
   {
     throw std::runtime_error("You can not change the A matrix on a identity function");
   }
 
-  void IdentityFunction::setA(const MatrixConstRef & A)
+  void IdentityFunction::setA(const MatrixConstRef &)
   {
     throw std::runtime_error("You can not change the A matrix on a identity function");
   }
 
-  void IdentityFunction::setb(const VectorConstRef& b)
+  void IdentityFunction::setb(const VectorConstRef &)
   {
     throw std::runtime_error("You can not change the b vector on a identity function");
   }

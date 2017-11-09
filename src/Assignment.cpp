@@ -9,8 +9,8 @@ namespace tvm
                          const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight)
     : source_(source)
     , target_(target)
-    , requirements_(req)
     , scalarizationWeight_(scalarizationWeight)
+    , requirements_(req)
   {
     if (!checkTarget())
       throw std::runtime_error("target conventions are not compatible with the source.");
@@ -32,17 +32,17 @@ namespace tvm
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::onUpdatedMapping(const VariableVector& variables)
+  void Assignment::onUpdatedMapping(const VariableVector& /*variables*/)
   {
     //TODO
   }
 
-  void Assignment::weight(double alpha)
+  void Assignment::weight(double /*alpha*/)
   {
     //TODO
   }
 
-  void Assignment::weight(const Eigen::VectorXd& w)
+  void Assignment::weight(const Eigen::VectorXd& /*w*/)
   {
     //TODO
   }

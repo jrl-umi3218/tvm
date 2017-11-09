@@ -13,7 +13,7 @@ namespace tvm
 {
   class Variable;
   class VariableVector;
-  
+
   class Range
   {
   public:
@@ -28,14 +28,14 @@ namespace tvm
    * The space can have up to 3 different sizes, although Euclidean spaces will
    * have only one :
    * - the size of the space as a manifold,
-   * - the size of the vector needed to represent one variable (point) in this 
+   * - the size of the vector needed to represent one variable (point) in this
    *   space (representation space, rsize),
    * - the size of the vector needed to represent a derivative (velocity,
    *   acceleration, ...) of this variable (tangent space, tsize).
    *
    * Here are a few examples:
    * - R^n has a size, rsize and tsize of n,
-   * - SO(3), the 3d rotation space, when represented by quaternions, has a 
+   * - SO(3), the 3d rotation space, when represented by quaternions, has a
    *   size of 3, a rsize of 4 and a tsize of 3,
    * - S(2), the sphere in dimension 3 has a size of 2, and rsize and tsize of 3.
    */
@@ -89,7 +89,7 @@ namespace tvm
   /** Representation of a Variable, i.e. a point in a space.
     *
     * A variable can only be constructed from a Space, in which case we say it
-    * is a base primitive, or from an other variable, by derivation with the 
+    * is a base primitive, or from an other variable, by derivation with the
     * dot() operator.
     */
   class TVM_DLLAPI Variable
@@ -101,9 +101,9 @@ namespace tvm
       * represent it.
       */
     int size() const;
-    /** Return the space to which this variable is linked. It is either the 
-      * space the variable was obtained from (for a variable that is a 
-      * primitive), or the space of its primitive (for a variable which is 
+    /** Return the space to which this variable is linked. It is either the
+      * space the variable was obtained from (for a variable that is a
+      * primitive), or the space of its primitive (for a variable which is
       * derived from an other).
       */
     const Space& space() const;
@@ -123,13 +123,13 @@ namespace tvm
     /** Get the n-th primitive of the variable*/
     template <int n=1>
     VariablePtr primitive() const;
-    /** Get the base primitive of this variable. Equivalent to primitive<d>() 
+    /** Get the base primitive of this variable. Equivalent to primitive<d>()
       * where d = derivativeNumber().
       */
     VariablePtr basePrimitive() const;
 
     /** Get the mapping of this variable, within a vector of variables: if all
-      * variables values are stacked in one vector v, the returned Range 
+      * variables values are stacked in one vector v, the returned Range
       * specifies the segment of v corresponding to this variable.
       */
     Range getMappingIn(const VariableVector& variables) const;
@@ -162,12 +162,12 @@ namespace tvm
     /** Value of the variable */
     Eigen::VectorXd value_;
 
-    /** Number of derivation since the base primitive. 0 a variable which is 
+    /** Number of derivation since the base primitive. 0 a variable which is
       * not a derivative.
       */
     int derivativeNumber_;
 
-    /** If the variable is the time derivative of another one, primitive_ is a 
+    /** If the variable is the time derivative of another one, primitive_ is a
       * reference to the latter, otherwise it is uninitialized.
       */
     VariablePtr primitive_;
@@ -179,9 +179,9 @@ namespace tvm
     mutable MappingHelper mappingHelper_;
 
     /** friendship declaration */
-    friend class TVM_DLLAPI Space;
-    friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
-    friend class TVM_DLLAPI VariableVector;
+    friend class Space;
+    friend VariablePtr dot(VariablePtr, int);
+    friend class VariableVector;
   };
 
   template <int n>

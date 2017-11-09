@@ -35,7 +35,7 @@ namespace tvm
 
   protected:
     TaskDynamics(TDOrder order);
-    Function* const function() const;
+    const Function & function() const;
 
     /** Hook for derived class, called at the end of setFunction.*/
     virtual void setFunction_();
@@ -59,9 +59,6 @@ namespace tvm
 
   protected:
     void setFunction_() override;
-
-  private:
-    double kp_;
   };
 
   /** Compute \dot{e}* = -kp*f (Kinematic order)
@@ -110,9 +107,10 @@ namespace tvm
     return order_;
   }
 
-  inline Function* const TaskDynamics::function() const
+  inline const Function & TaskDynamics::function() const
   {
-    return f_.get();
+    assert(f_);
+    return *f_;
   }
 
   inline void TaskDynamics::setFunction_()

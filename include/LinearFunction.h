@@ -14,7 +14,7 @@ namespace tvm
   class TVM_DLLAPI LinearFunction : public Function
   {
   public:
-    SET_UPDATES(LinearFunction, Value, Velocity);
+    SET_UPDATES(LinearFunction, Value, Velocity)
 
     void updateValue();
     void updateVelocity();

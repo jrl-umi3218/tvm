@@ -20,7 +20,7 @@ namespace tvm
   class TVM_DLLAPI ConstraintBase : public internal::FirstOrderProvider
   {
   public:
-    SET_OUTPUTS(ConstraintBase, L, U, E);
+    SET_OUTPUTS(ConstraintBase, L, U, E)
 
   protected:
     ConstraintBase(int m);

@@ -122,6 +122,7 @@ namespace tvm
         case ConstraintType::EQUAL: e_ = b; break;
         case ConstraintType::GREATER_THAN: l_ = b; break;
         case ConstraintType::LOWER_THAN: u_ = b; break;
+        default: break;
         }
       }
       else

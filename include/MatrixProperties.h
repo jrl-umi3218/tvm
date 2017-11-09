@@ -125,10 +125,10 @@ namespace tvm
 
     struct Arguments
     {
-      ADD_ARGUMENT(Shape, shape, false, false);
-      ADD_ARGUMENT(Positiveness, positiveness, false, false);
-      ADD_ARGUMENT(Constness, constant, true, false);
-      ADD_ARGUMENT(Invertibility, invertible, false, true);
+      ADD_ARGUMENT(Shape, shape, false, false)
+      ADD_ARGUMENT(Positiveness, positiveness, false, false)
+      ADD_ARGUMENT(Constness, constant, true, false)
+      ADD_ARGUMENT(Invertibility, invertible, false, true)
 
       std::pair<bool, bool> processArgs() { return{ false, false }; }
 
