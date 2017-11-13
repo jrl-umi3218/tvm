@@ -9,7 +9,6 @@ set(TVM_SOURCES
   VariableVector.cpp
 
   constraint/BasicLinearConstraint.cpp
-  constraint/ConstraintBase.cpp
   constraint/Constraint.cpp
   constraint/LinearConstraint.cpp
   constraint/LinearizedTaskConstraint.cpp
@@ -60,7 +59,6 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/constraint/abstract/LinearConstraint.h
   ${TVM_INCLUDE_DIR}/constraint/BasicLinearConstraint.h
   ${TVM_INCLUDE_DIR}/constraint/enums.h
-  ${TVM_INCLUDE_DIR}/constraint/internal/ConstraintBase.h
   ${TVM_INCLUDE_DIR}/constraint/internal/LinearizedTaskConstraint.h
 
   ${TVM_INCLUDE_DIR}/event/enums.h
@@ -131,6 +129,7 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
+target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 
 install(TARGETS TVM
