@@ -1,5 +1,6 @@
-#include "LinearizedControlProblem.h"
-#include "LinearizedTaskConstraint.h"
+#include <tvm/LinearizedControlProblem.h>
+
+#include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 
 namespace tvm
 {
@@ -13,14 +14,14 @@ namespace tvm
       add(tr);
   }
 
-  TaskWithRequirementsPtr LinearizedControlProblem::add(const Task& task, const SolvingRequirements& req)
+  TaskWithRequirementsPtr LinearizedControlProblem::add(const Task& task, const requirements::SolvingRequirements& req)
   {
     auto tr = std::make_shared<TaskWithRequirements>(task, req);
     add(tr);
     return tr;
   }
 
-  TaskWithRequirementsPtr LinearizedControlProblem::add(ProtoTask proto, std::shared_ptr<TaskDynamics> td, const SolvingRequirements& req)
+  TaskWithRequirementsPtr LinearizedControlProblem::add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
   {
     return add({ proto, td }, req);
   }
@@ -32,19 +33,19 @@ namespace tvm
     //FIXME A lot of work can be done here based on the properties of the task's jacobian.
     //In particular, we could detect bounds, pairs of tasks forming a double-sided constraints...
     LinearConstraintWithRequirements lcr;
-    lcr.constraint = std::make_shared<LinearizedTaskConstraint>(tr->task);
+    lcr.constraint = std::make_shared<constraint::internal::LinearizedTaskConstraint>(tr->task);
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
-    lcr.requirements = std::shared_ptr<SolvingRequirements>(tr, &tr->requirements);
+    lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
     constraints_[tr.get()] = lcr;
     typedef internal::FirstOrderProvider::Output CstrOutput;
     updater_.addInput(lcr.constraint, CstrOutput::Jacobian);
     switch (tr->task.type())
     {
-    case ConstraintType::EQUAL: updater_.addInput(lcr.constraint, Constraint::Output::E); break;
-    case ConstraintType::GREATER_THAN: updater_.addInput(lcr.constraint, Constraint::Output::L); break;
-    case ConstraintType::LOWER_THAN: updater_.addInput(lcr.constraint, Constraint::Output::U); break;
-    case ConstraintType::DOUBLE_SIDED: updater_.addInput(lcr.constraint, Constraint::Output::L, Constraint::Output::U); break;
+      case constraint::Type::EQUAL: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::E); break;
+    case constraint::Type::GREATER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L); break;
+    case constraint::Type::LOWER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::U); break;
+    case constraint::Type::DOUBLE_SIDED: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L, constraint::abstract::Constraint::Output::U); break;
     }
   }
 
@@ -74,7 +75,7 @@ namespace tvm
 
   LinearizedControlProblem::Updater::Updater()
     : upToDate_(false)
-    , inputs_(new data::Inputs)
+    , inputs_(new graph::internal::Inputs)
   {
   }
 
@@ -93,4 +94,4 @@ namespace tvm
   {
     updateGraph_.execute();
   }
-}
+}  // namespace tvm

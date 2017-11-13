@@ -1,71 +1,114 @@
 set(TVM_SOURCES
-  data/Inputs.cpp
-  Assignment.cpp
-  AssignmentTarget.cpp
-  CallGraph.cpp
   Clock.cpp
-  Constraint.cpp
   ControlProblem.cpp
-  EventGraph.cpp
-  FirstOrderProvider.cpp
-  Function.cpp
-  LinearConstraint.cpp
-  LinearFunction.cpp
   LinearizedControlProblem.cpp
-  LinearizedTaskConstraint.cpp
-  MatrixProperties.cpp
-  ResolutionScheme.cpp
   Robot.cpp
-  ResolutionScheme.cpp
-  SchemeAbilities.cpp
-  SolvingRequirements.cpp
+  Space.cpp
   Task.cpp
-  TaskDynamics.cpp
   Variable.cpp
   VariableVector.cpp
-  WeightedLeastSquares.cpp)
 
-set(TVM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include/tvm)
+  constraint/BasicLinearConstraint.cpp
+  constraint/ConstraintBase.cpp
+  constraint/Constraint.cpp
+  constraint/LinearConstraint.cpp
+  constraint/LinearizedTaskConstraint.cpp
+
+  event/Listener.cpp
+  event/Source.cpp
+
+  function/BasicLinearFunction.cpp
+  function/Function.cpp
+  function/IdentityFunction.cpp
+  function/LinearFunction.cpp
+
+  graph/CallGraph.cpp
+  graph/Inputs.cpp
+
+  internal/FirstOrderProvider.cpp
+  internal/MatrixProperties.cpp
+
+  requirements/SolvingRequirements.cpp
+
+  scheme/Assignment.cpp
+  scheme/AssignmentTarget.cpp
+  scheme/ResolutionScheme.cpp
+  scheme/SchemeAbilities.cpp
+  scheme/WeightedLeastSquares.cpp
+
+  task_dynamics/None.cpp
+  task_dynamics/Proportional.cpp
+  task_dynamics/ProportionalDerivative.cpp
+  task_dynamics/TaskDynamics.cpp
+)
+
+set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
 set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/api.h
-  ${TVM_INCLUDE_DIR}/CallGraph.h
-  ${TVM_INCLUDE_DIR}/data/AbstractNode.h
-  ${TVM_INCLUDE_DIR}/data/Inputs.h
-  ${TVM_INCLUDE_DIR}/data/Inputs.hpp
-  ${TVM_INCLUDE_DIR}/data/Node.h
-  ${TVM_INCLUDE_DIR}/data/Node.hpp
-  ${TVM_INCLUDE_DIR}/data/Outputs.h
-  ${TVM_INCLUDE_DIR}/utils/enums.h
+  ${TVM_INCLUDE_DIR}/Clock.h
+  ${TVM_INCLUDE_DIR}/ControlProblem.h
+  ${TVM_INCLUDE_DIR}/defs.h
+  ${TVM_INCLUDE_DIR}/LinearizedControlProblem.h
+  ${TVM_INCLUDE_DIR}/Range.h
+  ${TVM_INCLUDE_DIR}/Robot.h
+  ${TVM_INCLUDE_DIR}/Space.h
+  ${TVM_INCLUDE_DIR}/Task.h
+  ${TVM_INCLUDE_DIR}/Variable.h
+  ${TVM_INCLUDE_DIR}/VariableVector.h
 
-# Temporary
-  ${TVM_INCLUDE_DIR}/../Assignment.h
-  ${TVM_INCLUDE_DIR}/../AssignmentTarget.h
-  ${TVM_INCLUDE_DIR}/../Clock.h
-  ${TVM_INCLUDE_DIR}/../Constraint.h
-  ${TVM_INCLUDE_DIR}/../ControlProblem.h
-  ${TVM_INCLUDE_DIR}/../ConstraintEnums.h
-  ${TVM_INCLUDE_DIR}/../defs.h
-  ${TVM_INCLUDE_DIR}/../exceptions.h
-  ${TVM_INCLUDE_DIR}/../EventGraph.h
-  ${TVM_INCLUDE_DIR}/../FirstOrderProvider.h
-  ${TVM_INCLUDE_DIR}/../Function.h
-  ${TVM_INCLUDE_DIR}/../LinearConstraint.h
-  ${TVM_INCLUDE_DIR}/../LinearFunction.h
-  ${TVM_INCLUDE_DIR}/../LinearizedControlProblem.h
-  ${TVM_INCLUDE_DIR}/../LinearizedTaskConstraint.h
-  ${TVM_INCLUDE_DIR}/../MatrixProperties.h
-  ${TVM_INCLUDE_DIR}/../MatrixWithProperties.h
-  ${TVM_INCLUDE_DIR}/../ResolutionScheme.h
-  ${TVM_INCLUDE_DIR}/../Robot.h
-  ${TVM_INCLUDE_DIR}/../SchemeAbilities.h
-  ${TVM_INCLUDE_DIR}/../SolvingRequirements.h
-  ${TVM_INCLUDE_DIR}/../Task.h
-  ${TVM_INCLUDE_DIR}/../TaskDynamics.h
-  ${TVM_INCLUDE_DIR}/../Variable.h
-  ${TVM_INCLUDE_DIR}/../VariableVector.h
-  ${TVM_INCLUDE_DIR}/../WeightedLeastSquares.h
-  ${TVM_INCLUDE_DIR}/utils/CompiledAssignment.h
-  ${TVM_INCLUDE_DIR}/utils/CompiledAssignmentWrapper.h)
+  ${TVM_INCLUDE_DIR}/constraint/abstract/Constraint.h
+  ${TVM_INCLUDE_DIR}/constraint/abstract/LinearConstraint.h
+  ${TVM_INCLUDE_DIR}/constraint/BasicLinearConstraint.h
+  ${TVM_INCLUDE_DIR}/constraint/enums.h
+  ${TVM_INCLUDE_DIR}/constraint/internal/ConstraintBase.h
+  ${TVM_INCLUDE_DIR}/constraint/internal/LinearizedTaskConstraint.h
+
+  ${TVM_INCLUDE_DIR}/event/enums.h
+  ${TVM_INCLUDE_DIR}/event/Listener.h
+  ${TVM_INCLUDE_DIR}/event/Source.h
+
+  ${TVM_INCLUDE_DIR}/exception/exceptions.h
+
+  ${TVM_INCLUDE_DIR}/function/abstract/Function.h
+  ${TVM_INCLUDE_DIR}/function/abstract/LinearFunction.h
+  ${TVM_INCLUDE_DIR}/function/BasicLinearFunction.h
+  ${TVM_INCLUDE_DIR}/function/IdentityFunction.h
+
+  ${TVM_INCLUDE_DIR}/graph/abstract/Node.h
+  ${TVM_INCLUDE_DIR}/graph/abstract/Node.hpp
+  ${TVM_INCLUDE_DIR}/graph/abstract/OutputSelector.h
+  ${TVM_INCLUDE_DIR}/graph/abstract/Outputs.h
+  ${TVM_INCLUDE_DIR}/graph/CallGraph.h
+  ${TVM_INCLUDE_DIR}/graph/internal/AbstractNode.h
+  ${TVM_INCLUDE_DIR}/graph/internal/Inputs.h
+  ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
+
+  ${TVM_INCLUDE_DIR}/internal/enums.h
+  ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
+  ${TVM_INCLUDE_DIR}/internal/MatrixProperties.h
+  ${TVM_INCLUDE_DIR}/internal/MatrixWithProperties.h
+
+  ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
+  ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h
+  ${TVM_INCLUDE_DIR}/requirements/PriorityLevel.h
+  ${TVM_INCLUDE_DIR}/requirements/SolvingRequirements.h
+  ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
+  ${TVM_INCLUDE_DIR}/requirements/Weight.h
+
+  ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignment.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignmentWrapper.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
+  ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
+
+  ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/None.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
+)
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")

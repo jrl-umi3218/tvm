@@ -1,5 +1,5 @@
-#include <tvm/data/Node.h>
-#include <tvm/data/OutputSelector.h>
+#include <tvm/graph/abstract/Node.h>
+#include <tvm/graph/abstract/OutputSelector.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-using namespace tvm::data;
+using namespace tvm::graph::abstract;
 
 class Provider1 : public Node<Provider1>
 {

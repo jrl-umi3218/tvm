@@ -1,10 +1,10 @@
-#include <tvm/data/Node.h>
+#include <tvm/graph/abstract/Node.h>
 
 #include <iostream>
 
 struct FailedTest {};
 
-struct RegisterDisabledUpdate : public tvm::data::Node<RegisterDisabledUpdate>
+struct RegisterDisabledUpdate : public tvm::graph::abstract::Node<RegisterDisabledUpdate>
 {
   SET_UPDATES(RegisterDisabledUpdate, U0, U1)
   DISABLE_UPDATES(Update::U0)
@@ -17,7 +17,7 @@ struct RegisterDisabledUpdate : public tvm::data::Node<RegisterDisabledUpdate>
   void updateU0() {}
 };
 
-struct DisabledOutputDependency : public tvm::data::Node<DisabledOutputDependency>
+struct DisabledOutputDependency : public tvm::graph::abstract::Node<DisabledOutputDependency>
 {
   SET_OUTPUTS(DisabledOutputDependency, O0, O1)
   DISABLE_OUTPUTS(Output::O0)
@@ -29,7 +29,7 @@ struct DisabledOutputDependency : public tvm::data::Node<DisabledOutputDependenc
   }
 };
 
-struct DisabledInternalDependency : public tvm::data::Node<DisabledInternalDependency>
+struct DisabledInternalDependency : public tvm::graph::abstract::Node<DisabledInternalDependency>
 {
   SET_UPDATES(DisabledInternalDependency, U0, U1)
   DISABLE_UPDATES(Update::U0)
@@ -40,13 +40,13 @@ struct DisabledInternalDependency : public tvm::data::Node<DisabledInternalDepen
   }
 };
 
-struct DisabledOutput : public tvm::data::Node<DisabledOutput>
+struct DisabledOutput : public tvm::graph::abstract::Node<DisabledOutput>
 {
   SET_OUTPUTS(DisabledOutput, O0, O1)
   DISABLE_OUTPUTS(Output::O0)
 };
 
-struct DisabledUpdateInputDependency : public tvm::data::Node<DisabledUpdateInputDependency>
+struct DisabledUpdateInputDependency : public tvm::graph::abstract::Node<DisabledUpdateInputDependency>
 {
   SET_UPDATES(DisabledUpdateInputDependency, U0)
   DISABLE_UPDATES(Update::U0)
@@ -56,7 +56,7 @@ struct DisabledUpdateInputDependency : public tvm::data::Node<DisabledUpdateInpu
   }
 };
 
-struct DisabledOutputInputDependency : public tvm::data::Node<DisabledOutputInputDependency>
+struct DisabledOutputInputDependency : public tvm::graph::abstract::Node<DisabledOutputInputDependency>
 {
   SET_UPDATES(DisabledOutputInputDependency, U0)
   DisabledOutputInputDependency(std::shared_ptr<DisabledOutput> s)

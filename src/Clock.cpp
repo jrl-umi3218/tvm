@@ -1,4 +1,5 @@
-#include "Clock.h"
+#include <tvm/Clock.h>
+
 #include <assert.h>
 
 tvm::Clock::Clock(double initTime)

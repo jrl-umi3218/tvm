@@ -1,22 +1,23 @@
-#include "ControlProblem.h"
+#include <tvm/ControlProblem.h>
 
 namespace tvm
 {
-  TaskWithRequirements::TaskWithRequirements(const Task& t, SolvingRequirements req)
+
+  TaskWithRequirements::TaskWithRequirements(const Task& t, requirements::SolvingRequirements req)
     : task(t)
     , requirements(req)
   {
   }
 
 
-  TaskWithRequirementsPtr ControlProblem::add(const Task& task, const SolvingRequirements& req)
+  TaskWithRequirementsPtr ControlProblem::add(const Task& task, const requirements::SolvingRequirements& req)
   {
     auto tr = std::make_shared<TaskWithRequirements>(task, req);
     add(tr);
     return tr;
   }
 
-  TaskWithRequirementsPtr ControlProblem::add(ProtoTask proto, std::shared_ptr<TaskDynamics> td, const SolvingRequirements& req)
+  TaskWithRequirementsPtr ControlProblem::add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
   {
     return add({ proto,td }, req);
   }
@@ -37,4 +38,5 @@ namespace tvm
   {
     return tr_;
   }
-}
+
+}  // namespace tvm
