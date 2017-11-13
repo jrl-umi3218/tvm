@@ -67,12 +67,16 @@ namespace internal
     using BaseOutput = tvm::internal::FirstOrderProvider::Output;
     addInputDependency<LTC>(Update::UpdateRHS, td_, task_dynamics::abstract::TaskDynamics::Output::Value);
     addInputDependency<LinearConstraint>(LinearConstraint::Update::Value, f_, BaseOutput::Jacobian);
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wpragmas"
-#pragma GCC diagnostic ignored "-Wunknown-warning-option"
-#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#ifndef WIN32
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wpragmas"
+# pragma GCC diagnostic ignored "-Wunknown-warning-option"
+# pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
     addOutputDependency<LTC>(output, Update::UpdateRHS);
-#pragma GCC diagnostic pop
+#ifndef WIN32
+# pragma GCC diagnostic pop
+#endif
     addDirectDependency<LTC>(BaseOutput::Jacobian, f_, BaseOutput::Jacobian);
   }
 

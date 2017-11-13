@@ -1,6 +1,8 @@
 #pragma once
 // Disable ISO C99 requires rest arguments to be used
-#pragma GCC system_header
+#ifndef WIN32
+# pragma GCC system_header
+#endif
 
 /* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
  *

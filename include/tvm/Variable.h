@@ -134,7 +134,7 @@ namespace tvm
 
     /** friendship declaration */
     friend class Space;
-    friend VariablePtr dot(VariablePtr, int);
+    friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
     friend class VariableVector;
   };
 
