@@ -1,5 +1,5 @@
-#include <tvm/CallGraph.h>
-#include <tvm/data/Node.h>
+#include <tvm/graph/CallGraph.h>
+#include <tvm/graph/abstract/Node.h>
 
 #include <iostream>
 
@@ -7,7 +7,7 @@
 
 #include <Eigen/Core>
 
-struct Derived : public tvm::data::Outputs
+struct Derived : public tvm::graph::abstract::Outputs
 {
   SET_OUTPUTS(Derived, O0, O1, O2)
 };
@@ -36,12 +36,12 @@ struct Derived6 : public Derived5
   CLEAR_DISABLED_OUTPUTS()
 };
 
-struct AnotherOutput : public tvm::data::Outputs
+struct AnotherOutput : public tvm::graph::abstract::Outputs
 {
   SET_OUTPUTS(AnotherOutput, O0, O1)
 };
 
-struct TestInputs : public tvm::data::Inputs
+struct TestInputs : public tvm::graph::internal::Inputs
 {
   TestInputs(std::shared_ptr<Derived> s)
   {
@@ -49,7 +49,7 @@ struct TestInputs : public tvm::data::Inputs
   }
 };
 
-struct Robot : public tvm::data::Node<Robot>
+struct Robot : public tvm::graph::abstract::Node<Robot>
 {
   SET_OUTPUTS(Robot, K1, K2, K3, V1, V2)
   SET_UPDATES(Robot, Kinematics, Velocity)
@@ -110,7 +110,7 @@ struct Robot2 : public Robot
   Eigen::Matrix3d d = Eigen::Matrix3d::Random();
 };
 
-struct RobotFunction : public tvm::data::Node<RobotFunction>
+struct RobotFunction : public tvm::graph::abstract::Node<RobotFunction>
 {
 };
 
@@ -120,9 +120,9 @@ void compile_check()
   static_assert(Derived2::OutputSize == 4, "");
   static_assert(Derived3::OutputSize == 4, "");
   static_assert(Derived4::OutputSize == 9, "");
-  static_assert(tvm::data::is_valid_output<Derived3>(Derived::Output::O2), "");
-  static_assert(!tvm::data::is_valid_output<Derived3>(AnotherOutput::Output::O1), "");
-  static_assert(tvm::data::is_valid_output<Derived4>(Derived4::Output::O8, Derived2::Output::O3, Derived::Output::O0), "");
+  static_assert(tvm::graph::abstract::is_valid_output<Derived3>(Derived::Output::O2), "");
+  static_assert(!tvm::graph::abstract::is_valid_output<Derived3>(AnotherOutput::Output::O1), "");
+  static_assert(tvm::graph::abstract::is_valid_output<Derived4>(Derived4::Output::O8, Derived2::Output::O3, Derived::Output::O0), "");
   static_assert(!Derived5::OutputStaticallyEnabled(Derived4::Output::O4), "");
   static_assert(Derived5::OutputStaticallyEnabled(Derived4::Output::O7), "");
   static_assert(!Derived5::OutputStaticallyEnabled(Derived::Output::O0), "");
@@ -161,10 +161,10 @@ static void BM_CallGraph(benchmark::State & state)
   auto r2 = std::make_shared<Robot2>();
 
   // Use the CallGraph to generate the same code
-  auto userID = std::make_shared<tvm::data::Inputs>();
+  auto userID = std::make_shared<tvm::graph::internal::Inputs>();
   userID->addInput(r2, Robot2::Output::D1, Robot2::Output::D2);
 
-  tvm::CallGraph g;
+  tvm::graph::CallGraph g;
   g.add(userID);
   g.update();
 

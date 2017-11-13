@@ -1,15 +1,15 @@
-#include <stdexcept>
+#include <tvm/Task.h>
 
-#include "Constraint.h"
-#include "Task.h"
-#include "TaskDynamics.h"
+#include <tvm/task_dynamics/abstract/TaskDynamics.h>
+
+#include <stdexcept>
 
 namespace tvm
 {
   ProtoTask operator==(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
-      return{ f, ConstraintType::EQUAL };
+      return{ f, constraint::Type::EQUAL };
     else
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
@@ -17,7 +17,7 @@ namespace tvm
   ProtoTask operator>=(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
-      return{ f, ConstraintType::GREATER_THAN };
+      return{ f, constraint::Type::GREATER_THAN };
     else
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
@@ -25,22 +25,22 @@ namespace tvm
   ProtoTask operator<=(FunctionPtr f, double rhs)
   {
     if (rhs == 0)
-      return{ f, ConstraintType::LOWER_THAN };
+      return{ f, constraint::Type::LOWER_THAN };
     else
       throw std::runtime_error("Only 0 is supported as a right hand side.");
   }
 
-  Task::Task(FunctionPtr f, ConstraintType t, std::shared_ptr<TaskDynamics> td)
+  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td)
     : f_(f)
     , type_(t)
     , td_(td)
   {
-    if (t == ConstraintType::DOUBLE_SIDED)
+    if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks are not supported for now.");
     td->setFunction(f);
   }
 
-  Task::Task(ProtoTask proto, std::shared_ptr<TaskDynamics> td)
+  Task::Task(ProtoTask proto, TaskDynamicsPtr td)
     :Task(proto.f_, proto.type_, td)
   {
   }
@@ -50,13 +50,13 @@ namespace tvm
     return f_;
   }
 
-  ConstraintType Task::type() const
+  constraint::Type Task::type() const
   {
     return type_;
   }
 
-  std::shared_ptr<TaskDynamics> Task::taskDynamics() const
+  TaskDynamicsPtr Task::taskDynamics() const
   {
     return td_;
   }
-}
+}  // namespace tvm

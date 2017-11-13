@@ -1,10 +1,10 @@
-#include "MatrixProperties.h"
+#include <tvm/internal/MatrixProperties.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-using namespace tvm;
+using namespace tvm::internal;
 
 TEST_CASE("Test shape properties")
 {

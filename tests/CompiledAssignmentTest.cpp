@@ -5,11 +5,11 @@
 #include "doctest/doctest.h"
 
 #define AUTHORIZE_MALLOC_FOR_CACHE
-#include "tvm/utils/CompiledAssignment.h"
-#include "tvm/utils/CompiledAssignmentWrapper.h"
+#include <tvm/scheme/internal/CompiledAssignment.h>
+#include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
 
 using namespace Eigen;
-using namespace tvm::utils;
+using namespace tvm::scheme::internal;
 
 MatrixXd runOperator(AssignType A, const MatrixXd& from, const MatrixXd& to)
 {

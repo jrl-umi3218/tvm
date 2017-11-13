@@ -1,22 +1,25 @@
 #include <iostream>
 
-#include "ControlProblem.h"
-#include "Function.h"
-#include "LinearFunction.h"
-#include "LinearizedControlProblem.h"
-#include "Variable.h"
-#include "WeightedLeastSquares.h"
-#include "tvm/CallGraph.h"
-#include "tvm/data/OutputSelector.h"
+#include <tvm/ControlProblem.h>
+#include <tvm/LinearizedControlProblem.h>
+#include <tvm/Variable.h>
+#include <tvm/constraint/abstract/Constraint.h>
+#include <tvm/function/abstract/Function.h>
+#include <tvm/function/abstract/LinearFunction.h>
+#include <tvm/function/IdentityFunction.h>
+#include <tvm/graph/CallGraph.h>
+#include <tvm/graph/abstract/OutputSelector.h>
+#include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/task_dynamics/ProportionalDerivative.h>
 
 using namespace tvm;
 using namespace Eigen;
 
 /** f(x) = (x-x0)^2 - r^2*/
-class SphereFunction : public data::OutputSelector<Function>
+class SphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(Function::Output::JDot);
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
   SET_UPDATES(SphereFunction, Value, Jacobian, VelocityAndAcc);
 
   SphereFunction(VariablePtr x, const VectorXd& x0, double radius);
@@ -33,10 +36,10 @@ private:
 
 
 
-class Simple2dRobotEE : public data::OutputSelector<Function>
+class Simple2dRobotEE : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(Function::Output::JDot);
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
   SET_UPDATES(Simple2dRobotEE, Value, Jacobian, VelocityAndAcc);
 
   Simple2dRobotEE(VariablePtr x,  const Vector2d& base, const VectorXd& lengths);
@@ -53,7 +56,7 @@ private:
 
 
 //f - g
-class Difference : public data::OutputSelector<Function>
+class Difference : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
   SET_UPDATES(Difference, Value, Jacobian, Velocity, NormalAcceleration, JDot);
@@ -76,7 +79,7 @@ private:
 
 
 SphereFunction::SphereFunction(VariablePtr x, const VectorXd & x0, double radius)
-  : data::OutputSelector<Function>(1)
+  : graph::abstract::OutputSelector<function::abstract::Function>(1)
   , dimension_(x->size())
   , radius2_(radius*radius)
   , x0_(x0)
@@ -88,7 +91,7 @@ SphereFunction::SphereFunction(VariablePtr x, const VectorXd & x0, double radius
   registerUpdates(SphereFunction::Update::VelocityAndAcc, &SphereFunction::updateVelocityAndNormalAcc);
   addOutputDependency<SphereFunction>(FirstOrderProvider::Output::Value, SphereFunction::Update::Value);
   addOutputDependency<SphereFunction>(FirstOrderProvider::Output::Jacobian, SphereFunction::Update::Jacobian);
-  addOutputDependency<SphereFunction>({ Function::Output::Velocity, Function::Output::NormalAcceleration }, SphereFunction::Update::VelocityAndAcc);
+  addOutputDependency<SphereFunction>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, SphereFunction::Update::VelocityAndAcc);
 
   addVariable(x, false);
 }
@@ -136,7 +139,7 @@ Matrix3d ddH(double t, double l)
 }
 
 Simple2dRobotEE::Simple2dRobotEE(VariablePtr x, const Vector2d& base, const VectorXd& lengths)
-  : data::OutputSelector<Function>(2)
+  : graph::abstract::OutputSelector<function::abstract::Function>(2)
   , n_(x->size())
   , base_(base)
   , lengths_(lengths)
@@ -148,7 +151,7 @@ Simple2dRobotEE::Simple2dRobotEE(VariablePtr x, const Vector2d& base, const Vect
   registerUpdates(Simple2dRobotEE::Update::VelocityAndAcc, &Simple2dRobotEE::updateVelocityAndNormalAcc);
   addOutputDependency<Simple2dRobotEE>(FirstOrderProvider::Output::Value, Simple2dRobotEE::Update::Value);
   addOutputDependency<Simple2dRobotEE>(FirstOrderProvider::Output::Jacobian, Simple2dRobotEE::Update::Jacobian);
-  addOutputDependency<Simple2dRobotEE>({ Function::Output::Velocity, Function::Output::NormalAcceleration }, Simple2dRobotEE::Update::VelocityAndAcc);
+  addOutputDependency<Simple2dRobotEE>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, Simple2dRobotEE::Update::VelocityAndAcc);
   addInternalDependency<Simple2dRobotEE>(Simple2dRobotEE::Update::VelocityAndAcc, Simple2dRobotEE::Update::Jacobian);
 
   addVariable(x, false);
@@ -239,14 +242,14 @@ void Simple2dRobotEE::updateVelocityAndNormalAcc()
 
 
 Difference::Difference(FunctionPtr f, FunctionPtr g)
-  :data::OutputSelector<Function>(f->size())
+  :graph::abstract::OutputSelector<function::abstract::Function>(f->size())
   , f_(f)
   , g_(g)
 {
   assert(f->size() == g->size());
 
   using BasicOutput = tvm::internal::FirstOrderProvider::Output;
-  using AdvancedOutput = Function::Output;
+  using AdvancedOutput = function::abstract::Function::Output;
   processOutput(BasicOutput::Value, Update::Value, &Difference::updateValue);
   processOutput(BasicOutput::Jacobian, Update::Jacobian, &Difference::updateJacobian);
   processOutput(AdvancedOutput::Velocity, Update::Velocity, &Difference::updateVelocity);
@@ -324,16 +327,16 @@ void Difference::updateJDot()
 
 void checkJacobian(FunctionPtr f)
 {
-  auto userValue = std::make_shared<data::Inputs>();
+  auto userValue = std::make_shared<graph::internal::Inputs>();
   userValue->addInput(f, tvm::internal::FirstOrderProvider::Output::Value);
-  auto userFull = std::make_shared<data::Inputs>();
+  auto userFull = std::make_shared<graph::internal::Inputs>();
   userFull->addInput(f, tvm::internal::FirstOrderProvider::Output::Value);
   userFull->addInput(f, tvm::internal::FirstOrderProvider::Output::Jacobian);
 
-  CallGraph gValue;
+  tvm::graph::CallGraph gValue;
   gValue.add(userValue);
   gValue.update();
-  CallGraph gFull;
+  tvm::graph::CallGraph gFull;
   gFull.add(userFull);
   gFull.update();
 
@@ -362,19 +365,19 @@ void checkJacobian(FunctionPtr f)
 
 void checkNormalAcc(FunctionPtr f)
 {
-  auto user1stOrder = std::make_shared<data::Inputs>();
+  auto user1stOrder = std::make_shared<graph::internal::Inputs>();
   user1stOrder->addInput(f, tvm::internal::FirstOrderProvider::Output::Value);
   user1stOrder->addInput(f, tvm::internal::FirstOrderProvider::Output::Jacobian);
-  auto userFull = std::make_shared<data::Inputs>();
+  auto userFull = std::make_shared<graph::internal::Inputs>();
   userFull->addInput(f, tvm::internal::FirstOrderProvider::Output::Value);
   userFull->addInput(f, tvm::internal::FirstOrderProvider::Output::Jacobian);
-  userFull->addInput(f, Function::Output::Velocity);
-  userFull->addInput(f, Function::Output::NormalAcceleration);
+  userFull->addInput(f, function::abstract::Function::Output::Velocity);
+  userFull->addInput(f, function::abstract::Function::Output::NormalAcceleration);
 
-  CallGraph g1stOrder;
+  tvm::graph::CallGraph g1stOrder;
   g1stOrder.add(user1stOrder);
   g1stOrder.update();
-  CallGraph gFull;
+  tvm::graph::CallGraph gFull;
   gFull.add(userFull);
   gFull.update();
 
@@ -412,7 +415,7 @@ void solverTest01()
 
   auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
-  auto idx = std::make_shared<IdentityFunction>(x);
+  auto idx = std::make_shared<function::IdentityFunction>(x);
   auto df = std::make_shared<Difference>(rf, idx);
 
   checkJacobian(sf);
@@ -425,8 +428,8 @@ void solverTest01()
   checkNormalAcc(df);
 
   ControlProblem pb;
-  pb.add(sf == 0., std::make_shared<ProportionalDerivativeDynamics>(2), { PriorityLevel(0) });
-  pb.add(df == 0., std::make_shared<ProportionalDerivativeDynamics>(2), { PriorityLevel(0) });
+  pb.add(sf == 0., std::make_shared<task_dynamics::ProportionalDerivative>(2), { requirements::PriorityLevel(0) });
+  pb.add(df == 0., std::make_shared<task_dynamics::PD>(2), { requirements::PriorityLevel(0) });
 
   auto lpb = std::make_shared<LinearizedControlProblem>(pb);
 

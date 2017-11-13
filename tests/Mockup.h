@@ -1,5 +1,5 @@
-#include "tvm/data/Node.h"
-#include "tvm/CallGraph.h"
+#include <tvm/graph/CallGraph.h>
+#include <tvm/graph/abstract/Node.h>
 
 #include <iostream>
 
@@ -23,7 +23,7 @@ public:
   double value() const  { return 0; }
 };
 
-class RobotMockup : public tvm::data::Node<RobotMockup>
+class RobotMockup : public tvm::graph::abstract::Node<RobotMockup>
 {
 public:
   SET_UPDATES(RobotMockup, Kinematics, Velocity, Dynamics, Acceleration)
@@ -51,7 +51,7 @@ protected:
 };
 
 /** Base class for a time-dependent function*/
-class FunctionMockup : public tvm::data::Node<FunctionMockup>
+class FunctionMockup : public tvm::graph::abstract::Node<FunctionMockup>
 {
 public:
   SET_UPDATES(FunctionMockup, Value, Velocity, JDot)
@@ -111,7 +111,7 @@ protected:
 };
 
 /** Base class for a linear expression Ax+b*/
-class LinearConstraint: public tvm::data::Node<LinearConstraint>
+class LinearConstraint: public tvm::graph::abstract::Node<LinearConstraint>
 {
 public:
   SET_OUTPUTS(LinearConstraint, Value, A, b)
@@ -174,7 +174,7 @@ private:
 
 
 /** Base class for a linear expression Ax+b*/
-class BetterLinearConstraint : public tvm::data::Node<BetterLinearConstraint>
+class BetterLinearConstraint : public tvm::graph::abstract::Node<BetterLinearConstraint>
 {
 public:
   SET_OUTPUTS(BetterLinearConstraint, Value, A, b)

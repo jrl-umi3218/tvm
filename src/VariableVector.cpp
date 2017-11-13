@@ -1,5 +1,6 @@
-#include "Variable.h"
-#include "VariableVector.h"
+#include <tvm/VariableVector.h>
+
+#include <tvm/Variable.h>
 
 namespace tvm
 {
@@ -145,4 +146,4 @@ namespace tvm
     stamp_ = counter;
     counter++;
   }
-}
+}  // namespace tvm

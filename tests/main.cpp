@@ -1,10 +1,7 @@
-#include "Variable.h"
+#include <tvm/Variable.h>
 #include "Mockup.h"
 
-#include "tvm/data/Node.h"
-#include "tvm/CallGraph.h"
-
-#include "SchemeAbilities.h"
+#include <tvm/scheme/internal/SchemeAbilities.h>
 
 #include <iostream>
 
@@ -35,7 +32,7 @@ void testDataGraphSimple()
 {
   auto robot = std::make_shared<RobotMockup>();
   auto f1 = std::make_shared<SomeRobotFunction1>(robot);
-  auto user = std::make_shared<tvm::data::Inputs>();
+  auto user = std::make_shared<tvm::graph::internal::Inputs>();
   user->addInput(f1, SomeRobotFunction1::Output::Value,
                      SomeRobotFunction1::Output::Jacobian,
                      SomeRobotFunction1::Output::Velocity,
@@ -44,7 +41,7 @@ void testDataGraphSimple()
 
 
   std::cout << "g0: adding only the robot" << std::endl;
-  tvm::CallGraph g0;
+  tvm::graph::CallGraph g0;
   g0.add(robot);
   g0.update();
   g0.execute();
@@ -53,7 +50,7 @@ void testDataGraphSimple()
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g1: f1" << std::endl;
-  tvm::CallGraph g1;
+  tvm::graph::CallGraph g1;
   g1.add(f1);
   g1.update();
   g1.execute();
@@ -61,7 +58,7 @@ void testDataGraphSimple()
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g2: user" << std::endl;
-  tvm::CallGraph g2;
+  tvm::graph::CallGraph g2;
   g2.add(user);
   g2.update();
   g2.execute();
@@ -69,7 +66,7 @@ void testDataGraphSimple()
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g3: f1, user" << std::endl;
-  tvm::CallGraph g3;
+  tvm::graph::CallGraph g3;
   g3.add(f1);
   g3.add(user);
   g3.update();
@@ -78,7 +75,7 @@ void testDataGraphSimple()
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   std::cout << "g4: user, f1" << std::endl;
-  tvm::CallGraph g4;
+  tvm::graph::CallGraph g4;
   g4.add(user);
   g4.add(f1);
   g4.update();
@@ -94,7 +91,7 @@ void testBadGraph()
   auto robot = std::make_shared<RobotMockup>();
   auto f1 = std::make_shared<SomeRobotFunction2>(robot);
   auto f2 = std::make_shared<BadRobotFunction>(robot);
-  auto user1 = std::make_shared<tvm::data::Inputs>();
+  auto user1 = std::make_shared<tvm::graph::internal::Inputs>();
   try
   {
     user1->addInput(f1, SomeRobotFunction2::Output::Value,
@@ -110,10 +107,10 @@ void testBadGraph()
 
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
-  auto user2 = std::make_shared<tvm::data::Inputs>();
+  auto user2 = std::make_shared<tvm::graph::internal::Inputs>();
   user2->addInput(f2, BadRobotFunction::Output::Jacobian);
 
-  tvm::CallGraph g2;
+  tvm::graph::CallGraph g2;
   g2.add(user2);
   try { g2.update(); }
   catch (const std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
@@ -121,9 +118,9 @@ void testBadGraph()
   std::cout << std::endl << "----------------------" << std::endl << std::endl;
 
   auto cik = std::make_shared<KinematicLinearizedConstraint>("IK", f2);
-  auto user3 = std::make_shared<tvm::data::Inputs>();
+  auto user3 = std::make_shared<tvm::graph::internal::Inputs>();
   user3->addInput(cik, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
-  tvm::CallGraph g3;
+  tvm::graph::CallGraph g3;
   g3.add(user3);
   try { g3.update(); }
   catch (const std::exception & e) { std::cout << "Got exception: " << e.what() << std::endl; }
@@ -143,11 +140,11 @@ void testDataGraphComplex()
     auto cik1 = std::make_shared<KinematicLinearizedConstraint>("Linearized f1", f1);
     auto cik2 = std::make_shared<KinematicLinearizedConstraint>("Linearized f2", f2);
 
-    auto userIK = std::make_shared<tvm::data::Inputs>();
+    auto userIK = std::make_shared<tvm::graph::internal::Inputs>();
     userIK->addInput(cik1, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
     userIK->addInput(cik2, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
 
-    tvm::CallGraph gik;
+    tvm::graph::CallGraph gik;
     gik.add(userIK);
     gik.update();
     gik.execute();
@@ -158,11 +155,11 @@ void testDataGraphComplex()
     auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
     auto cid1 = std::make_shared<DynamicLinearizedConstraint>("Linearized f1", f1);
 
-    auto userID = std::make_shared<tvm::data::Inputs>();
+    auto userID = std::make_shared<tvm::graph::internal::Inputs>();
     userID->addInput(cid0, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
     userID->addInput(cid1, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
 
-    tvm::CallGraph gid;
+    tvm::graph::CallGraph gid;
     gid.add(userID);
     gid.update();
     gid.execute();
@@ -177,11 +174,11 @@ void testDataGraphComplex()
     auto cik1 = std::make_shared<BetterKinematicLinearizedConstraint>("Linearized f1", f1);
     auto cik2 = std::make_shared<BetterKinematicLinearizedConstraint>("Linearized f2", f2);
 
-    auto userIK = std::make_shared<tvm::data::Inputs>();
+    auto userIK = std::make_shared<tvm::graph::internal::Inputs>();
     userIK->addInput(cik1, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
     userIK->addInput(cik2, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
 
-    tvm::CallGraph gik;
+    tvm::graph::CallGraph gik;
     gik.add(userIK);
     gik.update();
     gik.execute();
@@ -192,11 +189,11 @@ void testDataGraphComplex()
     auto cid0 = std::make_shared<DynamicEquation>("EoM", robot);
     auto cid1 = std::make_shared<BetterDynamicLinearizedConstraint>("Linearized f1", f1);
 
-    auto userID = std::make_shared<tvm::data::Inputs>();
+    auto userID = std::make_shared<tvm::graph::internal::Inputs>();
     userID->addInput(cid0, ::LinearConstraint::Output::A, ::LinearConstraint::Output::b);
     userID->addInput(cid1, BetterLinearConstraint::Output::A, BetterLinearConstraint::Output::b);
 
-    tvm::CallGraph gid;
+    tvm::graph::CallGraph gid;
     gid.add(userID);
     gid.update();
     gid.execute();

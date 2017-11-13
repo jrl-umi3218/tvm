@@ -1,4 +1,4 @@
-#include "SolvingRequirements.h"
+#include <tvm/requirements/SolvingRequirements.h>
 
 #include <iostream>
 
@@ -6,7 +6,7 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-using namespace tvm;
+using namespace tvm::requirements;
 using namespace Eigen;
 
 bool checkRequirements(const SolvingRequirements& sr,

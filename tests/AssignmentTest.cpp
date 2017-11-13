@@ -6,19 +6,14 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-#include "Assignment.h"
-#include "AssignmentTarget.h"
-#include "LinearConstraint.h"
-#include "Variable.h"
-#include "VariableVector.h"
+#include <tvm/Variable.h>
+#include <tvm/VariableVector.h>
+#include <tvm/constraint/BasicLinearConstraint.h>
+#include <tvm/scheme/internal/Assignment.h>
+#include <tvm/scheme/internal/AssignmentTarget.h>
 
 #include <Eigen/Core>
 #include <Eigen/QR>
-
-using namespace Eigen;
-
-using namespace tvm;
-using namespace tvm::utils;
 
 //FIXME see src/Assignment.cpp
 static const double large = 1e6;
@@ -29,17 +24,17 @@ struct Constraints
   Eigen::VectorXd pl;
   Eigen::VectorXd pu;
 
-  std::shared_ptr<BasicLinearConstraint> Ax_eq_0;
-  std::shared_ptr<BasicLinearConstraint> Ax_geq_0;
-  std::shared_ptr<BasicLinearConstraint> Ax_leq_0;
-  std::shared_ptr<BasicLinearConstraint> Ax_eq_b;
-  std::shared_ptr<BasicLinearConstraint> Ax_geq_b;
-  std::shared_ptr<BasicLinearConstraint> Ax_leq_b;
-  std::shared_ptr<BasicLinearConstraint> Ax_eq_minus_b;
-  std::shared_ptr<BasicLinearConstraint> Ax_geq_minus_b;
-  std::shared_ptr<BasicLinearConstraint> Ax_leq_minus_b;
-  std::shared_ptr<BasicLinearConstraint> l_leq_Ax_leq_u;
-  std::shared_ptr<BasicLinearConstraint> minus_l_leq_Ax_leq_minus_u;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_eq_0;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_geq_0;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_leq_0;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_eq_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_geq_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_leq_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_eq_minus_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_geq_minus_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> Ax_leq_minus_b;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> l_leq_Ax_leq_u;
+  std::shared_ptr<tvm::constraint::BasicLinearConstraint> minus_l_leq_Ax_leq_minus_u;
 };
 
 struct Memory
@@ -52,74 +47,74 @@ struct Memory
     u.setZero();
   }
 
-  MatrixXd A;
-  VectorXd b;
-  VectorXd l;
-  VectorXd u;
+  Eigen::MatrixXd A;
+  Eigen::VectorXd b;
+  Eigen::VectorXd l;
+  Eigen::VectorXd u;
 };
 
 //Check if the constraint is satisfied for the current value of the variable
-bool check(std::shared_ptr<BasicLinearConstraint> c, const VectorXd& x)
+bool check(std::shared_ptr<tvm::constraint::BasicLinearConstraint> c, const Eigen::VectorXd& x)
 {
   const double eps = 1e-12;
   c->variables()[0]->value(x);
   c->updateValue();
   auto v = c->value();
-  if (c->constraintType() == ConstraintType::DOUBLE_SIDED)
+  if (c->type() == tvm::constraint::Type::DOUBLE_SIDED)
   {
-    if (c->constraintRhs() == ConstraintRHS::AS_GIVEN)
+    if (c->rhs() == tvm::constraint::RHS::AS_GIVEN)
       return (c->l().array()-eps <= v.array()).all() && (v.array() <= c->u().array()+eps).all();
     else
       return (-c->l().array()-eps <= v.array()).all() && (v.array() <= -c->u().array()+eps).all();
   }
   else
   {
-    std::function<bool(const VectorXd&, const VectorXd&)> comp;
-    const VectorXd&(BasicLinearConstraint::*rhs)() const;
-    switch (c->constraintType())
+    std::function<bool(const Eigen::VectorXd&, const Eigen::VectorXd&)> comp;
+    const Eigen::VectorXd&(tvm::constraint::BasicLinearConstraint::*rhs)() const;
+    switch (c->type())
     {
-    case ConstraintType::EQUAL: comp = [](const VectorXd& u, const VectorXd& v) {return u.isApprox(v); }; rhs =& BasicLinearConstraint::e;  break;
-    case ConstraintType::GREATER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; rhs = &BasicLinearConstraint::l; break;
-    case ConstraintType::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; rhs = &BasicLinearConstraint::u; break;
+    case tvm::constraint::Type::EQUAL: comp = [](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return u.isApprox(v); }; rhs =& tvm::constraint::BasicLinearConstraint::e;  break;
+    case tvm::constraint::Type::GREATER_THAN: comp = [eps](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; rhs = &tvm::constraint::BasicLinearConstraint::l; break;
+    case tvm::constraint::Type::LOWER_THAN: comp = [eps](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; rhs = &tvm::constraint::BasicLinearConstraint::u; break;
     default: break;
     }
-    switch (c->constraintRhs())
+    switch (c->rhs())
     {
-    case ConstraintRHS::AS_GIVEN: return comp(v, (c.get()->*rhs)()); break;
-    case ConstraintRHS::OPPOSITE: return comp(v, -(c.get()->*rhs)()); break;
-    case ConstraintRHS::ZERO: return comp(v, VectorXd::Zero(c->size())); break;
+    case tvm::constraint::RHS::AS_GIVEN: return comp(v, (c.get()->*rhs)()); break;
+    case tvm::constraint::RHS::OPPOSITE: return comp(v, -(c.get()->*rhs)()); break;
+    case tvm::constraint::RHS::ZERO: return comp(v, Eigen::VectorXd::Zero(c->size())); break;
     default:
       return false;
     }
   }
 }
 
-bool check(const Memory& mem, ConstraintType ct, ConstraintRHS cr, const VectorXd& x)
+bool check(const Memory& mem, tvm::constraint::Type ct, tvm::constraint::RHS cr, const Eigen::VectorXd& x)
 {
   const double eps = 1e-12;
-  VectorXd v = mem.A*x;
-  if (ct == ConstraintType::DOUBLE_SIDED)
+  Eigen::VectorXd v = mem.A*x;
+  if (ct == tvm::constraint::Type::DOUBLE_SIDED)
   {
-    if (cr == ConstraintRHS::AS_GIVEN)
+    if (cr == tvm::constraint::RHS::AS_GIVEN)
       return (mem.l.array() - eps <= v.array()).all() && (v.array() <= mem.u.array() + eps).all();
     else
       return (-mem.l.array() - eps <= v.array()).all() && (v.array() <= -mem.u.array() + eps).all();
   }
   else
   {
-    std::function<bool(const VectorXd&, const VectorXd&)> comp;
+    std::function<bool(const Eigen::VectorXd&, const Eigen::VectorXd&)> comp;
     switch (ct)
     {
-    case ConstraintType::EQUAL: comp = [](const VectorXd& u, const VectorXd& v) {return u.isApprox(v); };  break;
-    case ConstraintType::GREATER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; break;
-    case ConstraintType::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; break;
+    case tvm::constraint::Type::EQUAL: comp = [](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return u.isApprox(v); };  break;
+    case tvm::constraint::Type::GREATER_THAN: comp = [eps](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; break;
+    case tvm::constraint::Type::LOWER_THAN: comp = [eps](const Eigen::VectorXd& u, const Eigen::VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; break;
     default: break;
     }
     switch (cr)
     {
-    case ConstraintRHS::AS_GIVEN: return comp(v, mem.b); break;
-    case ConstraintRHS::OPPOSITE: return comp(v, -mem.b); break;
-    case ConstraintRHS::ZERO: return comp(v, VectorXd::Zero(mem.b.rows())); break;
+    case tvm::constraint::RHS::AS_GIVEN: return comp(v, mem.b); break;
+    case tvm::constraint::RHS::OPPOSITE: return comp(v, -mem.b); break;
+    case tvm::constraint::RHS::ZERO: return comp(v, Eigen::VectorXd::Zero(mem.b.rows())); break;
     default:
       return false;
     }
@@ -129,34 +124,34 @@ bool check(const Memory& mem, ConstraintType ct, ConstraintRHS cr, const VectorX
 Constraints buildConstraints(int m, int n)
 {
   Constraints cstr;
-  VariablePtr x = Space(n).createVariable("x");
+  tvm::VariablePtr x = tvm::Space(n).createVariable("x");
 
   //generate matrix
-  MatrixXd A = MatrixXd::Random(m, n);
-  VectorXd l = -VectorXd::Random(m).cwiseAbs();
-  VectorXd u = VectorXd::Random(m).cwiseAbs();
+  Eigen::MatrixXd A = Eigen::MatrixXd::Random(m, n);
+  Eigen::VectorXd l = -Eigen::VectorXd::Random(m).cwiseAbs();
+  Eigen::VectorXd u = Eigen::VectorXd::Random(m).cwiseAbs();
 
   //Point p0 such that Ap0 = 0
-  cstr.p0 = A.householderQr().solve(VectorXd::Zero(m));
+  cstr.p0 = A.householderQr().solve(Eigen::VectorXd::Zero(m));
   //Point pl such that Apl = l
   cstr.pl = A.householderQr().solve(l);
   //Point pu such that Apu = u
   cstr.pu = A.householderQr().solve(u);
 
-  cstr.Ax_eq_0 = std::make_shared<BasicLinearConstraint>(A, x, ConstraintType::EQUAL);
-  cstr.Ax_geq_0 = std::make_shared<BasicLinearConstraint>(A, x, ConstraintType::GREATER_THAN);
-  cstr.Ax_leq_0 = std::make_shared<BasicLinearConstraint>(A, x, ConstraintType::LOWER_THAN);
+  cstr.Ax_eq_0 = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, tvm::constraint::Type::EQUAL);
+  cstr.Ax_geq_0 = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, tvm::constraint::Type::GREATER_THAN);
+  cstr.Ax_leq_0 = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, tvm::constraint::Type::LOWER_THAN);
 
-  cstr.Ax_eq_b = std::make_shared<BasicLinearConstraint>(A, x, l, ConstraintType::EQUAL);
-  cstr.Ax_geq_b = std::make_shared<BasicLinearConstraint>(A, x, l, ConstraintType::GREATER_THAN);
-  cstr.Ax_leq_b = std::make_shared<BasicLinearConstraint>(A, x, u, ConstraintType::LOWER_THAN);
+  cstr.Ax_eq_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, l, tvm::constraint::Type::EQUAL);
+  cstr.Ax_geq_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, l, tvm::constraint::Type::GREATER_THAN);
+  cstr.Ax_leq_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, u, tvm::constraint::Type::LOWER_THAN);
 
-  cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::EQUAL, ConstraintRHS::OPPOSITE);
-  cstr.Ax_geq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, ConstraintType::GREATER_THAN, ConstraintRHS::OPPOSITE);
-  cstr.Ax_leq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -u, ConstraintType::LOWER_THAN, ConstraintRHS::OPPOSITE);
+  cstr.Ax_eq_minus_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, -l, tvm::constraint::Type::EQUAL, tvm::constraint::RHS::OPPOSITE);
+  cstr.Ax_geq_minus_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, -l, tvm::constraint::Type::GREATER_THAN, tvm::constraint::RHS::OPPOSITE);
+  cstr.Ax_leq_minus_b = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, -u, tvm::constraint::Type::LOWER_THAN, tvm::constraint::RHS::OPPOSITE);
 
-  cstr.l_leq_Ax_leq_u = std::make_shared<BasicLinearConstraint>(A, x, l, u);
-  cstr.minus_l_leq_Ax_leq_minus_u = std::make_shared<BasicLinearConstraint>(A, x, -l, -u, ConstraintRHS::OPPOSITE);
+  cstr.l_leq_Ax_leq_u = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, l, u);
+  cstr.minus_l_leq_Ax_leq_minus_u = std::make_shared<tvm::constraint::BasicLinearConstraint>(A, x, -l, -u, tvm::constraint::RHS::OPPOSITE);
   return cstr;
 }
 
@@ -167,11 +162,11 @@ TEST_CASE("Test assigments")
   {
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
-    auto range = std::make_shared<Range>(2, 3);
-    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, ConstraintRHS::AS_GIVEN);
-    auto req = std::make_shared<SolvingRequirements>(Weight(2.));
-    VariableVector vv(cstr.Ax_eq_0->variables());
-    Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
+    auto range = std::make_shared<tvm::Range>(2, 3);
+    tvm::scheme::internal::AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, tvm::constraint::RHS::AS_GIVEN);
+    auto req = std::make_shared<tvm::requirements::SolvingRequirements>(tvm::requirements::Weight(2.));
+    tvm::VariableVector vv(cstr.Ax_eq_0->variables());
+    tvm::scheme::internal::Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
     a.run();
 
     {
@@ -206,12 +201,12 @@ TEST_CASE("Test assigments")
   {
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention Ax <= b, from convention l <= Ax <= u
-    auto range = std::make_shared<Range>(0, 6); //we need double range
-    AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, ConstraintType::LOWER_THAN, ConstraintRHS::AS_GIVEN);
+    auto range = std::make_shared<tvm::Range>(0, 6); //we need double range
+    tvm::scheme::internal::AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, tvm::constraint::Type::LOWER_THAN, tvm::constraint::RHS::AS_GIVEN);
     Eigen::Vector3d aW = {1., 2., 3.};
-    auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight{ aW });
-    VariableVector vv(cstr.Ax_eq_0->variables());
-    Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
+    auto req = std::make_shared<tvm::requirements::SolvingRequirements>(tvm::requirements::AnisotropicWeight{ aW });
+    tvm::VariableVector vv(cstr.Ax_eq_0->variables());
+    tvm::scheme::internal::Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();
 
     {
