@@ -431,8 +431,8 @@ void solverTest01()
   pb.add(sf == 0., std::make_shared<task_dynamics::ProportionalDerivative>(2), { requirements::PriorityLevel(0) });
   pb.add(df == 0., std::make_shared<task_dynamics::PD>(2), { requirements::PriorityLevel(0) });
 
-  auto lpb = std::make_shared<LinearizedControlProblem>(pb);
+  LinearizedControlProblem lpb(pb);
 
-  scheme::WeightedLeastSquares solver(lpb);
-  solver.solve();
+  scheme::WeightedLeastSquares solver;
+  solver.solve(lpb);
 }
