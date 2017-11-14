@@ -96,7 +96,7 @@ namespace abstract
   template <typename OutputProvider, typename Base>
   class OutputSelector :
     public Base,
-    protected SelectorMembers<!is_output_selector<OutputProvider>()>
+    protected SelectorMembers<!is_output_selector<Base>()>
   {
   public:
     /** Constructor. Simply forward the arguments for constructing OutputProvider*/
