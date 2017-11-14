@@ -17,6 +17,16 @@ build_gcc:
   tags:
     - GCC
 
+build_gcc_debug:
+  stage: build
+  script:
+    - export CMAKE_ADDITIONAL_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr"
+    - ./.jrl-ci/run before_install
+    - ./.jrl-ci/run build
+    - ./.jrl-ci/run after_success
+  tags:
+    - GCC
+
 build_clang:
   stage: build
   script:

@@ -12,7 +12,7 @@ namespace abstract
 {
 
   Constraint::Constraint(Type ct, RHS cr, int m)
-    : graph::abstract::OutputSelector<internal::ConstraintBase>(m)
+    : graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>(m)
     , cstrType_(ct)
     , constraintRhs_(cr)
     , usel_((ct == Type::GREATER_THAN || ct == Type::DOUBLE_SIDED) && cr != RHS::ZERO)

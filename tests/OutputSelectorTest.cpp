@@ -64,6 +64,17 @@ public:
   void manualDisable(EnumT e) { disableOutput(e); }
 };
 
+class Provider6 : public OutputSelector<Provider6, Provider4>
+{
+public:
+  SET_OUTPUTS(Provider6, O8, O9)
+
+  Provider6()
+  {
+    disableOutput(Provider6::Output::O9, Provider4::Output::O5, Provider2::Output::O3, Provider1::Output::O1);
+  }
+};
+
 
 TEST_CASE("Test outputs selector")
 {
@@ -84,6 +95,19 @@ TEST_CASE("Test outputs selector")
     else
     {
       FAST_CHECK_UNARY_FALSE(p5.isOutputEnabled(i));
+    }
+  }
+
+  Provider6 p6;
+  for(int i = 0; i < 10; ++i)
+  {
+    if(i != 1 && i != 3 && i != 5 && i != 9)
+    {
+      FAST_CHECK_UNARY(p6.isOutputEnabled(i));
+    }
+    else
+    {
+      FAST_CHECK_UNARY_FALSE(p6.isOutputEnabled(i));
     }
   }
 

@@ -48,17 +48,15 @@ namespace abstract
   template<>
   struct SelectorMembers<false>
   {
-
   };
 
-
   //forward declaration
-  template <typename T> class OutputSelector;
+  template <typename T, typename Base> class OutputSelector;
 
 
   /** detail functions, see is_output_selector*/
-  template< typename T>
-  std::true_type is_output_selector_impl(OutputSelector<T> const volatile&);
+  template< typename T, typename Base>
+  std::true_type is_output_selector_impl(OutputSelector<T, Base> const volatile&);
 
   /** detail functions, see is_output_selector*/
   std::false_type is_output_selector_impl(...);
@@ -95,16 +93,18 @@ namespace abstract
     * inherits the data. If it is (case of C), we make OutputSelector inherit
     * from SelectorMembers<false> so that no data is added.
     */
-  template <typename OutputProvider>
-  class OutputSelector : public OutputProvider, protected SelectorMembers<!is_output_selector<OutputProvider>()>
+  template <typename OutputProvider, typename Base = OutputProvider>
+  class OutputSelector :
+    public Base,
+    protected SelectorMembers<!is_output_selector<Base>()>
   {
   public:
     /** Constructor. Simply forward the arguments for constructing OutputProvider*/
     template <typename ... Args>
     OutputSelector(Args&&... args)
-      : OutputProvider(std::forward<Args>(args)...)
+      : Base(std::forward<Args>(args)...)
     {
-      static_assert(std::is_base_of<Outputs, OutputProvider>::value, "Cannot build for a type that is not derived of Outputs");
+      static_assert(std::is_base_of<Outputs, Base>::value, "Cannot build for a type that is not derived of Outputs");
       this->dynamicallyEnabled_.resize(OutputProvider::OutputSize, true);
     }
 

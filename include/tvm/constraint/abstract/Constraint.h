@@ -19,8 +19,7 @@
  */
 
 #include <tvm/constraint/enums.h>
-#include <tvm/constraint/internal/ConstraintBase.h>
-
+#include <tvm/internal/FirstOrderProvider.h>
 #include <tvm/graph/abstract/OutputSelector.h>
 
 #include <Eigen/Core>
@@ -43,10 +42,10 @@ namespace abstract
     *
     * FIXME: have the updateValue here and add an output check()
     */
-  class TVM_DLLAPI Constraint : public graph::abstract::OutputSelector<internal::ConstraintBase>
+  class TVM_DLLAPI Constraint : public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
   {
   public:
-    using internal::ConstraintBase::Output;
+    SET_OUTPUTS(Constraint, L, U, E)
 
     /** Note: by default, these methods return the cached value.
     * However, they are virtual in case the user might want to bypass the cache.
