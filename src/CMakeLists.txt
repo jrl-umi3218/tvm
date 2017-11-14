@@ -110,6 +110,26 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
 )
 
+#Helper functions to assign files to groups in IDE, mimicking the organization of files on disk
+#Adapted from https://stackoverflow.com/a/31423421
+function(assign_source_group folder)
+  foreach(_source IN ITEMS ${ARGN})
+    if (IS_ABSOLUTE "${_source}")
+        file(RELATIVE_PATH _source_rel "${CMAKE_SOURCE_DIR}" "${_source}")
+    else()
+        set(_source_rel "${_source}")
+    endif()
+    #remove include/tvm/ if present in the path
+    string(REPLACE "include/tvm/" "" _source_rel_modified "${_source_rel}")
+    get_filename_component(_source_path "${_source_rel_modified}" PATH)
+    string(REPLACE "/" "\\" _source_path_msvc "${_source_path}")
+    source_group("${folder}\\${_source_path_msvc}" FILES "${_source}")
+  endforeach()
+endfunction(assign_source_group)
+
+assign_source_group("sources" ${TVM_SOURCES})
+assign_source_group("headers" ${TVM_HEADERS})
+
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 
