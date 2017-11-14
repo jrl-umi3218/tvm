@@ -51,7 +51,7 @@ namespace abstract
   };
 
   //forward declaration
-  template <typename T, typename Base = T> class OutputSelector;
+  template <typename T, typename Base> class OutputSelector;
 
 
   /** detail functions, see is_output_selector*/
@@ -93,7 +93,7 @@ namespace abstract
     * inherits the data. If it is (case of C), we make OutputSelector inherit
     * from SelectorMembers<false> so that no data is added.
     */
-  template <typename OutputProvider, typename Base>
+  template <typename OutputProvider, typename Base = OutputProvider>
   class OutputSelector :
     public Base,
     protected SelectorMembers<!is_output_selector<Base>()>
