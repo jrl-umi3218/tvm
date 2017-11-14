@@ -55,8 +55,8 @@ namespace abstract
 
 
   /** detail functions, see is_output_selector*/
-  template< typename T>
-  std::true_type is_output_selector_impl(OutputSelector<T> const volatile&);
+  template< typename T, typename Base>
+  std::true_type is_output_selector_impl(OutputSelector<T, Base> const volatile&);
 
   /** detail functions, see is_output_selector*/
   std::false_type is_output_selector_impl(...);
@@ -104,7 +104,7 @@ namespace abstract
     OutputSelector(Args&&... args)
       : Base(std::forward<Args>(args)...)
     {
-      static_assert(std::is_base_of<Outputs, OutputProvider>::value, "Cannot build for a type that is not derived of Outputs");
+      static_assert(std::is_base_of<Outputs, Base>::value, "Cannot build for a type that is not derived of Outputs");
       this->dynamicallyEnabled_.resize(OutputProvider::OutputSize, true);
     }
 
