@@ -21,6 +21,7 @@
 #include <tvm/Clock.h>
 #include <tvm/Task.h>
 #include <tvm/requirements/SolvingRequirements.h>
+#include <tvm/scheme/internal/helpers.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
@@ -30,16 +31,6 @@
 
 namespace tvm
 {
-  //forward declaration
-  namespace scheme 
-  { 
-    namespace internal 
-    {
-      template<typename Problem, typename Scheme>
-      ProblemComputationData& getComputationData(Problem& problem, const Scheme& resolutionScheme);
-    } 
-  }
-
   class TVM_DLLAPI TaskWithRequirements
   {
   public:

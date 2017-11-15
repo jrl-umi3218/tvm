@@ -117,4 +117,4 @@ namespace abstract
 
 }  // namespace tvm
 
-#include <tvm/scheme/internal/helpers.hxx>
+#include <tvm/scheme/internal/helpers.hpp>
