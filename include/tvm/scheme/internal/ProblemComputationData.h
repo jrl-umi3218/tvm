@@ -50,6 +50,11 @@ namespace internal
     void removeVariable(const std::vector<VariablePtr>& vars);
     const VariableVector& variables() const;
 
+    /** Set the value of the variables. \a val must be in the same order as the
+      * variables.
+      */
+    void setSolution(const VectorConstRef& val);
+
   protected:
     ProblemComputationData(int solverId);
     ProblemComputationData() = default;
@@ -93,6 +98,11 @@ namespace internal
   inline const VariableVector& ProblemComputationData::variables() const
   {
     return x_;
+  }
+
+  inline void ProblemComputationData::setSolution(const VectorConstRef & val)
+  {
+    x_.value(val);
   }
 
   inline ProblemComputationData::ProblemComputationData(int solverId)

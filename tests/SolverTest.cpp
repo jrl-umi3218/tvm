@@ -435,4 +435,6 @@ void solverTest01()
 
   scheme::WeightedLeastSquares solver;
   solver.solve(lpb);
+  std::cout << "ddx = " << dot(x, 2)->value().transpose() << std::endl;
+  std::cout << "ddq = " << dot(q, 2)->value().transpose() << std::endl;
 }
