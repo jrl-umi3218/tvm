@@ -22,7 +22,7 @@
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
 
-#include <eigenqp/LSSOL_LS.h>
+#include <EigenQP/LSSOL_LS.h>
 
 namespace tvm
 {

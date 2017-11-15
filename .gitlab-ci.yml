@@ -1,7 +1,8 @@
 variables:
   CI_TOOL: gitlab-ci
-  APT_DEPENDENCIES: "doxygen doxygen-latex"
+  APT_DEPENDENCIES: "libboost-all-dev doxygen doxygen-latex"
   CMAKE_ADDITIONAL_OPTIONS: "-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr"
+  GIT_DEPENDENCIES: "git@gite.lirmm.fr:multi-contact/EigenQP.git#dev"
 
 before_script:
   - git submodule sync

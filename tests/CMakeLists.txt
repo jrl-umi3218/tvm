@@ -35,12 +35,12 @@ set(TESTHEADERS
 )
 
 add_executable(main ${TESTSOURCES} ${TESTHEADERS})
-target_link_libraries(main PUBLIC TVM)
+target_link_libraries(main TVM)
 GENERATE_MSVC_DOT_USER_FILE(main)
 pkg_config_use_dependency(main EigenQP)
 
 add_executable(TestDisabled TestDisabled.cpp)
-target_link_libraries(TestDisabled PUBLIC TVM)
+target_link_libraries(TestDisabled TVM)
 add_test(TestDisabled TestDisabled)
 GENERATE_MSVC_DOT_USER_FILE(TestDisabled)
 
@@ -53,11 +53,11 @@ macro(addBenchmark name)
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Running ${name} benchmark"
     )
-  target_link_libraries(${name} PUBLIC TVM benchmark)
+  target_link_libraries(${name} TVM benchmark)
   if(NOT WIN32)
-    target_link_libraries(${name} PUBLIC pthread)
+    target_link_libraries(${name} pthread)
   else()
-    target_link_libraries(${name} PUBLIC shlwapi)
+    target_link_libraries(${name} shlwapi)
   endif()
   # Adding a project configuration file (for MSVC only)
   GENERATE_MSVC_DOT_USER_FILE(${name})
