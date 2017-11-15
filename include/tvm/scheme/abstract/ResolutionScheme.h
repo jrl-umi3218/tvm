@@ -62,7 +62,7 @@ namespace abstract
     const Derived& derived() const { return *static_cast<const Derived*>(this); }
 
   protected:
-    ResolutionScheme(const internal::SchemeAbilities& abilities, double big = std::numeric_limits<double>::max() / 2);
+    ResolutionScheme(internal::SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
   };
 
 
@@ -74,7 +74,7 @@ namespace abstract
   class LinearResolutionScheme : public ResolutionScheme<Derived>
   {
   protected:
-    LinearResolutionScheme(const internal::SchemeAbilities& abilities, double big = std::numeric_limits<double>::max() / 2);
+    LinearResolutionScheme(internal::SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
   };
 
 
@@ -83,12 +83,11 @@ namespace abstract
   template<typename Problem>
   inline void ResolutionScheme<Derived>::solve(Problem& problem) const
   {
-    const auto& ptr = getComputationData(problem, *this);
     //We assume here that the resolution scheme has only one type of computation data even if
     //it can discriminate between several type of problems.
     //Should it not be the case, we could use traits to determine the ComputationDataType for
     //a Problem, given a particular ResolutionScheme
-    auto& data = *static_cast<typename Derived::ComputationDataType*>(ptr.get());
+    auto& data = static_cast<typename Derived::ComputationDataType&>(getComputationData(problem, *this));
     problem.update();
     derived().solve_(problem, data);
   }
@@ -101,13 +100,13 @@ namespace abstract
   }
 
   template<typename Derived>
-  inline ResolutionScheme<Derived>::ResolutionScheme(const internal::SchemeAbilities& abilities, double big)
+  inline ResolutionScheme<Derived>::ResolutionScheme(internal::SchemeAbilities abilities, double big)
     :ResolutionSchemeBase(abilities, big)
   {
   }
 
   template<typename Derived>
-  inline LinearResolutionScheme<Derived>::LinearResolutionScheme(const internal::SchemeAbilities& abilities, double big)
+  inline LinearResolutionScheme<Derived>::LinearResolutionScheme(internal::SchemeAbilities abilities, double big)
     : ResolutionScheme<Derived>(abilities, big)
   {
   }

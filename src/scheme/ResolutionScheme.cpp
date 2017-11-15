@@ -13,15 +13,15 @@ namespace internal
 
   IdProvider ResolutionSchemeBase::idProvider_;
 
-  ResolutionSchemeBase::ResolutionSchemeBase(const SchemeAbilities& abilities, double big)
+  ResolutionSchemeBase::ResolutionSchemeBase(SchemeAbilities abilities, double big)
     : abilities_(abilities)
     , big_number_(big)
-    , id_(ResolutionSchemeBase::idProvider_.getId())
+    , id_(ResolutionSchemeBase::idProvider_.makeId())
   {
     assert(big > 0);
   }
 
-  int ResolutionSchemeBase::id() const
+  identifier ResolutionSchemeBase::id() const
   {
     return id_;
   }

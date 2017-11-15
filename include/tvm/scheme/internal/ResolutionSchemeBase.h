@@ -27,6 +27,7 @@ namespace tvm
 
   namespace scheme
   {
+    using identifier = int;
 
     namespace internal
     {
@@ -35,7 +36,7 @@ namespace tvm
       {
       public:
         /** Return a unique id for this solver*/
-        int id() const;
+        identifier id() const;
 
         double big_number() const;
         void big_number(double big);
@@ -47,7 +48,7 @@ namespace tvm
         * \param big A big number use to represent infinity, in particular when
         * specifying non-existing bounds (e.g. x <= Inf is given as x <= big).
         */
-        ResolutionSchemeBase(const SchemeAbilities& abilities, double big = std::numeric_limits<double>::max() / 2);
+        ResolutionSchemeBase(SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
 
         SchemeAbilities abilities_;
 

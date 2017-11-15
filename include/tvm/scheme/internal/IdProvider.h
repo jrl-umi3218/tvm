@@ -34,14 +34,14 @@ namespace internal
   class TVM_DLLAPI IdProvider
   {
   public:
-    int getId();
+    int makeId();
   private:
     std::mutex mutex_;
     int id_ = 0;
   };
 
 
-  inline int IdProvider::getId()
+  inline int IdProvider::makeId()
   {
     std::lock_guard<std::mutex> lock(mutex_);
     return id_++;

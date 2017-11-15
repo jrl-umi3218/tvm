@@ -22,6 +22,7 @@
 #include <tvm/Task.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
+#include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 #include <memory>
@@ -35,7 +36,7 @@ namespace tvm
     namespace internal 
     {
       template<typename Problem, typename Scheme>
-      const std::unique_ptr<ProblemComputationData>& getComputationData(Problem& problem, const Scheme& resolutionScheme);
+      ProblemComputationData& getComputationData(Problem& problem, const Scheme& resolutionScheme);
     } 
   }
 
@@ -56,7 +57,7 @@ namespace tvm
     ControlProblem() = default;
     /** \internal We delete these functions because they would require by
     * default a copy of the unique_ptr in the computationData_ map.
-    * There is no problem in implementing them as long as their is a real
+    * There is no problem in implementing them as long as there is a real
     * deep copy of the ProblemComputationData. If making this copy, care must
     * be taken that the objects pointed to by the unique_ptr are instances of
     * classes derived from ProblemComputationData.
@@ -79,9 +80,10 @@ namespace tvm
     std::vector<TaskWithRequirementsPtr> tr_;
 
     //Computation data for the resolution schemes
-    std::map<int, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
+    std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
 
     template<typename Problem, typename Scheme>
-    friend const std::unique_ptr<scheme::internal::ProblemComputationData>& scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
+    friend scheme::internal::ProblemComputationData& 
+      scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
 }  // namespace tvm
