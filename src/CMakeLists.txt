@@ -32,6 +32,11 @@ set(TVM_SOURCES
 
   requirements/SolvingRequirements.cpp
 
+  robot/Contact.cpp
+  robot/ContactFunction.cpp
+  robot/Frame.cpp
+  robot/FrictionCone.cpp
+
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/ResolutionScheme.cpp
@@ -105,6 +110,11 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
   ${TVM_INCLUDE_DIR}/requirements/Weight.h
 
+  ${TVM_INCLUDE_DIR}/robot/internal/ContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
+  ${TVM_INCLUDE_DIR}/robot/Contact.h
+  ${TVM_INCLUDE_DIR}/robot/Frame.h
+
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
@@ -157,6 +167,7 @@ assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
+pkg_config_use_dependency(TVM RBDyn)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
 

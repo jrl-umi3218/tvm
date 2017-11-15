@@ -28,6 +28,12 @@ addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 
+add_optional_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
+if(${MC_RBDYN_URDF_FOUND})
+  addUnitTest(RobotProblem)
+  pkg_config_use_dependency(RobotProblem mc_rbdyn_urdf)
+endif()
+
 set(TESTSOURCES
     main.cpp
     Mockup.cpp

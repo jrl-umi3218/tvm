@@ -18,10 +18,64 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <tvm/Variable.h>
+#include <tvm/graph/abstract/Node.h>
+
+#include <RBDyn/FD.h>
+#include <RBDyn/MultiBody.h>
+#include <RBDyn/MultiBodyConfig.h>
+
 namespace tvm
 {
-  class Robot
-  {
 
+  /** Represent a Robot */
+  class TVM_DLLAPI Robot : public graph::abstract::Node<Robot>
+  {
+  public:
+    SET_OUTPUTS(Robot, q, tau)
+
+    /** Constructor
+     *
+     * \param name Name of the robot
+     *
+     * \param mb MultiBody representing the robot's kinematic structure
+     *
+     * \param mbc MultiBodyConfig giving the robot's initial configuration
+     *
+     */
+    Robot(const std::string & name,
+          rbd::MultiBody mb, rbd::MultiBodyConfig mbc);
+
+    /** Update the Robot's complete state */
+    void updateTimeDependency(double dt);
+
+    inline const std::string & name() const { return name_; }
+
+    inline const VariablePtr & q() const { return q_; }
+    inline VariablePtr & q() { return q_; }
+
+    inline const VariablePtr & tau() const { return tau_; }
+    inline VariablePtr & tau() { return tau_; }
+
+    inline const rbd::MultiBody & mb() const { return mb_; }
+    inline rbd::MultiBody & mb() { return mb_; }
+
+    inline const rbd::MultiBodyConfig & mbc() const { return mbc_; }
+    inline rbd::MultiBodyConfig & mbc() { return mbc_; }
+
+    inline const std::vector<sva::MotionVecd> & normalAccB() const { return normalAccB_; }
+    inline std::vector<sva::MotionVecd> & normalAccB() { return normalAccB_; }
+
+  private:
+    std::string name_;
+    rbd::MultiBody mb_;
+    rbd::MultiBodyConfig mbc_;
+    std::vector<sva::MotionVecd> normalAccB_;
+    rbd::ForwardDynamics fd_;
+    VariablePtr q_;
+    VariablePtr tau_;
+  private:
+    void computeNormalAccB();
   };
+
 }

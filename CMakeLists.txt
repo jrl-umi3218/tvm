@@ -19,11 +19,25 @@ if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
 endif()
 
-#########################
-# External dependencies
+#############################
+# - External dependencies - #
+#############################
+
+#############
+# - Eigen - #
+#############
 SEARCH_FOR_EIGEN()
 
-ADD_REQUIRED_DEPENDENCY(EigenQP EigenQP_d)
+###############
+# - EigenQP - #
+###############
+add_required_dependency(EigenQP EigenQP_d)
+
+#############
+# - RBDyn - #
+#############
+add_required_dependency(RBDyn RBDyn_d)
+
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll

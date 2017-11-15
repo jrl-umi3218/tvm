@@ -36,6 +36,7 @@ namespace tvm
     }
   }
   class Range;
+  class Robot;
   class Variable;
   class VariableVector;
 
@@ -52,6 +53,7 @@ namespace tvm
   using FunctionPtr = std::shared_ptr<function::abstract::Function>;
   using LinearConstraintPtr = std::shared_ptr<constraint::abstract::LinearConstraint>;
   using RangePtr = std::shared_ptr<Range>;
+  using RobotPtr = std::shared_ptr<Robot>;
   using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirements>;
   using TaskDynamicsPtr = std::shared_ptr<task_dynamics::abstract::TaskDynamicsImpl>;
   using VariablePtr = std::shared_ptr<Variable>;
