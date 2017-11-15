@@ -85,6 +85,19 @@ TEST_CASE("Test a problem with a robot")
 
   tvm::LinearizedControlProblem lpb(pb);
 
-  tvm::scheme::WeightedLeastSquares solver;
-  solver.solve(lpb);
+  tvm::scheme::WeightedLeastSquares solver(false);
+  /** The position of the frame should not change */
+  auto X_0_lf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];
+  auto X_0_rf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("RLEG_LINK5")];
+  for(size_t i = 0; i < 1000; ++i)
+  {
+    solver.solve(lpb);
+    hrp2->updateTimeDependency(0.005);
+    auto X_0_lf = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];
+    auto X_0_rf = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("RLEG_LINK5")];
+    auto error_lf = sva::transformError(X_0_lf, X_0_lf_init).vector().norm();
+    FAST_CHECK_UNARY(error_lf < 1e-12);
+    auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
+    FAST_CHECK_UNARY(error_rf < 1e-12);
+  }
 }
