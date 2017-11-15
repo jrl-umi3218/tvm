@@ -248,7 +248,7 @@ namespace internal
   class MatrixMultBase<IDENTITY, P>
   {
   public:
-    typedef void MultType;
+    using MultType = void;
     MatrixMultBase(const MultType* const) {}
 
     template<typename T>
@@ -260,7 +260,7 @@ namespace internal
   class MatrixMultBase<DIAGONAL, P>
   {
   public:
-    typedef Eigen::VectorXd MultType;
+    using MultType = Eigen::VectorXd;
     MatrixMultBase(const MultType* const w) : w_(*w) { assert(w != nullptr); }
 
     /** Return type of VectorXd.asDiagonal()*T */
@@ -290,7 +290,7 @@ namespace internal
   class MatrixMultBase<GENERAL, P>
   {
   public:
-    typedef Eigen::MatrixXd MultType;
+    using MultType = Eigen::MatrixXd;
     MatrixMultBase(const MultType* const M) : M_(*M) { assert(M != nullptr); }
 
     /** Return type of MatrixXd*T */

@@ -243,8 +243,8 @@ namespace internal
   template<AssignType A, ScalarMult S, MatrixMult M, MultPos P, Source F>
   inline void CompiledAssignmentWrapper<MatrixType>::constructFunctions()
   {
-    typedef CompiledAssignment<MatrixType, A, S, M, P, F> CA;
-    typedef CompiledAssignmentWrapper<MatrixType> Wrapper;
+    using CA = CompiledAssignment<MatrixType, A, S, M, P, F>;
+    using Wrapper = CompiledAssignmentWrapper<MatrixType>;
 
     build_ = [](Wrapper* wrapper)
     {

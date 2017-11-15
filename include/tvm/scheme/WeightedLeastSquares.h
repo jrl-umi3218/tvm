@@ -20,6 +20,7 @@
 
 #include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/Assignment.h>
+#include <tvm/scheme/internal/ProblemComputationData.h>
 
 namespace tvm
 {
@@ -28,31 +29,38 @@ namespace scheme
 {
   /** This class implements the classic weighted least square scheme
     */
-  class TVM_DLLAPI WeightedLeastSquares : public abstract::LinearResolutionScheme
+  class TVM_DLLAPI WeightedLeastSquares : public abstract::LinearResolutionScheme<WeightedLeastSquares>
   {
-  public:
-    WeightedLeastSquares(std::shared_ptr<LinearizedControlProblem> pb, double scalarizationWeight = 1000);
-
-  protected:
-    void solve_() override;
-
   private:
-    struct Memory
+    struct Memory : public internal::ProblemComputationData
     {
-      Memory(int n, int m0, int m1, double big_number);
+      Memory(int solverId);
+      void resize(int m0, int m1, double big_number);
 
       Eigen::MatrixXd A;
       Eigen::MatrixXd C;
       Eigen::VectorXd b;
       Eigen::VectorXd l;
       Eigen::VectorXd u;
+
+      //dummy shared_ptr to build shared_ptr on the matrices and vectors
+      //FIXME: should we change the design of basePtr
+      std::shared_ptr<int> basePtr;
+
+      std::vector<internal::Assignment> assignments_;
     };
 
-    void build();
+  public:
+    using ComputationDataType = Memory;
 
+    WeightedLeastSquares(double scalarizationWeight = 1000);
+
+    /** Private interface for CRTP*/
+    void solve_(LinearizedControlProblem& problem, Memory& memory) const;
+    std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
+
+  protected:
     double scalarizationWeight_;
-    std::vector<internal::Assignment> assignments_;
-    std::shared_ptr<Memory> memory_;
   };
 
 }  // namespace scheme

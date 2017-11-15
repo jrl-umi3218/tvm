@@ -18,7 +18,7 @@ namespace internal
     , f_(task.function())
     , td_(task.taskDynamics())
   {
-    typedef LinearizedTaskConstraint LTC;
+    using LTC = LinearizedTaskConstraint;
     Constraint::Output output;
     void (LTC::*kin)();
     void (LTC::*dyn)();

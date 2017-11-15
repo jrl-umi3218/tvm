@@ -98,6 +98,11 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignmentWrapper.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/helpers.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/helpers.hpp
+  ${TVM_INCLUDE_DIR}/scheme/internal/IdProvider.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
