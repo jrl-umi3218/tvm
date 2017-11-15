@@ -76,6 +76,8 @@ namespace tvm
     VariablePtr tau_;
   private:
     void computeNormalAccB();
+
+    void update();
   };
 
 }

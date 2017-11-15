@@ -16,12 +16,19 @@ Robot::Robot(const std::string & name, rbd::MultiBody mb, rbd::MultiBodyConfig m
   q_(tvm::Space(mb_.nrDof(), mb_.nrParams(), mb_.nrDof()).createVariable("q")),
   tau_(tvm::Space(mb_.nrDof()).createVariable("tau"))
 {
-  updateTimeDependency(0.);
+  update();
 }
 
 void Robot::updateTimeDependency(double dt)
 {
+  auto ddq = dot(q_, 2)->value();
+  rbd::vectorToParam(ddq, mbc_.alphaD);
   rbd::eulerIntegration(mb_, mbc_, dt);
+  update();
+}
+
+void Robot::update()
+{
   rbd::forwardKinematics(mb_, mbc_);
   rbd::forwardVelocity(mb_, mbc_);
   rbd::forwardAcceleration(mb_, mbc_);
