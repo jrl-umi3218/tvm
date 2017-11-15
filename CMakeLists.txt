@@ -23,6 +23,7 @@ endif()
 # External dependencies
 SEARCH_FOR_EIGEN()
 
+ADD_REQUIRED_DEPENDENCY(EigenQP EigenQP_d)
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll

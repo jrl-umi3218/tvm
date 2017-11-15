@@ -136,6 +136,9 @@ assign_source_group("headers" ${TVM_HEADERS})
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
+PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
+
+PKG_CONFIG_APPEND_LIBS(TVM)
 
 install(TARGETS TVM
   RUNTIME DESTINATION bin

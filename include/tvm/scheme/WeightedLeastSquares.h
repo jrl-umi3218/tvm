@@ -22,6 +22,8 @@
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
 
+#include <eigenqp/LSSOL_LS.h>
+
 namespace tvm
 {
 
@@ -47,7 +49,8 @@ namespace scheme
       //FIXME: should we change the design of basePtr
       std::shared_ptr<int> basePtr;
 
-      std::vector<internal::Assignment> assignments_;
+      std::vector<internal::Assignment> assignments;
+      Eigen::LSSOL_LS ls;
     };
 
   public:

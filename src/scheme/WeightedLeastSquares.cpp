@@ -22,7 +22,7 @@ namespace scheme
 
   void WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
   {
-    for (auto& a : memory.assignments_)
+    for (auto& a : memory.assignments)
       a.run();
 
     std::cout << "A =\n" << memory.A << std::endl;
@@ -31,6 +31,9 @@ namespace scheme
     std::cout << "l = " << memory.l.transpose() << std::endl;
     std::cout << "u = " << memory.u.transpose() << std::endl;
 
+    bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
+    std::cout << memory.ls.inform() << std::endl;
+    std::cout << memory.ls.result().transpose() << std::endl;
   }
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
@@ -52,6 +55,9 @@ namespace scheme
         m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
     }
 
+    if (m1 == 0)
+      m1 = memory->variables().size();
+
     //allocating memory for the solver
     memory->resize(m0, m1, big_number_);
 
@@ -66,16 +72,21 @@ namespace scheme
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, { memory->basePtr, &memory->C }, { memory->basePtr, &memory->l }, { memory->basePtr, &memory->u }, constraint::RHS::AS_GIVEN, x.size());
-        memory->assignments_.emplace_back(Assignment(c.constraint, c.requirements, target, x));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
         m0 += c.constraint->size();
       }
       else
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, { memory->basePtr, &memory->A }, { memory->basePtr, &memory->b }, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        memory->assignments_.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
         m1 += c.constraint->size();
       }
+    }
+    if (m1 == 0)
+    {
+      memory->A.setIdentity();
+      memory->b.setZero();
     }
 
     return memory;
@@ -98,6 +109,7 @@ namespace scheme
     b.setZero();
     l = Eigen::VectorXd::Constant(m0 + n, -big_number);
     u = Eigen::VectorXd::Constant(m0 + n, +big_number);
+    ls.resize(n, m0, Eigen::lssol::eType::LS1);
   }
 
 }  // namespace scheme

@@ -37,6 +37,7 @@ set(TESTHEADERS
 add_executable(main ${TESTSOURCES} ${TESTHEADERS})
 target_link_libraries(main PUBLIC TVM)
 GENERATE_MSVC_DOT_USER_FILE(main)
+pkg_config_use_dependency(main EigenQP)
 
 add_executable(TestDisabled TestDisabled.cpp)
 target_link_libraries(TestDisabled PUBLIC TVM)
