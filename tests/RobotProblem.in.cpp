@@ -16,9 +16,8 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-//FIXME
-static std::string hrp2_urdf = "/home/gergondet/devel-src/catkin_ws/mc_ws/src/hrp2_drc/hrp2_drc_description/urdf/hrp2drc.urdf";
-static std::string ground_urdf = "/home/gergondet/devel-src/catkin_ws/mc_ws/src/mc_rtc_ros_data/mc_env_description/urdf/ground.urdf";
+static std::string hrp2_urdf = "@HRP2_DRC_DESCRIPTION_PATH@/urdf/hrp2drc.urdf";
+static std::string ground_urdf = "@MC_ENV_DESCRIPTION_PATH@/urdf/ground.urdf";
 
 TEST_CASE("Test a problem with a robot")
 {
