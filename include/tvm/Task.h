@@ -21,6 +21,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/constraint/enums.h>
+#include <tvm/constraint/internal/RHSVectors.h>
 
 #include <memory>
 
@@ -55,6 +56,12 @@ namespace tvm
   {
   public:
     Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td);
+    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double rhs);
+    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, 
+         const Eigen::VectorXd& rhs);
+    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double l, double u);
+    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, 
+         const Eigen::VectorXd& l, const Eigen::VectorXd& u);
     Task(ProtoTask proto, TaskDynamicsPtr td);
 
     FunctionPtr function() const;
@@ -65,5 +72,6 @@ namespace tvm
     FunctionPtr f_;
     constraint::Type type_;
     TaskDynamicsPtr td_;
+    constraint::internal::RHSVectors vectors_;
   };
 }  // namespace tvm

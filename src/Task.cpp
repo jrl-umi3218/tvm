@@ -34,9 +34,10 @@ namespace tvm
     : f_(f)
     , type_(t)
     , td_(td)
+    , vectors_(t,constraint::RHS::ZERO)
   {
     if (t == constraint::Type::DOUBLE_SIDED)
-      throw std::runtime_error("Double sided tasks are not supported for now.");
+      throw std::runtime_error("Double sided tasks need to have non-zero bounds.");
     td->setFunction(f);
   }
 
