@@ -12,6 +12,7 @@ set(TVM_SOURCES
   constraint/Constraint.cpp
   constraint/LinearConstraint.cpp
   constraint/LinearizedTaskConstraint.cpp
+  constraint/RHSVectors.cpp
 
   event/Listener.cpp
   event/Source.cpp
@@ -60,6 +61,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/constraint/BasicLinearConstraint.h
   ${TVM_INCLUDE_DIR}/constraint/enums.h
   ${TVM_INCLUDE_DIR}/constraint/internal/LinearizedTaskConstraint.h
+  ${TVM_INCLUDE_DIR}/constraint/internal/RHSVectors.h
 
   ${TVM_INCLUDE_DIR}/event/enums.h
   ${TVM_INCLUDE_DIR}/event/Listener.h

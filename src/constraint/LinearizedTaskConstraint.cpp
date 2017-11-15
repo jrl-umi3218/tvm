@@ -87,32 +87,32 @@ namespace internal
 
   void LinearizedTaskConstraint::updateLKin()
   {
-    l_ = td_->value();
+    l() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateLDyn()
   {
-    l_ = td_->value() - f_->normalAcceleration();
+    l() = td_->value() - f_->normalAcceleration();
   }
 
   void LinearizedTaskConstraint::updateUKin()
   {
-    u_ = td_->value();
+    u() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateUDyn()
   {
-    u_ = td_->value() - f_->normalAcceleration();
+    u() = td_->value() - f_->normalAcceleration();
   }
 
   void LinearizedTaskConstraint::updateEKin()
   {
-    e_ = td_->value();
+    e() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateEDyn()
   {
-    e_ = td_->value() - f_->normalAcceleration();
+    e() = td_->value() - f_->normalAcceleration();
   }
 
   const tvm::internal::MatrixWithProperties& LinearizedTaskConstraint::jacobian(const Variable& x) const
