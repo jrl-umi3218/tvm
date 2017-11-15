@@ -48,7 +48,7 @@ namespace tvm
     requirements::SolvingRequirements requirements;
   };
 
-  typedef std::shared_ptr<TaskWithRequirements> TaskWithRequirementsPtr;
+  using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
 
   class TVM_DLLAPI ControlProblem
   {

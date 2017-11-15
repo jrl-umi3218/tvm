@@ -38,7 +38,7 @@ namespace tvm
     //lcr.requirements points to and doesn't outlive tr->requirements.
     lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
     constraints_[tr.get()] = lcr;
-    typedef internal::FirstOrderProvider::Output CstrOutput;
+    using CstrOutput = internal::FirstOrderProvider::Output;
     updater_.addInput(lcr.constraint, CstrOutput::Jacobian);
     switch (tr->task.type())
     {

@@ -51,7 +51,7 @@ namespace scheme
     };
 
   public:
-    typedef Memory ComputationDataType;
+    using ComputationDataType = Memory;
 
     WeightedLeastSquares(double scalarizationWeight = 1000);
 
