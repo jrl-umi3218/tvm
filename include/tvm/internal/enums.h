@@ -151,17 +151,21 @@ static_assert(COUNT_VA_ARGS(1,2,3) == 3, "COUNT_VA_ARGS failed for 3 arguments."
 #define PP_ID(x) x
 
 #define ENUM_NAME(EnumT, name) \
-  v == EnumT::name ? #name :
+  v == EnumT##_::name ? #name :
 
 #define DECLARE_ENUM(EnumName, Enum0, ...) \
-  enum class EnumName { Enum0 = EnumName##Parent::EnumName##Size, ## __VA_ARGS__ };
+  enum class EnumName##_ { Enum0 = EnumName##Parent::EnumName##Size, ## __VA_ARGS__ };
+
+#define DECLARE_STRUCT(EnumT, name) \
+  constexpr static EnumT##_ name = EnumT##_::name;
 
 #define EXTEND_ENUM(EnumName, SelfT, ...)\
   using EnumName##Parent = SelfT::EnumName##Base; \
   PP_ID(DECLARE_ENUM(EnumName, __VA_ARGS__))\
+  struct EnumName : public EnumName##Parent::EnumName { PP_ID(PP_MAP(DECLARE_STRUCT, EnumName, __VA_ARGS__)) }; \
   static constexpr unsigned int EnumName##Size = EnumName##Parent::EnumName##Size + PP_ID(COUNT_VA_ARGS(__VA_ARGS__)); \
   using EnumName##Parent::EnumName##Name; \
-  static constexpr const char * EnumName##Name(EnumName v) { return PP_ID(PP_MAP(ENUM_NAME, EnumName, __VA_ARGS__)) "INVALID"; } \
+  static constexpr const char * EnumName##Name(EnumName##_ v) { return PP_ID(PP_MAP(ENUM_NAME, EnumName, __VA_ARGS__)) "INVALID"; } \
   using EnumName##Base = SelfT; \
   static constexpr auto EnumName##BaseName = #SelfT;
 

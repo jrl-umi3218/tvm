@@ -71,7 +71,7 @@ public:
 
 private:
   template<typename Input>
-  void processOutput(Input input, Update u, void (Difference::*update)());
+  void processOutput(Input input, Update_ u, void (Difference::*update)());
 
   FunctionPtr f_;
   FunctionPtr g_;
@@ -269,7 +269,7 @@ Difference::Difference(FunctionPtr f, FunctionPtr g)
 }
 
 template<typename Input>
-void Difference::processOutput(Input input, Difference::Update u, void (Difference::*update)())
+void Difference::processOutput(Input input, Difference::Update_ u, void (Difference::*update)())
 {
   if (f_->isOutputEnabled(input) && g_->isOutputEnabled(input))
   {

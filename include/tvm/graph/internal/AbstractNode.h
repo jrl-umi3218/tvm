@@ -55,7 +55,9 @@ public:
   friend class tvm::graph::CallGraph;
 
   /** Base Update enumeration. Empty */
-  enum class Update {};
+  enum class Update_ {};
+  /** Base class for Update. Empty */
+  struct Update {};
 
   /** Store the size of the Update enumeration */
   static constexpr unsigned int UpdateSize = 0;
@@ -70,7 +72,7 @@ public:
   static constexpr auto UpdateBaseName = "AbstractNode";
 
   /** Return the name of a given update */
-  static constexpr const char * UpdateName(Output) { return "INVALID"; }
+  static constexpr const char * UpdateName(Update_) { return "INVALID"; }
 
   /** Check if a given update is enabled, be it at the class (static) or
   * instance (dynamic) level).
@@ -160,7 +162,7 @@ constexpr bool is_valid_update(EnumT v)
 {
   static_assert(std::is_base_of<AbstractNode, T>::value, "Cannot test update validity for a type that is not derived of Updates");
   static_assert(std::is_enum<EnumT>::value, "Cannot test update validity for a value that is not an enumeration");
-  return std::is_same<typename T::Update, EnumT>::value ||
+  return std::is_same<typename T::Update_, EnumT>::value ||
          ( (!std::is_same<typename T::UpdateParent, typename T::UpdateBase>::value) &&
            is_valid_update<typename T::UpdateParent>(v) );
 }

@@ -19,7 +19,7 @@ namespace internal
     , td_(task.taskDynamics())
   {
     using LTC = LinearizedTaskConstraint;
-    Constraint::Output output;
+    Constraint::Output_ output;
     void (LTC::*kin)();
     void (LTC::*dyn)();
 

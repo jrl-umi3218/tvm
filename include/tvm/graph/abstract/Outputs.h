@@ -50,7 +50,9 @@ public:
   virtual ~Outputs() = default;
 
   /** Base Output enumeration. Empty */
-  enum class Output {};
+  enum class Output_ {};
+  /** Base class for Output. Empty */
+  struct Output {};
 
   /** Store the size of the Output enumeration */
   static constexpr unsigned int OutputSize = 0;
@@ -65,7 +67,7 @@ public:
   static constexpr auto OutputBaseName = "Outputs";
 
   /** Return the name of a given output */
-  static constexpr const char * OutputName(Output) { return "INVALID"; }
+  static constexpr const char * OutputName(Output_) { return "INVALID"; }
 
   /** Check if a given output is enabled, be it at the class (static) or
    * instance (dynamic) level).
@@ -141,7 +143,7 @@ constexpr bool is_valid_output(EnumT v)
 {
   static_assert(std::is_base_of<Outputs, T>::value, "Cannot test output validity for a type that is not derived of Outputs");
   static_assert(std::is_enum<EnumT>::value, "Cannot test output validity for a value that is not an enumeration");
-  return std::is_same<typename T::Output, EnumT>::value ||
+  return std::is_same<typename T::Output_, EnumT>::value ||
          ( (!std::is_same<typename T::OutputParent, typename T::OutputBase>::value) &&
            is_valid_output<typename T::OutputParent>(v) );
 }
