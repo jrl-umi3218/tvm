@@ -33,7 +33,7 @@ set(TVM_SOURCES
   requirements/SolvingRequirements.cpp
 
   robot/Contact.cpp
-  robot/ContactFunction.cpp
+  robot/GeometricContactFunction.cpp
   robot/Frame.cpp
   robot/FrictionCone.cpp
 
@@ -110,7 +110,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
   ${TVM_INCLUDE_DIR}/requirements/Weight.h
 
-  ${TVM_INCLUDE_DIR}/robot/internal/ContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
   ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
@@ -170,6 +170,10 @@ target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
 pkg_config_use_dependency(TVM RBDyn)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
+if(GENERATE_COVERAGE)
+  target_compile_options(TVM PRIVATE "--coverage")
+  set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
+endif()
 
 PKG_CONFIG_APPEND_LIBS(TVM)
 

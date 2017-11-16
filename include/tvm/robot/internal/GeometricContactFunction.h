@@ -31,15 +31,15 @@ namespace robot
 namespace internal
 {
 
-  class ContactFunction : public function::abstract::Function
+  class GeometricContactFunction : public function::abstract::Function
   {
   public:
     using Output = function::abstract::Function::Output;
     DISABLE_OUTPUTS(Output::JDot)
-    SET_UPDATES(ContactFunction, Value, Velocity, NormalAcceleration, Jacobian)
+    SET_UPDATES(GeometricContactFunction, Value, Velocity, NormalAcceleration, Jacobian)
 
-    ContactFunction(ContactPtr contact,
-                    Eigen::Matrix6d dof);
+    GeometricContactFunction(ContactPtr contact,
+                             Eigen::Matrix6d dof);
 
   private:
     ContactPtr contact_;

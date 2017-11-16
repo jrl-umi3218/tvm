@@ -1,5 +1,5 @@
 #include <tvm/Robot.h>
-#include <tvm/robot/internal/ContactFunction.h>
+#include <tvm/robot/internal/GeometricContactFunction.h>
 #include <tvm/Task.h>
 
 #include <tvm/ControlProblem.h>
@@ -35,6 +35,7 @@ TEST_CASE("Test a problem with a robot")
     return std::make_shared<tvm::Robot>(name, data.mb, data.mbc);
   };
   auto hrp2 = load_robot("HRP2", hrp2_urdf, false);
+  std::cout << "OK HRP2" << std::endl;
   {
     auto q = hrp2->mbc().q;
     std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
@@ -53,7 +54,7 @@ TEST_CASE("Test a problem with a robot")
       }
     }
   }
-  auto ground = load_robot("ground", ground_urdf, false);
+  auto ground = load_robot("ground", ground_urdf, true);
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -75,8 +76,8 @@ TEST_CASE("Test a problem with a robot")
   auto contact_rf_ground = std::make_shared<tvm::robot::Contact>
     (hrp2_rf, ground_f, std::vector<sva::PTransformd>{sva::PTransformd::Identity()});
 
-  auto lfg_fn = std::make_shared<tvm::robot::internal::ContactFunction>(contact_lf_ground, Eigen::Matrix6d::Identity());
-  auto rfg_fn = std::make_shared<tvm::robot::internal::ContactFunction>(contact_rf_ground, Eigen::Matrix6d::Identity());
+  auto lfg_fn = std::make_shared<tvm::robot::internal::GeometricContactFunction>(contact_lf_ground, Eigen::Matrix6d::Identity());
+  auto rfg_fn = std::make_shared<tvm::robot::internal::GeometricContactFunction>(contact_rf_ground, Eigen::Matrix6d::Identity());
 
   tvm::ControlProblem pb;
   pb.add(lfg_fn == 0., std::make_shared<tvm::task_dynamics::ProportionalDerivative>(0), {tvm::requirements::PriorityLevel(0)});
@@ -97,6 +98,6 @@ TEST_CASE("Test a problem with a robot")
     auto error_lf = sva::transformError(X_0_lf, X_0_lf_init).vector().norm();
     FAST_CHECK_UNARY(error_lf < 1e-12);
     auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
-    FAST_CHECK_UNARY(error_rf < 1e-12);
+   FAST_CHECK_UNARY(error_rf < 1e-12);
   }
 }
