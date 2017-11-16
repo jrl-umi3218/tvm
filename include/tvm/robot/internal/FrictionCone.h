@@ -38,8 +38,9 @@ namespace internal
  * Compute the vectors that linearize the friction cone using the
  * generatrix.
  */
-struct TVM_DLLAPI FrictionCone
+class TVM_DLLAPI FrictionCone
 {
+public:
   /** Default constructor */
   FrictionCone() {}
 
