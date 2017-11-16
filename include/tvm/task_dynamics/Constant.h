@@ -23,27 +23,18 @@
 namespace tvm
 {
 
-  namespace function
-  {
-    namespace abstract { class LinearFunction; }
-  }
-
   namespace task_dynamics
   {
 
-    /** Compute e* = -f(0) (Geometric order). For linear functions only. */
-    class TVM_DLLAPI None : public abstract::TaskDynamics
+    class TVM_DLLAPI Constant : public abstract::TaskDynamics
     {
     public:
-      None();
+      Constant(const Eigen::VectorXd& v = Eigen::VectorXd());
 
       void updateValue() override;
 
     protected:
       void setFunction_() override;
-
-    private:
-      const function::abstract::LinearFunction* lf_;
     };
 
   }  // namespace task_dynamics

@@ -1,32 +1,32 @@
 #include <tvm/task_dynamics/None.h>
 
-#include <tvm/function/abstract/Function.h>
+#include <tvm/function/abstract/LinearFunction.h>
 
 namespace tvm
 {
 
-namespace task_dynamics
-{
-
-  None::None(const Eigen::VectorXd& v)
-    : TaskDynamics(Order::Geometric)
+  namespace task_dynamics
   {
-    value_ = v;
-  }
 
-  void None::updateValue()
-  {
-    // do nothing
-  }
+    None::None()
+      : TaskDynamics(Order::Geometric)
+    {
+    }
 
-  void None::setFunction_()
-  {
-    if (value_.size() == 0)
-      value_.setZero(function().size());
-    else
-      assert(value_.size() == function().size());
-  }
+    void None::updateValue()
+    {
+      value_ = -lf_->b();
+    }
 
-}  // namespace task_dynamics
+    void None::setFunction_()
+    {
+      lf_ = dynamic_cast<const function::abstract::LinearFunction*>(&function());
+      if (!lf_)
+      {
+        throw std::runtime_error("The function is not linear.");
+      }
+    }
+
+  }  // namespace task_dynamics
 
 }  // namespace tvm

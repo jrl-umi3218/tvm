@@ -43,6 +43,7 @@ namespace abstract
     void updateValue();
     void updateVelocity();
     void resizeCache() override;
+    const Eigen::VectorXd& b() const;
 
   protected:
     LinearFunction(int m);
@@ -52,6 +53,12 @@ namespace abstract
 
     Eigen::VectorXd b_;
   };
+
+  inline const Eigen::VectorXd& LinearFunction::b() const
+  {
+    return b_;
+  }
+
 
 }  // namespace abstract
 
