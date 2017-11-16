@@ -80,6 +80,7 @@ namespace abstract
     void resizeCache() override;
     const Eigen::VectorXd& b() const;
 
+    const Eigen::VectorXd & b() const { return b_; }
   protected:
     LinearFunction(int m);
     virtual void updateValue_();
