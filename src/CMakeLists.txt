@@ -113,6 +113,9 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
   ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
+  
+  ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
+  ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )
 
 #Helper functions to assign files to groups in IDE, mimicking the organization of files on disk

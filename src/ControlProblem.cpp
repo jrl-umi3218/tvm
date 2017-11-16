@@ -17,11 +17,6 @@ namespace tvm
     return tr;
   }
 
-  TaskWithRequirementsPtr ControlProblem::add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
-  {
-    return add({ proto,td }, req);
-  }
-
   void ControlProblem::add(TaskWithRequirementsPtr tr)
   {
     tr_.push_back(tr);

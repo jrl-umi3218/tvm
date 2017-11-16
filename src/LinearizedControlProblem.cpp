@@ -21,11 +21,6 @@ namespace tvm
     return tr;
   }
 
-  TaskWithRequirementsPtr LinearizedControlProblem::add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
-  {
-    return add({ proto, td }, req);
-  }
-
   void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
   {
     ControlProblem::add(tr);

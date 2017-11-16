@@ -20,6 +20,7 @@
 
 #include <tvm/Task.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/utils/ProtoTask.h>
 
 namespace tvm
 {
@@ -44,7 +45,8 @@ namespace internal
     SET_UPDATES(LinearizedTaskConstraint, UpdateRHS)
 
     LinearizedTaskConstraint(const Task& task);
-    LinearizedTaskConstraint(const ProtoTask& pt, TaskDynamicsPtr td);
+    template<constraint::Type T>
+    LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td);
 
     void updateLKin();
     void updateLDyn();
@@ -59,6 +61,13 @@ namespace internal
     FunctionPtr f_;
     TaskDynamicsPtr td_;
   };
+
+
+  template<constraint::Type T>
+  LinearizedTaskConstraint::LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td)
+    : LinearizedTaskConstraint(Task(pt, td))
+  {
+  }
 
 }  // namespace internal
 

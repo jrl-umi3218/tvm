@@ -48,6 +48,15 @@ namespace internal
     Eigen::VectorXd& e();
     const Eigen::VectorXd& e() const;
 
+    /** Return the vector specified by t:
+      * - l if t == Type::GREATER_THAN
+      * - u if t == Type::LOWER_THAN
+      * - e if t == Type::EQUAL
+      * If t == Type::DOUBLE_SIDED, throw an exception
+      */
+    Eigen::VectorXd& rhs(Type t);
+    const Eigen::VectorXd& rhs(Type t) const;
+
     bool use_l() const;
     bool use_u() const;
     bool use_e() const;
@@ -94,6 +103,28 @@ namespace internal
     return e_;
   }
 
+
+  inline Eigen::VectorXd& RHSVectors::rhs(Type t)
+  {
+    switch (t)
+    {
+    case Type::LOWER_THAN: return u_;
+    case Type::GREATER_THAN: return l_;
+    case Type::EQUAL: return e_;
+    case Type::DOUBLE_SIDED: throw std::runtime_error("This methods is not available for DOUBLE_SIDED");
+    }
+  }
+
+  inline const Eigen::VectorXd& RHSVectors::rhs(Type t) const
+  {
+    switch (t)
+    {
+    case Type::LOWER_THAN: return u_;
+    case Type::GREATER_THAN: return l_;
+    case Type::EQUAL: return e_;
+    case Type::DOUBLE_SIDED: throw std::runtime_error("This methods is not available for DOUBLE_SIDED");
+    }
+  }
 
   inline bool RHSVectors::use_l() const
   {

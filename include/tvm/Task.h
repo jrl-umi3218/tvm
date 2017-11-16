@@ -22,34 +22,12 @@
 #include <tvm/defs.h>
 #include <tvm/constraint/enums.h>
 #include <tvm/constraint/internal/RHSVectors.h>
+#include <tvm/utils/ProtoTask.h>
 
 #include <memory>
 
 namespace tvm
 {
-  /** A conveniency proxy to represents expression f==0, f>=0 or f<=0 where f
-    * is a function
-    */
-  class TVM_DLLAPI ProtoTask
-  {
-  public:
-    FunctionPtr f_;
-    constraint::Type type_;
-  };
-
-  /** Convenient operators to form ProtoTask. For now, we only accept rhs=0
-    *
-    * Note that you explicitely need to write 0., otherwise the compiler won't
-    * be able to decide wich overload to pick between this and shared_ptr
-    * operator.
-    * (and it is not possible to have an overload with "int rhs", for the same
-    * reason)
-    */
-  ProtoTask TVM_DLLAPI operator==(FunctionPtr f, double rhs);
-  ProtoTask TVM_DLLAPI operator>=(FunctionPtr f, double rhs);
-  ProtoTask TVM_DLLAPI operator<=(FunctionPtr f, double rhs);
-
-
   /** A task is a triplet (Function, operator, TaskDynamics) where operator is
     * ==, >= or <=*/
   class TVM_DLLAPI Task
@@ -62,7 +40,10 @@ namespace tvm
     Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double l, double u);
     Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, 
          const Eigen::VectorXd& l, const Eigen::VectorXd& u);
-    Task(ProtoTask proto, TaskDynamicsPtr td);
+    Task(utils::ProtoTaskEQ proto, TaskDynamicsPtr td);
+    Task(utils::ProtoTaskLT proto, TaskDynamicsPtr td);
+    Task(utils::ProtoTaskGT proto, TaskDynamicsPtr td);
+    Task(utils::ProtoTaskDS proto, TaskDynamicsPtr td);
 
     FunctionPtr function() const;
     constraint::Type type() const;

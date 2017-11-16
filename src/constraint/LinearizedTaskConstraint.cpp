@@ -80,11 +80,6 @@ namespace internal
     addDirectDependency<LTC>(BaseOutput::Jacobian, f_, BaseOutput::Jacobian);
   }
 
-  LinearizedTaskConstraint::LinearizedTaskConstraint(const ProtoTask& pt, TaskDynamicsPtr td)
-    : LinearizedTaskConstraint(Task(pt, td))
-  {
-  }
-
   void LinearizedTaskConstraint::updateLKin()
   {
     l() = td_->value();

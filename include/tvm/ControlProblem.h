@@ -25,6 +25,7 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
+#include <tvm/utils/ProtoTask.h>
 
 #include <memory>
 #include <vector>
@@ -57,7 +58,8 @@ namespace tvm
     ControlProblem& operator=(const ControlProblem &) = delete;
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});
-    TaskWithRequirementsPtr add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
+    template<constraint::Type T>
+    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
@@ -77,4 +79,10 @@ namespace tvm
     friend scheme::internal::ProblemComputationData& 
       scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
+
+  template<constraint::Type T>
+  TaskWithRequirementsPtr ControlProblem::add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
+  {
+    return add({ proto,td }, req);
+  }
 }  // namespace tvm

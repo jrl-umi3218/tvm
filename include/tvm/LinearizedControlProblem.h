@@ -38,7 +38,8 @@ namespace tvm
     LinearizedControlProblem(const ControlProblem& pb);
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});
-    TaskWithRequirementsPtr add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
+    template<constraint::Type T>
+    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
 
@@ -73,6 +74,13 @@ namespace tvm
     std::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
     Updater updater_;
   };
+
+
+  template<constraint::Type T>
+  TaskWithRequirementsPtr LinearizedControlProblem::add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
+  {
+    return add({ proto, td }, req);
+  }
 
   template<typename T, typename ... Args>
   inline void LinearizedControlProblem::Updater::addInput(std::shared_ptr<T> source, Args... args)
