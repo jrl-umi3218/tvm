@@ -21,11 +21,9 @@
 #include <tvm/defs.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/task_dynamics/enums.h>
+#include <tvm/task_dynamics/abstract/TaskDynamicsImpl.h>
 
 #include <Eigen/Core>
-
-#include <memory>
-#include <typeinfo>
 
 //FIXME add mechanisms for when the function's output is resized
 //FIXME Consider the possibility of having variables in task dynamics?
@@ -38,9 +36,16 @@ namespace task_dynamics
 
 namespace abstract
 {
-  //forward declaration
-  class TaskDynamicsImpl;
-
+  /** This is a base class to describe how a task is to be regulated, i.e. how
+    * to compute e^(d)* for a task with constraint part e op rhs, where e is a
+    * function, op is one operator among (==, <=, >=) and rhs is a constant or
+    * a vector. d is the order of the task dynamics.
+    * 
+    * TaskDynamics is a lightweight descriptor, independent of a particular
+    * task, that is meant for the end user.
+    * Internally, it is turned into a TaskDynamicsImpl when linked to a given
+    * function and rhs.
+    */
   class TVM_DLLAPI TaskDynamics
   {
   public:
@@ -49,61 +54,6 @@ namespace abstract
   protected:
     virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f) const = 0;
   };
-
-  class TVM_DLLAPI TaskDynamicsImpl : public graph::abstract::Node<TaskDynamicsImpl>
-  {
-  public:
-    SET_OUTPUTS(TaskDynamicsImpl, Value)
-    SET_UPDATES(TaskDynamicsImpl, UpdateValue)
-
-    const Eigen::VectorXd& value() const;
-    Order order() const;
-
-    virtual void updateValue() = 0;
-
-    /** Check if this is an instance of T::Impl */
-    template<typename T>
-    bool checkType() const;
-
-  protected:
-    TaskDynamicsImpl(Order order, FunctionPtr f);
-    const function::abstract::Function & function() const;
-
-    Eigen::VectorXd value_;
-
-  private:
-    void setFunction(FunctionPtr f);
-
-    Order order_;
-    FunctionPtr f_;
-
-    //for casting back to the derived type
-    size_t typeInfo_;
-
-    friend TaskDynamics;
-  };
-
-  inline const Eigen::VectorXd& TaskDynamicsImpl::value() const
-  {
-    return value_;
-  }
-
-  inline Order TaskDynamicsImpl::order() const
-  {
-    return order_;
-  }
-
-  inline const function::abstract::Function & TaskDynamicsImpl::function() const
-  {
-    assert(f_);
-    return *f_;
-  }
-
-  template<typename T>
-  inline bool TaskDynamicsImpl::checkType() const
-  {
-    return typeid(T).hash_code() == typeInfo_;
-  }
 
 }  // namespace abstract
 

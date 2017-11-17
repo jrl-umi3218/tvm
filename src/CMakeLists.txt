@@ -41,6 +41,7 @@ set(TVM_SOURCES
   task_dynamics/Proportional.cpp
   task_dynamics/ProportionalDerivative.cpp
   task_dynamics/TaskDynamics.cpp
+  task_dynamics/TaskDynamicsImpl.cpp
 )
 
 set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
@@ -110,6 +111,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Constant.h
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
