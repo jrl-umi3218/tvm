@@ -9,7 +9,7 @@ namespace tvm
   {
 
     None::None()
-      : TaskDynamics(Order::Geometric)
+      : TaskDynamics(Order::Zero)
     {
     }
 

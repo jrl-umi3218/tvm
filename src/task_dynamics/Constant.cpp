@@ -9,7 +9,7 @@ namespace tvm
   {
 
     Constant::Constant(const Eigen::VectorXd& v)
-      : TaskDynamics(Order::Geometric)
+      : TaskDynamics(Order::Zero)
     {
       value_ = v;
     }

@@ -9,7 +9,7 @@ namespace task_dynamics
 {
 
   Proportional::Proportional(double kp)
-    : TaskDynamics(Order::Kinematics)
+    : TaskDynamics(Order::One)
     , kp_(kp)
   {
   }

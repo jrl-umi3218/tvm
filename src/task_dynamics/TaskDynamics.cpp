@@ -25,7 +25,7 @@ namespace abstract
       f_ = f;
       addInput(f, internal::FirstOrderProvider::Output::Value); //FIXME it's not great to have to resort to internal::FirstOrderProvider
       addInputDependency(Update::UpdateValue, f, internal::FirstOrderProvider::Output::Value);
-      if (order_ == Order::Dynamics)
+      if (order_ == Order::Two)
       {
         addInput(f, function::abstract::Function::Output::Velocity);
         addInputDependency(Update::UpdateValue, f, function::abstract::Function::Output::Velocity);

@@ -9,7 +9,7 @@ namespace task_dynamics
 {
 
   ProportionalDerivative::ProportionalDerivative(double kp, double kv)
-    : TaskDynamics(Order::Dynamics)
+    : TaskDynamics(Order::Two)
     , kp_(kp)
     , kv_(kv)
   {

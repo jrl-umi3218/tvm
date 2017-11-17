@@ -26,9 +26,9 @@ namespace task_dynamics
 
   enum class Order
   {
-    Geometric,
-    Kinematics,
-    Dynamics
+    Zero,
+    One,
+    Two
   };
 
 }  // namespace task_dynamics

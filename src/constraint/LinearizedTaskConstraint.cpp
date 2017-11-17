@@ -45,7 +45,7 @@ namespace internal
 
     switch (task.taskDynamics()->order())
     {
-    case task_dynamics::Order::Geometric:
+    case task_dynamics::Order::Zero:
       for (auto& v : f_->variables())
       {
         if (!f_->linearIn(*v))
@@ -54,14 +54,14 @@ namespace internal
         registerUpdates(Update::UpdateRHS, kin);
       }
       throw std::runtime_error("This case is not implemented yet.");
-    case task_dynamics::Order::Kinematics:
+    case task_dynamics::Order::One:
     {
       for (auto& v : f_->variables())
         addVariable(dot(v), true);
       registerUpdates(Update::UpdateRHS, kin);
     }
     break;
-    case task_dynamics::Order::Dynamics:
+    case task_dynamics::Order::Two:
     {
       for (auto& v : f_->variables())
         addVariable(dot(v, 2), true);
@@ -121,9 +121,9 @@ namespace internal
   {
     switch (td_->order())
     {
-    case task_dynamics::Order::Geometric: return f_->jacobian(x); break;
-    case task_dynamics::Order::Kinematics: return f_->jacobian(*x.primitive()); break;
-    case task_dynamics::Order::Dynamics: return f_->jacobian(*x.primitive<2>()); break;
+    case task_dynamics::Order::Zero: return f_->jacobian(x); break;
+    case task_dynamics::Order::One: return f_->jacobian(*x.primitive()); break;
+    case task_dynamics::Order::Two: return f_->jacobian(*x.primitive<2>()); break;
     default:
       throw std::runtime_error("Unimplemented case.");
     }
