@@ -19,13 +19,13 @@ namespace task_dynamics
   {
   }
 
-  std::unique_ptr<abstract::TaskDynamicsImpl> ProportionalDerivative::impl_(FunctionPtr f) const
+  std::unique_ptr<abstract::TaskDynamicsImpl> ProportionalDerivative::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f,kp_,kv_));
+    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, kp_, kv_));
   }
 
-  ProportionalDerivative::Impl::Impl(FunctionPtr f, double kp, double kv)
-    : TaskDynamicsImpl(Order::Two, f)
+  ProportionalDerivative::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp, double kv)
+    : TaskDynamicsImpl(Order::Two, f, t, rhs)
     , kp_(kp)
     , kv_(kv)
   {
@@ -33,7 +33,7 @@ namespace task_dynamics
 
   void ProportionalDerivative::Impl::updateValue()
   {
-    value_ = -kv_ * function().velocity() - kp_ * function().value();
+    value_ = -kv_ * function().velocity() - kp_ * (function().value() - rhs());
   }
 
   std::pair<double, double> ProportionalDerivative::Impl::gains() const

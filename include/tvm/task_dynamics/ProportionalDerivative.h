@@ -36,7 +36,7 @@ namespace task_dynamics
     class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {
     public:
-      Impl(FunctionPtr f, double kp, double kv);
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp, double kv);
       void updateValue() override;
 
       /** return (kp, kv) */
@@ -57,7 +57,7 @@ namespace task_dynamics
     ProportionalDerivative(double kp);
 
   protected:
-    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f) const override;
+    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
 
   private:
     double kp_;

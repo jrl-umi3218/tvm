@@ -19,6 +19,7 @@
 */
 
 #include <tvm/defs.h>
+#include <tvm/constraint/enums.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/task_dynamics/enums.h>
 
@@ -45,9 +46,9 @@ namespace tvm
       {
       public:
         SET_OUTPUTS(TaskDynamicsImpl, Value)
-          SET_UPDATES(TaskDynamicsImpl, UpdateValue)
+        SET_UPDATES(TaskDynamicsImpl, UpdateValue)
 
-          const Eigen::VectorXd& value() const;
+        const Eigen::VectorXd& value() const;
         Order order() const;
 
         virtual void updateValue() = 0;
@@ -57,8 +58,10 @@ namespace tvm
         bool checkType() const;
 
       protected:
-        TaskDynamicsImpl(Order order, FunctionPtr f);
+        TaskDynamicsImpl(Order order, FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs);
         const function::abstract::Function & function() const;
+        constraint::Type type() const;
+        const Eigen::VectorXd& rhs() const;
 
         Eigen::VectorXd value_;
 
@@ -67,6 +70,8 @@ namespace tvm
 
         Order order_;
         FunctionPtr f_;
+        constraint::Type type_;
+        Eigen::VectorXd rhs_;
 
         //for casting back to the derived type
         size_t typeInfo_;
@@ -88,6 +93,16 @@ namespace tvm
       {
         assert(f_);
         return *f_;
+      }
+
+      inline constraint::Type TaskDynamicsImpl::type() const
+      {
+        return type_;
+      }
+
+      inline const Eigen::VectorXd & TaskDynamicsImpl::rhs() const
+      {
+        return rhs_;
       }
 
       template<typename T>

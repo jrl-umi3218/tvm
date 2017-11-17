@@ -31,14 +31,14 @@ namespace tvm
       class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
       {
       public:
-        Impl(FunctionPtr, const Eigen::VectorXd& v);
+        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs, const Eigen::VectorXd& v);
         void updateValue() override;
       };
 
       Constant(const Eigen::VectorXd& v = Eigen::VectorXd());
 
     protected:
-      std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f) const override;
+      std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
 
     private:
       Eigen::VectorXd v_;

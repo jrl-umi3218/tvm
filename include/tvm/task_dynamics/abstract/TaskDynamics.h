@@ -49,10 +49,10 @@ namespace abstract
   class TVM_DLLAPI TaskDynamics
   {
   public:
-    virtual std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f) const;
+    virtual std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const;
 
   protected:
-    virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f) const = 0;
+    virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const = 0;
   };
 
 }  // namespace abstract

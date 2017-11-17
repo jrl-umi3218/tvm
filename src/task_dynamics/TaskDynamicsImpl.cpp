@@ -11,8 +11,10 @@ namespace tvm
     namespace abstract
     {
 
-      TaskDynamicsImpl::TaskDynamicsImpl(Order order, FunctionPtr f)
+      TaskDynamicsImpl::TaskDynamicsImpl(Order order, FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
         : order_(order)
+        , type_(t)
+        , rhs_(rhs)
       {
         setFunction(f);
         registerUpdates(Update::UpdateValue, &TaskDynamicsImpl::updateValue);

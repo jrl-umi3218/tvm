@@ -8,13 +8,13 @@ namespace tvm
   namespace task_dynamics
   {
 
-    std::unique_ptr<abstract::TaskDynamicsImpl> None::impl_(FunctionPtr f) const
+    std::unique_ptr<abstract::TaskDynamicsImpl> None::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f));
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs));
     }
 
-    None::Impl::Impl(FunctionPtr f)
-      : TaskDynamicsImpl(Order::Zero, f)
+    None::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
+      : TaskDynamicsImpl(Order::Zero, f, t, rhs)
     {
       lf_ = dynamic_cast<const function::abstract::LinearFunction*>(f.get());
       if (!lf_)

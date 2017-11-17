@@ -57,7 +57,8 @@ namespace tvm
     FunctionPtr f_;
     constraint::Type type_;
     TaskDynamicsPtr td_;
-    constraint::internal::RHSVectors vectors_;
+    TaskDynamicsPtr td2_ = nullptr;             //used only for double sided tasks, as dynamics for upper bound.
+    constraint::internal::RHSVectors vectors_;  //FIXME: still useful? The data are already in td_ and td2_, though not accessible atm.
   };
 
 

@@ -13,13 +13,13 @@ namespace tvm
     {
     }
 
-    std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f) const
+    std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, v_));
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, v_));
     }
 
-    Constant::Impl::Impl(FunctionPtr f, const Eigen::VectorXd& v)
-      : TaskDynamicsImpl(Order::Zero, f)
+    Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Eigen::VectorXd& v)
+      : TaskDynamicsImpl(Order::Zero, f, t, rhs)
     {
       if (value_.size() == 0)
         value_.setZero(function().size());

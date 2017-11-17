@@ -22,7 +22,7 @@ namespace tvm
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td)
     : f_(f)
     , type_(t)
-    , td_(td.impl(f))
+    , td_(td.impl(f, t, Eigen::VectorXd::Zero(f->size())))
     , vectors_(t,constraint::RHS::AS_GIVEN)
   {
     if (t == constraint::Type::DOUBLE_SIDED)
@@ -38,7 +38,7 @@ namespace tvm
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & rhs)
     : f_(f)
     , type_(t)
-    , td_(std::move(td.impl(f)))
+    , td_(std::move(td.impl(f, t, rhs)))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t == constraint::Type::DOUBLE_SIDED)
@@ -54,7 +54,8 @@ namespace tvm
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & l, const Eigen::VectorXd & u)
     : f_(f)
     , type_(t)
-    , td_(td.impl(f))
+    , td_(td.impl(f, t, l))
+    , td2_(td.impl(f, t, l))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t != constraint::Type::DOUBLE_SIDED)

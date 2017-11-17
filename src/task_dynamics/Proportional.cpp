@@ -13,20 +13,20 @@ namespace task_dynamics
   {
   }
 
-  std::unique_ptr<abstract::TaskDynamicsImpl> Proportional::impl_(FunctionPtr f) const
+  std::unique_ptr<abstract::TaskDynamicsImpl> Proportional::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, kp_));
+    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, kp_));
   }
 
-  Proportional::Impl::Impl(FunctionPtr f, double kp)
-    : TaskDynamicsImpl(Order::One, f)
+  Proportional::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp)
+    : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
   {
   }
 
   void Proportional::Impl::updateValue()
   {
-    value_ = -kp_ * function().value();
+    value_ = -kp_ * (function().value() - rhs());
   }
 
   void Proportional::Impl::gain(double kp)
