@@ -51,9 +51,8 @@ namespace internal
         if (!f_->linearIn(*v))
           throw std::runtime_error("The function is not linear in " + v->name());
         addVariable(v, true);
-        registerUpdates(Update::UpdateRHS, kin);
       }
-      throw std::runtime_error("This case is not implemented yet.");
+      registerUpdates(Update::UpdateRHS, kin);
     case task_dynamics::Order::One:
     {
       for (auto& v : f_->variables())
