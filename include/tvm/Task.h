@@ -66,7 +66,7 @@ namespace tvm
   std::shared_ptr<typename T::Impl> Task::taskDynamics() const
   {
     if (td_->checkType<T>())
-      return std::static_pointer_cast<T::Impl>(td_);
+      return std::static_pointer_cast<typename T::Impl>(td_);
     else
       throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
   }
