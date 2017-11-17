@@ -35,7 +35,7 @@ namespace tvm
     class TVM_DLLAPI None : public abstract::TaskDynamics
     {
     public:
-      class Impl: public abstract::TaskDynamicsImpl
+      class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
       {
       public:
         Impl(FunctionPtr f);

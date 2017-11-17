@@ -61,6 +61,10 @@ namespace abstract
 
     virtual void updateValue() = 0;
 
+    /** Check if this is an instance of T::Impl */
+    template<typename T>
+    bool checkType() const;
+
   protected:
     TaskDynamicsImpl(Order order, FunctionPtr f);
     const function::abstract::Function & function() const;
@@ -93,6 +97,12 @@ namespace abstract
   {
     assert(f_);
     return *f_;
+  }
+
+  template<typename T>
+  inline bool TaskDynamicsImpl::checkType() const
+  {
+    return typeid(T).hash_code() == typeInfo_;
   }
 
 }  // namespace abstract

@@ -50,10 +50,24 @@ namespace tvm
     constraint::Type type() const;
     TaskDynamicsPtr taskDynamics() const;
 
+    template<typename T>
+    std::shared_ptr<typename T::Impl> taskDynamics() const;
+
   private:
     FunctionPtr f_;
     constraint::Type type_;
     TaskDynamicsPtr td_;
     constraint::internal::RHSVectors vectors_;
   };
+
+
+  template<typename T>
+  std::shared_ptr<typename T::Impl> Task::taskDynamics() const
+  {
+    if (td_->checkType<T>())
+      return std::static_pointer_cast<T::Impl>(td_);
+    else
+      throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
+  }
+
 }  // namespace tvm

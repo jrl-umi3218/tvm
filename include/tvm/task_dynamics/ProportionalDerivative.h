@@ -33,11 +33,17 @@ namespace task_dynamics
   class TVM_DLLAPI ProportionalDerivative : public abstract::TaskDynamics
   {
   public:
-    class Impl: public abstract::TaskDynamicsImpl
+    class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {
     public:
       Impl(FunctionPtr f, double kp, double kv);
       void updateValue() override;
+
+      /** return (kp, kv) */
+      std::pair<double, double> gains() const;
+      void gains(double kp, double kv);
+      /** Critically damped version: kv = sqrt(2*kv) */
+      void gains(double kp);
 
     private:
       double kp_;

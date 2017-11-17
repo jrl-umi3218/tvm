@@ -36,6 +36,23 @@ namespace task_dynamics
     value_ = -kv_ * function().velocity() - kp_ * function().value();
   }
 
+  std::pair<double, double> ProportionalDerivative::Impl::gains() const
+  {
+    return {kp_, kv_};
+  }
+
+  void ProportionalDerivative::Impl::gains(double kp, double kv)
+  {
+    kp_ = kp;
+    kv_ = kv;
+  }
+
+  void ProportionalDerivative::Impl::gains(double kp)
+  {
+    kp_ = kp;
+    kv_ = std::sqrt(2 * kp);
+  }
+
 }  // namespace task_dynamics
 
 }  // namespace tvm

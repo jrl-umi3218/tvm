@@ -33,11 +33,14 @@ namespace task_dynamics
   class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {
   public:
-    class Impl: public abstract::TaskDynamicsImpl
+    class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {
     public:
       Impl(FunctionPtr f, double kp);
       void updateValue() override;
+
+      void gain(double kp);
+      double gain() const;
 
     private:
       double kp_;

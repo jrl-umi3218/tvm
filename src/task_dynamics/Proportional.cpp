@@ -29,6 +29,16 @@ namespace task_dynamics
     value_ = -kp_ * function().value();
   }
 
+  void Proportional::Impl::gain(double kp)
+  {
+    kp_ = kp;
+  }
+
+  double Proportional::Impl::gain() const
+  {
+    return kp_;
+  }
+
 }  // namespace task_dynamics
 
 }  // namespace tvm
