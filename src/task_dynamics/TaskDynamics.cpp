@@ -11,16 +11,17 @@ namespace task_dynamics
 namespace abstract
 {
 
-  TaskDynamics::TaskDynamics(Order order)
+  TaskDynamicsImpl::TaskDynamicsImpl(Order order, FunctionPtr f)
     : order_(order)
   {
-    registerUpdates(Update::UpdateValue, &TaskDynamics::updateValue);
+    setFunction(f);
+    registerUpdates(Update::UpdateValue, &TaskDynamicsImpl::updateValue);
     addOutputDependency(Output::Value, Update::UpdateValue);
   }
 
-  void TaskDynamics::setFunction(FunctionPtr f)
+  void TaskDynamicsImpl::setFunction(FunctionPtr f)
   {
-    if (!f_)
+    if (f)
     {
       f_ = f;
       addInput(f, internal::FirstOrderProvider::Output::Value); //FIXME it's not great to have to resort to internal::FirstOrderProvider
@@ -33,9 +34,14 @@ namespace abstract
       value_.resize(f->size());
     }
     else
-      throw std::runtime_error("This task dynamics was already assigned a function.");
+      throw std::runtime_error("You cannot pass a nullptr as a function.");
+  }
 
-    setFunction_();
+  std::unique_ptr<TaskDynamicsImpl> TaskDynamics::impl(FunctionPtr f) const
+  {
+    auto ptr = impl_(f);
+    ptr->typeInfo_ = typeid(*this).hash_code();
+    return ptr;
   }
 
 }  // namespace abstract

@@ -429,8 +429,8 @@ void solverTest01()
   checkNormalAcc(df);
 
   ControlProblem pb;
-  pb.add(sf == 0., std::make_shared<task_dynamics::ProportionalDerivative>(2), { requirements::PriorityLevel(0) });
-  pb.add(df == 0., std::make_shared<task_dynamics::PD>(2), { requirements::PriorityLevel(0) });
+  pb.add(sf == 0., task_dynamics::ProportionalDerivative(2), { requirements::PriorityLevel(0) });
+  pb.add(df == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
 
   LinearizedControlProblem lpb(pb);
 

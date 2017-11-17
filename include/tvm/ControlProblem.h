@@ -59,7 +59,7 @@ namespace tvm
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});
     template<constraint::Type T>
-    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
+    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, const task_dynamics::abstract::TaskDynamics& td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
@@ -81,7 +81,7 @@ namespace tvm
   };
 
   template<constraint::Type T>
-  TaskWithRequirementsPtr ControlProblem::add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
+  TaskWithRequirementsPtr ControlProblem::add(utils::ProtoTask<T> proto, const task_dynamics::abstract::TaskDynamics& td, const requirements::SolvingRequirements& req)
   {
     return add({ proto,td }, req);
   }

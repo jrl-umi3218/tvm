@@ -9,22 +9,30 @@ namespace tvm
   {
 
     Constant::Constant(const Eigen::VectorXd& v)
-      : TaskDynamics(Order::Zero)
+      :v_(v)
     {
-      value_ = v;
     }
 
-    void Constant::updateValue()
+    std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f) const
     {
-      // do nothing
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, v_));
     }
 
-    void Constant::setFunction_()
+    Constant::Impl::Impl(FunctionPtr f, const Eigen::VectorXd& v)
+      : TaskDynamicsImpl(Order::Zero, f)
     {
       if (value_.size() == 0)
         value_.setZero(function().size());
       else
+      {
         assert(value_.size() == function().size());
+        value_ = v;
+      }
+    }
+
+    void Constant::Impl::updateValue()
+    {
+      // do nothing
     }
 
   }  // namespace task_dynamics

@@ -25,6 +25,7 @@
 #include <Eigen/Core>
 
 #include <memory>
+#include <typeinfo>
 
 //FIXME add mechanisms for when the function's output is resized
 //FIXME Consider the possibility of having variables in task dynamics?
@@ -37,14 +38,23 @@ namespace task_dynamics
 
 namespace abstract
 {
+  //forward declaration
+  class TaskDynamicsImpl;
 
-  class TVM_DLLAPI TaskDynamics : public graph::abstract::Node<TaskDynamics>
+  class TVM_DLLAPI TaskDynamics
   {
   public:
-    SET_OUTPUTS(TaskDynamics, Value)
-    SET_UPDATES(TaskDynamics, UpdateValue)
+    virtual std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f) const;
 
-    void setFunction(FunctionPtr f);
+  protected:
+    virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f) const = 0;
+  };
+
+  class TVM_DLLAPI TaskDynamicsImpl : public graph::abstract::Node<TaskDynamicsImpl>
+  {
+  public:
+    SET_OUTPUTS(TaskDynamicsImpl, Value)
+    SET_UPDATES(TaskDynamicsImpl, UpdateValue)
 
     const Eigen::VectorXd& value() const;
     Order order() const;
@@ -52,37 +62,37 @@ namespace abstract
     virtual void updateValue() = 0;
 
   protected:
-    TaskDynamics(Order order);
+    TaskDynamicsImpl(Order order, FunctionPtr f);
     const function::abstract::Function & function() const;
-
-    /** Hook for derived class, called at the end of setFunction.*/
-    virtual void setFunction_();
 
     Eigen::VectorXd value_;
 
   private:
+    void setFunction(FunctionPtr f);
+
     Order order_;
     FunctionPtr f_;
+
+    //for casting back to the derived type
+    size_t typeInfo_;
+
+    friend TaskDynamics;
   };
 
-  inline const Eigen::VectorXd& TaskDynamics::value() const
+  inline const Eigen::VectorXd& TaskDynamicsImpl::value() const
   {
     return value_;
   }
 
-  inline Order TaskDynamics::order() const
+  inline Order TaskDynamicsImpl::order() const
   {
     return order_;
   }
 
-  inline const function::abstract::Function & TaskDynamics::function() const
+  inline const function::abstract::Function & TaskDynamicsImpl::function() const
   {
     assert(f_);
     return *f_;
-  }
-
-  inline void TaskDynamics::setFunction_()
-  {
   }
 
 }  // namespace abstract

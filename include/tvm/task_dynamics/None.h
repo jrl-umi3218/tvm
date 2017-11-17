@@ -35,15 +35,18 @@ namespace tvm
     class TVM_DLLAPI None : public abstract::TaskDynamics
     {
     public:
-      None();
+      class Impl: public abstract::TaskDynamicsImpl
+      {
+      public:
+        Impl(FunctionPtr f);
+        void updateValue() override;
 
-      void updateValue() override;
+      private:
+        const function::abstract::LinearFunction* lf_;
+      };
 
     protected:
-      void setFunction_() override;
-
-    private:
-      const function::abstract::LinearFunction* lf_;
+      std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f) const override;
     };
 
   }  // namespace task_dynamics

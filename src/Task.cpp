@@ -19,69 +19,66 @@ namespace
 
 namespace tvm
 {
-  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td)
+  Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td)
     : f_(f)
     , type_(t)
-    , td_(td)
+    , td_(td.impl(f))
     , vectors_(t,constraint::RHS::AS_GIVEN)
   {
     if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks need to have non-zero bounds.");
     vectors_.rhs(t) = Eigen::VectorXd::Zero(f->size());
-    td->setFunction(f);
   }
 
-  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double rhs)
+  Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double rhs)
     : Task(f, t, td, Eigen::VectorXd::Constant(f->size(),rhs))
   {
   }
 
-  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, const Eigen::VectorXd & rhs)
+  Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & rhs)
     : f_(f)
     , type_(t)
-    , td_(td)
+    , td_(std::move(td.impl(f)))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks need to have two bounds.");
     vectors_.rhs(t) = rhs;
-    td->setFunction(f);
   }
 
-  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double l, double u)
+  Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double l, double u)
     : Task(f, t, td, Eigen::VectorXd::Constant(f->size(), l), Eigen::VectorXd::Constant(f->size(), u))
   {
   }
 
-  Task::Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, const Eigen::VectorXd & l, const Eigen::VectorXd & u)
+  Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & l, const Eigen::VectorXd & u)
     : f_(f)
     , type_(t)
-    , td_(td)
+    , td_(td.impl(f))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t != constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is for double sided constraints only.");
     vectors_.l() = l;
     vectors_.u() = u;
-    td->setFunction(f);
   }
 
-  Task::Task(utils::ProtoTaskEQ proto, TaskDynamicsPtr td)
+  Task::Task(utils::ProtoTaskEQ proto, const task_dynamics::abstract::TaskDynamics& td)
     : Task(proto.f_, constraint::Type::EQUAL, td, rhs2vector(proto.rhs_, proto.f_))
   {
   }
 
-  Task::Task(utils::ProtoTaskLT proto, TaskDynamicsPtr td)
+  Task::Task(utils::ProtoTaskLT proto, const task_dynamics::abstract::TaskDynamics& td)
     : Task(proto.f_, constraint::Type::LOWER_THAN, td, rhs2vector(proto.rhs_, proto.f_))
   {
   }
 
-  Task::Task(utils::ProtoTaskGT proto, TaskDynamicsPtr td)
+  Task::Task(utils::ProtoTaskGT proto, const task_dynamics::abstract::TaskDynamics& td)
     : Task(proto.f_, constraint::Type::GREATER_THAN, td, rhs2vector(proto.rhs_, proto.f_))
   {
   }
 
-  Task::Task(utils::ProtoTaskDS proto, TaskDynamicsPtr td)
+  Task::Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics& td)
     : Task(proto.f_, constraint::Type::LOWER_THAN, td, 
            rhs2vector(proto.l_, proto.f_), rhs2vector(proto.u_, proto.f_))
   {

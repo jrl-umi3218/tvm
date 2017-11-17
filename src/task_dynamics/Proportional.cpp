@@ -9,12 +9,22 @@ namespace task_dynamics
 {
 
   Proportional::Proportional(double kp)
-    : TaskDynamics(Order::One)
+    : kp_(kp)
+  {
+  }
+
+  std::unique_ptr<abstract::TaskDynamicsImpl> Proportional::impl_(FunctionPtr f) const
+  {
+    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, kp_));
+  }
+
+  Proportional::Impl::Impl(FunctionPtr f, double kp)
+    : TaskDynamicsImpl(Order::One, f)
     , kp_(kp)
   {
   }
 
-  void Proportional::updateValue()
+  void Proportional::Impl::updateValue()
   {
     value_ = -kp_ * function().value();
   }

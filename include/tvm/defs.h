@@ -30,7 +30,7 @@ namespace tvm
   {
     namespace abstract
     {
-      class TaskDynamics;
+      class TaskDynamicsImpl;
     }
   }
   class Range;
@@ -51,6 +51,6 @@ namespace tvm
   using LinearConstraintPtr = std::shared_ptr<constraint::abstract::LinearConstraint>;
   using RangePtr = std::shared_ptr<Range>;
   using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirements>;
-  using TaskDynamicsPtr = std::shared_ptr<task_dynamics::abstract::TaskDynamics>;
+  using TaskDynamicsPtr = std::shared_ptr<task_dynamics::abstract::TaskDynamicsImpl>;
   using VariablePtr = std::shared_ptr<Variable>;
 }  // namespace tvm

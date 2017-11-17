@@ -23,6 +23,7 @@
 #include <tvm/constraint/enums.h>
 #include <tvm/constraint/internal/RHSVectors.h>
 #include <tvm/utils/ProtoTask.h>
+#include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 #include <memory>
 
@@ -33,17 +34,17 @@ namespace tvm
   class TVM_DLLAPI Task
   {
   public:
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td);
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double rhs);
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, 
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double rhs);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td,
          const Eigen::VectorXd& rhs);
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, double l, double u);
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td, 
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double l, double u);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td,
          const Eigen::VectorXd& l, const Eigen::VectorXd& u);
-    Task(utils::ProtoTaskEQ proto, TaskDynamicsPtr td);
-    Task(utils::ProtoTaskLT proto, TaskDynamicsPtr td);
-    Task(utils::ProtoTaskGT proto, TaskDynamicsPtr td);
-    Task(utils::ProtoTaskDS proto, TaskDynamicsPtr td);
+    Task(utils::ProtoTaskEQ proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskLT proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskGT proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics& td);
 
     FunctionPtr function() const;
     constraint::Type type() const;

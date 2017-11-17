@@ -25,16 +25,23 @@ namespace tvm
 
   namespace task_dynamics
   {
-
     class TVM_DLLAPI Constant : public abstract::TaskDynamics
     {
     public:
+      class Impl: public abstract::TaskDynamicsImpl
+      {
+      public:
+        Impl(FunctionPtr, const Eigen::VectorXd& v);
+        void updateValue() override;
+      };
+
       Constant(const Eigen::VectorXd& v = Eigen::VectorXd());
 
-      void updateValue() override;
-
     protected:
-      void setFunction_() override;
+      std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f) const override;
+
+    private:
+      Eigen::VectorXd v_;
     };
 
   }  // namespace task_dynamics

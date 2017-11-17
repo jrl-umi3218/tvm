@@ -72,7 +72,7 @@ namespace internal
     }
 
     using BaseOutput = tvm::internal::FirstOrderProvider::Output;
-    addInputDependency<LTC>(Update::UpdateRHS, td_, task_dynamics::abstract::TaskDynamics::Output::Value);
+    addInputDependency<LTC>(Update::UpdateRHS, td_, task_dynamics::abstract::TaskDynamicsImpl::Output::Value);
     addInputDependency<LinearConstraint>(LinearConstraint::Update::Value, f_, BaseOutput::Jacobian);
 #ifndef WIN32
 # pragma GCC diagnostic push
