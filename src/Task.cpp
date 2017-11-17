@@ -54,8 +54,8 @@ namespace tvm
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & l, const Eigen::VectorXd & u)
     : f_(f)
     , type_(t)
-    , td_(td.impl(f, t, l))
-    , td2_(td.impl(f, t, l))
+    , td_(td.impl(f, constraint::Type::GREATER_THAN, l))
+    , td2_(td.impl(f, constraint::Type::LOWER_THAN, l))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t != constraint::Type::DOUBLE_SIDED)

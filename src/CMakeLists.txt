@@ -42,6 +42,7 @@ set(TVM_SOURCES
   task_dynamics/ProportionalDerivative.cpp
   task_dynamics/TaskDynamics.cpp
   task_dynamics/TaskDynamicsImpl.cpp
+  task_dynamics/VelocityDamper.cpp
 )
 
 set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
@@ -117,6 +118,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
   ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
   
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
