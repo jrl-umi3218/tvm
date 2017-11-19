@@ -53,4 +53,11 @@ namespace tvm
   using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirements>;
   using TaskDynamicsPtr = std::shared_ptr<task_dynamics::abstract::TaskDynamicsImpl>;
   using VariablePtr = std::shared_ptr<Variable>;
+
+  //constants
+  struct constant
+  {
+    static constexpr double big_number = std::numeric_limits<double>::max() / 2;
+  };
+
 }  // namespace tvm

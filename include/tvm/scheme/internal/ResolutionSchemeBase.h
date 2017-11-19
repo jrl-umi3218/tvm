@@ -19,6 +19,7 @@
  */
 
 #include <tvm/api.h>
+#include <tvm/defs.h>
 #include <tvm/scheme/internal/IdProvider.h>
 #include <tvm/scheme/internal/SchemeAbilities.h>
 
@@ -48,7 +49,7 @@ namespace tvm
         * \param big A big number use to represent infinity, in particular when
         * specifying non-existing bounds (e.g. x <= Inf is given as x <= big).
         */
-        ResolutionSchemeBase(SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
+        ResolutionSchemeBase(SchemeAbilities abilities, double big = constant::big_number);
 
         SchemeAbilities abilities_;
 

@@ -62,7 +62,7 @@ namespace abstract
     const Derived& derived() const { return *static_cast<const Derived*>(this); }
 
   protected:
-    ResolutionScheme(internal::SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
+    ResolutionScheme(internal::SchemeAbilities abilities, double big = constant::big_number);
   };
 
 
@@ -74,7 +74,7 @@ namespace abstract
   class LinearResolutionScheme : public ResolutionScheme<Derived>
   {
   protected:
-    LinearResolutionScheme(internal::SchemeAbilities abilities, double big = std::numeric_limits<double>::max() / 2);
+    LinearResolutionScheme(internal::SchemeAbilities abilities, double big = constant::big_number);
   };
 
 
