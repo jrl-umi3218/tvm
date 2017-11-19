@@ -218,11 +218,19 @@ namespace internal
     decltype(-std::declval<Eigen::MatrixBase<Derived> >()) applyScalarMult(const Eigen::MatrixBase<Derived>& M) { return -M; }
 
     /** We need this specialization because, odly, -(A*B) relies on a temporary evaluation while (-A)*B does not*/
+#if EIGEN_VERSION_AT_LEAST(3, 2, 90)
+    template<typename Lhs, typename Rhs, int Option>
+    decltype(-(std::declval<Lhs>().lazyProduct(std::declval<Rhs>()))) applyScalarMult(const Eigen::Product<Lhs, Rhs, Option>& P)
+    {
+      return -(P.lhs().lazyProduct(P.rhs()));
+    }
+#else
     template<typename Derived, typename Lhs, typename Rhs>
     decltype((-std::declval<Lhs>())*std::declval<Rhs>()) applyScalarMult(const Eigen::ProductBase<Derived, Lhs, Rhs>& P)
     {
       return (-P.lhs())*P.rhs();
     }
+#endif
   };
 
   /** Specialization for SCALAR */
@@ -234,6 +242,14 @@ namespace internal
 
     template<typename T>
     decltype(double()*std::declval<T>()) applyScalarMult(const T& M) { return s_*M; }
+
+#if EIGEN_VERSION_AT_LEAST(3, 2, 90)
+    template<typename Lhs, typename Rhs, int Option>
+    decltype(double()*(std::declval<Lhs>().lazyProduct(std::declval<Rhs>()))) applyScalarMult(const Eigen::Product<Lhs, Rhs, Option>& P)
+    {
+      return s_*(P.lhs().lazyProduct(P.rhs()));
+    }
+#endif
 
   private:
     double s_;
@@ -268,7 +284,13 @@ namespace internal
     using PreType = decltype(Eigen::VectorXd().asDiagonal()*std::declval<T>());
     /** Return type of T*VectorXd.asDiagonal() */
     template<typename T>
+#if EIGEN_VERSION_AT_LEAST(3, 2, 90)
+    using PostType = typename std::conditional<std::is_same<T, Eigen::Ref<const Eigen::VectorXd>>::value,
+          decltype(std::declval<T>().lazyProduct(Eigen::VectorXd())),
+          decltype(std::declval<T>()*Eigen::VectorXd().asDiagonal())>::type;
+#else
     using PostType = decltype(std::declval<T>()*Eigen::VectorXd().asDiagonal());
+#endif
     template<typename T>
     using ReturnType = typename std::conditional<P == PRE, PreType<T>, PostType<T>>::type;
 
@@ -471,6 +493,15 @@ namespace internal
   {
     return M*w_.asDiagonal();
   }
+
+#if EIGEN_VERSION_AT_LEAST(3, 2, 90)
+  template<>
+  template<>
+  inline MatrixMultBase<DIAGONAL, POST>::ReturnType<Eigen::Ref<const Eigen::VectorXd>> MatrixMultBase<DIAGONAL, POST>::applyMatrixMult(const Eigen::Ref<const Eigen::VectorXd> & M)
+  {
+    return M.lazyProduct(w_);
+  }
+#endif
 
   template<>
   template<typename T>
