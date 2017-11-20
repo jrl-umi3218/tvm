@@ -55,7 +55,7 @@ namespace tvm
     : f_(f)
     , type_(t)
     , td_(td.impl(f, constraint::Type::GREATER_THAN, l))
-    , td2_(td.impl(f, constraint::Type::LOWER_THAN, l))
+    , td2_(td.impl(f, constraint::Type::LOWER_THAN, u))
     , vectors_(t, constraint::RHS::AS_GIVEN)
   {
     if (t != constraint::Type::DOUBLE_SIDED)
@@ -99,6 +99,14 @@ namespace tvm
   TaskDynamicsPtr Task::taskDynamics() const
   {
     return td_;
+  }
+
+  TaskDynamicsPtr Task::secondTaskDynamics() const
+  {
+    if (type_ == constraint::Type::DOUBLE_SIDED)
+      return td2_;
+    else
+      throw std::runtime_error("This function is valid only for double-sided tasks.");
   }
 
 }  // namespace tvm

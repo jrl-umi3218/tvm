@@ -49,9 +49,13 @@ namespace tvm
     FunctionPtr function() const;
     constraint::Type type() const;
     TaskDynamicsPtr taskDynamics() const;
+    TaskDynamicsPtr secondTaskDynamics() const;  //the dynamics of the upper bound, in the case of double-sided task only.
 
     template<typename T>
     std::shared_ptr<typename T::Impl> taskDynamics() const;
+
+    template<typename T>
+    std::shared_ptr<typename T::Impl> secondTaskDynamics() const;
 
   private:
     FunctionPtr f_;
@@ -69,6 +73,20 @@ namespace tvm
       return std::static_pointer_cast<typename T::Impl>(td_);
     else
       throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
+  }
+
+  template<typename T>
+  std::shared_ptr<typename T::Impl> Task::secondTaskDynamics() const
+  {
+    if (type_ == constraint::Type::DOUBLE_SIDED)
+    {
+      if (td2_->checkType<T>())
+        return std::static_pointer_cast<typename T::Impl>(td2_);
+      else
+        throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
+    }
+    else
+      throw std::runtime_error("This function is valid only for double-sided tasks.");
   }
 
 }  // namespace tvm

@@ -71,11 +71,11 @@ namespace task_dynamics
     //if distance to constraint greater than di, we "deactivate" the constraint by puting the value to big
     if (type() == constraint::Type::LOWER_THAN)
     {
-      value_ = (d_.array() <= -di_).select(value_, big_);
+      value_ = (d_.array() <= -di_).select(big_, value_);
     }
     else
     {
-      value_ = (d_.array() >= di_).select(value_, -big_);
+      value_ = (d_.array() >= di_).select(-big_, value_);
     }
   }
 

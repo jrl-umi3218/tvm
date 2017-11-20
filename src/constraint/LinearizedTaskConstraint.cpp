@@ -18,6 +18,15 @@ namespace internal
     , f_(task.function())
     , td_(task.taskDynamics())
   {
+    if (type() == constraint::Type::DOUBLE_SIDED)
+    {
+      td2_ = task.secondTaskDynamics();
+      if (td_->order() != td2_->order())
+      {
+        throw std::runtime_error("For double-sided task, the dynamic of both sides must have the same order.");
+      }
+    }
+
     using LTC = LinearizedTaskConstraint;
     Constraint::Output_ output;
     void (LTC::*kin)();
@@ -40,12 +49,17 @@ namespace internal
       dyn = &LTC::updateEDyn;
       output = Constraint::Output::E;
       break;
-    default: assert(false); break;
+    case constraint::Type::DOUBLE_SIDED:
+      kin = &LTC::updateLKin;
+      dyn = &LTC::updateLDyn;
+      output = Constraint::Output::L;
+      break;
     }
 
-    switch (task.taskDynamics()->order())
+    switch (td_->order())
     {
     case task_dynamics::Order::Zero:
+    {
       for (auto& v : f_->variables())
       {
         if (!f_->linearIn(*v))
@@ -53,7 +67,8 @@ namespace internal
         addVariable(v, true);
       }
       registerUpdates(Update::UpdateRHS, kin);
-      break;
+    }
+    break;
     case task_dynamics::Order::One:
     {
       for (auto& v : f_->variables())
@@ -85,6 +100,30 @@ namespace internal
 # pragma GCC diagnostic pop
 #endif
     addDirectDependency<LTC>(BaseOutput::Jacobian, f_, BaseOutput::Jacobian);
+
+    if (type() == constraint::Type::DOUBLE_SIDED)
+    {
+      if (td2_->order() == task_dynamics::Order::Two)
+      {
+        registerUpdates(Update::UpdateRHS2, &LTC::updateU2Dyn);
+        addInputDependency<LTC>(Update::UpdateRHS2, f_, function::abstract::Function::Output::NormalAcceleration);
+      }
+      else
+      {
+        registerUpdates(Update::UpdateRHS2, &LTC::updateU2Kin);
+      }
+      addInputDependency<LTC>(Update::UpdateRHS2, td2_, task_dynamics::abstract::TaskDynamicsImpl::Output::Value);
+#ifndef WIN32
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wpragmas"
+# pragma GCC diagnostic ignored "-Wunknown-warning-option"
+# pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
+      addOutputDependency<LTC>(Constraint::Output::U, Update::UpdateRHS2);
+#ifndef WIN32
+# pragma GCC diagnostic pop
+#endif
+    }
   }
 
   void LinearizedTaskConstraint::updateLKin()
@@ -115,6 +154,16 @@ namespace internal
   void LinearizedTaskConstraint::updateEDyn()
   {
     e() = td_->value() - f_->normalAcceleration();
+  }
+
+  void LinearizedTaskConstraint::updateU2Kin()
+  {
+    u() = td2_->value();
+  }
+
+  void LinearizedTaskConstraint::updateU2Dyn()
+  {
+    u() = td2_->value() - f_->normalAcceleration();
   }
 
   const tvm::internal::MatrixWithProperties& LinearizedTaskConstraint::jacobian(const Variable& x) const

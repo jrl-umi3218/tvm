@@ -87,14 +87,14 @@ namespace scheme
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, { memory->basePtr, &memory->C }, { memory->basePtr, &memory->l }, { memory->basePtr, &memory->u }, constraint::RHS::AS_GIVEN, x.size());
-        //memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
         m0 += c.constraint->size();
       }
       else
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, { memory->basePtr, &memory->A }, { memory->basePtr, &memory->b }, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        //memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
         m1 += c.constraint->size();
       }
     }

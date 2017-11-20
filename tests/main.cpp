@@ -207,8 +207,8 @@ int main()
   //testDataGraphSimple();
   //testBadGraph();
   //testDataGraphComplex();
-  //solverTest01();
-  solverTest02();
+  solverTest01();
+  //solverTest02();
 
 #ifdef WIN32
   system("pause");

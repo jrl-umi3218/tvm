@@ -39,6 +39,7 @@ namespace internal
     if (!checkTarget())
       throw std::runtime_error("target conventions are not compatible with the source.");
     assert(source->variables()[0] == variable);
+    scalarWeight_ = 1;
     build(variable);
   }
 

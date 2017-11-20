@@ -42,7 +42,7 @@ namespace internal
   class TVM_DLLAPI LinearizedTaskConstraint : public abstract::LinearConstraint
   {
   public:
-    SET_UPDATES(LinearizedTaskConstraint, UpdateRHS)
+    SET_UPDATES(LinearizedTaskConstraint, UpdateRHS, UpdateRHS2)
 
     LinearizedTaskConstraint(const Task& task);
     template<constraint::Type T>
@@ -54,12 +54,15 @@ namespace internal
     void updateUDyn();
     void updateEKin();
     void updateEDyn();
+    void updateU2Kin();
+    void updateU2Dyn();
 
     const tvm::internal::MatrixWithProperties& jacobian(const Variable& x) const override;
 
   private:
     FunctionPtr f_;
     TaskDynamicsPtr td_;
+    TaskDynamicsPtr td2_; // for double sided constraints only;
   };
 
 
