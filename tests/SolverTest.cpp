@@ -10,7 +10,9 @@
 #include <tvm/graph/CallGraph.h>
 #include <tvm/graph/abstract/OutputSelector.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
+#include <tvm/task_dynamics/VelocityDamper.h>
 
 using namespace tvm;
 using namespace Eigen;
@@ -411,8 +413,11 @@ void solverTest01()
   Space s1(2);
   VariablePtr x = s1.createVariable("x");
 
-  Space s2(3);
+  int dim = 3;
+  Space s2(dim);
   VariablePtr q = s2.createVariable("q");
+  VectorXd qmin = VectorXd::Constant(dim, -1.5);
+  VectorXd qmax = VectorXd::Constant(dim, 1.5);
 
   auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
@@ -428,9 +433,11 @@ void solverTest01()
   checkJacobian(df);
   checkNormalAcc(df);
 
+  double dt = 1e-3;
   ControlProblem pb;
   auto t1 = pb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
   auto t2 = pb.add(df == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
+  auto t3 = pb.add(-1.5 <= q, task_dynamics::VelocityDamper(dt, 1, 0.01, 0.2, constant::big_number), { requirements::PriorityLevel(0) });
   std::cout << t1->task.taskDynamics<task_dynamics::PD>()->gains().first << std::endl;
 
   LinearizedControlProblem lpb(pb);
@@ -439,4 +446,26 @@ void solverTest01()
   solver.solve(lpb);
   std::cout << "ddx = " << dot(x, 2)->value().transpose() << std::endl;
   std::cout << "ddq = " << dot(q, 2)->value().transpose() << std::endl;
+}
+
+
+void solverTest02()
+{
+  Space s1(2);
+  VariablePtr x = s1.createVariable("x");
+
+  Space s2(3);
+  VariablePtr q = s2.createVariable("q");
+
+  auto idx = std::make_shared<function::IdentityFunction>(x);
+  auto idq = std::make_shared<function::IdentityFunction>(q);
+
+  ControlProblem pb;
+  pb.add(idx >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
+  pb.add(idq >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
+
+  LinearizedControlProblem lpb(pb);
+
+  scheme::WeightedLeastSquares solver;
+  solver.solve(lpb);
 }
