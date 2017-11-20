@@ -16,7 +16,7 @@
 #include <Eigen/QR>
 
 //FIXME see src/Assignment.cpp
-static const double large = 1e6;
+static const double large = std::numeric_limits<double>::max() / 2;
 
 struct Constraints
 {
