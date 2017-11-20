@@ -32,12 +32,20 @@ namespace tvm
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
     lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
-    constraints_[tr.get()] = lcr;
+
+    if (isBound(lcr.constraint))
+    {
+      bounds_[tr.get()] = lcr;
+    }
+    else
+    {
+      constraints_[tr.get()] = lcr;
+    }
     using CstrOutput = internal::FirstOrderProvider::Output;
     updater_.addInput(lcr.constraint, CstrOutput::Jacobian);
     switch (tr->task.type())
     {
-      case constraint::Type::EQUAL: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::E); break;
+    case constraint::Type::EQUAL: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::E); break;
     case constraint::Type::GREATER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L); break;
     case constraint::Type::LOWER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::U); break;
     case constraint::Type::DOUBLE_SIDED: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L, constraint::abstract::Constraint::Output::U); break;
@@ -47,9 +55,20 @@ namespace tvm
   void LinearizedControlProblem::remove(TaskWithRequirements* tr)
   {
     ControlProblem::remove(tr);
-    // if the above line did not throw, tr exists in the problem and in constraints_
+    // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
     updater_.removeInput(constraints_[tr].constraint.get());
+    bounds_.erase(tr);
     constraints_.erase(tr);
+  }
+
+  std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::bounds() const
+  {
+    std::vector<LinearConstraintWithRequirements> bounds;
+    bounds.reserve(bounds_.size());
+    for (auto c : bounds_)
+      bounds.push_back(c.second);
+
+    return bounds;
   }
 
   std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constraints() const
@@ -66,6 +85,13 @@ namespace tvm
   {
     updater_.refresh();
     updater_.run();
+  }
+
+  bool LinearizedControlProblem::isBound(const ConstraintPtr & c)
+  {
+    const auto& vars = c->variables();
+    const auto& p = c->jacobian(*vars[0]).properties();
+    return (vars.size() == 1 && p.isDiagonal() && p.isInvertible());
   }
 
   LinearizedControlProblem::Updater::Updater()

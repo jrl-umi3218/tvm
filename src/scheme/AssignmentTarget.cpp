@@ -30,6 +30,11 @@ namespace internal
       throw std::runtime_error("constraint::RHS::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
   }
 
+  AssignmentTarget::AssignmentTarget(RangePtr range, VectorPtr l, VectorPtr u, int shift)
+    : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(constraint::RHS::AS_GIVEN), range_(range), shift_(shift), l_(l), u_(u)
+  {
+  }
+
   AssignmentTarget::AssignmentTarget(MatrixPtr Q, VectorPtr q, constraint::RHS cr)
     : targetType_(TargetType::Quadratic), constraintRhs_(cr), Q_(Q), q_(q)
   {

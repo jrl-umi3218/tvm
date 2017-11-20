@@ -80,7 +80,7 @@ namespace tvm
   }
 
   Task::Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics& td)
-    : Task(proto.f_, constraint::Type::LOWER_THAN, td, 
+    : Task(proto.f_, constraint::Type::DOUBLE_SIDED, td, 
            rhs2vector(proto.l_, proto.f_), rhs2vector(proto.u_, proto.f_))
   {
   }

@@ -53,6 +53,7 @@ namespace internal
         addVariable(v, true);
       }
       registerUpdates(Update::UpdateRHS, kin);
+      break;
     case task_dynamics::Order::One:
     {
       for (auto& v : f_->variables())

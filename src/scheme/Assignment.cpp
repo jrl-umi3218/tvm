@@ -1,5 +1,6 @@
 #include <tvm/scheme/internal/Assignment.h>
 
+#include <tvm/defs.h>
 #include <tvm/constraint/abstract/Constraint.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
 #include <tvm/VariableVector.h>
@@ -13,6 +14,8 @@ namespace scheme
 namespace internal
 {
 
+  double Assignment::big_ = constant::big_number;
+
   Assignment::Assignment(LinearConstraintPtr source, std::shared_ptr<requirements::SolvingRequirements> req,
                          const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight)
     : source_(source)
@@ -25,6 +28,18 @@ namespace internal
     //TODO check also that the variables of source are in the variable vector
     processRequirements();
     build(variables);
+  }
+
+  Assignment::Assignment(LinearConstraintPtr source, const AssignmentTarget& target, const VariablePtr& variable, bool first)
+    : source_(source)
+    , target_(target)
+    , first_(first)
+    , requirements_(new requirements::SolvingRequirements())
+  {
+    if (!checkTarget())
+      throw std::runtime_error("target conventions are not compatible with the source.");
+    assert(source->variables()[0] == variable);
+    build(variable);
   }
 
   void Assignment::onUpdatedSource()
@@ -74,9 +89,6 @@ namespace internal
 
   void Assignment::build(const VariableVector& variables)
   {
-    //FIXME move at a better place
-    static const double large = 1e6;
-
     // In this function, we split up the global assignment into atomic assignments.
     // This is done according to the ConstraintType of both source and target
     if (source_->type() == constraint::Type::EQUAL)
@@ -178,13 +190,13 @@ namespace internal
           {
             //case 3
             addVectorAssignment(f, &AssignmentTarget::l, false);
-            addConstantAssignment(large, &AssignmentTarget::u);
+            addConstantAssignment(big_, &AssignmentTarget::u);
           }
           else
           {
             //case 5
             addVectorAssignment(f, &AssignmentTarget::u, false);
-            addConstantAssignment(-large, &AssignmentTarget::l);
+            addConstantAssignment(-big_, &AssignmentTarget::l);
           }
           break;
         }
@@ -193,6 +205,99 @@ namespace internal
         {
           Range cols = x->getMappingIn(variables);
           addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, flip);
+        }
+      }
+    }
+  }
+
+  void Assignment::build(const VariablePtr& variable)
+  {
+    VectorFunction l;
+    VectorFunction u;
+    bool flip;
+    if (source_->jacobian(*variable).properties().isIdentity())
+    {
+      l = &AssignmentTarget::l;
+      u = &AssignmentTarget::u;
+      flip = false;
+    }
+    else if (source_->jacobian(*variable).properties().isMinusIdentity())
+    {
+      l = &AssignmentTarget::u;
+      u = &AssignmentTarget::l;
+      flip = true;
+    }
+    else
+    {
+      throw std::runtime_error("Pure diagonal case is not implemented yet.");
+    }
+
+    if (first_)
+    {
+      switch (source_->type())
+      {
+      case constraint::Type::EQUAL:
+        addVectorAssignment(&constraint::abstract::LinearConstraint::e, l, flip);
+        addVectorAssignment(&constraint::abstract::LinearConstraint::e, u, flip);
+        break;
+      case constraint::Type::GREATER_THAN:
+        addVectorAssignment(&constraint::abstract::LinearConstraint::l, l, flip);
+        addConstantAssignment(flip?-big_:+big_, u);
+        break;
+      case constraint::Type::LOWER_THAN:
+        addConstantAssignment(flip?+big_:-big_, l);
+        addVectorAssignment(&constraint::abstract::LinearConstraint::u, u, flip);
+        break;
+      case constraint::Type::DOUBLE_SIDED:
+        addVectorAssignment(&constraint::abstract::LinearConstraint::l, l, flip);
+        addVectorAssignment(&constraint::abstract::LinearConstraint::u, u, flip);
+        break;
+      }
+    }
+    else
+    {
+      if (flip)
+      {
+        switch (source_->type())
+        {
+        case constraint::Type::EQUAL:
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::e, l, flip);
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::e, u, flip);
+          break;
+        case constraint::Type::GREATER_THAN:
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addConstantAssignment<AssignType::MAX>(-big_, u);
+          break;
+        case constraint::Type::LOWER_THAN:
+          addConstantAssignment<AssignType::MIN>(+big_, l);
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::u, u, flip);
+          break;
+        case constraint::Type::DOUBLE_SIDED:
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::u, u, flip);
+          break;
+        }
+      }
+      else
+      {
+        switch (source_->type())
+        {
+        case constraint::Type::EQUAL:
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::e, l, flip);
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::e, u, flip);
+          break;
+        case constraint::Type::GREATER_THAN:
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addConstantAssignment<AssignType::MIN>(+big_, u);
+          break;
+        case constraint::Type::LOWER_THAN:
+          addConstantAssignment<AssignType::MAX>(-big_, l);
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::u, u, flip);
+          break;
+        case constraint::Type::DOUBLE_SIDED:
+          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::u, u, flip);
+          break;
         }
       }
     }
@@ -222,41 +327,9 @@ namespace internal
   {
     const MatrixConstRef& from = source_->jacobian(*x);
     const MatrixRef& to = (target_.*M)(range.start, range.dim);
-    auto w = createAssignment<Eigen::MatrixXd>(from, to, flip);
+    auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);
 
     matrixAssignments_.push_back({ w, x, range, M });
-  }
-
-  void Assignment::addVectorAssignment(RHSFunction f, VectorFunction v, bool flip)
-  {
-    const VectorRef& to = (target_.*v)();
-
-    bool useSource = source_->rhs() != constraint::RHS::ZERO;
-    if (useSource)
-    {
-      // So far, the sign flip has been deduced only from the ConstraintType of the source
-      // and the target. Now we need to take into account the constraint::RHS as well.
-      if (source_->rhs() == constraint::RHS::OPPOSITE)
-        flip = !flip;
-      if (target_.constraintRhs() == constraint::RHS::OPPOSITE)
-        flip = !flip;
-
-      const VectorConstRef& from = (source_.get()->*f)();
-      auto w = createAssignment<Eigen::VectorXd>(from, to, flip);
-      vectorAssignments_.push_back({ w, true, f, v });
-    }
-    else
-    {
-      auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<COPY>(to);
-      vectorAssignments_.push_back({ w, false, nullptr, v });
-    }
-  }
-
-  void Assignment::addConstantAssignment(double d, VectorFunction v)
-  {
-    const VectorRef& to = (target_.*v)();
-    auto w = createAssignment<Eigen::VectorXd>(d, to, false);
-    vectorAssignments_.push_back({ w, false, nullptr, v });
   }
 
 }  // namespace internal
