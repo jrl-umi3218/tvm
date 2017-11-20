@@ -2,7 +2,6 @@
 
 #include <tvm/defs.h>
 #include <tvm/constraint/abstract/Constraint.h>
-#include <tvm/constraint/abstract/LinearConstraint.h>
 #include <tvm/VariableVector.h>
 
 namespace tvm
@@ -33,8 +32,8 @@ namespace internal
   Assignment::Assignment(LinearConstraintPtr source, const AssignmentTarget& target, const VariablePtr& variable, bool first)
     : source_(source)
     , target_(target)
-    , first_(first)
     , requirements_(new requirements::SolvingRequirements())
+    , first_(first)
   {
     if (!checkTarget())
       throw std::runtime_error("target conventions are not compatible with the source.");

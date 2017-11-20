@@ -21,6 +21,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/Variable.h> // Range
+#include <tvm/constraint/abstract/LinearConstraint.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/AssignmentTarget.h>
 #include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
