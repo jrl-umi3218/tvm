@@ -25,7 +25,7 @@ namespace tvm
 
     void None::Impl::updateValue()
     {
-      value_ = -lf_->b();
+      value_ = rhs() - lf_->b();
     }
 
   }  // namespace task_dynamics
