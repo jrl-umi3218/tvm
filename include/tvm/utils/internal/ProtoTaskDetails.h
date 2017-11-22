@@ -46,14 +46,15 @@ namespace internal
     Vector
   };
 
-  /** A union-like class, that can represent nothing, a double or a vector
-    * Which of these 3 options is describe by its RHSType
+  /** A union-like class, that can represent nothing, a double or a vector.
+    * Which of these 3 options is described by its RHSType
     */
   class RHS
   {
   public:
     RHS(double d);
-    RHS(const VectorConstRef& v);
+    template<typename Derived>
+    RHS(const Eigen::MatrixBase<Derived>& v);
 
     RHSType type_;
     double d_;
@@ -67,7 +68,8 @@ namespace internal
   {
   }
 
-  inline RHS::RHS(const VectorConstRef& v)
+  template<typename Derived>
+  inline RHS::RHS(const Eigen::MatrixBase<Derived>& v)
     : type_(RHSType::Vector)
     , v_(v)
   {

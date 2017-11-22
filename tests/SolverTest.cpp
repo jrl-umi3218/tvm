@@ -437,11 +437,14 @@ void solverTest01()
   //checkJacobian(df);
   //checkNormalAcc(df);
 
+  VectorXd v(2); v << 0, 0;
+  Vector3d b = Vector3d::Constant(1.5);
+
   double dt = 1e-1;
   ControlProblem pb;
   auto t1 = pb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
-  auto t2 = pb.add(df == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
-  auto t3 = pb.add(-1.5 <= q <= 1.5, task_dynamics::VelocityDamper(dt, 1, 0.01, 1, constant::big_number), { requirements::PriorityLevel(0) });
+  auto t2 = pb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
+  auto t3 = pb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, 1, 0.01, 1, constant::big_number), { requirements::PriorityLevel(0) });
   std::cout << t1->task.taskDynamics<task_dynamics::PD>()->gains().first << std::endl;
 
   LinearizedControlProblem lpb(pb);
