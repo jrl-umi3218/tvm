@@ -35,6 +35,41 @@ namespace function
 namespace abstract
 {
 
+  /** Base class for linear functions.
+    *
+    * \dot
+    * digraph "update graph" {
+    *   rankdir="LR";
+    *   {
+    *     rank=same; node [shape=circle];
+    *     x_i; dx_i;
+    *   }
+    *   {
+    *     uValue [label=Value];
+    *     uVelocity [label=Velocity];
+    *   }
+    *   {
+    *     rank = same; node [shape=hexagon];
+    *     Value; Jacobian; Velocity;
+    *     NormalAcceleration; JDot;
+    *   }
+    *   {
+    *     rank = same; node [style=invis, label=""];
+    *     outValue; outJacobian; outVelocity;
+    *     outNormalAcceleration; outJDot;
+    *   }
+    *   x_i -> uValue [label="value()"];
+    *   dx_i -> uVelocity [label="value()"];
+    *   uValue -> Value;
+    *   uVelocity -> Velocity;
+    *   Value -> outValue [label="value()"];
+    *   Jacobian -> outJacobian [label="jacobian(x_i)"];
+    *   Velocity -> outVelocity [label="velocity()"];
+    *   NormalAcceleration -> outNormalAcceleration [label="normalAcceleration()"];
+    *   JDot -> outJDot [label="JDot(x_i)"];
+    * }
+    * \enddot
+    */
   class TVM_DLLAPI LinearFunction : public Function
   {
   public:

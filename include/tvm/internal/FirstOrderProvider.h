@@ -35,7 +35,26 @@ namespace tvm
 namespace internal
 {
 
-  /** Describes an entity that can provide a value and its jacobian*/
+  /** Describes an entity that can provide a value and its jacobian
+    *
+    * \dot
+    * digraph "update graph" {
+    *   rankdir="LR";
+    *   {
+    *     rank = same;
+    *     node [shape=hexagon];
+    *     Value; Jacobian; 
+    *   }
+    *   {
+    *     rank = same;
+    *     node [style=invis, label=""];
+    *     outValue; outJacobian;
+    *   }
+    *   Value -> outValue [label="value()"];
+    *   Jacobian -> outJacobian [label="jacobian(x_i)"];
+    * }
+    * \enddot
+    */
   class TVM_DLLAPI FirstOrderProvider : public graph::abstract::Node<FirstOrderProvider>
   {
   public:

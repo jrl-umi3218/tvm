@@ -33,8 +33,29 @@ namespace function
 namespace abstract
 {
 
-  /* Notes: we define the classical outputs for a function*/
-
+  /** Base class defining the classical outputs for a function
+    *
+    * \dot
+    * digraph "update graph" {
+    *   rankdir="LR";
+    *   {
+    *     rank = same; node [shape=hexagon];
+    *     Value; Jacobian; Velocity;
+    *     NormalAcceleration; JDot;
+    *   }
+    *   {
+    *     rank = same; node [style=invis, label=""];
+    *     outValue; outJacobian; outVelocity;
+    *     outNormalAcceleration; outJDot;
+    *   }
+    *   Value -> outValue [label="value()"];
+    *   Jacobian -> outJacobian [label="jacobian(x_i)"];
+    *   Velocity -> outVelocity [label="velocity()"];
+    *   NormalAcceleration -> outNormalAcceleration [label="normalAcceleration()"];
+    *   JDot -> outJDot [label="JDot(x_i)"];
+    * }
+    * \enddot
+    */
   class TVM_DLLAPI Function : public tvm::internal::FirstOrderProvider
   {
   public:

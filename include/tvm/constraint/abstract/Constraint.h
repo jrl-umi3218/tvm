@@ -42,6 +42,25 @@ namespace abstract
     * on its type).
     *
     * FIXME: have the updateValue here and add an output check()
+    *
+    * \dot
+    * digraph "update graph" {
+    *   rankdir="LR";
+    *   {
+    *     rank = same; node [shape=hexagon];
+    *     Value; Jacobian; L; U; E;
+    *   }
+    *   {
+    *     rank = same; node [style=invis, label=""];
+    *     outValue; outJacobian; outL; outU; outE;
+    *   }
+    *   Value -> outValue [label="value()"];
+    *   Jacobian -> outJacobian [label="jacobian(x_i)"];
+    *   L -> outL [label="l()"];
+    *   U -> outU [label="u()"];
+    *   E -> outE [label="e()"];
+    * }
+    * \enddot
     */
   class TVM_DLLAPI Constraint : public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
   {
