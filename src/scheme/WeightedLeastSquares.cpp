@@ -37,9 +37,10 @@ namespace scheme
 
     bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
     memory.setSolution(memory.ls.result());
-    if(verbose_)
+    if(verbose_ || !b)
     {
       std::cout << memory.ls.inform() << std::endl;
+      memory.ls.print_inform();
       std::cout << memory.ls.result().transpose() << std::endl;
     }
     return b;
