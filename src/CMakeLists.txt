@@ -32,6 +32,7 @@ set(TVM_SOURCES
 
   requirements/SolvingRequirements.cpp
 
+  robot/CoMFunction.cpp
   robot/Contact.cpp
   robot/GeometricContactFunction.cpp
   robot/Frame.cpp
@@ -112,6 +113,7 @@ set(TVM_HEADERS
 
   ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
   ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
+  ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
 
