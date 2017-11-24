@@ -56,7 +56,7 @@ public:
    *
    */
   FrictionCone(const Eigen::Matrix3d & frame,
-               int nrGen, double mu, double direction = 1.0);
+               unsigned int nrGen, double mu, double direction = 1.0);
 
   std::vector<Eigen::Vector3d> generators;
 };
