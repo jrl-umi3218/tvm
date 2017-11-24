@@ -22,6 +22,7 @@ namespace scheme
 
   bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
   {
+    memory.A.setZero();
     for (auto& a : memory.assignments)
       a.run();
 
