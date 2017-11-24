@@ -102,10 +102,12 @@ tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::Fu
 tvm::utils::ProtoTaskLT operator<=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs);
 tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f);
 
+tvm::utils::ProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
 tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
-tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr f, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
+tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
+tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
 
 tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs);
 tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs);
@@ -149,6 +151,16 @@ inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, co
 inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs)
 {
   return { ptg.f_, ptg.rhs_, rhs };
+}
+
+inline tvm::utils::ProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
+}
+
+inline tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
 }
 
 inline tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)

@@ -23,6 +23,7 @@ addUnitTest(ConstraintTest)
 addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
 addUnitTest(SolvingRequirementsTest)
+addUnitTest(UtilsTest)
 
 set(TESTSOURCES
     main.cpp
