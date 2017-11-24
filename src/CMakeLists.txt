@@ -34,9 +34,10 @@ set(TVM_SOURCES
 
   robot/CoMFunction.cpp
   robot/Contact.cpp
-  robot/GeometricContactFunction.cpp
+  robot/DynamicFunction.cpp
   robot/Frame.cpp
   robot/FrictionCone.cpp
+  robot/GeometricContactFunction.cpp
   robot/PostureFunction.cpp
 
   scheme/Assignment.cpp
@@ -112,8 +113,9 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
   ${TVM_INCLUDE_DIR}/requirements/Weight.h
 
-  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/internal/DynamicFunction.h
   ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
+  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
   ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
