@@ -71,20 +71,9 @@ namespace utils
   /** Double sided inequality ProtoTask l <= f <= u*/
   using ProtoTaskDS = ProtoTask<constraint::Type::DOUBLE_SIDED>;
 
-  template<constraint::Type T>
-  inline ProtoTask<T>::ProtoTask(FunctionPtr f, const internal::RHS& rhs)
-    : f_(f), rhs_(rhs)
-  {
-    if (rhs.type_ == internal::RHSType::Vector && f->size() != rhs.v_.size())
-    {
-      throw std::runtime_error("The vector you provided has not the correct size.");
-    }
-  }
-
 } // namespace utils
 
 } // namespace tvm
-
 
 /** Conveniency operators to form ProtoTask f op rhs
 * (or l <= f <= u)
@@ -102,16 +91,24 @@ tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::Fu
 tvm::utils::ProtoTaskLT operator<=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs);
 tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f);
 
-tvm::utils::ProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
 tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
-tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x);
+tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
+tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr f, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
 
 tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs);
 tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs);
 
+
+template<tvm::constraint::Type T>
+inline tvm::utils::ProtoTask<T>::ProtoTask(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
+  : f_(f), rhs_(rhs)
+{
+  if (rhs.type_ == tvm::utils::internal::RHSType::Vector && f->size() != rhs.v_.size())
+  {
+    throw std::runtime_error("The vector you provided has not the correct size.");
+  }
+}
 
 inline tvm::utils::ProtoTaskEQ operator==(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
 {
@@ -153,16 +150,6 @@ inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, co
   return { ptg.f_, ptg.rhs_, rhs };
 }
 
-inline tvm::utils::ProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
-}
-
-inline tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
-}
-
 inline tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)
 {
   return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
@@ -182,4 +169,3 @@ inline tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, 
 {
   return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
 }
-
