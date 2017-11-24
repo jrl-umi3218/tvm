@@ -33,6 +33,12 @@ namespace robot
    *
    * The node forwards the signals of each frame.
    *
+   * Outputs:
+   * - F1Position/F1Jacobian/F1Velocity/F1NormalAcceleration: proxy for the
+   *   first frame Position/Jacobian/Velocity/NormalAcceleration signals
+   * - F2Position/F2Jacobian/F2Velocity/F2NormalAcceleration: proxy for the
+   *   second frame Position/Jacobian/Velocity/NormalAcceleration signals
+   *
    */
   class TVM_DLLAPI Contact : public graph::abstract::Node<Contact>
   {
@@ -59,6 +65,18 @@ namespace robot
           ( r1 == rhs.r1 && f1 == rhs.f1 && r2 == rhs.r2 && f2 < rhs.f2 ) ||
           ( r1 == rhs.r1 && f1 == rhs.f1 && r2 == rhs.f2 && f2 == rhs.f2 && ambiguityId < rhs.ambiguityId );
       }
+      inline bool operator==(const Id & rhs) const
+      {
+        return ( r1 == rhs.r1 && f1 == rhs.f1 && r2 == rhs.r2 && f2 == rhs.f2 && ambiguityId == rhs.ambiguityId );
+      }
+    };
+
+    /** Allows to view a contact from one frame perspective */
+    struct View
+    {
+      const Id & id;
+      const FramePtr & f;
+      const std::vector<sva::PTransformd> & points;
     };
 
     SET_OUTPUTS(Contact,
@@ -68,8 +86,9 @@ namespace robot
 
     /** Constructor
      *
-     * Represent a contact between frame f1 and f2, the contacts points
-     * are provided in f1 frame
+     * Represent a contact between frame f1 and f2, the contacts points are
+     * provided in f1 frame. Importantly, it assumes the frame position are
+     * already known.
      *
      * \param f1 Contact frame f1
      *
@@ -91,14 +110,32 @@ namespace robot
     inline const Frame & f2() const { return *f2_; }
 
     /** Return the contact points in f1 */
-    inline const std::vector<sva::PTransformd> & points() const { return points_; }
+    inline const std::vector<sva::PTransformd> & f1Points() const { return f1Points_; }
+
+    /** Initial transformation between frame 1 and frame 2 */
+    inline const sva::PTransformd & X_f1_f2() const { return X_f1_f2_; }
+
+    /** Initial transformation between frame 2 and frame 1 */
+    inline const sva::PTransformd & X_f2_f1() const { return X_f2_f1_; }
+
+    /** Return the contact points in f2 */
+    inline const std::vector<sva::PTransformd> & f2Points() const { return f2Points_; }
+
+    /** Return a contact view from f1 perspective */
+    inline const View f1View() const { return {id_, f1_, f1Points_}; };
+
+    /** Return a contact view from f2 perspective */
+    inline const View f2View() const { return {id_, f2_, f2Points_}; };
 
     /** Return the contact's unique id */
     inline const Id & id() const { return id_; }
   private:
     FramePtr f1_;
     FramePtr f2_;
-    std::vector<sva::PTransformd> points_;
+    sva::PTransformd X_f1_f2_;
+    sva::PTransformd X_f2_f1_;
+    std::vector<sva::PTransformd> f1Points_;
+    std::vector<sva::PTransformd> f2Points_;
     Id id_;
   };
 
@@ -106,3 +143,6 @@ namespace robot
 }
 
 }
+
+/** Output stream operator for Contact::Id */
+std::ostream & operator<<(std::ostream & os, const tvm::robot::Contact::Id & c);
