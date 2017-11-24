@@ -27,39 +27,25 @@ namespace exception
 {
 
   /** Base exception class for TVM specific exceptions */
-  class Exception : public std::exception
-  {
-  };
+  class Exception : public std::exception {};
 
   /** General data-related exception */
-  class DataException : public Exception
-  {
-  };
+  class DataException : public Exception {};
 
   /** Thrown when attempting to use unused output */
-  class UnusedOutput : public DataException
-  {
-  };
+  class UnusedOutput : public DataException {};
 
   /** General function-related exception */
-  class FunctionException : public Exception
-  {
-  };
+  class FunctionException : public Exception {};
 
   /** Thrown when attempting to call an output without an implementation */
-  class UnimplementedOutput : public FunctionException
-  {
-  };
+  class UnimplementedOutput : public FunctionException {};
 
   /** Thrown when adding a variable already present */
-  class DuplicateVariable : public FunctionException
-  {
-  };
+  class DuplicateVariable : public FunctionException {};
 
   /** Thrown when attempting to access a non-existing variable */
-  class NonExistingVariable : public FunctionException
-  {
-  };
+  class NonExistingVariable : public FunctionException {};
 
 }  // namespace exception
 
