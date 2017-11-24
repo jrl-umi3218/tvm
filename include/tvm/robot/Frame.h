@@ -32,7 +32,15 @@ namespace robot
 
   /** A frame belonging to a robot
    *
-   * Provides the frame position, jacobian, velocity and normal acceleration
+   * Provides the frame position, jacobian, velocity and normal acceleration.
+   * These signals are correctly initialized on the object's creation.
+   *
+   * Outputs:
+   * - Position: position of the frame in world coordinates
+   * - Jacobian: jacobian of the frame in world coordinates
+   * - Velocity: velocity of the frame in world coordinates
+   * - NormalAcceleration: normal acceleration of the frame in world
+   *   coordinates
    *
    */
   class TVM_DLLAPI Frame : public graph::abstract::Node<Frame>
@@ -61,6 +69,9 @@ namespace robot
 
     /** Access the robot to which this frame belongs */
     inline const Robot & robot() const { return *robot_; }
+
+    /** Access the internal Jacobian object to perform extra-computation */
+    inline rbd::Jacobian & rbdJacobian() { return jac_; }
 
     /** The frame's name */
     inline const std::string & name() const { return name_; }

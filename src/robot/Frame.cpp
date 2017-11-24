@@ -38,6 +38,12 @@ Frame::Frame(std::string name,
   /** NormalAcceleration only depends on the state */
   addOutputDependency(Output::NormalAcceleration, Update::NormalAcceleration);
   addInputDependency(Update::NormalAcceleration, robot_, Robot::Output::q);
+
+  /** Initialize all data */
+  updatePosition();
+  updateJacobian();
+  updateVelocity();
+  updateNormalAcceleration();
 }
 
 void Frame::updatePosition()
