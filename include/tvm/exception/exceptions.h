@@ -47,6 +47,10 @@ namespace exception
   /** Thrown when attempting to access a non-existing variable */
   class NonExistingVariable : public FunctionException {};
 
+  /** Thrown when attempting to use a feature that is not implemented in the
+   * framework yet */
+  class NotImplemented : public Exception {};
+
 }  // namespace exception
 
 }  // namespace tvm
