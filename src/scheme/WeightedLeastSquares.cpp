@@ -20,7 +20,7 @@ namespace scheme
   {
   }
 
-  void WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
+  bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
   {
     for (auto& a : memory.assignments)
       a.run();
@@ -41,6 +41,7 @@ namespace scheme
       std::cout << memory.ls.inform() << std::endl;
       std::cout << memory.ls.result().transpose() << std::endl;
     }
+    return b;
   }
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const

@@ -60,7 +60,7 @@ namespace scheme
     WeightedLeastSquares(bool verbose = true, double scalarizationWeight = 1000);
 
     /** Private interface for CRTP*/
-    void solve_(LinearizedControlProblem& problem, Memory& memory) const;
+    bool solve_(LinearizedControlProblem& problem, Memory& memory) const;
     std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
 
   protected:
