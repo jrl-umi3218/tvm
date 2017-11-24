@@ -28,10 +28,10 @@ GeometricContactFunction::GeometricContactFunction(ContactPtr contact, Eigen::Ma
                   Update::NormalAcceleration, &GeometricContactFunction::updateNormalAcceleration
                  );
 
-  addOutputDependency<GeometricContactFunction>(FirstOrderProvider::Output::Value, Update::Value);
+  addOutputDependency<GeometricContactFunction>(Output::Value, Update::Value);
   addOutputDependency<GeometricContactFunction>(Output::Velocity, Update::Velocity);
   addOutputDependency<GeometricContactFunction>(Output::NormalAcceleration, Update::NormalAcceleration);
-  addOutputDependency<GeometricContactFunction>(FirstOrderProvider::Output::Jacobian, Update::Jacobian);
+  addOutputDependency<GeometricContactFunction>(Output::Jacobian, Update::Jacobian);
 
   has_f1_ = r1.mb().nrDof() > 0;
   has_f2_ = r2.mb().nrDof() > 0;
@@ -48,10 +48,6 @@ GeometricContactFunction::GeometricContactFunction(ContactPtr contact, Eigen::Ma
     addInputDependency<GeometricContactFunction>(Update::NormalAcceleration, contact_, Contact::Output::F1NormalAcceleration);
     addInputDependency<GeometricContactFunction>(Update::Jacobian, contact_, Contact::Output::F1Jacobian);
     addVariable(r1.q(), false);
-    jacobian_getter_[r1.q().get()] = [contact]()
-    {
-      return contact->f1().jacobian();
-    };
   }
   // Add more dependencies to f2 if needed
   if(has_f2_)
@@ -60,10 +56,6 @@ GeometricContactFunction::GeometricContactFunction(ContactPtr contact, Eigen::Ma
     addInputDependency<GeometricContactFunction>(Update::NormalAcceleration, contact_, Contact::Output::F2NormalAcceleration);
     addInputDependency<GeometricContactFunction>(Update::Jacobian, contact_, Contact::Output::F2Jacobian);
     addVariable(r2.q(), false);
-    jacobian_getter_[r2.q().get()] = [contact]()
-    {
-      return contact->f1().jacobian();
-    };
   }
 }
 
@@ -119,7 +111,7 @@ void GeometricContactFunction::updateJacobian()
   {
     const auto & f2 = contact_->f2();
     const auto & r2 = f2.robot();
-    jacobian_[r2.q().get()] = dof_ * f2.jacobian();
+    jacobian_[r2.q().get()] = -dof_ * f2.jacobian();
   }
 }
 
