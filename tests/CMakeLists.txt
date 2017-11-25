@@ -23,16 +23,18 @@ addUnitTest(ConstraintTest)
 addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
 addUnitTest(SolvingRequirementsTest)
-addUnitTest(UtilsTest)
+addUnitTest(UtilsTest SolverTestFunctions.cpp)
 
 set(TESTSOURCES
     main.cpp
     Mockup.cpp
     SolverTest.cpp
+    SolverTestFunctions.cpp
 )
 
 set(TESTHEADERS
     Mockup.h
+    SolverTestFunctions.h
 )
 
 add_executable(main ${TESTSOURCES} ${TESTHEADERS})
