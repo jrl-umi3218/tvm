@@ -283,6 +283,10 @@ namespace utils
     }
   }
 
+  // helper for static asserts.
+  template<typename T>
+  struct always_false : std::false_type {};
+
   template<typename ...Vals>
   inline void UpdatelessFunction::parseValues(const Eigen::VectorXd & v, Vals && ...vals) const
   {
@@ -330,7 +334,7 @@ namespace utils
   template<typename T>
   inline void UpdatelessFunction::parseValues_(T) const
   {
-    static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables and values.");
+    static_assert(always_false<T>::value, "Incorrect number of argument. You likely did not observe the alternance between variables and values.");
   }
 
   template<typename ...Vals>
@@ -406,19 +410,19 @@ namespace utils
   template<typename T>
   inline void UpdatelessFunction::parseValuesAndVelocities_(T) const
   {
-    static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
+    static_assert(always_false<T>::value, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
   }
 
   template<typename T>
   inline void UpdatelessFunction::parseValuesAndVelocities_(int, T) const
   {
-    static_assert(false, "Incorrect number of argument. You likely forgot a value or velocity.");
+    static_assert(always_false<T>::value, "Incorrect number of argument. You likely forgot a value or velocity.");
   }
 
   template<typename T, typename U>
   inline void UpdatelessFunction::parseValuesAndVelocities_(T, U) const
   {
-    static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
+    static_assert(always_false<T>::value, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
   }
 
 } // namespace utils

@@ -75,7 +75,7 @@ namespace utils
   void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val, bool value) const
   {
     const auto& x = f_->variables();
-    if (i >= static_cast<int>(x.size()))
+    if (i >= x.size())
     {
       std::stringstream s;
       s << "Too many values provided (got " << i << ", expected " << x.size() << ")." << std::endl;
