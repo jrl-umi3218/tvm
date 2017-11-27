@@ -18,7 +18,6 @@ namespace abstract
     registerUpdates(LinearFunction::Update::Velocity, &LinearFunction::updateVelocity);
     addOutputDependency<LinearFunction>(FirstOrderProvider::Output::Value, LinearFunction::Update::Value);
     addOutputDependency<LinearFunction>(Function::Output::Velocity, LinearFunction::Update::Velocity);
-    setDerivativesToZero();
   }
 
   void LinearFunction::updateValue()

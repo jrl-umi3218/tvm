@@ -342,14 +342,18 @@ TEST_CASE("Test UpdatelessFunction")
 
   // normal acceleration
   VectorXd na = udf.normalAcceleration(xr, dxr, zr, dzr);
-  CHECK_UNARY(na.isApprox(2*(dxr.transpose()*dxr - dzr.transpose()*dzr)));
+  FAST_CHECK_UNARY(na.isApprox(2*(dxr.transpose()*dxr - dzr.transpose()*dzr)));
   na = udf.normalAcceleration(l{ 1,2 }, l{ -1,-2 }, l{ 7,8,9 }, l{ -7,-8,-9 });
-  CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzm.transpose()*dzm)));
+  FAST_CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzm.transpose()*dzm)));
   na = udf.normalAcceleration(l{ 1,2 }, dxr, zr, l{ -7,-8,-9 });
-  CHECK_UNARY(na.isApprox(2 * (dxr.transpose()*dxr - dzm.transpose()*dzm))); 
+  FAST_CHECK_UNARY(na.isApprox(2 * (dxr.transpose()*dxr - dzm.transpose()*dzm)));
   na = udf.normalAcceleration(*z, l{ 7,8,9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 });
-  CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzr.transpose()*dzr)));
+  FAST_CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzr.transpose()*dzr)));
 
   CHECK_THROWS(udf.normalAcceleration(*z, l{ 7,8.9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 }));
 
+  // JDot
+  MatrixXd Jd = uf.JDot(*x, xr, dxr, yr, dyr, zr, dzr);
+  FAST_CHECK_UNARY(Jd.isZero());
+  CHECK_THROWS(udf.JDot(*x, xr, dzr));
 }

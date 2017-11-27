@@ -206,41 +206,81 @@ namespace utils
   template<typename ...Vals>
   inline const Eigen::VectorXd & UpdatelessFunction::value(Vals && ...vals) const
   {
-    parseValues(std::forward<Vals>(vals)...);
-    valueGraph_.execute();
-    return f_->value();
+    using Output = tvm::function::abstract::Function::Output;
+    if (f_->isOutputEnabled(Output::Value))
+    {
+      parseValues(std::forward<Vals>(vals)...);
+      valueGraph_.execute();
+      return f_->value();
+    }
+    else
+    {
+      throw std::runtime_error("Underlying function does not provide a value output.");
+    }
   }
 
   template<typename ...Vals>
   inline const Eigen::MatrixXd & UpdatelessFunction::jacobian(const Variable & x, Vals && ...vals) const
   {
-    parseValues(std::forward<Vals>(vals)...);
-    jacobianGraph_.execute();
-    return f_->jacobian(x);
+    using Output = tvm::function::abstract::Function::Output;
+    if (f_->isOutputEnabled(Output::Jacobian))
+    {
+      parseValues(std::forward<Vals>(vals)...);
+      jacobianGraph_.execute();
+      return f_->jacobian(x);
+    }
+    else
+    {
+      throw std::runtime_error("Underlying function does not provide a jacobian output.");
+    }
   }
 
   template<typename ...Vals>
   inline const Eigen::VectorXd & UpdatelessFunction::velocity(Vals && ...vals) const
   {
-    parseValuesAndVelocities(std::forward<Vals>(vals)...);
-    velocityGraph_.execute();
-    return f_->velocity();
+    using Output = tvm::function::abstract::Function::Output;
+    if (f_->isOutputEnabled(Output::Velocity))
+    {
+      parseValuesAndVelocities(std::forward<Vals>(vals)...);
+      velocityGraph_.execute();
+      return f_->velocity();
+    }
+    else
+    {
+      throw std::runtime_error("Underlying function does not provide a velocity output.");
+    }
   }
 
   template<typename ...Vals>
   inline const Eigen::VectorXd & UpdatelessFunction::normalAcceleration(Vals && ...vals) const
   {
-    parseValuesAndVelocities(std::forward<Vals>(vals)...);
-    normalAccelerationGraph_.execute();
-    return f_->normalAcceleration();
+    using Output = tvm::function::abstract::Function::Output;
+    if (f_->isOutputEnabled(Output::NormalAcceleration))
+    {
+      parseValuesAndVelocities(std::forward<Vals>(vals)...);
+      normalAccelerationGraph_.execute();
+      return f_->normalAcceleration();
+    }
+    else
+    {
+      throw std::runtime_error("Underlying function does not provide a normalAcceleration output.");
+    }
   }
 
   template<typename ...Vals>
   inline const Eigen::MatrixXd & UpdatelessFunction::JDot(const Variable & x, Vals && ...vals) const
   {
-    parseValuesAndVelocities(std::forward<Vals>(vals)...);
-    JDotGraph_.execute();
-    return f_->JDot();
+    using Output = tvm::function::abstract::Function::Output;
+    if (f_->isOutputEnabled(Output::JDot))
+    {
+      parseValuesAndVelocities(std::forward<Vals>(vals)...);
+      JDotGraph_.execute();
+      return f_->JDot(x);
+    }
+    else
+    {
+      throw std::runtime_error("Underlying function does not provide a JDot output.");
+    }
   }
 
   template<typename ...Vals>
