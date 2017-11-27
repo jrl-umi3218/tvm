@@ -79,6 +79,7 @@ namespace tvm
     VariablePtr primitive() const;
     /** Get the base primitive of this variable. Equivalent to primitive<d>()
       * where d = derivativeNumber().
+      * Return a null pointer if the variable is a base primitive.
       */
     VariablePtr basePrimitive() const;
 

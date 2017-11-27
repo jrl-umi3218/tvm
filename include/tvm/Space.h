@@ -82,5 +82,12 @@ namespace tvm
     int mSize_;   //size of this space (as a manifold)
     int rSize_;   //size of a vector representing a point in this space
     int tSize_;   //size of a vector representing a velocity in this space
+
+    friend bool operator==(const Space&, const Space&);
   };
+
+  inline bool operator==(const Space& s1, const Space& s2)
+  {
+    return s1.mSize_ == s2.mSize_ && s1.rSize_ == s2.rSize_ && s1.tSize_ == s2.tSize_;
+  }
 }  // namespace tvm

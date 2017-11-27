@@ -13,11 +13,13 @@ namespace tvm
   }
 
   VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
+    : VariableVector()
   {
     add(variables);
   }
 
   VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
+    : VariableVector()
   {
     for (auto& v : variables)
       add(v);

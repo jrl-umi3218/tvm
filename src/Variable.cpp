@@ -120,7 +120,14 @@ namespace tvm
     , derivative_()
   {
     std::stringstream ss;
-    ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    if (derivativeNumber_ == 1)
+    {
+      ss << "d " << basePrimitive()->name_ << " / dt";
+    }
+    else
+    {
+      ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    }
     name_ = ss.str();
   }
 
