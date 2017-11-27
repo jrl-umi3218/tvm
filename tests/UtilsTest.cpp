@@ -297,4 +297,59 @@ TEST_CASE("Test UpdatelessFunction")
   FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
   J = udf.jacobian(*x, *x, l{ 1,2 });
   FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
+
+  //velocity
+  VectorXd dxr = VectorXd::Random(2);
+  VectorXd dyr = VectorXd::Random(4);
+  VectorXd dzr = VectorXd::Random(3);
+  
+  VectorXd dv = uf.velocity(xr, dxr, yr, dyr, zr, dzr);
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dyr + Az * dzr));
+  FAST_CHECK_UNARY(dot(x)->value().isApprox(dxr));
+  FAST_CHECK_UNARY(dot(y)->value().isApprox(dyr));
+  FAST_CHECK_UNARY(dot(z)->value().isApprox(dzr));
+
+  VectorXd dxm(2); dxm << -1, -2;
+  VectorXd dym(4); dym << -3, -4, -5, -6;
+  VectorXd dzm(3); dzm << -7, -8, -9;
+
+  dv = uf.velocity(l{ 1,2 }, l{ -1,-2 }, l{ 3,4,5,6 }, l{ -3,-4,-5,-6 }, l{ 7,8,9 }, l{ -7, -8, -9 });
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxm + Ay * dym + Az * dzm));
+
+  dv = uf.velocity(xr, l{ -1,-2 }, l{ 3,4,5,6 }, dyr, zr, l{ -7,-8,-9 });
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxm + Ay * dyr + Az * dzm));
+
+  dv = uf.velocity(*x, xr, dxr);
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dyr + Az * dzm));
+
+  dv = uf.velocity(*z, l{1,2,3}, l{ -1,-2,-3 }, *y, yr, l{ -3,-4,-5,-6 }, *z, zr, l{ -7,-8,-9 }, *x, xr, dxr);
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dym + Az * dzm));
+
+  //errors
+  // not enough args
+  CHECK_THROWS(uf.velocity(xr, dxr, yr, dyr));
+  //uf.velocity(xr, dxr, yr, dyr, zr); //does not compile (and that's normal)
+  CHECK_THROWS(uf.velocity(l{ 1,2 }, l{-1,-2}, l{ 3,4,5,6 }, l{ -3,-4,-5,-6 }));
+  //uf.value(*x); //does not compile (and that's normal)
+  // too many args
+  CHECK_THROWS(uf.velocity(xr, dxr, yr, dyr, zr, dzr, xm, dxm, ym, dym, zm, dzm));
+  CHECK_THROWS(uf.velocity(l{ 1,2 }, dxr, l{ 3,4,5,6 }, l{ -3,-4,-5,-6 }, zr, l{ -7,-8,-9 }, l{ 1,2 }, l{ -1,-2 }, l{ 3,4,5,6 }, l{ -3,-4,-5,-6 }));
+  //uf.value(*x, xr, yr); //does not compile (and that's normal)
+  // wrong size
+  CHECK_THROWS(uf.velocity(xr, dxr, yr, dxr, zr, dzr));
+  CHECK_THROWS(uf.velocity(l{ 1,2,3 }, dxr, l{ 3,4,5,6 }, dyr, l{ 7., 8., 9. }, dzr));
+  CHECK_THROWS(uf.velocity(*x, xr, dzr));
+
+  // normal acceleration
+  VectorXd na = udf.normalAcceleration(xr, dxr, zr, dzr);
+  CHECK_UNARY(na.isApprox(2*(dxr.transpose()*dxr - dzr.transpose()*dzr)));
+  na = udf.normalAcceleration(l{ 1,2 }, l{ -1,-2 }, l{ 7,8,9 }, l{ -7,-8,-9 });
+  CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzm.transpose()*dzm)));
+  na = udf.normalAcceleration(l{ 1,2 }, dxr, zr, l{ -7,-8,-9 });
+  CHECK_UNARY(na.isApprox(2 * (dxr.transpose()*dxr - dzm.transpose()*dzm))); 
+  na = udf.normalAcceleration(*z, l{ 7,8,9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 });
+  CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzr.transpose()*dzr)));
+
+  CHECK_THROWS(udf.normalAcceleration(*z, l{ 7,8.9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 }));
+
 }

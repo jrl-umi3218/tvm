@@ -31,7 +31,7 @@ namespace utils
 {
 
   /** This class wraps a function to mask the update mechanism to the user, by
-    * providing methods as value and jacobian, that can be called directly with
+    * providing methods as value and jacobian that can be called directly with
     * the values of the variables.
     * It is meant for diagnostic and debugging purposes.
     */
@@ -106,37 +106,85 @@ namespace utils
     static Eigen::VectorXd toVec(std::initializer_list<double> val);
 
     /** Assign val to the i-th variable. */
-    void assign(size_t i, const Eigen::VectorXd& val) const;
-    void assign(Variable& x, const Eigen::VectorXd& val) const;
+    void assign(size_t i, const Eigen::VectorXd& val, bool value) const;
+    void assign(Variable& x, const Eigen::VectorXd& val, bool value) const;
 
+    /** \internal dispatch the parsing between values only and pairs of 
+      * variable-value. Initiate the recursion.
+      */
     template<typename... Vals>
     void parseValues(const Eigen::VectorXd& v, Vals&&... vals) const;
-
     template<typename... Vals>
     void parseValues(std::initializer_list<double> v, Vals&&... vals) const;
-
     template<typename... Vals>
     void parseValues(Variable& x, Vals&&... vals) const;
 
+    /** \internal Recursion over the values.*/
     template<typename... Vals>
     void parseValues_(int i, const Eigen::VectorXd& v, Vals&&... vals) const;
-
     template<typename... Vals>
     void parseValues_(int i, std::initializer_list<double> v, Vals&&... vals) const;
-
     template<typename... Vals>
     void parseValues_(Variable& x, const Eigen::VectorXd& v, Vals&&... vals) const;
-
     template<typename... Vals>
     void parseValues_(Variable& x, std::initializer_list<double> v, Vals&&... vals) const;
 
+    /** \internal Catch wrong number of arguments*/
     template<typename T>
     void parseValues_(T) const;
 
+    /** \internal End of recursion for the parsing of values*/
     void parseValues_(int i, const Eigen::VectorXd& v) const;
     void parseValues_(int i, std::initializer_list<double> v) const;
     void parseValues_(Variable& x, const Eigen::VectorXd& v) const;
     void parseValues_(Variable& x, std::initializer_list<double> v) const;
+
+    /** \internal dispatch the parsing between pairs value-velocity only and 
+      * triplets variable-value-velocity. Initiate the recursion.
+      */
+    template<typename... Vals>
+    void parseValuesAndVelocities(const Eigen::VectorXd& v,  Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities(std::initializer_list<double> v, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities(Variable& x, Vals&&... vals) const;
+
+    /** \internal Recursion over the values and velocities.*/
+    template<typename... Vals>
+    void parseValuesAndVelocities_(int i, const Eigen::VectorXd& val, const Eigen::VectorXd& vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(int i, const Eigen::VectorXd& val, std::initializer_list<double> vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(int i, std::initializer_list<double> val, const Eigen::VectorXd& vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(int i, std::initializer_list<double> val, std::initializer_list<double> vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(Variable& x, const Eigen::VectorXd& val, const Eigen::VectorXd& vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(Variable& x, const Eigen::VectorXd& val, std::initializer_list<double> vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(Variable& x, std::initializer_list<double> val, const Eigen::VectorXd& vel, Vals&&... vals) const;
+    template<typename... Vals>
+    void parseValuesAndVelocities_(Variable& x, std::initializer_list<double> val, std::initializer_list<double> vel, Vals&&... vals) const;
+
+    /** \internal Catch wrong number of arguments*/
+    template<typename T>
+    void parseValuesAndVelocities_(T) const;
+    template<typename T>
+    void parseValuesAndVelocities_(int, T) const;
+    template<typename T, typename U>
+    void parseValuesAndVelocities_(T, U) const;
+
+    /**  \internal End of recursion.*/
+    void parseValuesAndVelocities_(int i, const Eigen::VectorXd& val, const Eigen::VectorXd& vel) const;
+    void parseValuesAndVelocities_(int i, const Eigen::VectorXd& val, std::initializer_list<double> vel) const;
+    void parseValuesAndVelocities_(int i, std::initializer_list<double> val, const Eigen::VectorXd& vel) const;
+    void parseValuesAndVelocities_(int i, std::initializer_list<double> val, std::initializer_list<double> vel) const;
+    void parseValuesAndVelocities_(Variable& x, const Eigen::VectorXd& val, const Eigen::VectorXd& vel) const;
+    void parseValuesAndVelocities_(Variable& x, const Eigen::VectorXd& val, std::initializer_list<double> vel) const;
+    void parseValuesAndVelocities_(Variable& x, std::initializer_list<double> val, const Eigen::VectorXd& vel) const;
+    void parseValuesAndVelocities_(Variable& x, std::initializer_list<double> val, std::initializer_list<double> vel) const;
+
 
     FunctionPtr f_;
     tvm::graph::CallGraph valueGraph_;
@@ -144,6 +192,8 @@ namespace utils
     tvm::graph::CallGraph velocityGraph_;
     tvm::graph::CallGraph normalAccelerationGraph_;
     tvm::graph::CallGraph JDotGraph_;
+    //ensure that derivative will exist.
+    std::vector<VariablePtr> dx_;
   };
 
 
@@ -170,6 +220,30 @@ namespace utils
   }
 
   template<typename ...Vals>
+  inline const Eigen::VectorXd & UpdatelessFunction::velocity(Vals && ...vals) const
+  {
+    parseValuesAndVelocities(std::forward<Vals>(vals)...);
+    velocityGraph_.execute();
+    return f_->velocity();
+  }
+
+  template<typename ...Vals>
+  inline const Eigen::VectorXd & UpdatelessFunction::normalAcceleration(Vals && ...vals) const
+  {
+    parseValuesAndVelocities(std::forward<Vals>(vals)...);
+    normalAccelerationGraph_.execute();
+    return f_->normalAcceleration();
+  }
+
+  template<typename ...Vals>
+  inline const Eigen::MatrixXd & UpdatelessFunction::JDot(const Variable & x, Vals && ...vals) const
+  {
+    parseValuesAndVelocities(std::forward<Vals>(vals)...);
+    JDotGraph_.execute();
+    return f_->JDot();
+  }
+
+  template<typename ...Vals>
   inline void UpdatelessFunction::parseValues(const Eigen::VectorXd & v, Vals && ...vals) const
   {
     parseValues_(0, v, std::forward<Vals>(vals)...);
@@ -190,7 +264,7 @@ namespace utils
   template<typename ...Vals>
   inline void UpdatelessFunction::parseValues_(int i, const Eigen::VectorXd & v, Vals && ...vals) const
   {
-    assign(i, v);
+    assign(i, v, true);
     parseValues_(i + 1, std::forward<Vals>(vals)...);
   }
 
@@ -203,7 +277,7 @@ namespace utils
   template<typename ...Vals>
   inline void UpdatelessFunction::parseValues_(Variable & x, const Eigen::VectorXd & v, Vals && ...vals) const
   {
-    assign(x, v);
+    assign(x, v, true);
     parseValues_(std::forward<Vals>(vals)...);
   }
 
@@ -217,6 +291,94 @@ namespace utils
   inline void UpdatelessFunction::parseValues_(T) const
   {
     static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables and values.");
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities(const Eigen::VectorXd & v, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities(std::initializer_list<double> v, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities(Variable & x, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(x, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(int i, const Eigen::VectorXd & val, const Eigen::VectorXd & vel, Vals && ...vals) const
+  {
+    assign(i, val, true);
+    assign(i, vel, false);
+    parseValuesAndVelocities_(i+1, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(int i, const Eigen::VectorXd & val, std::initializer_list<double> vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(i, val, toVec(vel), std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(int i, std::initializer_list<double> val, const Eigen::VectorXd & vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(i, toVec(val), vel, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(int i, std::initializer_list<double> val, std::initializer_list<double> vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(i, toVec(val), toVec(vel), std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, const Eigen::VectorXd & val, const Eigen::VectorXd & vel, Vals && ...vals) const
+  {
+    assign(x, val, true);
+    assign(x, vel, false);
+    parseValuesAndVelocities_(std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, const Eigen::VectorXd & val, std::initializer_list<double> vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(x, val, toVec(vel), std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, std::initializer_list<double> val, const Eigen::VectorXd & vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(x, toVec(val), vel, std::forward<Vals>(vals)...);
+  }
+
+  template<typename ...Vals>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, std::initializer_list<double> val, std::initializer_list<double> vel, Vals && ...vals) const
+  {
+    parseValuesAndVelocities_(x, toVec(val), toVec(vel), std::forward<Vals>(vals)...);
+  }
+
+  template<typename T>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(T) const
+  {
+    static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
+  }
+
+  template<typename T>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(int, T) const
+  {
+    static_assert(false, "Incorrect number of argument. You likely forgot a value or velocity.");
+  }
+
+  template<typename T, typename U>
+  inline void UpdatelessFunction::parseValuesAndVelocities_(T, U) const
+  {
+    static_assert(false, "Incorrect number of argument. You likely did not observe the alternance between variables, values and velocities.");
   }
 
 } // namespace utils

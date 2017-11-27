@@ -53,6 +53,11 @@ namespace utils
       JDotGraph_.add(JDotUser);
       JDotGraph_.update();
     }
+
+    for (const auto& x : f_->variables())
+    {
+      dx_.push_back(dot(x));
+    }
   }
 
   Eigen::VectorXd UpdatelessFunction::toVec(std::initializer_list<double> val)
@@ -67,7 +72,7 @@ namespace utils
     return v;
   }
 
-  void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val) const
+  void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val, bool value) const
   {
     const auto& x = f_->variables();
     if (i >= static_cast<int>(x.size()))
@@ -76,20 +81,38 @@ namespace utils
       s << "Too many values provided (got " << i << ", expected " << x.size() << ")." << std::endl;
       throw std::runtime_error(s.str());
     }
-    if (val.size() == x[i]->size())
+    if (value)
     {
-      x[i]->value(val);
+      if (val.size() == x[i]->size())
+      {
+        x[i]->value(val);
+      }
+      else
+      {
+        std::stringstream s;
+        s << "The size provided for the " << i << "-th variable's value (" << x[i]->name()
+          << ") is incorrect (got" << val.size() << ", expected " << x[i]->size() << ")." << std::endl;
+        throw std::runtime_error("");
+      }
     }
     else
     {
-      std::stringstream s;
-      s << "The size provided for the " << i << "-th variable (" << x[i]->name()
-        << ") is incorrect (got" << val.size() << ", expected " << x[i]->size() << ")." << std::endl;
-      throw std::runtime_error("");
+      auto dxi = dot(x[i]);
+      if (val.size() == dxi->size())
+      {
+        dxi->value(val);
+      }
+      else
+      {
+        std::stringstream s;
+        s << "The size provided for the " << i << "-th variable's velocity (" << x[i]->name()
+          << ") is incorrect (got" << val.size() << ", expected " << dxi->size() << ")." << std::endl;
+        throw std::runtime_error("");
+      }
     }
   }
 
-  void UpdatelessFunction::assign(Variable& x, const Eigen::VectorXd & val) const
+  void UpdatelessFunction::assign(Variable& x, const Eigen::VectorXd & val, bool value) const
   {
     const auto& vars = f_->variables();
     if (vars.size() == 0)
@@ -102,7 +125,35 @@ namespace utils
     auto it = std::find(vars.begin(), vars.end(), p);
     if (it != vars.end())
     {
-      x.value(val);
+      if (value)
+      {
+        if (val.size() == x.size())
+        {
+          x.value(val);
+        }
+        else
+        {
+          std::stringstream s;
+          s << "The size provided for the value of variable " << x.name() << "is incorrect (got" 
+            << val.size() << ", expected " << x.size() << ")." << std::endl;
+          throw std::runtime_error("");
+        }
+      }
+      else
+      {
+        auto dxi = dot(*it);
+        if (val.size() == dxi->size())
+        {
+          dxi->value(val);
+        }
+        else
+        {
+          std::stringstream s;
+          s << "The size provided for the velocity of variable " << x.name() << "is incorrect (got"
+            << val.size() << ", expected " << dxi->size() << ")." << std::endl;
+          throw std::runtime_error("");
+        }
+      }
     }
     else
     {
@@ -115,17 +166,7 @@ namespace utils
     const auto& x = f_->variables();
     if (i + 1 == static_cast<int>(x.size()))
     {
-      if (v.size() == x[i]->size())
-      {
-        x[i]->value(v);
-      }
-      else
-      {
-        std::stringstream s;
-        s << "The size provided for the " << i << "-th variable (" << x[i]->name()
-          << ") is incorrect (got" << v.size() << ", expected " << x[i]->size() << ")." << std::endl;
-        throw std::runtime_error(s.str());
-      }
+      assign(i, v, true);
     }
     else
     {
@@ -151,12 +192,73 @@ namespace utils
 
   void UpdatelessFunction::parseValues_(Variable & x, const Eigen::VectorXd & v) const
   {
-    assign(x, v);
+    assign(x, v, true);
   }
 
   void UpdatelessFunction::parseValues_(Variable & x, std::initializer_list<double> v) const
   {
     parseValues_(x, toVec(v));
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(int i, const Eigen::VectorXd & val, const Eigen::VectorXd & vel) const
+  {
+    const auto& x = f_->variables();
+    if (i + 1 == static_cast<int>(x.size()))
+    {
+      assign(i, val, true);
+      assign(i, vel, false);
+    }
+    else
+    {
+      if (i < static_cast<int>(x.size()))
+      {
+        std::stringstream s;
+        s << "Too few values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
+        throw std::runtime_error(s.str());
+      }
+      else
+      {
+        std::stringstream s;
+        s << "Too many values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
+        throw std::runtime_error(s.str());
+      }
+    }
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(int i, const Eigen::VectorXd & val, std::initializer_list<double> vel) const
+  {
+    parseValuesAndVelocities_(i, val, toVec(vel));
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(int i, std::initializer_list<double> val, const Eigen::VectorXd & vel) const
+  {
+    parseValuesAndVelocities_(i, toVec(val), vel);
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(int i, std::initializer_list<double> val, std::initializer_list<double> vel) const
+  {
+    parseValuesAndVelocities_(i, toVec(val), toVec(vel));
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, const Eigen::VectorXd & val, const Eigen::VectorXd & vel) const
+  {
+    assign(x, val, true);
+    assign(x, vel, false);
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, const Eigen::VectorXd & val, std::initializer_list<double> vel) const
+  {
+    parseValuesAndVelocities_(x, val, toVec(vel));
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, std::initializer_list<double> val, const Eigen::VectorXd & vel) const
+  {
+    parseValuesAndVelocities_(x, toVec(val), vel);
+  }
+
+  void UpdatelessFunction::parseValuesAndVelocities_(Variable & x, std::initializer_list<double> val, std::initializer_list<double> vel) const
+  {
+    parseValuesAndVelocities_(x, toVec(val), toVec(vel));
   }
 
 } //namespace utils
