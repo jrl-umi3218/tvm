@@ -82,17 +82,17 @@ namespace tvm
     return variables_;
   }
 
-  Eigen::VectorXd VariableVector::value() const
+  const Eigen::VectorXd& VariableVector::value() const
   {
-    Eigen::VectorXd val(size_);
+    value_.resize(size_);
     int n = 0;
     for (const auto& v : variables_)
     {
       int s = v->size();
-      val.segment(n, s) = v->value();
+      value_.segment(n, s) = v->value();
       n += s;
     }
-    return val;
+    return value_;
   }
 
   void VariableVector::value(const VectorConstRef& val)
@@ -145,5 +145,16 @@ namespace tvm
   {
     stamp_ = counter;
     counter++;
+  }
+
+  VariableVector TVM_DLLAPI dot(const VariableVector& vars, int ndiff)
+  {
+    VariableVector dv;
+    const auto& vv = vars.variables();
+    for (const auto& v : vv)
+    {
+      dv.add(dot(v, ndiff));
+    }
+    return dv;
   }
 }  // namespace tvm

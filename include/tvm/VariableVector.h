@@ -20,6 +20,7 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
+#include <tvm/internal/MatrixWithProperties.h>
 
 #include <map>
 #include <memory>
@@ -37,7 +38,7 @@ namespace tvm
     * computeMappingMap or use the method Variable::getMappingIn. The latter
     * uses a cache in Variable in a way that if one invoke Variable::getMappingIn
     * on any variable contained in a VariableVector, the mapping of all other
-    * contained variables will be computed and cached. For repeatidly querying
+    * contained variables will be computed and cached. For repeatedly querying
     * the mapping of those variable w.r.t the same VariableVector, this is the
     * fastest option. However it will be slow if querying alternatively
     * mapping w.r.t different VariableVector on the same variable or set of
@@ -56,8 +57,8 @@ namespace tvm
 
     /** Add a variable to the vector.
       *
-      * /param v the variable to be added
-      * /param mergeDuplicate if true, attempting to add a variable that is
+      * \param v the variable to be added
+      * \param mergeDuplicate if true, attempting to add a variable that is
       * already in the vector will be ignored. If false, it will raise an exception.
       */
     void add(VariablePtr v, bool mergeDuplicate = false);
@@ -65,8 +66,8 @@ namespace tvm
     void add(const std::vector<VariablePtr>& variables, bool mergeDuplicate = false);
     /** Remove a variable from the vector.
       *
-      * /param v the variable to be removed
-      * /param ignoreAbsence if true, attempting to remove a variable that is
+      * \param v the variable to be removed
+      * \param ignoreAbsence if true, attempting to remove a variable that is
       * not present in the vector will be ignored, If false, it will raise an
       * exception.
       */
@@ -81,11 +82,8 @@ namespace tvm
     /** whole vector access*/
     const std::vector<VariablePtr>& variables() const;
 
-    /** Get the concatenation of all variables' value.
-      *
-      * /warning this operation requires a memory allocation at each call.
-      */
-    Eigen::VectorXd value() const;
+    /** Get the concatenation of all variables' value.*/
+    const Eigen::VectorXd& value() const;
     /** Set the value of all variables from a concatenated vector*/
     void value(const VectorConstRef& val);
 
@@ -118,5 +116,18 @@ namespace tvm
       * FIXME: is it faster though, given that we will never have a lot of variables?
       */
     std::set<const Variable*> variableSet_;
+
+    mutable Eigen::VectorXd value_;
   };
+
+  /** Get the vector of ndiff-th time derivatives of the variables of the input
+    * vector.
+    *
+    * \param var the variable to be derived
+    * \param ndiff the order of the derivation
+    *
+    * \warning This recreates a vector from scratch each time
+    */
+  VariableVector TVM_DLLAPI dot(const VariableVector& vars, int ndiff=1);
+
 }  // namespace tvm
