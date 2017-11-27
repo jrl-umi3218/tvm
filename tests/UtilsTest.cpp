@@ -6,7 +6,7 @@
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/utils/ProtoTask.h>
-#include <tvm/utils/UpdateLessFunction.h>
+#include <tvm/utils/UpdatelessFunction.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
