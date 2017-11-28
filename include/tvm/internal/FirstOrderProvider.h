@@ -97,6 +97,10 @@ namespace internal
 
     /** Split a jacobian matrix J into its components Ji corresponding to the
       * variables. 
+      *
+      * \param J The matrix to be split
+      * \param keepProperties If true, the properties associated with matrices
+      * Ji are kept, if not they are reset to default.
       */
     void splitFullJacobian(const MatrixConstRef& J, bool keepProperties = false);
 

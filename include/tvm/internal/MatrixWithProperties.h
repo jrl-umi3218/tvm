@@ -84,7 +84,7 @@ namespace internal
     }
 
     const MatrixProperties& properties() const { return properties_; }
-    void properties(MatrixProperties p) { properties_ = p; }
+    void properties(const MatrixProperties& p) { properties_ = p; }
 
     /** Create a proxy to specfy wether an assignement should preserve the
       * properties of the matrix. 
