@@ -7,9 +7,9 @@ namespace tvm
   int VariableVector::counter = 0;
 
   VariableVector::VariableVector()
-    : stamp_(counter)
-    , size_(0)
+    : size_(0)
   {
+    getNewStamp();
   }
 
   VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
@@ -111,7 +111,6 @@ namespace tvm
 
   void VariableVector::computeMapping() const
   {
-    getNewStamp();
     int size = 0;
     for (const auto& v : variables_)
     {

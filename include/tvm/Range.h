@@ -36,4 +36,11 @@ namespace tvm
     int start;
     int dim;
   };
+
+  inline bool operator==(const Range& r1, const Range& r2)
+  {
+    return r1.dim == r2.dim && r1.start == r2.start;
+  }
 }  // namespace tvm
+
+

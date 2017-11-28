@@ -1,3 +1,4 @@
+#include <tvm/Range.h>
 #include <tvm/Variable.h>
 #include <tvm/VariableVector.h>
 
@@ -143,4 +144,55 @@ TEST_CASE("Test VariableVector creation")
   FAST_CHECK_UNARY(vv3.contains(*v2));
   FAST_CHECK_UNARY(vv3.contains(*v3));
   FAST_CHECK_UNARY(vv3.contains(*v4));
+}
+
+TEST_CASE("Test Mapping")
+{
+  VariablePtr v1 = Space(3).createVariable("v1");
+  VariablePtr v2 = Space(4).createVariable("v2");
+  VariablePtr v3 = Space(2).createVariable("v3");
+  VariablePtr v4 = Space(3).createVariable("v4");
+
+  VariableVector vv1;
+  int s = vv1.stamp();
+  vv1.add(v1);
+  vv1.add(v2);
+  vv1.add(v3);
+
+  VariableVector vv2;
+  vv2.add(v3);
+  vv2.add(v2);
+  vv2.add(v1);
+
+  FAST_CHECK_EQ(vv1.stamp(), s + 3);
+  FAST_CHECK_EQ(vv2.stamp(), s + 7);
+
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
+  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{ 3, 4 });
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 7, 2 });
+  CHECK_THROWS(v4->getMappingIn(vv1));
+  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{ 6, 3 });
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{ 2, 4 });
+  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{ 0, 2 });
+  CHECK_THROWS(v4->getMappingIn(vv2));
+
+  FAST_CHECK_EQ(vv1.stamp(), s + 3);
+  FAST_CHECK_EQ(vv2.stamp(), s + 7);
+
+  vv1.add(v4);
+  FAST_CHECK_EQ(vv1.stamp(), s + 8);
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
+  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{ 3, 4 });
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 7, 2 });
+  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{ 9, 3 });
+  vv1.remove(*v2);
+  FAST_CHECK_EQ(vv1.stamp(), s + 9);
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
+  CHECK_THROWS(v2->getMappingIn(vv1));
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 3, 2 });
+  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{ 5, 3 });
+  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{ 6, 3 });
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{ 2, 4 });
+  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{ 0, 2 });
+  CHECK_THROWS(v4->getMappingIn(vv2));
 }
