@@ -71,32 +71,6 @@ namespace utils
   /** Double sided inequality ProtoTask l <= f <= u*/
   using ProtoTaskDS = ProtoTask<constraint::Type::DOUBLE_SIDED>;
 
-
-  /** Conveniency operators to form ProtoTask f op rhs
-  * (or l <= f <= u)
-  *
-  * \param f the function to form the task
-  * \param rhs a double or a Eigen::Vector with the sane size as the function
-  * Note that for a double you explicitely need to write a double (e.g 0.,
-  * not 0), otherwise the compiler won't be able to decide wich overload to
-  * pick between this and shared_ptr operator.
-  */
-  ProtoTaskEQ operator==(FunctionPtr f, const internal::RHS& rhs);
-  ProtoTaskEQ operator==(const internal::RHS& rhs, FunctionPtr f);
-  ProtoTaskGT operator>=(FunctionPtr f, const internal::RHS& rhs);
-  ProtoTaskLT operator>=(const internal::RHS& rhs, FunctionPtr f);
-  ProtoTaskLT operator<=(FunctionPtr f, const internal::RHS& rhs);
-  ProtoTaskGT operator<=(const internal::RHS& rhs, FunctionPtr f);
-
-  ProtoTaskGT operator>=(VariablePtr x, const internal::RHS& rhs);
-  ProtoTaskLT operator>=(const internal::RHS& rhs, VariablePtr f);
-  ProtoTaskLT operator<=(VariablePtr f, const internal::RHS& rhs);
-  ProtoTaskGT operator<=(const internal::RHS& rhs, VariablePtr f);
-
-  ProtoTaskDS operator>=(const ProtoTaskLT& ptl, const internal::RHS& rhs);
-  ProtoTaskDS operator<=(const ProtoTaskGT& ptg, const internal::RHS& rhs);
-
-
   template<constraint::Type T>
   inline ProtoTask<T>::ProtoTask(FunctionPtr f, const internal::RHS& rhs)
     : f_(f), rhs_(rhs)
@@ -107,65 +81,93 @@ namespace utils
     }
   }
 
-  inline ProtoTaskEQ operator==(FunctionPtr f, const internal::RHS& rhs)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskEQ operator==(const internal::RHS& rhs, FunctionPtr f)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskGT operator>=(FunctionPtr f, const internal::RHS& rhs)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskLT operator>=(const internal::RHS& rhs, FunctionPtr f)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskLT operator<=(FunctionPtr f, const internal::RHS& rhs)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskGT operator<=(const internal::RHS& rhs, FunctionPtr f)
-  {
-    return { f, rhs };
-  }
-
-  inline ProtoTaskDS operator>=(const ProtoTaskLT& ptl, const internal::RHS& rhs)
-  {
-    return { ptl.f_, rhs, ptl.rhs_ };
-  }
-
-  inline ProtoTaskDS operator<=(const ProtoTaskGT& ptg, const internal::RHS& rhs)
-  {
-    return { ptg.f_, ptg.rhs_, rhs };
-  }
-
-  inline ProtoTaskGT operator>=(VariablePtr x, const internal::RHS& rhs)
-  {
-    return std::make_shared<function::IdentityFunction>(x) >= rhs;
-  }
-
-  inline ProtoTaskLT operator>=(const internal::RHS& rhs, VariablePtr x)
-  {
-    return std::make_shared<function::IdentityFunction>(x) <= rhs;
-  }
-
-  inline ProtoTaskLT operator<=(VariablePtr x, const internal::RHS& rhs)
-  {
-    return std::make_shared<function::IdentityFunction>(x) <= rhs;
-  }
-
-  inline ProtoTaskGT operator<=(const internal::RHS& rhs, VariablePtr x)
-  {
-    return std::make_shared<function::IdentityFunction>(x) >= rhs;
-  }
 } // namespace utils
 
 } // namespace tvm
+
+
+/** Conveniency operators to form ProtoTask f op rhs
+* (or l <= f <= u)
+*
+* \param f the function to form the task
+* \param rhs a double or a Eigen::Vector with the sane size as the function
+* Note that for a double you explicitely need to write a double (e.g 0.,
+* not 0), otherwise the compiler won't be able to decide wich overload to
+* pick between this and shared_ptr operator.
+*/
+tvm::utils::ProtoTaskEQ operator==(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f);
+tvm::utils::ProtoTaskGT operator>=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f);
+tvm::utils::ProtoTaskLT operator<=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f);
+
+tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
+tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr f, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
+
+tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs);
+tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs);
+
+
+inline tvm::utils::ProtoTaskEQ operator==(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskGT operator>=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskLT operator<=(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::FunctionPtr f)
+{
+  return { f, rhs };
+}
+
+inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs)
+{
+  return { ptl.f_, rhs, ptl.rhs_ };
+}
+
+inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs)
+{
+  return { ptg.f_, ptg.rhs_, rhs };
+}
+
+inline tvm::utils::ProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
+}
+
+inline tvm::utils::ProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) <= rhs;
+}
+
+inline tvm::utils::ProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) <= rhs;
+}
+
+inline tvm::utils::ProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x)
+{
+  return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
+}
+

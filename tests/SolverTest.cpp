@@ -16,7 +16,6 @@
 
 using namespace tvm;
 using namespace Eigen;
-using namespace tvm::utils;
 
 /** f(x) = (x-x0)^2 - r^2*/
 class SphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
