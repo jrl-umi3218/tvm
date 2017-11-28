@@ -66,9 +66,9 @@ namespace internal
     Eigen::VectorXd u_;
     Eigen::VectorXd e_;
 
-    const bool usel_;
-    const bool useu_;
-    const bool usee_;
+    const bool use_l_;
+    const bool use_u_;
+    const bool use_e_;
   };
 
 
@@ -128,17 +128,17 @@ namespace internal
 
   inline bool RHSVectors::use_l() const
   {
-    return usel_;
+    return use_l_;
   }
 
   inline bool RHSVectors::use_u() const
   {
-    return useu_;
+    return use_u_;
   }
 
   inline bool RHSVectors::use_e() const
   {
-    return usee_;
+    return use_e_;
   }
 
 } // namespace internal
