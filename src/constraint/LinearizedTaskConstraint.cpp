@@ -20,7 +20,7 @@ namespace internal
   {
     if (type() == constraint::Type::DOUBLE_SIDED)
     {
-      td2_ = task.secondTaskDynamics();
+      td2_ = task.secondBoundTaskDynamics();
       if (td_->order() != td2_->order())
       {
         throw std::runtime_error("For double-sided task, the dynamic of both sides must have the same order.");
@@ -53,6 +53,9 @@ namespace internal
       kin = &LTC::updateLKin;
       dyn = &LTC::updateLDyn;
       output = Constraint::Output::L;
+      break;
+    default:
+      assert(false);
       break;
     }
 

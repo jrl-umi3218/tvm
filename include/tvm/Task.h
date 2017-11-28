@@ -49,20 +49,19 @@ namespace tvm
     FunctionPtr function() const;
     constraint::Type type() const;
     TaskDynamicsPtr taskDynamics() const;
-    TaskDynamicsPtr secondTaskDynamics() const;  //the dynamics of the upper bound, in the case of double-sided task only.
+    TaskDynamicsPtr secondBoundTaskDynamics() const;  //the dynamics of the upper bound, in the case of double-sided task only.
 
     template<typename T>
     std::shared_ptr<typename T::Impl> taskDynamics() const;
 
     template<typename T>
-    std::shared_ptr<typename T::Impl> secondTaskDynamics() const;
+    std::shared_ptr<typename T::Impl> secondBoundTaskDynamics() const;
 
   private:
     FunctionPtr f_;
     constraint::Type type_;
     TaskDynamicsPtr td_;
     TaskDynamicsPtr td2_ = nullptr;             //used only for double sided tasks, as dynamics for upper bound.
-    constraint::internal::RHSVectors vectors_;  //FIXME: still useful? The data are already in td_ and td2_, though not accessible atm.
   };
 
 
@@ -76,17 +75,12 @@ namespace tvm
   }
 
   template<typename T>
-  std::shared_ptr<typename T::Impl> Task::secondTaskDynamics() const
+  std::shared_ptr<typename T::Impl> Task::secondBoundTaskDynamics() const
   {
-    if (type_ == constraint::Type::DOUBLE_SIDED)
-    {
-      if (td2_->checkType<T>())
-        return std::static_pointer_cast<typename T::Impl>(td2_);
-      else
-        throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
-    }
+    if (td2_->checkType<T>())
+      return std::static_pointer_cast<typename T::Impl>(td2_);
     else
-      throw std::runtime_error("This function is valid only for double-sided tasks.");
+      throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
   }
 
 }  // namespace tvm

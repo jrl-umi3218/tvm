@@ -56,6 +56,8 @@ namespace internal
     template<typename Derived>
     RHS(const Eigen::MatrixBase<Derived>& v);
 
+    Eigen::VectorXd toVector(Eigen::DenseIndex n) const;
+
     RHSType type_;
     double d_;
     Eigen::VectorXd v_;
@@ -73,6 +75,18 @@ namespace internal
     : type_(RHSType::Vector)
     , v_(v)
   {
+  }
+
+
+  inline Eigen::VectorXd RHS::toVector(Eigen::DenseIndex n) const
+  {
+    switch (type_)
+    {
+    case tvm::utils::internal::RHSType::Zero: return Eigen::VectorXd::Zero(n);
+    case tvm::utils::internal::RHSType::Double: return Eigen::VectorXd::Constant(n, d_);
+    case tvm::utils::internal::RHSType::Vector: assert(v_.size() == n); return v_;
+    default: assert(false); return Eigen::VectorXd(); break;
+    }
   }
 
 } // namespace internal
