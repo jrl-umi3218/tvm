@@ -13,11 +13,9 @@ namespace abstract
 
   Constraint::Constraint(Type ct, RHS cr, int m)
     : graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>(m)
+    , vectors_(ct, cr)
     , cstrType_(ct)
     , constraintRhs_(cr)
-    , usel_((ct == Type::GREATER_THAN || ct == Type::DOUBLE_SIDED) && cr != RHS::ZERO)
-    , useu_((ct == Type::LOWER_THAN || ct == Type::DOUBLE_SIDED) && cr != RHS::ZERO)
-    , usee_(ct == Type::EQUAL && cr != RHS::ZERO)
   {
     if (ct == Type::DOUBLE_SIDED && cr == RHS::ZERO)
       throw std::runtime_error("The combination (ConstraintType::DOUBLE_SIDED, ConstraintRHS::ZERO) is forbidden. Please use (ConstraintType::EQUAL, ConstraintRHS::ZERO) instead.");
@@ -25,30 +23,18 @@ namespace abstract
     //An alternative is to use and set to zero the relevant vectors, but then we need
     //to prevent a derived class to change their value.
     resizeCache();
-    if (!usel_)
+    if (!vectors_.use_l())
       disableOutput(Output::L);
-    if (!useu_)
+    if (!vectors_.use_u())
       disableOutput(Output::U);
-    if (!usee_)
+    if (!vectors_.use_e())
       disableOutput(Output::E);
   }
 
   void Constraint::resizeCache()
   {
     tvm::internal::FirstOrderProvider::resizeCache();
-    resizeRHS();
-  }
-
-  void Constraint::resizeRHS()
-  {
-    if (usel_)
-      l_.resize(size());
-
-    if (useu_)
-      u_.resize(size());
-
-    if (usee_)
-      e_.resize(size());
+    vectors_.resize(size());
   }
 
   Type Constraint::type() const

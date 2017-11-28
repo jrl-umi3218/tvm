@@ -42,6 +42,13 @@ namespace scheme
     auto memory = std::unique_ptr<Memory>(new Memory(id()));
     const auto& constraints = problem.constraints();
 
+    //scanning bounds
+    for (auto b : problem.bounds())
+    {
+      abilities_.check(b.constraint, b.requirements); //FIXME: should be done in a parent class
+      memory->addVariable(b.constraint->variables()); //FIXME: should be done in a parent class
+    }
+
     //scanning constraints
     int m0 = 0;
     int m1 = 0;
@@ -53,7 +60,11 @@ namespace scheme
       if (c.requirements->priorityLevel().value() == 0)
         m0 += c.constraint->size();
       else
+      {
+        if (c.constraint->type() != constraint::Type::EQUAL)
+          throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
         m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+      }
     }
 
     if (m1 == 0)
@@ -62,7 +73,10 @@ namespace scheme
     //allocating memory for the solver
     memory->resize(m0, m1, big_number_);
 
-    //assigments
+    // configure assignments. FIXME: can we find a better way ?
+    Assignment::big_ = big_number_;
+
+    //assigments for general constraints
     m0 = 0;
     m1 = 0;
     const auto& x = memory->variables();
@@ -88,6 +102,29 @@ namespace scheme
     {
       memory->A.setIdentity();
       memory->b.setZero();
+    }
+
+    //assigments for bounds
+    std::map<Variable*, bool> first;
+    for (const auto& xi : x.variables())
+    {
+      first[xi.get()] = true;
+    }
+    for (auto b : problem.bounds())
+    {
+      const auto& xi = b.constraint->variables()[0];
+      int p = b.requirements->priorityLevel().value();
+      if (p == 0)
+      {
+        RangePtr range = std::make_shared<Range>(xi->getMappingIn(x)); //FIXME: for now we do not keep a pointer on the range nor the target.
+        AssignmentTarget target(range, { memory->basePtr, &memory->l }, { memory->basePtr, &memory->u });
+        memory->assignments.emplace_back(Assignment(b.constraint, target, xi, first[xi.get()]));
+        first[xi.get()] = false;
+      }
+      else
+      {
+        throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
+      }
     }
 
     return memory;

@@ -47,9 +47,9 @@ namespace abstract
 
   void LinearFunction::updateVelocity_()
   {
-    value_.setZero();
+    velocity_.setZero();
     for (auto v : variables())
-      value_ += jacobian(*v) * dot(v)->value();
+      velocity_ += jacobian(*v) * dot(v)->value();
   }
 
   void LinearFunction::setDerivativesToZero()

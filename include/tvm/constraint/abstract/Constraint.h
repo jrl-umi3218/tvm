@@ -19,6 +19,7 @@
  */
 
 #include <tvm/constraint/enums.h>
+#include <tvm/constraint/internal/RHSVectors.h>
 #include <tvm/internal/FirstOrderProvider.h>
 #include <tvm/graph/abstract/OutputSelector.h>
 
@@ -38,7 +39,7 @@ namespace abstract
   /** Base class for representing a constraint.
     *
     * It manages the enabling/disabling of the outputs L, U and E (depending
-    * on its type), and the memory of the associated cache.
+    * on its type).
     *
     * FIXME: have the updateValue here and add an output check()
     */
@@ -62,35 +63,49 @@ namespace abstract
   protected:
     Constraint(Type ct, RHS cr, int m=0);
     void resizeCache() override;
-    void resizeRHS();
 
-    Eigen::VectorXd l_;
-    Eigen::VectorXd u_;
-    Eigen::VectorXd e_;
+    //direct access for derived classes
+    Eigen::VectorXd& l();
+    Eigen::VectorXd& u();
+    Eigen::VectorXd& e();
+
+    //cache for l, u and e
+    internal::RHSVectors vectors_;
 
   private:
     Type  cstrType_;
     RHS   constraintRhs_;
-
-    bool usel_;
-    bool useu_;
-    bool usee_;
   };
 
 
   inline const Eigen::VectorXd& Constraint::l() const
   {
-    return l_;
+    return vectors_.l();
   }
 
   inline const Eigen::VectorXd& Constraint::u() const
   {
-    return u_;
+    return vectors_.u();
   }
 
   inline const Eigen::VectorXd& Constraint::e() const
   {
-    return e_;
+    return vectors_.e();
+  }
+
+  inline Eigen::VectorXd& Constraint::l()
+  {
+    return vectors_.l();
+  }
+
+  inline Eigen::VectorXd& Constraint::u()
+  {
+    return vectors_.u();
+  }
+
+  inline Eigen::VectorXd& Constraint::e()
+  {
+    return vectors_.e();
   }
 
 }  // namespace abstract

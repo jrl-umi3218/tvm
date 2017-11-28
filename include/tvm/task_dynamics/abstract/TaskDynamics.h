@@ -21,10 +21,9 @@
 #include <tvm/defs.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/task_dynamics/enums.h>
+#include <tvm/task_dynamics/abstract/TaskDynamicsImpl.h>
 
 #include <Eigen/Core>
-
-#include <memory>
 
 //FIXME add mechanisms for when the function's output is resized
 //FIXME Consider the possibility of having variables in task dynamics?
@@ -37,53 +36,24 @@ namespace task_dynamics
 
 namespace abstract
 {
-
-  class TVM_DLLAPI TaskDynamics : public graph::abstract::Node<TaskDynamics>
+  /** This is a base class to describe how a task is to be regulated, i.e. how
+    * to compute e^(d)* for a task with constraint part f op rhs, where f is a
+    * function, op is one operator among (==, <=, >=), rhs is a constant or a
+    * vector and e = f-rhs. d is the order of the task dynamics.
+    * 
+    * TaskDynamics is a lightweight descriptor, independent of a particular
+    * task, that is meant for the end user.
+    * Internally, it is turned into a TaskDynamicsImpl when linked to a given
+    * function and rhs.
+    */
+  class TVM_DLLAPI TaskDynamics
   {
   public:
-    SET_OUTPUTS(TaskDynamics, Value)
-    SET_UPDATES(TaskDynamics, UpdateValue)
-
-    void setFunction(FunctionPtr f);
-
-    const Eigen::VectorXd& value() const;
-    Order order() const;
-
-    virtual void updateValue() = 0;
+    virtual std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const;
 
   protected:
-    TaskDynamics(Order order);
-    const function::abstract::Function & function() const;
-
-    /** Hook for derived class, called at the end of setFunction.*/
-    virtual void setFunction_();
-
-    Eigen::VectorXd value_;
-
-  private:
-    Order order_;
-    FunctionPtr f_;
+    virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const = 0;
   };
-
-  inline const Eigen::VectorXd& TaskDynamics::value() const
-  {
-    return value_;
-  }
-
-  inline Order TaskDynamics::order() const
-  {
-    return order_;
-  }
-
-  inline const function::abstract::Function & TaskDynamics::function() const
-  {
-    assert(f_);
-    return *f_;
-  }
-
-  inline void TaskDynamics::setFunction_()
-  {
-  }
 
 }  // namespace abstract
 

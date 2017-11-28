@@ -21,49 +21,66 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/constraint/enums.h>
+#include <tvm/constraint/internal/RHSVectors.h>
+#include <tvm/utils/ProtoTask.h>
+#include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 #include <memory>
 
 namespace tvm
 {
-  /** A conveniency proxy to represents expression f==0, f>=0 or f<=0 where f
-    * is a function
-    */
-  class TVM_DLLAPI ProtoTask
-  {
-  public:
-    FunctionPtr f_;
-    constraint::Type type_;
-  };
-
-  /** Convenient operators to form ProtoTask. For now, we only accept rhs=0
-    *
-    * Note that you explicitely need to write 0., otherwise the compiler won't
-    * be able to decide wich overload to pick between this and shared_ptr
-    * operator.
-    * (and it is not possible to have an overload with "int rhs", for the same
-    * reason)
-    */
-  ProtoTask TVM_DLLAPI operator==(FunctionPtr f, double rhs);
-  ProtoTask TVM_DLLAPI operator>=(FunctionPtr f, double rhs);
-  ProtoTask TVM_DLLAPI operator<=(FunctionPtr f, double rhs);
-
-
   /** A task is a triplet (Function, operator, TaskDynamics) where operator is
     * ==, >= or <=*/
   class TVM_DLLAPI Task
   {
   public:
-    Task(FunctionPtr f, constraint::Type t, TaskDynamicsPtr td);
-    Task(ProtoTask proto, TaskDynamicsPtr td);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double rhs);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td,
+         const Eigen::VectorXd& rhs);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double l, double u);
+    Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td,
+         const Eigen::VectorXd& l, const Eigen::VectorXd& u);
+    Task(utils::ProtoTaskEQ proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskLT proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskGT proto, const task_dynamics::abstract::TaskDynamics& td);
+    Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics& td);
 
     FunctionPtr function() const;
     constraint::Type type() const;
     TaskDynamicsPtr taskDynamics() const;
+    TaskDynamicsPtr secondBoundTaskDynamics() const;  //the dynamics of the upper bound, in the case of double-sided task only.
+
+    template<typename T>
+    std::shared_ptr<typename T::Impl> taskDynamics() const;
+
+    template<typename T>
+    std::shared_ptr<typename T::Impl> secondBoundTaskDynamics() const;
 
   private:
     FunctionPtr f_;
     constraint::Type type_;
     TaskDynamicsPtr td_;
+    TaskDynamicsPtr td2_ = nullptr;             //used only for double sided tasks, as dynamics for upper bound.
   };
+
+
+  template<typename T>
+  std::shared_ptr<typename T::Impl> Task::taskDynamics() const
+  {
+    if (td_->checkType<T>())
+      return std::static_pointer_cast<typename T::Impl>(td_);
+    else
+      throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
+  }
+
+  template<typename T>
+  std::shared_ptr<typename T::Impl> Task::secondBoundTaskDynamics() const
+  {
+    if (td2_->checkType<T>())
+      return std::static_pointer_cast<typename T::Impl>(td2_);
+    else
+      throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
+  }
+
 }  // namespace tvm

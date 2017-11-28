@@ -74,6 +74,13 @@ namespace internal
       */
     AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, constraint::RHS cr, int shift=0);
 
+    /** l <= x <= u
+      *
+      * \param shift shifts the range for the vectors, i.e. the target is the rows
+      * starting at range.start for A, but range.start+shift for b (and l and u).
+      */
+    AssignmentTarget(RangePtr range, VectorPtr l, VectorPtr u, int shift=0);
+
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
     AssignmentTarget(MatrixPtr Q, VectorPtr q, constraint::RHS cr);
 

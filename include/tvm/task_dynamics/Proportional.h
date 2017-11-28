@@ -30,12 +30,26 @@ namespace task_dynamics
    *
    * FIXME have a version with diagonal or sdp gain matrix
    */
-  class TVM_DLLAPI Proportional : public abstract::TaskDynamics
+  class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {
   public:
+    class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
+    {
+    public:
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp);
+      void updateValue() override;
+
+      void gain(double kp);
+      double gain() const;
+
+    private:
+      double kp_;
+    };
+
     Proportional(double kp);
 
-    void updateValue() override;
+  protected:
+    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
 
   private:
     double kp_;

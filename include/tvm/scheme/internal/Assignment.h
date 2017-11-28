@@ -21,6 +21,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/Variable.h> // Range
+#include <tvm/constraint/abstract/LinearConstraint.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/AssignmentTarget.h>
 #include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
@@ -67,6 +68,13 @@ namespace internal
     Assignment(LinearConstraintPtr source, std::shared_ptr<requirements::SolvingRequirements> req,
                const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
 
+    /** Version for bounds
+      * \param first wether this is the first assignement of bounds for this
+      * variable (first assignment just copy vectors while the following ones
+      * need to perform min/max operations).
+      */
+    Assignment(LinearConstraintPtr source, const AssignmentTarget& target, const VariablePtr& variables, bool first);
+
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
@@ -79,6 +87,8 @@ namespace internal
 
     /** Perform the assignment.*/
     void run();
+
+    static double big_;
 
   private:
     struct MatrixAssignment
@@ -102,18 +112,22 @@ namespace internal
 
     /** Where the magic happens*/
     void build(const VariableVector& variables);
+    void build(const VariablePtr& variable);
     void processRequirements();
     void addMatrixAssignment(Variable* x, MatrixFunction M, const Range& range, bool flip);
+    template<AssignType A = AssignType::COPY>
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
+    template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
 
-    template<typename T, typename U>
+    template<typename T, AssignType A, typename U>
     CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip);
 
     LinearConstraintPtr source_;
     AssignmentTarget target_;
     double scalarizationWeight_;
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
+    bool first_; //for bounds only
     std::vector<MatrixAssignment> matrixAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
 
@@ -124,7 +138,7 @@ namespace internal
     Eigen::MatrixXd mult_; //unused for now, will serve when substituting variables
   };
 
-  template<typename T, typename U>
+  template<typename T, AssignType A, typename U>
   inline CompiledAssignmentWrapper<T> Assignment::createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip)
   {
     using Wrapper = CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type>;
@@ -134,25 +148,59 @@ namespace internal
       if (scalarWeight_ == 1)
       {
         if (flip)
-          return Wrapper::template make<COPY, MINUS, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<A, MINUS, IDENTITY, PRE>(from, to);
         else
-          return Wrapper::template make<COPY, NONE, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<A, NONE, IDENTITY, PRE>(from, to);
       }
       else
       {
         if (flip)
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, -scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, PRE>(from, to, -scalarWeight_);
         else
-          return Wrapper::template make<COPY, SCALAR, IDENTITY, PRE>(from, to, scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, PRE>(from, to, scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &minusAnisotropicWeight_);
+        return Wrapper::template make<A, NONE, DIAGONAL, PRE>(from, to, 1, &minusAnisotropicWeight_);
       else
-        return Wrapper::template make<COPY, NONE, DIAGONAL, PRE>(from, to, 1, &anisotropicWeight_);
+        return Wrapper::template make<A, NONE, DIAGONAL, PRE>(from, to, 1, &anisotropicWeight_);
     }
+  }
+
+  template<AssignType A>
+  inline void Assignment::addVectorAssignment(RHSFunction f, VectorFunction v, bool flip)
+  {
+    const VectorRef& to = (target_.*v)();
+
+    bool useSource = source_->rhs() != constraint::RHS::ZERO;
+    if (useSource)
+    {
+      // So far, the sign flip has been deduced only from the ConstraintType of the source
+      // and the target. Now we need to take into account the constraint::RHS as well.
+      if (source_->rhs() == constraint::RHS::OPPOSITE)
+        flip = !flip;
+      if (target_.constraintRhs() == constraint::RHS::OPPOSITE)
+        flip = !flip;
+
+      const VectorConstRef& from = (source_.get()->*f)();
+      auto w = createAssignment<Eigen::VectorXd, A>(from, to, flip);
+      vectorAssignments_.push_back({ w, true, f, v });
+    }
+    else
+    {
+      auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A>(to);
+      vectorAssignments_.push_back({ w, false, nullptr, v });
+    }
+  }
+
+  template<AssignType A>
+  inline void Assignment::addConstantAssignment(double d, VectorFunction v)
+  {
+    const VectorRef& to = (target_.*v)();
+    auto w = createAssignment<Eigen::VectorXd, A>(d, to, false);
+    vectorAssignments_.push_back({ w, false, nullptr, v });
   }
 
 }  // namespace internal

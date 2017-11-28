@@ -12,6 +12,7 @@ set(TVM_SOURCES
   constraint/Constraint.cpp
   constraint/LinearConstraint.cpp
   constraint/LinearizedTaskConstraint.cpp
+  constraint/RHSVectors.cpp
 
   event/Listener.cpp
   event/Source.cpp
@@ -35,10 +36,13 @@ set(TVM_SOURCES
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
 
+  task_dynamics/Constant.cpp
   task_dynamics/None.cpp
   task_dynamics/Proportional.cpp
   task_dynamics/ProportionalDerivative.cpp
   task_dynamics/TaskDynamics.cpp
+  task_dynamics/TaskDynamicsImpl.cpp
+  task_dynamics/VelocityDamper.cpp
 )
 
 set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
@@ -60,6 +64,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/constraint/BasicLinearConstraint.h
   ${TVM_INCLUDE_DIR}/constraint/enums.h
   ${TVM_INCLUDE_DIR}/constraint/internal/LinearizedTaskConstraint.h
+  ${TVM_INCLUDE_DIR}/constraint/internal/RHSVectors.h
 
   ${TVM_INCLUDE_DIR}/event/enums.h
   ${TVM_INCLUDE_DIR}/event/Listener.h
@@ -107,10 +112,16 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/Constant.h
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
   ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
+  
+  ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
+  ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )
 
 #Helper functions to assign files to groups in IDE, mimicking the organization of files on disk

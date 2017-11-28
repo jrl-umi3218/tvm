@@ -35,6 +35,10 @@ namespace constraint
 namespace abstract
 {
 
+  /** Note: if you intend to use the Value output and your jacobian matrices
+    * are not constant, you need to tie updateValue to the update of the those
+    * matrices.
+    */
   class TVM_DLLAPI LinearConstraint : public Constraint
   {
   public:

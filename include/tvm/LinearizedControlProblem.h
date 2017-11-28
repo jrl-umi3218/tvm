@@ -38,11 +38,13 @@ namespace tvm
     LinearizedControlProblem(const ControlProblem& pb);
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});
-    TaskWithRequirementsPtr add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
+    template<constraint::Type T>
+    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
 
     /** Access to constraints*/
+    std::vector<LinearConstraintWithRequirements> bounds() const;
     std::vector<LinearConstraintWithRequirements> constraints() const;
 
     /** Compute all quantities necessary for solving the problem.*/
@@ -70,9 +72,28 @@ namespace tvm
       graph::CallGraph updateGraph_;
     };
 
+
+    /** We consider as bound a contraint with a single variable and a diagonal,
+      * invertible jacobian.
+      * It would be possible to accept non-invetible sparse diagonal jacobians
+       * as well, in which case the zero elements of the diagonal would 
+       * correspond to non-existing bounds, but this requires quite a lot of
+       * work for something that is unlikely to happen and could be expressed
+       * by changing the bound itself to +/- infinity.
+    */
+    static bool isBound(const ConstraintPtr& c);
+
     std::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
+    std::map<TaskWithRequirements*, LinearConstraintWithRequirements> bounds_;
     Updater updater_;
   };
+
+
+  template<constraint::Type T>
+  TaskWithRequirementsPtr LinearizedControlProblem::add(utils::ProtoTask<T> proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req)
+  {
+    return add({ proto, td }, req);
+  }
 
   template<typename T, typename ... Args>
   inline void LinearizedControlProblem::Updater::addInput(std::shared_ptr<T> source, Args... args)

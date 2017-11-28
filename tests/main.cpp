@@ -8,6 +8,7 @@
 using namespace tvm;
 
 void solverTest01();
+void solverTest02();
 
 void testVariable()
 {
@@ -207,7 +208,7 @@ int main()
   //testBadGraph();
   //testDataGraphComplex();
   solverTest01();
-
+  //solverTest02();
 
 #ifdef WIN32
   system("pause");

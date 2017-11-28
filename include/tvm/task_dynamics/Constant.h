@@ -25,20 +25,18 @@ namespace tvm
 
   namespace task_dynamics
   {
-
-    /** Compute e* = -f(0) (Geometric order). For linear functions only. */
-    class TVM_DLLAPI None : public abstract::TaskDynamics
+    /** Zero order dynamics with e* = 0, i.e. f* = rhs.*/
+    class TVM_DLLAPI Constant : public abstract::TaskDynamics
     {
     public:
       class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
       {
       public:
-        Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs);
+        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs);
         void updateValue() override;
-
-      private:
-        const function::abstract::LinearFunction* lf_;
       };
+
+      Constant();
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

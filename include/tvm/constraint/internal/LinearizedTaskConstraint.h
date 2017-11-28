@@ -20,6 +20,7 @@
 
 #include <tvm/Task.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/utils/ProtoTask.h>
 
 namespace tvm
 {
@@ -30,10 +31,10 @@ namespace constraint
 namespace internal
 {
 
-  /** Given a task (e, op, e*), this class derives the constraint
-    * d^k e/dt^k op  e*(e,de/dt,...d^{k-1}/dt^{k-1} [,g]), where e is an error
-    * function, op is ==, >= or <= and e* is a desired error dynamics, k is
-    * specified by e* and (optional) g is any other quantities.
+  /** Given a task (e, op, rhs, e*), this class derives the constraint
+    * d^k e/dt^k op  e*(e,de/dt,...de^{k-1}/dt^{k-1}, rhs [,g]), where e is an
+    * error function, op is ==, >= or <= and e* is a desired error dynamics. 
+    * k is specified by e* and (optional) g is any other quantities.
     *
     * FIXME Consider the case where the TaskDynamics has its own variables?
     *
@@ -41,10 +42,11 @@ namespace internal
   class TVM_DLLAPI LinearizedTaskConstraint : public abstract::LinearConstraint
   {
   public:
-    SET_UPDATES(LinearizedTaskConstraint, UpdateRHS)
+    SET_UPDATES(LinearizedTaskConstraint, UpdateRHS, UpdateRHS2)
 
     LinearizedTaskConstraint(const Task& task);
-    LinearizedTaskConstraint(const ProtoTask& pt, TaskDynamicsPtr td);
+    template<constraint::Type T>
+    LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td);
 
     void updateLKin();
     void updateLDyn();
@@ -52,13 +54,23 @@ namespace internal
     void updateUDyn();
     void updateEKin();
     void updateEDyn();
+    void updateU2Kin();
+    void updateU2Dyn();
 
     const tvm::internal::MatrixWithProperties& jacobian(const Variable& x) const override;
 
   private:
     FunctionPtr f_;
     TaskDynamicsPtr td_;
+    TaskDynamicsPtr td2_; // for double sided constraints only;
   };
+
+
+  template<constraint::Type T>
+  LinearizedTaskConstraint::LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td)
+    : LinearizedTaskConstraint(Task(pt, td))
+  {
+  }
 
 }  // namespace internal
 

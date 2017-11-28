@@ -25,6 +25,7 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
+#include <tvm/utils/ProtoTask.h>
 
 #include <memory>
 #include <vector>
@@ -47,17 +48,18 @@ namespace tvm
   public:
     ControlProblem() = default;
     /** \internal We delete these functions because they would require by
-    * default a copy of the unique_ptr in the computationData_ map.
-    * There is no problem in implementing them as long as there is a real
-    * deep copy of the ProblemComputationData. If making this copy, care must
-    * be taken that the objects pointed to by the unique_ptr are instances of
-    * classes derived from ProblemComputationData.
-    */
+      * default a copy of the unique_ptr in the computationData_ map.
+      * There is no problem in implementing them as long as there is a real
+      * deep copy of the ProblemComputationData. If making this copy, care must
+      * be taken that the objects pointed to by the unique_ptr are instances of
+      * classes derived from ProblemComputationData.
+      */
     ControlProblem(const ControlProblem&) = delete;
     ControlProblem& operator=(const ControlProblem &) = delete;
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});
-    TaskWithRequirementsPtr add(ProtoTask proto, TaskDynamicsPtr td, const requirements::SolvingRequirements& req = {});
+    template<constraint::Type T>
+    TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, const task_dynamics::abstract::TaskDynamics& td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
@@ -77,4 +79,10 @@ namespace tvm
     friend scheme::internal::ProblemComputationData& 
       scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
+
+  template<constraint::Type T>
+  TaskWithRequirementsPtr ControlProblem::add(utils::ProtoTask<T> proto, const task_dynamics::abstract::TaskDynamics& td, const requirements::SolvingRequirements& req)
+  {
+    return add({ proto,td }, req);
+  }
 }  // namespace tvm

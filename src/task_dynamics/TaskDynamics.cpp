@@ -11,31 +11,11 @@ namespace task_dynamics
 namespace abstract
 {
 
-  TaskDynamics::TaskDynamics(Order order)
-    : order_(order)
+  std::unique_ptr<TaskDynamicsImpl> TaskDynamics::impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    registerUpdates(Update::UpdateValue, &TaskDynamics::updateValue);
-    addOutputDependency(Output::Value, Update::UpdateValue);
-  }
-
-  void TaskDynamics::setFunction(FunctionPtr f)
-  {
-    if (!f_)
-    {
-      f_ = f;
-      addInput(f, internal::FirstOrderProvider::Output::Value); //FIXME it's not great to have to resort to internal::FirstOrderProvider
-      addInputDependency(Update::UpdateValue, f, internal::FirstOrderProvider::Output::Value);
-      if (order_ == Order::Dynamics)
-      {
-        addInput(f, function::abstract::Function::Output::Velocity);
-        addInputDependency(Update::UpdateValue, f, function::abstract::Function::Output::Velocity);
-      }
-      value_.resize(f->size());
-    }
-    else
-      throw std::runtime_error("This task dynamics was already assigned a function.");
-
-    setFunction_();
+    auto ptr = impl_(f, t, rhs);
+    ptr->typeInfo_ = typeid(*this).hash_code();
+    return ptr;
   }
 
 }  // namespace abstract
