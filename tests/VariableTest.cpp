@@ -196,3 +196,30 @@ TEST_CASE("Test Mapping")
   FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{ 0, 2 });
   CHECK_THROWS(v4->getMappingIn(vv2));
 }
+
+TEST_CASE("Test VariableVector derivation")
+{
+  VariablePtr v1 = Space(3).createVariable("v1");
+  VariablePtr v2 = Space(4).createVariable("v2");
+  VariablePtr v3 = Space(2).createVariable("v3");
+
+  VariableVector vv;
+  vv.add(v1);
+  vv.add(v2);
+  vv.add(v3);
+
+  auto dvv = dot(vv);
+  FAST_CHECK_EQ(dvv[0], dot(v1));
+  FAST_CHECK_EQ(dvv[1], dot(v2));
+  FAST_CHECK_EQ(dvv[2], dot(v3));
+
+  auto dvv3 = dot(vv, 3);
+  FAST_CHECK_EQ(dvv3[0], dot(v1, 3));
+  FAST_CHECK_EQ(dvv3[1], dot(v2, 3));
+  FAST_CHECK_EQ(dvv3[2], dot(v3, 3));
+
+  auto dvv3b = dot(dvv, 2);
+  FAST_CHECK_EQ(dvv3b[0], dot(v1, 3));
+  FAST_CHECK_EQ(dvv3b[1], dot(v2, 3));
+  FAST_CHECK_EQ(dvv3b[2], dot(v3, 3));
+}
