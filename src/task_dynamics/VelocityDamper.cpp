@@ -7,14 +7,30 @@ namespace tvm
 
 namespace task_dynamics
 {
-  VelocityDamper::VelocityDamper(double xsi, double ds, double di, double big)
+  VelocityDamper::VelocityDamper(double di, double ds, double xsi, double big)
     : dt_(0), xsi_(xsi), ds_(ds), di_(di), big_(big)
   {
+    if (di <= ds)
+    {
+      throw std::runtime_error("di needs to be greater than ds");
+    }
+    if (xsi <= 0)
+    {
+      throw std::runtime_error("xsi should be postive.");
+    }
   }
 
-  VelocityDamper::VelocityDamper(double dt, double xsi, double ds, double di, double big)
+  VelocityDamper::VelocityDamper(double dt, double di, double ds, double xsi, double big)
     : dt_(dt), xsi_(xsi), ds_(ds), di_(di), big_(big)
   {
+    if (di <= ds)
+    {
+      throw std::runtime_error("di needs to be greater than ds");
+    }
+    if (xsi <= 0)
+    {
+      throw std::runtime_error("xsi should be postive.");
+    }
     if (dt <= 0)
     {
       throw std::runtime_error("Time increment should be non-negative.");
@@ -25,15 +41,15 @@ namespace task_dynamics
   {
     if (dt_ > 0)
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, dt_, xsi_, ds_, di_, big_));
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, dt_, di_, ds_, xsi_, big_));
     }
     else
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, xsi_, ds_, di_, big_));
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, di_, ds_, xsi_, big_));
     }
   }
 
-  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double xsi, double ds, double di, double big)
+  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double di, double ds, double xsi, double big)
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , dt_(0)
     , xsi_(xsi)
@@ -45,7 +61,7 @@ namespace task_dynamics
     d_.resize(f->size());
   }
 
-  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double dt, double xsi, double ds, double di, double big)
+  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double dt, double di, double ds, double xsi, double big)
     : TaskDynamicsImpl(Order::Two, f, t, rhs)
     , dt_(dt)
     , xsi_(xsi)

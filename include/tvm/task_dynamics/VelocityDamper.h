@@ -32,9 +32,9 @@ namespace tvm
       {
       public:
         //First order dynamics
-        Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double xsi, double ds, double di, double big);
+        Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double di, double ds, double xsi, double big);
         //Second order dynamics
-        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs, double dt, double xsi, double ds, double di, double big);
+        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs, double dt, double di, double ds, double xsi, double big);
         
         void updateValue() override;
 
@@ -52,8 +52,8 @@ namespace tvm
         Eigen::VectorXd d_;
       };
 
-      VelocityDamper(double xsi, double ds, double di, double big = constant::big_number);
-      VelocityDamper(double dt, double xsi, double ds, double di, double big = constant::big_number);
+      VelocityDamper(double di, double ds, double xsi, double big = constant::big_number);
+      VelocityDamper(double dt, double di, double ds, double xsi, double big = constant::big_number);
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

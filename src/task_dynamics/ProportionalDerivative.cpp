@@ -15,7 +15,7 @@ namespace task_dynamics
   }
 
   ProportionalDerivative::ProportionalDerivative(double kp)
-    : ProportionalDerivative(kp, std::sqrt(2*kp))
+    : ProportionalDerivative(kp, 2 * std::sqrt(kp))
   {
   }
 
@@ -50,7 +50,7 @@ namespace task_dynamics
   void ProportionalDerivative::Impl::gains(double kp)
   {
     kp_ = kp;
-    kv_ = std::sqrt(2 * kp);
+    kv_ = 2 * std::sqrt(kp);
   }
 
 }  // namespace task_dynamics

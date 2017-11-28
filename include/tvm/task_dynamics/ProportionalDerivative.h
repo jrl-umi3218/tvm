@@ -42,7 +42,7 @@ namespace task_dynamics
       /** return (kp, kv) */
       std::pair<double, double> gains() const;
       void gains(double kp, double kv);
-      /** Critically damped version: kv = sqrt(2*kv) */
+      /** Critically damped version: kv = 2*sqrt(kp) */
       void gains(double kp);
 
     private:
