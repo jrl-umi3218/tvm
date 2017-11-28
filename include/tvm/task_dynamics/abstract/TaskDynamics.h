@@ -37,9 +37,9 @@ namespace task_dynamics
 namespace abstract
 {
   /** This is a base class to describe how a task is to be regulated, i.e. how
-    * to compute e^(d)* for a task with constraint part e op rhs, where e is a
-    * function, op is one operator among (==, <=, >=) and rhs is a constant or
-    * a vector. d is the order of the task dynamics.
+    * to compute e^(d)* for a task with constraint part f op rhs, where f is a
+    * function, op is one operator among (==, <=, >=), rhs is a constant or a
+    * vector and e = f-rhs. d is the order of the task dynamics.
     * 
     * TaskDynamics is a lightweight descriptor, independent of a particular
     * task, that is meant for the end user.

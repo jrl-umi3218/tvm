@@ -48,12 +48,12 @@ namespace tvm
   public:
     ControlProblem() = default;
     /** \internal We delete these functions because they would require by
-    * default a copy of the unique_ptr in the computationData_ map.
-    * There is no problem in implementing them as long as there is a real
-    * deep copy of the ProblemComputationData. If making this copy, care must
-    * be taken that the objects pointed to by the unique_ptr are instances of
-    * classes derived from ProblemComputationData.
-    */
+      * default a copy of the unique_ptr in the computationData_ map.
+      * There is no problem in implementing them as long as there is a real
+      * deep copy of the ProblemComputationData. If making this copy, care must
+      * be taken that the objects pointed to by the unique_ptr are instances of
+      * classes derived from ProblemComputationData.
+      */
     ControlProblem(const ControlProblem&) = delete;
     ControlProblem& operator=(const ControlProblem &) = delete;
 

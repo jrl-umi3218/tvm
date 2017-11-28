@@ -25,6 +25,14 @@ namespace tvm
 
   namespace task_dynamics
   {
+    /** A first or second order dynamic task implementing the so-called velocity
+      * damper of Faverjon and Tournassoud.
+      * For a lower bound tasks, we have:
+      *  - first order: dot{e}* = -xsi * (e-ds)/(di-ds)
+      *  - second order: ddot{e}* = -xsi/dt * (e-ds)/(di-ds) -dot{e}/dt
+      * For upper bound tasks e <= 0 this is adapted to get the same behavior as
+      * -e >= 0.
+      */
     class TVM_DLLAPI VelocityDamper : public abstract::TaskDynamics
     {
     public:

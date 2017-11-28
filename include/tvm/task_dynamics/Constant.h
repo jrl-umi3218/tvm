@@ -25,23 +25,21 @@ namespace tvm
 
   namespace task_dynamics
   {
+    /** Zero order dynamics with e* = 0, i.e. f* = rhs.*/
     class TVM_DLLAPI Constant : public abstract::TaskDynamics
     {
     public:
       class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
       {
       public:
-        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs, const Eigen::VectorXd& v);
+        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs);
         void updateValue() override;
       };
 
-      Constant(const Eigen::VectorXd& v = Eigen::VectorXd());
+      Constant();
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
-
-    private:
-      Eigen::VectorXd v_;
     };
 
   }  // namespace task_dynamics

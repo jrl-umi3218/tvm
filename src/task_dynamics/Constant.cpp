@@ -8,26 +8,19 @@ namespace tvm
   namespace task_dynamics
   {
 
-    Constant::Constant(const Eigen::VectorXd& v)
-      :v_(v)
+    Constant::Constant()
     {
     }
 
     std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, v_));
+      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs));
     }
 
-    Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Eigen::VectorXd& v)
+    Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
       : TaskDynamicsImpl(Order::Zero, f, t, rhs)
     {
-      if (value_.size() == 0)
-        value_.setZero(function().size());
-      else
-      {
-        assert(value_.size() == function().size());
-        value_ = v;
-      }
+      value_ = rhs;
     }
 
     void Constant::Impl::updateValue()
