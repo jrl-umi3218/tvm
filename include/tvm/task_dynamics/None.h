@@ -23,11 +23,6 @@
 namespace tvm
 {
 
-  namespace function
-  {
-    namespace abstract { class LinearFunction; }
-  }
-
   namespace task_dynamics
   {
 

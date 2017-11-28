@@ -20,6 +20,7 @@ namespace tvm
     namespace abstract
     {
       class Function;
+      class LinearFunction;
     }
   }
   namespace requirements
@@ -55,7 +56,7 @@ namespace tvm
   using VariablePtr = std::shared_ptr<Variable>;
 
   //constants
-  struct constant
+  namespace constant
   {
     static constexpr double big_number = std::numeric_limits<double>::max() / 2;
   };
