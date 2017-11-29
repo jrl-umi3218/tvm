@@ -44,14 +44,13 @@ TEST_CASE("Test Variable Derivatives")
   VariablePtr v = Space(3).createVariable("v");
   FAST_CHECK_EQ(v->derivativeNumber(), 0);
   FAST_CHECK_UNARY(v->isBasePrimitive());
-  FAST_CHECK_UNARY(!v->basePrimitive());
+  FAST_CHECK_EQ(v->basePrimitive(), v);
   CHECK_THROWS(v->primitive());
 
   auto dv = dot(v);
   FAST_CHECK_EQ(dv->space(), v->space());
   FAST_CHECK_EQ(dv->derivativeNumber(), 1);
   FAST_CHECK_UNARY(!dv->isBasePrimitive());
-  FAST_CHECK_UNARY(dv->basePrimitive());
   FAST_CHECK_EQ(dv->basePrimitive(), v);
   FAST_CHECK_EQ(dv->primitive(), v);
   CHECK_THROWS(dv->primitive<3>());
@@ -60,7 +59,6 @@ TEST_CASE("Test Variable Derivatives")
   FAST_CHECK_EQ(dv3->space(), v->space());
   FAST_CHECK_EQ(dv3->derivativeNumber(), 3);
   FAST_CHECK_UNARY(!dv3->isBasePrimitive());
-  FAST_CHECK_UNARY(dv3->basePrimitive());
   FAST_CHECK_EQ(dv3->primitive<3>(), v);
   FAST_CHECK_EQ(dv3->basePrimitive(), v);
   FAST_CHECK_EQ(dot(dv, 2), dv3);
