@@ -44,7 +44,8 @@ namespace tvm
     * mapping w.r.t different VariableVector on the same variable or set of
     * variables.
     *
-    * A given variable can only appear once in a vector.
+    * A given variable can only appear once in a vector. Variables appear in the
+    * order they were added, ignoring duplicates.
     *
     * FIXME would it make sense to derive from std::vector<std::shared_ptr<Variable>> ?
     */
@@ -82,9 +83,15 @@ namespace tvm
     /** whole vector access*/
     const std::vector<VariablePtr>& variables() const;
 
-    /** Get the concatenation of all variables' value.*/
+    /** Get the concatenation of all variables' value, in the order of the
+      * variables as given by variables().
+      */
     const Eigen::VectorXd& value() const;
-    /** Set the value of all variables from a concatenated vector*/
+    /** Set the value of all variables from a concatenated vector
+      *
+      * \param val The concatenated value of all the variables, in the order of
+      * the variables as given by variables().
+      */
     void value(const VectorConstRef& val);
 
     /** Compute the mapping for all variables in this vector. The result is

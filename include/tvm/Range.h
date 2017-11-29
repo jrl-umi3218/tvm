@@ -35,12 +35,16 @@ namespace tvm
     Range(int s, int d) : start(s), dim(d) {}
     int start;
     int dim;
+
+    bool operator==(const Range& other) const
+    {
+      return this->dim == other.dim && this->start == other.start;
+    }
+
+    bool operator!=(const Range& other) const
+    {
+      return !operator==(other);
+    }
   };
 
-  inline bool operator==(const Range& r1, const Range& r2)
-  {
-    return r1.dim == r2.dim && r1.start == r2.start;
-  }
 }  // namespace tvm
-
-

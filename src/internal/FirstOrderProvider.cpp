@@ -62,11 +62,10 @@ namespace internal
     //do nothing
   }
 
-  void FirstOrderProvider::splitFullJacobian(const MatrixConstRef& J, bool keepProperties)
+  void FirstOrderProvider::splitJacobian(const MatrixConstRef & J, const std::vector<VariablePtr>& vars, bool keepProperties)
   {
-    assert(J.cols() == variables_.size());
     Eigen::DenseIndex s = 0;
-    for (const auto& v : variables_.variables())
+    for (const auto& v : vars)
     {
       auto n = static_cast<Eigen::DenseIndex>(v->size());
       jacobian_[v.get()].keepProperties(keepProperties) = J.middleCols(s, n);

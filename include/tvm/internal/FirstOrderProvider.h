@@ -96,13 +96,16 @@ namespace internal
     virtual void removeVariable_(VariablePtr);
 
     /** Split a jacobian matrix J into its components Ji corresponding to the
-      * variables. 
+      * provided variables. 
       *
       * \param J The matrix to be split
+      * \param vars The vector of variables giving the layout of J. It is the
+      * user's responsibility to ensure these variables are part of variables_
+      * and that J has the correct size.
       * \param keepProperties If true, the properties associated with matrices
       * Ji are kept, if not they are reset to default.
       */
-    void splitFullJacobian(const MatrixConstRef& J, bool keepProperties = false);
+    void splitJacobian(const MatrixConstRef& J, const std::vector<VariablePtr>& vars, bool keepProperties = false);
 
     // cache
     Eigen::VectorXd value_;
