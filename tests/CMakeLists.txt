@@ -24,6 +24,7 @@ addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
 addUnitTest(SolvingRequirementsTest)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
+addUnitTest(VariableTest)
 
 set(TESTSOURCES
     main.cpp

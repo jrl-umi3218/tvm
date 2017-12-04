@@ -7,17 +7,19 @@ namespace tvm
   int VariableVector::counter = 0;
 
   VariableVector::VariableVector()
-    : stamp_(counter)
-    , size_(0)
+    : size_(0)
   {
+    getNewStamp();
   }
 
   VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
+    : VariableVector()
   {
     add(variables);
   }
 
   VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
+    : VariableVector()
   {
     for (auto& v : variables)
       add(v);
@@ -82,17 +84,17 @@ namespace tvm
     return variables_;
   }
 
-  Eigen::VectorXd VariableVector::value() const
+  const Eigen::VectorXd& VariableVector::value() const
   {
-    Eigen::VectorXd val(size_);
+    value_.resize(size_);
     int n = 0;
     for (const auto& v : variables_)
     {
       int s = v->size();
-      val.segment(n, s) = v->value();
+      value_.segment(n, s) = v->value();
       n += s;
     }
-    return val;
+    return value_;
   }
 
   void VariableVector::value(const VectorConstRef& val)
@@ -109,7 +111,6 @@ namespace tvm
 
   void VariableVector::computeMapping() const
   {
-    getNewStamp();
     int size = 0;
     for (const auto& v : variables_)
     {
@@ -145,5 +146,16 @@ namespace tvm
   {
     stamp_ = counter;
     counter++;
+  }
+
+  VariableVector TVM_DLLAPI dot(const VariableVector& vars, int ndiff)
+  {
+    VariableVector dv;
+    const auto& vv = vars.variables();
+    for (const auto& v : vv)
+    {
+      dv.add(dot(v, ndiff));
+    }
+    return dv;
   }
 }  // namespace tvm

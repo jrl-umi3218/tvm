@@ -30,21 +30,14 @@ namespace internal
   {
     if (isOutputEnabled((int)Output::Jacobian))
     {
-      for (auto v : variables_)
+      for (auto v : variables_.variables())
         jacobian_[v.get()].resize(m_, v->space().tSize());
     }
   }
 
   void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
   {
-    if (std::find(variables_.begin(), variables_.end(), v) == variables_.end())
-    {
-      variables_.push_back(v);
-    }
-    else
-    {
-      throw exception::DuplicateVariable(/*desc*/); //TODO
-    }
+    variables_.add(v);
 
     jacobian_[v.get()].resize(m_, v->space().tSize());
     linear_[v.get()] = linear;
@@ -54,17 +47,8 @@ namespace internal
 
   void FirstOrderProvider::removeVariable(VariablePtr v)
   {
-    auto it = std::find(variables_.begin(), variables_.end(), v);
-    if (it == variables_.end())
-    {
-      throw exception::NonExistingVariable(/*desc*/); //TODO
-    }
-    else
-    {
-      variables_.erase(it);
-      jacobian_.erase(v.get());
-    }
-
+    variables_.remove(*v);
+    jacobian_.erase(v.get());
     removeVariable_(v);
   }
 
@@ -76,6 +60,17 @@ namespace internal
   void FirstOrderProvider::removeVariable_(VariablePtr)
   {
     //do nothing
+  }
+
+  void FirstOrderProvider::splitJacobian(const MatrixConstRef & J, const std::vector<VariablePtr>& vars, bool keepProperties)
+  {
+    Eigen::DenseIndex s = 0;
+    for (const auto& v : vars)
+    {
+      auto n = static_cast<Eigen::DenseIndex>(v->size());
+      jacobian_[v.get()].keepProperties(keepProperties) = J.middleCols(s, n);
+      s += n;
+    }
   }
 
 }  // namespace internal

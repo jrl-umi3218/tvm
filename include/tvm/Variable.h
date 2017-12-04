@@ -46,7 +46,7 @@ namespace tvm
     * is a base primitive, or from an other variable, by derivation with the
     * dot() operator.
     */
-  class TVM_DLLAPI Variable
+  class TVM_DLLAPI Variable : public std::enable_shared_from_this<Variable>
   {
   public:
     /** Return the name of the variable*/

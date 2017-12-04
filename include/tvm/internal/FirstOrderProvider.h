@@ -19,6 +19,7 @@
  */
 
 #include <tvm/defs.h>
+#include <tvm/VariableVector.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/internal/MatrixWithProperties.h>
 
@@ -94,13 +95,25 @@ namespace internal
     virtual void addVariable_(VariablePtr);
     virtual void removeVariable_(VariablePtr);
 
+    /** Split a jacobian matrix J into its components Ji corresponding to the
+      * provided variables. 
+      *
+      * \param J The matrix to be split
+      * \param vars The vector of variables giving the layout of J. It is the
+      * user's responsibility to ensure these variables are part of variables_
+      * and that J has the correct size.
+      * \param keepProperties If true, the properties associated with matrices
+      * Ji are kept, if not they are reset to default.
+      */
+    void splitJacobian(const MatrixConstRef& J, const std::vector<VariablePtr>& vars, bool keepProperties = false);
+
     // cache
     Eigen::VectorXd value_;
     std::map<Variable const*, MatrixWithProperties> jacobian_;
 
   private:
     int m_; //output size
-    std::vector<VariablePtr> variables_;
+    VariableVector variables_;
     std::map<Variable const*, bool> linear_;
   };
 
@@ -127,7 +140,7 @@ namespace internal
 
   inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
   {
-    return variables_;
+    return variables_.variables();
   }
 
 }  // namespace internal

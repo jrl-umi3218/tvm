@@ -1,4 +1,5 @@
 #include <tvm/internal/MatrixProperties.h>
+#include <tvm/internal/MatrixWithProperties.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
@@ -1429,4 +1430,35 @@ TEST_CASE("Test argument order and repetition")
   buildAndCheck(false, i, p, c, s);
   buildAndCheck(false, i, c, s, p);
   buildAndCheck(false, i, c, p, s);
+}
+
+TEST_CASE("Test keep properties")
+{
+  MatrixWithProperties M(5, 5);
+  MatrixProperties p(MatrixProperties::MINUS_IDENTITY, MatrixProperties::NON_ZERO_INDEFINITE);
+  M.properties(p);
+  FAST_CHECK_EQ(M.properties().shape(), MatrixProperties::MINUS_IDENTITY);
+  FAST_CHECK_EQ(M.properties().positiveness(), MatrixProperties::NEGATIVE_DEFINITE);
+  FAST_CHECK_UNARY(M.properties().isConstant());
+  FAST_CHECK_UNARY(M.properties().isInvertible());
+
+  Eigen::MatrixXd m = Eigen::MatrixXd::Random(5, 5);
+  M = m;
+  FAST_CHECK_EQ(M.properties().shape(), MatrixProperties::GENERAL);
+  FAST_CHECK_EQ(M.properties().positiveness(), MatrixProperties::NA);
+  FAST_CHECK_UNARY_FALSE(M.properties().isConstant());
+  FAST_CHECK_UNARY_FALSE(M.properties().isInvertible());
+
+  M.properties(p);
+  M.keepProperties(true) = m;
+  FAST_CHECK_EQ(M.properties().shape(), MatrixProperties::MINUS_IDENTITY);
+  FAST_CHECK_EQ(M.properties().positiveness(), MatrixProperties::NEGATIVE_DEFINITE);
+  FAST_CHECK_UNARY(M.properties().isConstant());
+  FAST_CHECK_UNARY(M.properties().isInvertible());
+
+  M.keepProperties(false) = m;
+  FAST_CHECK_EQ(M.properties().shape(), MatrixProperties::GENERAL);
+  FAST_CHECK_EQ(M.properties().positiveness(), MatrixProperties::NA);
+  FAST_CHECK_UNARY_FALSE(M.properties().isConstant());
+  FAST_CHECK_UNARY_FALSE(M.properties().isInvertible());
 }
