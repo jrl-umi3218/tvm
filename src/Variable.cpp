@@ -79,11 +79,22 @@ namespace tvm
 
   VariablePtr Variable::basePrimitive() const
   {
-    const Variable* ptr = this;
-    for (int i = 0; i < derivativeNumber_-1; ++i)
-      ptr = ptr->primitive_.get();
+    if (isBasePrimitive())
+    {
+      // while it does not seem ideal to cast the constness away, it is coherent
+      // with the general case: from a const derived variable, we can get a non
+      // const primitive. This is equivalent to have primitive_ be a shared_ptr
+      // to this in the case of a base primitive, what we can obviously not do.
+      return const_cast<Variable*>(this)->shared_from_this();
+    }
+    else
+    {
+      const Variable* ptr = this;
+      for (int i = 0; i < derivativeNumber_ - 1; ++i)
+        ptr = ptr->primitive_.get();
 
-    return ptr->primitive_;
+      return ptr->primitive_;
+    }
   }
 
   Range Variable::getMappingIn(const VariableVector& variables) const
@@ -120,7 +131,14 @@ namespace tvm
     , derivative_()
   {
     std::stringstream ss;
-    ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    if (derivativeNumber_ == 1)
+    {
+      ss << "d " << basePrimitive()->name_ << " / dt";
+    }
+    else
+    {
+      ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    }
     name_ = ss.str();
   }
 

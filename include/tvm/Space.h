@@ -78,9 +78,20 @@ namespace tvm
     int tSize() const;
     bool isEuclidean() const;
 
+    bool operator==(const Space& other) const
+    {
+      return this->mSize_ == other.mSize_ && this->rSize_ == other.rSize_ && this->tSize_ == other.tSize_;
+    }
+
+    bool operator!=(const Space& other) const
+    {
+      return !operator==(other);
+    }
+
   private:
     int mSize_;   //size of this space (as a manifold)
     int rSize_;   //size of a vector representing a point in this space
     int tSize_;   //size of a vector representing a velocity in this space
   };
+
 }  // namespace tvm
