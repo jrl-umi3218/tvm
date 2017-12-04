@@ -163,7 +163,7 @@ TEST_CASE("Test assigments")
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<tvm::Range>(2, 3);
-    tvm::scheme::internal::AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->l }, { mem, &mem->u }, tvm::constraint::RHS::AS_GIVEN);
+    tvm::scheme::internal::AssignmentTarget at(range, mem->A, mem->l, mem->u , tvm::constraint::RHS::AS_GIVEN);
     auto req = std::make_shared<tvm::requirements::SolvingRequirements>(tvm::requirements::Weight(2.));
     tvm::VariableVector vv(cstr.Ax_eq_0->variables());
     tvm::scheme::internal::Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
@@ -202,7 +202,7 @@ TEST_CASE("Test assigments")
     auto mem = std::make_shared<Memory>(6, 7);
     //assignment to a target with convention Ax <= b, from convention l <= Ax <= u
     auto range = std::make_shared<tvm::Range>(0, 6); //we need double range
-    tvm::scheme::internal::AssignmentTarget at(range, { mem, &mem->A }, { mem, &mem->b }, tvm::constraint::Type::LOWER_THAN, tvm::constraint::RHS::AS_GIVEN);
+    tvm::scheme::internal::AssignmentTarget at(range, mem->A, mem->b, tvm::constraint::Type::LOWER_THAN, tvm::constraint::RHS::AS_GIVEN);
     Eigen::Vector3d aW = {1., 2., 3.};
     auto req = std::make_shared<tvm::requirements::SolvingRequirements>(tvm::requirements::AnisotropicWeight{ aW });
     tvm::VariableVector vv(cstr.Ax_eq_0->variables());

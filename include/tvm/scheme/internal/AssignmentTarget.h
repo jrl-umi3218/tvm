@@ -47,42 +47,35 @@ namespace internal
    *
    * If the target is quadratic form, the whole matrix and vector are
    * returned.
-   *
-   * Note that you don't necessarily need to allocate the matrices and
-   * vectors dynamically. You can use use shared_ptr with aliasing as well.
-   *
-   * FIXME we are using pointers here so that the ResolutionScheme can
-   * update the values (typically change the range or resize the matrices).
-   * A safer alternative would be to have an event management here.
    */
   class TVM_DLLAPI AssignmentTarget
   {
   public:
     /** Ax = 0, Ax <= 0 or Ax >= 0. */
-    AssignmentTarget(RangePtr range, MatrixPtr A, constraint::Type ct);
+    AssignmentTarget(RangePtr range, MatrixRef A, constraint::Type ct);
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b
       *
       * \param shift shifts the range for the vectors, i.e. the target is the rows
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
-    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr b, constraint::Type ct, constraint::RHS cr, int shift=0);
+    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr, int shift=0);
 
     /** l <= Ax <= u
       *
       * \param shift shifts the range for the vectors, i.e. the target is the rows
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
-    AssignmentTarget(RangePtr range, MatrixPtr A, VectorPtr l, VectorPtr u, constraint::RHS cr, int shift=0);
+    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, VectorRef u, constraint::RHS cr, int shift=0);
 
     /** l <= x <= u
       *
       * \param shift shifts the range for the vectors, i.e. the target is the rows
       * starting at range.start for A, but range.start+shift for b (and l and u).
       */
-    AssignmentTarget(RangePtr range, VectorPtr l, VectorPtr u, int shift=0);
+    AssignmentTarget(RangePtr range, VectorRef l, VectorRef u, int shift=0);
 
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
-    AssignmentTarget(MatrixPtr Q, VectorPtr q, constraint::RHS cr);
+    AssignmentTarget(MatrixRef Q, VectorRef q, constraint::RHS cr);
 
 
     TargetType targetType() const;
@@ -124,12 +117,12 @@ namespace internal
     /** Shift or range for the vectors*/
     int shift_;
     /** Pointers to the target matrix and vectors (when applicable) */
-    MatrixPtr A_;
-    MatrixPtr Q_;
-    VectorPtr l_;
-    VectorPtr u_;
-    VectorPtr b_;
-    VectorPtr q_;
+    MatrixRef A_ = Eigen::Map<Eigen::MatrixXd>(nullptr, 0, 0);
+    MatrixRef Q_ = Eigen::Map<Eigen::MatrixXd>(nullptr, 0, 0);
+    VectorRef l_ = Eigen::Map<Eigen::VectorXd>(nullptr, 0);
+    VectorRef u_ = Eigen::Map<Eigen::VectorXd>(nullptr, 0);
+    VectorRef b_ = Eigen::Map<Eigen::VectorXd>(nullptr, 0);
+    VectorRef q_ = Eigen::Map<Eigen::VectorXd>(nullptr, 0);
   };
 
 }  // namespace internal

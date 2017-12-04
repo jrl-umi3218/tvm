@@ -86,14 +86,14 @@ namespace scheme
       if (p == 0)
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(r, { memory->basePtr, &memory->C }, { memory->basePtr, &memory->l }, { memory->basePtr, &memory->u }, constraint::RHS::AS_GIVEN, x.size());
+        AssignmentTarget target(r, memory->C, memory->l, memory->u, constraint::RHS::AS_GIVEN, x.size());
         memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
         m0 += c.constraint->size();
       }
       else
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(r, { memory->basePtr, &memory->A }, { memory->basePtr, &memory->b }, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
+        AssignmentTarget target(r, memory->A, memory->b, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
         memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
         m1 += c.constraint->size();
       }
@@ -117,7 +117,7 @@ namespace scheme
       if (p == 0)
       {
         RangePtr range = std::make_shared<Range>(xi->getMappingIn(x)); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(range, { memory->basePtr, &memory->l }, { memory->basePtr, &memory->u });
+        AssignmentTarget target(range, memory->l, memory->u);
         memory->assignments.emplace_back(Assignment(b.constraint, target, xi, first[xi.get()]));
         first[xi.get()] = false;
       }
