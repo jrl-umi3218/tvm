@@ -36,6 +36,7 @@ BasicLinearFunction::BasicLinearFunction(std::initializer_list<MatrixConstRef> A
     ++v;
   }
   this->b(b);
+  setDerivativesToZero();
 }
 
 void BasicLinearFunction::A(const MatrixConstRef& A, const Variable& x)
