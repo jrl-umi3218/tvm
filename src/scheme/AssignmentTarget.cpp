@@ -16,22 +16,22 @@ namespace internal
   {
   }
 
-  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr, int shift)
-    : targetType_(TargetType::Linear), cstrType_(ct), constraintRhs_(cr), range_(range), shift_(shift), A_(A), b_(b)
+  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr)
+    : targetType_(TargetType::Linear), cstrType_(ct), constraintRhs_(cr), range_(range), A_(A), b_(b)
   {
     if (ct == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is only for single-sided constraints.");
   }
 
-  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, VectorRef u, constraint::RHS cr, int shift)
-    : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(cr), range_(range), shift_(shift), A_(A), l_(l), u_(u)
+  AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, VectorRef u, constraint::RHS cr)
+    : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(cr), range_(range), A_(A), l_(l), u_(u)
   {
     if (cr == constraint::RHS::ZERO)
       throw std::runtime_error("constraint::RHS::ZERO is not a valid input for this constructor. Please use the constructor for Ax=0, Ax<=0 and Ax>=0 instead.");
   }
 
-  AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef l, VectorRef u, int shift)
-    : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(constraint::RHS::AS_GIVEN), range_(range), shift_(shift), l_(l), u_(u)
+  AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef l, VectorRef u)
+    : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(constraint::RHS::AS_GIVEN), range_(range), l_(l), u_(u)
   {
   }
 
@@ -68,17 +68,17 @@ namespace internal
 
   VectorRef AssignmentTarget::l() const
   {
-    return VectorRef(static_cast<VectorRef>(l_).segment(range_->start + shift_, range_->dim));
+    return VectorRef(static_cast<VectorRef>(l_).segment(range_->start, range_->dim));
   }
 
   VectorRef AssignmentTarget::u() const
   {
-    return VectorRef(static_cast<VectorRef>(u_).segment(range_->start + shift_, range_->dim));
+    return VectorRef(static_cast<VectorRef>(u_).segment(range_->start, range_->dim));
   }
 
   VectorRef AssignmentTarget::b() const
   {
-    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start + shift_, range_->dim));
+    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start, range_->dim));
   }
 
   VectorRef AssignmentTarget::q() const
@@ -101,13 +101,13 @@ namespace internal
   VectorRef AssignmentTarget::bFirstHalf() const
   {
     const int half = range_->dim / 2;
-    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start + shift_, half));
+    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start, half));
   }
 
   VectorRef AssignmentTarget::bSecondHalf() const
   {
     const int half = range_->dim / 2;
-    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start + half + shift_, half));
+    return VectorRef(static_cast<VectorRef>(b_).segment(range_->start + half, half));
   }
 
 }  // namespace internal

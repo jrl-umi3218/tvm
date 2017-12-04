@@ -53,26 +53,14 @@ namespace internal
   public:
     /** Ax = 0, Ax <= 0 or Ax >= 0. */
     AssignmentTarget(RangePtr range, MatrixRef A, constraint::Type ct);
-    /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b
-      *
-      * \param shift shifts the range for the vectors, i.e. the target is the rows
-      * starting at range.start for A, but range.start+shift for b (and l and u).
-      */
-    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr, int shift=0);
+    /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b */
+    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr);
 
-    /** l <= Ax <= u
-      *
-      * \param shift shifts the range for the vectors, i.e. the target is the rows
-      * starting at range.start for A, but range.start+shift for b (and l and u).
-      */
-    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, VectorRef u, constraint::RHS cr, int shift=0);
+    /** l <= Ax <= u */
+    AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, VectorRef u, constraint::RHS cr);
 
-    /** l <= x <= u
-      *
-      * \param shift shifts the range for the vectors, i.e. the target is the rows
-      * starting at range.start for A, but range.start+shift for b (and l and u).
-      */
-    AssignmentTarget(RangePtr range, VectorRef l, VectorRef u, int shift=0);
+    /** l <= x <= u */
+    AssignmentTarget(RangePtr range, VectorRef l, VectorRef u);
 
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
     AssignmentTarget(MatrixRef Q, VectorRef q, constraint::RHS cr);
@@ -114,8 +102,6 @@ namespace internal
     constraint::RHS constraintRhs_;
     /** Pointer to the row range*/
     RangePtr range_;
-    /** Shift or range for the vectors*/
-    int shift_;
     /** Pointers to the target matrix and vectors (when applicable) */
     MatrixRef A_ = Eigen::Map<Eigen::MatrixXd>(nullptr, 0, 0);
     MatrixRef Q_ = Eigen::Map<Eigen::MatrixXd>(nullptr, 0, 0);

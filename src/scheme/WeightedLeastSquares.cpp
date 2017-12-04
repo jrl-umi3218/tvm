@@ -80,13 +80,15 @@ namespace scheme
     m0 = 0;
     m1 = 0;
     const auto& x = memory->variables();
+    auto l = memory->l.tail(memory->C.rows());
+    auto u = memory->u.tail(memory->C.rows());
     for (auto c : constraints)
     {
       int p = c.requirements->priorityLevel().value();
       if (p == 0)
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(r, memory->C, memory->l, memory->u, constraint::RHS::AS_GIVEN, x.size());
+        AssignmentTarget target(r, memory->C, l, u, constraint::RHS::AS_GIVEN);
         memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
         m0 += c.constraint->size();
       }
