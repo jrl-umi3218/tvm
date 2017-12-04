@@ -144,11 +144,10 @@ TEST_CASE("Test a problem with a robot")
   Eigen::VectorXd uqd(hrp2->mb().nrDof());
   Eigen::VectorXd ltau(hrp2->mb().nrDof());
   Eigen::VectorXd utau(hrp2->mb().nrDof());
-  auto big_number = tvm::constant::big_number;
-  lq.head(7).setConstant(-big_number);
-  uq.head(7).setConstant(big_number);
-  lqd.head(6).setConstant(-big_number);
-  uqd.head(6).setConstant(big_number);
+  lq.head(7).setConstant(-tvm::constant::big_number);
+  uq.head(7).setConstant(tvm::constant::big_number);
+  lqd.head(6).setConstant(-tvm::constant::big_number);
+  uqd.head(6).setConstant(tvm::constant::big_number);
   ltau.head(6).setConstant(0);
   utau.head(6).setConstant(0);
   for(const auto & j : hrp2_limits.lower)
@@ -210,9 +209,6 @@ TEST_CASE("Test a problem with a robot")
     auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
     CHECK(error_rf < 1e-4);
   }
-  lfg_fn->updateValue();
-  rfg_fn->updateValue();
-  dyn_fn->updateValue();
   std::cout << "||lfg_fn|| " << lfg_fn->value().norm() << std::endl;
   std::cout << "||rfg_fn|| " << rfg_fn->value().norm() << std::endl;
   std::cout << "||dyn_fn|| " << dyn_fn->value().norm() << std::endl;
