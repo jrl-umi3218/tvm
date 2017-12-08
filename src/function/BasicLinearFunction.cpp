@@ -65,7 +65,7 @@ void BasicLinearFunction::b(const VectorConstRef& b)
 
 void BasicLinearFunction::add(const Eigen::MatrixXd& A, VariablePtr x)
 {
-  if (!x->space().isEuclidean())
+  if (!x->space().isEuclidean() && x->isBasePrimitive())
     throw std::runtime_error("We allow linear function only on Euclidean variables.");
   if (A.rows() != size())
     throw std::runtime_error("Matrix A doesn't have coherent row size.");
