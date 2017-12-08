@@ -60,9 +60,18 @@ public:
     inputs_t::iterator end_;
   };
 
+#if 0
   /** Add outputs from a given Output object */
   template<typename T, typename ... Args>
   void addInput(std::shared_ptr<T> source, Args ... args);
+#else
+  /** Add outputs from a given Output object */
+  template<typename T, typename EnumI, typename ... Args>
+  void addInput(std::shared_ptr<T> source, EnumI i, Args ... args);
+  /** Add a single output from a given Output object */
+  template<typename T, typename EnumI>
+  void addInput(std::shared_ptr<T> source, EnumI i);
+#endif
   /** Remove all outputs from a given Output object */
   template<typename T>
   void removeInput(T* source);

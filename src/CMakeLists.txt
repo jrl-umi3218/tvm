@@ -24,6 +24,8 @@ set(TVM_SOURCES
 
   graph/CallGraph.cpp
   graph/Inputs.cpp
+  graph/Log.cpp
+  graph/Logger.cpp
 
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
@@ -87,6 +89,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/internal/AbstractNode.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
+  ${TVM_INCLUDE_DIR}/graph/internal/Log.h
+  ${TVM_INCLUDE_DIR}/graph/internal/Logger.h
 
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
