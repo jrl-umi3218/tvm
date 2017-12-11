@@ -10,14 +10,11 @@
 #include <cxxabi.h>
 #endif
 
-namespace tvm
+namespace
 {
+  using namespace tvm::graph::internal;
 
-namespace graph
-{
-
-namespace internal
-{
+  /** A comparator for Pointer that takes only the adress into account.*/
   struct WeakPointerComparator
   {
     bool operator() (const Log::Pointer& p1, const Log::Pointer& p2) const
@@ -26,6 +23,7 @@ namespace internal
     }
   };
 
+  /** A comparator for Output using WeakPointerComparator.*/
   struct WeakOutputComparator
   {
     bool operator() (const Log::Output& o1, const Log::Output& o2) const
@@ -34,6 +32,7 @@ namespace internal
     }
   };
 
+  /** Replace the whitespaces in name by underscores*/
   std::string replaceWhitespaces(std::string name)
   {
     for (int i = 0; i < name.length(); i++)
@@ -44,6 +43,7 @@ namespace internal
     return name;
   }
 
+  /** Replace the colons in name by underscores*/
   std::string replaceColons(std::string name)
   {
     for (int i = 0; i < name.length(); i++)
@@ -54,6 +54,7 @@ namespace internal
     return name;
   }
 
+  /** Remove from the name the namespace names specified in the static vector below*/
   std::string removeNamespace(const std::string& name)
   {
     static std::vector<std::string> namespaces = { "tvm", "constraint", "function", "graph", "scheme", "task_dynamics", "utils", "abstract", "internal" };
@@ -69,6 +70,7 @@ namespace internal
     return res;
   }
 
+  /** Demangle the typeid name*/
   std::string demangle(const std::string& name, bool removeNamespace_ = false)
   {
 #if defined(_MSC_VER)
@@ -119,9 +121,12 @@ namespace internal
     return name;
   }
 
-  std::string clean(const std::string& name, bool replaceColon_ = true)
+  /** Return a clean name from typeid by demagling it, replacing whitespaces and
+    * optionaly replacing colons.
+    */
+  std::string clean(const std::string& name, bool replaceColons_ = true)
   {
-    if (replaceColon_)
+    if (replaceColons_)
     {
       return replaceColons(replaceWhitespaces(demangle(name, true)));
     }
@@ -129,60 +134,6 @@ namespace internal
     {
       return replaceWhitespaces(demangle(name, true));
     }
-  }
-
-  //Find the index of the output corresponding to a given input
-  //Return -1 if it didn't find it
-  size_t retrieve(const Log::Input& input, const std::vector<Log::Output>& outputs)
-  {
-    for (size_t i = 0; i < outputs.size(); ++i)
-    {
-      const Log::Output& o = outputs[i];
-      if (o.owner == input.source && o.id == input.id)
-        return i;
-    }
-    return -1;
-  }
-
-  std::string Log::nodeName(const Log::Output& output) const
-  {
-    std::stringstream ss;
-    ss << clean(types_.at(output.owner.value).back().name) << output.owner.value << "_out" << clean(output.name);
-    return ss.str();
-  }
-
-  std::string Log::nodeName(const Log::Input& input) const
-  {
-    std::stringstream ss;
-    ss << clean(types_.at(input.source.value).back().name) << input.source.value << "_in" << clean(input.name);
-    return ss.str();
-  }
-
-  std::string Log::nodeName(const Log::Update& update) const
-  {
-    std::stringstream ss;
-    ss << clean(types_.at(update.owner.value).back().name) << update.owner.value << "_up" << clean(update.name);
-    return ss.str();
-  }
-
-  Log::TypeInfo::TypeInfo(const std::type_info & t)
-    : hash(t.hash_code()), name(t.name())
-  {
-  }
-
-  std::ostream& operator<<(std::ostream& os, const Log::TypeInfo& t)
-  {
-    os << "[" << t.hash << " " << t.name << "]";
-    return os;
-  }
-
-  std::istream& operator>>(std::istream& is, Log::TypeInfo& t)
-  {
-    char c1, c2;
-    is >> c1 >> t.hash >> t.name >> c2;
-    if (is.fail())
-      throw std::ios_base::failure("Failed to read Logger::TypeInfo");
-    return is;
   }
 
   //find the input corresponding to the input dependency
@@ -289,6 +240,37 @@ namespace internal
     throw std::runtime_error("Output not found");
   }
 
+} // anonymous namespace
+
+
+
+namespace tvm
+{
+
+namespace graph
+{
+
+namespace internal
+{
+  Log::TypeInfo::TypeInfo(const std::type_info& t)
+    : hash(t.hash_code()), name(t.name())
+  {
+  }
+
+  std::ostream& operator<<(std::ostream& os, const Log::TypeInfo& t)
+  {
+    os << "[" << t.hash << " " << t.name << "]";
+    return os;
+  }
+
+  std::istream& operator>>(std::istream& is, Log::TypeInfo& t)
+  {
+    char c1, c2;
+    is >> c1 >> t.hash >> t.name >> c2;
+    if (is.fail())
+      throw std::ios_base::failure("Failed to read Logger::TypeInfo");
+    return is;
+  }
 
   std::string Log::generateDot(const Pointer& p) const
   {
@@ -519,6 +501,29 @@ namespace internal
     dot << "}";
     return dot.str();
   }
+
+
+  std::string Log::nodeName(const Log::Output& output) const
+  {
+    std::stringstream ss;
+    ss << clean(types_.at(output.owner.value).back().name) << output.owner.value << "_out" << clean(output.name);
+    return ss.str();
+  }
+
+  std::string Log::nodeName(const Log::Input& input) const
+  {
+    std::stringstream ss;
+    ss << clean(types_.at(input.source.value).back().name) << input.source.value << "_in" << clean(input.name);
+    return ss.str();
+  }
+
+  std::string Log::nodeName(const Log::Update& update) const
+  {
+    std::stringstream ss;
+    ss << clean(types_.at(update.owner.value).back().name) << update.owner.value << "_up" << clean(update.name);
+    return ss.str();
+  }
+
 } // namespace internal
 
 } // namespace graph

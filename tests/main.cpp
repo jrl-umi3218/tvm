@@ -210,6 +210,11 @@ int main()
   solverTest01();
   //solverTest02();
 
+  auto l = tvm::graph::internal::Logger::logger().log();
+  //for (const auto& p : l.types_)
+  //  std::cout << l.generateDot(tvm::graph::internal::Log::Pointer(p.second.back(), p.first)) << std::endl;
+
+  std::cout << l.generateDot() << std::endl;
 #ifdef WIN32
   system("pause");
 #endif
