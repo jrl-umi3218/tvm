@@ -35,7 +35,7 @@ namespace
   /** Replace the whitespaces in name by underscores*/
   std::string replaceWhitespaces(std::string name)
   {
-    for (int i = 0; i < name.length(); i++)
+    for (size_t i = 0; i < name.length(); i++)
     {
       if (name[i] == ' ')
         name[i] = '_';
@@ -46,7 +46,7 @@ namespace
   /** Replace the colons in name by underscores*/
   std::string replaceColons(std::string name)
   {
-    for (int i = 0; i < name.length(); i++)
+    for (size_t i = 0; i < name.length(); i++)
     {
       if (name[i] == ':')
         name[i] = '_';
@@ -104,7 +104,7 @@ namespace
     //adapted from https://stackoverflow.com/a/4541470
     int status = -4; // some arbitrary value to eliminate the compiler warning
     std::unique_ptr<char, void(*)(void*)> res{
-      abi::__cxa_demangle(name, NULL, NULL, &status),
+      abi::__cxa_demangle(name.c_str(), NULL, NULL, &status),
       std::free
     };
     if (status == 0)

@@ -3,6 +3,7 @@
 #include <tvm/api.h>
 #include <tvm/graph/internal/Log.h>
 
+#include <algorithm>
 #include <fstream>
 #include <memory>
 
@@ -55,7 +56,7 @@ namespace internal
     Logger() = default;
 
     //singleton
-    static std::unique_ptr<Logger> Logger::logger_;
+    static std::unique_ptr<Logger> logger_;
     
     //raw log
     Log log_;
@@ -93,7 +94,6 @@ namespace internal
   template<typename S, typename EnumO>
   inline void Logger::addInput(Inputs* node, S* source, EnumO i)
   {
-    auto pnode = reinterpret_cast<std::uintptr_t>(node);
     Log::Input in = {Log::EnumValue(i),
                      S::OutputName(i),
                      Log::Pointer(source),
