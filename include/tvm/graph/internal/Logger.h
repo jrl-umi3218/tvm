@@ -24,7 +24,7 @@ namespace internal
 
     const Log& log() const;
 
-    template<typename T, typename U, typename EnumT>
+    template<typename U, typename EnumT>
     void registerUpdate(U* node, EnumT u, void(U::*fn)());
 
     template<typename S, typename EnumO>
@@ -42,10 +42,7 @@ namespace internal
     template<typename U, typename EnumO, typename S, typename EnumI>
     void addDirectDependency(U* node, EnumO o, S* source, EnumI i);
 
-    /** Register the type associated to a pointer.
-      * If the pointer is already registered, and the registered type is
-      * different, attempt 
-      */
+    /** Register the type associated to a pointer. */
     template<typename U>
     void registerType(U* node);
 
@@ -78,13 +75,11 @@ namespace internal
     return log_;
   }
 
-  template<typename T, typename U, typename EnumT>
+  template<typename U, typename EnumT>
   inline void Logger::registerUpdate(U* node, EnumT u, void(U::* fn)())
   {
     Log::Update up{Log::EnumValue(u),
                    U::UpdateName(u),
-                   std::type_index(typeid(T)),
-                   std::type_index(typeid(U)),
                    getPointerValue<U>(fn),
                    Log::Pointer(node) };
     log_.updates_.push_back(up);
@@ -167,7 +162,7 @@ namespace internal
   }
 
 #define TVM_GRAPH_LOG_REGISTER_UPDATE(node, u, fn) \
-  tvm::graph::internal::Logger::logger().registerUpdate<T,U,EnumT>(static_cast<U*>(node), u, fn);
+  tvm::graph::internal::Logger::logger().registerUpdate<U,EnumT>(static_cast<U*>(node), u, fn);
 
 #define TVM_GRAPH_LOG_ADD_INPUT(add, node, i, source) \
   if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source.get(),i);}

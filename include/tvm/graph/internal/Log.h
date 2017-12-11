@@ -11,7 +11,6 @@
 #include <typeinfo>
 #include <vector>
 
-#define LOG_GRAPH
 
 namespace tvm
 {
@@ -110,8 +109,6 @@ namespace internal
     {
       EnumValue id;             //id of the update
       std::string name;         //name of the update
-      std::type_index typeT;    //type of the node
-      std::type_index typeU;    //type of the class registering the update
       std::uintptr_t function;  //address of the update function
       Pointer owner;            //address of the instance registering the update
       bool operator<(const Update& other) const { return lexLess(*this, other, &Update::owner, &Update::id, &Update::function); }
@@ -200,6 +197,9 @@ namespace internal
       * For a given adress, each type appears only once, and types are sorted in
       * their order of appearance in the logging process. We assume that the
       * last one to appear is the most derived in the inheritance hierarchy.
+      *
+      * FIXME: can we find a more robust way to determine the real type of a
+      * data?
       */
     std::map<std::uintptr_t, std::vector<TypeInfo>> types_;
 
