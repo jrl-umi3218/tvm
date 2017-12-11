@@ -162,6 +162,9 @@ namespace internal
     /** Generate a dot representation for node corresponding to p.*/
     std::string generateDot(const Pointer& p) const;
 
+    /** Generate the whole graph*/
+    std::string generateDot() const;
+
     //raw logs
     std::vector<Update> updates_;
     std::vector<Input> inputs_;
@@ -171,9 +174,17 @@ namespace internal
     std::vector<InternalDependency> internalDependencies_;
     std::vector<DirectDependency> directDependencies_;
 
-    //downcasting data
+    /** Maps data adress to all the type info associated with this adress.
+      * For a given adress, each type appears only once, and types are sorted in
+      * their order of appearance in the logging process. We assume that the
+      * last one to appear is the most derived in the inheritance hierarchy.
+      */
     std::map<std::uintptr_t, std::vector<TypeInfo>> types_;
 
+    private:
+      std::string nodeName(const Log::Output& output) const;
+      std::string nodeName(const Log::Input& input) const;
+      std::string nodeName(const Log::Update& update) const;
   };
 
 

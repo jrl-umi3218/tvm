@@ -18,6 +18,22 @@ namespace graph
 
 namespace internal
 {
+  struct WeakPointerComparator
+  {
+    bool operator() (const Log::Pointer& p1, const Log::Pointer& p2) const
+    {
+      return p1.value < p2.value;
+    }
+  };
+
+  struct WeakOutputComparator
+  {
+    bool operator() (const Log::Output& o1, const Log::Output& o2) const
+    {
+      return (o1.id < o2.id) || (o1.id == o2.id && WeakPointerComparator()(o1.owner, o2.owner));
+    }
+  };
+
   std::string replaceWhitespaces(std::string name)
   {
     for (int i = 0; i < name.length(); i++)
@@ -128,21 +144,25 @@ namespace internal
     return -1;
   }
 
-  std::string nodeName(const Log::Output& output)
-  {
-    return "out" + clean(output.name);
-  }
-
-  std::string nodeName(const Log::Input& input)
+  std::string Log::nodeName(const Log::Output& output) const
   {
     std::stringstream ss;
-    ss << clean(input.source.type.name) << input.source.value << "_in" << clean(input.name);
+    ss << clean(types_.at(output.owner.value).back().name) << output.owner.value << "_out" << clean(output.name);
     return ss.str();
   }
 
-  std::string nodeName(const Log::Update& update)
+  std::string Log::nodeName(const Log::Input& input) const
   {
-    return "up" + clean(update.name);
+    std::stringstream ss;
+    ss << clean(types_.at(input.source.value).back().name) << input.source.value << "_in" << clean(input.name);
+    return ss.str();
+  }
+
+  std::string Log::nodeName(const Log::Update& update) const
+  {
+    std::stringstream ss;
+    ss << clean(types_.at(update.owner.value).back().name) << update.owner.value << "_up" << clean(update.name);
+    return ss.str();
   }
 
   Log::TypeInfo::TypeInfo(const std::type_info & t)
@@ -244,7 +264,7 @@ namespace internal
   }
 
   //find the output corresponding to the output dependency
-  const Log::Output& findOutput(const std::set<Log::Output>& s, const Log::OutputDependency& d)
+  const Log::Output& findOutput(const std::set<Log::Output, WeakOutputComparator>& s, const Log::OutputDependency& d)
   {
     for (const auto& o : s)
     {
@@ -257,7 +277,7 @@ namespace internal
   }
 
   //find the output corresponding to the output dependency
-  const Log::Output& findOutput(const std::set<Log::Output>& s, const Log::DirectDependency& d)
+  const Log::Output& findOutput(const std::set<Log::Output, WeakOutputComparator>& s, const Log::DirectDependency& d)
   {
     for (const auto& o : s)
     {
@@ -272,7 +292,7 @@ namespace internal
 
   std::string Log::generateDot(const Pointer& p) const
   {
-    std::set<Output> outputs;
+    std::set<Output, WeakOutputComparator> outputs;
     std::set<Update> updates;
     std::map<Pointer, std::set<Input>> inputs;
 
@@ -395,6 +415,110 @@ namespace internal
     return dot.str();
   }
 
+  std::string Log::generateDot() const
+  {
+    std::map<std::uintptr_t, std::set<Output, WeakOutputComparator>> outputs;
+    std::map<std::uintptr_t, std::set<Update>> updates;
+    std::map<std::uintptr_t, std::set<Input>> inputs;
+    std::map<Output, bool> isAlsoInput;
+
+    //Sort outputs by owner
+    for (const auto& o : outputs_)
+    {
+      auto p = outputs[o.owner.value].insert(o);
+      if (p.second)
+      {
+        isAlsoInput[o] = false;
+      }
+    }
+
+    //Sort input by source and process the corresponding output
+    for (const auto& i : inputs_)
+    {
+      inputs[i.source.value].insert(i);
+      //Ouputs may not be refered by an update, but by the input of another node
+      auto p = outputs[i.source.value].insert({ i.id, i.name, i.source });
+      isAlsoInput[*p.first] = true;
+    }
+
+    //Sort updates by owner
+    for (const auto& u : updates_)
+    {
+      updates[u.owner.value].insert(u);
+    }
+
+    std::stringstream dot;
+    dot << "digraph \"" << "Update graph" << "\"\n{\n";
+    dot << "  rankdir=\"LR\";\n";
+
+    //Process each node
+    int c = 0;
+    for (const auto& p : types_)
+    {
+      dot << " subgraph cluster" << ++c << " {\n";
+      dot << "    label=\"" << clean(p.second.back().name, false) << "\";\n";
+      //updates
+      dot << "    {\n";
+      for (const auto& u : updates[p.first])
+      {
+        dot << "      " << nodeName(u) << " [label=\"" << clean(u.name) << "\"];\n";
+      }
+      dot << "    }\n";
+      //outputs
+      dot << "    {\n";
+      dot << "      rank=same;\n";
+      for (const auto& o : outputs[p.first])
+      {
+        dot << "      " << nodeName(o) << " [label=\"" << clean(o.name) << "\",";
+        if (isAlsoInput[o])
+        {
+          dot << "shape=Mdiamond";
+        }
+        else
+        {
+          dot << "shape=octagon";
+        }
+        dot << "]; \n";
+      }
+      dot << "    }\n";
+      dot << " }\n";
+    }
+
+    //input - update links
+    for (const auto& d : inputDependencies_)
+    {
+      auto i = findInput(inputs[d.source.value], d);
+      auto u = findUpdate(updates[d.owner.value], d);
+      dot << nodeName(Output{ i.id, i.name, i.source }) << "->" << nodeName(u) << ";\n";
+    }
+
+    //update - output links
+    for (const auto& d : outputDependencies_)
+    {
+      auto u = findUpdate(updates[d.owner.value], d);
+      auto o = findOutput(outputs[d.owner.value], d);
+      dot << nodeName(u) << "->" << nodeName(o) << ";\n";
+    }
+
+    //update - update links
+    for (const auto& d : internalDependencies_)
+    {
+      auto f = findFromUpdate(updates[d.owner.value], d);
+      auto t = findToUpdate(updates[d.owner.value], d);
+      dot << nodeName(f) << "->" << nodeName(t) << ";\n";
+    }
+
+    //input - output links
+    for (const auto& d : directDependencies_)
+    {
+      auto i = findInput(inputs[d.source.value], d);
+      auto o = findOutput(outputs[d.owner.value], d);
+      dot << nodeName(Output{ i.id, i.name, i.source }) << "->" << nodeName(o) << ";\n";
+    }
+
+    dot << "}";
+    return dot.str();
+  }
 } // namespace internal
 
 } // namespace graph

@@ -100,6 +100,7 @@ namespace internal
                      Log::Pointer(node)};
     log_.inputs_.push_back(in);
     registerType(node);
+    registerType(source);
   }
 
   template<typename U, typename EnumO, typename EnumU>
@@ -137,6 +138,7 @@ namespace internal
                                 Log::Pointer(node)};
     log_.inputDependencies_.push_back(dep);
     registerType(node);
+    registerType(source);
   }
 
   template<typename U, typename EnumO, typename S, typename EnumI>
@@ -148,6 +150,7 @@ namespace internal
                                  Log::Pointer(node)};
     log_.directDependencies_.push_back(dep);
     registerType(node);
+    registerType(source);
   }
 
   template<typename U>
