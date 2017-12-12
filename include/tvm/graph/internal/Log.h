@@ -100,8 +100,8 @@ namespace internal
       TypeInfo type;          // representation of the pointer type
       std::uintptr_t value;   // adress of the pointer
 
-      bool operator<(const Pointer& other) const { return lexLess(*this, other, &Pointer::type, &Pointer::value); }
-      bool operator==(const Pointer& other) const { return eq(*this, other, &Pointer::type, &Pointer::value); }
+      bool operator<(const Pointer& other) const { return lexLess(*this, other, &Pointer::value); }
+      bool operator==(const Pointer& other) const { return eq(*this, other, &Pointer::value); }
     };
 
     /** Description of an update. */

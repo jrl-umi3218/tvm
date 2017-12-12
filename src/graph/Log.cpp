@@ -14,24 +14,6 @@ namespace
 {
   using namespace tvm::graph::internal;
 
-  /** A comparator for Pointer that takes only the adress into account.*/
-  struct WeakPointerComparator
-  {
-    bool operator() (const Log::Pointer& p1, const Log::Pointer& p2) const
-    {
-      return p1.value < p2.value;
-    }
-  };
-
-  /** A comparator for Output using WeakPointerComparator.*/
-  struct WeakOutputComparator
-  {
-    bool operator() (const Log::Output& o1, const Log::Output& o2) const
-    {
-      return (o1.id < o2.id) || (o1.id == o2.id && WeakPointerComparator()(o1.owner, o2.owner));
-    }
-  };
-
   /** Replace the whitespaces in name by underscores*/
   std::string replaceWhitespaces(std::string name)
   {
@@ -141,7 +123,7 @@ namespace
   {
     for (const auto& i : s)
     {
-      if (i.owner.value == d.owner.value && i.id == d.input && i.source == d.source)
+      if (i.owner == d.owner && i.id == d.input && i.source == d.source)
       {
         return i;
       }
@@ -154,7 +136,7 @@ namespace
   {
     for (const auto& i : s)
     {
-      if (i.owner.value == d.owner.value && i.id == d.input && i.source == d.source)
+      if (i.owner == d.owner && i.id == d.input && i.source == d.source)
       {
         return i;
       }
@@ -167,7 +149,7 @@ namespace
   {
     for (const auto& u : s)
     {
-      if (u.owner.value == d.owner.value && u.id == d.update)
+      if (u.owner == d.owner && u.id == d.update)
       {
         return u;
       }
@@ -180,7 +162,7 @@ namespace
   {
     for (const auto& u : s)
     {
-      if (u.owner.value == d.owner.value && u.id == d.update)
+      if (u.owner == d.owner && u.id == d.update)
       {
         return u;
       }
@@ -193,7 +175,7 @@ namespace
   {
     for (const auto& u : s)
     {
-      if (u.owner.value == d.owner.value && u.id == d.from)
+      if (u.owner == d.owner && u.id == d.from)
       {
         return u;
       }
@@ -206,7 +188,7 @@ namespace
   {
     for (const auto& u : s)
     {
-      if (u.owner.value == d.owner.value && u.id == d.to)
+      if (u.owner == d.owner && u.id == d.to)
       {
         return u;
       }
@@ -215,11 +197,11 @@ namespace
   }
 
   //find the output corresponding to the output dependency
-  const Log::Output& findOutput(const std::set<Log::Output, WeakOutputComparator>& s, const Log::OutputDependency& d)
+  const Log::Output& findOutput(const std::set<Log::Output>& s, const Log::OutputDependency& d)
   {
     for (const auto& o : s)
     {
-      if (o.owner.value == d.owner.value && o.id == d.output)
+      if (o.owner == d.owner && o.id == d.output)
       {
         return o;
       }
@@ -228,11 +210,11 @@ namespace
   }
 
   //find the output corresponding to the output dependency
-  const Log::Output& findOutput(const std::set<Log::Output, WeakOutputComparator>& s, const Log::DirectDependency& d)
+  const Log::Output& findOutput(const std::set<Log::Output>& s, const Log::DirectDependency& d)
   {
     for (const auto& o : s)
     {
-      if (o.owner.value == d.owner.value && o.id == d.output)
+      if (o.owner == d.owner && o.id == d.output)
       {
         return o;
       }
@@ -274,14 +256,14 @@ namespace internal
 
   std::string Log::generateDot(const Pointer& p) const
   {
-    std::set<Output, WeakOutputComparator> outputs;
+    std::set<Output> outputs;
     std::set<Update> updates;
     std::map<Pointer, std::set<Input>> inputs;
 
     //List of outputs
     for (const auto& o : outputs_)
     {
-      if (o.owner.value == p.value)
+      if (o.owner == p)
       {
         outputs.insert(o);
       }
@@ -289,7 +271,7 @@ namespace internal
     //Ouputs may not be refered by an update, but by the input of another node
     for (const auto& i : inputs_)
     {
-      if (i.source.value == p.value)
+      if (i.source == p)
       {
         outputs.insert({ i.id, i.name, p });
       }
@@ -298,7 +280,7 @@ namespace internal
     //List of updates
     for (const auto& u : updates_)
     {
-      if (u.owner.value == p.value)
+      if (u.owner == p)
       {
         updates.insert(u);
       }
@@ -307,7 +289,7 @@ namespace internal
     //List of inputs
     for (const auto& i : inputs_)
     {
-      if (i.owner.value == p.value)
+      if (i.owner == p)
       {
         inputs[i.source].insert(i);
       }
@@ -399,7 +381,7 @@ namespace internal
 
   std::string Log::generateDot() const
   {
-    std::map<std::uintptr_t, std::set<Output, WeakOutputComparator>> outputs;
+    std::map<std::uintptr_t, std::set<Output>> outputs;
     std::map<std::uintptr_t, std::set<Update>> updates;
     std::map<std::uintptr_t, std::set<Input>> inputs;
     std::map<Output, bool> isAlsoInput;
