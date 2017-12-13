@@ -1,9 +1,9 @@
 #include <tvm/graph/internal/Log.h>
+#include <tvm/graph/CallGraph.h>
+
 #include <algorithm>
 #include <map>
 #include <sstream>
-
-#include <iostream>
 
 #ifdef __GNUG__
 #include <cstdlib>
@@ -429,7 +429,6 @@ namespace internal
       //first we retrieve the outputs of the call graph
       for (const auto& p : it->second)
       {
-        std::cout << p.value << std::endl;
         for (const auto& i : inputs_)
         {
           if (i.owner == p)
