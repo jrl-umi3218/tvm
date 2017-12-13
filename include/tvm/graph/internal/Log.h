@@ -221,12 +221,12 @@ namespace internal
         */
       std::string nodeName(const Log::Output& output) const;
       /** Generate a (unique) name for the given input, based on its name, and
-      * the class and memory address of the source.
-      */
+        * the class and memory address of the source.
+        */
       std::string nodeName(const Log::Input& input) const;
       /** Generate a (unique) name for the given update, based on its name, and
-      * the class and memory address of its owner.
-      */
+        * the class and memory address of its owner.
+        */
       std::string nodeName(const Log::Update& update) const;
   };
 

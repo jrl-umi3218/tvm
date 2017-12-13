@@ -399,6 +399,13 @@ namespace internal
 
   std::string Log::generateDot(const CallGraph* const g) const
   {
+    std::vector<Output> outputs = outputs_;
+    //Adding outputs refered only as source
+    for (const auto& i : inputs_)
+    {
+      outputs.push_back({ i.id, i.name, i.source });
+    }
+
     auto it = graphOutputs_.find(g);
     if (it != graphOutputs_.end())
     {
@@ -415,30 +422,13 @@ namespace internal
       for (const auto& p : it->second)
       {
         std::cout << p.value << std::endl;
-        for (const auto& e : inputs_)
+        for (const auto& i : inputs_)
         {
-          if (e.owner == p)
+          if (i.owner == p)
           {
-            outputStack.push_back(findOutput(outputs_, e));
+            outputStack.push_back(findOutput(outputs, i));
           }
         }
-        //std::cout << owner.value << ", " << val << std::endl;
-        //auto pred = [val, owner](const Output& o) { return o.owner == owner && o.id.value == val; };
-        //auto it = std::find_if(outputs_.begin(), outputs_.end(), pred);
-        //std::cout << "outputs :" << std::endl;
-        //for (const auto& e : outputs_)
-        //{
-        //  std::cout << e.owner.value << ", " << e.id.value << std::endl;
-        //}
-        //std::cout << "types :" << std::endl;
-        //for (const auto& p : types_)
-        //{
-        //  std::cout << p.first << std::endl;
-        //}
-        //if (it != outputs_.end())
-        //{
-        //  outputStack.push_back(*it);
-        //}
       }
 
       //now we follow the dependency backward
@@ -447,7 +437,7 @@ namespace internal
         if (!outputStack.empty())
         {
           auto o = outputStack.back();
-          outputsInGraph.pop_back();
+          outputStack.pop_back();
           if (!processedOutputs[o])
           {
             outputsInGraph.push_back(o);
@@ -463,7 +453,7 @@ namespace internal
               if (d.owner == o.owner && d.output == o.id)
               {
                 auto i = findInput(inputs_, d);
-                outputStack.push_back(findOutput(outputs_, i));
+                outputStack.push_back(findOutput(outputs, i));
               }
             }
             processedOutputs[o] = true;
@@ -482,7 +472,7 @@ namespace internal
               if (d.owner == u.owner && d.update == u.id)
               {
                 auto i = findInput(inputs_, d);
-                outputStack.push_back(findOutput(outputs_, i));
+                outputStack.push_back(findOutput(outputs, i));
               }
             }
             for (const auto& d : internalDependencies_)
@@ -563,11 +553,12 @@ namespace internal
       dot << "    {\n";
       for (const auto& u : updates[p.first])
       {
-        dot << "      " << nodeName(u) << " [label=\"" << clean(u.name) << "\"];\n";
+        dot << "      " << nodeName(u) << " [label=\"" << clean(u.name) << "\"";
         if (uh[u])
         {
-          dot << "color=orange";
+          dot << ",color=orange";
         }
+        dot << "];\n";
       }
       dot << "    }\n";
       //outputs
@@ -586,7 +577,7 @@ namespace internal
         }
         if (oh[o])
         {
-          dot << "color=orange";
+          dot << ",color=orange";
         }
         dot << "]; \n";
       }
@@ -599,7 +590,13 @@ namespace internal
     {
       auto i = findInput(inputs[d.source.value], d);
       auto u = findUpdate(updates[d.owner.value], d);
-      dot << nodeName(Output{ i.id, i.name, i.source }) << "->" << nodeName(u) << ";\n";
+      Output o{ i.id, i.name, i.source };
+      dot << nodeName(o) << "->" << nodeName(u);
+      if (oh[o] && uh[u])
+      {
+        dot << " " << "[color=orange]";
+      }
+      dot << ";\n";
     }
 
     //update - output links
@@ -607,23 +604,39 @@ namespace internal
     {
       auto u = findUpdate(updates[d.owner.value], d);
       auto o = findOutput(outputs[d.owner.value], d);
-      dot << nodeName(u) << "->" << nodeName(o) << ";\n";
+      dot << nodeName(u) << "->" << nodeName(o);
+      if (oh[o] && uh[u])
+      {
+        dot << " " << "[color=orange]";
+      }
+      dot << ";\n";
     }
 
     //update - update links
     for (const auto& d : internalDependencies_)
     {
-      auto f = findFromUpdate(updates[d.owner.value], d);
-      auto t = findToUpdate(updates[d.owner.value], d);
-      dot << nodeName(f) << "->" << nodeName(t) << ";\n";
+      auto from = findFromUpdate(updates[d.owner.value], d);
+      auto to = findToUpdate(updates[d.owner.value], d);
+      dot << nodeName(from) << "->" << nodeName(to);
+      if (uh[from] && uh[to])
+      {
+        dot << " " << "[color=orange]";
+      }
+      dot << ";\n";
     }
 
     //input - output links
     for (const auto& d : directDependencies_)
     {
       auto i = findInput(inputs[d.source.value], d);
-      auto o = findOutput(outputs[d.owner.value], d);
-      dot << nodeName(Output{ i.id, i.name, i.source }) << "->" << nodeName(o) << ";\n";
+      auto to = findOutput(outputs[d.owner.value], d);
+      Output from{ i.id, i.name, i.source };
+      dot << nodeName(from) << "->" << nodeName(to);
+      if (oh[from] && oh[to])
+      {
+        dot << " " << "[color=orange]";
+      }
+      dot << ";\n";
     }
 
     dot << "}";
