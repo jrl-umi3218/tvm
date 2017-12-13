@@ -1,4 +1,8 @@
 #include <tvm/graph/CallGraph.h>
+#include <tvm/graph/internal/Logger.h>
+
+#define TVM_GRAPH_LOG_ADD_GRAPH_OUTPUT(graph, source, o) \
+  tvm::graph::internal::Logger::logger().addGraphOutput(graph, source.get(), o);
 
 namespace tvm
 {
@@ -15,8 +19,10 @@ void CallGraph::add(std::shared_ptr<internal::Inputs> inputs)
     for(auto o : outputs)
     {
       addOutput(source, o);
+      //TVM_GRAPH_LOG_ADD_GRAPH_OUTPUT(this, source, o);
     }
   }
+  internal::Logger::logger().addGraphOutput(this, inputs.get());
 }
 
 void CallGraph::update()

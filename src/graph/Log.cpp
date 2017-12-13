@@ -1,8 +1,9 @@
 #include <tvm/graph/internal/Log.h>
 #include <algorithm>
 #include <map>
-#include <set>
 #include <sstream>
+
+#include <iostream>
 
 #ifdef __GNUG__
 #include <cstdlib>
@@ -119,7 +120,8 @@ namespace
   }
 
   //find the input corresponding to the input dependency
-  const Log::Input& findInput(const std::set<Log::Input>& s, const Log::InputDependency& d)
+  template<typename InputContainer>
+  const Log::Input& findInput(const InputContainer& s, const Log::InputDependency& d)
   {
     for (const auto& i : s)
     {
@@ -132,7 +134,8 @@ namespace
   }
 
   //find the input corresponding to the direct dependency
-  const Log::Input& findInput(const std::set<Log::Input>& s, const Log::DirectDependency& d)
+  template<typename InputContainer>
+  const Log::Input& findInput(const InputContainer& s, const Log::DirectDependency& d)
   {
     for (const auto& i : s)
     {
@@ -158,7 +161,8 @@ namespace
   }
 
   //find the update corresponding to the output dependency
-  const Log::Update& findUpdate(const std::set<Log::Update>& s, const Log::OutputDependency& d)
+  template<typename UpdateContainer>
+  const Log::Update& findUpdate(const UpdateContainer& s, const Log::OutputDependency& d)
   {
     for (const auto& u : s)
     {
@@ -171,7 +175,8 @@ namespace
   }
 
   //find the update that is the origin of an internal dependency
-  const Log::Update& findFromUpdate(const std::set<Log::Update>& s, const Log::InternalDependency& d)
+  template<typename UpdateContainer>
+  const Log::Update& findFromUpdate(const UpdateContainer& s, const Log::InternalDependency& d)
   {
     for (const auto& u : s)
     {
@@ -215,6 +220,19 @@ namespace
     for (const auto& o : s)
     {
       if (o.owner == d.owner && o.id == d.output)
+      {
+        return o;
+      }
+    }
+    throw std::runtime_error("Output not found");
+  }
+
+  //find the output corresponding to an intput
+  const Log::Output& findOutput(const std::vector<Log::Output>& v, const Log::Input& i)
+  {
+    for (const auto& o : v)
+    {
+      if (o.owner == i.source && o.id == i.id)
       {
         return o;
       }
@@ -379,12 +397,121 @@ namespace internal
     return dot.str();
   }
 
-  std::string Log::generateDot() const
+  std::string Log::generateDot(const CallGraph* const g) const
+  {
+    auto it = graphOutputs_.find(g);
+    if (it != graphOutputs_.end())
+    {
+      //We want to populate the following vectors with the updates and outputs in the call graph
+      std::vector<Output> outputsInGraph;
+      std::vector<Update> updatesInGraph;
+     
+      std::map<Output, bool> processedOutputs;
+      std::map<Update, bool> processedUpdates;
+      std::vector<Output> outputStack;
+      std::vector<Update> updateStack;
+
+      //first we retrieve the outputs of the call graph
+      for (const auto& p : it->second)
+      {
+        std::cout << p.value << std::endl;
+        for (const auto& e : inputs_)
+        {
+          if (e.owner == p)
+          {
+            outputStack.push_back(findOutput(outputs_, e));
+          }
+        }
+        //std::cout << owner.value << ", " << val << std::endl;
+        //auto pred = [val, owner](const Output& o) { return o.owner == owner && o.id.value == val; };
+        //auto it = std::find_if(outputs_.begin(), outputs_.end(), pred);
+        //std::cout << "outputs :" << std::endl;
+        //for (const auto& e : outputs_)
+        //{
+        //  std::cout << e.owner.value << ", " << e.id.value << std::endl;
+        //}
+        //std::cout << "types :" << std::endl;
+        //for (const auto& p : types_)
+        //{
+        //  std::cout << p.first << std::endl;
+        //}
+        //if (it != outputs_.end())
+        //{
+        //  outputStack.push_back(*it);
+        //}
+      }
+
+      //now we follow the dependency backward
+      while (!outputStack.empty() || !updateStack.empty())
+      {
+        if (!outputStack.empty())
+        {
+          auto o = outputStack.back();
+          outputsInGraph.pop_back();
+          if (!processedOutputs[o])
+          {
+            outputsInGraph.push_back(o);
+            for (const auto& d : outputDependencies_)
+            {
+              if (d.owner == o.owner && d.output == o.id)
+              {
+                updateStack.push_back(findUpdate(updates_, d));
+              }
+            }
+            for (const auto& d : directDependencies_)
+            {
+              if (d.owner == o.owner && d.output == o.id)
+              {
+                auto i = findInput(inputs_, d);
+                outputStack.push_back(findOutput(outputs_, i));
+              }
+            }
+            processedOutputs[o] = true;
+          }
+        }
+
+        if (!updateStack.empty())
+        {
+          auto u = updateStack.back();
+          updateStack.pop_back();
+          if (!processedUpdates[u])
+          {
+            updatesInGraph.push_back(u);
+            for (const auto& d : inputDependencies_)
+            {
+              if (d.owner == u.owner && d.update == u.id)
+              {
+                auto i = findInput(inputs_, d);
+                outputStack.push_back(findOutput(outputs_, i));
+              }
+            }
+            for (const auto& d : internalDependencies_)
+            {
+              if (d.owner == u.owner && d.to == u.id)
+              {
+                updateStack.push_back(findFromUpdate(updates_, d));
+              }
+            }
+            processedUpdates[u] = true;
+          }
+        }
+      }
+      return generateDot(outputsInGraph, updatesInGraph);
+    }
+    else
+    {
+      return "";
+    }
+  }
+
+  std::string Log::generateDot(const std::vector<Log::Output>& outHighlight, const std::vector<Log::Update>& upHighlight) const
   {
     std::map<std::uintptr_t, std::set<Output>> outputs;
     std::map<std::uintptr_t, std::set<Update>> updates;
     std::map<std::uintptr_t, std::set<Input>> inputs;
     std::map<Output, bool> isAlsoInput;
+    std::map<Output, bool> oh;
+    std::map<Update, bool> uh;
 
     //Sort outputs by owner
     for (const auto& o : outputs_)
@@ -411,6 +538,17 @@ namespace internal
       updates[u.owner.value].insert(u);
     }
 
+    //process the highlights
+    for (auto& o : outHighlight)
+    {
+      oh[o] = true;
+    }
+    for (auto& u : upHighlight)
+    {
+      uh[u] = true;
+    }
+
+    //generate the dot code
     std::stringstream dot;
     dot << "digraph \"" << "Update graph" << "\"\n{\n";
     dot << "  rankdir=\"LR\";\n";
@@ -426,6 +564,10 @@ namespace internal
       for (const auto& u : updates[p.first])
       {
         dot << "      " << nodeName(u) << " [label=\"" << clean(u.name) << "\"];\n";
+        if (uh[u])
+        {
+          dot << "color=orange";
+        }
       }
       dot << "    }\n";
       //outputs
@@ -441,6 +583,10 @@ namespace internal
         else
         {
           dot << "shape=octagon";
+        }
+        if (oh[o])
+        {
+          dot << "color=orange";
         }
         dot << "]; \n";
       }

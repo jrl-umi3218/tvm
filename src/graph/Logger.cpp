@@ -22,6 +22,12 @@ namespace internal
     return *logger_;
   }
 
+  void Logger::addGraphOutput(CallGraph* g, Inputs* node)
+  {
+    log_.graphOutputs_[g].push_back(node);
+  }
+
+
 } // namespace internal
 
 } // namespace graph

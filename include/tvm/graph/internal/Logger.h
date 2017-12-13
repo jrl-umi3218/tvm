@@ -12,6 +12,8 @@ namespace tvm
   
 namespace graph
 {
+class CallGraph;
+namespace abstract { class Outputs; }
 
 namespace internal
 {
@@ -41,6 +43,8 @@ namespace internal
 
     template<typename U, typename EnumO, typename S, typename EnumI>
     void addDirectDependency(U* node, EnumO o, S* source, EnumI i);
+
+    void addGraphOutput(CallGraph* g, Inputs* node);
 
     /** Register the type associated to a pointer. */
     template<typename U>

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <typeindex>
 #include <typeinfo>
@@ -17,6 +18,7 @@ namespace tvm
   
 namespace graph
 {
+class CallGraph;
 
 namespace internal
 {
@@ -88,17 +90,17 @@ namespace internal
       bool operator==(const EnumValue& other) const { return eq(*this, other, &EnumValue::type, &EnumValue::value); }
     };
 
-    /** A type-independent representation of a pointer as a pair (type, adress).*/
+    /** A type-independent representation of a pointer as a pair (type, address).*/
     struct Pointer
     {
       /** Build from an pointer*/
       template<typename T> Pointer(T* p);
 
-      /** Build from a pair (type, adress).*/
+      /** Build from a pair (type, address).*/
       Pointer(const TypeInfo& t, std::uintptr_t v);
 
       TypeInfo type;          // representation of the pointer type
-      std::uintptr_t value;   // adress of the pointer
+      std::uintptr_t value;   // address of the pointer
 
       bool operator<(const Pointer& other) const { return lexLess(*this, other, &Pointer::value); }
       bool operator==(const Pointer& other) const { return eq(*this, other, &Pointer::value); }
@@ -181,8 +183,13 @@ namespace internal
     /** Generate a dot representation for node corresponding to p.*/
     std::string generateDot(const Pointer& p) const;
 
-    /** Generate the whole graph*/
-    std::string generateDot() const;
+    /** Generate the specified CallGraph. */
+    std::string generateDot(const CallGraph* const g) const;
+
+    /** Generate the whole graph, highlighting the eleements specified by
+      * oUtHighlight and upHightlight.
+      */
+    std::string generateDot(const std::vector<Log::Output>& outHighlight = {}, const std::vector<Log::Update>& upHighlight = {}) const;
 
     //raw logs
     std::vector<Update> updates_;
@@ -193,8 +200,13 @@ namespace internal
     std::vector<InternalDependency> internalDependencies_;
     std::vector<DirectDependency> directDependencies_;
 
-    /** Maps a data adress to all the type info associated with this adress.
-      * For a given adress, each type appears only once, and types are sorted in
+    /** Each elements of the map is the list of inputs of a CallGraph, as added
+      * in CallGraph.add
+      */
+    std::map<Pointer, std::vector<Pointer>> graphOutputs_;  
+
+    /** Maps a data address to all the type info associated with this address.
+      * For a given address, each type appears only once, and types are sorted in
       * their order of appearance in the logging process. We assume that the
       * last one to appear is the most derived in the inheritance hierarchy.
       *
@@ -205,15 +217,15 @@ namespace internal
 
     private:
       /** Generate a (unique) name for the given output, based on its name, and
-        * the class and memory adress of its owner.
+        * the class and memory address of its owner.
         */
       std::string nodeName(const Log::Output& output) const;
       /** Generate a (unique) name for the given input, based on its name, and
-      * the class and memory adress of the source.
+      * the class and memory address of the source.
       */
       std::string nodeName(const Log::Input& input) const;
       /** Generate a (unique) name for the given update, based on its name, and
-      * the class and memory adress of its owner.
+      * the class and memory address of its owner.
       */
       std::string nodeName(const Log::Update& update) const;
   };
