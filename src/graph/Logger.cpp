@@ -9,16 +9,9 @@ namespace graph
 namespace internal
 {
 
-  std::unique_ptr<Logger> Logger::logger_;
-
-
-
   Logger& Logger::logger()
   {
-    if (!logger_)
-    {
-      logger_.reset(new Logger());
-    }
+    static std::unique_ptr<Logger> logger_{ new Logger() };
     return *logger_;
   }
 

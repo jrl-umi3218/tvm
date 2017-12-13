@@ -55,15 +55,9 @@ namespace internal
 
   private:
     Logger() = default;
-
-    //singleton
-    static std::unique_ptr<Logger> logger_;
     
     //raw log
     Log log_;
-
-    //output file
-    std::ofstream aof;
   };
 
   //Helper function for pointer-to-member-function
@@ -164,24 +158,6 @@ namespace internal
       types.push_back(t);
     }
   }
-
-#define TVM_GRAPH_LOG_REGISTER_UPDATE(node, u, fn) \
-  tvm::graph::internal::Logger::logger().registerUpdate<U,EnumT>(static_cast<U*>(node), u, fn);
-
-#define TVM_GRAPH_LOG_ADD_INPUT(add, node, i, source) \
-  if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source.get(),i);}
-
-#define TVM_GRAPH_LOG_ADD_OUTPUT_DEPENDENCY(node, o, u) \
-  tvm::graph::internal::Logger::logger().addOutputDependency<U,EnumO,EnumU>(static_cast<U*>(node), o, u);
-
-#define TVM_GRAPH_LOG_ADD_INTERNAL_DEPENDENCY(node, uDependent, u) \
-  tvm::graph::internal::Logger::logger().addInternalDependency<U,EnumU1,EnumU2>(static_cast<U*>(node), uDependent, u);
-
-#define TVM_GRAPH_LOG_ADD_INPUT_DEPENDENCY(node, u, source, i) \
-  tvm::graph::internal::Logger::logger().addInputDependency<U,EnumU,S,EnumO>(static_cast<U*>(node), u, source.get(), i);
-
-#define TVM_GRAPH_LOG_ADD_DIRECT_DEPENDENCY(node, o, source, i) \
-  tvm::graph::internal::Logger::logger().addDirectDependency(static_cast<U*>(node), o, source.get(), i);
 
 } // namespace internal
 

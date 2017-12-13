@@ -15,8 +15,8 @@ namespace
 {
   using namespace tvm::graph::internal;
 
-  /** Replace the whitespaces in name by underscores*/
-  std::string replaceWhitespaces(std::string name)
+  /** Replace the spaces in name by underscores*/
+  std::string replaceSpaces(std::string name)
   {
     for (size_t i = 0; i < name.length(); i++)
     {
@@ -95,8 +95,16 @@ namespace
       std::string resName = res.get();
       if (removeNamespace_)
       {
-        return removeNamespace(name);
+        return removeNamespace(resName);
       }
+      else
+      {
+        return resName;
+      }
+    }
+    else
+    {
+      return name;
     }
 #else
 
@@ -104,18 +112,18 @@ namespace
     return name;
   }
 
-  /** Return a clean name from typeid by demagling it, replacing whitespaces and
+  /** Return a clean name from typeid by demangling it, replacing spaces and
     * optionaly replacing colons.
     */
   std::string clean(const std::string& name, bool replaceColons_ = true)
   {
     if (replaceColons_)
     {
-      return replaceColons(replaceWhitespaces(demangle(name, true)));
+      return replaceColons(replaceSpaces(demangle(name, true)));
     }
     else
     {
-      return replaceWhitespaces(demangle(name, true));
+      return replaceSpaces(demangle(name, true));
     }
   }
 

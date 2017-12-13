@@ -6,6 +6,10 @@
 
 #include <tvm/graph/internal/Logger.h>
 
+
+#define TVM_GRAPH_LOG_ADD_INPUT(add, node, i, source) \
+  if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source.get(),i);}
+
 namespace
 {
   template<typename T>
