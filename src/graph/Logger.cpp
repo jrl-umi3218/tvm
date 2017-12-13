@@ -1,5 +1,7 @@
 #include <tvm/graph/internal/Logger.h>
 
+#include <tvm/graph/CallGraph.h>
+
 namespace tvm
 {
 
