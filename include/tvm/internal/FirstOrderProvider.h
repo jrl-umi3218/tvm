@@ -108,6 +108,15 @@ namespace internal
     /** Remove a variable. Cache is automatically updated. */
     void removeVariable(VariablePtr v);
 
+    /** Add a variable vector.
+     *
+     * Convenience function similar to adding each elements of the vector individually with the same linear parameter
+     *
+     * \see addVariable(VariablePtr, bool)
+     *
+     */
+    void addVariable(const VariableVector & v, bool linear);
+
     /** To be overriden by derived classes that need to react to
       * the addition of a variable. Called at the end of addVariable();
       */
@@ -125,6 +134,12 @@ namespace internal
       * Ji are kept, if not they are reset to default.
       */
     void splitJacobian(const MatrixConstRef& J, const std::vector<VariablePtr>& vars, bool keepProperties = false);
+
+    /** Overload for VariableVector operations */
+    inline void splitJacobian(const MatrixConstRef& J, const VariableVector& vars, bool keepProperties = false)
+    {
+      splitJacobian(J, vars.variables(), keepProperties);
+    }
 
     // cache
     Eigen::VectorXd value_;

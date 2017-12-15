@@ -45,6 +45,14 @@ namespace internal
     addVariable_(v);
   }
 
+  void FirstOrderProvider::addVariable(const VariableVector & vv, bool linear)
+  {
+    for(auto v : vv.variables())
+    {
+      addVariable(v, linear);
+    }
+  }
+
   void FirstOrderProvider::removeVariable(VariablePtr v)
   {
     variables_.remove(*v);

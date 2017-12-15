@@ -67,7 +67,7 @@ namespace tvm
         * Adapted from https://stackoverflow.com/a/17728525
         */
       template <typename T>
-      constexpr T pow(T base, unsigned int exp, T result = 1) 
+      constexpr T pow(T base, unsigned int exp, T result = 1)
       {
         return exp <= 1 ? (exp==0?1:result*base) : pow(base*base, exp / 2, (exp % 2) ? result*base : result);
       }
@@ -80,7 +80,7 @@ namespace tvm
       {
         return curr == prev ? curr : sqrtNewtonRaphson(x, 0.5 * (curr + x / curr), curr);
       }
-      
+
       /** \internal We compute the square root of std::numeric_limits<double>::max()
         * We start with an approximation 2^{max_exponent/2}
         */
@@ -91,7 +91,7 @@ namespace tvm
     /** We take as a default big number sqrt(std::numeric_limits<double>::max())/2 */
     static constexpr double big_number = internal::sqrtOfMax/2;
     //assert that the big_number value is correct (no std::abs here because it is not constexpr)
-    static_assert(-(big_number * big_number - std::numeric_limits<double>::max() / 4) 
+    static_assert(-(big_number * big_number - std::numeric_limits<double>::max() / 4)
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max()
                 && (big_number * big_number - std::numeric_limits<double>::max() / 4)
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
