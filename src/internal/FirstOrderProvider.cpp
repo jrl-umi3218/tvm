@@ -75,7 +75,7 @@ namespace internal
     Eigen::DenseIndex s = 0;
     for (const auto& v : vars)
     {
-      auto n = static_cast<Eigen::DenseIndex>(v->size());
+      auto n = static_cast<Eigen::DenseIndex>(v->space().tSize());
       jacobian_[v.get()].keepProperties(keepProperties) = J.middleCols(s, n);
       s += n;
     }
