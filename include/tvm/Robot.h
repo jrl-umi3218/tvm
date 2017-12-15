@@ -19,6 +19,7 @@
  */
 
 #include <tvm/Variable.h>
+#include <tvm/VariableVector.h>
 #include <tvm/graph/abstract/Node.h>
 
 #include <RBDyn/FD.h>
@@ -36,13 +37,16 @@ namespace tvm
    * that are relevant for computing quantities related to a robot.
    *
    * Variables:
-   * - q (see Outputs)
+   * - q (split between free-flyer and joints)
    * - tau (see Outputs)
    *
    * Outputs:
-   * - q: generalized joint angle vector, depending on this output allows to
-   *   depend on every quantity computed in MultiBodyConfig (\see
-   *   Robot::update)
+   *
+   * - Kinematics: kinematics quantity (computed by RBDyn::FK)
+   * - Dynamics: dynamics quantity (computed by RBDyn::FV, depends on
+   *   Kinematics)
+   * - Acceleration: compute acceleration quantities (computed by RBDyn::FA,
+   *   depends on Dynamics)
    * - tau: generalized torque vector, this output isn't currently linked to
    *   any computation
    * - CoM: center of mass signal
@@ -50,8 +54,11 @@ namespace tvm
    * - C: non-linear effect vector signal (Coriolis, gravity, external forces)
    *
    */
-  class TVM_DLLAPI Robot : public graph::abstract::Node<Robot> { public:
-    SET_OUTPUTS(Robot, q, tau, CoM, H, C) SET_UPDATES(Robot, q, CoM, H, C)
+  class TVM_DLLAPI Robot : public graph::abstract::Node<Robot>
+  {
+  public:
+    SET_OUTPUTS(Robot, Kinematics, Dynamics, Acceleration, tau, CoM, H, C)
+    SET_UPDATES(Robot, Kinematics, Dynamics, Acceleration, CoM, H, C)
 
     /** Constructor
      *
@@ -84,9 +91,19 @@ namespace tvm
     inline const std::string & name() const { return name_; }
 
     /** Access q variable (const) */
-    inline const VariablePtr & q() const { return q_; }
+    inline const VariableVector & q() const { return q_; }
     /** Access q variable */
-    inline VariablePtr & q() { return q_; }
+    inline VariableVector & q() { return q_; }
+
+    /** Access free-flyer variable (const) */
+    inline const VariablePtr & qFreeFlyer() const { return q_ff_; }
+    /** Access free-flyer variable */
+    inline VariablePtr & qFreeFlyer() { return q_ff_; }
+
+    /** Access joints variable (const) */
+    inline const VariablePtr & qJoints() const { return q_joints_; }
+    /** Access joints variable */
+    inline VariablePtr & qJoints() { return q_joints_; }
 
     /** Access tau variable (const) */
     inline const VariablePtr & tau() const { return tau_; }
@@ -118,17 +135,6 @@ namespace tvm
 
     /** Access the transformation that allows to retrieve the original base of a body */
     inline const sva::PTransformd & bodyTransform(const std::string & b) const { return bodyTransforms_.at(b); }
-
-    /** Update all quantities in rbd::MultiBodyConfig that are neither
-     * tau/q/alpha/alphaD
-     *
-     * It runs:
-     * 1. rbd::forwardKinematics
-     * 2. rbd::forwardVelocity
-     * 3. rbd::forwardAcceleration
-     * 4. computeNormalAccB (update normalAccB vector in this class)
-     */
-    void update();
   private:
     std::string name_;
     rbd::MultiBody mb_;
@@ -136,12 +142,19 @@ namespace tvm
     std::vector<sva::MotionVecd> normalAccB_;
     rbd::ForwardDynamics fd_;
     std::map<std::string, sva::PTransformd> bodyTransforms_;
-    VariablePtr q_;
+    VariablePtr q_ff_;
+    VariablePtr q_joints_;
+    VariableVector q_;
+    VariableVector dq_;
+    VariableVector ddq_;
     VariablePtr tau_;
     Eigen::Vector3d com_;
   private:
     void computeNormalAccB();
 
+    void updateKinematics();
+    void updateDynamics();
+    void updateAcceleration();
     void updateH();
     void updateC();
     void updateCoM();

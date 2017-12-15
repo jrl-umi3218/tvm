@@ -28,16 +28,16 @@ Frame::Frame(std::string name,
 
   /** Position depends on the robot's state */
   addOutputDependency(Output::Position, Update::Position);
-  addInputDependency(Update::Position, robot_, Robot::Output::q);
+  addInputDependency(Update::Position, robot_, Robot::Output::Kinematics);
   /** Jacobian needs the frame position */
   addOutputDependency(Output::Jacobian, Update::Jacobian);
   addInternalDependency(Update::Jacobian, Update::Position);
   /** Velocity only depends on the state */
   addOutputDependency(Output::Velocity, Update::Velocity);
-  addInputDependency(Update::Velocity, robot_, Robot::Output::q);
+  addInputDependency(Update::Velocity, robot_, Robot::Output::Dynamics);
   /** NormalAcceleration only depends on the state */
   addOutputDependency(Output::NormalAcceleration, Update::NormalAcceleration);
-  addInputDependency(Update::NormalAcceleration, robot_, Robot::Output::q);
+  addInputDependency(Update::NormalAcceleration, robot_, Robot::Output::Acceleration);
 
   /** Initialize all data */
   updatePosition();

@@ -7,7 +7,7 @@ namespace robot
 {
 
 PostureFunction::PostureFunction(RobotPtr robot)
-: function::abstract::Function(robot->mb().nrDof()),
+: function::abstract::Function(robot->qJoints()->space().tSize()),
   robot_(robot),
   j0_(robot_->mb().joint(0).type() == rbd::Joint::Free ? 1 : 0)
 {
@@ -15,15 +15,11 @@ PostureFunction::PostureFunction(RobotPtr robot)
                   Update::Velocity, &PostureFunction::updateVelocity);
   addOutputDependency<PostureFunction>(Output::Value, Update::Value);
   addOutputDependency<PostureFunction>(Output::Velocity, Update::Velocity);
-  addInputDependency<PostureFunction>(Update::Value, robot_, Robot::Output::q);
-  addInputDependency<PostureFunction>(Update::Velocity, robot_, Robot::Output::q);
-  addVariable(robot->q(), false);
-  jacobian_[robot->q().get()].setIdentity();
-  JDot_[robot->q().get()].setZero();
-  if(j0_ == 1)
-  {
-    jacobian_[robot->q().get()].block(0, 0, 6, 6) = Eigen::Matrix6d::Zero();
-  }
+  addInputDependency<PostureFunction>(Update::Value, robot_, Robot::Output::Kinematics);
+  addInputDependency<PostureFunction>(Update::Velocity, robot_, Robot::Output::Kinematics);
+  addVariable(robot->qJoints(), false);
+  jacobian_[robot->qJoints().get()].setIdentity();
+  JDot_[robot->qJoints().get()].setZero();
   normalAcceleration_.setZero();
   value_.setZero();
   velocity_.setZero();
@@ -67,7 +63,7 @@ void PostureFunction::posture(const std::vector<std::vector<double>> & p)
 
 void PostureFunction::updateValue()
 {
-  int pos = j0_*6;
+  int pos = 0;
   for(int jI = j0_; jI < robot_->mb().nrJoints(); ++jI)
   {
     const auto & j = robot_->mb().joint(jI);
@@ -92,7 +88,7 @@ void PostureFunction::updateValue()
 
 void PostureFunction::updateVelocity()
 {
-  int pos = j0_*6;
+  int pos = 0;
   for(int jI = j0_; jI < robot_->mb().nrJoints(); ++jI)
   {
     for(auto & qI : robot_->mbc().alpha[jI])

@@ -24,10 +24,10 @@ CoMFunction::CoMFunction(RobotPtr robot)
   addOutputDependency<CoMFunction>(Output::JDot, Update::JDot);
   addVariable(robot_->q(), false);
   addInputDependency<CoMFunction>(Update::Value, robot_, Robot::Output::CoM);
-  addInputDependency<CoMFunction>(Update::Velocity, robot_, Robot::Output::q);
-  addInputDependency<CoMFunction>(Update::Jacobian, robot_, Robot::Output::q);
-  addInputDependency<CoMFunction>(Update::NormalAcceleration, robot_, Robot::Output::q);
-  addInputDependency<CoMFunction>(Update::JDot, robot_, Robot::Output::q);
+  addInputDependency<CoMFunction>(Update::Velocity, robot_, Robot::Output::Dynamics);
+  addInputDependency<CoMFunction>(Update::Jacobian, robot_, Robot::Output::Dynamics);
+  addInputDependency<CoMFunction>(Update::NormalAcceleration, robot_, Robot::Output::Acceleration);
+  addInputDependency<CoMFunction>(Update::JDot, robot_, Robot::Output::Acceleration);
 }
 
 void CoMFunction::reset()
@@ -47,7 +47,7 @@ void CoMFunction::updateVelocity()
 
 void CoMFunction::updateJacobian()
 {
-  jacobian_[robot_->q().get()] = jac_.jacobian(robot_->mb(), robot_->mbc());
+  splitJacobian(jac_.jacobian(robot_->mb(), robot_->mbc()), robot_->q());
 }
 
 void CoMFunction::updateNormalAcceleration()
@@ -57,7 +57,7 @@ void CoMFunction::updateNormalAcceleration()
 
 void CoMFunction::updateJDot()
 {
-  JDot_[robot_->q().get()] = jac_.jacobianDot(robot_->mb(), robot_->mbc());
+  splitJacobian(jac_.jacobianDot(robot_->mb(), robot_->mbc()), robot_->q());
 }
 
 } // namespace robot

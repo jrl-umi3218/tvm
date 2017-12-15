@@ -32,8 +32,10 @@ static std::string ground_urdf = "@MC_ENV_DESCRIPTION_PATH@/urdf/ground.urdf";
 TEST_CASE("Test a problem with a robot")
 {
   size_t iter = 1000;
+  double dt = 0.005;
   auto load_robot = [](const std::string & name, const std::string & path, bool fixed,
-                       const std::vector<std::string> & filteredLinks)
+                       const std::vector<std::string> & filteredLinks,
+                       const std::vector<std::vector<double>> & ref_q)
     -> std::pair<tvm::RobotPtr, mc_rbdyn_urdf::Limits>
   {
     std::ifstream ifs(path);
@@ -44,8 +46,27 @@ TEST_CASE("Test a problem with a robot")
     }
     std::stringstream ss;
     ss << ifs.rdbuf();
-    auto data = mc_rbdyn_urdf::rbdyn_from_urdf(ss.str(), fixed);
+    auto data = mc_rbdyn_urdf::rbdyn_from_urdf(ss.str(), fixed, filteredLinks);
     data.mbc.gravity = Eigen::Vector3d(0, 0, 9.81);
+    auto init_q = data.mbc.q;
+    size_t j = 0;
+    for(size_t i = 0; i < init_q.size(); ++i)
+    {
+      if(init_q[i].size())
+      {
+        if(ref_q[j].size() != init_q[i].size())
+        {
+          std::cerr << "SOMETHING IS WRONG" << std::endl;
+          std::exit(1);
+        }
+        init_q[i] = ref_q[j];
+        ++j;
+      }
+    }
+    if(init_q.size())
+    {
+      data.mbc.q = init_q;
+    }
     return {std::make_shared<tvm::Robot>(name, data.mbg, data.mb, data.mbc), data.limits};
   };
   tvm::RobotPtr hrp2; mc_rbdyn_urdf::Limits hrp2_limits;
@@ -63,29 +84,10 @@ TEST_CASE("Test a problem with a robot")
     hrp2_filtered.push_back(ss.str());
     }
   }
-  std::tie(hrp2, hrp2_limits) = load_robot("HRP2", hrp2_urdf, false, hrp2_filtered);
-  {
-    auto q = hrp2->mbc().q;
-    std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
-    size_t j = 0;
-    for(size_t i = 0; i < q.size(); ++i)
-    {
-      if(q[i].size())
-      {
-        if(ref_q[j].size() != q[i].size())
-        {
-          std::cerr << "SOMETHING IS WRONG" << std::endl;
-          std::exit(1);
-        }
-        q[i] = ref_q[j];
-        ++j;
-      }
-    }
-    hrp2->mbc().q = q;
-    hrp2->update();
-  }
+  std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
+  std::tie(hrp2, hrp2_limits) = load_robot("HRP2", hrp2_urdf, false, {}, ref_q);
   tvm::RobotPtr ground;
-  std::tie(ground, std::ignore) = load_robot("ground", ground_urdf, true, {});
+  std::tie(ground, std::ignore) = load_robot("ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -134,20 +136,18 @@ TEST_CASE("Test a problem with a robot")
   pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
   dyn_fn->addPositiveLambdaToProblem(pb);
 
-  pb.add(posture_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1)});
+  pb.add(posture_fn == 0., tvm::task_dynamics::PD(5.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(100.)});
   pb.add(com_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1000.)});
 
   /* Bounds */
   Eigen::VectorXd lq(hrp2->mb().nrParams());
+  lq.setConstant(-tvm::constant::big_number);
   Eigen::VectorXd uq(hrp2->mb().nrParams());
+  uq.setConstant(tvm::constant::big_number);
   Eigen::VectorXd lqd(hrp2->mb().nrDof());
   Eigen::VectorXd uqd(hrp2->mb().nrDof());
   Eigen::VectorXd ltau(hrp2->mb().nrDof());
   Eigen::VectorXd utau(hrp2->mb().nrDof());
-  lq.head(7).setConstant(-tvm::constant::big_number);
-  uq.head(7).setConstant(tvm::constant::big_number);
-  lqd.head(6).setConstant(-tvm::constant::big_number);
-  uqd.head(6).setConstant(tvm::constant::big_number);
   ltau.head(6).setConstant(0);
   utau.head(6).setConstant(0);
   for(const auto & j : hrp2_limits.lower)
@@ -161,20 +161,30 @@ TEST_CASE("Test a problem with a robot")
     ltau(mb.jointPosInDof(mb.jointIndexByName(j.first))) = -hrp2_limits.torque.at(j.first)[0];
     utau(mb.jointPosInDof(mb.jointIndexByName(j.first))) = hrp2_limits.torque.at(j.first)[0];
   }
+  Eigen::VectorXd tmp = lq.tail(hrp2->mb().nrParams() - 7);
+  lq = tmp;
+  tmp = uq.tail(hrp2->mb().nrParams() - 7);
+  uq = tmp;
+  CHECK(lq.size() == uq.size());
+  for(int i = 0; i < lq.size(); ++i)
+  {
+    CHECK(lq(i) < uq(i));
+  }
+  pb.add(lq <= hrp2->qJoints() <= uq, tvm::task_dynamics::VelocityDamper(dt, 0.01, 0.001, 1e-4, tvm::constant::big_number), { tvm::requirements::PriorityLevel(0) });
   pb.add(ltau <= hrp2->tau() <= utau, tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
 
   tvm::LinearizedControlProblem lpb(pb);
 
   tvm::scheme::WeightedLeastSquares solver(false);
-  auto q_init = hrp2->q()->value();
+  auto q_init = hrp2->q().value();
   rbd::paramToVector(hrp2->mbc().q, q_init);
-  hrp2->q()->value(q_init);
+  hrp2->q().value(q_init);
   auto dq = dot(hrp2->q(), 1);
-  dq->value(Eigen::VectorXd::Zero(dq->value().size()));
-  auto dq_value = dq->value(); dq_value.setZero();
-  dq->value(dq_value);
+  dq.value(Eigen::VectorXd::Zero(dq.value().size()));
+  auto dq_value = dq.value(); dq_value.setZero();
+  dq.value(dq_value);
   auto ddq = dot(hrp2->q(), 2);
-  ddq->value(Eigen::VectorXd::Zero(ddq->value().size()));
+  ddq.value(Eigen::VectorXd::Zero(ddq.value().size()));
 
   rbd::InverseDynamics id(hrp2->mb());
   id.inverseDynamics(hrp2->mb(), hrp2->mbc());
@@ -190,12 +200,12 @@ TEST_CASE("Test a problem with a robot")
   RobotPublisher rpub("/control/");
   RobotPublisher epub("/control/env_1/");
   std::cout << "CoM objective " << com_fn->com().transpose() << std::endl;
-  std::string joint = "HEAD_JOINT1"; std::vector<double> joint_q = {0.5};
+  std::string joint = "HEAD_JOINT1"; std::vector<double> joint_q = {1.5};
   posture_fn->posture(joint, joint_q);
   com_fn->com(com_fn->com() + Eigen::Vector3d(0, 0, -0.1));
   std::cout << "Will run solver for " << iter << " iterations" << std::endl;
-  double dt = 0.005;
-  for(size_t i = 0; i < iter; ++i)
+  size_t i = 0;
+  for(i = 0; i < iter; ++i)
   {
     bool b = solver.solve(lpb);
     if(!b) { break; }
@@ -209,6 +219,7 @@ TEST_CASE("Test a problem with a robot")
     auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
     CHECK(error_rf < 1e-4);
   }
+  CHECK(i == iter);
   std::cout << "||lfg_fn|| " << lfg_fn->value().norm() << std::endl;
   std::cout << "||rfg_fn|| " << rfg_fn->value().norm() << std::endl;
   std::cout << "||dyn_fn|| " << dyn_fn->value().norm() << std::endl;
@@ -219,4 +230,12 @@ TEST_CASE("Test a problem with a robot")
   std::cout << "force_lf " << force_lf.vector().transpose() << std::endl;
   std::cout << "force_rf " << force_rf.vector().transpose() << std::endl;
   std::cout << joint << " " << hrp2->mbc().q[hrp2->mb().jointIndexByName(joint)][0] << " (target: " << joint_q[0] << ")" << std::endl;
+  auto lastQ = hrp2->qJoints()->value();
+  CHECK(uq.size() == lastQ.size());
+  CHECK(lq.size() == lastQ.size());
+  for(int i = 0; i < uq.size(); ++i)
+  {
+    CHECK(uq(i) >= lastQ(i));
+    CHECK(lq(i) <= lastQ(i));
+  }
 }

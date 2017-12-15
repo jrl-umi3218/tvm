@@ -15,40 +15,69 @@ Robot::Robot(const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
 : name_(name), mb_(mb), mbc_(mbc),
   normalAccB_(mbc_.bodyAccB.size()), fd_(mb_),
   bodyTransforms_(mbg.bodiesBaseTransform(mb_.body(0).name())),
-  q_(tvm::Space(mb_.nrDof(), mb_.nrParams(), mb_.nrDof()).createVariable("q")),
   tau_(tvm::Space(mb_.nrDof()).createVariable("tau"))
 {
-  registerUpdates(Update::q, &Robot::update,
+  if(mb.nrJoints() > 0 && mb.joint(0).type() == rbd::Joint::Free)
+  {
+    q_ff_ = tvm::Space(6, 7, 6).createVariable("qFreeFlyer");
+    q_joints_ = tvm::Space(mb.nrDof() - 6, mb.nrParams() - 7, mb.nrDof() - 6).createVariable("qJoints");
+  }
+  else
+  {
+    q_ff_ = tvm::Space(0).createVariable("qFreeFlyer");
+    q_joints_ = tvm::Space(mb.nrDof(), mb.nrParams(), mb.nrDof()).createVariable("qJoints");
+  }
+  q_.add(q_ff_);
+  q_.add(q_joints_);
+  dq_ = dot(q_, 1);
+  ddq_ = dot(q_, 2);
+  registerUpdates(Update::Kinematics, &Robot::updateKinematics,
+                  Update::Dynamics, &Robot::updateDynamics,
+                  Update::Acceleration, &Robot::updateAcceleration,
                   Update::CoM, &Robot::updateCoM,
                   Update::H, &Robot::updateH,
                   Update::C, &Robot::updateC);
-  addOutputDependency(Output::q, Update::q);
-  addInternalDependency(Update::CoM, Update::q);
-  addInternalDependency(Update::H, Update::q);
-  addInternalDependency(Update::C, Update::q);
+  addOutputDependency(Output::Kinematics, Update::Kinematics);
+  addOutputDependency(Output::Dynamics, Update::Dynamics);
+  addOutputDependency(Output::Acceleration, Update::Acceleration);
+  addInternalDependency(Update::CoM, Update::Kinematics);
+  addInternalDependency(Update::H, Update::Dynamics);
+  addInternalDependency(Update::C, Update::Dynamics);
   addOutputDependency(Output::CoM, Update::CoM);
   addOutputDependency(Output::H, Update::H);
   addOutputDependency(Output::C, Update::C);
-  update();
+
+  // Make sure initial robot quantities are well initialized
+  updateKinematics();
+  updateDynamics();
+  updateAcceleration();
 }
 
 void Robot::updateTimeDependency(double dt)
 {
-  auto ddq = dot(q_, 2)->value();
+  auto ddq = ddq_.value();
   rbd::vectorToParam(ddq, mbc_.alphaD);
   rbd::eulerIntegration(mb_, mbc_, dt);
-  auto dq = dot(q_, 1)->value();
+  auto dq = dq_.value();
   rbd::paramToVector(mbc_.alpha, dq);
-  dot(q_, 1)->value(dq);
-  auto q = q_->value();
+  dq_.value(dq);
+  auto q = q_.value();
   rbd::paramToVector(mbc_.q, q);
-  q_->value(q);
+  q_.value(q);
 }
 
-void Robot::update()
+void Robot::updateKinematics()
 {
   rbd::forwardKinematics(mb_, mbc_);
+}
+
+void Robot::updateDynamics()
+{
   rbd::forwardVelocity(mb_, mbc_);
+}
+
+void Robot::updateAcceleration()
+{
   rbd::forwardAcceleration(mb_, mbc_);
   computeNormalAccB();
 }

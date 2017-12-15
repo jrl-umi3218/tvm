@@ -206,7 +206,7 @@ void DynamicFunction::updateValue_()
 
 void DynamicFunction::updateJacobian()
 {
-  jacobian_[dot(robot_->q(), 2).get()] = robot_->H();
+  splitJacobian(robot_->H(), dot(robot_->q(), 2));
   jacobian_[robot_->tau().get()] =  - Eigen::MatrixXd::Identity(robot_->mb().nrDof(), robot_->mb().nrDof());
   for(auto & c : contacts_)
   {
