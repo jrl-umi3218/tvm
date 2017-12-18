@@ -38,6 +38,7 @@ set(TVM_SOURCES
   robot/Frame.cpp
   robot/FrictionCone.cpp
   robot/GeometricContactFunction.cpp
+  robot/OrientationFunction.cpp
   robot/PostureFunction.cpp
 
   scheme/Assignment.cpp
@@ -119,6 +120,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
+  ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
   ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
 
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
