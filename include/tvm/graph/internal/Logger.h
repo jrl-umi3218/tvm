@@ -137,6 +137,11 @@ namespace internal
   template<typename U, typename EnumO, typename S, typename EnumI>
   inline void Logger::addDirectDependency(U* node, EnumO o, S* source, EnumI i)
   {
+    Log::Output out = {Log::EnumValue(o),
+                       U::OutputName(o),
+                       Log::Pointer(node)};
+    log_.outputs_.push_back(out);
+
     Log::DirectDependency dep = {Log::EnumValue(i),
                                  Log::EnumValue(o),
                                  Log::Pointer(source),
