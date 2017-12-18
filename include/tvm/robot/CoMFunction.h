@@ -43,7 +43,7 @@ namespace robot
      */
     CoMFunction(RobotPtr robot);
 
-    /** Set the target posture to the current robot's CoM */
+    /** Set the target CoM to the current robot's CoM */
     void reset();
 
     /** Get the current objective */
