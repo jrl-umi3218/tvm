@@ -2,6 +2,18 @@
 
 #include <tvm/Robot.h>
 
+namespace
+{
+  Eigen::Matrix3d hat(const Eigen::Vector3d & v)
+  {
+    Eigen::Matrix3d ret;
+    ret << 0., -v.z(), v.y(),
+           v.z(), 0., -v.x(),
+           -v.y(), v.x(), 0.;
+    return ret;
+  }
+}
+
 namespace tvm
 {
 
@@ -17,6 +29,7 @@ Frame::Frame(std::string name,
   bodyId_(robot->mb().bodyIndexByName(body)),
   jac_(robot->mb(), body),
   X_b_f_(std::move(X_b_f)),
+  jacTmp_(6, jac_.dof()),
   jacobian_(6, robot->mb().nrDof()) // FIXME Don't allocate until needed?
 {
   registerUpdates(
@@ -32,6 +45,7 @@ Frame::Frame(std::string name,
 
   addOutputDependency(Output::Jacobian, Update::Jacobian);
   addInternalDependency(Update::Jacobian, Update::Position);
+  addInputDependency(Update::Jacobian, robot_, Robot::Output::Dynamics);
 
   addOutputDependency(Output::Velocity, Update::Velocity);
   addInputDependency(Update::Velocity, robot_, Robot::Output::Dynamics);
@@ -57,19 +71,21 @@ void Frame::updateJacobian()
 {
   assert(jacobian_.rows() == 6 && jacobian_.cols() == robot_->mb().nrDof());
   const auto & partialJac = jac_.jacobian(robot_->mb(),
-                                          robot_->mbc(),
-                                          position_);
-  jac_.fullJacobian(robot_->mb(), partialJac, jacobian_);
+                                          robot_->mbc());
+  jacTmp_ = partialJac;
+  Eigen::Matrix3d h = -hat(robot_->mbc().bodyPosW[bodyId_].rotation().transpose() * X_b_f_.translation());
+  jacTmp_.block(3, 0, 3, jac_.dof()).noalias() += h * partialJac.block(3, 0, 3, jac_.dof());
+  jac_.fullJacobian(robot_->mb(), jacTmp_, jacobian_);
 }
 
 void Frame::updateVelocity()
 {
-  velocity_ = jac_.velocity(robot_->mb(), robot_->mbc(), X_b_f_);
+  velocity_ = X_b_f_ * robot_->mbc().bodyVelW[bodyId_];
 }
 
 void Frame::updateNormalAcceleration()
 {
-  normalAcceleration_ = jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB(), X_b_f_, sva::MotionVecd(Eigen::Vector6d::Zero()));
+  normalAcceleration_ = X_b_f_ * jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB());
 }
 
 }

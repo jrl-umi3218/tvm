@@ -78,11 +78,11 @@ namespace robot
     /** The frame's position in world coordinates */
     inline const sva::PTransformd & position() const { return position_; }
     /** The frame's jacobian in world coordinates */
-    inline tvm::internal::MatrixWithProperties jacobian() const { return jacobian_; }
+    inline const tvm::internal::MatrixWithProperties & jacobian() const { return jacobian_; }
     /** The frame's velocity in world coordinates */
-    inline sva::MotionVecd velocity() const { return velocity_; }
+    inline const sva::MotionVecd & velocity() const { return velocity_; }
     /** The frame's normal acceleration in world coordinates */
-    inline sva::MotionVecd normalAcceleration() const { return normalAcceleration_; }
+    inline const sva::MotionVecd & normalAcceleration() const { return normalAcceleration_; }
   private:
     std::string name_;
     RobotPtr robot_;
@@ -95,6 +95,7 @@ namespace robot
     sva::PTransformd position_;
 
     void updateJacobian();
+    Eigen::MatrixXd jacTmp_;
     tvm::internal::MatrixWithProperties jacobian_;
 
     void updateVelocity();
