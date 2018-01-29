@@ -31,40 +31,131 @@ namespace constraint
 namespace internal
 {
 
-  /** Given a task (e, op, rhs, e*), this class derives the constraint
-    * d^k e/dt^k op  e*(e,de/dt,...de^{k-1}/dt^{k-1}, rhs [,g]), where e is an
-    * error function, op is ==, >= or <= and e* is a desired error dynamics. 
-    * k is specified by e* and (optional) g is any other quantities.
+  /** Given a task \f$(e, op, rhs, e^*)\f$, this class derives the constraint
+    * \f$d^k e/dt^k\ op\  e^*(e,de/dt,...de^{k-1}/dt^{k-1}, rhs [,g])\f$, where e is an
+    * error function, op is ==, >= or <= and \f$e^*\f$ is a desired error dynamics. 
+    * k is specified by \f$e^*\f$ and (optional) g is any other quantities.
     *
-    * FIXME Consider the case where the TaskDynamics has its own variables?
-    *
-    * EQUAL case
+    * EQUAL (E) \ GREATER_THAN (L) \ LOWER_THAN (U) cases with dynamic-specific (k=2)
+    * dependencies dotted.
     * \dot
     * digraph "update graph" {
     *   rankdir="LR";
-    *   {
-    *     rank=same; node [shape=circle];
-    *     f; td;
+    *   subgraph cluster1 {
+    *     label="f"
+    *     {
+    *       rank=same; node [shape=diamond];
+    *       fValue [label="Value"]; 
+    *       fJacobian [label="Jacobian"]; 
+    *       fVelocity [label="Velocity",style=dotted];
+    *       fNormalAcceleration [label="NormalAcceleration",style=dotted];
+    *     }
+    *   }
+    *   subgraph cluster2 {
+    *     label="td"
+    *     {
+    *       tdValue [label="Value", shape=Mdiamond];
+    *       tdUpdate [label="UpdateValue"];
+    *     }
     *   }
     *   {
+    *     rank=same;
     *     uValue [label=Value];
     *     updateRHS;
     *   }
     *   {
     *     rank = same; node [shape=hexagon];
-    *     Value; Jacobian; E;
+    *     Value; Jacobian; 
+    *     E [label="E \\ L \\ U"];
     *   }
     *   {
     *     rank = same; node [style=invis, label=""];
     *     outValue; outJacobian; outE;
     *   }
+    *   x_i [shape=box]
+    *   fValue -> tdUpdate
+    *   fVelocity -> tdUpdate [style=dotted]
+    *   tdUpdate -> tdValue
+    *   tdValue -> updateRHS
+    *   updateRHS -> E
+    *   fJacobian -> Jacobian
+    *   fJacobian -> uValue
+    *   fNormalAcceleration -> updateRHS [style=dotted]
     *   Value -> outValue [label="value()"];
     *   Jacobian -> outJacobian [label="jacobian(x_i)"];
-    *   E -> outE [label="e()"];
+    *   E -> outE [label="e() \\ l() \\ u()"];
     *   x_i -> uValue [label="value()"];
     *   uValue -> Value;
     * }
     * \enddot
+    *
+    * DOUBLE_SIDED case with dynamic-specific (k=2) dependencies dotted.
+    * \dot
+    * digraph "update graph" {
+    *   rankdir="LR";
+    *   subgraph cluster1 {
+    *     label="f"
+    *     {
+    *       rank=same; node [shape=diamond];
+    *       fValue [label="Value"];
+    *       fJacobian [label="Jacobian"];
+    *       fVelocity [label="Velocity",style=dotted];
+    *       fNormalAcceleration [label="NormalAcceleration",style=dotted];
+    *     }
+    *   }
+    *   subgraph cluster2 {
+    *     label="td"
+    *     {
+    *       td1Value [label="Value", shape=Mdiamond];
+    *       td1Update [label="UpdateValue"];
+    *     }
+    *   }
+    *   subgraph cluster3 {
+    *     label="td2"
+    *     {
+    *       td2Value [label="Value", shape=Mdiamond];
+    *       td2Update [label="UpdateValue"];
+    *     }
+    *   }
+    *   {
+    *     rank=same;
+    *     uValue [label=Value];
+    *     updateRHS;
+    *     updateRHS2;
+    *   }
+    *   {
+    *     rank = same; node [shape=hexagon];
+    *     Value; Jacobian; L; U
+    *   }
+    *   {
+    *     rank = same; node [style=invis, label=""];
+    *     outValue; outJacobian; outL; outU
+    *   }
+    *   x_i [shape=box]
+    *   fValue -> td1Update
+    *   fVelocity -> td1Update [style=dotted]
+    *   td1Update -> td1Value
+    *   td1Value -> updateRHS
+    *   fValue -> td2Update
+    *   fVelocity -> td2Update [style=dotted]
+    *   td2Update -> td2Value
+    *   td2Value -> updateRHS2
+    *   updateRHS -> L
+    *   updateRHS2 -> U
+    *   fJacobian -> Jacobian
+    *   fJacobian -> uValue
+    *   fNormalAcceleration -> updateRHS [style=dotted]
+    *   fNormalAcceleration -> updateRHS2 [style=dotted]
+    *   Value -> outValue [label="value()"];
+    *   Jacobian -> outJacobian [label="jacobian(x_i)"];
+    *   L -> outL [label="l()"];
+    *   U -> outU [label="u()"];
+    *   x_i -> uValue [label="value()"];
+    *   uValue -> Value;
+    * }
+    * \enddot
+    *
+    * FIXME Consider the case where the TaskDynamics has its own variables?
     */
   class TVM_DLLAPI LinearizedTaskConstraint : public abstract::LinearConstraint
   {
