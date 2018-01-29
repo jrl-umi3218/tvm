@@ -260,25 +260,12 @@ namespace graph
 
 namespace internal
 {
-  Log::TypeInfo::TypeInfo(const std::type_info& t)
-    : hash(t.hash_code()), name(t.name())
+  std::ostream& operator<<(std::ostream& os, const std::type_index& t)
   {
-  }
-
-  std::ostream& operator<<(std::ostream& os, const Log::TypeInfo& t)
-  {
-    os << "[" << t.hash << " " << t.name << "]";
+    os << "[" << t.hash_code() << " " << t.name() << "]";
     return os;
   }
 
-  std::istream& operator>>(std::istream& is, Log::TypeInfo& t)
-  {
-    char c1, c2;
-    is >> c1 >> t.hash >> t.name >> c2;
-    if (is.fail())
-      throw std::ios_base::failure("Failed to read Logger::TypeInfo");
-    return is;
-  }
 
   std::string Log::generateDot(const Pointer& p) const
   {
@@ -322,7 +309,7 @@ namespace internal
     }
 
     std::stringstream dot;
-    dot << "digraph \"" << clean(p.type.name) << "\"\n{\n";
+    dot << "digraph \"" << clean(p.type.name()) << "\"\n{\n";
     dot << "  rankdir=\"LR\";\n";
 
     //inputs
@@ -330,7 +317,7 @@ namespace internal
     for (const auto& source : inputs)
     {
       dot << "  subgraph cluster" << c++ << " {\n";
-      dot << "    label=\"" << clean(source.first.type.name, false) << "\";\n";
+      dot << "    label=\"" << clean(source.first.type.name(), false) << "\";\n";
       dot << "    node [shape=diamond];\n";
       for (const auto& s : source.second)
       {
@@ -555,7 +542,7 @@ namespace internal
     for (const auto& p : types_)
     {
       dot << " subgraph cluster" << ++c << " {\n";
-      dot << "    label=\"" << clean(p.second.back().name, false) << "\";\n";
+      dot << "    label=\"" << clean(p.second.back().name(), false) << "\";\n";
       //updates
       dot << "    {\n";
       for (const auto& u : updates[p.first])
@@ -654,21 +641,21 @@ namespace internal
   std::string Log::nodeName(const Log::Output& output) const
   {
     std::stringstream ss;
-    ss << clean(types_.at(output.owner.value).back().name) << output.owner.value << "_out" << clean(output.name);
+    ss << clean(types_.at(output.owner.value).back().name()) << output.owner.value << "_out" << clean(output.name);
     return ss.str();
   }
 
   std::string Log::nodeName(const Log::Input& input) const
   {
     std::stringstream ss;
-    ss << clean(types_.at(input.source.value).back().name) << input.source.value << "_in" << clean(input.name);
+    ss << clean(types_.at(input.source.value).back().name()) << input.source.value << "_in" << clean(input.name);
     return ss.str();
   }
 
   std::string Log::nodeName(const Log::Update& update) const
   {
     std::stringstream ss;
-    ss << clean(types_.at(update.owner.value).back().name) << update.owner.value << "_up" << clean(update.name);
+    ss << clean(types_.at(update.owner.value).back().name()) << update.owner.value << "_up" << clean(update.name);
     return ss.str();
   }
 

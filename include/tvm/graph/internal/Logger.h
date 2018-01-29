@@ -154,7 +154,7 @@ namespace internal
   template<typename U>
   inline void Logger::registerType(U* node)
   {
-    Log::TypeInfo t(typeid(*node));
+    std::type_index t(typeid(*node));
     std::uintptr_t val = reinterpret_cast<std::uintptr_t>(node);
     auto& types = log_.types_[val];
     auto it = std::find(types.begin(), types.end(), t);

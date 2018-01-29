@@ -63,19 +63,6 @@ namespace internal
   class TVM_DLLAPI Log
   {
   public:
-    /** A std::type_info-independent representation of a type.*/
-    struct TVM_DLLAPI TypeInfo
-    {
-      /** Build from std::type_info*/
-      TypeInfo(const std::type_info& t);
-
-      size_t hash;        // hash of the type, as returned by type_info.hash()
-      std::string name;   // the name of the type, as return by type_info.name()
-
-      bool operator<(const TypeInfo& other) const { return hash < other.hash; }
-      bool operator==(const TypeInfo& other) const { return hash == other.hash; }
-    };
-
     /** A non-enum representation of enum, as a pair (type of enum, value).*/
     struct EnumValue
     {
@@ -83,8 +70,8 @@ namespace internal
       template<typename E>
       EnumValue(E e);
 
-      TypeInfo type;    // representation of the enumeration type
-      int value;        // value of the enumeration
+      std::type_index type;   // representation of the enumeration type
+      int value;              // value of the enumeration
       
       bool operator<(const EnumValue& other) const { return lexLess(*this, other, &EnumValue::type, &EnumValue::value); }
       bool operator==(const EnumValue& other) const { return eq(*this, other, &EnumValue::type, &EnumValue::value); }
@@ -97,10 +84,10 @@ namespace internal
       template<typename T> Pointer(T* p);
 
       /** Build from a pair (type, address).*/
-      Pointer(const TypeInfo& t, std::uintptr_t v);
+      Pointer(const std::type_index& t, std::uintptr_t v);
 
-      TypeInfo type;          // representation of the pointer type
-      std::uintptr_t value;   // address of the pointer
+      std::type_index type;   // representation of the pointer type
+      std::uintptr_t  value;  // address of the pointer
 
       bool operator<(const Pointer& other) const { return lexLess(*this, other, &Pointer::value); }
       bool operator==(const Pointer& other) const { return eq(*this, other, &Pointer::value); }
@@ -213,7 +200,7 @@ namespace internal
       * FIXME: can we find a more robust way to determine the real type of a
       * data?
       */
-    std::map<std::uintptr_t, std::vector<TypeInfo>> types_;
+    std::map<std::uintptr_t, std::vector<std::type_index>> types_;
 
     private:
       /** Generate a (unique) name for the given output, based on its name, and
@@ -245,7 +232,7 @@ namespace internal
   {
   }
 
-  inline Log::Pointer::Pointer(const TypeInfo & t, std::uintptr_t v)
+  inline Log::Pointer::Pointer(const std::type_index& t, std::uintptr_t v)
     : type(t), value(v)
   {
   }
