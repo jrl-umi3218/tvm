@@ -18,9 +18,26 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tvm/graph/abstract/Node.h>
+#include <tvm/graph/internal/Logger.h>
 
 #include <sstream>
+
+
+#define TVM_GRAPH_LOG_REGISTER_UPDATE(node, u, fn) \
+  tvm::graph::internal::Logger::logger().registerUpdate<U,EnumT>(static_cast<U*>(node), u, fn);
+
+#define TVM_GRAPH_LOG_ADD_OUTPUT_DEPENDENCY(node, o, u) \
+  tvm::graph::internal::Logger::logger().addOutputDependency<U,EnumO,EnumU>(static_cast<U*>(node), o, u);
+
+#define TVM_GRAPH_LOG_ADD_INTERNAL_DEPENDENCY(node, uDependent, u) \
+  tvm::graph::internal::Logger::logger().addInternalDependency<U,EnumU1,EnumU2>(static_cast<U*>(node), uDependent, u);
+
+#define TVM_GRAPH_LOG_ADD_INPUT_DEPENDENCY(node, u, source, i) \
+  tvm::graph::internal::Logger::logger().addInputDependency<U,EnumU,S,EnumO>(static_cast<U*>(node), u, source.get(), i);
+
+#define TVM_GRAPH_LOG_ADD_DIRECT_DEPENDENCY(node, o, source, i) \
+  tvm::graph::internal::Logger::logger().addDirectDependency(static_cast<U*>(node), o, source.get(), i);
+
 
 namespace tvm
 {
@@ -62,6 +79,7 @@ void Node<T>::registerUpdates(EnumT u, void(U::*fn)())
   {
     return (static_cast<U*>(this)->*fn)();
   };
+  TVM_GRAPH_LOG_REGISTER_UPDATE(this, u, fn)
 }
 
 template<typename T>
@@ -83,6 +101,7 @@ void Node<T>::addOutputDependency(EnumO o, EnumU u)
     throw std::runtime_error(ss.str());
   }
   outputDependencies_[static_cast<int>(o)].push_back(static_cast<int>(u));
+  TVM_GRAPH_LOG_ADD_OUTPUT_DEPENDENCY(this, o, u);
 }
 
 template<typename T>
@@ -114,6 +133,7 @@ void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
     throw std::runtime_error(ss.str());
   }
   internalDependencies_[static_cast<int>(uDependent)].push_back(static_cast<int>(u));
+  TVM_GRAPH_LOG_ADD_INTERNAL_DEPENDENCY(this, uDependent, u)
 }
 
 template<typename T>
@@ -151,6 +171,7 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i)
   {
     inputDependencies_[static_cast<int>(u)] = {{source, {static_cast<int>(i)}}};
   }
+  TVM_GRAPH_LOG_ADD_INPUT_DEPENDENCY(this, u, source, i);
 }
 
 template<typename T>
@@ -193,6 +214,7 @@ inline void Node<T>::addDirectDependency(EnumO o, std::shared_ptr<S> source, Enu
 
   // Add the dependency
   directDependencies_[static_cast<int>(o)] = { source, static_cast<int>(i) };
+  TVM_GRAPH_LOG_ADD_DIRECT_DEPENDENCY(this, o, source, i);
 }
 
 } // namespace abstract

@@ -4,7 +4,11 @@
 #include <memory>
 #include <sstream>
 
-#include <tvm/graph/internal/Inputs.h>
+#include <tvm/graph/internal/Logger.h>
+
+
+#define TVM_GRAPH_LOG_ADD_INPUT(add, node, i, source) \
+  if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source.get(),i);}
 
 namespace
 {
@@ -36,6 +40,7 @@ namespace graph
 namespace internal
 {
 
+#if 0
 template<typename T, typename ... Args>
 inline void Inputs::addInput(std::shared_ptr<T> source, Args ... args)
 {
@@ -56,6 +61,32 @@ inline void Inputs::addInput(std::shared_ptr<T> source, Args ... args)
   }
 }
 
+#else
+template<typename T, typename EnumI, typename ... Args>
+inline void Inputs::addInput(std::shared_ptr<T> source, EnumI i, Args ... args)
+{
+  addInput(source, i);
+  addInput(source, args...);
+}
+
+template<typename T, typename EnumI>
+inline void Inputs::addInput(std::shared_ptr<T> source, EnumI i)
+{
+  static_assert(abstract::is_valid_output<T>(EnumI()), "The output you requested is not part of the provided source");
+  check_output_enabled(source, i);
+  auto it = getInput(source.get());
+  if (it)
+  {
+    auto p = it->second.insert(static_cast<int>(i));
+    TVM_GRAPH_LOG_ADD_INPUT(p.second, this, i, source);
+  }
+  else
+  {
+    inputs_[source] = { static_cast<int>(i) };
+    TVM_GRAPH_LOG_ADD_INPUT(true, this, i, source);
+  }
+}
+#endif
 
 template<typename T>
 inline void Inputs::removeInput(T* source)
