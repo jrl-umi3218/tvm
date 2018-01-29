@@ -88,6 +88,13 @@ namespace tvm
       */
     Range getMappingIn(const VariableVector& variables) const;
 
+    /** Helper to initialize a variable like an Eigen vector.*/
+    Eigen::CommaInitializer<Eigen::VectorXd> operator<<(double d);
+
+    /** Helper to initialize a variable like an Eigen vector.*/
+    template<typename Derived>
+    Eigen::CommaInitializer<Eigen::VectorXd> operator<<(const Eigen::DenseBase<Derived>& other);
+
   protected:
 
   private:
@@ -159,4 +166,35 @@ namespace tvm
   {
     return primitive_;
   }
+
+  inline Eigen::CommaInitializer<Eigen::VectorXd> Variable::operator<<(double d)
+  {
+    return { value_,d };
+  }
+
+  template<typename Derived>
+  inline Eigen::CommaInitializer<Eigen::VectorXd> Variable::operator<<(const Eigen::DenseBase<Derived>& other)
+  {
+    return { value_, other };
+  }
 }  // namespace tvm
+
+/** Helper to set the value of a variable v to val. */
+inline tvm::VariablePtr& operator<<(tvm::VariablePtr& v, const tvm::VectorConstRef& val)
+{
+  v->value(val);
+  return v;
+}
+
+/** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
+inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr& v, double d)
+{
+  return *v.get() << d;
+}
+
+/** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
+template<typename Derived>
+inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr& v, const Eigen::DenseBase<Derived>& other)
+{
+  return *v.get() << other;
+}

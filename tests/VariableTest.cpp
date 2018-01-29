@@ -31,12 +31,37 @@ TEST_CASE("Test Variable creation")
 
 TEST_CASE("Test Variable value")
 {
-  VariablePtr v = Space(3).createVariable("v");
-  Eigen::Vector3d val = Eigen::Vector3d::Random();
-  v->value(val);
+  {
+    VariablePtr v = Space(3).createVariable("v");
+    Eigen::Vector3d val = Eigen::Vector3d::Random();
+    v->value(val);
 
-  FAST_CHECK_UNARY(v->value().isApprox(val));
-  CHECK_THROWS(v->value(Eigen::VectorXd(5)));
+    FAST_CHECK_UNARY(v->value().isApprox(val));
+    CHECK_THROWS(v->value(Eigen::VectorXd(5)));
+  }
+  {
+    VariablePtr v = Space(3).createVariable("v");
+    Eigen::Vector3d val(1,2,3);
+    v << val;
+    FAST_CHECK_UNARY(v->value().isApprox(val));
+  }
+  {
+    VariablePtr v = Space(3).createVariable("v");
+    Eigen::VectorXd val(5); val << 1, 2, 3, 4, 5;
+    v << val.head(3);
+    FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(1, 2, 3)));
+  }
+  {
+    VariablePtr v = Space(3).createVariable("v");
+    v << 1, 2, 3;
+    FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(1,2,3)));
+  }
+  {
+    VariablePtr v = Space(3).createVariable("v");
+    Eigen::VectorXd val(5); val << 1, 2, 3, 4, 5;
+    v << val.tail(2), 6;
+    FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(4, 5, 6)));
+  }
 }
 
 TEST_CASE("Test Variable Derivatives")
