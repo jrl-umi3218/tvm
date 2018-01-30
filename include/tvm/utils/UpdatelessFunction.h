@@ -49,7 +49,7 @@ namespace utils
 
     /** Get the value of the function for given values of its variables.
       * Variable values can be given as VectorXd, or as std::initializer_list.
-      * There are two possible syntaxes:
+      * There are three possible syntaxes:
       * - value(val1, val2, ..., valn) where val1, ..., valn are the values of
       *   the n variables of the function, in the order they are stored in the
       *   function (i.e. the order of the vector returned by variables() )
@@ -57,12 +57,14 @@ namespace utils
       *   to one variable and its value. The number of variables in this case
       *   need not be n (unspecified variables will keep their previous value),
       *   and if a variable is given multiple times, only the last value will
-      *   be used.
+      *   be used
+      * - value(val) where val is a concatenated value for all variables in the
+      *   order they are stored in the function.
       */
     template<typename... Vals>
     const Eigen::VectorXd& value(Vals&&... vals) const;
 
-    /** Get the jacbian matrix with respect to x, for the given variable values
+    /** Get the jacbian matrix with respect to x, for the given variable values.
       * See \a value for an explanation of how to specify the values.
       */
     template<typename... Vals>
@@ -71,17 +73,20 @@ namespace utils
     /** Get the velocity of the function for given values and velocities of its
       * variables.
       * The values and velocities can be given as VectorXd, or as 
-      * std::initializer_list. There are two possible syntaxes:
+      * std::initializer_list. There are three possible syntaxes:
       * - velocity(val1, vel1, val2, vel2, ..., valn, veln) where val1, ...,
       *   valn are the values of the n variables of the function, in the order
       *   they are stored in the function (i.e. the order of the vector
       *   returned by variables()) and vel1, ... veln are the corresponding
       *   velocities.
-      * - value(xi1, vali1, veli1, xi2, vali2, veli2, ...) where on alternates
+      * - velocity(xi1, vali1, veli1, xi2, vali2, veli2, ...) where one alternates
       *   a reference to one variable and its value and velocity. The number of
       *   variables in this case need not be n (unspecified variables will keep
       *   their previous value), and if a variable is given multiple times,
-      *   only the last value will be used.
+      *   only the last value will be used
+      * - velocity(val, vel) where val and vel are the concatenated values and
+      *   velocities for all variables in the order they are stored in the 
+      *   function.
       */
     template<typename... Vals>
     const Eigen::VectorXd& velocity(Vals&&... vals) const;
@@ -108,6 +113,10 @@ namespace utils
     /** Assign val to the i-th variable. */
     void assign(size_t i, const Eigen::VectorXd& val, bool value) const;
     void assign(Variable& x, const Eigen::VectorXd& val, bool value) const;
+
+    /** Assign all variables with a unique vector. */
+    void assign(const Eigen::VectorXd& val) const;
+    void assign(const Eigen::VectorXd& val, const Eigen::VectorXd& vel) const;
 
     /** \internal dispatch the parsing between values only and pairs of 
       * variable-value. Initiate the recursion.

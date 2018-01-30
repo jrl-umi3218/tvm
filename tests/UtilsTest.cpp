@@ -268,6 +268,14 @@ TEST_CASE("Test UpdatelessFunction")
   v = uf.value(*z, l{ 1,2,3 }, *y, l{ 3,4,5,6 }, *z, l{ 7,8,9 }, *x, xr);
   FAST_CHECK_UNARY(v.isApprox(Ax * xr + Ay * ym + Az * zm));
 
+  VectorXd concatr(9);
+  concatr << xr, yr, zr;
+  v = uf.value(concatr);
+  FAST_CHECK_UNARY(v.isApprox(Ax * xr + Ay * yr + Az * zr));
+
+  v = uf.value(l{ 1,2,3,4,5,6,7,8,9 });
+  FAST_CHECK_UNARY(v.isApprox(Ax * xm + Ay * ym + Az * zm));
+
   //errors
   // not enough args
   CHECK_THROWS(uf.value(xr, yr));
@@ -297,6 +305,8 @@ TEST_CASE("Test UpdatelessFunction")
   FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
   J = udf.jacobian(*x, *x, l{ 1,2 });
   FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
+  J = udf.jacobian(*x, l{ 1,2,7,8,9 });
+  FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
 
   //velocity
   VectorXd dxr = VectorXd::Random(2);
@@ -325,6 +335,20 @@ TEST_CASE("Test UpdatelessFunction")
   dv = uf.velocity(*z, l{1,2,3}, l{ -1,-2,-3 }, *y, yr, l{ -3,-4,-5,-6 }, *z, zr, l{ -7,-8,-9 }, *x, xr, dxr);
   FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dym + Az * dzm));
 
+  VectorXd concatdr(9);
+  concatdr << dxr, dyr, dzr;
+  dv = uf.velocity(concatr, concatdr);
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dyr + Az * dzr));
+
+  dv = uf.velocity(l{ 1,2,3,4,5,6,7,8,9 }, concatdr);
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxr + Ay * dyr + Az * dzr));
+
+  dv = uf.velocity(concatr, l{ -1,-2,-3,-4,-5,-6,-7,-8,-9 });
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxm + Ay * dym + Az * dzm));
+
+  dv = uf.velocity(l{ 1,2,3,4,5,6,7,8,9 }, l{ -1,-2,-3,-4,-5,-6,-7,-8,-9 });
+  FAST_CHECK_UNARY(dv.isApprox(Ax * dxm + Ay * dym + Az * dzm));
+
   //errors
   // not enough args
   CHECK_THROWS(uf.velocity(xr, dxr, yr, dyr));
@@ -349,11 +373,15 @@ TEST_CASE("Test UpdatelessFunction")
   FAST_CHECK_UNARY(na.isApprox(2 * (dxr.transpose()*dxr - dzm.transpose()*dzm)));
   na = udf.normalAcceleration(*z, l{ 7,8,9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 });
   FAST_CHECK_UNARY(na.isApprox(2 * (dxm.transpose()*dxm - dzr.transpose()*dzr)));
+  na = udf.normalAcceleration(l{ 1,2,7,8,9 }, l{ -1,-2,-7,-8,-9 });
+  FAST_CHECK_UNARY(na.isApprox(2 * (dxm .transpose()*dxm - dzm.transpose()*dzm)));
 
   CHECK_THROWS(udf.normalAcceleration(*z, l{ 7,8.9 }, dzr, *x, l{ 1,2 }, l{ -1,-2 }));
 
   // JDot
   MatrixXd Jd = uf.JDot(*x, xr, dxr, yr, dyr, zr, dzr);
+  FAST_CHECK_UNARY(Jd.isZero());
+  Jd = uf.JDot(*x, concatr, concatdr);
   FAST_CHECK_UNARY(Jd.isZero());
   CHECK_THROWS(udf.JDot(*x, xr, dzr));
 }
