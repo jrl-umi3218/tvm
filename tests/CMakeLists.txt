@@ -23,6 +23,7 @@ addUnitTest(ConstraintTest)
 addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
 addUnitTest(SolvingRequirementsTest)
+addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 

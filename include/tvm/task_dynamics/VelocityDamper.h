@@ -27,9 +27,12 @@ namespace tvm
   {
     /** A first or second order dynamic task implementing the so-called velocity
       * damper of Faverjon and Tournassoud.
-      * For a lower bound tasks, we have:
+      * For a lower bound tasks e>=0, we have, for e<=di:
       *  - first order: dot{e}* = -xsi * (e-ds)/(di-ds)
       *  - second order: ddot{e}* = -xsi/dt * (e-ds)/(di-ds) -dot{e}/dt
+      * and for e>di:
+      *   - first order: dot{e}* = big
+      *   - second order: ddot{e}* = big
       * For upper bound tasks e <= 0 this is adapted to get the same behavior as
       * -e >= 0.
       */
