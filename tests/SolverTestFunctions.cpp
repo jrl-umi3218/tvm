@@ -26,7 +26,7 @@ void SphereFunction::updateValue()
 
 void SphereFunction::updateJacobian()
 {
-  jacobian_.begin()->second = 2 * variables()[0]->value().transpose();
+  jacobian_.begin()->second = 2 * (variables()[0]->value() - x0_).transpose();
 }
 
 void SphereFunction::updateVelocityAndNormalAcc()
@@ -34,7 +34,7 @@ void SphereFunction::updateVelocityAndNormalAcc()
   const auto& x = variables()[0]->value();
   const auto& v = dot(variables()[0])->value();
 
-  velocity_[0] = 2*x.dot(v);
+  velocity_[0] = 2*(x-x0_).dot(v);
   normalAcceleration_[0] = 2 * v.squaredNorm();
 }
 

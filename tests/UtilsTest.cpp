@@ -292,7 +292,7 @@ TEST_CASE("Test UpdatelessFunction")
   MatrixXd J = udf.jacobian(*x, xr, zr);
   FAST_CHECK_UNARY(J.isApprox(2 * xr.transpose()));
   J = udf.jacobian(*z, xr, zr);
-  FAST_CHECK_UNARY(J.isApprox(- 2 * zr.transpose()));
+  FAST_CHECK_UNARY(J.isApprox(-2 * (zr - Vector3d(0, 0, 1)).transpose()));
   J = udf.jacobian(*x, l{ 1,2 }, l{ 7,8,9 });
   FAST_CHECK_UNARY(J.isApprox(2 * xm.transpose()));
   J = udf.jacobian(*x, *x, l{ 1,2 });
