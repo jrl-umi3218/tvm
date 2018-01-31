@@ -62,12 +62,12 @@ namespace tvm
     namespace internal
     {
       /** Constexpr integer power base^exp
-        * Taken from https://stackoverflow.com/a/17728525
+        * Adapted from https://stackoverflow.com/a/17728525
         */
       template <typename T>
       constexpr T pow(T base, int exp, T result = 1) 
       {
-        return exp < 1 ? result : pow(base*base, exp / 2, (exp % 2) ? result*base : result);
+        return exp == 1 ? result*base : pow(base*base, exp / 2, (exp % 2) ? result*base : result);
       }
 
       /* Constexpr version of the square root of x
