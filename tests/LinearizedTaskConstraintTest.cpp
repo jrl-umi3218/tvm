@@ -63,12 +63,15 @@ TEST_CASE("Value test")
   auto l1 = std::make_shared<LTC>(f == 0., td1);
   auto l2 = std::make_shared<LTC>(f <= 0., td2);
 
-  auto graph1 = utils::internal::generateUpdateGraph(l1, LTC::Output::E, LTC::Output::Jacobian);
+  auto E = LTC::Output::E;
+  auto U = LTC::Output::U;
+  auto J = LTC::Output::Jacobian;
+  auto graph1 = utils::internal::generateUpdateGraph(l1, E, J);
   graph1->execute();
   FAST_CHECK_EQ(l1->e()[0], -2*9);
   FAST_CHECK_UNARY(l1->jacobian(*dx).isApprox(Vector3d(0,4,6).transpose()));
 
-  auto graph2 = utils::internal::generateUpdateGraph(l2, LTC::Output::U, LTC::Output::Jacobian);
+  auto graph2 = utils::internal::generateUpdateGraph(l2, U, J);
   graph2->execute();
   FAST_CHECK_EQ(l2->u()[0], -2*9 - (-26) - 28); /*-kp*f - kv*df/dt - d2f/dxdt dx/dt*/
   FAST_CHECK_UNARY(l2->jacobian(*ddx).isApprox(Vector3d(0, 4, 6).transpose()));

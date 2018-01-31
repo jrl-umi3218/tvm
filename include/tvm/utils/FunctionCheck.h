@@ -29,9 +29,11 @@ namespace utils
   class CheckOptions
   {
   public:
-    double step = 1e-7;
-    double prec = 1e-6;
-    bool verbose = true;
+    CheckOptions() : step(1e-7), prec(1e-6), verbose(true) {}
+    CheckOptions(double s, double p, bool v) : step(s), prec(p), verbose(v) {}
+    double step;
+    double prec;
+    bool verbose;
   };
 
   /** Check the jacobian matrices of function f by forward finite differences.*/
