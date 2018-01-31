@@ -41,12 +41,6 @@ namespace utils
     /** Constructor with the function to be wrapped. */
     UpdatelessFunction(FunctionPtr f);
 
-    /** Constructor creating a wrapped function of type F. Arguments args are
-      * those of F's constructor.
-      */
-    template<typename F, typename... Args>
-    UpdatelessFunction(Args&&... args);
-
     /** Get the value of the function for given values of its variables.
       * Variable values can be given as VectorXd, or as std::initializer_list.
       * There are three possible syntaxes:
@@ -205,12 +199,6 @@ namespace utils
     std::vector<VariablePtr> dx_;
   };
 
-
-  template<typename F, typename ...Args>
-  inline UpdatelessFunction::UpdatelessFunction(Args && ...args)
-    : UpdatelessFunction(std::make_shared<F>(std::forward<Args>(args)...))
-  {
-  }
 
   template<typename ...Vals>
   inline const Eigen::VectorXd & UpdatelessFunction::value(Vals && ...vals) const
