@@ -5,6 +5,7 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
+#include <tvm/utils/FunctionCheck.h>
 #include <tvm/utils/ProtoTask.h>
 #include <tvm/utils/UpdatelessFunction.h>
 
@@ -384,4 +385,26 @@ TEST_CASE("Test UpdatelessFunction")
   Jd = uf.JDot(*x, concatr, concatdr);
   FAST_CHECK_UNARY(Jd.isZero());
   CHECK_THROWS(udf.JDot(*x, xr, dzr));
+}
+
+TEST_CASE("Test checks")
+{
+  VariablePtr x = Space(3).createVariable("x");
+
+  auto f = std::make_shared<SphereFunction>(x, Vector3d(1, 0, 0), 3);
+  auto brokenf = std::make_shared<BrokenSphereFunction>(x, Vector3d(1, 0, 0), 3);
+  FAST_CHECK_UNARY(checkJacobian(f));
+  brokenf->breakJacobian(true);
+  FAST_CHECK_UNARY_FALSE(checkJacobian(brokenf, {1e-7, 1e-6,false}));
+  brokenf->breakJacobian(false);
+
+  FAST_CHECK_UNARY(checkVelocity(f));
+  brokenf->breakVelocity(true);
+  FAST_CHECK_UNARY_FALSE(checkVelocity(brokenf, { 1e-7, 1e-6,false }));
+  brokenf->breakVelocity(false);
+
+  FAST_CHECK_UNARY(checkNormalAcceleration(f));
+  brokenf->breakNormalAcceleration(true);
+  FAST_CHECK_UNARY_FALSE(checkNormalAcceleration(brokenf, { 1e-7, 1e-6,false }));
+  brokenf->breakNormalAcceleration(false);
 }
