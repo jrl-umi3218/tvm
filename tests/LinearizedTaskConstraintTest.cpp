@@ -8,8 +8,8 @@
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
+#include <tvm/utils/graph.h>
 #include <tvm/utils/ProtoTask.h>
-#include <tvm/utils/internal/graph.h>
 
 
 using namespace Eigen;
@@ -66,12 +66,12 @@ TEST_CASE("Value test")
   auto E = LTC::Output::E;
   auto U = LTC::Output::U;
   auto J = LTC::Output::Jacobian;
-  auto graph1 = utils::internal::generateUpdateGraph(l1, E, J);
+  auto graph1 = utils::generateUpdateGraph(l1, E, J);
   graph1->execute();
   FAST_CHECK_EQ(l1->e()[0], -2*9);
   FAST_CHECK_UNARY(l1->jacobian(*dx).isApprox(Vector3d(0,4,6).transpose()));
 
-  auto graph2 = utils::internal::generateUpdateGraph(l2, U, J);
+  auto graph2 = utils::generateUpdateGraph(l2, U, J);
   graph2->execute();
   FAST_CHECK_EQ(l2->u()[0], -2*9 - (-26) - 28); /*-kp*f - kv*df/dt - d2f/dxdt dx/dt*/
   FAST_CHECK_UNARY(l2->jacobian(*ddx).isApprox(Vector3d(0, 4, 6).transpose()));

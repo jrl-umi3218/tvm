@@ -6,8 +6,11 @@
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/utils/FunctionCheck.h>
+#include <tvm/utils/graph.h>
 #include <tvm/utils/ProtoTask.h>
 #include <tvm/utils/UpdatelessFunction.h>
+
+#include <iostream>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
@@ -407,4 +410,110 @@ TEST_CASE("Test checks")
   brokenf->breakNormalAcceleration(true);
   FAST_CHECK_UNARY_FALSE(checkNormalAcceleration(brokenf, { 1e-7, 1e-6,false }));
   brokenf->breakNormalAcceleration(false);
+}
+
+TEST_CASE("Test graph generation") 
+{
+  VariablePtr x = Space(3).createVariable("x");
+  auto dx = dot(x);
+  x << Vector3d::Random();
+  dx << Vector3d::Random();
+
+  auto f1 = std::make_shared<SphereFunction>(x, Vector3d(1, 0, 0), 3);
+  auto f2 = std::make_shared<SphereFunction>(x, Vector3d(0, 1, 0), 3);
+  auto f3 = std::make_shared<SphereFunction>(x, Vector3d(0, 1, 0), 3);
+  auto f4 = std::make_shared<SphereFunction>(x, Vector3d(1, 1, 1), 3);
+  auto f12 = std::make_shared<Difference>(f1, f2);
+  auto f34 = std::make_shared<Difference>(f3, f4);
+  auto f = std::make_shared<Difference>(f12, f34);
+
+  //update by hand
+  for (const auto& fi : std::vector<std::shared_ptr<SphereFunction>>{f1, f2, f3, f4})
+  {
+    fi->updateValue();
+    fi->updateJacobian();
+    fi->updateVelocityAndNormalAcc();
+  }
+  for (const auto& fi : std::vector<std::shared_ptr<Difference>>{ f12, f34, f })
+  {
+    fi->updateValue();
+    fi->updateJacobian();
+    fi->updateVelocity();
+    fi->updateJDot();
+  }
+
+  //store values
+  auto v1 = f1->value();
+  auto v2 = f2->value();
+  auto v3 = f3->value();
+  auto v4 = f4->value();
+  auto v12 = f12->value();
+  auto v34 = f34->value();
+  auto v = f->value();
+  auto J1 = f1->jacobian(*x);
+  auto J2 = f2->jacobian(*x);
+  auto J3 = f3->jacobian(*x);
+  auto J4 = f4->jacobian(*x);
+  auto J12 = f12->jacobian(*x);
+  auto J34 = f34->jacobian(*x);
+  auto J = f->jacobian(*x);
+  auto dv1 = f1->velocity();
+  auto dv2 = f2->velocity();
+  auto dv3 = f3->velocity();
+  auto dv4 = f4->velocity();
+  auto dv12 = f12->velocity();
+  auto dv34 = f34->velocity();
+  auto dv = f->velocity();
+  auto na1 = f1->normalAcceleration();
+  auto na2 = f2->normalAcceleration();
+  auto na3 = f3->normalAcceleration();
+  auto na4 = f4->normalAcceleration();
+  auto na12 = f12->normalAcceleration();
+  auto na34 = f34->normalAcceleration();
+  auto na = f->normalAcceleration();
+
+  //create graphs
+  auto Value = function::abstract::Function::Output::Value;
+  auto Jacobian = function::abstract::Function::Output::Jacobian;
+  auto Velocity = function::abstract::Function::Output::Velocity;
+  auto NormaAcceleration = function::abstract::Function::Output::NormalAcceleration;
+  auto g = utils::generateUpdateGraph(f12, Velocity, f34, Value, Jacobian, f, Value);
+
+  //change variable values
+  x << Vector3d::Random();
+  x << Vector3d::Random();
+  dx << Vector3d::Random();
+
+  //update
+  g->execute();
+
+  //checks: values should be the same if not updated, and different otherwise
+  FAST_CHECK_NE(f1->value()[0], v1[0]);
+  FAST_CHECK_NE(f2->value()[0], v2[0]);
+  FAST_CHECK_NE(f3->value()[0], v3[0]);
+  FAST_CHECK_NE(f4->value()[0], v4[0]);
+  FAST_CHECK_NE(f12->value()[0], v12[0]);
+  FAST_CHECK_NE(f34->value()[0], v34[0]);
+  FAST_CHECK_NE(f->value()[0], v[0]);
+  FAST_CHECK_NE(f1->velocity()[0], dv1[0]);
+  FAST_CHECK_NE(f2->velocity()[0], dv2[0]);
+  FAST_CHECK_EQ(f3->velocity()[0], dv3[0]);
+  FAST_CHECK_EQ(f4->velocity()[0], dv4[0]);
+  FAST_CHECK_NE(f12->velocity()[0], dv12[0]);
+  FAST_CHECK_EQ(f34->velocity()[0], dv34[0]);
+  FAST_CHECK_EQ(f->velocity()[0], dv[0]);
+  FAST_CHECK_EQ(f1->jacobian(*x)(0), J1(0));
+  FAST_CHECK_EQ(f2->jacobian(*x)(0), J2(0));
+  FAST_CHECK_NE(f3->jacobian(*x)(0), J3(0));
+  FAST_CHECK_NE(f4->jacobian(*x)(0), J4(0));
+  FAST_CHECK_EQ(f12->jacobian(*x)(0), J12(0));
+  FAST_CHECK_EQ(f34->jacobian(*x)(0), J34(0)); //for the difference of sphere functions, the jacobian is independent of x
+  FAST_CHECK_EQ(f->jacobian(*x)(0), J(0));
+  FAST_CHECK_NE(f1->normalAcceleration()[0], na1[0]);  //for SphereFunction, the normal acceleration is updated when the velocity is updated
+  FAST_CHECK_NE(f2->normalAcceleration()[0], na2[0]);  //for SphereFunction, the normal acceleration is updated when the velocity is updated
+  FAST_CHECK_EQ(f3->normalAcceleration()[0], na3[0]);
+  FAST_CHECK_EQ(f4->normalAcceleration()[0], na4[0]);
+  FAST_CHECK_EQ(f12->normalAcceleration()[0], na12[0]);
+  FAST_CHECK_EQ(f34->normalAcceleration()[0], na34[0]);
+  FAST_CHECK_EQ(f->normalAcceleration()[0], na[0]);
 }
