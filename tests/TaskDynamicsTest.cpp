@@ -12,6 +12,7 @@
 #include <tvm/task_dynamics/VelocityDamper.h>
 #include <tvm/function/BasicLinearFunction.h>
 #include <tvm/function/IdentityFunction.h>
+#include <tvm/utils/graph.h>
 
 #include <iostream>
 
@@ -119,15 +120,15 @@ TEST_CASE("Test Velocity Damper")
   double dt = 0.1;
 
   //test validity
-  CHECK_THROWS(task_dynamics::VelocityDamper(0.5, ds, xsi));
-  CHECK_THROWS(task_dynamics::VelocityDamper(dt, 0.5, ds, xsi, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(di, ds, -1));
-  CHECK_THROWS(task_dynamics::VelocityDamper(dt, di, ds, -1, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(0, di, ds, xsi, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(-0.1, di, ds, xsi, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(false, 0.5, ds, xsi));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, false, 0.5, ds, xsi, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(false, di, ds, -1));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, false, di, ds, -1, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(0, false, di, ds, xsi, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(-0.1, false, di, ds, xsi, 1000));
 
   //test kinematics
-  task_dynamics::VelocityDamper td1(di, ds, xsi);
+  task_dynamics::VelocityDamper td1(false, di, ds, xsi);
   {
     x << 1, 2, 4;
     auto tdl = td1.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
@@ -136,7 +137,9 @@ TEST_CASE("Test Velocity Damper")
     tdl->updateValue();
 
     FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::One);
-    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(0, -1, -constant::big_number)));
+    FAST_CHECK_EQ(tdl->value()[0], 0);
+    FAST_CHECK_EQ(tdl->value()[1], -1);
+    FAST_CHECK_EQ(tdl->value()[2], -constant::big_number);
     FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
     FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant>());
 
@@ -145,13 +148,15 @@ TEST_CASE("Test Velocity Damper")
     auto tdu = td1.impl(f, constraint::Type::LOWER_THAN, Vector3d::Zero());
     f->updateValue();
     tdu->updateValue();
-    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(0, 1, constant::big_number)));
+    FAST_CHECK_EQ(tdu->value()[0], 0);
+    FAST_CHECK_EQ(tdu->value()[1], 1);
+    FAST_CHECK_EQ(tdu->value()[2], constant::big_number);
   }
 
 
   //test dynamics
   double big = 1000;
-  task_dynamics::VelocityDamper td2(dt, di, ds, xsi, big);
+  task_dynamics::VelocityDamper td2(dt, false, di, ds, xsi, big);
   {
     x << 1, 2, 4;
     dx << 1, 1, 1;
@@ -176,4 +181,78 @@ TEST_CASE("Test Velocity Damper")
     FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(10, 20, 1000)));
   }
 
+}
+
+TEST_CASE("Test automatic xsi")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  auto f = std::make_shared<function::IdentityFunction>(x);
+
+  double di = 3;
+  double ds = 1;
+  double xsi = 1;
+  double dt = 0.1;
+
+  //test kinematics
+  double big = 100;
+  task_dynamics::VelocityDamper td1(true, di, ds, xsi, big);
+  {
+    x << 5, 4, 2;
+    dx << -0.5, -0.5, -0.5;
+    TaskDynamicsPtr tdl = td1.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
+
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdl, Value);
+
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-big, -big, -1)));
+
+    x << 4.5, 3.5, 1.5;
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-big, -big, -0.5)));
+
+    x << 4, 3, 1;
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-big, -1.5, 0)));
+
+    //we check that two consecutive updates with the same variable values give the same results.
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-big, -1.5, 0)));
+
+    dx << -0.5, -0.5, 0;
+    x << 3.5, 2.5, 1;
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-big, -1.125, 0)));
+
+    x << 3, 2, 1;
+    gl->execute();
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-1.5, -0.75, 0)));
+
+    x << -5, -4, -2;
+    dx << 0.5, 0.5, 0.5;
+    TaskDynamicsPtr tdu = td1.impl(f, constraint::Type::LOWER_THAN, Vector3d::Zero());
+
+    auto gu = utils::generateUpdateGraph(tdu, Value);
+
+    gu->execute();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(big, big, 1)));
+
+    x << -4.5, -3.5, -1.5;
+    gu->execute();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(big, big, 0.5)));
+
+    x << -4, -3, -1;
+    gu->execute();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(big, 1.5, 0)));
+
+    dx << 0.5, 0.5, 0;
+    x << -3.5, -2.5, -1;
+    gu->execute();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(big, 1.125, 0)));
+
+    x << -3, -2, -1;
+    gu->execute();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(1.5, 0.75, 0)));
+  }
 }
