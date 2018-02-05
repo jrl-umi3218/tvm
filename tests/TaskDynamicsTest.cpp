@@ -120,15 +120,15 @@ TEST_CASE("Test Velocity Damper")
   double dt = 0.1;
 
   //test validity
-  CHECK_THROWS(task_dynamics::VelocityDamper(false, 0.5, ds, xsi));
-  CHECK_THROWS(task_dynamics::VelocityDamper(dt, false, 0.5, ds, xsi, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(false, di, ds, -1));
-  CHECK_THROWS(task_dynamics::VelocityDamper(dt, false, di, ds, -1, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(0, false, di, ds, xsi, 1000));
-  CHECK_THROWS(task_dynamics::VelocityDamper(-0.1, false, di, ds, xsi, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper({ 0.5, ds, xsi }));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, { 0.5, ds, xsi }, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper({ di, ds, -1 }));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, { di, ds, -1 }, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(0, { di, ds, xsi }, 1000));
+  CHECK_THROWS(task_dynamics::VelocityDamper(-0.1, { di, ds, xsi }, 1000));
 
   //test kinematics
-  task_dynamics::VelocityDamper td1(false, di, ds, xsi);
+  task_dynamics::VelocityDamper td1({ di, ds, xsi });
   {
     x << 1, 2, 4;
     auto tdl = td1.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
@@ -156,7 +156,7 @@ TEST_CASE("Test Velocity Damper")
 
   //test dynamics
   double big = 1000;
-  task_dynamics::VelocityDamper td2(dt, false, di, ds, xsi, big);
+  task_dynamics::VelocityDamper td2(dt, { di, ds, xsi }, big);
   {
     x << 1, 2, 4;
     dx << 1, 1, 1;
@@ -191,12 +191,12 @@ TEST_CASE("Test automatic xsi")
 
   double di = 3;
   double ds = 1;
-  double xsi = 1;
+  double xsiOff = 1;
   double dt = 0.1;
 
   //test kinematics
   double big = 100;
-  task_dynamics::VelocityDamper td1(true, di, ds, xsi, big);
+  task_dynamics::VelocityDamper td1({ di, ds, 0, xsiOff }, big);
   {
     x << 5, 4, 2;
     dx << -0.5, -0.5, -0.5;

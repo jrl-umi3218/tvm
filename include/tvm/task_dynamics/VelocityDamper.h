@@ -25,6 +25,32 @@ namespace tvm
 
   namespace task_dynamics
   {
+    /** A structure grouping the parameters of a velocity damper.
+      * \sa VelocityDamper.
+      */
+    class TVM_DLLAPI VelocityDamperConfig
+    {
+    public:
+      /**
+        * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
+        * \param ds safety distance \f$d_s\f$.
+        * \param xsi damping parameter \f$\xi \f$. If xsi = 0, the value will
+        * be computed automatically, otherwise, we need \f$\xi > 0\f$.
+        * In automatic mode, the value is recomputed each time the error value
+        * is at a distance to its bound lower or equal to \p \di with the 
+        * formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k + 
+        * \xi_{\mathrm{off}} \f$.
+        * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
+        * computation of \f$\xi\f$. Used only in the case xsi=0.
+        */
+      VelocityDamperConfig(double di, double ds, double xsi, double xsiOff=0);
+
+      double di_;
+      double ds_;
+      double xsi_;
+      double xsiOff_;
+    };
+
     /** A first or second order dynamic task implementing the so-called velocity
       * damper of Faverjon and Tournassoud.
       * For a lower bound tasks e>=0, we have, for e<=di:
@@ -83,33 +109,24 @@ namespace tvm
       };
 
       /** \bried Velocity damper for first order dynamics.
-        * For parameters, see VelocityDamper::VelocityDamper(double, bool, double, double, double, double)
+        * \param config configuration of the damper. \sa VelocityDamperConfig
+        * \param big value used as infinity.
         * \attention When \p autoXsi is \p true, the value update will declare a
         * dependency to the \p Velocity of the error function. It is the user
         * responsibility to ensure the velocity is correctly provided (in
         * particular, this might require the value of the variables first
         * derivatives to be set correctly).
         */
-      VelocityDamper(bool autoXsi, double di, double ds, double xsi, double big = constant::big_number);
+      VelocityDamper(const VelocityDamperConfig& config, double big = constant::big_number);
       
       /** \brief Velocity damper for second order dynamics.
         *
         * \param dt integration time step to integrate acceleration to velocity
         * (should be the control time step). Must be non-negative.
-        * \param autoXsi when \p false, the computation of the bound uses the
-        * value \p xsi given by the user. When \p true the value is recomputed
-        * each time the error value is at a distance to its bound lower or equal
-        * to \p \di with the formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} 
-        * \dot{d}^k + \xi_{\mathrm{off}} \f$. In this case, the user-given
-        * parameter \p xsi corresponds to \f$ \xi_{\mathrm{off}} \f$.
-        * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
-        * \param ds safety distance \f$d_s\f$.
-        * \param xsi damping parameter \f$\xi \f$. We need \f$\xi > 0\f$ if \p 
-        * autoXsi is \p false and \f$\xi \geq 0\f$ otherwise.
+        * \param config configuration of the damper. \sa VelocityDamperConfig
         * \param big value used as infinity.
-        *
         */
-      VelocityDamper(double dt, bool autoXsi, double di, double ds, double xsi, double big = constant::big_number);
+      VelocityDamper(double dt, const VelocityDamperConfig& config, double big = constant::big_number);
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

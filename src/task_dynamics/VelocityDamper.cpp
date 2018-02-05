@@ -7,20 +7,42 @@ namespace tvm
 
 namespace task_dynamics
 {
-  VelocityDamper::VelocityDamper(bool autoXsi, double di, double ds, double xsi, double big)
-    : dt_(0), xsi_(xsi), ds_(ds), di_(di), big_(big), autoXsi_(autoXsi)
+  VelocityDamperConfig::VelocityDamperConfig(double di, double ds, double xsi, double xsiOff)
+    : di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff)
   {
-    if (di <= ds)
+    if (di_ <= ds_)
     {
       throw std::runtime_error("di needs to be greater than ds");
     }
-    if (!autoXsi && xsi <= 0)
+    if (ds_ < 0)
+    {
+      throw std::runtime_error("ds should be non-negative.");
+    }
+    if (xsi_ < 0)
     {
       throw std::runtime_error("xsi should be non-negative.");
     }
-    else if (autoXsi && xsi < 0)
+    if (xsiOff_ < 0)
     {
-      throw std::runtime_error("xsi should be positive.");
+      throw std::runtime_error("xsiOff should be positive.");
+    }
+  }
+
+  VelocityDamper::VelocityDamper(const VelocityDamperConfig& config, double big)
+    : dt_(0)
+    , xsi_(0)
+    , ds_(config.ds_)
+    , di_(config.di_)
+    , big_(big)
+    , autoXsi_(config.xsi_==0)
+  {
+    if (autoXsi_)
+    {
+      xsi_ = config.xsiOff_;
+    }
+    else
+    {
+      xsi_ = config.xsi_;
     }
     if (big <= 0)
     {
@@ -28,20 +50,21 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamper::VelocityDamper(double dt, bool autoXsi, double di, double ds, double xsi, double big)
-    : dt_(dt), xsi_(xsi), ds_(ds), di_(di), big_(big), autoXsi_(autoXsi)
+  VelocityDamper::VelocityDamper(double dt, const VelocityDamperConfig& config, double big)
+    : dt_(dt)
+    , xsi_(0)
+    , ds_(config.ds_)
+    , di_(config.di_)
+    , big_(big)
+    , autoXsi_(config.xsi_ == 0)
   {
-    if (di <= ds)
+    if (autoXsi_)
     {
-      throw std::runtime_error("di needs to be greater than ds");
+      xsi_ = config.xsiOff_;
     }
-    if (!autoXsi && xsi <= 0)
+    else
     {
-      throw std::runtime_error("xsi should be non-negative.");
-    }
-    else if (autoXsi && xsi < 0)
-    {
-      throw std::runtime_error("xsi should be positive.");
+      xsi_ = config.xsi_;
     }
     if (dt <= 0)
     {
