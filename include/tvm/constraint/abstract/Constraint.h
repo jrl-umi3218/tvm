@@ -84,9 +84,9 @@ namespace abstract
     void resizeCache() override;
 
     //direct access for derived classes
-    Eigen::VectorXd& l_ref();
-    Eigen::VectorXd& u_ref();
-    Eigen::VectorXd& e_ref();
+    Eigen::VectorXd& lRef();
+    Eigen::VectorXd& uRef();
+    Eigen::VectorXd& eRef();
 
     //cache for l, u and e
     internal::RHSVectors vectors_;
@@ -112,17 +112,17 @@ namespace abstract
     return vectors_.e();
   }
 
-  inline Eigen::VectorXd& Constraint::l_ref()
+  inline Eigen::VectorXd& Constraint::lRef()
   {
     return vectors_.l();
   }
 
-  inline Eigen::VectorXd& Constraint::u_ref()
+  inline Eigen::VectorXd& Constraint::uRef()
   {
     return vectors_.u();
   }
 
-  inline Eigen::VectorXd& Constraint::e_ref()
+  inline Eigen::VectorXd& Constraint::eRef()
   {
     return vectors_.e();
   }

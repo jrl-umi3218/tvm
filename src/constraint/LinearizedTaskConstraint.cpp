@@ -131,42 +131,42 @@ namespace internal
 
   void LinearizedTaskConstraint::updateLKin()
   {
-    l_ref() = td_->value();
+    lRef() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateLDyn()
   {
-    l_ref() = td_->value() - f_->normalAcceleration();
+    lRef() = td_->value() - f_->normalAcceleration();
   }
 
   void LinearizedTaskConstraint::updateUKin()
   {
-    u_ref() = td_->value();
+    uRef() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateUDyn()
   {
-    u_ref() = td_->value() - f_->normalAcceleration();
+    uRef() = td_->value() - f_->normalAcceleration();
   }
 
   void LinearizedTaskConstraint::updateEKin()
   {
-    e_ref() = td_->value();
+    eRef() = td_->value();
   }
 
   void LinearizedTaskConstraint::updateEDyn()
   {
-    e_ref() = td_->value() - f_->normalAcceleration();
+    eRef() = td_->value() - f_->normalAcceleration();
   }
 
   void LinearizedTaskConstraint::updateU2Kin()
   {
-    u_ref() = td2_->value();
+    uRef() = td2_->value();
   }
 
   void LinearizedTaskConstraint::updateU2Dyn()
   {
-    u_ref() = td2_->value() - f_->normalAcceleration();
+    uRef() = td2_->value() - f_->normalAcceleration();
   }
 
   const tvm::internal::MatrixWithProperties& LinearizedTaskConstraint::jacobian(const Variable& x) const
