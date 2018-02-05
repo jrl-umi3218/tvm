@@ -5,7 +5,7 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
-#include <tvm/utils/FunctionCheck.h>
+#include <tvm/utils/checkFunction.h>
 #include <tvm/utils/graph.h>
 #include <tvm/utils/ProtoTask.h>
 #include <tvm/utils/UpdatelessFunction.h>

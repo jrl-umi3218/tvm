@@ -47,7 +47,7 @@ set(TVM_SOURCES
   task_dynamics/VelocityDamper.cpp
   
   utils/UpdatelessFunction.cpp
-  utils/FunctionCheck.cpp
+  utils/checkFunction.cpp
 )
 
 set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
@@ -127,7 +127,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
   ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
   
-  ${TVM_INCLUDE_DIR}/utils/FunctionCheck.h
+  ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h

@@ -1,4 +1,4 @@
-#include <tvm/utils/FunctionCheck.h>
+#include <tvm/utils/checkFunction.h>
 
 #include <tvm/Variable.h>
 #include <tvm/utils/UpdatelessFunction.h>
