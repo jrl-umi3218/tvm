@@ -1,4 +1,4 @@
-#include <tvm/utils/FunctionCheck.h>
+#include <tvm/utils/checkFunction.h>
 
 #include <tvm/Variable.h>
 #include <tvm/utils/UpdatelessFunction.h>
@@ -202,6 +202,15 @@ namespace utils
       }
       return false;
     }
+  }
+
+  bool TVM_DLLAPI checkFunction(FunctionPtr f, CheckOptions opt)
+  {
+    // Call the functions in order: checkVelocity will only be called if checkj\Jacobian
+    // passes, which is good as checkVelocity relies on having correct jacobian matrices.
+    // Likewise checkNormalAcceleration relies on having correct jacobian matrices and
+    // velocities.
+    return checkJacobian(f,opt) && checkVelocity(f,opt) && checkNormalAcceleration(f, opt);
   }
 }
 
