@@ -161,6 +161,62 @@ namespace utils
     }
   }
 
+  void UpdatelessFunction::assign(const Eigen::VectorXd & val) const
+  {
+    const auto& x = f_->variables();
+
+    auto s = x[0]->size();
+    for (size_t i = 1; i < x.size(); ++i)
+    {
+      s += x[i]->size();
+    }
+    if (val.size() != s)
+    {
+      throw std::runtime_error("The length of the concatenated vector does not correspond to the total length of the variables.");
+    }
+
+    s = 0;
+    for (size_t i = 0; i < x.size(); ++i)
+    {
+      auto ni = x[i]->size();
+      x[i]->value(val.segment(s, ni));
+      s += ni;
+    }
+  }
+
+  void UpdatelessFunction::assign(const Eigen::VectorXd & val, const Eigen::VectorXd & vel) const
+  {
+    const auto& x = f_->variables();
+
+    auto sp = x[0]->size();
+    auto sd = dx_[0]->size();
+    for (size_t i = 1; i < x.size(); ++i)
+    {
+      sp += x[i]->size();
+      sd += dx_[i]->size();
+    }
+    if (val.size() != sp)
+    {
+      throw std::runtime_error("The length of the concatenated value vector does not correspond to the total length of the variables.");
+    }
+    if (vel.size() != sd)
+    {
+      throw std::runtime_error("The length of the concatenated vector velocity does not correspond to the total length of the variables derivatives.");
+    }
+
+    sp = 0;
+    sd = 0;
+    for (size_t i = 0; i < x.size(); ++i)
+    {
+      auto spi = x[i]->size();
+      auto sdi = dx_[i]->size();
+      x[i]->value(val.segment(sp, spi));
+      dx_[i]->value(vel.segment(sd, sdi));
+      sp += spi;
+      sd += sdi;
+    }
+  }
+
   void UpdatelessFunction::parseValues_(int i, const Eigen::VectorXd & v) const
   {
     const auto& x = f_->variables();
@@ -172,9 +228,16 @@ namespace utils
     {
       if (i < static_cast<int>(x.size()))
       {
-        std::stringstream s;
-        s << "Too few values provided (got " << i << ", expected " << x.size() << ")." << std::endl;
-        throw std::runtime_error(s.str());
+        if (i == 0) //case of concatenated values and velocities
+        {
+          assign(v);
+        }
+        else
+        {
+          std::stringstream s;
+          s << "Too few values provided (got " << i << ", expected " << x.size() << ")." << std::endl;
+          throw std::runtime_error(s.str());
+        }
       }
       else
       {
@@ -212,9 +275,16 @@ namespace utils
     {
       if (i < static_cast<int>(x.size()))
       {
-        std::stringstream s;
-        s << "Too few values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
-        throw std::runtime_error(s.str());
+        if (i == 0) //case of concatenated values and velocities
+        {
+          assign(val, vel);
+        }
+        else
+        {
+          std::stringstream s;
+          s << "Too few values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
+          throw std::runtime_error(s.str());
+        }
       }
       else
       {

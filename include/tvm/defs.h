@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include <memory>
 
 #include <Eigen/Core>
@@ -58,7 +59,41 @@ namespace tvm
   //constants
   namespace constant
   {
-    static constexpr double big_number = std::numeric_limits<double>::max() / 2;
+    namespace internal
+    {
+      /** Constexpr integer power base^exp
+        * Adapted from https://stackoverflow.com/a/17728525
+        */
+      template <typename T>
+      constexpr T pow(T base, unsigned int exp, T result = 1) 
+      {
+        return exp <= 1 ? (exp==0?1:result*base) : pow(base*base, exp / 2, (exp % 2) ? result*base : result);
+      }
+
+      /* Constexpr version of the square root of x
+       * curr is the initial guess for the square root
+       * Adapted from https://gist.github.com/alexshtf/eb5128b3e3e143187794
+       */
+      constexpr double sqrtNewtonRaphson(double x, double curr, double prev = 0)
+      {
+        return curr == prev ? curr : sqrtNewtonRaphson(x, 0.5 * (curr + x / curr), curr);
+      }
+      
+      /** \internal We compute the square root of std::numeric_limits<double>::max()
+        * We start with an approximation 2^{max_exponent/2}
+        */
+      static constexpr double sqrtGuess = pow(2., std::numeric_limits<double>::max_exponent / 2);
+      static constexpr double sqrtOfMax = sqrtNewtonRaphson(std::numeric_limits<double>::max(), sqrtGuess, 0);
+    }
+
+    /** We take as a default big number sqrt(std::numeric_limits<double>::max())/2 */
+    static constexpr double big_number = internal::sqrtOfMax/2;
+    //assert that the big_number value is correct (no std::abs here because it is not constexpr)
+    static_assert(-(big_number * big_number - std::numeric_limits<double>::max() / 4) 
+                   < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max()
+                && (big_number * big_number - std::numeric_limits<double>::max() / 4)
+                   < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
+                  "big_number was not computed at compile time or its value was not correct");
   };
 
 }  // namespace tvm

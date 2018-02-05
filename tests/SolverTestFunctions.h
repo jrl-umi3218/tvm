@@ -67,3 +67,33 @@ private:
   FunctionPtr f_;
   FunctionPtr g_;
 };
+
+
+/** A brken f(x) = (x-x0)^2 - r^2
+  *
+  */
+class BrokenSphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
+{
+public:
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
+  SET_UPDATES(BrokenSphereFunction, Value, Jacobian, VelocityAndAcc);
+
+  BrokenSphereFunction(VariablePtr x, const VectorXd& x0, double radius);
+
+  void breakJacobian(bool b);
+  void breakVelocity(bool b);
+  void breakNormalAcceleration(bool b);
+
+  void updateValue();
+  void updateJacobian();
+  void updateVelocityAndNormalAcc();
+
+private:
+  int dimension_;
+  double radius2_;
+  VectorXd x0_;
+  bool breakJacobian_;
+  bool breakVelocity_;
+  bool breakNormalAcceleration_;
+
+};

@@ -54,6 +54,11 @@ namespace tvm
     return space_;
   }
 
+  bool Variable::isEuclidean() const
+  {
+    return space_.isEuclidean() || !isBasePrimitive();
+  }
+
   const Eigen::VectorXd & Variable::value() const
   {
     return value_;

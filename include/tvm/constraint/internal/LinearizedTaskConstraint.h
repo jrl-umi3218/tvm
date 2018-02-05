@@ -162,9 +162,12 @@ namespace internal
   public:
     SET_UPDATES(LinearizedTaskConstraint, UpdateRHS, UpdateRHS2)
 
+    /** Constructor from a task*/
     LinearizedTaskConstraint(const Task& task);
+
+    /** Constructor from a ProtoTask and a TaskDynamics*/
     template<constraint::Type T>
-    LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td);
+    LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, const task_dynamics::abstract::TaskDynamics& td);
 
     void updateLKin();
     void updateLDyn();
@@ -185,7 +188,7 @@ namespace internal
 
 
   template<constraint::Type T>
-  LinearizedTaskConstraint::LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, TaskDynamicsPtr td)
+  LinearizedTaskConstraint::LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, const task_dynamics::abstract::TaskDynamics& td)
     : LinearizedTaskConstraint(Task(pt, td))
   {
   }

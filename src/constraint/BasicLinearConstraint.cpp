@@ -110,9 +110,9 @@ namespace constraint
       {
         switch (type())
         {
-        case Type::EQUAL: e() = b; break;
-        case Type::GREATER_THAN: l() = b; break;
-        case Type::LOWER_THAN: u() = b; break;
+        case Type::EQUAL: eRef() = b; break;
+        case Type::GREATER_THAN: lRef() = b; break;
+        case Type::LOWER_THAN: uRef() = b; break;
         default: break;
         }
       }
@@ -129,7 +129,7 @@ namespace constraint
     {
       if (l.size() == size())
       {
-        Constraint::l() = l;
+        lRef() = l;
       }
       else
       {
@@ -148,7 +148,7 @@ namespace constraint
     {
       if (u.size() == size())
       {
-        Constraint::u() = u;
+        uRef() = u;
       }
       else
       {

@@ -76,6 +76,7 @@ namespace tvm
     int rSize() const;
     /** Size of the vector needed to represent a derivative in this space.*/
     int tSize() const;
+    /** Check if this is an Euclidean space (size==representationSize)*/
     bool isEuclidean() const;
 
     bool operator==(const Space& other) const

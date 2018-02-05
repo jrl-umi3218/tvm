@@ -16,6 +16,10 @@ namespace tvm
         , type_(t)
         , rhs_(rhs)
       {
+        if (f->size() != rhs.size())
+        {
+          throw std::runtime_error("[TaskDynamicsImpl] rhs does not have the same size as f.");
+        }
         setFunction(f);
         registerUpdates(Update::UpdateValue, &TaskDynamicsImpl::updateValue);
         addOutputDependency(Output::Value, Update::UpdateValue);

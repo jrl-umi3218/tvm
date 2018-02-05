@@ -26,7 +26,7 @@ void SphereFunction::updateValue()
 
 void SphereFunction::updateJacobian()
 {
-  jacobian_.begin()->second = 2 * variables()[0]->value().transpose();
+  jacobian_.begin()->second = 2 * (variables()[0]->value() - x0_).transpose();
 }
 
 void SphereFunction::updateVelocityAndNormalAcc()
@@ -34,7 +34,7 @@ void SphereFunction::updateVelocityAndNormalAcc()
   const auto& x = variables()[0]->value();
   const auto& v = dot(variables()[0])->value();
 
-  velocity_[0] = 2*x.dot(v);
+  velocity_[0] = 2*(x-x0_).dot(v);
   normalAcceleration_[0] = 2 * v.squaredNorm();
 }
 
@@ -246,3 +246,78 @@ void Difference::updateJDot()
     JDot_.at(v.get()) -= g_->JDot(*v);
 }
 
+BrokenSphereFunction::BrokenSphereFunction(VariablePtr x, const VectorXd & x0, double radius)
+  : graph::abstract::OutputSelector<function::abstract::Function>(1)
+  , dimension_(x->size())
+  , radius2_(radius*radius)
+  , x0_(x0)
+  , breakJacobian_(false)
+  , breakVelocity_(false)
+  , breakNormalAcceleration_(false)
+{
+  assert(x->size() == x0.size());
+
+  registerUpdates(BrokenSphereFunction::Update::Value, &BrokenSphereFunction::updateValue);
+  registerUpdates(BrokenSphereFunction::Update::Jacobian, &BrokenSphereFunction::updateJacobian);
+  registerUpdates(BrokenSphereFunction::Update::VelocityAndAcc, &BrokenSphereFunction::updateVelocityAndNormalAcc);
+  addOutputDependency<BrokenSphereFunction>(FirstOrderProvider::Output::Value, BrokenSphereFunction::Update::Value);
+  addOutputDependency<BrokenSphereFunction>(FirstOrderProvider::Output::Jacobian, BrokenSphereFunction::Update::Jacobian);
+  addOutputDependency<BrokenSphereFunction>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, BrokenSphereFunction::Update::VelocityAndAcc);
+
+  addVariable(x, false);
+}
+
+void BrokenSphereFunction::breakJacobian(bool b)
+{
+  breakJacobian_ = b;
+}
+
+void BrokenSphereFunction::breakVelocity(bool b)
+{
+  breakVelocity_ = b;
+}
+
+void BrokenSphereFunction::breakNormalAcceleration(bool b)
+{
+  breakNormalAcceleration_ = b;
+}
+
+void BrokenSphereFunction::updateValue()
+{
+  value_[0] = (variables()[0]->value() - x0_).squaredNorm() - radius2_;
+}
+
+void BrokenSphereFunction::updateJacobian()
+{
+  if (breakJacobian_)
+  {
+    jacobian_.begin()->second = -2 * (variables()[0]->value() - x0_).transpose();
+  }
+  else
+  {
+    jacobian_.begin()->second = 2 * (variables()[0]->value() - x0_).transpose();
+  }
+}
+
+void BrokenSphereFunction::updateVelocityAndNormalAcc()
+{
+  const auto& x = variables()[0]->value();
+  const auto& v = dot(variables()[0])->value();
+
+  if (breakVelocity_)
+  {
+    velocity_[0] = 2 * (x).dot(v + x0_);
+  }
+  else
+  {
+    velocity_[0] = 2 * (x - x0_).dot(v);
+  }
+  if (breakNormalAcceleration_)
+  {
+    normalAcceleration_[0] = 2 * v.dot(x0_);
+  }
+  else
+  {
+    normalAcceleration_[0] = 2 * v.squaredNorm();
+  }
+}

@@ -61,6 +61,12 @@ namespace tvm
       * derived from an other).
       */
     const Space& space() const;
+    /** Check if the variable lives in a Euclidean space.
+      * Pay attention that for a variable v, v.isEuclidean() is not necessarily
+      * equal to v.space().isEuclidean(): if v is a derivative of a variable linked
+      * to a non-Euclidean space, it lives in the tangent space which is Euclidean.
+      */
+    bool isEuclidean() const;
     /** Return the current value of the variable.*/
     const Eigen::VectorXd& value() const;
     /** Set the value of the variable.*/
@@ -114,10 +120,10 @@ namespace tvm
     template <int n>
     VariablePtr primitiveNoCheck() const;
 
-    /** name */
+    /** Name */
     std::string name_;
 
-    /** data of the space from which the variable was created */
+    /** Data of the space from which the variable was created */
     Space space_;
 
     /** Value of the variable */

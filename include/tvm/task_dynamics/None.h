@@ -26,7 +26,7 @@ namespace tvm
   namespace task_dynamics
   {
 
-    /** Compute e* = -f(0) (Geometric order). For linear functions only. */
+    /** Compute e* = -f(0) + rhs (Geometric order). For linear functions only. */
     class TVM_DLLAPI None : public abstract::TaskDynamics
     {
     public:
