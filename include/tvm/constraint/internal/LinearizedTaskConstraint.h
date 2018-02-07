@@ -36,8 +36,9 @@ namespace internal
     * error function, op is ==, >= or <= and \f$e^*\f$ is a desired error dynamics. 
     * k is specified by \f$e^*\f$ and (optional) g is any other quantities.
     *
-    * EQUAL (E) \ GREATER_THAN (L) \ LOWER_THAN (U) cases with dynamic-specific (k=2)
-    * dependencies dotted.
+    * EQUAL (E) \ GREATER_THAN (L) \ LOWER_THAN (U) cases. Dotted dependencies
+    * correspond by default to the second order dynamics case (k=2), unless
+    * specified otherwise by the task dynamics used.
     * \dot
     * digraph "update graph" {
     *   rankdir="LR";
@@ -89,7 +90,9 @@ namespace internal
     * }
     * \enddot
     *
-    * DOUBLE_SIDED case with dynamic-specific (k=2) dependencies dotted.
+    * DOUBLE_SIDED case. Dotted dependencies correspond by default to the second
+    * order dynamics case (k=2), unless specified otherwise by the task dynamics
+    * used.
     * \dot
     * digraph "update graph" {
     *   rankdir="LR";
