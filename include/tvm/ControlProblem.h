@@ -43,24 +43,6 @@ namespace tvm
 
   using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
 
-  /**
-  * \dot 
-  * digraph graphname  { 
-  * rankdir="LR";
-  * a [ label="Main page" ]; 
-  * b [ label="DOT graph" URL="@ref section_dot" ]; 
-  * c [ label="MSC sequence diagram" URL="@ref section_msc" ]; 
-  * d [ label="PlantUML diagram" URL="@ref section_plantuml" ]; 
-  * e [ label="Dia diagram" URL="@ref section_dia" ]; 
-  * f [ label="Images" URL="@ref section_images" ]; 
-  * a -> b; 
-  * a -> c; 
-  * a -> d; 
-  * a -> e; 
-  * a -> f; 
-  * } 
-  * \enddot
-  */
   class TVM_DLLAPI ControlProblem
   {
   public:
@@ -86,7 +68,7 @@ namespace tvm
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
     //std::vector.
-    //If this induce too much overhead when adding/removing a constraint, then
+    //If this induces too much overhead when adding/removing a constraint, then
     //we should consider std::set.
     std::vector<TaskWithRequirementsPtr> tr_;
 
