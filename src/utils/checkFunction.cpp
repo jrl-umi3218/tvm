@@ -23,7 +23,7 @@ namespace utils
     const double h = opt.step;
 
     UpdatelessFunction uf(f);
-    const auto& x = f->variables();
+    const auto& x = f->variables().variables();
 
     int n = 0;
     for (const auto& xi : x)
@@ -93,7 +93,7 @@ namespace utils
     }
 
     UpdatelessFunction uf(f);
-    const auto& x = f->variables();
+    const auto& x = f->variables().variables();
 
     int n = 0;
     int nd = 0;
@@ -143,7 +143,7 @@ namespace utils
     }
 
     UpdatelessFunction uf(f);
-    const auto& x = f->variables();
+    const auto& x = f->variables().variables();
 
     int n = 0;
     int nd = 0;

@@ -45,9 +45,9 @@ namespace internal
     int solverId() const;
 
     void addVariable(VariablePtr var);
-    void addVariable(const std::vector<VariablePtr>& vars);
+    void addVariable(const VariableVector& vars);
     void removeVariable(Variable* v);
-    void removeVariable(const std::vector<VariablePtr>& vars);
+    void removeVariable(const VariableVector& vars);
     const VariableVector& variables() const;
 
     /** Set the value of the variables. \a val must be in the same order as the
@@ -76,10 +76,9 @@ namespace internal
     x_.add(var, true);
   }
 
-  inline void ProblemComputationData::addVariable(const std::vector<VariablePtr>& vars)
+  inline void ProblemComputationData::addVariable(const VariableVector& vars)
   {
-    for (const auto& v : vars)
-      addVariable(v);
+    x_.add(vars, true);
   }
 
   inline void ProblemComputationData::removeVariable(Variable* v)
@@ -89,9 +88,9 @@ namespace internal
     x_.remove(*v, true);
   }
 
-  inline void ProblemComputationData::removeVariable(const std::vector<VariablePtr>& vars)
+  inline void ProblemComputationData::removeVariable(const VariableVector& vars)
   {
-    for (const auto& v : vars)
+    for (const auto& v : vars.variables())
       removeVariable(v.get());
   }
 

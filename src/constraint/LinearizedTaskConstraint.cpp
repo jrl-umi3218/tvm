@@ -63,7 +63,7 @@ namespace internal
     {
     case task_dynamics::Order::Zero:
     {
-      for (auto& v : f_->variables())
+      for (auto& v : f_->variables().variables())
       {
         if (!f_->linearIn(*v))
           throw std::runtime_error("The function is not linear in " + v->name());
@@ -74,14 +74,14 @@ namespace internal
     break;
     case task_dynamics::Order::One:
     {
-      for (auto& v : f_->variables())
+      for (auto& v : f_->variables().variables())
         addVariable(dot(v), true);
       registerUpdates(Update::UpdateRHS, kin);
     }
     break;
     case task_dynamics::Order::Two:
     {
-      for (auto& v : f_->variables())
+      for (auto& v : f_->variables().variables())
         addVariable(dot(v, 2), true);
       registerUpdates(Update::UpdateRHS, dyn);
       addInputDependency<LTC>(Update::UpdateRHS, f_, function::abstract::Function::Output::NormalAcceleration);

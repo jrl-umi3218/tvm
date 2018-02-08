@@ -180,11 +180,11 @@ Difference::Difference(FunctionPtr f, FunctionPtr g)
   processOutput(AdvancedOutput::JDot, Update::JDot, &Difference::updateJDot);
 
   //Note: if we copy this class later, we need to take care of the linearity of each variable properly
-  const auto& fvars = f->variables();
+  const auto& fvars = f->variables().variables();
   for (const auto& v : fvars)
     addVariable(v, false);
 
-  for (const auto& v : g->variables())
+  for (const auto& v : g->variables().variables())
   {
     if (std::find(fvars.begin(), fvars.end(), v) == fvars.end())
       addVariable(v, false);
@@ -214,13 +214,13 @@ void Difference::updateValue()
 
 void Difference::updateJacobian()
 {
-  for (const auto& v : g_->variables())
+  for (const auto& v : g_->variables().variables())
     jacobian_.at(v.get()).setZero();
 
-  for (const auto& v : f_->variables())
+  for (const auto& v : f_->variables().variables())
     jacobian_.at(v.get()) = f_->jacobian(*v);
 
-  for (const auto& v : g_->variables())
+  for (const auto& v : g_->variables().variables())
     jacobian_.at(v.get()) -= g_->jacobian(*v);
 }
 
@@ -236,13 +236,13 @@ void Difference::updateNormalAcceleration()
 
 void Difference::updateJDot()
 {
-  for (const auto& v : g_->variables())
+  for (const auto& v : g_->variables().variables())
     JDot_.at(v.get()).setZero();
 
-  for (const auto& v : f_->variables())
+  for (const auto& v : f_->variables().variables())
     JDot_.at(v.get()) = f_->JDot(*v);
 
-  for (const auto& v : g_->variables())
+  for (const auto& v : g_->variables().variables())
     JDot_.at(v.get()) -= g_->JDot(*v);
 }
 

@@ -46,6 +46,11 @@ namespace tvm
       add(v, mergeDuplicate);
   }
 
+  void VariableVector::add(const VariableVector& variables, bool mergeDuplicate)
+  {
+    add(variables.variables(), mergeDuplicate);
+  }
+
   void VariableVector::remove(const Variable& v, bool ignoreAbsence)
   {
     if (contains(v))

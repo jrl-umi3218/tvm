@@ -65,6 +65,8 @@ namespace tvm
     void add(VariablePtr v, bool mergeDuplicate = false);
     /** Same as add(VariablePtr, bool), but for adding a vector of variables.*/
     void add(const std::vector<VariablePtr>& variables, bool mergeDuplicate = false);
+    /** Same as add(VariablePtr, bool), but for adding a vector of variables.*/
+    void add(const VariableVector& variables, bool mergeDuplicate = false);
     /** Remove a variable from the vector.
       *
       * \param v the variable to be removed

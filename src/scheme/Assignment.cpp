@@ -112,7 +112,7 @@ namespace internal
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
       }
-      for (const auto& x : source_->variables())
+      for (const auto& x : source_->variables().variables())
       {
         Range cols = x->getMappingIn(variables);
         addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
@@ -133,7 +133,7 @@ namespace internal
         if (target_.constraintType() == constraint::Type::DOUBLE_SIDED)
         {
           //case 9
-          for (const auto& x : source_->variables())
+          for (const auto& x : source_->variables().variables())
           {
             Range cols = x->getMappingIn(variables);
             addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
@@ -144,7 +144,7 @@ namespace internal
         else
         {
           // case 7 and 8
-          for (const auto& x : source_->variables())
+          for (const auto& x : source_->variables().variables())
           {
             Range cols = x->getMappingIn(variables);
             addMatrixAssignment(x.get(), &AssignmentTarget::AFirstHalf, cols, false);
@@ -201,7 +201,7 @@ namespace internal
           break;
         }
         //Matrics for case 1 to 6
-        for (const auto& x : source_->variables())
+        for (const auto& x : source_->variables().variables())
         {
           Range cols = x->getMappingIn(variables);
           addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, flip);

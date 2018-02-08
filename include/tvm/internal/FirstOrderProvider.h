@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2017-2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -61,10 +61,10 @@ namespace internal
     SET_OUTPUTS(FirstOrderProvider, Value, Jacobian)
 
     /** Note: by default, these methods return the cached value.
-    * However, they are virtual in case the user might want to bypass the cache.
-    * This would be typically the case if he/she wants to directly return the
-    * output of another method, e.g. return the jacobian of an other Function.
-    */
+      * However, they are virtual in case the user might want to bypass the cache.
+      * This would be typically the case if he/she wants to directly return the
+      * output of another method, e.g. return the jacobian of an other Function.
+      */
     virtual const Eigen::VectorXd& value() const;
     virtual const MatrixWithProperties& jacobian(const Variable& x) const;
 
@@ -75,7 +75,7 @@ namespace internal
     int size() const;
 
     /** Return the variables*/
-    const std::vector<VariablePtr>& variables() const;
+    const VariableVector& variables() const;
 
   protected:
     /** Constructor
@@ -157,9 +157,9 @@ namespace internal
     return m_;
   }
 
-  inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
+  inline const VariableVector& FirstOrderProvider::variables() const
   {
-    return variables_.variables();
+    return variables_;
   }
 
 }  // namespace internal

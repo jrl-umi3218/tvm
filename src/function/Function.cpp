@@ -43,7 +43,7 @@ namespace abstract
   {
     if (isOutputEnabled((int)Output::JDot))
     {
-      for (auto v : variables())
+      for (auto v : variables().variables())
         JDot_[v.get()].resize(size(), v->space().tSize());
     }
   }
