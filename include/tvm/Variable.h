@@ -49,6 +49,22 @@ namespace tvm
   class TVM_DLLAPI Variable : public std::enable_shared_from_this<Variable>
   {
   public:
+    /** Copying variables is illicit. To get a different variable with the same
+      * caracteristics, see \ref duplicate.
+      */
+    Variable(const Variable&) = delete;
+    /** Copying variables is illicit. To get a different variable with the same
+      * caracteristics, see \ref duplicate.
+      */
+    Variable& operator=(const Variable&) = delete;
+    /** Create a variable based on the same space, with the same derivative
+      * number and value.
+      * \param name the name of the new variable. If the default value is kept,
+      * the a ' will be appened to the current name. If the variable being
+      * duplicated is not a base variable, the name is given to the base
+      * variable.
+      */
+    VariablePtr duplicate(const std::string& name = "") const;
     /** Return the name of the variable*/
     const std::string& name() const;
     /** Return the size of the variable, i.e. the size of the vector needed to
@@ -76,6 +92,14 @@ namespace tvm
       * derived to get to this variable.
       */
     int derivativeNumber() const;
+    /** Check if this variable is a derivative of \p v
+      * This is in a strict sense: v.isDerivativeOf(v) si false.
+      */
+    bool isDerivativeOf(const Variable& v) const;
+    /** Check if this variable is a primitive of \p v
+      * This is in a strict sense: v.isPrimitiveOf(v) si false.
+      */
+    bool isPrimitiveOf(const Variable& v) const;
     /** Return true if this variable is a base primitive (derivativeNumber() == 0),
       * false otherwise.
       */

@@ -39,6 +39,30 @@ namespace tvm
 
 
 
+  VariablePtr Variable::duplicate(const std::string& n) const
+  {
+    VariablePtr newPrimitive;
+    if (n.empty())
+    {
+      newPrimitive = space_.createVariable(basePrimitive()->name() + "'");
+    }
+    else
+    {
+      newPrimitive = space_.createVariable(n);
+    }
+    if (derivativeNumber_)
+    {
+      auto r = dot(newPrimitive, derivativeNumber_);
+      r->value(value_);
+      return r;
+    }
+    else
+    {
+      newPrimitive->value(value_);
+      return newPrimitive;
+    }
+  }
+
   const std::string & Variable::name() const
   {
     return name_;
@@ -75,6 +99,16 @@ namespace tvm
   int Variable::derivativeNumber() const
   {
     return derivativeNumber_;
+  }
+
+  bool Variable::isDerivativeOf(const Variable & v) const
+  {
+    return basePrimitive() == v.basePrimitive() && derivativeNumber_ > v.derivativeNumber();
+  }
+
+  bool Variable::isPrimitiveOf(const Variable & v) const
+  {
+    return basePrimitive() == v.basePrimitive() && derivativeNumber_ < v.derivativeNumber();
   }
 
   bool Variable::isBasePrimitive() const
