@@ -48,6 +48,11 @@ add_required_dependency(EigenQP EigenQP_d)
 #############
 add_required_dependency(RBDyn RBDyn_d)
 
+################
+# - sch-core - #
+################
+add_required_dependency(sch-core sch-core_d)
+
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll

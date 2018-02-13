@@ -32,6 +32,7 @@ set(TVM_SOURCES
 
   requirements/SolvingRequirements.cpp
 
+  robot/CollisionFunction.cpp
   robot/CoMFunction.cpp
   robot/Contact.cpp
   robot/DynamicFunction.cpp
@@ -56,6 +57,7 @@ set(TVM_SOURCES
   task_dynamics/TaskDynamicsImpl.cpp
   task_dynamics/VelocityDamper.cpp
   
+  utils/sch.cpp
   utils/UpdatelessFunction.cpp
   utils/checkFunction.cpp
 )
@@ -118,6 +120,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/internal/DynamicFunction.h
   ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
   ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CollisionFunction.h
   ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
@@ -150,6 +153,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
+  ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
@@ -178,6 +182,7 @@ assign_source_group("headers" ${TVM_HEADERS})
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
 pkg_config_use_dependency(TVM RBDyn)
+pkg_config_use_dependency(TVM sch-core)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
 if(GENERATE_COVERAGE)

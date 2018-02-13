@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2017-2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -69,6 +69,9 @@ namespace robot
 
     /** Access the robot to which this frame belongs */
     inline const Robot & robot() const { return *robot_; }
+
+    /** Access the robot's pointer */
+    inline RobotPtr robotPtr() { return robot_; }
 
     /** Access the internal Jacobian object to perform extra-computation */
     inline rbd::Jacobian & rbdJacobian() { return jac_; }

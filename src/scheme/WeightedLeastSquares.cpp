@@ -41,7 +41,10 @@ namespace scheme
     {
       std::cout << memory.ls.inform() << std::endl;
       memory.ls.print_inform();
-      std::cout << memory.ls.result().transpose() << std::endl;
+      if(verbose_)
+      {
+        std::cout << memory.ls.result().transpose() << std::endl;
+      }
     }
     return b;
   }
