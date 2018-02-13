@@ -41,6 +41,11 @@ namespace robot
      *
      * \param dt Timestep
      *
+     */
+    CollisionFunction(double dt);
+
+    /** Add a collision
+     *
      * \param f1 Frame of the first object
      *
      * \param o1 sch object representing the first object
@@ -54,9 +59,12 @@ namespace robot
      * \param X_f2_o2 \p o2 position will be set at each iteration to \f$ {}^{o2}X_{f2} f2.position() \f$
      *
      */
-    CollisionFunction(double dt,
+    void addCollision(
       FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
       FramePtr f2, std::shared_ptr<sch::S_Object> o2, const sva::PTransformd & X_f2_o2);
+
+    /** Remove all collisions */
+    void reset();
   protected:
     /* Update functions */
     void updateValue();
@@ -66,26 +74,33 @@ namespace robot
 
     double dt_;
 
-    struct ObjectData
+    struct CollisionData
     {
-      FramePtr f_;
-      sch::S_Object * o_;
-      sva::PTransformd X_f_o_;
-      Eigen::Vector3d nearestPoint_; // In body coordinates
-      rbd::Jacobian jac_;
+      struct ObjectData
+      {
+        FramePtr f_;
+        sch::S_Object * o_;
+        sva::PTransformd X_f_o_;
+        Eigen::Vector3d nearestPoint_; // In body coordinates
+        rbd::Jacobian jac_;
+      };
+      std::vector<ObjectData> objects_;
+      std::shared_ptr<sch::S_Object> o1_;
+      std::shared_ptr<sch::S_Object> o2_;
+      std::unique_ptr<sch::CD_Pair> pair_;
+      Eigen::Vector3d normVecDist_;
+      Eigen::Vector3d prevNormVecDist_ = Eigen::Vector3d::Zero();
+
+      CollisionData() {}
+
+      CollisionData(CollisionFunction & fn,
+        FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
+        FramePtr f2, std::shared_ptr<sch::S_Object> o2, const sva::PTransformd & X_f2_o2);
     };
-
-    std::vector<ObjectData> objects_;
-
-    /* Collision data */
-    std::shared_ptr<sch::S_Object> o1_;
-    std::shared_ptr<sch::S_Object> o2_;
-    std::unique_ptr<sch::CD_Pair> pair_;
-    Eigen::Vector3d normVecDist_;
-    Eigen::Vector3d prevNormVecDist_ = Eigen::Vector3d::Zero();
-    Eigen::Vector3d closestPoints_[2];
+    std::vector<CollisionData> colls_;
 
     /** Intermediate computation */
+    Eigen::Vector3d closestPoints_[2];
     Eigen::MatrixXd fullJac_;
     Eigen::MatrixXd distJac_;
   };

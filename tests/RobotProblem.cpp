@@ -34,12 +34,16 @@ static std::string hrp2_path = HRP2_DRC_DESCRIPTION_PATH;
 static std::string env_path = MC_ENV_DESCRIPTION_PATH;
 static std::string hrp2_urdf = hrp2_path + "/urdf/hrp2drc.urdf";
 static std::string ground_urdf = env_path + "/urdf/ground.urdf";
-static std::string hrp2_r_wrist_convex = hrp2_path + "/convex/hrp2_drc/RARM_LINK6-ch.txt";
-static std::string hrp2_chest_convex = hrp2_path + "/convex/hrp2_drc/CHEST_LINK1-ch.txt";
+static std::string hrp2_convex_path = hrp2_path + "/convex/hrp2_drc/";
+
+std::shared_ptr<sch::S_Polyhedron> loadConvex(const std::string & body)
+{
+  return tvm::utils::Polyhedron(hrp2_convex_path + body + "-ch.txt");
+}
 
 TEST_CASE("Test a problem with a robot")
 {
-  size_t iter = 10000;
+  size_t iter = 1000;
   double dt = 0.005;
   auto load_robot = [](const std::string & name, const std::string & path, bool fixed,
                        const std::vector<std::string> & filteredLinks,
@@ -127,6 +131,16 @@ TEST_CASE("Test a problem with a robot")
                                                         "CHEST_LINK1",
                                                         sva::PTransformd::Identity());
 
+  auto hrp2_relbow = std::make_shared<tvm::robot::Frame>("RightElbow",
+                                                         hrp2,
+                                                         "RARM_LINK3",
+                                                         sva::PTransformd::Identity());
+
+  auto hrp2_body = std::make_shared<tvm::robot::Frame>("Body",
+                                                       hrp2,
+                                                       "BODY",
+                                                       sva::PTransformd::Identity());
+
   auto contact_lf_ground = std::make_shared<tvm::robot::Contact>
     (hrp2_lf, ground_f, std::vector<sva::PTransformd>{
         {Eigen::Vector3d(0.1093074306845665, -0.06831501424312592, 0.)},
@@ -163,9 +177,11 @@ TEST_CASE("Test a problem with a robot")
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 
-  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(dt,
-                                                                      hrp2_rh, tvm::utils::Polyhedron(hrp2_r_wrist_convex), sva::PTransformd::Identity(),
-                                                                      hrp2_chest, tvm::utils::Polyhedron(hrp2_chest_convex), sva::PTransformd::Identity());
+  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(dt);
+  collision_fn->addCollision(hrp2_rh, loadConvex(hrp2_rh->body()), sva::PTransformd::Identity(),
+                             hrp2_chest, loadConvex(hrp2_chest->body()), sva::PTransformd::Identity());
+  collision_fn->addCollision(hrp2_relbow, loadConvex(hrp2_relbow->body()), sva::PTransformd::Identity(),
+                             hrp2_body, loadConvex(hrp2_body->body()), sva::PTransformd::Identity());
 
   tvm::ControlProblem pb;
 
@@ -179,7 +195,7 @@ TEST_CASE("Test a problem with a robot")
   pb.add(ori_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
   pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1000.)});
 
-  pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.1, 0.05, 0.25, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
+  pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.1, 0.055, 5.0, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
 
   /* Bounds */
   Eigen::VectorXd lq(hrp2->mb().nrParams());
@@ -256,7 +272,7 @@ TEST_CASE("Test a problem with a robot")
     CHECK(error_lf < 1e-4);
     auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
     CHECK(error_rf < 1e-4);
-    CHECK(collision_fn->value()(0) > 0.05);
+    CHECK(collision_fn->value()(0) >= 0.05);
     ofs << i
         << " " << pos_fn->position().x() << " " << hrp2_lh->position().translation().x()
         << " " << pos_fn->position().y() << " " << hrp2_lh->position().translation().y()
