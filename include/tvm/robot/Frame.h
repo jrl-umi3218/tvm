@@ -86,6 +86,8 @@ namespace robot
     inline const sva::MotionVecd & velocity() const { return velocity_; }
     /** The frame's normal acceleration in world coordinates */
     inline const sva::MotionVecd & normalAcceleration() const { return normalAcceleration_; }
+    /** Returns the frame's parent body */
+    const std::string & body() const;
   private:
     std::string name_;
     RobotPtr robot_;
