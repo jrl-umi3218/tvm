@@ -95,7 +95,7 @@ void CollisionFunction::updateJacobian()
     const auto & r = o.f_->robot();
     const Eigen::MatrixXd & jac = o.jac_.jacobian(r.mb(), r.mbc());
     distJac_.block(0, 0, 1, o.jac_.dof()).noalias() =
-      (sign * dt_ * normVecDist_).transpose() * jac.block(3, 0, 3, o.jac_.dof());
+      (sign *  normVecDist_).transpose() * jac.block(3, 0, 3, o.jac_.dof());
     o.jac_.fullJacobian(r.mb(),
                         distJac_.block(0, 0, 1, o.jac_.dof()),
                         fullJac_);
@@ -108,28 +108,29 @@ void CollisionFunction::updateJacobian()
 
 void CollisionFunction::updateVelocity()
 {
-  Eigen::Vector3d speedVec = (normVecDist_ - prevNormVecDist_) / dt_;
-  prevNormVecDist_ = normVecDist_;
   velocity_(0) = 0.;
   double sign = 1.;
   for(auto & o : objects_)
   {
     const auto & r = o.f_->robot();
     Eigen::Vector3d pSpeed = o.jac_.velocity(r.mb(), r.mbc()).linear();
-    velocity_(0) += sign * ( pSpeed.dot(normVecDist_) + pSpeed.dot(speedVec*dt_) );
+    velocity_(0) += sign * pSpeed.dot(normVecDist_);
     sign *= -1.;
   }
 }
 
 void CollisionFunction::updateNormalAcceleration()
 {
+  Eigen::Vector3d speedVec = (normVecDist_ - prevNormVecDist_) / dt_;
+  prevNormVecDist_ = normVecDist_;
   normalAcceleration_(0) = 0.;
   double sign = 1.;
   for(auto & o : objects_)
   {
     const auto & r = o.f_->robot();
     Eigen::Vector3d pNormalAcc = o.jac_.normalAcceleration(r.mb(), r.mbc(), r.normalAccB()).linear();
-    normalAcceleration_(0) += sign * ( pNormalAcc.dot(normVecDist_*dt_) );
+    Eigen::Vector3d pSpeed = o.jac_.velocity(r.mb(), r.mbc()).linear();
+    normalAcceleration_(0) += sign * ( pNormalAcc.dot(normVecDist_) + pSpeed.dot(speedVec) );
     sign *= -1.;
   }
 }
