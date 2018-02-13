@@ -82,6 +82,12 @@ namespace internal
     }
   }
 
+  void FirstOrderProvider::resize(int m)
+  {
+    m_ = m;
+    resizeCache();
+  }
+
 }  // namespace internal
 
 }  // namespace tvm

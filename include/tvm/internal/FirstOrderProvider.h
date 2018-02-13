@@ -144,8 +144,10 @@ namespace internal
     // cache
     Eigen::VectorXd value_;
     std::map<Variable const*, MatrixWithProperties> jacobian_;
+  protected:
+    /** Resize the function */
+    void resize(int m);
 
-  private:
     int m_; //output size
     VariableVector variables_;
     std::map<Variable const*, bool> linear_;
