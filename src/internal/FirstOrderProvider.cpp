@@ -37,12 +37,13 @@ namespace internal
 
   void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
   {
-    variables_.add(v);
+    if(variables_.add(v))
+    {
+      jacobian_[v.get()].resize(m_, v->space().tSize());
+      linear_[v.get()] = linear;
 
-    jacobian_[v.get()].resize(m_, v->space().tSize());
-    linear_[v.get()] = linear;
-
-    addVariable_(v);
+      addVariable_(v);
+    }
   }
 
   void FirstOrderProvider::addVariable(const VariableVector & vv, bool linear)

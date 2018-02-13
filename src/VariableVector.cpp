@@ -15,7 +15,10 @@ namespace tvm
   VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
     : VariableVector()
   {
-    add(variables);
+    for(auto v : variables)
+    {
+      add(v);
+    }
   }
 
   VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
@@ -25,42 +28,31 @@ namespace tvm
       add(v);
   }
 
-  void VariableVector::add(VariablePtr v, bool mergeDuplicate)
+  bool VariableVector::add(VariablePtr v)
   {
     if (contains(*v.get()))
     {
-      if (mergeDuplicate)
-        return;
-      else
-        throw std::runtime_error("Attempting to add a variable already present.");
+      return false;
     }
     variables_.push_back(v);
     variableSet_.insert(v.get());
     size_ += v->size();
     getNewStamp();
+    return true;
   }
 
-  void VariableVector::add(const std::vector<VariablePtr>& variables, bool mergeDuplicate)
+  bool VariableVector::remove(const Variable& v)
   {
-    for (auto& v : variables)
-      add(v, mergeDuplicate);
-  }
-
-  void VariableVector::remove(const Variable& v, bool ignoreAbsence)
-  {
-    if (contains(v))
+    if (!contains(v))
     {
-      auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
-      variables_.erase(it);
-      variableSet_.erase(&v);
-      size_ -= v.size();
-      getNewStamp();
+      return false;
     }
-    else
-    {
-      if (!ignoreAbsence)
-        throw std::runtime_error("Attempting to remove a variable that is not present.");
-    }
+    auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
+    variables_.erase(it);
+    variableSet_.erase(&v);
+    size_ -= v.size();
+    getNewStamp();
+    return true;
   }
 
   int VariableVector::size() const
