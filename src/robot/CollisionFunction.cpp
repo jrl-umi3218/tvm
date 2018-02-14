@@ -49,10 +49,15 @@ void CollisionFunction::addCollision(
   distJac_.resize(1, maxDof);
 }
 
+CollisionFunction::CollisionData::CollisionData()
+: pair_(nullptr, nullptr)
+{
+}
+
 CollisionFunction::CollisionData::CollisionData(CollisionFunction & fn,
   FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
   FramePtr f2, std::shared_ptr<sch::S_Object> o2, const sva::PTransformd & X_f2_o2)
-: o1_(o1), o2_(o2), pair_(new sch::CD_Pair(o1.get(), o2.get()))
+: o1_(o1), o2_(o2), pair_(o1.get(), o2.get())
 {
   const auto & r1 = f1->robot();
   const auto & r2 = f2->robot();
@@ -88,7 +93,7 @@ void CollisionFunction::updateValue()
       tvm::utils::transform(*o.o_, o.X_f_o_ * o.f_->position());
     }
 
-    double dist = tvm::utils::distance(*col.pair_, closestPoints_[0], closestPoints_[1]);
+    double dist = tvm::utils::distance(col.pair_, closestPoints_[0], closestPoints_[1]);
     dist = dist >= 0 ? std::sqrt(dist) : -std::sqrt(-dist);
     col.normVecDist_ = (closestPoints_[0] - closestPoints_[1]) / dist;
 

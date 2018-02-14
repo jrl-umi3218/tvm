@@ -87,11 +87,11 @@ namespace robot
       std::vector<ObjectData> objects_;
       std::shared_ptr<sch::S_Object> o1_;
       std::shared_ptr<sch::S_Object> o2_;
-      std::unique_ptr<sch::CD_Pair> pair_;
+      sch::CD_Pair pair_;
       Eigen::Vector3d normVecDist_;
       Eigen::Vector3d prevNormVecDist_ = Eigen::Vector3d::Zero();
 
-      CollisionData() {}
+      CollisionData();
 
       CollisionData(CollisionFunction & fn,
         FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
