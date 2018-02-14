@@ -41,7 +41,7 @@ void CollisionFunction::addCollision(ConvexHullPtr ch1, ConvexHullPtr ch2)
   }
   assert(r1Dof >= r2Dof);
   colls_.emplace_back(*this, ch1, ch2);
-  resize(colls_.size());
+  resize(static_cast<int>(colls_.size()));
   auto maxDof = std::max(fullJac_.cols(), static_cast<Eigen::DenseIndex>(r1Dof));
   fullJac_.resize(1, maxDof);
   distJac_.resize(1, maxDof);
@@ -59,14 +59,13 @@ CollisionFunction::CollisionData::CollisionData(CollisionFunction & fn,
 {
   for(size_t i = 0; i < 2; ++i)
   {
-    const auto & r = ch_[i]->frame().robot();
+    auto & r = ch_[i]->frame().robot();
     int rDof = r.mb().nrDof();
     if(rDof > 0)
     {
-      auto rPtr = ch_[i]->frame().robotPtr();
-      fn.addInputDependency<CollisionFunction>(Update::Value, ch_[i], ConvexHull::Output::Position);
-      fn.addInputDependency<CollisionFunction>(Update::Jacobian, rPtr, Robot::Output::Dynamics);
-      fn.addInputDependency<CollisionFunction>(Update::NormalAcceleration, rPtr, Robot::Output::Acceleration);
+      fn.addInputDependency<CollisionFunction>(Update::Value, *ch_[i], ConvexHull::Output::Position);
+      fn.addInputDependency<CollisionFunction>(Update::Jacobian, r, Robot::Output::Dynamics);
+      fn.addInputDependency<CollisionFunction>(Update::NormalAcceleration, r, Robot::Output::Acceleration);
       objects_.push_back({Eigen::Vector3d::Zero(), ch_[i]->frame().rbdJacobian()});
       fn.addVariable(r.q(), false);
     }

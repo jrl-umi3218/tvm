@@ -67,11 +67,11 @@ namespace robot
           const std::string & body,
           sva::PTransformd X_b_f);
 
-    /** Access the robot to which this frame belongs */
+    /** Access the robot to which this frame belongs (const) */
     inline const Robot & robot() const { return *robot_; }
 
-    /** Access the robot's pointer */
-    inline RobotPtr robotPtr() const { return robot_; }
+    /** Access the robot to which this frame belongs */
+    inline Robot & robot() { return *robot_; }
 
     /** Access the internal Jacobian object to perform extra-computation */
     inline rbd::Jacobian & rbdJacobian() { return jac_; }

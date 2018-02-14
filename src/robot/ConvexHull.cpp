@@ -41,6 +41,11 @@ const Frame & ConvexHull::frame() const
   return *f_;
 }
 
+Frame & ConvexHull::frame()
+{
+  return *f_;
+}
+
 } // namespace robot
 
 } // namespace tvm
