@@ -8,17 +8,17 @@
 
 
 #define TVM_GRAPH_LOG_ADD_INPUT(add, node, i, source) \
-  if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source.get(),i);}
+  if (add) {tvm::graph::internal::Logger::logger().addInput<T,EnumI>(node,source,i);}
 
 namespace
 {
   template<typename T>
-  inline void check_output_enabled(const std::shared_ptr<T> &) {}
+  inline void check_output_enabled(const T &) {}
 
   template<typename T, typename EnumT, typename ... Args>
-  inline void check_output_enabled(const std::shared_ptr<T> & s, EnumT o, Args ... args)
+  inline void check_output_enabled(const T & s, EnumT o, Args ... args)
   {
-    if(!s->isOutputEnabled(static_cast<int>(o)))
+    if(!s.isOutputEnabled(static_cast<int>(o)))
     {
       std::stringstream ss;
       ss << "Output " << T::OutputName(o) << " is not enabled in " << T::OutputBaseName << " (or derived)";
@@ -40,41 +40,30 @@ namespace graph
 namespace internal
 {
 
-#if 0
-template<typename T, typename ... Args>
-inline void Inputs::addInput(std::shared_ptr<T> source, Args ... args)
-{
-  static_assert(abstract::is_valid_output<T>(Args()...), "One of the outputs you requested is not part of the provided source");
-  check_output_enabled(source, args...);
-  auto it = getInput(source.get());
-  std::set<int> v { static_cast<int>(args)... };
-  if(!it)
-  {
-    inputs_[source] = std::move(v);
-  }
-  else
-  {
-    for(auto i : v)
-    {
-      it->second.insert(i);
-    }
-  }
-}
-
-#else
 template<typename T, typename EnumI, typename ... Args>
 inline void Inputs::addInput(std::shared_ptr<T> source, EnumI i, Args ... args)
 {
-  addInput(source, i);
-  addInput(source, args...);
+  addInput(*source, i, args...);
+  store_.insert(source);
+}
+
+template<typename T, typename EnumI, typename ... Args,
+    typename std::enable_if<std::is_base_of<abstract::Outputs, T>::value, int>::type>
+inline void Inputs::addInput(T & source, EnumI i, Args ... args)
+{
+  addInput(&source, i);
+  if(sizeof...(Args))
+  {
+    addInput(source, args...);
+  }
 }
 
 template<typename T, typename EnumI>
-inline void Inputs::addInput(std::shared_ptr<T> source, EnumI i)
+inline void Inputs::addInput(T * source, EnumI i)
 {
   static_assert(abstract::is_valid_output<T>(EnumI()), "The output you requested is not part of the provided source");
-  check_output_enabled(source, i);
-  auto it = getInput(source.get());
+  check_output_enabled(*source, i);
+  auto it = getInput(source);
   if (it)
   {
     auto p = it->second.insert(static_cast<int>(i));
@@ -86,7 +75,6 @@ inline void Inputs::addInput(std::shared_ptr<T> source, EnumI i)
     TVM_GRAPH_LOG_ADD_INPUT(true, this, i, source);
   }
 }
-#endif
 
 template<typename T>
 inline void Inputs::removeInput(T* source)
@@ -98,10 +86,9 @@ inline void Inputs::removeInput(T* source)
   }
   else
   {
-    inputs_.erase(it);
+    removeInput(it, source);
   }
 }
-
 
 template<typename T, typename ... Args>
 inline void Inputs::removeInput(T* source, Args ... args)
@@ -121,7 +108,9 @@ inline void Inputs::removeInput(T* source, Args ... args)
         throw std::runtime_error("You attempted to remove an input that was not there.");
     }
     if (it->second.size() == 0)
-      inputs_.erase(it);
+    {
+      removeInput(it, source);
+    }
   }
 }
 
@@ -133,7 +122,7 @@ inline Inputs::Iterator Inputs::getInput(T* source)
   return { std::find_if(inputs_.begin(), inputs_.end(),
                         [&source](const typename inputs_t::value_type & p)
                         {
-                          return p.first.get() == source;
+                          return p.first == source;
                         }),
             inputs_.end()};
 }

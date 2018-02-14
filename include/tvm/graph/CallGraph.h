@@ -55,7 +55,7 @@ protected:
   /** A call is formed by the combination of a Node and and id */
   struct Call
   {
-    std::shared_ptr<internal::AbstractNode> node;
+    internal::AbstractNode * node;
     int id;
     inline void operator()() const { node->update(id); }
   };
@@ -103,7 +103,7 @@ protected:
    *
    * \returns The list of dependencies for the given source.
    */
-  std::vector<int> addOutput(const std::shared_ptr<abstract::Outputs> & source,
+  std::vector<int> addOutput(abstract::Outputs * source,
                              int output);
 
   /** Add a Call to the graph
@@ -117,6 +117,8 @@ protected:
   /** Add an edge to the graph */
   void addEdge(int from, int to);
 
+  /** Store inputs added to the graph */
+  std::vector<std::shared_ptr<internal::Inputs>> inputs_;
   /** Call ids */
   std::map<Call, int, CompareCall> callId_;
   /** Id to Call */
