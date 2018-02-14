@@ -120,7 +120,8 @@ void solverTest01()
   Vector3d b = Vector3d::Constant(1.5);
 
   double dt = 1e-1;
-  LinearizedControlProblem lpb;
+  ControlProblem pb(dt);
+  LinearizedControlProblem lpb(pb);
   auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
@@ -143,7 +144,7 @@ void solverTest02()
   auto idx = std::make_shared<function::IdentityFunction>(x);
   auto idq = std::make_shared<function::IdentityFunction>(q);
 
-  ControlProblem pb;
+  ControlProblem pb(0.1);
   pb.add(idx >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
   pb.add(idq >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
 
@@ -168,7 +169,7 @@ void solverTest03()
   qL << -5, -5, -5;
   Eigen::VectorXd qU = -qL;
 
-  ControlProblem pb;
+  ControlProblem pb(0.1);
   pb.add(x_cstr == 0., task_dynamics::PD(1.), { requirements::PriorityLevel(0) });
   pb.add(qL <= q <= qU, task_dynamics::None(), { requirements::PriorityLevel(0) });
   pb.add(x_id == xT, task_dynamics::PD(1.), { requirements::PriorityLevel(1) });

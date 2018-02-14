@@ -44,27 +44,27 @@ namespace tvm
   using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
 
   /**
-  * \dot 
-  * digraph graphname  { 
+  * \dot
+  * digraph graphname  {
   * rankdir="LR";
-  * a [ label="Main page" ]; 
-  * b [ label="DOT graph" URL="@ref section_dot" ]; 
-  * c [ label="MSC sequence diagram" URL="@ref section_msc" ]; 
-  * d [ label="PlantUML diagram" URL="@ref section_plantuml" ]; 
-  * e [ label="Dia diagram" URL="@ref section_dia" ]; 
-  * f [ label="Images" URL="@ref section_images" ]; 
-  * a -> b; 
-  * a -> c; 
-  * a -> d; 
-  * a -> e; 
-  * a -> f; 
-  * } 
+  * a [ label="Main page" ];
+  * b [ label="DOT graph" URL="@ref section_dot" ];
+  * c [ label="MSC sequence diagram" URL="@ref section_msc" ];
+  * d [ label="PlantUML diagram" URL="@ref section_plantuml" ];
+  * e [ label="Dia diagram" URL="@ref section_dia" ];
+  * f [ label="Images" URL="@ref section_images" ];
+  * a -> b;
+  * a -> c;
+  * a -> d;
+  * a -> e;
+  * a -> f;
+  * }
   * \enddot
   */
   class TVM_DLLAPI ControlProblem
   {
   public:
-    ControlProblem() = default;
+    ControlProblem(double dt);
     /** \internal We delete these functions because they would require by
       * default a copy of the unique_ptr in the computationData_ map.
       * There is no problem in implementing them as long as there is a real
@@ -82,7 +82,12 @@ namespace tvm
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
 
+    /** Access the problem's clock (const) */
+    inline const Clock & clock() const { return clock_; }
+    /** Access the problem's clock */
+    inline Clock & clock() { return clock_; }
   private:
+    Clock clock_;
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
     //std::vector.
@@ -94,7 +99,7 @@ namespace tvm
     std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
 
     template<typename Problem, typename Scheme>
-    friend scheme::internal::ProblemComputationData& 
+    friend scheme::internal::ProblemComputationData&
       scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
 

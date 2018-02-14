@@ -190,7 +190,7 @@ TEST_CASE("Test a problem with a robot")
   collision_fn->addCollision(rhConvex, chestConvex);
   collision_fn->addCollision(relbowConvex, bodyConvex);
 
-  tvm::ControlProblem pb;
+  tvm::ControlProblem pb(dt);
 
   pb.add(lfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
   pb.add(rfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});

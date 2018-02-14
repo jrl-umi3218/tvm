@@ -17,6 +17,11 @@ namespace tvm
     return tr;
   }
 
+  ControlProblem::ControlProblem(double dt)
+  : clock_(dt)
+  {
+  }
+
   void ControlProblem::add(TaskWithRequirementsPtr tr)
   {
     tr_.push_back(tr);

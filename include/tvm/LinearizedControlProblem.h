@@ -34,7 +34,7 @@ namespace tvm
   class TVM_DLLAPI LinearizedControlProblem : public ControlProblem
   {
   public:
-    LinearizedControlProblem();
+    LinearizedControlProblem(double dt);
     LinearizedControlProblem(const ControlProblem& pb);
 
     TaskWithRequirementsPtr add(const Task& task, const requirements::SolvingRequirements& req = {});

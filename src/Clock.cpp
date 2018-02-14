@@ -1,24 +1,19 @@
 #include <tvm/Clock.h>
 
-#include <assert.h>
+#include <cassert>
 
-tvm::Clock::Clock(double initTime)
-  : t_(initTime)
+namespace tvm
 {
-}
 
-void tvm::Clock::increment(double dt)
+Clock::Clock(double dt)
+: dt_(dt)
 {
   assert(dt > 0);
-  t_ += dt;
 }
 
-void tvm::Clock::reset(double resetTime)
+void Clock::tick()
 {
-  t_ = resetTime;
+  ticks_++;
 }
 
-double tvm::Clock::currentTime() const
-{
-  return t_;
-}
+} // namespace tvm
