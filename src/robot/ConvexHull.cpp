@@ -36,6 +36,11 @@ void ConvexHull::updatePosition()
   tvm::utils::transform(*o_, X_f_o_ * f_->position());
 }
 
+const Frame & ConvexHull::frame() const
+{
+  return *f_;
+}
+
 } // namespace robot
 
 } // namespace tvm

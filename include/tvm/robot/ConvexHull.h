@@ -68,6 +68,9 @@ namespace robot
 
     /** Make a sch::CD_Pair from a second ConvexHull */
     sch::CD_Pair makePair(const ConvexHull & hull) const;
+
+    /** Access the underlying frame */
+    const Frame & frame() const;
   private:
     std::shared_ptr<sch::S_Object> o_;
     FramePtr f_;
@@ -75,6 +78,8 @@ namespace robot
 
     void updatePosition();
   };
+
+  using ConvexHullPtr = std::shared_ptr<ConvexHull>;
 
 } // namespace robot
 
