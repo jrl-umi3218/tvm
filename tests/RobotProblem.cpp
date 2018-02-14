@@ -3,6 +3,7 @@
 #include <tvm/robot/internal/DynamicFunction.h>
 #include <tvm/robot/CollisionFunction.h>
 #include <tvm/robot/CoMFunction.h>
+#include <tvm/robot/ConvexHull.h>
 #include <tvm/robot/OrientationFunction.h>
 #include <tvm/robot/PositionFunction.h>
 #include <tvm/robot/PostureFunction.h>
@@ -36,9 +37,13 @@ static std::string hrp2_urdf = hrp2_path + "/urdf/hrp2drc.urdf";
 static std::string ground_urdf = env_path + "/urdf/ground.urdf";
 static std::string hrp2_convex_path = hrp2_path + "/convex/hrp2_drc/";
 
-std::shared_ptr<sch::S_Polyhedron> loadConvex(const std::string & body)
+tvm::robot::ConvexHullPtr loadConvex(tvm::robot::FramePtr f)
 {
-  return tvm::utils::Polyhedron(hrp2_convex_path + body + "-ch.txt");
+  return std::make_shared<tvm::robot::ConvexHull>
+  (
+    hrp2_convex_path + f->body() + "-ch.txt",
+    f, sva::PTransformd::Identity()
+  );
 }
 
 TEST_CASE("Test a problem with a robot")
@@ -178,10 +183,12 @@ TEST_CASE("Test a problem with a robot")
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 
   auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(dt);
-  collision_fn->addCollision(hrp2_rh, loadConvex(hrp2_rh->body()), sva::PTransformd::Identity(),
-                             hrp2_chest, loadConvex(hrp2_chest->body()), sva::PTransformd::Identity());
-  collision_fn->addCollision(hrp2_relbow, loadConvex(hrp2_relbow->body()), sva::PTransformd::Identity(),
-                             hrp2_body, loadConvex(hrp2_body->body()), sva::PTransformd::Identity());
+  auto rhConvex = loadConvex(hrp2_rh);
+  auto chestConvex = loadConvex(hrp2_chest);
+  auto bodyConvex = loadConvex(hrp2_body);
+  auto relbowConvex = loadConvex(hrp2_relbow);
+  collision_fn->addCollision(rhConvex, chestConvex);
+  collision_fn->addCollision(relbowConvex, bodyConvex);
 
   tvm::ControlProblem pb;
 

@@ -21,9 +21,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/function/abstract/Function.h>
-#include <tvm/robot/Frame.h>
-
-#include <sch/CD/CD_Pair.h>
+#include <tvm/robot/ConvexHull.h>
 
 namespace tvm
 {
@@ -46,22 +44,12 @@ namespace robot
 
     /** Add a collision
      *
-     * \param f1 Frame of the first object
+     * \param ch1 convex hull object for the first object
      *
-     * \param o1 sch object representing the first object
-     *
-     * \param X_f1_o1 \p o1 position will be set at each iteration to \f$ {}^{o1}X_{f1} f1.position() \f$
-     *
-     * \param f2 Frame of the second object
-     *
-     * \param o2 sch object representing the second object
-     *
-     * \param X_f2_o2 \p o2 position will be set at each iteration to \f$ {}^{o2}X_{f2} f2.position() \f$
+     * \param ch2 convex hull object for the second object
      *
      */
-    void addCollision(
-      FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
-      FramePtr f2, std::shared_ptr<sch::S_Object> o2, const sva::PTransformd & X_f2_o2);
+    void addCollision(ConvexHullPtr ch1, ConvexHullPtr ch2);
 
     /** Remove all collisions */
     void reset();
@@ -78,24 +66,18 @@ namespace robot
     {
       struct ObjectData
       {
-        FramePtr f_;
-        sch::S_Object * o_;
-        sva::PTransformd X_f_o_;
         Eigen::Vector3d nearestPoint_; // In body coordinates
         rbd::Jacobian jac_;
       };
       std::vector<ObjectData> objects_;
-      std::shared_ptr<sch::S_Object> o1_;
-      std::shared_ptr<sch::S_Object> o2_;
+      ConvexHullPtr ch_[2];
       sch::CD_Pair pair_;
       Eigen::Vector3d normVecDist_;
       Eigen::Vector3d prevNormVecDist_ = Eigen::Vector3d::Zero();
 
       CollisionData();
 
-      CollisionData(CollisionFunction & fn,
-        FramePtr f1, std::shared_ptr<sch::S_Object> o1, const sva::PTransformd & X_f1_o1,
-        FramePtr f2, std::shared_ptr<sch::S_Object> o2, const sva::PTransformd & X_f2_o2);
+      CollisionData(CollisionFunction & fn, ConvexHullPtr ch1, ConvexHullPtr ch2);
     };
     std::vector<CollisionData> colls_;
 
