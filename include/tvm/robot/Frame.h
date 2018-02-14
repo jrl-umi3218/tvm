@@ -71,10 +71,13 @@ namespace robot
     inline const Robot & robot() const { return *robot_; }
 
     /** Access the robot's pointer */
-    inline RobotPtr robotPtr() { return robot_; }
+    inline RobotPtr robotPtr() const { return robot_; }
 
     /** Access the internal Jacobian object to perform extra-computation */
     inline rbd::Jacobian & rbdJacobian() { return jac_; }
+
+    /** Access the internal Jacobian object to perform extra-computation (const) */
+    inline const rbd::Jacobian & rbdJacobian() const { return jac_; }
 
     /** The frame's name */
     inline const std::string & name() const { return name_; }
