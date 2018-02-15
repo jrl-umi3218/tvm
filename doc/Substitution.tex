@@ -6,6 +6,12 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
 \newcommand{\BIN}{\begin{bmatrix}}
 \newcommand{\BOUT}{\end{bmatrix}}
 
@@ -130,4 +136,132 @@ and define
 	u_k &= \Pi^r_k {R_k^r}^{-1} {Q_k^r}^T u
 \end{align*}
 
+\appendix
+\section{Some properties around the generalized inverse}
+In this section, $A$ is a general $m \times n$ matrix with rank $r$.
+
+\begin{definition}
+  $G \in \mathbb{R}^{n \times m}$ is a generalized inverse of $A$ if and only if $A G A = A$.
+\end{definition}
+The following theorem is due to [Rao 1972]:
+\begin{theorem}
+  Given a particular generalized inverse $G$, and an arbitrary matrix $M\in \mathbb{R}^{n \times m}$, the matrix
+	\begin{equation}
+		G + U - GAUAG
+	\end{equation}
+	is a generalized inverse of $A$, and all of the generalized inverses of $A$ are obtained this way.
+\end{theorem}
+
+Let's consider the SVD decomposition of $A$:
+\begin{equation*}
+  A = \BIN U_1 & U_2 \BOUT \BIN \Sigma & 0 \\ 0 & 0 \BOUT \BIN V_1^T \\ V_2^T \BOUT = U_1 S V_1^T
+\end{equation*}
+where $\BIN U_1 & U_2 \BOUT$ and $\BIN V_1 & V_2 \BOUT$ are orthogonal matrices, $U_1 \in \mathbb{R}^{m \times r}$, $U_2 \in \mathbb{R}^{m \times m-r}$, $V_1 \in \mathbb{R}^{n \times r}$, $V_2 \in \mathbb{R}^{n \times n-r}$ and $\Sigma \in \mathbb{R}^{r \times r}$. As a particular generalized inverse, we have the Moore-Penrose pseudo-inverse $A^+ = V_1 \Sigma^{-1} U_1^T$, and we can write any generalized inverse $G$ as
+\begin{equation}
+  G = V_1 \Sigma^{-1} U_1^T + M - V_1 V_1^T M U_1 U_1^T \label{eq:generalFormulation}
+\end{equation}
+
+\begin{lemma}
+\label{lemma:projection}
+For any generalized inverse $G$
+	\begin{align*}
+	V_2 V_2^T (I-GA) &= I-GA\\
+	(I-AG)U_2U_2^T &= I-AG
+	\end{align*}
+\end{lemma}
+\begin{proof}
+Let $M$ be such that $G$ writes as in eq.~(\ref{eq:generalFormulation}). Then, using that $U_1^T U_1 = I$, $V_1^T V_1 = I$ and $V_1 V_1^T + V_2 V_2^T = I$, we get
+\begin{equation*}
+  I-GA = V_2 V_2^T (I-MA)
+\end{equation*}
+and thus
+\begin{equation*}
+  V_2 V_2^T (I-GA) = V_2 V_2^T V_2 V_2^T (I-MA) = V_2 V_2^T (I-MA) = I - GA
+\end{equation*}
+Similarly
+\begin{equation*}
+  I-AG = (I-AM)U_2 U_2^T
+\end{equation*}
+and
+\begin{equation*}
+  (I-AG)U_2 U_2^T = (I-AM)U_2 U_2^T U_2 U_2^T = (I-AM)U_2 U_2^T  = I-AG
+\end{equation*}
+\end{proof}
+
+\begin{corollary}
+\label{co:projection}
+$(I-GA)G U_2 U_2^T = (I-GA)G$ and $V_2 V_2^T G(I-AG) = G(I-AG)$
+\end{corollary}
+\begin{proof}
+Note that $(I-GA)G = (G - GAG) = G(I-AG)$. Then
+\begin{align*}
+  (I-GA)G U_2 U_2^T = G(I-AG) U_2 U_2^T = G(I-AG) = (I-GA)G \\
+	V_2 V_2^T G(I-AG) = V_2 V_2^T (I-GA)G = (I-GA)G = G(I-AG)
+\end{align*}
+where for each line the second equality is a consequence of Lemma~\ref{lemma:projection}.
+\end{proof}
+
+We have that $\mathrm{rank}(GA) = \mathrm{rank}(AG) =  \mathrm{rank}(A) =  r$, so that the projectors $(I-GA)$ and $(I-AG)$ have rank $n-r$ and $m-r$ respectively.
+Therefore, we have the rank factorizations
+\begin{align*}
+ \exists N,P\in \mathbb{R}^{n \times n-r}, \quad \mathrm{rank}(N) = \mathrm{rank}(P) = n-r &&\ I-GA = N P^T\\
+  \exists T,S\in \mathbb{R}^{m \times m-r}, \quad \mathrm{rank}(T) = \mathrm{rank}(S) = m-r && I-AG = T S^T 
+\end{align*}
+
+\begin{theorem}
+\label{th:NP}
+  $I-GA = N P^T$ with $N$ and $P$ full rank iff $N$ is a basis of $\mathrm{null}(A)$ and $P = (I-A^TG^T)N^{+T}$.
+\end{theorem}
+\begin{proof}
+  Let's first prove $\Longrightarrow$.
+	\newline
+	$I-GA = N P^T \Longrightarrow A(I-GA) = A N P^T \Longrightarrow ANP^T=0$. Since $P^T$ is full rank, its range space is $\mathbb{R}^{n-r}$, so that $ANP^T=0 \Longrightarrow AN = 0$. $N$ is full rank so it is a basis of $\mathrm{null}(A)$.
+\newline	
+	Since $N$ is full rank, $N^+ N = I$. Thus $I-GA = N P^T \Longrightarrow N^+(I-GA) = P^T \Longrightarrow P = (I-A^TG^T)N^{+T}$.
+	
+	Conversely, let's prove $\Longleftarrow$.
+  \newline
+	$V_2$ is also a basis of $\mathrm{null}(A)$, so that there is an $n-r \times n-r$ invertible matrix $X$ such that $N = V_2 X$. Therefore $N^+ = X^{-1} V_2^T$ and $N P^T = V_2 V_2^T (I-GA) = I-GA$ where the last equality comes from Lemma~\ref{lemma:projection}.
+\end{proof}
+A direct consequence of this theorem is that for any choice of a generalized inverse $G$ of $A$ and of a basis $N$ of $\mathrm{null}(A)$, we can find $P$ to get a rank factorization of $I-GA$.
+
+An equivalent theorem can be made for $I-AG$:
+\begin{theorem}
+\label{th:TS}
+  $I-AG = T S^T$ with $T$ and $S$ full rank iff $S$ is a basis of $\mathrm{null}(A^T)$ and $T = (I-AG)S^{+T}$.
+\end{theorem}
+\begin{proof}
+	The proof follows the same lines as for the previous theorem.
+\end{proof}
+
+\begin{theorem}
+	Let $G$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$ and $S$ a basis of $\mathrm{null}(A^T)$. Then the matrix
+	\begin{equation}
+		H = \BIN G & N \\ S^T & 0 \BOUT
+	\end{equation}
+	is invertible and its inverse is
+	\begin{equation}
+	  \BIN A & T \\ P^T  & -P^TGS^{+T} \BOUT
+	\end{equation}
+	where $P$ and $T$ are as define in theorems \ref{th:NP} and \ref{th:TS}.
+\end{theorem}
+\begin{proof}
+	Let's show that
+	\begin{equation}
+		\BIN A & T \\ P^T  & -P^TGS^+ \BOUT \BIN G & N \\ S^T & 0 \BOUT = 
+		\BIN AG + TS^T & AN \\ P^T G - P^TG S^{+T} S^T & P^T N \BOUT \label{eq:inverse}
+	\end{equation}
+	is the identity.
+	\newline
+	$AG + TS^T = I$ because by definition of $T$, $I-AG = T S^T$ (theorem \ref{th:TS}).
+	\newline
+	$AN = 0$ by definition of $N$.
+	\newline
+	Since $S$ can be written as $U_2 Y$ with $Y$ invertible, we have that $S^{+T} S^T = U_2 U_2^T$, so using the expression of $P$, $P^T G S^{+T} S^T = N^+(I-GA) G U_2 U_2^T = N^+(I-GA) G = P^T G$, with the second equality coming from Corollary \ref{co:projection}. Therefore $P^T G - P^TG S^{+T} S^T = P^T G - P^TG = 0$.
+	\newline
+	$P^T N = N^+(I-GA) N = N^+ N = I$ where the second equalities is a consequence of $AN = 0$ and the third one of $N$ being full rank.
+	\newline
+	The matrix given by eq.~(\ref{eq:inverse}) is a left inverse of $H$, therefore $H$ is invertible and it is its inverse.
+\end{proof}
+\emph{Remark}: the matrix in~(\ref{eq:inverse}) is therefore also the right inverse of $H$. This can be verified in the same way as above, using the fact that $P^T G S^{+T} = N^+ G T$.
 \end{document}

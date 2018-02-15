@@ -21,6 +21,7 @@
 #include <tvm/defs.h>
 #include <tvm/ControlProblem.h>
 #include <tvm/graph/CallGraph.h>
+#include <tvm/hint/Substitution.h>
 
 namespace tvm
 {
@@ -42,6 +43,8 @@ namespace tvm
     TaskWithRequirementsPtr add(utils::ProtoTask<T> proto, const task_dynamics::abstract::TaskDynamics& td, const requirements::SolvingRequirements& req = {});
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
+
+    void add(const hint::Substitution& s);
 
     /** Access to constraints*/
     std::vector<LinearConstraintWithRequirements> bounds() const;
