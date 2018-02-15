@@ -44,6 +44,13 @@ namespace tvm
   public:
     SET_OUTPUTS(Clock, Time)
 
+    /** Constructor
+     *
+     * \param dt Timestep of the ControlProblem
+     *
+     */
+    Clock(double dt);
+
     /** Returns the number of ticks elapsed since the start of the problem */
     inline uint64_t ticks() const { return ticks_; }
 
@@ -53,14 +60,12 @@ namespace tvm
     /** Advance the clock by one tick */
     void tick();
   protected:
-    /** Constructor
-     *
-     * \param dt Timestep of the ControlProblem
-     *
-     */
-    Clock(double dt);
+    Clock(const Clock &) = default;
+    Clock & operator=(const Clock &) = default;
+    Clock(Clock &&) = default;
+    Clock & operator=(Clock &&) = default;
   private:
-    double dt_;
+    const double dt_;
     /* Start ticks_ at -1 so that the first tick is 0 */
     uint64_t ticks_ = -1;
   };

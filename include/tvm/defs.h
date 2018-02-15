@@ -35,6 +35,7 @@ namespace tvm
       class TaskDynamicsImpl;
     }
   }
+  class Clock;
   class Range;
   class Robot;
   class Variable;
@@ -52,6 +53,7 @@ namespace tvm
   using ConstraintPtr = std::shared_ptr<constraint::abstract::Constraint>;
   using FunctionPtr = std::shared_ptr<function::abstract::Function>;
   using LinearConstraintPtr = std::shared_ptr<constraint::abstract::LinearConstraint>;
+  using ClockPtr = std::shared_ptr<Clock>;
   using RangePtr = std::shared_ptr<Range>;
   using RobotPtr = std::shared_ptr<Robot>;
   using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirements>;

@@ -18,7 +18,12 @@ namespace tvm
   }
 
   ControlProblem::ControlProblem(double dt)
-  : clock_(dt)
+  : clock_(std::make_shared<Clock>(dt))
+  {
+  }
+
+  ControlProblem::ControlProblem(std::shared_ptr<Clock> clock)
+  : clock_(clock)
   {
   }
 

@@ -11,8 +11,8 @@
 namespace tvm
 {
 
-Robot::Robot(const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc)
-: name_(name), mb_(mb), mbc_(mbc),
+Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc)
+: clock_(clock), name_(name), mb_(mb), mbc_(mbc),
   normalAccB_(mbc_.bodyAccB.size()), fd_(mb_),
   bodyTransforms_(mbg.bodiesBaseTransform(mb_.body(0).name())),
   tau_(tvm::Space(mb_.nrDof()).createVariable("tau"))
@@ -31,15 +31,18 @@ Robot::Robot(const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
   q_.add(q_joints_);
   dq_ = dot(q_, 1);
   ddq_ = dot(q_, 2);
-  registerUpdates(Update::Kinematics, &Robot::updateKinematics,
+  registerUpdates(Update::Time, &Robot::updateTimeDependency,
+                  Update::Kinematics, &Robot::updateKinematics,
                   Update::Dynamics, &Robot::updateDynamics,
                   Update::Acceleration, &Robot::updateAcceleration,
                   Update::CoM, &Robot::updateCoM,
                   Update::H, &Robot::updateH,
                   Update::C, &Robot::updateC);
+  addInputDependency(Update::Time, clock_, Clock::Output::Time);
   addOutputDependency(Output::Kinematics, Update::Kinematics);
   addOutputDependency(Output::Dynamics, Update::Dynamics);
   addOutputDependency(Output::Acceleration, Update::Acceleration);
+  addInternalDependency(Update::Kinematics, Update::Time);
   addInternalDependency(Update::CoM, Update::Kinematics);
   addInternalDependency(Update::H, Update::Dynamics);
   addInternalDependency(Update::C, Update::Dynamics);
@@ -53,17 +56,21 @@ Robot::Robot(const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
   updateAcceleration();
 }
 
-void Robot::updateTimeDependency(double dt)
+void Robot::updateTimeDependency()
 {
-  auto ddq = ddq_.value();
-  rbd::vectorToParam(ddq, mbc_.alphaD);
-  rbd::eulerIntegration(mb_, mbc_, dt);
-  auto dq = dq_.value();
-  rbd::paramToVector(mbc_.alpha, dq);
-  dq_.value(dq);
-  auto q = q_.value();
-  rbd::paramToVector(mbc_.q, q);
-  q_.value(q);
+  if(last_tick_ != clock_.ticks())
+  {
+    auto ddq = ddq_.value();
+    rbd::vectorToParam(ddq, mbc_.alphaD);
+    rbd::eulerIntegration(mb_, mbc_, clock_.dt());
+    auto dq = dq_.value();
+    rbd::paramToVector(mbc_.alpha, dq);
+    dq_.value(dq);
+    auto q = q_.value();
+    rbd::paramToVector(mbc_.q, q);
+    q_.value(q);
+    last_tick_ = clock_.ticks();
+  }
 }
 
 void Robot::updateKinematics()

@@ -63,6 +63,7 @@ namespace tvm
   */
   class TVM_DLLAPI ControlProblem
   {
+    friend class LinearizedControlProblem;
   public:
     ControlProblem(double dt);
     /** \internal We delete these functions because they would require by
@@ -82,12 +83,11 @@ namespace tvm
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
 
-    /** Access the problem's clock (const) */
-    inline const Clock & clock() const { return clock_; }
-    /** Access the problem's clock */
-    inline Clock & clock() { return clock_; }
+    Clock & clock() { return *clock_; }
+  protected:
+    ControlProblem(std::shared_ptr<Clock> clock);
+    std::shared_ptr<Clock> clock_;
   private:
-    Clock clock_;
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
     //std::vector.

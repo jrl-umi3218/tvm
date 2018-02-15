@@ -18,6 +18,7 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <tvm/Clock.h>
 #include <tvm/Variable.h>
 #include <tvm/VariableVector.h>
 #include <tvm/graph/abstract/Node.h>
@@ -58,9 +59,11 @@ namespace tvm
   {
   public:
     SET_OUTPUTS(Robot, Kinematics, Dynamics, Acceleration, tau, CoM, H, C)
-    SET_UPDATES(Robot, Kinematics, Dynamics, Acceleration, CoM, H, C)
+    SET_UPDATES(Robot, Time, Kinematics, Dynamics, Acceleration, CoM, H, C)
 
     /** Constructor
+     *
+     * \param clock Clock used in the ControlProblem
      *
      * \param name Name of the robot
      *
@@ -71,21 +74,10 @@ namespace tvm
      * \param mbc MultiBodyConfig giving the robot's initial configuration
      *
      */
-    Robot(const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
+    Robot(Clock & clock,
+          const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
           mb, rbd::MultiBodyConfig mbc);
 
-    /** Update the Robot's variables based on the output of the solver
-     *
-     * It will:
-     * 1. Put dot(q,2) into mbc.alphaD
-     * 2. Run rbd::eulerIntegration with dt
-     * 3. Output mbc.alpha into dot(q)
-     * 4. Output mbc.q into q
-     *
-     * \param dt Integration timestep
-     *
-     */
-    void updateTimeDependency(double dt);
 
     /** Access the robot's name */
     inline const std::string & name() const { return name_; }
@@ -136,6 +128,8 @@ namespace tvm
     /** Access the transformation that allows to retrieve the original base of a body */
     inline const sva::PTransformd & bodyTransform(const std::string & b) const { return bodyTransforms_.at(b); }
   private:
+    Clock & clock_;
+    uint64_t last_tick_ = 0;
     std::string name_;
     rbd::MultiBody mb_;
     rbd::MultiBodyConfig mbc_;
@@ -152,6 +146,18 @@ namespace tvm
   private:
     void computeNormalAccB();
 
+    /** Update the Robot's variables based on the output of the solver
+     *
+     * It will:
+     * 1. Put dot(q,2) into mbc.alphaD
+     * 2. Run rbd::eulerIntegration with dt
+     * 3. Output mbc.alpha into dot(q)
+     * 4. Output mbc.q into q
+     *
+     * \param dt Integration timestep
+     *
+     */
+    void updateTimeDependency();
     void updateKinematics();
     void updateDynamics();
     void updateAcceleration();

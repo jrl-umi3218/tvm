@@ -50,11 +50,16 @@ TEST_CASE("Test a problem with a robot")
 {
   size_t iter = 1000;
   double dt = 0.005;
-  auto load_robot = [](const std::string & name, const std::string & path, bool fixed,
+
+  tvm::ControlProblem pb(dt);
+
+  auto load_robot = [](tvm::Clock & clock,
+                       const std::string & name, const std::string & path, bool fixed,
                        const std::vector<std::string> & filteredLinks,
                        const std::vector<std::vector<double>> & ref_q)
     -> std::pair<tvm::RobotPtr, mc_rbdyn_urdf::Limits>
   {
+    std::cout << "load_robot " << &clock << std::endl;
     std::ifstream ifs(path);
     if(!ifs.good())
     {
@@ -84,7 +89,7 @@ TEST_CASE("Test a problem with a robot")
     {
       data.mbc.q = init_q;
     }
-    return {std::make_shared<tvm::Robot>(name, data.mbg, data.mb, data.mbc), data.limits};
+    return {std::make_shared<tvm::Robot>(clock, name, data.mbg, data.mb, data.mbc), data.limits};
   };
   tvm::RobotPtr hrp2; mc_rbdyn_urdf::Limits hrp2_limits;
   std::vector<std::string> hrp2_filtered = {};
@@ -102,9 +107,9 @@ TEST_CASE("Test a problem with a robot")
     }
   }
   std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
-  std::tie(hrp2, hrp2_limits) = load_robot("HRP2", hrp2_urdf, false, {}, ref_q);
+  std::tie(hrp2, hrp2_limits) = load_robot(pb.clock(), "HRP2", hrp2_urdf, false, {}, ref_q);
   tvm::RobotPtr ground;
-  std::tie(ground, std::ignore) = load_robot("ground", ground_urdf, true, {}, {});
+  std::tie(ground, std::ignore) = load_robot(pb.clock(), "ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -190,8 +195,6 @@ TEST_CASE("Test a problem with a robot")
   collision_fn->addCollision(rhConvex, chestConvex);
   collision_fn->addCollision(relbowConvex, bodyConvex);
 
-  tvm::ControlProblem pb(dt);
-
   pb.add(lfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
   pb.add(rfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
   pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
@@ -270,7 +273,6 @@ TEST_CASE("Test a problem with a robot")
   {
     bool b = solver.solve(lpb);
     if(!b) { break; }
-    hrp2->updateTimeDependency(dt);
     rpub.publish(*hrp2);
     epub.publish(*ground);
     auto X_0_lf = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];

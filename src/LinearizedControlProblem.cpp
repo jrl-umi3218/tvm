@@ -4,13 +4,8 @@
 
 namespace tvm
 {
-  LinearizedControlProblem::LinearizedControlProblem(double dt)
-  : ControlProblem(dt)
-  {
-  }
-
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
-  : ControlProblem(pb.clock().dt())
+  : ControlProblem(pb.clock_)
   {
     for (auto tr : pb.tasks())
       add(tr);
