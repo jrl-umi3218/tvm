@@ -1,0 +1,133 @@
+\documentclass[]{article}
+
+\usepackage{amsthm} %qed
+\usepackage[cmex10]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\newcommand{\BIN}{\begin{bmatrix}}
+\newcommand{\BOUT}{\end{bmatrix}}
+
+%\newcommand{\mdiff1}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\diff}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+
+\begin{document}
+
+\title{\Large Substitutions}
+\author{Adrien Escande}
+
+\maketitle
+
+\section{Introduction}
+In this document, we are considering a system of linear equations that we want to pre-solve for some variables. We write this system
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \\
+A_{2,1} x_1 + A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \\
+\vdots& \nonumber\\
+A_{k,1} x_1 + A_{k,2} x_2 + \ldots + A_{k,k} x_k + B_k y &= c_k \\
+D_1 x_1 + D_2 x_2 + \ldots + D_k x_k + E y &= f \label{eq:other}
+\end{align}
+where the $x_j \in \mathbb{R}^{n_j}$, $j=1..k$ are the variables for which we want to pre-solve, $y \in \mathbb{R}^p$ are all the other possible variables, the $A_{i,j}$ are $m_i \times n_j$ matrices, the $B_i$ are $m_i \times p$, the $D_i$ are $q \times n_j$, $E$ is $q \times p$, the $c_i$ are $m_i$-vectors, and $f$ is a $q$-vector.
+We suppose the system is feasible.
+
+Without loss of generality, we can consider the $k$ first lines to form a block triangular system:
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \label{eq:triang1}\\
+A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \label{eq:triang2}\\
+\vdots& \nonumber\\
+A_{k,k} x_k + B_k y &= c_k \label{eq:triangk}
+\end{align}
+Indeed, if $l\leq k$ variables, let's note them $x_1, \ldots x_l$, appears in exactly $l$ equations, that we can take to be the $l$ first ones, then these $l$ equations can be rewritten as one single equation $\tilde{A} \tilde{x} + \tilde{A}_{l+1} x_{l+1} + \ldots + \tilde{A}_k x_k + \tilde{B} y = \tilde{c}$, with 
+\begin{equation*}
+	\tilde{A} = \BIN A_{1,1} & \hdots & A_{1,k} \\ \vdots & \ddots & \vdots \\ A_{k,1} & \hdots & A_{k,k} \BOUT, \
+	\tilde{A_j} = \BIN A_{1,j} \\ \vdots \\ A_{l,j}\BOUT, \
+	\tilde{B} = \BIN B_{1} \\ \vdots \\ B_{l}\BOUT,\
+	\tilde{c} = \BIN c_{1} \\ \vdots \\ c_{l} \BOUT \mbox{and}\
+	\tilde{x} = \BIN x_{1} \\ \vdots \\ x_{l} \BOUT
+\end{equation*}
+
+Let's note $r_j$ the rank of the matrix $A_{j,j}$. We require that $r_j \leq n_j$.
+Our goal is to transform the system (\ref{eq:triang1}) - (\ref{eq:triangk}), (\ref{eq:other}) into an equivalent system
+\begin{align}
+  x_1 &= M_1 y + N_1 z_1 + u_1 \\
+	x_2 &= M_2 y + N_2 z_2 + u_2 \\
+  \vdots & \nonumber \\
+	x_k &= M_k y + N_k z_k + u_k \\
+	G y + H_1 z_1 + \ldots + H_k z_k &= v \\
+	S_1 y &= t_1 \\
+	\vdots \nonumber \\
+	S_k y &= t_k
+\end{align}
+where $z_j \in \mathbb{R}^{n_j-r_j}$, $N_j$ is a (non-necessarily orthogonal) basis of the nullspace of $A_j$, $M_i$ is a $m_i \times n_i$ matrix, $G = E + D_1 M_1 + \ldots + D_k M_k \in \mathbb{R}^{q\times p}$, $H_j = D_j N_j \in \mathbb{R}^{q\times n_j-r_j}$, $v = f - D_1 u_1 - \ldots - D_k u_k \in \mathbb{R}^q$, and $S_i \in \mathbb{R}^{m_i-r_i \times p}$ is a basis of the orthogonal complement to the image space of $A_{k,k}$.
+
+
+\section{One variable substitution}
+Consider the system
+\begin{align}
+	A x + B y &= c \label{eq:simple1}\\
+	D x + E y &= f \label{eq:simple2}
+\end{align}
+where we want to pre-solve in $x$, using the first equation. We denote $r$ the rank of $A$. For a generic $A$, we can compute a rank-revealing QR
+\begin{equation}
+	A = \BIN Q^r & Q^c \BOUT \BIN R^r & R^c \\ 0 & 0 \BOUT \BIN {\Pi^r}^T \\ {\Pi^c}^T \BOUT
+\end{equation}
+
+Premultiplying (\ref{eq:simple1}) by $\BIN Q^r & Q^c \BOUT^T$ gives the equivalent
+\begin{align}
+  R^r {\Pi^r}^T x + R^c {\Pi^c}^T x + {Q^r}^T B y &= {Q^r}^T f \\
+	{Q^c}^T B y &= {Q^c}^T f
+\end{align}
+We can solve this for ${\Pi^r}^T x$ and add the tautology ${\Pi^c}^T x = {\Pi^c}^T x$ to get
+\begin{equation}
+	\mathrm{(\ref{eq:simple1})} \Longleftrightarrow \left\{\begin{array}{rcl}
+	{\Pi^r}^T x \hspace{-5pt}&=&\hspace{-5pt} -{R^r}^{-1} R^c {\Pi^c}^T x - {R^r}^{-1} {Q^r}^T B y + {R^r}^{-1} {Q^r}^T f\\
+	{\Pi^c}^T x \hspace{-5pt}&=&\hspace{-5pt} {\Pi^c}^T x\\
+	{Q^c}^T B y \hspace{-5pt}&=&\hspace{-5pt} {Q^c}^T f
+	\end{array}\right.
+\end{equation}
+and thus 
+\begin{equation*}
+	\mathrm{(\ref{eq:simple1})} \Longleftrightarrow \left\{\begin{array}{l}
+	x =\underbrace{\BIN \Pi^r & \Pi^c \BOUT \BIN -{R^r}^{-1} R^c \\ I \BOUT}_{N}
+	                                \underbrace{{\Pi^c}^T x}_{z} 
+															  \underbrace{- {\Pi^r} {R^r}^{-1} {Q^r}^T B}_M y + \underbrace{\Pi^r {R^r}^{-1} {Q^r}^T f}_u\\
+	{Q^c}^T B y = {Q^c}^T f
+	\end{array}\right.
+\end{equation*}
+Hence we get
+\begin{equation*}
+  \left. \begin{array}{c} (\ref{eq:simple1}) \\ (\ref{eq:simple2}) \end{array} \right\}
+	\Longleftrightarrow
+	\left\{ \begin{array}{rcl}
+	x \hspace{-5pt}&=&\hspace{-5pt} M y + N z + u \\
+	(E + D M) y + D N z \hspace{-5pt}&=&\hspace{-5pt} f - D u \\
+	{Q^c}^T B y \hspace{-5pt}&=&\hspace{-5pt} {Q^c}^T f
+	\end{array} \right.
+\end{equation*}
+
+
+\section{Multiple variables}
+Let's consider again the full system
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \label{eq:triang_1}\\
+A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \label{eq:triang_2}\\
+\vdots& \nonumber\\
+A_{k,k} x_k + B_k y &= c_k \label{eq:triang_k}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_k x_k + E y &= f \label{eq:other_}
+\end{align}
+
+We use the above section for eq.~(\ref{eq:triang_k}):
+\begin{equation*}
+	A_{k,k} = \BIN Q_k^r & Q_k^c \BOUT \BIN R_k^r & R_k^c \\ 0 & 0 \BOUT \BIN {\Pi_k^r}^T \\ {\Pi_k^c}^T \BOUT
+\end{equation*}
+and define
+\begin{align*}
+	M_k &= -\Pi^r_k {R_k^r}^{-1} {Q_k^r}^T B_k\\
+	N_k &= \Pi^c_k - \Pi^r_k {R_k^r}^{-1} R_k^c\\
+	u_k &= \Pi^r_k {R_k^r}^{-1} {Q_k^r}^T u
+\end{align*}
+
+\end{document}
