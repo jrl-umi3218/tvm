@@ -9,13 +9,14 @@ namespace tvm
 namespace robot
 {
 
-CollisionFunction::CollisionFunction(double dt)
+CollisionFunction::CollisionFunction(Clock & clock)
 : function::abstract::Function(0),
-  dt_(dt)
+  clock_(clock)
 {
   registerUpdates(Update::Value, &CollisionFunction::updateValue,
                   Update::Velocity, &CollisionFunction::updateVelocity,
                   Update::Jacobian, &CollisionFunction::updateJacobian,
+                  Update::Time, &CollisionFunction::updateTimeDependency,
                   Update::NormalAcceleration, &CollisionFunction::updateNormalAcceleration);
 
   addOutputDependency<CollisionFunction>(Output::Value, Update::Value);
@@ -25,7 +26,8 @@ CollisionFunction::CollisionFunction(double dt)
 
   addInternalDependency<CollisionFunction>(Update::Jacobian, Update::Value);
   addInternalDependency<CollisionFunction>(Update::Velocity, Update::Jacobian);
-  addInternalDependency<CollisionFunction>(Update::NormalAcceleration, Update::Jacobian);
+  addInternalDependency<CollisionFunction>(Update::Time, Update::Value);
+  addInternalDependency<CollisionFunction>(Update::NormalAcceleration, Update::Time);
 }
 
 void CollisionFunction::addCollision(ConvexHullPtr ch1, ConvexHullPtr ch2)
@@ -150,13 +152,24 @@ void CollisionFunction::updateVelocity()
   }
 }
 
+void CollisionFunction::updateTimeDependency()
+{
+  if(clock_.ticks() != last_tick_)
+  {
+    last_tick_ = clock_.ticks();
+    for(auto & col : colls_)
+    {
+      col.speedVec_ = (col.normVecDist_ - col.prevNormVecDist_) / clock_.dt();
+      col.prevNormVecDist_ = col.normVecDist_;
+    }
+  }
+}
+
 void CollisionFunction::updateNormalAcceleration()
 {
   Eigen::DenseIndex i = 0;
   for(auto & col : colls_)
   {
-    Eigen::Vector3d speedVec = (col.normVecDist_ - col.prevNormVecDist_) / dt_;
-    col.prevNormVecDist_ = col.normVecDist_;
     normalAcceleration_(i) = 0.;
     double sign = 1.;
     for(size_t j = 0; j < col.objects_.size(); ++j)
@@ -165,7 +178,7 @@ void CollisionFunction::updateNormalAcceleration()
       const auto & r = col.ch_[j]->frame().robot();
       Eigen::Vector3d pNormalAcc = o.jac_.normalAcceleration(r.mb(), r.mbc(), r.normalAccB()).linear();
       Eigen::Vector3d pSpeed = o.jac_.velocity(r.mb(), r.mbc()).linear();
-      normalAcceleration_(0) += sign * ( pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(speedVec) );
+      normalAcceleration_(0) += sign * ( pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(col.speedVec_) );
       sign *= -1.;
     }
   }

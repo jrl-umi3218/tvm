@@ -187,7 +187,7 @@ TEST_CASE("Test a problem with a robot")
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 
-  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(dt);
+  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(pb.clock());
   auto rhConvex = loadConvex(hrp2_rh);
   auto chestConvex = loadConvex(hrp2_chest);
   auto bodyConvex = loadConvex(hrp2_body);

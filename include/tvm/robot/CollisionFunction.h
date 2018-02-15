@@ -33,14 +33,14 @@ namespace robot
   class TVM_DLLAPI CollisionFunction : public function::abstract::Function
   {
   public:
-    SET_UPDATES(CollisionFunction, Value, Velocity, Jacobian, NormalAcceleration)
+    SET_UPDATES(CollisionFunction, Value, Velocity, Jacobian, Time, NormalAcceleration)
 
     /** Constructor
      *
      * \param dt Timestep
      *
      */
-    CollisionFunction(double dt);
+    CollisionFunction(Clock & clock);
 
     /** Add a collision
      *
@@ -58,9 +58,11 @@ namespace robot
     void updateValue();
     void updateVelocity();
     void updateJacobian();
+    void updateTimeDependency();
     void updateNormalAcceleration();
 
-    double dt_;
+    Clock & clock_;
+    uint64_t last_tick_ = 0;
 
     struct CollisionData
     {
@@ -74,6 +76,7 @@ namespace robot
       sch::CD_Pair pair_;
       Eigen::Vector3d normVecDist_;
       Eigen::Vector3d prevNormVecDist_ = Eigen::Vector3d::Zero();
+      Eigen::Vector3d speedVec_ = Eigen::Vector3d::Zero();
 
       CollisionData();
 
