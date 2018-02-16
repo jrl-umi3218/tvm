@@ -82,6 +82,9 @@ namespace tvm
     /** Access the robot's name */
     inline const std::string & name() const { return name_; }
 
+    /** Returns the robot's mass */
+    inline double mass() const { return mass_; }
+
     /** Access q variable (const) */
     inline const VariableVector & q() const { return q_; }
     /** Access q variable */
@@ -131,6 +134,7 @@ namespace tvm
     Clock & clock_;
     uint64_t last_tick_ = 0;
     std::string name_;
+    double mass_;
     rbd::MultiBody mb_;
     rbd::MultiBodyConfig mbc_;
     std::vector<sva::MotionVecd> normalAccB_;

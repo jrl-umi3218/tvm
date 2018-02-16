@@ -50,11 +50,21 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   addOutputDependency(Output::H, Update::H);
   addOutputDependency(Output::C, Update::C);
 
+  // Compute mass
+  mass_ = 0;
+  for(const auto & b : mb_.bodies())
+  {
+    mass_ += b.inertia().mass();
+  }
+
   // Make sure initial robot quantities are well initialized
   updateKinematics();
   updateDynamics();
   updateAcceleration();
-  updateCoM();
+  if(mass_ > 0)
+  {
+    updateCoM();
+  }
 }
 
 void Robot::updateTimeDependency()
