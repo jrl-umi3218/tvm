@@ -54,6 +54,7 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   updateKinematics();
   updateDynamics();
   updateAcceleration();
+  updateCoM();
 }
 
 void Robot::updateTimeDependency()
