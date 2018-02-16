@@ -3,6 +3,7 @@
 #include <tvm/robot/internal/DynamicFunction.h>
 #include <tvm/robot/CollisionFunction.h>
 #include <tvm/robot/CoMFunction.h>
+#include <tvm/robot/CoMInConvexFunction.h>
 #include <tvm/robot/ConvexHull.h>
 #include <tvm/robot/OrientationFunction.h>
 #include <tvm/robot/PositionFunction.h>
@@ -46,9 +47,22 @@ tvm::robot::ConvexHullPtr loadConvex(tvm::robot::FramePtr f)
   );
 }
 
+/** Build a cube as a set of planes from a given origin and size */
+std::vector<tvm::geometry::PlanePtr> makeCube(const Eigen::Vector3d & origin, double size)
+{
+  return {
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{1, 0, 0}, origin + Eigen::Vector3d{-size, 0, 0}),
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{-1, 0, 0}, origin + Eigen::Vector3d{size, 0, 0}),
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{0, 1, 0}, origin + Eigen::Vector3d{0, -size, 0}),
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{0, -1, 0}, origin + Eigen::Vector3d{0, size, 0}),
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{0, 0, 1}, origin + Eigen::Vector3d{0, 0, -size}),
+    std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{0, 0, -1}, origin + Eigen::Vector3d{0, 0, size})
+  };
+}
+
 TEST_CASE("Test a problem with a robot")
 {
-  size_t iter = 1000;
+  size_t iter = 2000;
   double dt = 0.005;
 
   tvm::ControlProblem pb(dt);
@@ -172,6 +186,10 @@ TEST_CASE("Test a problem with a robot")
   auto rfg_fn = std::make_shared<tvm::robot::internal::GeometricContactFunction>(contact_rf_ground, Eigen::Matrix6d::Identity());
   dyn_fn->addContact(contact_rf_ground, true, 0.7, 4);
 
+  auto com_in_fn = std::make_shared<tvm::robot::CoMInConvexFunction>(hrp2);
+  auto cube = makeCube(hrp2->com(), 0.05);
+  for(auto p : cube) { com_in_fn->addPlane(p); }
+
   auto posture_fn = std::make_shared<tvm::robot::PostureFunction>(hrp2);
   std::string joint = "HEAD_JOINT1"; std::vector<double> joint_q = {1.5};
   posture_fn->posture(joint, joint_q);
@@ -181,7 +199,7 @@ TEST_CASE("Test a problem with a robot")
   posture_fn->posture("RARM_JOINT2", {1.3});
   posture_fn->posture("RARM_JOINT3", {-2.2});
   auto com_fn = std::make_shared<tvm::robot::CoMFunction>(hrp2);
-  com_fn->com(com_fn->com() + Eigen::Vector3d(0, 0, -0.));
+  com_fn->com(com_fn->com() + Eigen::Vector3d(0, 0, -0.1));
   auto ori_fn = std::make_shared<tvm::robot::OrientationFunction>(hrp2_lh);
   ori_fn->orientation(sva::RotY(-M_PI/2));
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
@@ -201,11 +219,12 @@ TEST_CASE("Test a problem with a robot")
   dyn_fn->addPositiveLambdaToProblem(pb);
 
   pb.add(posture_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1.)});
-  pb.add(com_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(100.)});
+  pb.add(com_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(100.)});
   pb.add(ori_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
-  pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1000.)});
+  pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
 
   pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.1, 0.055, 5.0, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
+  pb.add(com_in_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.005, 0.001, 0.5, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
 
   /* Bounds */
   Eigen::VectorXd lq(hrp2->mb().nrParams());
@@ -267,7 +286,6 @@ TEST_CASE("Test a problem with a robot")
   RobotPublisher rpub("/control/");
   RobotPublisher epub("/control/env_1/");
   std::cout << "Will run solver for " << iter << " iterations" << std::endl;
-  std::ofstream ofs("tvm.log");
   size_t i = 0;
   for(i = 0; i < iter; ++i)
   {
@@ -278,15 +296,14 @@ TEST_CASE("Test a problem with a robot")
     auto X_0_lf = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];
     auto X_0_rf = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("RLEG_LINK5")];
     auto error_lf = sva::transformError(X_0_lf, X_0_lf_init).vector().norm();
-    CHECK(error_lf < 1e-4);
+    CHECK(error_lf < 1e-3);
     auto error_rf = sva::transformError(X_0_rf, X_0_rf_init).vector().norm();
-    CHECK(error_rf < 1e-4);
+    CHECK(error_rf < 1e-3);
     CHECK(collision_fn->value()(0) >= 0.05);
-    ofs << i
-        << " " << pos_fn->position().x() << " " << hrp2_lh->position().translation().x()
-        << " " << pos_fn->position().y() << " " << hrp2_lh->position().translation().y()
-        << " " << pos_fn->position().z() << " " << hrp2_lh->position().translation().z()
-        << "\n";
+    for(int i = 0; i < com_in_fn->size(); ++i)
+    {
+      CHECK(com_in_fn->value()(i) > 0);
+    }
   }
   CHECK(i == iter);
   std::cout << joint << " " << hrp2->mbc().q[hrp2->mb().jointIndexByName(joint)][0] << " (target: " << joint_q[0] << ")" << std::endl;

@@ -36,6 +36,7 @@ set(TVM_SOURCES
 
   robot/CollisionFunction.cpp
   robot/CoMFunction.cpp
+  robot/CoMInConvexFunction.cpp
   robot/ConvexHull.cpp
   robot/Contact.cpp
   robot/DynamicFunction.cpp
@@ -127,6 +128,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
   ${TVM_INCLUDE_DIR}/robot/CollisionFunction.h
   ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CoMInConvexFunction.h
   ${TVM_INCLUDE_DIR}/robot/ConvexHull.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
