@@ -73,7 +73,6 @@ TEST_CASE("Test a problem with a robot")
                        const std::vector<std::vector<double>> & ref_q)
     -> std::pair<tvm::RobotPtr, mc_rbdyn_urdf::Limits>
   {
-    std::cout << "load_robot " << &clock << std::endl;
     std::ifstream ifs(path);
     if(!ifs.good())
     {
@@ -306,7 +305,6 @@ TEST_CASE("Test a problem with a robot")
     }
   }
   CHECK(i == iter);
-  std::cout << joint << " " << hrp2->mbc().q[hrp2->mb().jointIndexByName(joint)][0] << " (target: " << joint_q[0] << ")" << std::endl;
   auto lastQ = hrp2->qJoints()->value();
   CHECK(uq.size() == lastQ.size());
   CHECK(lq.size() == lastQ.size());
