@@ -223,8 +223,8 @@ TEST_CASE("Test a problem with a robot")
   pb.add(ori_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
   pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
 
-  pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.1, 0.055, 5.0, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
-  pb.add(com_in_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, 0.005, 0.001, 0.5, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
+  pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, {0.1, 0.055, 0}, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
+  pb.add(com_in_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, {0.005, 0.001, 0}, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
 
   /* Bounds */
   Eigen::VectorXd lq(hrp2->mb().nrParams());
@@ -257,7 +257,7 @@ TEST_CASE("Test a problem with a robot")
   {
     CHECK(lq(i) < uq(i));
   }
-  pb.add(lq <= hrp2->qJoints() <= uq, tvm::task_dynamics::VelocityDamper(dt, 0.01, 0.001, 1e-4, tvm::constant::big_number), { tvm::requirements::PriorityLevel(0) });
+  pb.add(lq <= hrp2->qJoints() <= uq, tvm::task_dynamics::VelocityDamper(dt, {0.01, 0.001, 0}, tvm::constant::big_number), { tvm::requirements::PriorityLevel(0) });
   pb.add(ltau <= hrp2->tau() <= utau, tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
 
   tvm::LinearizedControlProblem lpb(pb);
