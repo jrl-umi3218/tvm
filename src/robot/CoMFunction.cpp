@@ -32,7 +32,7 @@ CoMFunction::CoMFunction(RobotPtr robot)
 
 void CoMFunction::reset()
 {
-  com_ = rbd::computeCoM(robot_->mb(), robot_->mbc());
+  com_ = robot_->com();
 }
 
 void CoMFunction::updateValue()
