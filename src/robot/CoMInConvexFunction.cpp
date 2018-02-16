@@ -25,8 +25,9 @@ CoMInConvexFunction::CoMInConvexFunction(RobotPtr robot)
   addInputDependency<CoMInConvexFunction>(Update::Velocity, *robot_, Robot::Output::Dynamics);
   addInputDependency<CoMInConvexFunction>(Update::Jacobian, *robot_, Robot::Output::Dynamics);
   addInputDependency<CoMInConvexFunction>(Update::NormalAcceleration, *robot_, Robot::Output::Acceleration);
+  addInternalDependency<CoMInConvexFunction>(Update::Jacobian, Update::Value);
   addInternalDependency<CoMInConvexFunction>(Update::Velocity, Update::Jacobian);
-  addInternalDependency<CoMInConvexFunction>(Update::NormalAcceleration, Update::Jacobian);
+  addInternalDependency<CoMInConvexFunction>(Update::NormalAcceleration, Update::Velocity);
 }
 
 void CoMInConvexFunction::addPlane(geometry::PlanePtr plane)
