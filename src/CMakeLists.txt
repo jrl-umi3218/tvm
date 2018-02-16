@@ -22,6 +22,8 @@ set(TVM_SOURCES
   function/IdentityFunction.cpp
   function/LinearFunction.cpp
 
+  geometry/Plane.cpp
+
   graph/CallGraph.cpp
   graph/Inputs.cpp
   graph/Log.cpp
@@ -94,6 +96,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/function/abstract/LinearFunction.h
   ${TVM_INCLUDE_DIR}/function/BasicLinearFunction.h
   ${TVM_INCLUDE_DIR}/function/IdentityFunction.h
+
+  ${TVM_INCLUDE_DIR}/geometry/Plane.h
 
   ${TVM_INCLUDE_DIR}/graph/abstract/Node.h
   ${TVM_INCLUDE_DIR}/graph/abstract/Node.hpp
