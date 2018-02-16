@@ -63,78 +63,148 @@ Our goal is to transform the system (\ref{eq:triang1}) - (\ref{eq:triangk}), (\r
   \vdots & \nonumber \\
 	x_k &= M_k y + N_k z_k + u_k \\
 	G y + H_1 z_1 + \ldots + H_k z_k &= v \\
-	S_1 y &= t_1 \\
+	S_1^T B y &= S_1^T c_1 \\
 	\vdots \nonumber \\
-	S_k y &= t_k
+	S_k^T B y &= S_k^T c_k
 \end{align}
-where $z_j \in \mathbb{R}^{n_j-r_j}$, $N_j$ is a (non-necessarily orthogonal) basis of the nullspace of $A_j$, $M_i$ is a $m_i \times n_i$ matrix, $G = E + D_1 M_1 + \ldots + D_k M_k \in \mathbb{R}^{q\times p}$, $H_j = D_j N_j \in \mathbb{R}^{q\times n_j-r_j}$, $v = f - D_1 u_1 - \ldots - D_k u_k \in \mathbb{R}^q$, and $S_i \in \mathbb{R}^{m_i-r_i \times p}$ is a basis of the orthogonal complement to the image space of $A_{k,k}$.
+where $z_j \in \mathbb{R}^{n_j-r_j}$, $N_j$ is a (non-necessarily orthogonal) basis of the nullspace of $A_{j,j}$, $M_i$ is a $m_i \times n_i$ matrix, $G = E + D_1 M_1 + \ldots + D_k M_k \in \mathbb{R}^{q\times p}$, $H_j = D_j N_j \in \mathbb{R}^{q\times n_j-r_j}$, $v = f - D_1 u_1 - \ldots - D_k u_k \in \mathbb{R}^q$, and $S_i \in \mathbb{R}^{m_i-r_i \times p}$ is a basis of the orthogonal complement to the image space of $A_{i,i}$.
 
 
 \section{One variable substitution}
+\subsection{Principle}
 Consider the system
 \begin{align}
 	A x + B y &= c \label{eq:simple1}\\
 	D x + E y &= f \label{eq:simple2}
 \end{align}
-where we want to pre-solve in $x$, using the first equation. We denote $r$ the rank of $A$. For a generic $A$, we can compute a rank-revealing QR
-\begin{equation}
-	A = \BIN Q^r & Q^c \BOUT \BIN R^r & R^c \\ 0 & 0 \BOUT \BIN {\Pi^r}^T \\ {\Pi^c}^T \BOUT
-\end{equation}
+where we want to pre-solve in $x$, using the first equation. We denote $r$ the rank of $A$.
 
-Premultiplying (\ref{eq:simple1}) by $\BIN Q^r & Q^c \BOUT^T$ gives the equivalent
-\begin{align}
-  R^r {\Pi^r}^T x + R^c {\Pi^c}^T x + {Q^r}^T B y &= {Q^r}^T f \\
-	{Q^c}^T B y &= {Q^c}^T f
-\end{align}
-We can solve this for ${\Pi^r}^T x$ and add the tautology ${\Pi^c}^T x = {\Pi^c}^T x$ to get
-\begin{equation}
-	\mathrm{(\ref{eq:simple1})} \Longleftrightarrow \left\{\begin{array}{rcl}
-	{\Pi^r}^T x \hspace{-5pt}&=&\hspace{-5pt} -{R^r}^{-1} R^c {\Pi^c}^T x - {R^r}^{-1} {Q^r}^T B y + {R^r}^{-1} {Q^r}^T f\\
-	{\Pi^c}^T x \hspace{-5pt}&=&\hspace{-5pt} {\Pi^c}^T x\\
-	{Q^c}^T B y \hspace{-5pt}&=&\hspace{-5pt} {Q^c}^T f
+Let $A^\sharp$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$, and $S$ a basis of $\mathrm{null}(A^T)$, and define $P = (I-A^T G^T) N^{+T}$. Using the tautology $P^T x = P^T x$, we have
+\begin{align*}
+  \mathrm{(\ref{eq:simple1})} &\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN -By + c \\ P^T x\BOUT
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN -By + c \\ P^T x\BOUT
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c \\ 
+		z \hspace{-5pt}&=&\hspace{-5pt} P^T x\\
+		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c, \quad z \in \mathbb{R}^{n-r} \\ 
+		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
 	\end{array}\right.
-\end{equation}
-and thus 
-\begin{equation*}
-	\mathrm{(\ref{eq:simple1})} \Longleftrightarrow \left\{\begin{array}{l}
-	x =\underbrace{\BIN \Pi^r & \Pi^c \BOUT \BIN -{R^r}^{-1} R^c \\ I \BOUT}_{N}
-	                                \underbrace{{\Pi^c}^T x}_{z} 
-															  \underbrace{- {\Pi^r} {R^r}^{-1} {Q^r}^T B}_M y + \underbrace{\Pi^r {R^r}^{-1} {Q^r}^T f}_u\\
-	{Q^c}^T B y = {Q^c}^T f
-	\end{array}\right.
-\end{equation*}
-Hence we get
+\end{align*}
+The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ span $\mathbb{R}^{n-r}$. 
+
+Noting $M = -A^\sharp B$, and $u = A^\sharp c$, we thus have
 \begin{equation*}
   \left. \begin{array}{c} (\ref{eq:simple1}) \\ (\ref{eq:simple2}) \end{array} \right\}
 	\Longleftrightarrow
 	\left\{ \begin{array}{rcl}
 	x \hspace{-5pt}&=&\hspace{-5pt} M y + N z + u \\
 	(E + D M) y + D N z \hspace{-5pt}&=&\hspace{-5pt} f - D u \\
-	{Q^c}^T B y \hspace{-5pt}&=&\hspace{-5pt} {Q^c}^T f
+	S^T B y \hspace{-5pt}&=&\hspace{-5pt} S^T f
 	\end{array} \right.
 \end{equation*}
 
+\subsection{Generic $A$}
+For a generic $A$, we can compute a rank-revealing QR
+\begin{equation}
+	A = \BIN Q^r & Q^c \BOUT \BIN R^r & R^c \\ 0 & 0 \BOUT \BIN {\Pi^r}^T \\ {\Pi^c}^T \BOUT
+\end{equation}
+Then we can take $A^{\sharp} = {\Pi^r} {R^r}^{-1} {Q^r}^T$, $N = - \Pi^r {R^r}^{-1} R^c + \Pi^c$ and $S = Q^c$. This yields $P = \Pi^c$.
+
+
 
 \section{Multiple variables}
-Let's consider again the full system
+Consider the system
 \begin{align}
-A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \label{eq:triang_1}\\
-A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \label{eq:triang_2}\\
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l} x_l + B_1^{(l)} y + Z_1^{(l)} z^{(l)}&= c_1^{(l)} \label{eq:triang_1}\\
+A_{2,2} x_2 + \ldots + A_{2,l} x_l + B_2^{(l)} y + Z_2^{(l)} z^{(l)}&= c_2^{(l)} \label{eq:triang_2}\\
 \vdots& \nonumber\\
-A_{k,k} x_k + B_k y &= c_k \label{eq:triang_k}\\
-D_1 x_1 + D_2 x_2 + \ldots + D_k x_k + E y &= f \label{eq:other_}
+A_{l,l} x_l + B_l^{(l)} y + Z_l^{(l)} z^{(l)}&= c_l^{(l)} \label{eq:triang_l}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_l x_l + E^{(l)} y + H^{(l)} z^{(l)}&= f^{(l)} \label{eq:other_}
 \end{align}
+for $l \leq k$, with $z \in \mathbb{R}^{n_s}$, $n_s = kn - \sum_1^k{r_i}$ and $Z_i^{(l)} \in \mathbb{R}^{m_i \times n_s}$.
 
-We use the above section for eq.~(\ref{eq:triang_k}):
-\begin{equation*}
-	A_{k,k} = \BIN Q_k^r & Q_k^c \BOUT \BIN R_k^r & R_k^c \\ 0 & 0 \BOUT \BIN {\Pi_k^r}^T \\ {\Pi_k^c}^T \BOUT
-\end{equation*}
-and define
+We use the above section for eq.~(\ref{eq:triang_l}): let's $A_l^\sharp$, $N_l$ and $S_l$ be respectively a generalized inverse of $A_{l,l}$, a basis of $\mathrm{null}(A_{l,l})$ and a basis of $\mathrm{null}(A_{l,l}^T)$.
+We define
 \begin{align*}
-	M_k &= -\Pi^r_k {R_k^r}^{-1} {Q_k^r}^T B_k\\
-	N_k &= \Pi^c_k - \Pi^r_k {R_k^r}^{-1} R_k^c\\
-	u_k &= \Pi^r_k {R_k^r}^{-1} {Q_k^r}^T u
+	M_l &= -A_l^\sharp B_l^{(l)}\\
+	u_l &= A_l^\sharp c_l^{(l)}
 \end{align*}
+Eq.~(\ref{eq:triang_l}) becomes
+\begin{equation}
+	\left\{ \begin{array}{rcl}
+	x_l \hspace{-5pt}&=&\hspace{-5pt} M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l \\
+	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} \hspace{-5pt}&=&\hspace{-5pt} S_l^T c_l^{(l)}
+	\end{array}\right.
+\end{equation}
+Substituting $x_l$ in the $i^{\mathrm{th}}$ equation ($i<l$) yields
+\begin{equation*}
+\footnotesize
+  A_{i,i} x_i + \ldots + A_{i,l-1} x_{l-1} + (B_i^{(l)} + A_{i,l} M_l)y 
+	+ \BIN\hspace{-1pt} Z_i^{(l)} \hspace{-7pt}-\hspace{-3pt} A_{i,l} A_l^\sharp Z_l^{(l)} &\hspace{-5pt} A_{i,l} A_l^\sharp N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	= \hspace{-3pt} c_i^{(l)} \hspace{-3pt}- A_{i,l} u_l
+\end{equation*}
+Likewise eq.~(\ref{eq:other_}) becomes
+\begin{equation*}
+\small
+  D_1 x_ 1+ \ldots + D_{l-1} x_{l-1} + (E^{(l)} + D_l M_l)y 
+	+ \BIN\hspace{-1pt} H^{(l)} \hspace{-5pt}-\hspace{-3pt} D_l A_l^\sharp Z_l^{(l)} &\hspace{-5pt} D_l A_l^\sharp N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	= \hspace{-3pt} f^{(l)} \hspace{-3pt}- D_l u_l
+\end{equation*}
+We define
+\footnote{
+Note that we could also define $z^{(l-1)} = \BIN z_l \\ z^{(l)} \BOUT$ and change $Z_i^{(l-1)}$ and $H^{(l-1)}$ accordingly. We make the current choice with the implementation efficiency in mind: it is easier to grow a matrix by the bottom or the right, while ensuring the memory alignement.
+}
+\begin{align*}
+B_i^{(l-1)} &= (B_i^{(l)} + A_{i,l} M_l) = (B_i^{(l)} - A_{i,l} A_l^\sharp B_l^{(l)})\\
+z^{(l-1)} &= \BIN z^{(l)}\\ z_l \BOUT\\
+Z_i^{(l-1)} &= \BIN Z_i^{(l)} - A_{i,l} A_l^\sharp Z_l^{(l)} & A_{i,l} A_l^\sharp N_l\BOUT\\
+c_i^{(l-1)} &= c_i^{(l)} - A_{i,l} u_l = c_i^{(l)} - A_{i,l} A_l^\sharp c_l^{(l)}\\
+E^{(l-1)} &= E^{(l)} + D_l M_l = E^{(l)} - D_l A_l^\sharp B_l^{(l)}\\
+H^{(l-1)} &= \BIN H^{(l)} - D_l A_l^\sharp Z_l^{(l)} & D_l A_l^\sharp N_l\BOUT\\
+f^{(l-1)} &= f^{(l)} - D_l u_l = f^{(l)} - D_l A_l^\sharp c_l^{(l)}
+\end{align*}
+and the system (\ref{eq:triang_1}) - (\ref{eq:other_}) is equivalent to
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l-1} x_{l-1} + B_1^{(l-1)} y + Z_1^{(l-1)} z^{(l-1)}&= c_1^{(l-1)}  \label{eq:triang_1s}\\
+A_{2,2} x_2 + \ldots + A_{2,l-1} x_{l-1} + B_2^{(l-1)} y + Z_2^{(l-1)} z^{(l-1)}&= c_2^{(l-1)}\\
+\vdots& \nonumber\\
+A_{l-1,l-1} x_{l-1} + B_{l-1}^{(l-1)} y + Z_{l-1}^{(l-1)} z^{(l-1)}&= c_{l-1}^{(l-1)}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_{l-1} x_{l-1} + E^{(l-1)} y + H^{(l-1)} z^{(l-1)}&= f^{(l-1)} \label{eq:other_s}\\
+M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l &= x_l\\
+	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} &= S_l^T c_l^{(l)}
+\end{align}
+Equations~(\ref{eq:triang_1s})-(\ref{eq:other_s}) have the same form as equations (\ref{eq:triang_1}) - (\ref{eq:other_}), so that we can apply the above recursively, starting with
+\begin{align*}
+B_i^{(k)} &= B_i\\
+z^{(k)} &\mathrm{empty}\\
+Z_i^{(k)} & \mathrm{empty}\\
+c_i^{(k)} &= c_i\\
+E^{(k)} &= E\\
+H^{(k)} & \mathrm{empty} \\
+f^{(k)} &= f
+\end{align*}
+
+We get
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l-1} x_{l-1} + B_1^{(l-1)} y + Z_1^{(l-1)} z^{(l-1)}&= c_1^{(l-1)}  \label{eq:triang_1f}\\
+A_{2,2} x_2 + \ldots + A_{2,l-1} x_{l-1} + B_2^{(l-1)} y + Z_2^{(l-1)} z^{(l-1)}&= c_2^{(l-1)}\\
+\vdots& \nonumber\\
+A_{l-1,l-1} x_{l-1} + B_{l-1}^{(l-1)} y + Z_{l-1}^{(l-1)} z^{(l-1)}&= c_{l-1}^{(l-1)}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_{l-1} x_{l-1} + E^{(l-1)} y + H^{(l-1)} z^{(l-1)}&= f^{(l-1)} \label{eq:other_s}\\
+M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l &= x_l\\
+	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} &= S_l^T c_l^{(l)}
+\end{align}
 
 \appendix
 \section{Some properties around the generalized inverse}
@@ -147,7 +217,7 @@ The following theorem is due to [Rao 1972]:
 \begin{theorem}
   Given a particular generalized inverse $G$, and an arbitrary matrix $M\in \mathbb{R}^{n \times m}$, the matrix
 	\begin{equation}
-		G + U - GAUAG
+		G + M - GAMAG
 	\end{equation}
 	is a generalized inverse of $A$, and all of the generalized inverses of $A$ are obtained this way.
 \end{theorem}
@@ -235,6 +305,7 @@ An equivalent theorem can be made for $I-AG$:
 \end{proof}
 
 \begin{theorem}
+\label{th:inverse}
 	Let $G$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$ and $S$ a basis of $\mathrm{null}(A^T)$. Then the matrix
 	\begin{equation}
 		H = \BIN G & N \\ S^T & 0 \BOUT
