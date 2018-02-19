@@ -5,6 +5,7 @@
 #include <tvm/robot/CoMFunction.h>
 #include <tvm/robot/CoMInConvexFunction.h>
 #include <tvm/robot/ConvexHull.h>
+#include <tvm/robot/JointsSelector.h>
 #include <tvm/robot/OrientationFunction.h>
 #include <tvm/robot/PositionFunction.h>
 #include <tvm/robot/PostureFunction.h>
@@ -119,7 +120,7 @@ TEST_CASE("Test a problem with a robot")
     hrp2_filtered.push_back(ss.str());
     }
   }
-  std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
+  std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.0}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
   std::tie(hrp2, hrp2_limits) = load_robot(pb.clock(), "HRP2", hrp2_urdf, false, {}, ref_q);
   tvm::RobotPtr ground;
   std::tie(ground, std::ignore) = load_robot(pb.clock(), "ground", ground_urdf, true, {}, {});
@@ -204,6 +205,9 @@ TEST_CASE("Test a problem with a robot")
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 
+  std::shared_ptr<tvm::robot::JointsSelector> ori_js = tvm::robot::JointsSelector::UnactiveJoints(ori_fn, hrp2, {"LARM_JOINT3"});
+  std::shared_ptr<tvm::robot::JointsSelector> pos_js = tvm::robot::JointsSelector::UnactiveJoints(pos_fn, hrp2, {"LARM_JOINT3"});
+
   auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(pb.clock());
   auto rhConvex = loadConvex(hrp2_rh);
   auto chestConvex = loadConvex(hrp2_chest);
@@ -219,8 +223,8 @@ TEST_CASE("Test a problem with a robot")
 
   pb.add(posture_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1.)});
   pb.add(com_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(100.)});
-  pb.add(ori_fn == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
-  pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
+  pb.add(ori_js == 0., tvm::task_dynamics::PD(2.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
+  pb.add(pos_js == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
 
   pb.add(collision_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, {0.1, 0.055, 0}, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});
   pb.add(com_in_fn >= 0., tvm::task_dynamics::VelocityDamper(dt, {0.005, 0.001, 0}, tvm::constant::big_number), {tvm::requirements::PriorityLevel(0)});

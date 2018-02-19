@@ -43,6 +43,7 @@ set(TVM_SOURCES
   robot/Frame.cpp
   robot/FrictionCone.cpp
   robot/GeometricContactFunction.cpp
+  robot/JointsSelector.cpp
   robot/OrientationFunction.cpp
   robot/PositionFunction.cpp
   robot/PostureFunction.cpp
@@ -132,6 +133,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/ConvexHull.h
   ${TVM_INCLUDE_DIR}/robot/Contact.h
   ${TVM_INCLUDE_DIR}/robot/Frame.h
+  ${TVM_INCLUDE_DIR}/robot/JointsSelector.h
   ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
   ${TVM_INCLUDE_DIR}/robot/PositionFunction.h
   ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
