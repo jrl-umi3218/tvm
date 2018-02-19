@@ -38,7 +38,13 @@ addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 
 add_optional_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
-if(${MC_RBDYN_URDF_FOUND} or ${MC_RBDYN_URDF_DEBUG_FOUND})
+if(MC_RBDYN_URDF_FOUND STREQUAL "")
+  set(MC_RBDYN_URDF_FOUND 0)
+endif()
+if(MC_RBDYN_URDF_DEBUG_FOUND STREQUAL "")
+  set(MC_RBDYN_URDF_DEBUG_FOUND 0)
+endif()
+if(${MC_RBDYN_URDF_FOUND} OR ${MC_RBDYN_URDF_DEBUG_FOUND})
   add_required_dependency(hrp2_drc_description)
   execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
     "--variable=datadir" "hrp2_drc_description"
