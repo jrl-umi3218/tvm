@@ -94,7 +94,7 @@ void Node<T>::addOutputDependency(EnumO o, EnumU u)
     ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
     throw std::runtime_error(ss.str());
   }
-  if (directDependencies_.count(static_cast<int>(u)))
+  if (directDependencies_.count(static_cast<int>(o)))
   {
     std::stringstream ss;
     ss << "Output " << U::OutputName(o) << " already has a direct dependency. You cannot mix direct and output dependencies";
@@ -262,7 +262,7 @@ inline void Node<T>::addDirectDependency(EnumO o, S & source, EnumI i)
   // Make sure we have this input
   addInput(source, i);
   // Add the dependency
-  addDirectDependency<U>(o, source.get(), i);
+  addDirectDependency<U>(o, &source, i);
 }
 
 template<typename T>
