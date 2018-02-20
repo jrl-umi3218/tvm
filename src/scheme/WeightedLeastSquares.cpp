@@ -52,6 +52,8 @@ namespace scheme
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
     auto memory = std::unique_ptr<Memory>(new Memory(id()));
+    memory->ls.warm(true);
+    memory->ls.feasibilityTol(1e-6);
     const auto& constraints = problem.constraints();
 
     //scanning bounds
