@@ -266,22 +266,7 @@ TEST_CASE("Test a problem with a robot")
   tvm::LinearizedControlProblem lpb(pb);
 
   tvm::scheme::WeightedLeastSquares solver(false);
-  auto q_init = hrp2->q().value();
-  rbd::paramToVector(hrp2->mbc().q, q_init);
-  hrp2->q().value(q_init);
-  auto dq = dot(hrp2->q(), 1);
-  dq.value(Eigen::VectorXd::Zero(dq.value().size()));
-  auto dq_value = dq.value(); dq_value.setZero();
-  dq.value(dq_value);
-  auto ddq = dot(hrp2->q(), 2);
-  ddq.value(Eigen::VectorXd::Zero(ddq.value().size()));
 
-  rbd::InverseDynamics id(hrp2->mb());
-  id.inverseDynamics(hrp2->mb(), hrp2->mbc());
-  auto tau = hrp2->tau();
-  Eigen::VectorXd tau_zero(tau->size());
-  rbd::paramToVector(hrp2->mbc().jointTorque, tau_zero);
-  tau->value(tau_zero);
   /** The position of the frame should not change */
   auto X_0_lf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];
   auto X_0_rf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("RLEG_LINK5")];

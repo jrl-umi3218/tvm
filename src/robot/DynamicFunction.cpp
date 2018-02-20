@@ -70,6 +70,7 @@ void DynamicFunction::addContact_(const Contact::View & contact, bool linearize,
     for(size_t i = 0; i < nrP; ++i)
     {
       fc.forces_.push_back(tvm::Space(3).createVariable("force"));
+      fc.forces_.back()->value(Eigen::Vector3d::Zero());
     }
     fc.updateJacobians_ = [f,cPoints,dir](ForceContact & self,
                               DynamicFunction & df)
@@ -111,6 +112,7 @@ void DynamicFunction::addContact_(const Contact::View & contact, bool linearize,
       {
         std::stringstream ss; ss << f->name() << "_lambda_" << nrLambda++;
         fc.forces_.push_back(tvm::Space(1).createVariable(ss.str()));
+        fc.forces_.back()->value(Eigen::VectorXd::Zero(1));
       }
       FrictionCone cone {dir*p.rotation(), nrGen, mu, dir};
       for(auto & g : cone.generators)

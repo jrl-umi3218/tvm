@@ -31,6 +31,12 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   q_.add(q_joints_);
   dq_ = dot(q_, 1);
   ddq_ = dot(q_, 2);
+  auto q_init = q_.value();
+  rbd::paramToVector(mbc_.q, q_init);
+  q_.value(q_init);
+  dq_.value(Eigen::VectorXd::Zero(dq_.value().size()));
+  ddq_.value(Eigen::VectorXd::Zero(ddq_.value().size()));
+  tau_->value(Eigen::VectorXd::Zero(tau_->value().size()));
   registerUpdates(Update::Time, &Robot::updateTimeDependency,
                   Update::Kinematics, &Robot::updateKinematics,
                   Update::Dynamics, &Robot::updateDynamics,
