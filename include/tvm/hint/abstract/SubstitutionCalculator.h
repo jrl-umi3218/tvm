@@ -33,7 +33,11 @@ namespace hint
 
 namespace abstract
 {
-
+  /** A SubstitutionCalculator is a lightweight factory that can generates a
+    * SubstitutionCalculatorImpl.
+    * It is used to specify custom operations to be made during the substitution
+    * process.
+    */
   class TVM_DLLAPI SubstitutionCalculator
   {
   public:

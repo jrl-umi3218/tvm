@@ -36,7 +36,14 @@ namespace hint
 
 namespace internal
 {
-
+  /** The default substitution calculator for a set of constraints.
+    * A^#, N and S are deduced from a single rank-revealing QR:
+    * A = | P1  P2 | = | Q1  Q2 | | R1  R2 |
+    *                             |  0   0 |
+    * A^# = P1 R1^-1 Q1^T
+    * N = P2 - P1 R1^-1 R2
+    * S = Q2
+    */
   class TVM_DLLAPI GenericCalculator: public abstract::SubstitutionCalculator
   {
   public:

@@ -35,7 +35,7 @@ namespace hint
 
 namespace internal
 {
-
+  /** A set of substitutions*/
   class TVM_DLLAPI Substitutions
   {
   public:
@@ -51,12 +51,16 @@ namespace internal
     void updateSubstitutions();
 
     /** Update the value of the substituted variables according to the values of
-    * the non-substitued ones.*/
+      * the non-substitued ones.*/
     void updateVariableValues() const;
 
+    /** All variables in the substitutions*/
     const std::vector<VariablePtr>& variables() const;
+    /** The linear functions x = f(y,z) corresponding to the variables*/
     const std::vector<std::shared_ptr<function::BasicLinearFunction>>& variableSubstitutions() const;
+    /** The additional nullspace variables z*/
     const std::vector<VariablePtr>& additionalVariables() const;
+    /** The remaining constraints on y and z*/
     const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& additionalConstraints() const;
 
   private:
