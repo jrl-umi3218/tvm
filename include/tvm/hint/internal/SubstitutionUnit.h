@@ -37,7 +37,9 @@ namespace hint
 
 namespace internal
 {
-
+  /** A class to perform all the computations related to a group of dependent
+    * substitutions.
+    */
   class TVM_DLLAPI SubstitutionUnit
   {
   public:
@@ -67,19 +69,18 @@ namespace internal
 
 
   private:
-
     /** Build \p substitutions_ from the inputs
-      * \sa SubstitutionUnit:SubstitutionUbit
+      * \sa SubstitutionUnit:SubstitutionUnit
       */
     void extractSubstitutions(const std::vector<Substitution>& substitutionPool, const std::vector<std::vector<size_t>>& groups, const std::vector<size_t> order);
     /** Populates \p constraints_, \p x_, \p y_, \p z_, \p substitutionMRanges_,
       * \p substitutionNRanges_. \p constraintsY_, \p CXdependencies and \p m_
-      * from |p substitutions_.
+      * from \p substitutions_.
       */
     void scanSubstitutions();
     /** Compute the dependencies between the constraints, variables and susbsitutions.*/
     void computeDependencies();
-    /** Resize the matrices*/
+    /** Resize the matrices and initialize to zero some parts that will be used*/
     void initializeMatrices();
     /** Build \p varSubstitutions_ and \p remainings_*/
     void createFunctions();
@@ -109,7 +110,13 @@ namespace internal
       */
     std::vector<Range> substitutionNRanges_;
 
+    /** sub2cstr[i]_ gives the indices relative to constraints_ of the
+      * constraints corresponding to susbtitutions_[i].
+      */
     std::vector<std::vector<size_t>> sub2cstr_;
+    /** sub2cstr[i]_ gives the indices relative to x_ of the variables x
+      * corresponding to susbtitutions_[i].
+      */
     std::vector<std::vector<size_t>> sub2x_;
 
     /** constraints_[i] contains y_[constraintsY_[i][j]].*/
@@ -169,9 +176,9 @@ namespace internal
      /** For each element \p substitutions_[i], an assembly of S_i^T c_i. */
     std::vector<Eigen::VectorXd> Stc_;
 
-    /** A temporary vector used in the update*/
+    /** A temporary vector used in the update.*/
     std::vector<bool> firstY_;
-    /** A temporary vector used in the update*/
+    /** A temporary vector used in the update.*/
     std::vector<bool> firstZ_;
   };
 

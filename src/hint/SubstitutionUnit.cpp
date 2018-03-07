@@ -12,6 +12,9 @@ namespace
   using namespace tvm;
   using namespace tvm::hint;
 
+  /** Return a single substitution grouping the substitutions from \p substitutionPool
+    * specified by \p group.
+    */
   Substitution group(const std::vector<Substitution>& substitutionPool,
                      const std::vector<size_t>& group)
   {
@@ -59,6 +62,17 @@ namespace internal
       c->update();
     }
     int m = 0;
+    //Knowing that the substitutions are ordered we process as follows, we process
+    //one substitution at a time, in order.
+    //For each constraint sum A_{ij} x_j + sum B_{ij} y_j = c of substitution k,
+    //we first fill the matrices B_{ij}.
+    //We then substitutes the variable x_l that are not the ones substituted by
+    //this substitution by x_l = sum M_{lj} y_j + sum AsZ_{lj} z_j + u_l. Since the
+    //substitutions are ordered, we know that the values M_{lj}, AsZ_{lj} and u_l
+    //have been computed at a previous iteration k.
+    //Once this has been done for every constraints in the substitution, we compute
+    //M, AsZ, u, S^T B, S^T Z and S^T c corresponding to the concatenation of the
+    //variables substituted by the substitution.
     for (size_t k=0; k<substitutions_.size(); ++k)
     {
       int mk = 0;
@@ -176,8 +190,8 @@ namespace internal
       int mx = 0;
       for (auto i : sub2x_[k])
       {
-        int mxi = x_[i]->size();
-        auto rx = x_[i]->getMappingIn(x_);
+        int mxi = x_[static_cast<int>(i)]->size();
+        auto rx = x_[static_cast<int>(i)]->getMappingIn(x_);
         for (auto j : SYdependencies_[k])
         {
           auto ry = y_[j]->getMappingIn(y_);
@@ -397,7 +411,7 @@ namespace internal
       {
         vars.push_back(z_[j]);
       }
-      varSubstitutions_.emplace_back(new function::BasicLinearFunction(x_[i]->size(), vars));
+      varSubstitutions_.emplace_back(new function::BasicLinearFunction(x_[static_cast<int>(i)]->size(), vars));
     }
 
     for (size_t k = 0; k < substitutions_.size(); ++k)
@@ -411,7 +425,7 @@ namespace internal
       {
         vars.push_back(z_[j]);
       }
-      remaining_.emplace_back(new constraint::BasicLinearConstraint(calculators_[k]->m() - calculators_[k]->r(), vars, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN));
+      remaining_.emplace_back(new constraint::BasicLinearConstraint(static_cast<int>(calculators_[k]->m() - calculators_[k]->r()), vars, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN));
     }
   }
 

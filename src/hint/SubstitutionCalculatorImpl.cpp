@@ -108,6 +108,7 @@ SubstitutionCalculatorImpl::SubstitutionCalculatorImpl(const std::vector<LinearC
   if (!isSimple())
   {
     A_.resize(m_, n_);
+    A_.setZero();
 
     //build fillData
     int m = 0;
@@ -150,6 +151,18 @@ void SubstitutionCalculatorImpl::constant(bool c)
 bool SubstitutionCalculatorImpl::constant() const
 {
   return constant_;
+}
+
+inline const Eigen::MatrixXd & SubstitutionCalculatorImpl::A() const
+{
+  if (isSimple())
+  {
+    return constraints_[0]->jacobian(*variables_[0]);
+  }
+  else
+  {
+    return A_;
+  }
 }
 
 }
