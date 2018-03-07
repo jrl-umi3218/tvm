@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <set>
 
-#include <iostream>
-
 namespace
 {
   using namespace tvm;
@@ -88,8 +86,6 @@ namespace internal
           auto r = y_[j]->getMappingIn(y_);
           B_.block(m + mk, r.start, mki, r.dim) = c->jacobian(*y_[j]);
           firstY_[j] = false;
-          std::cout << "B (" << i << ", " << y_[j]->name() << ")" << std::endl;
-          std::cout << B_.block(m + mk, r.start, mki, r.dim) << "\n" << std::endl;
         }
         switch (c->rhs())
         {
@@ -116,8 +112,6 @@ namespace internal
               B_.block(m + mk, ry.start, mki, ry.dim).noalias() +=
                 A*M_.block(rx.start, ry.start, rx.dim, ry.dim);
             }
-            std::cout << "B (" << i << ", " << y_[j]->name() << ")" << std::endl;
-            std::cout << B_.block(m + mk, ry.start, mki, ry.dim) << "\n" << std::endl;
           }
           // Z_{ij} += A_{il}*AsZ_{lj} for each z_j on which x_l depends.
           for (auto j : XZdependencies_[l])
@@ -128,8 +122,6 @@ namespace internal
               // we handles this dependency in z separately, as it involves N
               calculators_[l]->postMultiplyByN(Z_.block(m + mk, rz.start, mki, rz.dim), A, !firstZ_[l]);
               firstZ_[l] = false;
-              std::cout << "Z (" << i << ", " << z_[j]->name() << ")  (Ncase)" << std::endl;
-              std::cout << Z_.block(m + mk, rz.start, mki, rz.dim) << "\n" << std::endl;
               continue;
             }
             if (firstZ_[j])
@@ -143,8 +135,6 @@ namespace internal
               Z_.block(m + mk, rz.start, mki, rz.dim).noalias() +=
                 A*AsZ_.block(rx.start, rz.start, rx.dim, rz.dim);
             }
-            std::cout << "B (" << i << ", " << z_[j]->name() << ")" << std::endl;
-            std::cout << Z_.block(m + mk, rz.start, mki, rz.dim) << "\n" << std::endl;
           }
           
           // c_i -= A{il}*u_l
@@ -163,8 +153,6 @@ namespace internal
           StB_[k].middleCols(ry.start, ry.dim),
           B_.block(m, ry.start, mk, ry.dim),
           true);
-        std::cout << "M (" << k << ", " << y_[j]->name() << ")" << std::endl;
-        std::cout << M_.block(rn.start, ry.start, rn.dim, ry.dim) << "\n" << std::endl;
       }
       //Compute AsZ_{kj} and S_k^T Z_{k,j} for z_[j] on which substitutions_[k] depends.
       for (auto j : SZdependencies_[k])
@@ -175,8 +163,6 @@ namespace internal
           StZ_[k].middleCols(rz.start, rz.dim),
           Z_.block(m, rz.start, mk, rz.dim),
           true);
-        std::cout << "AsZ (" << k << ", " << z_[j]->name() << ")" << std::endl;
-        std::cout << AsZ_.block(rn.start, rz.start, rn.dim, rz.dim) << "\n" << std::endl;
       }
       //Compute u_k and S_k^T c_k
       calculators_[k]->premultiplyByASharpAndSTranspose(

@@ -301,15 +301,6 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
 {
   subs.updateSubstitutions();
 
-  for (const auto& f : subs.variableSubstitutions())
-  {
-    std::cout << "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*" << std::endl;
-    for (const auto& xi: f->variables().variables())
-    {
-      std::cout << "df/d" << xi->name() << " = \n" << f->jacobian(*xi) << "\n" << std::endl;
-    }
-  }
-
   int m0 = 0;
   VariableVector v0;
   VariableVector x(subs.variables());
@@ -392,8 +383,6 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
       {
         auto ry = yi->getMappingIn(y);
         C.block(m1, ry.start, mi, ry.dim) = c->jacobian(*yi);
-        std::cout << "dc/d" << yi->name() << " = " << std::endl;
-        std::cout << c->jacobian(*yi) << std::endl << std::endl;
       }
     }
     for (const auto& zi : z.variables())
@@ -402,8 +391,6 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
       {
         auto rz = zi->getMappingIn(z);
         C.block(m1, rz.start + y.size(), mi, rz.dim) = c->jacobian(*zi);
-        std::cout << "dc/d" << zi->name() << " = " << std::endl;
-        std::cout << c->jacobian(*zi) << std::endl << std::endl;
       }
     }
     switch (c->rhs())
@@ -414,12 +401,6 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     }
     m1 += mi;
   }
-
-  std::cout << "C = " << std::endl;
-  std::cout << C << std::endl << std::endl;
-  std::cout << "d = " << std::endl;
-  std::cout << d << std::endl << std::endl;
-
 
   // Solve this second system
   VectorXd sol1;
@@ -435,9 +416,6 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     sol1 = VectorXd::Zero(C.cols());
     N1 = MatrixXd::Identity(C.cols(), C.cols());
   }
-
-  std::cout << sol1.transpose() << std::endl << std::endl;
-  std::cout << N1 << std::endl;
 
   //now check the equivalence:
   for (auto i = 0; i < N1.cols(); ++i)
@@ -578,7 +556,7 @@ TEST_CASE("Substitution1")
 
   subs.finalize();
 
-  //checkEquivalence({ c1,c2,c3,c4,c5,c6 }, subs);
+  checkEquivalence({ c1,c2,c3,c4,c5,c6 }, subs);
 }
 
 TEST_CASE("Substitution2")
