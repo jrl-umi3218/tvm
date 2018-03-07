@@ -58,16 +58,14 @@ Indeed, if $l\leq k$ variables, let's note them $x_1, \ldots x_l$, appears in ex
 Let's note $r_j$ the rank of the matrix $A_{j,j}$. We require that $r_j \leq n_j$.
 Our goal is to transform the system (\ref{eq:triang1}) - (\ref{eq:triangk}), (\ref{eq:other}) into an equivalent system
 \begin{align}
-  x_1 &= M_1 y + N_1 z_1 + u_1 \\
-	x_2 &= M_2 y + N_2 z_2 + u_2 \\
+  x_1 &= \varphi_1(y,z_1, \ldots, z_k) \\
+	x_2 &= \varphi_2(y,z_2, \ldots, z_k) \\
   \vdots & \nonumber \\
-	x_k &= M_k y + N_k z_k + u_k \\
-	G y + H_1 z_1 + \ldots + H_k z_k &= v \\
-	S_1^T B y &= S_1^T c_1 \\
-	\vdots \nonumber \\
-	S_k^T B y &= S_k^T c_k
+	x_k &= \varphi_{k-1}(y,z_k) \\
+	x_k &= \varphi_k(y) \\
+	\psi(y,z_1, \ldots z_k) &= 0
 \end{align}
-where $z_j \in \mathbb{R}^{n_j-r_j}$, $N_j$ is a (non-necessarily orthogonal) basis of the nullspace of $A_{j,j}$, $M_i$ is a $m_i \times n_i$ matrix, $G = E + D_1 M_1 + \ldots + D_k M_k \in \mathbb{R}^{q\times p}$, $H_j = D_j N_j \in \mathbb{R}^{q\times n_j-r_j}$, $v = f - D_1 u_1 - \ldots - D_k u_k \in \mathbb{R}^q$, and $S_i \in \mathbb{R}^{m_i-r_i \times p}$ is a basis of the orthogonal complement to the image space of $A_{i,i}$.
+where $z_j \in \mathbb{R}^{n_j-r_j}$, and $\psi$ and the $\varphi_i$ are linear functions.
 
 
 \section{One variable substitution}
@@ -101,7 +99,7 @@ Let $A^\sharp$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)
 		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
 	\end{array}\right.
 \end{align*}
-The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ span $\mathbb{R}^{n-r}$. 
+The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ spans $\mathbb{R}^{n-r}$. 
 
 Noting $M = -A^\sharp B$, and $u = A^\sharp c$, we thus have
 \begin{equation*}
@@ -143,7 +141,7 @@ We define
 Eq.~(\ref{eq:triang_l}) becomes
 \begin{equation}
 	\left\{ \begin{array}{rcl}
-	x_l \hspace{-5pt}&=&\hspace{-5pt} M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l \\
+	x_l \hspace{-5pt}&=&\hspace{-5pt} M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + N_l z_l + u_l \\
 	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} \hspace{-5pt}&=&\hspace{-5pt} S_l^T c_l^{(l)}
 	\end{array}\right.
 \end{equation}
@@ -151,14 +149,14 @@ Substituting $x_l$ in the $i^{\mathrm{th}}$ equation ($i<l$) yields
 \begin{equation*}
 \footnotesize
   A_{i,i} x_i + \ldots + A_{i,l-1} x_{l-1} + (B_i^{(l)} + A_{i,l} M_l)y 
-	+ \BIN\hspace{-1pt} Z_i^{(l)} \hspace{-7pt}-\hspace{-3pt} A_{i,l} A_l^\sharp Z_l^{(l)} &\hspace{-5pt} A_{i,l} A_l^\sharp N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	+ \BIN\hspace{-1pt} Z_i^{(l)} \hspace{-7pt}-\hspace{-3pt} A_{i,l} A_l^\sharp Z_l^{(l)} &\hspace{-5pt} A_{i,l} N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
 	= \hspace{-3pt} c_i^{(l)} \hspace{-3pt}- A_{i,l} u_l
 \end{equation*}
 Likewise eq.~(\ref{eq:other_}) becomes
 \begin{equation*}
 \small
   D_1 x_ 1+ \ldots + D_{l-1} x_{l-1} + (E^{(l)} + D_l M_l)y 
-	+ \BIN\hspace{-1pt} H^{(l)} \hspace{-5pt}-\hspace{-3pt} D_l A_l^\sharp Z_l^{(l)} &\hspace{-5pt} D_l A_l^\sharp N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	+ \BIN\hspace{-1pt} H^{(l)} \hspace{-5pt}-\hspace{-3pt} D_l A_l^\sharp Z_l^{(l)} &\hspace{-5pt} D_l N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
 	= \hspace{-3pt} f^{(l)} \hspace{-3pt}- D_l u_l
 \end{equation*}
 We define
@@ -168,10 +166,10 @@ Note that we could also define $z^{(l-1)} = \BIN z_l \\ z^{(l)} \BOUT$ and chang
 \begin{align*}
 B_i^{(l-1)} &= (B_i^{(l)} + A_{i,l} M_l) = (B_i^{(l)} - A_{i,l} A_l^\sharp B_l^{(l)})\\
 z^{(l-1)} &= \BIN z^{(l)}\\ z_l \BOUT\\
-Z_i^{(l-1)} &= \BIN Z_i^{(l)} - A_{i,l} A_l^\sharp Z_l^{(l)} & A_{i,l} A_l^\sharp N_l\BOUT\\
+Z_i^{(l-1)} &= \BIN Z_i^{(l)} - A_{i,l} A_l^\sharp Z_l^{(l)} & A_{i,l}  N_l\BOUT\\
 c_i^{(l-1)} &= c_i^{(l)} - A_{i,l} u_l = c_i^{(l)} - A_{i,l} A_l^\sharp c_l^{(l)}\\
 E^{(l-1)} &= E^{(l)} + D_l M_l = E^{(l)} - D_l A_l^\sharp B_l^{(l)}\\
-H^{(l-1)} &= \BIN H^{(l)} - D_l A_l^\sharp Z_l^{(l)} & D_l A_l^\sharp N_l\BOUT\\
+H^{(l-1)} &= \BIN H^{(l)} - D_l A_l^\sharp Z_l^{(l)} & D_l N_l\BOUT\\
 f^{(l-1)} &= f^{(l)} - D_l u_l = f^{(l)} - D_l A_l^\sharp c_l^{(l)}
 \end{align*}
 and the system (\ref{eq:triang_1}) - (\ref{eq:other_}) is equivalent to
@@ -181,7 +179,7 @@ A_{2,2} x_2 + \ldots + A_{2,l-1} x_{l-1} + B_2^{(l-1)} y + Z_2^{(l-1)} z^{(l-1)}
 \vdots& \nonumber\\
 A_{l-1,l-1} x_{l-1} + B_{l-1}^{(l-1)} y + Z_{l-1}^{(l-1)} z^{(l-1)}&= c_{l-1}^{(l-1)}\\
 D_1 x_1 + D_2 x_2 + \ldots + D_{l-1} x_{l-1} + E^{(l-1)} y + H^{(l-1)} z^{(l-1)}&= f^{(l-1)} \label{eq:other_s}\\
-M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l &= x_l\\
+M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + N_l z_l + u_l &= x_l\\
 	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} &= S_l^T c_l^{(l)}
 \end{align}
 Equations~(\ref{eq:triang_1s})-(\ref{eq:other_s}) have the same form as equations (\ref{eq:triang_1}) - (\ref{eq:other_}), so that we can apply the above recursively, starting with
@@ -197,13 +195,15 @@ f^{(k)} &= f
 
 We get
 \begin{align}
-A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l-1} x_{l-1} + B_1^{(l-1)} y + Z_1^{(l-1)} z^{(l-1)}&= c_1^{(l-1)}  \label{eq:triang_1f}\\
-A_{2,2} x_2 + \ldots + A_{2,l-1} x_{l-1} + B_2^{(l-1)} y + Z_2^{(l-1)} z^{(l-1)}&= c_2^{(l-1)}\\
-\vdots& \nonumber\\
-A_{l-1,l-1} x_{l-1} + B_{l-1}^{(l-1)} y + Z_{l-1}^{(l-1)} z^{(l-1)}&= c_{l-1}^{(l-1)}\\
-D_1 x_1 + D_2 x_2 + \ldots + D_{l-1} x_{l-1} + E^{(l-1)} y + H^{(l-1)} z^{(l-1)}&= f^{(l-1)} \label{eq:other_s}\\
-M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + A_l^\sharp N_l z_l + u_l &= x_l\\
-	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} &= S_l^T c_l^{(l)}
+  x_1 &= M_1 y - A_1^\sharp Z_1^{(1)} z^{(1)} + N_1 z_1 + u_1\\
+  x_2 &= M_2 y - A_2^\sharp Z_2^{(2)} z^{(2)} + N_2 z_2 + u_2\\
+  &\vdots\nonumber \\
+  x_k &= M_k y - \underbrace{A_k^\sharp Z_k^{(k)} z^{(k)}}_0 + N_k z_k + u_k\\
+  E^{(0)} y + H^{(0)} z^{(0)}&= f^{(0)} \\
+	S_1^T B_1^{(1)} y + S_1^T Z_1^{(1)} z^{(1)} &= S_1^T c_1^{(1)}\\
+	S_1^T B_1^{(2)} y + S_2^T Z_2^{(2)} z^{(2)} &= S_1^T c_2^{(2)}\\
+	&\vdots\nonumber \\
+	S_k^T B_k^{(k)} y + S_k^T Z_k^{(k)} z^{(k)} &= S_1^T c_k^{(k)}
 \end{align}
 
 \appendix
