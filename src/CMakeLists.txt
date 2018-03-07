@@ -27,8 +27,14 @@ set(TVM_SOURCES
   graph/Log.cpp
   graph/Logger.cpp
 
+  hint/AutoCalculator.cpp
+  hint/DiagonalCalculator.cpp
+  hint/GenericCalculator.cpp
   hint/Substitution.cpp
+  hint/SubstitutionCalculator.cpp
+  hint/SubstitutionCalculatorImpl.cpp
   hint/Substitutions.cpp
+  hint/SubstitutionUnit.cpp
   
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
@@ -97,7 +103,13 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/internal/Logger.h
   
   ${TVM_INCLUDE_DIR}/hint/Substitution.h
+  ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculatorImpl.h
+  ${TVM_INCLUDE_DIR}/hint/internal/AutoCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/internal/DiagonalCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/internal/GenericCalculator.h
   ${TVM_INCLUDE_DIR}/hint/internal/Substitutions.h
+  ${TVM_INCLUDE_DIR}/hint/internal/SubstitutionUnit.h
 
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
