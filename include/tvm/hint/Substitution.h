@@ -21,6 +21,9 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
+#include <tvm/hint/abstract/SubstitutionCalculator.h>
+#include <tvm/hint/internal/AutoCalculator.h>
+
 #include <vector>
 
 namespace tvm
@@ -29,20 +32,31 @@ namespace tvm
 namespace hint
 {
 
+  namespace abstract
+  {
+    class SubstitutionCalculatorImpl;
+  }
+
   /** Hint for a substitution that could be done by the solver.*/
   class TVM_DLLAPI Substitution
   {
   public:
-    Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank = fullRank);
-    Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank = fullRank);
-    Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank = fullRank);
-    Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank = fullRank);
+    Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank = fullRank, 
+                 const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
+    Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank = fullRank,
+                 const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
+    Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank = fullRank,
+                 const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
+    Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank = fullRank,
+                 const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
 
     int rank() const;
     const std::vector<LinearConstraintPtr>& constraints() const;
     const std::vector<VariablePtr>& variables() const;
 
     bool isSimple() const;
+
+    std::shared_ptr<abstract::SubstitutionCalculatorImpl> calculator() const;
 
     /** Constant for specifying that the matrix in front of the variable is full
       * rank.
@@ -55,6 +69,8 @@ namespace hint
     int rank_;
     std::vector<LinearConstraintPtr> constraints_;
     std::vector<VariablePtr> x_;
+
+    std::shared_ptr<abstract::SubstitutionCalculatorImpl> calculator_;
   };
 }
 

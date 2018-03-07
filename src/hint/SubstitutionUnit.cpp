@@ -270,8 +270,7 @@ namespace internal
     for (size_t i = 0; i< substitutions_.size(); ++i)
     {
       const auto& s = substitutions_[i];
-      //FIXME: associate the correct calculator
-      calculators_.push_back(GenericCalculator().impl(s.constraints(), s.variables(), s.rank()));
+      calculators_.push_back(s.calculator());
       sub2cstr_.push_back({});
       sub2x_.push_back({});
       SYdependencies_.push_back({});

@@ -11,23 +11,27 @@ namespace tvm
 namespace hint
 {
 
-  Substitution::Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank)
-    : Substitution(std::vector<LinearConstraintPtr>{ cstr }, std::vector<VariablePtr>{ x }, rank)
+  Substitution::Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank,
+                             const abstract::SubstitutionCalculator& calc)
+    : Substitution(std::vector<LinearConstraintPtr>{ cstr }, std::vector<VariablePtr>{ x }, rank, calc)
   {
   }
 
-  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank)
-    : Substitution(cstr, std::vector<VariablePtr>{ x }, rank)
+  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank,
+                             const abstract::SubstitutionCalculator& calc)
+    : Substitution(cstr, std::vector<VariablePtr>{ x }, rank, calc)
   {
   }
 
-  Substitution::Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank)
-    : Substitution(std::vector<LinearConstraintPtr>{ cstr }, x, rank)
+  Substitution::Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank,
+                             const abstract::SubstitutionCalculator& calc)
+    : Substitution(std::vector<LinearConstraintPtr>{ cstr }, x, rank, calc)
   {
   }
 
-  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank)
-    : rank_(rank), constraints_( cstr ), x_( x )
+  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank,
+                             const abstract::SubstitutionCalculator& calc)
+    : rank_(rank), constraints_(cstr), x_(x)
   {
     if (rank == fullRank)
     {
@@ -39,6 +43,7 @@ namespace hint
       rank_ = r;
     }
     check();
+    calculator_ = calc.impl(cstr, x, rank_);
   }
 
   int Substitution::rank() const
@@ -59,6 +64,11 @@ namespace hint
   bool Substitution::isSimple() const
   {
     return constraints_.size() == 1 && x_.size() == 1;
+  }
+
+  std::shared_ptr<abstract::SubstitutionCalculatorImpl> Substitution::calculator() const
+  {
+    return calculator_;
   }
 
   void Substitution::check() const

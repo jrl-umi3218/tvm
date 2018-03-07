@@ -21,6 +21,8 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
+#include <tvm/hint/abstract/SubstitutionCalculator.h>
+
 namespace tvm
 {
 
@@ -29,6 +31,21 @@ namespace hint
 
 namespace internal
 {
+
+  /** Automatically generates the most appropriate calculator for the given
+    * constraints and variables.
+    *
+    * Current rules:
+    * - for a non-simple substitution, generates a GenericCalculator.
+    * - for a simple substitution with invertible diagonal matrix, generates a
+    *   DiagonalCalculator
+    * - otherwise generates a GenericCalculator
+    */
+  class TVM_DLLAPI AutoCalculator : public abstract::SubstitutionCalculator
+  {
+  protected:
+    std::unique_ptr<abstract::SubstitutionCalculatorImpl> impl_(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const;
+  };
 
 } // internal
 
