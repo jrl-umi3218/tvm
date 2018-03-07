@@ -9,21 +9,21 @@ namespace function
 {
 
 BasicLinearFunction::BasicLinearFunction(const MatrixConstRef& A, VariablePtr x)
-  : BasicLinearFunction({A}, {x})
+  : BasicLinearFunction({A}, std::vector<VariablePtr>{x})
 {
 }
 
-BasicLinearFunction::BasicLinearFunction(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x)
+BasicLinearFunction::BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x)
   : BasicLinearFunction(A, x, Eigen::VectorXd::Zero(A.begin()->rows()))
 {
 }
 
 BasicLinearFunction::BasicLinearFunction(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b)
-  : BasicLinearFunction({A}, {x}, b)
+  : BasicLinearFunction({A}, std::vector<VariablePtr>{x}, b)
 {
 }
 
-BasicLinearFunction::BasicLinearFunction(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, const VectorConstRef& b)
+BasicLinearFunction::BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x, const VectorConstRef& b)
   : LinearFunction(static_cast<int>(A.begin()->rows()))
 {
   if (A.size() != x.size())
@@ -36,6 +36,22 @@ BasicLinearFunction::BasicLinearFunction(std::initializer_list<MatrixConstRef> A
     ++v;
   }
   this->b(b);
+  setDerivativesToZero();
+}
+
+BasicLinearFunction::BasicLinearFunction(int m, VariablePtr x)
+  : BasicLinearFunction(m, std::vector<VariablePtr>{x})
+{
+}
+
+BasicLinearFunction::BasicLinearFunction(int m, const std::vector<VariablePtr>& x)
+  : LinearFunction(m)
+{
+  for (auto& v : x)
+  {
+    addVariable(v, true);
+    jacobian_.at(v.get()).properties({ tvm::internal::MatrixProperties::Constness(true) });
+  }
   setDerivativesToZero();
 }
 

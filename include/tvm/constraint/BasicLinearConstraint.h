@@ -36,8 +36,8 @@ namespace constraint
     BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, Type ct);
 
     /** A_{i}x_{i} = 0, A_{i}x_{i} <= 0 or A_{i}x_{i} >= 0 */
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A,
-                          std::initializer_list<VariablePtr> x,
+    BasicLinearConstraint(const std::vector<MatrixConstRef>& A,
+                          const std::vector<VariablePtr>& x,
                           Type ct);
 
     /** Ax = +/-b, Ax <= +/-b or Ax >= +/-b */
@@ -47,8 +47,8 @@ namespace constraint
                           Type ct, RHS cr = RHS::AS_GIVEN);
 
     /** A_{i}x_{i} = +/-b, A_{i}x_{i} <= +/-b or A_{i}x_{i} >= +/-b */
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A,
-                          std::initializer_list<VariablePtr> x,
+    BasicLinearConstraint(const std::vector<MatrixConstRef>& A,
+                          const std::vector<VariablePtr>& x,
                           const VectorConstRef& b,
                           Type ct, RHS cr = RHS::AS_GIVEN);
 
@@ -60,11 +60,15 @@ namespace constraint
                           RHS cr = RHS::AS_GIVEN);
 
     /** l <= A_{i}x_{i} <= u */
-    BasicLinearConstraint(std::initializer_list<MatrixConstRef> A,
-                          std::initializer_list<VariablePtr> x,
+    BasicLinearConstraint(const std::vector<MatrixConstRef>& A,
+                          const std::vector<VariablePtr>& x,
                           const VectorConstRef& l,
                           const VectorConstRef& u,
                           RHS cr = RHS::AS_GIVEN);
+
+    /** Uninitialized data. Allocate memory for a constraint with \p m rows. */
+    BasicLinearConstraint(int m, std::vector<VariablePtr>& x,
+                          Type ct, RHS cr = RHS::AS_GIVEN);
 
     /** Set the matrix A corresponding to variable x.*/
     void A(const MatrixConstRef& A, const Variable& x);

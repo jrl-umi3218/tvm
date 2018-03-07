@@ -35,11 +35,15 @@ namespace function
   public:
     /** b = 0 */
     BasicLinearFunction(const MatrixConstRef& A, VariablePtr x);
-    BasicLinearFunction(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x);
+    BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x);
 
     /** b is user-supplied*/
     BasicLinearFunction(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b);
-    BasicLinearFunction(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, const VectorConstRef& b);
+    BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x, const VectorConstRef& b);
+
+    /** Uninitialized version for a function of size \p m*/
+    BasicLinearFunction(int m, VariablePtr x);
+    BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 
     /** Set the matrix A corresponding to variable x.*/
     virtual void A(const MatrixConstRef& A, const Variable& x);
@@ -47,6 +51,8 @@ namespace function
     virtual void A(const MatrixConstRef& A);
     /** Set the constant term b.*/
     virtual void b(const VectorConstRef& b);
+
+    using LinearFunction::b;
 
   private:
     void add(const Eigen::MatrixXd& A, VariablePtr x);
