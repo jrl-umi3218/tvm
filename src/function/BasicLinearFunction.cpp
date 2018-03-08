@@ -55,18 +55,22 @@ BasicLinearFunction::BasicLinearFunction(int m, const std::vector<VariablePtr>& 
   setDerivativesToZero();
 }
 
-void BasicLinearFunction::A(const MatrixConstRef& A, const Variable& x)
+void BasicLinearFunction::A(const MatrixConstRef& A, const Variable& x,
+                            const tvm::internal::MatrixProperties& p)
 {
   if (A.rows() == size() && A.cols() == x.size())
+  {
     jacobian_.at(&x) = A;
+    jacobian_.at(&x).properties(p);
+  }
   else
     throw std::runtime_error("Matrix A doesn't have the good size.");
 }
 
-void BasicLinearFunction::A(const MatrixConstRef& A)
+void BasicLinearFunction::A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p)
 {
-  if (variables().size() == 1)
-    this->A(A, *variables()[0].get());
+  if (variables().variables().size() == 1)
+    this->A(A, *variables()[0].get(), p);
   else
     throw std::runtime_error("You can use this method only for constraints with one variable.");
 }

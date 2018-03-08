@@ -20,6 +20,7 @@
 
 
 #include <tvm/function/abstract/LinearFunction.h>
+#include <tvm/internal/MatrixProperties.h>
 
 namespace tvm
 {
@@ -46,9 +47,11 @@ namespace function
     BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 
     /** Set the matrix A corresponding to variable x.*/
-    virtual void A(const MatrixConstRef& A, const Variable& x);
+    virtual void A(const MatrixConstRef& A, const Variable& x,
+                   const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
     /** Shortcut for when there is a single variable.*/
-    virtual void A(const MatrixConstRef& A);
+    virtual void A(const MatrixConstRef& A, 
+                   const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
     /** Set the constant term b.*/
     virtual void b(const VectorConstRef& b);
 

@@ -19,6 +19,7 @@
  */
 
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/internal/MatrixProperties.h>
 
 namespace tvm
 {
@@ -67,13 +68,17 @@ namespace constraint
                           RHS cr = RHS::AS_GIVEN);
 
     /** Uninitialized data. Allocate memory for a constraint with \p m rows. */
+    BasicLinearConstraint(int m, VariablePtr x,
+                          Type ct, RHS cr = RHS::AS_GIVEN);
+    /** Uninitialized data. Allocate memory for a constraint with \p m rows. */
     BasicLinearConstraint(int m, std::vector<VariablePtr>& x,
                           Type ct, RHS cr = RHS::AS_GIVEN);
 
     /** Set the matrix A corresponding to variable x.*/
-    void A(const MatrixConstRef& A, const Variable& x);
+    void A(const MatrixConstRef& A, const Variable& x, 
+           const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
     /** Shortcut for when there is a single variable.*/
-    void A(const MatrixConstRef& A);
+    void A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
     /** Set b */
     void b(const VectorConstRef& b);
     using abstract::LinearConstraint::l;

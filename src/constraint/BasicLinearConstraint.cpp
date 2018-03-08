@@ -84,6 +84,12 @@ namespace constraint
     this->u(u);
   }
 
+  BasicLinearConstraint::BasicLinearConstraint(int m, VariablePtr x, Type ct, RHS cr) 
+    : LinearConstraint(ct, cr, m)
+  {
+    addVariable(x, true);
+  }
+
   BasicLinearConstraint::BasicLinearConstraint(int m, std::vector<VariablePtr>& x, Type ct, RHS cr)
     : LinearConstraint(ct, cr, m)
   {
@@ -93,19 +99,23 @@ namespace constraint
     }
   }
 
-  void BasicLinearConstraint::A(const MatrixConstRef& A, const Variable& x)
+  void BasicLinearConstraint::A(const MatrixConstRef& A, const Variable& x,
+                                const tvm::internal::MatrixProperties& p)
   {
     if (A.rows() == size() && A.cols() == x.size())
+    {
       jacobian_.at(&x) = A;
+      jacobian_.at(&x).properties(p);
+    }
     else
       throw std::runtime_error("Matrix A doesn't have the good size.");
   }
 
-  void BasicLinearConstraint::A(const MatrixConstRef& A)
+  void BasicLinearConstraint::A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p)
   {
-    if (variables().size() == 1)
+    if (variables().variables().size() == 1)
     {
-      this->A(A, *variables()[0].get());
+      this->A(A, *variables()[0].get(), p);
     }
     else
       throw std::runtime_error("You can use this method only for constraints with one variable.");

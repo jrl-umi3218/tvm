@@ -14,12 +14,13 @@ IdentityFunction::IdentityFunction(VariablePtr x)
   jacobian_.begin()->second.properties({ tvm::internal::MatrixProperties::Shape::IDENTITY });
 }
 
-void IdentityFunction::A(const MatrixConstRef &, const Variable &)
+void IdentityFunction::A(const MatrixConstRef &, const Variable &, 
+                         const tvm::internal::MatrixProperties&)
 {
   throw std::runtime_error("You can not change the A matrix on a identity function");
 }
 
-void IdentityFunction::A(const MatrixConstRef &)
+void IdentityFunction::A(const MatrixConstRef &, const tvm::internal::MatrixProperties&)
 {
   throw std::runtime_error("You can not change the A matrix on a identity function");
 }

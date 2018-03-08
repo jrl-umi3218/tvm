@@ -33,8 +33,10 @@ namespace function
   public:
     IdentityFunction(VariablePtr x);
 
-    void A(const MatrixConstRef& A, const Variable& x) override;
-    void A(const MatrixConstRef& A) override;
+    void A(const MatrixConstRef& A, const Variable& x, 
+           const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
+    void A(const MatrixConstRef& A, 
+           const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
     void b(const VectorConstRef& b) override;
 
   protected:
