@@ -64,6 +64,15 @@ namespace internal
   {
   public:
     using Eigen::MatrixXd::MatrixXd;
+
+    MatrixWithProperties() {}
+
+    template<typename OtherDerived>
+    MatrixWithProperties(const Eigen::MatrixBase<OtherDerived>& other, const MatrixProperties& p)
+      : Eigen::MatrixXd(other), properties_(p)
+    {
+    }
+
     template<typename OtherDerived>
     MatrixWithProperties& operator=(const Eigen::MatrixBase<OtherDerived>& other)
     {
