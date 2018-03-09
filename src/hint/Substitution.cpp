@@ -51,6 +51,16 @@ namespace hint
     return rank_;
   }
 
+  int Substitution::m() const
+  {
+    int m = 0;
+    for (const auto& c : constraints_)
+    {
+      m += c->size();
+    }
+    return m;
+  }
+
   const std::vector<LinearConstraintPtr>& Substitution::constraints() const
   {
     return constraints_;
@@ -78,7 +88,7 @@ namespace hint
     {
       // It could be possible to accept double sided inequality constraints with both bounds equal
       // but in this case we would need to assert that the bounds are and stay equals (the latter
-      // requiring some form of annotation.
+      // requiring some form of annotation).
       // If the bounds are known to be always equal, the user should simply use an equality.
       // If only some of the bounds are equal but not all, we would need an annotation giving the
       // pattern, and handling it would add a lot of complexity for a not so common case.
