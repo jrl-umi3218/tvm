@@ -118,6 +118,14 @@ namespace internal
       * corresponding to susbtitutions_[i].
       */
     std::vector<std::vector<size_t>> sub2x_;
+    /** x2sub_[i] gives the index of the substitution from which x_[i] is
+      * computed.
+      */
+    std::vector<size_t> x2sub_;
+    /** xRange_[i] gives the range of x_[i] wrt substitutions_[i].variables().
+      * We cache it for efficiency purpose.
+      */
+    std::vector<Range> xRange_;
 
     /** constraints_[i] contains y_[constraintsY_[i][j]].*/
     std::vector<std::vector<int>> constraintsY_;

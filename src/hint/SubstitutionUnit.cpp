@@ -18,7 +18,6 @@ namespace
   {
     std::set<LinearConstraintPtr> subs;
     std::set<VariablePtr> vars;
-    int rank = 0;
 
     for (auto i : group)
     {
@@ -27,10 +26,41 @@ namespace
 
       const auto& v = substitutionPool[i].variables();
       vars.insert(v.begin(), v.end());
+    }
 
-      //We suppose the substitutions are independent.
-      //If this is not the case, an exception will be raised later.
-      rank += substitutionPool[i].rank();
+    //determine the rank.
+    //We make two suppositions:
+    // - the substitutions are independent
+    // - if x1,...,xk are the variables susbtituted by a substitution, and
+    //   xk+1,... are the variables substituted by other substitutions, the
+    //   matrices in front of xk+1,... are independent of the matrix in front
+    //   of x1,...,xk.
+    //  If this is not the case, an exception will be raised later in the
+    //  calculator.
+    int rank = 0;
+    for (auto i : group)
+    {
+      const auto& s = substitutionPool[i];
+      const auto& v = s.variables();
+      int ranki = s.rank(); //this is the declared rank of the matrix in front
+                            //of x1,...,xk
+      for (const auto& xi : vars)
+      {
+        int mi = 0;
+        // xi is one of the substituted variables. If it is not one
+        // substituted by s...
+        if (std::find(v.begin(), v.end(), xi) == v.end())
+        {
+          for (const auto& c : s.constraints())
+          {
+            if (c->variables().contains(*xi))
+              mi += c->size();
+          }
+          // it can help to increase the rank
+          ranki += std::min(mi, xi->size());
+        }
+      }
+      rank += std::min(ranki, s.m());
     }
 
     return Substitution(std::vector<LinearConstraintPtr>(subs.begin(), subs.end()),
@@ -117,14 +147,13 @@ namespace internal
           for (auto j : XZdependencies_[l])
           {
             auto rz = z_[j]->getMappingIn(z_);
-            if (j == l)
+            if (j == x2sub_[l])
             {
               // we handles this dependency in z separately, as it involves N
-              calculators_[l]->postMultiplyByN(Z_.block(m + mk, rz.start, mki, rz.dim), A, !firstZ_[l]);
-              firstZ_[l] = false;
-              continue;
+              calculators_[j]->postMultiplyByN(Z_.block(m + mk, rz.start, mki, rz.dim), A, xRange_[l],!firstZ_[j]);
+              firstZ_[j] = false;
             }
-            if (firstZ_[j])
+            else if (firstZ_[j])
             {
               Z_.block(m + mk, rz.start, mki, rz.dim).noalias() =
                 A*AsZ_.block(rx.start, rz.start, rx.dim, rz.dim);
@@ -173,10 +202,8 @@ namespace internal
     //update values in varSubstitution and remaining_
     for (size_t k = 0; k < substitutions_.size(); ++k)
     {
-      int mx = 0;
       for (auto i : sub2x_[k])
       {
-        int mxi = x_[static_cast<int>(i)]->size();
         auto rx = x_[static_cast<int>(i)]->getMappingIn(x_);
         for (auto j : SYdependencies_[k])
         {
@@ -192,10 +219,9 @@ namespace internal
         // copy N
         if (z_[static_cast<int>(k)]->size() > 0)
         {
-          varSubstitutions_[i]->A(calculators_[k]->N().middleRows(mx, mxi), *z_[static_cast<int>(k)]);
+          varSubstitutions_[i]->A(calculators_[k]->N().middleRows(xRange_[i].start, xRange_[i].dim), *z_[static_cast<int>(k)]);
         }
         varSubstitutions_[i]->b(u_.segment(rx.start, rx.dim));
-        mx += mxi;
       }
 
       for (auto j : SYdependencies_[k])
@@ -265,7 +291,9 @@ namespace internal
       for (const auto& v : s.variables())
       {
         sub2x_[i].push_back(x_.variables().size());
+        x2sub_.push_back(i);
         x_.add(v);
+        xRange_.push_back({ ni, v->size() });
         ni += v->size();
         XYdependencies_.push_back({});
         XZdependencies_.push_back({});
@@ -346,7 +374,7 @@ namespace internal
       for (auto i : SZdependencies_[k])
       {
         auto rz = z_[i]->getMappingIn(z_);
-        B_.block(m, rz.start, mk, rz.dim).setZero();
+        Z_.block(m, rz.start, mk, rz.dim).setZero();
       }
       m += mk;
     }

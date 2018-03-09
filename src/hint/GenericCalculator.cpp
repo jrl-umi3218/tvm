@@ -51,13 +51,14 @@ namespace internal
       else
       {
         ss << "variables (";
-        for (auto i = 0; i < vars.size(); ++i)
+        for (auto i = 0; i < vars.size() - 1; ++i)
         {
           ss << vars[i]->name() << ", ";
         }
         ss << vars.back()->name() << ")";
       }
-      ss << ": the rank of the matrix is not the one that was specified.";
+      ss << ": the rank of the matrix (" << qr_.rank();
+      ss << ") is not the one that was specified (" << r() << ").";
       throw std::runtime_error(ss.str());
     }
       
