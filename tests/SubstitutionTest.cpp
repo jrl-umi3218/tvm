@@ -297,7 +297,18 @@ MatrixXd randM(int m, int n, int r=0)
     return MatrixXd::Random(m, r)*MatrixXd::Random(r, n);
 }
 
-//check wether the systems given by cstr and by subs are equivalent
+/** check wether the systems given by cstr and by subs are equivalent.
+  * The system are supposed to be feasible.
+  * From cstr, we deduce a system A [x;y] = b (1)
+  * From subs, we deduce C [y;z] = d and x = E y + F z + g (2)
+  * We check that any solution of (1) is a solution of (2) by writting a
+  * solution of (1) [x;y] = pinv(A)*b + Na u with Na a base of the nullspace of
+  * A and u a vector. For size(u) different value of u, we the rewrite (2) as a
+  * system of z only, and verfy we can find a solution.
+  * To check that any solution of (2) yield a solution of (1), we first solve
+  * C [y;z] = d to get [y;z] = pinv(C)*d + Nc v. Then for size(v) value of v, we
+  * compute x from x = E y + F z + g, and check that [x;y] is a solution of (1).
+  */
 void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& cstr, Substitutions& subs)
 {
   subs.updateSubstitutions();
@@ -324,7 +335,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     m1 += c->size();
   }
 
-  // Create A and b such that the system given by cstr is A- [x;y] = b0
+  // Create A and b such that the system given by cstr is A [x;y] = b
   MatrixXd A = MatrixXd::Zero(m0, x.size() + y.size());
   VectorXd b(m0);
   m0 = 0;

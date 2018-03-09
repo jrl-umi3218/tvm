@@ -89,7 +89,7 @@ namespace internal
     // we compute | P1 R1^-1   0 | | Q1^T | M
     //            |    0       I | | Q2^T |     
     tmp_.resize(m(), in.cols());
-    auto& T = tmp_.get();
+    auto T = tmp_.get();
     
     // T = Q^T M
     T = qr_.matrixQ().setLength(qr_.nonzeroPivots()).transpose() * in;
