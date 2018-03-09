@@ -58,7 +58,11 @@ namespace abstract
     /** Compute \p out = \p in * \p N. 
       * If \p add is \p true, perform \p out += \p in * \p N instead.
       */
-    void postMultiplyByN(MatrixRef out, const MatrixConstRef& in, bool add) const;
+    void postMultiplyByN(MatrixRef out, const MatrixConstRef& in, bool add = false) const;
+    /** Compute \p out = \p in * \p N(r,:). 
+      * If \p add is \p true, perform \p out += \p in * \p N(r,:) instead.
+      */
+    void postMultiplyByN(MatrixRef out, const MatrixConstRef& in, Range r, bool add = false) const;
     /** Return N as a dense matrix.*/
     const Eigen::MatrixXd& N() const;
 
@@ -96,6 +100,8 @@ namespace abstract
     virtual void premultiplyByASharpAndSTranspose_(MatrixRef outA, MatrixRef outS, const MatrixConstRef& in, bool minus) const = 0;
     /** Computations for postMultiplyByN()*/
     virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, bool add) const = 0;
+    /** Computations for postMultiplyByN(). By default it uses N()*/
+    virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, Range r, bool add) const;
 
     /** Copy in A_ the values of the relevant jacobian matrices.*/
     void fillA();

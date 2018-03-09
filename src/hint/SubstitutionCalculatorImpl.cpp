@@ -3,7 +3,6 @@
 #include <tvm/Variable.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
 
-
 namespace
 {
   // return true if the buffers for M1 and M2 are disjoint
@@ -65,6 +64,38 @@ void SubstitutionCalculatorImpl::postMultiplyByN(MatrixRef out, const MatrixCons
 
   assert(out.cols() == n_ - r_);
   assert(out.rows() == in.rows());
+}
+
+void SubstitutionCalculatorImpl::postMultiplyByN(MatrixRef out, const MatrixConstRef & in, Range r, bool add) const
+{
+  assert(noAliasing(out, in));
+  assert(out.cols() == n_ - r_);
+  assert(in.cols() == r.dim);
+  assert(out.rows() == in.rows());
+
+  if (r.start == 0 && r.dim == n_)
+  {
+    postMultiplyByN_(out, in, add);
+  }
+  else
+  {
+    postMultiplyByN_(out, in, r, add);
+  }
+
+  assert(out.cols() == n_ - r_);
+  assert(out.rows() == in.rows());
+}
+
+void SubstitutionCalculatorImpl::postMultiplyByN_(MatrixRef out, const MatrixConstRef & in, Range r, bool add) const
+{
+  if (add)
+  {
+    out.noalias() += in * N().middleRows(r.start,r.dim);
+  }
+  else
+  {
+    out.noalias() = in * N().middleRows(r.start, r.dim);
+  }
 }
 
 void SubstitutionCalculatorImpl::fillA()
