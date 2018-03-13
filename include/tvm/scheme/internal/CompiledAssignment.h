@@ -84,11 +84,13 @@ namespace internal
     */
   template<typename MatrixType>
   using isVector = typename std::conditional<MatrixType::ColsAtCompileTime == 1, std::true_type, std::false_type>::type;
-  /** trait-like definition to detect if an Eigen expression \p MatrixType is describing
+  
+   /* trait-like definition to detect if an Eigen expression \p MatrixType is describing
     * a matrix.
     */
   template<typename MatrixType>
-  using isMatrix = typename std::conditional<MatrixType::ColsAtCompileTime > 1, std::true_type, std::false_type>::type;
+  using isMatrix = typename std::conditional<MatrixType::ColsAtCompileTime != 1, std::true_type, std::false_type>::type;
+  
   /** Dummy type for constructors with no arguments*/
   class NoArg {};
 
@@ -179,25 +181,49 @@ namespace internal
       return cache_;
     }
 
+    MatrixType& cache() { return cache_; }
+    const MatrixType& cache() const { return cache_; }
+
   private:
     MatrixType cache_;
   };
 
 
-  /** Traits for deciding whether or not to use a cache. By default, no cache is used.*/
+  /** Traits for deciding whether or not to use a cache before assign step. 
+    * By default, no cache is used.
+    */
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
-  class cache_traits : public std::false_type {};
+  class use_assign_cache : public std::false_type {};
 
   /** Specialization for min/max with general matrix product. In this case, we use the cache*/
   template<typename MatrixType, WeightMult W>
-  class cache_traits<MatrixType, MIN, W, GENERAL, EXTERNAL> : public std::true_type {};
+  class use_assign_cache<MatrixType, MIN, W, GENERAL, EXTERNAL> : public std::true_type {};
   template<typename MatrixType, WeightMult W>
-  class cache_traits<MatrixType, MAX, W, GENERAL, EXTERNAL> : public std::true_type {};
+  class use_assign_cache<MatrixType, MAX, W, GENERAL, EXTERNAL> : public std::true_type {};
 
-  ///** Specialization for GENERAL*CONSTANT. This should not be necessary, but
-  //* the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
-  //template<typename MatrixType, AssignType A, WeightMult W, MultPos P>
-  //class cache_traits<MatrixType, A, W, GENERAL, P, CONSTANT> : public std::true_type {};
+  /** Specialization for GENERAL*CONSTANT. This should not be necessary, but
+    * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
+  template<typename MatrixType, AssignType A, WeightMult W>
+  class use_assign_cache<MatrixType, A, W, GENERAL, CONSTANT> : public std::true_type {};
+
+  /** Traits for deciding whether or not to use a cache for the product.
+    * By default, no cache is used.
+    */
+  template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
+  class use_product_cache : public std::false_type {};
+
+  /** Specialization for GENERAL product with diagonal weight
+    *
+    * FIXME : this should not be needed for MatrixType = VectorXd
+    */
+  template<typename MatrixType, AssignType A>
+  class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, EXTERNAL> : public std::true_type {};
+  template<typename MatrixType, AssignType A>
+  class use_product_cache<MatrixType, A, INVERSE_DIAGONAL, GENERAL, EXTERNAL> : public std::true_type {};
+  template<typename MatrixType, AssignType A>
+  class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, CONSTANT> : public std::true_type {};
+  template<typename MatrixType, AssignType A>
+  class use_product_cache<MatrixType, A, INVERSE_DIAGONAL, GENERAL, CONSTANT> : public std::true_type {};
 
 
   /** Base class for the assignation */
@@ -339,6 +365,13 @@ namespace internal
     template<typename T> 
     ReturnType<T> applyWeightMult(const T& M) { return d_.asDiagonal() * M; }
 
+    /** Diagonal * constant vector case*/
+    decltype(double()*std::declval<Eigen::Ref<const Eigen::VectorXd>>())
+      applyWeightMult(const double& d)
+    {
+      return d * d_;
+    }
+
   private:
     Eigen::Ref<const Eigen::VectorXd> d_;
   };
@@ -354,6 +387,13 @@ namespace internal
     using ReturnType = decltype(std::declval<Eigen::Ref<const Eigen::VectorXd>>().cwiseInverse().asDiagonal() * std::declval<T>());
     template<typename T>
     ReturnType<T> applyWeightMult(const T& M) { return d_.cwiseInverse().asDiagonal() * M; }
+
+    /** Diagonal * constant vector case*/
+    decltype(double()*std::declval<Eigen::Ref<const Eigen::VectorXd>>().cwiseInverse())
+      applyWeightMult(const double& d)
+    {
+      return d * d_.cwiseInverse();
+    }
 
   private:
     Eigen::Ref<const Eigen::VectorXd> d_;
@@ -402,9 +442,16 @@ namespace internal
       return M * M_;
     }
 
-    std::enable_if<isVector<MatrixType>::value, ConstType> applyMatrixMult(const double& d)
+    template<typename U = MatrixType>
+    typename std::enable_if<isVector<U>::value, ConstType>::type applyMatrixMult(const double& d)
     {
       return M_ * Eigen::VectorXd::Constant(M_.cols(), d);
+    }
+
+    template<typename T>
+    void applyMatrixMultCached(MatrixType& cache, const T& M)
+    {
+      cache.noalias() =  applyMatrixMult(M);
     }
 
   private:
@@ -419,15 +466,13 @@ namespace internal
     MatrixMultBase(void(*mult)(Eigen::Ref<MatrixType> out, const Eigen::Ref<const MatrixType>& in)) : mult_(mult) {}
 
     template<typename T>
-    const MatrixType& applyMatrixMult(const T& M)
+    void applyMatrixMultCached(MatrixType& cache, const T& M)
     {
-      mult_(tmp_, M);
-      return tmp_;
+      mult_(cache, M);
     }
 
   private:
     void(*mult_)(Eigen::Ref<MatrixType> out, const Eigen::Ref<const MatrixType>& in);
-    MatrixType tmp_; //FIXME replace by BufferedMatrix
   };
 
 
@@ -481,7 +526,8 @@ namespace internal
   */
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F = EXTERNAL>
   class CompiledAssignment
-    : public CachedResult<MatrixType, cache_traits<MatrixType, A, W, M, F>::value>
+    : public CachedResult<MatrixType, 
+        use_assign_cache<MatrixType, A, W, M, F>::value || use_product_cache<MatrixType, A, W, M, F>::value>
     , public AssignBase<A>
     , public WeightMultBase<W>
     , public MatrixMultBase<MatrixType, M>
@@ -512,17 +558,61 @@ namespace internal
       , SBase(SParse::get(std::forward<Args>(args)...)) 
       , to_(to)
     {
-
+      static_assert(!(isMatrix<MatrixType>::value && F == CONSTANT), "Constant source is only for vectors.");
     }
 
   public:
     //FIXME shall we use the operator() instead of run, and make this class a functor ?
-    void run()
+    template<typename U = MatrixType>
+    typename std::enable_if<!use_product_cache<U, A, W, M, F>::value>::type run()
     {
       // There is room for speed improvement by switching at runtime in function of the 
       // matrices sizes, in particular for M = GENERAL, it seems that lazy product is
       // faster for small matrices (but slower for bigger ones)
       this->assign(to_, this->cache(this->applyWeightMult(this->applyMatrixMult(this->from()))));
+    }
+
+    template<typename U = MatrixType>
+    typename std::enable_if<use_product_cache<U, A, W, M, F>::value
+                && !use_assign_cache<U, A, W, M, F>::value>::type run()
+    {
+      //FIXME have rather a resze method called in the constructor (and whenever
+      //one of the argument in the product is changed). This would require
+      //a CustomProduct class to be used instead of a function pointer for
+      //MatrixMultBase<Custom>, to get the column size of the product
+#ifdef AUTHORIZE_MALLOC_FOR_CACHE
+      if (!Eigen::internal::is_malloc_allowed())
+      {
+        Eigen::internal::set_is_malloc_allowed(true);
+        this->applyMatrixMultCached(this->cache(), this->from());
+        Eigen::internal::set_is_malloc_allowed(false);
+      }
+      else
+#endif
+      {
+        this->applyMatrixMultCached(this->cache(), this->from());
+      }
+      this->assign(to_, this->applyWeightMult(this->cache()));
+    }
+
+    template<typename U = MatrixType>
+    typename std::enable_if<use_product_cache<U, A, W, M, F>::value
+                &&  use_assign_cache<U, A, W, M, F>::value>::type run()
+    {
+#ifdef AUTHORIZE_MALLOC_FOR_CACHE
+      if (!Eigen::internal::is_malloc_allowed())
+      {
+        Eigen::internal::set_is_malloc_allowed(true);
+        this->applyMatrixMultCached(this->cache(), this->from());
+        Eigen::internal::set_is_malloc_allowed(false);
+      }
+      else
+#endif
+      {
+        this->applyMatrixMultCached(this->cache(), this->from());
+      }
+      this->cache() = this->applyWeightMult(this->cache());
+      this->assign(to_, this->cache());
     }
 
     void to(const Eigen::Ref<MatrixType>& to)
@@ -545,7 +635,8 @@ namespace internal
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M>
   class CompiledAssignment<MatrixType, A, W, M, ZERO>
   {
-  private:
+  //private:
+  public:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:
@@ -570,7 +661,8 @@ namespace internal
   template<typename MatrixType, WeightMult W, MatrixMult M>
   class CompiledAssignment<MatrixType, COPY, W, M, ZERO>
   {
-  private:
+  //private:
+  public:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:
