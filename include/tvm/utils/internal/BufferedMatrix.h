@@ -28,6 +28,8 @@ namespace utils
 
 namespace internal
 {
+  /** This class provides a matrix with resizable buffer, so that alloc
+    */
   class BufferedMatrix
   {
   public:
