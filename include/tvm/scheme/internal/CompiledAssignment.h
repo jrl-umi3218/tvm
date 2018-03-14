@@ -506,24 +506,27 @@ namespace internal
   class SourceBase<MatrixType, ZERO> {};
 
 
-  /** The main class. Its run method perfoms the assignment t = op(t, s*M*f)
-  * (for P=PRE) or t = op(t, s*f*M) (for P=POST)
-  * where
-  *  - t is the target matrix/vector
-  *  - f is the source matrix/vector
-  *  - op is described by A
-  *  - s is a scalar, user supplied if S is SCALAR, +/-1 otherwise
-  *  - M is a matrix, either the identity or user-supplied, depending on
-  *    the template parameter M (see MatrixMult)
-  * If F=EXTERNAl f is a user supplied Eigen::Ref<MatrixType>, if F=ZERO,
-  * f=0 and if F=CONSTANT, f is a constant vector (vector only).
-  *
-  * This class is meant to be a helper class and should not live on its own,
-  * but be create by a higher-level class ensuring its data are valid.
-  *
-  * FIXME get rid of PRE/POST and have the assignment t = op(t, s*M1*f*M2)
-  * instead (needed for substitution in constraints with anistropic weight.
-  */
+  /** The main class. Its run method perfoms the assignment t = op(t, w*M*f)
+    * (if f is a vector) or t = op(t, w*f*M) (if f is a matrix)
+    * where
+    *  - t is the target matrix/vector
+    *  - f is the source matrix/vector
+    *  - op is described by A
+    *  - w is a scalar, user supplied if W is SCALAR, +/-1 if W is NONE or
+    *    MINUS, and a vector if W is DIAGONAL or INVERSE_DIAGONAL
+    *  - M is a matrix, either the identity or user-supplied, depending on
+    *    the template parameter M (see MatrixMult)
+    * If F=EXTERNAl f is a user supplied Eigen::Ref<MatrixType>, if F=ZERO,
+    * f=0 and if F=CONSTANT, f is a constant vector (vector only).
+    *
+    * This class is meant to be a helper class and should not live on its own,
+    * but be create by a higher-level class ensuring its data are valid.
+    *
+    * TODO:
+    * - use an object for custom multiplications
+    * - resize of cache at initialization
+    * - reference on all inputs? (not the case now for inputs that are double)
+    */
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F = EXTERNAL>
   class CompiledAssignment
     : public CachedResult<MatrixType, 
@@ -541,6 +544,8 @@ namespace internal
     using SParse = typename std::conditional<hasNoArgCtor<SBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase>::count-1>>::type;
     using WParse = typename std::conditional<hasNoArgCtor<WBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase, WBase>::count-1>>::type;
     using MParse = typename std::conditional<hasNoArgCtor<MBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase, WBase, MBase>::count-1>>::type;
+
+    enum {source = F};
 
     /** Constructor. Arguments are given as follows:
       * \param to output matrix/vector.
@@ -576,7 +581,7 @@ namespace internal
     typename std::enable_if<use_product_cache<U, A, W, M, F>::value
                 && !use_assign_cache<U, A, W, M, F>::value>::type run()
     {
-      //FIXME have rather a resze method called in the constructor (and whenever
+      //FIXME have rather a resize method called in the constructor (and whenever
       //one of the argument in the product is changed). This would require
       //a CustomProduct class to be used instead of a function pointer for
       //MatrixMultBase<Custom>, to get the column size of the product
@@ -635,8 +640,10 @@ namespace internal
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M>
   class CompiledAssignment<MatrixType, A, W, M, ZERO>
   {
-  //private:
   public:
+    enum { source = ZERO };
+
+    //private:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:
@@ -661,8 +668,10 @@ namespace internal
   template<typename MatrixType, WeightMult W, MatrixMult M>
   class CompiledAssignment<MatrixType, COPY, W, M, ZERO>
   {
-  //private:
   public:
+    enum { source = ZERO };
+
+    //private:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:

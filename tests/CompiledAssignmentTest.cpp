@@ -4,7 +4,7 @@
 
 #define AUTHORIZE_MALLOC_FOR_CACHE
 #include <tvm/scheme/internal/CompiledAssignment.h>
-//#include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
+#include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
 
 #include <tuple>
 #include <vector>
@@ -420,36 +420,38 @@ TEST_CASE("Test compiled assignments")
   testBatch<CONSTANT>(3, b);
 }
 
-//TEST_CASE("Test compiled assignments wrapper")
-//{
-//  typedef CompiledAssignmentWrapper<MatrixXd> MatrixAssignment;
-//  MatrixXd A1 = MatrixXd::Constant(3, 7, 1);
-//  MatrixXd A2 = MatrixXd::Constant(2, 7, 2);
-//  MatrixXd A3 = MatrixXd::Constant(3, 7, 3);
-//  MatrixXd A4 = MatrixXd::Constant(4, 7, 4);
-//  MatrixXd B = MatrixXd::Ones(12, 7);
-//  MatrixXd B_ref = B;
-//  double s = 2;
-//  VectorXd w = Vector3d(1, 2, 3);
-//
-//  std::vector<MatrixAssignment> a;
-//  a.push_back(MatrixAssignment::make<ADD, NONE, IDENTITY, PRE>(A1, B.middleRows(0, 3)));
-//  a.push_back(MatrixAssignment::make<COPY, MINUS, IDENTITY, PRE>(A2, B.middleRows(3, 2)));
-//  a.push_back(MatrixAssignment::make<COPY, NONE, DIAGONAL, PRE>(A3, B.middleRows(5, 3), 1, &w));
-//  a.push_back(MatrixAssignment::make<COPY, SCALAR, IDENTITY, PRE>(A4, B.middleRows(8, 4), s));
-//
-//  for (const auto& assignment : a)
-//    assignment.run();
-//
-//  MatrixXd C(3, 7);
-//  a[2].from(A1);
-//  a[2].to(C);
-//  a[2].run();
-//
-//  FAST_CHECK_EQ(B.middleRows(0, 3), A1 + B_ref.middleRows(0,3));
-//  FAST_CHECK_EQ(B.middleRows(3, 2), -A2);
-//  FAST_CHECK_EQ(B.middleRows(5, 3), w.asDiagonal() * A3);
-//  FAST_CHECK_EQ(B.middleRows(8, 4), s * A4);
-//
-//  FAST_CHECK_EQ(C, w.asDiagonal() * A1);
-//}
+TEST_CASE("Test compiled assignments wrapper")
+{
+  typedef CompiledAssignmentWrapper<MatrixXd> MatrixAssignment;
+  MatrixXd A1 = MatrixXd::Constant(3, 7, 1);
+  MatrixXd A2 = MatrixXd::Constant(2, 7, 2);
+  MatrixXd A3 = MatrixXd::Constant(3, 7, 3);
+  MatrixXd A4 = MatrixXd::Constant(4, 7, 4);
+  MatrixXd B = MatrixXd::Ones(12, 7);
+  MatrixXd B_ref = B;
+  double s = 2;
+  VectorXd w = Vector3d(1, 2, 3);
+
+  std::vector<MatrixAssignment> a;
+  a.push_back(MatrixAssignment::make<ADD, NONE, IDENTITY, EXTERNAL>(B.middleRows(0, 3), A1));
+  a.push_back(MatrixAssignment::make<COPY, MINUS, IDENTITY, EXTERNAL>(B.middleRows(3, 2), A2));
+  a.push_back(MatrixAssignment::make<COPY, DIAGONAL, IDENTITY, EXTERNAL>(B.middleRows(5, 3), A3, w));
+  a.push_back(MatrixAssignment::make<COPY, SCALAR, IDENTITY, EXTERNAL>(B.middleRows(8, 4), A4, s));
+
+  for (/*const*/ auto& assignment : a)
+    assignment.run();
+
+  MatrixXd C(3, 7);
+  a[2].from(A1);
+  a[2].to(C);
+  a[2].run();
+
+  FAST_CHECK_EQ(B.middleRows(0, 3), A1 + B_ref.middleRows(0,3));
+  FAST_CHECK_EQ(B.middleRows(3, 2), -A2);
+  FAST_CHECK_EQ(B.middleRows(5, 3), w.asDiagonal() * A3);
+  FAST_CHECK_EQ(B.middleRows(8, 4), s * A4);
+
+  FAST_CHECK_EQ(C, w.asDiagonal() * A1);
+
+  CHECK_THROWS(a[2].from(3));
+}
