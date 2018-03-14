@@ -536,16 +536,13 @@ namespace internal
     , public MatrixMultBase<MatrixType, M>
     , public SourceBase<MatrixType, F>
   {
-  //private:
-  public:
+  private:
     using WBase = WeightMultBase<W>;
     using MBase = MatrixMultBase<MatrixType, M>;
     using SBase = SourceBase<MatrixType, F>;
     using SParse = typename std::conditional<hasNoArgCtor<SBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase>::count-1>>::type;
     using WParse = typename std::conditional<hasNoArgCtor<WBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase, WBase>::count-1>>::type;
     using MParse = typename std::conditional<hasNoArgCtor<MBase>::value, ParseArg<-1>, ParseArg<ArgCount<SBase, WBase, MBase>::count-1>>::type;
-
-    enum {source = F};
 
     /** Constructor. Arguments are given as follows:
       * \param to output matrix/vector.
@@ -641,9 +638,9 @@ namespace internal
   class CompiledAssignment<MatrixType, A, W, M, ZERO>
   {
   public:
-    enum { source = ZERO };
-
-    //private:
+    using SourceType = Eigen::Ref<const MatrixType>;
+  
+  private:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:
@@ -669,9 +666,9 @@ namespace internal
   class CompiledAssignment<MatrixType, COPY, W, M, ZERO>
   {
   public:
-    enum { source = ZERO };
+    using SourceType = Eigen::Ref<const MatrixType>;
 
-    //private:
+  private:
     CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
 
   public:

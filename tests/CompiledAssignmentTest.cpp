@@ -137,36 +137,37 @@ void getFreeFun(TFun<VectorXd>& f)
   f = &freePreMult;
 }
 
-//detail implentation for the call function under
+//detail implementation for the call function below
 namespace detail
 {
-  template <typename F, typename Tuple, bool Done, int Total, int... N>
+  template <typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple, bool Done, int Total, int... N>
   struct call_impl
   {
-    static F call(Tuple && t)
+    static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
     {
-      return call_impl<F, Tuple, Total == 1 + sizeof...(N), Total, N..., sizeof...(N)>::call(std::forward<Tuple>(t));
+      return call_impl<MatrixType, A, W, M, F, Tuple, Total == 1 + sizeof...(N), Total, N..., sizeof...(N)>::call(std::forward<Tuple>(t));
     }
   };
 
-  template <typename F, typename Tuple, int Total, int... N>
-  struct call_impl<F, Tuple, true, Total, N...>
+  template <typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple, int Total, int... N>
+  struct call_impl<MatrixType, A, W, M, F, Tuple, true, Total, N...>
   {
-    static F call(Tuple && t)
+    static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
     {
-      return F(std::get<N>(std::forward<Tuple>(t))...);
+      return CompiledAssignmentWrapper<MatrixType>::make<A, W, M, F>(std::get<N>(std::forward<Tuple>(t))...);
     }
   };
 }
 
-// This function construct an object of type F with a constructor F(Args&&... args)
+// This function construct a CompiledAssignmentWrapper with a call to
+// make(Args&&... args)
 // Its main purpose is to unpack the tuple passed as argument into the variadic
 // form of args
-template <typename F, typename Tuple>
-F call(Tuple && t)
+template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple>
+CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
 {
   typedef typename std::decay<Tuple>::type ttype;
-  return detail::call_impl<F, Tuple, 0 == std::tuple_size<ttype>::value, std::tuple_size<ttype>::value>::call(std::forward<Tuple>(t));
+  return detail::call_impl<MatrixType, A, W, M, F, Tuple, 0 == std::tuple_size<ttype>::value, std::tuple_size<ttype>::value>::call(std::forward<Tuple>(t));
 }
 
 template<WeightMult W> struct WArg { static std::tuple<> get(double s, const Ref<const VectorXd>& w) { return {}; } };
@@ -188,18 +189,18 @@ struct SArg<CONSTANT, MatrixType> { static std::tuple<double> get(const Ref<cons
 template<typename MatrixType>
 struct SArg<ZERO, MatrixType> { static std::tuple<> get(const Ref<const MatrixType>& from, double constant) { return {}; } };
 
-/** This function build a CompiledAssignement by picking the correct arguments
+/** This function build a CompiledAssignementWrapper by picking the correct arguments
   * to pass to the constructor. The main work is to create a tuple containing
   * exactly the arguments needed byt the constructor.
   */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
-CompiledAssignment<MatrixType, A, W, M, F> build(Ref<MatrixType> to, double s, const Ref<const VectorXd>& w,
+CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to, double s, const Ref<const VectorXd>& w,
   const Ref<const MatrixXd>& Mult, TFun<MatrixType> f,
   const Ref<const MatrixType>& from, double constant)
 {
   auto args = std::tuple_cat(std::make_tuple(to), SArg<F, MatrixType>::get(from, constant), WArg<W>::get(s, w), MArg<M, MatrixType>::get(Mult, f));
   using ReturnType = CompiledAssignment<MatrixType, A, W, M, F>;
-  return call<ReturnType>(args);
+  return call<MatrixType, A, W, M, F>(args);
 }
 
 template<AssignType A, WeightMult W, MatrixMult M, Source F>
@@ -250,7 +251,6 @@ struct Test
 
     Eigen::internal::set_is_malloc_allowed(false);
     auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst);
-    //auto ca = CompiledAssignmentWrapper<Type>::template make<A, S, M, P>(from, to, s, &wOrM);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, W, M, f, t, w, Mult);
@@ -287,16 +287,12 @@ struct Test
     Ref<const VectorXd> r4{ From };
 
     Eigen::internal::set_is_malloc_allowed(false);
-    //auto ca = CompiledAssignmentWrapper<VectorXd>::make<A, S, M, P>(from, to, s, &wOrM);
     auto ca = build<VectorXd, A, W, M, F>(to2, s, v, Mult, custom, From, cst);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, W, M, f, t, w, Mult);
 
     return t.isApprox(to2);
-    //build(Ref<MatrixType> to, double s, const Ref<const VectorXd>& w,
-    //const Ref<const MatrixXd>& Mult, TFun<MatrixType> f,
-    //  const Ref<const MatrixType>& from, double constant)
   }
 
   template<typename V, typename U>
@@ -304,11 +300,6 @@ struct Test
   {
     FAST_CHECK_UNARY(run_check(from, to));
   }
-
-  //template<typename V, typename U>
-  //static void run(const U&/*from*/, V& /*to*/, typename std::enable_if<!(F == EXTERNAL || (V::ColsAtCompileTime == 1 && P == PRE))>::type * = nullptr)
-  //{
-  //}
 };
 
 template<AssignType A>
@@ -330,8 +321,7 @@ struct TestNoFrom
     MatrixXd t = to;
 
     Eigen::internal::set_is_malloc_allowed(false);
-    //auto ca = CompiledAssignmentWrapper<Type>::template make<A>(to);
-    CompiledAssignment<Type, A, NONE, IDENTITY, ZERO> ca(to);
+    auto ca = CompiledAssignmentWrapper<Type>::template make<A, NONE, IDENTITY, ZERO>(to);
     ca.run();
     Eigen::internal::set_is_malloc_allowed(true);
     assign(A, t);
