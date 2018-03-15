@@ -142,30 +142,31 @@ namespace internal
   inline CompiledAssignmentWrapper<T> Assignment::createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip)
   {
     using Wrapper = CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type>;
+    const Source F = std::is_arithmetic<U>::value ? CONSTANT : EXTERNAL;
 
     if (requirements_->anisotropicWeight().isDefault())
     {
       if (scalarWeight_ == 1)
       {
         if (flip)
-          return Wrapper::template make<A, MINUS, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<A, MINUS, IDENTITY, F>(to, from);
         else
-          return Wrapper::template make<A, NONE, IDENTITY, PRE>(from, to);
+          return Wrapper::template make<A, NONE, IDENTITY, F>(to, from);
       }
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, PRE>(from, to, -scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, -scalarWeight_);
         else
-          return Wrapper::template make<A, SCALAR, IDENTITY, PRE>(from, to, scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<A, NONE, DIAGONAL, PRE>(from, to, 1, &minusAnisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, minusAnisotropicWeight_);
       else
-        return Wrapper::template make<A, NONE, DIAGONAL, PRE>(from, to, 1, &anisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, anisotropicWeight_);
     }
   }
 
@@ -190,7 +191,7 @@ namespace internal
     }
     else
     {
-      auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A>(to);
+      auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A, NONE, IDENTITY, ZERO>(to);
       vectorAssignments_.push_back({ w, false, nullptr, v });
     }
   }

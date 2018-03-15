@@ -44,10 +44,14 @@ namespace internal
     template<typename T> static void sdelete(void* ca);
     template<typename T> static void sfrom(void* ca, const typename T::SourceType& f);
     template<typename T> static void sto(void* ca, const Eigen::Ref<MatrixType>& from);
+    template<typename T> static void* sclone(void* ca);
 
-    CompiledAssignmentWrapper(const CompiledAssignmentWrapper&) = delete;
+    CompiledAssignmentWrapper(const CompiledAssignmentWrapper&);
     CompiledAssignmentWrapper(CompiledAssignmentWrapper&&) = default;
     ~CompiledAssignmentWrapper() = default;
+
+    CompiledAssignmentWrapper& operator=(const CompiledAssignmentWrapper&);
+    CompiledAssignmentWrapper& operator=(CompiledAssignmentWrapper&&) = default;
 
     /** Run the assignment*/
     void run();
@@ -77,6 +81,10 @@ namespace internal
     static CompiledAssignmentWrapper make(Args&&... args);
 
   private:
+    CompiledAssignmentWrapper()
+    {
+
+    }
     CompiledAssignmentWrapper(void(*deleter)(void*));
 
     std::unique_ptr<void, void(*)(void*)> ca_;
@@ -84,6 +92,7 @@ namespace internal
     void(*fromd_)(void*, const double&);
     void(*fromm_)(void*, const Eigen::Ref<const MatrixType>&);
     void(*to_)(void*, const Eigen::Ref<MatrixType>&);
+    void*(*clone_)(void*);
   };
 
 
@@ -116,6 +125,13 @@ namespace internal
   }
 
   template<typename MatrixType>
+  template<typename T>
+  inline void* CompiledAssignmentWrapper<MatrixType>::sclone(void* ca)
+  {
+    return new T(*reinterpret_cast<T*>(ca));
+  }
+
+  template<typename MatrixType>
   template<AssignType A, WeightMult W, MatrixMult M, Source F, typename ...Args>
   inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixType>::make(Args &&... args)
   {
@@ -125,6 +141,7 @@ namespace internal
     w.fromd_ = F==CONSTANT?reinterpret_cast<void(*)(void*, const double&)>(&sfrom<CA>):nullptr;
     w.fromm_ = F!=CONSTANT?reinterpret_cast<void(*)(void*, const Eigen::Ref<const MatrixType>&)>(&sfrom<CA>) :nullptr;
     w.to_ = sto<CA>;
+    w.clone_ = sclone<CA>;
     w.ca_.reset(new CA(std::forward<Args>(args)...));
     return w;
   }
@@ -136,7 +153,33 @@ namespace internal
     , fromd_(nullptr)
     , fromm_(nullptr)
     , to_(nullptr)
+    , clone_(nullptr)
   {
+  }
+
+  template<typename MatrixType>
+  inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(const CompiledAssignmentWrapper& other)
+    : ca_(other.clone_(other.ca_.get()), other.ca_.get_deleter())
+    , run_(other.run_)
+    , fromd_(other.fromd_)
+    , fromm_(other.fromm_)
+    , to_(other.to_)
+    , clone_(other.clone_)
+  {
+  }
+
+  template<typename MatrixType>
+  inline CompiledAssignmentWrapper<MatrixType>& CompiledAssignmentWrapper<MatrixType>::operator=(const CompiledAssignmentWrapper& other)
+  {
+    ca_.reset(other.clone_(other.ca_.get()));
+    ca_.get_deleter() = other.ca_.get_deleter();
+    run_ = other.run_;
+    fromd_ = other.fromd_;
+    fromm_ = other.fromm_;
+    to_ = other.to_;
+    clone_ = other.clone_;
+
+    return *this;
   }
 
   template<typename MatrixType>
