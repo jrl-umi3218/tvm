@@ -47,7 +47,7 @@ namespace hint
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
     Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank = fullRank,
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
-    Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank = fullRank,
+    Substitution(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank = fullRank,
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
 
     int rank() const;

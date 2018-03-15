@@ -81,10 +81,6 @@ namespace internal
     static CompiledAssignmentWrapper make(Args&&... args);
 
   private:
-    CompiledAssignmentWrapper()
-    {
-
-    }
     CompiledAssignmentWrapper(void(*deleter)(void*));
 
     std::unique_ptr<void, void(*)(void*)> ca_;

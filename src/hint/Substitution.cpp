@@ -29,7 +29,7 @@ namespace hint
   {
   }
 
-  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, std::vector<VariablePtr>& x, int rank,
+  Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank,
                              const abstract::SubstitutionCalculator& calc)
     : rank_(rank), constraints_(cstr), x_(x)
   {
