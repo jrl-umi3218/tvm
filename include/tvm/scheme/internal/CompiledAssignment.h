@@ -125,7 +125,7 @@ namespace internal
     * of NoArg.
     */
   template<int N>
-  class ParseArg : public std::conditional< (N >= 0), typename ParseArg_<N>, ParseNoArg_>::type {};
+  class ParseArg : public std::conditional< (N >= 0), ParseArg_<N>, ParseNoArg_>::type {};
 
 
   template<typename T>

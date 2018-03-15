@@ -138,6 +138,7 @@ void getFreeFun(TFun<VectorXd>& f)
 }
 
 //detail implementation for the call function below
+//adapted from https://stackoverflow.com/a/10766422
 namespace detail
 {
   template <typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple, bool Done, int Total, int... N>
@@ -154,7 +155,7 @@ namespace detail
   {
     static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
     {
-      return CompiledAssignmentWrapper<MatrixType>::make<A, W, M, F>(std::get<N>(std::forward<Tuple>(t))...);
+      return CompiledAssignmentWrapper<MatrixType>::template make<A, W, M, F>(std::get<N>(std::forward<Tuple>(t))...);
     }
   };
 }
@@ -170,24 +171,24 @@ CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
   return detail::call_impl<MatrixType, A, W, M, F, Tuple, 0 == std::tuple_size<ttype>::value, std::tuple_size<ttype>::value>::call(std::forward<Tuple>(t));
 }
 
-template<WeightMult W> struct WArg { static std::tuple<> get(double s, const Ref<const VectorXd>& w) { return {}; } };
-template<> struct WArg<SCALAR> { static std::tuple<double> get(double s, const Ref<const VectorXd>& w) { return s; } };
-template<> struct WArg<DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double s, const Ref<const VectorXd>& w) { return w; } };
-template<> struct WArg<INVERSE_DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double s, const Ref<const VectorXd>& w) { return w; } };
+template<WeightMult W> struct WArg { static std::tuple<> get(double, const Ref<const VectorXd>&) { return {}; } };
+template<> struct WArg<SCALAR> { static std::tuple<double> get(double s, const Ref<const VectorXd>&) { return std::forward_as_tuple(s); } };
+template<> struct WArg<DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
+template<> struct WArg<INVERSE_DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
 
 template<MatrixMult M, typename MatrixType>
-struct MArg { static std::tuple<> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType> f) { return {}; } };
+struct MArg { static std::tuple<> get(const Ref<const MatrixXd>&, TFun<MatrixType>) { return {}; } };
 template<typename MatrixType>
-struct MArg<GENERAL, MatrixType> { static std::tuple<const Ref<const MatrixXd>&> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType> f) { return Mult; } };
+struct MArg<GENERAL, MatrixType> { static std::tuple<const Ref<const MatrixXd>&> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType>) { return std::forward_as_tuple(Mult); } };
 template<typename MatrixType>
-struct MArg<CUSTOM, MatrixType> { static std::tuple<TFun<MatrixType>> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType> f) { return f; } };
+struct MArg<CUSTOM, MatrixType> { static std::tuple<TFun<MatrixType>> get(const Ref<const MatrixXd>&, TFun<MatrixType> f) { return std::forward_as_tuple(f); } };
 
 template<Source F, typename MatrixType>
-struct SArg { static std::tuple<const Ref<const MatrixType>&> get(const Ref<const MatrixType>& from, double constant) { return from; } };
+struct SArg { static std::tuple<const Ref<const MatrixType>&> get(const Ref<const MatrixType>& from, double) { return std::forward_as_tuple(from); } };
 template<typename MatrixType>
-struct SArg<CONSTANT, MatrixType> { static std::tuple<double> get(const Ref<const MatrixType>& from, double constant) { return constant; } };
+struct SArg<CONSTANT, MatrixType> { static std::tuple<double> get(const Ref<const MatrixType>&, double constant) { return std::forward_as_tuple(constant); } };
 template<typename MatrixType>
-struct SArg<ZERO, MatrixType> { static std::tuple<> get(const Ref<const MatrixType>& from, double constant) { return {}; } };
+struct SArg<ZERO, MatrixType> { static std::tuple<> get(const Ref<const MatrixType>&, double) { return {}; } };
 
 /** This function build a CompiledAssignementWrapper by picking the correct arguments
   * to pass to the constructor. The main work is to create a tuple containing

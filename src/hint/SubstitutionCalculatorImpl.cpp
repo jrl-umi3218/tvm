@@ -184,7 +184,7 @@ bool SubstitutionCalculatorImpl::constant() const
   return constant_;
 }
 
-inline const Eigen::MatrixXd & SubstitutionCalculatorImpl::A() const
+const Eigen::MatrixXd & SubstitutionCalculatorImpl::A() const
 {
   if (isSimple())
   {
