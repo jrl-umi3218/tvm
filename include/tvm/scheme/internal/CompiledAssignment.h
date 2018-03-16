@@ -717,6 +717,56 @@ namespace internal
     friend class CompiledAssignmentWrapper;
   };
 
+  /** Specialization for F=0 and A=MIN.*/
+  template<typename MatrixType, WeightMult W, MatrixMult M>
+  class CompiledAssignment<MatrixType, MIN, W, M, ZERO>
+  {
+  public:
+    using SourceType = Eigen::Ref<const MatrixType>;
+
+  private:
+    CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
+
+  public:
+    void run() { to_.array() = to_.array().min(0); }
+    void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
+    void to(const Eigen::Ref<MatrixType>& to)
+    {
+      new (&to_) Eigen::Ref<MatrixType>(to);
+    }
+
+  private:
+    Eigen::Ref<MatrixType> to_;
+
+    template<typename MatrixType_>
+    friend class CompiledAssignmentWrapper;
+  };
+
+  /** Specialization for F=0 and A=MAX.*/
+  template<typename MatrixType, WeightMult W, MatrixMult M>
+  class CompiledAssignment<MatrixType, MAX, W, M, ZERO>
+  {
+  public:
+    using SourceType = Eigen::Ref<const MatrixType>;
+
+  private:
+    CompiledAssignment(const Eigen::Ref<MatrixType>& to) : to_(to) {}
+
+  public:
+    void run() { to_.array() = to_.array().max(0); }
+    void from(const Eigen::Ref<const MatrixType>&) {/* Do nothing */ }
+    void to(const Eigen::Ref<MatrixType>& to)
+    {
+      new (&to_) Eigen::Ref<MatrixType>(to);
+    }
+
+  private:
+    Eigen::Ref<MatrixType> to_;
+
+    template<typename MatrixType_>
+    friend class CompiledAssignmentWrapper;
+  };
+
 }  // namespace internal
 
 }  // namespace scheme
