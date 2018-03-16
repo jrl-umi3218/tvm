@@ -41,12 +41,11 @@ namespace internal
     : source_(source)
     , target_(target)
     , requirements_(new requirements::SolvingRequirements())
-    , first_(first)
   {
-    checkTarget();
+    checkTarget(true);
     assert(source->variables()[0] == variable);
     scalarWeight_ = 1;
-    build(variable);
+    build(variable, first);
   }
 
   void Assignment::onUpdatedSource()
@@ -96,20 +95,30 @@ namespace internal
       a.assignment.run();
   }
 
-  void Assignment::checkTarget()
+  void Assignment::checkTarget(bool bound)
   {
-    if (source_->type() == Type::EQUAL)
+    //check the type convention
+    if (bound)
     {
-      if (target_.constraintType() != Type::EQUAL
-        && target_.constraintType() != Type::DOUBLE_SIDED)
-        throw std::runtime_error("Incompatible conventions: source with type EQUAL can only "
-          "be assigned to target with type EQUAL or DOUBLE SIDED.");
+      if (target_.constraintType() != Type::DOUBLE_SIDED || target_.constraintRhs() != RHS::AS_GIVEN)
+        throw std::runtime_error("Incompatible conventions: the target for bound must be"
+          "DOUBLE_SIDED and AS_GIVEN.");
     }
     else
     {
-      if (target_.constraintType() == Type::EQUAL)
-        throw std::runtime_error("Incompatible conventions: source with type other than EQUAL "
-          "cannot be assigned to a target with type EQUAL. ");
+      if (source_->type() == Type::EQUAL)
+      {
+        if (target_.constraintType() != Type::EQUAL
+          && target_.constraintType() != Type::DOUBLE_SIDED)
+          throw std::runtime_error("Incompatible conventions: source with type EQUAL can only "
+            "be assigned to target with type EQUAL or DOUBLE SIDED.");
+      }
+      else
+      {
+        if (target_.constraintType() == Type::EQUAL)
+          throw std::runtime_error("Incompatible conventions: source with type other than EQUAL "
+            "cannot be assigned to a target with type EQUAL. ");
+      }
     }
 
     // check the rhs conventions
@@ -250,7 +259,7 @@ namespace internal
     }
   }
 
-  void Assignment::build(const VariablePtr& variable)
+  void Assignment::build(const VariablePtr& variable, bool first)
   {
     VectorFunction l;
     VectorFunction u;
@@ -272,7 +281,7 @@ namespace internal
       throw std::runtime_error("Pure diagonal case is not implemented yet.");
     }
 
-    if (first_)
+    if (first)
     {
       switch (source_->type())
       {

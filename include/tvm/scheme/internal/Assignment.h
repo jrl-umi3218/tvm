@@ -112,12 +112,16 @@ namespace internal
       VectorFunction getTargetVector;
     };
 
+    /** Check that the convention and size of the target are compatible with the
+      * convention and size of the source.
+      */
+    void checkTarget(bool bound = false);
 
-    void checkTarget();
+    void checkVariables(bool bound);
 
     /** Where the magic happens*/
     void build(const VariableVector& variables);
-    void build(const VariablePtr& variable);
+    void build(const VariablePtr& variable, bool first);
     void processRequirements();
     void addMatrixAssignment(Variable* x, MatrixFunction M, const Range& range, bool flip);
     template<AssignType A = AssignType::COPY>
@@ -137,7 +141,6 @@ namespace internal
     AssignmentTarget target_;
     double scalarizationWeight_;
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
-    bool first_; //for bounds only
     std::vector<MatrixAssignment> matrixAssignments_;
     std::vector<MatrixAssignment> matrixSubstitutionAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
