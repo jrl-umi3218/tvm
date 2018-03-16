@@ -12,18 +12,26 @@ namespace scheme
 
 namespace internal
 {
+  using constraint::abstract::LinearConstraint;
+  using constraint::Type;
+  using constraint::RHS;
 
   double Assignment::big_ = constant::big_number;
 
-  Assignment::Assignment(LinearConstraintPtr source, std::shared_ptr<requirements::SolvingRequirements> req,
-                         const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight)
+  Assignment::Assignment(LinearConstraintPtr source, 
+                         std::shared_ptr<requirements::SolvingRequirements> req,
+                         const AssignmentTarget& target, 
+                         const VariableVector& variables, 
+                         const hint::internal::Substitutions& substitutions,
+                         double scalarizationWeight)
     : source_(source)
     , target_(target)
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
+    , substitutedVariables_(substitutions.variables())
+    , variableSubstitutions_(substitutions.variableSubstitutions())
   {
-    if (!checkTarget())
-      throw std::runtime_error("target conventions are not compatible with the source.");
+    checkTarget();
     //TODO check also that the variables of source are in the variable vector
     processRequirements();
     build(variables);
@@ -35,8 +43,7 @@ namespace internal
     , requirements_(new requirements::SolvingRequirements())
     , first_(first)
   {
-    if (!checkTarget())
-      throw std::runtime_error("target conventions are not compatible with the source.");
+    checkTarget();
     assert(source->variables()[0] == variable);
     scalarWeight_ = 1;
     build(variable);
@@ -51,7 +58,11 @@ namespace internal
   {
     for (auto& a : matrixAssignments_)
       a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+    for (auto& a : matrixSubstitutionAssignments_)
+      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
     for (auto& a : vectorAssignments_)
+      a.assignment.to((target_.*a.getTargetVector)());
+    for (auto& a : vectorSubstitutionAssignments_)
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
@@ -75,16 +86,59 @@ namespace internal
     for (auto& a : matrixAssignments_)
       a.assignment.run();
 
+    for (auto& a : matrixSubstitutionAssignments_)
+      a.assignment.run();
+
     for (auto& a : vectorAssignments_)
+      a.assignment.run();
+
+    for (auto& a : vectorSubstitutionAssignments_)
       a.assignment.run();
   }
 
-  bool Assignment::checkTarget()
+  void Assignment::checkTarget()
   {
-    //TODO implement checks
-    // - compatibility of conventions
-    // - size
-    return true;
+    if (source_->type() == Type::EQUAL)
+    {
+      if (target_.constraintType() != Type::EQUAL
+        && target_.constraintType() != Type::DOUBLE_SIDED)
+        throw std::runtime_error("Incompatible conventions: source with type EQUAL can only "
+          "be assigned to target with type EQUAL or DOUBLE SIDED.");
+    }
+    else
+    {
+      if (target_.constraintType() == Type::EQUAL)
+        throw std::runtime_error("Incompatible conventions: source with type other than EQUAL "
+          "cannot be assigned to a target with type EQUAL. ");
+    }
+
+    // check the rhs conventions
+    if (source_->rhs() != RHS::ZERO && target_.constraintRhs() == RHS::ZERO)
+       throw std::runtime_error("Incompatible conventions: source with rhs other than ZERO "
+          "cannot be assigned to target with rhs ZERO.");
+
+    //check the sizes
+    if (source_->type() == Type::DOUBLE_SIDED)
+    {
+      if (target_.constraintType() == Type::DOUBLE_SIDED)
+      {
+        if (target_.size() != source_->size())
+          throw std::runtime_error("Size of the source and the target are not coherent with "
+            "the conventions.");
+      }
+      else
+      {
+        if (target_.size() != 2*source_->size())
+          throw std::runtime_error("Size of the source and the target are not coherent with "
+            "the conventions.");
+      }
+    }
+    else
+    {
+      if (target_.size() != source_->size())
+          throw std::runtime_error("Size of the source and the target are not coherent with "
+            "the conventions.");
+    }
   }
 
   void Assignment::build(const VariableVector& variables)
@@ -103,19 +157,16 @@ namespace internal
       switch (target_.constraintType())
       {
       case constraint::Type::EQUAL:
-        addVectorAssignment(&constraint::abstract::LinearConstraint::e, &AssignmentTarget::b, false);
+        addAssignments(variables, &AssignmentTarget::A,
+                       &LinearConstraint::e, &AssignmentTarget::b, false);
         break;
       case constraint::Type::DOUBLE_SIDED:
-        addVectorAssignment(&constraint::abstract::LinearConstraint::e, &AssignmentTarget::l, false);
-        addVectorAssignment(&constraint::abstract::LinearConstraint::e, &AssignmentTarget::u, false);
+        addAssignments(variables, &AssignmentTarget::A,
+                       &LinearConstraint::e, &AssignmentTarget::l,
+                       &LinearConstraint::e, &AssignmentTarget::u);
         break;
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
-      }
-      for (const auto& x : source_->variables().variables())
-      {
-        Range cols = x->getMappingIn(variables);
-        addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
       }
     }
     else
@@ -133,34 +184,27 @@ namespace internal
         if (target_.constraintType() == constraint::Type::DOUBLE_SIDED)
         {
           //case 9
-          for (const auto& x : source_->variables().variables())
-          {
-            Range cols = x->getMappingIn(variables);
-            addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, false);
-          }
-          addVectorAssignment(&constraint::abstract::LinearConstraint::l, &AssignmentTarget::l, false);
-          addVectorAssignment(&constraint::abstract::LinearConstraint::u, &AssignmentTarget::u, false);
+          addAssignments(variables, &AssignmentTarget::A,
+                         &LinearConstraint::l, &AssignmentTarget::l,
+                         &LinearConstraint::u, &AssignmentTarget::u);
         }
         else
         {
-          // case 7 and 8
-          for (const auto& x : source_->variables().variables())
-          {
-            Range cols = x->getMappingIn(variables);
-            addMatrixAssignment(x.get(), &AssignmentTarget::AFirstHalf, cols, false);
-            addMatrixAssignment(x.get(), &AssignmentTarget::ASecondHalf, cols, true);
-          }
           if (target_.constraintType() == constraint::Type::GREATER_THAN)
           {
             //case 7
-            addVectorAssignment(&constraint::abstract::LinearConstraint::l, &AssignmentTarget::bFirstHalf, false);
-            addVectorAssignment(&constraint::abstract::LinearConstraint::u, &AssignmentTarget::bSecondHalf, true);
+            addAssignments(variables, &AssignmentTarget::AFirstHalf,
+                          &LinearConstraint::l, &AssignmentTarget::bFirstHalf, false);
+            addAssignments(variables, &AssignmentTarget::ASecondHalf,
+                           &LinearConstraint::u, &AssignmentTarget::bSecondHalf, true);
           }
           else
           {
             //case 8
-            addVectorAssignment(&constraint::abstract::LinearConstraint::u, &AssignmentTarget::bFirstHalf, false);
-            addVectorAssignment(&constraint::abstract::LinearConstraint::l, &AssignmentTarget::bSecondHalf, true);
+            addAssignments(variables, &AssignmentTarget::AFirstHalf,
+                           &LinearConstraint::u, &AssignmentTarget::bFirstHalf, false);
+            addAssignments(variables, &AssignmentTarget::ASecondHalf,
+                           &LinearConstraint::l, &AssignmentTarget::bSecondHalf, true);
           }
         }
       }
@@ -170,41 +214,37 @@ namespace internal
         bool flip = source_->type() == constraint::Type::LOWER_THAN;
         RHSFunction f;
         if (source_->type() == constraint::Type::LOWER_THAN)
-          f = &constraint::abstract::LinearConstraint::u;   //for case 1 and 2
+          f = &LinearConstraint::u;   //for case 1 and 2
         else
-          f = &constraint::abstract::LinearConstraint::l;   //for case 4 and 5
+          f = &LinearConstraint::l;   //for case 4 and 5
 
         switch (target_.constraintType())
         {
         case constraint::Type::EQUAL:
           throw std::runtime_error("Impossible to assign inequality source for equality target.");
         case constraint::Type::GREATER_THAN:
-          addVectorAssignment(f, &AssignmentTarget::b, flip);  // RHS for cases 1 and 4
+          // cases 1 and 4
+          addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::b, flip);
           break;
         case constraint::Type::LOWER_THAN:
-          addVectorAssignment(f, &AssignmentTarget::b, !flip);  // RHS for cases 2 and 5
+          //cases 2 and 5
+          addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::b, !flip);
           break;
         case constraint::Type::DOUBLE_SIDED:
-          flip = false; // for case 3 and 6, the signe of A and C are the same
+          // for case 3 and 6, the signs of A and C are the same
           if (source_->type() == constraint::Type::GREATER_THAN)
           {
             //case 3
-            addVectorAssignment(f, &AssignmentTarget::l, false);
+            addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::l, false);
             addConstantAssignment(big_, &AssignmentTarget::u);
           }
           else
           {
-            //case 5
-            addVectorAssignment(f, &AssignmentTarget::u, false);
+            //case 6
+            addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::u, false);
             addConstantAssignment(-big_, &AssignmentTarget::l);
           }
           break;
-        }
-        //Matrics for case 1 to 6
-        for (const auto& x : source_->variables().variables())
-        {
-          Range cols = x->getMappingIn(variables);
-          addMatrixAssignment(x.get(), &AssignmentTarget::A, cols, flip);
         }
       }
     }
@@ -237,20 +277,20 @@ namespace internal
       switch (source_->type())
       {
       case constraint::Type::EQUAL:
-        addVectorAssignment(&constraint::abstract::LinearConstraint::e, l, flip);
-        addVectorAssignment(&constraint::abstract::LinearConstraint::e, u, flip);
+        addVectorAssignment(&LinearConstraint::e, l, flip);
+        addVectorAssignment(&LinearConstraint::e, u, flip);
         break;
       case constraint::Type::GREATER_THAN:
-        addVectorAssignment(&constraint::abstract::LinearConstraint::l, l, flip);
+        addVectorAssignment(&LinearConstraint::l, l, flip);
         addConstantAssignment(flip?-big_:+big_, u);
         break;
       case constraint::Type::LOWER_THAN:
         addConstantAssignment(flip?+big_:-big_, l);
-        addVectorAssignment(&constraint::abstract::LinearConstraint::u, u, flip);
+        addVectorAssignment(&LinearConstraint::u, u, flip);
         break;
       case constraint::Type::DOUBLE_SIDED:
-        addVectorAssignment(&constraint::abstract::LinearConstraint::l, l, flip);
-        addVectorAssignment(&constraint::abstract::LinearConstraint::u, u, flip);
+        addVectorAssignment(&LinearConstraint::l, l, flip);
+        addVectorAssignment(&LinearConstraint::u, u, flip);
         break;
       }
     }
@@ -261,20 +301,20 @@ namespace internal
         switch (source_->type())
         {
         case constraint::Type::EQUAL:
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::e, l, flip);
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::e, u, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::e, l, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::e, u, flip);
           break;
         case constraint::Type::GREATER_THAN:
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::l, l, flip);
           addConstantAssignment<AssignType::MAX>(-big_, u);
           break;
         case constraint::Type::LOWER_THAN:
           addConstantAssignment<AssignType::MIN>(+big_, l);
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::u, u, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::u, u, flip);
           break;
         case constraint::Type::DOUBLE_SIDED:
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::l, l, flip);
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::u, u, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::u, u, flip);
           break;
         }
       }
@@ -283,20 +323,20 @@ namespace internal
         switch (source_->type())
         {
         case constraint::Type::EQUAL:
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::e, l, flip);
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::e, u, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::e, l, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::e, u, flip);
           break;
         case constraint::Type::GREATER_THAN:
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::l, l, flip);
           addConstantAssignment<AssignType::MIN>(+big_, u);
           break;
         case constraint::Type::LOWER_THAN:
           addConstantAssignment<AssignType::MAX>(-big_, l);
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::u, u, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::u, u, flip);
           break;
         case constraint::Type::DOUBLE_SIDED:
-          addVectorAssignment<AssignType::MAX>(&constraint::abstract::LinearConstraint::l, l, flip);
-          addVectorAssignment<AssignType::MIN>(&constraint::abstract::LinearConstraint::u, u, flip);
+          addVectorAssignment<AssignType::MAX>(&LinearConstraint::l, l, flip);
+          addVectorAssignment<AssignType::MIN>(&LinearConstraint::u, u, flip);
           break;
         }
       }
@@ -330,6 +370,30 @@ namespace internal
     auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);
 
     matrixAssignments_.push_back({ w, x, range, M });
+  }
+
+  void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
+                                  RHSFunction f, VectorFunction v, bool flip)
+  {
+    for (const auto& x : source_->variables().variables())
+    {
+      Range cols = x->getMappingIn(variables);
+      addMatrixAssignment(x.get(), M, cols, flip);
+    }
+    addVectorAssignment(f, v, flip);
+  }
+
+  void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
+                                  RHSFunction f1, VectorFunction v1,
+                                  RHSFunction f2, VectorFunction v2)
+  {
+    for (const auto& x : source_->variables().variables())
+    {
+      Range cols = x->getMappingIn(variables);
+      addMatrixAssignment(x.get(), M, cols, false);
+    }
+    addVectorAssignment(f1, v1, false);
+    addVectorAssignment(f2, v2, false);
   }
 
 }  // namespace internal

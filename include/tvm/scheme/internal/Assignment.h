@@ -22,6 +22,7 @@
 #include <tvm/defs.h>
 #include <tvm/Variable.h> // Range
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/hint/internal/Substitutions.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/AssignmentTarget.h>
 #include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
@@ -65,8 +66,12 @@ namespace internal
       * \param scalarizationWeight An additional scalar weight to apply on the
       * constraint, used by the solver to emulate priority.
       */
-    Assignment(LinearConstraintPtr source, std::shared_ptr<requirements::SolvingRequirements> req,
-               const AssignmentTarget& target, const VariableVector& variables, double scalarizationWeight = 1);
+    Assignment(LinearConstraintPtr source, 
+               std::shared_ptr<requirements::SolvingRequirements> req,
+               const AssignmentTarget& target, 
+               const VariableVector& variables, 
+               const hint::internal::Substitutions& substitutions = {},
+               double scalarizationWeight = 1);
 
     /** Version for bounds
       * \param first wether this is the first assignement of bounds for this
@@ -108,7 +113,7 @@ namespace internal
     };
 
 
-    bool checkTarget();
+    void checkTarget();
 
     /** Where the magic happens*/
     void build(const VariableVector& variables);
@@ -119,6 +124,11 @@ namespace internal
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
     template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
+    void addAssignments(const VariableVector& variables, MatrixFunction M,
+                        RHSFunction f, VectorFunction v, bool flip);
+    void addAssignments(const VariableVector& variables, MatrixFunction M,
+                        RHSFunction f1, VectorFunction v1, 
+                        RHSFunction f2, VectorFunction v2);
 
     template<typename T, AssignType A, typename U>
     CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip);
@@ -129,13 +139,18 @@ namespace internal
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
     bool first_; //for bounds only
     std::vector<MatrixAssignment> matrixAssignments_;
+    std::vector<MatrixAssignment> matrixSubstitutionAssignments_;
     std::vector<VectorAssignment> vectorAssignments_;
+    std::vector<VectorAssignment> vectorSubstitutionAssignments_;
 
     /** Processed requirements*/
     double scalarWeight_;
     Eigen::VectorXd anisotropicWeight_;
     Eigen::VectorXd minusAnisotropicWeight_;
-    Eigen::MatrixXd mult_; //unused for now, will serve when substituting variables
+
+    /** Data for substitutions */
+    std::vector<VariablePtr> substitutedVariables_;
+    std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
   };
 
   template<typename T, AssignType A, typename U>
@@ -173,8 +188,6 @@ namespace internal
   template<AssignType A>
   inline void Assignment::addVectorAssignment(RHSFunction f, VectorFunction v, bool flip)
   {
-    const VectorRef& to = (target_.*v)();
-
     bool useSource = source_->rhs() != constraint::RHS::ZERO;
     if (useSource)
     {
@@ -185,14 +198,19 @@ namespace internal
       if (target_.constraintRhs() == constraint::RHS::OPPOSITE)
         flip = !flip;
 
+      const VectorRef& to = (target_.*v)();
       const VectorConstRef& from = (source_.get()->*f)();
       auto w = createAssignment<Eigen::VectorXd, A>(from, to, flip);
       vectorAssignments_.push_back({ w, true, f, v });
     }
     else
     {
-      auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A, NONE, IDENTITY, ZERO>(to);
-      vectorAssignments_.push_back({ w, false, nullptr, v });
+      if (target_.constraintRhs() != constraint::RHS::ZERO)
+      {
+        const VectorRef& to = (target_.*v)();
+        auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A, NONE, IDENTITY, ZERO>(to);
+        vectorAssignments_.push_back({ w, false, nullptr, v });
+      }
     }
   }
 
