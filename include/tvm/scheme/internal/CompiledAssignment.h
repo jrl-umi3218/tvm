@@ -35,11 +35,11 @@ namespace internal
   /** Specify in which way \a from is assigned to \a to.*/
   enum AssignType
   {
-    COPY,         // to =  from
-    ADD,          // to += from
-    SUB,          // to -= from
-    MIN,          // to = min(to, from)
-    MAX           // to = max(to, from)
+    /** to =  from */         COPY,
+    /** to += from */         ADD,
+    /** to -= from */         SUB,
+    /** to = min(to, from) */ MIN,
+    /** to = max(to, from) */ MAX
   };
 
   /** Specify whether \a from is to be multiplied by 1, -1 or a user
@@ -47,11 +47,11 @@ namespace internal
     */
   enum WeightMult
   {
-    NONE,         // from
-    MINUS,        // -from
-    SCALAR,       // s*from
-    DIAGONAL,     // diag(d) * from
-    INVERSE_DIAGONAL // inv(diag(d)) * from
+    /** from */                 NONE,
+    /** -from */                MINUS,
+    /** s*from */               SCALAR,
+    /** diag(d) * from */       DIAGONAL,
+    /** inv(diag(d)) * from */  INVERSE_DIAGONAL
   };
 
   /** Specify if from is to be multiplied a matrix, and if so, what is the
@@ -59,8 +59,11 @@ namespace internal
     */
   enum MatrixMult
   {
-    IDENTITY,     // from
-    GENERAL,      // M*from (vector case) or from*M (matrix case)
+    /** from */
+    IDENTITY,
+    /** M*from (vector case) or from*M (matrix case) where M is a matrix.*/
+    GENERAL,
+    /** use a custom multiplier */
     CUSTOM
   };
 
@@ -74,9 +77,12 @@ namespace internal
     */
   enum Source
   {
-    EXTERNAL,     // source is an external vector or matrix (main use-case)
-    ZERO,         // source is zero
-    CONSTANT      // source is a (non-zero) constant
+    /** source is an external vector or matrix (main use-case) */
+    EXTERNAL,
+    /** source is zero */
+    ZERO,
+    /** source is a (non-zero) constant */
+    CONSTANT
   };
 
   /** trait-like definition to detect if an Eigen expression \p MatrixType is describing
@@ -128,16 +134,31 @@ namespace internal
   class ParseArg : public std::conditional< (N >= 0), ParseArg_<N>, ParseNoArg_>::type {};
 
 
+  /** A dummy helper function to build hasNoArgCtor*/
   template<typename T>
-  std::true_type dummy(const T&);
+  std::true_type hasNoArgCtorDummy(const T&);
+  /** Helper function that exists only if \p T has a constructor accepting NoArg.
+    * We use hasNoArgCtorDummy as a mean to enable SFINAE.
+    */
   template<typename T>
-  decltype(dummy(T(NoArg()))) hasNoArgCtor_(int);
+  decltype(hasNoArgCtorDummy(T(NoArg()))) hasNoArgCtor_(int);
+  /** Overload that always exists. It will only be chosen if the other overload
+    * does not exist.
+    */
   template<typename>
   std::false_type hasNoArgCtor_(...);
 
+  /** Traits-like class to detect if class \p T has a constructor accepting an
+    * instance of \p NoArg as argument.
+    * The class derives from std::true_type if this is the case and
+    * std::false_type otherwise.
+    */
   template<typename T>
   class hasNoArgCtor : public decltype(hasNoArgCtor_<T>(0)){};
 
+  /** Given a list of types, count how many of then havec a constructor
+    * accepting NoArg
+    */
   template<typename T, typename... Args>
   class ArgCount
   {
@@ -145,6 +166,7 @@ namespace internal
     static constexpr int count = ArgCount<Args...>::count + (hasNoArgCtor<T>::value ? 0 : 1);
   };
 
+  /** End of reccursion for ArgCount*/
   template<typename T>
   class ArgCount<T>
   {
@@ -153,6 +175,9 @@ namespace internal
   };
 
 
+  /** A cache for holding temporary value in the evaluation of an assignment.
+    * By default, it does not do anything but forward an expression.
+    */
   template<typename MatrixType, bool Cache>
   class CachedResult
   {
@@ -161,6 +186,7 @@ namespace internal
     const T& cache(const T& M) { return M; }
   };
 
+  /** Specialization for when a cache is needed.*/
   template<typename MatrixType>
   class CachedResult<MatrixType, true>
   {
@@ -189,20 +215,23 @@ namespace internal
   };
 
 
-  /** Traits for deciding whether or not to use a cache before assign step. 
+  /** Traits for deciding whether or not to use a cache before the assign step.
     * By default, no cache is used.
     */
   template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
   class use_assign_cache : public std::false_type {};
 
-  /** Specialization for min/max with general matrix product. In this case, we use the cache*/
+  /** Specialization for min/max with general matrix product. In this case, we
+    * use the cache
+    */
   template<typename MatrixType, WeightMult W>
   class use_assign_cache<MatrixType, MIN, W, GENERAL, EXTERNAL> : public std::true_type {};
   template<typename MatrixType, WeightMult W>
   class use_assign_cache<MatrixType, MAX, W, GENERAL, EXTERNAL> : public std::true_type {};
 
   /** Specialization for GENERAL*CONSTANT. This should not be necessary, but
-    * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3*/
+    * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3.
+    */
   template<typename MatrixType, AssignType A, WeightMult W>
   class use_assign_cache<MatrixType, A, W, GENERAL, CONSTANT> : public std::true_type {};
 
@@ -416,7 +445,7 @@ namespace internal
 
   /** Partial specialization for GENERAL*/
   template<typename MatrixType>
-  class MatrixMultBase<MatrixType ,GENERAL>
+  class MatrixMultBase<MatrixType, GENERAL>
   {
   public:
     MatrixMultBase(const Eigen::Ref<const Eigen::MatrixXd>& M) : M_(M) {}
@@ -448,6 +477,7 @@ namespace internal
       return M_ * Eigen::VectorXd::Constant(M_.cols(), d);
     }
 
+    /** Cached version of applyMatrixMult*/
     template<typename T>
     void applyMatrixMultCached(MatrixType& cache, const T& M)
     {
@@ -522,7 +552,7 @@ namespace internal
     * This class is meant to be a helper class and should not live on its own,
     * but be create by a higher-level class ensuring its data are valid.
     *
-    * TODO:
+    * \internal TODO:
     * - use an object for custom multiplications
     * - resize of cache at initialization
     * - reference on all inputs? (not the case now for inputs that are double)
@@ -564,7 +594,6 @@ namespace internal
     }
 
   public:
-    //FIXME shall we use the operator() instead of run, and make this class a functor ?
     template<typename U = MatrixType>
     typename std::enable_if<!use_product_cache<U, A, W, M, F>::value>::type run()
     {

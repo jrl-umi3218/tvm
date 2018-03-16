@@ -35,17 +35,16 @@ namespace internal
   /** This class wraps a CompiledAssignment so as to hide the template
     * machinery. The three member functions of CompiledAssignment are
     * exposed: run, from, to.
+    *
+    * \internal Internally we hold a void* pointer to the CompiledAssignment.
+    * We also hold pointer to functions that are templated by the actual type of
+    * the assignment. Those functions allow casting back the void* to the true
+    * type of the assignment.
     */
   template<typename MatrixType>
   class CompiledAssignmentWrapper
   {
   public:
-    template<typename T> static void srun(void* ca);
-    template<typename T> static void sdelete(void* ca);
-    template<typename T> static void sfrom(void* ca, const typename T::SourceType& f);
-    template<typename T> static void sto(void* ca, const Eigen::Ref<MatrixType>& from);
-    template<typename T> static void* sclone(void* ca);
-
     CompiledAssignmentWrapper(const CompiledAssignmentWrapper&);
     CompiledAssignmentWrapper(CompiledAssignmentWrapper&&) = default;
     ~CompiledAssignmentWrapper() = default;
@@ -68,14 +67,14 @@ namespace internal
 
     /** Create an assignement and its wrapper.
       * \param args to [, from] [, weight] [, multiplier] where
-      * -\p to is the destination matrix or vector
-      * -\p from is the source (nothing for F = ZERO, a double for F = CONSTANT,
-      *  and a matrix or vector for F = EXTERNAL)
-      * -\p weight is the weight to apply (nothing for W = NONE and W = MINUS, a
-      *  double for W = SCALAR, and a vector for W = DIAGONAL or 
-      *  W = INVERSE_DIAGONAL)
-      * -\p multiplier is the matrix multiplier (nothing for M = IDENTITY, a
-      *  matrix for M = GENERAL, and a custom object for M = CUSTOM)
+      * - \p to is the destination matrix or vector
+      * - \p from is the source (nothing for F = ZERO, a double for F = CONSTANT,
+      *   and a matrix or vector for F = EXTERNAL)
+      * - \p weight is the weight to apply (nothing for W = NONE and W = MINUS, a
+      *   double for W = SCALAR, and a vector for W = DIAGONAL or 
+      *   W = INVERSE_DIAGONAL)
+      * - \p multiplier is the matrix multiplier (nothing for M = IDENTITY, a
+      *   matrix for M = GENERAL, and a custom object for M = CUSTOM)
       */
     template<AssignType A, WeightMult W, MatrixMult M, Source F = EXTERNAL, typename... Args>
     static CompiledAssignmentWrapper make(Args&&... args);
@@ -83,11 +82,32 @@ namespace internal
   private:
     CompiledAssignmentWrapper(void(*deleter)(void*));
 
+    /** call ca->run*/
+    template<typename T> static void srun(void* ca);
+    /** call the destructor of ca*/
+    template<typename T> static void sdelete(void* ca);
+    /** call ca->from*/
+    template<typename T> static void sfrom(void* ca, const typename T::SourceType& f);
+    /** call ca->to*/
+    template<typename T> static void sto(void* ca, const Eigen::Ref<MatrixType>& from);
+    /** return a copy of ca*/
+    template<typename T> static void* sclone(void* ca);
+
+    /** A pointer to CompiledAssignment whose type has been erased.*/
     std::unique_ptr<void, void(*)(void*)> ca_;
+    /** Pointer to srun<T> where T is the actual type of the CompiledAssignment.*/
     void(*run_)(void*);
+    /** Pointer to sfrom<T> if the assignment has a CONSTANT Source, a null
+      * pointer otherwise. T is the actual type of the CompileAssignment.
+      */
     void(*fromd_)(void*, const double&);
+    /** Pointer to sfrom<T> if the assignment has not a CONSTANT Source, a null
+      * pointer otherwise. T is the actual type of the CompileAssignment.
+      */
     void(*fromm_)(void*, const Eigen::Ref<const MatrixType>&);
+    /** Pointer to srun<T> where T is the actual type of the CompiledAssignment.*/
     void(*to_)(void*, const Eigen::Ref<MatrixType>&);
+    /** Pointer to sclone<T> where T is the actual type of the CompiledAssignment.*/
     void*(*clone_)(void*);
   };
 
