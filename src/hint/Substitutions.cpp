@@ -148,12 +148,14 @@ namespace internal
     variables_.clear();
     varSubstitutions_.clear();
     additionalConstraints_.clear();
+    otherVariables_.clear();
     for (const auto& u : units_)
     {
       const auto& x = u.variables();
       const auto& f = u.variableSubstitutions();
       const auto& z = u.additionalVariables();
       const auto& c = u.additionalConstraints();
+      const auto& y = u.otherVariables();
       variables_.insert(variables_.end(), x.begin(), x.end());
       varSubstitutions_.insert(varSubstitutions_.end(), f.begin(), f.end());
       for (auto& zi : z)
@@ -168,6 +170,13 @@ namespace internal
         if (ci->size() > 0)
         {
           additionalConstraints_.push_back(ci);
+        }
+      }
+      for (auto& yi : y)
+      {
+        if (std::find(otherVariables_.begin(), otherVariables_.end(), yi) == otherVariables_.end())
+        {
+          otherVariables_.push_back(yi);
         }
       }
     }
@@ -208,6 +217,11 @@ namespace internal
   const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& Substitutions::additionalConstraints() const
   {
     return additionalConstraints_;
+  }
+
+  const std::vector<VariablePtr>& Substitutions::otherVariables() const
+  {
+    return otherVariables_;
   }
 
   size_t Substitutions::DependencyGraph::addNode()

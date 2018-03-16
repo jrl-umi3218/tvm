@@ -259,6 +259,11 @@ namespace internal
     return remaining_;
   }
 
+  const std::vector<VariablePtr>& SubstitutionUnit::otherVariables() const
+  {
+    return y_.variables();
+  }
+
   void SubstitutionUnit::extractSubstitutions(const std::vector<Substitution>& substitutionPool, const std::vector<std::vector<size_t>>& groups, const std::vector<size_t> order)
   {
     for (auto i : order)

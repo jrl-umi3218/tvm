@@ -66,7 +66,8 @@ namespace internal
     const std::vector<VariablePtr>& additionalVariables() const;
     /** Return the additional constraints to be added to the problem.*/
     const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& additionalConstraints() const;
-
+    /** Return all the y variables.*/
+    const std::vector<VariablePtr>& otherVariables() const;
 
   private:
     /** Build \p substitutions_ from the inputs

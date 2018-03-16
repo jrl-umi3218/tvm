@@ -54,7 +54,7 @@ namespace internal
       * the non-substitued ones.*/
     void updateVariableValues() const;
 
-    /** All variables in the substitutions*/
+    /** All variables x in the substitutions*/
     const std::vector<VariablePtr>& variables() const;
     /** The linear functions x = f(y,z) corresponding to the variables*/
     const std::vector<std::shared_ptr<function::BasicLinearFunction>>& variableSubstitutions() const;
@@ -62,8 +62,9 @@ namespace internal
     const std::vector<VariablePtr>& additionalVariables() const;
     /** The remaining constraints on y and z*/
     const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& additionalConstraints() const;
+    /** The variables y*/
+    const std::vector<VariablePtr>& otherVariables() const;
 
-  private:
     /** An oriented graph to represent dependencies between substitutions.*/
     class TVM_DLLAPI DependencyGraph
     {
@@ -147,7 +148,7 @@ namespace internal
     /** Group of dependent substitutions*/
     std::vector<SubstitutionUnit> units_;
 
-    /** The variables substituted.*/
+    /** The variables substituted (x).*/
     std::vector<VariablePtr> variables_;
 
     /** The substitution functions linked to thte variables, i.e
@@ -155,8 +156,13 @@ namespace internal
       */
     std::vector<std::shared_ptr<function::BasicLinearFunction>> varSubstitutions_;
 
-    /** Nullspace variables used in the substitutions*/
+    /** Nullspace variables (z) used in the substitutions*/
     std::vector<VariablePtr> additionalVariables_;
+
+    /** Other variables (y), i.e. the variables present in the constraints used
+      * for the substitutions but not substituted.
+      */
+    std::vector<VariablePtr> otherVariables_;
 
     /** The additionnal constraints to add to the problem*/
     std::vector<std::shared_ptr<constraint::BasicLinearConstraint>> additionalConstraints_;
