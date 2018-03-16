@@ -69,6 +69,8 @@ namespace internal
     TargetType targetType() const;
     constraint::Type constraintType() const;
     constraint::RHS constraintRhs() const;
+    /** Row size of the target.*/
+    int size() const;
 
     /** Return the (range.dim x colDim) block of A starting at
     *(range.start,colStart) */

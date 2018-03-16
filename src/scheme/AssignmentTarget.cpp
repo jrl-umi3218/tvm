@@ -55,6 +55,11 @@ namespace internal
     return constraintRhs_;
   }
 
+  int AssignmentTarget::size() const
+  {
+    return range_->dim;
+  }
+
   MatrixRef AssignmentTarget::A(int colStart, int colDim) const
   {
     //return MatrixRef(const_cast<AssignmentTarget*>(this)->A_.block(range_->start, colStart, range_->dim, colDim));
