@@ -110,10 +110,15 @@ bool check(BLCPtr c, const VectorXd& x)
   }
 }
 
-bool check(const Memory& mem, Type ct, RHS cr, const VectorXd& x)
+bool check(const Memory& mem, Type ct, RHS cr, const VectorXd& x, bool bound=false)
 {
   const double eps = 1e-12;
-  VectorXd v = mem.A*x;
+  VectorXd v;
+  if (bound)
+    v = x;
+  else
+    v = mem.A*x;
+
   if (ct == Type::DOUBLE_SIDED)
   {
     if (cr == RHS::AS_GIVEN)
@@ -177,36 +182,59 @@ Constraints buildConstraints(int m, int n)
 }
 
 //build constraints x op 0, x op +/-2 such that 0 is feasible, and -2 <= x <= 2
-Constraints buildSimpleConstraints()
+//if minus = true, we take -x instead of x
+Constraints buildSimpleConstraints(bool minus = false, VariablePtr y = nullptr)
 {
   Constraints cstr;
-  VariablePtr x = Space(1).createVariable("x");
+  VariablePtr x;
+  if (y)
+    x = y;
+  else
+    x = Space(1).createVariable("x");
+
+  double s = minus ? -1 : 1;
+  tvm::internal::MatrixProperties p;
+  if (minus)
+    p = { tvm::internal::MatrixProperties::MINUS_IDENTITY };
+  else
+    p = { tvm::internal::MatrixProperties::IDENTITY };
 
   //generate matrix
-  MatrixXd A = MatrixXd::Identity(1, 1);
+  MatrixXd A = s*MatrixXd::Identity(1, 1);
   VectorXd l = VectorXd::Constant(1, -2);
   VectorXd u = VectorXd::Constant(1, 2);
 
   cstr.Ax_eq_0 = std::make_shared<BasicLinearConstraint>(A, x, Type::EQUAL);
+  cstr.Ax_eq_0->A(A, p);
   cstr.Ax_geq_0 = std::make_shared<BasicLinearConstraint>(A, x, Type::GREATER_THAN);
+  cstr.Ax_geq_0->A(A, p);
   cstr.Ax_leq_0 = std::make_shared<BasicLinearConstraint>(A, x, Type::LOWER_THAN);
+  cstr.Ax_leq_0->A(A, p);
 
   cstr.Ax_eq_b = std::make_shared<BasicLinearConstraint>(A, x, l, Type::EQUAL);
+  cstr.Ax_eq_b->A(A, p);
   cstr.Ax_geq_b = std::make_shared<BasicLinearConstraint>(A, x, l, Type::GREATER_THAN);
+  cstr.Ax_geq_b->A(A, p);
   cstr.Ax_leq_b = std::make_shared<BasicLinearConstraint>(A, x, u, Type::LOWER_THAN);
+  cstr.Ax_leq_b->A(A, p);
 
   cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, Type::EQUAL, RHS::OPPOSITE);
+  cstr.Ax_eq_minus_b->A(A, p);
   cstr.Ax_geq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -l, Type::GREATER_THAN, RHS::OPPOSITE);
+  cstr.Ax_geq_minus_b->A(A, p);
   cstr.Ax_leq_minus_b = std::make_shared<BasicLinearConstraint>(A, x, -u, Type::LOWER_THAN, RHS::OPPOSITE);
+  cstr.Ax_leq_minus_b->A(A, p);
 
   cstr.l_leq_Ax_leq_u = std::make_shared<BasicLinearConstraint>(A, x, l, u);
+  cstr.l_leq_Ax_leq_u->A(A, p);
   cstr.minus_l_leq_Ax_leq_minus_u = std::make_shared<BasicLinearConstraint>(A, x, -l, -u, RHS::OPPOSITE);
+  cstr.minus_l_leq_Ax_leq_minus_u->A(A, p);
   return cstr;
 }
 
 //check that each point -3, -2, -1, 0, 1, 2 and 3 is either verifying at the same time
 //the two descriptions of the constraint or violating both of them.
-void checkSimple(BLCPtr cstr, const Memory& mem, Type t, RHS r)
+void checkSimple(BLCPtr cstr, const Memory& mem, Type t, RHS r, bool bound = false)
 {
   VectorXd pm3 = VectorXd::Constant(1, -3);
   VectorXd pm2 = VectorXd::Constant(1, -2);
@@ -216,12 +244,36 @@ void checkSimple(BLCPtr cstr, const Memory& mem, Type t, RHS r)
   VectorXd p2 = VectorXd::Constant(1, 2);
   VectorXd p3 = VectorXd::Constant(1, 3);
 
-  FAST_CHECK_EQ(check(cstr, pm3), check(mem, t, r, pm3));
-  FAST_CHECK_EQ(check(cstr, pm2), check(mem, t, r, pm2));
-  FAST_CHECK_EQ(check(cstr, pm1), check(mem, t, r, pm1));
-  FAST_CHECK_EQ(check(cstr, p0), check(mem, t, r, p0));
-  FAST_CHECK_EQ(check(cstr, p1), check(mem, t, r, p1));
-  FAST_CHECK_EQ(check(cstr, p3), check(mem, t, r, p3));
+  FAST_CHECK_EQ(check(cstr, pm3), check(mem, t, r, pm3, bound));
+  FAST_CHECK_EQ(check(cstr, pm2), check(mem, t, r, pm2, bound));
+  FAST_CHECK_EQ(check(cstr, pm1), check(mem, t, r, pm1, bound));
+  FAST_CHECK_EQ(check(cstr, p0), check(mem, t, r, p0, bound));
+  FAST_CHECK_EQ(check(cstr, p1), check(mem, t, r, p1, bound));
+  FAST_CHECK_EQ(check(cstr, p2), check(mem, t, r, p2, bound));
+  FAST_CHECK_EQ(check(cstr, p3), check(mem, t, r, p3, bound));
+}
+
+//check for the intersection of 2 bound constraints
+void checkSimple(BLCPtr cstr1, BLCPtr cstr2, const Memory& mem)
+{
+  Type t = Type::DOUBLE_SIDED;
+  RHS r = RHS::AS_GIVEN;
+
+  VectorXd pm3 = VectorXd::Constant(1, -3);
+  VectorXd pm2 = VectorXd::Constant(1, -2);
+  VectorXd pm1 = VectorXd::Constant(1, -1);
+  VectorXd p0 = VectorXd::Constant(1, 0);
+  VectorXd p1 = VectorXd::Constant(1, 1);
+  VectorXd p2 = VectorXd::Constant(1, 2);
+  VectorXd p3 = VectorXd::Constant(1, 3);
+
+  FAST_CHECK_EQ(check(cstr1, pm3) && check(cstr2, pm3), check(mem, t, r, pm3, true));
+  FAST_CHECK_EQ(check(cstr1, pm2) && check(cstr2, pm2), check(mem, t, r, pm2, true));
+  FAST_CHECK_EQ(check(cstr1, pm1) && check(cstr2, pm1), check(mem, t, r, pm1, true));
+  FAST_CHECK_EQ(check(cstr1, p0) && check(cstr2, p0), check(mem, t, r, p0, true));
+  FAST_CHECK_EQ(check(cstr1, p1) && check(cstr2, p1), check(mem, t, r, p1, true));
+  FAST_CHECK_EQ(check(cstr1, p2) && check(cstr2, p2), check(mem, t, r, p2, true));
+  FAST_CHECK_EQ(check(cstr1, p3) && check(cstr2, p3), check(mem, t, r, p3, true));
 }
 
 void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, RHS r, bool throws)
@@ -241,7 +293,24 @@ void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, 
   }
 }
 
-/** Check the assignement of a constraint \p c to a non double-sided constraint
+void checkBoundAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem)
+{
+  Assignment a(c, at, c->variables()[0], true);
+  a.run();
+  checkSimple(c, mem, Type::DOUBLE_SIDED, RHS::AS_GIVEN, true);
+}
+
+void checkBoundAssignment(BLCPtr c1, BLCPtr c2, const AssignmentTarget& at, Memory& mem)
+{
+  assert(c1->variables()[0] == c2->variables()[0]);
+  Assignment a1(c1, at, c1->variables()[0], true);
+  a1.run();
+  Assignment a2(c2, at, c2->variables()[0], false);
+  a2.run();
+  checkSimple(c1, c2, mem);
+}
+
+/** Check the assignement of a constraint \p c to a target
   * \p throws is a vector of 11 bool indicating if the assignement construction is
   * expected to throw. The order of the targets conventions are:
   * Cx=0, Cx=d, Cx=-d, Cx>=0, Cx>=d, Cx>=-d, Cx<=0, Cx<=d, Cx<=-d, l<=Cx<=u, -l<=Cx<=-u
@@ -336,6 +405,27 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   }
 }
 
+/** Check the assignement of a bound \p c to a target */
+void checkSimpleBound(BLCPtr c)
+{
+  auto dMem = std::make_shared<Memory>(1, 1);
+  auto dRange = std::make_shared<Range>(0, 1);
+  
+  // target l<=x<=u
+  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  checkBoundAssignment(c, at, *dMem);
+}
+
+void checkSimpleBound(BLCPtr c1, BLCPtr c2)
+{
+  auto dMem = std::make_shared<Memory>(1, 1);
+  auto dRange = std::make_shared<Range>(0, 1);
+
+  // target l<=x<=u
+  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  checkBoundAssignment(c1, c2, at, *dMem);
+}
+
 //test for correct signs on the matrices and vector
 TEST_CASE("Test simple assignment")
 {
@@ -408,6 +498,50 @@ TEST_CASE("Test simple assignment")
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
     T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
     checkSimple(cstr.l_leq_Ax_leq_u, v);
+  }
+
+  //now the bounds
+  checkSimpleBound(cstr.Ax_eq_0);
+  checkSimpleBound(cstr.Ax_geq_0);
+  checkSimpleBound(cstr.Ax_leq_0);
+  checkSimpleBound(cstr.Ax_eq_b);
+  checkSimpleBound(cstr.Ax_geq_b);
+  checkSimpleBound(cstr.Ax_leq_b);
+  checkSimpleBound(cstr.Ax_eq_minus_b);
+  checkSimpleBound(cstr.Ax_geq_minus_b);
+  checkSimpleBound(cstr.Ax_leq_minus_b);
+  checkSimpleBound(cstr.l_leq_Ax_leq_u);
+  checkSimpleBound(cstr.minus_l_leq_Ax_leq_minus_u);
+
+  //with -Identity
+  auto cstr2 = buildSimpleConstraints(true, cstr.Ax_eq_0->variables()[0]);
+  checkSimpleBound(cstr2.Ax_eq_0);
+  checkSimpleBound(cstr2.Ax_geq_0);
+  checkSimpleBound(cstr2.Ax_leq_0);
+  checkSimpleBound(cstr2.Ax_eq_b);
+  checkSimpleBound(cstr2.Ax_geq_b);
+  checkSimpleBound(cstr2.Ax_leq_b);
+  checkSimpleBound(cstr2.Ax_eq_minus_b);
+  checkSimpleBound(cstr2.Ax_geq_minus_b);
+  checkSimpleBound(cstr2.Ax_leq_minus_b);
+  checkSimpleBound(cstr2.l_leq_Ax_leq_u);
+  checkSimpleBound(cstr2.minus_l_leq_Ax_leq_minus_u);
+
+  std::vector<BLCPtr> c1 = {cstr.Ax_eq_0, cstr.Ax_geq_0, cstr.Ax_leq_0, cstr.Ax_eq_b,
+                            cstr.Ax_geq_b, cstr.Ax_leq_b, cstr.Ax_eq_minus_b, cstr.Ax_geq_minus_b,
+                            cstr.Ax_leq_minus_b, cstr.l_leq_Ax_leq_u, cstr.minus_l_leq_Ax_leq_minus_u };
+  std::vector<BLCPtr> c2 = {cstr2.Ax_eq_0, cstr2.Ax_geq_0, cstr2.Ax_leq_0, cstr2.Ax_eq_b,
+                            cstr2.Ax_geq_b, cstr2.Ax_leq_b, cstr2.Ax_eq_minus_b, cstr2.Ax_geq_minus_b,
+                            cstr2.Ax_leq_minus_b, cstr2.l_leq_Ax_leq_u, cstr2.minus_l_leq_Ax_leq_minus_u };
+
+  //check the intersection of bounds constraints
+  for (size_t i = 0; i < 11; ++i)
+  {
+    for (size_t j = 0; j < 11; ++j)
+    {
+      checkSimpleBound(c1[i], c1[j]);
+      checkSimpleBound(c1[i], c2[j]);
+    }
   }
 }
 
