@@ -45,6 +45,7 @@ namespace internal
   class CompiledAssignmentWrapper
   {
   public:
+    CompiledAssignmentWrapper();
     CompiledAssignmentWrapper(const CompiledAssignmentWrapper&);
     CompiledAssignmentWrapper(CompiledAssignmentWrapper&&) = default;
     ~CompiledAssignmentWrapper() = default;
@@ -160,6 +161,17 @@ namespace internal
     w.clone_ = sclone<CA>;
     w.ca_.reset(new CA(std::forward<Args>(args)...));
     return w;
+  }
+
+  template<typename MatrixType>
+  inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper()
+    : ca_(nullptr, nullptr)
+    , run_(nullptr)
+    , fromd_(nullptr)
+    , fromm_(nullptr)
+    , to_(nullptr)
+    , clone_(nullptr)
+  {
   }
 
   template<typename MatrixType>

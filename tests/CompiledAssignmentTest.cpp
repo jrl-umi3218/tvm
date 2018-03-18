@@ -449,4 +449,10 @@ TEST_CASE("Test compiled assignments wrapper")
   FAST_CHECK_EQ(C, w.asDiagonal() * A1);
 
   CHECK_THROWS(a[2].from(3));
+
+  //default constructor and copy
+  MatrixAssignment ma;
+  ma = MatrixAssignment::make<ADD, NONE, IDENTITY, EXTERNAL>(B.middleRows(0, 3), A1);
+  ma.run();
+  FAST_CHECK_EQ(B.middleRows(0, 3), B_ref.middleRows(0, 3) + A1 + A1);
 }
