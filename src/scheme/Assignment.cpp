@@ -372,36 +372,105 @@ namespace internal
     }
   }
 
-  void Assignment::addMatrixAssignment(Variable* x, MatrixFunction M, const Range& range, bool flip)
+  void Assignment::addMatrixAssignment(Variable& x, MatrixFunction M, const Range& range, bool flip)
   {
-    const MatrixConstRef& from = source_->jacobian(*x);
+    const MatrixConstRef& from = source_->jacobian(x);
     const MatrixRef& to = (target_.*M)(range.start, range.dim);
     auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);
 
-    matrixAssignments_.push_back({ w, x, range, M });
+    matrixAssignments_.push_back({ w, &x, range, M });
+  }
+
+  void Assignment::addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, const function::BasicLinearFunction& sub, bool flip)
+  {
+    const auto& J = source_->jacobian(x);
+    for (const auto& xi : sub.variables())
+    {
+      Range range = xi->getMappingIn(variables);
+      const MatrixRef& to = (target_.*M)(range.start, range.dim);
+      const auto& Ai = sub.jacobian(*xi);
+      CompiledAssignmentWrapper<Eigen::MatrixXd> w;
+      if (J.properties().isIdentity())
+      {
+        if (flip)
+          w = createAssignment<Eigen::MatrixXd, SUB>(Ai, to);
+        else
+          w = createAssignment<Eigen::MatrixXd, ADD>(Ai, to);
+      }
+      else if (J.properties().isMinusIdentity())
+      {
+        if (flip)
+          w = createAssignment<Eigen::MatrixXd, ADD>(Ai, to);
+        else
+          w = createAssignment<Eigen::MatrixXd, SUB>(Ai, to);
+      }
+      else
+      {
+        if (flip)
+          w = createSubstitutionAssignment<Eigen::MatrixXd, SUB>(J, to, Ai);
+        else
+          w = createSubstitutionAssignment<Eigen::MatrixXd, ADD>(J, to, Ai);
+      }
+      matrixSubstitutionAssignments_.push_back({ w, xi.get(), range, M });
+    }
+  }
+
+  void Assignment::addZeroAssignment(Variable& x, MatrixFunction M, const Range & range)
+  {
+    const MatrixRef& to = (target_.*M)(range.start, range.dim);
+    auto w = CompiledAssignmentWrapper<Eigen::MatrixXd>::make<COPY, NONE, IDENTITY, ZERO>(to);
+    
+    matrixAssignments_.push_back({ w, &x, range, M });
   }
 
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
                                   RHSFunction f, VectorFunction v, bool flip)
   {
+    const auto& xs = substitutedVariables_; //susbstituted variables
+    const auto& xc = source_->variables();  //variables of the source constraint
+
+    addVectorAssignment(f, v, flip);
+
+    // For all problem variables not in xc, we set the corresponding matrix block
+    // to zero.
+    for (const auto& x : variables)
+    {
+      if (!xc.contains(*x))
+      {
+        Range cols = x->getMappingIn(variables);
+        addZeroAssignment(*x, M, cols);
+      }
+    }
+
+    // Each variable of xc needs to be either in variables or in xs.
+    // In the former case, we create a normal copy assignment, in the latter we
+    // need to carry out a substitution
+    for (const auto& x : xc)
+    {
+      int i;
+      if (xs.contains(*x, &i))  // x needs to be subsituted
+      {
+        addMatrixSubstitutionAssignments(variables, *x, M, *variableSubstitutions_[static_cast<int>(i)], flip);
+      }
+      else //usual case
+      {
+        Range cols = x->getMappingIn(variables);
+        addMatrixAssignment(*x, M, cols, flip);
+      }
+    }
+
     for (const auto& x : source_->variables())
     {
       Range cols = x->getMappingIn(variables);
-      addMatrixAssignment(x.get(), M, cols, flip);
+      addMatrixAssignment(*x, M, cols, flip);
     }
-    addVectorAssignment(f, v, flip);
   }
 
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
                                   RHSFunction f1, VectorFunction v1,
                                   RHSFunction f2, VectorFunction v2)
   {
-    for (const auto& x : source_->variables())
-    {
-      Range cols = x->getMappingIn(variables);
-      addMatrixAssignment(x.get(), M, cols, false);
-    }
-    addVectorAssignment(f1, v1, false);
+    addAssignments(variables, M, f1, v1, false);
     addVectorAssignment(f2, v2, false);
   }
 

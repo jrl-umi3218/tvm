@@ -123,11 +123,14 @@ namespace internal
     void build(const VariableVector& variables);
     void build(const VariablePtr& variable, bool first);
     void processRequirements();
-    void addMatrixAssignment(Variable* x, MatrixFunction M, const Range& range, bool flip);
+    void addMatrixAssignment(Variable& x, MatrixFunction M, const Range& range, bool flip);
+    void addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, 
+                                          const function::BasicLinearFunction& sub, bool flip);
     template<AssignType A = AssignType::COPY>
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
     template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
+    void addZeroAssignment(Variable& x, MatrixFunction M, const Range& range);
     void addAssignments(const VariableVector& variables, MatrixFunction M,
                         RHSFunction f, VectorFunction v, bool flip);
     void addAssignments(const VariableVector& variables, MatrixFunction M,
@@ -135,15 +138,27 @@ namespace internal
                         RHSFunction f2, VectorFunction v2);
 
     template<typename T, AssignType A, typename U>
-    CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip);
+    CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip = false);
+
+    template<typename T, AssignType A, typename U, typename V>
+    CompiledAssignmentWrapper<T> createSubstitutionAssignment(const U& from, const Eigen::Ref<T>& to, const V& Mult, bool flip = false);
 
     LinearConstraintPtr source_;
     AssignmentTarget target_;
     double scalarizationWeight_;
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
+    /** All the assignements that are setting the initial values of the targeted blocks*/
     std::vector<MatrixAssignment> matrixAssignments_;
+    /** All assignments due to substitution. We separe them from matrixAssignments_
+      * because these assignements add to existing values, and we need to be sure
+      * that the assignements in matrixAssignments_ have been carried out before.
+      */
     std::vector<MatrixAssignment> matrixSubstitutionAssignments_;
+    /** All the initial rhs assignments*/
     std::vector<VectorAssignment> vectorAssignments_;
+    /** The additional rhs assignments due to substitutions. As for matrix
+      * assignments, they need to be carried out after those of vectorAssignments_.
+      */
     std::vector<VectorAssignment> vectorSubstitutionAssignments_;
 
     /** Processed requirements*/
@@ -152,7 +167,7 @@ namespace internal
     Eigen::VectorXd minusAnisotropicWeight_;
 
     /** Data for substitutions */
-    std::vector<VariablePtr> substitutedVariables_;
+    VariableVector substitutedVariables_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
   };
 
@@ -185,6 +200,39 @@ namespace internal
         return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, minusAnisotropicWeight_);
       else
         return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, anisotropicWeight_);
+    }
+  }
+
+  template<typename T, AssignType A, typename U, typename V>
+  inline CompiledAssignmentWrapper<T> Assignment::createSubstitutionAssignment(const U& from, const Eigen::Ref<T>& to, const V& Mult, bool flip)
+  {
+    using Wrapper = CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type>;
+    const Source F = std::is_arithmetic<U>::value ? CONSTANT : EXTERNAL;
+    const MatrixMult M = GENERAL; //FIXME have a swith on Mult for detecting CUSTOM case
+
+    if (requirements_->anisotropicWeight().isDefault())
+    {
+      if (scalarWeight_ == 1)
+      {
+        if (flip)
+          return Wrapper::template make<A, MINUS, M, F>(to, from, Mult);
+        else
+          return Wrapper::template make<A, NONE, M, F>(to, from, Mult);
+      }
+      else
+      {
+        if (flip)
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, -scalarWeight_, Mult);
+        else
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, scalarWeight_, Mult);
+      }
+    }
+    else
+    {
+      if (flip)
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, minusAnisotropicWeight_, Mult);
+      else
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, anisotropicWeight_, Mult);
     }
   }
 
