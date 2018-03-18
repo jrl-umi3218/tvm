@@ -142,25 +142,34 @@ TEST_CASE("Test VariableVector creation")
   vv1.add(v3);
   vv1.add(v1);
 
+  int i1, i2, i3, i4;
   FAST_CHECK_EQ(vv1.numberOfVariables(), 3);
   FAST_CHECK_EQ(vv1.totalSize(), 9);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v3);
   FAST_CHECK_EQ(vv1[2], v1);
-  FAST_CHECK_UNARY(vv1.contains(*v1));
-  FAST_CHECK_UNARY(vv1.contains(*v2));
-  FAST_CHECK_UNARY(vv1.contains(*v3));
-  FAST_CHECK_UNARY(!vv1.contains(*v4));
+  FAST_CHECK_UNARY(vv1.contains(*v1, &i1));
+  FAST_CHECK_UNARY(vv1.contains(*v2, &i2));
+  FAST_CHECK_UNARY(vv1.contains(*v3, &i3));
+  FAST_CHECK_UNARY(!vv1.contains(*v4, &i4));
+  FAST_CHECK_EQ(i1, 2);
+  FAST_CHECK_EQ(i2, 0);
+  FAST_CHECK_EQ(i3, 1);
+  FAST_CHECK_EQ(i4, 3);
 
   vv1.remove(*v3);
   FAST_CHECK_EQ(vv1.numberOfVariables(), 2);
   FAST_CHECK_EQ(vv1.totalSize(), 7);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v1);
-  FAST_CHECK_UNARY(vv1.contains(*v1));
-  FAST_CHECK_UNARY(vv1.contains(*v2));
-  FAST_CHECK_UNARY(!vv1.contains(*v3));
-  FAST_CHECK_UNARY(!vv1.contains(*v4));
+  FAST_CHECK_UNARY(vv1.contains(*v1, &i1));
+  FAST_CHECK_UNARY(vv1.contains(*v2, &i2));
+  FAST_CHECK_UNARY(!vv1.contains(*v3, &i3));
+  FAST_CHECK_UNARY(!vv1.contains(*v4, &i4));
+  FAST_CHECK_EQ(i1, 1);
+  FAST_CHECK_EQ(i2, 0);
+  FAST_CHECK_EQ(i3, 2);
+  FAST_CHECK_EQ(i4, 2);
 
   VariableVector vv2({ v1, v2, v3 });
   FAST_CHECK_EQ(vv2.numberOfVariables(), 3);

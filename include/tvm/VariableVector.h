@@ -103,8 +103,10 @@ namespace tvm
 
     /** Compute the mapping for every variabe and return it.*/
     std::map<const Variable*, Range> computeMappingMap() const;
-    /** Check if this vector contains variable v or not.*/
-    bool contains(const Variable& v) const;
+    /** Check if this vector contains variable \p v or not.
+      * If \p i is not nullptr, output the index of variable \p in it. 
+      */
+    bool contains(const Variable& v, int* i = nullptr) const;
 
     /** A timestamp, used internally to determine if a mapping needs to be
       * recomputed or not.
@@ -128,12 +130,6 @@ namespace tvm
     mutable int stamp_;
     int size_;
     std::vector<VariablePtr> variables_;
-    /** This set is a helper to quickly test the presence of a variable without
-      * iterating through the whole vector.
-      *
-      * FIXME: is it faster though, given that we will never have a lot of variables?
-      */
-    std::set<const Variable*> variableSet_;
 
     mutable Eigen::VectorXd value_;
   };

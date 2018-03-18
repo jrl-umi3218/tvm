@@ -35,7 +35,6 @@ namespace tvm
         throw std::runtime_error("Attempting to add a variable already present.");
     }
     variables_.push_back(v);
-    variableSet_.insert(v.get());
     size_ += v->size();
     getNewStamp();
   }
@@ -57,7 +56,6 @@ namespace tvm
     {
       auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
       variables_.erase(it);
-      variableSet_.erase(&v);
       size_ -= v.size();
       getNewStamp();
     }
@@ -137,9 +135,14 @@ namespace tvm
     return m;
   }
 
-  bool VariableVector::contains(const Variable& v) const
+  bool VariableVector::contains(const Variable& v, int* i) const
   {
-    return variableSet_.find(&v) != variableSet_.end();
+    auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
+    if (i)
+    {
+      *i = static_cast<int>(it - variables_.begin());
+    }
+    return it != variables_.end();
   }
 
   int VariableVector::stamp() const
