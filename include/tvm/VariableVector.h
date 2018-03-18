@@ -111,6 +111,15 @@ namespace tvm
       */
     int stamp() const;
 
+    /** Iterator to the first variable. This enable to use VariableVector
+      * directly in range-based for loops
+      */
+    std::vector<VariablePtr>::const_iterator begin() const;
+    /** Iterator past the last variable. This enable to use VariableVector
+      * directly in range-based for loops
+      */
+    std::vector<VariablePtr>::const_iterator end() const;
+
   private:
     void getNewStamp() const;
 
@@ -138,5 +147,16 @@ namespace tvm
     * \warning This recreates a vector from scratch each time
     */
   VariableVector TVM_DLLAPI dot(const VariableVector& vars, int ndiff=1);
+
+
+  inline std::vector<VariablePtr>::const_iterator tvm::VariableVector::begin() const
+  {
+    return variables_.begin();
+  }
+
+  inline std::vector<VariablePtr>::const_iterator tvm::VariableVector::end() const
+  {
+    return variables_.end();
+  }
 
 }  // namespace tvm

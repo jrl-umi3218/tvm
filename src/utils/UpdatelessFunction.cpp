@@ -54,7 +54,7 @@ namespace utils
       JDotGraph_.update();
     }
 
-    for (const auto& x : f_->variables().variables())
+    for (const auto& x : f_->variables())
     {
       dx_.push_back(dot(x));
     }

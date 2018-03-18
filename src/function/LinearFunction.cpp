@@ -40,21 +40,21 @@ namespace abstract
   void LinearFunction::updateValue_()
   {
     value_ = b_;
-    for (auto v : variables().variables())
+    for (auto v : variables())
       value_ += jacobian(*v) * v->value();
   }
 
   void LinearFunction::updateVelocity_()
   {
     velocity_.setZero();
-    for (auto v : variables().variables())
+    for (auto v : variables())
       velocity_ += jacobian(*v) * dot(v)->value();
   }
 
   void LinearFunction::setDerivativesToZero()
   {
     normalAcceleration_.setZero();
-    for (const auto& v : variables().variables())
+    for (const auto& v : variables())
       JDot_[v.get()].setZero();
   }
 

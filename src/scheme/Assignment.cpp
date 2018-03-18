@@ -384,7 +384,7 @@ namespace internal
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
                                   RHSFunction f, VectorFunction v, bool flip)
   {
-    for (const auto& x : source_->variables().variables())
+    for (const auto& x : source_->variables())
     {
       Range cols = x->getMappingIn(variables);
       addMatrixAssignment(x.get(), M, cols, flip);
@@ -396,7 +396,7 @@ namespace internal
                                   RHSFunction f1, VectorFunction v1,
                                   RHSFunction f2, VectorFunction v2)
   {
-    for (const auto& x : source_->variables().variables())
+    for (const auto& x : source_->variables())
     {
       Range cols = x->getMappingIn(variables);
       addMatrixAssignment(x.get(), M, cols, false);

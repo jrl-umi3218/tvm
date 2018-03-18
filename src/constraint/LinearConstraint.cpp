@@ -20,7 +20,7 @@ namespace abstract
   void LinearConstraint::updateValue()
   {
     value_.setZero();
-    for (const auto & v : variables().variables())
+    for (const auto & v : variables())
     {
       value_ += jacobian(*v) * v->value();
     }

@@ -320,7 +320,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   for (auto& c : cstr)
   {
     m0 += c->size();
-    for (auto& vi : c->variables().variables())
+    for (auto& vi : c->variables())
     {
       if (!x.contains(*vi))
       {

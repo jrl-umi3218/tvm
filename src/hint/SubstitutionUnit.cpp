@@ -311,7 +311,7 @@ namespace internal
         constraintsY_.push_back({});
         CXdependencies_.push_back({});
         mi += c->size();
-        for (const auto& v : c->variables().variables())
+        for (const auto& v : c->variables())
         {
           // Is v a variable to be substituted? It is ok to test only with an
           // incomplete vars_, as the susbtitution are supposed to be given in
