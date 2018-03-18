@@ -77,7 +77,7 @@ namespace tvm
     void remove(const Variable& v, bool ignoreAbsence = false);
 
     /** Sum of the sizes of all the variables.*/
-    int size() const;
+    int totalSize() const;
     /** Number of variables*/
     int numberOfVariables() const;
     /** Elementwise access*/

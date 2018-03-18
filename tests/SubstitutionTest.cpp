@@ -336,7 +336,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   }
 
   // Create A and b such that the system given by cstr is A [x;y] = b
-  MatrixXd A = MatrixXd::Zero(m0, x.size() + y.size());
+  MatrixXd A = MatrixXd::Zero(m0, x.totalSize() + y.totalSize());
   VectorXd b(m0);
   m0 = 0;
   for (const auto& c : cstr)
@@ -355,7 +355,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
       if (c->variables().contains(*yi))
       {
         auto ry = yi->getMappingIn(y);
-        A.block(m0, ry.start + x.size(), mi, ry.dim) = c->jacobian(*yi);
+        A.block(m0, ry.start + x.totalSize(), mi, ry.dim) = c->jacobian(*yi);
       }
     }
     switch (c->rhs())
@@ -368,7 +368,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   }
 
   // Create C and d such that the additional constraint of subs write C [y;z] = d
-  MatrixXd C = MatrixXd::Zero(m1, y.size() + z.size());
+  MatrixXd C = MatrixXd::Zero(m1, y.totalSize() + z.totalSize());
   VectorXd d(m1);
   m1 = 0;
   for (const auto& c : subs.additionalConstraints())
@@ -387,7 +387,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
       if (c->variables().contains(*zi))
       {
         auto rz = zi->getMappingIn(z);
-        C.block(m1, rz.start + y.size(), mi, rz.dim) = c->jacobian(*zi);
+        C.block(m1, rz.start + y.totalSize(), mi, rz.dim) = c->jacobian(*zi);
       }
     }
     switch (c->rhs())
@@ -400,9 +400,9 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   }
 
   // Create E, F and g such that the substitutions write x = E y + F z + g
-  MatrixXd E = MatrixXd::Zero(x.size(), y.size());
-  MatrixXd F = MatrixXd::Zero(x.size(), z.size());
-  VectorXd g(x.size());
+  MatrixXd E = MatrixXd::Zero(x.totalSize(), y.totalSize());
+  MatrixXd F = MatrixXd::Zero(x.totalSize(), z.totalSize());
+  VectorXd g(x.totalSize());
   for (size_t i = 0; i < x.variables().size(); ++i)
   {
     const auto& f = subs.variableSubstitutions()[i];
@@ -455,25 +455,25 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     //one solution to the additional constraints
     VectorXd yz = sol1 + Nc*VectorXd::Random(Nc.cols());
     //split it over y and z
-    y.value(yz.head(y.size()));
-    z.value(yz.tail(z.size()));
+    y.value(yz.head(y.totalSize()));
+    z.value(yz.tail(z.totalSize()));
     //compute the corresponding x
     subs.updateVariableValues();
     //compute the residual for the current x and y
-    VectorXd xy(x.size() + y.size());
-    xy.head(x.size()) = x.value();
-    xy.tail(y.size()) = y.value();
+    VectorXd xy(x.totalSize() + y.totalSize());
+    xy.head(x.totalSize()) = x.value();
+    xy.tail(y.totalSize()) = y.value();
     double res = (A*xy - b).norm();
     FAST_CHECK_LE(res, 1e-9);
   }
 
   // 2 - The solutions of A [x;y] = b are such that there we can find z for which
   //   C [y;z] = d and x = E y + F z + g
-  MatrixXd M(C.rows() + F.rows(), z.size());
-  M.topRows(C.rows()) = C.rightCols(z.size());
+  MatrixXd M(C.rows() + F.rows(), z.totalSize());
+  M.topRows(C.rows()) = C.rightCols(z.totalSize());
   M.bottomRows(F.rows()) = F;
   JacobiSVD<MatrixXd> svdM;
-  if (z.size() > 0)
+  if (z.totalSize() > 0)
   {
     svdM.compute(M, ComputeThinU | ComputeThinV);
   }
@@ -483,10 +483,10 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     VectorXd xy = sol0 + Na * VectorXd::Random(Na.cols());
     //solve C2 z = d - C1 y and F z = x - E y - g
     VectorXd u(C.rows() + F.rows());
-    u.head(C.rows()) = d - C.leftCols(y.size()) * xy.tail(y.size());
-    u.tail(F.rows()) = xy.head(x.size()) - E * xy.tail(y.size()) - g;
+    u.head(C.rows()) = d - C.leftCols(y.totalSize()) * xy.tail(y.totalSize());
+    u.tail(F.rows()) = xy.head(x.totalSize()) - E * xy.tail(y.totalSize()) - g;
     double res;
-    if (z.size() > 0)
+    if (z.totalSize() > 0)
     {
       VectorXd s = svdM.solve(u);
       res = (M*s - u).norm();
@@ -569,7 +569,7 @@ TEST_CASE("Substitution0")
     FAST_CHECK_EQ(subs.variableSubstitutions().size(), 1);
 
     auto f = subs.variableSubstitutions().front();
-    FAST_CHECK_EQ(f->variables().size(), 0);
+    FAST_CHECK_EQ(f->variables().totalSize(), 0);
     subs.updateSubstitutions();
     FAST_CHECK_UNARY(f->b().isApprox(x0));
     subs.updateVariableValues();

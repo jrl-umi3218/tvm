@@ -69,7 +69,7 @@ void BasicLinearFunction::A(const MatrixConstRef& A, const Variable& x,
 
 void BasicLinearFunction::A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p)
 {
-  if (variables().variables().size() == 1)
+  if (variables().numberOfVariables() == 1)
     this->A(A, *variables()[0].get(), p);
   else
     throw std::runtime_error("You can use this method only for constraints with one variable.");

@@ -113,7 +113,7 @@ namespace constraint
 
   void BasicLinearConstraint::A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p)
   {
-    if (variables().variables().size() == 1)
+    if (variables().numberOfVariables() == 1)
     {
       this->A(A, *variables()[0].get(), p);
     }

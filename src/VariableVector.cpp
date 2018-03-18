@@ -68,7 +68,7 @@ namespace tvm
     }
   }
 
-  int VariableVector::size() const
+  int VariableVector::totalSize() const
   {
     return size_;
   }
@@ -104,7 +104,7 @@ namespace tvm
 
   void VariableVector::value(const VectorConstRef& val)
   {
-    assert(val.size() == size());
+    assert(val.size() == totalSize());
     int n = 0;
     for (const auto& v : variables_)
     {

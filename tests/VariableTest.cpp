@@ -143,7 +143,7 @@ TEST_CASE("Test VariableVector creation")
   vv1.add(v1);
 
   FAST_CHECK_EQ(vv1.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv1.size(), 9);
+  FAST_CHECK_EQ(vv1.totalSize(), 9);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v3);
   FAST_CHECK_EQ(vv1[2], v1);
@@ -154,7 +154,7 @@ TEST_CASE("Test VariableVector creation")
 
   vv1.remove(*v3);
   FAST_CHECK_EQ(vv1.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv1.size(), 7);
+  FAST_CHECK_EQ(vv1.totalSize(), 7);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v1);
   FAST_CHECK_UNARY(vv1.contains(*v1));
@@ -164,7 +164,7 @@ TEST_CASE("Test VariableVector creation")
 
   VariableVector vv2({ v1, v2, v3 });
   FAST_CHECK_EQ(vv2.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv2.size(), 9);
+  FAST_CHECK_EQ(vv2.totalSize(), 9);
   FAST_CHECK_EQ(vv2[0], v1);
   FAST_CHECK_EQ(vv2[1], v2);
   FAST_CHECK_EQ(vv2[2], v3);
@@ -178,13 +178,13 @@ TEST_CASE("Test VariableVector creation")
   std::vector<VariablePtr> vec2 = { v1, v3, v4 };
   VariableVector vv3(vec);
   FAST_CHECK_EQ(vv3.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv3.size(), 7);
+  FAST_CHECK_EQ(vv3.totalSize(), 7);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
   CHECK_THROWS(vv3.add(vec2));
   CHECK_NOTHROW(vv3.add(vec2, true));
   FAST_CHECK_EQ(vv3.numberOfVariables(), 4);
-  FAST_CHECK_EQ(vv3.size(), 12);
+  FAST_CHECK_EQ(vv3.totalSize(), 12);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
   FAST_CHECK_EQ(vv3[2], v3);

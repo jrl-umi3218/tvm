@@ -343,17 +343,17 @@ namespace internal
 
   void SubstitutionUnit::initializeMatrices()
   {
-    B_.resize(m_, y_.size());
-    Z_.resize(m_, z_.size());
+    B_.resize(m_, y_.totalSize());
+    Z_.resize(m_, z_.totalSize());
     c_.resize(m_);
-    M_.resize(x_.size(), y_.size());
-    AsZ_.resize(x_.size(), z_.size());
-    u_.resize(x_.size());
+    M_.resize(x_.totalSize(), y_.totalSize());
+    AsZ_.resize(x_.totalSize(), z_.totalSize());
+    u_.resize(x_.totalSize());
     for (const auto c : calculators_)
     {
       auto mr = c->m() - c->r();
-      StB_.emplace_back(mr, y_.size());
-      StZ_.emplace_back(mr, z_.size());
+      StB_.emplace_back(mr, y_.totalSize());
+      StZ_.emplace_back(mr, z_.totalSize());
       Stc_.emplace_back(mr);
     }
     firstY_.resize(y_.variables().size(), true);

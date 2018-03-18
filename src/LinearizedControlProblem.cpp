@@ -91,7 +91,7 @@ namespace tvm
   {
     const auto& vars = c->variables();
     const auto& p = c->jacobian(*vars[0]).properties();
-    return (c->type() != constraint::Type::EQUAL && vars.size() == 1 && p.isDiagonal() && p.isInvertible());
+    return (c->type() != constraint::Type::EQUAL && vars.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
   }
 
   LinearizedControlProblem::Updater::Updater()

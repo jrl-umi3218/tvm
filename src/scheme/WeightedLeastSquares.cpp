@@ -68,7 +68,7 @@ namespace scheme
     }
 
     if (m1 == 0)
-      m1 = memory->variables().size();
+      m1 = memory->variables().totalSize();
 
     //allocating memory for the solver
     memory->resize(m0, m1, big_number_);
@@ -140,7 +140,7 @@ namespace scheme
 
   void WeightedLeastSquares::Memory::resize(int m0, int m1, double big_number)
   {
-    int n = x_.size();
+    int n = x_.totalSize();
     A.resize(m1, n);
     A.setZero();
     C.resize(m0, n);
