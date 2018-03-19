@@ -125,6 +125,11 @@ namespace internal
     }
   }
 
+  const std::vector<Substitution> Substitutions::substitutions()
+  {
+    return substitutions_;
+  }
+
   void Substitutions::finalize()
   {
     //Detect interdependent substitutions (this corresponds to strongly connected

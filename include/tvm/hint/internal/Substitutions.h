@@ -39,7 +39,15 @@ namespace internal
   class TVM_DLLAPI Substitutions
   {
   public:
+    /** Add substitution \p s*/
     void add(const Substitution& s);
+
+    /** Get the vector of all substitutions, as added.
+      * Note that it is not necessarily the vector of substitutions actually
+      * used, as it might be needed to group substitutions (when a group of
+      * substitutions depends on each other variables).
+      */
+    const std::vector<Substitution> substitutions();
 
     /** Compute all the data needed for the substitutions.
       * Needs to be called after all the call to \p add, and before the calls to

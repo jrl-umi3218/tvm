@@ -112,6 +112,12 @@ namespace internal
       VectorFunction getTargetVector;
     };
 
+    struct VectorSubstitutionAssignement
+    {
+      CompiledAssignmentWrapper<Eigen::VectorXd> assignment;
+      VectorFunction getTargetVector;
+    };
+
     /** Check that the convention and size of the target are compatible with the
       * convention and size of the source.
       */
@@ -128,8 +134,8 @@ namespace internal
                                           const function::BasicLinearFunction& sub, bool flip);
     template<AssignType A = AssignType::COPY>
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
-    void addVectorSubstitutionAssignments(RHSFunction f, VectorFunction v, Variable& x,
-                                          const function::BasicLinearFunction& sub, bool flip);
+    void addVectorSubstitutionAssignments(const function::BasicLinearFunction& sub, 
+                                          VectorFunction v, Variable& x, bool flip);
     template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
     void addZeroAssignment(Variable& x, MatrixFunction M, const Range& range);
@@ -164,7 +170,7 @@ namespace internal
     /** The additional rhs assignments due to substitutions. As for matrix
       * assignments, they need to be carried out after those of vectorAssignments_.
       */
-    std::vector<VectorAssignment> vectorSubstitutionAssignments_;
+    std::vector<VectorSubstitutionAssignement> vectorSubstitutionAssignments_;
 
     /** Processed requirements*/
     double scalarWeight_;

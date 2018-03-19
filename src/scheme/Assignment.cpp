@@ -122,8 +122,15 @@ namespace internal
     }
 
     // check the rhs conventions
-    if (source_->rhs() != RHS::ZERO && target_.constraintRhs() == RHS::ZERO)
+    bool hasNonZero = false;
+    for (const auto& s : variableSubstitutions_)
+    {
+      const auto& p = s->b().properties();
+      hasNonZero = hasNonZero || !p.isZero() || !p.isConstant();
+    }
+    if ((source_->rhs() != RHS::ZERO || hasNonZero) && target_.constraintRhs() == RHS::ZERO)
        throw std::runtime_error("Incompatible conventions: source with rhs other than ZERO "
+          "(or when using susbtitutions with non-zero vector term) "
           "cannot be assigned to target with rhs ZERO.");
 
     //check the sizes
@@ -412,14 +419,19 @@ namespace internal
         else
           w = createSubstitutionAssignment<Eigen::MatrixXd, ADD>(J, to, Ai);
       }
+      //Possible optimizations:
+      // - detect more cases
+      // - use CUSTOM multiplications
+      // - in particular use the nullspace custom multiplication for variable z
+      // when appropriate.
       matrixSubstitutionAssignments_.push_back({ w, xi.get(), range, M });
     }
   }
 
-  void Assignment::addVectorSubstitutionAssignments(RHSFunction f, VectorFunction v, Variable& x, 
-                                                    const function::BasicLinearFunction & sub, bool flip)
+  void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFunction& sub, 
+                                                    VectorFunction v, Variable& x, bool flip)
   {
-    bool useSource = source_->rhs() != constraint::RHS::ZERO;
+    bool useSource = !sub.b().properties().isConstant() || !sub.b().properties().isZero();
     if (useSource)
     {
       // The constraint has the form A x op b and we replace x by C y + d. We thus
@@ -430,7 +442,7 @@ namespace internal
         flip = !flip;
 
       const VectorRef& to = (target_.*v)();
-      const VectorConstRef& from = (source_.get()->*f)();
+      const VectorConstRef& from = sub.b();
       const auto& A = source_->jacobian(x);
 
       CompiledAssignmentWrapper<Eigen::VectorXd> w;
@@ -455,7 +467,7 @@ namespace internal
         else
           w = createSubstitutionAssignment<Eigen::VectorXd, ADD>(from, to, A);
       }
-      vectorSubstitutionAssignments_.push_back({ w, true, f, v });
+      vectorSubstitutionAssignments_.push_back({ w, v });
     }
   }
 
@@ -511,7 +523,11 @@ namespace internal
       int i;
       if (xs.contains(*x, &i))  // x needs to be subsituted
       {
-        addMatrixSubstitutionAssignments(variables, *x, M, *variableSubstitutions_[static_cast<int>(i)], flip);
+        const auto& sub = *variableSubstitutions_[static_cast<int>(i)];
+        addMatrixSubstitutionAssignments(variables, *x, M, sub, flip);
+        addVectorSubstitutionAssignments(sub, v1, *x, flip);
+        if (f2)
+          addVectorSubstitutionAssignments(sub, v2, *x, flip);
       }
       else //usual case
       {

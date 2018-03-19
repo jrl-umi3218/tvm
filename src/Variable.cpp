@@ -148,7 +148,7 @@ namespace tvm
         return{ mappingHelper_.start, size() };
       }
       else
-        throw std::runtime_error("This variables is not part of the vector of variables.");
+        throw std::runtime_error("This variable is not part of the vector of variables.");
     }
   }
 
