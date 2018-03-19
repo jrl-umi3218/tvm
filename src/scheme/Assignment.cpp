@@ -381,7 +381,8 @@ namespace internal
     matrixAssignments_.push_back({ w, &x, range, M });
   }
 
-  void Assignment::addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, const function::BasicLinearFunction& sub, bool flip)
+  void Assignment::addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, 
+                                                    const function::BasicLinearFunction& sub, bool flip)
   {
     const auto& J = source_->jacobian(x);
     for (const auto& xi : sub.variables())
@@ -415,6 +416,49 @@ namespace internal
     }
   }
 
+  void Assignment::addVectorSubstitutionAssignments(RHSFunction f, VectorFunction v, Variable& x, 
+                                                    const function::BasicLinearFunction & sub, bool flip)
+  {
+    bool useSource = source_->rhs() != constraint::RHS::ZERO;
+    if (useSource)
+    {
+      // The constraint has the form A x op b and we replace x by C y + d. We thus
+      // want to add -Ad to b.
+      // So far, the sign flip has been deduced only from the ConstraintType of the source
+      // and the target. We still need to take into account the convention of the target.
+      if (target_.constraintRhs() == RHS::AS_GIVEN)
+        flip = !flip;
+
+      const VectorRef& to = (target_.*v)();
+      const VectorConstRef& from = (source_.get()->*f)();
+      const auto& A = source_->jacobian(x);
+
+      CompiledAssignmentWrapper<Eigen::VectorXd> w;
+      if (A.properties().isIdentity())
+      {
+        if (flip)
+          w = createAssignment<Eigen::VectorXd, SUB>(from, to);
+        else
+          w = createAssignment<Eigen::VectorXd, ADD>(from, to);
+      }
+      else if (A.properties().isMinusIdentity())
+      {
+        if (flip)
+          w = createAssignment<Eigen::VectorXd, ADD>(from, to);
+        else
+          w = createAssignment<Eigen::VectorXd, SUB>(from, to);
+      }
+      else
+      {
+        if (flip)
+          w = createSubstitutionAssignment<Eigen::VectorXd, SUB>(from, to, A);
+        else
+          w = createSubstitutionAssignment<Eigen::VectorXd, ADD>(from, to, A);
+      }
+      vectorSubstitutionAssignments_.push_back({ w, true, f, v });
+    }
+  }
+
   void Assignment::addZeroAssignment(Variable& x, MatrixFunction M, const Range & range)
   {
     const MatrixRef& to = (target_.*M)(range.start, range.dim);
@@ -426,10 +470,27 @@ namespace internal
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
                                   RHSFunction f, VectorFunction v, bool flip)
   {
+    addAssignments(variables, M, f, v, nullptr, nullptr, flip);
+  }
+
+  void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
+                                  RHSFunction f1, VectorFunction v1,
+                                  RHSFunction f2, VectorFunction v2)
+  {
+    addAssignments(variables, M, f1, v1, f2, v2, false);
+  }
+
+  void Assignment::addAssignments(const VariableVector & variables, MatrixFunction M, RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2, bool flip)
+  {
     const auto& xs = substitutedVariables_; //susbstituted variables
     const auto& xc = source_->variables();  //variables of the source constraint
 
-    addVectorAssignment(f, v, flip);
+    addVectorAssignment(f1, v1, flip);
+    if (f2)
+    {
+      assert(v2);
+      addVectorAssignment(f2, v2, flip);
+    }
 
     // For all problem variables not in xc, we set the corresponding matrix block
     // to zero.
@@ -458,20 +519,6 @@ namespace internal
         addMatrixAssignment(*x, M, cols, flip);
       }
     }
-
-    for (const auto& x : source_->variables())
-    {
-      Range cols = x->getMappingIn(variables);
-      addMatrixAssignment(*x, M, cols, flip);
-    }
-  }
-
-  void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
-                                  RHSFunction f1, VectorFunction v1,
-                                  RHSFunction f2, VectorFunction v2)
-  {
-    addAssignments(variables, M, f1, v1, false);
-    addVectorAssignment(f2, v2, false);
   }
 
 }  // namespace internal

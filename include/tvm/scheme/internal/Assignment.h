@@ -128,6 +128,8 @@ namespace internal
                                           const function::BasicLinearFunction& sub, bool flip);
     template<AssignType A = AssignType::COPY>
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
+    void addVectorSubstitutionAssignments(RHSFunction f, VectorFunction v, Variable& x,
+                                          const function::BasicLinearFunction& sub, bool flip);
     template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
     void addZeroAssignment(Variable& x, MatrixFunction M, const Range& range);
@@ -136,6 +138,9 @@ namespace internal
     void addAssignments(const VariableVector& variables, MatrixFunction M,
                         RHSFunction f1, VectorFunction v1, 
                         RHSFunction f2, VectorFunction v2);
+    void addAssignments(const VariableVector& variables, MatrixFunction M,
+                        RHSFunction f1, VectorFunction v1, 
+                        RHSFunction f2, VectorFunction v2, bool flip);
 
     template<typename T, AssignType A, typename U>
     CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip = false);
