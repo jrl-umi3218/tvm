@@ -12,7 +12,7 @@ namespace abstract
 {
 
   LinearFunction::LinearFunction(int m)
-    :Function(m)
+    :Function(m), b_(m)
   {
     registerUpdates(LinearFunction::Update::Value, &LinearFunction::updateValue);
     registerUpdates(LinearFunction::Update::Velocity, &LinearFunction::updateVelocity);

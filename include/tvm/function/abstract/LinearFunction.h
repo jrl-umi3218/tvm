@@ -78,7 +78,7 @@ namespace abstract
     void updateValue();
     void updateVelocity();
     void resizeCache() override;
-    const Eigen::VectorXd& b() const;
+    const internal::VectorWithProperties& b() const;
 
   protected:
     LinearFunction(int m);
@@ -86,10 +86,10 @@ namespace abstract
     virtual void updateVelocity_();
     void setDerivativesToZero();
 
-    Eigen::VectorXd b_;
+    internal::VectorWithProperties b_;
   };
 
-  inline const Eigen::VectorXd& LinearFunction::b() const
+  inline const internal::VectorWithProperties& LinearFunction::b() const
   {
     return b_;
   }

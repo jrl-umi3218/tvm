@@ -48,12 +48,12 @@ namespace function
 
     /** Set the matrix A corresponding to variable x.*/
     virtual void A(const MatrixConstRef& A, const Variable& x,
-                   const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
+                   const internal::MatrixProperties& p = internal::MatrixProperties());
     /** Shortcut for when there is a single variable.*/
     virtual void A(const MatrixConstRef& A, 
-                   const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
+                   const internal::MatrixProperties& p = internal::MatrixProperties());
     /** Set the constant term b.*/
-    virtual void b(const VectorConstRef& b);
+    virtual void b(const VectorConstRef& b, const internal::MatrixProperties& p = internal::MatrixProperties());
 
     using LinearFunction::b;
 

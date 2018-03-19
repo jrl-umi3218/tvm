@@ -16,6 +16,8 @@ BasicLinearFunction::BasicLinearFunction(const MatrixConstRef& A, VariablePtr x)
 BasicLinearFunction::BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x)
   : BasicLinearFunction(A, x, Eigen::VectorXd::Zero(A.begin()->rows()))
 {
+  this->b_.properties({ tvm::internal::MatrixProperties::Constness(true),
+                       tvm::internal::MatrixProperties::ZERO });
 }
 
 BasicLinearFunction::BasicLinearFunction(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b)
@@ -75,10 +77,13 @@ void BasicLinearFunction::A(const MatrixConstRef& A, const tvm::internal::Matrix
     throw std::runtime_error("You can use this method only for constraints with one variable.");
 }
 
-void BasicLinearFunction::b(const VectorConstRef& b)
+void BasicLinearFunction::b(const VectorConstRef& b, const internal::MatrixProperties& p)
 {
   if (b.size() == size())
+  {
     this->b_ = b;
+    this->b_.properties(p);
+  }
   else
     throw std::runtime_error("Vector b doesn't have the correct size.");
 }

@@ -37,7 +37,7 @@ namespace function
            const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
     void A(const MatrixConstRef& A, 
            const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
-    void b(const VectorConstRef& b) override;
+    void b(const VectorConstRef& b, const tvm::internal::MatrixProperties&) override;
 
   protected:
     void updateValue_() override;
