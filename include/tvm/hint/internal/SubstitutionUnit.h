@@ -160,6 +160,8 @@ namespace internal
       * in \p constraints_.
       */
     Eigen::VectorXd c_;
+    /** cIsZero_[i] is true if the value of u corresponding to x_[i] is zero.*/
+    std::vector<bool> cIsZero_;
     /** All the matrices M_{i,j} assembled, where \p i corresponds to the i-th
       * variables in \p x_ and \p j corresponds to the j-th variable in \p y_.
       * We have M_{i1:i2,j} = - A_{i1:i2}^# B_{i1:i2,j}, where i1:i2 is the 
@@ -174,6 +176,10 @@ namespace internal
     Eigen::MatrixXd AsZ_;
     /** Assembly of all the u_i = A_i^# c_i*/
     Eigen::VectorXd u_;
+    /** uIsZero_[i] is true if the value of u corresponding to the i-th
+      * substitutions is zero
+      */
+    std::vector<bool> uIsZero_;
     /** For each element \p substitutions_[i], an assembly of S_i^T B_{i,j},
       * where \p j corresponds to the j-th variable in y_.
       */

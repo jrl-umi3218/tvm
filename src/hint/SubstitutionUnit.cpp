@@ -105,6 +105,7 @@ namespace internal
     {
       int mk = 0;
       const auto& s = substitutions_[k];
+      bool cZero = true; //true if cIsZero_[i] for all i in sub2cstr_[k]
       for (auto i : sub2cstr_[k])
       {
         std::fill(firstY_.begin(), firstY_.end(), true);
@@ -119,9 +120,9 @@ namespace internal
         }
         switch (c->rhs())
         {
-        case constraint::RHS::ZERO: c_.segment(m + mk, mki).setZero(); break;
-        case constraint::RHS::AS_GIVEN: c_.segment(m + mk, mki) = c->e(); break;
-        case constraint::RHS::OPPOSITE: c_.segment(m + mk, mki) = -c->e(); break;
+        case constraint::RHS::ZERO: c_.segment(m + mk, mki).setZero(); cIsZero_[i] = true; break;
+        case constraint::RHS::AS_GIVEN: c_.segment(m + mk, mki) = c->e(); cIsZero_[i] = false; break;
+        case constraint::RHS::OPPOSITE: c_.segment(m + mk, mki) = -c->e(); cIsZero_[i] = false; break;
         }
         for (auto l : CXdependencies_[i])
         {
@@ -168,7 +169,9 @@ namespace internal
           
           // c_i -= A{il}*u_l
           c_.segment(m + mk, mki).noalias() -= A*u_.segment(rx.start, rx.dim);
+          cIsZero_[i] = cIsZero_[i] && uIsZero_[l];
         }
+        cZero = cZero && cIsZero_[i];
         mk += mki;
       }
       auto rm = substitutionMRanges_[k];
@@ -196,6 +199,7 @@ namespace internal
       //Compute u_k and S_k^T c_k
       calculators_[k]->premultiplyByASharpAndSTranspose(
         u_.segment(rn.start, rn.dim), Stc_[k], c_.segment(m, mk), false);
+      uIsZero_[k] = cZero;
       m += mk;
     }
 
@@ -221,7 +225,13 @@ namespace internal
         {
           varSubstitutions_[i]->A(calculators_[k]->N().middleRows(xRange_[i].start, xRange_[i].dim), *z_[static_cast<int>(k)]);
         }
-        varSubstitutions_[i]->b(u_.segment(rx.start, rx.dim));
+        using tvm::internal::MatrixProperties;
+        MatrixProperties p;
+        if (uIsZero_[k])
+        {
+          p = { MatrixProperties::Constness(true), MatrixProperties::ZERO };
+        }
+        varSubstitutions_[i]->b(u_.segment(rx.start, rx.dim), p);
       }
 
       for (auto j : SYdependencies_[k])
@@ -292,6 +302,7 @@ namespace internal
       sub2x_.push_back({});
       SYdependencies_.push_back({});
       SZdependencies_.push_back({});
+      uIsZero_.push_back(false);
       int ni = 0;
       for (const auto& v : s.variables())
       {
@@ -302,6 +313,7 @@ namespace internal
         ni += v->size();
         XYdependencies_.push_back({});
         XZdependencies_.push_back({});
+        cIsZero_.push_back(false);
       }
       int mi = 0;
       for (const auto c : s.constraints())
