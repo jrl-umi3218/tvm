@@ -20,8 +20,6 @@ using namespace Eigen;
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-#include <iostream>
-
 TEST_CASE("Basic problem")
 {
 
@@ -50,6 +48,7 @@ TEST_CASE("Substitution")
     auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
     auto idx = std::make_shared<function::IdentityFunction>(x);
     auto df = std::make_shared<Difference>(rf, idx);
+    auto idq = std::make_shared<function::IdentityFunction>(dot(q,2));
 
     VectorXd v(2); v << 0, 0;
     Vector3d b = Vector3d::Constant(1.5);
@@ -59,6 +58,7 @@ TEST_CASE("Substitution")
     auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
     auto t2 = lpb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
     auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
+    auto t4 = lpb.add(idq == 0., task_dynamics::None(), { requirements::PriorityLevel(1) });
 
     scheme::WeightedLeastSquares solver;
     solver.solve(lpb);
@@ -83,6 +83,7 @@ TEST_CASE("Substitution")
     auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
     auto idx = std::make_shared<function::IdentityFunction>(x);
     auto df = std::make_shared<Difference>(rf, idx);
+    auto idq = std::make_shared<function::IdentityFunction>(dot(q, 2));
 
     VectorXd v(2); v << 0, 0;
     Vector3d b = Vector3d::Constant(1.5);
@@ -92,6 +93,7 @@ TEST_CASE("Substitution")
     auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
     auto t2 = lpb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
     auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
+    auto t4 = lpb.add(idq == 0., task_dynamics::None(), { requirements::PriorityLevel(1) });
 
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
