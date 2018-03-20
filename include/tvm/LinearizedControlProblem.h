@@ -57,6 +57,9 @@ namespace tvm
     /** Compute all quantities necessary for solving the problem.*/
     void update();
 
+    /** Finalize the data of the solver*/
+    void finalize();
+
   private:
     class Updater
     {
@@ -79,7 +82,7 @@ namespace tvm
       graph::CallGraph updateGraph_;
     };
 
-
+    bool finalized_;
     std::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
     Updater updater_;
     hint::internal::Substitutions substitutions_;

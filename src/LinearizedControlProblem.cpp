@@ -6,10 +6,12 @@
 namespace tvm
 {
   LinearizedControlProblem::LinearizedControlProblem()
+    : finalized_(false)
   {
   }
 
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
+    : finalized_(false)
   {
     for (auto tr : pb.tasks())
       add(tr);
@@ -45,6 +47,7 @@ namespace tvm
     case constraint::Type::LOWER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::U); break;
     case constraint::Type::DOUBLE_SIDED: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L, constraint::abstract::Constraint::Output::U); break;
     }
+    finalized_ = false;
   }
 
   void LinearizedControlProblem::remove(TaskWithRequirements* tr)
@@ -53,6 +56,7 @@ namespace tvm
     // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
     updater_.removeInput(constraints_[tr].constraint.get());
     constraints_.erase(tr);
+    finalized_ = false;
   }
 
   void LinearizedControlProblem::add(const hint::Substitution & s)
@@ -75,16 +79,25 @@ namespace tvm
     return constraints;
   }
 
-  LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements * t) const
+  LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements* t) const
   {
     return constraints_.at(t).constraint;
   }
 
   void LinearizedControlProblem::update()
   {
-    updater_.refresh();
     updater_.run();
     substitutions_.updateSubstitutions();
+  }
+
+  void LinearizedControlProblem::finalize()
+  {
+    if (!finalized_)
+    {
+      updater_.refresh();
+      substitutions_.finalize();
+      finalized_ = true;
+    }
   }
 
   LinearizedControlProblem::Updater::Updater()

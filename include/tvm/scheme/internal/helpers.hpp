@@ -37,6 +37,7 @@ namespace internal
     }
     else
     {
+      problem.finalize();
       auto p = problem.computationData_.insert(std::move(std::make_pair(id, resolutionScheme.createComputationData(problem))));
       return *(p.first->second);
     }
