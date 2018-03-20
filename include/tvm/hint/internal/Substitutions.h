@@ -66,6 +66,7 @@ namespace internal
     const std::vector<VariablePtr>& otherVariables() const;
 
     /** An oriented graph to represent dependencies between substitutions.*/
+  private:
     class TVM_DLLAPI DependencyGraph
     {
     public:
