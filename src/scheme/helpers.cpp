@@ -25,7 +25,7 @@ namespace tvm
         const auto& vars = subs.variables();
         //for now the only test is wether or not the variable is substituted
         //if it is, we return false
-        bool b = std::find(vars.begin(), vars.end(), vars[0]) == vars.end();
+        bool b = std::find(vars.begin(), vars.end(), c->variables()[0]) == vars.end();
         return isBound(c) && b;
       }
     }
