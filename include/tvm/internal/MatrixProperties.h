@@ -106,6 +106,8 @@ namespace internal
 
     Shape shape() const;
     Positiveness positiveness() const;
+    Constness constness() const;
+    Invertibility invertibility() const;
 
     bool isConstant() const;
     bool isInvertible() const;
@@ -177,6 +179,13 @@ namespace internal
   };
 
 
+  // operators
+  TVM_DLLAPI MatrixProperties operator-(const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator*(double, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator+(const MatrixProperties&, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator-(const MatrixProperties&, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator*(const MatrixProperties&, const MatrixProperties&);
+
   template<typename ... Args>
   inline MatrixProperties::MatrixProperties(Args && ... args)
   {
@@ -194,6 +203,16 @@ namespace internal
   inline MatrixProperties::Positiveness MatrixProperties::positiveness() const
   {
     return positiveness_;
+  }
+
+  inline MatrixProperties::Constness MatrixProperties::constness() const
+  {
+    return constant_;
+  }
+
+  inline MatrixProperties::Invertibility MatrixProperties::invertibility() const
+  {
+    return invertible_;
   }
 
   inline bool MatrixProperties::isConstant() const

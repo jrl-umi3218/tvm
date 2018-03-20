@@ -1,12 +1,18 @@
 #include <tvm/internal/MatrixProperties.h>
 
 #include <assert.h>
+#include <algorithm>
 #include <stdexcept>
+
+
+using namespace tvm::internal;
+using Constness = MatrixProperties::Constness;
+using Invertibility = MatrixProperties::Invertibility;
+using Positiveness = MatrixProperties::Positiveness;
+using Shape = MatrixProperties::Shape;
 
 namespace
 {
-  using namespace tvm::internal;
-
   /** Partial comparison between positiveness caracteristics.
     * We have the following implications (from left to right)
     *
@@ -29,10 +35,10 @@ namespace
     *  - i   = indefinite
     *  - na  = non available
     *
-    * For a and b two positiveness caracteristics, a > b if a a implies b.
-    * If a and b are unrelated (e.g. pd and nsd), an assertion is fired.
+    * For a and b two positiveness caracteristics, a > b if a implies b.
+    * If a and b are unrelated (e.g. pd and nsd), an error is thrown.
     */
-  bool greaterThan(MatrixProperties::Positiveness a, MatrixProperties::Positiveness b)
+  bool greaterThan(Positiveness a, Positiveness b)
   {
     // The following table translates the above graph:
     //  - table[i][j] = 1 if i > j
@@ -53,7 +59,7 @@ namespace
     return table[static_cast<int>(a)][static_cast<int>(b)] > 0;
   }
 
-  MatrixProperties::Positiveness max(MatrixProperties::Positiveness a, MatrixProperties::Positiveness b)
+  Positiveness max(Positiveness a, Positiveness b)
   {
     if (greaterThan(a,b))
       return a;
@@ -61,72 +67,73 @@ namespace
       return b;
   }
 
-  MatrixProperties::Positiveness promote(MatrixProperties::Positiveness p, bool invertible)
+  Positiveness promote(Positiveness p, bool invertible)
   {
     //possibly promote if the matrix is invertible
     if (invertible)
     {
       switch (p)
       {
-      case MatrixProperties::Positiveness::POSITIVE_SEMIDEFINITE: p = MatrixProperties::Positiveness::POSITIVE_DEFINITE;   break;
-      case MatrixProperties::Positiveness::NEGATIVE_SEMIDEFINITE: p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE;   break;
-      case MatrixProperties::Positiveness::INDEFINITE:            p = MatrixProperties::Positiveness::NON_ZERO_INDEFINITE; break;
+      case Positiveness::POSITIVE_SEMIDEFINITE: p = Positiveness::POSITIVE_DEFINITE;   break;
+      case Positiveness::NEGATIVE_SEMIDEFINITE: p = Positiveness::NEGATIVE_DEFINITE;   break;
+      case Positiveness::INDEFINITE:            p = Positiveness::NON_ZERO_INDEFINITE; break;
       default: break;
       }
     }
     return p;
   }
 
-  bool deduceConstance(MatrixProperties::Shape shape)
+  bool deduceConstance(Shape shape)
   {
-    return shape == MatrixProperties::Shape::IDENTITY
-        || shape == MatrixProperties::Shape::MINUS_IDENTITY
-        || shape == MatrixProperties::Shape::ZERO;
+    return shape == Shape::IDENTITY
+        || shape == Shape::MINUS_IDENTITY
+        || shape == Shape::ZERO;
   }
 
-  bool deduceSymmetry(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
+  bool deduceSymmetry(Shape shape, Positiveness positiveness)
   {
-    return shape >= MatrixProperties::Shape::DIAGONAL || positiveness != MatrixProperties::Positiveness::NA;
+    return shape >= Shape::DIAGONAL || positiveness != Positiveness::NA;
   }
 
-  bool deduceInvertibility(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
+  bool deduceInvertibility(Shape shape, Positiveness positiveness)
   {
-    return shape == MatrixProperties::Shape::IDENTITY
-        || shape == MatrixProperties::Shape::MINUS_IDENTITY
-        || positiveness == MatrixProperties::Positiveness::POSITIVE_DEFINITE
-        || positiveness == MatrixProperties::Positiveness::NEGATIVE_DEFINITE
-        || positiveness == MatrixProperties::Positiveness::NON_ZERO_INDEFINITE;
+    return shape == Shape::IDENTITY
+        || shape == Shape::MINUS_IDENTITY
+        || positiveness == Positiveness::POSITIVE_DEFINITE
+        || positiveness == Positiveness::NEGATIVE_DEFINITE
+        || positiveness == Positiveness::NON_ZERO_INDEFINITE;
   }
 
-  MatrixProperties::Shape deduceShape(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness)
+  Shape deduceShape(Shape shape, Positiveness positiveness)
   {
     //if triangular and symmetric we deduce diagonal
-    if ((shape == MatrixProperties::Shape::LOWER_TRIANGULAR || shape == MatrixProperties::Shape::UPPER_TRIANGULAR)
-      && positiveness != MatrixProperties::Positiveness::NA)
+    if ((shape == Shape::LOWER_TRIANGULAR || shape == Shape::UPPER_TRIANGULAR)
+      && positiveness != Positiveness::NA)
     {
-      return MatrixProperties::Shape::DIAGONAL;
+      return Shape::DIAGONAL;
     }
     else
       return shape;
   }
 
-  MatrixProperties::Positiveness deducePositiveness(MatrixProperties::Shape shape, MatrixProperties::Positiveness positiveness, bool invertible)
+  Positiveness deducePositiveness(Shape shape, Positiveness positiveness, bool invertible)
   {
-    MatrixProperties::Positiveness p = MatrixProperties::Positiveness::NA;
+    Positiveness p = Positiveness::NA;
     //get default positiveness for the shape
     switch (shape)
     {
-    case MatrixProperties::Shape::DIAGONAL:             p = MatrixProperties::Positiveness::INDEFINITE;        break;
-    case MatrixProperties::Shape::MULTIPLE_OF_IDENTITY: p = MatrixProperties::Positiveness::INDEFINITE;        break;
-    case MatrixProperties::Shape::IDENTITY:             p = MatrixProperties::Positiveness::POSITIVE_DEFINITE; break;
-    case MatrixProperties::Shape::MINUS_IDENTITY:       p = MatrixProperties::Positiveness::NEGATIVE_DEFINITE; break;
-    case MatrixProperties::Shape::ZERO:                 p = MatrixProperties::Positiveness::INDEFINITE;        break;
+    case Shape::DIAGONAL:             p = Positiveness::INDEFINITE;        break;
+    case Shape::MULTIPLE_OF_IDENTITY: p = Positiveness::INDEFINITE;        break;
+    case Shape::IDENTITY:             p = Positiveness::POSITIVE_DEFINITE; break;
+    case Shape::MINUS_IDENTITY:       p = Positiveness::NEGATIVE_DEFINITE; break;
+    case Shape::ZERO:                 p = Positiveness::INDEFINITE;        break;
     default: break;
     }
 
     //get tighter positiveness between default one and user-provided one, possibly promoted if invertible
     return max(promote(p, invertible), promote(positiveness, invertible));
   }
+
 }  // namespace
 
 namespace tvm
@@ -174,6 +181,187 @@ namespace internal
     shape_ = deduceShape(args.shape, args.positiveness);
     symmetric_ = deduceSymmetry(args.shape, args.positiveness);
     positiveness_ = deducePositiveness(args.shape, args.positiveness, args.invertible);
+  }
+
+  Constness operator-(const Constness& c) { return c; }
+  Constness operator*(double d, const Constness& c) { return c; }
+  Constness operator+(const Constness& c1, const Constness& c2) { return c1 && c2; }
+  Constness operator-(const Constness& c1, const Constness& c2) { return c1 && c2; }
+  Constness operator*(const Constness& c1, const Constness& c2) { return c1 && c2; }
+  Invertibility operator-(const Invertibility& i) { return i; }
+  Invertibility operator*(double d, const Invertibility& i) { return d == 0 ? false : i; }
+  Invertibility operator+(const Invertibility& i1, const Invertibility& i2) { return false; }
+  Invertibility operator-(const Invertibility& i1, const Invertibility& i2) { return false; }
+  Invertibility operator*(const Invertibility& i1, const Invertibility& i2) { return i1 && i2; }
+
+  Positiveness operator-(const Positiveness& p)
+  {
+    switch (p)
+    {
+    case Positiveness::NA:                    return Positiveness::NA;
+    case Positiveness::POSITIVE_SEMIDEFINITE: return Positiveness::NEGATIVE_SEMIDEFINITE;
+    case Positiveness::POSITIVE_DEFINITE:     return Positiveness::NEGATIVE_DEFINITE;
+    case Positiveness::NEGATIVE_SEMIDEFINITE: return Positiveness::POSITIVE_SEMIDEFINITE;
+    case Positiveness::NEGATIVE_DEFINITE:     return Positiveness::POSITIVE_DEFINITE;
+    case Positiveness::INDEFINITE:            return Positiveness::INDEFINITE;
+    case Positiveness::NON_ZERO_INDEFINITE:   return Positiveness::NON_ZERO_INDEFINITE;
+    default: throw std::runtime_error("Case not possible.");
+    }
+  }
+
+  Positiveness operator*(double d, const Positiveness& p)
+  {
+    if (d < 0) return -p;
+    else if (d > 0) return p;
+    else if (p == Positiveness::NA) return p; // matrix is zero but maybe not square
+    else return Positiveness::INDEFINITE;     // matrix is zero and square
+  }
+
+  Positiveness operator+(const Positiveness& p1, const Positiveness& p2)
+  {
+    if (p1 == Positiveness::NA || p2 == Positiveness::NA) return Positiveness::NA;
+    else if ((p1 == Positiveness::POSITIVE_SEMIDEFINITE
+      || p1 == Positiveness::POSITIVE_DEFINITE)
+      && (p2 == Positiveness::POSITIVE_SEMIDEFINITE
+        || p2 == Positiveness::POSITIVE_DEFINITE)) return max(p1, p2);
+    else if ((p1 == Positiveness::NEGATIVE_SEMIDEFINITE
+      || p1 == Positiveness::NEGATIVE_DEFINITE)
+      && (p2 == Positiveness::NEGATIVE_SEMIDEFINITE
+        || p2 == Positiveness::NEGATIVE_DEFINITE)) return max(p1, p2);
+    else return Positiveness::INDEFINITE;
+  }
+
+  Positiveness operator-(const Positiveness& p1, const Positiveness& p2)
+  {
+    return p1 + (-p2);
+  }
+
+  Positiveness operator*(const Positiveness& p1, const Positiveness& p2)
+  {
+    // The product of two symmetric matrices is in not symmetric (unless they permute).
+    return Positiveness::NA;
+  }
+
+  Shape operator-(const Shape& s)
+  {
+    if (s == Shape::IDENTITY) return Shape::MINUS_IDENTITY;
+    else if (s == Shape::MINUS_IDENTITY) return Shape::IDENTITY;
+    else return s;
+  }
+
+  Shape operator*(double d, const Shape& s)
+  {
+    if (d < 0) return -s;
+    else if (d > 0) return s;
+    else return Shape::ZERO;
+  }
+
+  Shape operator+(const Shape& s1, const Shape& s2)
+  {
+    // the addition is commutative so we order s1 and s2 to consider only about half the cases
+    auto s = std::minmax(s1, s2);
+
+    //    |  G |  L |  U |  D | aI |  I | -I |  0 |
+    //  G |  G |  G |  G |  G |  G |  G |  G |  G |
+    //  L |    |  L |  G |  L |  L |  L |  L |  L |
+    //  U |    |    |  U |  U |  U |  U |  U |  U |
+    //  D |    |    |    |  D |  D |  D |  D |  D |
+    // aI |    |    |    |    | aI | aI | aI | aI |
+    //  I |    |    |    |    |    | aI |  0 |  I |
+    // -I |    |    |    |    |    |    | aI | -I |
+    //  0 |    |    |    |    |    |    |    |  0 |
+    switch (s.first)
+    {
+    case Shape::GENERAL:              return Shape::GENERAL;
+    case Shape::LOWER_TRIANGULAR:
+      return s.second == Shape::UPPER_TRIANGULAR ? Shape::GENERAL : Shape::LOWER_TRIANGULAR;
+    case Shape::UPPER_TRIANGULAR:     return Shape::UPPER_TRIANGULAR;
+    case Shape::DIAGONAL:             return Shape::DIAGONAL;
+    case Shape::MULTIPLE_OF_IDENTITY: return Shape::MULTIPLE_OF_IDENTITY;
+    case Shape::IDENTITY:
+      if (s.second == Shape::IDENTITY)            return Shape::MULTIPLE_OF_IDENTITY;
+      else if (s.second == Shape::MINUS_IDENTITY) return Shape::ZERO;
+      else                                        return Shape::IDENTITY;
+    case Shape::MINUS_IDENTITY:
+      return s.second == Shape::MINUS_IDENTITY ? Shape::MULTIPLE_OF_IDENTITY : Shape::MINUS_IDENTITY;
+    case Shape::ZERO:                 return Shape::ZERO;
+    default: throw std::runtime_error("Case not possible.");
+    }
+  }
+
+  Shape operator-(const Shape& s1, const Shape& s2)
+  {
+    return s1 + (-s2);
+  }
+
+  Shape operator*(const Shape& s1, const Shape& s2)
+  {
+    // the multiplication is commutative so we order s1 and s2 to consider only about half the cases
+    auto s = std::minmax(s1, s2);
+
+    //    |  G |  L |  U |  D | aI |  I | -I |  0 |
+    //  G |  G |  G |  G |  G |  G |  G |  G |  0 |
+    //  L |    |  L |  G |  L |  L |  L |  L |  0 |
+    //  U |    |    |  U |  U |  U |  U |  U |  0 |
+    //  D |    |    |    |  D |  D |  D |  D |  0 |
+    // aI |    |    |    |    | aI | aI | aI |  0 |
+    //  I |    |    |    |    |    |  I | -I |  0 |
+    // -I |    |    |    |    |    |    |  I |  0 |
+    //  0 |    |    |    |    |    |    |    |  0 |
+    if (s.second == Shape::ZERO) return Shape::ZERO;
+    switch (s.first)
+    {
+    case Shape::GENERAL:              return Shape::GENERAL;
+    case Shape::LOWER_TRIANGULAR:
+      return s.second == Shape::UPPER_TRIANGULAR ? Shape::GENERAL : Shape::LOWER_TRIANGULAR;
+    case Shape::UPPER_TRIANGULAR:     return Shape::UPPER_TRIANGULAR;
+    case Shape::DIAGONAL:             return Shape::DIAGONAL;
+    case Shape::MULTIPLE_OF_IDENTITY: return Shape::MULTIPLE_OF_IDENTITY;
+    case Shape::IDENTITY:
+      return s.second == Shape::IDENTITY ? Shape::IDENTITY : Shape::MINUS_IDENTITY;
+    case Shape::MINUS_IDENTITY:       return Shape::IDENTITY;
+    default: throw std::runtime_error("Case not possible.");
+    }
+  }
+
+  MatrixProperties operator-(const MatrixProperties& p)
+  {
+    return {-p.shape(),
+            -p.positiveness(),
+            -p.constness(),
+            -p.invertibility() };
+  }
+
+  MatrixProperties operator*(double d, const MatrixProperties& p)
+  {
+    return {d * p.shape(),
+            d * p.positiveness(),
+            d * p.constness(),
+            d * p.invertibility() };
+  }
+
+  MatrixProperties operator+(const MatrixProperties& p1, const MatrixProperties& p2)
+  {
+    return {p1.shape() + p2.shape(),
+            p1.positiveness() + p2.positiveness(),
+            p1.constness() + p2.constness(),
+            p1.invertibility() + p2.invertibility() };
+  }
+
+  MatrixProperties operator-(const MatrixProperties& p1, const MatrixProperties& p2)
+  {
+    return {p1.shape() - p2.shape(),
+            p1.positiveness() - p2.positiveness(),
+            p1.constness() - p2.constness(),
+            p1.invertibility() - p2.invertibility() };
+  }
+
+  MatrixProperties operator*(const MatrixProperties& p1, const MatrixProperties & p2)
+  {
+    return {p1.shape() * p2.shape(),
+            p1.positiveness() * p2.positiveness(),
+            p1.constness() * p2.constness(),
+            p1.invertibility() * p2.invertibility() };
   }
 
 }  // namespace internal
