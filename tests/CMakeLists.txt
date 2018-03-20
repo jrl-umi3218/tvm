@@ -32,7 +32,7 @@ addUnitTest(VariableTest)
 set(TESTSOURCES
     main.cpp
     Mockup.cpp
-    SolverTest.cpp
+    SolverBasicTest.cpp
     SolverTestFunctions.cpp
 )
 
