@@ -104,7 +104,6 @@ namespace internal
     for (size_t k=0; k<substitutions_.size(); ++k)
     {
       int mk = 0;
-      const auto& s = substitutions_[k];
       bool cZero = true; //true if cIsZero_[i] for all i in sub2cstr_[k]
       for (auto i : sub2cstr_[k])
       {
@@ -148,7 +147,7 @@ namespace internal
           for (auto j : XZdependencies_[l])
           {
             auto rz = z_[j]->getMappingIn(z_);
-            if (j == x2sub_[l])
+            if (j == static_cast<int>(x2sub_[l]))
             {
               // we handles this dependency in z separately, as it involves N
               calculators_[j]->postMultiplyByN(Z_.block(m + mk, rz.start, mki, rz.dim), A, xRange_[l],!firstZ_[j]);
@@ -174,7 +173,6 @@ namespace internal
         cZero = cZero && cIsZero_[i];
         mk += mki;
       }
-      auto rm = substitutionMRanges_[k];
       auto rn = substitutionNRanges_[k];
       //Compute M_{kj} and S_k^T B_{k,j} for y_[j] on which substitutions_[k] depends.
       for (auto j : SYdependencies_[k])
@@ -216,7 +214,7 @@ namespace internal
         }
         for (auto j : SZdependencies_[k])
         {
-          if (j == k) continue;
+          if (j == static_cast<int>(k)) continue;
           auto rz = z_[j]->getMappingIn(z_);
           varSubstitutions_[i]->A(AsZ_.block(rx.start, rz.start, rx.dim, rz.dim), *z_[j]);
         }
@@ -236,7 +234,6 @@ namespace internal
 
       for (auto j : SYdependencies_[k])
       {
-        auto rx = substitutionMRanges_[k];
         auto ry = y_[j]->getMappingIn(y_);
         remaining_[k]->A(StB_[k].middleCols(ry.start, ry.dim), *y_[j]);
       }
@@ -378,7 +375,6 @@ namespace internal
     for (size_t k = 0; k < substitutions_.size(); ++k)
     {
       int mk = 0;
-      const auto& s = substitutions_[k];
       for (auto i : sub2cstr_[k])
       {
         mk += constraints_[i]->size();

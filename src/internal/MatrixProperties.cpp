@@ -184,14 +184,14 @@ namespace internal
   }
 
   Constness operator-(const Constness& c) { return c; }
-  Constness operator*(double d, const Constness& c) { return c; }
+  Constness operator*(double, const Constness& c) { return c; }
   Constness operator+(const Constness& c1, const Constness& c2) { return c1 && c2; }
   Constness operator-(const Constness& c1, const Constness& c2) { return c1 && c2; }
   Constness operator*(const Constness& c1, const Constness& c2) { return c1 && c2; }
   Invertibility operator-(const Invertibility& i) { return i; }
-  Invertibility operator*(double d, const Invertibility& i) { return d == 0 ? false : i; }
-  Invertibility operator+(const Invertibility& i1, const Invertibility& i2) { return false; }
-  Invertibility operator-(const Invertibility& i1, const Invertibility& i2) { return false; }
+  Invertibility operator*(double d, const Invertibility& i) { return d == 0 ? Invertibility(false) : i; }
+  Invertibility operator+(const Invertibility&, const Invertibility&) { return false; }
+  Invertibility operator-(const Invertibility&, const Invertibility&) { return false; }
   Invertibility operator*(const Invertibility& i1, const Invertibility& i2) { return i1 && i2; }
 
   Positiveness operator-(const Positiveness& p)
@@ -236,7 +236,7 @@ namespace internal
     return p1 + (-p2);
   }
 
-  Positiveness operator*(const Positiveness& p1, const Positiveness& p2)
+  Positiveness operator*(const Positiveness&, const Positiveness&)
   {
     // The product of two symmetric matrices is in not symmetric (unless they permute).
     return Positiveness::NA;

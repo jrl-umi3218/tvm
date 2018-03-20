@@ -10,8 +10,8 @@ using namespace Eigen;
 class SphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
-  SET_UPDATES(SphereFunction, Value, Jacobian, VelocityAndAcc);
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  SET_UPDATES(SphereFunction, Value, Jacobian, VelocityAndAcc)
 
   SphereFunction(VariablePtr x, const VectorXd& x0, double radius);
 
@@ -30,8 +30,8 @@ private:
 class Simple2dRobotEE : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
-  SET_UPDATES(Simple2dRobotEE, Value, Jacobian, VelocityAndAcc);
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  SET_UPDATES(Simple2dRobotEE, Value, Jacobian, VelocityAndAcc)
 
   Simple2dRobotEE(VariablePtr x, const Vector2d& base, const VectorXd& lengths);
 
@@ -50,7 +50,7 @@ private:
 class Difference : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  SET_UPDATES(Difference, Value, Jacobian, Velocity, NormalAcceleration, JDot);
+  SET_UPDATES(Difference, Value, Jacobian, Velocity, NormalAcceleration, JDot)
 
   Difference(FunctionPtr f, FunctionPtr g);
 
@@ -75,8 +75,8 @@ private:
 class BrokenSphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot);
-  SET_UPDATES(BrokenSphereFunction, Value, Jacobian, VelocityAndAcc);
+  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  SET_UPDATES(BrokenSphereFunction, Value, Jacobian, VelocityAndAcc)
 
   BrokenSphereFunction(VariablePtr x, const VectorXd& x0, double radius);
 

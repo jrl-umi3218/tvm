@@ -72,7 +72,7 @@ namespace internal
 
     template<typename OtherDerived>
     ObjectWithProperties(const Eigen::MatrixBase<OtherDerived>& other, const MatrixProperties& p)
-      : T(other), properties_(p)
+      : MatrixType(other), properties_(p)
     {
     }
 

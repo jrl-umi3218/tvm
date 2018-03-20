@@ -51,7 +51,7 @@ namespace internal
       else
       {
         ss << "variables (";
-        for (auto i = 0; i < vars.size() - 1; ++i)
+        for (size_t i = 0; i < vars.size() - 1; ++i)
         {
           ss << vars[i]->name() << ", ";
         }

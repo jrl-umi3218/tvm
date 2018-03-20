@@ -154,7 +154,7 @@ namespace internal
     {
       throw std::runtime_error("Some indices are too large for the substitution considered");
     }
-    if (nnzRows.size() != rank)
+    if (static_cast<int>(nnzRows.size()) != rank)
     {
       throw std::runtime_error("The number of non-zero rows is not consistent with the rank.");
     }

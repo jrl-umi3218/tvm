@@ -112,14 +112,14 @@ const Eigen::MatrixXd& SubstitutionCalculatorImpl::N() const
 }
 
 SubstitutionCalculatorImpl::SubstitutionCalculatorImpl(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank)
-  : m_(0)
+  : constraints_(cstr)
+  , variables_(x)
+  , m_(0)
   , n_(0)
   , r_(rank)
   , constant_(false)
   , init_(true)
   , simple_(cstr.size()==1 && x.size()==1)
-  , constraints_(cstr)
-  , variables_(x)
 {
   assert(rank >= 0);
 

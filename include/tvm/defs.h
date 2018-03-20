@@ -94,6 +94,6 @@ namespace tvm
                 && (big_number * big_number - std::numeric_limits<double>::max() / 4)
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
                   "big_number was not computed at compile time or its value was not correct");
-  };
+  }
 
 }  // namespace tvm

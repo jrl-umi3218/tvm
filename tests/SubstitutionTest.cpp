@@ -670,15 +670,15 @@ TEST_CASE("Substitution1")
 
 TEST_CASE("Substitution2")
 {
-  int m1 = 3; int n1 = 4; int r1 = 3;
-  int m2 = 3; int n2 = 3; int r2 = 3;
-  int m3 = 3; int n3 = 6; int r3 = 3;
-  int m4 = 5; int n4 = 4; int r4 = 5;
-  int m5 = 7; int n5 = 5; int r5 = 7;
-  int m6 = 3; int n6 = 2; int r6 = 3;
-  int m7 = 6; int n7 = 7; int r7 = 6;
-  int m8 = 4; int n8 = 4; int r8 = 4;
-  int m9 = 4; int n9 = 3; int r9 = 4;
+  int m1 = 3; int n1 = 4;
+  int m2 = 3; int n2 = 3;
+  int m3 = 3; int n3 = 6;
+  int m4 = 5; int n4 = 4;
+  int m5 = 7; int n5 = 5;
+  int m6 = 3; int n6 = 2;
+  int m7 = 6; int n7 = 7;
+  int m8 = 4; int n8 = 4;
+  int m9 = 4; int n9 = 3;
   int l1 = 3;
   int l2 = 7;
 
@@ -808,7 +808,7 @@ TEST_CASE("Substitution2")
     int nmax = 16;
     double nonFullRankP = 0.33;
     int nx = randI(nxmin, nxmax); //number of x variables
-    int ny = randI(nxmin, nymax); //number of y variables
+    int ny = randI(nymin, nymax); //number of y variables
     double px = 0.4;              //probability to have a non-zero off-diagonal block in the 'x part' of A
     double py = 0.3;              //probability to have a non-zero block in the 'y part' of B
 

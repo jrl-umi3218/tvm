@@ -36,7 +36,8 @@ namespace scheme
     //std::cout << "l = " << memory.l.transpose() << std::endl;
     //std::cout << "u = " << memory.u.transpose() << std::endl;
 
-    bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
+    //TODO : report solver status
+    memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
     memory.setSolution(memory.ls.result());
     //std::cout << memory.ls.inform() << std::endl;
     //std::cout << memory.ls.result().transpose() << std::endl;
