@@ -179,15 +179,28 @@ Difference::Difference(FunctionPtr f, FunctionPtr g)
   processOutput(AdvancedOutput::NormalAcceleration, Update::NormalAcceleration, &Difference::updateNormalAcceleration);
   processOutput(AdvancedOutput::JDot, Update::JDot, &Difference::updateJDot);
 
-  //Note: if we copy this class later, we need to take care of the linearity of each variable properly
   const auto& fvars = f->variables();
+  const auto& gvars = g->variables();
   for (const auto& v : fvars)
-    addVariable(v, false);
+  {
+    bool lin = f->linearIn(*v);
+    auto p = f->jacobian(*v).properties();
+    if (gvars.contains(*v))
+    {
+      lin = lin && g->linearIn(*v);
+      p = p - g->jacobian(*v).properties();
+    }
+    addVariable(v, lin);
+    jacobian_.at(v.get()).properties(p);
+  }
 
   for (const auto& v : g->variables())
   {
-    if (std::find(fvars.begin(), fvars.end(), v) == fvars.end())
-      addVariable(v, false);
+    if (!fvars.contains(*v))
+    {
+      addVariable(v, g->linearIn(*v));
+      jacobian_.at(v.get()).properties(-g->jacobian(*v).properties());
+    }
   }
 }
 
@@ -218,10 +231,10 @@ void Difference::updateJacobian()
     jacobian_.at(v.get()).setZero();
 
   for (const auto& v : f_->variables())
-    jacobian_.at(v.get()) = f_->jacobian(*v);
+    jacobian_.at(v.get()).keepProperties(true) = f_->jacobian(*v).matrix();
 
   for (const auto& v : g_->variables())
-    jacobian_.at(v.get()) -= g_->jacobian(*v);
+    jacobian_.at(v.get()).keepProperties(true) = jacobian_.at(v.get()) - g_->jacobian(*v);
 }
 
 void Difference::updateVelocity()

@@ -40,6 +40,11 @@ namespace internal
     * - for a simple substitution with invertible diagonal matrix, generates a
     *   DiagonalCalculator
     * - otherwise generates a GenericCalculator
+    *
+    * \note You need to ensure that the matrix properties used when applying the
+    * rules have been correctly set. In particular if the matrix properties are
+    * deduced during the update pipeline, you need to ensure an update was
+    * triggered.
     */
   class TVM_DLLAPI AutoCalculator : public abstract::SubstitutionCalculator
   {
