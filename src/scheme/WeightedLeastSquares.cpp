@@ -6,6 +6,11 @@
 
 #include <iostream>
 
+namespace
+{
+
+}
+
 namespace tvm
 {
 
@@ -25,45 +30,51 @@ namespace scheme
     for (auto& a : memory.assignments)
       a.run();
 
-    std::cout << "A =\n" << memory.A << std::endl;
-    std::cout << "b = " << memory.b.transpose() << std::endl;
-    std::cout << "C =\n" << memory.C << std::endl;
-    std::cout << "l = " << memory.l.transpose() << std::endl;
-    std::cout << "u = " << memory.u.transpose() << std::endl;
+    //std::cout << "A =\n" << memory.A << std::endl;
+    //std::cout << "b = " << memory.b.transpose() << std::endl;
+    //std::cout << "C =\n" << memory.C << std::endl;
+    //std::cout << "l = " << memory.l.transpose() << std::endl;
+    //std::cout << "u = " << memory.u.transpose() << std::endl;
 
     bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
     memory.setSolution(memory.ls.result());
-    std::cout << memory.ls.inform() << std::endl;
-    std::cout << memory.ls.result().transpose() << std::endl;
+    //std::cout << memory.ls.inform() << std::endl;
+    //std::cout << memory.ls.result().transpose() << std::endl;
+    problem.substitutions().updateVariableValues();
   }
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
     auto memory = std::unique_ptr<Memory>(new Memory(id()));
     const auto& constraints = problem.constraints();
+    const auto& subs = problem.substitutions();
 
-    //scanning bounds
-    for (auto b : problem.bounds())
-    {
-      abilities_.check(b.constraint, b.requirements); //FIXME: should be done in a parent class
-      memory->addVariable(b.constraint->variables()); //FIXME: should be done in a parent class
-    }
+    std::vector<LinearConstraintWithRequirements> constr;
+    std::vector<LinearConstraintWithRequirements> bounds;
 
     //scanning constraints
     int m0 = 0;
     int m1 = 0;
-    for (auto c : constraints)
+    for (const auto& c : constraints)
     {
       abilities_.check(c.constraint, c.requirements); //FIXME: should be done in a parent class
-      memory->addVariable(c.constraint->variables()); //FIXME: should be done in a parent class
+      for (const auto& xi: c.constraint->variables())
+        memory->addVariable(subs.substitute(xi));
+      //memory->addVariable(c.constraint->variables()); //FIXME: should be done in a parent class
 
-      if (c.requirements->priorityLevel().value() == 0)
-        m0 += c.constraint->size();
+      if (isBound(c.constraint, subs))
+        bounds.push_back(c);
       else
       {
-        if (c.constraint->type() != constraint::Type::EQUAL)
-          throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
-        m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+        if (c.requirements->priorityLevel().value() == 0)
+          m0 += c.constraint->size();
+        else
+        {
+          if (c.constraint->type() != constraint::Type::EQUAL)
+            throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
+          m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+        }
+        constr.push_back(c);
       }
     }
 
@@ -82,21 +93,21 @@ namespace scheme
     const auto& x = memory->variables();
     auto l = memory->l.tail(memory->C.rows());
     auto u = memory->u.tail(memory->C.rows());
-    for (auto c : constraints)
+    for (const auto& c : constr)
     {
       int p = c.requirements->priorityLevel().value();
       if (p == 0)
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, memory->C, l, u, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs));
         m0 += c.constraint->size();
       }
       else
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, memory->A, memory->b, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, {}, std::pow(scalarizationWeight_, p - 1)));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs, std::pow(scalarizationWeight_, p - 1)));
         m1 += c.constraint->size();
       }
     }
@@ -112,7 +123,7 @@ namespace scheme
     {
       first[xi.get()] = true;
     }
-    for (auto b : problem.bounds())
+    for (const auto& b : bounds)
     {
       const auto& xi = b.constraint->variables()[0];
       int p = b.requirements->priorityLevel().value();
