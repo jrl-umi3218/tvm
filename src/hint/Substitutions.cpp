@@ -229,6 +229,21 @@ namespace internal
     return otherVariables_;
   }
 
+  VariableVector Substitutions::substitute(const VariablePtr & x) const
+  {
+    auto it = std::find(variables_.begin(), variables_.end(), x);
+    if (it == variables_.end()) //no substitution of var
+    {
+      VariableVector v({ x });
+      return v;
+    }
+    else // substitution of var
+    {
+      const auto& f = varSubstitutions_[static_cast<size_t>(it - variables_.begin())];
+      return f->variables();
+    }
+  }
+
   size_t Substitutions::DependencyGraph::addNode()
   {
     roots_.push_back(true);

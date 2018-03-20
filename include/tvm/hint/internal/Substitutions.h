@@ -72,6 +72,10 @@ namespace internal
     const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& additionalConstraints() const;
     /** The variables y*/
     const std::vector<VariablePtr>& otherVariables() const;
+    /** If \p x is one of the substituted variables, returns the variables it is
+      * replaced by. Otherwise, return \p x
+      */
+    VariableVector substitute(const VariablePtr& x) const;
 
     /** An oriented graph to represent dependencies between substitutions.*/
   private:
