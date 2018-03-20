@@ -1,6 +1,7 @@
 #include <tvm/LinearizedControlProblem.h>
 
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
+#include <tvm/scheme/internal/helpers.h>
 
 namespace tvm
 {
@@ -32,15 +33,9 @@ namespace tvm
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
     lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
+    lcr.bound = scheme::internal::isBound(lcr.constraint);
+    constraints_[tr.get()] = lcr;
 
-    if (isBound(lcr.constraint))
-    {
-      bounds_[tr.get()] = lcr;
-    }
-    else
-    {
-      constraints_[tr.get()] = lcr;
-    }
     using CstrOutput = internal::FirstOrderProvider::Output;
     updater_.addInput(lcr.constraint, CstrOutput::Jacobian);
     switch (tr->task.type())
@@ -57,18 +52,17 @@ namespace tvm
     ControlProblem::remove(tr);
     // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
     updater_.removeInput(constraints_[tr].constraint.get());
-    bounds_.erase(tr);
     constraints_.erase(tr);
   }
 
-  std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::bounds() const
+  void LinearizedControlProblem::add(const hint::Substitution & s)
   {
-    std::vector<LinearConstraintWithRequirements> bounds;
-    bounds.reserve(bounds_.size());
-    for (auto c : bounds_)
-      bounds.push_back(c.second);
+    substitutions_.add(s);
+  }
 
-    return bounds;
+  const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const
+  {
+    return substitutions_;
   }
 
   std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constraints() const
@@ -85,13 +79,7 @@ namespace tvm
   {
     updater_.refresh();
     updater_.run();
-  }
-
-  bool LinearizedControlProblem::isBound(const ConstraintPtr & c)
-  {
-    const auto& vars = c->variables();
-    const auto& p = c->jacobian(*vars[0]).properties();
-    return (c->type() != constraint::Type::EQUAL && vars.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
+    substitutions_.updateSubstitutions();
   }
 
   LinearizedControlProblem::Updater::Updater()

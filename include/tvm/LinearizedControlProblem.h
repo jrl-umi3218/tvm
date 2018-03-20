@@ -22,6 +22,7 @@
 #include <tvm/ControlProblem.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/hint/Substitution.h>
+#include <tvm/hint/internal/Substitutions.h>
 
 namespace tvm
 {
@@ -30,6 +31,7 @@ namespace tvm
   public:
     LinearConstraintPtr constraint;
     SolvingRequirementsPtr requirements;
+    bool bound;
   };
 
   class TVM_DLLAPI LinearizedControlProblem : public ControlProblem
@@ -45,9 +47,9 @@ namespace tvm
     void remove(TaskWithRequirements* tr);
 
     void add(const hint::Substitution& s);
+    const hint::internal::Substitutions& substitutions() const;
 
     /** Access to constraints*/
-    std::vector<LinearConstraintWithRequirements> bounds() const;
     std::vector<LinearConstraintWithRequirements> constraints() const;
 
     /** Compute all quantities necessary for solving the problem.*/
@@ -76,19 +78,9 @@ namespace tvm
     };
 
 
-    /** We consider as bound a constraint with a single variable and a diagonal,
-      * invertible jacobian.
-      * It would be possible to accept non-invertible sparse diagonal jacobians
-      * as well, in which case the zero elements of the diagonal would 
-      * correspond to non-existing bounds, but this requires quite a lot of
-      * work for something that is unlikely to happen and could be expressed
-      * by changing the bound itself to +/- infinity.
-      */
-    static bool isBound(const ConstraintPtr& c);
-
     std::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
-    std::map<TaskWithRequirements*, LinearConstraintWithRequirements> bounds_;
     Updater updater_;
+    hint::internal::Substitutions substitutions_;
   };
 
 
