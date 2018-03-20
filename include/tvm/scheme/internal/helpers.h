@@ -18,8 +18,18 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <tvm/api.h>
+#include <tvm/defs.h>
+
 namespace tvm
 {
+namespace hint
+{
+namespace internal
+{
+  class Substitutions;
+}
+}
 namespace scheme
 {
 namespace internal
@@ -34,6 +44,23 @@ namespace internal
     */
   template<typename Problem, typename Scheme>
   inline ProblemComputationData& getComputationData(Problem& problem, const Scheme& resolutionScheme);
+
+  /** We consider as bound a constraint with a single variable and a diagonal,
+    * invertible jacobian.
+    * It would be possible to accept non-invertible sparse diagonal jacobians
+    * as well, in which case the zero elements of the diagonal would 
+    * correspond to non-existing bounds, but this requires quite a lot of
+    * work for something that is unlikely to happen and could be expressed
+    * by changing the bound itself to +/- infinity.
+    */
+  bool TVM_DLLAPI isBound(const ConstraintPtr& c);
+
+  /** Assert if a constraint is a bound in the presence of substitutions
+    * \param c the constraint
+    * \param subs the set of substitutions
+    */
+  bool TVM_DLLAPI isBound(const ConstraintPtr& c, const hint::internal::Substitutions& subs);
+
 }
 }
 }
