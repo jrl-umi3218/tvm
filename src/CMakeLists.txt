@@ -43,6 +43,7 @@ set(TVM_SOURCES
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
+  scheme/helpers.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
