@@ -164,7 +164,7 @@ namespace internal
     /** The variables substituted (x).*/
     std::vector<VariablePtr> variables_;
 
-    /** The substitution functions linked to thte variables, i.e
+    /** The substitution functions linked to the variables, i.e
       * variables_[i].value() is given by varSubstitutions_[i].value().
       */
     std::vector<std::shared_ptr<function::BasicLinearFunction>> varSubstitutions_;

@@ -75,6 +75,11 @@ namespace tvm
     return constraints;
   }
 
+  LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements * t) const
+  {
+    return constraints_.at(t).constraint;
+  }
+
   void LinearizedControlProblem::update()
   {
     updater_.refresh();
