@@ -121,11 +121,11 @@ namespace internal
       /** True if the contact has been linearized */
       bool linearized_;
 
-      /** Force (1 variable per contact point)
+      /** Force (1 3d variable per contact point)
        *
        * OR
        *
-       * lambdas (n variables per contact point)
+       * lambdas (1 nrGen-d variable per contact point)
        *
        */
       std::vector<tvm::VariablePtr> forces_;

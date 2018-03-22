@@ -106,22 +106,21 @@ void DynamicFunction::addContact_(const Contact::View & contact, bool linearize,
   }
   else
   {
-    std::vector<Eigen::Vector3d> generators;
-    size_t nrLambda = 0;
+    Eigen::Matrix<double, 3, -1> generators;
+    generators.resize(3, cPoints.size() * nrGen);
+    generators.setConstant(42);
+    size_t nrPoints = 0;
     for(const auto & p : cPoints)
     {
-      // Note: we could stack the lambdas for each contact point here
-      for(size_t j = 0; j < nrGen; ++j)
-      {
-        std::stringstream ss; ss << f->name() << "_lambda_" << nrLambda++;
-        fc.forces_.push_back(tvm::Space(1).createVariable(ss.str()));
-        fc.forces_.back()->value(Eigen::VectorXd::Zero(1));
-      }
+      fc.forces_.push_back(tvm::Space(nrGen).createVariable(f->name() + "_lambda_" + std::to_string(nrPoints)));
+      fc.forces_.back()->value(Eigen::VectorXd::Zero(nrGen));
       FrictionCone cone {dir*p.rotation(), nrGen, mu, dir};
-      for(auto & g : cone.generators)
+      for(size_t i = 0; i < cone.generators.size(); ++i)
       {
-        generators.push_back(-g);
+        auto & g = cone.generators[i];
+        generators.col(nrGen*nrPoints + i) = -g;
       }
+      nrPoints++;
     }
     fc.updateJacobians_ = [f, cPoints, generators, nrGen]
       (ForceContact & self, DynamicFunction & df)
@@ -131,15 +130,12 @@ void DynamicFunction::addContact_(const Contact::View & contact, bool linearize,
       {
         const auto & p = cPoints[i];
         f->rbdJacobian().translateBodyJacobian(bodyJac, df.robot_->mbc(), p.translation(), self.force_jac_);
-        for(size_t j = 0; j < nrGen; ++j)
-        {
-          const auto & lambda = self.forces_[nrGen*i + j];
-          const auto & generator = generators[nrGen*i + j];
-          f->rbdJacobian().fullJacobian(df.robot_->mb(),
-                                         self.force_jac_,
-                                         self.full_jac_);
-          df.jacobian_[lambda.get()].noalias() = (generator.transpose() * self.full_jac_.block(3, 0, 3, f->robot().mb().nrDof())).transpose();
-        }
+        const auto & lambda = self.forces_[i];
+        const auto & generator = generators.middleCols(nrGen*i, nrGen);
+        f->rbdJacobian().fullJacobian(df.robot_->mb(),
+                                       self.force_jac_,
+                                       self.full_jac_);
+        df.jacobian_[lambda.get()].noalias() = (generator.transpose() * self.full_jac_.block(3, 0, 3, f->robot().mb().nrDof())).transpose();
       }
     };
     fc.force_ = [cPoints, generators, nrGen](const ForceContact & self)
@@ -148,14 +144,11 @@ void DynamicFunction::addContact_(const Contact::View & contact, bool linearize,
       for(size_t i = 0; i < cPoints.size(); ++i)
       {
         const auto & p = cPoints[i];
-        for(size_t j = 0; j < nrGen; ++j)
-        {
-          const auto & lambda = self.forces_[nrGen*i + j];
-          const auto & generator = -generators[nrGen*i + j];
-          sva::ForceVecd f_p { Eigen::Vector3d::Zero(),
-                               generator*lambda->value() };
-          ret += p.transMul(f_p);
-        }
+        const auto & lambda = self.forces_[nrGen*i];
+        const auto & generator = -generators.middleCols(nrGen*i, nrGen);
+        sva::ForceVecd f_p { Eigen::Vector3d::Zero(),
+                             generator*lambda->value() };
+        ret += p.transMul(f_p);
       }
       return ret;
     };
