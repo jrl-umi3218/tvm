@@ -11,7 +11,7 @@
 namespace tvm
 {
 
-Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc)
+Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc, const mc_rbdyn_urdf::Limits & limits)
 : clock_(clock), name_(name), mb_(mb), mbc_(mbc),
   normalAccB_(mbc_.bodyAccB.size()), fd_(mb_),
   bodyTransforms_(mbg.bodiesBaseTransform(mb_.body(0).name())),
@@ -27,6 +27,41 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
     q_ff_ = tvm::Space(0).createVariable("qFreeFlyer");
     q_joints_ = tvm::Space(mb.nrDof(), mb.nrParams(), mb.nrDof()).createVariable("qJoints");
   }
+  /** Bounds generic initialization */
+  lQBound_.resize(q_joints_->size());
+  lQBound_.setConstant(-tvm::constant::big_number);
+  uQBound_ = - lQBound_;
+  lVelBound_.resize(q_joints_->size());
+  lVelBound_.setConstant(-tvm::constant::big_number);
+  uVelBound_ = - lVelBound_;
+  lTauBound_.resize(q_joints_->size() + q_ff_->space().tSize());
+  lTauBound_.head(q_ff_->space().tSize()).setZero();
+  lTauBound_.tail(q_joints_->size()).setConstant(-tvm::constant::big_number);
+  uTauBound_ = - lTauBound_;
+  /** Bounds initialization based on provided limits */
+  {
+  const auto & jIndexByName = mb_.jointIndexByName();
+  auto map2bound = [this,&jIndexByName](const std::map<std::string, std::vector<double>> & bound, double mul, Eigen::VectorXd & out, int ffOffset, int(rbd::MultiBody::*posMethod)(int) const)
+  {
+    for(const auto & qi : bound)
+    {
+      if(!jIndexByName.count(qi.first)) { continue; }
+      auto jIndex = jIndexByName.at(qi.first);
+      auto pos = (mb_.*posMethod)(jIndex) - ffOffset;
+      for(size_t i = 0; i < qi.second.size(); ++i)
+      {
+        out(pos + i) = mul * qi.second[i];
+      }
+    }
+  };
+  map2bound(limits.lower, 1, lQBound_, q_ff_->size(), &rbd::MultiBody::jointPosInParam);
+  map2bound(limits.upper, 1, uQBound_, q_ff_->size(), &rbd::MultiBody::jointPosInParam);
+  map2bound(limits.velocity, -1, lVelBound_, q_ff_->space().tSize(), &rbd::MultiBody::jointPosInDof);
+  map2bound(limits.velocity, 1, uVelBound_, q_ff_->space().tSize(), &rbd::MultiBody::jointPosInDof);
+  map2bound(limits.torque, -1, lTauBound_, 0, &rbd::MultiBody::jointPosInDof);
+  map2bound(limits.torque, 1, uTauBound_, 0, &rbd::MultiBody::jointPosInDof);
+  }
+  /** Variables creation */
   q_.add(q_ff_);
   q_.add(q_joints_);
   dq_ = dot(q_, 1);
@@ -37,6 +72,7 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   dq_.value(Eigen::VectorXd::Zero(dq_.value().size()));
   ddq_.value(Eigen::VectorXd::Zero(ddq_.value().size()));
   tau_->value(Eigen::VectorXd::Zero(tau_->value().size()));
+  /** Signals */
   registerUpdates(Update::Time, &Robot::updateTimeDependency,
                   Update::Kinematics, &Robot::updateKinematics,
                   Update::Dynamics, &Robot::updateDynamics,

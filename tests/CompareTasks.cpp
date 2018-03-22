@@ -269,7 +269,7 @@ static void BM_TVM(benchmark::State & state)
                        const std::string & name, const std::string & path, bool fixed,
                        const std::vector<std::string> & filteredLinks,
                        const std::vector<std::vector<double>> & ref_q)
-    -> std::pair<tvm::RobotPtr, mc_rbdyn_urdf::Limits>
+    -> tvm::RobotPtr
   {
     std::ifstream ifs(path);
     if(!ifs.good())
@@ -300,9 +300,8 @@ static void BM_TVM(benchmark::State & state)
     {
       data.mbc.q = init_q;
     }
-    return {std::make_shared<tvm::Robot>(clock, name, data.mbg, data.mb, data.mbc), data.limits};
+    return std::make_shared<tvm::Robot>(clock, name, data.mbg, data.mb, data.mbc, data.limits);
   };
-  tvm::RobotPtr hrp2; mc_rbdyn_urdf::Limits hrp2_limits;
   std::vector<std::string> hrp2_filtered = {};
   for(size_t i = 0; i < 5; ++i)
   {
@@ -318,9 +317,8 @@ static void BM_TVM(benchmark::State & state)
     }
   }
   std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.0}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}};
-  std::tie(hrp2, hrp2_limits) = load_robot(pb.clock(), "HRP2", hrp2_urdf, false, hrp2_filtered, ref_q);
-  tvm::RobotPtr ground;
-  std::tie(ground, std::ignore) = load_robot(pb.clock(), "ground", ground_urdf, true, {}, {});
+  auto hrp2 = load_robot(pb.clock(), "HRP2", hrp2_urdf, false, hrp2_filtered, ref_q);
+  auto ground = load_robot(pb.clock(), "ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -389,33 +387,8 @@ static void BM_TVM(benchmark::State & state)
   pb.add(pos_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(10.)});
 
   /* Bounds */
-  Eigen::VectorXd lq(hrp2->mb().nrParams());
-  lq.setConstant(-tvm::constant::big_number);
-  Eigen::VectorXd uq(hrp2->mb().nrParams());
-  uq.setConstant(tvm::constant::big_number);
-  Eigen::VectorXd lqd(hrp2->mb().nrDof());
-  Eigen::VectorXd uqd(hrp2->mb().nrDof());
-  Eigen::VectorXd ltau(hrp2->mb().nrDof());
-  Eigen::VectorXd utau(hrp2->mb().nrDof());
-  ltau.head(6).setConstant(0);
-  utau.head(6).setConstant(0);
-  for(const auto & j : hrp2_limits.lower)
-  {
-    const auto & mb = hrp2->mb();
-    if(j.second.size() == 0) { continue; }
-    lq(mb.jointPosInParam(mb.jointIndexByName(j.first))) = j.second[0];
-    uq(mb.jointPosInParam(mb.jointIndexByName(j.first))) = hrp2_limits.upper.at(j.first)[0];
-    lqd(mb.jointPosInDof(mb.jointIndexByName(j.first))) = -hrp2_limits.velocity.at(j.first)[0];
-    uqd(mb.jointPosInDof(mb.jointIndexByName(j.first))) = hrp2_limits.velocity.at(j.first)[0];
-    ltau(mb.jointPosInDof(mb.jointIndexByName(j.first))) = -hrp2_limits.torque.at(j.first)[0];
-    utau(mb.jointPosInDof(mb.jointIndexByName(j.first))) = hrp2_limits.torque.at(j.first)[0];
-  }
-  Eigen::VectorXd tmp = lq.tail(hrp2->mb().nrParams() - 7);
-  lq = tmp;
-  tmp = uq.tail(hrp2->mb().nrParams() - 7);
-  uq = tmp;
-  pb.add(lq <= hrp2->qJoints() <= uq, tvm::task_dynamics::VelocityDamper(dt, {0.01, 0.001, 0}, tvm::constant::big_number), { tvm::requirements::PriorityLevel(0) });
-  pb.add(ltau <= hrp2->tau() <= utau, tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
+  pb.add(hrp2->lQBound() <= hrp2->qJoints() <= hrp2->uQBound(), tvm::task_dynamics::VelocityDamper(dt, {0.01, 0.001, 0}, tvm::constant::big_number), { tvm::requirements::PriorityLevel(0) });
+  pb.add(hrp2->lTauBound() <= hrp2->tau() <= hrp2->uTauBound(), tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
 
   tvm::LinearizedControlProblem lpb(pb);
 

@@ -28,6 +28,8 @@
 #include <RBDyn/MultiBodyConfig.h>
 #include <RBDyn/MultiBodyGraph.h>
 
+#include <mc_rbdyn_urdf/urdf.h>
+
 namespace tvm
 {
 
@@ -73,11 +75,12 @@ namespace tvm
      *
      * \param mbc MultiBodyConfig giving the robot's initial configuration
      *
+     * \param limits Joint limits
+     *
      */
-    Robot(Clock & clock,
-          const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody
-          mb, rbd::MultiBodyConfig mbc);
-
+    Robot(Clock & clock, const std::string & name,
+          rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc,
+          const mc_rbdyn_urdf::Limits & limits = {});
 
     /** Access the robot's name */
     inline const std::string & name() const { return name_; }
@@ -120,6 +123,36 @@ namespace tvm
     /** Access the vector of normal acceleration expressed in the body's frame */
     inline std::vector<sva::MotionVecd> & normalAccB() { return normalAccB_; }
 
+    /** Access the joints' lower position limit (const) */
+    inline const Eigen::VectorXd & lQBound() const { return lQBound_; }
+    /** Access the joints' lower position limit */
+    inline Eigen::VectorXd & lQBound() { return lQBound_; }
+
+    /** Access the joints' upper position limit (const) */
+    inline const Eigen::VectorXd & uQBound() const { return uQBound_; }
+    /** Access the joints' upper position limit */
+    inline Eigen::VectorXd & uQBound() { return uQBound_; }
+
+    /** Access the joints' lower velocity limit (const) */
+    inline const Eigen::VectorXd & lVelBound() const { return lVelBound_; }
+    /** Access the joints' lower velocity limit */
+    inline Eigen::VectorXd & lVelBound() { return lVelBound_; }
+
+    /** Access the joints' upper velocity limit (const) */
+    inline const Eigen::VectorXd & uVelBound() const { return uVelBound_; }
+    /** Access the joints' upper velocity limit */
+    inline Eigen::VectorXd & uVelBound() { return uVelBound_; }
+
+    /** Access the robot's lower torque limit (const) */
+    inline const Eigen::VectorXd & lTauBound() const { return lTauBound_; }
+    /** Access the robot's lower torque limit */
+    inline Eigen::VectorXd & lTauBound() { return lTauBound_; }
+
+    /** Access the robot's upper torque limit (const) */
+    inline const Eigen::VectorXd & uTauBound() const { return uTauBound_; }
+    /** Access the robot's upper torque limit */
+    inline Eigen::VectorXd & uTauBound() { return uTauBound_; }
+
     /** Access the inertia matrix */
     inline const Eigen::MatrixXd & H() const { return fd_.H(); }
     /** Access the non-linear effect vector */
@@ -138,6 +171,12 @@ namespace tvm
     rbd::MultiBody mb_;
     rbd::MultiBodyConfig mbc_;
     std::vector<sva::MotionVecd> normalAccB_;
+    Eigen::VectorXd lQBound_;
+    Eigen::VectorXd uQBound_;
+    Eigen::VectorXd lVelBound_;
+    Eigen::VectorXd uVelBound_;
+    Eigen::VectorXd lTauBound_;
+    Eigen::VectorXd uTauBound_;
     rbd::ForwardDynamics fd_;
     std::map<std::string, sva::PTransformd> bodyTransforms_;
     VariablePtr q_ff_;
