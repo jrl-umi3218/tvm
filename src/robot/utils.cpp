@@ -1,6 +1,5 @@
 #include <tvm/robot/utils.h>
 
-#include <tvm/defs.h>
 #include <tvm/exception/exceptions.h>
 
 #include <mc_rbdyn_urdf/urdf.h>
@@ -13,10 +12,10 @@ namespace tvm
 namespace robot
 {
 
-std::unique_ptr<Robot> TVM_DLLAPI fromURDF(tvm::Clock & clock, const std::string & name,
-                                           const std::string & path, bool fixed,
-                                           const std::vector<std::string> & filteredLinks,
-                                           const std::map<std::string, std::vector<double>> & q)
+std::unique_ptr<Robot> fromURDF(tvm::Clock & clock, const std::string & name,
+                                const std::string & path, bool fixed,
+                                const std::vector<std::string> & filteredLinks,
+                                const std::map<std::string, std::vector<double>> & q)
 {
   std::ifstream ifs(path);
   if(!ifs.good())

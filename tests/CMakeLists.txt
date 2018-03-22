@@ -58,6 +58,7 @@ if(${ROSCPP_FOUND})
 else()
   addUnitTest(RobotProblem RobotPublisher_noros.cpp)
 endif()
+pkg_config_use_dependency(RobotProblem mc_rbdyn_urdf)
 target_compile_options(RobotProblem PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
 
 set(TESTSOURCES

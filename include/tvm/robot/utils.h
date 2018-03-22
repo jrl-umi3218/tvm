@@ -18,6 +18,7 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <tvm/api.h>
 #include <tvm/Clock.h>
 #include <tvm/Robot.h>
 
@@ -46,10 +47,10 @@ namespace robot
  *
  */
 
-std::unique_ptr<Robot> fromURDF(tvm::Clock & clock, const std::string & name,
-                                const std::string & path, bool fixed,
-                                const std::vector<std::string> & filteredLinks,
-                                const std::map<std::string, std::vector<double>> & q);
+std::unique_ptr<Robot> TVM_DLLAPI fromURDF(tvm::Clock & clock, const std::string & name,
+                                           const std::string & path, bool fixed,
+                                           const std::vector<std::string> & filteredLinks,
+                                           const std::map<std::string, std::vector<double>> & q);
 
 } // namespace robot
 
