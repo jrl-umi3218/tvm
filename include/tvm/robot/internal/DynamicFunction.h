@@ -19,6 +19,7 @@
  */
 
 
+#include <tvm/api.h>
 #include <tvm/Robot.h>
 
 #include <tvm/function/abstract/LinearFunction.h>
@@ -57,7 +58,7 @@ namespace internal
    * two actuated robots are in contact.
    *
    */
-  class DynamicFunction : public function::abstract::LinearFunction
+  class TVM_DLLAPI DynamicFunction : public function::abstract::LinearFunction
   {
   public:
     using Output = function::abstract::LinearFunction::Output;

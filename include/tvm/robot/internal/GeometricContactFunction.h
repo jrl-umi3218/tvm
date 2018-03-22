@@ -18,7 +18,7 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+#include <tvm/api.h>
 #include <tvm/function/abstract/Function.h>
 #include <tvm/robot/Contact.h>
 
@@ -50,7 +50,7 @@ namespace internal
    * - Jacobian: defined for r1.q as dof*f1.J and for r2.q as -dof*f2.J
    *
    */
-  class GeometricContactFunction : public function::abstract::Function
+  class TVM_DLLAPI GeometricContactFunction : public function::abstract::Function
   {
   public:
     using Output = function::abstract::Function::Output;
