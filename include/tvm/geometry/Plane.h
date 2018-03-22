@@ -31,10 +31,10 @@ namespace geometry
   /** Represents a 2D plane in 3D space
    *
    * A static plane is represented by the usual (normal, offset)
-   * representation.
+   * representation. (i.e. normal.dot(x) + offset = 0)
    *
-   * A moving plane is represented by the (normal, point) couple and their
-   * derivatives.
+   * A moving plane is represented by a (normal, point) couple and their
+   * derivatives. (i.e. normal.dot(point) = -offset)
    *
    * This object does not update any of these quantities (exception: when point
    * is changed, offset is changed accordingly), this reponsability belongs to
