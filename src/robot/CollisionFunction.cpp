@@ -178,9 +178,10 @@ void CollisionFunction::updateNormalAcceleration()
       const auto & r = col.ch_[j]->frame().robot();
       Eigen::Vector3d pNormalAcc = o.jac_.normalAcceleration(r.mb(), r.mbc(), r.normalAccB()).linear();
       Eigen::Vector3d pSpeed = o.jac_.velocity(r.mb(), r.mbc()).linear();
-      normalAcceleration_(0) += sign * ( pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(col.speedVec_) );
+      normalAcceleration_(i) += sign * ( pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(col.speedVec_) );
       sign *= -1.;
     }
+    ++i;
   }
 }
 

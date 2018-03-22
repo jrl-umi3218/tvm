@@ -109,8 +109,16 @@ std::unique_ptr<JointsSelector> JointsSelector::UnactiveJoints(FunctionPtr f,
   addInputDependency<JointsSelector>(Update::Jacobian, *f_, Function::Output::Jacobian);
   addInputDependency<JointsSelector>(Update::JDot, *f_, Function::Output::JDot);
 
-  if(ffActive_) { addVariable(robot_->qFreeFlyer(), f_->linearIn(*robot_->qFreeFlyer())); }
-  if(activeIndex.size()) { addVariable(robot_->qJoints(), f_->linearIn(*robot_->qJoints())); }
+  if(ffActive_) 
+  { 
+    addVariable(robot_->qFreeFlyer(), f_->linearIn(*robot_->qFreeFlyer())); 
+    jacobian_.at(robot_->qFreeFlyer().get()).setZero();
+  }
+  if(activeIndex.size()) 
+  { 
+    addVariable(robot_->qJoints(), f_->linearIn(*robot_->qJoints())); 
+    jacobian_.at(robot_->qJoints().get()).setZero();
+  }
 }
 
 void JointsSelector::updateJacobian()
