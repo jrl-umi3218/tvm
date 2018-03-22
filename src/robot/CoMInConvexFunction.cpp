@@ -75,11 +75,11 @@ void CoMInConvexFunction::updateJacobian()
   {
     if(qFFSize)
     {
-      jacobian_[qFF.get()].block(i, 0, 1, qFFSize).noalias() = p->normal().transpose() * jac.middleCols(0, qFFSize);
+      jacobian_[qFF.get()].row(i).noalias() = p->normal().transpose() * jac.middleCols(0, qFFSize);
     }
     if(qJointsSize)
     {
-      jacobian_[qJoints.get()].block(i, 0, 1, qJointsSize).noalias() = p->normal().transpose() * jac.middleCols(qFFSize, qJointsSize);
+      jacobian_[qJoints.get()].row(i).noalias() = p->normal().transpose() * jac.middleCols(qFFSize, qJointsSize);
     }
     ++i;
   }
