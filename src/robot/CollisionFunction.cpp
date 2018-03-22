@@ -81,6 +81,7 @@ void CollisionFunction::updateValue()
   {
     double dist = tvm::utils::distance(col.pair_, closestPoints_[0], closestPoints_[1]);
     dist = dist >= 0 ? std::sqrt(dist) : -std::sqrt(-dist);
+    if(dist == 0) { dist = std::numeric_limits<double>::min(); }
     col.normVecDist_ = (closestPoints_[0] - closestPoints_[1]) / dist;
 
     for(size_t j = 0; j < col.objects_.size(); ++j)
