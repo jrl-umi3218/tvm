@@ -20,13 +20,13 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
 {
   if(mb.nrJoints() > 0 && mb.joint(0).type() == rbd::Joint::Free)
   {
-    q_ff_ = tvm::Space(6, 7, 6).createVariable("qFreeFlyer");
-    q_joints_ = tvm::Space(mb.nrDof() - 6, mb.nrParams() - 7, mb.nrDof() - 6).createVariable("qJoints");
+    q_ff_ = tvm::Space(6, 7, 6).createVariable(name_ + "_qFreeFlyer");
+    q_joints_ = tvm::Space(mb.nrDof() - 6, mb.nrParams() - 7, mb.nrDof() - 6).createVariable(name_ + "_qJoints");
   }
   else
   {
-    q_ff_ = tvm::Space(0).createVariable("qFreeFlyer");
-    q_joints_ = tvm::Space(mb.nrDof(), mb.nrParams(), mb.nrDof()).createVariable("qJoints");
+    q_ff_ = tvm::Space(0).createVariable(name_ + "_qFreeFlyer");
+    q_joints_ = tvm::Space(mb.nrDof(), mb.nrParams(), mb.nrDof()).createVariable(name_ + "_qJoints");
   }
   /** Bounds generic initialization */
   lQBound_.resize(q_joints_->size());
