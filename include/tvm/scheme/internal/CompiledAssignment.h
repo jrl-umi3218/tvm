@@ -50,8 +50,7 @@ namespace internal
     /** from */                 NONE,
     /** -from */                MINUS,
     /** s*from */               SCALAR,
-    /** diag(d) * from */       DIAGONAL,
-    /** inv(diag(d)) * from */  INVERSE_DIAGONAL
+    /** diag(d) * from */       DIAGONAL
   };
 
   /** Specify if from is to be multiplied a matrix, and if so, what is the
@@ -63,6 +62,8 @@ namespace internal
     IDENTITY,
     /** M*from (vector case) or from*M (matrix case) where M is a matrix.*/
     GENERAL,
+    /** inv(M) * from or from*inv(M) where M is diagonal*/ 
+    INVERSE_DIAGONAL,
     /** use a custom multiplier */
     CUSTOM
   };
@@ -248,12 +249,8 @@ namespace internal
   template<typename MatrixType, AssignType A>
   class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, EXTERNAL> : public std::true_type {};
   template<typename MatrixType, AssignType A>
-  class use_product_cache<MatrixType, A, INVERSE_DIAGONAL, GENERAL, EXTERNAL> : public std::true_type {};
-  template<typename MatrixType, AssignType A>
   class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, CONSTANT> : public std::true_type {};
-  template<typename MatrixType, AssignType A>
-  class use_product_cache<MatrixType, A, INVERSE_DIAGONAL, GENERAL, CONSTANT> : public std::true_type {};
-
+  
 
   /** Base class for the assignation */
   template<AssignType A>  class AssignBase {};
@@ -405,30 +402,6 @@ namespace internal
     Eigen::Ref<const Eigen::VectorXd> d_;
   };
 
-  /** Specialization for DIAGONAL */
-  template<>
-  class WeightMultBase<INVERSE_DIAGONAL>
-  {
-  public:
-    WeightMultBase(const Eigen::Ref<const Eigen::VectorXd>& d) : d_(d) {}
-
-    template<typename T>
-    using ReturnType = decltype(std::declval<Eigen::Ref<const Eigen::VectorXd>>().cwiseInverse().asDiagonal() * std::declval<T>());
-    template<typename T>
-    ReturnType<T> applyWeightMult(const T& M) { return d_.cwiseInverse().asDiagonal() * M; }
-
-    /** Diagonal * constant vector case*/
-    decltype(double()*std::declval<Eigen::Ref<const Eigen::VectorXd>>().cwiseInverse())
-      applyWeightMult(const double& d)
-    {
-      return d * d_.cwiseInverse();
-    }
-
-  private:
-    Eigen::Ref<const Eigen::VectorXd> d_;
-  };
-
-
   /** Base class for the multiplication by a matrix*/
   template<typename MatrixType, MatrixMult M> class MatrixMultBase {};
 
@@ -482,6 +455,53 @@ namespace internal
     void applyMatrixMultCached(MatrixType& cache, const T& M)
     {
       cache.noalias() =  applyMatrixMult(M);
+    }
+
+  private:
+    Eigen::Ref<const Eigen::MatrixXd> M_;
+  };
+
+  /** Partial specialization for INVERSE_DIAGONAL*/
+  template<typename MatrixType>
+  class MatrixMultBase<MatrixType, INVERSE_DIAGONAL>
+  {
+  public:
+    MatrixMultBase(const Eigen::Ref<const Eigen::MatrixXd>& M) : M_(M) {}
+
+    /** Type of the diagonal inverse*/
+    using InvDiagType = decltype(std::declval<Eigen::Ref<const Eigen::MatrixXd>>().diagonal().cwiseInverse().asDiagonal());
+    /** Return type of Matrix*T */
+    template<typename T>
+    using PreType = decltype(std::declval<InvDiagType>()*std::declval<T>());
+    /** Return type of T*Matrix */
+    template<typename T>
+    using PostType = decltype(std::declval<T>()*std::declval<InvDiagType>());
+    /** Return type of Matrix * ConstantVector */
+    using ConstType = decltype(std::declval<InvDiagType>()*Eigen::VectorXd::Constant(1, 1));
+
+    template<typename T>
+    typename std::enable_if<isVector<MatrixType>::value, PreType<T>>::type applyMatrixMult(const T& M)
+    {
+      return M_.diagonal().cwiseInverse().asDiagonal() * M;
+    }
+
+    template<typename T>
+    typename std::enable_if<!isVector<MatrixType>::value, PostType<T>>::type applyMatrixMult(const T& M)
+    {
+      return M * M_.diagonal().cwiseInverse().asDiagonal();
+    }
+
+    template<typename U = MatrixType>
+    typename std::enable_if<isVector<U>::value, ConstType>::type applyMatrixMult(const double& d)
+    {
+      return M_.diagonal().cwiseInverse().asDiagonal() * Eigen::VectorXd::Constant(M_.cols(), d);
+    }
+
+    /** Cached version of applyMatrixMult*/
+    template<typename T>
+    void applyMatrixMultCached(MatrixType& cache, const T& M)
+    {
+      cache.noalias() = applyMatrixMult(M);
     }
 
   private:

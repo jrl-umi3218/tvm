@@ -40,7 +40,6 @@ MatrixXd weightMult(WeightMult W, const Weight& w, const MatrixXd& M)
   case MINUS: return -M; break;
   case SCALAR: return w.s*M; break;
   case DIAGONAL: return w.v.asDiagonal() * M; break;
-  case INVERSE_DIAGONAL: return w.v.cwiseInverse().asDiagonal() * M; break;
   default: return{};
   }
 }
@@ -54,6 +53,10 @@ MatrixXd matrixMult(MatrixMult M, const MatrixXd& A, const MatrixXd& Mult)
     //at compile time, but we can't. For these tests, we assume that we don't test
     //matrices with one column
   case GENERAL: if (A.cols()==1) return Mult*A; else return A*Mult; break;
+  case INVERSE_DIAGONAL:
+    if (A.cols() == 1) return Mult.diagonal().cwiseInverse().asDiagonal() * A; 
+    else return A * Mult.diagonal().cwiseInverse().asDiagonal(); 
+    break;
   default: return{};
   }
 }
@@ -178,12 +181,13 @@ CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
 template<WeightMult W> struct WArg { static std::tuple<> get(double, const Ref<const VectorXd>&) { return {}; } };
 template<> struct WArg<SCALAR> { static std::tuple<double> get(double s, const Ref<const VectorXd>&) { return std::forward_as_tuple(s); } };
 template<> struct WArg<DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
-template<> struct WArg<INVERSE_DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
 
 template<MatrixMult M, typename MatrixType>
 struct MArg { static std::tuple<> get(const Ref<const MatrixXd>&, TFun<MatrixType>) { return {}; } };
 template<typename MatrixType>
 struct MArg<GENERAL, MatrixType> { static std::tuple<const Ref<const MatrixXd>&> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType>) { return std::forward_as_tuple(Mult); } };
+template<typename MatrixType>
+struct MArg<INVERSE_DIAGONAL, MatrixType> { static std::tuple<const Ref<const MatrixXd>&> get(const Ref<const MatrixXd>& Mult, TFun<MatrixType>) { return std::forward_as_tuple(Mult); } };
 template<typename MatrixType>
 struct MArg<CUSTOM, MatrixType> { static std::tuple<TFun<MatrixType>> get(const Ref<const MatrixXd>&, TFun<MatrixType> f) { return std::forward_as_tuple(f); } };
 
@@ -246,7 +250,7 @@ struct Test
     Mult.setRandom();
     getFreeFun(custom);
 
-    if (W == DIAGONAL || W == INVERSE_DIAGONAL)
+    if (W == DIAGONAL)
       w.v = v;
     else
       w.s = s;
@@ -276,7 +280,7 @@ struct Test
     TFun<VectorXd> custom;
     getFreeFun(custom);
 
-    if (W == DIAGONAL || W == INVERSE_DIAGONAL)
+    if (W == DIAGONAL)
       w.v = v;
     else
       w.s = s;
@@ -338,56 +342,66 @@ struct TestNoFrom
 template<Source F=EXTERNAL, typename U, typename V>
 void testBatch(const U & from, V && to)
 {
-  Test<COPY, NONE,             IDENTITY, F>::run(from, to);
-  Test<ADD,  NONE,             IDENTITY, F>::run(from, to);
-  Test<SUB,  NONE,             IDENTITY, F>::run(from, to);
-  Test<MIN,  NONE,             IDENTITY, F>::run(from, to);
-  Test<MAX,  NONE,             IDENTITY, F>::run(from, to);
-  Test<COPY, MINUS,            IDENTITY, F>::run(from, to);
-  Test<SUB,  MINUS,            IDENTITY, F>::run(from, to);
-  Test<ADD,  MINUS,            IDENTITY, F>::run(from, to);
-  Test<MIN,  MINUS,            IDENTITY, F>::run(from, to);
-  Test<MAX,  MINUS,            IDENTITY, F>::run(from, to);
-  Test<COPY, SCALAR,           IDENTITY, F>::run(from, to);
-  Test<ADD,  SCALAR,           IDENTITY, F>::run(from, to);
-  Test<SUB,  SCALAR,           IDENTITY, F>::run(from, to);
-  Test<MIN,  SCALAR,           IDENTITY, F>::run(from, to);
-  Test<MAX,  SCALAR,           IDENTITY, F>::run(from, to);
-  Test<COPY, DIAGONAL,         IDENTITY, F>::run(from, to);
-  Test<ADD,  DIAGONAL,         IDENTITY, F>::run(from, to);
-  Test<SUB,  DIAGONAL,         IDENTITY, F>::run(from, to);
-  Test<MIN,  DIAGONAL,         IDENTITY, F>::run(from, to);
-  Test<MAX,  DIAGONAL,         IDENTITY, F>::run(from, to);
-  Test<COPY, INVERSE_DIAGONAL, IDENTITY, F>::run(from, to);
-  Test<ADD,  INVERSE_DIAGONAL, IDENTITY, F>::run(from, to);
-  Test<SUB,  INVERSE_DIAGONAL, IDENTITY, F>::run(from, to);
-  Test<MIN,  INVERSE_DIAGONAL, IDENTITY, F>::run(from, to);
-  Test<MAX,  INVERSE_DIAGONAL, IDENTITY, F>::run(from, to);
-  Test<COPY, NONE,             GENERAL,  F>::run(from, to);
-  Test<ADD,  NONE,             GENERAL,  F>::run(from, to);
-  Test<SUB,  NONE,             GENERAL,  F>::run(from, to);
-  Test<MIN,  NONE,             GENERAL,  F>::run(from, to);
-  Test<MAX,  NONE,             GENERAL,  F>::run(from, to);
-  Test<COPY, MINUS,            GENERAL,  F>::run(from, to);
-  Test<SUB,  MINUS,            GENERAL,  F>::run(from, to);
-  Test<ADD,  MINUS,            GENERAL,  F>::run(from, to);
-  Test<MIN,  MINUS,            GENERAL,  F>::run(from, to);
-  Test<MAX,  MINUS,            GENERAL,  F>::run(from, to);
-  Test<COPY, SCALAR,           GENERAL,  F>::run(from, to);
-  Test<ADD,  SCALAR,           GENERAL,  F>::run(from, to);
-  Test<SUB,  SCALAR,           GENERAL,  F>::run(from, to);
-  Test<MIN,  SCALAR,           GENERAL,  F>::run(from, to);
-  Test<MAX,  SCALAR,           GENERAL,  F>::run(from, to);
-  Test<COPY, DIAGONAL,         GENERAL,  F>::run(from, to);
-  Test<ADD,  DIAGONAL,         GENERAL,  F>::run(from, to);
-  Test<SUB,  DIAGONAL,         GENERAL,  F>::run(from, to);
-  Test<MIN,  DIAGONAL,         GENERAL,  F>::run(from, to);
-  Test<MAX,  DIAGONAL,         GENERAL,  F>::run(from, to);
-  Test<COPY, INVERSE_DIAGONAL, GENERAL,  F>::run(from, to);
-  Test<ADD,  INVERSE_DIAGONAL, GENERAL,  F>::run(from, to);
-  Test<SUB,  INVERSE_DIAGONAL, GENERAL,  F>::run(from, to);
-  Test<MIN,  INVERSE_DIAGONAL, GENERAL,  F>::run(from, to);
-  Test<MAX,  INVERSE_DIAGONAL, GENERAL,  F>::run(from, to);
+  Test<COPY, NONE,             IDENTITY,          F>::run(from, to);
+  Test<ADD,  NONE,             IDENTITY,          F>::run(from, to);
+  Test<SUB,  NONE,             IDENTITY,          F>::run(from, to);
+  Test<MIN,  NONE,             IDENTITY,          F>::run(from, to);
+  Test<MAX,  NONE,             IDENTITY,          F>::run(from, to);
+  Test<COPY, MINUS,            IDENTITY,          F>::run(from, to);
+  Test<SUB,  MINUS,            IDENTITY,          F>::run(from, to);
+  Test<ADD,  MINUS,            IDENTITY,          F>::run(from, to);
+  Test<MIN,  MINUS,            IDENTITY,          F>::run(from, to);
+  Test<MAX,  MINUS,            IDENTITY,          F>::run(from, to);
+  Test<COPY, SCALAR,           IDENTITY,          F>::run(from, to);
+  Test<ADD,  SCALAR,           IDENTITY,          F>::run(from, to);
+  Test<SUB,  SCALAR,           IDENTITY,          F>::run(from, to);
+  Test<MIN,  SCALAR,           IDENTITY,          F>::run(from, to);
+  Test<MAX,  SCALAR,           IDENTITY,          F>::run(from, to);
+  Test<COPY, DIAGONAL,         IDENTITY,          F>::run(from, to);
+  Test<ADD,  DIAGONAL,         IDENTITY,          F>::run(from, to);
+  Test<SUB,  DIAGONAL,         IDENTITY,          F>::run(from, to);
+  Test<MIN,  DIAGONAL,         IDENTITY,          F>::run(from, to);
+  Test<MAX,  DIAGONAL,         IDENTITY,          F>::run(from, to);
+  Test<COPY, NONE,             GENERAL,           F>::run(from, to);
+  Test<ADD,  NONE,             GENERAL,           F>::run(from, to);
+  Test<SUB,  NONE,             GENERAL,           F>::run(from, to);
+  Test<MIN,  NONE,             GENERAL,           F>::run(from, to);
+  Test<MAX,  NONE,             GENERAL,           F>::run(from, to);
+  Test<COPY, MINUS,            GENERAL,           F>::run(from, to);
+  Test<SUB,  MINUS,            GENERAL,           F>::run(from, to);
+  Test<ADD,  MINUS,            GENERAL,           F>::run(from, to);
+  Test<MIN,  MINUS,            GENERAL,           F>::run(from, to);
+  Test<MAX,  MINUS,            GENERAL,           F>::run(from, to);
+  Test<COPY, SCALAR,           GENERAL,           F>::run(from, to);
+  Test<ADD,  SCALAR,           GENERAL,           F>::run(from, to);
+  Test<SUB,  SCALAR,           GENERAL,           F>::run(from, to);
+  Test<MIN,  SCALAR,           GENERAL,           F>::run(from, to);
+  Test<MAX,  SCALAR,           GENERAL,           F>::run(from, to);
+  Test<COPY, DIAGONAL,         GENERAL,           F>::run(from, to);
+  Test<ADD,  DIAGONAL,         GENERAL,           F>::run(from, to);
+  Test<SUB,  DIAGONAL,         GENERAL,           F>::run(from, to);
+  Test<MIN,  DIAGONAL,         GENERAL,           F>::run(from, to);
+  Test<MAX,  DIAGONAL,         GENERAL,           F>::run(from, to);
+  Test<COPY, NONE,             INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<ADD,  NONE,             INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<SUB,  NONE,             INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MIN,  NONE,             INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MAX,  NONE,             INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<COPY, MINUS,            INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<SUB,  MINUS,            INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<ADD,  MINUS,            INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MIN,  MINUS,            INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MAX,  MINUS,            INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<COPY, SCALAR,           INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<ADD,  SCALAR,           INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<SUB,  SCALAR,           INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MIN,  SCALAR,           INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MAX,  SCALAR,           INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<COPY, DIAGONAL,         INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<ADD,  DIAGONAL,         INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<SUB,  DIAGONAL,         INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MIN,  DIAGONAL,         INVERSE_DIAGONAL,  F>::run(from, to);
+  Test<MAX,  DIAGONAL,         INVERSE_DIAGONAL,  F>::run(from, to);
   TestNoFrom<COPY>::run(to);
   to.setRandom();
   TestNoFrom<ADD>::run(to);
@@ -407,7 +421,7 @@ TEST_CASE("Test compiled assignments")
   MatrixXd B = MatrixXd::Zero(5, 5);
   testBatch(A, B);
 
-  testBatch(A.block(1, 1, 3, 2), B.topLeftCorner<3, 2>());
+  testBatch(A.block(1, 1, 3, 3), B.topLeftCorner<3, 3>());
 
   VectorXd a = VectorXd::Ones(5);
   VectorXd b = VectorXd::Zero(5);
