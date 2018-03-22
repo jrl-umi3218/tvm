@@ -132,7 +132,7 @@ void JointsSelector::updateJacobian()
     const auto & jacIn = f_->jacobian(*robot_->qJoints());
     for(const auto & p : activeIndex_)
     {
-      jacobian_[robot_->qJoints().get()].block(0, p.first, jacIn.rows(), p.second) =
+      jacobian_[robot_->qJoints().get()].middleCols(p.first, p.second) =
         jacIn.block(0, p.first, jacIn.rows(), p.second);
     }
   }
@@ -149,7 +149,7 @@ void JointsSelector::updateJDot()
     const auto & JDotIn = f_->JDot(*robot_->qJoints());
     for(const auto & p : activeIndex_)
     {
-      JDot_[robot_->qJoints().get()].block(0, p.first, JDotIn.rows(), p.second) =
+      JDot_[robot_->qJoints().get()].middleCols(p.first, p.second) =
         JDotIn.block(0, p.first, JDotIn.rows(), p.second);
     }
   }
