@@ -105,7 +105,7 @@ void GeometricContactFunction::updateJacobian()
   {
     const auto & f1 = contact_->f1();
     const auto & r1 = f1.robot();
-    splitJacobian(dof_ * f1.jacobian().eval(), r1.q());
+    splitJacobian(dof_ * f1.jacobian(), r1.q());
   }
   if(has_f2_)
   {
