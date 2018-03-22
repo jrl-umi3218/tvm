@@ -187,8 +187,8 @@ TEST_CASE("Test a problem with a robot")
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 
-  std::shared_ptr<tvm::robot::JointsSelector> ori_js = tvm::robot::JointsSelector::UnactiveJoints(ori_fn, hrp2, {"LARM_JOINT3"});
-  std::shared_ptr<tvm::robot::JointsSelector> pos_js = tvm::robot::JointsSelector::UnactiveJoints(pos_fn, hrp2, {"LARM_JOINT3"});
+  std::shared_ptr<tvm::robot::JointsSelector> ori_js = tvm::robot::JointsSelector::InactiveJoints(ori_fn, hrp2, {"LARM_JOINT3"});
+  std::shared_ptr<tvm::robot::JointsSelector> pos_js = tvm::robot::JointsSelector::InactiveJoints(pos_fn, hrp2, {"LARM_JOINT3"});
 
   auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(pb.clock());
   auto rhConvex = loadConvex(hrp2_rh);

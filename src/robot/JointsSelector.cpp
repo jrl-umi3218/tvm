@@ -73,15 +73,15 @@ std::unique_ptr<JointsSelector> JointsSelector::ActiveJoints(FunctionPtr f,
   return std::unique_ptr<JointsSelector>(new JointsSelector(f, robot, ffActive, activeIndex));
 }
 
-std::unique_ptr<JointsSelector> JointsSelector::UnactiveJoints(FunctionPtr f,
+std::unique_ptr<JointsSelector> JointsSelector::InactiveJoints(FunctionPtr f,
                                                              RobotPtr robot,
-                                                             const std::vector<std::string> & unactiveJoints)
+                                                             const std::vector<std::string> & inactiveJoints)
 {
   std::vector<std::string> activeJoints {};
   for(const auto & j : robot->mb().joints())
   {
-    if(std::find_if(unactiveJoints.begin(), unactiveJoints.end(),
-                    [&j](const std::string & s) { return s == j.name(); }) == unactiveJoints.end())
+    if(std::find_if(inactiveJoints.begin(), inactiveJoints.end(),
+                    [&j](const std::string & s) { return s == j.name(); }) == inactiveJoints.end())
     {
       activeJoints.push_back(j.name());
     }

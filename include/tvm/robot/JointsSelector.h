@@ -48,18 +48,18 @@ namespace robot
      */
     static std::unique_ptr<JointsSelector> ActiveJoints(FunctionPtr f, RobotPtr robot, const std::vector<std::string> & activeJoints);
 
-    /** Construct a JointsSelector from a vector of unactive joints
+    /** Construct a JointsSelector from a vector of inactive joints
      *
      * \param f Function selected by this JointsSelector
      *
      * \param robot Robot controlled by \p f
      *
-     * \param unactiveJoints Joints not active in this selector
+     * \param inactiveJoints Joints not active in this selector
      *
      * \throws If \p does not depend on \p robot or any joint in activeJoints
      * is not part of \p robot
      */
-    static std::unique_ptr<JointsSelector> UnactiveJoints(FunctionPtr f, RobotPtr robot, const std::vector<std::string> & unactiveJoints);
+    static std::unique_ptr<JointsSelector> InactiveJoints(FunctionPtr f, RobotPtr robot, const std::vector<std::string> & inactiveJoints);
 
     const Eigen::VectorXd & value() const override { return f_->value(); }
     const Eigen::VectorXd & velocity() const override { return f_->velocity(); }
