@@ -63,7 +63,7 @@ namespace internal
   public:
     using Output = function::abstract::LinearFunction::Output;
     DISABLE_OUTPUTS(Output::JDot)
-    SET_UPDATES(DynamicFunction, Jacobian)
+    SET_UPDATES(DynamicFunction, Jacobian, B)
 
     /** Construct the equation of motion for a given robot */
     DynamicFunction(RobotPtr robot);
@@ -108,7 +108,7 @@ namespace internal
      */
     void addPositiveLambdaToProblem(ControlProblem & problem);
   protected:
-    void updateValue_() override;
+    void updateb();
 
     RobotPtr robot_;
 

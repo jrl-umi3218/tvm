@@ -14,10 +14,13 @@ namespace abstract
   LinearFunction::LinearFunction(int m)
     :Function(m)
   {
-    registerUpdates(LinearFunction::Update::Value, &LinearFunction::updateValue);
-    registerUpdates(LinearFunction::Update::Velocity, &LinearFunction::updateVelocity);
-    addOutputDependency<LinearFunction>(FirstOrderProvider::Output::Value, LinearFunction::Update::Value);
-    addOutputDependency<LinearFunction>(Function::Output::Velocity, LinearFunction::Update::Velocity);
+    registerUpdates(Update::Value, &LinearFunction::updateValue);
+    registerUpdates(Update::Velocity, &LinearFunction::updateVelocity);
+    addInputDependency<LinearFunction>(Update::Value, *this, Output::Jacobian);
+    addInputDependency<LinearFunction>(Update::Value, *this, Output::B);
+    addInputDependency<LinearFunction>(Update::Velocity, *this, Output::Jacobian);
+    addOutputDependency<LinearFunction>(Output::Value, Update::Value);
+    addOutputDependency<LinearFunction>(Output::Velocity, Update::Velocity);
   }
 
   void LinearFunction::updateValue()

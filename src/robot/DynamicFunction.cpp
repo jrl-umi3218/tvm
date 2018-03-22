@@ -23,16 +23,17 @@ DynamicFunction::DynamicFunction(RobotPtr robot)
 : function::abstract::LinearFunction(robot->mb().nrDof()),
   robot_(robot)
 {
+  registerUpdates(Update::B, &DynamicFunction::updateb);
   registerUpdates(Update::Jacobian, &DynamicFunction::updateJacobian);
+  addOutputDependency<DynamicFunction>(Output::B, Update::B);
   addOutputDependency<DynamicFunction>(Output::Jacobian, Update::Jacobian);
   addInputDependency<DynamicFunction>(Update::Jacobian, robot, Robot::Output::H);
-  addInputDependency<DynamicFunction>(Update::Value, robot, Robot::Output::C);
+  addInputDependency<DynamicFunction>(Update::B, robot, Robot::Output::C);
   addVariable(dot(robot->q(), 2), true);
   addVariable(robot->tau(), true);
   jacobian_[robot_->tau().get()] =  - Eigen::MatrixXd::Identity(robot_->mb().nrDof(), robot_->mb().nrDof());
   jacobian_[robot_->tau().get()].properties(tvm::internal::MatrixProperties::MINUS_IDENTITY);
   velocity_.setZero();
-  normalAcceleration_.setZero();
 }
 
 bool DynamicFunction::addContact(ContactPtr contact, bool linearize,
@@ -202,10 +203,9 @@ void DynamicFunction::addPositiveLambdaToProblem(ControlProblem & problem)
   }
 }
 
-void DynamicFunction::updateValue_()
+void DynamicFunction::updateb()
 {
   b_ = robot_->C();
-  LinearFunction::updateValue_();
 }
 
 void DynamicFunction::updateJacobian()
