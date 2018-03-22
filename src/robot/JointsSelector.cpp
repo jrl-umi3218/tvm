@@ -146,11 +146,11 @@ void JointsSelector::updateJDot()
   }
   if(activeIndex_.size())
   {
-    const auto & jacIn = f_->JDot(*robot_->qJoints());
+    const auto & JDotIn = f_->JDot(*robot_->qJoints());
     for(const auto & p : activeIndex_)
     {
-      JDot_[robot_->qJoints().get()].block(0, p.first, jacIn.rows(), p.second) =
-        jacIn.block(0, p.first, jacIn.rows(), p.second);
+      JDot_[robot_->qJoints().get()].block(0, p.first, JDotIn.rows(), p.second) =
+        JDotIn.block(0, p.first, JDotIn.rows(), p.second);
     }
   }
 }
