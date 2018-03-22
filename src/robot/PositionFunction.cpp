@@ -45,7 +45,7 @@ void PositionFunction::updateVelocity()
 
 void PositionFunction::updateJacobian()
 {
-  splitJacobian(frame_->jacobian().block(3, 0, 3, frame_->jacobian().cols()), frame_->robot().q());
+  splitJacobian(frame_->jacobian().bottomRows<3>(), frame_->robot().q());
 }
 
 void PositionFunction::updateNormalAcceleration()

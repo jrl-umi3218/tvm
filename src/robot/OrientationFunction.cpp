@@ -46,7 +46,7 @@ void OrientationFunction::updateVelocity()
 
 void OrientationFunction::updateJacobian()
 {
-  splitJacobian(frame_->jacobian().block(0, 0, 3, frame_->jacobian().cols()), frame_->robot().q());
+  splitJacobian(frame_->jacobian().topRows<3>(), frame_->robot().q());
 }
 
 void OrientationFunction::updateNormalAcceleration()
