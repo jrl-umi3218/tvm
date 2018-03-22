@@ -148,6 +148,9 @@ namespace internal
                         RHSFunction f1, VectorFunction v1, 
                         RHSFunction f2, VectorFunction v2, bool flip);
 
+    template<AssignType A1 = AssignType::COPY, AssignType A2 = AssignType::COPY>
+    void assignBounds(VectorFunction l, VectorFunction u, bool flip);
+
     template<typename T, AssignType A, typename U>
     CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip = false);
 
@@ -181,6 +184,31 @@ namespace internal
     VariableVector substitutedVariables_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
   };
+
+  template<AssignType A1, AssignType A2>
+  inline void Assignment::assignBounds(VectorFunction l, VectorFunction u, bool flip)
+  {
+    using constraint::abstract::LinearConstraint;
+    switch (source_->type())
+    {
+    case constraint::Type::EQUAL:
+      addVectorAssignment<A1>(&LinearConstraint::e, l, flip);
+      addVectorAssignment<A2>(&LinearConstraint::e, u, flip);
+      break;
+    case constraint::Type::GREATER_THAN:
+      addVectorAssignment<A1>(&LinearConstraint::l, l, flip);
+      addConstantAssignment<A2>(flip ? -big_ : +big_, u);
+      break;
+    case constraint::Type::LOWER_THAN:
+      addConstantAssignment<A1>(flip ? +big_ : -big_, l);
+      addVectorAssignment<A2>(&LinearConstraint::u, u, flip);
+      break;
+    case constraint::Type::DOUBLE_SIDED:
+      addVectorAssignment<A1>(&LinearConstraint::l, l, flip);
+      addVectorAssignment<A2>(&LinearConstraint::u, u, flip);
+      break;
+    }
+  }
 
   template<typename T, AssignType A, typename U>
   inline CompiledAssignmentWrapper<T> Assignment::createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip)
@@ -283,6 +311,8 @@ namespace internal
     auto w = createAssignment<Eigen::VectorXd, A>(d, to, false);
     vectorAssignments_.push_back({ w, false, nullptr, v });
   }
+
+
 
 }  // namespace internal
 

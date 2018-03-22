@@ -290,72 +290,14 @@ namespace internal
 
     if (first)
     {
-      switch (source_->type())
-      {
-      case constraint::Type::EQUAL:
-        addVectorAssignment(&LinearConstraint::e, l, flip);
-        addVectorAssignment(&LinearConstraint::e, u, flip);
-        break;
-      case constraint::Type::GREATER_THAN:
-        addVectorAssignment(&LinearConstraint::l, l, flip);
-        addConstantAssignment(flip?-big_:+big_, u);
-        break;
-      case constraint::Type::LOWER_THAN:
-        addConstantAssignment(flip?+big_:-big_, l);
-        addVectorAssignment(&LinearConstraint::u, u, flip);
-        break;
-      case constraint::Type::DOUBLE_SIDED:
-        addVectorAssignment(&LinearConstraint::l, l, flip);
-        addVectorAssignment(&LinearConstraint::u, u, flip);
-        break;
-      }
+      assignBounds(l, u, flip);
     }
     else
     {
       if (flip)
-      {
-        switch (source_->type())
-        {
-        case constraint::Type::EQUAL:
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::e, l, flip);
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::e, u, flip);
-          break;
-        case constraint::Type::GREATER_THAN:
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::l, l, flip);
-          addConstantAssignment<AssignType::MAX>(-big_, u);
-          break;
-        case constraint::Type::LOWER_THAN:
-          addConstantAssignment<AssignType::MIN>(+big_, l);
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::u, u, flip);
-          break;
-        case constraint::Type::DOUBLE_SIDED:
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::l, l, flip);
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::u, u, flip);
-          break;
-        }
-      }
+        assignBounds<AssignType::MIN, AssignType::MAX>(l, u, flip);
       else
-      {
-        switch (source_->type())
-        {
-        case constraint::Type::EQUAL:
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::e, l, flip);
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::e, u, flip);
-          break;
-        case constraint::Type::GREATER_THAN:
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::l, l, flip);
-          addConstantAssignment<AssignType::MIN>(+big_, u);
-          break;
-        case constraint::Type::LOWER_THAN:
-          addConstantAssignment<AssignType::MAX>(-big_, l);
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::u, u, flip);
-          break;
-        case constraint::Type::DOUBLE_SIDED:
-          addVectorAssignment<AssignType::MAX>(&LinearConstraint::l, l, flip);
-          addVectorAssignment<AssignType::MIN>(&LinearConstraint::u, u, flip);
-          break;
-        }
-      }
+        assignBounds<AssignType::MAX, AssignType::MIN>(l, u, flip);
     }
   }
 
