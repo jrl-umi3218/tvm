@@ -66,7 +66,6 @@ namespace tvm
     Clock & operator=(Clock &&) = default;
   private:
     const double dt_;
-    /* Start ticks_ at -1 so that the first tick is 0 */
-    uint64_t ticks_ = -1;
+    uint64_t ticks_ = 0;
   };
 }  // namespace tvm

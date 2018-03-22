@@ -11,7 +11,7 @@ namespace robot
 
 CollisionFunction::CollisionFunction(Clock & clock)
 : function::abstract::Function(0),
-  clock_(clock)
+  clock_(clock), last_tick_(clock.ticks())
 {
   registerUpdates(Update::Value, &CollisionFunction::updateValue,
                   Update::Velocity, &CollisionFunction::updateVelocity,

@@ -88,8 +88,8 @@ namespace abstract
     //Should it not be the case, we could use traits to determine the ComputationDataType for
     //a Problem, given a particular ResolutionScheme
     auto& data = static_cast<typename Derived::ComputationDataType&>(getComputationData(problem, *this));
-    problem.clock().advance();
     problem.update();
+    problem.clock().advance();
     return derived().solve_(problem, data);
   }
 

@@ -12,7 +12,8 @@ namespace tvm
 {
 
 Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc, const mc_rbdyn_urdf::Limits & limits)
-: clock_(clock), name_(name), mb_(mb), mbc_(mbc),
+: clock_(clock), last_tick_(clock.ticks()),
+  name_(name), mb_(mb), mbc_(mbc),
   normalAccB_(mbc_.bodyAccB.size()), fd_(mb_),
   bodyTransforms_(mbg.bodiesBaseTransform(mb_.body(0).name())),
   tau_(tvm::Space(mb_.nrDof()).createVariable("tau"))
