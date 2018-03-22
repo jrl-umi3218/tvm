@@ -19,6 +19,7 @@ PostureFunction::PostureFunction(RobotPtr robot)
   addInputDependency<PostureFunction>(Update::Velocity, robot_, Robot::Output::Kinematics);
   addVariable(robot->qJoints(), false);
   jacobian_[robot->qJoints().get()].setIdentity();
+  jacobian_[robot->qJoints().get()].properties({tvm::internal::MatrixProperties::IDENTITY});
   JDot_[robot->qJoints().get()].setZero();
   normalAcceleration_.setZero();
   value_.setZero();

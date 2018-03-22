@@ -29,6 +29,8 @@ DynamicFunction::DynamicFunction(RobotPtr robot)
   addInputDependency<DynamicFunction>(Update::Value, robot, Robot::Output::C);
   addVariable(dot(robot->q(), 2), true);
   addVariable(robot->tau(), true);
+  jacobian_[robot_->tau().get()] =  - Eigen::MatrixXd::Identity(robot_->mb().nrDof(), robot_->mb().nrDof());
+  jacobian_[robot_->tau().get()].properties(tvm::internal::MatrixProperties::MINUS_IDENTITY);
   velocity_.setZero();
   normalAcceleration_.setZero();
 }
@@ -209,7 +211,6 @@ void DynamicFunction::updateValue_()
 void DynamicFunction::updateJacobian()
 {
   splitJacobian(robot_->H(), dot(robot_->q(), 2));
-  jacobian_[robot_->tau().get()] =  - Eigen::MatrixXd::Identity(robot_->mb().nrDof(), robot_->mb().nrDof());
   for(auto & c : contacts_)
   {
     c.updateJacobians_(c, *this);
