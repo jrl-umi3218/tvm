@@ -264,7 +264,8 @@ BENCHMARK(BM_Tasks)->Unit(benchmark::kMicrosecond);//->MinTime(10.0);
 
 static void BM_TVM(benchmark::State & state)
 {
-  tvm::ControlProblem pb(dt);
+  tvm::ControlProblem pb;
+  tvm::Clock clock(dt);
 
   std::vector<std::string> hrp2_filtered = {};
   for(size_t i = 0; i < 5; ++i)
@@ -315,8 +316,8 @@ static void BM_TVM(benchmark::State & state)
     {"LARM_JOINT6", {0.0}},
     {"LARM_JOINT7", {0.3490658503988659}}
   };
-  tvm::RobotPtr hrp2 = tvm::robot::fromURDF(pb.clock(), "HRP2", hrp2_urdf, false, hrp2_filtered, ref_q);
-  tvm::RobotPtr ground = tvm::robot::fromURDF(pb.clock(), "ground", ground_urdf, true, {}, {});
+  tvm::RobotPtr hrp2 = tvm::robot::fromURDF(clock, "HRP2", hrp2_urdf, false, hrp2_filtered, ref_q);
+  tvm::RobotPtr ground = tvm::robot::fromURDF(clock, "ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -395,6 +396,7 @@ static void BM_TVM(benchmark::State & state)
   while(state.KeepRunning())
   {
     solver.solve(lpb);
+    clock.advance();
   }
 }
 BENCHMARK(BM_TVM)->Unit(benchmark::kMicrosecond);//->MinTime(10.0);

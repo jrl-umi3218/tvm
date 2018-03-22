@@ -89,7 +89,6 @@ namespace abstract
     //a Problem, given a particular ResolutionScheme
     auto& data = static_cast<typename Derived::ComputationDataType&>(getComputationData(problem, *this));
     problem.update();
-    problem.clock().advance();
     return derived().solve_(problem, data);
   }
 

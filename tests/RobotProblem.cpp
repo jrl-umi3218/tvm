@@ -12,6 +12,7 @@
 #include <tvm/robot/utils.h>
 #include <tvm/Task.h>
 
+#include <tvm/Clock.h>
 #include <tvm/ControlProblem.h>
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/function/IdentityFunction.h>
@@ -67,7 +68,8 @@ TEST_CASE("Test a problem with a robot")
   size_t iter = 2000;
   double dt = 0.005;
 
-  tvm::ControlProblem pb(dt);
+  tvm::ControlProblem pb;
+  tvm::Clock clock(dt);
 
   std::map<std::string, std::vector<double>> ref_q = {
     {"Root", {1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}},
@@ -104,8 +106,8 @@ TEST_CASE("Test a problem with a robot")
     {"LARM_JOINT6", {0.0}},
     {"LARM_JOINT7", {0.3490658503988659}}
   };
-  tvm::RobotPtr hrp2 = tvm::robot::fromURDF(pb.clock(), "HRP2", hrp2_urdf, false, {}, ref_q);
-  tvm::RobotPtr ground = tvm::robot::fromURDF(pb.clock(), "ground", ground_urdf, true, {}, {});
+  tvm::RobotPtr hrp2 = tvm::robot::fromURDF(clock, "HRP2", hrp2_urdf, false, {}, ref_q);
+  tvm::RobotPtr ground = tvm::robot::fromURDF(clock, "ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
@@ -190,7 +192,7 @@ TEST_CASE("Test a problem with a robot")
   std::shared_ptr<tvm::robot::JointsSelector> ori_js = tvm::robot::JointsSelector::InactiveJoints(ori_fn, hrp2, {"LARM_JOINT3"});
   std::shared_ptr<tvm::robot::JointsSelector> pos_js = tvm::robot::JointsSelector::InactiveJoints(pos_fn, hrp2, {"LARM_JOINT3"});
 
-  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(pb.clock());
+  auto collision_fn = std::make_shared<tvm::robot::CollisionFunction>(clock);
   auto rhConvex = loadConvex(hrp2_rh);
   auto chestConvex = loadConvex(hrp2_chest);
   auto bodyConvex = loadConvex(hrp2_body);
@@ -230,6 +232,7 @@ TEST_CASE("Test a problem with a robot")
   for(i = 0; i < iter; ++i)
   {
     bool b = solver.solve(lpb);
+    clock.advance();
     if(!b) { break; }
     rpub.publish(*hrp2);
     epub.publish(*ground);

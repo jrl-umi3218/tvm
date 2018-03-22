@@ -18,7 +18,6 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tvm/Clock.h>
 #include <tvm/Task.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/helpers.h>
@@ -65,7 +64,7 @@ namespace tvm
   {
     friend class LinearizedControlProblem;
   public:
-    ControlProblem(double dt);
+    ControlProblem() = default;
     /** \internal We delete these functions because they would require by
       * default a copy of the unique_ptr in the computationData_ map.
       * There is no problem in implementing them as long as there is a real
@@ -82,11 +81,6 @@ namespace tvm
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
-
-    Clock & clock() { return *clock_; }
-  protected:
-    ControlProblem(std::shared_ptr<Clock> clock);
-    std::shared_ptr<Clock> clock_;
   private:
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a

@@ -5,7 +5,7 @@
 namespace tvm
 {
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
-  : ControlProblem(pb.clock_)
+  : ControlProblem()
   {
     for (auto tr : pb.tasks())
       add(tr);

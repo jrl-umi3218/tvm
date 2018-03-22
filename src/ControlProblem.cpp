@@ -17,16 +17,6 @@ namespace tvm
     return tr;
   }
 
-  ControlProblem::ControlProblem(double dt)
-  : clock_(std::make_shared<Clock>(dt))
-  {
-  }
-
-  ControlProblem::ControlProblem(std::shared_ptr<Clock> clock)
-  : clock_(clock)
-  {
-  }
-
   void ControlProblem::add(TaskWithRequirementsPtr tr)
   {
     tr_.push_back(tr);
