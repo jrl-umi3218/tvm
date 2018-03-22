@@ -58,7 +58,7 @@ namespace tvm
     inline double dt() const { return dt_; }
 
     /** Advance the clock by one tick */
-    void tick();
+    void advance();
   protected:
     Clock(const Clock &) = default;
     Clock & operator=(const Clock &) = default;

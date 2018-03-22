@@ -11,7 +11,7 @@ Clock::Clock(double dt)
   assert(dt > 0);
 }
 
-void Clock::tick()
+void Clock::advance()
 {
   ticks_++;
 }
