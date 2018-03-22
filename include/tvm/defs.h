@@ -88,7 +88,7 @@ namespace tvm
         */
       static constexpr double sqrtGuess = pow(2., std::numeric_limits<double>::max_exponent / 2);
       static constexpr double sqrtOfMax = sqrtNewtonRaphson(std::numeric_limits<double>::max(), sqrtGuess, 0);
-    }
+    } // namespace internal
 
     /** We take as a default big number sqrt(std::numeric_limits<double>::max())/2 */
     static constexpr double big_number = internal::sqrtOfMax/2;
@@ -98,6 +98,9 @@ namespace tvm
                 && (big_number * big_number - std::numeric_limits<double>::max() / 4)
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
                   "big_number was not computed at compile time or its value was not correct");
-  }
+
+    /** Default gravity vector */
+    static const Eigen::Vector3d gravity {0, 0, 9.81};
+  } // namespace constant
 
 }  // namespace tvm

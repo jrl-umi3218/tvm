@@ -47,6 +47,7 @@ set(TVM_SOURCES
   robot/OrientationFunction.cpp
   robot/PositionFunction.cpp
   robot/PostureFunction.cpp
+  robot/utils.cpp
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
@@ -137,6 +138,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
   ${TVM_INCLUDE_DIR}/robot/PositionFunction.h
   ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
+  ${TVM_INCLUDE_DIR}/robot/utils.h
 
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h

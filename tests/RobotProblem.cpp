@@ -9,6 +9,7 @@
 #include <tvm/robot/OrientationFunction.h>
 #include <tvm/robot/PositionFunction.h>
 #include <tvm/robot/PostureFunction.h>
+#include <tvm/robot/utils.h>
 #include <tvm/Task.h>
 
 #include <tvm/ControlProblem.h>
@@ -68,60 +69,43 @@ TEST_CASE("Test a problem with a robot")
 
   tvm::ControlProblem pb(dt);
 
-  auto load_robot = [](tvm::Clock & clock,
-                       const std::string & name, const std::string & path, bool fixed,
-                       const std::vector<std::string> & filteredLinks,
-                       const std::vector<std::vector<double>> & ref_q)
-    -> tvm::RobotPtr
-  {
-    std::ifstream ifs(path);
-    if(!ifs.good())
-    {
-      std::cerr << "Failed to open " << path << std::endl;
-      std::exit(1);
-    }
-    std::stringstream ss;
-    ss << ifs.rdbuf();
-    auto data = mc_rbdyn_urdf::rbdyn_from_urdf(ss.str(), fixed, filteredLinks);
-    data.mbc.gravity = Eigen::Vector3d(0, 0, 9.81);
-    auto init_q = data.mbc.q;
-    size_t j = 0;
-    for(size_t i = 0; i < init_q.size(); ++i)
-    {
-      if(init_q[i].size())
-      {
-        if(ref_q[j].size() != init_q[i].size())
-        {
-          std::cerr << "SOMETHING IS WRONG" << std::endl;
-          std::exit(1);
-        }
-        init_q[i] = ref_q[j];
-        ++j;
-      }
-    }
-    if(init_q.size())
-    {
-      data.mbc.q = init_q;
-    }
-    return std::make_shared<tvm::Robot>(clock, name, data.mbg, data.mb, data.mbc, data.limits);
+  std::map<std::string, std::vector<double>> ref_q = {
+    {"Root", {1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}},
+    {"RLEG_JOINT0", {0.0}},
+    {"RLEG_JOINT1", {0.0}},
+    {"RLEG_JOINT2", {-0.4537856055185257}},
+    {"RLEG_JOINT3", {0.8726646259971648}},
+    {"RLEG_JOINT4", {-0.41887902047863906}},
+    {"RLEG_JOINT5", {0.0}},
+    {"LLEG_JOINT0", {0.0}},
+    {"LLEG_JOINT1", {0.0}},
+    {"LLEG_JOINT2", {-0.4537856055185257}},
+    {"LLEG_JOINT3", {0.8726646259971648}},
+    {"LLEG_JOINT4", {-0.41887902047863906}},
+    {"LLEG_JOINT5", {0.0}},
+    {"CHEST_JOINT0", {0.0}},
+    {"CHEST_JOINT1", {0.0}},
+    {"HEAD_JOINT0", {0.0}},
+    {"HEAD_JOINT1", {0.0}},
+    {"RARM_JOINT0", {0.7853981633974483}},
+    {"RARM_JOINT1", {-0.3490658503988659}},
+    {"RARM_JOINT2", {0.0}},
+    {"RARM_JOINT3", {-1.3089969389957472}},
+    {"RARM_JOINT4", {0.0}},
+    {"RARM_JOINT5", {0.0}},
+    {"RARM_JOINT6", {0.0}},
+    {"RARM_JOINT7", {0.3490658503988659}},
+    {"LARM_JOINT0", {0.7853981633974483}},
+    {"LARM_JOINT1", {0.3490658503988659}},
+    {"LARM_JOINT2", {0.0}},
+    {"LARM_JOINT3", {-1.0}},
+    {"LARM_JOINT4", {0.0}},
+    {"LARM_JOINT5", {0.0}},
+    {"LARM_JOINT6", {0.0}},
+    {"LARM_JOINT7", {0.3490658503988659}}
   };
-  std::vector<std::string> hrp2_filtered = {};
-  for(size_t i = 0; i < 5; ++i)
-  {
-    {
-    std::stringstream ss;
-    ss << "LHAND_LINK" << i;
-    hrp2_filtered.push_back(ss.str());
-    }
-    {
-    std::stringstream ss;
-    ss << "RHAND_LINK" << i;
-    hrp2_filtered.push_back(ss.str());
-    }
-  }
-  std::vector<std::vector<double>> ref_q = {{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.773}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {-0.4537856055185257}, {0.8726646259971648}, {-0.41887902047863906}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.7853981633974483}, {-0.3490658503988659}, {0.0}, {-1.3089969389957472}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.7853981633974483}, {0.3490658503988659}, {0.0}, {-1.0}, {0.0}, {0.0}, {0.0}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}, {0.3490658503988659}, {-0.3490658503988659}};
-  auto hrp2 = load_robot(pb.clock(), "HRP2", hrp2_urdf, false, {}, ref_q);
-  auto ground = load_robot(pb.clock(), "ground", ground_urdf, true, {}, {});
+  tvm::RobotPtr hrp2 = tvm::robot::fromURDF(pb.clock(), "HRP2", hrp2_urdf, false, {}, ref_q);
+  tvm::RobotPtr ground = tvm::robot::fromURDF(pb.clock(), "ground", ground_urdf, true, {}, {});
 
   auto hrp2_lf = std::make_shared<tvm::robot::Frame>("LFullSoleFrame",
                                                      hrp2,
