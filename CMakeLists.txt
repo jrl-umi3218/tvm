@@ -53,6 +53,11 @@ add_required_dependency(RBDyn RBDyn_d)
 ################
 add_required_dependency(sch-core sch-core_d)
 
+#####################
+# - mc_rbdyn_urdf - #
+#####################
+add_required_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
+
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll

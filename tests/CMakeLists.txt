@@ -37,38 +37,28 @@ addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 
-add_optional_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
-if(MC_RBDYN_URDF_FOUND STREQUAL "")
-  set(MC_RBDYN_URDF_FOUND 0)
+add_required_dependency(hrp2_drc_description)
+execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
+  "--variable=datadir" "hrp2_drc_description"
+  OUTPUT_VARIABLE "HRP2_DRC_DESCRIPTION_PATH"
+  ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("Found HRP2_DRC_DESCRIPTION_PATH: ${HRP2_DRC_DESCRIPTION_PATH}")
+add_required_dependency(mc_env_description)
+execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
+  "--variable=datadir" "mc_env_description"
+  OUTPUT_VARIABLE "MC_ENV_DESCRIPTION_PATH"
+  ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("Found MC_ENV_DESCRIPTION_PATH: ${MC_ENV_DESCRIPTION_PATH}")
+add_optional_dependency(roscpp)
+if(${ROSCPP_FOUND})
+  add_required_dependency(tf2_ros)
+  addUnitTest(RobotProblem RobotPublisher_ros.cpp)
+  pkg_config_use_dependency(RobotProblem roscpp)
+  pkg_config_use_dependency(RobotProblem tf2_ros)
+else()
+  addUnitTest(RobotProblem RobotPublisher_noros.cpp)
 endif()
-if(MC_RBDYN_URDF_DEBUG_FOUND STREQUAL "")
-  set(MC_RBDYN_URDF_DEBUG_FOUND 0)
-endif()
-if(${MC_RBDYN_URDF_FOUND} OR ${MC_RBDYN_URDF_DEBUG_FOUND})
-  add_required_dependency(hrp2_drc_description)
-  execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
-    "--variable=datadir" "hrp2_drc_description"
-    OUTPUT_VARIABLE "HRP2_DRC_DESCRIPTION_PATH"
-    ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-  message("Found HRP2_DRC_DESCRIPTION_PATH: ${HRP2_DRC_DESCRIPTION_PATH}")
-  add_required_dependency(mc_env_description)
-  execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
-    "--variable=datadir" "mc_env_description"
-    OUTPUT_VARIABLE "MC_ENV_DESCRIPTION_PATH"
-    ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-  message("Found MC_ENV_DESCRIPTION_PATH: ${MC_ENV_DESCRIPTION_PATH}")
-  add_optional_dependency(roscpp)
-  if(${ROSCPP_FOUND})
-    add_required_dependency(tf2_ros)
-    addUnitTest(RobotProblem RobotPublisher_ros.cpp)
-    pkg_config_use_dependency(RobotProblem roscpp)
-    pkg_config_use_dependency(RobotProblem tf2_ros)
-  else()
-    addUnitTest(RobotProblem RobotPublisher_noros.cpp)
-  endif()
-  target_compile_options(RobotProblem PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
-  pkg_config_use_dependency(RobotProblem mc_rbdyn_urdf)
-endif()
+target_compile_options(RobotProblem PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
 
 set(TESTSOURCES
     main.cpp
@@ -126,5 +116,4 @@ if(${TASKS_FOUND} OR ${TASKS_DEBUG_FOUND})
   target_link_libraries(CompareTasks boost_system)
   target_compile_options(CompareTasks PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
   pkg_config_use_dependency(CompareTasks Tasks)
-  pkg_config_use_dependency(CompareTasks mc_rbdyn_urdf)
 endif()

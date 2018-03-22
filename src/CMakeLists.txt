@@ -194,13 +194,14 @@ target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
 pkg_config_use_dependency(TVM RBDyn)
 pkg_config_use_dependency(TVM sch-core)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
-PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
+pkg_config_use_dependency(TVM EigenQP)
+pkg_config_use_dependency(TVM mc_rbdyn_urdf)
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")
   set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
 endif()
 
-PKG_CONFIG_APPEND_LIBS(TVM)
+pkg_config_append_libs(TVM)
 
 install(TARGETS TVM
   RUNTIME DESTINATION bin
