@@ -14,32 +14,46 @@ namespace scheme
   using namespace internal;
   using VET = requirements::ViolationEvaluationType;
 
-  WeightedLeastSquares::WeightedLeastSquares(double scalarizationWeight)
+  WeightedLeastSquares::WeightedLeastSquares(bool verbose, double scalarizationWeight)
     : LinearResolutionScheme<WeightedLeastSquares>({ 2, {{0, {true, {VET::L2}}}, {1,{false, {VET::L2}}}}, true })
-    , scalarizationWeight_(scalarizationWeight)
+    , verbose_(verbose), scalarizationWeight_(scalarizationWeight)
   {
   }
 
-  void WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
+  bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
   {
+    memory.A.setZero();
     for (auto& a : memory.assignments)
       a.run();
 
-    std::cout << "A =\n" << memory.A << std::endl;
-    std::cout << "b = " << memory.b.transpose() << std::endl;
-    std::cout << "C =\n" << memory.C << std::endl;
-    std::cout << "l = " << memory.l.transpose() << std::endl;
-    std::cout << "u = " << memory.u.transpose() << std::endl;
+    if(verbose_)
+    {
+      std::cout << "A =\n" << memory.A << std::endl;
+      std::cout << "b = " << memory.b.transpose() << std::endl;
+      std::cout << "C =\n" << memory.C << std::endl;
+      std::cout << "l = " << memory.l.transpose() << std::endl;
+      std::cout << "u = " << memory.u.transpose() << std::endl;
+    }
 
     bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
     memory.setSolution(memory.ls.result());
-    std::cout << memory.ls.inform() << std::endl;
-    std::cout << memory.ls.result().transpose() << std::endl;
+    if(verbose_ || !b)
+    {
+      std::cout << memory.ls.inform() << std::endl;
+      memory.ls.print_inform();
+      if(verbose_)
+      {
+        std::cout << memory.ls.result().transpose() << std::endl;
+      }
+    }
+    return b;
   }
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
     auto memory = std::unique_ptr<Memory>(new Memory(id()));
+    memory->ls.warm(true);
+    memory->ls.feasibilityTol(1e-6);
     const auto& constraints = problem.constraints();
 
     //scanning bounds

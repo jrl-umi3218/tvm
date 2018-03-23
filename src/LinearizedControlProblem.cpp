@@ -4,11 +4,8 @@
 
 namespace tvm
 {
-  LinearizedControlProblem::LinearizedControlProblem()
-  {
-  }
-
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
+  : ControlProblem()
   {
     for (auto tr : pb.tasks())
       add(tr);

@@ -10,7 +10,16 @@ if(WIN32)
 endif(WIN32)
 
 macro(addUnitTest name)
-  add_executable(${name} ${name}.cpp ${ARGN})
+  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${name}.cpp)
+    add_executable(${name} ${name}.cpp ${ARGN})
+  elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${name}.in.cpp)
+    configure_file(${name}.in.cpp
+      ${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp)
+    add_executable(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp ${ARGN})
+    target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+  else()
+    message(SEND_ERROR "Cannot add a test ${name}, neither ${name}.cpp nor ${name}.in.cpp exists in ${CMAKE_CURRENT_SOURCE_DIR}")
+  endif()
   target_link_libraries(${name} TVM)
   add_test(${name}Unit ${name})
   # Adding a project configuration file (for MSVC only)
@@ -27,6 +36,30 @@ addUnitTest(SolvingRequirementsTest)
 addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
+
+add_required_dependency(hrp2_drc_description)
+execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
+  "--variable=datadir" "hrp2_drc_description"
+  OUTPUT_VARIABLE "HRP2_DRC_DESCRIPTION_PATH"
+  ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("Found HRP2_DRC_DESCRIPTION_PATH: ${HRP2_DRC_DESCRIPTION_PATH}")
+add_required_dependency(mc_env_description)
+execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
+  "--variable=datadir" "mc_env_description"
+  OUTPUT_VARIABLE "MC_ENV_DESCRIPTION_PATH"
+  ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("Found MC_ENV_DESCRIPTION_PATH: ${MC_ENV_DESCRIPTION_PATH}")
+add_optional_dependency(roscpp)
+if(${ROSCPP_FOUND})
+  add_required_dependency(tf2_ros)
+  addUnitTest(RobotProblem RobotPublisher_ros.cpp)
+  pkg_config_use_dependency(RobotProblem roscpp)
+  pkg_config_use_dependency(RobotProblem tf2_ros)
+else()
+  addUnitTest(RobotProblem RobotPublisher_noros.cpp)
+endif()
+pkg_config_use_dependency(RobotProblem mc_rbdyn_urdf)
+target_compile_options(RobotProblem PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
 
 set(TESTSOURCES
     main.cpp
@@ -70,3 +103,18 @@ macro(addBenchmark name)
 endmacro()
 
 addBenchmark(TestData)
+
+add_optional_dependency(Tasks Tasks_d)
+if(TASKS_FOUND STREQUAL "")
+  set(TASKS_FOUND 0)
+endif()
+if(TASKS_DEBUG_FOUND STREQUAL "")
+  set(TASKS_DEBUG_FOUND 0)
+endif()
+if(${TASKS_FOUND} OR ${TASKS_DEBUG_FOUND})
+  add_required_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
+  addBenchmark(CompareTasks)
+  target_link_libraries(CompareTasks boost_system)
+  target_compile_options(CompareTasks PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2_DRC_DESCRIPTION_PATH}\" -DMC_ENV_DESCRIPTION_PATH=\"${MC_ENV_DESCRIPTION_PATH}\")
+  pkg_config_use_dependency(CompareTasks Tasks)
+endif()

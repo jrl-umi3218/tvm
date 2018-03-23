@@ -18,7 +18,6 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tvm/Clock.h>
 #include <tvm/Task.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/helpers.h>
@@ -44,25 +43,26 @@ namespace tvm
   using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
 
   /**
-  * \dot 
-  * digraph graphname  { 
+  * \dot
+  * digraph graphname  {
   * rankdir="LR";
-  * a [ label="Main page" ]; 
-  * b [ label="DOT graph" URL="@ref section_dot" ]; 
-  * c [ label="MSC sequence diagram" URL="@ref section_msc" ]; 
-  * d [ label="PlantUML diagram" URL="@ref section_plantuml" ]; 
-  * e [ label="Dia diagram" URL="@ref section_dia" ]; 
-  * f [ label="Images" URL="@ref section_images" ]; 
-  * a -> b; 
-  * a -> c; 
-  * a -> d; 
-  * a -> e; 
-  * a -> f; 
-  * } 
+  * a [ label="Main page" ];
+  * b [ label="DOT graph" URL="@ref section_dot" ];
+  * c [ label="MSC sequence diagram" URL="@ref section_msc" ];
+  * d [ label="PlantUML diagram" URL="@ref section_plantuml" ];
+  * e [ label="Dia diagram" URL="@ref section_dia" ];
+  * f [ label="Images" URL="@ref section_images" ];
+  * a -> b;
+  * a -> c;
+  * a -> d;
+  * a -> e;
+  * a -> f;
+  * }
   * \enddot
   */
   class TVM_DLLAPI ControlProblem
   {
+    friend class LinearizedControlProblem;
   public:
     ControlProblem() = default;
     /** \internal We delete these functions because they would require by
@@ -81,7 +81,6 @@ namespace tvm
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
-
   private:
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
@@ -94,7 +93,7 @@ namespace tvm
     std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
 
     template<typename Problem, typename Scheme>
-    friend scheme::internal::ProblemComputationData& 
+    friend scheme::internal::ProblemComputationData&
       scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
 

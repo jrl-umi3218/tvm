@@ -45,23 +45,28 @@ namespace abstract
     *     x_i; dx_i;
     *   }
     *   {
+    *     rank = same; node [shape=hexagon];
+    *     Value; Jacobian; Velocity;
+    *     NormalAcceleration; JDot; B
+    *   }
+    *   {
+    *     rank = same;
     *     uValue [label=Value];
     *     uVelocity [label=Velocity];
     *   }
     *   {
-    *     rank = same; node [shape=hexagon];
-    *     Value; Jacobian; Velocity;
-    *     NormalAcceleration; JDot;
-    *   }
-    *   {
     *     rank = same; node [style=invis, label=""];
     *     outValue; outJacobian; outVelocity;
-    *     outNormalAcceleration; outJDot;
+    *     outNormalAcceleration; outJDot; outB
     *   }
     *   x_i -> uValue [label="value()"];
     *   dx_i -> uVelocity [label="value()"];
+    *   Jacobian -> uValue;
+    *   B -> uValue;
+    *   Jacobian -> uVelocity;
     *   uValue -> Value;
     *   uVelocity -> Velocity;
+    *   B -> outB [label="b()"];
     *   Value -> outValue [label="value()"];
     *   Jacobian -> outJacobian [label="jacobian(x_i)"];
     *   Velocity -> outVelocity [label="velocity()"];
@@ -73,13 +78,14 @@ namespace abstract
   class TVM_DLLAPI LinearFunction : public Function
   {
   public:
+    SET_OUTPUTS(LinearFunction, B)
     SET_UPDATES(LinearFunction, Value, Velocity)
 
     void updateValue();
     void updateVelocity();
     void resizeCache() override;
-    const Eigen::VectorXd& b() const;
 
+    inline const Eigen::VectorXd & b() const { return b_; }
   protected:
     LinearFunction(int m);
     virtual void updateValue_();
@@ -88,12 +94,6 @@ namespace abstract
 
     Eigen::VectorXd b_;
   };
-
-  inline const Eigen::VectorXd& LinearFunction::b() const
-  {
-    return b_;
-  }
-
 
 }  // namespace abstract
 

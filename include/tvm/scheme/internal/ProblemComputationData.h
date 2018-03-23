@@ -73,7 +73,7 @@ namespace internal
 
   inline void ProblemComputationData::addVariable(VariablePtr var)
   {
-    x_.add(var, true);
+    x_.add(var);
   }
 
   inline void ProblemComputationData::addVariable(const std::vector<VariablePtr>& vars)
@@ -84,9 +84,9 @@ namespace internal
 
   inline void ProblemComputationData::removeVariable(Variable* v)
   {
-    //we don't raise an exception is the variable is not there, as we merge 
+    //we don't raise an exception is the variable is not there, as we merge
     //identical variables when we add them.
-    x_.remove(*v, true);
+    x_.remove(*v);
   }
 
   inline void ProblemComputationData::removeVariable(const std::vector<VariablePtr>& vars)
