@@ -51,10 +51,6 @@ namespace internal
   class TVM_DLLAPI Assignment
   {
   public:
-    using RHSFunction = const Eigen::VectorXd& (constraint::abstract::LinearConstraint::*)() const;
-    using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
-    using VectorFunction = VectorRef (AssignmentTarget::*)() const;
-
     /** Assignment constructor
       * \param source The linear constraints whose matrix and vector(s) will be
       * assigned.
@@ -96,6 +92,25 @@ namespace internal
     static double big_;
 
   private:
+    /** Pointer type to a method of LinearConstraint returning a vector.
+      * It is used to make a selection between e(), l() and u().
+      */
+    using RHSFunction = const Eigen::VectorXd& (constraint::abstract::LinearConstraint::*)() const;
+   
+    /** Pointer type to a method of AssignmentTarget returning a matrix block.
+      * It is used to make a selection between A(), AFirstHalf() and ASecondHalf().
+      */
+    using MatrixFunction = MatrixRef(AssignmentTarget::*)(int, int) const;
+
+    /** Pointer type to a method of AssignementTarget returning a vector segment.
+      * It is used to make a selection between b(), bFirstHalf(), bSecondHalf(),
+      * l() and u().
+      */
+    using VectorFunction = VectorRef(AssignmentTarget::*)() const;
+
+    /** A structure grouping a matrix assignment and some of the elements that
+      * defined it.
+      */
     struct MatrixAssignment
     {
       CompiledAssignmentWrapper<Eigen::MatrixXd> assignment;
@@ -104,6 +119,9 @@ namespace internal
       MatrixFunction getTargetMatrix;
     };
 
+    /** A structure grouping a vector assignment and some of the elements that
+    * defined it.
+    */
     struct VectorAssignment
     {
       CompiledAssignmentWrapper<Eigen::VectorXd> assignment;
@@ -123,43 +141,116 @@ namespace internal
       */
     void checkTarget(bool bound = false);
 
-    void checkVariables(bool bound);
+    void checkSource(bool bound);
 
-    /** Where the magic happens*/
+    /** Generates the assignments for the general case.
+      * \param variables the set of variables for the problem.
+      */
     void build(const VariableVector& variables);
+    
+    /** Generates the assignments for the bound case.
+      * \param variables the set of variables for the problem.
+      * \param first true if this is the first assignment for the bounds (first
+      * assignment makes copy, the following perform min/max
+      */
     void build(const VariablePtr& variable, bool first);
+    
+    /** Build internal data from the requirements*/
     void processRequirements();
+    
+    /** Creates a matrix assigment from the jacobian of \p source_ corresponding
+      * to variable \p x to the block of matrix described by \p M and \p range.
+      * \p flip indicates a sign change if \p true.
+      */
     void addMatrixAssignment(Variable& x, MatrixFunction M, const Range& range, bool flip);
+    
+    /** Creates the assignements due to susbtituing the variable \p x by the
+      * linear expression given by \p sub. The target is given by \p M.
+      * \p flip indicates a sign change if \p true.
+      */
     void addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, 
                                           const function::BasicLinearFunction& sub, bool flip);
+    
+    /** Creates and assigment between the vector given by \p f and the one given
+      * by \p v, taking care of the RHS conventions for the source and the
+      * target. The assignement type is given by the template parameter \p A.
+      * \p flip indicates a sign change if \p true.
+      */
     template<AssignType A = AssignType::COPY>
     void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
+    
+    /** Creates the assignements due to the substitution of variable \p x by the
+      * linear expression \p sub. The target is given by \p v.
+      */
     void addVectorSubstitutionAssignments(const function::BasicLinearFunction& sub, 
                                           VectorFunction v, Variable& x, bool flip);
+    
+    /** Create a vector assignement where the source is a constant. The target
+      * is given by \p v and the type of assignement by \p A.
+      */
     template<AssignType A = AssignType::COPY>
     void addConstantAssignment(double d, VectorFunction v);
+    
+    /** Creates an assignement setting to zero the matrix block given by \p M
+      * and \p range. The variable \p x is simply stored in the corresponding
+      * \p MatrixAssignment.
+      */
     void addZeroAssignment(Variable& x, MatrixFunction M, const Range& range);
+    
+    /** Calls addAssignments(const VariableVector& variables, MatrixFunction M,
+      * RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2, 
+      * bool flip) for a single-sided case.
+      */
     void addAssignments(const VariableVector& variables, MatrixFunction M,
                         RHSFunction f, VectorFunction v, bool flip);
+
+    /** Calls addAssignments(const VariableVector& variables, MatrixFunction M,
+      * RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2, 
+      * bool flip) for a double-sided case.
+      */
     void addAssignments(const VariableVector& variables, MatrixFunction M,
                         RHSFunction f1, VectorFunction v1, 
                         RHSFunction f2, VectorFunction v2);
+
+    /** Creates all the matrix assignements between the source and the target,
+      * as well as the vector assignements described by \p f1 and \p v1 and
+      * optionnally by \p f2 and \p v2 if those are not \p nullptr.
+      * This method is called after the constraint::Type conventions of the
+      * source and the target have been processed (resulting in the choice of
+      * \p M, \p f1, \p v1, \p f2, \p v2 and \p flip). It handles internally the
+      * substitutions.
+      */
     void addAssignments(const VariableVector& variables, MatrixFunction M,
                         RHSFunction f1, VectorFunction v1, 
                         RHSFunction f2, VectorFunction v2, bool flip);
 
+    /** Create the bounds assignments. It handles the dispatch due to the source
+      * Type convention.
+      */
     template<AssignType A1 = AssignType::COPY, AssignType A2 = AssignType::COPY>
     void assignBounds(VectorFunction l, VectorFunction u, bool flip);
 
+    /** Create the compiled assignment between \p from and \p to, taking into
+      * account the requirements and the possible sign flip indicated by 
+      * \p flip.
+      */
     template<typename T, AssignType A, typename U>
     CompiledAssignmentWrapper<T> createAssignment(const U& from, const Eigen::Ref<T>& to, bool flip = false);
 
+    /** Create the compiled substitution assignement to = Mult * from (vector 
+      * case) or to = from * mult (matrix case) taking into account the 
+      * requirements and \p flip
+      */
     template<typename T, AssignType A, typename U, typename V>
     CompiledAssignmentWrapper<T> createSubstitutionAssignment(const U& from, const Eigen::Ref<T>& to, const V& Mult, bool flip = false);
 
+    /** The source of the assignment.*/
     LinearConstraintPtr source_;
+    /** The target of the assignment.*/
     AssignmentTarget target_;
+    /** The weight used to emulate hierarchy in a weight scheme.*/
     double scalarizationWeight_;
+    /** The requirements attached to the source.*/
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
     /** All the assignements that are setting the initial values of the targeted blocks*/
     std::vector<MatrixAssignment> matrixAssignments_;
@@ -183,6 +274,12 @@ namespace internal
     /** Data for substitutions */
     VariableVector substitutedVariables_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
+
+    /** Temporary vectors for bound assignements*/
+    Eigen::VectorXd tmpl_;
+    Eigen::VectorXd tmpl2_;
+    Eigen::VectorXd tmpu_;
+    Eigen::VectorXd tmpu2_;
   };
 
   template<AssignType A1, AssignType A2>
