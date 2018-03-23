@@ -66,8 +66,8 @@ CollisionFunction::CollisionData::CollisionData(CollisionFunction & fn,
     if(rDof > 0)
     {
       fn.addInputDependency<CollisionFunction>(Update::Value, *ch_[i], ConvexHull::Output::Position);
-      fn.addInputDependency<CollisionFunction>(Update::Jacobian, r, Robot::Output::Dynamics);
-      fn.addInputDependency<CollisionFunction>(Update::NormalAcceleration, r, Robot::Output::Acceleration);
+      fn.addInputDependency<CollisionFunction>(Update::Jacobian, r, Robot::Output::FV);
+      fn.addInputDependency<CollisionFunction>(Update::NormalAcceleration, r, Robot::Output::NormalAcceleration);
       objects_.push_back({Eigen::Vector3d::Zero(), ch_[i]->frame().rbdJacobian()});
       fn.addVariable(r.q(), false);
     }

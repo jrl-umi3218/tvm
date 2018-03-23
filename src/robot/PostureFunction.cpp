@@ -15,8 +15,8 @@ PostureFunction::PostureFunction(RobotPtr robot)
                   Update::Velocity, &PostureFunction::updateVelocity);
   addOutputDependency<PostureFunction>(Output::Value, Update::Value);
   addOutputDependency<PostureFunction>(Output::Velocity, Update::Velocity);
-  addInputDependency<PostureFunction>(Update::Value, robot_, Robot::Output::Kinematics);
-  addInputDependency<PostureFunction>(Update::Velocity, robot_, Robot::Output::Kinematics);
+  addInputDependency<PostureFunction>(Update::Value, robot_, Robot::Output::FK);
+  addInputDependency<PostureFunction>(Update::Velocity, robot_, Robot::Output::FK);
   addVariable(robot->qJoints(), false);
   jacobian_[robot->qJoints().get()].setIdentity();
   jacobian_[robot->qJoints().get()].properties({tvm::internal::MatrixProperties::IDENTITY});

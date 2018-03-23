@@ -43,25 +43,29 @@ namespace tvm
    * - q (split between free-flyer and joints)
    * - tau (see Outputs)
    *
-   * Outputs:
+   * Individual outputs:
    *
-   * - Kinematics: kinematics quantity (computed by RBDyn::FK)
-   * - Dynamics: dynamics quantity (computed by RBDyn::FV, depends on
-   *   Kinematics)
-   * - Acceleration: compute acceleration quantities (computed by RBDyn::FA,
-   *   depends on Dynamics)
+   * - FK: forward kinematics (computed by RBDyn::FK)
+   * - FV: forward velocity (computed by RBDyn::FV), depends on FK
+   * - FA: forward acceleration (computed by RBDyn::FA), depends on FV
+   * - NormalAcceleration: update bodies' normal acceleration, depends on FA
    * - tau: generalized torque vector, this output isn't currently linked to
    *   any computation
-   * - CoM: center of mass signal
-   * - H: inertia matrix signal
-   * - C: non-linear effect vector signal (Coriolis, gravity, external forces)
+   * - CoM: center of mass signal, depends on FK
+   * - H: inertia matrix signal, depends on FV
+   * - C: non-linear effect vector signal (Coriolis, gravity, external forces), depends on FV
+   *
+   * Meta outputs:
+   *   These outputs are provided for convenience sake
+   * - Geometry: depends on CoM (i.e. CoM + FK)
+   * - Dynamics: depends on FA + normalAcceleration (i.e. everything)
    *
    */
   class TVM_DLLAPI Robot : public graph::abstract::Node<Robot>
   {
   public:
-    SET_OUTPUTS(Robot, Kinematics, Dynamics, Acceleration, tau, CoM, H, C)
-    SET_UPDATES(Robot, Time, Kinematics, Dynamics, Acceleration, CoM, H, C)
+    SET_OUTPUTS(Robot, FK, FV, FA, NormalAcceleration, tau, CoM, H, C, Geometry, Dynamics)
+    SET_UPDATES(Robot, Time, FK, FV, FA, NormalAcceleration, CoM, H, C)
 
     /** Constructor
      *
@@ -202,9 +206,10 @@ namespace tvm
      *
      */
     void updateTimeDependency();
-    void updateKinematics();
-    void updateDynamics();
-    void updateAcceleration();
+    void updateFK();
+    void updateFV();
+    void updateFA();
+    void updateNormalAcceleration();
     void updateH();
     void updateC();
     void updateCoM();

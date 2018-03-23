@@ -75,23 +75,36 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   tau_->value(Eigen::VectorXd::Zero(tau_->value().size()));
   /** Signals */
   registerUpdates(Update::Time, &Robot::updateTimeDependency,
-                  Update::Kinematics, &Robot::updateKinematics,
-                  Update::Dynamics, &Robot::updateDynamics,
-                  Update::Acceleration, &Robot::updateAcceleration,
+                  Update::FK, &Robot::updateFK,
+                  Update::FV, &Robot::updateFV,
+                  Update::FA, &Robot::updateFA,
+                  Update::NormalAcceleration, &Robot::updateNormalAcceleration,
                   Update::CoM, &Robot::updateCoM,
                   Update::H, &Robot::updateH,
                   Update::C, &Robot::updateC);
+  /** Input dependencies */
   addInputDependency(Update::Time, clock_, Clock::Output::Time);
-  addOutputDependency(Output::Kinematics, Update::Kinematics);
-  addOutputDependency(Output::Dynamics, Update::Dynamics);
-  addOutputDependency(Output::Acceleration, Update::Acceleration);
-  addInternalDependency(Update::Kinematics, Update::Time);
-  addInternalDependency(Update::CoM, Update::Kinematics);
-  addInternalDependency(Update::H, Update::Dynamics);
-  addInternalDependency(Update::C, Update::Dynamics);
+  /** Output dependencies */
+  addOutputDependency(Output::FK, Update::FK);
+  addOutputDependency(Output::FV, Update::FV);
+  addOutputDependency(Output::FA, Update::FA);
+  addOutputDependency(Output::NormalAcceleration, Update::NormalAcceleration);
   addOutputDependency(Output::CoM, Update::CoM);
   addOutputDependency(Output::H, Update::H);
   addOutputDependency(Output::C, Update::C);
+  addOutputDependency(Output::Geometry, Update::CoM);
+  addOutputDependency(Output::Dynamics, Update::H);
+  addOutputDependency(Output::Dynamics, Update::C);
+  addOutputDependency(Output::Dynamics, Update::NormalAcceleration);
+  addOutputDependency(Output::Dynamics, Update::FA);
+  /** Internal dependencies */
+  addInternalDependency(Update::FK, Update::Time);
+  addInternalDependency(Update::CoM, Update::FK);
+  addInternalDependency(Update::FV, Update::FK);
+  addInternalDependency(Update::H, Update::FV);
+  addInternalDependency(Update::C, Update::FV);
+  addInternalDependency(Update::FA, Update::FV);
+  addInternalDependency(Update::NormalAcceleration, Update::FV);
 
   // Compute mass
   mass_ = 0;
@@ -101,9 +114,10 @@ Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg,
   }
 
   // Make sure initial robot quantities are well initialized
-  updateKinematics();
-  updateDynamics();
-  updateAcceleration();
+  updateFK();
+  updateFV();
+  updateFA();
+  updateNormalAcceleration();
   if(mass_ > 0)
   {
     updateCoM();
@@ -127,19 +141,23 @@ void Robot::updateTimeDependency()
   }
 }
 
-void Robot::updateKinematics()
+void Robot::updateFK()
 {
   rbd::forwardKinematics(mb_, mbc_);
 }
 
-void Robot::updateDynamics()
+void Robot::updateFV()
 {
   rbd::forwardVelocity(mb_, mbc_);
 }
 
-void Robot::updateAcceleration()
+void Robot::updateFA()
 {
   rbd::forwardAcceleration(mb_, mbc_);
+}
+
+void Robot::updateNormalAcceleration()
+{
   computeNormalAccB();
 }
 

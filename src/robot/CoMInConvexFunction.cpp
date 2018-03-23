@@ -22,9 +22,9 @@ CoMInConvexFunction::CoMInConvexFunction(RobotPtr robot)
   addOutputDependency<CoMInConvexFunction>(Output::NormalAcceleration, Update::NormalAcceleration);
   addVariable(robot_->q(), false);
   addInputDependency<CoMInConvexFunction>(Update::Value, *robot_, Robot::Output::CoM);
-  addInputDependency<CoMInConvexFunction>(Update::Velocity, *robot_, Robot::Output::Dynamics);
-  addInputDependency<CoMInConvexFunction>(Update::Jacobian, *robot_, Robot::Output::Dynamics);
-  addInputDependency<CoMInConvexFunction>(Update::NormalAcceleration, *robot_, Robot::Output::Acceleration);
+  addInputDependency<CoMInConvexFunction>(Update::Velocity, *robot_, Robot::Output::FV);
+  addInputDependency<CoMInConvexFunction>(Update::Jacobian, *robot_, Robot::Output::FV);
+  addInputDependency<CoMInConvexFunction>(Update::NormalAcceleration, *robot_, Robot::Output::NormalAcceleration);
   addInternalDependency<CoMInConvexFunction>(Update::Jacobian, Update::Value);
   addInternalDependency<CoMInConvexFunction>(Update::Velocity, Update::Jacobian);
   addInternalDependency<CoMInConvexFunction>(Update::NormalAcceleration, Update::Velocity);

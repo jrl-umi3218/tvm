@@ -41,17 +41,17 @@ Frame::Frame(std::string name,
 
 
   addOutputDependency(Output::Position, Update::Position);
-  addInputDependency(Update::Position, robot_, Robot::Output::Kinematics);
+  addInputDependency(Update::Position, robot_, Robot::Output::FK);
 
   addOutputDependency(Output::Jacobian, Update::Jacobian);
   addInternalDependency(Update::Jacobian, Update::Position);
-  addInputDependency(Update::Jacobian, robot_, Robot::Output::Dynamics);
+  addInputDependency(Update::Jacobian, robot_, Robot::Output::FV);
 
   addOutputDependency(Output::Velocity, Update::Velocity);
-  addInputDependency(Update::Velocity, robot_, Robot::Output::Dynamics);
+  addInputDependency(Update::Velocity, robot_, Robot::Output::FV);
 
   addOutputDependency(Output::NormalAcceleration, Update::NormalAcceleration);
-  addInputDependency(Update::NormalAcceleration, robot_, Robot::Output::Acceleration);
+  addInputDependency(Update::NormalAcceleration, robot_, Robot::Output::NormalAcceleration);
 
   /** Initialize all data */
   updatePosition();

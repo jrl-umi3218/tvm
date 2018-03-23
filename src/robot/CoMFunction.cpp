@@ -24,10 +24,10 @@ CoMFunction::CoMFunction(RobotPtr robot)
   addOutputDependency<CoMFunction>(Output::JDot, Update::JDot);
   addVariable(robot_->q(), false);
   addInputDependency<CoMFunction>(Update::Value, robot_, Robot::Output::CoM);
-  addInputDependency<CoMFunction>(Update::Velocity, robot_, Robot::Output::Dynamics);
-  addInputDependency<CoMFunction>(Update::Jacobian, robot_, Robot::Output::Dynamics);
-  addInputDependency<CoMFunction>(Update::NormalAcceleration, robot_, Robot::Output::Acceleration);
-  addInputDependency<CoMFunction>(Update::JDot, robot_, Robot::Output::Acceleration);
+  addInputDependency<CoMFunction>(Update::Velocity, robot_, Robot::Output::FV);
+  addInputDependency<CoMFunction>(Update::Jacobian, robot_, Robot::Output::FV);
+  addInputDependency<CoMFunction>(Update::NormalAcceleration, robot_, Robot::Output::NormalAcceleration);
+  addInputDependency<CoMFunction>(Update::JDot, robot_, Robot::Output::NormalAcceleration);
 }
 
 void CoMFunction::reset()
