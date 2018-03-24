@@ -139,9 +139,9 @@ namespace internal
     /** Check that the convention and size of the target are compatible with the
       * convention and size of the source.
       */
-    void checkTarget(bool bound = false);
+    void checkTarget();
 
-    void checkSource(bool bound);
+    void checkBounds();
 
     /** Generates the assignments for the general case.
       * \param variables the set of variables for the problem.

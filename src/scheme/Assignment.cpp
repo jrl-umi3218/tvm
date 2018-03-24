@@ -3,6 +3,7 @@
 #include <tvm/defs.h>
 #include <tvm/constraint/abstract/Constraint.h>
 #include <tvm/VariableVector.h>
+#include <tvm/scheme/internal/helpers.h>
 
 namespace tvm
 {
@@ -42,7 +43,7 @@ namespace internal
     , target_(target)
     , requirements_(new requirements::SolvingRequirements())
   {
-    checkTarget(true);
+    checkBounds();
     assert(source->variables()[0] == variable);
     scalarWeight_ = 1;
     build(variable, first);
@@ -95,30 +96,21 @@ namespace internal
       a.assignment.run();
   }
 
-  void Assignment::checkTarget(bool bound)
+  void Assignment::checkTarget()
   {
     //check the type convention
-    if (bound)
+    if (source_->type() == Type::EQUAL)
     {
-      if (target_.constraintType() != Type::DOUBLE_SIDED || target_.constraintRhs() != RHS::AS_GIVEN)
-        throw std::runtime_error("Incompatible conventions: the target for bound must be"
-          "DOUBLE_SIDED and AS_GIVEN.");
+      if (target_.constraintType() != Type::EQUAL
+        && target_.constraintType() != Type::DOUBLE_SIDED)
+        throw std::runtime_error("Incompatible conventions: source with type EQUAL can only "
+          "be assigned to target with type EQUAL or DOUBLE SIDED.");
     }
     else
     {
-      if (source_->type() == Type::EQUAL)
-      {
-        if (target_.constraintType() != Type::EQUAL
-          && target_.constraintType() != Type::DOUBLE_SIDED)
-          throw std::runtime_error("Incompatible conventions: source with type EQUAL can only "
-            "be assigned to target with type EQUAL or DOUBLE SIDED.");
-      }
-      else
-      {
-        if (target_.constraintType() == Type::EQUAL)
-          throw std::runtime_error("Incompatible conventions: source with type other than EQUAL "
-            "cannot be assigned to a target with type EQUAL. ");
-      }
+      if (target_.constraintType() == Type::EQUAL)
+        throw std::runtime_error("Incompatible conventions: source with type other than EQUAL "
+          "cannot be assigned to a target with type EQUAL. ");
     }
 
     // check the rhs conventions
@@ -154,6 +146,15 @@ namespace internal
       if (target_.size() != source_->size())
           throw std::runtime_error("Size of the source and the target are not coherent with "
             "the conventions.");
+    }
+  }
+
+  void Assignment::checkBounds()
+  {
+    if (!canBeUsedAsBound(source_, substitutedVariables_.variables(),
+                          variableSubstitutions_, target_.constraintType()))
+    {
+      throw std::runtime_error("Incompatible bound conventions or properties");
     }
   }
 

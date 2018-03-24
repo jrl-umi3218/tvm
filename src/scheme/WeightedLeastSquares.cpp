@@ -63,7 +63,8 @@ namespace scheme
         memory->addVariable(subs.substitute(xi));
       //memory->addVariable(c.constraint->variables()); //FIXME: should be done in a parent class
 
-      if (isBound(c.constraint, subs))
+      if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED)
+          && c.requirements->priorityLevel().value() == 0)
         bounds.push_back(c);
       else
       {
