@@ -22,6 +22,8 @@ set(TVM_SOURCES
   function/IdentityFunction.cpp
   function/LinearFunction.cpp
 
+  geometry/Plane.cpp
+
   graph/CallGraph.cpp
   graph/Inputs.cpp
   graph/Log.cpp
@@ -41,6 +43,21 @@ set(TVM_SOURCES
 
   requirements/SolvingRequirements.cpp
 
+  robot/CollisionFunction.cpp
+  robot/CoMFunction.cpp
+  robot/CoMInConvexFunction.cpp
+  robot/ConvexHull.cpp
+  robot/Contact.cpp
+  robot/DynamicFunction.cpp
+  robot/Frame.cpp
+  robot/FrictionCone.cpp
+  robot/GeometricContactFunction.cpp
+  robot/JointsSelector.cpp
+  robot/OrientationFunction.cpp
+  robot/PositionFunction.cpp
+  robot/PostureFunction.cpp
+  robot/utils.cpp
+
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
@@ -56,6 +73,7 @@ set(TVM_SOURCES
   task_dynamics/TaskDynamicsImpl.cpp
   task_dynamics/VelocityDamper.cpp
   
+  utils/sch.cpp
   utils/UpdatelessFunction.cpp
   utils/checkFunction.cpp
 )
@@ -92,6 +110,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/function/BasicLinearFunction.h
   ${TVM_INCLUDE_DIR}/function/IdentityFunction.h
 
+  ${TVM_INCLUDE_DIR}/geometry/Plane.h
+
   ${TVM_INCLUDE_DIR}/graph/abstract/Node.h
   ${TVM_INCLUDE_DIR}/graph/abstract/Node.hpp
   ${TVM_INCLUDE_DIR}/graph/abstract/OutputSelector.h
@@ -124,6 +144,21 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
   ${TVM_INCLUDE_DIR}/requirements/Weight.h
 
+  ${TVM_INCLUDE_DIR}/robot/internal/DynamicFunction.h
+  ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
+  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CollisionFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CoMInConvexFunction.h
+  ${TVM_INCLUDE_DIR}/robot/ConvexHull.h
+  ${TVM_INCLUDE_DIR}/robot/Contact.h
+  ${TVM_INCLUDE_DIR}/robot/Frame.h
+  ${TVM_INCLUDE_DIR}/robot/JointsSelector.h
+  ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
+  ${TVM_INCLUDE_DIR}/robot/PositionFunction.h
+  ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
+  ${TVM_INCLUDE_DIR}/robot/utils.h
+
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
@@ -149,6 +184,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
+  ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
@@ -177,10 +213,17 @@ assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
+pkg_config_use_dependency(TVM RBDyn)
+pkg_config_use_dependency(TVM sch-core)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
-PKG_CONFIG_USE_DEPENDENCY(TVM EigenQP)
+pkg_config_use_dependency(TVM EigenQP)
+pkg_config_use_dependency(TVM mc_rbdyn_urdf)
+if(GENERATE_COVERAGE)
+  target_compile_options(TVM PRIVATE "--coverage")
+  set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
+endif()
 
-PKG_CONFIG_APPEND_LIBS(TVM)
+pkg_config_append_libs(TVM)
 
 install(TARGETS TVM
   RUNTIME DESTINATION bin

@@ -125,10 +125,10 @@ protected:
   /** Map from an update to the list of updates it depends on (expressed by the respective ids).*/
   std::map<int, std::vector<int>> internalDependencies_;
   /** Map from an update to the list of inputs it depends on (expressed by the respective ids).*/
-  using input_dependency_t = std::map<std::shared_ptr<Outputs>, std::set<int>>;
+  using input_dependency_t = std::map<Outputs *, std::set<int>>;
   std::map<int, input_dependency_t> inputDependencies_;
   /** Map from an output to the input it directly uses, without requiring an update (expressed by the respective ids).*/
-  std::map<int, std::pair<std::shared_ptr<Outputs>, int>> directDependencies_;
+  std::map<int, std::pair<Outputs *, int>> directDependencies_;
 private:
   AbstractNode()
   {

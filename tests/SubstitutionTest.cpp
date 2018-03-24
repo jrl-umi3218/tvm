@@ -324,7 +324,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     {
       if (!x.contains(*vi))
       {
-        y.add(vi, true);
+        y.add(vi);
       }
     }
   }

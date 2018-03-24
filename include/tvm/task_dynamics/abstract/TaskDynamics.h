@@ -40,7 +40,7 @@ namespace abstract
     * to compute e^(d)* for a task with constraint part f op rhs, where f is a
     * function, op is one operator among (==, <=, >=), rhs is a constant or a
     * vector and e = f-rhs. d is the order of the task dynamics.
-    * 
+    *
     * TaskDynamics is a lightweight descriptor, independent of a particular
     * task, that is meant for the end user.
     * Internally, it is turned into a TaskDynamicsImpl when linked to a given

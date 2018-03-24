@@ -37,12 +37,21 @@ namespace internal
 
   void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
   {
-    variables_.add(v);
+    if(variables_.add(v))
+    {
+      jacobian_[v.get()].resize(m_, v->space().tSize());
+      linear_[v.get()] = linear;
 
-    jacobian_[v.get()].resize(m_, v->space().tSize());
-    linear_[v.get()] = linear;
+      addVariable_(v);
+    }
+  }
 
-    addVariable_(v);
+  void FirstOrderProvider::addVariable(const VariableVector & vv, bool linear)
+  {
+    for(auto v : vv.variables())
+    {
+      addVariable(v, linear);
+    }
   }
 
   void FirstOrderProvider::removeVariable(VariablePtr v)
@@ -67,10 +76,16 @@ namespace internal
     Eigen::DenseIndex s = 0;
     for (const auto& v : vars)
     {
-      auto n = static_cast<Eigen::DenseIndex>(v->size());
+      auto n = static_cast<Eigen::DenseIndex>(v->space().tSize());
       jacobian_[v.get()].keepProperties(keepProperties) = J.middleCols(s, n);
       s += n;
     }
+  }
+
+  void FirstOrderProvider::resize(int m)
+  {
+    m_ = m;
+    resizeCache();
   }
 
 }  // namespace internal

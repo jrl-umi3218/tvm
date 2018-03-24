@@ -11,7 +11,8 @@ namespace tvm
   }
 
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
-    : finalized_(false)
+  : ControlProblem()
+  , finalized_(false)
   {
     for (auto tr : pb.tasks())
       add(tr);

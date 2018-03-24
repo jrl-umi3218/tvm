@@ -12,10 +12,11 @@ namespace graph
 
 void CallGraph::add(std::shared_ptr<internal::Inputs> inputs)
 {
-  for(const auto & i : inputs->inputs_)
+  inputs_.push_back(inputs);
+  for(auto & i : inputs->inputs_)
   {
-    const auto & source = i.first;
-    const auto & outputs = i.second;
+    auto & source = i.first;
+    auto & outputs = i.second;
     for(auto o : outputs)
     {
       addOutput(source, o);
@@ -39,10 +40,10 @@ void CallGraph::clear()
   plan_.clear();
 }
 
-std::vector<int> CallGraph::addOutput(const std::shared_ptr<abstract::Outputs> & source,
+std::vector<int> CallGraph::addOutput(abstract::Outputs * source,
                                       int output)
 {
-  std::intptr_t ptr = reinterpret_cast<std::intptr_t>(source.get());
+  std::intptr_t ptr = reinterpret_cast<std::intptr_t>(source);
   if(visited_.count(ptr) && visited_[ptr].count(output))
   {
     return visited_[ptr][output];
@@ -50,7 +51,7 @@ std::vector<int> CallGraph::addOutput(const std::shared_ptr<abstract::Outputs> &
   std::vector<int> callId = {};
   if(source->is_node_)
   {
-    auto node = std::static_pointer_cast<internal::AbstractNode>(source);
+    auto node = static_cast<internal::AbstractNode*>(source);
     if(node->outputDependencies_.count(output))
     {
       for(const auto & u : node->outputDependencies_[output])

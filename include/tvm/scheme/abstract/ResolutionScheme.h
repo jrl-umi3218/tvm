@@ -51,7 +51,7 @@ namespace abstract
   {
   public:
     template<typename Problem>
-    void solve(Problem& problem) const;
+    bool solve(Problem& problem) const;
 
     template<typename Problem>
     std::unique_ptr<internal::ProblemComputationData> createComputationData(const Problem& problem) const;
@@ -81,7 +81,7 @@ namespace abstract
 
   template<typename Derived>
   template<typename Problem>
-  inline void ResolutionScheme<Derived>::solve(Problem& problem) const
+  inline bool ResolutionScheme<Derived>::solve(Problem& problem) const
   {
     //We assume here that the resolution scheme has only one type of computation data even if
     //it can discriminate between several type of problems.
@@ -89,7 +89,7 @@ namespace abstract
     //a Problem, given a particular ResolutionScheme
     auto& data = static_cast<typename Derived::ComputationDataType&>(getComputationData(problem, *this));
     problem.update();
-    derived().solve_(problem, data);
+    return derived().solve_(problem, data);
   }
 
   template<typename Derived>

@@ -59,22 +59,21 @@ namespace tvm
     /** Add a variable to the vector.
       *
       * \param v the variable to be added
-      * \param mergeDuplicate if true, attempting to add a variable that is
-      * already in the vector will be ignored. If false, it will raise an exception.
+      *
+      * \returns True if the variable was added, false otherwise
       */
-    void add(VariablePtr v, bool mergeDuplicate = false);
-    /** Same as add(VariablePtr, bool), but for adding a vector of variables.*/
-    void add(const std::vector<VariablePtr>& variables, bool mergeDuplicate = false);
-    /** Same as add(VariablePtr, bool), but for adding a vector of variables.*/
-    void add(const VariableVector& variables, bool mergeDuplicate = false);
+    bool add(VariablePtr v);
+    /** Same as add(VariablePtr), but for adding a vector of variables.*/
+    void add(const std::vector<VariablePtr>& variables);
+    /** Same as add(VariablePtr), but for adding a vector of variables.*/
+    void add(const VariableVector& variables);
     /** Remove a variable from the vector.
       *
       * \param v the variable to be removed
-      * \param ignoreAbsence if true, attempting to remove a variable that is
-      * not present in the vector will be ignored, If false, it will raise an
-      * exception.
+      *
+      * \returns True if the variable was removed, false otherwise
       */
-    void remove(const Variable& v, bool ignoreAbsence = false);
+    bool remove(const Variable& v);
 
     /** Sum of the sizes of all the variables.*/
     int totalSize() const;

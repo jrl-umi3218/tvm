@@ -158,14 +158,16 @@ BENCHMARK(BM_ManualGraph);
 
 static void BM_CallGraph(benchmark::State & state)
 {
-  auto r2 = std::make_shared<Robot2>();
-
   // Use the CallGraph to generate the same code
-  auto userID = std::make_shared<tvm::graph::internal::Inputs>();
-  userID->addInput(r2, Robot2::Output::D1, Robot2::Output::D2);
-
   tvm::graph::CallGraph g;
-  g.add(userID);
+  {
+    // Make sure these objects lifetime is extended beyond the scope
+    auto userID = std::make_shared<tvm::graph::internal::Inputs>();
+    auto r2 = std::make_shared<Robot2>();
+    userID->addInput(r2, Robot2::Output::D1, Robot2::Output::D2);
+
+    g.add(userID);
+  }
   g.update();
 
   while(state.KeepRunning())

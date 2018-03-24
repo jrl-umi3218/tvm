@@ -19,11 +19,45 @@ if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
 endif()
 
-#########################
-# External dependencies
+# If we were given coverage options, we will only pass them to the core
+# library.
+set(GENERATE_COVERAGE FALSE CACHE BOOL "Generate coverage data")
+if("${CMAKE_CXX_FLAGS}" MATCHES "--coverage")
+  set(GENERATE_COVERAGE TRUE CACHE BOOL "Generate coverage data" FORCE)
+  string(REPLACE "--coverage" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  string(REPLACE "--coverage" "" CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+  string(REPLACE "--coverage" "" CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS}")
+endif()
+
+#############################
+# - External dependencies - #
+#############################
+
+#############
+# - Eigen - #
+#############
 SEARCH_FOR_EIGEN()
 
-ADD_REQUIRED_DEPENDENCY(EigenQP EigenQP_d)
+###############
+# - EigenQP - #
+###############
+add_required_dependency(EigenQP EigenQP_d)
+
+#############
+# - RBDyn - #
+#############
+add_required_dependency(RBDyn RBDyn_d)
+
+################
+# - sch-core - #
+################
+add_required_dependency(sch-core sch-core_d)
+
+#####################
+# - mc_rbdyn_urdf - #
+#####################
+add_required_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
+
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll

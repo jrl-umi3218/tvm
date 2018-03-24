@@ -20,9 +20,10 @@
 
 #include <tvm/graph/abstract/Outputs.h>
 
-#include <map>
 #include <memory>
 #include <set>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace tvm
 {
@@ -44,7 +45,9 @@ public:
   virtual ~Inputs() = default;
 
   /** Type used to store the inputs */
-  using inputs_t = std::map<std::shared_ptr<abstract::Outputs>, std::set<int>>;
+  using inputs_t = std::unordered_map<abstract::Outputs *, std::set<int>>;
+  /** Type used to store the inputs data */
+  using store_t = std::unordered_set<std::shared_ptr<abstract::Outputs>>;
 
   /** A simple extension to inputs_t iterator that also stores the end
    * iterator, allowing to cast the iterator to a boolean value.
@@ -60,18 +63,17 @@ public:
     inputs_t::iterator end_;
   };
 
-#if 0
-  /** Add outputs from a given Output object */
-  template<typename T, typename ... Args>
-  void addInput(std::shared_ptr<T> source, Args ... args);
-#else
   /** Add outputs from a given Output object */
   template<typename T, typename EnumI, typename ... Args>
   void addInput(std::shared_ptr<T> source, EnumI i, Args ... args);
-  /** Add a single output from a given Output object */
-  template<typename T, typename EnumI>
-  void addInput(std::shared_ptr<T> source, EnumI i);
-#endif
+
+  /** Add outputs from a given Output object.
+   *
+   * Leave the caller responsible for the source lifetime
+   */
+  template<typename T, typename EnumI, typename ... Args,
+    typename std::enable_if<std::is_base_of<abstract::Outputs, T>::value, int>::type = 0 >
+  void addInput(T & source, EnumI i, Args ... args);
   /** Remove all outputs from a given Output object */
   template<typename T>
   void removeInput(T* source);
@@ -81,10 +83,20 @@ public:
   /** Retrieve an input from a given Output object */
   template<typename T>
   Iterator getInput(T* source);
+  /** Retrieve an input from a given Output object */
   template<typename T>
   Iterator getInput(const std::shared_ptr<T>& source);
 private:
+  /** Remove an input with a given iterator and source */
+  void removeInput(Iterator it, abstract::Outputs * source);
   inputs_t inputs_;
+  store_t store_;
+  /** Add a single output from a given Output object. */
+  template<typename T, typename EnumI>
+  void addInput(T * source, EnumI i);
+  /** Terminal case */
+  template<typename T>
+  void addInput(T &) {}
 };
 
 } // namespace internal

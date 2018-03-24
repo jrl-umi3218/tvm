@@ -74,13 +74,18 @@ protected:
   template<typename U = T, typename EnumU1, typename EnumU2>
   void addInternalDependency(EnumU1 uDependent, EnumU2 u);
 
-  /** Add a dependency of an update function to an input signal and its source */
-  template<typename U = T, typename EnumU, typename S, typename EnumO>
-  void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i);
-
   /** Add a dependency of an update function to multiple input signals from a source */
   template<typename U = T, typename EnumU, typename S, typename EnumO, typename ... Args>
   void addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args ... args);
+
+  /** Add a dependency of an update function to multiple input signals from a source
+   *
+   * The lifetime of \p source should be guaranteed by the caller
+   *
+   */
+  template<typename U = T, typename EnumU, typename S, typename EnumO, typename ... Args,
+    typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type = 0 >
+  void addInputDependency(EnumU u, S & source, EnumO i, Args ... args);
 
   /** Add a dependency of an output to an input signal and its source
    *
@@ -94,6 +99,34 @@ protected:
    */
   template<typename U = T, typename EnumO, typename S, typename EnumI>
   void addDirectDependency(EnumO o, std::shared_ptr<S> source, EnumI i);
+
+  /** Add a dependency of an output to an input signal and its source
+   *
+   * The lifetime of \p source should be guaranteed by the caller
+   *
+   * This is used when an output directly use the input signal without
+   * requiring an update, and a cache. This is the case when an output directly
+   * forward an input, and it should be the only use-case.
+   *
+   * It is not possible for an output to have a direct and some update
+   * dependencies at the same time.
+   *
+   */
+  template<typename U = T, typename EnumO, typename S, typename EnumI,
+    typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type = 0 >
+  void addDirectDependency(EnumO o, S & source, EnumI i);
+private:
+  /* Internal version that takes a pointer to the source */
+  template<typename U, typename EnumU, typename S>
+  void checkAddInputDependency(EnumU u);
+  template<typename U = T, typename EnumU, typename S, typename EnumO>
+  void addInputDependency(EnumU u, S * source, EnumO i);
+  template<typename U = T, typename EnumU, typename S, typename EnumO, typename ... Args>
+  void addInputDependency(EnumU u, S* source, EnumO i, Args ... args);
+  template<typename U, typename EnumO, typename S, typename EnumI>
+  void checkAddDirectDependency(EnumO o);
+  template<typename U = T, typename EnumO, typename S, typename EnumI>
+  void addDirectDependency(EnumO o, S * source, EnumI i);
 };
 
 } // namespace abstract

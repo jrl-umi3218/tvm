@@ -16,11 +16,13 @@ namespace tvm
     None::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
       : TaskDynamicsImpl(Order::Zero, f, t, rhs)
     {
-      lf_ = dynamic_cast<const function::abstract::LinearFunction*>(f.get());
+      using function::abstract::LinearFunction;
+      lf_ = dynamic_cast<const LinearFunction*>(f.get());
       if (!lf_)
       {
         throw std::runtime_error("The function is not linear.");
       }
+      addInputDependency<Impl>(Update::UpdateValue, std::static_pointer_cast<LinearFunction>(f), LinearFunction::Output::B);
     }
 
     void None::Impl::updateValue()

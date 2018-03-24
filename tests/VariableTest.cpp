@@ -178,20 +178,18 @@ TEST_CASE("Test VariableVector creation")
   FAST_CHECK_EQ(vv2[1], v2);
   FAST_CHECK_EQ(vv2[2], v3);
 
-  CHECK_THROWS(vv2.add(v1));
-  CHECK_NOTHROW(vv2.add(v1, true));
-  CHECK_THROWS(vv2.remove(*v4));
-  CHECK_NOTHROW(vv2.remove(*v4, true));
+  CHECK(vv2.add(v1) == false);
+  CHECK(vv2.remove(*v4) == false);
 
   std::vector<VariablePtr> vec = { v1, v2 };
   std::vector<VariablePtr> vec2 = { v1, v3, v4 };
   VariableVector vv3(vec);
+  for(const auto & v : vec) { vv3.add(v); }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 2);
   FAST_CHECK_EQ(vv3.totalSize(), 7);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
-  CHECK_THROWS(vv3.add(vec2));
-  CHECK_NOTHROW(vv3.add(vec2, true));
+  for(const auto & v : vec2) { vv3.add(v); }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 4);
   FAST_CHECK_EQ(vv3.totalSize(), 12);
   FAST_CHECK_EQ(vv3[0], v1);

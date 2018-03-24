@@ -92,7 +92,7 @@ static_assert(COUNT_VA_ARGS(1,2,3) == 3, "COUNT_VA_ARGS failed for 3 arguments."
 #define PP_MAP7(m, d, x, ...) m(d, x) PP_ID(PP_MAP6(m, d, __VA_ARGS__))
 #define PP_MAP8(m, d, x, ...) m(d, x) PP_ID(PP_MAP7(m, d, __VA_ARGS__))
 #define PP_MAP9(m, d, x, ...) m(d, x) PP_ID(PP_MAP8(m, d, __VA_ARGS__))
-#define PP_MAP10(m, d, x, ...) m(d, x) PP_ID(PP_MAP9(m, d, __VA_ARGS__)
+#define PP_MAP10(m, d, x, ...) m(d, x) PP_ID(PP_MAP9(m, d, __VA_ARGS__))
 #define PP_MAP11(m, d, x, ...) m(d, x) PP_ID(PP_MAP10(m, d, __VA_ARGS__))
 #define PP_MAP12(m, d, x, ...) m(d, x) PP_ID(PP_MAP11(m, d, __VA_ARGS__))
 #define PP_MAP13(m, d, x, ...) m(d, x) PP_ID(PP_MAP12(m, d, __VA_ARGS__))

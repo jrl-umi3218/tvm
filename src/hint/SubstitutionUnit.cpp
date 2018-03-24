@@ -329,7 +329,7 @@ namespace internal
           if (it == x_.variables().end())
           {
             // v is an y variable.
-            y_.add(v, true);
+            y_.add(v);
             auto ity = std::find(y_.variables().begin(), y_.variables().end(), v);
             constraintsY_.back().push_back(static_cast<int>(ity - y_.variables().begin()));
           }
