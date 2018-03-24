@@ -47,7 +47,10 @@ namespace internal
       * used, as it might be needed to group substitutions (when a group of
       * substitutions depends on each other variables).
       */
-    const std::vector<Substitution> substitutions();
+    const std::vector<Substitution>& substitutions() const;
+
+    /** Return \p true if \p c is used in one of the substitutions*/
+    bool uses(LinearConstraintPtr c) const;
 
     /** Compute all the data needed for the substitutions.
       * Needs to be called after all the call to \p add, and before the calls to

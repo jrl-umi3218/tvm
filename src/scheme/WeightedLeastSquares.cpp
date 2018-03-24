@@ -72,6 +72,9 @@ namespace scheme
     int m1 = 0;
     for (const auto& c : constraints)
     {
+      // If the constraint is used for the substitutions, we skip it.
+      if (subs.uses(c.constraint))
+        continue;
       abilities_.check(c.constraint, c.requirements); //FIXME: should be done in a parent class
       for (const auto& xi: c.constraint->variables())
         memory->addVariable(subs.substitute(xi));
@@ -92,6 +95,13 @@ namespace scheme
         }
         constr.push_back(c);
       }
+    }
+    // we need to add the additional constraints due to the substitutions.
+    // They are added at level 0
+    for (const auto& c : subs.additionalConstraints())
+    {
+      m0 += c->size();
+      constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
     }
 
     if (m1 == 0)

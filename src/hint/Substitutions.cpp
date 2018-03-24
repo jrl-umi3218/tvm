@@ -125,9 +125,22 @@ namespace internal
     }
   }
 
-  const std::vector<Substitution> Substitutions::substitutions()
+  const std::vector<Substitution>& Substitutions::substitutions() const
   {
     return substitutions_;
+  }
+
+  bool Substitutions::uses(LinearConstraintPtr c) const
+  {
+    for (const auto& s : substitutions_)
+    {
+      for (const auto& cstr : s.constraints())
+      {
+        if (c == cstr)
+          return true;
+      }
+    }
+    return false;
   }
 
   void Substitutions::finalize()
