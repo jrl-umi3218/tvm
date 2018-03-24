@@ -51,6 +51,22 @@ namespace internal
   class TVM_DLLAPI Assignment
   {
   public:
+    /** Pointer type to a method of LinearConstraint returning a vector.
+      * It is used to make a selection between e(), l() and u().
+      */
+    using RHSFunction = const Eigen::VectorXd& (constraint::abstract::LinearConstraint::*)() const;
+   
+    /** Pointer type to a method of AssignmentTarget returning a matrix block.
+      * It is used to make a selection between A(), AFirstHalf() and ASecondHalf().
+      */
+    using MatrixFunction = MatrixRef(AssignmentTarget::*)(int, int) const;
+
+    /** Pointer type to a method of AssignementTarget returning a vector segment.
+      * It is used to make a selection between b(), bFirstHalf(), bSecondHalf(),
+      * l() and u().
+      */
+    using VectorFunction = VectorRef(AssignmentTarget::*)() const;
+
     /** Assignment constructor
       * \param source The linear constraints whose matrix and vector(s) will be
       * assigned.
@@ -92,22 +108,6 @@ namespace internal
     static double big_;
 
   private:
-    /** Pointer type to a method of LinearConstraint returning a vector.
-      * It is used to make a selection between e(), l() and u().
-      */
-    using RHSFunction = const Eigen::VectorXd& (constraint::abstract::LinearConstraint::*)() const;
-   
-    /** Pointer type to a method of AssignmentTarget returning a matrix block.
-      * It is used to make a selection between A(), AFirstHalf() and ASecondHalf().
-      */
-    using MatrixFunction = MatrixRef(AssignmentTarget::*)(int, int) const;
-
-    /** Pointer type to a method of AssignementTarget returning a vector segment.
-      * It is used to make a selection between b(), bFirstHalf(), bSecondHalf(),
-      * l() and u().
-      */
-    using VectorFunction = VectorRef(AssignmentTarget::*)() const;
-
     /** A structure grouping a matrix assignment and some of the elements that
       * defined it.
       */
@@ -176,8 +176,8 @@ namespace internal
       * target. The assignement type is given by the template parameter \p A.
       * \p flip indicates a sign change if \p true.
       */
-    template<AssignType A = AssignType::COPY>
-    void addVectorAssignment(RHSFunction f, VectorFunction v, bool flip);
+    template<AssignType A = AssignType::COPY, typename From, typename To>
+    void addVectorAssignment(const From& f, To v, bool flip);
     
     /** Creates the assignements due to the substitution of variable \p x by the
       * linear expression \p sub. The target is given by \p v.
@@ -188,8 +188,8 @@ namespace internal
     /** Create a vector assignement where the source is a constant. The target
       * is given by \p v and the type of assignement by \p A.
       */
-    template<AssignType A = AssignType::COPY>
-    void addConstantAssignment(double d, VectorFunction v);
+    template<AssignType A = AssignType::COPY, typename To>
+    void addConstantAssignment(double d, To v);
     
     /** Creates an assignement setting to zero the matrix block given by \p M
       * and \p range. The variable \p x is simply stored in the corresponding
@@ -372,8 +372,47 @@ namespace internal
     }
   }
 
-  template<AssignType A>
-  inline void Assignment::addVectorAssignment(RHSFunction f, VectorFunction v, bool flip)
+  /** Helper function for addVectorAssignment returning the Eigen::Ref to the
+    * source vector, where the argument is the vector in question.
+    */
+  inline VectorConstRef retrieveSource(LinearConstraintPtr, const VectorConstRef& f)
+  {
+    return f;
+  }
+
+  /** Helper function for addVectorAssignment returning the Eigen::Ref to the
+    * source vector, where the argument is a method returning the vector.
+    */
+  inline VectorConstRef retrieveSource(LinearConstraintPtr s, const Assignment::RHSFunction& f)
+  {
+    return (s.get()->*f)();
+  }
+
+  /** Helper function for addVectorAssignment and addConstantAssignment
+    * returning the Eigen::Ref to the target vector, where the argument is the
+    * vector in question.
+    */
+  inline VectorRef retrieveTarget(AssignmentTarget&, VectorRef v)
+  {
+    return v;
+  }
+
+  /** Helper function for addVectorAssignment and addConstantAssignment
+    * returning the Eigen::Ref to the target vector, where the argument is a
+    * method returning the vector.
+    */
+  inline VectorRef retrieveTarget(AssignmentTarget& t, Assignment::VectorFunction v)
+  {
+    return (t.*v)();
+  }
+
+  /** Helper function for addVectorAssignment returning \p nullptr.*/
+  inline std::nullptr_t nullifyIfVecRef(const VectorConstRef&) { return nullptr; }
+  /** Helper function for addVectorAssignment returning its argument.*/
+  inline Assignment::RHSFunction nullifyIfVecRef(Assignment::RHSFunction f) { return f; }
+
+  template<AssignType A, typename From, typename To>
+  inline void Assignment::addVectorAssignment(const From& f, To v, bool flip)
   {
     bool useSource = source_->rhs() != constraint::RHS::ZERO;
     if (useSource)
@@ -385,26 +424,27 @@ namespace internal
       if (target_.constraintRhs() == constraint::RHS::OPPOSITE)
         flip = !flip;
 
-      const VectorRef& to = (target_.*v)();
-      const VectorConstRef& from = (source_.get()->*f)();
+      const VectorRef& to = retrieveTarget(target_, v);
+      const auto& from = retrieveSource(source_, f);
       auto w = createAssignment<Eigen::VectorXd, A>(from, to, flip);
-      vectorAssignments_.push_back({ w, true, f, v });
+      bool b = nullifyIfVecRef(f);
+      vectorAssignments_.push_back({ w, b, nullifyIfVecRef(f), v });
     }
     else
     {
       if (target_.constraintRhs() != constraint::RHS::ZERO)
       {
-        const VectorRef& to = (target_.*v)();
+        const VectorRef& to = retrieveTarget(target_, v);
         auto w = CompiledAssignmentWrapper<Eigen::VectorXd>::make<A, NONE, IDENTITY, ZERO>(to);
         vectorAssignments_.push_back({ w, false, nullptr, v });
       }
     }
   }
 
-  template<AssignType A>
-  inline void Assignment::addConstantAssignment(double d, VectorFunction v)
+  template<AssignType A, typename To>
+  inline void Assignment::addConstantAssignment(double d, To v)
   {
-    const VectorRef& to = (target_.*v)();
+    const VectorRef& to = retrieveTarget(target_, v);
     auto w = createAssignment<Eigen::VectorXd, A>(d, to, false);
     vectorAssignments_.push_back({ w, false, nullptr, v });
   }
