@@ -20,6 +20,9 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
+#include <tvm/constraint/enums.h>
+
+#include <vector>
 
 namespace tvm
 {
@@ -30,6 +33,11 @@ namespace internal
   class Substitutions;
 }
 }
+namespace function
+{
+  class BasicLinearFunction;
+}
+
 namespace scheme
 {
 namespace internal
@@ -58,9 +66,33 @@ namespace internal
   /** Assert if a constraint is a bound in the presence of substitutions
     * \param c the constraint
     * \param subs the set of substitutions
+    * We have a bound if c is a bound and the variable is not substituted or it
+    * is by an expression with a single varaible and an invertible, diagonal
+    * jacobian.
     */
   bool TVM_DLLAPI isBound(const ConstraintPtr& c, const hint::internal::Substitutions& subs);
 
+  /** Assert if a constraint is a bound in the presence of substitutions
+    * \param c the constraint
+    * \param x the set of variables being substituted
+    * \param xsub the set of substitution functions corresponding to those variables.
+    * We have a bound if c is a bound and the variable is not substituted or it
+    * is by an expression with a single varaible and an invertible, diagonal
+    * jacobian.
+    */
+  bool TVM_DLLAPI isBound(const ConstraintPtr& c, const std::vector<VariablePtr>& x,
+                          const std::vector<std::shared_ptr<function::BasicLinearFunction>>& xsub);
+
+  /** Check if the constraint can be used as a bound for a given target convention.
+    * For example l <= x <= u is a bound, but it cannot be transformed into x >= lb.
+    */
+  bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr& c, const hint::internal::Substitutions& subs,
+                                   constraint::Type targetConvention);
+
+  /** Version with separated susbtituted variables and substitution functions.*/
+  bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr& c, const std::vector<VariablePtr>& x,
+                                   const std::vector<std::shared_ptr<function::BasicLinearFunction>>& xsub,
+                                   constraint::Type targetConvention);
 }
 }
 }
