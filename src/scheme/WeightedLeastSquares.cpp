@@ -78,7 +78,6 @@ namespace scheme
       abilities_.check(c.constraint, c.requirements); //FIXME: should be done in a parent class
       for (const auto& xi: c.constraint->variables())
         memory->addVariable(subs.substitute(xi));
-      //memory->addVariable(c.constraint->variables()); //FIXME: should be done in a parent class
 
       if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED)
           && c.requirements->priorityLevel().value() == 0)

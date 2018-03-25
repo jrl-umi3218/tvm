@@ -187,8 +187,9 @@ Constraints buildConstraints(int m, int n)
 
 //build constraints x op 0, x op +/-2 such that 0 is feasible, and -2 <= x <= 2
 //if minus = true, we take -x instead of x
-Constraints buildSimpleConstraints(bool minus = false, VariablePtr y = nullptr)
+Constraints buildSimpleConstraints(double s = 1, VariablePtr y = nullptr)
 {
+  assert(s != 0);
   Constraints cstr;
   VariablePtr x;
   if (y)
@@ -196,12 +197,14 @@ Constraints buildSimpleConstraints(bool minus = false, VariablePtr y = nullptr)
   else
     x = Space(1).createVariable("x");
 
-  double s = minus ? -1 : 1;
   tvm::internal::MatrixProperties p;
-  if (minus)
+  if (s == -1)
     p = { tvm::internal::MatrixProperties::MINUS_IDENTITY };
-  else
+  else if (s == 1)
     p = { tvm::internal::MatrixProperties::IDENTITY };
+  else
+    p = { tvm::internal::MatrixProperties::MULTIPLE_OF_IDENTITY, 
+          tvm::internal::MatrixProperties::Invertibility(s != 0) };
 
   //generate matrix
   MatrixXd A = s*MatrixXd::Identity(1, 1);
@@ -726,7 +729,7 @@ TEST_CASE("Test simple assignment")
   checkSimpleBound(cstr.minus_l_leq_Ax_leq_minus_u);
 
   //with -Identity
-  auto cstr2 = buildSimpleConstraints(true, cstr.Ax_eq_0->variables()[0]);
+  auto cstr2 = buildSimpleConstraints(-1, cstr.Ax_eq_0->variables()[0]);
   checkSimpleBound(cstr2.Ax_eq_0);
   checkSimpleBound(cstr2.Ax_geq_0);
   checkSimpleBound(cstr2.Ax_leq_0);
@@ -738,6 +741,34 @@ TEST_CASE("Test simple assignment")
   checkSimpleBound(cstr2.Ax_leq_minus_b);
   checkSimpleBound(cstr2.l_leq_Ax_leq_u);
   checkSimpleBound(cstr2.minus_l_leq_Ax_leq_minus_u);
+
+  // with diagonal
+  auto cstr3 = buildSimpleConstraints(2, cstr.Ax_eq_0->variables()[0]);
+  checkSimpleBound(cstr3.Ax_eq_0);
+  checkSimpleBound(cstr3.Ax_geq_0);
+  checkSimpleBound(cstr3.Ax_leq_0);
+  checkSimpleBound(cstr3.Ax_eq_b);
+  checkSimpleBound(cstr3.Ax_geq_b);
+  checkSimpleBound(cstr3.Ax_leq_b);
+  checkSimpleBound(cstr3.Ax_eq_minus_b);
+  checkSimpleBound(cstr3.Ax_geq_minus_b);
+  checkSimpleBound(cstr3.Ax_leq_minus_b);
+  checkSimpleBound(cstr3.l_leq_Ax_leq_u);
+  checkSimpleBound(cstr3.minus_l_leq_Ax_leq_minus_u);
+
+  // with diagonal (negative)
+  auto cstr4 = buildSimpleConstraints(-2, cstr.Ax_eq_0->variables()[0]);
+  checkSimpleBound(cstr4.Ax_eq_0);
+  checkSimpleBound(cstr4.Ax_geq_0);
+  checkSimpleBound(cstr4.Ax_leq_0);
+  checkSimpleBound(cstr4.Ax_eq_b);
+  checkSimpleBound(cstr4.Ax_geq_b);
+  checkSimpleBound(cstr4.Ax_leq_b);
+  checkSimpleBound(cstr4.Ax_eq_minus_b);
+  checkSimpleBound(cstr4.Ax_geq_minus_b);
+  checkSimpleBound(cstr4.Ax_leq_minus_b);
+  checkSimpleBound(cstr4.l_leq_Ax_leq_u);
+  checkSimpleBound(cstr4.minus_l_leq_Ax_leq_minus_u);
 
   std::vector<BLCPtr> c1 = {cstr.Ax_eq_0, cstr.Ax_geq_0, cstr.Ax_leq_0, cstr.Ax_eq_b,
                             cstr.Ax_geq_b, cstr.Ax_leq_b, cstr.Ax_eq_minus_b, cstr.Ax_geq_minus_b,

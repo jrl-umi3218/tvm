@@ -253,13 +253,13 @@ namespace internal
           {
             //case 3
             addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::l, false);
-            addConstantAssignment(big_, &AssignmentTarget::u);
+            addVectorAssignment(big_, &AssignmentTarget::u);
           }
           else
           {
             //case 6
             addAssignments(variables, &AssignmentTarget::A, f, &AssignmentTarget::u, false);
-            addConstantAssignment(-big_, &AssignmentTarget::l);
+            addVectorAssignment(-big_, &AssignmentTarget::l);
           }
           break;
         }
@@ -269,37 +269,73 @@ namespace internal
 
   void Assignment::build(const VariablePtr& variable, bool first)
   {
-    VectorFunction l;
-    VectorFunction u;
-    bool flip;
-    if (source_->jacobian(*variable).properties().isIdentity())
-    {
-      l = &AssignmentTarget::l;
-      u = &AssignmentTarget::u;
-      flip = false;
-    }
-    else if (source_->jacobian(*variable).properties().isMinusIdentity())
-    {
-      l = &AssignmentTarget::u;
-      u = &AssignmentTarget::l;
-      flip = true;
-    }
-    else
-    {
-      throw std::runtime_error("Pure diagonal case is not implemented yet.");
-    }
+    // We know that: source_ is a single-variable constraint with invertible
+    // diagonal jacobian, and that if there is a substitution it is also by a
+    // single variable with an invertible diagonal jacobian.
+    // We also know that the target is compatible with the source + substitution,
+    // and that it can't be of type EQUAL.
 
-    if (first)
+    if (target_.constraintType() == Type::DOUBLE_SIDED)
     {
-      assignBounds(l, u, flip);
+      switch (source_->type())
+      {
+      case Type::EQUAL: 
+        addBounds(variable, &LinearConstraint::e, &LinearConstraint::e, first);
+        break;
+      case Type::GREATER_THAN: 
+        addBounds(variable, &LinearConstraint::l, +big_, first);
+        break;
+      case Type::LOWER_THAN: 
+        addBounds(variable, -big_, &LinearConstraint::u, first);
+        break;
+      case Type::DOUBLE_SIDED: 
+        addBounds(variable, &LinearConstraint::l, &LinearConstraint::u, first);
+        break;
+      default: assert(false);
+      }
     }
-    else
+    else //target is GREATER_THAN or LOWER_THAN
     {
-      if (flip)
-        assignBounds<AssignType::MIN, AssignType::MAX>(l, u, flip);
-      else
-        assignBounds<AssignType::MAX, AssignType::MIN>(l, u, flip);
+      if (source_->type() == Type::GREATER_THAN)
+      {
+        addBound(variable, &LinearConstraint::l, first);
+      }
+      else //source is LOWER_THAN
+      {
+        addBound(variable, &LinearConstraint::u, first);
+      }
     }
+    //VectorFunction l;
+    //VectorFunction u;
+    //bool flip;
+    //if (source_->jacobian(*variable).properties().isIdentity())
+    //{
+    //  l = &AssignmentTarget::l;
+    //  u = &AssignmentTarget::u;
+    //  flip = false;
+    //}
+    //else if (source_->jacobian(*variable).properties().isMinusIdentity())
+    //{
+    //  l = &AssignmentTarget::u;
+    //  u = &AssignmentTarget::l;
+    //  flip = true;
+    //}
+    //else
+    //{
+    //  throw std::runtime_error("Pure diagonal case is not implemented yet.");
+    //}
+
+    //if (first)
+    //{
+    //  assignBounds(l, u, flip);
+    //}
+    //else
+    //{
+    //  if (flip)
+    //    assignBounds<AssignType::MIN, AssignType::MAX>(l, u, flip);
+    //  else
+    //    assignBounds<AssignType::MAX, AssignType::MIN>(l, u, flip);
+    //}
   }
 
   void Assignment::processRequirements()
@@ -358,9 +394,9 @@ namespace internal
       else
       {
         if (flip)
-          w = createSubstitutionAssignment<Eigen::MatrixXd, SUB>(J, to, Ai);
+          w = createMultiplicationAssignment<Eigen::MatrixXd, SUB>(J, to, Ai);
         else
-          w = createSubstitutionAssignment<Eigen::MatrixXd, ADD>(J, to, Ai);
+          w = createMultiplicationAssignment<Eigen::MatrixXd, ADD>(J, to, Ai);
       }
       //Possible optimizations:
       // - detect more cases
@@ -406,9 +442,9 @@ namespace internal
       else
       {
         if (flip)
-          w = createSubstitutionAssignment<Eigen::VectorXd, SUB>(from, to, A);
+          w = createMultiplicationAssignment<Eigen::VectorXd, SUB>(from, to, A);
         else
-          w = createSubstitutionAssignment<Eigen::VectorXd, ADD>(from, to, A);
+          w = createMultiplicationAssignment<Eigen::VectorXd, ADD>(from, to, A);
       }
       vectorSubstitutionAssignments_.push_back({ w, v });
     }
@@ -476,6 +512,54 @@ namespace internal
       {
         Range cols = x->getMappingIn(variables);
         addMatrixAssignment(*x, M, cols, flip);
+      }
+    }
+  }
+
+  void Assignment::addBound(const VariablePtr& variable, RHSFunction f, bool first)
+  {
+    const auto& J = source_->jacobian(*variable);
+    bool gt = target_.constraintType() == Type::GREATER_THAN;
+    VectorFunction v;
+
+    if (gt)
+      v = &AssignmentTarget::l;
+    else
+      v = &AssignmentTarget::u;
+
+    int i;
+    if (substitutedVariables_.contains(*variable, &i))
+    {
+      throw std::runtime_error("Subsitution is not yet implemented for bounds");
+    }
+    else
+    {
+      if (J.properties().isIdentity())
+      {
+        assert(target_.constraintType() == source_->type());
+        if (first)
+          addVectorAssignment(f, v, false);
+        else
+          gt ? addVectorAssignment<MAX>(f, v, false) : addVectorAssignment<MIN>(f, v, false);
+      }
+      else if (J.properties().isMinusIdentity())
+      {
+        assert(target_.constraintType() != source_->type());
+        if (J.properties().isIdentity())
+        {
+          if (first)
+            addVectorAssignment(f, v, true);
+          else
+            gt ? addVectorAssignment<MAX>(f, v, true) : addVectorAssignment<MIN>(f, v, true);
+        }
+      }
+      else
+      {
+        assert(J.properties().isDiagonal());
+        if (first)
+          addVectorAssignment(f, v, J, false);
+        else
+          gt ? addVectorAssignment<MAX>(f, v, J, false) : addVectorAssignment<MIN>(f, v, J, false);
       }
     }
   }
