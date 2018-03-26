@@ -39,10 +39,11 @@ namespace tvm
           {
             const auto& sub = xsub[static_cast<size_t>(it - x.begin())];
             const auto& v = sub->variables();
-            const auto& p = sub->jacobian(*x[0]).properties();
+            if (v.numberOfVariables() != 1) return false;
+            const auto& p = sub->jacobian(*v[0]).properties();
             // There could be 0 variables in sub. In that case we have a trivial
             // constraint that we do not consider as a bound.
-            return (v.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
+            return (p.isDiagonal() && p.isInvertible());
           }
         }
         else
