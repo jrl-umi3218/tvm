@@ -158,7 +158,7 @@ namespace internal
     * }
     * \enddot
     *
-    * FIXME Consider the case where the TaskDynamics has its own variables?
+    * \internal FIXME Consider the case where the TaskDynamics has its own variables?
     */
   class TVM_DLLAPI LinearizedTaskConstraint : public abstract::LinearConstraint
   {
@@ -172,15 +172,24 @@ namespace internal
     template<constraint::Type T>
     LinearizedTaskConstraint(const utils::ProtoTask<T>& pt, const task_dynamics::abstract::TaskDynamics& td);
 
+    /** Update the \p l vector, for kinematic tasks.*/
     void updateLKin();
+    /** Update the \p l vector, for dynamic tasks.*/
     void updateLDyn();
+    /** Update the \p u vector, for kinematic, single-sided tasks.*/
     void updateUKin();
+    /** Update the \p u vector, for dynamic, single-sided tasks.*/
     void updateUDyn();
+    /** Update the \p e vector, for kinematic tasks.*/
     void updateEKin();
+    /** Update the \p e vector, for dynamic tasks.*/
     void updateEDyn();
+    /** Update the \p u vector, for kinematic, double-sided tasks.*/
     void updateU2Kin();
+    /** Update the \p u vector, for dynamic, double-sided tasks.*/
     void updateU2Dyn();
 
+    /** Return the jacobian matrix corresponding to \p x */
     const tvm::internal::MatrixWithProperties& jacobian(const Variable& x) const override;
 
   private:

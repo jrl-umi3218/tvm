@@ -31,12 +31,16 @@ namespace function
   class TVM_DLLAPI IdentityFunction : public BasicLinearFunction
   {
   public:
+    /** Build an identity function on variable \p x*/
     IdentityFunction(VariablePtr x);
 
+    /** Overriden function that always throws.*/
     void A(const MatrixConstRef& A, const Variable& x, 
            const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
-    void A(const MatrixConstRef& A, 
+    /** Overriden function that always throws.*/
+    void A(const MatrixConstRef& A,
            const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties()) override;
+    /** Overriden function that always throws.*/
     void b(const VectorConstRef& b, const tvm::internal::MatrixProperties&) override;
 
   protected:

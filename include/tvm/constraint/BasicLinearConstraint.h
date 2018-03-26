@@ -28,7 +28,7 @@ namespace constraint
 {
 
   /** The most basic linear constraint where the matrix and the vector(s)
-   * are constant.
+    * are constant.
     */
   class TVM_DLLAPI BasicLinearConstraint : public abstract::LinearConstraint
   {
@@ -74,18 +74,23 @@ namespace constraint
     BasicLinearConstraint(int m, std::vector<VariablePtr>& x,
                           Type ct, RHS cr = RHS::AS_GIVEN);
 
-    /** Set the matrix A corresponding to variable x.*/
+    /** Set the matrix \p A corresponding to variable \p x.
+      * Optionally set the properties of \p A with \p p
+      */
     void A(const MatrixConstRef& A, const Variable& x, 
            const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
-    /** Shortcut for when there is a single variable.*/
+    /** Shortcut for 
+      *void A(const MatrixConstRef&, const Variable&, const tvm::internal::MatrixProperties&)
+      * when there is a single variable.
+      */
     void A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p = tvm::internal::MatrixProperties());
-    /** Set b */
+    /** Set \p b */
     void b(const VectorConstRef& b);
     using abstract::LinearConstraint::l;
-    /** Set l */
+    /** Set \p l */
     void l(const VectorConstRef& l);
     using abstract::LinearConstraint::u;
-    /** Set u */
+    /** Set \p u */
     void u(const VectorConstRef& u);
   private:
     void add(const Eigen::MatrixXd& A, VariablePtr x);

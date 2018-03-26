@@ -35,14 +35,14 @@ namespace abstract
 {
   /** Given a set of variables aggregated as \p x, and a set of constraints
     * that, once aggregated, writes A x + ..., this base class proposes a set of
-    * operations related to A that are usefull for performing substitutions.
+    * operations related to A that are useful for performing substitutions.
     * The operations revolve around 3 matrices:
     *  - A^#, a generalize inverse of A (i.e. a matrix such that A A^# A = A)
     *  - N, a basis of the nullspace of A. It does not need to be orthonormal.
     *  - S, a basis of the nullspace of A^T. It does not need to be orthonormal.
     *
     * The choice of A^#, N and S is implemented by derivation of this base class.
-    * A generic implentation is given by GenericCalculator::Impl
+    * A generic implementation is given by GenericCalculator::Impl
     */
   class TVM_DLLAPI SubstitutionCalculatorImpl
   {

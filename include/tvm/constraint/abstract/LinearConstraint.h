@@ -72,9 +72,17 @@ namespace abstract
   public:
     SET_UPDATES(LinearConstraint, Value)
 
+    /** Update the value of the constraint (i.e.) f(x) for a constraint
+      * f(x) op rhs.
+      */
     void updateValue();
 
   protected:
+    /** Constructor. Only available to derived classes.
+      * \param ct The constraint type
+      * \param cr The rhs convention
+      * \param The (output) size of the constraint
+      */
     LinearConstraint(Type ct, RHS cr, int m);
   };
 

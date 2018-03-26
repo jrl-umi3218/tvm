@@ -34,25 +34,33 @@ namespace function
   class TVM_DLLAPI BasicLinearFunction : public abstract::LinearFunction
   {
   public:
-    /** b = 0 */
+    /** A x (b = 0) */
     BasicLinearFunction(const MatrixConstRef& A, VariablePtr x);
+    /** A1 x1 + ... An xn (b = 0) */
     BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x);
 
-    /** b is user-supplied*/
+    /** A x + b */
     BasicLinearFunction(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b);
+    /** A1 x1 + ... An xn + b*/
     BasicLinearFunction(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x, const VectorConstRef& b);
 
-    /** Uninitialized version for a function of size \p m*/
+    /** Uninitialized version for a function of size \p m with a single variable
+      * \p x
+      */
     BasicLinearFunction(int m, VariablePtr x);
+    /** Uninitialized version for a function of size \p m with multiple
+      * variables \p x1 ... \p xn
+      */
     BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 
-    /** Set the matrix A corresponding to variable x.*/
+    /** Set the matrix \p A corresponding to variable \p x and optionally the
+      * properties \p p of \p A.*/
     virtual void A(const MatrixConstRef& A, const Variable& x,
                    const internal::MatrixProperties& p = internal::MatrixProperties());
     /** Shortcut for when there is a single variable.*/
     virtual void A(const MatrixConstRef& A, 
                    const internal::MatrixProperties& p = internal::MatrixProperties());
-    /** Set the constant term b.*/
+    /** Set the constant term \p b, and optionally its properties \p p.*/
     virtual void b(const VectorConstRef& b, const internal::MatrixProperties& p = internal::MatrixProperties());
 
     using LinearFunction::b;
