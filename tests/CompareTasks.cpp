@@ -377,7 +377,7 @@ static void BM_TVM(benchmark::State & state)
 
   pb.add(lfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
   pb.add(rfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
-  pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
+  auto dyn_task = pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
   dyn_fn->addPositiveLambdaToProblem(pb);
 
   pb.add(posture_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1.)});
@@ -390,6 +390,8 @@ static void BM_TVM(benchmark::State & state)
   pb.add(hrp2->lTauBound() <= hrp2->tau() <= hrp2->uTauBound(), tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
 
   tvm::LinearizedControlProblem lpb(pb);
+
+  lpb.add(tvm::hint::Substitution(lpb.constraint(dyn_task.get()), hrp2->tau()));
 
   tvm::scheme::WeightedLeastSquares solver(false);
 
