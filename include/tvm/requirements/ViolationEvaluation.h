@@ -30,21 +30,28 @@ namespace requirements
 {
 
   /** Given a constraint, let the vector v(x) be its componentwise
-   * violation.
-   *
-   * For example, for the constraint c(x) = 0, we simply have v(x) = c(x),
-   * for c(x) >= b, we have v(x) = max(b-c(x),0).
-   *
-   * This enumeration specifies how v(x) is made into a scalar measure
-   * f(x) of this violation.
-   */
+    * violation.
+    *
+    * For example, for the constraint c(x) = 0, we simply have v(x) = c(x),
+    * for c(x) >= b, we have v(x) = max(b-c(x),0).
+    *
+    * This enumeration specifies how v(x) is made into a scalar measure
+    * f(x) of this violation.
+    */
   enum class ViolationEvaluationType
   {
-    L1,     // f(x) = sum(v_i(x))
-    L2,     // f(x) = v(x)'*v(x)
-    LINF    // f(x) = max(v_i(x))
+    /** f(x) = sum(abs(v_i(x))) */
+    L1,
+    /** f(x) = v(x)^T*v(x) */
+    L2,
+    /** f(x) = max(abs(v_i(x))) */
+    LINF
   };
 
+  /** A class specifying how a constraint violation should be handled.
+    * By default the L2 norm of the violation is used.
+    * \sa ViolationEvaluationType
+    */
   class TVM_DLLAPI ViolationEvaluation : public abstract::SingleSolvingRequirement<ViolationEvaluationType>
   {
   public:

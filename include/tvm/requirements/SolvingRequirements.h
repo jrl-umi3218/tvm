@@ -31,7 +31,7 @@ namespace tvm
 namespace requirements
 {
 
-  /** Note: when adding a task to a problem, the user will want to specify
+  /** \internal when adding a task to a problem, the user will want to specify
    * part or all of the following: priority level, (global) weight,
    * different weights for each dimension, type of norm to consider (and
    * maybe more in the future). The method through which tasks are added
@@ -52,9 +52,9 @@ namespace requirements
    * FIXME: should we add the notion of row selection here as well ?
    */
 
-  /** This macro adds a member of type T named member to a class, and a
-   * method name to access this member
-   */
+  /** This macro adds a member of type \p T named \p member to a class, and a
+    * method \p name to access this member.
+    */
   #define ADD_REQUIREMENT(T, name, member) \
   public: \
     const T& name() const { return member; } \
@@ -70,10 +70,20 @@ namespace requirements
     }
 
 
-  /** One class to rule them all.*/
+  /** This class groups a PriorityLevel, a Weight, an AnisotropicWeight and a
+    * ViolationEvaluation, to describe the way a constraint need to be solved
+    * and interact with other constraints.
+    */
   class TVM_DLLAPI SolvingRequirements
   {
   public:
+    /** Constructor. The arguments can be a PriorityLevel, a Weight, an
+      * AnisotropicWeight, or a ViolationEvaluation, or any combination of these
+      * objects, in any order, provided an instance of each type appears at most
+      * once.
+      * If an instance of a type is not given, the default value is taken.
+      * \sa PriorityLevel, Weight, AnisotropicWeight, ViolationEvaluation
+      */
     template<typename ... Args>
     SolvingRequirements(const Args & ... args)
     {

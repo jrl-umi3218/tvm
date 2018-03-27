@@ -29,12 +29,14 @@ namespace requirements
 {
 
   /** This class represents the scalar weight alpha of a constraint,
-   * within its priority level. It is meant to ajust the influence of
-   * several constraints at the same level.
-   *
-   * Given a scalar weight alpha, and a constraint violation measurement
-   * f(x), the product alpha*f(x) will be minimized.
-   */
+    * within its priority level. It is meant to ajust the influence of
+    * several constraints at the same level.
+    *
+    * Given a scalar weight \p alpha, and a constraint violation measurement
+    * f(x), the product alpha*f(x) will be minimized.
+    *
+    * By default the weight is 1.
+    */
   class TVM_DLLAPI Weight : public abstract::SingleSolvingRequirement<double>
   {
   public:

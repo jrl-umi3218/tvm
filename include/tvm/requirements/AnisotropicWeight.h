@@ -46,13 +46,17 @@ namespace requirements
    *
    * This class replaces the notion of dimWeight in Tasks.
    *
-   * FIXME Do we want to implement some kind of mechanism for constraints
+   * The default value for this class is weights of 1 on every row.
+   *
+   * \internal FIXME Do we want to implement some kind of mechanism for constraints
    * whose size can change?
    */
   class TVM_DLLAPI AnisotropicWeight : public abstract::SingleSolvingRequirement<Eigen::VectorXd>
   {
   public:
+    /** Default constructor: all elements of w are 1*/
     AnisotropicWeight();
+    /** Constructor for a given vector of weights \p w*/
     AnisotropicWeight(const Eigen::VectorXd& w);
   };
 

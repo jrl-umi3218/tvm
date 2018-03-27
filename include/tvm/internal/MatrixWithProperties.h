@@ -35,7 +35,7 @@ namespace internal
     * expression to a MatrixWithProperties should reset the properties (which is
     * the default behavior.
     *
-    * FIXME? Have a version which is compatible with Eigen::NoAlias (if needed).
+    * \internal FIXME? Have a version which is compatible with Eigen::NoAlias (if needed).
     */
   template<typename MatrixType>
   class KeepProperties
@@ -44,7 +44,8 @@ namespace internal
     /** Create the proxy.
       *
       * \param M The MatrixWithProperties
-      * \param keep Specified is the properties should be kept or not
+      * \param keep Specifies if the properties should be kept (\p true) or not
+      * (\p false)
       */
     KeepProperties(ObjectWithProperties<MatrixType>& M, bool keep) : M_(M), keep_(keep) {}
 
@@ -61,7 +62,7 @@ namespace internal
     const bool keep_;
   };
 
-  /** An Eigen matrix together with MatrixProperties. */
+  /** An Eigen object together with MatrixProperties. */
   template<typename MatrixType>
   class ObjectWithProperties : public MatrixType
   {
