@@ -15,6 +15,8 @@ SET(CXX_DISABLE_WERROR True)
 
 SETUP_PROJECT()
 
+option(DISABLE_TESTS "Disable unit tests" OFF)
+
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
 endif()
@@ -68,7 +70,9 @@ ENDIF(MSVC)
 
 add_subdirectory(3rd-party)
 add_subdirectory(src)
-add_subdirectory(tests)
+if(NOT ${DISABLE_TESTS})
+  add_subdirectory(tests)
+endif()
 
 # Add dependency towards the library in the pkg-config file.
 PKG_CONFIG_APPEND_LIBS(TVM)
