@@ -41,6 +41,8 @@ namespace abstract
   class TVM_DLLAPI SubstitutionCalculator
   {
   public:
+    virtual ~SubstitutionCalculator() = default;
+
     std::unique_ptr<SubstitutionCalculatorImpl> impl(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const;
 
   protected:

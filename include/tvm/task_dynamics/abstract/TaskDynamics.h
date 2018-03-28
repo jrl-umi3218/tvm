@@ -49,6 +49,8 @@ namespace abstract
   class TVM_DLLAPI TaskDynamics
   {
   public:
+    virtual ~TaskDynamics() = default;
+
     std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const;
 
   protected:

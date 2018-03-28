@@ -42,6 +42,8 @@ namespace internal
   class TVM_DLLAPI ProblemComputationData
   {
   public:
+    virtual ~ProblemComputationData() = default;
+
     int solverId() const;
 
     void addVariable(VariablePtr var);

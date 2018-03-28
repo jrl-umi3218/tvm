@@ -48,6 +48,8 @@ namespace tvm
         SET_OUTPUTS(TaskDynamicsImpl, Value)
         SET_UPDATES(TaskDynamicsImpl, UpdateValue)
 
+        virtual ~TaskDynamicsImpl() = default;
+
         const Eigen::VectorXd& value() const;
         Order order() const;
 

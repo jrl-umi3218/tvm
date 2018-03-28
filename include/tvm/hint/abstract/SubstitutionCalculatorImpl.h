@@ -47,6 +47,7 @@ namespace abstract
   class TVM_DLLAPI SubstitutionCalculatorImpl
   {
   public:
+    virtual ~SubstitutionCalculatorImpl() = default;
     /** Update the internal computations based on the current value of A, i.e
       * the current values of the constraints' jacobian matrices.
       */
