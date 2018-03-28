@@ -117,35 +117,35 @@ namespace internal
   template<typename T>
   inline void CompiledAssignmentWrapper<MatrixType>::srun(void* ca)
   {
-    reinterpret_cast<T*>(ca)->run();
+    static_cast<T*>(ca)->run();
   }
 
   template<typename MatrixType>
   template<typename T>
   inline void CompiledAssignmentWrapper<MatrixType>::sdelete(void* ca)
   {
-    reinterpret_cast<T*>(ca)->~T();
+    delete static_cast<T*>(ca);
   }
 
   template<typename MatrixType>
   template<typename T>
   inline void CompiledAssignmentWrapper<MatrixType>::sfrom(void* ca, const typename T::SourceType& f)
   {
-    reinterpret_cast<T*>(ca)->from(f);
+    static_cast<T*>(ca)->from(f);
   }
 
   template<typename MatrixType>
   template<typename T>
   inline void CompiledAssignmentWrapper<MatrixType>::sto(void* ca, const Eigen::Ref<MatrixType>& t)
   {
-    reinterpret_cast<T*>(ca)->to(t);
+    static_cast<T*>(ca)->to(t);
   }
 
   template<typename MatrixType>
   template<typename T>
   inline void* CompiledAssignmentWrapper<MatrixType>::sclone(void* ca)
   {
-    return new T(*reinterpret_cast<T*>(ca));
+    return new T(*static_cast<T*>(ca));
   }
 
   template<typename MatrixType>
