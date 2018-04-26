@@ -499,8 +499,8 @@ namespace internal
     // need to carry out a substitution
     for (const auto& x : xc)
     {
-      int i;
-      if (xs.contains(*x, &i))  // x needs to be subsituted
+      int i = xs.indexOf(*x);
+      if (i>=0)  // x needs to be subsituted
       {
         const auto& sub = *variableSubstitutions_[static_cast<int>(i)];
         addMatrixSubstitutionAssignments(variables, *x, M, sub, flip);
@@ -527,8 +527,7 @@ namespace internal
     else
       v = &AssignmentTarget::u;
 
-    int i;
-    if (substitutedVariables_.contains(*variable, &i))
+    if (substitutedVariables_.contains(*variable))
     {
       throw std::runtime_error("Subsitution is not yet implemented for bounds");
     }

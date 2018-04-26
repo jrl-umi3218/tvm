@@ -102,10 +102,13 @@ namespace tvm
 
     /** Compute the mapping for every variabe and return it.*/
     std::map<const Variable*, Range> computeMappingMap() const;
-    /** Check if this vector contains variable \p v or not.
-      * If \p i is not nullptr, output the index of variable \p in it. 
+    /** Check if this vector contains variable \p v or not. */
+    bool contains(const Variable& v) const;
+
+    /** Find the index of variable \p v in the vector. Returns -1 if \p v is not
+      * present.
       */
-    bool contains(const Variable& v, int* i = nullptr) const;
+    int indexOf(const Variable& v) const;
 
     /** A timestamp, used internally to determine if a mapping needs to be
       * recomputed or not.

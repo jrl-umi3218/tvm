@@ -130,14 +130,23 @@ namespace tvm
     return m;
   }
 
-  bool VariableVector::contains(const Variable& v, int* i) const
+  bool VariableVector::contains(const Variable& v) const
   {
     auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
-    if (i)
-    {
-      *i = static_cast<int>(it - variables_.begin());
-    }
     return it != variables_.end();
+  }
+
+  int VariableVector::indexOf(const Variable & v) const
+  {
+    auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
+    if (it == variables_.end())
+    {
+      return -1;
+    }
+    else
+    {
+      return static_cast<int>(it - variables_.begin());
+    }
   }
 
   int VariableVector::stamp() const

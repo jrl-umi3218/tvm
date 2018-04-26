@@ -307,8 +307,7 @@ namespace internal
   inline void Assignment::addBounds(const VariablePtr& variable, L l, U u, bool first)
   {
     const auto& J = source_->jacobian(*variable);
-    int i;
-    if (substitutedVariables_.contains(*variable, &i))
+    if (substitutedVariables_.contains(*variable))
     {
       addBounds(variable, l, u, VectorRef(tmp1_), VectorRef(tmp2_), first);
     }
