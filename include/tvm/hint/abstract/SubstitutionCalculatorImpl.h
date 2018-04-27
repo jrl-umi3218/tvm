@@ -100,7 +100,7 @@ namespace abstract
     /** Computations for premultiplyByASharpAndSTranspose()*/
     virtual void premultiplyByASharpAndSTranspose_(MatrixRef outA, MatrixRef outS, const MatrixConstRef& in, bool minus) const = 0;
     /** Computations for postMultiplyByN()*/
-    virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, bool add) const = 0;
+    virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, bool add) const;
     /** Computations for postMultiplyByN(). By default it uses N()*/
     virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, Range r, bool add) const;
 

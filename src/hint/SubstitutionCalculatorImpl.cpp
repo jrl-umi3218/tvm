@@ -86,6 +86,18 @@ void SubstitutionCalculatorImpl::postMultiplyByN(MatrixRef out, const MatrixCons
   assert(out.rows() == in.rows());
 }
 
+void SubstitutionCalculatorImpl::postMultiplyByN_(MatrixRef out, const MatrixConstRef & in, bool add) const
+{
+  if (add)
+  {
+    out.noalias() += in * N();
+  }
+  else
+  {
+    out.noalias() = in * N();
+  }
+}
+
 void SubstitutionCalculatorImpl::postMultiplyByN_(MatrixRef out, const MatrixConstRef & in, Range r, bool add) const
 {
   if (add)

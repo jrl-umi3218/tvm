@@ -57,7 +57,7 @@ namespace hint
       * is influencing the size of other matrices in the problem. However, the
       * matrix doesn't need to be full rank.
       */
-    Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank = fullRank, 
+    Substitution(LinearConstraintPtr cstr, VariablePtr x, int rank = constant::fullRank, 
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
     /** Constructor for a set of constraints and a single variable
       * \param cstr The set of constraints used for the substitution.
@@ -73,7 +73,7 @@ namespace hint
       * is influencing the size of other matrices in the problem. However, the
       * matrix doesn't need to be full rank.
       */
-    Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank = fullRank,
+    Substitution(const std::vector<LinearConstraintPtr>& cstr, VariablePtr x, int rank = constant::fullRank,
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
     /** Constructor for a single constraint and a set of variables
       * \param cstr The constraint used for the substitution.
@@ -89,7 +89,7 @@ namespace hint
       * is influencing the size of other matrices in the problem. However, the
       * matrix doesn't need to be full rank.
       */
-    Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank = fullRank,
+    Substitution(LinearConstraintPtr cstr, std::vector<VariablePtr>& x, int rank = constant::fullRank,
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
     /** Constructor for a set of constraints and a set of variables
       * \param cstr The set of constraints used for the substitution.
@@ -105,7 +105,7 @@ namespace hint
       * is influencing the size of other matrices in the problem. However, the
       * matrix doesn't need to be full rank.
       */
-    Substitution(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank = fullRank,
+    Substitution(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank = constant::fullRank,
                  const abstract::SubstitutionCalculator& calc = internal::AutoCalculator());
 
     /** The rank of the matrix multiplying \p x.*/
@@ -123,11 +123,6 @@ namespace hint
 
     /** Return the calculator used by this substitution.*/
     std::shared_ptr<abstract::SubstitutionCalculatorImpl> calculator() const;
-
-    /** Constant for specifying that the matrix in front of the variable is full
-      * rank.
-      */
-    static const int fullRank = -1;
 
   private:
     /** Check the validity and coherence of the parameters passed to the

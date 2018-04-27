@@ -123,17 +123,6 @@ namespace internal
     outS = T.bottomRows(m() - r());
   }
 
-  void GenericCalculator::Impl::postMultiplyByN_(MatrixRef out, const MatrixConstRef & in, bool add) const
-  {
-    if (add)
-    {
-      out.noalias() += in*N_;
-    }
-    else
-    {
-      out.noalias() = in*N_;
-    }
-  }
 }
 
 }

@@ -49,7 +49,7 @@ namespace internal
   class TVM_DLLAPI AutoCalculator : public abstract::SubstitutionCalculator
   {
   protected:
-    std::unique_ptr<abstract::SubstitutionCalculatorImpl> impl_(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const;
+    std::unique_ptr<abstract::SubstitutionCalculatorImpl> impl_(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const override;
   };
 
 } // internal

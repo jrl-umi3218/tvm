@@ -33,7 +33,7 @@ namespace hint
                              const abstract::SubstitutionCalculator& calc)
     : rank_(rank), constraints_(cstr), x_(x)
   {
-    if (rank == fullRank)
+    if (rank == constant::fullRank)
     {
       int r = 0;
       for (const auto& c : cstr)

@@ -54,7 +54,6 @@ namespace internal
 
       virtual void update_() override;
       virtual void premultiplyByASharpAndSTranspose_(MatrixRef outA, MatrixRef outS, const MatrixConstRef& in, bool minus) const override;
-      virtual void postMultiplyByN_(MatrixRef out, const MatrixConstRef& in, bool add) const override;
 
     private:
       Eigen::ColPivHouseholderQR<Eigen::MatrixXd> qr_;
@@ -63,7 +62,7 @@ namespace internal
     };
 
   protected:
-    std::unique_ptr<abstract::SubstitutionCalculatorImpl> impl_(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const;
+    std::unique_ptr<abstract::SubstitutionCalculatorImpl> impl_(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank) const override;
 
   };
 
