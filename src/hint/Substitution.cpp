@@ -31,7 +31,7 @@ namespace hint
 
   Substitution::Substitution(const std::vector<LinearConstraintPtr>& cstr, const std::vector<VariablePtr>& x, int rank,
                              const abstract::SubstitutionCalculator& calc)
-    : rank_(rank), constraints_(cstr), x_(x)
+    : rank_(rank), m_(0), constraints_(cstr), x_(x)
   {
     if (rank == constant::fullRank)
     {
@@ -41,6 +41,10 @@ namespace hint
         r += c->size();
       }
       rank_ = r;
+    }
+    for (const auto& c : constraints_)
+    {
+      m_ += c->size();
     }
     check();
     calculator_ = calc.impl(cstr, x, rank_);
@@ -53,12 +57,7 @@ namespace hint
 
   int Substitution::m() const
   {
-    int m = 0;
-    for (const auto& c : constraints_)
-    {
-      m += c->size();
-    }
-    return m;
+    return m_;
   }
 
   const std::vector<LinearConstraintPtr>& Substitution::constraints() const

@@ -131,6 +131,7 @@ namespace hint
     void check() const;
 
     int rank_;
+    int m_;
     std::vector<LinearConstraintPtr> constraints_;
     std::vector<VariablePtr> x_;
 
