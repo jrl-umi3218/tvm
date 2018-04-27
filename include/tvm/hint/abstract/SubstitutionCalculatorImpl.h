@@ -69,7 +69,7 @@ namespace abstract
 
     /** Number of lines of A (i.e. sum of the constraints' sizes.*/
     Eigen::DenseIndex m() const;
-    /** Size of x (i.e. sume of the size of the variables to be substituted.*/
+    /** Size of x (i.e. sum of the size of the variables to be substituted.*/
     Eigen::DenseIndex n() const;
     /** Rank of A*/
     Eigen::DenseIndex r() const;

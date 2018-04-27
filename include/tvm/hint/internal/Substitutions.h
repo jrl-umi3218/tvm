@@ -54,7 +54,7 @@ namespace internal
 
     /** Compute all the data needed for the substitutions.
       * Needs to be called after all the call to \p add, and before the calls to
-      * \p variables, \pvariableSubstitutions and \p additionalConstraints.
+      * \p variables, \p variableSubstitutions and \p additionalConstraints.
       */
     void finalize();
 
@@ -80,8 +80,8 @@ namespace internal
       */
     VariableVector substitute(const VariablePtr& x) const;
 
-    /** An oriented graph to represent dependencies between substitutions.*/
   private:
+    /** An oriented graph to represent dependencies between substitutions.*/
     class TVM_DLLAPI DependencyGraph
     {
     public:
@@ -119,6 +119,8 @@ namespace internal
         * time) that can be reached from subtree rooted with current vertex
         * \param st stack to store all connected ancestors
         * \param stackMember array for checking faster if a node is in the stack
+        * \param time a counter increased at each entry in the function. Should
+        * be non-negative.
         *
         * Adapted from 
         * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
@@ -131,9 +133,9 @@ namespace internal
         * connected components of the graph.
         * \param v the vertex to process
         * \param order the vertices in reversed topological order
-        * \param visited visited[i] is true iff vertex i was visited
-        * \param stack stack[i] is true iff vertex i is among the vertices being
-        * processed.
+        * \param visited visited[i] is true if and only if vertex i was visited
+        * \param stack stack[i] is true if and only if vertex i is among the
+        * vertices being processed.
         * \parent a description of a tree collection used for detecting the
         * connected components. For the first call to orderUtil, it must have a
         * size equal to the number of vertices and be initialized so that

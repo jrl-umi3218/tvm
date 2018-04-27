@@ -6,10 +6,6 @@
 
 #include <iostream>
 
-namespace
-{
-
-}
 
 namespace tvm
 {

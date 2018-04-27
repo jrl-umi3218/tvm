@@ -50,8 +50,8 @@ namespace hint
       * \param rank the rank of the matrix multiplying \p x. By default it is
       * the row size of this matrix.
       * \param calc A class that performs matrix operations related to the
-      * substitution \sa SubstitutionCalculator,
-      * SubstitutionCalculatorImpl 
+      * substitution \sa tvm::hint::abstract::SubstitutionCalculator,
+      * tvm::hint::abstract::SubstitutionCalculatorImpl 
       *
       * \attention Rank matters and is supposed to be fixed. This is because it
       * is influencing the size of other matrices in the problem. However, the
@@ -66,8 +66,8 @@ namespace hint
       * the matrices in factor of \p x in each constraint. By default it is
       * the row size of this matrix.
       * \param calc A class that performs matrix operations related to the
-      * substitution \sa SubstitutionCalculator,
-      * SubstitutionCalculatorImpl 
+      * substitution \sa tvm::hint::abstract::SubstitutionCalculator,
+      * tvm::hint::abstract::SubstitutionCalculatorImpl 
       *
       * \attention Rank matters and is supposed to be fixed. This is because it
       * is influencing the size of other matrices in the problem. However, the
@@ -82,8 +82,8 @@ namespace hint
       * concatening the matrices in front of each \p xi. By default it is
       * the row size of this matrix.
       * \param calc A class that performs matrix operations related to the
-      * substitution \sa SubstitutionCalculator,
-      * SubstitutionCalculatorImpl 
+      * substitution \sa tvm::hint::abstract::SubstitutionCalculator,
+      * tvm::hint::abstract::SubstitutionCalculatorImpl 
       *
       * \attention Rank matters and is supposed to be fixed. This is because it
       * is influencing the size of other matrices in the problem. However, the
@@ -98,8 +98,8 @@ namespace hint
       * of all the matrices in front of the \p xi in all the constraints. By
       * default, it is the row size of this matrix.
       * \param calc A class that performs matrix operations related to the
-      * substitution \sa SubstitutionCalculator,
-      * SubstitutionCalculatorImpl 
+      * substitution \sa tvm::hint::abstract::SubstitutionCalculator,
+      * tvm::hint::abstract::SubstitutionCalculatorImpl 
       *
       * \attention Rank matters and is supposed to be fixed. This is because it
       * is influencing the size of other matrices in the problem. However, the

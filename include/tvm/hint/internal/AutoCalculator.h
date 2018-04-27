@@ -1,3 +1,4 @@
+
 #pragma once
 
 /* Copyright 2017-2018 CNRS-UM LIRMM, CNRS-AIST JRL
@@ -36,15 +37,14 @@ namespace internal
     * constraints and variables.
     *
     * Current rules:
-    * - for a non-simple substitution, generates a GenericCalculator.
     * - for a simple substitution with invertible diagonal matrix, generates a
     *   DiagonalCalculator
     * - otherwise generates a GenericCalculator
     *
     * \note You need to ensure that the matrix properties used when applying the
-    * rules have been correctly set. In particular if the matrix properties are
-    * deduced during the update pipeline, you need to ensure an update was
-    * triggered.
+    * rules have been correctly set. If this is not the case, this should be
+    * corrected at the function level. In particular it is improper to rely on
+    * a run of the update pipeline to have all the properties correctly set.
     */
   class TVM_DLLAPI AutoCalculator : public abstract::SubstitutionCalculator
   {

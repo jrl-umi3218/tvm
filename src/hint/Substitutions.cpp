@@ -394,6 +394,8 @@ namespace internal
                                                size_t u, std::vector<int>& disc, std::vector<int>& low,
                                                std::stack<size_t>& st, std::vector<bool>& stackMember, int& time) const
   {
+    assert(time>=0);
+
     // Initialize discovery time and low value
     disc[u] = low[u] = ++time;
     st.push(u);

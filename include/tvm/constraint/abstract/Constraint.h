@@ -73,15 +73,18 @@ namespace abstract
       * output of another method.
       */
     /** Return the vector \p l
-      * \warning this does not if \p l exists for the given constraint conventions.
+      * \warning the call is valid only if \p l exists for the given constraint
+      * conventions, but the method does not throw if it is not the case.
       */
     virtual const Eigen::VectorXd& l() const;
     /** Return the vector \p u
-      * \warning this does not if \p u exists for the given constraint conventions.
+      * \warning the call is valid only if \p l exists for the given constraint
+      * conventions, but the method does not throw if it is not the case.
       */
     virtual const Eigen::VectorXd& u() const;
     /** Return the vector \p e
-      * \warning this does not if \p e exists for the given constraint conventions.
+      * \warning the call is valid only if \p l exists for the given constraint
+      * conventions, but the method does not throw if it is not the case.
       */
     virtual const Eigen::VectorXd& e() const;
 
