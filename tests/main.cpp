@@ -9,7 +9,6 @@ using namespace tvm;
 
 void solverTest01();
 void solverTest02();
-void solverTest03();
 
 void testVariable()
 {
@@ -208,9 +207,8 @@ int main()
   //testDataGraphSimple();
   //testBadGraph();
   //testDataGraphComplex();
-  //solverTest01();
+  solverTest01();
   //solverTest02();
-  solverTest03();
 
   auto l = tvm::graph::internal::Logger::logger().log();
   //for (const auto& p : l.types_)

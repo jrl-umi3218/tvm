@@ -29,6 +29,15 @@ set(TVM_SOURCES
   graph/Log.cpp
   graph/Logger.cpp
 
+  hint/AutoCalculator.cpp
+  hint/DiagonalCalculator.cpp
+  hint/GenericCalculator.cpp
+  hint/Substitution.cpp
+  hint/SubstitutionCalculator.cpp
+  hint/SubstitutionCalculatorImpl.cpp
+  hint/Substitutions.cpp
+  hint/SubstitutionUnit.cpp
+  
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
 
@@ -51,6 +60,7 @@ set(TVM_SOURCES
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
+  scheme/helpers.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
@@ -112,6 +122,15 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
   ${TVM_INCLUDE_DIR}/graph/internal/Log.h
   ${TVM_INCLUDE_DIR}/graph/internal/Logger.h
+  
+  ${TVM_INCLUDE_DIR}/hint/Substitution.h
+  ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculatorImpl.h
+  ${TVM_INCLUDE_DIR}/hint/internal/AutoCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/internal/DiagonalCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/internal/GenericCalculator.h
+  ${TVM_INCLUDE_DIR}/hint/internal/Substitutions.h
+  ${TVM_INCLUDE_DIR}/hint/internal/SubstitutionUnit.h
 
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
@@ -167,6 +186,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
   ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
+  ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )

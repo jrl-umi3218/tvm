@@ -27,7 +27,9 @@ namespace tvm
 namespace requirements
 {
 
-  /** This class represents the priority level of a constraint*/
+  /** This class represents the priority level of a constraint.
+    * The default priority level is 0
+    */
   class TVM_DLLAPI PriorityLevel : public abstract::SingleSolvingRequirement<int>
   {
   public:

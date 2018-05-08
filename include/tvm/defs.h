@@ -99,6 +99,11 @@ namespace tvm
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
                   "big_number was not computed at compile time or its value was not correct");
 
+    /** Constant for specifying that the matrix in front of the variable is full
+      * rank.
+      */
+    constexpr int fullRank = -1;
+
     /** Default gravity vector */
     static const Eigen::Vector3d gravity {0, 0, 9.81};
   } // namespace constant

@@ -35,28 +35,45 @@ namespace internal
     /** Shape of a matrix*/
     enum Shape
     {
-      GENERAL,              //general shape. This includes all other shapes.
-      LOWER_TRIANGULAR,     //lower triangular matrix. This includes diagonal matrices.
-      UPPER_TRIANGULAR,     //upper triangular matrix. This includes diagonal matrices.
-      DIAGONAL,             //diagonal matrices. This includes multiple of the identity matrices (including zero matrix)
-      MULTIPLE_OF_IDENTITY, //a*I, where a is a real number. This includes the case a=-1, a=0, and a=1.
-      IDENTITY,             //identity matrix I
-      MINUS_IDENTITY,       //-I
-      ZERO                  //zero matrix
+      /** general shape. This includes all other shapes. */
+      GENERAL,
+      /** lower triangular matrix. This includes diagonal matrices. */
+      LOWER_TRIANGULAR,
+      /** upper triangular matrix. This includes diagonal matrices. */
+      UPPER_TRIANGULAR,
+      /** diagonal matrices. This includes multiple of the identity matrices
+        * (including zero matrix).
+        */
+      DIAGONAL,
+      /** a*I, where a is a real number. This includes the case a=-1, a=0, and a=1. */
+      MULTIPLE_OF_IDENTITY,
+      /** identity matrix I */
+      IDENTITY,
+      /** -I */
+      MINUS_IDENTITY,
+      /** Zero matrix.*/
+      ZERO
     };
 
     /** Positiveness property of the matrix. Any options other than NA implies
-    * that the matrix is symmetric
-    */
+      * that the matrix is symmetric
+      */
     enum Positiveness
     {
-      NA,                     // not applicable (matrix is not symmetric) / unknown
-      POSITIVE_SEMIDEFINITE,  // all eigenvalues are >=0
-      POSITIVE_DEFINITE,      // all eigenvalues are >0
-      NEGATIVE_SEMIDEFINITE,  // all eigenvalues are <=0
-      NEGATIVE_DEFINITE,      // all eigenvalues are <0
-      INDEFINITE,             // eigenvalues are a mix of positive, negative and 0
-      NON_ZERO_INDEFINITE,    // eigenvalues are a mix of positive, negative but not 0
+      /** not applicable (matrix is not symmetric) / unknown */
+      NA,
+      /** all eigenvalues are >=0 */
+      POSITIVE_SEMIDEFINITE,
+      /** all eigenvalues are >0 */
+      POSITIVE_DEFINITE,
+      /** all eigenvalues are <=0 */
+      NEGATIVE_SEMIDEFINITE,
+      /** all eigenvalues are <0 */
+      NEGATIVE_DEFINITE,
+      /** eigenvalues are a mix of positive, negative and 0 */
+      INDEFINITE,
+      /** eigenvalues are a mix of positive, negative but not 0 */
+      NON_ZERO_INDEFINITE
     };
 
     /** A wrapper over a boolean representing the constness of a matrix.*/
@@ -106,6 +123,8 @@ namespace internal
 
     Shape shape() const;
     Positiveness positiveness() const;
+    Constness constness() const;
+    Invertibility invertibility() const;
 
     bool isConstant() const;
     bool isInvertible() const;
@@ -177,6 +196,13 @@ namespace internal
   };
 
 
+  // operators
+  TVM_DLLAPI MatrixProperties operator-(const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator*(double, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator+(const MatrixProperties&, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator-(const MatrixProperties&, const MatrixProperties&);
+  TVM_DLLAPI MatrixProperties operator*(const MatrixProperties&, const MatrixProperties&);
+
   template<typename ... Args>
   inline MatrixProperties::MatrixProperties(Args && ... args)
   {
@@ -194,6 +220,16 @@ namespace internal
   inline MatrixProperties::Positiveness MatrixProperties::positiveness() const
   {
     return positiveness_;
+  }
+
+  inline MatrixProperties::Constness MatrixProperties::constness() const
+  {
+    return constant_;
+  }
+
+  inline MatrixProperties::Invertibility MatrixProperties::invertibility() const
+  {
+    return invertible_;
   }
 
   inline bool MatrixProperties::isConstant() const

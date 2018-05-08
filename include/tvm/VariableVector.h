@@ -63,6 +63,10 @@ namespace tvm
       * \returns True if the variable was added, false otherwise
       */
     bool add(VariablePtr v);
+    /** Same as add(VariablePtr), but for adding a vector of variables.*/
+    void add(const std::vector<VariablePtr>& variables);
+    /** Same as add(VariablePtr), but for adding a vector of variables.*/
+    void add(const VariableVector& variables);
     /** Remove a variable from the vector.
       *
       * \param v the variable to be removed
@@ -72,7 +76,7 @@ namespace tvm
     bool remove(const Variable& v);
 
     /** Sum of the sizes of all the variables.*/
-    int size() const;
+    int totalSize() const;
     /** Number of variables*/
     int numberOfVariables() const;
     /** Elementwise access*/
@@ -98,13 +102,27 @@ namespace tvm
 
     /** Compute the mapping for every variabe and return it.*/
     std::map<const Variable*, Range> computeMappingMap() const;
-    /** Check if this vector contains variable v or not.*/
+    /** Check if this vector contains variable \p v or not. */
     bool contains(const Variable& v) const;
+
+    /** Find the index of variable \p v in the vector. Returns -1 if \p v is not
+      * present.
+      */
+    int indexOf(const Variable& v) const;
 
     /** A timestamp, used internally to determine if a mapping needs to be
       * recomputed or not.
       */
     int stamp() const;
+
+    /** Iterator to the first variable. This enable to use VariableVector
+      * directly in range-based for loops
+      */
+    std::vector<VariablePtr>::const_iterator begin() const;
+    /** Iterator past the last variable. This enable to use VariableVector
+      * directly in range-based for loops
+      */
+    std::vector<VariablePtr>::const_iterator end() const;
 
   private:
     void getNewStamp() const;
@@ -114,12 +132,6 @@ namespace tvm
     mutable int stamp_;
     int size_;
     std::vector<VariablePtr> variables_;
-    /** This set is a helper to quickly test the presence of a variable without
-      * iterating through the whole vector.
-      *
-      * FIXME: is it faster though, given that we will never have a lot of variables?
-      */
-    std::set<const Variable*> variableSet_;
 
     mutable Eigen::VectorXd value_;
   };
@@ -133,5 +145,16 @@ namespace tvm
     * \warning This recreates a vector from scratch each time
     */
   VariableVector TVM_DLLAPI dot(const VariableVector& vars, int ndiff=1);
+
+
+  inline std::vector<VariablePtr>::const_iterator tvm::VariableVector::begin() const
+  {
+    return variables_.begin();
+  }
+
+  inline std::vector<VariablePtr>::const_iterator tvm::VariableVector::end() const
+  {
+    return variables_.end();
+  }
 
 }  // namespace tvm

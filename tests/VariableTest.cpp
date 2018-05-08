@@ -18,6 +18,8 @@ TEST_CASE("Test Variable creation")
   FAST_CHECK_EQ(u->space().size(), 3);
   FAST_CHECK_EQ(u->space().rSize(), 3);
   FAST_CHECK_EQ(u->space().tSize(), 3);
+  FAST_CHECK_UNARY(u->isEuclidean());
+  FAST_CHECK_UNARY(dot(u)->isEuclidean());
 
   VariablePtr v = Space(3, 4, 3).createVariable("v");
   FAST_CHECK_EQ(v->size(), 4);
@@ -27,6 +29,14 @@ TEST_CASE("Test Variable creation")
   FAST_CHECK_EQ(v->space().size(), 3);
   FAST_CHECK_EQ(v->space().rSize(), 4);
   FAST_CHECK_EQ(v->space().tSize(), 3);
+  FAST_CHECK_UNARY_FALSE(v->isEuclidean());
+  FAST_CHECK_UNARY(dot(v)->isEuclidean());
+
+  VariablePtr w = v->duplicate("w");
+  FAST_CHECK_NE(v, w);
+  FAST_CHECK_EQ(v->space(), w->space());
+  FAST_CHECK_UNARY_FALSE(w->isEuclidean());
+  FAST_CHECK_UNARY(dot(w)->isEuclidean());
 }
 
 TEST_CASE("Test Variable value")
@@ -88,6 +98,18 @@ TEST_CASE("Test Variable Derivatives")
   FAST_CHECK_EQ(dv3->basePrimitive(), v);
   FAST_CHECK_EQ(dot(dv, 2), dv3);
   FAST_CHECK_EQ(dot(dv), dv3->primitive());
+
+  VariablePtr u = Space(4).createVariable("u");
+  FAST_CHECK_UNARY(dv->isDerivativeOf(*v));
+  FAST_CHECK_UNARY_FALSE(v->isDerivativeOf(*dv));
+  FAST_CHECK_UNARY_FALSE(dv->isDerivativeOf(*u));
+  FAST_CHECK_UNARY_FALSE(dv->isDerivativeOf(*dv));
+  FAST_CHECK_UNARY(v->isPrimitiveOf(*dv));
+  FAST_CHECK_UNARY_FALSE(dv->isPrimitiveOf(*v));
+  FAST_CHECK_UNARY_FALSE(dv->isPrimitiveOf(*u));
+  FAST_CHECK_UNARY_FALSE(dv->isPrimitiveOf(*dv));
+  FAST_CHECK_UNARY(dv3->isDerivativeOf(*v));
+  FAST_CHECK_UNARY(dv3->isDerivativeOf(*dv));
 }
 
 TEST_CASE("Test Variable Name")
@@ -102,6 +124,10 @@ TEST_CASE("Test Variable Name")
   FAST_CHECK_EQ(dv5->name(), "d5 v / dt5");
   auto dv4 = dot(dv, 3);
   FAST_CHECK_EQ(dv4->name(), "d4 v / dt4");
+  auto du3 = dv3->duplicate();
+  FAST_CHECK_EQ(du3->name(), "d3 v' / dt3");
+  auto dw3 = dv3->duplicate("w");
+  FAST_CHECK_EQ(dw3->name(), "d3 w / dt3");
 }
 
 TEST_CASE("Test VariableVector creation")
@@ -116,8 +142,9 @@ TEST_CASE("Test VariableVector creation")
   vv1.add(v3);
   vv1.add(v1);
 
+  int i1, i2, i3, i4;
   FAST_CHECK_EQ(vv1.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv1.size(), 9);
+  FAST_CHECK_EQ(vv1.totalSize(), 9);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v3);
   FAST_CHECK_EQ(vv1[2], v1);
@@ -125,20 +152,28 @@ TEST_CASE("Test VariableVector creation")
   FAST_CHECK_UNARY(vv1.contains(*v2));
   FAST_CHECK_UNARY(vv1.contains(*v3));
   FAST_CHECK_UNARY(!vv1.contains(*v4));
+  FAST_CHECK_EQ(vv1.indexOf(*v1), 2);
+  FAST_CHECK_EQ(vv1.indexOf(*v2), 0);
+  FAST_CHECK_EQ(vv1.indexOf(*v3), 1);
+  FAST_CHECK_EQ(vv1.indexOf(*v4), -1);
 
   vv1.remove(*v3);
   FAST_CHECK_EQ(vv1.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv1.size(), 7);
+  FAST_CHECK_EQ(vv1.totalSize(), 7);
   FAST_CHECK_EQ(vv1[0], v2);
   FAST_CHECK_EQ(vv1[1], v1);
   FAST_CHECK_UNARY(vv1.contains(*v1));
   FAST_CHECK_UNARY(vv1.contains(*v2));
   FAST_CHECK_UNARY(!vv1.contains(*v3));
   FAST_CHECK_UNARY(!vv1.contains(*v4));
+  FAST_CHECK_EQ(vv1.indexOf(*v1), 1);
+  FAST_CHECK_EQ(vv1.indexOf(*v2), 0);
+  FAST_CHECK_EQ(vv1.indexOf(*v3), -1);
+  FAST_CHECK_EQ(vv1.indexOf(*v4), -1);
 
   VariableVector vv2({ v1, v2, v3 });
   FAST_CHECK_EQ(vv2.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv2.size(), 9);
+  FAST_CHECK_EQ(vv2.totalSize(), 9);
   FAST_CHECK_EQ(vv2[0], v1);
   FAST_CHECK_EQ(vv2[1], v2);
   FAST_CHECK_EQ(vv2[2], v3);
@@ -151,12 +186,12 @@ TEST_CASE("Test VariableVector creation")
   VariableVector vv3(vec);
   for(const auto & v : vec) { vv3.add(v); }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv3.size(), 7);
+  FAST_CHECK_EQ(vv3.totalSize(), 7);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
   for(const auto & v : vec2) { vv3.add(v); }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 4);
-  FAST_CHECK_EQ(vv3.size(), 12);
+  FAST_CHECK_EQ(vv3.totalSize(), 12);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
   FAST_CHECK_EQ(vv3[2], v3);

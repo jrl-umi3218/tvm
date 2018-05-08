@@ -32,7 +32,9 @@ addUnitTest(ConstraintTest)
 addUnitTest(LinearizedTaskConstraintTest SolverTestFunctions.cpp)
 addUnitTest(MatrixPropertiesTest)
 addUnitTest(OutputSelectorTest)
+addUnitTest(SolverTest SolverTestFunctions.cpp)
 addUnitTest(SolvingRequirementsTest)
+addUnitTest(SubstitutionTest)
 addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
@@ -64,7 +66,7 @@ target_compile_options(RobotProblem PRIVATE -DHRP2_DRC_DESCRIPTION_PATH=\"${HRP2
 set(TESTSOURCES
     main.cpp
     Mockup.cpp
-    SolverTest.cpp
+    SolverBasicTest.cpp
     SolverTestFunctions.cpp
 )
 

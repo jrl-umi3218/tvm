@@ -15,10 +15,7 @@ namespace tvm
   VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
     : VariableVector()
   {
-    for(auto v : variables)
-    {
-      add(v);
-    }
+    add(variables);
   }
 
   VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
@@ -35,10 +32,20 @@ namespace tvm
       return false;
     }
     variables_.push_back(v);
-    variableSet_.insert(v.get());
     size_ += v->size();
     getNewStamp();
     return true;
+  }
+
+  void VariableVector::add(const std::vector<VariablePtr>& variables)
+  {
+    for (auto& v : variables)
+      add(v);
+  }
+
+  void VariableVector::add(const VariableVector& variables)
+  {
+    add(variables.variables());
   }
 
   bool VariableVector::remove(const Variable& v)
@@ -49,13 +56,12 @@ namespace tvm
     }
     auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
     variables_.erase(it);
-    variableSet_.erase(&v);
     size_ -= v.size();
     getNewStamp();
     return true;
   }
 
-  int VariableVector::size() const
+  int VariableVector::totalSize() const
   {
     return size_;
   }
@@ -91,7 +97,7 @@ namespace tvm
 
   void VariableVector::value(const VectorConstRef& val)
   {
-    assert(val.size() == size());
+    assert(val.size() == totalSize());
     int n = 0;
     for (const auto& v : variables_)
     {
@@ -126,7 +132,21 @@ namespace tvm
 
   bool VariableVector::contains(const Variable& v) const
   {
-    return variableSet_.find(&v) != variableSet_.end();
+    auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
+    return it != variables_.end();
+  }
+
+  int VariableVector::indexOf(const Variable & v) const
+  {
+    auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
+    if (it == variables_.end())
+    {
+      return -1;
+    }
+    else
+    {
+      return static_cast<int>(it - variables_.begin());
+    }
   }
 
   int VariableVector::stamp() const

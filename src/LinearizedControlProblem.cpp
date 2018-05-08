@@ -1,11 +1,18 @@
 #include <tvm/LinearizedControlProblem.h>
 
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
+#include <tvm/scheme/internal/helpers.h>
 
 namespace tvm
 {
+  LinearizedControlProblem::LinearizedControlProblem()
+    : finalized_(false)
+  {
+  }
+
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
   : ControlProblem()
+  , finalized_(false)
   {
     for (auto tr : pb.tasks())
       add(tr);
@@ -29,15 +36,9 @@ namespace tvm
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
     lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
+    lcr.bound = scheme::internal::isBound(lcr.constraint);
+    constraints_[tr.get()] = lcr;
 
-    if (isBound(lcr.constraint))
-    {
-      bounds_[tr.get()] = lcr;
-    }
-    else
-    {
-      constraints_[tr.get()] = lcr;
-    }
     using CstrOutput = internal::FirstOrderProvider::Output;
     updater_.addInput(lcr.constraint, CstrOutput::Jacobian);
     switch (tr->task.type())
@@ -47,6 +48,7 @@ namespace tvm
     case constraint::Type::LOWER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::U); break;
     case constraint::Type::DOUBLE_SIDED: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L, constraint::abstract::Constraint::Output::U); break;
     }
+    finalized_ = false;
   }
 
   void LinearizedControlProblem::remove(TaskWithRequirements* tr)
@@ -54,18 +56,18 @@ namespace tvm
     ControlProblem::remove(tr);
     // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
     updater_.removeInput(constraints_[tr].constraint.get());
-    bounds_.erase(tr);
     constraints_.erase(tr);
+    finalized_ = false;
   }
 
-  std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::bounds() const
+  void LinearizedControlProblem::add(const hint::Substitution & s)
   {
-    std::vector<LinearConstraintWithRequirements> bounds;
-    bounds.reserve(bounds_.size());
-    for (auto c : bounds_)
-      bounds.push_back(c.second);
+    substitutions_.add(s);
+  }
 
-    return bounds;
+  const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const
+  {
+    return substitutions_;
   }
 
   std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constraints() const
@@ -78,17 +80,25 @@ namespace tvm
     return constraints;
   }
 
-  void LinearizedControlProblem::update()
+  LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements* t) const
   {
-    updater_.refresh();
-    updater_.run();
+    return constraints_.at(t).constraint;
   }
 
-  bool LinearizedControlProblem::isBound(const ConstraintPtr & c)
+  void LinearizedControlProblem::update()
   {
-    const auto& vars = c->variables();
-    const auto& p = c->jacobian(*vars[0]).properties();
-    return (c->type() != constraint::Type::EQUAL && vars.size() == 1 && p.isDiagonal() && p.isInvertible());
+    updater_.run();
+    substitutions_.updateSubstitutions();
+  }
+
+  void LinearizedControlProblem::finalize()
+  {
+    if (!finalized_)
+    {
+      updater_.refresh();
+      substitutions_.finalize();
+      finalized_ = true;
+    }
   }
 
   LinearizedControlProblem::Updater::Updater()

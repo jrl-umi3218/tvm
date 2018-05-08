@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 namespace tvm
 {
 
@@ -37,6 +38,8 @@ namespace scheme
 
     bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
     memory.setSolution(memory.ls.result());
+    problem.substitutions().updateVariableValues();
+
     if(verbose_ || !b)
     {
       std::cout << memory.ls.inform() << std::endl;
@@ -55,34 +58,49 @@ namespace scheme
     memory->ls.warm(true);
     memory->ls.feasibilityTol(1e-6);
     const auto& constraints = problem.constraints();
+    const auto& subs = problem.substitutions();
 
-    //scanning bounds
-    for (auto b : problem.bounds())
-    {
-      abilities_.check(b.constraint, b.requirements); //FIXME: should be done in a parent class
-      memory->addVariable(b.constraint->variables()); //FIXME: should be done in a parent class
-    }
+    std::vector<LinearConstraintWithRequirements> constr;
+    std::vector<LinearConstraintWithRequirements> bounds;
 
     //scanning constraints
     int m0 = 0;
     int m1 = 0;
-    for (auto c : constraints)
+    for (const auto& c : constraints)
     {
+      // If the constraint is used for the substitutions, we skip it.
+      if (subs.uses(c.constraint))
+        continue;
       abilities_.check(c.constraint, c.requirements); //FIXME: should be done in a parent class
-      memory->addVariable(c.constraint->variables()); //FIXME: should be done in a parent class
+      for (const auto& xi: c.constraint->variables())
+        memory->addVariable(subs.substitute(xi));
 
-      if (c.requirements->priorityLevel().value() == 0)
-        m0 += c.constraint->size();
+      if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED)
+          && c.requirements->priorityLevel().value() == 0)
+        bounds.push_back(c);
       else
       {
-        if (c.constraint->type() != constraint::Type::EQUAL)
-          throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
-        m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+        if (c.requirements->priorityLevel().value() == 0)
+          m0 += c.constraint->size();
+        else
+        {
+          if (c.constraint->type() != constraint::Type::EQUAL)
+            throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
+          m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+        }
+        constr.push_back(c);
       }
+    }
+    // we need to add the additional constraints due to the substitutions.
+    // They are added at level 0
+    for (const auto& c : subs.additionalConstraints())
+    {
+      m0 += c->size();
+      constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
     }
 
     if (m1 == 0)
-      m1 = memory->variables().size();
+      m1 = memory->variables().totalSize();
 
     //allocating memory for the solver
     memory->resize(m0, m1, big_number_);
@@ -96,21 +114,21 @@ namespace scheme
     const auto& x = memory->variables();
     auto l = memory->l.tail(memory->C.rows());
     auto u = memory->u.tail(memory->C.rows());
-    for (auto c : constraints)
+    for (const auto& c : constr)
     {
       int p = c.requirements->priorityLevel().value();
       if (p == 0)
       {
         RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, memory->C, l, u, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs));
         m0 += c.constraint->size();
       }
       else
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, memory->A, memory->b, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, std::pow(scalarizationWeight_, p - 1)));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs, std::pow(scalarizationWeight_, p - 1)));
         m1 += c.constraint->size();
       }
     }
@@ -126,7 +144,7 @@ namespace scheme
     {
       first[xi.get()] = true;
     }
-    for (auto b : problem.bounds())
+    for (const auto& b : bounds)
     {
       const auto& xi = b.constraint->variables()[0];
       int p = b.requirements->priorityLevel().value();
@@ -154,7 +172,7 @@ namespace scheme
 
   void WeightedLeastSquares::Memory::resize(int m0, int m1, double big_number)
   {
-    int n = x_.size();
+    int n = x_.totalSize();
     A.resize(m1, n);
     A.setZero();
     C.resize(m0, n);

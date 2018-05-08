@@ -36,7 +36,7 @@ void CoMInConvexFunction::addPlane(geometry::PlanePtr plane)
   addInputDependency<CoMInConvexFunction>(Update::Value, *plane, geometry::Plane::Output::Position);
   addInputDependency<CoMInConvexFunction>(Update::Velocity, *plane, geometry::Plane::Output::Velocity);
   addInputDependency<CoMInConvexFunction>(Update::NormalAcceleration, *plane, geometry::Plane::Output::Acceleration);
-  resize(planes_.size());
+  resize(static_cast<int>(planes_.size()));
 }
 
 void CoMInConvexFunction::reset()

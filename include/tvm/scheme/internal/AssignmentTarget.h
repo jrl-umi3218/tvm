@@ -62,6 +62,9 @@ namespace internal
     /** l <= x <= u */
     AssignmentTarget(RangePtr range, VectorRef l, VectorRef u);
 
+    /** x >= l or x <= u*/
+    AssignmentTarget(RangePtr range, VectorRef lu, constraint::Type ct);
+
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
     AssignmentTarget(MatrixRef Q, VectorRef q, constraint::RHS cr);
 
@@ -69,6 +72,8 @@ namespace internal
     TargetType targetType() const;
     constraint::Type constraintType() const;
     constraint::RHS constraintRhs() const;
+    /** Row size of the target.*/
+    int size() const;
 
     /** Return the (range.dim x colDim) block of A starting at
     *(range.start,colStart) */

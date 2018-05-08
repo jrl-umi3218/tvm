@@ -24,29 +24,31 @@ namespace tvm
 namespace constraint
 {
 
-  /** For a function f(x), and a right hand side rhs (and rhs2):
-    * EQUAL        f(x) =  rhs
-    * GREATER_THAN f(x) >= rhs
-    * LOWER_THAN   f(x) <= rhs
-    * DOUBLE_SIDED rhs <= f(x) <= rhs2
+  /** For a function f(x), and a right hand side rhs (and rhs2), gives the type
+    * of the constraint.
     */
   enum class Type
   {
+    /** f(x) =  rhs */
     EQUAL,
+    /** f(x) >= rhs */
     GREATER_THAN,
+    /** f(x) <= rhs */
     LOWER_THAN,
+    /** rhs <= f(x) <= rhs2 */
     DOUBLE_SIDED
   };
 
-  /** Given a vector u:
-    * ZERO      rhs = 0
-    * AS_GIVEN  rhs = u
-    * OPPOSITE  rhs = -u
+  /** Tell how a vector \p u should be considered as a right hand side of a
+    * constraint.
     */
   enum class RHS
   {
+    /** rhs = 0 */
     ZERO,
+    /** rhs = u */
     AS_GIVEN,
+    /** rhs = -u */
     OPPOSITE
   };
 

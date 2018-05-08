@@ -35,6 +35,23 @@ namespace internal
   {
   }
 
+  AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef lu, constraint::Type ct)
+    : targetType_(TargetType::Linear), cstrType_(ct), range_(range)
+  {
+    if (ct == constraint::Type::GREATER_THAN)
+    {
+      l_ = lu;
+    }
+    else if (ct == constraint::Type::LOWER_THAN)
+    {
+      u_ = lu;
+    }
+    else
+    {
+      throw std::runtime_error("This constructor is for simple-bound constraint, only GREATER_THAN or LOWER_THAN are valid options.");
+    }
+  }
+
   AssignmentTarget::AssignmentTarget(MatrixRef Q, VectorRef q, constraint::RHS cr)
     : targetType_(TargetType::Quadratic), constraintRhs_(cr), Q_(Q), q_(q)
   {
@@ -53,6 +70,11 @@ namespace internal
   constraint::RHS AssignmentTarget::constraintRhs() const
   {
     return constraintRhs_;
+  }
+
+  int AssignmentTarget::size() const
+  {
+    return range_->dim;
   }
 
   MatrixRef AssignmentTarget::A(int colStart, int colDim) const

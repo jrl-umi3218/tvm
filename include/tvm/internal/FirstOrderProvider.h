@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2017-2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -60,26 +60,30 @@ namespace internal
   public:
     SET_OUTPUTS(FirstOrderProvider, Value, Jacobian)
 
-    /** Note: by default, these methods return the cached value.
-    * However, they are virtual in case the user might want to bypass the cache.
-    * This would be typically the case if he/she wants to directly return the
-    * output of another method, e.g. return the jacobian of an other Function.
-    */
+    /** \internal by default, these methods return the cached value.
+      * However, they are virtual in case the user might want to bypass the cache.
+      * This would be typically the case if he/she wants to directly return the
+      * output of another method, e.g. return the jacobian of an other Function.
+      */
+    /** Return the value of this entity*/
     virtual const Eigen::VectorXd& value() const;
+    /** Return the jacobian matrix of this entity corresponding to the variable
+      * \p x
+      */
     virtual const MatrixWithProperties& jacobian(const Variable& x) const;
 
-    /** Linearity w.r.t x*/
+    /** Linearity w.r.t \p x*/
     bool linearIn(const Variable& x) const;
 
-    /** Return the output size m*/
+    /** Return the output size \p m*/
     int size() const;
 
     /** Return the variables*/
-    const std::vector<VariablePtr>& variables() const;
+    const VariableVector& variables() const;
 
   protected:
     /** Constructor
-      * /param m the output size of the function/constraint, i.e. the size of
+      * \param m the output size of the function/constraint, i.e. the size of
       * the value (or equivalently the row size of the jacobians).
       */
     FirstOrderProvider(int m);
@@ -93,34 +97,42 @@ namespace internal
       */
     virtual void resizeCache();
 
-    /** Sub-methods of resizeCache to be used by derived classes that need
-      * this level of granularity.
+    /** Sub-methods of resizeCache resizing the value cache vector (if used).
+      * To be used by derived classes that need this level of granularity.
       */
     void resizeValueCache();
+    /** Sub-methods of resizeCache resizing the jacobian cache matrices (if
+      * used).
+      * To be used by derived classes that need this level of granularity.
+      */
     void resizeJacobianCache();
 
     /** Add a variable. Cache is automatically updated.
-      * \param v The variable to add/remove
+      * \param v The variable to add
       * \param linear Specify that the entity is depending linearly on the
       * variable or not.
       */
     void addVariable(VariablePtr v, bool linear);
-    /** Remove a variable. Cache is automatically updated. */
+    /** Remove variable \p v. Cache is automatically updated. */
     void removeVariable(VariablePtr v);
 
     /** Add a variable vector.
-     *
-     * Convenience function similar to adding each elements of the vector individually with the same linear parameter
-     *
-     * \see addVariable(VariablePtr, bool)
-     *
-     */
+      *
+      * Convenience function similar to adding each elements of the vector individually with the same linear parameter
+      *
+      * \see addVariable(VariablePtr, bool)
+      *
+      */
     void addVariable(const VariableVector & v, bool linear);
 
     /** To be overriden by derived classes that need to react to
       * the addition of a variable. Called at the end of addVariable();
       */
     virtual void addVariable_(VariablePtr);
+
+    /** To be overriden by derived classes that need to react to
+      * the removal of a variable. Called at the end of removeVariable();
+      */
     virtual void removeVariable_(VariablePtr);
 
     /** Split a jacobian matrix J into its components Ji corresponding to the
@@ -174,9 +186,9 @@ namespace internal
     return m_;
   }
 
-  inline const std::vector<VariablePtr>& FirstOrderProvider::variables() const
+  inline const VariableVector& FirstOrderProvider::variables() const
   {
-    return variables_.variables();
+    return variables_;
   }
 
 }  // namespace internal

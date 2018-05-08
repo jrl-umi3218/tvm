@@ -84,15 +84,15 @@ namespace abstract
     void updateValue();
     void updateVelocity();
     void resizeCache() override;
+    const internal::VectorWithProperties& b() const {return b_; }
 
-    inline const Eigen::VectorXd & b() const { return b_; }
   protected:
     LinearFunction(int m);
     virtual void updateValue_();
     virtual void updateVelocity_();
     void setDerivativesToZero();
 
-    Eigen::VectorXd b_;
+    internal::VectorWithProperties b_;
   };
 
 }  // namespace abstract

@@ -74,7 +74,7 @@ namespace utils
 
   void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val, bool value) const
   {
-    const auto& x = f_->variables();
+    const auto& x = f_->variables().variables();
     if (i >= x.size())
     {
       std::stringstream s;
@@ -114,7 +114,7 @@ namespace utils
 
   void UpdatelessFunction::assign(Variable& x, const Eigen::VectorXd & val, bool value) const
   {
-    const auto& vars = f_->variables();
+    const auto& vars = f_->variables().variables();
     if (vars.size() == 0)
     {
       throw std::runtime_error("This function has no variable.");
@@ -163,7 +163,7 @@ namespace utils
 
   void UpdatelessFunction::assign(const Eigen::VectorXd & val) const
   {
-    const auto& x = f_->variables();
+    const auto& x = f_->variables().variables();
 
     auto s = x[0]->size();
     for (size_t i = 1; i < x.size(); ++i)
@@ -186,7 +186,7 @@ namespace utils
 
   void UpdatelessFunction::assign(const Eigen::VectorXd & val, const Eigen::VectorXd & vel) const
   {
-    const auto& x = f_->variables();
+    const auto& x = f_->variables().variables();
 
     auto sp = x[0]->size();
     auto sd = dx_[0]->size();
@@ -219,7 +219,7 @@ namespace utils
 
   void UpdatelessFunction::parseValues_(int i, const Eigen::VectorXd & v) const
   {
-    const auto& x = f_->variables();
+    const auto& x = f_->variables().variables();
     if (i + 1 == static_cast<int>(x.size()))
     {
       assign(i, v, true);
@@ -265,7 +265,7 @@ namespace utils
 
   void UpdatelessFunction::parseValuesAndVelocities_(int i, const Eigen::VectorXd & val, const Eigen::VectorXd & vel) const
   {
-    const auto& x = f_->variables();
+    const auto& x = f_->variables().variables();
     if (i + 1 == static_cast<int>(x.size()))
     {
       assign(i, val, true);
@@ -282,14 +282,14 @@ namespace utils
         else
         {
           std::stringstream s;
-          s << "Too few values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
+          s << "Too few values provided (got " << i << " pairs value/velocity, expected " << x.size() << ")." << std::endl;
           throw std::runtime_error(s.str());
         }
       }
       else
       {
         std::stringstream s;
-        s << "Too many values provided (got " << i << "pairs value/velocity, expected " << x.size() << ")." << std::endl;
+        s << "Too many values provided (got " << i << " pairs value/velocity, expected " << x.size() << ")." << std::endl;
         throw std::runtime_error(s.str());
       }
     }

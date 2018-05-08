@@ -16,6 +16,7 @@
 #include <tvm/ControlProblem.h>
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/function/IdentityFunction.h>
+#include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -202,7 +203,7 @@ TEST_CASE("Test a problem with a robot")
 
   pb.add(lfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
   pb.add(rfg_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(0)});
-  pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
+  auto tdyn = pb.add(dyn_fn == 0., tvm::task_dynamics::None(), {tvm::requirements::PriorityLevel(0)});
   dyn_fn->addPositiveLambdaToProblem(pb);
 
   pb.add(posture_fn == 0., tvm::task_dynamics::PD(1.), {tvm::requirements::PriorityLevel(1), tvm::requirements::Weight(1.)});
@@ -218,6 +219,8 @@ TEST_CASE("Test a problem with a robot")
   pb.add(hrp2->lTauBound() <= hrp2->tau() <= hrp2->uTauBound(), tvm::task_dynamics::None(), { tvm::requirements::PriorityLevel(0) });
 
   tvm::LinearizedControlProblem lpb(pb);
+
+  lpb.add(tvm::hint::Substitution(lpb.constraint(tdyn.get()), hrp2->tau()));
 
   tvm::scheme::WeightedLeastSquares solver(false);
 

@@ -9,11 +9,11 @@ namespace constraint
 {
 
   BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, Type ct)
-    : BasicLinearConstraint({ A }, { x }, ct)
+    : BasicLinearConstraint(std::vector<MatrixConstRef>{ A }, { x }, ct)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, Type ct)
+  BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x, Type ct)
     : LinearConstraint(ct, RHS::ZERO, static_cast<int>(A.begin()->rows()))
   {
     if (ct == Type::DOUBLE_SIDED)
@@ -29,11 +29,11 @@ namespace constraint
   }
 
   BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x, const VectorConstRef& b, Type ct, RHS cr)
-    : BasicLinearConstraint({ A }, { x }, b, ct, cr)
+    : BasicLinearConstraint(std::vector<MatrixConstRef>{ A }, { x }, b, ct, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x, const VectorConstRef& b, Type ct, RHS cr)
+  BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x, const VectorConstRef& b, Type ct, RHS cr)
     : LinearConstraint(ct, cr, static_cast<int>(A.begin()->rows()))
   {
     if (ct == Type::DOUBLE_SIDED)
@@ -56,11 +56,11 @@ namespace constraint
 
   BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef& A, VariablePtr x,
                                                const VectorConstRef& l, const VectorConstRef& u, RHS cr)
-    :BasicLinearConstraint({ A }, { x }, l, u, cr)
+    :BasicLinearConstraint(std::vector<MatrixConstRef>{ A }, { x }, l, u, cr)
   {
   }
 
-  BasicLinearConstraint::BasicLinearConstraint(std::initializer_list<MatrixConstRef> A, std::initializer_list<VariablePtr> x,
+  BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef>& A, const std::vector<VariablePtr>& x,
                                                const VectorConstRef& l, const VectorConstRef& u, RHS cr)
     : LinearConstraint(Type::DOUBLE_SIDED, cr, static_cast<int>(A.begin()->rows()))
   {
@@ -84,19 +84,38 @@ namespace constraint
     this->u(u);
   }
 
-  void BasicLinearConstraint::A(const MatrixConstRef& A, const Variable& x)
+  BasicLinearConstraint::BasicLinearConstraint(int m, VariablePtr x, Type ct, RHS cr) 
+    : LinearConstraint(ct, cr, m)
+  {
+    addVariable(x, true);
+  }
+
+  BasicLinearConstraint::BasicLinearConstraint(int m, std::vector<VariablePtr>& x, Type ct, RHS cr)
+    : LinearConstraint(ct, cr, m)
+  {
+    for (const auto& v : x)
+    {
+      addVariable(v, true);
+    }
+  }
+
+  void BasicLinearConstraint::A(const MatrixConstRef& A, const Variable& x,
+                                const tvm::internal::MatrixProperties& p)
   {
     if (A.rows() == size() && A.cols() == x.size())
+    {
       jacobian_.at(&x) = A;
+      jacobian_.at(&x).properties(p);
+    }
     else
       throw std::runtime_error("Matrix A doesn't have the good size.");
   }
 
-  void BasicLinearConstraint::A(const MatrixConstRef& A)
+  void BasicLinearConstraint::A(const MatrixConstRef& A, const tvm::internal::MatrixProperties& p)
   {
-    if (variables().size() == 1)
+    if (variables().numberOfVariables() == 1)
     {
-      this->A(A, *variables()[0].get());
+      this->A(A, *variables()[0].get(), p);
     }
     else
       throw std::runtime_error("You can use this method only for constraints with one variable.");

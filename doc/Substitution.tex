@@ -1,0 +1,338 @@
+\documentclass[]{article}
+
+\usepackage{amsthm} %qed
+\usepackage[cmex10]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\BIN}{\begin{bmatrix}}
+\newcommand{\BOUT}{\end{bmatrix}}
+
+%\newcommand{\mdiff1}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\diff}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+
+\begin{document}
+
+\title{\Large Substitutions}
+\author{Adrien Escande}
+
+\maketitle
+
+\section{Introduction}
+In this document, we are considering a system of linear equations that we want to pre-solve for some variables. We write this system
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \\
+A_{2,1} x_1 + A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \\
+\vdots& \nonumber\\
+A_{k,1} x_1 + A_{k,2} x_2 + \ldots + A_{k,k} x_k + B_k y &= c_k \\
+D_1 x_1 + D_2 x_2 + \ldots + D_k x_k + E y &= f \label{eq:other}
+\end{align}
+where the $x_j \in \mathbb{R}^{n_j}$, $j=1..k$ are the variables for which we want to pre-solve, $y \in \mathbb{R}^p$ are all the other possible variables, the $A_{i,j}$ are $m_i \times n_j$ matrices, the $B_i$ are $m_i \times p$, the $D_i$ are $q \times n_j$, $E$ is $q \times p$, the $c_i$ are $m_i$-vectors, and $f$ is a $q$-vector.
+We suppose the system is feasible.
+
+Without loss of generality, we can consider the $k$ first lines to form a block triangular system:
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,k} x_k + B_1 y &= c_1 \label{eq:triang1}\\
+A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \label{eq:triang2}\\
+\vdots& \nonumber\\
+A_{k,k} x_k + B_k y &= c_k \label{eq:triangk}
+\end{align}
+Indeed, if $l\leq k$ variables, let's note them $x_1, \ldots x_l$, appears in exactly $l$ equations, that we can take to be the $l$ first ones, then these $l$ equations can be rewritten as one single equation $\tilde{A} \tilde{x} + \tilde{A}_{l+1} x_{l+1} + \ldots + \tilde{A}_k x_k + \tilde{B} y = \tilde{c}$, with 
+\begin{equation*}
+	\tilde{A} = \BIN A_{1,1} & \hdots & A_{1,k} \\ \vdots & \ddots & \vdots \\ A_{k,1} & \hdots & A_{k,k} \BOUT, \
+	\tilde{A_j} = \BIN A_{1,j} \\ \vdots \\ A_{l,j}\BOUT, \
+	\tilde{B} = \BIN B_{1} \\ \vdots \\ B_{l}\BOUT,\
+	\tilde{c} = \BIN c_{1} \\ \vdots \\ c_{l} \BOUT \mbox{and}\
+	\tilde{x} = \BIN x_{1} \\ \vdots \\ x_{l} \BOUT
+\end{equation*}
+
+Let's note $r_j$ the rank of the matrix $A_{j,j}$. We require that $r_j \leq n_j$.
+Our goal is to transform the system (\ref{eq:triang1}) - (\ref{eq:triangk}), (\ref{eq:other}) into an equivalent system
+\begin{align}
+  x_1 &= \varphi_1(y,z_1, \ldots, z_k) \\
+	x_2 &= \varphi_2(y,z_2, \ldots, z_k) \\
+  \vdots & \nonumber \\
+	x_k &= \varphi_{k-1}(y,z_k) \\
+	x_k &= \varphi_k(y) \\
+	\psi(y,z_1, \ldots z_k) &= 0
+\end{align}
+where $z_j \in \mathbb{R}^{n_j-r_j}$, and $\psi$ and the $\varphi_i$ are linear functions.
+
+
+\section{One variable substitution}
+\subsection{Principle}
+Consider the system
+\begin{align}
+	A x + B y &= c \label{eq:simple1}\\
+	D x + E y &= f \label{eq:simple2}
+\end{align}
+where we want to pre-solve in $x$, using the first equation. We denote $r$ the rank of $A$.
+
+Let $A^\sharp$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$, and $S$ a basis of $\mathrm{null}(A^T)$, and define $P = (I-A^T G^T) N^{+T}$. Using the tautology $P^T x = P^T x$, we have
+\begin{align*}
+  \mathrm{(\ref{eq:simple1})} &\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN -By + c \\ P^T x\BOUT
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN -By + c \\ P^T x\BOUT
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c \\ 
+		z \hspace{-5pt}&=&\hspace{-5pt} P^T x\\
+		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
+	\end{array}\right.\\
+	&\Longleftrightarrow 
+	\left\{\begin{array}{rcl}
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c, \quad z \in \mathbb{R}^{n-r} \\ 
+		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
+	\end{array}\right.
+\end{align*}
+The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ spans $\mathbb{R}^{n-r}$. 
+
+Noting $M = -A^\sharp B$, and $u = A^\sharp c$, we thus have
+\begin{equation*}
+  \left. \begin{array}{c} (\ref{eq:simple1}) \\ (\ref{eq:simple2}) \end{array} \right\}
+	\Longleftrightarrow
+	\left\{ \begin{array}{rcl}
+	x \hspace{-5pt}&=&\hspace{-5pt} M y + N z + u \\
+	(E + D M) y + D N z \hspace{-5pt}&=&\hspace{-5pt} f - D u \\
+	S^T B y \hspace{-5pt}&=&\hspace{-5pt} S^T f
+	\end{array} \right.
+\end{equation*}
+
+\subsection{Generic $A$}
+For a generic $A$, we can compute a rank-revealing QR
+\begin{equation}
+	A = \BIN Q^r & Q^c \BOUT \BIN R^r & R^c \\ 0 & 0 \BOUT \BIN {\Pi^r}^T \\ {\Pi^c}^T \BOUT
+\end{equation}
+Then we can take $A^{\sharp} = {\Pi^r} {R^r}^{-1} {Q^r}^T$, $N = - \Pi^r {R^r}^{-1} R^c + \Pi^c$ and $S = Q^c$. This yields $P = \Pi^c$.
+
+
+
+\section{Multiple variables}
+Consider the system
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l} x_l + B_1^{(l)} y + Z_1^{(l)} z^{(l)}&= c_1^{(l)} \label{eq:triang_1}\\
+A_{2,2} x_2 + \ldots + A_{2,l} x_l + B_2^{(l)} y + Z_2^{(l)} z^{(l)}&= c_2^{(l)} \label{eq:triang_2}\\
+\vdots& \nonumber\\
+A_{l,l} x_l + B_l^{(l)} y + Z_l^{(l)} z^{(l)}&= c_l^{(l)} \label{eq:triang_l}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_l x_l + E^{(l)} y + H^{(l)} z^{(l)}&= f^{(l)} \label{eq:other_}
+\end{align}
+for $l \leq k$, with $z \in \mathbb{R}^{n_s}$, $n_s = kn - \sum_1^k{r_i}$ and $Z_i^{(l)} \in \mathbb{R}^{m_i \times n_s}$.
+
+We use the above section for eq.~(\ref{eq:triang_l}): let's $A_l^\sharp$, $N_l$ and $S_l$ be respectively a generalized inverse of $A_{l,l}$, a basis of $\mathrm{null}(A_{l,l})$ and a basis of $\mathrm{null}(A_{l,l}^T)$.
+We define
+\begin{align*}
+	M_l &= -A_l^\sharp B_l^{(l)}\\
+	u_l &= A_l^\sharp c_l^{(l)}
+\end{align*}
+Eq.~(\ref{eq:triang_l}) becomes
+\begin{equation}
+	\left\{ \begin{array}{rcl}
+	x_l \hspace{-5pt}&=&\hspace{-5pt} M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + N_l z_l + u_l \\
+	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} \hspace{-5pt}&=&\hspace{-5pt} S_l^T c_l^{(l)}
+	\end{array}\right.
+\end{equation}
+Substituting $x_l$ in the $i^{\mathrm{th}}$ equation ($i<l$) yields
+\begin{equation*}
+\footnotesize
+  A_{i,i} x_i + \ldots + A_{i,l-1} x_{l-1} + (B_i^{(l)} + A_{i,l} M_l)y 
+	+ \BIN\hspace{-1pt} Z_i^{(l)} \hspace{-7pt}-\hspace{-3pt} A_{i,l} A_l^\sharp Z_l^{(l)} &\hspace{-5pt} A_{i,l} N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	= \hspace{-3pt} c_i^{(l)} \hspace{-3pt}- A_{i,l} u_l
+\end{equation*}
+Likewise eq.~(\ref{eq:other_}) becomes
+\begin{equation*}
+\small
+  D_1 x_ 1+ \ldots + D_{l-1} x_{l-1} + (E^{(l)} + D_l M_l)y 
+	+ \BIN\hspace{-1pt} H^{(l)} \hspace{-5pt}-\hspace{-3pt} D_l A_l^\sharp Z_l^{(l)} &\hspace{-5pt} D_l N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
+	= \hspace{-3pt} f^{(l)} \hspace{-3pt}- D_l u_l
+\end{equation*}
+We define
+\footnote{
+Note that we could also define $z^{(l-1)} = \BIN z_l \\ z^{(l)} \BOUT$ and change $Z_i^{(l-1)}$ and $H^{(l-1)}$ accordingly. We make the current choice with the implementation efficiency in mind: it is easier to grow a matrix by the bottom or the right, while ensuring the memory alignement.
+}
+\begin{align*}
+B_i^{(l-1)} &= (B_i^{(l)} + A_{i,l} M_l) = (B_i^{(l)} - A_{i,l} A_l^\sharp B_l^{(l)})\\
+z^{(l-1)} &= \BIN z^{(l)}\\ z_l \BOUT\\
+Z_i^{(l-1)} &= \BIN Z_i^{(l)} - A_{i,l} A_l^\sharp Z_l^{(l)} & A_{i,l}  N_l\BOUT\\
+c_i^{(l-1)} &= c_i^{(l)} - A_{i,l} u_l = c_i^{(l)} - A_{i,l} A_l^\sharp c_l^{(l)}\\
+E^{(l-1)} &= E^{(l)} + D_l M_l = E^{(l)} - D_l A_l^\sharp B_l^{(l)}\\
+H^{(l-1)} &= \BIN H^{(l)} - D_l A_l^\sharp Z_l^{(l)} & D_l N_l\BOUT\\
+f^{(l-1)} &= f^{(l)} - D_l u_l = f^{(l)} - D_l A_l^\sharp c_l^{(l)}
+\end{align*}
+and the system (\ref{eq:triang_1}) - (\ref{eq:other_}) is equivalent to
+\begin{align}
+A_{1,1} x_1 + A_{1,2} x_2 + \ldots + A_{1,l-1} x_{l-1} + B_1^{(l-1)} y + Z_1^{(l-1)} z^{(l-1)}&= c_1^{(l-1)}  \label{eq:triang_1s}\\
+A_{2,2} x_2 + \ldots + A_{2,l-1} x_{l-1} + B_2^{(l-1)} y + Z_2^{(l-1)} z^{(l-1)}&= c_2^{(l-1)}\\
+\vdots& \nonumber\\
+A_{l-1,l-1} x_{l-1} + B_{l-1}^{(l-1)} y + Z_{l-1}^{(l-1)} z^{(l-1)}&= c_{l-1}^{(l-1)}\\
+D_1 x_1 + D_2 x_2 + \ldots + D_{l-1} x_{l-1} + E^{(l-1)} y + H^{(l-1)} z^{(l-1)}&= f^{(l-1)} \label{eq:other_s}\\
+M_l y -A_l^\sharp Z_l^{(l)} z^{(l)} + N_l z_l + u_l &= x_l\\
+	S_l^T B_l^{(l)} y + S_l^T Z_l^{(l)} z^{(l)} &= S_l^T c_l^{(l)}
+\end{align}
+Equations~(\ref{eq:triang_1s})-(\ref{eq:other_s}) have the same form as equations (\ref{eq:triang_1}) - (\ref{eq:other_}), so that we can apply the above recursively, starting with
+\begin{align*}
+B_i^{(k)} &= B_i\\
+z^{(k)} &\mathrm{empty}\\
+Z_i^{(k)} & \mathrm{empty}\\
+c_i^{(k)} &= c_i\\
+E^{(k)} &= E\\
+H^{(k)} & \mathrm{empty} \\
+f^{(k)} &= f
+\end{align*}
+
+We get
+\begin{align}
+  x_1 &= M_1 y - A_1^\sharp Z_1^{(1)} z^{(1)} + N_1 z_1 + u_1\\
+  x_2 &= M_2 y - A_2^\sharp Z_2^{(2)} z^{(2)} + N_2 z_2 + u_2\\
+  &\vdots\nonumber \\
+  x_k &= M_k y - \underbrace{A_k^\sharp Z_k^{(k)} z^{(k)}}_0 + N_k z_k + u_k\\
+  E^{(0)} y + H^{(0)} z^{(0)}&= f^{(0)} \\
+	S_1^T B_1^{(1)} y + S_1^T Z_1^{(1)} z^{(1)} &= S_1^T c_1^{(1)}\\
+	S_1^T B_1^{(2)} y + S_2^T Z_2^{(2)} z^{(2)} &= S_1^T c_2^{(2)}\\
+	&\vdots\nonumber \\
+	S_k^T B_k^{(k)} y + S_k^T Z_k^{(k)} z^{(k)} &= S_1^T c_k^{(k)}
+\end{align}
+
+\appendix
+\section{Some properties around the generalized inverse}
+In this section, $A$ is a general $m \times n$ matrix with rank $r$.
+
+\begin{definition}
+  $G \in \mathbb{R}^{n \times m}$ is a generalized inverse of $A$ if and only if $A G A = A$.
+\end{definition}
+The following theorem is due to [Rao 1972]:
+\begin{theorem}
+  Given a particular generalized inverse $G$, and an arbitrary matrix $M\in \mathbb{R}^{n \times m}$, the matrix
+	\begin{equation}
+		G + M - GAMAG
+	\end{equation}
+	is a generalized inverse of $A$, and all of the generalized inverses of $A$ are obtained this way.
+\end{theorem}
+
+Let's consider the SVD decomposition of $A$:
+\begin{equation*}
+  A = \BIN U_1 & U_2 \BOUT \BIN \Sigma & 0 \\ 0 & 0 \BOUT \BIN V_1^T \\ V_2^T \BOUT = U_1 S V_1^T
+\end{equation*}
+where $\BIN U_1 & U_2 \BOUT$ and $\BIN V_1 & V_2 \BOUT$ are orthogonal matrices, $U_1 \in \mathbb{R}^{m \times r}$, $U_2 \in \mathbb{R}^{m \times m-r}$, $V_1 \in \mathbb{R}^{n \times r}$, $V_2 \in \mathbb{R}^{n \times n-r}$ and $\Sigma \in \mathbb{R}^{r \times r}$. As a particular generalized inverse, we have the Moore-Penrose pseudo-inverse $A^+ = V_1 \Sigma^{-1} U_1^T$, and we can write any generalized inverse $G$ as
+\begin{equation}
+  G = V_1 \Sigma^{-1} U_1^T + M - V_1 V_1^T M U_1 U_1^T \label{eq:generalFormulation}
+\end{equation}
+
+\begin{lemma}
+\label{lemma:projection}
+For any generalized inverse $G$
+	\begin{align*}
+	V_2 V_2^T (I-GA) &= I-GA\\
+	(I-AG)U_2U_2^T &= I-AG
+	\end{align*}
+\end{lemma}
+\begin{proof}
+Let $M$ be such that $G$ writes as in eq.~(\ref{eq:generalFormulation}). Then, using that $U_1^T U_1 = I$, $V_1^T V_1 = I$ and $V_1 V_1^T + V_2 V_2^T = I$, we get
+\begin{equation*}
+  I-GA = V_2 V_2^T (I-MA)
+\end{equation*}
+and thus
+\begin{equation*}
+  V_2 V_2^T (I-GA) = V_2 V_2^T V_2 V_2^T (I-MA) = V_2 V_2^T (I-MA) = I - GA
+\end{equation*}
+Similarly
+\begin{equation*}
+  I-AG = (I-AM)U_2 U_2^T
+\end{equation*}
+and
+\begin{equation*}
+  (I-AG)U_2 U_2^T = (I-AM)U_2 U_2^T U_2 U_2^T = (I-AM)U_2 U_2^T  = I-AG
+\end{equation*}
+\end{proof}
+
+\begin{corollary}
+\label{co:projection}
+$(I-GA)G U_2 U_2^T = (I-GA)G$ and $V_2 V_2^T G(I-AG) = G(I-AG)$
+\end{corollary}
+\begin{proof}
+Note that $(I-GA)G = (G - GAG) = G(I-AG)$. Then
+\begin{align*}
+  (I-GA)G U_2 U_2^T = G(I-AG) U_2 U_2^T = G(I-AG) = (I-GA)G \\
+	V_2 V_2^T G(I-AG) = V_2 V_2^T (I-GA)G = (I-GA)G = G(I-AG)
+\end{align*}
+where for each line the second equality is a consequence of Lemma~\ref{lemma:projection}.
+\end{proof}
+
+We have that $\mathrm{rank}(GA) = \mathrm{rank}(AG) =  \mathrm{rank}(A) =  r$, so that the projectors $(I-GA)$ and $(I-AG)$ have rank $n-r$ and $m-r$ respectively.
+Therefore, we have the rank factorizations
+\begin{align*}
+ \exists N,P\in \mathbb{R}^{n \times n-r}, \quad \mathrm{rank}(N) = \mathrm{rank}(P) = n-r &&\ I-GA = N P^T\\
+  \exists T,S\in \mathbb{R}^{m \times m-r}, \quad \mathrm{rank}(T) = \mathrm{rank}(S) = m-r && I-AG = T S^T 
+\end{align*}
+
+\begin{theorem}
+\label{th:NP}
+  $I-GA = N P^T$ with $N$ and $P$ full rank iff $N$ is a basis of $\mathrm{null}(A)$ and $P = (I-A^TG^T)N^{+T}$.
+\end{theorem}
+\begin{proof}
+  Let's first prove $\Longrightarrow$.
+	\newline
+	$I-GA = N P^T \Longrightarrow A(I-GA) = A N P^T \Longrightarrow ANP^T=0$. Since $P^T$ is full rank, its range space is $\mathbb{R}^{n-r}$, so that $ANP^T=0 \Longrightarrow AN = 0$. $N$ is full rank so it is a basis of $\mathrm{null}(A)$.
+\newline	
+	Since $N$ is full rank, $N^+ N = I$. Thus $I-GA = N P^T \Longrightarrow N^+(I-GA) = P^T \Longrightarrow P = (I-A^TG^T)N^{+T}$.
+	
+	Conversely, let's prove $\Longleftarrow$.
+  \newline
+	$V_2$ is also a basis of $\mathrm{null}(A)$, so that there is an $n-r \times n-r$ invertible matrix $X$ such that $N = V_2 X$. Therefore $N^+ = X^{-1} V_2^T$ and $N P^T = V_2 V_2^T (I-GA) = I-GA$ where the last equality comes from Lemma~\ref{lemma:projection}.
+\end{proof}
+A direct consequence of this theorem is that for any choice of a generalized inverse $G$ of $A$ and of a basis $N$ of $\mathrm{null}(A)$, we can find $P$ to get a rank factorization of $I-GA$.
+
+An equivalent theorem can be made for $I-AG$:
+\begin{theorem}
+\label{th:TS}
+  $I-AG = T S^T$ with $T$ and $S$ full rank iff $S$ is a basis of $\mathrm{null}(A^T)$ and $T = (I-AG)S^{+T}$.
+\end{theorem}
+\begin{proof}
+	The proof follows the same lines as for the previous theorem.
+\end{proof}
+
+\begin{theorem}
+\label{th:inverse}
+	Let $G$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$ and $S$ a basis of $\mathrm{null}(A^T)$. Then the matrix
+	\begin{equation}
+		H = \BIN G & N \\ S^T & 0 \BOUT
+	\end{equation}
+	is invertible and its inverse is
+	\begin{equation}
+	  \BIN A & T \\ P^T  & -P^TGS^{+T} \BOUT
+	\end{equation}
+	where $P$ and $T$ are as define in theorems \ref{th:NP} and \ref{th:TS}.
+\end{theorem}
+\begin{proof}
+	Let's show that
+	\begin{equation}
+		\BIN A & T \\ P^T  & -P^TGS^+ \BOUT \BIN G & N \\ S^T & 0 \BOUT = 
+		\BIN AG + TS^T & AN \\ P^T G - P^TG S^{+T} S^T & P^T N \BOUT \label{eq:inverse}
+	\end{equation}
+	is the identity.
+	\newline
+	$AG + TS^T = I$ because by definition of $T$, $I-AG = T S^T$ (theorem \ref{th:TS}).
+	\newline
+	$AN = 0$ by definition of $N$.
+	\newline
+	Since $S$ can be written as $U_2 Y$ with $Y$ invertible, we have that $S^{+T} S^T = U_2 U_2^T$, so using the expression of $P$, $P^T G S^{+T} S^T = N^+(I-GA) G U_2 U_2^T = N^+(I-GA) G = P^T G$, with the second equality coming from Corollary \ref{co:projection}. Therefore $P^T G - P^TG S^{+T} S^T = P^T G - P^TG = 0$.
+	\newline
+	$P^T N = N^+(I-GA) N = N^+ N = I$ where the second equalities is a consequence of $AN = 0$ and the third one of $N$ being full rank.
+	\newline
+	The matrix given by eq.~(\ref{eq:inverse}) is a left inverse of $H$, therefore $H$ is invertible and it is its inverse.
+\end{proof}
+\emph{Remark}: the matrix in~(\ref{eq:inverse}) is therefore also the right inverse of $H$. This can be verified in the same way as above, using the fact that $P^T G S^{+T} = N^+ G T$.
+\end{document}
