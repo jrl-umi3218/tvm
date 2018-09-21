@@ -61,6 +61,9 @@ set(TVM_SOURCES
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
+  #scheme/LeastSquareSolver.cpp
+  scheme/LSSOLLeastSquareSolver.cpp
+  scheme/QLDLeastSquareSolver.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
@@ -160,6 +163,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/robot/utils.h
 
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
+  ${TVM_INCLUDE_DIR}/scheme/abstract/LeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignment.h
@@ -170,6 +174,8 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
+  ${TVM_INCLUDE_DIR}/scheme/LSSOLLeastSquareSolver.h
+  ${TVM_INCLUDE_DIR}/scheme/QLDLeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
