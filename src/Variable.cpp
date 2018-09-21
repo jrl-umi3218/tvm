@@ -160,6 +160,7 @@ namespace tvm
     , primitive_(nullptr)
     , derivative_()
   {
+    value_.setZero();
   }
 
   Variable::Variable(VariablePtr var)
@@ -179,6 +180,7 @@ namespace tvm
       ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
     }
     name_ = ss.str();
+    value_.setZero();
   }
 
 }  // namespace tvm
