@@ -19,7 +19,10 @@ option(DISABLE_TESTS "Disable unit tests" OFF)
 
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
+else()
+  add_definitions("-D_ENABLE_EXTENDED_ALIGNED_STORAGE")
 endif()
+
 
 # If we were given coverage options, we will only pass them to the core
 # library.
