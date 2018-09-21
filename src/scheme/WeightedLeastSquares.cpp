@@ -27,7 +27,7 @@ namespace scheme
     for (auto& a : memory.assignments)
       a.run();
 
-    if(verbose_)
+    if (verbose_)
     {
       std::cout << "A =\n" << memory.A << std::endl;
       std::cout << "b = " << memory.b.transpose() << std::endl;
@@ -66,6 +66,7 @@ namespace scheme
     //scanning constraints
     int m0 = 0;
     int m1 = 0;
+    int maxp = 0;
     for (const auto& c : constraints)
     {
       // If the constraint is used for the substitutions, we skip it.
@@ -75,18 +76,20 @@ namespace scheme
       for (const auto& xi: c.constraint->variables())
         memory->addVariable(subs.substitute(xi));
 
+      int p = c.requirements->priorityLevel().value();
       if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED)
-          && c.requirements->priorityLevel().value() == 0)
+          && p == 0)
         bounds.push_back(c);
       else
       {
-        if (c.requirements->priorityLevel().value() == 0)
+        if (p == 0)
           m0 += c.constraint->size();
         else
         {
           if (c.constraint->type() != constraint::Type::EQUAL)
             throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
           m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+          maxp = std::max(maxp, p);
         }
         constr.push_back(c);
       }
@@ -104,6 +107,7 @@ namespace scheme
 
     //allocating memory for the solver
     memory->resize(m0, m1, big_number_);
+    memory->assignments.reserve(constr.size() + bounds.size());
 
     // configure assignments. FIXME: can we find a better way ?
     Assignment::big_ = big_number_;
@@ -128,12 +132,13 @@ namespace scheme
       {
         RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
         AssignmentTarget target(r, memory->A, memory->b, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs, std::pow(scalarizationWeight_, p - 1)));
+        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs, std::pow(scalarizationWeight_, maxp - p)));
         m1 += c.constraint->size();
       }
     }
     if (m1 == 0)
     {
+      //FIXME : A is reset to 0 at each iteration. Need to create an assignment
       memory->A.setIdentity();
       memory->b.setZero();
     }
