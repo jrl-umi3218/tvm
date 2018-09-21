@@ -87,7 +87,7 @@ void Simple2dRobotEE::updateValue()
   Vector3d v(0, 0, 1);
   for (int i = n_-1; i >= 0; --i)
     v = H(x[i], lengths_[i]) * v;
-  value_ = v.head<2>();
+  value_ = v.head<2>() + base_;
 }
 
 void Simple2dRobotEE::updateJacobian()

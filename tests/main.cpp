@@ -9,6 +9,9 @@ using namespace tvm;
 
 void solverTest01();
 void solverTest02();
+void minimalKin();
+void minimalKinSub();
+void minimalDyn();
 
 void testVariable()
 {
@@ -207,14 +210,18 @@ int main()
   //testDataGraphSimple();
   //testBadGraph();
   //testDataGraphComplex();
-  solverTest01();
+  //solverTest01();
   //solverTest02();
+
+  minimalKin();
+  minimalKinSub();
+  //minimalDyn();
 
   auto l = tvm::graph::internal::Logger::logger().log();
   //for (const auto& p : l.types_)
   //  std::cout << l.generateDot(tvm::graph::internal::Log::Pointer(p.second.back(), p.first)) << std::endl;
 
-  std::cout << l.generateDot(reinterpret_cast<tvm::graph::CallGraph*>(l.graphOutputs_.begin()->first.value)) << std::endl;
+  //std::cout << l.generateDot(reinterpret_cast<tvm::graph::CallGraph*>(l.graphOutputs_.begin()->first.value)) << std::endl;
 #ifdef WIN32
   system("pause");
 #endif
