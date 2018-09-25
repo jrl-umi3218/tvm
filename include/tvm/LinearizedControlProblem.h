@@ -83,7 +83,7 @@ namespace tvm
     };
 
     bool finalized_;
-    std::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
+    utils::internal::mapOnId<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
     Updater updater_;
     hint::internal::Substitutions substitutions_;
   };

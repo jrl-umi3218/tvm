@@ -31,7 +31,7 @@
 
 namespace tvm
 {
-  class TVM_DLLAPI TaskWithRequirements
+  class TVM_DLLAPI TaskWithRequirements : public tvm::internal::ObjWithId
   {
   public:
     TaskWithRequirements(const Task& task, requirements::SolvingRequirements req);
