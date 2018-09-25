@@ -92,6 +92,9 @@ namespace internal
       */
     Assignment(LinearConstraintPtr source, const AssignmentTarget& target, const VariablePtr& variables, bool first);
 
+    Assignment(const Assignment&) = delete;
+    Assignment(Assignment&&) = default;
+
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
@@ -275,7 +278,7 @@ namespace internal
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
     /** All the assignements that are setting the initial values of the targeted blocks*/
     std::vector<MatrixAssignment> matrixAssignments_;
-    /** All assignments due to substitution. We separe them from matrixAssignments_
+    /** All assignments due to substitutions. We separe them from matrixAssignments_
       * because these assignements add to existing values, and we need to be sure
       * that the assignements in matrixAssignments_ have been carried out before.
       */
