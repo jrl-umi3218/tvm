@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -20,34 +20,28 @@
 
 #include <tvm/api.h>
 
-#include <mutex>
+#include <tvm/internal/IdProvider.h>
 
 namespace tvm
 {
 
-namespace scheme
-{
-
 namespace internal
 {
-  /** A small helper class to provide unique ids.*/
-  class TVM_DLLAPI IdProvider
+
+  /** A class with a unique id.*/
+  class TVM_DLLAPI ObjWithId
   {
   public:
-    int makeId();
+    int id() const { return id_; }
+
+  protected:
+    ObjWithId() : id_(ObjWithId::idProvider_.makeId()) {}
+
   private:
-    std::mutex mutex_;
-    int id_ = 0;
+    static IdProvider idProvider_;
+    int id_;
   };
 
-
-  inline int IdProvider::makeId()
-  {
-    std::lock_guard<std::mutex> lock(mutex_);
-    return id_++;
-  }
 }  // namespace internal
-
-}  // namespace scheme
 
 }  // namespace tvm
