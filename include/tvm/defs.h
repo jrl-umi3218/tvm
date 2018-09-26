@@ -52,6 +52,7 @@ namespace tvm
 
   using ConstraintPtr = std::shared_ptr<constraint::abstract::Constraint>;
   using FunctionPtr = std::shared_ptr<function::abstract::Function>;
+  using LinearFunctionPtr = std::shared_ptr<function::abstract::LinearFunction>;
   using LinearConstraintPtr = std::shared_ptr<constraint::abstract::LinearConstraint>;
   using ClockPtr = std::shared_ptr<Clock>;
   using RangePtr = std::shared_ptr<Range>;
