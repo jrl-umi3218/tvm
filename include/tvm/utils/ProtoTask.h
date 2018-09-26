@@ -143,12 +143,11 @@ namespace utils
 * (or l <= f <= u)
 *
 * \param f the function to form the task
-* \param rhs a double or a Eigen::Vector with the sane size as the function
-* Note that for a double you explicitely need to write a double (e.g 0.,
+* \param rhs a double or a Eigen::Vector with the sane size as the function.
+* Note that for a double you need to explicitely write a double (e.g 0.,
 * not 0), otherwise the compiler won't be able to decide wich overload to
 * pick between this and shared_ptr operator.
 */
-
 template<typename F>
 tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs);
 template<typename F>
@@ -241,36 +240,6 @@ inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, co
   return { ptg.f_, ptg.rhs_, rhs };
 }
 
-//inline tvm::utils::LinearProtoTaskEQ operator==(tvm::LinearFunctionPtr f, const tvm::utils::internal::RHS& rhs)
-//{
-//  return { f, rhs };
-//}
-//
-//inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::LinearFunctionPtr f)
-//{
-//  return { f, rhs };
-//}
-
-//inline tvm::utils::LinearProtoTaskGT operator>=(tvm::LinearFunctionPtr f, const tvm::utils::internal::RHS& rhs)
-//{
-//  return { f, rhs };
-//}
-//
-//inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::LinearFunctionPtr f)
-//{
-//  return { f, rhs };
-//}
-//
-//inline tvm::utils::LinearProtoTaskLT operator<=(tvm::LinearFunctionPtr f, const tvm::utils::internal::RHS& rhs)
-//{
-//  return { f, rhs };
-//}
-//
-//inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::LinearFunctionPtr f)
-//{
-//  return { f, rhs };
-//}
-//
 inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs)
 {
   return { ptl.f_, rhs, ptl.rhs_ };
