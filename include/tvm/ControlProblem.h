@@ -24,6 +24,7 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
+#include <tvm/task_dynamics/None.h>
 #include <tvm/utils/ProtoTask.h>
 
 #include <memory>
