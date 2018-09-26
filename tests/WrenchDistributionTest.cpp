@@ -19,6 +19,7 @@
 #include <tvm/task_dynamics/VelocityDamper.h>
 
 using namespace tvm;
+using namespace tvm::requirements;
 using namespace Eigen;
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
@@ -91,14 +92,14 @@ TEST_CASE("WrenchDistribQP")
   //    Matrix<double, 1, 1>::Zero());
 
   LinearizedControlProblem problem;
-  auto leftFootFricTask = problem.add(leftFootFric <= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
-  auto rightFootFricTask = problem.add(rightFootFric <= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
-  auto leftFootMinPressureTask = problem.add(leftFootMinPressure >= MIN_PRESSURE, task_dynamics::None(), { requirements::PriorityLevel(0) });
-  auto rightFootMinPressureTask = problem.add(rightFootMinPressure >= MIN_PRESSURE, task_dynamics::None(), { requirements::PriorityLevel(0) });
-  auto netWrenchTask = problem.add(netWrench == 0., task_dynamics::None(), { requirements::PriorityLevel(1), requirements::Weight(NET_WRENCH_WEIGHT) });
-  auto leftAnkleWrenchTask = problem.add(leftAnkleWrench == 0., task_dynamics::None(), { requirements::PriorityLevel(1), requirements::AnisotropicWeight(ankleWeights), requirements::Weight(COMPLIANCE_WEIGHT) });
-  auto rightAnkleWrenchTask = problem.add(rightAnkleWrench == 0., task_dynamics::None(), { requirements::PriorityLevel(1), requirements::AnisotropicWeight(ankleWeights), requirements::Weight(COMPLIANCE_WEIGHT) });
-  auto pressureRatioTask = problem.add(pressureRatio == 0., task_dynamics::None(), { requirements::PriorityLevel(1), requirements::Weight(PRESSURE_WEIGHT) });
+  auto leftFootFricTask         = problem.add(leftFootFric <= 0.                  , { PriorityLevel(0) });
+  auto rightFootFricTask        = problem.add(rightFootFric <= 0.                 , { PriorityLevel(0) });
+  auto leftFootMinPressureTask  = problem.add(leftFootMinPressure >= MIN_PRESSURE , { PriorityLevel(0) });
+  auto rightFootMinPressureTask = problem.add(rightFootMinPressure >= MIN_PRESSURE, { PriorityLevel(0) });
+  auto netWrenchTask            = problem.add(netWrench == 0.                     , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
+  auto leftAnkleWrenchTask      = problem.add(leftAnkleWrench == 0.               , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto rightAnkleWrenchTask     = problem.add(rightAnkleWrench == 0.              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto pressureRatioTask        = problem.add(pressureRatio == 0.                 , { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
   scheme::WeightedLeastSquares solver;
   solver.solve(problem);
