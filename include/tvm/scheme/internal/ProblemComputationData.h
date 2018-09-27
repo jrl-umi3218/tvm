@@ -52,14 +52,15 @@ namespace internal
     void removeVariable(const VariableVector& vars);
     const VariableVector& variables() const;
 
-    /** Set the value of the variables. \a val must be in the same order as the
-      * variables.
-      */
-    void setSolution(const VectorConstRef& val);
+    /** Set the value of the variables to that of the solution. */
+    void setVariablesToSolution();
 
   protected:
     ProblemComputationData(int solverId);
     ProblemComputationData() = default;
+
+    /** Need to put in x the solution of the computation. */
+    virtual void setVariablesToSolution_(VariableVector& x) = 0;
 
     /** The problem variable*/
     VariableVector x_;
@@ -101,9 +102,9 @@ namespace internal
     return x_;
   }
 
-  inline void ProblemComputationData::setSolution(const VectorConstRef & val)
+  inline void ProblemComputationData::setVariablesToSolution()
   {
-    x_.value(val);
+    setVariablesToSolution_(x_);
   }
 
   inline ProblemComputationData::ProblemComputationData(int solverId)

@@ -88,7 +88,10 @@ namespace abstract
   {
     auto data = getComputationData(problem, *this);
     problem.update();
-    return derived().solve_(problem, data);
+    bool b = derived().solve_(problem, data);
+    data->setVariablesToSolution();
+    problem.substitutions().updateVariableValues();
+    return b;
   }
 
   template<typename Derived>

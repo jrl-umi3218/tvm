@@ -38,8 +38,6 @@ namespace scheme
     }
 
     bool b = memory->ls.solve(memory->A, memory->b, memory->C, memory->l, memory->u);
-    memory->setSolution(memory->ls.result());
-    problem.substitutions().updateVariableValues();
 
     if(verbose_ || !b)
     {
@@ -187,6 +185,11 @@ namespace scheme
     l = Eigen::VectorXd::Constant(m0 + n, -big_number);
     u = Eigen::VectorXd::Constant(m0 + n, +big_number);
     ls.resize(n, m0, Eigen::lssol::eType::LS1);
+  }
+
+  void WeightedLeastSquares::Memory::setVariablesToSolution_(VariableVector& x)
+  {
+    x.value(ls.result());
   }
 
 }  // namespace scheme
