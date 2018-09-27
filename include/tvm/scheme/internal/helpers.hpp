@@ -27,19 +27,19 @@ namespace internal
   class ProblemComputationData;
 
   template<typename Problem, typename Scheme>
-  inline ProblemComputationData& getComputationData(Problem& problem, const Scheme& resolutionScheme)
+  inline ProblemComputationData* getComputationData(Problem& problem, const Scheme& resolutionScheme)
   {
     auto id = resolutionScheme.id();
     auto it = problem.computationData_.find(id);
     if (it != problem.computationData_.end())
     {
-      return *(it->second);
+      return it->second.get();
     }
     else
     {
       problem.finalize();
       auto p = problem.computationData_.insert(std::move(std::make_pair(id, resolutionScheme.createComputationData(problem))));
-      return *(p.first->second);
+      return p.first->second.get();
     }
   }
 

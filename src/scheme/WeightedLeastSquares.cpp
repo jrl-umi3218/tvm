@@ -21,32 +21,33 @@ namespace scheme
   {
   }
 
-  bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, Memory& memory) const
+  bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
-    memory.A.setZero();
-    for (auto& a : memory.assignments)
+    Memory* memory = dynamic_cast<Memory*>(data);
+    memory->A.setZero();
+    for (auto& a : memory->assignments)
       a.run();
 
     if (verbose_)
     {
-      std::cout << "A =\n" << memory.A << std::endl;
-      std::cout << "b = " << memory.b.transpose() << std::endl;
-      std::cout << "C =\n" << memory.C << std::endl;
-      std::cout << "l = " << memory.l.transpose() << std::endl;
-      std::cout << "u = " << memory.u.transpose() << std::endl;
+      std::cout << "A =\n" << memory->A << std::endl;
+      std::cout << "b = " << memory->b.transpose() << std::endl;
+      std::cout << "C =\n" << memory->C << std::endl;
+      std::cout << "l = " << memory->l.transpose() << std::endl;
+      std::cout << "u = " << memory->u.transpose() << std::endl;
     }
 
-    bool b = memory.ls.solve(memory.A, memory.b, memory.C, memory.l, memory.u);
-    memory.setSolution(memory.ls.result());
+    bool b = memory->ls.solve(memory->A, memory->b, memory->C, memory->l, memory->u);
+    memory->setSolution(memory->ls.result());
     problem.substitutions().updateVariableValues();
 
     if(verbose_ || !b)
     {
-      std::cout << memory.ls.inform() << std::endl;
-      memory.ls.print_inform();
+      std::cout << memory->ls.inform() << std::endl;
+      memory->ls.print_inform();
       if(verbose_)
       {
-        std::cout << memory.ls.result().transpose() << std::endl;
+        std::cout << memory->ls.result().transpose() << std::endl;
       }
     }
     return b;
@@ -171,7 +172,6 @@ namespace scheme
 
   WeightedLeastSquares::Memory::Memory(int solverId)
     : ProblemComputationData(solverId)
-    , basePtr(new int)
   {
   }
 

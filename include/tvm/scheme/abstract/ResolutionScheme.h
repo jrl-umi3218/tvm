@@ -39,12 +39,15 @@ namespace abstract
     * performing some basic common operations.
     *
     * The Derived class must provide:
-    * - a typedef ComputationDataType defining the type of the
-    *   ProblemComputationData it uses,
-    * - one or several void solve_(ProblemType&, ComputationDataType&)
+    * - one or several void solve_(ProblemType&, ComputationData&)
     *   methods (several if it handle differently several types of problems).
     * - likewise, one or several createComputationData_(const ProblemType&)
-    *   methods returning a std::unique_ptr<ComputationDataType>.
+    *   methods returning a std::unique_ptr<ComputationDataType> where
+    *   ComputationDataType derives from ComputationDataType.
+    *
+    * For a given problem, the solve_ methods is guaranteed to receive the
+    * ComputationData instance created by createComputationData_ fr the same
+    * problem.
     */
   template<typename Derived>
   class ResolutionScheme : public internal::ResolutionSchemeBase
@@ -83,13 +86,8 @@ namespace abstract
   template<typename Problem>
   inline bool ResolutionScheme<Derived>::solve(Problem& problem) const
   {
-    //We assume here that the resolution scheme has only one type of computation data even if
-    //it can discriminate between several type of problems.
-    //Should it not be the case, we could use traits to determine the ComputationDataType for
-    //a Problem, given a particular ResolutionScheme
-    auto& data = static_cast<typename Derived::ComputationDataType&>(getComputationData(problem, *this));
     problem.update();
-    return derived().solve_(problem, data);
+    return derived().solve_(problem, getComputationData(problem, *this));
   }
 
   template<typename Derived>

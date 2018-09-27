@@ -45,12 +45,13 @@ namespace scheme
       Eigen::VectorXd l;
       Eigen::VectorXd u;
 
-      //dummy shared_ptr to build shared_ptr on the matrices and vectors
-      //FIXME: should we change the design of basePtr
-      std::shared_ptr<int> basePtr;
-
       std::vector<internal::Assignment> assignments;
       Eigen::LSSOL_LS ls;
+
+      virtual ~Memory()
+      {
+        1+1;
+      }
     };
 
   public:
@@ -60,7 +61,7 @@ namespace scheme
     WeightedLeastSquares(bool verbose = true, double scalarizationWeight = 1000);
 
     /** Private interface for CRTP*/
-    bool solve_(LinearizedControlProblem& problem, Memory& memory) const;
+    bool solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const;
     std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
 
   protected:

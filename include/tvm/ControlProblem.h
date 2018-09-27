@@ -75,7 +75,7 @@ namespace tvm
     std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
 
     template<typename Problem, typename Scheme>
-    friend scheme::internal::ProblemComputationData&
+    friend scheme::internal::ProblemComputationData*
       scheme::internal::getComputationData(Problem& problem, const Scheme& resolutionScheme);
   };
 

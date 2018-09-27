@@ -51,7 +51,7 @@ namespace internal
     * computation data. It needs to have a method \a createComputationData.
     */
   template<typename Problem, typename Scheme>
-  inline ProblemComputationData& getComputationData(Problem& problem, const Scheme& resolutionScheme);
+  inline ProblemComputationData* getComputationData(Problem& problem, const Scheme& resolutionScheme);
 
   /** We consider as bound a constraint with a single variable and a diagonal,
     * invertible jacobian.

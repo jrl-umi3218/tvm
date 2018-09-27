@@ -36,12 +36,12 @@ namespace abstract
   class TVM_DLLAPI LeastSquareSolver
   {
   public:
+    LeastSquareSolver(const LeastSquareSolver&) = delete;
+    LeastSquareSolver& operator=(const LeastSquareSolver&) = delete;
     /** Preallocate the memory
       */
     void reserve(const VariableVector& x, int m0, int me, int mi, bool useBounds=true);
     void addBound(LinearConstraintPtr bound);
-    void addEqualityConstraint();
-    void addIneqalityConstraint();
     void addObjective();
 
     /** Set ||x||^2 as the least square objective of the problem.
@@ -53,6 +53,8 @@ namespace abstract
   protected:
     virtual void reserve_(int m0, int me, int mi, bool useBounds) = 0;
     virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
+    virtual void addEqualityConstraint();
+    virtual void addIneqalityConstraint();
 
     std::vector<internal::Assignment> assignments_;
 
