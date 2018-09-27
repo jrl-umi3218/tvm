@@ -86,8 +86,9 @@ namespace abstract
   template<typename Problem>
   inline bool ResolutionScheme<Derived>::solve(Problem& problem) const
   {
+    auto data = getComputationData(problem, *this);
     problem.update();
-    return derived().solve_(problem, getComputationData(problem, *this));
+    return derived().solve_(problem, data);
   }
 
   template<typename Derived>

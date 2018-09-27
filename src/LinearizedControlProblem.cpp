@@ -87,6 +87,7 @@ namespace tvm
 
   void LinearizedControlProblem::update()
   {
+    assert(finalized_);
     updater_.run();
     substitutions_.updateSubstitutions();
   }
