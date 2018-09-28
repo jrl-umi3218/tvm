@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -18,36 +18,38 @@
  * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <tvm/api.h>
-
-#include <mutex>
+#include <map>
 
 namespace tvm
 {
 
-namespace scheme
+namespace utils
 {
 
 namespace internal
 {
-  /** A small helper class to provide unique ids.*/
-  class TVM_DLLAPI IdProvider
+  template<typename ObjWithId>
+  class IdComparator
   {
   public:
-    int makeId();
-  private:
-    std::mutex mutex_;
-    int id_ = 0;
+    using T = typename std::decay<typename std::remove_pointer<ObjWithId>::type>::type;
+    bool operator() (const T* const lhs, const T* const rhs) const
+    {
+      return lhs->id() < rhs->id();
+    }
+
+    bool operator() (const T& lhs, const T& rhs) const
+    {
+      return lhs.id() < rhs.id();
+    }
   };
 
+  template<typename KeyWithId, typename Value, 
+           typename Allocator = std::allocator< std::pair<KeyWithId, Value> > >
+  using map = std::map<KeyWithId, Value, IdComparator<KeyWithId>, Allocator >;
 
-  inline int IdProvider::makeId()
-  {
-    std::lock_guard<std::mutex> lock(mutex_);
-    return id_++;
-  }
 }  // namespace internal
 
-}  // namespace scheme
+}  // namespace utils
 
 }  // namespace tvm

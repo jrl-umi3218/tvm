@@ -20,7 +20,7 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
-#include <tvm/scheme/internal/IdProvider.h>
+#include <tvm/internal/ObjWithId.h>
 #include <tvm/scheme/internal/SchemeAbilities.h>
 
 namespace tvm
@@ -33,12 +33,9 @@ namespace tvm
     namespace internal
     {
       /** Base class for solving a ControlProblem*/
-      class TVM_DLLAPI ResolutionSchemeBase
+      class TVM_DLLAPI ResolutionSchemeBase: public tvm::internal::ObjWithId
       {
       public:
-        /** Return a unique id for this solver*/
-        identifier id() const;
-
         double big_number() const;
         void big_number(double big);
 
@@ -55,10 +52,6 @@ namespace tvm
 
         /** A number to use for infinite bounds*/
         double big_number_;
-
-      private:
-        static IdProvider idProvider_;
-        int id_;
       };
     }  // namespace internal
 
