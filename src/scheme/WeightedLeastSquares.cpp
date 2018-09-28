@@ -3,7 +3,7 @@
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
-#include <tvm/utils/internal/mapOnId.h>
+#include <tvm/utils/internal/map.h>
 
 #include <iostream>
 
@@ -145,7 +145,7 @@ namespace scheme
     }
 
     //assigments for bounds
-    utils::internal::mapOnId<Variable*, bool> first;
+    utils::internal::map<Variable*, bool> first;
     for (const auto& xi : x.variables())
     {
       first[xi.get()] = true;

@@ -19,7 +19,7 @@
  */
 
 #include <tvm/internal/FirstOrderProvider.h>
-#include <tvm/utils/internal/mapOnId.h>
+#include <tvm/utils/internal/map.h>
 
 #include <Eigen/Core>
 
@@ -90,7 +90,7 @@ namespace abstract
     // cache
     Eigen::VectorXd velocity_;
     Eigen::VectorXd normalAcceleration_;
-    utils::internal::mapOnId<Variable const *, Eigen::MatrixXd> JDot_;
+    utils::internal::map<Variable const *, Eigen::MatrixXd> JDot_;
 
   private:
     //we retain the variables' derivatives shared_ptr to ensure the reference is never lost

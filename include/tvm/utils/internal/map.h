@@ -44,8 +44,9 @@ namespace internal
     }
   };
 
-  template<typename KeyWithId, typename Value>
-  using mapOnId = std::map<KeyWithId, Value, IdComparator<KeyWithId> >;
+  template<typename KeyWithId, typename Value, 
+           typename Allocator = std::allocator< std::pair<KeyWithId, Value> > >
+  using map = std::map<KeyWithId, Value, IdComparator<KeyWithId>, Allocator >;
 
 }  // namespace internal
 
