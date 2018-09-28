@@ -19,9 +19,11 @@
  */
 
 #include <tvm/defs.h>
+#include <tvm/Variable.h>
 #include <tvm/VariableVector.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/internal/MatrixWithProperties.h>
+#include <tvm/utils/internal/map.h>
 
 #include <Eigen/Core>
 
@@ -155,14 +157,14 @@ namespace internal
 
     // cache
     Eigen::VectorXd value_;
-    std::map<Variable const*, MatrixWithProperties> jacobian_;
+    utils::internal::map<Variable const*, MatrixWithProperties> jacobian_;
   protected:
     /** Resize the function */
     void resize(int m);
 
     int m_; //output size
     VariableVector variables_;
-    std::map<Variable const*, bool> linear_;
+    utils::internal::map<Variable const*, bool> linear_;
   };
 
 
