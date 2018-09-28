@@ -32,6 +32,9 @@ namespace internal
   class TVM_DLLAPI ObjWithId
   {
   public:
+    ObjWithId(const ObjWithId&) = delete;
+    ObjWithId& operator=(const ObjWithId&) = delete;
+
     int id() const { return id_; }
 
   protected:
