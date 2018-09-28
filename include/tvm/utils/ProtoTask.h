@@ -89,17 +89,17 @@ namespace utils
     internal::RHS u_;
   };
 
-  /** A helper alias that is U if T is a tvm::abstract::Function, but not a 
-    * tvm::abstract::LinearFunction, V if it is a tvm::abstract::LinearFunction,
-    * and nothing (discarded by SFINAE) otherwise.
+  /** A helper alias that is IfNotLinearFunction if T is a tvm::abstract::Function, 
+    * but not a tvm::abstract::LinearFunction, IfLinearFunction if it is a 
+    * tvm::abstract::LinearFunction, and nothing (discarded by SFINAE) otherwise.
     */
-  template<typename T, typename U, typename V>
+  template<typename T, typename IfNotLinearFunction, typename IfLinearFunction>
   using ProtoChoice = typename std::enable_if<
                                  std::is_base_of<tvm::function::abstract::Function, T>::value, 
                                  typename std::conditional<
                                    std::is_base_of<tvm::function::abstract::LinearFunction, T>::value, 
-                                   V, 
-                                   U
+                                   IfLinearFunction, 
+                                   IfNotLinearFunction
                                  >::type
                                >::type;
 
@@ -141,112 +141,28 @@ namespace utils
 * pick between this and shared_ptr operator.
 */
 template<typename F>
-tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs);
+inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-tvm::utils::ProtoTaskEQRet<F> operator==(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f);
+inline tvm::utils::ProtoTaskEQRet<F> operator==(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 template<typename F>
-tvm::utils::ProtoTaskGTRet<F> operator>=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs);
+inline tvm::utils::ProtoTaskGTRet<F> operator>=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-tvm::utils::ProtoTaskLTRet<F> operator>=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F>);
+inline tvm::utils::ProtoTaskLTRet<F> operator>=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 template<typename F>
-tvm::utils::ProtoTaskLTRet<F> operator<=(std::shared_ptr<F>, const tvm::utils::internal::RHS& rhs);
+inline tvm::utils::ProtoTaskLTRet<F> operator<=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-tvm::utils::ProtoTaskGTRet<F> operator<=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F>);
+inline tvm::utils::ProtoTaskGTRet<F> operator<=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 
-tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs);
-tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs);
-tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs);
-tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs);
+inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs) { return { ptl.f_, rhs, ptl.rhs_ }; }
+inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
+inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs) { return { ptl.f_, rhs, ptl.rhs_ }; }
+inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
 
-tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
-tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs);
-tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
-tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr f, const tvm::utils::internal::RHS& rhs);
-tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
+#define ID(x) std::make_shared<tvm::function::IdentityFunction>(x)
 
-template<typename F>
-inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs)
-{
-  return { f, rhs };
-}
-
-template<typename F>
-inline tvm::utils::ProtoTaskEQRet<F> operator==(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f)
-{
-  return { f, rhs };
-}
-
-template<typename F>
-inline tvm::utils::ProtoTaskGTRet<F> operator>=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs)
-{
-  return { f, rhs };
-}
-
-template<typename F>
-inline tvm::utils::ProtoTaskLTRet<F> operator>=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f)
-{
-  return { f, rhs };
-}
-
-template<typename F>
-inline tvm::utils::ProtoTaskLTRet<F> operator<=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs)
-{
-  return { f, rhs };
-}
-
-template<typename F>
-inline tvm::utils::ProtoTaskGTRet<F> operator<=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f)
-{
-  return { f, rhs };
-}
-
-inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs)
-{
-  return { ptl.f_, rhs, ptl.rhs_ };
-}
-
-inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs)
-{
-  return { ptg.f_, ptg.rhs_, rhs };
-}
-
-inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs)
-{
-  return { ptl.f_, rhs, ptl.rhs_ };
-}
-
-inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs)
-{
-  return { ptg.f_, ptg.rhs_, rhs };
-}
-
-inline tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
-}
-
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) == rhs;
-}
-
-inline tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
-}
-
-inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) <= rhs;
-}
-
-inline tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) <= rhs;
-}
-
-inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x)
-{
-  return std::make_shared<tvm::function::IdentityFunction>(x) >= rhs;
-}
+inline tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return ID(x) == rhs; }
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return ID(x) == rhs; }
+inline tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return ID(x) >= rhs; }
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return ID(x) <= rhs; }
+inline tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return ID(x) <= rhs; }
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return ID(x) >= rhs; }
