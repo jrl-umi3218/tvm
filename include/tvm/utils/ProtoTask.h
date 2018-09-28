@@ -26,58 +26,47 @@ namespace tvm
 
 namespace utils
 {
+
+  template<constraint::Type T, typename FunT>
+  class ProtoTaskCommon;
+
   /** A utiliy class to represent the "constraint" part of a Task, for general functions*/
   template<constraint::Type T>
-  class ProtoTask
-  {
-  public:
-    ProtoTask(FunctionPtr f, const internal::RHS& rhs); //TODO move version
-
-    FunctionPtr f_;
-    internal::RHS rhs_;
-  };
-
-  template<>
-  class ProtoTask<constraint::Type::DOUBLE_SIDED>
-  {
-  public:
-    ProtoTask(FunctionPtr f, const internal::RHS& l, const internal::RHS& u)
-      : f_(f), l_(l), u_(u)
-    {
-      if (l.type_ == internal::RHSType::Vector && f->size() != l.v_.size())
-      {
-        throw std::runtime_error("The lower bound vector you provided has not the correct size.");
-      }
-      if (u.type_ == internal::RHSType::Vector && f->size() != u.v_.size())
-      {
-        throw std::runtime_error("The upper bound vector you provided has not the correct size.");
-      }
-    }
-
-    FunctionPtr f_;
-    internal::RHS l_;
-    internal::RHS u_;
-  };
+  using ProtoTask = ProtoTaskCommon<T, FunctionPtr>;
 
   /** A utiliy class to represent the "constraint" part of a Task, specialized for linear functions*/
   template<constraint::Type T>
-  class LinearProtoTask
+  using LinearProtoTask = ProtoTaskCommon<T, LinearFunctionPtr>;
+
+  template<constraint::Type T, typename FunT>
+  class ProtoTaskCommon
   {
   public:
-    LinearProtoTask(LinearFunctionPtr f, const internal::RHS& rhs); //TODO move version
+    ProtoTaskCommon(FunT f, const internal::RHS& rhs)
+    : f_(f), rhs_(rhs)
+    {
+      if (rhs.type_ == internal::RHSType::Vector && f->size() != rhs.v_.size())
+      {
+        throw std::runtime_error("The vector you provided has not the correct size.");
+      }
+    }
 
-    operator ProtoTask<T>() { return { f_, rhs_ }; }
+    template<typename FunU>
+    ProtoTaskCommon(const ProtoTaskCommon<T, FunU> & pt)
+    : f_(pt.f_), rhs_(pt.rhs_)
+    {
+    }
 
-    LinearFunctionPtr f_;
+    FunT f_;
     internal::RHS rhs_;
   };
 
-  template<>
-  class LinearProtoTask<constraint::Type::DOUBLE_SIDED>
+  template<typename FunT>
+  class ProtoTaskCommon<constraint::Type::DOUBLE_SIDED, FunT>
   {
   public:
-    LinearProtoTask(LinearFunctionPtr f, const internal::RHS& l, const internal::RHS& u)
-      : f_(f), l_(l), u_(u)
+    ProtoTaskCommon(FunT f, const internal::RHS& l, const internal::RHS & u)
+    : f_(f), l_(l), u_(u)
     {
       if (l.type_ == internal::RHSType::Vector && f->size() != l.v_.size())
       {
@@ -89,13 +78,16 @@ namespace utils
       }
     }
 
-    operator ProtoTask<constraint::Type::DOUBLE_SIDED>() { return { f_, l_, u_ }; }
+    template<typename FunU>
+    ProtoTaskCommon(const ProtoTaskCommon<constraint::Type::DOUBLE_SIDED, FunU> & pt)
+    : f_(pt.f_), l_(pt.l_), u_(pt.u_)
+    {
+    }
 
-    LinearFunctionPtr f_;
+    FunctionPtr f_;
     internal::RHS l_;
     internal::RHS u_;
   };
-
 
   /** A helper alias that is U if T is a tvm::abstract::Function, but not a 
     * tvm::abstract::LinearFunction, V if it is a tvm::abstract::LinearFunction,
@@ -172,27 +164,6 @@ tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::i
 tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
 tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr f, const tvm::utils::internal::RHS& rhs);
 tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr f);
-
-
-template<tvm::constraint::Type T>
-inline tvm::utils::ProtoTask<T>::ProtoTask(tvm::FunctionPtr f, const tvm::utils::internal::RHS& rhs)
-  : f_(f), rhs_(rhs)
-{
-  if (rhs.type_ == tvm::utils::internal::RHSType::Vector && f->size() != rhs.v_.size())
-  {
-    throw std::runtime_error("The vector you provided has not the correct size.");
-  }
-}
-
-template<tvm::constraint::Type T>
-inline tvm::utils::LinearProtoTask<T>::LinearProtoTask(tvm::LinearFunctionPtr f, const tvm::utils::internal::RHS& rhs)
-  : f_(f), rhs_(rhs)
-{
-  if (rhs.type_ == tvm::utils::internal::RHSType::Vector && f->size() != rhs.v_.size())
-  {
-    throw std::runtime_error("The vector you provided has not the correct size.");
-  }
-}
 
 template<typename F>
 inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs)
