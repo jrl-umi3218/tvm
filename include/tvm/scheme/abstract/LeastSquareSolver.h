@@ -20,7 +20,9 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
+#include "tvm/hint/internal/Substitutions.h"
 #include <tvm/scheme/internal/Assignment.h>
+#include <tvm/scheme/internal/ProblemComputationData.h>
 
 #include <map>
 
@@ -33,34 +35,38 @@ namespace scheme
 namespace abstract
 {
   /** Base class for a (constrained) least-square solver. */
-  class TVM_DLLAPI LeastSquareSolver
+  class TVM_DLLAPI LeastSquareSolver : public internal::ProblemComputationData
   {
   public:
     LeastSquareSolver(const LeastSquareSolver&) = delete;
     LeastSquareSolver& operator=(const LeastSquareSolver&) = delete;
-    /** Preallocate the memory
-      */
-    void reserve(const VariableVector& x, int m0, int me, int mi, bool useBounds=true);
-    void addBound(LinearConstraintPtr bound);
-    void addObjective();
+    void startBuild(int m0, int me, int mi, bool useBounds = true, const hint::internal::Substitutions& subs = {});
+    void startBuild(const VariableVector& x, int m0, int me, int mi, bool useBounds = true, const hint::internal::Substitutions& subs = {});
+    void finalizeBuild();
 
+    void addBound(LinearConstraintPtr bound);
+    void addConstraint();
+    void addObjective();
     /** Set ||x||^2 as the least square objective of the problem.
       * \warning this replace previously added objectives.
       */
     void setMinimumNorm();
+    
     bool solve();
 
   protected:
-    virtual void reserve_(int m0, int me, int mi, bool useBounds) = 0;
+    virtual void initializeBuild_(int m0, int me, int mi, bool useBounds) = 0;
     virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
-    virtual void addEqualityConstraint();
-    virtual void addIneqalityConstraint();
+    virtual void addEqualityConstraint_() = 0;
+    virtual void addIneqalityConstraint_() = 0;
+    virtual void addObjective_() = 0;
 
     std::vector<internal::Assignment> assignments_;
 
   private:
-    VariableVector const *x_;
+    bool buildInProgress_;
     std::map<Variable*, bool> first_;  // For bound assignment
+    const hint::internal::Substitutions* subs_;
   };
 }
 

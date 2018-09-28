@@ -61,7 +61,7 @@ set(TVM_SOURCES
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
-  #scheme/LeastSquareSolver.cpp
+  scheme/LeastSquareSolver.cpp
   scheme/LSSOLLeastSquareSolver.cpp
   scheme/QLDLeastSquareSolver.cpp
   scheme/ResolutionScheme.cpp

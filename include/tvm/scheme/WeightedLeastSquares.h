@@ -48,10 +48,8 @@ namespace scheme
       std::vector<internal::Assignment> assignments;
       Eigen::LSSOL_LS ls;
 
-      virtual ~Memory()
-      {
-        1+1;
-      }
+    protected:
+      void setVariablesToSolution_(VariableVector& x) override;
     };
 
   public:

@@ -31,8 +31,11 @@ namespace scheme
   public:
 
   protected:
-    virtual void reserve_(int m0, int me, int mi, bool useBounds) override;
-    virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) override;
+    void initializeBuild_(int m0, int me, int mi, bool useBounds) override;
+    void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) override;
+    void addEqualityConstraint_() override;
+    void addIneqalityConstraint_() override;
+    void addObjective_() override;
 
   private:
     Eigen::MatrixXd A_;
