@@ -1,6 +1,6 @@
 #pragma once
 
-/* Copyright 2017 CNRS-UM LIRMM, CNRS-AIST JRL
+/* Copyright 2018 CNRS-UM LIRMM, CNRS-AIST JRL
  *
  * This file is part of TVM.
  *
@@ -20,34 +20,31 @@
 
 #include <tvm/api.h>
 
-#include <Eigen/Core>
-
-#include <memory>
-#include <vector>
-#include <string>
+#include <tvm/internal/IdProvider.h>
 
 namespace tvm
 {
-  /** A pair \p (start, dim) representing the integer range from \p start 
-    * (included) to \p start+dim (excluded).
-    */
-  class TVM_DLLAPI Range
+
+namespace internal
+{
+
+  /** A class with a unique id.*/
+  class TVM_DLLAPI ObjWithId
   {
   public:
-    Range() : start(0), dim(0) {}
-    Range(int s, int d) : start(s), dim(d) {}
-    int start;
-    int dim;
+    ObjWithId(const ObjWithId&) = delete;
+    ObjWithId& operator=(const ObjWithId&) = delete;
 
-    bool operator==(const Range& other) const
-    {
-      return this->dim == other.dim && this->start == other.start;
-    }
+    int id() const { return id_; }
 
-    bool operator!=(const Range& other) const
-    {
-      return !operator==(other);
-    }
+  protected:
+    ObjWithId() : id_(ObjWithId::idProvider_.makeId()) {}
+
+  private:
+    static IdProvider idProvider_;
+    int id_;
   };
+
+}  // namespace internal
 
 }  // namespace tvm

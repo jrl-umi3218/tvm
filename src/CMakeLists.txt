@@ -40,6 +40,7 @@ set(TVM_SOURCES
   
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
+  internal/ObjWithId.cpp
 
   requirements/SolvingRequirements.cpp
 
@@ -137,8 +138,10 @@ set(TVM_HEADERS
 
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
+  ${TVM_INCLUDE_DIR}/internal/IdProvider.h
   ${TVM_INCLUDE_DIR}/internal/MatrixProperties.h
   ${TVM_INCLUDE_DIR}/internal/MatrixWithProperties.h
+  ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
   ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h
@@ -170,7 +173,6 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.hpp
-  ${TVM_INCLUDE_DIR}/scheme/internal/IdProvider.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
@@ -194,6 +196,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
+  ${TVM_INCLUDE_DIR}/utils/internal/map.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )
 

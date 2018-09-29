@@ -21,6 +21,8 @@
 #include <tvm/Range.h>
 #include <tvm/Space.h>
 
+#include <tvm/internal/ObjWithId.h>
+
 #include <Eigen/Core>
 
 #include <memory>
@@ -46,7 +48,7 @@ namespace tvm
     * is a base primitive, or from an other variable, by derivation with the
     * dot() operator.
     */
-  class TVM_DLLAPI Variable : public std::enable_shared_from_this<Variable>
+  class TVM_DLLAPI Variable : public tvm::internal::ObjWithId, public std::enable_shared_from_this<Variable>
   {
   public:
     /** Copying variables is illicit. To get a different variable with the same

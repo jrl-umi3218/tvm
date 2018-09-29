@@ -1,6 +1,5 @@
 #include <tvm/internal/FirstOrderProvider.h>
 
-#include <tvm/Variable.h>
 #include <tvm/exception/exceptions.h>
 
 namespace tvm

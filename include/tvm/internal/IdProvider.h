@@ -20,34 +20,29 @@
 
 #include <tvm/api.h>
 
-#include <Eigen/Core>
-
-#include <memory>
-#include <vector>
-#include <string>
+#include <mutex>
 
 namespace tvm
 {
-  /** A pair \p (start, dim) representing the integer range from \p start 
-    * (included) to \p start+dim (excluded).
-    */
-  class TVM_DLLAPI Range
+
+namespace internal
+{
+  /** A small helper class to provide unique ids.*/
+  class TVM_DLLAPI IdProvider
   {
   public:
-    Range() : start(0), dim(0) {}
-    Range(int s, int d) : start(s), dim(d) {}
-    int start;
-    int dim;
-
-    bool operator==(const Range& other) const
-    {
-      return this->dim == other.dim && this->start == other.start;
-    }
-
-    bool operator!=(const Range& other) const
-    {
-      return !operator==(other);
-    }
+    int makeId();
+  private:
+    std::mutex mutex_;
+    int id_ = 0;
   };
+
+
+  inline int IdProvider::makeId()
+  {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return id_++;
+  }
+}  // namespace internal
 
 }  // namespace tvm
