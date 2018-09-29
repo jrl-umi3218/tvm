@@ -28,6 +28,9 @@
 
 namespace tvm
 {
+  /** A pair \p (start, dim) representing the integer range from \p start 
+    * (included) to \p start+dim (excluded).
+    */
   class TVM_DLLAPI Range
   {
   public:

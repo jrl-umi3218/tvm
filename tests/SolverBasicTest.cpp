@@ -67,8 +67,8 @@ void solverTest02()
   auto idq = std::make_shared<function::IdentityFunction>(q);
 
   ControlProblem pb;
-  pb.add(idx >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
-  pb.add(idq >= 0., task_dynamics::None(), { requirements::PriorityLevel(0) });
+  pb.add(idx >= 0., { requirements::PriorityLevel(0) });
+  pb.add(idq >= 0., { requirements::PriorityLevel(0) });
 
   LinearizedControlProblem lpb(pb);
 
@@ -145,7 +145,7 @@ void minimalKinSub()
   auto t1 = lpb.add(sf == 0., task_dynamics::P(2), { PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::P(2), { PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t4 = lpb.add(damp == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
@@ -195,7 +195,7 @@ void minimalDyn()
   auto t1 = lpb.add(sf == 0., task_dynamics::PD(50), { PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::PD(50), { PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t4 = lpb.add(damp == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
   scheme::WeightedLeastSquares solver(false);
   for (int i = 0; i < 5000; ++i)
