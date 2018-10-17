@@ -26,6 +26,11 @@ using namespace Eigen;
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
+/** Verbosity setting of this test.
+ *
+ */
+constexpr bool VERBOSE = false;
+
 /** Minimum pressure under each contact.
  *
  */
@@ -98,6 +103,13 @@ public:
   sva::PTransformd X_0_rc; /**< Plucker transform to right foot center */
 };
 
+/** Wrench distribution QP with matrices built "by hand".
+ *
+ * \param robot Robot state, provided by test case.
+ *
+ * \returns x Solution vector concatenating [w_l_0; w_r_0].
+ *
+ */
 Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
 {
   const Eigen::MatrixXd & wrenchFaceMatrix = robot.wrenchFaceMatrix;
@@ -180,11 +192,20 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   C.block<16, 6>(16, 6) = wrenchFaceMatrix * X_0_rc.dualMatrix();
   buCons.segment<16>(16).setZero();
   // w_l_lc.force().z() >= MIN_PRESSURE
-  // w_r_rc.force().z() >= MIN_PRESSURE
   C.block<1, 6>(32, 0) = X_0_lc.dualMatrix().bottomRows<1>();
+  // w_r_rc.force().z() >= MIN_PRESSURE
   C.block<1, 6>(33, 6) = X_0_rc.dualMatrix().bottomRows<1>();
   blCons.segment<2>(32).setConstant(MIN_PRESSURE);
   buCons.segment<2>(32).setConstant(+1e5);
+
+  if (VERBOSE)
+  {
+    std::cout << "A_gt =\n" << A << std::endl;
+    std::cout << "b_gt =\t" << b.transpose() << std::endl;
+    std::cout << "C_gt =\n" << C << std::endl;
+    std::cout << "l_gt =\t" << bl.transpose() << std::endl;
+    std::cout << "u_gt =\t" << bu.transpose() << std::endl;
+  }
 
   Eigen::LSSOL_LS solver;
   solver.solve(A, b, C, bl, bu);
@@ -197,16 +218,31 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   return x;
 }
 
+/** Check that solutions found by TVM and hand-made QP are the same.
+ *
+ * \param robot Robot state, provided by test case.
+ *
+ * \param w_l_0 Left foot wrench from TVM solution.
+ *
+ * \param w_r_0 Right foot wrench from TVM solution.
+ *
+ */
 bool checkSolution(const RobotState & robot, Eigen::Vector6d w_l_0, Eigen::Vector6d w_r_0)
 {
   Eigen::VectorXd x = distributeWrenchGroundTruth(robot);
   Eigen::Vector6d w_l_0_gt = x.segment<6>(0);
   Eigen::Vector6d w_r_0_gt = x.segment<6>(6);
-  std::cout << "w_l_0 = " << w_l_0.transpose() << std::endl;
-  std::cout << "w_l_0_gt = " << w_l_0_gt.transpose() << std::endl;
-  std::cout << "w_r_0 = " << w_r_0.transpose() << std::endl;
-  std::cout << "w_r_0_gt = " << w_r_0_gt.transpose() << std::endl;
-  return ((w_l_0 - w_l_0_gt).norm() < 1e-4 && (w_r_0 - w_r_0_gt).norm() < 1e-4);
+
+  if (VERBOSE)
+  {
+    std::cout << "w_l_0 = " << w_l_0.transpose() << std::endl;
+    std::cout << "w_r_0 = " << w_r_0.transpose() << std::endl;
+    std::cout << "w_l_0_gt = " << w_l_0_gt.transpose() << std::endl;
+    std::cout << "w_r_0_gt = " << w_r_0_gt.transpose() << std::endl;
+  }
+
+  constexpr double EPSILON = 1e-3;
+  return ((w_l_0 - w_l_0_gt).norm() < EPSILON && (w_r_0 - w_r_0_gt).norm() < EPSILON);
 }
 
 TEST_CASE("WrenchDistribQP")
@@ -248,12 +284,14 @@ TEST_CASE("WrenchDistribQP")
   auto rightAnkleWrenchTask     = problem.add(rightAnkleWrench == 0.              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
   auto pressureRatioTask        = problem.add(pressureRatio == 0.                 , { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
+  // First problem with initial left foot ratio
   scheme::WeightedLeastSquares solver;
   solver.solve(problem);
   FAST_CHECK_UNARY(checkSolution(robot, w_l_0->value(), w_r_0->value()));
   Vector6d w_l_la1 = X_0_la.dualMatrix() * w_l_0->value();
   Vector6d w_r_ra1 = X_0_ra.dualMatrix() * w_r_0->value();
 
+  // Second problem with complementary left foot ratio
   robot.lfr = 1. - robot.lfr;
   pressureRatio->A((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>(), *w_l_0);
   pressureRatio->A(-robot.lfr * X_0_rc.dualMatrix().bottomRows<1>(), *w_r_0);
@@ -262,6 +300,7 @@ TEST_CASE("WrenchDistribQP")
   Vector6d w_l_la2 = X_0_la.dualMatrix() * w_l_0->value();
   Vector6d w_r_ra2 = X_0_ra.dualMatrix() * w_r_0->value();
 
+  // Check that the two solutions are symmetric
   double leftPressureDiff = (w_r_ra1 - w_l_la2)(5);
   double rightPressureDiff = (w_l_la1 - w_r_ra2)(5);
   FAST_CHECK_UNARY(std::abs(leftPressureDiff) < 1e-10);
