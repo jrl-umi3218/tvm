@@ -178,7 +178,7 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   buCons.segment<16>(0).setZero();
   // CWC * w_r_rc <= 0
   C.block<16, 6>(16, 6) = wrenchFaceMatrix * X_0_rc.dualMatrix();
-  buCons.segment<16>(6).setZero();
+  buCons.segment<16>(16).setZero();
   // w_l_lc.force().z() >= MIN_PRESSURE
   // w_r_rc.force().z() >= MIN_PRESSURE
   C.block<1, 6>(32, 0) = X_0_lc.dualMatrix().bottomRows<1>();
