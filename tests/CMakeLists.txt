@@ -33,6 +33,7 @@ addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 addUnitTest(WrenchDistributionTest)
+pkg_config_use_dependency(WrenchDistributionTest EigenQP)
 
 add_required_dependency(hrp2_drc_description)
 execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
