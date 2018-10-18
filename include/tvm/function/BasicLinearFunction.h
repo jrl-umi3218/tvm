@@ -46,10 +46,12 @@ namespace function
 
     /** Uninitialized version for a function of size \p m with a single variable
       * \p x
+      * Don't forget to initialize A \b and b
       */
     BasicLinearFunction(int m, VariablePtr x);
     /** Uninitialized version for a function of size \p m with multiple
       * variables \p x1 ... \p xn
+      * Don't forget to initialize the Ai \b and b
       */
     BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 

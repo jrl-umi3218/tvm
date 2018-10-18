@@ -273,6 +273,7 @@ TEST_CASE("WrenchDistribQP")
   auto pressureRatio = std::make_shared<function::BasicLinearFunction>(1, std::vector<VariablePtr>{w_l_0, w_r_0});
   pressureRatio->A((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>(), *w_l_0);
   pressureRatio->A(-robot.lfr * X_0_rc.dualMatrix().bottomRows<1>(), *w_r_0);
+  pressureRatio->b((Eigen::MatrixXd(1, 1) << 0).finished());
 
   LinearizedControlProblem problem;
   auto leftFootFricTask         = problem.add(leftFootFric <= 0.                  , { PriorityLevel(0) });
