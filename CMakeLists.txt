@@ -43,10 +43,10 @@ endif()
 #############
 SEARCH_FOR_EIGEN()
 
-###############
-# - EigenQP - #
-###############
-add_required_dependency(EigenQP EigenQP_d)
+###################
+# - eigen-lssol - #
+###################
+add_required_dependency(eigen-lssol eigen-lssol_d)
 
 #############
 # - RBDyn - #
