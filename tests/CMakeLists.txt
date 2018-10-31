@@ -33,7 +33,7 @@ addUnitTest(TaskDynamicsTest SolverTestFunctions.cpp)
 addUnitTest(UtilsTest SolverTestFunctions.cpp)
 addUnitTest(VariableTest)
 addUnitTest(WrenchDistributionTest)
-pkg_config_use_dependency(WrenchDistributionTest EigenQP)
+pkg_config_use_dependency(WrenchDistributionTest eigen-lssol)
 
 add_required_dependency(hrp2_drc_description)
 execute_process(COMMAND "${PKG_CONFIG_EXECUTABLE}"
@@ -74,7 +74,7 @@ set(TESTHEADERS
 add_executable(main ${TESTSOURCES} ${TESTHEADERS})
 target_link_libraries(main TVM)
 GENERATE_MSVC_DOT_USER_FILE(main)
-pkg_config_use_dependency(main EigenQP)
+pkg_config_use_dependency(main eigen-lssol)
 
 add_executable(TestDisabled TestDisabled.cpp)
 target_link_libraries(TestDisabled TVM)
