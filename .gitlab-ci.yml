@@ -2,7 +2,7 @@ variables:
   CI_TOOL: gitlab-ci
   APT_DEPENDENCIES: "libboost-all-dev doxygen doxygen-latex librbdyn-dev libmc-rbdyn-urdf-dev libsch-core-dev"
   CMAKE_ADDITIONAL_OPTIONS: "-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr"
-  GIT_DEPENDENCIES: "git@gite.lirmm.fr:multi-contact/EigenQP.git#dev git@gite.lirmm.fr:multi-contact/mc_rtc_ros_data git@gite.lirmm.fr:mc-hrp2/hrp2_drc"
+  GIT_DEPENDENCIES: "git@gite.lirmm.fr:multi-contact/eigen-lssol.git git@gite.lirmm.fr:multi-contact/mc_rtc_ros_data git@gite.lirmm.fr:mc-hrp2/hrp2_drc"
   MASTER_PPA: "pierre-gergondet+ppa/multi-contact-unstable"
 
 before_script:
