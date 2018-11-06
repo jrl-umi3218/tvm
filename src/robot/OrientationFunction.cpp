@@ -36,7 +36,7 @@ void OrientationFunction::reset()
 
 void OrientationFunction::updateValue()
 {
-  value_ = sva::rotationError(ori_, frame_->position().rotation(), 1e-7);
+  value_ = sva::rotationError(ori_, frame_->position().rotation());
 }
 
 void OrientationFunction::updateVelocity()
