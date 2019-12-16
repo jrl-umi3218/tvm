@@ -27,9 +27,11 @@
 * POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <tvm/defs.h>
 #include <tvm/robot/internal/FrictionCone.h>
 
 #include <Eigen/Geometry>
+
 
 namespace tvm
 {
@@ -49,7 +51,7 @@ FrictionCone::FrictionCone(const Eigen::Matrix3d & frame,
   double angle = std::atan(mu);
 
   Eigen::Vector3d gen = Eigen::AngleAxisd(angle, tan)*normal;
-  double step = M_PI*2./nrGen;
+  double step = tvm::constant::pi*2./nrGen;
 
   for(unsigned int i = 0; i < nrGen; ++i)
   {

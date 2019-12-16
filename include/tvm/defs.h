@@ -129,6 +129,9 @@ namespace tvm
                    < (2 * std::numeric_limits<double>::epsilon()) * std::numeric_limits<double>::max(),
                   "big_number was not computed at compile time or its value was not correct");
 
+    /** Pi (from boost/math/constant)*/
+    constexpr double pi = 3.141592653589793238462643383279502884e+00;
+
     /** Constant for specifying that the matrix in front of the variable is full
       * rank.
       */
