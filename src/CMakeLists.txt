@@ -183,11 +183,13 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
   ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
   
+  ${TVM_INCLUDE_DIR}/utils/AffineExpr.h
   ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
   ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
+  ${TVM_INCLUDE_DIR}/utils/internal/AffineExprDetail.h
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
