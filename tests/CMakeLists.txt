@@ -20,6 +20,7 @@ macro(addUnitTest name)
   GENERATE_MSVC_DOT_USER_FILE(${name})
 endmacro(addUnitTest)
 
+addUnitTest(AffineExprTest)
 addUnitTest(AssignmentTest)
 addUnitTest(CompiledAssignmentTest)
 addUnitTest(ConstraintTest)
