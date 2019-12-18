@@ -5,6 +5,7 @@
 #include<tvm/Variable.h>
 #include<tvm/function/BasicLinearFunction.h>
 #include<tvm/utils/AffineExpr.h>
+#include<tvm/utils/ProtoTask.h>
 #include<tvm/internal/enums.h>
 
 #include <iostream>
@@ -39,6 +40,13 @@ using namespace Eigen;
 #define GENERATE10(create, eval, res, expr, x, vx, ...) create(x,vx) PP_ID(GENERATE8(create, eval, res, expr, __VA_ARGS__))
 #define GENERATE12(create, eval, res, expr, x, vx, ...) create(x,vx) PP_ID(GENERATE10(create, eval, res, expr, __VA_ARGS__))
 
+
+// Called as TEST_AFFINE_EXPR(expr x1, v1, x2, v2, ...)
+// Test if the expression expr (e.g. A1*x1+A2*x2+b) evaluated at xi=vi gives the
+// same result as the BasicLinearFunction derived from the AffineExpr described
+// by expr where the xi are VariablePtr with value vi.
+// This tests in passing that the corresponding AffineExpr creation compiles
+// correctly.
 #define TEST_AFFINE_EXPR(expr, ...) \
 { \
   VectorXd res1, res2; \
@@ -52,7 +60,7 @@ using namespace Eigen;
 }
 
 
-TEST_CASE("Test for AffineExpr")
+TEST_CASE("Test AffineExpr compilation and validity")
 {
   VectorXd vx = VectorXd::Random(5);
   VectorXd vy = VectorXd::Random(5);
@@ -85,5 +93,26 @@ TEST_CASE("Test for AffineExpr")
   TEST_AFFINE_EXPR((A * x + B * y) + (C * z + C * w + e),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(NoConstant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with constant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w + e), x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with complex constant) + AffineExpr(with complex constant)
+}
 
+TEST_CASE("Test integration with ProtoTask")
+{
+  MatrixXd A = MatrixXd::Random(6, 5);
+  VectorXd b = VectorXd::Random(6);
+  
+  VariablePtr x = Space(5).createVariable("x");
+
+  auto p1 = (A * x == 0);
+  auto p2 = (0 == A * x);
+  auto p3 = (A * x >= 0);
+  auto p4 = (0 >= A * x);
+  auto p5 = (A * x <= 0);
+  auto p6 = (0 <= A * x);
+
+  auto p11 = (A * x + b == 0);
+  auto p12 = (0 == A * x + b);
+  auto p13 = (A * x + b >= 0);
+  auto p14 = (0 >= A * x + b);
+  auto p15 = (A * x + b <= 0);
+  auto p16 = (0 <= A * x + b);
 }
