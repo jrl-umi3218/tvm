@@ -117,19 +117,6 @@ void BasicLinearFunction::b(const VectorConstRef& b, const internal::MatrixPrope
     throw std::runtime_error("Vector b doesn't have the correct size.");
 }
 
-void BasicLinearFunction::add(const Eigen::MatrixXd& A, VariablePtr x)
-{
-  if (!x->space().isEuclidean() && x->isBasePrimitive())
-    throw std::runtime_error("We allow linear function only on Euclidean variables.");
-  if (A.rows() != size())
-    throw std::runtime_error("Matrix A doesn't have coherent row size.");
-  if (A.cols() != x->size())
-    throw std::runtime_error("Matrix A doesn't have its column size coherent with its corresponding variable.");
-  addVariable(x, true);
-  jacobian_.at(x.get()) = A;
-  jacobian_.at(x.get()).properties({ tvm::internal::MatrixProperties::Constness(true) });
-}
-
 }  // namespace function
 
 }  // namespace tvm

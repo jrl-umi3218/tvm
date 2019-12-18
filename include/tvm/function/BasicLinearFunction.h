@@ -32,6 +32,7 @@
 
 #include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/internal/MatrixProperties.h>
+#include <tvm/utils/AffineExpr.h>
 
 namespace tvm
 {
@@ -66,6 +67,12 @@ namespace function
       */
     BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 
+    template<typename Derived>
+    BasicLinearFunction(const utils::LinearExpr<Derived>& lin);
+
+    template<typename CstDerived, typename... Derived>
+    BasicLinearFunction(const utils::AffineExpr<CstDerived, Derived...>& aff);
+
     /** Set the matrix \p A corresponding to variable \p x and optionally the
       * properties \p p of \p A.*/
     virtual void A(const MatrixConstRef& A, const Variable& x,
@@ -79,8 +86,85 @@ namespace function
     using LinearFunction::b;
 
   private:
-    void add(const Eigen::MatrixXd& A, VariablePtr x);
+    template<typename Derived>
+    void add(const Eigen::MatrixBase<Derived>& A, VariablePtr x);
+
+    template<typename Tuple, size_t ... Indices>
+    void add(const Tuple& tuple, std::index_sequence<Indices...>);
+
+    template<typename Derived>
+    void add(const utils::LinearExpr<Derived>& lin);
   };
+
+  template<typename Derived>
+  BasicLinearFunction::BasicLinearFunction(const utils::LinearExpr<Derived>& lin)
+    : LinearFunction(static_cast<int>(lin.matrix().rows()))
+  {
+    add(lin);
+    this->b(Eigen::VectorXd::Zero(size()),
+            { tvm::internal::MatrixProperties::Constness(true),
+              tvm::internal::MatrixProperties::ZERO });
+    setDerivativesToZero();
+  }
+
+  template<typename CstDerived, typename... Derived>
+  BasicLinearFunction::BasicLinearFunction(const utils::AffineExpr<CstDerived, Derived...>& aff)
+    : LinearFunction(static_cast<int>(std::get<0>(aff.linear()).matrix().rows()))
+  {
+    constexpr int N = std::tuple_size_v< std::tuple<LinearExpr<Derived>... > >;
+    add(aff.linear(), std::make_index_sequence<N>{});
+    if constexpr (std::is_same_v<CstDerived, utils::internal::NoConstant>)
+    {
+      this->b(Eigen::VectorXd::Zero(size()),
+              { tvm::internal::MatrixProperties::Constness(true),
+                tvm::internal::MatrixProperties::ZERO });
+    }
+    else
+    {
+      this->b(aff.constant(), { tvm::internal::MatrixProperties::Constness(true) });
+    }
+    setDerivativesToZero();
+  }
+
+  template<typename Derived>
+  inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived>& A, VariablePtr x)
+  {
+    if (!x->space().isEuclidean() && x->isBasePrimitive())
+      throw std::runtime_error("We allow linear function only on Euclidean variables.");
+    if (A.rows() != size())
+      throw std::runtime_error("Matrix A doesn't have coherent row size.");
+    if (A.cols() != x->size())
+      throw std::runtime_error("Matrix A doesn't have its column size coherent with its corresponding variable.");
+    
+    if (variables().contains(*x))
+    {
+      jacobian_.at(x.get()).noalias() += A;
+    }
+    else
+    {
+      addVariable(x, true);
+      jacobian_.at(x.get()) = A;
+      jacobian_.at(x.get()).properties({ tvm::internal::MatrixProperties::Constness(true) });
+    }
+  }
+
+  template<typename Tuple, size_t ... Indices>
+  inline void BasicLinearFunction::add(const Tuple& tuple, std::index_sequence<Indices...>)
+  {
+    // trick to call add on each element indexed by Indices:
+    // - ( add(std::get<I>(tuple)), 42 ) for any integer I returns 42 (second element of (X, 42), 
+    //   X is evaluated but is then ignored).
+    // - We create an initializer_list by pack expansion where each expanded element is a pair as
+    //   above. This evaluates add(std::get<I>(tuple)) for each I in Indices in turn.
+    auto l = { (add(std::get<Indices>(tuple)), 42)... };
+  }
+
+  template<typename Derived>
+  inline void BasicLinearFunction::add(const utils::LinearExpr<Derived>& lin)
+  {
+    add(lin.matrix(), lin.variable());
+  }
+
 
 }  // namespace function
 
