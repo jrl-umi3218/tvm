@@ -8,7 +8,7 @@ variables:
 before_script:
   - git submodule sync
   - git submodule update --init --recursive
-  - ./.jrl-ci/dependencies/eigen-3.2
+  - add-apt-repository ppa:pierre-gergondet+ppa/multi-contact-unstable && apt-get update && apt-get upgrade cmake libeigen3-dev -qq
 
 build_gcc:
   stage: build
