@@ -66,6 +66,7 @@ TEST_CASE("Test AffineExpr compilation and validity")
   VectorXd vy = VectorXd::Random(5);
   VectorXd vz = VectorXd::Random(3);
   VectorXd vw = VectorXd::Random(3);
+  VectorXd vu = VectorXd::Random(6);
   MatrixXd A = MatrixXd::Random(6, 5);
   MatrixXd B = MatrixXd::Random(6, 5);
   MatrixXd C = MatrixXd::Random(6, 3);
@@ -93,6 +94,37 @@ TEST_CASE("Test AffineExpr compilation and validity")
   TEST_AFFINE_EXPR((A * x + B * y) + (C * z + C * w + e),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(NoConstant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with constant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w + e), x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with complex constant) + AffineExpr(with complex constant)
+
+  TEST_AFFINE_EXPR(A * x + u,                                 x, vx, u, vu)
+  TEST_AFFINE_EXPR(u + A * x,                                 x, vx, u, vu)
+  TEST_AFFINE_EXPR(x + y,                                     x, vx, y, vy)
+  TEST_AFFINE_EXPR(-x,                                        x, vx)
+  TEST_AFFINE_EXPR(3 * x,                                     x, vx)
+  TEST_AFFINE_EXPR(u + d,                                     u, vu)
+  TEST_AFFINE_EXPR(d + u,                                     u, vu)
+  TEST_AFFINE_EXPR(A * x + d + u,                             x, vx, u, vu)
+  TEST_AFFINE_EXPR(u + (A * x + d),                           x, vx, u, vu)
+  TEST_AFFINE_EXPR(-(A*x),                                    x, vx)
+  TEST_AFFINE_EXPR(-((d.asDiagonal() * A + M * B) * x),       x, vx)
+  TEST_AFFINE_EXPR(3 * (A*x),                                 x, vx)
+  TEST_AFFINE_EXPR(3 * M * (A*x),                             x, vx)
+  TEST_AFFINE_EXPR(3 * (M *(A*x)),                            x, vx)
+  TEST_AFFINE_EXPR(M *((d.asDiagonal() * A + M * B) * x),     x, vx)
+  TEST_AFFINE_EXPR(-M *((d.asDiagonal() * A + M * B) * x),    x, vx)
+  TEST_AFFINE_EXPR(A * x - u,                                 x, vx, u, vu)
+  TEST_AFFINE_EXPR(u - A * x,                                 x, vx, u, vu)
+  TEST_AFFINE_EXPR(x - y,                                     x, vx, y, vy)
+  TEST_AFFINE_EXPR(u - d,                                     u, vu)
+  TEST_AFFINE_EXPR(d - u,                                     u, vu)
+  TEST_AFFINE_EXPR(A * x + d - u,                             x, vx, u, vu)
+  TEST_AFFINE_EXPR(u - (A * x + d),                           x, vx, u, vu)
+  TEST_AFFINE_EXPR(A * x - B * y,                             x, vx, y, vy)
+  TEST_AFFINE_EXPR((A * x + B * y) - (C * z + C * w),         x, vx, y, vy, z, vz, w, vw)
+  TEST_AFFINE_EXPR((A * x + B * y + d) - (C * z + C * w + e), x, vx, y, vy, z, vz, w, vw)
+  TEST_AFFINE_EXPR(2 * (A * x + u),                           x, vx, u, vu)
+  TEST_AFFINE_EXPR(M * (A * x + u),                           x, vx, u, vu)
+  TEST_AFFINE_EXPR(2 * (A * x + u + d),                       x, vx, u, vu)
+  TEST_AFFINE_EXPR(M * (A * x + u + d),                       x, vx, u, vu)
 }
 
 TEST_CASE("Test integration with ProtoTask")
