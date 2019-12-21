@@ -40,6 +40,14 @@ namespace utils
 {
 namespace internal
 {
+
+  /** Type of Eigen::MatrixXd::Identity() */
+  using IdentityType = decltype(Eigen::MatrixXd::Identity());
+  /** Type of double*Eigen::MatrixXd::Identity() */
+  using MultIdentityType = decltype(2. * Eigen::MatrixXd::Identity());
+  /** Type of -Eigen::MatrixXd::Identity() */
+  using MinusIdentityType = decltype(-Eigen::MatrixXd::Identity());
+
   /** Shortcut to an internal Eigen type to store expressions or matrices.
     * 
     * When keeping internally a reference to an Eigen object, we need to have different behaviors
@@ -73,6 +81,46 @@ namespace internal
   /** Result type for the addition of two constant parts, existing or not.*/
   template<typename LhsType, typename RhsType>
   using AddConstantsRetType = std::remove_const_t<std::remove_reference_t<decltype(addConstants(std::declval<LhsType>(), std::declval<RhsType>()))> >;
+
+  /** Taking the opposite of each element i of the input tuple where the i's
+    * are the elements given by the sequence of index.
+    */
+  template<typename Tuple, size_t ... Indices>
+  auto tupleUnaryMinus(const Tuple& tuple, std::index_sequence<Indices...>)
+  {
+    return std::make_tuple((-std::get<Indices>(tuple))...);
+  }
+
+  /** Premultiplication by m of each element i of the input tuple where the i's
+    * are the elements given by the sequence of index.
+    */
+  template<typename MultType, typename Tuple, size_t ... Indices>
+  auto tuplePremult(const MultType& m, const Tuple& tuple, std::index_sequence<Indices...>)
+  {
+    return std::make_tuple((m * std::get<Indices>(tuple))...);
+  }
+
+  template<typename CstType>
+  inline auto cstUnaryMinus(const CstType& c) { return -c; }
+
+  template<>
+  inline auto cstUnaryMinus<NoConstant>(const NoConstant& c) { return c; }
+
+  /** Helper struct for premultiplication of an element of type CstType*/
+  template<typename CstType>
+  struct CstMult
+  {
+    template<typename MultType>
+    static auto run(const MultType& m, const CstType& c) { return m * c; }
+  };
+
+  /** Specialisation for the type NoConstant*/
+  template<>
+  struct CstMult<NoConstant>
+  {
+    template<typename MultType>
+    static NoConstant run(const MultType& m, const NoConstant& c) { return c; }
+  };
 }
 }
 }

@@ -111,8 +111,7 @@ namespace function
   BasicLinearFunction::BasicLinearFunction(const utils::AffineExpr<CstDerived, Derived...>& aff)
     : LinearFunction(static_cast<int>(std::get<0>(aff.linear()).matrix().rows()))
   {
-    constexpr int N = std::tuple_size_v< std::tuple<utils::LinearExpr<Derived>... > >;
-    add(aff.linear(), std::make_index_sequence<N>{});
+    add(aff.linear(), std::make_index_sequence<sizeof...(Derived)>{});
     if constexpr (std::is_same_v<CstDerived, utils::internal::NoConstant>)
     {
       this->b(Eigen::VectorXd::Zero(size()),
