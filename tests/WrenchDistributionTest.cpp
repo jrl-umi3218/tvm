@@ -261,15 +261,15 @@ TEST_CASE("WrenchDistribQP")
   VariablePtr w_r_0 = wrenchSpace.createVariable("w_r_0");
 
   LinearizedControlProblem problem;
-  auto leftFootFricTask         = problem.add(wrenchFaceMatrix * X_0_lc.dualMatrix() * w_l_0 <= 0.                        , { PriorityLevel(0) });
-  auto rightFootFricTask        = problem.add(wrenchFaceMatrix * X_0_rc.dualMatrix() * w_r_0 <= 0.                        , { PriorityLevel(0) });
-  auto leftFootMinPressureTask  = problem.add(X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 >= MIN_PRESSURE                 , { PriorityLevel(0) });
-  auto rightFootMinPressureTask = problem.add(X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 >= MIN_PRESSURE                 , { PriorityLevel(0) });
-  auto netWrenchTask            = problem.add(Matrix6d::Identity() * w_l_0 + Matrix6d::Identity() * w_r_0 == w_d.vector() , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
-  auto leftAnkleWrenchTask      = problem.add(X_0_la.dualMatrix() * w_l_0 == 0.                                           , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
-  auto rightAnkleWrenchTask     = problem.add(X_0_ra.dualMatrix() * w_r_0 == 0.                                           , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto leftFootFricTask         = problem.add(wrenchFaceMatrix * X_0_lc.dualMatrix() * w_l_0 <= 0.           , { PriorityLevel(0) });
+  auto rightFootFricTask        = problem.add(wrenchFaceMatrix * X_0_rc.dualMatrix() * w_r_0 <= 0.           , { PriorityLevel(0) });
+  auto leftFootMinPressureTask  = problem.add(X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
+  auto rightFootMinPressureTask = problem.add(X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
+  auto netWrenchTask            = problem.add(w_l_0 + w_r_0 == w_d.vector()                                  , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
+  auto leftAnkleWrenchTask      = problem.add(X_0_la.dualMatrix() * w_l_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto rightAnkleWrenchTask     = problem.add(X_0_ra.dualMatrix() * w_r_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
   auto pressureRatioTask        = problem.add((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 
-                                            + (-robot.lfr) * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 == 0             , { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
+                                               - robot.lfr * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 == 0, { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
   // First problem with initial left foot ratio
   scheme::WeightedLeastSquares solver(VERBOSE);
