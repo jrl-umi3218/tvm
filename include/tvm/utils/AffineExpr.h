@@ -133,6 +133,7 @@ namespace utils
     typename ConstantType<CstDerived>::Type constant_;
   };
 
+  /** Helper function to create a AffineExpr and infer automatically the template arguments.*/
   template<typename CstDerived, typename... Derived>
   AffineExpr<CstDerived, Derived...> make_AffineExpr(const CstDerived& constant, const std::tuple<LinearExpr<Derived>... >& linear)
   {
@@ -213,91 +214,98 @@ operator+(const tvm::utils::AffineExpr<LCstDerived, LhsDerived...>& lhs, const t
   return { tvm::utils::internal::addConstants(lhs.constant(), rhs.constant()), std::tuple_cat(lhs.linear(), rhs.linear()) };
 }
 
-// Lin = -var
+/** Lin = -var */
 inline tvm::utils::LinearExpr<tvm::utils::internal::MinusIdentityType> operator-(const tvm::VariablePtr& v)
 {
   return v;
 }
 
+/** Lin = -Lin */
 template<typename Derived>
 inline auto operator-(const tvm::utils::LinearExpr<Derived>& lin)
 {
   return tvm::utils::LinearExpr<std::remove_const_t<decltype(-std::declval<Derived>())>>(-lin.matrix(), lin.variable());
 }
 
+/** Aff = -Aff */
 template<typename CstDerived, typename... Derived>
 inline auto operator-(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff)
 {
   return make_AffineExpr(tvm::utils::internal::cstUnaryMinus(aff.constant()), tvm::utils::internal::tupleUnaryMinus(aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
 }
 
+/** Aff = m*Aff, where a is any type accepted by Eigen for pre-multiplication 
+  * (in particular scalar or matrix expression.
+  */
 template<typename MultDerived, typename CstDerived, typename... Derived>
 inline auto operator*(const MultDerived& m, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff)
 {
   return make_AffineExpr(tvm::utils::internal::CstMult<CstDerived>::run(m, aff.constant()), tvm::utils::internal::tuplePremult(m, aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
 }
 
-// Lin = scalar * var
+/** Lin = scalar * var */
 inline tvm::utils::LinearExpr<tvm::utils::internal::MultIdentityType> operator*(double s, const tvm::VariablePtr& v)
 {
   assert(s != 0);
   return { s, v };
 }
 
-// Lin = m * Lin
+/** Lin = m * Lin */
 template<typename MultType, typename Derived>
 inline auto operator*(const MultType& m, const tvm::utils::LinearExpr<Derived>& lin)
 {
   return tvm::utils::LinearExpr<std::remove_const_t<decltype(m * std::declval<Derived>())>>(m * lin.matrix(), lin.variable());
 }
 
-// Aff = var + var
+/** Aff = var + var */
 inline auto operator+(const tvm::VariablePtr& u, const tvm::VariablePtr& v)
 {
   return tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(u) 
     + tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(v);
 }
 
-// Aff = a + var
+/** Aff = a + var */
 template<typename AddType, typename tvm::internal::enable_for_templated_t<AddType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator+(const AddType& a, const tvm::VariablePtr& v)
 {
   return a + tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(v);
 }
 
-// Aff = var + a
+/** Aff = var + a */
 template<typename AddType, typename tvm::internal::enable_for_templated_t<AddType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator+(const tvm::VariablePtr& v, const AddType& a)
 {
   return tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(v) + a;
 }
 
-// Aff = var - var
+/** Aff = var - var */
 inline auto operator-(const tvm::VariablePtr& u, const tvm::VariablePtr& v)
 {
   return tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(u) + tvm::utils::LinearExpr<tvm::utils::internal::MinusIdentityType>(v);
 }
 
-// Aff = vec - var
+/** Aff = vec - var */
 template<typename SubType, typename tvm::internal::enable_for_templated_t<SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator-(const SubType& a, const tvm::VariablePtr& v)
 {
   return a + tvm::utils::LinearExpr<tvm::utils::internal::MinusIdentityType>(v);
 }
 
-// Aff = var - vec
+/** Aff = var - vec */
 template<typename SubType, typename tvm::internal::enable_for_templated_t<SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator-(const tvm::VariablePtr& v, const SubType& a)
 {
   return tvm::utils::LinearExpr<tvm::utils::internal::IdentityType>(v) + -a;
 }
 
+/** Aff = Lin - a */
 template<typename Derived, typename SubType, typename tvm::internal::enable_for_templated_t<SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator-(const tvm::utils::LinearExpr<Derived>& lin, const SubType& rhs)
 {
   return lin + -rhs;
 }
 
+/** Aff = Aff - a */
 template<typename CstDerived, typename SubType, typename... Derived, typename tvm::internal::enable_for_templated_t<SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr> = 0>
 inline auto operator-(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const SubType& rhs)
 {

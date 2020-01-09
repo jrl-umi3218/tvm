@@ -61,15 +61,22 @@ namespace function
       * Don't forget to initialize A \b and b
       */
     BasicLinearFunction(int m, VariablePtr x);
+
     /** Uninitialized version for a function of size \p m with multiple
       * variables \p x1 ... \p xn
       * Don't forget to initialize the Ai \b and b
       */
     BasicLinearFunction(int m, const std::vector<VariablePtr>& x);
 
+    /** Initialization from a utils::LinearExpr. Meant to be used by operators in 
+      * ProtoTasks.h
+      */
     template<typename Derived>
     BasicLinearFunction(const utils::LinearExpr<Derived>& lin);
 
+    /** Initialization from a utils::AffineExpr. Meant to be used by operators in
+      * ProtoTasks.h
+      */
     template<typename CstDerived, typename... Derived>
     BasicLinearFunction(const utils::AffineExpr<CstDerived, Derived...>& aff);
 
