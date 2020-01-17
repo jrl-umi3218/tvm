@@ -9,7 +9,7 @@ before_script:
   - git submodule sync
   - git submodule update --init --recursive
   - add-apt-repository ppa:pierre-gergondet+ppa/multi-contact-unstable && apt-get update && apt-get upgrade cmake -qq
-  - ./.jrl-ci/dependencies/eigen-3.2
+  - ./.jrl-ci/dependencies/eigen-3.3
 
 build_gcc:
   stage: build
