@@ -36,6 +36,7 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
+
 static std::string hrp2_path = HRP2_DRC_DESCRIPTION_PATH;
 static std::string env_path = MC_ENV_DESCRIPTION_PATH;
 static std::string hrp2_urdf = hrp2_path + "/urdf/hrp2drc.urdf";
@@ -186,7 +187,7 @@ TEST_CASE("Test a problem with a robot")
   auto com_fn = std::make_shared<tvm::robot::CoMFunction>(hrp2);
   com_fn->com(com_fn->com() + Eigen::Vector3d(0, 0, -0.1));
   auto ori_fn = std::make_shared<tvm::robot::OrientationFunction>(hrp2_lh);
-  ori_fn->orientation(sva::RotY(-M_PI/2));
+  ori_fn->orientation(sva::RotY(-tvm::constant::pi/2));
   auto pos_fn = std::make_shared<tvm::robot::PositionFunction>(hrp2_lh);
   pos_fn->position(pos_fn->position() + Eigen::Vector3d{0.3, -0.1, 0.2});
 

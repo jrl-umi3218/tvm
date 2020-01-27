@@ -221,23 +221,23 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_include_directories(TVM PUBLIC ${PROJECT_SOURCE_DIR}/include)
-pkg_config_use_dependency(TVM RBDyn)
-pkg_config_use_dependency(TVM sch-core)
+target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::eigen-lssol mc_rbdyn_urdf::mc_rbdyn_urdf)
+target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
-pkg_config_use_dependency(TVM EigenQP)
-pkg_config_use_dependency(TVM mc_rbdyn_urdf)
+set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
+set_target_properties(TVM PROPERTIES CXX_STANDARD 11)
+
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")
   set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
 endif()
 
-pkg_config_append_libs(TVM)
 
 install(TARGETS TVM
-  RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib)
-
-install(DIRECTORY ${TVM_INCLUDE_DIR} DESTINATION include
-  FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
+	EXPORT "${TARGETS_EXPORT_NAME}"
+    LIBRARY DESTINATION "lib"
+    ARCHIVE DESTINATION "lib"
+    RUNTIME DESTINATION "bin"
+    INCLUDES DESTINATION "${INCLUDE_INSTALL_DIR}"
+)
+install(FILES ${HEADERS} DESTINATION ${INCLUDE_INSTALL_DESTINATION})

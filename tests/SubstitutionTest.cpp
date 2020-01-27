@@ -24,7 +24,7 @@ using namespace Eigen;
 
 struct compVec
 {
-  bool operator()(const std::vector<size_t>& u, const std::vector<size_t>& v)
+  bool operator()(const std::vector<size_t>& u, const std::vector<size_t>& v) const
   {
     if (u.size() < v.size())
       return true;

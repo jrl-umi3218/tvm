@@ -1,21 +1,20 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.1.3)
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/boost.cmake)
-INCLUDE(cmake/eigen.cmake)
-INCLUDE(cmake/msvc-specific.cmake)
+set(PROJECT_NAME TVM)
+set(PROJECT_DESCRIPTION "...")
+set(PROJECT_URL "https://github.com/jrl-umi3218/tvm")
+set(PROJECT_DEBUG_POSTFIX "_d")
+set(PROJECT_VERSION 0.8.0)
+set(PROJECT_USE_CMAKE_EXPORT TRUE)
 
-SET(PROJECT_NAME TVM)
-SET(PROJECT_DESCRIPTION "...")
-SET(PROJECT_URL "https://gite.lirmm.fr/adrien_escande_at_gmail_com/VariableManagement")
-SET(PROJECT_DEBUG_POSTFIX "_d")
+include(cmake/base.cmake)
+include(cmake/msvc-specific.cmake)
 
 # Disable -Werror on Unix for now.
-SET(CXX_DISABLE_WERROR True)
+set(CXX_DISABLE_WERROR True)
+set(DOXYGEN_USE_MATHJAX "YES")
 
-SETUP_PROJECT()
-
-option(DISABLE_TESTS "Disable unit tests" OFF)
+project(TVM CXX)
 
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
@@ -41,43 +40,38 @@ endif()
 #############
 # - Eigen - #
 #############
-SEARCH_FOR_EIGEN()
+add_project_dependency(Eigen3 REQUIRED)
 
-###############
-# - EigenQP - #
-###############
-add_required_dependency(EigenQP EigenQP_d)
+###################
+# - eigen-lssol - #
+###################
+add_project_dependency(eigen-lssol REQUIRED)
 
 #############
 # - RBDyn - #
 #############
-add_required_dependency(RBDyn RBDyn_d)
+add_project_dependency(RBDyn REQUIRED)
 
 ################
 # - sch-core - #
 ################
-add_required_dependency(sch-core sch-core_d)
+add_project_dependency(sch-core REQUIRED)
 
 #####################
 # - mc_rbdyn_urdf - #
 #####################
-add_required_dependency(mc_rbdyn_urdf mc_rbdyn_urdf_d)
+add_project_dependency(mc_rbdyn_urdf REQUIRED)
 
 #########################
 
 # For MSVC, set local environment variable to enable finding the built dll
 # of the main library when launching ctest with RUN_TESTS
-IF(MSVC)
-  SET(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration)")
-ENDIF(MSVC)
+if(MSVC)
+  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration)")
+endif(MSVC)
 
 add_subdirectory(3rd-party)
 add_subdirectory(src)
-if(NOT ${DISABLE_TESTS})
+if(${BUILD_TESTING})
   add_subdirectory(tests)
 endif()
-
-# Add dependency towards the library in the pkg-config file.
-PKG_CONFIG_APPEND_LIBS(TVM)
-
-SETUP_PROJECT_FINALIZE()
