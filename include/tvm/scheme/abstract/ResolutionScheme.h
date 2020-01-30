@@ -54,10 +54,10 @@ namespace abstract
     *   methods (several if it handle differently several types of problems).
     * - likewise, one or several createComputationData_(const ProblemType&)
     *   methods returning a std::unique_ptr<ComputationDataType> where
-    *   ComputationDataType derives from ComputationDataType.
+    *   ComputationDataType derives from ProblemComputationData.
     *
     * For a given problem, the solve_ methods is guaranteed to receive the
-    * ComputationData instance created by createComputationData_ fr the same
+    * ComputationData instance created by createComputationData_ for the same
     * problem.
     */
   template<typename Derived>

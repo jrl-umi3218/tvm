@@ -104,10 +104,12 @@ namespace internal
       * the row range. This is necessary when double-sided constraints are
       * assigned to matrix/vector with single-sided convention
       */
+    /**@{*/
     MatrixRef AFirstHalf(int colStart, int colDim) const;
     MatrixRef ASecondHalf(int colStart, int colDim) const;
     VectorRef bFirstHalf() const;
     VectorRef bSecondHalf() const;
+    /**@}*/
 
   private:
     /** Type of target*/
