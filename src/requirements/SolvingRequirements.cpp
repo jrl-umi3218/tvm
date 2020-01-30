@@ -34,16 +34,25 @@ namespace tvm
 
 namespace requirements
 {
+  PriorityLevel::PriorityLevel()
+    : SingleSolvingRequirement<int>(0, true)
+  {
+  }
 
   PriorityLevel::PriorityLevel(int p)
-    : SingleSolvingRequirement<int>(p, p==0)
+    : SingleSolvingRequirement<int>(p, false)
   {
     if (p < 0)
       throw std::runtime_error("Priority level must be non-negative.");
   }
 
+  Weight::Weight()
+    : SingleSolvingRequirement(1.0, true)
+  {
+  }
+
   Weight::Weight(double alpha)
-    : SingleSolvingRequirement(alpha, alpha==1)
+    : SingleSolvingRequirement(alpha, false)
   {
     if (alpha < 0)
       throw std::runtime_error("weight must be non negative.");
@@ -61,8 +70,13 @@ namespace requirements
       throw std::runtime_error("weights must be non-negative.");
   }
 
+  ViolationEvaluation::ViolationEvaluation()
+    : SingleSolvingRequirement<ViolationEvaluation>(ViolationEvaluationType::L2, true)
+  {
+  }
+
   ViolationEvaluation::ViolationEvaluation(ViolationEvaluationType t)
-    : SingleSolvingRequirement(t, t == ViolationEvaluationType::L2)
+    : SingleSolvingRequirement(t, false)
   {
   }
 

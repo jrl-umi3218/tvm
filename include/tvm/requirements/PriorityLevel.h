@@ -44,8 +44,10 @@ namespace requirements
   class TVM_DLLAPI PriorityLevel : public abstract::SingleSolvingRequirement<int>
   {
   public:
+    /** Default constructor p=0 */
+    PriorityLevel();
     /** Priority level p>=0*/
-    PriorityLevel(int p=0);
+    PriorityLevel(int p);
   };
 
 }  // namespace requirements

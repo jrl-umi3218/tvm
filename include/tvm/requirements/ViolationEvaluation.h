@@ -66,7 +66,9 @@ namespace requirements
   class TVM_DLLAPI ViolationEvaluation : public abstract::SingleSolvingRequirement<ViolationEvaluationType>
   {
   public:
-    ViolationEvaluation(ViolationEvaluationType t = ViolationEvaluationType::L2);
+    /** Default value: ViolationEvaluationType::L2*/
+    ViolationEvaluation();
+    ViolationEvaluation(ViolationEvaluationType t);
   };
 
 }  // namespace requirements
