@@ -71,7 +71,7 @@ namespace requirements
   }
 
   ViolationEvaluation::ViolationEvaluation()
-    : SingleSolvingRequirement<ViolationEvaluation>(ViolationEvaluationType::L2, true)
+    : SingleSolvingRequirement(ViolationEvaluationType::L2, true)
   {
   }
 

@@ -376,7 +376,7 @@ namespace internal
       case requirements::ViolationEvaluationType::L1:
         throw std::runtime_error("Unimplemented violation evaluation type.");
       case requirements::ViolationEvaluationType::L2:
-        if (requirements_->weight().isDefault && scalarizationWeight_ == 1)
+        if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
         {
           useDefaultScalarWeight_ = true;
         }
