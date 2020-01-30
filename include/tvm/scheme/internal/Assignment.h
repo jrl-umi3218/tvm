@@ -287,6 +287,10 @@ namespace internal
     double scalarizationWeight_;
     /** The requirements attached to the source.*/
     std::shared_ptr<requirements::SolvingRequirements> requirements_;
+    /** Indicates if the requirements use a default weight AND the scalarizationWeight is 1.*/
+    bool useDefaultScalarWeight_;
+    /** Indicates if the requirements use a defautl anisotropic weight.*/
+    bool useDefaultAnisotropicWeight_;
     /** All the assignements that are setting the initial values of the targeted blocks*/
     std::vector<MatrixAssignment> matrixAssignments_;
     /** All assignments due to substitutions. We separe them from matrixAssignments_
@@ -303,6 +307,7 @@ namespace internal
 
     /** Processed requirements*/
     double scalarWeight_;
+    double minusScalarWeight_;
     Eigen::VectorXd anisotropicWeight_;
     Eigen::VectorXd minusAnisotropicWeight_;
 
@@ -393,9 +398,9 @@ namespace internal
     using Wrapper = CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type>;
     const Source F = std::is_arithmetic<U>::value ? CONSTANT : EXTERNAL;
 
-    if (requirements_->anisotropicWeight().isDefault())
+    if (useDefaultAnisotropicWeight_)
     {
-      if (scalarWeight_ == 1)
+      if (useDefaultScalarWeight_)
       {
         if (flip)
           return Wrapper::template make<A, MINUS, IDENTITY, F>(to, from);
@@ -405,7 +410,7 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, -scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, minusScalarWeight_);
         else
           return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, scalarWeight_);
       }
@@ -425,9 +430,9 @@ namespace internal
     using Wrapper = CompiledAssignmentWrapper<typename std::conditional<std::is_arithmetic<U>::value, Eigen::VectorXd, T>::type>;
     const Source F = std::is_arithmetic<U>::value ? CONSTANT : EXTERNAL;
 
-    if (requirements_->anisotropicWeight().isDefault())
+    if (useDefaultAnisotropicWeight_)
     {
-      if (scalarWeight_ == 1)
+      if (useDefaultScalarWeight_)
       {
         if (flip)
           return Wrapper::template make<A, MINUS, M, F>(to, from, Mult);
@@ -437,7 +442,7 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, -scalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, minusScalarWeight_, Mult);
         else
           return Wrapper::template make<A, SCALAR, M, F>(to, from, scalarWeight_, Mult);
       }
