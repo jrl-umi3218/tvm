@@ -73,7 +73,7 @@ namespace abstract
     * }
     * \enddot
     */
-  class TVM_DLLAPI Constraint : public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
+  class TVM_DLLAPI Constraint : public tvm::internal::ObjWithId, public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
   {
   public:
     SET_OUTPUTS(Constraint, L, U, E)
