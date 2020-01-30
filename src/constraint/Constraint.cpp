@@ -71,6 +71,11 @@ namespace abstract
     return cstrType_;
   }
 
+  bool Constraint::isEquality() const
+  {
+    return cstrType_ == Type::EQUAL;
+  }
+
   RHS Constraint::rhs() const
   {
     return constraintRhs_;

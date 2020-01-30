@@ -101,6 +101,10 @@ namespace abstract
 
     /** Return the type of the constraint.*/
     Type type() const;
+
+    /** Check whether this is an equality constraint. */
+    bool isEquality() const;
+
     /** Return the convention for the right-hand side \p e, \p l, \p u or both
       * \p l and \p u of the constraint.
       */
