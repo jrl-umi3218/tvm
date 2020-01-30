@@ -35,7 +35,7 @@ TEST_CASE("Test SolvingRequirements")
   FAST_CHECK_UNARY(checkRequirements(s1, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s2(PriorityLevel(2), Weight(1));
-  FAST_CHECK_UNARY(checkRequirements(s2, false, 2, true, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
+  FAST_CHECK_UNARY(checkRequirements(s2, false, 2, false, 1, true, VectorXd(), true, ViolationEvaluationType::L2));
 
   SolvingRequirements s3(Weight(3), PriorityLevel(2));
   FAST_CHECK_UNARY(checkRequirements(s3, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));

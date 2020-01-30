@@ -49,6 +49,10 @@ static double dt = 0.005;
 #include <RBDyn/FV.h>
 #include <RBDyn/FA.h>
 
+#ifndef M_PI
+#  define M_PI 3.141592653589793238462643383279502884e+00 // from boost/math/constant
+#endif
+
 static void BM_Tasks(benchmark::State & state)
 {
   std::vector<rbd::MultiBody> mbs;

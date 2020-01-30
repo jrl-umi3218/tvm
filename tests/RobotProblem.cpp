@@ -67,7 +67,11 @@ std::vector<tvm::geometry::PlanePtr> makeCube(const Eigen::Vector3d & origin, do
 
 TEST_CASE("Test a problem with a robot")
 {
+#if NDEBUG
   size_t iter = 2000;
+#else
+  size_t iter = 100;
+#endif
   double dt = 0.005;
 
   tvm::ControlProblem pb;

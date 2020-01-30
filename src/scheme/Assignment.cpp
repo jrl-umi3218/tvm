@@ -379,6 +379,8 @@ namespace internal
         if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
         {
           useDefaultScalarWeight_ = true;
+          scalarWeight_ = 1;
+          minusScalarWeight_ = -1;
         }
         else
         {
