@@ -33,13 +33,16 @@
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
+#include <iostream>
+
+
 namespace tvm
 {
 
 namespace solver
 {
-  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(double big_number)
-    : LeastSquareSolver()
+  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(bool verbose, double big_number)
+    : LeastSquareSolver(verbose)
     , cl_(l_.tail(0))
     , cu_(u_.tail(0))
     , big_number_(big_number)
@@ -58,9 +61,14 @@ namespace solver
     b_.setZero();
     l_ = Eigen::VectorXd::Constant(m0 + n, -big_number_);
     u_ = Eigen::VectorXd::Constant(m0 + n, +big_number_);
-    cl_ = l_.tail(m0);
-    cu_ = u_.tail(m0);
+    new(&cl_) VectorXdTail(l_.tail(m0));
+    new(&cu_) VectorXdTail(u_.tail(m0));
     ls_.resize(n, m0, Eigen::lssol::eType::LS1);
+    // TODO: move to options
+    ls_.warm(true);
+    ls_.feasibilityTol(1e-6);
+
+    autoMinNorm_ = false;
   }
 
   void LSSOLLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
@@ -90,15 +98,56 @@ namespace solver
     addAssignement(cstr, req, target, variables(), *substitutions(), additionalWeight);
   }
 
+  void LSSOLLeastSquareSolver::setMinimumNorm_()
+  {
+    autoMinNorm_ = true;
+    b_.setZero();
+  }
+
+  void LSSOLLeastSquareSolver::preAssignmentProcess_()
+  {
+    // LSSOL is overwritting A during the resolution.
+    // We need to make sure that A is clean before assignments are carried out.
+    if (!autoMinNorm_)
+      A_.setZero();
+  }
+
+  void LSSOLLeastSquareSolver::postAssignmentProcess_()
+  {
+    if (autoMinNorm_)
+      A_.setIdentity();
+  }
+
   bool LSSOLLeastSquareSolver::solve_()
   {
     return ls_.solve(A_, b_, C_, l_, u_);
   }
 
+  const Eigen::VectorXd& LSSOLLeastSquareSolver::result_() const
+  {
+    return ls_.result();
+  }
 
-  LSSOLLeastSquareSolverConfiguration::LSSOLLeastSquareSolverConfiguration(double big_number)
+  void LSSOLLeastSquareSolver::printProblemData_() const
+  {
+    std::cout << "A =\n" << A_ << std::endl;
+    std::cout << "b = " << b_.transpose() << std::endl;
+    std::cout << "C =\n" << C_ << std::endl;
+    std::cout << "l = " << l_.transpose() << std::endl;
+    std::cout << "u = " << u_.transpose() << std::endl;
+  }
+
+  void LSSOLLeastSquareSolver::printDiagnostic_() const
+  {
+    std::cout << ls_.inform() << std::endl;
+    ls_.print_inform();
+  }
+
+
+  LSSOLLeastSquareSolverConfiguration::LSSOLLeastSquareSolverConfiguration(bool verbose, double big_number)
     : LeastSquareSolverConfiguration("lssol")
     , big_number_(big_number)
+    , verbose_(verbose)
   {
   }
   

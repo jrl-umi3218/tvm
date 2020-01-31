@@ -60,7 +60,7 @@ namespace abstract
   class TVM_DLLAPI LeastSquareSolver
   {
   public:
-    LeastSquareSolver();
+    LeastSquareSolver(bool verbose = false);
     LeastSquareSolver(const LeastSquareSolver&) = delete;
     LeastSquareSolver& operator=(const LeastSquareSolver&) = delete;
     /** Open a build sequence for a problem on the current variables (set 
@@ -87,13 +87,15 @@ namespace abstract
       */
     void addBound(LinearConstraintPtr bound);
     void addConstraint(LinearConstraintPtr cstr);
-    void addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr, double additionalWeight);
+    void addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr, double additionalWeight = 1);
     /** Set ||x||^2 as the least square objective of the problem.
       * \warning this replace previously added objectives.
       */
     void setMinimumNorm();
     
     bool solve();
+
+    const Eigen::VectorXd& result() const;
 
     /** Return the constraint size for the solver. This can be different from
       * the actual constraint size if the constraint is a double-sided inequality
@@ -107,10 +109,15 @@ namespace abstract
     virtual void addEqualityConstraint_(LinearConstraintPtr cstr) = 0;
     virtual void addIneqalityConstraint_(LinearConstraintPtr cstr) = 0;
     virtual void addObjective_(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight=1) = 0;
-    virtual void preAssignmentProcces_() {}
-    virtual void postAssignementProcess_() {}
+    virtual void setMinimumNorm_() = 0;
+    virtual void preAssignmentProcess_() {}
+    virtual void postAssignmentProcess_() {}
     virtual bool solve_() = 0;
+    virtual const Eigen::VectorXd& result_() const = 0;
     virtual bool handleDoubleSidedConstraint_() const = 0;
+
+    virtual void printProblemData_() const = 0;
+    virtual void printDiagnostic_() const = 0;
 
     const VariableVector& variables() const { return *variables_; }
     const hint::internal::Substitutions* substitutions() const { return subs_; }
@@ -156,6 +163,7 @@ namespace abstract
 
   private:
     bool buildInProgress_;
+    bool verbose_;
     VariableVector const* variables_;
     /** Used to track if this is the first time bounds are applied to a given variable. */
     map<Variable*, bool> first_;

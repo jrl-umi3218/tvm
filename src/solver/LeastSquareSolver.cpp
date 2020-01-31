@@ -28,8 +28,9 @@
 */
 
 #include <tvm/solver/abstract/LeastSquareSolver.h>
-
 #include <tvm/VariableVector.h>
+
+#include <iostream>
 
 namespace tvm
 {
@@ -39,12 +40,13 @@ namespace solver
 
 namespace abstract
 {
-  LeastSquareSolver::LeastSquareSolver()
+  LeastSquareSolver::LeastSquareSolver(bool verbose)
     : objSize_(-1)
     , eqSize_(-1)
     , ineqSize_(-1)
     , buildInProgress_(false)
     , subs_(nullptr)
+    , verbose_(verbose)
   {
   }
 
@@ -115,7 +117,7 @@ namespace abstract
 
   void LeastSquareSolver::addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight)
   {
-    assert(req->priorityLevel().value() != 1);
+    assert(req->priorityLevel().value() != 0);
     if (!buildInProgress_)
     {
       throw std::runtime_error("[LeastSquareSolver]: attempting to add an objective without calling startBuild first");
@@ -125,8 +127,19 @@ namespace abstract
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
     }
     addObjective_(obj, req, additionalWeight);
+    objSize_ += obj->size();
   }
 
+
+  void LeastSquareSolver::setMinimumNorm()
+  {
+    assert(m1_ == variables().totalSize());
+    if (!buildInProgress_)
+    {
+      throw std::runtime_error("[LeastSquareSolver]: attempting to add an objective without calling startBuild first");
+    }
+    setMinimumNorm_();
+  }
 
   bool LeastSquareSolver::solve()
   {
@@ -135,12 +148,31 @@ namespace abstract
       throw std::runtime_error("[LeastSquareSolver]: attempting to solve while in build mode");
     }
 
-    preAssignmentProcces_();
+    preAssignmentProcess_();
     for (auto& a : assignments_)
       a.run();
-    postAssignementProcess_();
+    postAssignmentProcess_();
 
-    return solve_();
+    if (verbose_)
+      printProblemData_();
+
+    bool b = solve_();
+
+    if (verbose_ || !b)
+    {
+      printDiagnostic_();
+      if (verbose_)
+      {
+        std::cout << "[LeastSquareSolver::solve] solution: " << result_().transpose() << std::endl;
+      }
+    }
+
+    return b;
+  }
+
+  const Eigen::VectorXd& LeastSquareSolver::result() const
+  {
+    return result_();
   }
 
   int LeastSquareSolver::constraintSize(const LinearConstraintPtr& c) const

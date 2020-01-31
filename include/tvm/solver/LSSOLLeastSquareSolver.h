@@ -42,7 +42,7 @@ namespace solver
   class TVM_DLLAPI LSSOLLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    LSSOLLeastSquareSolver(double big_number = constant::big_number);
+    LSSOLLeastSquareSolver(bool verbose = false, double big_number = constant::big_number);
 
   protected:
     void initializeBuild_(int m1, int me, int mi, bool useBounds) override;
@@ -50,8 +50,15 @@ namespace solver
     void addEqualityConstraint_(LinearConstraintPtr cstr) override;
     void addIneqalityConstraint_(LinearConstraintPtr cstr) override;
     void addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight) override;
+    void setMinimumNorm_() override;
+    void preAssignmentProcess_() override;
+    void postAssignmentProcess_() override;
     bool solve_() override;
+    virtual const Eigen::VectorXd& result_() const override;
     bool handleDoubleSidedConstraint_() const override { return true; }
+
+    void printProblemData_() const override;
+    void printDiagnostic_() const override;
 
   private:
     using VectorXdTail = decltype(Eigen::VectorXd().tail(1));
@@ -67,6 +74,7 @@ namespace solver
 
     Eigen::LSSOL_LS ls_;
 
+    bool autoMinNorm_;
     double big_number_;
   };
 
@@ -74,12 +82,13 @@ namespace solver
   class TVM_DLLAPI LSSOLLeastSquareSolverConfiguration : public abstract::LeastSquareSolverConfiguration
   {
   public:
-    LSSOLLeastSquareSolverConfiguration(double big_number = constant::big_number);
+    LSSOLLeastSquareSolverConfiguration(bool verbose = false, double big_number = constant::big_number);
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
     double big_number_;
+    bool verbose_;
   };
 
 }
