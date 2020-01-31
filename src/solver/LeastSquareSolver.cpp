@@ -1,11 +1,11 @@
-#include <tvm/scheme/abstract/LeastSquareSolver.h>
+#include <tvm/solver/abstract/LeastSquareSolver.h>
 
 #include <tvm/VariableVector.h>
 
 namespace tvm
 {
 
-namespace scheme
+namespace solver
 {
 
 namespace abstract

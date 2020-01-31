@@ -27,7 +27,7 @@
 namespace tvm
 {
 
-namespace scheme
+namespace solver
 {
 
 namespace abstract
@@ -109,8 +109,8 @@ namespace abstract
 
   private:
     template<typename K, typename T> using map = utils::internal::map<K, T>;
-    using AssignmentVector = std::vector<internal::Assignment>;
-    using AssignmentPtrVector = std::vector<internal::Assignment*>;
+    using AssignmentVector = std::vector<scheme::internal::Assignment>;
+    using AssignmentPtrVector = std::vector<scheme::internal::Assignment*>;
     using MapToAssignment = map<constraint::abstract::LinearConstraint*, AssignmentPtrVector>;
     /** Helper class relying on RAII to update automatically the map from a constraint to
       * the corresponding assignments
@@ -149,7 +149,7 @@ namespace abstract
     /** Used to track if this is the first time bounds are applied to a given variable. */
     map<Variable*, bool> first_;
     /** List of assignments used for assembling the problem data. */
-    std::vector<internal::Assignment> assignments_;
+    std::vector<scheme::internal::Assignment> assignments_;
     /** Keeping tracks of which assignments are associated to a constraint. 
       * \todo most of the times, there will be a single assignment per constraint.
       * This would be a good place to use small vector-like container.

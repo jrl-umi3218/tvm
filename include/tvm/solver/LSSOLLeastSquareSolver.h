@@ -18,14 +18,14 @@
 * along with TVM.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <tvm/scheme/abstract/LeastSquareSolver.h>
+#include <tvm/solver/abstract/LeastSquareSolver.h>
 
 #include <eigen-lssol/LSSOL_LS.h>
 
 namespace tvm
 {
 
-namespace scheme
+namespace solver
 {
 
   class TVM_DLLAPI LSSOLLeastSquareSolver : public abstract::LeastSquareSolver

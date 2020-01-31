@@ -1,11 +1,11 @@
-#include <tvm/scheme/LSSOLLeastSquareSolver.h>
+#include <tvm/solver/LSSOLLeastSquareSolver.h>
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
 namespace tvm
 {
 
-namespace scheme
+namespace solver
 {
   LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(double big_number)
     : LeastSquareSolver()
@@ -34,28 +34,28 @@ namespace scheme
 
   void LSSOLLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
   {
-    internal::AssignmentTarget target(range, l_, u_);
+    scheme::internal::AssignmentTarget target(range, l_, u_);
     addAssignement(bound, target, bound->variables()[0], first);
   }
 
   void LSSOLLeastSquareSolver::addEqualityConstraint_(LinearConstraintPtr cstr)
   {
     RangePtr r = std::make_shared<Range>(eqSize_+ineqSize_, cstr->size());
-    internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
+    scheme::internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, nullptr, target, variables(), *substitutions());
   }
 
   void LSSOLLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
   {
     RangePtr r = std::make_shared<Range>(eqSize_ + ineqSize_, cstr->size());
-    internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
+    scheme::internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, nullptr, target, variables(), *substitutions());
   }
 
   void LSSOLLeastSquareSolver::addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight)
   {
     RangePtr r = std::make_shared<Range>(objSize_, cstr->size());
-    internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
+    scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, req, target, variables(), *substitutions(), additionalWeight);
   }
 
