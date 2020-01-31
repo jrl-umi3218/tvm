@@ -18,6 +18,7 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/solver/LSSOLLeastSquareSolver.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
@@ -227,7 +228,7 @@ TEST_CASE("Test a problem with a robot")
 
   lpb.add(tvm::hint::Substitution(lpb.constraint(tdyn.get()), hrp2->tau()));
 
-  tvm::scheme::WeightedLeastSquares solver(false);
+  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLeastSquareSolverConfiguration{});
 
   /** The position of the frame should not change */
   auto X_0_lf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];

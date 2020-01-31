@@ -253,6 +253,7 @@ BENCHMARK(BM_Tasks)->Unit(benchmark::kMicrosecond);//->MinTime(10.0);
 #include <tvm/ControlProblem.h>
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/solver/LSSOLLeastSquareSolver.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
@@ -397,7 +398,7 @@ static void BM_TVM(benchmark::State & state)
 
   lpb.add(tvm::hint::Substitution(lpb.constraint(dyn_task.get()), hrp2->tau()));
 
-  tvm::scheme::WeightedLeastSquares solver(false);
+  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLeastSquareSolverConfiguration{});
 
   while(state.KeepRunning())
   {

@@ -32,8 +32,7 @@
 #include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
-
-#include <eigen-lssol/LSSOL_LS.h>
+#include <tvm/solver/abstract/LeastSquareSolver.h>
 
 namespace tvm
 {
@@ -47,27 +46,37 @@ namespace scheme
   private:
     struct Memory : public internal::ProblemComputationData
     {
-      Memory(int solverId);
+      Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver);
       void resize(int m0, int m1, double big_number);
 
-      Eigen::MatrixXd A;
-      Eigen::MatrixXd C;
-      Eigen::VectorXd b;
-      Eigen::VectorXd l;
-      Eigen::VectorXd u;
-
-      std::vector<internal::Assignment> assignments;
-      Eigen::LSSOL_LS ls;
+      std::unique_ptr<solver::abstract::LeastSquareSolver> solver;
 
     protected:
       void setVariablesToSolution_(VariableVector& x) override;
     };
 
+    const static internal::SchemeAbilities abilities_;
+
   public:
     using ComputationDataType = Memory;
 
     // FIXME temporary verbose parameter
-    WeightedLeastSquares(bool verbose = true, double scalarizationWeight = 1000);
+    //template<class SolverConfig, 
+    //  typename std::enable_if_t<std::is_base_of<solver::abstract::LeastSquareSolverConfiguration,SolverConfig>::value> = 0>
+    template<class SolverConfig>
+    WeightedLeastSquares(const SolverConfig& solverConfig,
+                         bool verbose = true, double scalarizationWeight = 1000)
+      : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
+      , verbose_(verbose)
+      , scalarizationWeight_(scalarizationWeight)
+      , solverConfig_(new SolverConfig(solverConfig))
+    {
+      static_assert(std::is_base_of<solver::abstract::LeastSquareSolverConfiguration, SolverConfig>::value,
+        "SolverConfig must derive from solver::abstract::LeastSquareSolverConfiguration");
+    }
+
+    WeightedLeastSquares(const WeightedLeastSquares&) = delete;
+    WeightedLeastSquares(WeightedLeastSquares&&) = delete;
 
     /** Private interface for CRTP*/
     bool solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const;
@@ -76,6 +85,7 @@ namespace scheme
   protected:
     bool verbose_;
     double scalarizationWeight_;
+    std::unique_ptr<solver::abstract::LeastSquareSolverConfiguration> solverConfig_;
   };
 
 }  // namespace scheme

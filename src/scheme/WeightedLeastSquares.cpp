@@ -45,47 +45,19 @@ namespace scheme
   using namespace internal;
   using VET = requirements::ViolationEvaluationType;
 
-  WeightedLeastSquares::WeightedLeastSquares(bool verbose, double scalarizationWeight)
-    : LinearResolutionScheme<WeightedLeastSquares>({ 2, {{0, {true, {VET::L2}}}, {1,{false, {VET::L2}}}}, true })
-    , verbose_(verbose), scalarizationWeight_(scalarizationWeight)
-  {
-  }
+  const internal::SchemeAbilities WeightedLeastSquares::abilities_ = { 2, {{0, {true, {VET::L2}}}, {1,{false, {VET::L2}}}}, true };
 
   bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
     Memory* memory = dynamic_cast<Memory*>(data);
-    memory->A.setZero();
-    for (auto& a : memory->assignments)
-      a.run();
-
-    if (verbose_)
-    {
-      std::cout << "A =\n" << memory->A << std::endl;
-      std::cout << "b = " << memory->b.transpose() << std::endl;
-      std::cout << "C =\n" << memory->C << std::endl;
-      std::cout << "l = " << memory->l.transpose() << std::endl;
-      std::cout << "u = " << memory->u.transpose() << std::endl;
-    }
-
-    bool b = memory->ls.solve(memory->A, memory->b, memory->C, memory->l, memory->u);
-
-    if(verbose_ || !b)
-    {
-      std::cout << memory->ls.inform() << std::endl;
-      memory->ls.print_inform();
-      if(verbose_)
-      {
-        std::cout << memory->ls.result().transpose() << std::endl;
-      }
-    }
-    return b;
+    return memory->solver->solve();
   }
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
-    auto memory = std::unique_ptr<Memory>(new Memory(id()));
-    memory->ls.warm(true);
-    memory->ls.feasibilityTol(1e-6);
+    auto memory = std::unique_ptr<Memory>(new Memory(id(), solverConfig_->createSolver()));
+    auto& solver = *memory->solver;
+
     const auto& constraints = problem.constraints();
     const auto& subs = problem.substitutions();
 
@@ -112,7 +84,7 @@ namespace scheme
       else
       {
         if (p == 0)
-          m0 += c.constraint->size();
+          m0 += solver.constraintSize(c.constraint);
         else
         {
           if (c.constraint->type() != constraint::Type::EQUAL)
@@ -131,63 +103,47 @@ namespace scheme
       constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
     }
 
+    bool autoMinNorm = false;
     if (m1 == 0)
+    {
       m1 = memory->variables().totalSize();
-
-    //allocating memory for the solver
-    memory->resize(m0, m1, big_number_);
-    memory->assignments.reserve(constr.size() + bounds.size());
+      autoMinNorm = true;
+    }
 
     // configure assignments. FIXME: can we find a better way ?
     Assignment::big_ = big_number_;
 
+    //allocating memory for the solver
+    solver.startBuild(memory->variables(), m1, 0, m0, bounds.size() > 0, subs);
+    //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
+
     //assigments for general constraints
-    m0 = 0;
-    m1 = 0;
-    const auto& x = memory->variables();
-    auto l = memory->l.tail(memory->C.rows());
-    auto u = memory->u.tail(memory->C.rows());
     for (const auto& c : constr)
     {
       int p = c.requirements->priorityLevel().value();
       if (p == 0)
       {
-        RangePtr r = std::make_shared<Range>(m0, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(r, memory->C, l, u, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs));
-        m0 += c.constraint->size();
+        //TODO check requirements
+        solver.addConstraint(c.constraint);
       }
       else
       {
-        RangePtr r = std::make_shared<Range>(m1, c.constraint->size()); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(r, memory->A, memory->b, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-        memory->assignments.emplace_back(Assignment(c.constraint, c.requirements, target, x, subs, std::pow(scalarizationWeight_, maxp - p)));
-        m1 += c.constraint->size();
+        solver.addObjective(c.constraint, c.requirements, std::pow(scalarizationWeight_, maxp - p));
       }
     }
-    if (m1 == 0)
-    {
-      //FIXME : A is reset to 0 at each iteration. Need to create an assignment
-      memory->A.setIdentity();
-      memory->b.setZero();
-    }
+
+    if (autoMinNorm)
+      solver.setMinimumNorm();
 
     //assigments for bounds
-    utils::internal::map<Variable*, bool> first;
-    for (const auto& xi : x.variables())
-    {
-      first[xi.get()] = true;
-    }
     for (const auto& b : bounds)
     {
       const auto& xi = b.constraint->variables()[0];
       int p = b.requirements->priorityLevel().value();
       if (p == 0)
       {
-        RangePtr range = std::make_shared<Range>(xi->getMappingIn(x)); //FIXME: for now we do not keep a pointer on the range nor the target.
-        AssignmentTarget target(range, memory->l, memory->u);
-        memory->assignments.emplace_back(Assignment(b.constraint, target, xi, first[xi.get()]));
-        first[xi.get()] = false;
+        //TODO check requirements
+        solver.addBound(b.constraint);
       }
       else
       {
@@ -195,31 +151,20 @@ namespace scheme
       }
     }
 
+    solver.finalizeBuild();
+
     return memory;
   }
 
-  WeightedLeastSquares::Memory::Memory(int solverId)
+  WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
     : ProblemComputationData(solverId)
+    , solver(std::move(solver))
   {
-  }
-
-  void WeightedLeastSquares::Memory::resize(int m0, int m1, double big_number)
-  {
-    int n = x_.totalSize();
-    A.resize(m1, n);
-    A.setZero();
-    C.resize(m0, n);
-    C.setZero();
-    b.resize(m1);
-    b.setZero();
-    l = Eigen::VectorXd::Constant(m0 + n, -big_number);
-    u = Eigen::VectorXd::Constant(m0 + n, +big_number);
-    ls.resize(n, m0, Eigen::lssol::eType::LS1);
   }
 
   void WeightedLeastSquares::Memory::setVariablesToSolution_(VariableVector& x)
   {
-    x.value(ls.result());
+    x.value(solver->result());
   }
 
 }  // namespace scheme
