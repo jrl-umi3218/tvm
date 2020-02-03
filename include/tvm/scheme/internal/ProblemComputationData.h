@@ -68,7 +68,7 @@ namespace internal
 
   protected:
     ProblemComputationData(int solverId);
-    ProblemComputationData() = default;
+    ProblemComputationData() = delete;
 
     /** Need to put in x the solution of the computation. */
     virtual void setVariablesToSolution_(VariableVector& x) = 0;

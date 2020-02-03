@@ -46,6 +46,7 @@ namespace solver
     , cl_(l_.tail(0))
     , cu_(u_.tail(0))
     , big_number_(big_number)
+    , autoMinNorm_(false)
   {
   }
 

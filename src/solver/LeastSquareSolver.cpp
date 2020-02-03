@@ -47,6 +47,7 @@ namespace abstract
     , buildInProgress_(false)
     , subs_(nullptr)
     , verbose_(verbose)
+    , variables_(nullptr)
   {
   }
 
