@@ -98,7 +98,7 @@ TEST_CASE("Substitution")
 
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
-    scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration{});
+    scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions{});
     solver.solve(lpb);
     ddxs = dot(x, 2)->value();
     ddqs = dot(q, 2)->value();

@@ -105,7 +105,7 @@ void minimalKin()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration(solver::LSSOLLeastSquareOptions().verbose(true)));
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -150,7 +150,7 @@ void minimalKinSub()
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration(solver::LSSOLLeastSquareOptions().verbose(true)));
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);

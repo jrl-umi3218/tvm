@@ -287,7 +287,7 @@ TEST_CASE("WrenchDistribQP")
   auto pressureRatioTask        = problem.add(pressureRatio == 0.                 , { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
   // First problem with initial left foot ratio
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration(solver::LSSOLLeastSquareOptions().verbose(VERBOSE)));
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(VERBOSE));
   solver.solve(problem);
   FAST_CHECK_UNARY(checkSolution(robot, w_l_0->value(), w_r_0->value()));
   Vector6d w_l_la1 = X_0_la.dualMatrix() * w_l_0->value();
