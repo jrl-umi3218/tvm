@@ -87,15 +87,29 @@ namespace abstract
       * same variable, their intersection is taken.
       */
     void addBound(LinearConstraintPtr bound);
+
+    /** Add a constraint to the solver. */
     void addConstraint(LinearConstraintPtr cstr);
-    void addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr, double additionalWeight = 1);
+
+    /** Add an objective to the solver with given requirements
+      * \param obj The linear expression added in least-square form
+      * \param req The solving requirements. Only the weight-related requirements
+      *   will be taken into account
+      * \param additionalWeight An additional factor that will multiply the other weights.
+      */
+    void addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight = 1);
+    
     /** Set ||x||^2 as the least square objective of the problem.
       * \warning this replace previously added objectives.
       */
     void setMinimumNorm();
     
+    /** Solve the problem
+      * \return true upon success of the resolution.
+      */
     bool solve();
 
+    /** Get the result of the previous call to solve()*/
     const Eigen::VectorXd& result() const;
 
     /** Return the constraint size for the solver. This can be different from

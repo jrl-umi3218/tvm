@@ -119,6 +119,7 @@ namespace abstract
   void LeastSquareSolver::addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight)
   {
     assert(req->priorityLevel().value() != 0);
+    assert(req->violationEvaluation().value() == requirements::ViolationEvaluationType::L2);
     if (!buildInProgress_)
     {
       throw std::runtime_error("[LeastSquareSolver]: attempting to add an objective without calling startBuild first");

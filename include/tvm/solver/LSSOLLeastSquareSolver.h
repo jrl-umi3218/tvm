@@ -38,6 +38,9 @@ namespace tvm
 
 namespace solver
 {
+  class LSSOLLeastSquareConfiguration;
+
+  /** A set of options for LSSOLLeastSquareSolver */
   class TVM_DLLAPI LSSOLLeastSquareOptions
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
@@ -53,10 +56,13 @@ namespace solver
     ADD_DEFAULT_OPTION      (type,                Eigen::lssol::eType)
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
     ADD_NON_DEFAULT_OPTION  (warm,                true)
+
+  public:
+    using Config = LSSOLLeastSquareConfiguration;
   };
 
 
-
+  /** An encapsulation of the LSSOL solver, to solve linear least-squares problems. */
   class TVM_DLLAPI LSSOLLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
@@ -96,10 +102,14 @@ namespace solver
     double big_number_;
   };
 
-
+  
+  /** A factory class to create LSSOLLeastSquareSolver instances with a given
+    * set of options.
+    */
   class TVM_DLLAPI LSSOLLeastSquareConfiguration : public abstract::LeastSquareConfiguration
   {
   public:
+    /** Creation of a configuration from a set of options*/
     LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options = {});
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
