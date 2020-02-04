@@ -62,7 +62,7 @@ namespace scheme
 
     // FIXME temporary verbose parameter
     //template<class SolverConfig, 
-    //  typename std::enable_if_t<std::is_base_of<solver::abstract::LeastSquareSolverConfiguration,SolverConfig>::value> = 0>
+    //  typename std::enable_if_t<std::is_base_of<solver::abstract::LeastSquareConfiguration,SolverConfig>::value> = 0>
     template<class SolverConfig>
     WeightedLeastSquares(const SolverConfig& solverConfig,
                          bool verbose = true, double scalarizationWeight = 1000)
@@ -71,8 +71,8 @@ namespace scheme
       , scalarizationWeight_(scalarizationWeight)
       , solverConfig_(new SolverConfig(solverConfig))
     {
-      static_assert(std::is_base_of<solver::abstract::LeastSquareSolverConfiguration, SolverConfig>::value,
-        "SolverConfig must derive from solver::abstract::LeastSquareSolverConfiguration");
+      static_assert(std::is_base_of<solver::abstract::LeastSquareConfiguration, SolverConfig>::value,
+        "SolverConfig must derive from solver::abstract::LeastSquareConfiguration");
     }
 
     WeightedLeastSquares(const WeightedLeastSquares&) = delete;
@@ -85,7 +85,7 @@ namespace scheme
   protected:
     bool verbose_;
     double scalarizationWeight_;
-    std::unique_ptr<solver::abstract::LeastSquareSolverConfiguration> solverConfig_;
+    std::unique_ptr<solver::abstract::LeastSquareConfiguration> solverConfig_;
   };
 
 }  // namespace scheme

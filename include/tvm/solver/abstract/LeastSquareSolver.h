@@ -33,6 +33,7 @@
 #include <tvm/defs.h>
 #include "tvm/hint/internal/Substitutions.h"
 #include <tvm/scheme/internal/Assignment.h>
+#include <tvm/solver/internal/Option.h>
 #include <tvm/utils/internal/map.h>
 
 namespace tvm
@@ -55,7 +56,7 @@ namespace abstract
     * optionnal.
     *
     * When deriving this class, also remember to derive the factory class
-    * LeastSquareSolverConfiguration as well.
+    * LeastSquareConfiguration as well.
     */
   class TVM_DLLAPI LeastSquareSolver
   {
@@ -185,10 +186,11 @@ namespace abstract
    * The goal of this class is to be passed to a resolution scheme to specify
    * its underlying solver.
    */
-  class TVM_DLLAPI LeastSquareSolverConfiguration
+  class TVM_DLLAPI LeastSquareConfiguration
   {
   protected:
-    LeastSquareSolverConfiguration(const std::string& solverName) : solverName_(solverName) {}
+    LeastSquareConfiguration(const std::string& solverName) 
+      : solverName_(solverName) {}
 
   public:
     virtual std::unique_ptr<LeastSquareSolver> createSolver() const = 0;

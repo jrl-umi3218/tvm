@@ -49,7 +49,7 @@ void solverTest01()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
   std::cout << t1->task.taskDynamics<task_dynamics::PD>()->gains().first << std::endl;
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareSolverConfiguration{});
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration{});
   solver.solve(lpb);
   std::cout << "ddx = " << dot(x, 2)->value().transpose() << std::endl;
   std::cout << "ddq = " << dot(q, 2)->value().transpose() << std::endl;
@@ -73,7 +73,7 @@ void solverTest02()
 
   LinearizedControlProblem lpb(pb);
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareSolverConfiguration{});
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration{});
   solver.solve(lpb);
 }
 
@@ -105,7 +105,7 @@ void minimalKin()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareSolverConfiguration{}, true);
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration(solver::LSSOLLeastSquareOptions().verbose(true)));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -150,7 +150,7 @@ void minimalKinSub()
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareSolverConfiguration{}, true);
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration(solver::LSSOLLeastSquareOptions().verbose(true)));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -198,7 +198,7 @@ void minimalDyn()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(damp == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareSolverConfiguration{});
+  scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration{});
   for (int i = 0; i < 5000; ++i)
   {
     solver.solve(lpb);

@@ -228,7 +228,7 @@ TEST_CASE("Test a problem with a robot")
 
   lpb.add(tvm::hint::Substitution(lpb.constraint(tdyn.get()), hrp2->tau()));
 
-  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLeastSquareSolverConfiguration{});
+  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLeastSquareConfiguration{});
 
   /** The position of the frame should not change */
   auto X_0_lf_init = hrp2->mbc().bodyPosW[hrp2->mb().bodyIndexByName("LLEG_LINK5")];

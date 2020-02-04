@@ -179,6 +179,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
   ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
+  ${TVM_INCLUDE_DIR}/solver/internal/Option.h
   ${TVM_INCLUDE_DIR}/solver/LSSOLLeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/QLDLeastSquareSolver.h
   

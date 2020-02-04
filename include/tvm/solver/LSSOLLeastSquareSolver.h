@@ -38,11 +38,29 @@ namespace tvm
 
 namespace solver
 {
+  class TVM_DLLAPI LSSOLLeastSquareOptions
+  {
+    ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
+    ADD_DEFAULT_OPTION      (crashTol,            double)
+    ADD_DEFAULT_OPTION      (feasibilityMaxIter,  int)
+    ADD_NON_DEFAULT_OPTION  (feasibilityTol,      1e-6)
+    ADD_DEFAULT_OPTION      (infiniteBnd,         double)
+    ADD_DEFAULT_OPTION      (infiniteStep,        double)
+    ADD_DEFAULT_OPTION      (optimalityMaxIter,   int)
+    ADD_DEFAULT_OPTION      (persistence,         bool)
+    ADD_DEFAULT_OPTION      (printLevel,          int)
+    ADD_DEFAULT_OPTION      (rankTol,             double)
+    ADD_DEFAULT_OPTION      (type,                Eigen::lssol::eType)
+    ADD_NON_DEFAULT_OPTION  (verbose,             false)
+    ADD_NON_DEFAULT_OPTION  (warm,                true)
+  };
+
+
 
   class TVM_DLLAPI LSSOLLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    LSSOLLeastSquareSolver(bool verbose = false, double big_number = constant::big_number);
+    LSSOLLeastSquareSolver(const LSSOLLeastSquareOptions& options = {});
 
   protected:
     void initializeBuild_(int m1, int me, int mi, bool useBounds) override;
@@ -79,16 +97,15 @@ namespace solver
   };
 
 
-  class TVM_DLLAPI LSSOLLeastSquareSolverConfiguration : public abstract::LeastSquareSolverConfiguration
+  class TVM_DLLAPI LSSOLLeastSquareConfiguration : public abstract::LeastSquareConfiguration
   {
   public:
-    LSSOLLeastSquareSolverConfiguration(bool verbose = false, double big_number = constant::big_number);
+    LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options = {});
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
-    double big_number_;
-    bool verbose_;
+    LSSOLLeastSquareOptions options_;
   };
 
 }

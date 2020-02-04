@@ -41,13 +41,24 @@ namespace tvm
 
 namespace solver
 {
-  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(bool verbose, double big_number)
-    : LeastSquareSolver(verbose)
+  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(const LSSOLLeastSquareOptions& options)
+    : LeastSquareSolver(options.verbose().value())
     , cl_(l_.tail(0))
     , cu_(u_.tail(0))
-    , big_number_(big_number)
+    , big_number_(options.big_number().value())
     , autoMinNorm_(false)
   {
+    PROCESS_OPTION(crashTol,           ls_)
+    PROCESS_OPTION(feasibilityMaxIter, ls_)
+    PROCESS_OPTION(feasibilityTol,     ls_)
+    PROCESS_OPTION(infiniteBnd,        ls_)
+    PROCESS_OPTION(infiniteStep,       ls_)
+    PROCESS_OPTION(optimalityMaxIter,  ls_)
+    PROCESS_OPTION(persistence,        ls_)
+    PROCESS_OPTION(printLevel,         ls_)
+    PROCESS_OPTION(rankTol,            ls_)
+    PROCESS_OPTION(type,               ls_)
+    PROCESS_OPTION(warm,               ls_)
   }
 
   void LSSOLLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool useBounds)
@@ -65,9 +76,6 @@ namespace solver
     new(&cl_) VectorXdTail(l_.tail(m0));
     new(&cu_) VectorXdTail(u_.tail(m0));
     ls_.resize(n, m0, Eigen::lssol::eType::LS1);
-    // TODO: move to options
-    ls_.warm(true);
-    ls_.feasibilityTol(1e-6);
 
     autoMinNorm_ = false;
   }
@@ -145,16 +153,15 @@ namespace solver
   }
 
 
-  LSSOLLeastSquareSolverConfiguration::LSSOLLeastSquareSolverConfiguration(bool verbose, double big_number)
-    : LeastSquareSolverConfiguration("lssol")
-    , big_number_(big_number)
-    , verbose_(verbose)
+  LSSOLLeastSquareConfiguration::LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options)
+    : LeastSquareConfiguration("lssol")
+    , options_(options)
   {
   }
   
-  std::unique_ptr<abstract::LeastSquareSolver> LSSOLLeastSquareSolverConfiguration::createSolver() const
+  std::unique_ptr<abstract::LeastSquareSolver> LSSOLLeastSquareConfiguration::createSolver() const
   {
-    return std::make_unique<LSSOLLeastSquareSolver>(big_number_);
+    return std::make_unique<LSSOLLeastSquareSolver>(options_);
   }
 }
 
