@@ -78,6 +78,9 @@ namespace abstract
 
   void LeastSquareSolver::finalizeBuild()
   {
+    assert(m1_ == objSize_);
+    assert(me_ == eqSize_);
+    assert(mi_ == ineqSize_);
     buildInProgress_ = false;
   }
 
@@ -179,7 +182,7 @@ namespace abstract
 
   int LeastSquareSolver::constraintSize(const LinearConstraintPtr& c) const
   {
-    if (handleDoubleSidedConstraint_())
+    if (handleDoubleSidedConstraint_() || c->type() != constraint::Type::DOUBLE_SIDED)
     {
       return c->size();
     }

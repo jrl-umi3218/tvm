@@ -65,7 +65,8 @@ namespace scheme
     std::vector<LinearConstraintWithRequirements> bounds;
 
     //scanning constraints
-    int m0 = 0;
+    int me = 0;
+    int mi = 0;
     int m1 = 0;
     int maxp = 0;
     for (const auto& c : constraints)
@@ -84,7 +85,12 @@ namespace scheme
       else
       {
         if (p == 0)
-          m0 += solver.constraintSize(c.constraint);
+        {
+          if (c.constraint->isEquality())
+            me += solver.constraintSize(c.constraint);
+          else
+            mi += solver.constraintSize(c.constraint);
+        }
         else
         {
           if (c.constraint->type() != constraint::Type::EQUAL)
@@ -99,7 +105,7 @@ namespace scheme
     // They are added at level 0
     for (const auto& c : subs.additionalConstraints())
     {
-      m0 += c->size();
+      me += c->size();
       constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
     }
 
@@ -114,7 +120,7 @@ namespace scheme
     Assignment::big_ = big_number_;
 
     //allocating memory for the solver
-    solver.startBuild(memory->variables(), m1, 0, m0, bounds.size() > 0, subs);
+    solver.startBuild(memory->variables(), m1, me, mi, bounds.size() > 0, subs);
     //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
 
     //assigments for general constraints
