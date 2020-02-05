@@ -47,6 +47,11 @@ add_project_dependency(Eigen3 REQUIRED)
 ###################
 add_project_dependency(eigen-lssol REQUIRED)
 
+###################
+# - eigen-qld - #
+###################
+add_project_dependency(eigen-qld REQUIRED)
+
 #############
 # - RBDyn - #
 #############

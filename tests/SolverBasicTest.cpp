@@ -11,6 +11,7 @@
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/LSSOLLeastSquareSolver.h>
+#include <tvm/solver/QLDLeastSquareSolver.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -106,9 +107,11 @@ void minimalKin()
   auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
   scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(true));
+  scheme::WeightedLeastSquares solver2(solver::QLDLeastSquareOptions().verbose(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
+    solver2.solve(lpb);
 
     double dt = 0.01;
     x->value(x->value() + dot(x, 1)->value()*dt);
