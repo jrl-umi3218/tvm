@@ -45,7 +45,7 @@ private:                                                                      \
   struct Dummy {};                                                            \
   struct Fallback { struct Type {}; };                                        \
   struct Derived :                                                            \
-    std::conditional_t<std::is_class<T>::value,T,Dummy>, Fallback {};         \
+    std::conditional<std::is_class<T>::value,T,Dummy>::type, Fallback {};     \
                                                                               \
   template<class U>                                                           \
   static std::false_type test(typename U::Type*);                             \
@@ -53,4 +53,20 @@ private:                                                                      \
   static std::true_type test(U*);                                             \
 public:                                                                       \
   static constexpr bool value = decltype(test<Derived>(nullptr))::value;      \
-};  
+};
+
+namespace tvm
+{
+
+namespace internal
+{
+  /** A sink, whose value is always true. */
+  template<typename T>
+  class always_true : public std::true_type {};
+
+  /** A sink, whose value is always false. */
+  template<typename T>
+  class always_false : public std::false_type {};
+}
+
+}

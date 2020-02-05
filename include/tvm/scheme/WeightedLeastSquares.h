@@ -81,7 +81,7 @@ namespace scheme
       *    1000*w1 and w2 for T1 and T2 respectively.
       */
     template<class SolverConfig, 
-      typename std::enable_if_t<isConfig<SolverConfig>::value, int> = 0>
+      typename std::enable_if<isConfig<SolverConfig>::value, int>::type = 0>
     WeightedLeastSquares(const SolverConfig& solverConfig, double scalarizationWeight = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
       , scalarizationWeight_(scalarizationWeight)
@@ -100,7 +100,7 @@ namespace scheme
       *    1000*w1 and w2 for T1 and T2 respectively.
       */
     template<class SolverOptions,
-      typename std::enable_if_t<isOption<SolverOptions>::value, int> = 0>
+      typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
     WeightedLeastSquares(const SolverOptions& solverOptions, double scalarizationWeight = 1000)
       :WeightedLeastSquares(SolverOptions::Config(solverOptions), scalarizationWeight)
     {
@@ -110,11 +110,11 @@ namespace scheme
       * It always fails at compilation time to provide a nice error message.
       */
     template<typename T, 
-      typename std::enable_if_t<!isConfig<T>::value && !isOption<T>::value, int> = 0>
+      typename std::enable_if<!isConfig<T>::value && !isOption<T>::value, int>::type = 0>
     WeightedLeastSquares(const T& t, double scalarizationWeight = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
     {
-      static_assert(false, 
+      static_assert(tvm::internal::always_false<T>::value, 
         "First argument can only be a LeastSquareConfiguration or a solver configuration. "
         "A configuration needs to have a Config member type that is itself deriving from LeastSquareConfiguration. "
         "See LSSOLLeastSquareOptions for an example.");
