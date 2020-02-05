@@ -84,7 +84,7 @@ ADD_OPTION_GET_SET(optionName, type)
 
 #define ADD_NON_DEFAULT_OPTION(optionName, defaultValue)                  \
 private:                                                                  \
-  using optionName##_t = std::remove_const_t<decltype(defaultValue)>;     \
+  using optionName##_t = std::remove_const<decltype(defaultValue)>::type; \
   solver::internal::Option<optionName##_t> optionName##_ = defaultValue;  \
 ADD_OPTION_GET_SET(optionName, optionName##_t)
 
