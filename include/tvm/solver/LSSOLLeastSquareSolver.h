@@ -53,7 +53,6 @@ namespace solver
     ADD_DEFAULT_OPTION      (persistence,         bool)
     ADD_DEFAULT_OPTION      (printLevel,          int)
     ADD_DEFAULT_OPTION      (rankTol,             double)
-    ADD_DEFAULT_OPTION      (type,                Eigen::lssol::eType)
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
     ADD_NON_DEFAULT_OPTION  (warm,                true)
 

@@ -57,7 +57,6 @@ namespace solver
     PROCESS_OPTION(persistence,        ls_)
     PROCESS_OPTION(printLevel,         ls_)
     PROCESS_OPTION(rankTol,            ls_)
-    PROCESS_OPTION(type,               ls_)
     PROCESS_OPTION(warm,               ls_)
   }
 
