@@ -46,6 +46,7 @@ namespace solver
     , bineq_(b_.tail(0))
     , big_number_(options.big_number().value())
     , cholesky_(options.cholesky().value())
+    , choleskyDamping_(options.choleskyDamping().value())
     , eps_(options.eps().value())
     , autoMinNorm_(false)
   {
@@ -55,7 +56,15 @@ namespace solver
   {
     int n = variables().totalSize();
     int m0 = me + mi;
-    D_.resize(m1, n);
+    underspecifiedObj_ = m1 < n;
+    if (cholesky_ && underspecifiedObj_)
+    {
+      D_.resize(m1 + n, n);
+      D_.bottomRows(n).setZero();
+      D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
+    }
+    else
+      D_.resize(m1, n);
     e_.resize(m1);
     if (!cholesky_)
       Q_.resize(n, n);
@@ -66,9 +75,17 @@ namespace solver
     xu_ = Eigen::VectorXd::Constant(n, +big_number_);
     new(&Aineq_) MatrixXdBottom(A_.bottomRows(mi));
     new(&bineq_) VectorXdTail(b_.tail(mi));
-    qld_.problem(n, me, mi);
+    if (underspecifiedObj_)
+      qld_.problem(n, me, mi, n+m1);
+    else
+      qld_.problem(n, me, mi);
     if (cholesky_)
-      new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1, n);
+    {
+      if (underspecifiedObj_)
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1+n, n);
+      else
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1, n);
+    }
 
     autoMinNorm_ = false;
   }
@@ -115,7 +132,7 @@ namespace solver
   {
     if (!autoMinNorm_)
     {
-      c_.noalias() = D_.transpose() * e_;
+      c_.noalias() = D_.topRows(m1_).transpose() * e_;
 
       if (cholesky_)
       {
@@ -157,7 +174,10 @@ namespace solver
   void QLDLeastSquareSolver::printProblemData_() const
   {
     if (cholesky_)
-      std::cout << "R =\n" << qr_.matrixQR().template triangularView<Eigen::Upper>().toDenseMatrix() << std::endl;
+    {
+      int n = variables().totalSize();
+      std::cout << "R =\n" << qr_.matrixQR().topRows(n).template triangularView<Eigen::Upper>().toDenseMatrix() << std::endl;
+    }
     else
       std::cout << "`Q =\n" << Q_ << std::endl;
     std::cout << "c = " << c_.transpose() << std::endl;

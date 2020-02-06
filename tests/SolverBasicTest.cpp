@@ -108,10 +108,12 @@ void minimalKin()
 
   scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(true));
   scheme::WeightedLeastSquares solver2(solver::QLDLeastSquareOptions().verbose(true));
+  scheme::WeightedLeastSquares solver3(solver::QLDLeastSquareOptions().verbose(true).cholesky(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
     solver2.solve(lpb);
+    solver3.solve(lpb);
 
     double dt = 0.01;
     x->value(x->value() + dot(x, 1)->value()*dt);

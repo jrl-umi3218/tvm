@@ -47,6 +47,7 @@ namespace solver
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     ADD_NON_DEFAULT_OPTION  (cholesky,            false)
+    ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-8)
     ADD_NON_DEFAULT_OPTION  (eps,                 1e-6)
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
   public:
@@ -95,11 +96,14 @@ namespace solver
     Eigen::HouseholderQR<Eigen::MatrixXd> qr_; //TODO add option for ColPiv variant
 
     bool autoMinNorm_;
+    bool underspecifiedObj_; //true when m1<n
 
     //options
     double big_number_;
     double eps_;
     bool   cholesky_; //compute the Cholesky decomposition before calling the solver.
+    double choleskyDamping_; // if m1<n, the cholesky factor R is trapezoidal. A multiple of 
+                             // the identity is used to make it triangulare using this value.
   };
 
   /** A factory class to create QLDLeastSquareSolver instances with a given
