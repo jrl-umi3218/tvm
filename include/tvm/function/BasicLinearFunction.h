@@ -34,6 +34,8 @@
 #include <tvm/internal/MatrixProperties.h>
 #include <tvm/utils/AffineExpr.h>
 
+#include <utility>
+
 namespace tvm
 {
 

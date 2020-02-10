@@ -32,7 +32,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
-#include <eigen/Core>
+#include <Eigen/Core>
 
 namespace tvm
 {
@@ -48,6 +48,9 @@ namespace internal
   /** Type of -Eigen::MatrixXd::Identity() */
   using MinusIdentityType = decltype(-Eigen::MatrixXd::Identity());
 
+  /** A dummy class to represent the absence of constant part in an affine expression. */
+  class NoConstant {};
+
   /** Shortcut to an internal Eigen type to store expressions or matrices.
     * 
     * When keeping internally a reference to an Eigen object, we need to have different behaviors
@@ -58,10 +61,18 @@ namespace internal
     * in e.g.CWiseBinaryOp.
     */
   template<typename Derived>
-  using RefSelector_t = typename Eigen::internal::ref_selector<Derived>::type;
+  struct RefSelector
+  {
+    using type = typename Eigen::internal::ref_selector<Derived>::type;
+  };
+  template<>
+  struct RefSelector<NoConstant>
+  {
+    using type = NoConstant;
+  };
 
-  /** A dummy class to represent the absence of constant part in an affine expression. */
-  class NoConstant {};
+  template<typename Derived>
+  using RefSelector_t = typename RefSelector<Derived>::type;
 
   /** Adding two existing constant parts together.*/
   template<typename LhsType, typename RhsType>
@@ -119,7 +130,7 @@ namespace internal
   struct CstMult<NoConstant>
   {
     template<typename MultType>
-    static NoConstant run(const MultType& m, const NoConstant& c) { return c; }
+    static NoConstant run(const MultType& /*m*/, const NoConstant& c) { return c; }
   };
 }
 }
