@@ -31,7 +31,7 @@
 
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
-#include <eigen-qld/QLD.h>
+#include <eigen-qld/QLDDirect.h>
 
 #include <Eigen/QR>
 
@@ -92,7 +92,7 @@ namespace solver
     MatrixXdBottom Aineq_; //part of A_ corresponding to inequality constraints
     VectorXdTail bineq_; //part of B_ corresponding to inequality constraints
 
-    Eigen::QLD qld_;
+    Eigen::QLDDirect qld_;
     Eigen::HouseholderQR<Eigen::MatrixXd> qr_; //TODO add option for ColPiv variant
 
     bool autoMinNorm_;

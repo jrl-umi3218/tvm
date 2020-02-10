@@ -99,14 +99,14 @@ namespace solver
   void QLDLeastSquareSolver::addEqualityConstraint_(LinearConstraintPtr cstr)
   {
     RangePtr r = std::make_shared<Range>(eqSize_, cstr->size());
-    scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
+    scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::OPPOSITE);
     addAssignement(cstr, nullptr, target, variables(), *substitutions());
   }
 
   void QLDLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
   {
     RangePtr r = std::make_shared<Range>(ineqSize_, constraintSize(cstr));
-    scheme::internal::AssignmentTarget target(r, Aineq_, bineq_, constraint::Type::LOWER_THAN, constraint::RHS::AS_GIVEN);
+    scheme::internal::AssignmentTarget target(r, Aineq_, bineq_, constraint::Type::GREATER_THAN, constraint::RHS::OPPOSITE);
     addAssignement(cstr, nullptr, target, variables(), *substitutions());
   }
 
@@ -151,17 +151,17 @@ namespace solver
     {
       int n = variables().totalSize();
       return qld_.solve(qr_.matrixQR().topRows(n), c_,
-                        A_.topRows(me_), b_.head(me_),
-                        A_.bottomRows(mi_), b_.tail(mi_),
-                        xl_, xu_, 
+                        A_, b_,
+                        xl_, xu_,
+                        me_,
                         true, eps_);
     }
     else
     {
       return qld_.solve(Q_, c_,
-                        A_.topRows(me_), b_.head(me_),
-                        A_.bottomRows(mi_), b_.tail(mi_),
-                        xl_, xu_, 
+                        A_, b_,
+                        xl_, xu_,
+                        me_,
                         false, eps_);
     }
   }
