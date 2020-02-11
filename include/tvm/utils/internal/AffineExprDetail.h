@@ -135,3 +135,14 @@ namespace internal
 }
 }
 }
+
+namespace Eigen
+{
+namespace internal
+{
+template<>
+struct traits<tvm::utils::internal::NoConstant> : public traits<tvm::utils::internal::IdentityType>
+{
+};
+}
+}
