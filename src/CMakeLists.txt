@@ -231,7 +231,7 @@ target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::ei
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
-set_target_properties(TVM PROPERTIES CXX_STANDARD 11)
+set_target_properties(TVM PROPERTIES CXX_STANDARD 17)
 
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")
