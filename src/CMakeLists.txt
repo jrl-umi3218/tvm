@@ -69,6 +69,7 @@ set(TVM_SOURCES
   solver/LeastSquareSolver.cpp
   solver/LSSOLLeastSquareSolver.cpp
   solver/QLDLeastSquareSolver.cpp
+  solver/QuadprogLeastSquareSolver.cpp
 
   task_dynamics/Constant.cpp
   task_dynamics/None.cpp
@@ -183,6 +184,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/solver/internal/Option.h
   ${TVM_INCLUDE_DIR}/solver/LSSOLLeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/QLDLeastSquareSolver.h
+  ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h
   
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
@@ -225,7 +227,7 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::eigen-lssol eigen-qld::eigen-qld mc_rbdyn_urdf::mc_rbdyn_urdf)
+target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::eigen-lssol eigen-qld::eigen-qld eigen-quadprog::eigen-quadprog mc_rbdyn_urdf::mc_rbdyn_urdf)
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)

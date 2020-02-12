@@ -12,6 +12,7 @@
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/LSSOLLeastSquareSolver.h>
 #include <tvm/solver/QLDLeastSquareSolver.h>
+#include <tvm/solver/QuadprogLeastSquareSolver.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -109,11 +110,15 @@ void minimalKin()
   scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(true));
   scheme::WeightedLeastSquares solver2(solver::QLDLeastSquareOptions().verbose(true));
   scheme::WeightedLeastSquares solver3(solver::QLDLeastSquareOptions().verbose(true).cholesky(true));
+  scheme::WeightedLeastSquares solver4(solver::QuadprogLeastSquareOptions().verbose(true));
+  scheme::WeightedLeastSquares solver5(solver::QuadprogLeastSquareOptions().verbose(true).cholesky(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
     solver2.solve(lpb);
     solver3.solve(lpb);
+    solver4.solve(lpb);
+    solver5.solve(lpb);
 
     double dt = 0.01;
     x->value(x->value() + dot(x, 1)->value()*dt);

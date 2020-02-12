@@ -31,34 +31,36 @@
 
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
-#include <eigen-qld/QLDDirect.h>
-
 #include <Eigen/QR>
+
+#include <eigen-quadprog/QuadProg.h>
 
 namespace tvm
 {
 
 namespace solver
 {
-  class QLDLeastSquareConfiguration;
+  class QuadprogLeastSquareConfiguration;
 
-  /** A set of options for QLDLeastSquareSolver */
-  class TVM_DLLAPI QLDLeastSquareOptions
+  /** A set of options for QuadprogLeastSquareSolver */
+  class TVM_DLLAPI QuadprogLeastSquareOptions
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     ADD_NON_DEFAULT_OPTION  (cholesky,            false)
-    ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-8)
-    ADD_NON_DEFAULT_OPTION  (eps,                 1e-6)
+    ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-7)
+    ADD_NON_DEFAULT_OPTION  (damping,             1e-12)
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
+
   public:
-    using Config = QLDLeastSquareConfiguration;
+    using Config = QuadprogLeastSquareConfiguration;
   };
 
-  /** An encapsulation of the QLD solver, to solve linear least-squares problems. */
-  class TVM_DLLAPI QLDLeastSquareSolver : public abstract::LeastSquareSolver
+
+  /** An encapsulation of the Quadprog solver, to solve linear least-squares problems. */
+  class TVM_DLLAPI QuadprogLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    QLDLeastSquareSolver(const QLDLeastSquareOptions & options = {});
+    QuadprogLeastSquareSolver(const QuadprogLeastSquareOptions& options = {});
 
   protected:
     void initializeBuild_(int m1, int me, int mi, bool useBounds) override;
@@ -71,14 +73,14 @@ namespace solver
     void postAssignmentProcess_() override;
     bool solve_() override;
     virtual const Eigen::VectorXd& result_() const override;
-    bool handleDoubleSidedConstraint_() const override { return false; }
+    bool handleDoubleSidedConstraint_() const override { return true; }
 
     void printProblemData_() const override;
     void printDiagnostic_() const override;
 
   private:
-    using VectorXdTail = decltype(Eigen::VectorXd().tail(1));
-    using MatrixXdBottom = decltype(Eigen::MatrixXd().bottomRows(1));
+    using VectorXdSeg = decltype(Eigen::VectorXd().segment(0,1));
+    using MatrixXdRows = decltype(Eigen::MatrixXd().middleRows(0,1));
 
     Eigen::MatrixXd D_;   //We have Q = D^T D
     Eigen::VectorXd e_;   //We have c = D^t e
@@ -86,41 +88,43 @@ namespace solver
     Eigen::VectorXd c_;
     Eigen::MatrixXd A_;
     Eigen::VectorXd b_;
-    Eigen::VectorXd xl_;
-    Eigen::VectorXd xu_;
 
-    MatrixXdBottom Aineq_; //part of A_ corresponding to inequality constraints
-    VectorXdTail bineq_; //part of b_ corresponding to inequality constraints
+    MatrixXdRows Aineq_; //part of A_ corresponding to inequality constraints
+    VectorXdSeg bineq_; //part of b_ corresponding to inequality constraints
+    VectorXdSeg xl_;    //part of b_ corresponding to lower bound constraints
+    VectorXdSeg xu_;    //part of b_ corresponding to uppor bound constraints
 
-    Eigen::QLDDirect qld_;
+    Eigen::QuadProgDense qpd_;
     Eigen::HouseholderQR<Eigen::MatrixXd> qr_; //TODO add option for ColPiv variant
 
     bool autoMinNorm_;
     bool underspecifiedObj_; //true when m1<n
+    int mib_; //number of inequality constraints including bounds.
 
     //options
     double big_number_;
-    double eps_;
-    bool   cholesky_; //compute the Cholesky decomposition before calling the solver.
+    double damping_;  // value added to the diagonal of Q for regularization (non Cholesky case)
+    bool   cholesky_; // compute the Cholesky decomposition before calling the solver.
     double choleskyDamping_; // if m1<n, the cholesky factor R is trapezoidal. A multiple of 
                              // the identity is used to make it triangular using this value.
   };
 
-  /** A factory class to create QLDLeastSquareSolver instances with a given
-  * set of options.
-  */
-  class TVM_DLLAPI QLDLeastSquareConfiguration : public abstract::LeastSquareConfiguration
+  
+  /** A factory class to create QuadprogLeastSquareSolver instances with a given
+    * set of options.
+    */
+  class TVM_DLLAPI QuadprogLeastSquareConfiguration : public abstract::LeastSquareConfiguration
   {
   public:
     /** Creation of a configuration from a set of options*/
-    QLDLeastSquareConfiguration(const QLDLeastSquareOptions & options = {});
+    QuadprogLeastSquareConfiguration(const QuadprogLeastSquareOptions& options = {});
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
-    QLDLeastSquareOptions options_;
+    QuadprogLeastSquareOptions options_;
   };
 
-}
+} // solver
 
-}
+} // tvm

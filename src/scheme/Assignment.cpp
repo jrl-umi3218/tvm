@@ -304,6 +304,8 @@ namespace internal
     // We also know that the target is compatible with the source + substitution,
     // and that it can't be of type EQUAL.
 
+    assert(target_.constraintType() != Type::EQUAL);
+
     if (target_.constraintType() == Type::DOUBLE_SIDED)
     {
       switch (source_->type())
