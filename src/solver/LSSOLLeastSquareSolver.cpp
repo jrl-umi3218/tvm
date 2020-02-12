@@ -60,7 +60,7 @@ namespace solver
     PROCESS_OPTION(warm,               ls_)
   }
 
-  void LSSOLLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool useBounds)
+  void LSSOLLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool)
   {
     int n = variables().totalSize();
     int m0 = me + mi;

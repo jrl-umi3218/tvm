@@ -102,7 +102,7 @@ namespace scheme
     template<class SolverOptions,
       typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
     WeightedLeastSquares(const SolverOptions& solverOptions, double scalarizationWeight = 1000)
-      :WeightedLeastSquares(SolverOptions::Config(solverOptions), scalarizationWeight)
+      :WeightedLeastSquares(typename SolverOptions::Config(solverOptions), scalarizationWeight)
     {
     }
 
@@ -111,7 +111,7 @@ namespace scheme
       */
     template<typename T, 
       typename std::enable_if<!isConfig<T>::value && !isOption<T>::value, int>::type = 0>
-    WeightedLeastSquares(const T& t, double scalarizationWeight = 1000)
+    WeightedLeastSquares([[maybe_unused]] const T& t, [[maybe_unused]] double scalarizationWeight = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
     {
       static_assert(tvm::internal::always_false<T>::value, 

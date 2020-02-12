@@ -52,7 +52,7 @@ namespace solver
   {
   }
 
-  void QLDLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool useBounds)
+  void QLDLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool)
   {
     int n = variables().totalSize();
     int m0 = me + mi;

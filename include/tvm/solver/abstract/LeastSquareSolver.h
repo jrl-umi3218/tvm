@@ -64,6 +64,7 @@ namespace abstract
     LeastSquareSolver(bool verbose = false);
     LeastSquareSolver(const LeastSquareSolver&) = delete;
     LeastSquareSolver& operator=(const LeastSquareSolver&) = delete;
+    virtual ~LeastSquareSolver() = default;
     /** Open a build sequence for a problem on the current variables (set 
       * through the inherited ProblemComputationData::addVariable) with the
       * specified dimensions, allocating the memory needed.
