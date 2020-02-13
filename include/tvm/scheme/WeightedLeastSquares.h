@@ -111,7 +111,7 @@ namespace scheme
       */
     template<typename T, 
       typename std::enable_if<!isConfig<T>::value && !isOption<T>::value, int>::type = 0>
-    WeightedLeastSquares([[maybe_unused]] const T& t, [[maybe_unused]] double scalarizationWeight = 1000)
+    WeightedLeastSquares(const T&, double = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
     {
       static_assert(tvm::internal::always_false<T>::value, 
