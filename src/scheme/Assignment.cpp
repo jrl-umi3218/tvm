@@ -71,10 +71,15 @@ namespace internal
     : source_(source)
     , target_(target)
     , requirements_(nullptr)
+    , scalarWeight_(1)
+    , minusScalarWeight_(-1)
+    , anisotropicWeight_()
+    , minusAnisotropicWeight_()
+    , useDefaultScalarWeight_(true)
+    , useDefaultAnisotropicWeight_(true)
   {
     checkBounds();
     assert(source->variables()[0] == variable);
-    scalarWeight_ = 1;
     build(variable, first);
   }
 
