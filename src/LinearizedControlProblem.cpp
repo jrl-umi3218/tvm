@@ -99,6 +99,15 @@ namespace tvm
     return substitutions_;
   }
 
+  VariableVector LinearizedControlProblem::variables() const
+  {
+    VariableVector variables;
+    for (auto c : constraints_)
+      variables.add(c.second.constraint->variables());
+
+    return variables;
+  }
+
   std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constraints() const
   {
     std::vector<LinearConstraintWithRequirements> constraints;
