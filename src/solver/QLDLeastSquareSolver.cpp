@@ -192,6 +192,11 @@ namespace solver
     std::cout << "QLD fail code = " << qld_.fail() << " (0 is success)" << std::endl;
   }
 
+  std::unique_ptr<abstract::LeastSquareConfiguration> QLDLeastSquareConfiguration::clone() const
+  {
+    return std::make_unique<QLDLeastSquareConfiguration>(*this);
+  }
+
   QLDLeastSquareConfiguration::QLDLeastSquareConfiguration(const QLDLeastSquareOptions& options)
     : LeastSquareConfiguration("qld")
     , options_(options)

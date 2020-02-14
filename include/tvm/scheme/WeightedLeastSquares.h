@@ -85,7 +85,7 @@ namespace scheme
     WeightedLeastSquares(const SolverConfig& solverConfig, double scalarizationWeight = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
       , scalarizationWeight_(scalarizationWeight)
-      , solverConfig_(new SolverConfig(solverConfig))
+      , solverConfig_(solverConfig.clone())
     {
     }
 

@@ -116,6 +116,8 @@ namespace solver
   class TVM_DLLAPI QuadprogLeastSquareConfiguration : public abstract::LeastSquareConfiguration
   {
   public:
+    std::unique_ptr<abstract::LeastSquareConfiguration> clone() const override;
+    
     /** Creation of a configuration from a set of options*/
     QuadprogLeastSquareConfiguration(const QuadprogLeastSquareOptions& options = {});
 

@@ -111,6 +111,7 @@ namespace solver
     /** Creation of a configuration from a set of options*/
     LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options = {});
 
+    std::unique_ptr<abstract::LeastSquareConfiguration> clone() const override;
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:

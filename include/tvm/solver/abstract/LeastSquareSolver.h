@@ -208,6 +208,9 @@ namespace abstract
       : solverName_(solverName) {}
 
   public:
+    virtual ~LeastSquareConfiguration() = default;
+
+    virtual std::unique_ptr<LeastSquareConfiguration> clone() const = 0;
     virtual std::unique_ptr<LeastSquareSolver> createSolver() const = 0;
 
   private:

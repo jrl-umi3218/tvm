@@ -147,7 +147,7 @@ namespace solver
 
   void QuadprogLeastSquareSolver::preAssignmentProcess_()
   {
-    //signs on xl will be flipped later so we nned to reinitialize
+    //signs on xl will be flipped later so we need to reinitialize
     xl_.setConstant(-big_number_);
   }
 
@@ -217,6 +217,11 @@ namespace solver
   void QuadprogLeastSquareSolver::printDiagnostic_() const
   {
     std::cout << "Quadprog fail code = " << qpd_.fail() << " (0 is success)" << std::endl;
+  }
+
+  std::unique_ptr<abstract::LeastSquareConfiguration> QuadprogLeastSquareConfiguration::clone() const
+  {
+    return std::make_unique<QuadprogLeastSquareConfiguration>(*this);
   }
 
   QuadprogLeastSquareConfiguration::QuadprogLeastSquareConfiguration(const QuadprogLeastSquareOptions& options)

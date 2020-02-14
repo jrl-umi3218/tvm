@@ -158,6 +158,11 @@ namespace solver
   {
   }
   
+  std::unique_ptr<abstract::LeastSquareConfiguration> LSSOLLeastSquareConfiguration::clone() const
+  {
+    return std::make_unique<LSSOLLeastSquareConfiguration>(*this);
+  }
+
   std::unique_ptr<abstract::LeastSquareSolver> LSSOLLeastSquareConfiguration::createSolver() const
   {
     return std::make_unique<LSSOLLeastSquareSolver>(options_);
