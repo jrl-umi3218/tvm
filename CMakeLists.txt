@@ -79,7 +79,7 @@ add_project_dependency(mc_rbdyn_urdf REQUIRED)
 # For MSVC, set local environment variable to enable finding the built dll
 # of the main library when launching ctest with RUN_TESTS
 if(MSVC)
-  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration)")
+  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
 endif(MSVC)
 
 add_subdirectory(3rd-party)
