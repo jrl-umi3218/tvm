@@ -40,12 +40,12 @@ constexpr double MIN_PRESSURE = 15; // [N]
 /** Problem weights and their square roots.
  *
  */
-constexpr double COMPLIANCE_WEIGHT = 100.;
-constexpr double COMPLIANCE_WEIGHT_SQRT = 10.;
-constexpr double NET_WRENCH_WEIGHT = 10000.;
-constexpr double NET_WRENCH_WEIGHT_SQRT = 100.;
-constexpr double PRESSURE_WEIGHT = 1.;
-constexpr double PRESSURE_WEIGHT_SQRT = 1.;
+const double COMPLIANCE_WEIGHT = 100.;
+const double COMPLIANCE_WEIGHT_SQRT = std::sqrt(COMPLIANCE_WEIGHT);
+const double NET_WRENCH_WEIGHT = 10000.;
+const double NET_WRENCH_WEIGHT_SQRT = std::sqrt(NET_WRENCH_WEIGHT);
+const double PRESSURE_WEIGHT = 1.;
+const double PRESSURE_WEIGHT_SQRT = std::sqrt(PRESSURE_WEIGHT);
 
 /** Robot state for wrench distribution.
  *
@@ -161,8 +161,8 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   auto A_la = A.block<6, 6>(6, 0);
   auto A_ra = A.block<6, 6>(12, 6);
   // anisotropic weights:  taux, tauy, tauz,   fx,   fy,   fz;
-  A_la.diagonal() << ankleWeights.cwiseSqrt();
-  A_ra.diagonal() << ankleWeights.cwiseSqrt();
+  A_la.diagonal() = ankleWeights.cwiseSqrt();
+  A_ra.diagonal() = ankleWeights.cwiseSqrt();
   A_la *= X_0_la.dualMatrix();
   A_ra *= X_0_ra.dualMatrix();
 
@@ -261,30 +261,16 @@ TEST_CASE("WrenchDistribQP")
   VariablePtr w_l_0 = wrenchSpace.createVariable("w_l_0");
   VariablePtr w_r_0 = wrenchSpace.createVariable("w_r_0");
 
-  auto leftFootFric = std::make_shared<function::BasicLinearFunction>(wrenchFaceMatrix * X_0_lc.dualMatrix(), w_l_0);
-  auto rightFootFric = std::make_shared<function::BasicLinearFunction>(wrenchFaceMatrix * X_0_rc.dualMatrix(), w_r_0);
-  auto leftFootMinPressure = std::make_shared<function::BasicLinearFunction>(X_0_lc.dualMatrix().bottomRows<1>(), w_l_0);
-  auto rightFootMinPressure = std::make_shared<function::BasicLinearFunction>(X_0_rc.dualMatrix().bottomRows<1>(), w_r_0);
-  auto netWrench = std::make_shared<function::BasicLinearFunction>(
-      std::vector<MatrixConstRef>{Matrix6d::Identity(), Matrix6d::Identity()},
-      std::vector<VariablePtr>{w_l_0, w_r_0},
-      -w_d.vector());
-  auto leftAnkleWrench = std::make_shared<function::BasicLinearFunction>(X_0_la.dualMatrix(), w_l_0);
-  auto rightAnkleWrench = std::make_shared<function::BasicLinearFunction>(X_0_ra.dualMatrix(), w_r_0);
-  auto pressureRatio = std::make_shared<function::BasicLinearFunction>(1, std::vector<VariablePtr>{w_l_0, w_r_0});
-  pressureRatio->A((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>(), *w_l_0);
-  pressureRatio->A(-robot.lfr * X_0_rc.dualMatrix().bottomRows<1>(), *w_r_0);
-  pressureRatio->b((Eigen::MatrixXd(1, 1) << 0).finished());
-
   LinearizedControlProblem problem;
-  auto leftFootFricTask         = problem.add(leftFootFric <= 0.                  , { PriorityLevel(0) });
-  auto rightFootFricTask        = problem.add(rightFootFric <= 0.                 , { PriorityLevel(0) });
-  auto leftFootMinPressureTask  = problem.add(leftFootMinPressure >= MIN_PRESSURE , { PriorityLevel(0) });
-  auto rightFootMinPressureTask = problem.add(rightFootMinPressure >= MIN_PRESSURE, { PriorityLevel(0) });
-  auto netWrenchTask            = problem.add(netWrench == 0.                     , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
-  auto leftAnkleWrenchTask      = problem.add(leftAnkleWrench == 0.               , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
-  auto rightAnkleWrenchTask     = problem.add(rightAnkleWrench == 0.              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
-  auto pressureRatioTask        = problem.add(pressureRatio == 0.                 , { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
+  auto leftFootFricTask         = problem.add(wrenchFaceMatrix * X_0_lc.dualMatrix() * w_l_0 <= 0.           , { PriorityLevel(0) });
+  auto rightFootFricTask        = problem.add(wrenchFaceMatrix * X_0_rc.dualMatrix() * w_r_0 <= 0.           , { PriorityLevel(0) });
+  auto leftFootMinPressureTask  = problem.add(X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
+  auto rightFootMinPressureTask = problem.add(X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
+  auto netWrenchTask            = problem.add(w_l_0 + w_r_0 == w_d.vector()                                  , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
+  auto leftAnkleWrenchTask      = problem.add(X_0_la.dualMatrix() * w_l_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto rightAnkleWrenchTask     = problem.add(X_0_ra.dualMatrix() * w_r_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
+  auto pressureRatioTask        = problem.add((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 
+                                               - robot.lfr * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 == 0, { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
   // First problem with initial left foot ratio
   scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions().verbose(VERBOSE));
@@ -294,6 +280,7 @@ TEST_CASE("WrenchDistribQP")
   Vector6d w_r_ra1 = X_0_ra.dualMatrix() * w_r_0->value();
 
   // Second problem with complementary left foot ratio
+  auto pressureRatio = std::static_pointer_cast<function::BasicLinearFunction>(pressureRatioTask->task.function());
   robot.lfr = 1. - robot.lfr;
   pressureRatio->A((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>(), *w_l_0);
   pressureRatio->A(-robot.lfr * X_0_rc.dualMatrix().bottomRows<1>(), *w_r_0);

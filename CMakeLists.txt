@@ -15,6 +15,7 @@ include(cmake/msvc-specific.cmake)
 # Disable -Werror on Unix for now.
 set(CXX_DISABLE_WERROR True)
 set(DOXYGEN_USE_MATHJAX "YES")
+set(DOXYGEN_DISTRIBUTE_GROUP_DOC YES)
 
 project(TVM CXX)
 
