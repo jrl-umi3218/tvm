@@ -94,6 +94,7 @@ TEST_CASE("Test AffineExpr compilation and validity")
   TEST_AFFINE_EXPR((A * x + B * y) + (C * z + C * w + e),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(NoConstant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w),     x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with constant) + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y + d) + (C * z + C * w + e), x, vx, y, vy, z, vz, w, vw) // AffineExpr = AffineExpr(with complex constant) + AffineExpr(with complex constant)
+  TEST_AFFINE_EXPR(A * x + (C * z + B * x),                   x, vx, z, vz)               // AffineExpr = LinearExpr + AffineExpr (with duplicated variable)
 
   TEST_AFFINE_EXPR(A * x + u,                                 x, vx, u, vu)
   TEST_AFFINE_EXPR(u + A * x,                                 x, vx, u, vu)
