@@ -49,7 +49,26 @@ namespace internal
   using MinusIdentityType = decltype(-Eigen::MatrixXd::Identity());
 
   /** A dummy class to represent the absence of constant part in an affine expression. */
-  class NoConstant {};
+  class NoConstant 
+  {
+  public:
+    NoConstant operator-() const { return {}; }
+  };
+
+  /** Adding an absent constant part with an existing constant part. */
+  template<typename RhsType>
+  inline const RhsType& operator+ (const NoConstant&, const Eigen::MatrixBase<RhsType>& rhs) { return rhs.derived(); }
+
+  /** Adding an existing constant part with an absent constant part. */
+  template<typename LhsType>
+  inline const LhsType& operator+ (const Eigen::MatrixBase<LhsType>& lhs, const NoConstant&) { return lhs.derived(); }
+
+  /** Adding two absent constant parts. */
+  inline auto operator+ (const NoConstant&, const NoConstant&) { return NoConstant(); }
+
+  /** Overload for post-multiplying by NoConstant. In this case, we need to return NoConstant.*/
+  template<typename MultType>
+  inline NoConstant operator* (const MultType& /*m*/, const NoConstant& c) { return {}; };
 
   /** Shortcut to an internal Eigen type to store expressions or matrices.
     * 
@@ -74,24 +93,9 @@ namespace internal
   template<typename Derived>
   using RefSelector_t = typename RefSelector<Derived>::type;
 
-  /** Adding two existing constant parts together.*/
-  template<typename LhsType, typename RhsType>
-  inline auto addConstants(const Eigen::MatrixBase<LhsType>& lhs, const Eigen::MatrixBase<RhsType>& rhs) { return lhs.derived() + rhs.derived(); }
-
-  /** Adding an absent constant part with an existing constant part. */
-  template<typename RhsType>
-  inline const RhsType& addConstants(const NoConstant&, const Eigen::MatrixBase<RhsType>& rhs) { return rhs.derived(); }
-
-  /** Adding an existing constant part with an absent constant part. */
-  template<typename LhsType>
-  inline const LhsType& addConstants(const Eigen::MatrixBase<LhsType>& lhs, const NoConstant&) { return lhs.derived(); }
-
-  /** Adding two absent constant parts. */
-  inline auto addConstants(const NoConstant&, const NoConstant&) { return NoConstant(); }
-
   /** Result type for the addition of two constant parts, existing or not.*/
   template<typename LhsType, typename RhsType>
-  using AddConstantsRetType = std::remove_const_t<std::remove_reference_t<decltype(addConstants(std::declval<LhsType>(), std::declval<RhsType>()))> >;
+  using AddConstantsRetType = std::remove_const_t<std::remove_reference_t<decltype(std::declval<LhsType>() + std::declval<RhsType>())> >;
 
   /** Taking the opposite of each element i of the input tuple where the i's
     * are the elements given by the sequence of index.
@@ -110,28 +114,6 @@ namespace internal
   {
     return std::make_tuple((m * std::get<Indices>(tuple))...);
   }
-
-  template<typename CstType>
-  inline auto cstUnaryMinus(const CstType& c) { return -c; }
-
-  template<>
-  inline auto cstUnaryMinus<NoConstant>(const NoConstant& c) { return c; }
-
-  /** Helper struct for premultiplication of an element of type CstType*/
-  template<typename CstType>
-  struct CstMult
-  {
-    template<typename MultType>
-    static auto run(const MultType& m, const CstType& c) { return m * c; }
-  };
-
-  /** Specialisation for the type NoConstant*/
-  template<>
-  struct CstMult<NoConstant>
-  {
-    template<typename MultType>
-    static NoConstant run(const MultType& /*m*/, const NoConstant& c) { return c; }
-  };
 }
 }
 }
@@ -140,6 +122,7 @@ namespace Eigen
 {
 namespace internal
 {
+/** This is required to get GCC to compile the SFINAE constructors. */
 template<>
 struct traits<tvm::utils::internal::NoConstant> : public traits<tvm::utils::internal::IdentityType>
 {

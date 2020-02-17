@@ -23,16 +23,16 @@ inline auto operator-(const tvm::utils::LinearExpr<Derived>& lin)
 template<typename CstDerived, typename... Derived>
 inline auto operator-(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff)
 {
-  return make_AffineExpr(tvm::utils::internal::cstUnaryMinus(aff.constant()), tvm::utils::internal::tupleUnaryMinus(aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
+  return make_AffineExpr(-aff.constant(), tvm::utils::internal::tupleUnaryMinus(aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
 }
 
-/** Aff = m*Aff, where a is any type accepted by Eigen for pre-multiplication 
-  * (in particular scalar or matrix expression.
+/** Aff = m*Aff, where \p m is any type accepted by Eigen for pre-multiplication 
+  * (in particular scalar or matrix expression).
   */
 template<typename MultDerived, typename CstDerived, typename... Derived>
 inline auto operator*(const MultDerived& m, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff)
 {
-  return make_AffineExpr(tvm::utils::internal::CstMult<CstDerived>::run(m, aff.constant()), tvm::utils::internal::tuplePremult(m, aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
+  return make_AffineExpr(m * aff.constant(), tvm::utils::internal::tuplePremult(m, aff.linear(), std::make_index_sequence<sizeof...(Derived)>{}));
 }
 
 /** Aff = Lin + b */
@@ -80,7 +80,7 @@ template<typename RhsDerived, typename CstDerived, typename ... LhsDerived>
 inline tvm::utils::AffineExpr<tvm::utils::internal::AddConstantsRetType<CstDerived, RhsDerived>, LhsDerived...>
 operator+(const tvm::utils::AffineExpr<CstDerived, LhsDerived...>& lhs, const Eigen::MatrixBase<RhsDerived>& rhs)
 {
-  return { tvm::utils::internal::addConstants(lhs.constant(), rhs), lhs.linear() };
+  return { lhs.constant() + rhs, lhs.linear() };
 }
 
 /** Aff = b + Aff */
@@ -88,7 +88,7 @@ template<typename LhsDerived, typename CstDerived, typename ... RhsDerived>
 inline tvm::utils::AffineExpr<tvm::utils::internal::AddConstantsRetType<LhsDerived, CstDerived>, RhsDerived...>
 operator+(const Eigen::MatrixBase<LhsDerived>& lhs, const tvm::utils::AffineExpr<CstDerived, RhsDerived...>& rhs)
 {
-  return { tvm::utils::internal::addConstants(lhs, rhs.constant()), rhs.linear() };
+  return { lhs + rhs.constant(), rhs.linear() };
 }
 
 /** Aff = Aff + Aff */
@@ -96,7 +96,7 @@ template<typename LCstDerived, typename RCstDerived, typename ... LhsDerived, ty
 inline tvm::utils::AffineExpr<tvm::utils::internal::AddConstantsRetType<LCstDerived, RCstDerived>, LhsDerived..., RhsDerived...>
 operator+(const tvm::utils::AffineExpr<LCstDerived, LhsDerived...>& lhs, const tvm::utils::AffineExpr<RCstDerived, RhsDerived...>& rhs)
 {
-  return { tvm::utils::internal::addConstants(lhs.constant(), rhs.constant()), std::tuple_cat(lhs.linear(), rhs.linear()) };
+  return { lhs.constant() + rhs.constant(), std::tuple_cat(lhs.linear(), rhs.linear()) };
 }
 
 /** Lin = m * Lin */
