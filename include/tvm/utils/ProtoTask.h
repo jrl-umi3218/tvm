@@ -147,7 +147,7 @@ namespace utils
   * (or l <= f <= u)
   *
   * \param f the function to form the task
-  * \param rhs a double or a Eigen::Vector with the sane size as the function.
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
   * Note that for a double you need to explicitely write a double (e.g 0.,
   * not 0), otherwise the compiler won't be able to decide wich overload to
   * pick between this and shared_ptr operator.
@@ -176,7 +176,7 @@ inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTas
 /** Conveniency operators to form a LinearProtoTask x op rhs (or l <= x <= u)
   *
   * \param x the variable used in the task
-  * \param rhs a double or a Eigen::Vector with the sane size as the function.
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
   * Note that for a double you need to explicitely write a double (e.g 0.,
   * not 0), otherwise the compiler won't be able to decide wich overload to
   * pick between this and shared_ptr operator.
@@ -199,7 +199,7 @@ inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS&
   *
   * \param lin the linear expression to form the task
   * \param aff the affine expression to form the task
-  * \param rhs a double or a Eigen::Vector with the sane size as the function.
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
   * Note that for a double you don't need to explicitely write a double (e.g 0.)
   * to the contrary of the operators working with shared_ptr on Function.
   */
