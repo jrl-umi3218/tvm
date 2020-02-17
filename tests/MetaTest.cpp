@@ -4,7 +4,7 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-#include <eigen/Core>
+#include <Eigen/Core>
 
 #include <tvm/utils/AffineExpr.h>
 
