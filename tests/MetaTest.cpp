@@ -43,20 +43,14 @@ constexpr std::false_type testTemplate(...) { return {}; }
 
 static_assert(testSimple(3));
 static_assert(!testSimple(6.));
+static_assert(decltype(testSimple(Eigen::MatrixXd()))::value);
+static_assert(!decltype(testSimple(Eigen::Matrix4d()))::value);
+static_assert(!decltype(testSimple(A()))::value);
 
-
-TEST_CASE("Enable_for_t")
-{
-  FAST_CHECK_UNARY(testSimple(Eigen::MatrixXd()));
-  FAST_CHECK_UNARY(!testSimple(Eigen::Matrix4d()));
-  FAST_CHECK_UNARY(!testSimple(A()));
-
-  FAST_CHECK_UNARY(testTemplate(Eigen::MatrixXd()));
-  FAST_CHECK_UNARY(testTemplate(Eigen::Matrix4d()));
-  FAST_CHECK_UNARY(!testTemplate(A()));
-  FAST_CHECK_UNARY(testTemplate(TemplatedClass<int, double>()));
-  FAST_CHECK_UNARY(testTemplate(TemplatedClassD1<int>()));
-  FAST_CHECK_UNARY(testTemplate(TemplatedClassD2()));
-  FAST_CHECK_UNARY(testTemplate(TemplatedClassD3()));
-
-}
+static_assert(decltype(testTemplate(Eigen::MatrixXd()))::value);
+static_assert(decltype(testTemplate(Eigen::Matrix4d()))::value);
+static_assert(!decltype(testTemplate(A()))::value);
+static_assert(decltype(testTemplate(TemplatedClass<int, double>()))::value);
+static_assert(decltype(testTemplate(TemplatedClassD1<int>()))::value);
+static_assert(decltype(testTemplate(TemplatedClassD2()))::value);
+static_assert(decltype(testTemplate(TemplatedClassD3()))::value);
