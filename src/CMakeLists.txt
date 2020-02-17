@@ -138,6 +138,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/IdProvider.h
   ${TVM_INCLUDE_DIR}/internal/MatrixProperties.h
   ${TVM_INCLUDE_DIR}/internal/MatrixWithProperties.h
+  ${TVM_INCLUDE_DIR}/internal/meta.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
@@ -183,11 +184,14 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
   ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
   
+  ${TVM_INCLUDE_DIR}/utils/AffineExpr.h
   ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
   ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
+  ${TVM_INCLUDE_DIR}/utils/internal/AffineExprDetail.h
+  ${TVM_INCLUDE_DIR}/utils/internal/AffineExprOperators.h
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
@@ -219,7 +223,7 @@ target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::ei
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
-set_target_properties(TVM PROPERTIES CXX_STANDARD 11)
+set_target_properties(TVM PROPERTIES CXX_STANDARD 17)
 
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")

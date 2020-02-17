@@ -68,7 +68,7 @@ namespace scheme
     using ComputationDataType = Memory;
 
     // FIXME temporary verbose parameter
-    WeightedLeastSquares(bool verbose = true, double scalarizationWeight = 1000);
+    WeightedLeastSquares(bool verbose = false, double scalarizationWeight = 1000);
 
     /** Private interface for CRTP*/
     bool solve_(LinearizedControlProblem& problem, Memory& memory) const;

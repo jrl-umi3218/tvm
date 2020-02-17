@@ -30,6 +30,7 @@
 #pragma once
 
 #include <tvm/api.h>
+#include <tvm/utils/AffineExpr.h>
 #include <tvm/utils/internal/ProtoTaskDetails.h>
 
 namespace tvm
@@ -143,14 +144,15 @@ namespace utils
 } // namespace tvm
 
 /** Conveniency operators to form a ProtoTask or LinearProtoTask f op rhs
-* (or l <= f <= u)
-*
-* \param f the function to form the task
-* \param rhs a double or a Eigen::Vector with the sane size as the function.
-* Note that for a double you need to explicitely write a double (e.g 0.,
-* not 0), otherwise the compiler won't be able to decide wich overload to
-* pick between this and shared_ptr operator.
-*/
+  * (or l <= f <= u)
+  *
+  * \param f the function to form the task
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
+  * Note that for a double you need to explicitely write a double (e.g 0.,
+  * not 0), otherwise the compiler won't be able to decide wich overload to
+  * pick between this and shared_ptr operator.
+  */
+/**@{*/
 template<typename F>
 inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
@@ -168,14 +170,64 @@ inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, co
 inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
 inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs) { return { ptl.f_, rhs, ptl.rhs_ }; }
 inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
+/**@}*/
 
 #define TVM_ID(x) std::make_shared<tvm::function::IdentityFunction>(x)
-
+/** Conveniency operators to form a LinearProtoTask x op rhs (or l <= x <= u)
+  *
+  * \param x the variable used in the task
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
+  * Note that for a double you need to explicitely write a double (e.g 0.,
+  * not 0), otherwise the compiler won't be able to decide wich overload to
+  * pick between this and shared_ptr operator.
+  */
+  /**@{*/
 inline tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) == rhs; }
 inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) == rhs; }
 inline tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) >= rhs; }
 inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) <= rhs; }
 inline tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) <= rhs; }
 inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) >= rhs; }
-
+/**@}*/
 #undef TVM_ID
+
+#define TVM_LIN(x) std::make_shared<tvm::function::BasicLinearFunction>(x)
+
+/** Conveniency operators to form a LinearProtoTask expr op rhs (or l <= expr <= u)
+  * where expr is a linear expression of the form matrixExpr * VariablePtr or an
+  * affine expression as a sum of linear expressions and vectorExpr.
+  *
+  * \param lin the linear expression to form the task
+  * \param aff the affine expression to form the task
+  * \param rhs a double or a Eigen::Vector with the same size as the function.
+  * Note that for a double you don't need to explicitely write a double (e.g 0.)
+  * to the contrary of the operators working with shared_ptr on Function.
+  */
+///@{
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) == rhs; }
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) == rhs; }
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) >= rhs; }
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) <= rhs; }
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) <= rhs; }
+template<typename Derived>
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) >= rhs; }
+
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) == rhs; }
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) == rhs; }
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) >= rhs; }
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) <= rhs; }
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) <= rhs; }
+template<typename CstDerived, typename... Derived>
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) >= rhs; }
+///@}
+#undef TVM_LIN

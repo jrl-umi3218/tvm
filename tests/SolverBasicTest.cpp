@@ -92,7 +92,6 @@ void minimalKin()
   auto sf = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
   auto idx = make_shared<function::IdentityFunction>(x);
-  auto damp = make_shared<function::IdentityFunction>(dot(q));
   auto df = make_shared<Difference>(rf, idx);
 
   VectorXd v = Vector2d::Zero();
@@ -102,9 +101,9 @@ void minimalKin()
   auto t1 = lpb.add(sf == 0., task_dynamics::P(2), { PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::P(2), { PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(damp == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t4 = lpb.add(dot(q) == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver(true);
+  scheme::WeightedLeastSquares solver;
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -135,7 +134,6 @@ void minimalKinSub()
   auto sf = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
   auto idx = make_shared<function::IdentityFunction>(x);
-  auto damp = make_shared<function::IdentityFunction>(dot(q));
   auto df = make_shared<Difference>(rf, idx);
 
   VectorXd v = Vector2d::Zero();
@@ -145,11 +143,11 @@ void minimalKinSub()
   auto t1 = lpb.add(sf == 0., task_dynamics::P(2), { PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::P(2), { PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(damp == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t4 = lpb.add(dot(q) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
-  scheme::WeightedLeastSquares solver(true);
+  scheme::WeightedLeastSquares solver;
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -185,7 +183,6 @@ void minimalDyn()
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
   auto idx = make_shared<function::IdentityFunction>(x);
   auto df = make_shared<Difference>(rf, idx);
-  auto damp = make_shared<function::IdentityFunction>(dot(q, 2));
 
   VectorXd v(2); v << 0, 0;
   Vector3d b = Vector3d::Constant(1.5);
@@ -195,9 +192,9 @@ void minimalDyn()
   auto t1 = lpb.add(sf == 0., task_dynamics::PD(50), { PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::PD(50), { PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(damp == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t4 = lpb.add(dot(q, 2) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver(false);
+  scheme::WeightedLeastSquares solver;
   for (int i = 0; i < 5000; ++i)
   {
     solver.solve(lpb);

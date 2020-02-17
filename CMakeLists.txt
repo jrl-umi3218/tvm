@@ -7,19 +7,22 @@ set(PROJECT_DEBUG_POSTFIX "_d")
 set(PROJECT_VERSION 0.8.0)
 set(PROJECT_USE_CMAKE_EXPORT TRUE)
 
+set(CMAKE_CXX_STANDARD 17)
+
 include(cmake/base.cmake)
 include(cmake/msvc-specific.cmake)
 
 # Disable -Werror on Unix for now.
 set(CXX_DISABLE_WERROR True)
 set(DOXYGEN_USE_MATHJAX "YES")
+set(DOXYGEN_DISTRIBUTE_GROUP_DOC YES)
 
 project(TVM CXX)
 
 if(NOT WIN32)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -std=c++0x -pedantic")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -pedantic")
 else()
-  add_definitions("-D_ENABLE_EXTENDED_ALIGNED_STORAGE")
+  add_definitions("-std:c++17 -D_SILENCE_CXX17_NEGATORS_DEPRECATION_WARNING -D_ENABLE_EXTENDED_ALIGNED_STORAGE")
 endif()
 
 
