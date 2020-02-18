@@ -156,12 +156,18 @@ namespace solver
     // we need to flip the signs for xl
     xl_ = -xl_;
 
+    // Quadprog does not solve least-square cost, but quadratic cost.
+    // We then either need to form the quadratic cost, or to get the Cholesky
+    // decomposition of this quadratic cost.
     if (!autoMinNorm_)
     {
+      // c = D^T e
       c_.noalias() = D_.topRows(nObj_).transpose() * e_;
 
       if (cholesky_)
       {
+        // The cholesky decomposition of Q = D^T D is given by the R factor of
+        // the QR decomposition of D: if D = U R with U orthogonal, D^T D = R^T R.
         int n = variables().totalSize();
         qr_.compute(D_);
         // we put R^{-1} in D
@@ -170,6 +176,7 @@ namespace solver
       }
       else
       {
+        // Q = D^T D
         Q_.noalias() = D_.transpose() * D_;   //TODO check if this can be optimized: Quadprog might need only half the matrix
         Q_.diagonal().array() += damping_;
       }

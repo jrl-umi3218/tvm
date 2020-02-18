@@ -115,10 +115,7 @@ namespace abstract
 
   void LeastSquareSolver::addBound(LinearConstraintPtr bound)
   {
-    if (!buildInProgress_)
-    {
-      throw std::runtime_error("[LeastSquareSolver]: attempting to add a bound without calling startBuild first");
-    }
+    assert(buildInProgress_ && "Attempting to add a bound without calling startBuild first");
     assert(bound->variables().numberOfVariables() == 1 && "A bound constraint can be only on one variable.");
     const auto& xi = bound->variables()[0];
     RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables())); //FIXME: for now we do not keep a pointer on the range nor the target.
@@ -131,10 +128,8 @@ namespace abstract
 
   void LeastSquareSolver::addConstraint(LinearConstraintPtr cstr)
   {
-    if (!buildInProgress_)
-    {
-      throw std::runtime_error("[LeastSquareSolver]: attempting to add a constraint without calling startBuild first");
-    }
+    assert(buildInProgress_ && "Attempting to add a constraint without calling startBuild first");
+
     AutoMap autoMap(cstr, assignments_, constraintToAssigments_);
     if (cstr->isEquality())
     {
@@ -151,11 +146,8 @@ namespace abstract
   void LeastSquareSolver::addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight)
   {
     assert(req->priorityLevel().value() != 0);
-    assert(req->violationEvaluation().value() == requirements::ViolationEvaluationType::L2);
-    if (!buildInProgress_)
-    {
-      throw std::runtime_error("[LeastSquareSolver]: attempting to add an objective without calling startBuild first");
-    }
+    assert(buildInProgress_ && "Attempting to add an objective without calling startBuild first");
+    
     if (req->violationEvaluation().value() != requirements::ViolationEvaluationType::L2)
     {
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
@@ -211,7 +203,7 @@ namespace abstract
 
   int LeastSquareSolver::constraintSize(const LinearConstraintPtr& c) const
   {
-    if (handleDoubleSidedConstraint_() || c->type() != constraint::Type::DOUBLE_SIDED)
+    if (c->type() != constraint::Type::DOUBLE_SIDED || handleDoubleSidedConstraint_())
     {
       return c->size();
     }
