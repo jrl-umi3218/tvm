@@ -55,54 +55,54 @@ namespace solver
   {
   }
 
-  void QuadprogLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool useBounds)
+  void QuadprogLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds)
   {
     int n = variables().totalSize();
-    int m0 = me + mi;
-    underspecifiedObj_ = m1 < n;
+    int nCstr = nEq + nIneq;
+    underspecifiedObj_ = nObj < n;
     if (cholesky_ && underspecifiedObj_)
     {
-      D_.resize(m1 + n, n);
+      D_.resize(nObj + n, n);
       D_.bottomRows(n).setZero();
       D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
     }
     else
-      D_.resize(m1, n);
-    e_.resize(m1);
+      D_.resize(nObj, n);
+    e_.resize(nObj);
     if (!cholesky_)
       Q_.resize(n, n);
     c_.resize(n);
     if (useBounds)
     {
-      mib_ = mi + 2 * n;
-      A_.resize(m0+2*n, n);
-      b_.resize(m0+2*n);
-      A_.middleRows(m0, n).setIdentity();
-      A_.middleRows(m0, n).diagonal() *= -1;
+      nIneqInclBounds_ = nIneq + 2 * n;
+      A_.resize(nCstr+2*n, n);
+      b_.resize(nCstr+2*n);
+      A_.middleRows(nCstr, n).setIdentity();
+      A_.middleRows(nCstr, n).diagonal() *= -1;
       A_.bottomRows(n).setIdentity();
-      new(&xl_) VectorXdSeg(b_.segment(m0, n));
-      new(&xu_) VectorXdSeg(b_.segment(m0 + n, n));
+      new(&xl_) VectorXdSeg(b_.segment(nCstr, n));
+      new(&xu_) VectorXdSeg(b_.segment(nCstr + n, n));
       xl_.setConstant(-big_number_);
       xu_.setConstant(+big_number_);
     }
     else
     {
-      mib_ = mi;
-      A_.resize(m0, n);
-      b_.resize(m0);
+      nIneqInclBounds_ = nIneq;
+      A_.resize(nCstr, n);
+      b_.resize(nCstr);
     }
-    new(&Aineq_) MatrixXdRows(A_.middleRows(me, mi));
-    new(&bineq_) VectorXdSeg(b_.tail(mi));
+    new(&Aineq_) MatrixXdRows(A_.middleRows(nEq, nIneq));
+    new(&bineq_) VectorXdSeg(b_.tail(nIneq));
     if (useBounds)
-      qpd_.problem(n, me, mi + 2 * n);
+      qpd_.problem(n, nEq, nIneq + 2 * n);
     else
-      qpd_.problem(n, me, mi);
+      qpd_.problem(n, nEq, nIneq);
     if (cholesky_)
     {
       if (underspecifiedObj_)
-        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1 + n, n);
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj + n, n);
       else
-        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1, n);
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj, n);
     }
 
     autoMinNorm_ = false;
@@ -158,7 +158,7 @@ namespace solver
 
     if (!autoMinNorm_)
     {
-      c_.noalias() = D_.topRows(m1_).transpose() * e_;
+      c_.noalias() = D_.topRows(nObj_).transpose() * e_;
 
       if (cholesky_)
       {
@@ -182,15 +182,15 @@ namespace solver
     {
       int n = variables().totalSize();
       return qpd_.solve(D_.topRows(n), c_,
-        A_.topRows(me_), b_.topRows(me_),
-        A_.bottomRows(mib_), b_.bottomRows(mib_),
+        A_.topRows(nEq_), b_.topRows(nEq_),
+        A_.bottomRows(nIneqInclBounds_), b_.bottomRows(nIneqInclBounds_),
         true);
     }
     else
     {
       return qpd_.solve(Q_, c_,
-        A_.topRows(me_), b_.topRows(me_),
-        A_.bottomRows(mib_), b_.bottomRows(mib_),
+        A_.topRows(nEq_), b_.topRows(nEq_),
+        A_.bottomRows(nIneqInclBounds_), b_.bottomRows(nIneqInclBounds_),
         false);
     }
   }

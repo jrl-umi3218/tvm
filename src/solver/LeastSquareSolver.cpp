@@ -51,11 +51,11 @@ namespace abstract
   {
   }
 
-  void LeastSquareSolver::startBuild(const VariableVector& x, int m1, int me, int mi, bool useBounds, const hint::internal::Substitutions& subs)
+  void LeastSquareSolver::startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds, const hint::internal::Substitutions& subs)
   {
-    assert(m1 >= 0);
-    assert(me >= 0);
-    assert(mi >= 0);
+    assert(nObj >= 0);
+    assert(nEq >= 0);
+    assert(nIneq >= 0);
 
     buildInProgress_ = true;
     variables_ = &x;
@@ -67,10 +67,10 @@ namespace abstract
 
     subs_ = &subs;
 
-    initializeBuild_(m1, me, mi, useBounds);
-    me_ = me;
-    mi_ = mi;
-    m1_ = m1;
+    initializeBuild_(nObj, nEq, nIneq, useBounds);
+    nEq_ = nEq;
+    nIneq_ = nIneq;
+    nObj_ = nObj;
     objSize_ = 0;
     eqSize_ = 0;
     ineqSize_ = 0;
@@ -78,9 +78,9 @@ namespace abstract
 
   void LeastSquareSolver::finalizeBuild()
   {
-    assert(m1_ == objSize_);
-    assert(me_ == eqSize_);
-    assert(mi_ == ineqSize_);
+    assert(nObj_ == objSize_);
+    assert(nEq_ == eqSize_);
+    assert(nIneq_ == ineqSize_);
     buildInProgress_ = false;
   }
 
@@ -138,7 +138,7 @@ namespace abstract
 
   void LeastSquareSolver::setMinimumNorm()
   {
-    assert(m1_ == variables().totalSize());
+    assert(nObj_ == variables().totalSize());
     if (!buildInProgress_)
     {
       throw std::runtime_error("[LeastSquareSolver]: attempting to add an objective without calling startBuild first");

@@ -65,9 +65,9 @@ namespace scheme
     std::vector<LinearConstraintWithRequirements> bounds;
 
     //scanning constraints
-    int me = 0;
-    int mi = 0;
-    int m1 = 0;
+    int nEq = 0;
+    int nIneq = 0;
+    int nObj = 0;
     int maxp = 0;
     for (const auto& c : constraints)
     {
@@ -87,15 +87,15 @@ namespace scheme
         if (p == 0)
         {
           if (c.constraint->isEquality())
-            me += solver.constraintSize(c.constraint);
+            nEq += solver.constraintSize(c.constraint);
           else
-            mi += solver.constraintSize(c.constraint);
+            nIneq += solver.constraintSize(c.constraint);
         }
         else
         {
           if (c.constraint->type() != constraint::Type::EQUAL)
             throw std::runtime_error("This scheme do not handle inequality constraints with priority level > 0.");
-          m1 += c.constraint->size();  //note: we cannot have double sided constraints at this level.
+          nObj += c.constraint->size();  //note: we cannot have double sided constraints at this level.
           maxp = std::max(maxp, p);
         }
         constr.push_back(c);
@@ -105,14 +105,14 @@ namespace scheme
     // They are added at level 0
     for (const auto& c : subs.additionalConstraints())
     {
-      me += c->size();
+      nEq += c->size();
       constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
     }
 
     bool autoMinNorm = false;
-    if (m1 == 0)
+    if (nObj == 0)
     {
-      m1 = memory->variables().totalSize();
+      nObj = memory->variables().totalSize();
       autoMinNorm = true;
     }
 
@@ -120,7 +120,7 @@ namespace scheme
     Assignment::big_ = big_number_;
 
     //allocating memory for the solver
-    solver.startBuild(memory->variables(), m1, me, mi, bounds.size() > 0, subs);
+    solver.startBuild(memory->variables(), nObj, nEq, nIneq, bounds.size() > 0, subs);
     //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
 
     //assigments for general constraints

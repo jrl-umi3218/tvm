@@ -60,21 +60,21 @@ namespace solver
     PROCESS_OPTION(warm,               ls_)
   }
 
-  void LSSOLLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool)
+  void LSSOLLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
   {
     int n = variables().totalSize();
-    int m0 = me + mi;
-    A_.resize(m1, n);
+    int nCstr = nEq + nIneq;
+    A_.resize(nObj, n);
     A_.setZero();
-    C_.resize(m0, n);
+    C_.resize(nCstr, n);
     C_.setZero();
-    b_.resize(m1);
+    b_.resize(nObj);
     b_.setZero();
-    l_ = Eigen::VectorXd::Constant(m0 + n, -big_number_);
-    u_ = Eigen::VectorXd::Constant(m0 + n, +big_number_);
-    new(&cl_) VectorXdTail(l_.tail(m0));
-    new(&cu_) VectorXdTail(u_.tail(m0));
-    ls_.resize(n, m0, Eigen::lssol::eType::LS1);
+    l_ = Eigen::VectorXd::Constant(nCstr + n, -big_number_);
+    u_ = Eigen::VectorXd::Constant(nCstr + n, +big_number_);
+    new(&cl_) VectorXdTail(l_.tail(nCstr));
+    new(&cu_) VectorXdTail(u_.tail(nCstr));
+    ls_.resize(n, nCstr, Eigen::lssol::eType::LS1);
 
     autoMinNorm_ = false;
   }

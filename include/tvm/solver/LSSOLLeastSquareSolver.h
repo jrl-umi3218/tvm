@@ -68,7 +68,7 @@ namespace solver
     LSSOLLeastSquareSolver(const LSSOLLeastSquareOptions& options = {});
 
   protected:
-    void initializeBuild_(int m1, int me, int mi, bool useBounds) override;
+    void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) override;
     void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) override;
     void addEqualityConstraint_(LinearConstraintPtr cstr) override;
     void addIneqalityConstraint_(LinearConstraintPtr cstr) override;

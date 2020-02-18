@@ -52,39 +52,39 @@ namespace solver
   {
   }
 
-  void QLDLeastSquareSolver::initializeBuild_(int m1, int me, int mi, bool)
+  void QLDLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
   {
     int n = variables().totalSize();
-    int m0 = me + mi;
-    underspecifiedObj_ = m1 < n;
+    int nCstr = nEq + nIneq;
+    underspecifiedObj_ = nObj < n;
     if (cholesky_ && underspecifiedObj_)
     {
-      D_.resize(m1 + n, n);
+      D_.resize(nObj + n, n);
       D_.bottomRows(n).setZero();
       D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
     }
     else
-      D_.resize(m1, n);
-    e_.resize(m1);
+      D_.resize(nObj, n);
+    e_.resize(nObj);
     if (!cholesky_)
       Q_.resize(n, n);
     c_.resize(n);
-    A_.resize(m0, n);
-    b_.resize(m0);
+    A_.resize(nCstr, n);
+    b_.resize(nCstr);
     xl_ = Eigen::VectorXd::Constant(n, -big_number_);
     xu_ = Eigen::VectorXd::Constant(n, +big_number_);
-    new(&Aineq_) MatrixXdBottom(A_.bottomRows(mi));
-    new(&bineq_) VectorXdTail(b_.tail(mi));
+    new(&Aineq_) MatrixXdBottom(A_.bottomRows(nIneq));
+    new(&bineq_) VectorXdTail(b_.tail(nIneq));
     if (underspecifiedObj_)
-      qld_.problem(n, me, mi, n+m1);
+      qld_.problem(n, nEq, nIneq, n+nObj);
     else
-      qld_.problem(n, me, mi);
+      qld_.problem(n, nEq, nIneq);
     if (cholesky_)
     {
       if (underspecifiedObj_)
-        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1+n, n);
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj+n, n);
       else
-        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(m1, n);
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj, n);
     }
 
     autoMinNorm_ = false;
@@ -132,7 +132,7 @@ namespace solver
   {
     if (!autoMinNorm_)
     {
-      c_.noalias() = D_.topRows(m1_).transpose() * e_;
+      c_.noalias() = D_.topRows(nObj_).transpose() * e_;
 
       if (cholesky_)
       {
@@ -153,7 +153,7 @@ namespace solver
       return qld_.solve(qr_.matrixQR().topRows(n), c_,
                         A_, b_,
                         xl_, xu_,
-                        me_,
+                        nEq_,
                         true, eps_);
     }
     else
@@ -161,7 +161,7 @@ namespace solver
       return qld_.solve(Q_, c_,
                         A_, b_,
                         xl_, xu_,
-                        me_,
+                        nEq_,
                         false, eps_);
     }
   }

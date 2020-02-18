@@ -31,7 +31,7 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
-#include "tvm/hint/internal/Substitutions.h"
+#include <tvm/hint/internal/Substitutions.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/solver/internal/Option.h>
 #include <tvm/utils/internal/map.h>
@@ -70,9 +70,9 @@ namespace abstract
       * specified dimensions, allocating the memory needed.
       *
       * \param x The variables of the problem. The object need to be valid until ::finalizeBuild is called.
-      * \param m1 Row size of A.
-      * \param me Row size of C_e.
-      * \param mi Row size of C_i.
+      * \param nObj Row size of A.
+      * \param nEq Row size of C_e.
+      * \param nIneq Row size of C_i.
       * \param useBounds Presence of explicit bounds in the problem.
       * \param subs Possible substitutions used for solving.
       *
@@ -80,7 +80,7 @@ namespace abstract
       * through ::addObjective, ::addConstraint and ::addBound, until
       * ::finalizeBuild is called.
       */
-    void startBuild(const VariableVector& x, int m1, int me, int mi, bool useBounds = true, const hint::internal::Substitutions& subs = {});
+    void startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds = true, const hint::internal::Substitutions& subs = {});
     /** Finalize the build.*/
     void finalizeBuild();
 
@@ -120,7 +120,7 @@ namespace abstract
     int constraintSize(const LinearConstraintPtr& c) const;
 
   protected:
-    virtual void initializeBuild_(int m1, int me, int mi, bool useBounds) = 0;
+    virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
     virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
     virtual void addEqualityConstraint_(LinearConstraintPtr cstr) = 0;
     virtual void addIneqalityConstraint_(LinearConstraintPtr cstr) = 0;
@@ -170,9 +170,9 @@ namespace abstract
     };
 
   protected:
-    int me_;
-    int mi_;
-    int m1_;
+    int nEq_;
+    int nIneq_;
+    int nObj_;
     int objSize_;
     int eqSize_;
     int ineqSize_;

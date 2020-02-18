@@ -61,7 +61,7 @@ namespace solver
     QLDLeastSquareSolver(const QLDLeastSquareOptions & options = {});
 
   protected:
-    void initializeBuild_(int m1, int me, int mi, bool useBounds) override;
+    void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) override;
     void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) override;
     void addEqualityConstraint_(LinearConstraintPtr cstr) override;
     void addIneqalityConstraint_(LinearConstraintPtr cstr) override;
@@ -96,13 +96,13 @@ namespace solver
     Eigen::HouseholderQR<Eigen::MatrixXd> qr_; //TODO add option for ColPiv variant
 
     bool autoMinNorm_;
-    bool underspecifiedObj_; //true when m1<n
+    bool underspecifiedObj_; //true when nObj<n
 
     //options
     double big_number_;
     double eps_;
     bool   cholesky_; //compute the Cholesky decomposition before calling the solver.
-    double choleskyDamping_; // if m1<n, the cholesky factor R is trapezoidal. A multiple of 
+    double choleskyDamping_; // if nObj<n, the cholesky factor R is trapezoidal. A multiple of 
                              // the identity is used to make it triangular using this value.
   };
 
