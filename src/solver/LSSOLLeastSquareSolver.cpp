@@ -41,7 +41,7 @@ namespace tvm
 
 namespace solver
 {
-  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(const LSSOLLeastSquareOptions& options)
+  LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(const LSSOLLSSolverOptions& options)
     : LeastSquareSolver(options.verbose().value())
     , cl_(l_.tail(0))
     , cu_(u_.tail(0))
@@ -152,18 +152,18 @@ namespace solver
   }
 
 
-  LSSOLLeastSquareConfiguration::LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options)
-    : LeastSquareConfiguration("lssol")
+  LSSOLLSSolverFactory::LSSOLLSSolverFactory(const LSSOLLSSolverOptions& options)
+    : LSSolverFactory("lssol")
     , options_(options)
   {
   }
   
-  std::unique_ptr<abstract::LeastSquareConfiguration> LSSOLLeastSquareConfiguration::clone() const
+  std::unique_ptr<abstract::LSSolverFactory> LSSOLLSSolverFactory::clone() const
   {
-    return std::make_unique<LSSOLLeastSquareConfiguration>(*this);
+    return std::make_unique<LSSOLLSSolverFactory>(*this);
   }
 
-  std::unique_ptr<abstract::LeastSquareSolver> LSSOLLeastSquareConfiguration::createSolver() const
+  std::unique_ptr<abstract::LeastSquareSolver> LSSOLLSSolverFactory::createSolver() const
   {
     return std::make_unique<LSSOLLeastSquareSolver>(options_);
   }

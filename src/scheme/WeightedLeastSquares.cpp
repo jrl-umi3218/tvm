@@ -55,7 +55,7 @@ namespace scheme
 
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
-    auto memory = std::unique_ptr<Memory>(new Memory(id(), solverConfig_->createSolver()));
+    auto memory = std::unique_ptr<Memory>(new Memory(id(), solverFactory_->createSolver()));
     auto& solver = *memory->solver;
 
     const auto& constraints = problem.constraints();

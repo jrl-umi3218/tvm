@@ -398,7 +398,7 @@ static void BM_TVM(benchmark::State & state)
 
   lpb.add(tvm::hint::Substitution(lpb.constraint(dyn_task.get()), hrp2->tau()));
 
-  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLeastSquareConfiguration{});
+  tvm::scheme::WeightedLeastSquares solver(tvm::solver::LSSOLLSSolverFactory{});
 
   while(state.KeepRunning())
   {

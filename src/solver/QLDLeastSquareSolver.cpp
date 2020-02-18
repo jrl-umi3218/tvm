@@ -40,7 +40,7 @@ namespace tvm
 
 namespace solver
 {
-  QLDLeastSquareSolver::QLDLeastSquareSolver(const QLDLeastSquareOptions& options)
+  QLDLeastSquareSolver::QLDLeastSquareSolver(const QLDLSSolverOptions& options)
     : LeastSquareSolver(options.verbose().value())
     , Aineq_(A_.bottomRows(0))
     , bineq_(b_.tail(0))
@@ -192,18 +192,18 @@ namespace solver
     std::cout << "QLD fail code = " << qld_.fail() << " (0 is success)" << std::endl;
   }
 
-  std::unique_ptr<abstract::LeastSquareConfiguration> QLDLeastSquareConfiguration::clone() const
+  std::unique_ptr<abstract::LSSolverFactory> QLDLSSolverFactory::clone() const
   {
-    return std::make_unique<QLDLeastSquareConfiguration>(*this);
+    return std::make_unique<QLDLSSolverFactory>(*this);
   }
 
-  QLDLeastSquareConfiguration::QLDLeastSquareConfiguration(const QLDLeastSquareOptions& options)
-    : LeastSquareConfiguration("qld")
+  QLDLSSolverFactory::QLDLSSolverFactory(const QLDLSSolverOptions& options)
+    : LSSolverFactory("qld")
     , options_(options)
   {
   }
 
-  std::unique_ptr<abstract::LeastSquareSolver> QLDLeastSquareConfiguration::createSolver() const
+  std::unique_ptr<abstract::LeastSquareSolver> QLDLSSolverFactory::createSolver() const
   {
     return std::make_unique<QLDLeastSquareSolver>(options_);
   }

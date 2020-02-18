@@ -56,7 +56,7 @@ namespace abstract
     * optionnal.
     *
     * When deriving this class, also remember to derive the factory class
-    * LeastSquareConfiguration as well.
+    * LSSolverFactory as well.
     */
   class TVM_DLLAPI LeastSquareSolver
   {
@@ -179,16 +179,16 @@ namespace abstract
    * The goal of this class is to be passed to a resolution scheme to specify
    * its underlying solver.
    */
-  class TVM_DLLAPI LeastSquareConfiguration
+  class TVM_DLLAPI LSSolverFactory
   {
   protected:
-    LeastSquareConfiguration(const std::string& solverName) 
+    LSSolverFactory(const std::string& solverName) 
       : solverName_(solverName) {}
 
   public:
-    virtual ~LeastSquareConfiguration() = default;
+    virtual ~LSSolverFactory() = default;
 
-    virtual std::unique_ptr<LeastSquareConfiguration> clone() const = 0;
+    virtual std::unique_ptr<LSSolverFactory> clone() const = 0;
     virtual std::unique_ptr<LeastSquareSolver> createSolver() const = 0;
 
   private:

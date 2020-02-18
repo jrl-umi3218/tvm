@@ -38,10 +38,10 @@ namespace tvm
 
 namespace solver
 {
-  class LSSOLLeastSquareConfiguration;
+  class LSSOLLSSolverFactory;
 
   /** A set of options for LSSOLLeastSquareSolver */
-  class TVM_DLLAPI LSSOLLeastSquareOptions
+  class TVM_DLLAPI LSSOLLSSolverOptions
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     ADD_DEFAULT_OPTION      (crashTol,            double)
@@ -57,7 +57,7 @@ namespace solver
     ADD_NON_DEFAULT_OPTION  (warm,                true)
 
   public:
-    using Config = LSSOLLeastSquareConfiguration;
+    using Factory = LSSOLLSSolverFactory;
   };
 
 
@@ -65,7 +65,7 @@ namespace solver
   class TVM_DLLAPI LSSOLLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    LSSOLLeastSquareSolver(const LSSOLLeastSquareOptions& options = {});
+    LSSOLLeastSquareSolver(const LSSOLLSSolverOptions& options = {});
 
   protected:
     void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) override;
@@ -105,17 +105,17 @@ namespace solver
   /** A factory class to create LSSOLLeastSquareSolver instances with a given
     * set of options.
     */
-  class TVM_DLLAPI LSSOLLeastSquareConfiguration : public abstract::LeastSquareConfiguration
+  class TVM_DLLAPI LSSOLLSSolverFactory : public abstract::LSSolverFactory
   {
   public:
     /** Creation of a configuration from a set of options*/
-    LSSOLLeastSquareConfiguration(const LSSOLLeastSquareOptions& options = {});
+    LSSOLLSSolverFactory(const LSSOLLSSolverOptions& options = {});
 
-    std::unique_ptr<abstract::LeastSquareConfiguration> clone() const override;
+    std::unique_ptr<abstract::LSSolverFactory> clone() const override;
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
-    LSSOLLeastSquareOptions options_;
+    LSSOLLSSolverOptions options_;
   };
 
 }

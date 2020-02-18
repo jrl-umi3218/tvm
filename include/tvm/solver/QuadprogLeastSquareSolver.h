@@ -40,10 +40,10 @@ namespace tvm
 
 namespace solver
 {
-  class QuadprogLeastSquareConfiguration;
+  class QuadprogLSSolverFactory;
 
   /** A set of options for QuadprogLeastSquareSolver */
-  class TVM_DLLAPI QuadprogLeastSquareOptions
+  class TVM_DLLAPI QuadprogLSSolverOptions
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     ADD_NON_DEFAULT_OPTION  (cholesky,            false)
@@ -52,7 +52,7 @@ namespace solver
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
 
   public:
-    using Config = QuadprogLeastSquareConfiguration;
+    using Factory = QuadprogLSSolverFactory;
   };
 
 
@@ -60,7 +60,7 @@ namespace solver
   class TVM_DLLAPI QuadprogLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    QuadprogLeastSquareSolver(const QuadprogLeastSquareOptions& options = {});
+    QuadprogLeastSquareSolver(const QuadprogLSSolverOptions& options = {});
 
   protected:
     void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) override;
@@ -113,18 +113,18 @@ namespace solver
   /** A factory class to create QuadprogLeastSquareSolver instances with a given
     * set of options.
     */
-  class TVM_DLLAPI QuadprogLeastSquareConfiguration : public abstract::LeastSquareConfiguration
+  class TVM_DLLAPI QuadprogLSSolverFactory : public abstract::LSSolverFactory
   {
   public:
-    std::unique_ptr<abstract::LeastSquareConfiguration> clone() const override;
+    std::unique_ptr<abstract::LSSolverFactory> clone() const override;
     
     /** Creation of a configuration from a set of options*/
-    QuadprogLeastSquareConfiguration(const QuadprogLeastSquareOptions& options = {});
+    QuadprogLSSolverFactory(const QuadprogLSSolverOptions& options = {});
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
-    QuadprogLeastSquareOptions options_;
+    QuadprogLSSolverOptions options_;
   };
 
 } // solver

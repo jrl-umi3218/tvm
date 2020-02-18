@@ -41,7 +41,7 @@ namespace tvm
 
 namespace solver
 {
-  QuadprogLeastSquareSolver::QuadprogLeastSquareSolver(const QuadprogLeastSquareOptions& options)
+  QuadprogLeastSquareSolver::QuadprogLeastSquareSolver(const QuadprogLSSolverOptions& options)
     : LeastSquareSolver(options.verbose().value())
     , Aineq_(A_.middleRows(0,0))
     , bineq_(b_.segment(0, 0))
@@ -219,18 +219,18 @@ namespace solver
     std::cout << "Quadprog fail code = " << qpd_.fail() << " (0 is success)" << std::endl;
   }
 
-  std::unique_ptr<abstract::LeastSquareConfiguration> QuadprogLeastSquareConfiguration::clone() const
+  std::unique_ptr<abstract::LSSolverFactory> QuadprogLSSolverFactory::clone() const
   {
-    return std::make_unique<QuadprogLeastSquareConfiguration>(*this);
+    return std::make_unique<QuadprogLSSolverFactory>(*this);
   }
 
-  QuadprogLeastSquareConfiguration::QuadprogLeastSquareConfiguration(const QuadprogLeastSquareOptions& options)
-    : LeastSquareConfiguration("quadprog")
+  QuadprogLSSolverFactory::QuadprogLSSolverFactory(const QuadprogLSSolverOptions& options)
+    : LSSolverFactory("quadprog")
     , options_(options)
   {
   }
 
-  std::unique_ptr<abstract::LeastSquareSolver> QuadprogLeastSquareConfiguration::createSolver() const
+  std::unique_ptr<abstract::LeastSquareSolver> QuadprogLSSolverFactory::createSolver() const
   {
     return std::make_unique<QuadprogLeastSquareSolver>(options_);
   }

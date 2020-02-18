@@ -50,7 +50,7 @@ std::unique_ptr<LinearizedControlProblem> circleIK()
   return lpb;
 }
 
-void testSolvers(const std::unique_ptr<LinearizedControlProblem>& lpb, std::vector<std::shared_ptr<solver::abstract::LeastSquareConfiguration> > configs, double eps)
+void testSolvers(const std::unique_ptr<LinearizedControlProblem>& lpb, std::vector<std::shared_ptr<solver::abstract::LSSolverFactory> > configs, double eps)
 {
   VariableVector variables = lpb->variables();
   std::vector<VectorXd> solutions;
@@ -74,12 +74,12 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem>& lpb, std::vect
 TEST_CASE("Simple IK")
 {
   auto lpb = circleIK();
-  std::vector<std::shared_ptr<LeastSquareConfiguration> > configs = {
-    std::make_shared<LSSOLLeastSquareConfiguration>(),
-    std::make_shared<QLDLeastSquareConfiguration>(),
-    std::make_shared<QLDLeastSquareConfiguration>(QLDLeastSquareOptions().cholesky(true)),
-    std::make_shared<QuadprogLeastSquareConfiguration>(),
-    std::make_shared<QuadprogLeastSquareConfiguration>(QuadprogLeastSquareOptions().cholesky(true)) 
+  std::vector<std::shared_ptr<LSSolverFactory> > configs = {
+    std::make_shared<LSSOLLSSolverFactory>(),
+    std::make_shared<QLDLSSolverFactory>(),
+    std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)),
+    std::make_shared<QuadprogLSSolverFactory>(),
+    std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)) 
   };
 
   testSolvers(lpb, configs, 1e-6);

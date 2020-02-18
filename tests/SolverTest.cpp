@@ -61,7 +61,7 @@ TEST_CASE("Substitution")
     auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
     auto t4 = lpb.add(idq == 0., task_dynamics::None(), { requirements::PriorityLevel(1) });
 
-    scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareConfiguration{});
+    scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverFactory{});
     solver.solve(lpb);
     ddx0 = dot(x, 2)->value();
     ddq0 = dot(q, 2)->value();
@@ -98,7 +98,7 @@ TEST_CASE("Substitution")
 
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
-    scheme::WeightedLeastSquares solver(solver::LSSOLLeastSquareOptions{});
+    scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions{});
     solver.solve(lpb);
     ddxs = dot(x, 2)->value();
     ddqs = dot(q, 2)->value();

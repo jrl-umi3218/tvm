@@ -35,8 +35,8 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
-// Creating a class tvm::internal::has_member_type_Config<T>
-TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Config)
+// Creating a class tvm::internal::has_member_type_Factory<T>
+TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Factory)
 
 
 namespace tvm
@@ -60,38 +60,38 @@ namespace scheme
 
     const static internal::SchemeAbilities abilities_;
 
-    /** Check if T derives from LeastSquareSolverConfiguration. */
-    template<typename T> using isConfig = std::is_base_of<solver::abstract::LeastSquareConfiguration, T>;
+    /** Check if T derives from LSSolverFactory. */
+    template<typename T> using isFactory = std::is_base_of<solver::abstract::LSSolverFactory, T>;
     /** Helper struct for isOption .*/
     template<typename T, bool> struct isOption_ : std::false_type {};
     /** Helper struct specialization for isOption .*/
-    template<typename T> struct isOption_<T, true> { static const bool value = isConfig<typename T::Config>::value;  };
-    /** Check if T has a member T::Config and if so if T::Config derives from LeastSquareSolverConfiguration.*/
-    template<typename T> using isOption = isOption_<T, tvm::internal::has_member_type_Config<T>::value>;
+    template<typename T> struct isOption_<T, true> { static const bool value = isFactory<typename T::Factory>::value;  };
+    /** Check if T has a member T::Factory and if so if T::Factory derives from LSSolverFactory.*/
+    template<typename T> using isOption = isOption_<T, tvm::internal::has_member_type_Factory<T>::value>;
 
   public:
     using ComputationDataType = Memory;
 
-    /** Constructor from a LeastSquareConfiguration
-      * \tparam SolverConfig Any class deriving from LeastSquareConfiguration.
-      * \param solverConfig A configuration for the solver to be used by the resolution scheme.
+    /** Constructor from a LSSolverFactory
+      * \tparam SolverFactory Any class deriving from LSSolverFactory.
+      * \param solverFactory A configuration for the solver to be used by the resolution scheme.
       * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
       *    E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
       *    priority 2, the weighted least-squares problem will be assembled with weights
       *    \p scalarizationWeight * w1 and w2 for T1 and T2 respectively.
       */
-    template<class SolverConfig, 
-      typename std::enable_if<isConfig<SolverConfig>::value, int>::type = 0>
-    WeightedLeastSquares(const SolverConfig& solverConfig, double scalarizationWeight = 1000)
+    template<class SolverFactory, 
+      typename std::enable_if<isFactory<SolverFactory>::value, int>::type = 0>
+    WeightedLeastSquares(const SolverFactory& solverFactory, double scalarizationWeight = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
       , scalarizationWeight_(scalarizationWeight)
-      , solverConfig_(solverConfig.clone())
+      , solverFactory_(solverFactory.clone())
     {
     }
 
     /** Constructor from a configuration class
       * \tparam SolverOptions Any class representing solver options. The class must have a
-      *    member type \a Config refering to a class C deriving from LeastSquareConfiguration
+      *    member type \a Factory refering to a class C deriving from LSSolverFactory
       *    and such that C can be constructed from SolverOptions.
       * \param solverOptions A set of options for the solver to be used by the resolution scheme.
       * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
@@ -102,7 +102,7 @@ namespace scheme
     template<class SolverOptions,
       typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
     WeightedLeastSquares(const SolverOptions& solverOptions, double scalarizationWeight = 1000)
-      :WeightedLeastSquares(typename SolverOptions::Config(solverOptions), scalarizationWeight)
+      :WeightedLeastSquares(typename SolverOptions::Factory(solverOptions), scalarizationWeight)
     {
     }
 
@@ -110,14 +110,14 @@ namespace scheme
       * It always fails at compilation time to provide a nice error message.
       */
     template<typename T, 
-      typename std::enable_if<!isConfig<T>::value && !isOption<T>::value, int>::type = 0>
+      typename std::enable_if<!isFactory<T>::value && !isOption<T>::value, int>::type = 0>
     WeightedLeastSquares(const T&, double = 1000)
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
     {
       static_assert(tvm::internal::always_false<T>::value, 
-        "First argument can only be a LeastSquareConfiguration or a solver configuration. "
-        "A configuration needs to have a Config member type that is itself deriving from LeastSquareConfiguration. "
-        "See LSSOLLeastSquareOptions for an example.");
+        "First argument can only be a LSSolverFactory or a solver configuration. "
+        "A configuration needs to have a Factory member type that is itself deriving from LSSolverFactory. "
+        "See LSSOLLSSolverOptions for an example.");
     }
 
     /** \internal Copy and move are deleted because of the unique_ptr members of
@@ -136,7 +136,7 @@ namespace scheme
   protected:
     double scalarizationWeight_;
     /** The factory to create solvers attached to each problem. */
-    std::unique_ptr<solver::abstract::LeastSquareConfiguration> solverConfig_;
+    std::unique_ptr<solver::abstract::LSSolverFactory> solverFactory_;
   };
 
 }  // namespace scheme

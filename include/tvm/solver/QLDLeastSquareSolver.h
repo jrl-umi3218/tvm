@@ -40,10 +40,10 @@ namespace tvm
 
 namespace solver
 {
-  class QLDLeastSquareConfiguration;
+  class QLDLSSolverFactory;
 
   /** A set of options for QLDLeastSquareSolver */
-  class TVM_DLLAPI QLDLeastSquareOptions
+  class TVM_DLLAPI QLDLSSolverOptions
   {
     ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     ADD_NON_DEFAULT_OPTION  (cholesky,            false)
@@ -51,14 +51,14 @@ namespace solver
     ADD_NON_DEFAULT_OPTION  (eps,                 1e-6)
     ADD_NON_DEFAULT_OPTION  (verbose,             false)
   public:
-    using Config = QLDLeastSquareConfiguration;
+    using Factory = QLDLSSolverFactory;
   };
 
   /** An encapsulation of the QLD solver, to solve linear least-squares problems. */
   class TVM_DLLAPI QLDLeastSquareSolver : public abstract::LeastSquareSolver
   {
   public:
-    QLDLeastSquareSolver(const QLDLeastSquareOptions & options = {});
+    QLDLeastSquareSolver(const QLDLSSolverOptions & options = {});
 
   protected:
     void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) override;
@@ -109,18 +109,18 @@ namespace solver
   /** A factory class to create QLDLeastSquareSolver instances with a given
   * set of options.
   */
-  class TVM_DLLAPI QLDLeastSquareConfiguration : public abstract::LeastSquareConfiguration
+  class TVM_DLLAPI QLDLSSolverFactory : public abstract::LSSolverFactory
   {
   public:
-    std::unique_ptr<abstract::LeastSquareConfiguration> clone() const override;
+    std::unique_ptr<abstract::LSSolverFactory> clone() const override;
     
     /** Creation of a configuration from a set of options*/
-    QLDLeastSquareConfiguration(const QLDLeastSquareOptions & options = {});
+    QLDLSSolverFactory(const QLDLSSolverOptions & options = {});
 
     std::unique_ptr<abstract::LeastSquareSolver> createSolver() const override;
 
   private:
-    QLDLeastSquareOptions options_;
+    QLDLSSolverOptions options_;
   };
 
 }
