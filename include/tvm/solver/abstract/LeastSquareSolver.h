@@ -141,33 +141,11 @@ namespace abstract
     template<typename ... Args>
     void addAssignement(Args&& ... args);
 
-  private:
+  public:
     template<typename K, typename T> using map = utils::internal::map<K, T>;
     using AssignmentVector = std::vector<scheme::internal::Assignment>;
     using AssignmentPtrVector = std::vector<scheme::internal::Assignment*>;
     using MapToAssignment = map<constraint::abstract::LinearConstraint*, AssignmentPtrVector>;
-    /** Helper class relying on RAII to update automatically the map from a constraint to
-      * the corresponding assignments
-      */
-    class AutoMap
-    {
-    public:
-      /** Upon destruction of this object, pointers to all new elements in \a observed since
-        * calling this constructor will be added to \a target[cstr.get()].
-        */
-      AutoMap(LinearConstraintPtr cstr, AssignmentVector& observed, MapToAssignment& target)
-        : observedSize_(observed.size()), observed_(observed), target_(target[cstr.get()]) {}
-      ~AutoMap()
-      {
-        for (size_t i = observedSize_; i < observed_.size(); ++i)
-          target_.push_back(&observed_[i]);
-      }
-
-    private:
-      size_t observedSize_;
-      AssignmentVector& observed_;
-      AssignmentPtrVector& target_;
-    };
 
   protected:
     int nEq_;

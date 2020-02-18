@@ -32,6 +32,35 @@
 
 #include <iostream>
 
+
+namespace
+{
+  using namespace tvm;
+  using namespace tvm::solver::abstract;
+  /** Helper class relying on RAII to update automatically the map from a constraint to
+    * the corresponding assignments
+    */
+  class AutoMap
+  {
+  public:
+    /** Upon destruction of this object, pointers to all new elements in \a observed since
+      * calling this constructor will be added to \a target[cstr.get()].
+      */
+    AutoMap(LinearConstraintPtr cstr, LeastSquareSolver::AssignmentVector& observed, LeastSquareSolver::MapToAssignment& target)
+      : observedSize_(observed.size()), observed_(observed), target_(target[cstr.get()]) {}
+    ~AutoMap()
+    {
+      for (size_t i = observedSize_; i < observed_.size(); ++i)
+        target_.push_back(&observed_[i]);
+    }
+
+  private:
+    size_t observedSize_;
+    LeastSquareSolver::AssignmentVector& observed_;
+    LeastSquareSolver::AssignmentPtrVector& target_;
+  };
+}
+
 namespace tvm
 {
 
