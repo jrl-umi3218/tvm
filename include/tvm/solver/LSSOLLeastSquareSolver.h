@@ -43,18 +43,18 @@ namespace solver
   /** A set of options for LSSOLLeastSquareSolver */
   class TVM_DLLAPI LSSOLLSSolverOptions
   {
-    ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
-    ADD_DEFAULT_OPTION      (crashTol,            double)
-    ADD_DEFAULT_OPTION      (feasibilityMaxIter,  int)
-    ADD_NON_DEFAULT_OPTION  (feasibilityTol,      1e-6)
-    ADD_DEFAULT_OPTION      (infiniteBnd,         double)
-    ADD_DEFAULT_OPTION      (infiniteStep,        double)
-    ADD_DEFAULT_OPTION      (optimalityMaxIter,   int)
-    ADD_DEFAULT_OPTION      (persistence,         bool)
-    ADD_DEFAULT_OPTION      (printLevel,          int)
-    ADD_DEFAULT_OPTION      (rankTol,             double)
-    ADD_NON_DEFAULT_OPTION  (verbose,             false)
-    ADD_NON_DEFAULT_OPTION  (warm,                true)
+    TVM_ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
+    TVM_ADD_DEFAULT_OPTION      (crashTol,            double)
+    TVM_ADD_DEFAULT_OPTION      (feasibilityMaxIter,  int)
+    TVM_ADD_NON_DEFAULT_OPTION  (feasibilityTol,      1e-6)
+    TVM_ADD_DEFAULT_OPTION      (infiniteBnd,         double)
+    TVM_ADD_DEFAULT_OPTION      (infiniteStep,        double)
+    TVM_ADD_DEFAULT_OPTION      (optimalityMaxIter,   int)
+    TVM_ADD_DEFAULT_OPTION      (persistence,         bool)
+    TVM_ADD_DEFAULT_OPTION      (printLevel,          int)
+    TVM_ADD_DEFAULT_OPTION      (rankTol,             double)
+    TVM_ADD_NON_DEFAULT_OPTION  (verbose,             false)
+    TVM_ADD_NON_DEFAULT_OPTION  (warm,                true)
 
   public:
     using Factory = LSSOLLSSolverFactory;

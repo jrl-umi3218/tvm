@@ -30,66 +30,38 @@
 #pragma once
 
 #include <type_traits>
+#include <optional>
 
-namespace tvm
-{
-namespace solver
-{
-namespace internal
-{
-  /** A class representing a variable of type \a T, that can have an additional
-    * value \a default, signaled by the fact that \a keepDefault() returns 
-    * \a true.
-    * It is meant to be use as a solver option where the \a default value means
-    * that the solver option should not be changed.
-    */
-  template<typename T>
-  class Option
-  {
-  public:
-    /** Create a variable with the \a default value*/
-    Option() : keepDefault_(true), value_() {}
-    /** Create a variable with a non-default value*/
-    Option(const T& value) : keepDefault_(false), value_(value) {}
-    Option(const Option& other) = default;
-    Option(Option&& other) = default;
-
-    Option& operator=(const Option& other) = default;
-    /** Assign a non-dafault value.*/
-    Option& operator=(const T& value) { keepDefault_ = false; value_ = value; return *this; }
-
-    bool keepDefault() const { return keepDefault_; }
-    const T& value() const { return value_; }
-
-    void resetToDefault() { keepDefault_ = true; }
-
-  private:
-    bool keepDefault_;
-    T value_;
-  };
-} //internal
-} //solver
-} //tvm
-
-#define ADD_OPTION_GET_SET(optionName, type)                                          \
-public:                                                                               \
-  const solver::internal::Option<type>& optionName() const { return optionName##_; }  \
+/** Adding getter and setter for the option \a optionName of type \a type. */
+#define TVM_ADD_OPTION_GET_SET(optionName, type)                           \
+public:                                                                    \
+  const std::optional<type>& optionName() const { return optionName##_; }  \
   auto& optionName(const type& v) { optionName##_ = v; return *this; }
 
-#define ADD_DEFAULT_OPTION(optionName, type)    \
-private:                                        \
-  using optionName##_t = type;                  \
-  solver::internal::Option<type> optionName##_; \
-ADD_OPTION_GET_SET(optionName, type)
+/** Adding an option \a optionName of type \a type with no default value. 
+  * (The default value of the underlying solver will be used.
+  */
+#define TVM_ADD_DEFAULT_OPTION(optionName, type)  \
+private:                                          \
+  using optionName##_t = type;                    \
+  std::optional<type> optionName##_;              \
+TVM_ADD_OPTION_GET_SET(optionName, type)
 
-#define ADD_NON_DEFAULT_OPTION(optionName, defaultValue)                  \
-private:                                                                  \
-  using optionName##_t = std::remove_const<decltype(defaultValue)>::type; \
-  solver::internal::Option<optionName##_t> optionName##_ = defaultValue;  \
-ADD_OPTION_GET_SET(optionName, optionName##_t)
+/** Adding an option \a optionName with new default value \a defaultValue, that 
+  * will replace the value of the underlying solver.
+  */
+#define TVM_ADD_NON_DEFAULT_OPTION(optionName, defaultValue)          \
+private:                                                              \
+  using optionName##_t = std::remove_const_t<decltype(defaultValue)>; \
+  std::optional<optionName##_t> optionName##_ = defaultValue;         \
+TVM_ADD_OPTION_GET_SET(optionName, optionName##_t)
 
-#define PROCESS_OPTION_2(optionName, target, setterName)\
-if (!options.optionName().keepDefault())                \
+/** Process \a optionName: if \a optionName has a non-default value, use 
+  * \a target.setterName to set that value for \a target.
+  */
+#define TVM_PROCESS_OPTION_2(optionName, target, setterName)  \
+if (options.optionName())                                     \
   target.setterName(options.optionName().value());
 
-#define PROCESS_OPTION(optionName, target) PROCESS_OPTION_2(optionName, target, optionName)
+/** Specialized version of TVM_PROCESS_OPTION_2 where \a setterName = \a optionName. */
+#define TVM_PROCESS_OPTION(optionName, target) TVM_PROCESS_OPTION_2(optionName, target, optionName)

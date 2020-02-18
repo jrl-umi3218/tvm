@@ -45,11 +45,11 @@ namespace solver
   /** A set of options for QLDLeastSquareSolver */
   class TVM_DLLAPI QLDLSSolverOptions
   {
-    ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
-    ADD_NON_DEFAULT_OPTION  (cholesky,            false)
-    ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-8)
-    ADD_NON_DEFAULT_OPTION  (eps,                 1e-6)
-    ADD_NON_DEFAULT_OPTION  (verbose,             false)
+    TVM_ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
+    TVM_ADD_NON_DEFAULT_OPTION  (cholesky,            false)
+    TVM_ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-8)
+    TVM_ADD_NON_DEFAULT_OPTION  (eps,                 1e-6)
+    TVM_ADD_NON_DEFAULT_OPTION  (verbose,             false)
   public:
     using Factory = QLDLSSolverFactory;
   };

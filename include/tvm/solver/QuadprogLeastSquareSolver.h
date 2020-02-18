@@ -45,11 +45,11 @@ namespace solver
   /** A set of options for QuadprogLeastSquareSolver */
   class TVM_DLLAPI QuadprogLSSolverOptions
   {
-    ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
-    ADD_NON_DEFAULT_OPTION  (cholesky,            false)
-    ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-7)
-    ADD_NON_DEFAULT_OPTION  (damping,             1e-12)
-    ADD_NON_DEFAULT_OPTION  (verbose,             false)
+    TVM_ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
+    TVM_ADD_NON_DEFAULT_OPTION  (cholesky,            false)
+    TVM_ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-7)
+    TVM_ADD_NON_DEFAULT_OPTION  (damping,             1e-12)
+    TVM_ADD_NON_DEFAULT_OPTION  (verbose,             false)
 
   public:
     using Factory = QuadprogLSSolverFactory;
