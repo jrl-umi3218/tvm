@@ -35,8 +35,8 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
-// Creating a class has_member_type_Config<T>
-CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Config)
+// Creating a class tvm::internal::has_member_type_Config<T>
+TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Config)
 
 
 namespace tvm
@@ -67,7 +67,7 @@ namespace scheme
     /** Helper struct specialization for isOption .*/
     template<typename T> struct isOption_<T, true> { static const bool value = isConfig<typename T::Config>::value;  };
     /** Check if T has a member T::Config and if so if T::Config derives from LeastSquareSolverConfiguration.*/
-    template<typename T> using isOption = isOption_<T, has_member_type_Config<T>::value>;
+    template<typename T> using isOption = isOption_<T, tvm::internal::has_member_type_Config<T>::value>;
 
   public:
     using ComputationDataType = Memory;
@@ -78,7 +78,7 @@ namespace scheme
       * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
       *    E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
       *    priority 2, the weighted least-squares problem will be assembled with weights
-      *    1000*w1 and w2 for T1 and T2 respectively.
+      *    \p scalarizationWeight * w1 and w2 for T1 and T2 respectively.
       */
     template<class SolverConfig, 
       typename std::enable_if<isConfig<SolverConfig>::value, int>::type = 0>
@@ -97,7 +97,7 @@ namespace scheme
       * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
       *    E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
       *    priority 2, the weighted least-squares problem will be assembled with weights
-      *    1000*w1 and w2 for T1 and T2 respectively.
+      *    \p scalarizationWeight * w1 and w2 for T1 and T2 respectively.
       */
     template<class SolverOptions,
       typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
@@ -106,7 +106,7 @@ namespace scheme
     {
     }
 
-    /** A fallback constructor that is enable when none of the others are. 
+    /** A fallback constructor that is enabled when none of the others are. 
       * It always fails at compilation time to provide a nice error message.
       */
     template<typename T, 
@@ -120,9 +120,14 @@ namespace scheme
         "See LSSOLLeastSquareOptions for an example.");
     }
 
-
+    /** \internal Copy and move are deleted because of the unique_ptr members of
+      * the class on polymorphic types. If these semantics are needed, it should
+      * be possible to implement them with good care.
+      */
     WeightedLeastSquares(const WeightedLeastSquares&) = delete;
     WeightedLeastSquares(WeightedLeastSquares&&) = delete;
+    WeightedLeastSquares& operator=(const WeightedLeastSquares&) = delete;
+    WeightedLeastSquares& operator=(WeightedLeastSquares&&) = delete;
 
     /** Private interface for CRTP*/
     bool solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const;
