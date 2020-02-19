@@ -110,7 +110,7 @@ namespace scheme
     }
 
     bool autoMinNorm = false;
-    if (nObj == 0)
+    if (nObj == 0 && options_.autoDamping().value())
     {
       nObj = memory->variables().totalSize();
       autoMinNorm = true;
@@ -134,7 +134,7 @@ namespace scheme
       }
       else
       {
-        solver.addObjective(c.constraint, c.requirements, std::pow(scalarizationWeight_, maxp - p));
+        solver.addObjective(c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), maxp - p));
       }
     }
 

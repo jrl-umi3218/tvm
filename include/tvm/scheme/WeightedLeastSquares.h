@@ -44,6 +44,21 @@ namespace tvm
 
 namespace scheme
 {
+  /** A set of options for WeightedLeastSquares. */
+  class TVM_DLLAPI WeightedLeastSquaresOptions
+  {
+    /** If \a true, a damping task is added when no constraint with level >=1 has been
+      * given.
+      */
+    TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
+    /**  The factor to emulate priority for priority levels >= 1.
+      * E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
+      * priority 2, the weighted least-squares problem will be assembled with weights
+      * \p scalarizationWeight * w1 and w2 for T1 and T2 respectively. */
+    TVM_ADD_NON_DEFAULT_OPTION(scalarizationWeight, 1000.)
+
+  };
+
   /** This class implements the classic weighted least square scheme. */
   class TVM_DLLAPI WeightedLeastSquares : public abstract::LinearResolutionScheme<WeightedLeastSquares>
   {
@@ -75,16 +90,13 @@ namespace scheme
     /** Constructor from a LSSolverFactory
       * \tparam SolverFactory Any class deriving from LSSolverFactory.
       * \param solverFactory A configuration for the solver to be used by the resolution scheme.
-      * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
-      *    E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
-      *    priority 2, the weighted least-squares problem will be assembled with weights
-      *    \p scalarizationWeight * w1 and w2 for T1 and T2 respectively.
+      * \param schemeOptions Options for the schemes. See tvm::Scheme::WeightedLeastSquaresOptions. 
       */
     template<class SolverFactory, 
       typename std::enable_if<isFactory<SolverFactory>::value, int>::type = 0>
-    WeightedLeastSquares(const SolverFactory& solverFactory, double scalarizationWeight = 1000)
+      WeightedLeastSquares(const SolverFactory& solverFactory, WeightedLeastSquaresOptions schemeOptions = {})
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
-      , scalarizationWeight_(scalarizationWeight)
+      , options_(schemeOptions)
       , solverFactory_(solverFactory.clone())
     {
     }
@@ -94,15 +106,12 @@ namespace scheme
       *    member type \a Factory refering to a class C deriving from LSSolverFactory
       *    and such that C can be constructed from SolverOptions.
       * \param solverOptions A set of options for the solver to be used by the resolution scheme.
-      * \param scalarizationWeight The factor to emulate priority for priority levels >= 1.
-      *    E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
-      *    priority 2, the weighted least-squares problem will be assembled with weights
-      *    \p scalarizationWeight * w1 and w2 for T1 and T2 respectively.
+      * \\param schemeOptions Options for the scheme. See tvm::Scheme::WeightedLeastSquaresOptions.
       */
     template<class SolverOptions,
       typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
-    WeightedLeastSquares(const SolverOptions& solverOptions, double scalarizationWeight = 1000)
-      :WeightedLeastSquares(typename SolverOptions::Factory(solverOptions), scalarizationWeight)
+    WeightedLeastSquares(const SolverOptions& solverOptions, WeightedLeastSquaresOptions schemeOptions = {})
+      :WeightedLeastSquares(typename SolverOptions::Factory(solverOptions), schemeOptions)
     {
     }
 
@@ -111,7 +120,7 @@ namespace scheme
       */
     template<typename T, 
       typename std::enable_if<!isFactory<T>::value && !isOption<T>::value, int>::type = 0>
-    WeightedLeastSquares(const T&, double = 1000)
+    WeightedLeastSquares(const T&, WeightedLeastSquaresOptions = {})
       : LinearResolutionScheme<WeightedLeastSquares>(abilities_)
     {
       static_assert(tvm::internal::always_false<T>::value, 
@@ -134,7 +143,7 @@ namespace scheme
     std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
 
   protected:
-    double scalarizationWeight_;
+    WeightedLeastSquaresOptions options_;
     /** The factory to create solvers attached to each problem. */
     std::unique_ptr<solver::abstract::LSSolverFactory> solverFactory_;
   };
