@@ -9,7 +9,7 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
-#include <tvm/solver/LSSOLLeastSquareSolver.h>
+#include <tvm/solver/defaultLeastSquareSolver.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
@@ -61,7 +61,7 @@ TEST_CASE("Substitution")
     auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
     auto t4 = lpb.add(idq == 0., task_dynamics::None(), { requirements::PriorityLevel(1) });
 
-    scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverFactory{});
+    scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
     solver.solve(lpb);
     ddx0 = dot(x, 2)->value();
     ddq0 = dot(q, 2)->value();
@@ -98,12 +98,12 @@ TEST_CASE("Substitution")
 
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
-    scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions{});
+    scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
     solver.solve(lpb);
     ddxs = dot(x, 2)->value();
     ddqs = dot(q, 2)->value();
   }
 
-  FAST_CHECK_UNARY(ddx0.isApprox(ddxs, 1e-10));
-  FAST_CHECK_UNARY(ddq0.isApprox(ddqs, 1e-10));
+  FAST_CHECK_UNARY(ddx0.isApprox(ddxs, 1e-5));
+  FAST_CHECK_UNARY(ddq0.isApprox(ddqs, 1e-5));
 }

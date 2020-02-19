@@ -4,9 +4,15 @@
 #include <tvm/Variable.h>
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
-#include <tvm/solver/LSSOLLeastSquareSolver.h>
-#include <tvm/solver/QLDLeastSquareSolver.h>
-#include <tvm/solver/QuadprogLeastSquareSolver.h>
+#ifdef USE_LSSOL
+# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#endif
+#ifdef USE_QLD
+# include <tvm/solver/QLDLeastSquareSolver.h>
+#endif
+#ifdef USE_QUADPROG
+# include <tvm/solver/QuadprogLeastSquareSolver.h>
+#endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -74,13 +80,18 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem>& lpb, std::vect
 TEST_CASE("Simple IK")
 {
   auto lpb = circleIK();
-  std::vector<std::shared_ptr<LSSolverFactory> > configs = {
-    std::make_shared<LSSOLLSSolverFactory>(),
-    std::make_shared<QLDLSSolverFactory>(),
-    std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)),
-    std::make_shared<QuadprogLSSolverFactory>(),
-    std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)) 
-  };
+  std::vector<std::shared_ptr<LSSolverFactory> > configs;
+#ifdef USE_LSSOL
+  configs.push_back(std::make_shared<LSSOLLSSolverFactory>());
+#endif
+#ifdef USE_QLD
+  configs.push_back(std::make_shared<QLDLSSolverFactory>());
+  configs.push_back(std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)));
+#endif
+#ifdef USE_QUADPROG
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
+#endif
 
   testSolvers(lpb, configs, 1e-6);
 }
