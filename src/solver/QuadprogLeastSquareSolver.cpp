@@ -46,7 +46,7 @@ namespace solver
     , Aineq_(A_.middleRows(0,0))
     , bineq_(b_.segment(0, 0))
     , xl_(b_.segment(0, 0))
-    , xu_(b_.segment(0,0))
+    , xu_(b_.segment(0, 0))
     , big_number_(options.big_number().value())
     , cholesky_(options.cholesky().value())
     , choleskyDamping_(options.choleskyDamping().value())
@@ -74,6 +74,9 @@ namespace solver
     c_.resize(n);
     if (useBounds)
     {
+      //               | A_cstr |
+      // A needs to be |   -I   | with A_cstr = |  A_eq  |
+      //               |   I    |               | A_ineq |
       nIneqInclBounds_ = nIneq + 2 * n;
       A_.resize(nCstr+2*n, n);
       b_.resize(nCstr+2*n);
@@ -90,6 +93,8 @@ namespace solver
       nIneqInclBounds_ = nIneq;
       A_.resize(nCstr, n);
       b_.resize(nCstr);
+      new(&xl_) VectorXdSeg(b_.segment(nCstr, 0));
+      new(&xu_) VectorXdSeg(b_.segment(nCstr, 0));
     }
     new(&Aineq_) MatrixXdRows(A_.middleRows(nEq, nIneq));
     new(&bineq_) VectorXdSeg(b_.tail(nIneq));
@@ -110,8 +115,11 @@ namespace solver
 
   void QuadprogLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
   {
-    // Here, we fill xl_ as if it is would be used in the solver as a lower bound, because
-    // for now there is no path in Assignment allowing for bounds of the form -x <= -xl
+    // We would like to write the lower bound as -x <= -xl, which means that xl_ should be
+    // filled with -xl, but there is currently no path in Assignment to do that properly.
+    // Instead, we fill xl_ as if we wanted xl <= x <= xu, and change the sign of xl_ in
+    // postAssignmentProcess_(). The -x comes from the corresponding rows of A being set
+    // to -I in initializeBuild_
     // TODO: extend Assignment for that.
     scheme::internal::AssignmentTarget target(range, xl_, xu_);
     addAssignement(bound, target, bound->variables()[0], first);
@@ -147,7 +155,9 @@ namespace solver
 
   void QuadprogLeastSquareSolver::preAssignmentProcess_()
   {
-    //signs on xl will be flipped later so we need to reinitialize
+    // Some variables may be unbounded, which means no assignement will set the bounds to
+    // the correct value. Since the signs on xl will be flipped later, we need to reset this
+    // correct value.
     xl_.setConstant(-big_number_);
   }
 
