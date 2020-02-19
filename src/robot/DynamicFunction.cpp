@@ -218,8 +218,7 @@ void DynamicFunction::addPositiveLambdaToProblem(ControlProblem & problem)
     {
       for(const auto & f : c.forces_)
       {
-        auto id = std::make_shared<tvm::function::IdentityFunction>(f);
-        problem.add(id >= 0., task_dynamics::None(), {requirements::PriorityLevel{0}});
+        problem.add(f >= 0., task_dynamics::None(), {requirements::PriorityLevel{0}});
       }
     }
   }
