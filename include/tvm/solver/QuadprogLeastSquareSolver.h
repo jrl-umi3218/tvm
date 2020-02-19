@@ -73,7 +73,7 @@ namespace solver
     void postAssignmentProcess_() override;
     bool solve_() override;
     virtual const Eigen::VectorXd& result_() const override;
-    bool handleDoubleSidedConstraint_() const override { return true; }
+    bool handleDoubleSidedConstraint_() const override { return false; }
 
     void printProblemData_() const override;
     void printDiagnostic_() const override;

@@ -97,7 +97,7 @@ namespace solver
       new(&xu_) VectorXdSeg(b_.segment(nCstr, 0));
     }
     new(&Aineq_) MatrixXdRows(A_.middleRows(nEq, nIneq));
-    new(&bineq_) VectorXdSeg(b_.tail(nIneq));
+    new(&bineq_) VectorXdSeg(b_.segment(nEq, nIneq));
     if (useBounds)
       qpd_.problem(n, nEq, nIneq + 2 * n);
     else
@@ -225,7 +225,7 @@ namespace solver
       std::cout << "R =\n" << qr_.matrixQR().topRows(n).template triangularView<Eigen::Upper>().toDenseMatrix() << std::endl;
     }
     else
-      std::cout << "`Q =\n" << Q_ << std::endl;
+      std::cout << "Q =\n" << Q_ << std::endl;
     std::cout << "c = " << c_.transpose() << std::endl;
     std::cout << "A =\n" << A_ << std::endl;
     std::cout << "b = " << b_.transpose() << std::endl;

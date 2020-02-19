@@ -186,7 +186,7 @@ namespace solver
       std::cout << "R =\n" << qr_.matrixQR().topRows(n).template triangularView<Eigen::Upper>().toDenseMatrix() << std::endl;
     }
     else
-      std::cout << "`Q =\n" << Q_ << std::endl;
+      std::cout << "Q =\n" << Q_ << std::endl;
     std::cout << "c = " << c_.transpose() << std::endl;
     std::cout << "A =\n" << A_ << std::endl;
     std::cout << "b = " << b_.transpose() << std::endl;
