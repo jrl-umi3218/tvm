@@ -120,7 +120,7 @@ namespace scheme
     Assignment::big_ = big_number_;
 
     //allocating memory for the solver
-    solver.startBuild(memory->variables(), nObj, nEq, nIneq, bounds.size() > 0, subs);
+    solver.startBuild(memory->variables(), nObj, nEq, nIneq, bounds.size() > 0, &subs);
     //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
 
     //assigments for general constraints

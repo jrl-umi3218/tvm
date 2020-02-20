@@ -75,12 +75,13 @@ namespace abstract
     , ineqSize_(-1)
     , buildInProgress_(false)
     , subs_(nullptr)
+    , noSubs_(new hint::internal::Substitutions{})
     , verbose_(verbose)
     , variables_(nullptr)
   {
   }
 
-  void LeastSquareSolver::startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds, const hint::internal::Substitutions& subs)
+  void LeastSquareSolver::startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds, const hint::internal::Substitutions* const subs)
   {
     assert(nObj >= 0);
     assert(nEq >= 0);
@@ -94,7 +95,10 @@ namespace abstract
       first_[xi.get()] = true;
     }
 
-    subs_ = &subs;
+    if (subs)
+      subs_ = subs;
+    else
+      subs_ = noSubs_.get();
 
     initializeBuild_(nObj, nEq, nIneq, useBounds);
     nEq_ = nEq;

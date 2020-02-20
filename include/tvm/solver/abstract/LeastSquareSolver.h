@@ -80,7 +80,7 @@ namespace abstract
       * through ::addObjective, ::addConstraint and ::addBound, until
       * ::finalizeBuild is called.
       */
-    void startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds = true, const hint::internal::Substitutions& subs = {});
+    void startBuild(const VariableVector& x, int nObj, int nEq, int nIneq, bool useBounds = true, const hint::internal::Substitutions* const subs = nullptr);
     /** Finalize the build.*/
     void finalizeBuild();
 
@@ -171,6 +171,7 @@ namespace abstract
     MapToAssignment constraintToAssigments_;
     MapToAssignment boundToAssigments_;
     const hint::internal::Substitutions* subs_;
+    std::unique_ptr<hint::internal::Substitutions> noSubs_;
   };
 
 
