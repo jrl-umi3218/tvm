@@ -171,7 +171,6 @@ namespace abstract
     MapToAssignment constraintToAssigments_;
     MapToAssignment boundToAssigments_;
     const hint::internal::Substitutions* subs_;
-    std::unique_ptr<hint::internal::Substitutions> noSubs_;
   };
 
 

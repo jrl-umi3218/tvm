@@ -48,18 +48,18 @@ namespace internal
 
   double Assignment::big_ = constant::big_number;
 
-  Assignment::Assignment(LinearConstraintPtr source, 
-                         std::shared_ptr<requirements::SolvingRequirements> req,
-                         const AssignmentTarget& target, 
-                         const VariableVector& variables, 
-                         const hint::internal::Substitutions& substitutions,
-                         double scalarizationWeight)
+  Assignment::Assignment(LinearConstraintPtr source,
+    std::shared_ptr<requirements::SolvingRequirements> req,
+    const AssignmentTarget& target,
+    const VariableVector& variables,
+    const hint::internal::Substitutions* const substitutions,
+    double scalarizationWeight)
     : source_(source)
     , target_(target)
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
-    , substitutedVariables_(substitutions.variables())
-    , variableSubstitutions_(substitutions.variableSubstitutions())
+    , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
+    , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
   {
     checkTarget();
     //TODO check also that the variables of source are in the variable vector

@@ -75,7 +75,6 @@ namespace abstract
     , ineqSize_(-1)
     , buildInProgress_(false)
     , subs_(nullptr)
-    , noSubs_(new hint::internal::Substitutions{})
     , verbose_(verbose)
     , variables_(nullptr)
   {
@@ -95,10 +94,7 @@ namespace abstract
       first_[xi.get()] = true;
     }
 
-    if (subs)
-      subs_ = subs;
-    else
-      subs_ = noSubs_.get();
+    subs_ = subs;
 
     initializeBuild_(nObj, nEq, nIneq, useBounds);
     nEq_ = nEq;

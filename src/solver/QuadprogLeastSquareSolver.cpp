@@ -129,21 +129,21 @@ namespace solver
   {
     RangePtr r = std::make_shared<Range>(eqSize_, cstr->size());
     scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
-    addAssignement(cstr, nullptr, target, variables(), *substitutions());
+    addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void QuadprogLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
   {
     RangePtr r = std::make_shared<Range>(ineqSize_, constraintSize(cstr));
     scheme::internal::AssignmentTarget target(r, Aineq_, bineq_, constraint::Type::LOWER_THAN, constraint::RHS::AS_GIVEN);
-    addAssignement(cstr, nullptr, target, variables(), *substitutions());
+    addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void QuadprogLeastSquareSolver::addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight)
   {
     RangePtr r = std::make_shared<Range>(objSize_, cstr->size());
     scheme::internal::AssignmentTarget target(r, D_, e_, constraint::Type::EQUAL, constraint::RHS::OPPOSITE);
-    addAssignement(cstr, req, target, variables(), *substitutions(), additionalWeight);
+    addAssignement(cstr, req, target, variables(), substitutions(), additionalWeight);
   }
 
   void QuadprogLeastSquareSolver::setMinimumNorm_()

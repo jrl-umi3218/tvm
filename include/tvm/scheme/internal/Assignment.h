@@ -93,7 +93,7 @@ namespace internal
                std::shared_ptr<requirements::SolvingRequirements> req,
                const AssignmentTarget& target, 
                const VariableVector& variables, 
-               const hint::internal::Substitutions& substitutions = {},
+               const hint::internal::Substitutions* const subs = nullptr,
                double scalarizationWeight = 1);
 
     /** Version for bounds
