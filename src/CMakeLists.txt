@@ -244,7 +244,7 @@ target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_D
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
 set_target_properties(TVM PROPERTIES CXX_STANDARD 17)
-target_compile_options(TVM PUBLIC ${SOLVER_FLAGS})
+target_compile_definitions(TVM PUBLIC ${SOLVER_FLAGS})
 
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")
