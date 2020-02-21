@@ -99,7 +99,7 @@ add_project_dependency(mc_rbdyn_urdf REQUIRED)
 #########################
 
 if(NOT USING_SOLVER)
-  message( SEND_ERROR "You need to select at least one solver" )
+  message( FATAL_ERROR "You need to select at least one solver" )
 endif()
 
 # For MSVC, set local environment variable to enable finding the built dll
