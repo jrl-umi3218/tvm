@@ -402,12 +402,12 @@ void checkSubstitutionAssignment(BLCPtr c, Substitutions& s, const AssignmentTar
   mem.randomize();
   if (throws)
   {
-    CHECK_THROWS(Assignment a(c, req, at, vars, s));
+    CHECK_THROWS(Assignment a(c, req, at, vars, &s));
   }
   else
   {
     s.updateSubstitutions();
-    Assignment a(c, req, at, vars, s);
+    Assignment a(c, req, at, vars, &s);
     a.run();
     checkSubstitution(c, s.substitutions()[0].constraints()[0]->rhs(), mem, t, r);
   }

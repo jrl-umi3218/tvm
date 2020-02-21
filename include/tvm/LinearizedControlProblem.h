@@ -64,6 +64,12 @@ namespace tvm
     void add(const hint::Substitution& s);
     const hint::internal::Substitutions& substitutions() const;
 
+    /** Access to the variables
+      *
+      * \note The result is not cached, i.e. it is recomputed at each call.
+      */
+    VariableVector variables() const;
+
     /** Access to constraints*/
     std::vector<LinearConstraintWithRequirements> constraints() const;
 

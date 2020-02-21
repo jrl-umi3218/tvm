@@ -48,18 +48,18 @@ namespace internal
 
   double Assignment::big_ = constant::big_number;
 
-  Assignment::Assignment(LinearConstraintPtr source, 
-                         std::shared_ptr<requirements::SolvingRequirements> req,
-                         const AssignmentTarget& target, 
-                         const VariableVector& variables, 
-                         const hint::internal::Substitutions& substitutions,
-                         double scalarizationWeight)
+  Assignment::Assignment(LinearConstraintPtr source,
+    std::shared_ptr<requirements::SolvingRequirements> req,
+    const AssignmentTarget& target,
+    const VariableVector& variables,
+    const hint::internal::Substitutions* const substitutions,
+    double scalarizationWeight)
     : source_(source)
     , target_(target)
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
-    , substitutedVariables_(substitutions.variables())
-    , variableSubstitutions_(substitutions.variableSubstitutions())
+    , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
+    , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
   {
     checkTarget();
     //TODO check also that the variables of source are in the variable vector
@@ -70,11 +70,16 @@ namespace internal
   Assignment::Assignment(LinearConstraintPtr source, const AssignmentTarget& target, const VariablePtr& variable, bool first)
     : source_(source)
     , target_(target)
-    , requirements_(new requirements::SolvingRequirements())
+    , requirements_(nullptr)
+    , scalarWeight_(1)
+    , minusScalarWeight_(-1)
+    , anisotropicWeight_()
+    , minusAnisotropicWeight_()
+    , useDefaultScalarWeight_(true)
+    , useDefaultAnisotropicWeight_(true)
   {
     checkBounds();
     assert(source->variables()[0] == variable);
-    scalarWeight_ = 1;
     build(variable, first);
   }
 
@@ -304,6 +309,8 @@ namespace internal
     // We also know that the target is compatible with the source + substitution,
     // and that it can't be of type EQUAL.
 
+    assert(target_.constraintType() != Type::EQUAL);
+
     if (target_.constraintType() == Type::DOUBLE_SIDED)
     {
       switch (source_->type())
@@ -369,21 +376,45 @@ namespace internal
 
   void Assignment::processRequirements()
   {
-    switch (requirements_->violationEvaluation().value())
+    if (requirements_)
     {
-    case requirements::ViolationEvaluationType::L1:
-      throw std::runtime_error("Unimplemented violation evaluation type.");
-    case requirements::ViolationEvaluationType::L2:
-      scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
-      if (!requirements_->anisotropicWeight().isDefault())
+      switch (requirements_->violationEvaluation().value())
       {
-        anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
-        anisotropicWeight_ *= scalarWeight_;
-        minusAnisotropicWeight_ = -anisotropicWeight_;
+      case requirements::ViolationEvaluationType::L1:
+        throw std::runtime_error("Unimplemented violation evaluation type.");
+      case requirements::ViolationEvaluationType::L2:
+        if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
+        {
+          useDefaultScalarWeight_ = true;
+          scalarWeight_ = 1;
+          minusScalarWeight_ = -1;
+        }
+        else
+        {
+          useDefaultScalarWeight_ = false;
+          scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+          minusScalarWeight_ = -scalarWeight_;
+        }
+        if (requirements_->anisotropicWeight().isDefault())
+        {
+          useDefaultAnisotropicWeight_ = true;
+        }
+        else
+        {
+          useDefaultAnisotropicWeight_ = false;
+          anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+          anisotropicWeight_ *= scalarWeight_;
+          minusAnisotropicWeight_ = -anisotropicWeight_;
+        }
+        break;
+      case requirements::ViolationEvaluationType::LINF:
+        throw std::runtime_error("Unimplemented violation evaluation type.");
       }
-      break;
-    case requirements::ViolationEvaluationType::LINF:
-      throw std::runtime_error("Unimplemented violation evaluation type.");
+    }
+    else
+    {
+      useDefaultScalarWeight_ = true;
+      useDefaultAnisotropicWeight_ = true;
     }
   }
 

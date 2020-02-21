@@ -22,9 +22,12 @@ project(TVM CXX)
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -pedantic")
 else()
-  add_definitions("-std:c++17 -D_SILENCE_CXX17_NEGATORS_DEPRECATION_WARNING -D_ENABLE_EXTENDED_ALIGNED_STORAGE")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_SILENCE_CXX17_NEGATORS_DEPRECATION_WARNING")
 endif()
 
+set(USING_SOLVER FALSE)
+set(SOLVER_FLAGS "")
+set(SOLVER_LIBS "")
 
 # If we were given coverage options, we will only pass them to the core
 # library.
@@ -48,7 +51,35 @@ add_project_dependency(Eigen3 REQUIRED)
 ###################
 # - eigen-lssol - #
 ###################
-add_project_dependency(eigen-lssol REQUIRED)
+option(TVM_WITH_LSSOL "Build with LSSOL support" OFF)
+if(${TVM_WITH_LSSOL})
+  add_project_dependency(eigen-lssol REQUIRED)
+  list(APPEND SOLVER_FLAGS "-DTVM_USE_LSSOL")
+  list(APPEND SOLVER_LIBS eigen-lssol::eigen-lssol)
+  set(USING_SOLVER TRUE)
+endif()
+
+###################
+# - eigen-qld - #
+###################
+option(TVM_WITH_QLD "Build with QLD support" ON)
+if(${TVM_WITH_QLD})
+  add_project_dependency(eigen-qld REQUIRED)
+  list(APPEND SOLVER_FLAGS "-DTVM_USE_QLD")
+  list(APPEND SOLVER_LIBS eigen-qld::eigen-qld)
+  set(USING_SOLVER TRUE)
+endif()
+
+###################
+# - eigen-qld - #
+###################
+option(TVM_WITH_QUADPROG "Build with Quadprog support" OFF)
+if(${TVM_WITH_QUADPROG})
+  add_project_dependency(eigen-quadprog REQUIRED)
+  list(APPEND SOLVER_FLAGS "-DTVM_USE_QUADPROG")
+  list(APPEND SOLVER_LIBS eigen-quadprog::eigen-quadprog)
+  set(USING_SOLVER TRUE)
+endif()
 
 #############
 # - RBDyn - #
@@ -67,10 +98,14 @@ add_project_dependency(mc_rbdyn_urdf REQUIRED)
 
 #########################
 
+if(NOT USING_SOLVER)
+  message( FATAL_ERROR "You need to select at least one solver" )
+endif()
+
 # For MSVC, set local environment variable to enable finding the built dll
 # of the main library when launching ctest with RUN_TESTS
 if(MSVC)
-  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration)")
+  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
 endif(MSVC)
 
 add_subdirectory(3rd-party)

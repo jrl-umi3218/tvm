@@ -65,6 +65,9 @@ set(TVM_SOURCES
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
+  
+  solver/defaultLeastSquareSolver.cpp
+  solver/LeastSquareSolver.cpp
 
   task_dynamics/Constant.cpp
   task_dynamics/None.cpp
@@ -175,6 +178,10 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
+  ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
+  ${TVM_INCLUDE_DIR}/solver/internal/Option.h
+  ${TVM_INCLUDE_DIR}/solver/defaultLeastSquareSolver.h
+  
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
@@ -198,6 +205,19 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )
 
+if(${TVM_WITH_LSSOL})
+  list(APPEND TVM_SOURCES solver/LSSOLLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LSSOLLeastSquareSolver.h)
+endif()
+if(${TVM_WITH_QLD})
+  list(APPEND TVM_SOURCES solver/QLDLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QLDLeastSquareSolver.h)
+endif()
+if(${TVM_WITH_QUADPROG})
+  list(APPEND TVM_SOURCES solver/QuadprogLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
+endif()
+
 #Helper functions to assign files to groups in IDE, mimicking the organization of files on disk
 #Adapted from https://stackoverflow.com/a/31423421
 function(assign_source_group folder)
@@ -219,11 +239,12 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core eigen-lssol::eigen-lssol mc_rbdyn_urdf::mc_rbdyn_urdf)
+target_link_libraries(TVM PUBLIC RBDyn::RBDyn sch-core::sch-core ${SOLVER_LIBS} mc_rbdyn_urdf::mc_rbdyn_urdf)
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
 set_target_properties(TVM PROPERTIES CXX_STANDARD 17)
+target_compile_definitions(TVM PUBLIC ${SOLVER_FLAGS})
 
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")

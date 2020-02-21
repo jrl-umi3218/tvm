@@ -73,7 +73,7 @@ namespace tvm
     /** Create a variable based on the same space, with the same derivative
       * number and value.
       * \param name the name of the new variable. If the default value is kept,
-      * the a ' will be appened to the current name. If the variable being
+      * a ' will be appened to the current name. If the variable being
       * duplicated is not a base variable, the name is given to the base
       * variable.
       */

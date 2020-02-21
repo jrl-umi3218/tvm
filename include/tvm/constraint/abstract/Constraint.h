@@ -73,7 +73,7 @@ namespace abstract
     * }
     * \enddot
     */
-  class TVM_DLLAPI Constraint : public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
+  class TVM_DLLAPI Constraint : public tvm::internal::ObjWithId, public graph::abstract::OutputSelector<Constraint, tvm::internal::FirstOrderProvider>
   {
   public:
     SET_OUTPUTS(Constraint, L, U, E)
@@ -101,6 +101,10 @@ namespace abstract
 
     /** Return the type of the constraint.*/
     Type type() const;
+
+    /** Check whether this is an equality constraint. */
+    bool isEquality() const;
+
     /** Return the convention for the right-hand side \p e, \p l, \p u or both
       * \p l and \p u of the constraint.
       */

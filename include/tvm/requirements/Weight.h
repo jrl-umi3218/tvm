@@ -51,7 +51,9 @@ namespace requirements
   class TVM_DLLAPI Weight : public abstract::SingleSolvingRequirement<double>
   {
   public:
-    Weight(double alpha=1);
+    /** Default weight = 1*/
+    Weight();
+    Weight(double alpha);
   };
 
 }  // namespace requirements

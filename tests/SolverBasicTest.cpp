@@ -10,6 +10,16 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/solver/defaultLeastSquareSolver.h>
+#ifdef TVM_USE_LSSOL
+# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#endif
+#ifdef TVM_USE_QLD
+# include <tvm/solver/QLDLeastSquareSolver.h>
+#endif
+#ifdef TVM_USE_QUADPROG
+# include <tvm/solver/QuadprogLeastSquareSolver.h>
+#endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -48,7 +58,7 @@ void solverTest01()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
   std::cout << t1->task.taskDynamics<task_dynamics::PD>()->gains().first << std::endl;
 
-  scheme::WeightedLeastSquares solver;
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
   solver.solve(lpb);
   std::cout << "ddx = " << dot(x, 2)->value().transpose() << std::endl;
   std::cout << "ddq = " << dot(q, 2)->value().transpose() << std::endl;
@@ -72,7 +82,7 @@ void solverTest02()
 
   LinearizedControlProblem lpb(pb);
 
-  scheme::WeightedLeastSquares solver;
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
   solver.solve(lpb);
 }
 
@@ -103,10 +113,30 @@ void minimalKin()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(dot(q) == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver;
+#ifdef TVM_USELSSOL
+  scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions().verbose(true));
+#endif
+#ifdef TVM_USEQLD
+  scheme::WeightedLeastSquares solver2(solver::QLDLSSolverOptions().verbose(true));
+  scheme::WeightedLeastSquares solver3(solver::QLDLSSolverOptions().verbose(true).cholesky(true));
+#endif
+#ifdef TVM_USEQUADPROG
+  scheme::WeightedLeastSquares solver4(solver::QuadprogLSSolverOptions().verbose(true));
+  scheme::WeightedLeastSquares solver5(solver::QuadprogLSSolverOptions().verbose(true).cholesky(true));
+#endif
   for (int i = 0; i < 1; ++i)
   {
+#ifdef TVM_USELSSOL
     solver.solve(lpb);
+#endif
+#ifdef TVM_USEQLD
+    solver2.solve(lpb);
+    solver3.solve(lpb);
+#endif
+#ifdef TVM_USEQUADPROG
+    solver4.solve(lpb);
+    solver5.solve(lpb);
+#endif
 
     double dt = 0.01;
     x->value(x->value() + dot(x, 1)->value()*dt);
@@ -147,7 +177,7 @@ void minimalKinSub()
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
-  scheme::WeightedLeastSquares solver;
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(true));
   for (int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
@@ -194,7 +224,7 @@ void minimalDyn()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(dot(q, 2) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-  scheme::WeightedLeastSquares solver;
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
   for (int i = 0; i < 5000; ++i)
   {
     solver.solve(lpb);

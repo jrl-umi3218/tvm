@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -27,59 +27,37 @@
 * POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <tvm/requirements/SolvingRequirements.h>
+#include <tvm/solver/defaultLeastSquareSolver.h>
 
-namespace tvm
+namespace tvm::solver
 {
+  std::unique_ptr<abstract::LSSolverFactory> DefaultLSSolverFactory::clone() const
+  {
+    return std::make_unique<DefaultLSSolverFactory>(*this);
+  }
 
-namespace requirements
-{
-  PriorityLevel::PriorityLevel()
-    : SingleSolvingRequirement<int>(0, true)
+  DefaultLSSolverFactory::DefaultLSSolverFactory(const DefaultLSSolverOptions& options)
+    : LSSolverFactory("default")
+    , options_(options)
   {
   }
 
-  PriorityLevel::PriorityLevel(int p)
-    : SingleSolvingRequirement<int>(p, false)
+  std::unique_ptr<abstract::LeastSquareSolver> DefaultLSSolverFactory::createSolver() const
   {
-    if (p < 0)
-      throw std::runtime_error("Priority level must be non-negative.");
+#ifdef TVM_USE_LSSOL
+    using SolverType = LSSOLLeastSquareSolver;
+    using SolverOption = LSSOLLSSolverOptions;
+#else
+# ifdef TVM_USE_QLD
+    using SolverType = QLDLeastSquareSolver;
+    using SolverOption = QLDLSSolverOptions;
+# else
+#   ifdef TVM_USE_QUADPROG
+    using SolverType = QuadprogLeastSquareSolver;
+    using SolverOption = QuadprogLSSolverOptions;
+#   endif
+# endif
+#endif
+    return std::make_unique<SolverType>(SolverOption().big_number(*options_.big_number()).verbose(*options_.verbose()));
   }
-
-  Weight::Weight()
-    : SingleSolvingRequirement(1.0, true)
-  {
-  }
-
-  Weight::Weight(double alpha)
-    : SingleSolvingRequirement(alpha, false)
-  {
-    if (alpha < 0)
-      throw std::runtime_error("weight must be non negative.");
-  }
-
-  AnisotropicWeight::AnisotropicWeight()
-    : SingleSolvingRequirement(Eigen::VectorXd(), true)
-  {
-  }
-
-  AnisotropicWeight::AnisotropicWeight(const Eigen::VectorXd & w)
-    : SingleSolvingRequirement(w, false)
-  {
-    if ((w.array() < 0).any())
-      throw std::runtime_error("weights must be non-negative.");
-  }
-
-  ViolationEvaluation::ViolationEvaluation()
-    : SingleSolvingRequirement(ViolationEvaluationType::L2, true)
-  {
-  }
-
-  ViolationEvaluation::ViolationEvaluation(ViolationEvaluationType t)
-    : SingleSolvingRequirement(t, false)
-  {
-  }
-
-}  // namespace requirements
-
-}  // namespace tvm
+}

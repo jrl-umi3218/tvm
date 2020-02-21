@@ -14,6 +14,10 @@
 #include <tvm/graph/CallGraph.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/solver/defaultLeastSquareSolver.h>
+#ifdef TVM_USE_LSSOL
+# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
@@ -103,6 +107,7 @@ public:
   sva::PTransformd X_0_rc; /**< Plucker transform to right foot center */
 };
 
+#ifdef TVM_USE_LSSOL
 /** Wrench distribution QP with matrices built "by hand".
  *
  * \param robot Robot state, provided by test case.
@@ -244,6 +249,18 @@ bool checkSolution(const RobotState & robot, Eigen::Vector6d w_l_0, Eigen::Vecto
   constexpr double EPSILON = 1e-3;
   return ((w_l_0 - w_l_0_gt).norm() < EPSILON && (w_r_0 - w_r_0_gt).norm() < EPSILON);
 }
+#else
+bool checkSolution(const RobotState& robot, Eigen::Vector6d w_l_0, Eigen::Vector6d w_r_0)
+{
+  if (VERBOSE)
+  {
+    std::cout << "w_l_0 = " << w_l_0.transpose() << std::endl;
+    std::cout << "w_r_0 = " << w_r_0.transpose() << std::endl;
+    std::cout << "No comparison (use LSSOL if you want to compare to \"ground truth\")" << std::endl;
+  }
+  return true;
+}
+#endif
 
 TEST_CASE("WrenchDistribQP")
 {
@@ -272,7 +289,7 @@ TEST_CASE("WrenchDistribQP")
                                                - robot.lfr * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 == 0, { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
 
   // First problem with initial left foot ratio
-  scheme::WeightedLeastSquares solver(VERBOSE);
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(VERBOSE));
   solver.solve(problem);
   FAST_CHECK_UNARY(checkSolution(robot, w_l_0->value(), w_r_0->value()));
   Vector6d w_l_la1 = X_0_la.dualMatrix() * w_l_0->value();
