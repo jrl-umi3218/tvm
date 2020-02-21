@@ -4,13 +4,13 @@
 #include <tvm/Variable.h>
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
 # include <tvm/solver/LSSOLLeastSquareSolver.h>
 #endif
-#ifdef USE_QLD
+#ifdef TVM_USE_QLD
 # include <tvm/solver/QLDLeastSquareSolver.h>
 #endif
-#ifdef USE_QUADPROG
+#ifdef TVM_USE_QUADPROG
 # include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
@@ -81,14 +81,14 @@ TEST_CASE("Simple IK")
 {
   auto lpb = circleIK();
   std::vector<std::shared_ptr<LSSolverFactory> > configs;
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
   configs.push_back(std::make_shared<LSSOLLSSolverFactory>());
 #endif
-#ifdef USE_QLD
+#ifdef TVM_USE_QLD
   configs.push_back(std::make_shared<QLDLSSolverFactory>());
   configs.push_back(std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)));
 #endif
-#ifdef USE_QUADPROG
+#ifdef TVM_USE_QUADPROG
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
 #endif

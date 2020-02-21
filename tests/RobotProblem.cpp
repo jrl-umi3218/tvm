@@ -67,7 +67,7 @@ std::vector<tvm::geometry::PlanePtr> makeCube(const Eigen::Vector3d & origin, do
   };
 }
 
-#if defined(USE_LSSOL) || defined(USE_QLD) //Quadprog is having trouble, seemingly with the bounds on f
+#if defined(TVM_USE_LSSOL) || defined(TVM_USE_QLD) //Quadprog is having trouble, seemingly with the bounds on f
 TEST_CASE("Test a problem with a robot")
 {
 #if NDEBUG

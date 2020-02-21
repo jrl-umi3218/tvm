@@ -11,13 +11,13 @@
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
 # include <tvm/solver/LSSOLLeastSquareSolver.h>
 #endif
-#ifdef USE_QLD
+#ifdef TVM_USE_QLD
 # include <tvm/solver/QLDLeastSquareSolver.h>
 #endif
-#ifdef USE_QUADPROG
+#ifdef TVM_USE_QUADPROG
 # include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
@@ -113,27 +113,27 @@ void minimalKin()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
   auto t4 = lpb.add(dot(q) == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
 
-#ifdef USE_LSSOL
+#ifdef TVM_USELSSOL
   scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions().verbose(true));
 #endif
-#ifdef USE_QLD
+#ifdef TVM_USEQLD
   scheme::WeightedLeastSquares solver2(solver::QLDLSSolverOptions().verbose(true));
   scheme::WeightedLeastSquares solver3(solver::QLDLSSolverOptions().verbose(true).cholesky(true));
 #endif
-#ifdef USE_QUADPROG
+#ifdef TVM_USEQUADPROG
   scheme::WeightedLeastSquares solver4(solver::QuadprogLSSolverOptions().verbose(true));
   scheme::WeightedLeastSquares solver5(solver::QuadprogLSSolverOptions().verbose(true).cholesky(true));
 #endif
   for (int i = 0; i < 1; ++i)
   {
-#ifdef USE_LSSOL
+#ifdef TVM_USELSSOL
     solver.solve(lpb);
 #endif
-#ifdef USE_QLD
+#ifdef TVM_USEQLD
     solver2.solve(lpb);
     solver3.solve(lpb);
 #endif
-#ifdef USE_QUADPROG
+#ifdef TVM_USEQUADPROG
     solver4.solve(lpb);
     solver5.solve(lpb);
 #endif

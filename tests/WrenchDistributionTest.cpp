@@ -15,7 +15,7 @@
 #include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
 # include <tvm/solver/LSSOLLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
@@ -107,7 +107,7 @@ public:
   sva::PTransformd X_0_rc; /**< Plucker transform to right foot center */
 };
 
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
 /** Wrench distribution QP with matrices built "by hand".
  *
  * \param robot Robot state, provided by test case.

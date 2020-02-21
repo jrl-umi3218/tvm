@@ -44,15 +44,15 @@ namespace tvm::solver
 
   std::unique_ptr<abstract::LeastSquareSolver> DefaultLSSolverFactory::createSolver() const
   {
-#ifdef USE_LSSOL
+#ifdef TVM_USE_LSSOL
     using SolverType = LSSOLLeastSquareSolver;
     using SolverOption = LSSOLLSSolverOptions;
 #else
-# ifdef USE_QLD
+# ifdef TVM_USE_QLD
     using SolverType = QLDLeastSquareSolver;
     using SolverOption = QLDLSSolverOptions;
 # else
-#   ifdef USE_QUADPROG
+#   ifdef TVM_USE_QUADPROG
     using SolverType = QuadprogLeastSquareSolver;
     using SolverOption = QuadprogLSSolverOptions;
 #   endif
