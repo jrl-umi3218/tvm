@@ -2,7 +2,7 @@ The TVM Library
 =============
 TVM is a library meant for writing and solving linear control problems for robots.
 At its heart lies an optimization framework with several helpful features (such as variable management and handling of convention differences in the way of writing constraint), on top of which robotic functionalities are added.
-The library strives at separating the way a problem is written from the way it is solved. This allows to write problems in a way mirroring closely their natural mathematical formulations. The work of correctly assembling the corresponding matrices and vectors to be passed to a numerical solver is done automatically with little to no overhead over a painful and error-prone manual implementation.
+The library strives to separate the way a problem is written from the way it is solved. This allows to write problems in a way mirroring closely their natural mathematical formulations. The work of correctly assembling the corresponding matrices and vectors to be passed to a numerical solver is done automatically with little to no overhead over a painful and error-prone manual implementation.
 
 TVM has typically three types of users:
  - the end-user, formulating the problem he/she want to solve. He/she does so by manipulating notions such as variables, functions, tasks and task dynamics, using the existing functions and task dynamics to do so,
@@ -35,10 +35,9 @@ Compilation has been tested on Linux (gcc/clang) and Windows (Visual Studio).
 To compile you will need the following tools:
 
  * [Git](https://git-scm.com/)
- * [CMake](https://cmake.org/) >= 2.8.12
- * [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/) (use [pkg-config-lite](https://sourceforge.net/projects/pkgconfiglite/) on Windows)
+ * [CMake](https://cmake.org/) >= 3.1.3
  * [doxygen](http://www.doxygen.org)
- * A compiler with C++11 support
+ * A compiler with C++17 support
  
 and the following third-party dependencies:
  * [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) >= 3.2.8
@@ -48,7 +47,10 @@ TVM requires that you installed first some other JRL/LIRMM software:
  * [RBDyn](https://github.com/jrl-umi3218/RBDyn)
  * [sch-core](https://github.com/jrl-umi3218/sch-core)
  * [mc-rbdyn-urdf](https://github.com/jrl-umi3218/mc_rbdyn_urdf)
- * [eigen-lssol](git@gite.lirmm.fr:multi-contact/eigen-lssol.git) (private repository, an alternative will be provided soon)
+ * At least one of the following solvers:
+   + [eigen-qld](https://github.com/jrl-umi3218/eigen-qld)
+   + [eigen-quadprog](https://github.com/jrl-umi3218/eigen-quadprog)
+   + [eigen-lssol](git@gite.lirmm.fr:multi-contact/eigen-lssol.git) (private repository)
  * [Tasks](https://github.com/jrl-umi3218/Tasks) (optionally, for some comparison tests)
 
 This repository also uses [jrl-cmakemodules](https://github.com/jrl-umi3218/jrl-cmakemodules), [jrl-travis](https://github.com/jrl-umi3218/jrl-travis) and [google benchmark](https://github.com/google/benchmark) as submodules.
