@@ -68,7 +68,7 @@ namespace internal
 
   /** Overload for post-multiplying by NoConstant. In this case, we need to return NoConstant.*/
   template<typename MultType>
-  inline NoConstant operator* (const MultType& /*m*/, const NoConstant& c) { return {}; };
+  inline NoConstant operator* (const MultType& /*m*/, const NoConstant&) { return {}; }
 
   /** Shortcut to an internal Eigen type to store expressions or matrices.
     * 
