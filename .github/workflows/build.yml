@@ -65,10 +65,10 @@ jobs:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
         ubuntu: |
-          apt: libeigen3-dev doxygen doxygen-latex libboost-all-dev libtinyxml2-dev
+          apt: libeigen3-dev doxygen doxygen-latex libboost-all-dev libtinyxml2-dev libyaml-cpp-dev
         macos: |
           cask: gfortran
-          brew: eigen boost tinyxml2
+          brew: eigen boost tinyxml2 yaml-cpp
         windows: |
           github:
             - path: eigenteam/eigen-git-mirror
