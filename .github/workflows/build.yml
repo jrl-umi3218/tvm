@@ -89,8 +89,6 @@ jobs:
             options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/Tasks
             options: -DPYTHON_BINDING:BOOL=OFF
-          - path: jrl-umi3218/mc_rbdyn_urdf
-            options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/mc_rtc_data
     - name: Build and test
       uses: jrl-umi3218/github-actions/build-cmake-project@master

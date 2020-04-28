@@ -40,7 +40,7 @@
 namespace tvm
 {
 
-Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc, const mc_rbdyn_urdf::Limits & limits)
+Robot::Robot(Clock & clock, const std::string & name, rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc, const rbd::parsers::Limits & limits)
 : clock_(clock), last_tick_(clock.ticks()),
   name_(name), mb_(mb), mbc_(mbc),
   normalAccB_(mbc_.bodyAccB.size()), fd_(mb_),

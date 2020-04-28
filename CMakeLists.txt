@@ -91,11 +91,6 @@ add_project_dependency(RBDyn REQUIRED)
 ################
 add_project_dependency(sch-core REQUIRED)
 
-#####################
-# - mc_rbdyn_urdf - #
-#####################
-add_project_dependency(mc_rbdyn_urdf REQUIRED)
-
 #########################
 
 if(NOT USING_SOLVER)
