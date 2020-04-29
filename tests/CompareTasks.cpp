@@ -18,7 +18,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <mc_rbdyn_urdf/urdf.h>
+#include <RBDyn/parsers/urdf.h>
 
 #include <RBDyn/ID.h>
 
@@ -61,7 +61,7 @@ static void BM_Tasks(benchmark::State & state)
   auto load_robot = [&mbs,&mbcs](const std::string & path, bool fixed,
                        const std::vector<std::string> & filteredLinks,
                        const std::vector<std::vector<double>> & ref_q)
-    -> mc_rbdyn_urdf::Limits
+    -> rbd::parsers::Limits
   {
     std::ifstream ifs(path);
     if(!ifs.good())
@@ -71,7 +71,7 @@ static void BM_Tasks(benchmark::State & state)
     }
     std::stringstream ss;
     ss << ifs.rdbuf();
-    auto data = mc_rbdyn_urdf::rbdyn_from_urdf(ss.str(), fixed, filteredLinks);
+    auto data = rbd::parsers::from_urdf(ss.str(), fixed, filteredLinks);
     data.mbc.gravity = Eigen::Vector3d(0, 0, 9.81);
     auto init_q = data.mbc.q;
     size_t j = 0;
@@ -98,7 +98,7 @@ static void BM_Tasks(benchmark::State & state)
     mbcs.push_back(data.mbc);
     return data.limits;
   };
-  mc_rbdyn_urdf::Limits jvrc_limits;
+  rbd::parsers::Limits jvrc_limits;
   std::vector<std::string> jvrc_filtered = {
     "R_UTHUMB_S", "R_LTHUMB_S", "R_UINDEX_S", "R_LINDEX_S", "R_ULITTLE_S", "R_LLITTLE_S",
     "L_UTHUMB_S", "L_LTHUMB_S", "L_UINDEX_S", "L_LINDEX_S", "L_ULITTLE_S", "L_LLITTLE_S"};

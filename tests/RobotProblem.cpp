@@ -25,7 +25,7 @@
 #include <tvm/task_dynamics/VelocityDamper.h>
 #include <tvm/utils/sch.h>
 
-#include <mc_rbdyn_urdf/urdf.h>
+#include <RBDyn/parsers/urdf.h>
 
 #include <RBDyn/ID.h>
 

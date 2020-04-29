@@ -31,7 +31,7 @@
 
 #include <tvm/exception/exceptions.h>
 
-#include <mc_rbdyn_urdf/urdf.h>
+#include <RBDyn/parsers/urdf.h>
 
 #include <iostream>
 
@@ -53,7 +53,7 @@ std::unique_ptr<Robot> fromURDF(tvm::Clock & clock, const std::string & name,
   }
   std::stringstream ss;
   ss << ifs.rdbuf();
-  auto data = mc_rbdyn_urdf::rbdyn_from_urdf(ss.str(), fixed, filteredLinks);
+  auto data = rbd::parsers::from_urdf(ss.str(), fixed, filteredLinks);
   data.mbc.gravity = tvm::constant::gravity;
   auto init_q = data.mbc.q;
   const auto & jIndexByName = data.mb.jointIndexByName();

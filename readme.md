@@ -46,7 +46,6 @@ and the following third-party dependencies:
 TVM requires that you installed first some other JRL/LIRMM software:
  * [RBDyn](https://github.com/jrl-umi3218/RBDyn)
  * [sch-core](https://github.com/jrl-umi3218/sch-core)
- * [mc-rbdyn-urdf](https://github.com/jrl-umi3218/mc_rbdyn_urdf)
  * At least one of the following solvers:
    + [eigen-qld](https://github.com/jrl-umi3218/eigen-qld)
    + [eigen-quadprog](https://github.com/jrl-umi3218/eigen-quadprog)

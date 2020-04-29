@@ -39,7 +39,7 @@
 #include <RBDyn/MultiBodyConfig.h>
 #include <RBDyn/MultiBodyGraph.h>
 
-#include <mc_rbdyn_urdf/urdf.h>
+#include <RBDyn/parsers/urdf.h>
 
 namespace tvm
 {
@@ -95,7 +95,7 @@ namespace tvm
      */
     Robot(Clock & clock, const std::string & name,
           rbd::MultiBodyGraph & mbg, rbd::MultiBody mb, rbd::MultiBodyConfig mbc,
-          const mc_rbdyn_urdf::Limits & limits = {{},{},{},{}});
+          const rbd::parsers::Limits & limits = {{},{},{},{}});
 
     /** Access the robot's name */
     inline const std::string & name() const { return name_; }
