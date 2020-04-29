@@ -84,7 +84,10 @@ endif()
 #############
 # - RBDyn - #
 #############
-add_project_dependency(RBDyn REQUIRED)
+add_project_dependency(RBDyn 1.2.1 REQUIRED)
+if(NOT TARGET RBDyn::Parsers)
+  message(FATAL_ERROR "RBDyn must be built with parsers support")
+endif()
 
 ################
 # - sch-core - #
