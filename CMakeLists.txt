@@ -102,8 +102,10 @@ endif()
 
 # For MSVC, set local environment variable to enable finding the built dll
 # of the main library when launching ctest with RUN_TESTS
+# We also allow to group projects in solution folders
 if(MSVC)
   set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON) 
 endif(MSVC)
 
 add_subdirectory(3rd-party)
