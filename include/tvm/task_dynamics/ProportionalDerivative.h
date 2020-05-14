@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,9 @@
 
 #pragma once
 
+#include <variant>
+
+#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 namespace tvm
@@ -38,41 +41,104 @@ namespace task_dynamics
 {
 
   /** Compute \ddot{e}* = -kv*dot{f}-kp*f (dynamic order)
-  *
-  * FIXME have a version with diagonal or sdp gain matrices
-  */
+   * with kp a scalar, a diagonal matrix (given as a vector) or a matrix.
+   */
   class TVM_DLLAPI ProportionalDerivative : public abstract::TaskDynamics
   {
   public:
+    using Gain = std::variant<double, Eigen::VectorXd, Eigen::MatrixXd>;
+
     class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {
     public:
-      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp, double kv);
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp, const Gain& kv);
       void updateValue() override;
 
-      /** return (kp, kv) */
-      std::pair<double, double> gains() const;
+      /** Get the current gains as a pair (kp, kv). */
+      std::pair<const Gain&, const Gain&> gains() const;
+      /** Set gains.
+        * \param kp Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+        * \param kv Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+        */
+      /**@{*/
       void gains(double kp, double kv);
-      /** Critically damped version: kv = 2*sqrt(kp) */
+      void gains(const Eigen::VectorXd& kp, const Eigen::VectorXd& kv);
+      void gains(const Eigen::MatrixXd& kp, const Eigen::MatrixXd& kv);
+      void gains(double kp, const Eigen::VectorXd& kv);
+      void gains(double kp, const Eigen::MatrixXd& kv);
+      void gains(const Eigen::VectorXd& kp, double kv);
+      void gains(const Eigen::VectorXd& kp, const Eigen::MatrixXd& kv);
+      void gains(const Eigen::MatrixXd& kp, double kv);
+      void gains(const Eigen::MatrixXd& kp, const Eigen::VectorXd& kv);
+      /**@}*/
+
+      /** Critically damped version.
+        * \param kp Stiffness gain.
+        * The damping gain is automatically computed to get a critically damped behavior.
+        */
       void gains(double kp);
+      /** Critically damped version.
+        * \param kp Diagonal of the stiffness gain matrix.
+        * The damping gain is automatically computed to get a critically damped behavior.
+        */
+      void gains(const Eigen::VectorXd& kp);
+      /** Critically damped version.
+        * \param kp Stiffness gain matrix.
+        * The damping gain is automatically computed to get a critically damped behavior.
+        * For this version, \p kp is supposed to be symmetric and positive definite.
+        *
+        * \note The automatic damping computation is relatively heavy, involving a Schur
+        * decomposition, matrices multiplications and memory allocation.
+        */
+      void gains(const Eigen::MatrixXd& kp);
 
     private:
-      double kp_;
-      double kv_;
+      Gain kp_; //Stiffness gain
+      Gain kv_; //Damping gain
     };
 
-    /** General constructor*/
+    /** General constructor.
+      * \param kp Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+      * \param kv Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+      */
+    /**@{*/
     ProportionalDerivative(double kp, double kv);
+    ProportionalDerivative(const Eigen::VectorXd& kp, const Eigen::VectorXd& kv);
+    ProportionalDerivative(const Eigen::MatrixXd& kp, const Eigen::MatrixXd& kv);
+    ProportionalDerivative(double kp, const Eigen::VectorXd& kv);
+    ProportionalDerivative(double kp, const Eigen::MatrixXd& kv);
+    ProportionalDerivative(const Eigen::VectorXd& kp, double kv);
+    ProportionalDerivative(const Eigen::VectorXd& kp, const Eigen::MatrixXd& kv);
+    ProportionalDerivative(const Eigen::MatrixXd& kp, double kv);
+    ProportionalDerivative(const Eigen::MatrixXd& kp, const Eigen::VectorXd& kv);
+    /**@}*/
 
-    /** Critically damped version*/
+    /** Critically damped version.
+      * \param kp Stiffness gain.
+      * The damping gain is automatically computed to get a critically damped behavior.
+      */
     ProportionalDerivative(double kp);
+    /** Critically damped version.
+      * \param kp Diagonal of the stiffness gain matrix.
+      * The damping gain is automatically computed to get a critically damped behavior.
+      */
+    ProportionalDerivative(const Eigen::VectorXd& kp);
+    /** Critically damped version.
+      * \param kp Stiffness gain matrix.
+      * The damping gain is automatically computed to get a critically damped behavior.
+      * For this version, \p kp is supposed to be symmetric and positive definite.
+      *
+      * \note The automatic damping computation is relatively heavy, involving a Schur
+      * decomposition, matrices multiplications and memory allocation.
+      */
+    ProportionalDerivative(const Eigen::MatrixXd& kp);
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
 
   private:
-    double kp_;
-    double kv_;
+    Gain kp_; //Stiffness gain
+    Gain kv_; //Damping gain
   };
 
   /** Alias for convenience */

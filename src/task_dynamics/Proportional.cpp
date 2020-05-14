@@ -42,20 +42,43 @@ namespace task_dynamics
   {
   }
 
+  Proportional::Proportional(const Eigen::VectorXd& kp)
+    : kp_(kp)
+  {
+  }
+
+  Proportional::Proportional(const  Eigen::MatrixXd& kp)
+    : kp_(kp)
+  {
+  }
+
   std::unique_ptr<abstract::TaskDynamicsImpl> Proportional::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
     return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, kp_));
   }
 
-  Proportional::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp)
+  Proportional::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp)
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
   {
+    assert((kp.index() == 0                                           // Scalar gain
+        || (kp.index() == 1 && std::get<1>(kp).size() == f->size())   // Diagonal gain
+        || (kp.index() == 2 && std::get<2>(kp).cols() == f->size()    // Matrix gain
+                            && std::get<2>(kp).rows() == f->size()))  
+      && "Gain and function have incompatible sizes");
   }
 
   void Proportional::Impl::updateValue()
   {
-    value_ = -kp_ * (function().value() - rhs());
+    // \internal The code below would be cleaner using std::visit. Unfortunately
+    // this is slower because it prevents Eigen to perform some optimization.
+    switch (kp_.index())
+    {
+    case 0: value_ = -std::get<double>(kp_) * (function().value() - rhs()); break;
+    case 1: value_.noalias() = -(std::get<Eigen::VectorXd>(kp_).asDiagonal() * (function().value() - rhs())); break;
+    case 2: value_.noalias() = -std::get<Eigen::MatrixXd>(kp_) * (function().value() - rhs()); break;
+    default: assert(false);
+    }
   }
 
   void Proportional::Impl::gain(double kp)
@@ -63,7 +86,17 @@ namespace task_dynamics
     kp_ = kp;
   }
 
-  double Proportional::Impl::gain() const
+  void Proportional::Impl::gain(const Eigen::VectorXd& kp)
+  {
+    kp_ = kp;
+  }
+
+  void Proportional::Impl::gain(const Eigen::MatrixXd& kp)
+  {
+    kp_ = kp;
+  }
+
+  const Proportional::Gain& Proportional::Impl::gain() const
   {
     return kp_;
   }

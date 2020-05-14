@@ -82,6 +82,55 @@ TEST_CASE("Test Proportional")
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P>());
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+
+  kp = 3;
+  dynamic_cast<task_dynamics::P::Impl*>(tdi.get())->gain(kp);
+  tdi->updateValue();
+  FAST_CHECK_EQ(tdi->value()[0], -kp * (36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
+}
+
+TEST_CASE("Test Proportionnal gain types")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  x << 1, 2, 3;
+  MatrixXd A = MatrixXd::Random(3, 3);
+  Vector3d b(1, 2, 3);
+  auto f = std::make_shared<function::BasicLinearFunction>(A, x, b);
+
+  double kps = 2;
+  VectorXd kpv = Vector3d::Constant(2);
+  MatrixXd kpm = 2 * Matrix3d::Identity();
+  task_dynamics::P tds(kps);
+  task_dynamics::P tdv(kpv);
+  task_dynamics::P tdm(kpm);
+  Vector3d rhs(-1,-2,-3);
+
+  auto tdsi = tds.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdvi = tdv.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdmi = tdm.impl(f, constraint::Type::EQUAL, rhs);
+
+  f->updateValue();
+  tdsi->updateValue();
+  tdvi->updateValue();
+  tdmi->updateValue();
+
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdmi->value()));
+
+  kps = 3;
+  kpv = Vector3d::Constant(3);
+  kpm = 3 * Matrix3d::Identity();
+
+  dynamic_cast<task_dynamics::P::Impl*>(tdsi.get())->gain(kps);
+  dynamic_cast<task_dynamics::P::Impl*>(tdvi.get())->gain(kpv);
+  dynamic_cast<task_dynamics::P::Impl*>(tdmi.get())->gain(kpm);
+
+  tdsi->updateValue();
+  tdvi->updateValue();
+  tdmi->updateValue();
+
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdmi->value()));
 }
 
 TEST_CASE("Test Proportional Derivative")
@@ -106,6 +155,116 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16);
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD>());
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+}
+
+TEST_CASE("Test Proportionnal gain types")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+  auto f = std::make_shared<Simple2dRobotEE>(x, Vector2d(0, 0), Vector3d::Ones());
+
+  double kps = 2;
+  double kvs = 3;
+  VectorXd kpv = Vector2d::Constant(2);
+  VectorXd kvv = Vector2d::Constant(3);
+  MatrixXd kpm = 2 * Matrix2d::Identity();
+  MatrixXd kvm = 3 * Matrix2d::Identity();
+  task_dynamics::PD tdss(kps, kvs);
+  task_dynamics::PD tdsv(kps, kvv);
+  task_dynamics::PD tdsm(kps, kvm);
+  task_dynamics::PD tdvs(kpv, kvs);
+  task_dynamics::PD tdvv(kpv, kvv);
+  task_dynamics::PD tdvm(kpv, kvm);
+  task_dynamics::PD tdms(kpm, kvs);
+  task_dynamics::PD tdmv(kpm, kvv);
+  task_dynamics::PD tdmm(kpm, kvm);
+  task_dynamics::PD tds(kvs);
+  task_dynamics::PD tdv(kvv);
+  task_dynamics::PD tdm(kvm);
+  Vector2d rhs(-1, -2);
+  auto tdssi = tdss.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdsvi = tdsv.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdsmi = tdsm.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdvsi = tdvs.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdvvi = tdvv.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdvmi = tdvm.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdmsi = tdms.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdmvi = tdmv.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdmmi = tdmm.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdsi = tds.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdvi = tdv.impl(f, constraint::Type::EQUAL, rhs);
+  auto tdmi = tdm.impl(f, constraint::Type::EQUAL, rhs);
+
+  f->updateValue();
+  f->updateVelocityAndNormalAcc();
+  tdssi->updateValue();
+  tdsvi->updateValue();
+  tdsmi->updateValue();
+  tdvsi->updateValue();
+  tdvvi->updateValue();
+  tdvmi->updateValue();
+  tdmsi->updateValue();
+  tdmvi->updateValue();
+  tdmmi->updateValue();
+  tdsi->updateValue();
+  tdvi->updateValue();
+  tdmi->updateValue();
+
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdsvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdsvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvsi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvmi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmsi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmmi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+
+  kps = 3;
+  kvs = 1;
+  kpv = Vector2d::Constant(3);
+  kvv = Vector2d::Constant(1);
+  kpm = 3 * Matrix2d::Identity();
+  kvm = 1 * Matrix2d::Identity();
+  dynamic_cast<task_dynamics::PD::Impl*>(tdssi.get())->gains(kps, kvs);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdsvi.get())->gains(kps, kvv);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdsmi.get())->gains(kps, kvm);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvsi.get())->gains(kpv, kvs);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvvi.get())->gains(kpv, kvv);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvmi.get())->gains(kpv, kvm);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdmsi.get())->gains(kpm, kvs);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdmvi.get())->gains(kpm, kvv);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdmmi.get())->gains(kpm, kvm);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdsi.get())->gains(kps);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvi.get())->gains(kpv);
+  dynamic_cast<task_dynamics::PD::Impl*>(tdmi.get())->gains(kpm);
+
+  tdssi->updateValue();
+  tdsvi->updateValue();
+  tdsmi->updateValue();
+  tdvsi->updateValue();
+  tdvvi->updateValue();
+  tdvmi->updateValue();
+  tdmsi->updateValue();
+  tdmvi->updateValue();
+  tdmmi->updateValue();
+  tdsi->updateValue();
+  tdvi->updateValue();
+  tdmi->updateValue();
+
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdsvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdsvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvsi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvmi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmsi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmvi->value()));
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdmmi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
 }
 
 TEST_CASE("Test Velocity Damper")

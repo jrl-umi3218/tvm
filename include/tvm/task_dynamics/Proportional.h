@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,9 @@
 
 #pragma once
 
+#include <variant>
+
+#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 namespace tvm
@@ -37,33 +40,45 @@ namespace tvm
 namespace task_dynamics
 {
 
-  /** Compute \dot{e}* = -kp*f (Kinematic order)
-   *
-   * FIXME have a version with diagonal or sdp gain matrix
+  /** Compute \f$ \dot{e}* = -kp*f \f$ (Kinematic order)
+   *  with kp a scalar, a diagonal matrix (given as a vector) or a matrix.
    */
   class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {
   public:
+    using Gain = std::variant<double, Eigen::VectorXd, Eigen::MatrixXd>;
+
     class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {
     public:
-      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, double kp);
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp);
       void updateValue() override;
 
+      /** Change the gain to a new scalar. */
       void gain(double kp);
-      double gain() const;
+      /** Change the gain to a new diagonal matrix. */
+      void gain(const Eigen::VectorXd& kp);
+      /** Change the gain to a new matrix. */
+      void gain(const  Eigen::MatrixXd& kp);
+      /** Get the current gain.*/
+      const Gain& gain() const;
 
     private:
-      double kp_;
+      Gain kp_;
     };
 
+    /** Proportional dynamics with scalar gain. */
     Proportional(double kp);
+    /** Proportional dynamics with diagonal matrix gain. */
+    Proportional(const Eigen::VectorXd& kp);
+    /** Proportional dynamics with matrix gain. */
+    Proportional(const Eigen::MatrixXd& kp);
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
 
   private:
-    double kp_;
+    Gain kp_;
   };
 
   /** Alias for convenience */
