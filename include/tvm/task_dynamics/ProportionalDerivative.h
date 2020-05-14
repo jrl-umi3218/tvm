@@ -31,7 +31,6 @@
 
 #include <variant>
 
-#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 namespace tvm
@@ -59,6 +58,12 @@ namespace task_dynamics
       /** Set gains.
         * \param kp Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
         * \param kv Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+        *
+        * \internal We keep the 9 possible overloads rather than resorting to template to
+        *  - have an easily-understandable overview of the different possibilities for the user,
+        *  - clarify the types, because the conversion of matrix-like and vector-like expression to
+        *    MatrixXd and VectorXd is tricky and does not play well with std::variant. This is also
+        *    why we don't use MatrixConstRef and VectorConstRef: conversion to those is ambiguous.
         */
       /**@{*/
       void gains(double kp, double kv);
@@ -93,6 +98,12 @@ namespace task_dynamics
       void gains(const Eigen::MatrixXd& kp);
 
     private:
+      void checkGainSize(double k) const;
+      void checkGainSize(const Eigen::VectorXd& k) const;
+      void checkGainSize(const Eigen::MatrixXd& k) const;
+      template<typename T, typename U>
+      void gains_(const T& kp, const U& kv);
+
       Gain kp_; //Stiffness gain
       Gain kv_; //Damping gain
     };
@@ -100,6 +111,12 @@ namespace task_dynamics
     /** General constructor.
       * \param kp Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
       * \param kv Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix.
+      *
+      * \internal We keep the 9 possible overloads rather than resorting to template to
+      *  - have an easily-understandable overview of the different possibilities for the user,
+      *  - clarify the types, because the conversion of matrix-like and vector-like expression to
+      *    MatrixXd and VectorXd is tricky and does not play well with std::variant. This is also
+      *    why we don't use MatrixConstRef and VectorConstRef: conversion to those is ambiguous.
       */
     /**@{*/
     ProportionalDerivative(double kp, double kv);
@@ -143,6 +160,15 @@ namespace task_dynamics
 
   /** Alias for convenience */
   using PD = ProportionalDerivative;
+
+  template<typename T, typename U>
+  inline void ProportionalDerivative::Impl::gains_(const T& kp, const U& kv)
+  {
+    checkGainSize(kp);
+    checkGainSize(kv);
+    kp_ = kp;
+    kv_ = kv;
+  }
 }  // namespace task_dynamics
 
 }  // namespace tvm

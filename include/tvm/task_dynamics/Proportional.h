@@ -31,7 +31,6 @@
 
 #include <variant>
 
-#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 namespace tvm

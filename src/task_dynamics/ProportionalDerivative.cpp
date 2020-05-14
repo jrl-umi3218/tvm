@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -161,56 +161,47 @@ namespace task_dynamics
 
   void ProportionalDerivative::Impl::gains(double kp, double kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp, kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::VectorXd& kp, const Eigen::VectorXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd& kp, const Eigen::MatrixXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(double kp, const Eigen::VectorXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(double kp, const Eigen::MatrixXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::VectorXd& kp, double kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::VectorXd& kp, const Eigen::MatrixXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd& kp, double kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd& kp, const Eigen::VectorXd& kv)
   {
-    kp_ = kp;
-    kv_ = kv;
+    gains_(kp,kv);
   }
 
   void ProportionalDerivative::Impl::gains(double kp)
@@ -221,16 +212,39 @@ namespace task_dynamics
 
   void ProportionalDerivative::Impl::gains(const Eigen::VectorXd& kp)
   {
+    checkGainSize(kp);
     kp_ = kp;
     kv_.emplace<1>(2 * kp.cwiseSqrt());
   }
 
   void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd& kp)
   {
+    checkGainSize(kp);
     Eigen::RealSchur<Eigen::MatrixXd> dec(kp);
     assert(dec.matrixT().isDiagonal(1e-8) && "kp is not symmetric.");
     assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is undefinite.");
     kv_.emplace<2>(2*dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose());
+  }
+
+  void ProportionalDerivative::Impl::checkGainSize(double k) const
+  {
+    //do nothing
+  }
+
+  void ProportionalDerivative::Impl::checkGainSize(const Eigen::VectorXd& k) const
+  {
+    if (k.size() != function().size())
+    {
+      throw std::runtime_error("[task_dynamics::ProportionalDerivative::Impl::gains] Gain and function have incompatible sizes.");
+    }
+  }
+
+  void ProportionalDerivative::Impl::checkGainSize(const Eigen::MatrixXd& k) const
+  {
+    if (k.rows() != function().size() || k.cols() != function().size())
+    {
+      throw std::runtime_error("[task_dynamics::ProportionalDerivative::Impl::gains] Gain and function have incompatible sizes.");
+    }
   }
 
 }  // namespace task_dynamics

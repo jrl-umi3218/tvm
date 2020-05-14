@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -61,11 +61,12 @@ namespace task_dynamics
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
   {
-    assert((kp.index() == 0                                           // Scalar gain
-        || (kp.index() == 1 && std::get<1>(kp).size() == f->size())   // Diagonal gain
-        || (kp.index() == 2 && std::get<2>(kp).cols() == f->size()    // Matrix gain
-                            && std::get<2>(kp).rows() == f->size()))  
-      && "Gain and function have incompatible sizes");
+    if ((kp.index() == 1 && std::get<1>(kp).size() != f->size())   // Diagonal gain
+     || (kp.index() == 2 && std::get<2>(kp).cols() != f->size()    // Matrix gain
+                         && std::get<2>(kp).rows() != f->size()))
+    {
+      throw std::runtime_error("[task_dynamics::Proportional::Impl] Gain and function have incompatible sizes.");
+    }
   }
 
   void Proportional::Impl::updateValue()
@@ -88,11 +89,19 @@ namespace task_dynamics
 
   void Proportional::Impl::gain(const Eigen::VectorXd& kp)
   {
+    if (kp.size() != function().size())
+    {
+      throw std::runtime_error("[task_dynamics::Proportional::Impl::gain] Gain and function have incompatible sizes.");
+    }
     kp_ = kp;
   }
 
   void Proportional::Impl::gain(const Eigen::MatrixXd& kp)
   {
+    if (kp.rows() != function().size() || kp.cols() != function().size())
+    {
+      throw std::runtime_error("[task_dynamics::Proportional::Impl::gain] Gain and function have incompatible sizes.");
+    }
     kp_ = kp;
   }
 
