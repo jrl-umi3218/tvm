@@ -152,6 +152,7 @@ namespace task_dynamics
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
+    Order order_() const override;
 
   private:
     Gain kp_; //Stiffness gain

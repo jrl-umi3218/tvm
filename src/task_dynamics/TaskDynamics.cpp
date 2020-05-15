@@ -47,6 +47,11 @@ namespace abstract
     return ptr;
   }
 
+  Order TaskDynamics::order() const
+  {
+    return order_();
+  }
+
 }  // namespace abstract
 
 }  // namespace task_dynamics

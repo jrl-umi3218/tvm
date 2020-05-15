@@ -141,6 +141,7 @@ namespace tvm
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
+      Order order_() const override;
 
     private:
       double dt_;

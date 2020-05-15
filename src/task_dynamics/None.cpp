@@ -42,6 +42,11 @@ namespace tvm
       return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs));
     }
 
+    Order None::order_() const
+    {
+      return Order::Zero;
+    }
+
     None::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
       : TaskDynamicsImpl(Order::Zero, f, t, rhs)
     {

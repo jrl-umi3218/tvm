@@ -57,6 +57,11 @@ namespace task_dynamics
     return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, kp_));
   }
 
+  Order Proportional::order_() const
+  {
+    return Order::One;
+  }
+
   Proportional::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp)
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
