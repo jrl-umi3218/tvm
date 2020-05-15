@@ -5,10 +5,12 @@
 #include "SolverTestFunctions.h"
 
 #include <tvm/Variable.h>
+#include <tvm/task_dynamics/Clamped.h>
 #include <tvm/task_dynamics/Constant.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
+#include <tvm/task_dynamics/Reference.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
 #include <tvm/function/BasicLinearFunction.h>
 #include <tvm/function/IdentityFunction.h>
@@ -39,6 +41,7 @@ TEST_CASE("Test Constant")
 
   tdi->updateValue();
 
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(1, 0, 0)));
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::Constant>());
@@ -58,6 +61,7 @@ TEST_CASE("Test None")
   f->updateValue();
   tdi->updateValue();
 
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector2d(0,-2)));
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::None>());
@@ -78,6 +82,7 @@ TEST_CASE("Test Proportional")
   f->updateValue();
   tdi->updateValue();
 
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P>());
@@ -151,6 +156,7 @@ TEST_CASE("Test Proportional Derivative")
   f->updateVelocityAndNormalAcc();
   tdi->updateValue();
 
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16);
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD>());
@@ -295,6 +301,7 @@ TEST_CASE("Test Velocity Damper")
     f->updateValue();
     tdl->updateValue();
 
+    FAST_CHECK_EQ(td1.order(), task_dynamics::Order::One);
     FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::One);
     FAST_CHECK_EQ(tdl->value()[0], 0);
     FAST_CHECK_EQ(tdl->value()[1], -1);
@@ -325,6 +332,7 @@ TEST_CASE("Test Velocity Damper")
     f->updateVelocity();
     tdl->updateValue();
 
+    FAST_CHECK_EQ(td2.order(), task_dynamics::Order::Two);
     FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::Two);
     FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-10, -20, -1000)));
     FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
@@ -413,5 +421,72 @@ TEST_CASE("Test automatic xsi")
     x << -3, -2, -1;
     gu->execute();
     FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(1.5, 0.75, 0)));
+  }
+}
+
+TEST_CASE("Test Reference")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+  auto f = std::make_shared<Simple2dRobotEE>(x, Vector2d(0, 0), Vector3d::Ones());
+
+  VariablePtr u = Space(1).createVariable("u");
+  u << 0;
+  MatrixXd A(2, 1); A << 2, 1;
+  VectorXd b(2); b << -1, 0;
+  auto ref = std::make_shared<function::BasicLinearFunction>(A, u, b);
+
+  {
+    task_dynamics::ReferenceVelocity refv(ref);
+    TaskDynamicsPtr tdi = refv.impl(f, constraint::Type::EQUAL, Vector2d::Zero());
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdi, Value);
+
+    gl->execute();
+
+    FAST_CHECK_EQ(refv.order(), task_dynamics::Order::One);
+    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
+    FAST_CHECK_UNARY(tdi->value().isApprox(ref->value()));
+  }
+  {
+    task_dynamics::ReferenceAcceleration refa(ref);
+    TaskDynamicsPtr tdi = refa.impl(f, constraint::Type::EQUAL, Vector2d::Zero());
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdi, Value);
+
+    gl->execute();
+
+    FAST_CHECK_EQ(refa.order(), task_dynamics::Order::Two);
+    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
+    FAST_CHECK_UNARY(tdi->value().isApprox(ref->value()));
+  }
+}
+
+TEST_CASE("Test Clamped")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  x << 2, 3, -1;
+  auto f = std::make_shared<function::IdentityFunction>(x);
+
+  double kp = 1;
+  task_dynamics::P td(kp);
+  VectorXd rhs = Vector3d::Ones();
+
+  {
+    task_dynamics::Clamped c(td, 1);
+    TaskDynamicsPtr tdi = c.impl(f, constraint::Type::EQUAL, rhs);
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdi, Value);
+    gl->execute();
+
+    FAST_CHECK_EQ(c.order(), task_dynamics::Order::One);
+    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
+    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(-.5,-1,1))); // e'= -e = (-1,-2,2)
+
+    x << 0.5, 1, 1.5;
+    gl->execute();
+    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(.5, 0, -.5))); // e'= -e = (0.5,0,-0.5)
   }
 }
