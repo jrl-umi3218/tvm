@@ -66,9 +66,9 @@ namespace task_dynamics
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
   {
-    if ((kp.index() == 1 && std::get<1>(kp).size() != f->size())   // Diagonal gain
-     || (kp.index() == 2 && std::get<2>(kp).cols() != f->size()    // Matrix gain
-                         && std::get<2>(kp).rows() != f->size()))
+    if ((kp.index() == 1 && std::get<Eigen::VectorXd>(kp).size() != f->size())   // Diagonal gain
+     || (kp.index() == 2 && std::get<Eigen::MatrixXd>(kp).cols() != f->size()    // Matrix gain
+                         && std::get<Eigen::MatrixXd>(kp).rows() != f->size()))
     {
       throw std::runtime_error("[task_dynamics::Proportional::Impl] Gain and function have incompatible sizes.");
     }

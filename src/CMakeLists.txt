@@ -185,6 +185,7 @@ set(TVM_HEADERS
   
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/internal/workarounds.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Clamped.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Constant.h
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h

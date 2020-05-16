@@ -110,7 +110,7 @@ namespace task_dynamics
     Eigen::RealSchur<Eigen::MatrixXd> dec(kp);
     assert(dec.matrixT().isDiagonal(1e-8) && "kp is not symmetric.");
     assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is undefinite.");
-    std::get<2>(kv_).noalias() = 2*dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose();
+    kv_.emplace<2>(2 * dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose());
   }
 
   std::unique_ptr<abstract::TaskDynamicsImpl> ProportionalDerivative::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
@@ -129,15 +129,15 @@ namespace task_dynamics
     , kv_(kv)
   {
     assert((kp.index() == 0                                           // Scalar gain
-        || (kp.index() == 1 && std::get<1>(kp).size() == f->size())   // Diagonal gain
-        || (kp.index() == 2 && std::get<2>(kp).cols() == f->size()    // Matrix gain
-                            && std::get<2>(kp).rows() == f->size()))  
+        || (kp.index() == 1 && std::get<Eigen::VectorXd>(kp).size() == f->size())   // Diagonal gain
+        || (kp.index() == 2 && std::get<Eigen::MatrixXd>(kp).cols() == f->size()    // Matrix gain
+                            && std::get<Eigen::MatrixXd>(kp).rows() == f->size()))  
       && "Gain kp and function have incompatible sizes");
 
     assert((kv.index() == 0                                           // Scalar gain
-        || (kv.index() == 1 && std::get<1>(kv).size() == f->size())   // Diagonal gain
-        || (kv.index() == 2 && std::get<2>(kv).cols() == f->size()    // Matrix gain
-                            && std::get<2>(kv).rows() == f->size()))  
+        || (kv.index() == 1 && std::get<Eigen::VectorXd>(kv).size() == f->size())   // Diagonal gain
+        || (kv.index() == 2 && std::get<Eigen::MatrixXd>(kv).cols() == f->size()    // Matrix gain
+                            && std::get<Eigen::MatrixXd>(kv).rows() == f->size()))  
       && "Gain kv and function have incompatible sizes");
   }
 

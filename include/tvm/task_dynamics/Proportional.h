@@ -29,7 +29,15 @@
 
 #pragma once
 
+// std::variant is basically unusable in clang 6 + libstdc++ due to a bug
+// see, e.g. https://bugs.llvm.org/show_bug.cgi?id=33222
+// We use a workaround for std::variant<double, Eigen::VectorXd, Eigen::MatrixXd>
+// in this case.
+#if defined(__clang__) && __clang_major__ < 7 && defined(__GLIBCXX__)
+#include <tvm/task_dynamics/internal/workarounds.h>
+#else
 #include <variant>
+#endif
 
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
@@ -45,7 +53,11 @@ namespace task_dynamics
   class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {
   public:
+#if defined(__clang__) && __clang_major__ < 7 && defined(__GLIBCXX__)    
+    using Gain = internal::WorkaroundDoubleVectorMatrixVariant;
+#else
     using Gain = std::variant<double, Eigen::VectorXd, Eigen::MatrixXd>;
+#endif
 
     class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
     {

@@ -163,7 +163,7 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
 }
 
-TEST_CASE("Test Proportionnal gain types")
+TEST_CASE("Test Proportionnal Derivative gain types")
 {
   VariablePtr x = Space(3).createVariable("x");
   VariablePtr dx = dot(x);
