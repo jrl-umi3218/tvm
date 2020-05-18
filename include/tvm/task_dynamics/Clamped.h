@@ -29,15 +29,10 @@
 
 #pragma once
 
-// std::variant is basically unusable in clang 6 + libstdc++ 
+// std::variant is basically unusable in clang 6 + libstdc++ due to a bug
 // see, e.g. https://bugs.llvm.org/show_bug.cgi?id=33222
-// We use a workaround for std::variant<double, Eigen::VectorXd, Eigen::MatrixXd>
-// in this case.
-#if defined(__clang__) && __clang_major__ < 7 && defined(__GLIBCXX__)
-#include <tvm/task_dynamics/internal/workarounds.h>
-#else
-#include <variant>
-#endif
+// We use https://github.com/mpark/variant/ instead
+#include <mpark/variant.hpp>
 
 #include <tvm/defs.h>
 #include <tvm/function/abstract/Function.h>
@@ -49,11 +44,7 @@ namespace tvm::task_dynamics
   class Clamped : public abstract::TaskDynamics
   {
   public:
-#if defined(__clang__) && __clang_major__ < 7 && defined(__GLIBCXX__)    
-    using Bounds = internal::WorkaroundDoubleVectorMatrixVariant; 
-#else
-    using Bounds = std::variant<double, Eigen::VectorXd>;
-#endif
+    using Bounds = mpark::variant<double, Eigen::VectorXd>;
 
     class Impl : public abstract::TaskDynamicsImpl
     {
@@ -148,8 +139,8 @@ namespace tvm::task_dynamics
   inline Clamped<TD>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max)
     : TaskDynamicsImpl(innerTaskDynamics.order(), f, t, rhs)
     , innerTaskDynamicsImpl_(static_cast<typename TD::Impl*>(innerTaskDynamics.impl(f, t, rhs).release()))
-    , min_(min.index() == 1 ? std::get<Eigen::VectorXd>(min) : VectorXd::Constant(f->size(), std::get<double>(min)))
-    , max_(max.index() == 1 ? std::get<Eigen::VectorXd>(max) : VectorXd::Constant(f->size(), std::get<double>(max)))
+    , min_(min.index() == 1 ? mpark::get<Eigen::VectorXd>(min) : VectorXd::Constant(f->size(), mpark::get<double>(min)))
+    , max_(max.index() == 1 ? mpark::get<Eigen::VectorXd>(max) : VectorXd::Constant(f->size(), mpark::get<double>(max)))
   {
     if (min_.size() != f->size() || max_.size() != f->size())
     {

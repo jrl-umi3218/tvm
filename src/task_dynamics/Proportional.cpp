@@ -66,9 +66,9 @@ namespace task_dynamics
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , kp_(kp)
   {
-    if ((kp.index() == 1 && std::get<Eigen::VectorXd>(kp).size() != f->size())   // Diagonal gain
-     || (kp.index() == 2 && std::get<Eigen::MatrixXd>(kp).cols() != f->size()    // Matrix gain
-                         && std::get<Eigen::MatrixXd>(kp).rows() != f->size()))
+    if ((kp.index() == 1 && mpark::get<Eigen::VectorXd>(kp).size() != f->size())   // Diagonal gain
+     || (kp.index() == 2 && mpark::get<Eigen::MatrixXd>(kp).cols() != f->size()    // Matrix gain
+                         && mpark::get<Eigen::MatrixXd>(kp).rows() != f->size()))
     {
       throw std::runtime_error("[task_dynamics::Proportional::Impl] Gain and function have incompatible sizes.");
     }
@@ -80,9 +80,9 @@ namespace task_dynamics
     // this is slower because it prevents Eigen to perform some optimization.
     switch (kp_.index())
     {
-    case 0: value_ = -std::get<double>(kp_) * (function().value() - rhs()); break;
-    case 1: value_.noalias() = -(std::get<Eigen::VectorXd>(kp_).asDiagonal() * (function().value() - rhs())); break;
-    case 2: value_.noalias() = -std::get<Eigen::MatrixXd>(kp_) * (function().value() - rhs()); break;
+    case 0: value_ = -mpark::get<double>(kp_) * (function().value() - rhs()); break;
+    case 1: value_.noalias() = -(mpark::get<Eigen::VectorXd>(kp_).asDiagonal() * (function().value() - rhs())); break;
+    case 2: value_.noalias() = -mpark::get<Eigen::MatrixXd>(kp_) * (function().value() - rhs()); break;
     default: assert(false);
     }
   }

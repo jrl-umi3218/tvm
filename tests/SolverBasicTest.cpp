@@ -56,7 +56,7 @@ void solverTest01()
   auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
   auto t2 = lpb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
-  std::cout << std::get<double>(t1->task.taskDynamics<task_dynamics::PD>()->gains().first) << std::endl;
+  std::cout << mpark::get<double>(t1->task.taskDynamics<task_dynamics::PD>()->gains().first) << std::endl;
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
   solver.solve(lpb);

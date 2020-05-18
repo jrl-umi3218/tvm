@@ -185,7 +185,6 @@ set(TVM_HEADERS
   
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
-  ${TVM_INCLUDE_DIR}/task_dynamics/internal/workarounds.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Clamped.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Constant.h
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
@@ -244,7 +243,7 @@ assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
 target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core ${SOLVER_LIBS})
-target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
+target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../3rd-party>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
 target_compile_features(TVM PUBLIC cxx_std_17)

@@ -99,7 +99,7 @@ namespace task_dynamics
 
   ProportionalDerivative::ProportionalDerivative(const Eigen::VectorXd& kp)
     : kp_(kp)
-    , kv_(std::in_place_index<1>, 2*kp.cwiseSqrt())
+    , kv_(mpark::in_place_index<1>, 2*kp.cwiseSqrt())
   {
   }
 
@@ -129,15 +129,15 @@ namespace task_dynamics
     , kv_(kv)
   {
     assert((kp.index() == 0                                           // Scalar gain
-        || (kp.index() == 1 && std::get<Eigen::VectorXd>(kp).size() == f->size())   // Diagonal gain
-        || (kp.index() == 2 && std::get<Eigen::MatrixXd>(kp).cols() == f->size()    // Matrix gain
-                            && std::get<Eigen::MatrixXd>(kp).rows() == f->size()))  
+        || (kp.index() == 1 && mpark::get<Eigen::VectorXd>(kp).size() == f->size())   // Diagonal gain
+        || (kp.index() == 2 && mpark::get<Eigen::MatrixXd>(kp).cols() == f->size()    // Matrix gain
+                            && mpark::get<Eigen::MatrixXd>(kp).rows() == f->size()))  
       && "Gain kp and function have incompatible sizes");
 
     assert((kv.index() == 0                                           // Scalar gain
-        || (kv.index() == 1 && std::get<Eigen::VectorXd>(kv).size() == f->size())   // Diagonal gain
-        || (kv.index() == 2 && std::get<Eigen::MatrixXd>(kv).cols() == f->size()    // Matrix gain
-                            && std::get<Eigen::MatrixXd>(kv).rows() == f->size()))  
+        || (kv.index() == 1 && mpark::get<Eigen::VectorXd>(kv).size() == f->size())   // Diagonal gain
+        || (kv.index() == 2 && mpark::get<Eigen::MatrixXd>(kv).cols() == f->size()    // Matrix gain
+                            && mpark::get<Eigen::MatrixXd>(kv).rows() == f->size()))  
       && "Gain kv and function have incompatible sizes");
   }
 
@@ -145,16 +145,16 @@ namespace task_dynamics
   {
     switch (kv_.index())
     {
-    case 0: value_ = -std::get<double>(kv_) * function().velocity(); break;
-    case 1: value_.noalias() = -(std::get<Eigen::VectorXd>(kv_).asDiagonal() * function().velocity()); break;
-    case 2: value_.noalias() = -std::get<Eigen::MatrixXd>(kv_) * function().velocity(); break;
+    case 0: value_ = -mpark::get<double>(kv_) * function().velocity(); break;
+    case 1: value_.noalias() = -(mpark::get<Eigen::VectorXd>(kv_).asDiagonal() * function().velocity()); break;
+    case 2: value_.noalias() = -mpark::get<Eigen::MatrixXd>(kv_) * function().velocity(); break;
     default: assert(false);
     }
     switch (kp_.index())
     {
-    case 0: value_ -= std::get<double>(kp_) * (function().value() - rhs()); break;
-    case 1: value_.noalias() -= std::get<Eigen::VectorXd>(kp_).asDiagonal() * (function().value() - rhs()); break;
-    case 2: value_.noalias() -= std::get<Eigen::MatrixXd>(kp_) * (function().value() - rhs()); break;
+    case 0: value_ -= mpark::get<double>(kp_) * (function().value() - rhs()); break;
+    case 1: value_.noalias() -= mpark::get<Eigen::VectorXd>(kp_).asDiagonal() * (function().value() - rhs()); break;
+    case 2: value_.noalias() -= mpark::get<Eigen::MatrixXd>(kp_) * (function().value() - rhs()); break;
     default: assert(false);
     }
   }
