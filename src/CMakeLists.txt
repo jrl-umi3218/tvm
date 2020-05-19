@@ -2,7 +2,6 @@ set(TVM_SOURCES
   Clock.cpp
   ControlProblem.cpp
   LinearizedControlProblem.cpp
-  Robot.cpp
   Space.cpp
   Task.cpp
   Variable.cpp
@@ -37,12 +36,38 @@ set(TVM_SOURCES
   hint/SubstitutionCalculatorImpl.cpp
   hint/Substitutions.cpp
   hint/SubstitutionUnit.cpp
-  
+
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
   internal/ObjWithId.cpp
 
   requirements/SolvingRequirements.cpp
+
+  scheme/Assignment.cpp
+  scheme/AssignmentTarget.cpp
+  scheme/helpers.cpp
+  scheme/ResolutionScheme.cpp
+  scheme/SchemeAbilities.cpp
+  scheme/WeightedLeastSquares.cpp
+
+  solver/defaultLeastSquareSolver.cpp
+  solver/LeastSquareSolver.cpp
+
+  task_dynamics/Constant.cpp
+  task_dynamics/None.cpp
+  task_dynamics/Proportional.cpp
+  task_dynamics/ProportionalDerivative.cpp
+  task_dynamics/Reference.cpp
+  task_dynamics/TaskDynamics.cpp
+  task_dynamics/TaskDynamicsImpl.cpp
+  task_dynamics/VelocityDamper.cpp
+
+  utils/UpdatelessFunction.cpp
+  utils/checkFunction.cpp
+)
+
+set(TVM_ROBOT_SOURCES
+  Robot.cpp
 
   robot/CollisionFunction.cpp
   robot/CoMFunction.cpp
@@ -59,28 +84,7 @@ set(TVM_SOURCES
   robot/PostureFunction.cpp
   robot/utils.cpp
 
-  scheme/Assignment.cpp
-  scheme/AssignmentTarget.cpp
-  scheme/helpers.cpp
-  scheme/ResolutionScheme.cpp
-  scheme/SchemeAbilities.cpp
-  scheme/WeightedLeastSquares.cpp
-  
-  solver/defaultLeastSquareSolver.cpp
-  solver/LeastSquareSolver.cpp
-
-  task_dynamics/Constant.cpp
-  task_dynamics/None.cpp
-  task_dynamics/Proportional.cpp
-  task_dynamics/ProportionalDerivative.cpp
-  task_dynamics/Reference.cpp
-  task_dynamics/TaskDynamics.cpp
-  task_dynamics/TaskDynamicsImpl.cpp
-  task_dynamics/VelocityDamper.cpp
-  
   utils/sch.cpp
-  utils/UpdatelessFunction.cpp
-  utils/checkFunction.cpp
 )
 
 set(TVM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/tvm)
@@ -91,7 +95,6 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/defs.h
   ${TVM_INCLUDE_DIR}/LinearizedControlProblem.h
   ${TVM_INCLUDE_DIR}/Range.h
-  ${TVM_INCLUDE_DIR}/Robot.h
   ${TVM_INCLUDE_DIR}/Space.h
   ${TVM_INCLUDE_DIR}/Task.h
   ${TVM_INCLUDE_DIR}/Variable.h
@@ -127,7 +130,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
   ${TVM_INCLUDE_DIR}/graph/internal/Log.h
   ${TVM_INCLUDE_DIR}/graph/internal/Logger.h
-  
+
   ${TVM_INCLUDE_DIR}/hint/Substitution.h
   ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculator.h
   ${TVM_INCLUDE_DIR}/hint/abstract/SubstitutionCalculatorImpl.h
@@ -152,21 +155,6 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/requirements/ViolationEvaluation.h
   ${TVM_INCLUDE_DIR}/requirements/Weight.h
 
-  ${TVM_INCLUDE_DIR}/robot/internal/DynamicFunction.h
-  ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
-  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
-  ${TVM_INCLUDE_DIR}/robot/CollisionFunction.h
-  ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
-  ${TVM_INCLUDE_DIR}/robot/CoMInConvexFunction.h
-  ${TVM_INCLUDE_DIR}/robot/ConvexHull.h
-  ${TVM_INCLUDE_DIR}/robot/Contact.h
-  ${TVM_INCLUDE_DIR}/robot/Frame.h
-  ${TVM_INCLUDE_DIR}/robot/JointsSelector.h
-  ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
-  ${TVM_INCLUDE_DIR}/robot/PositionFunction.h
-  ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
-  ${TVM_INCLUDE_DIR}/robot/utils.h
-
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
@@ -182,7 +170,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/internal/Option.h
   ${TVM_INCLUDE_DIR}/solver/defaultLeastSquareSolver.h
-  
+
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Clamped.h
@@ -193,12 +181,11 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Reference.h
   ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
-  
+
   ${TVM_INCLUDE_DIR}/utils/AffineExpr.h
   ${TVM_INCLUDE_DIR}/utils/checkFunction.h
   ${TVM_INCLUDE_DIR}/utils/graph.h
   ${TVM_INCLUDE_DIR}/utils/ProtoTask.h
-  ${TVM_INCLUDE_DIR}/utils/sch.h
   ${TVM_INCLUDE_DIR}/utils/UpdatelessFunction.h
   ${TVM_INCLUDE_DIR}/utils/internal/AffineExprDetail.h
   ${TVM_INCLUDE_DIR}/utils/internal/AffineExprOperators.h
@@ -208,15 +195,41 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
 )
 
-if(${TVM_WITH_LSSOL})
+set(TVM_ROBOT_HEADERS
+  ${TVM_INCLUDE_DIR}/Robot.h
+
+  ${TVM_INCLUDE_DIR}/robot/internal/DynamicFunction.h
+  ${TVM_INCLUDE_DIR}/robot/internal/FrictionCone.h
+  ${TVM_INCLUDE_DIR}/robot/internal/GeometricContactFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CollisionFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CoMFunction.h
+  ${TVM_INCLUDE_DIR}/robot/CoMInConvexFunction.h
+  ${TVM_INCLUDE_DIR}/robot/ConvexHull.h
+  ${TVM_INCLUDE_DIR}/robot/Contact.h
+  ${TVM_INCLUDE_DIR}/robot/Frame.h
+  ${TVM_INCLUDE_DIR}/robot/JointsSelector.h
+  ${TVM_INCLUDE_DIR}/robot/OrientationFunction.h
+  ${TVM_INCLUDE_DIR}/robot/PositionFunction.h
+  ${TVM_INCLUDE_DIR}/robot/PostureFunction.h
+  ${TVM_INCLUDE_DIR}/robot/utils.h
+
+  ${TVM_INCLUDE_DIR}/utils/sch.h
+)
+
+if(TVM_WITH_ROBOT)
+  list(APPEND TVM_SOURCES ${TVM_ROBOT_SOURCES})
+  list(APPEND TVM_HEADERS ${TVM_ROBOT_HEADERS})
+endif()
+
+if(TVM_WITH_LSSOL)
   list(APPEND TVM_SOURCES solver/LSSOLLeastSquareSolver.cpp)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LSSOLLeastSquareSolver.h)
 endif()
-if(${TVM_WITH_QLD})
+if(TVM_WITH_QLD)
   list(APPEND TVM_SOURCES solver/QLDLeastSquareSolver.cpp)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QLDLeastSquareSolver.h)
 endif()
-if(${TVM_WITH_QUADPROG})
+if(TVM_WITH_QUADPROG)
   list(APPEND TVM_SOURCES solver/QuadprogLeastSquareSolver.cpp)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
 endif()
@@ -242,7 +255,11 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core ${SOLVER_LIBS} tvm_3rd-party_mpark-variant)
+target_link_libraries(TVM PUBLIC ${SOLVER_LIBS} tvm_3rd-party_mpark-variant)
+target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
+if(TVM_WITH_ROBOT)
+  target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core)
+endif()
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
@@ -256,7 +273,7 @@ endif()
 
 
 install(TARGETS TVM
-	EXPORT "${TARGETS_EXPORT_NAME}"
+  EXPORT "${TARGETS_EXPORT_NAME}"
     LIBRARY DESTINATION "lib"
     ARCHIVE DESTINATION "lib"
     RUNTIME DESTINATION "bin"

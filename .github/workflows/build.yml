@@ -37,6 +37,7 @@ jobs:
         os: [ubuntu-18.04, macos-latest, windows-latest]
         build-type: [Debug, RelWithDebInfo]
         compiler: [gcc, clang]
+        with-robot: [ON, OFF]
         exclude:
           # Only default compiler on macos-latest and windows-latest
           - os: macos-latest
@@ -65,37 +66,47 @@ jobs:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
         ubuntu: |
-          apt: libeigen3-dev doxygen doxygen-latex libboost-all-dev libtinyxml2-dev libyaml-cpp-dev
+          apt: libeigen3-dev doxygen doxygen-latex libboost-all-dev
         macos: |
           cask: gfortran
-          brew: eigen boost tinyxml2 yaml-cpp
+          brew: eigen boost
         windows: |
           github:
             - path: eigenteam/eigen-git-mirror
               ref: 3.3.7
+        options: -DPYTHON_BINDING:BOOL=OFF
+        github: |
+          - path: jrl-umi3218/eigen-qld
+          - path: jrl-umi3218/eigen-quadprog
+    - name: Install Tasks
+      uses: jrl-umi3218/github-actions/install-dependencies@master
+      with:
+        compiler: ${{ matrix.compiler }}
+        build-type: ${{ matrix.build-type }}
+        ubuntu: |
+          apt: libtinyxml2-dev libyaml-cpp-dev
+        macos: |
+          brew: tinyxml2 yaml-cpp
+        windows: |
+          github:
             - path: leethomason/tinyxml2
               ref: 7.1.0
             - path: jbeder/yaml-cpp
               ref: 29dcf92f870ee51cce8d68f8fcfe228942e8dfe1
+        options: -DPYTHON_BINDING:BOOL=OFF
         github: |
           - path: jrl-umi3218/SpaceVecAlg
-            options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/sch-core
-          - path: jrl-umi3218/eigen-qld
-            options: -DPYTHON_BINDING:BOOL=OFF
-          - path: jrl-umi3218/eigen-quadprog
-            options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/RBDyn
-            options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/Tasks
-            options: -DPYTHON_BINDING:BOOL=OFF
           - path: jrl-umi3218/mc_rtc_data
+      if: matrix.with-robot == 'ON'
     - name: Build and test
       uses: jrl-umi3218/github-actions/build-cmake-project@master
       with:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
-        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON
+        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }}
     - name: Slack Notification
       if: failure()
       uses: archive/github-actions-slack@master
@@ -103,4 +114,4 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN }}
         slack-channel: '#tvm'
         slack-text: >
-          [TVM] Build *${{ matrix.os }}/${{ matrix.build-type }} (${{ matrix.compiler }})* failed on ${{ github.ref }}
+          [TVM] Build *${{ matrix.os }}/${{ matrix.build-type }}/with-robot:${{ matrix.with-robot }} (${{ matrix.compiler }})* failed on ${{ github.ref }}

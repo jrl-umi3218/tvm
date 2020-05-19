@@ -52,7 +52,7 @@ add_project_dependency(Eigen3 REQUIRED)
 # - eigen-lssol - #
 ###################
 option(TVM_WITH_LSSOL "Build with LSSOL support" OFF)
-if(${TVM_WITH_LSSOL})
+if(TVM_WITH_LSSOL)
   add_project_dependency(eigen-lssol REQUIRED)
   list(APPEND SOLVER_FLAGS "-DTVM_USE_LSSOL")
   list(APPEND SOLVER_LIBS eigen-lssol::eigen-lssol)
@@ -63,7 +63,7 @@ endif()
 # - eigen-qld - #
 ###################
 option(TVM_WITH_QLD "Build with QLD support" ON)
-if(${TVM_WITH_QLD})
+if(TVM_WITH_QLD)
   add_project_dependency(eigen-qld REQUIRED)
   list(APPEND SOLVER_FLAGS "-DTVM_USE_QLD")
   list(APPEND SOLVER_LIBS eigen-qld::eigen-qld)
@@ -74,25 +74,32 @@ endif()
 # - eigen-qld - #
 ###################
 option(TVM_WITH_QUADPROG "Build with Quadprog support" OFF)
-if(${TVM_WITH_QUADPROG})
+if(TVM_WITH_QUADPROG)
   add_project_dependency(eigen-quadprog REQUIRED)
   list(APPEND SOLVER_FLAGS "-DTVM_USE_QUADPROG")
   list(APPEND SOLVER_LIBS eigen-quadprog::eigen-quadprog)
   set(USING_SOLVER TRUE)
 endif()
 
-#############
-# - RBDyn - #
-#############
-add_project_dependency(RBDyn 1.2.1 REQUIRED)
-if(NOT TARGET RBDyn::Parsers)
-  message(FATAL_ERROR "RBDyn must be built with parsers support")
-endif()
 
-################
-# - sch-core - #
-################
-add_project_dependency(sch-core REQUIRED)
+##########################
+# - Robotic components - #
+##########################
+option(TVM_WITH_ROBOT "Build robots' related components" ON)
+if(TVM_WITH_ROBOT)
+  #############
+  # - RBDyn - #
+  #############
+  add_project_dependency(RBDyn 1.2.1 REQUIRED)
+  if(NOT TARGET RBDyn::Parsers)
+    message(FATAL_ERROR "RBDyn must be built with parsers support")
+  endif()
+
+  ################
+  # - sch-core - #
+  ################
+  add_project_dependency(sch-core REQUIRED)
+endif()
 
 #########################
 
