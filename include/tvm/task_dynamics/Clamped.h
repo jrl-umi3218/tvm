@@ -40,6 +40,11 @@
 
 namespace tvm::task_dynamics
 {
+  /** Given a task dynamics value \f$ e^{(k)*} \f$, compute the new value
+    * \f$ e_c^{(k)*} = s e^{(k)*} \f$, \f$ s \in [0, 1] \f$, such that
+    * \f$ b_{min} \leq \ e_c^{(k)*} \b_{max}\f$ where \f$ b_{min} \f$ and
+    * \f$ b_{max} \f$ are given bounds, specified as scalars or vectors.
+    */
   template <class TD>
   class Clamped : public abstract::TaskDynamics
   {
@@ -52,7 +57,27 @@ namespace tvm::task_dynamics
       Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max);
       void updateValue() override;
 
-      std::shared_ptr<typename TD::Impl> inner() const;
+      /** Access to the task dynamics being clamped. */
+      const std::shared_ptr<typename TD::Impl>& inner() const;
+
+      /** Access to \f$ b_{min} \f$. */
+      const Eigen::VectorXd& min() const { return min_; }
+      /** Access to \f$ b_{min} \f$. 
+        *
+        * \warning It is your responsibility to give a valid \f$ b_{min} \f$ i.e.
+        *  * correct size
+        *  * \f$ b_{min} \leq 0 \leq b_{max}\f$
+        */
+      Eigen::VectorXd& min() { return min_; }
+      /** Access to \f$ b_{max} \f$. */
+      const Eigen::VectorXd& max() const { return max_; }
+      /** Access to \f$ b_{max} \f$.
+        *
+        * \warning It is your responsibility to give a valid \f$ b_{max} \f$ i.e.
+        *  * correct size
+        *  * \f$ b_{min} \leq 0 \leq b_{max}\f$
+        */
+      Eigen::VectorXd& max() { return max_; }
 
     private:
       std::shared_ptr<typename TD::Impl> innerTaskDynamicsImpl_;
@@ -60,9 +85,37 @@ namespace tvm::task_dynamics
       Eigen::VectorXd max_;
     };
 
+    /** Constructor with \f$ b_{min} = -b_{max}\f$  (scalar version).
+      *
+      * \param innerTaskDynamics The task dynamics to clamp.
+      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have, in absolute value (\f$ b_{max}\f$).
+      */
     Clamped(const TD& innerTaskDynamics, double max);
+    /** Constructor with \f$ b_{min} = -b_{max}\f$  (scalar version).
+      *
+      * \param innerTaskDynamics The task dynamics to clamp.
+      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have (\f$ b_{max}\f$).
+      * \param min The minimum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have (\f$ b_{min}\f$). We need \f$ b_{min} \leq 0 \leq b_{max}\f$.
+      */
     Clamped(const TD& innerTaskDynamics, double min, double max);
+    /** Constructor with \f$ b_{min} = -b_{max}\f$  (vector version).
+      *
+      * \param innerTaskDynamics The task dynamics to clamp.
+      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have, in absolute value (\f$ b_{max}\f$).
+      */
     Clamped(const TD& innerTaskDynamics, const VectorConstRef& max);
+    /** Constructor with \f$ b_{min} = -b_{max}\f$  (vector version).
+      *
+      * \param innerTaskDynamics The task dynamics to clamp.
+      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have (\f$ b_{max}\f$).
+      * \param min The minimum value that a component of \f$ e_c^{(k)*} \f$ can
+      *        have (\f$ b_{min}\f$). We need \f$ b_{min} \leq 0 \leq b_{max}\f$.
+      */
     Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max);
 
   protected:
@@ -183,7 +236,7 @@ namespace tvm::task_dynamics
   }
   
   template<class TD>
-  inline std::shared_ptr<typename TD::Impl> Clamped<TD>::Impl::inner() const
+  inline const std::shared_ptr<typename TD::Impl>& Clamped<TD>::Impl::inner() const
   {
     return innerTaskDynamicsImpl_;
   }
