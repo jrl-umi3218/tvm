@@ -1,7 +1,7 @@
 macro(addExample name)
   add_executable(${name} ${name}.cpp ${ARGN})
   target_link_libraries(${name} TVM)
-  target_include_directories(${name} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Tests>)
+  target_include_directories(${name} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../tests>)
   add_test(${name}Unit ${name})
   # Adding a project configuration file (for MSVC only)
   GENERATE_MSVC_DOT_USER_FILE(${name} "${CMAKE_INSTALL_PREFIX}/bin")
