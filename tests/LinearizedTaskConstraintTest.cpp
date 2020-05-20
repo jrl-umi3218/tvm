@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"

@@ -57,6 +57,7 @@ set(TVM_SOURCES
   task_dynamics/None.cpp
   task_dynamics/Proportional.cpp
   task_dynamics/ProportionalDerivative.cpp
+  task_dynamics/Reference.cpp
   task_dynamics/TaskDynamics.cpp
   task_dynamics/TaskDynamicsImpl.cpp
   task_dynamics/VelocityDamper.cpp
@@ -172,11 +173,13 @@ set(TVM_HEADERS
 
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamicsImpl.h
-  ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/Clamped.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Constant.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
   ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/Reference.h
   ${TVM_INCLUDE_DIR}/task_dynamics/VelocityDamper.h
 
   ${TVM_INCLUDE_DIR}/utils/AffineExpr.h
@@ -252,6 +255,7 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
+target_link_libraries(TVM PUBLIC ${SOLVER_LIBS} tvm_3rd-party_mpark-variant)
 target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
 if(TVM_WITH_ROBOT)
   target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core)

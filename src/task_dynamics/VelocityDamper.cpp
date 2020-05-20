@@ -117,6 +117,11 @@ namespace task_dynamics
     }
   }
 
+  Order VelocityDamper::order_() const
+  {
+    return dt_ > 0 ? Order::Two : Order::One;
+  }
+
   VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, bool autoXsi, double di, double ds, double xsi, double big)
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , dt_(0)

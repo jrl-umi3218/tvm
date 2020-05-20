@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #include <tvm/Robot.h>
 #include <tvm/robot/internal/GeometricContactFunction.h>
 #include <tvm/robot/internal/DynamicFunction.h>

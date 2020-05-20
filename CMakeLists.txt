@@ -113,8 +113,12 @@ if(MSVC)
   set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
 endif(MSVC)
 
+# Grouping projects in solution folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON) 
+
 add_subdirectory(3rd-party)
 add_subdirectory(src)
 if(${BUILD_TESTING})
   add_subdirectory(tests)
+  add_subdirectory(examples)
 endif()

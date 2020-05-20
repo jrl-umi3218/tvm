@@ -72,10 +72,15 @@ namespace tvm
 
       protected:
         TaskDynamicsImpl(Order order, FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs);
+        
+        /** Access to the task function.*/
         const function::abstract::Function & function() const;
+        /** Access to the task operator. */
         constraint::Type type() const;
+        /** Access to the task right hand side.*/
         const Eigen::VectorXd& rhs() const;
 
+        /** Cache to store the results of updateValue()*/
         Eigen::VectorXd value_;
 
       private:

@@ -18,6 +18,7 @@ macro(addUnitTest name)
   add_test(${name}Unit ${name})
   # Adding a project configuration file (for MSVC only)
   GENERATE_MSVC_DOT_USER_FILE(${name} "${CMAKE_INSTALL_PREFIX}/bin")
+  set_target_properties(${name} PROPERTIES FOLDER "Tests")
 endmacro(addUnitTest)
 
 addUnitTest(AffineExprTest)
@@ -83,13 +84,16 @@ set(TESTHEADERS
 add_executable(main ${TESTSOURCES} ${TESTHEADERS})
 target_link_libraries(main TVM)
 GENERATE_MSVC_DOT_USER_FILE(main "${CMAKE_INSTALL_PREFIX}/bin")
+set_target_properties(main PROPERTIES FOLDER "Tests")
 
 add_executable(TestDisabled TestDisabled.cpp)
 target_link_libraries(TestDisabled TVM)
 add_test(TestDisabled TestDisabled)
 GENERATE_MSVC_DOT_USER_FILE(TestDisabled "${CMAKE_INSTALL_PREFIX}/bin")
+set_target_properties(TestDisabled PROPERTIES FOLDER "Tests")
 
 add_custom_target(tvm_benchmarks)
+set_target_properties(tvm_benchmarks PROPERTIES FOLDER "Benchmarks")
 
 macro(addBenchmark name)
   add_executable(${name} ${name}.cpp ${ARGN})
@@ -106,6 +110,7 @@ macro(addBenchmark name)
   endif()
   # Adding a project configuration file (for MSVC only)
   GENERATE_MSVC_DOT_USER_FILE(${name} "${CMAKE_INSTALL_PREFIX}/bin")
+  set_target_properties(${name} PROPERTIES FOLDER "Benchmarks")
 endmacro()
 
 addBenchmark(TestData)

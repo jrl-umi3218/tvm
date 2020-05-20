@@ -64,8 +64,11 @@ namespace abstract
 
     std::unique_ptr<TaskDynamicsImpl> impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const;
 
+    Order order() const;
+
   protected:
     virtual std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const = 0;
+    virtual Order order_() const = 0;
   };
 
 }  // namespace abstract
