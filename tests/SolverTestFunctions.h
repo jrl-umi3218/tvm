@@ -1,4 +1,4 @@
-
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/function/abstract/Function.h>
 #include <tvm/graph/abstract/OutputSelector.h>

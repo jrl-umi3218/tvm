@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #include <tvm/Space.h>
 #include <tvm/Variable.h>
 #include <tvm/constraint/BasicLinearConstraint.h>

@@ -75,12 +75,10 @@ namespace tvm::task_dynamics
     {
       throw std::runtime_error("[task_dynamics::Reference::Impl] You cannot pass a nullptr as reference function.");
     }
-    else
-    {
-      ref_ = ref;
-      addInput(ref, internal::FirstOrderProvider::Output::Value);
-      addInputDependency(Update::UpdateValue, ref, internal::FirstOrderProvider::Output::Value);
-    }
+
+    ref_ = ref;
+    addInput(ref, internal::FirstOrderProvider::Output::Value);
+    addInputDependency(Update::UpdateValue, ref, internal::FirstOrderProvider::Output::Value);
   }
 
   ReferenceVelocity::ReferenceVelocity(const FunctionPtr& ref)

@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #include <tvm/internal/meta.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN

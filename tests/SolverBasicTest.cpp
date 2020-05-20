@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #include "SolverTestFunctions.h"
 
 #include <iostream>

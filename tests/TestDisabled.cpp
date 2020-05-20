@@ -1,3 +1,5 @@
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+
 #include <tvm/graph/abstract/Node.h>
 
 #include <iostream>
