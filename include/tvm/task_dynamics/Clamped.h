@@ -42,7 +42,7 @@ namespace tvm::task_dynamics
 {
   /** Given a task dynamics value \f$ e^{(k)*} \f$, compute the new value
     * \f$ e_c^{(k)*} = s e^{(k)*} \f$, \f$ s \in [0, 1] \f$, such that
-    * \f$ b_{min} \leq \ e_c^{(k)*} \b_{max}\f$ where \f$ b_{min} \f$ and
+    * \f$ b_{min} \leq \ e_c^{(k)*} \leq b_{max}\f$ where \f$ b_{min} \f$ and
     * \f$ b_{max} \f$ are given bounds, specified as scalars or vectors.
     */
   template <class TD>
