@@ -42,8 +42,8 @@ namespace tvm
 namespace task_dynamics
 {
 
-  /** Compute \f$ \dot{e}* = -kp*f \f$ (Kinematic order)
-   *  with kp a scalar, a diagonal matrix (given as a vector) or a matrix.
+  /** Compute \f$ \dot{e}^* = -kp e \f$ (Kinematic order)
+   *  with \f$ kp \f$ a scalar, a diagonal matrix (given as a vector) or a matrix.
    */
   class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {
@@ -64,6 +64,25 @@ namespace task_dynamics
       void gain(const  Eigen::MatrixXd& kp);
       /** Get the current gain.*/
       const Gain& gain() const;
+      /** Get the current gain cast as \p T.
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        */
+      template<typename T>
+      const T& gain() const { return mpark::get<T>(kp_); }
+      /** Get the current gain (non-const version).
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      Gain& gain();
+      /** Get the current gain cast as \p T (non-const version).
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      template<typename T>
+      T& gain() { return mpark::get<T>(kp_); }
 
     private:
       Gain kp_;

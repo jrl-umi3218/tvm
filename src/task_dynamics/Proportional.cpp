@@ -115,6 +115,11 @@ namespace task_dynamics
     return kp_;
   }
 
+  Proportional::Gain& Proportional::Impl::gain()
+  {
+    return kp_;
+  }
+
 }  // namespace task_dynamics
 
 }  // namespace tvm

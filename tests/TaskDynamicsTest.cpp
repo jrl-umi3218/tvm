@@ -94,7 +94,7 @@ TEST_CASE("Test Proportional")
   FAST_CHECK_EQ(tdi->value()[0], -kp * (36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
 }
 
-TEST_CASE("Test Proportionnal gain types")
+TEST_CASE("Test Proportional gain types")
 {
   VariablePtr x = Space(3).createVariable("x");
   x << 1, 2, 3;
@@ -136,6 +136,21 @@ TEST_CASE("Test Proportionnal gain types")
 
   FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
   FAST_CHECK_UNARY(tdsi->value().isApprox(tdmi->value()));
+
+  dynamic_cast<task_dynamics::P::Impl*>(tdsi.get())->gain() = 5;
+  dynamic_cast<task_dynamics::P::Impl*>(tdvi.get())->gain<VectorXd>()[0] = 5;
+  dynamic_cast<task_dynamics::P::Impl*>(tdvi.get())->gain<VectorXd>()[1] = 5;
+  dynamic_cast<task_dynamics::P::Impl*>(tdvi.get())->gain<VectorXd>()[2] = 5;
+  dynamic_cast<task_dynamics::P::Impl*>(tdmi.get())->gain<MatrixXd>().diagonal() = Vector3d::Constant(5);
+
+  tdsi->updateValue();
+  tdvi->updateValue();
+  tdmi->updateValue();
+
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+  FAST_CHECK_UNARY(tdsi->value().isApprox(tdmi->value()));
+  CHECK_THROWS(dynamic_cast<task_dynamics::P::Impl*>(tdvi.get())->gain<MatrixXd>());
+
 }
 
 TEST_CASE("Test Proportional Derivative")
@@ -163,7 +178,7 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
 }
 
-TEST_CASE("Test Proportionnal Derivative gain types")
+TEST_CASE("Test Proportional Derivative gain types")
 {
   VariablePtr x = Space(3).createVariable("x");
   VariablePtr dx = dot(x);
@@ -271,6 +286,16 @@ TEST_CASE("Test Proportionnal Derivative gain types")
   FAST_CHECK_UNARY(tdssi->value().isApprox(tdmmi->value()));
   FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
   FAST_CHECK_UNARY(tdsi->value().isApprox(tdvi->value()));
+
+  dynamic_cast<task_dynamics::PD::Impl*>(tdssi.get())->kp() = 5;
+  dynamic_cast<task_dynamics::PD::Impl*>(tdssi.get())->kv() = 2;
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvmi.get())->kp<VectorXd>() << 5, 5;
+  dynamic_cast<task_dynamics::PD::Impl*>(tdvmi.get())->kv<MatrixXd>() = 2 * Matrix2d::Identity();
+
+  tdssi->updateValue();
+  tdvmi->updateValue();
+
+  FAST_CHECK_UNARY(tdssi->value().isApprox(tdvmi->value()));
 }
 
 TEST_CASE("Test Velocity Damper")

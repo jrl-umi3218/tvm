@@ -42,8 +42,9 @@ namespace tvm
 namespace task_dynamics
 {
 
-  /** Compute \ddot{e}* = -kv*dot{f}-kp*f (dynamic order)
-   * with kp a scalar, a diagonal matrix (given as a vector) or a matrix.
+  /** Compute \f$ \ddot{e}^* = -k_v dot{e} - k_p e\f$ (dynamic order)
+   * where \f$ k_p \f$ and \f$ k_v \f$ can be (independently) a scalar, a
+   * diagonal matrix (given as a vector) or a matrix.
    */
   class TVM_DLLAPI ProportionalDerivative : public abstract::TaskDynamics
   {
@@ -99,6 +100,50 @@ namespace task_dynamics
         * decomposition, matrices multiplications and memory allocation.
         */
       void gains(const Eigen::MatrixXd& kp);
+
+      /** Get the current kp gain*/
+      const Gain& kp() const { return kp_; }
+      /** Get the current kp gain cast as \p T.
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        */
+      template<typename T>
+      const T& kp() const { return mpark::get<T>(kp_); }
+      /** Get the current kp gain (non-const version).
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      Gain& kp() { return kp_; }
+      /** Get the current kp gain cast as \p T (non-const version).
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      template<typename T>
+      T& kp() { return mpark::get<T>(kp_); }
+
+      /** Get the current kv gain*/
+      const Gain& kv() const { return kv_; }
+      /** Get the current kv gain cast as \p T.
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        */
+      template<typename T>
+      const T& kv() const { return mpark::get<T>(kv_); }
+      /** Get the current kv gain (non-const version).
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      Gain& kv() { return kv_; }
+      /** Get the current kv gain cast as \p T (non-const version).
+        * \tparam T Type of the gain.
+        * \throw Throws if \p T has not the type corresponding to the gain actually used.
+        * \warning No check is made if you change the gain. It is your responsability
+        * to ensure that its values and its \a size are correct.
+        */
+      template<typename T>
+      T& kv() { return mpark::get<T>(kv_); }
 
     private:
       void checkGainSize(double k) const;
