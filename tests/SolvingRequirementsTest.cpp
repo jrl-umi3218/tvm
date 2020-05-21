@@ -8,6 +8,7 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
+using namespace tvm;
 using namespace tvm::requirements;
 using namespace Eigen;
 
@@ -50,4 +51,34 @@ TEST_CASE("Test SolvingRequirements")
   CHECK_THROWS_AS(SolvingRequirements s(Weight(-1)), std::runtime_error);
 
   CHECK_THROWS_AS(SolvingRequirements s(AnisotropicWeight(Vector3d(-1,2,3))), std::runtime_error);
+}
+
+
+#include <tvm/LinearizedControlProblem.h>
+#include <tvm/Variable.h>
+#include <tvm/function/BasicLinearFunction.h>
+#include <tvm/scheme/WeightedLeastSquares.h>
+#include <tvm/solver/defaultLeastSquareSolver.h>
+
+TEST_CASE("Test weight changes")
+{
+  Space R3(3);
+  VariablePtr x = R3.createVariable("x");
+
+  LinearizedControlProblem problem;
+  auto obj1 = problem.add(x == Vector3d::Ones(), { PriorityLevel(1), AnisotropicWeight(Vector3d(3,3,3)) });
+  auto obj2 = problem.add(x == -Vector3d::Ones(), { PriorityLevel(1), Weight(1) });
+
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(true));
+  solver.solve(problem);
+
+  FAST_CHECK_UNARY(x->value().isApprox(0.5 * Vector3d::Ones()));
+
+  obj2->requirements.weight().value(3);
+  solver.solve(problem);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector3d::Zero()));
+
+  obj1->requirements.anisotropicWeight().value(Vector3d(1, 2, 3));
+  solver.solve(problem);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector3d(-.5, -.2, 0)));
 }
