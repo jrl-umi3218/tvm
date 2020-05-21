@@ -53,7 +53,7 @@ namespace tvm
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, const Eigen::VectorXd & rhs)
     : f_(f)
     , type_(t)
-    , td_(std::move(td.impl(f, t, rhs)))
+    , td_(td.impl(f, t, rhs))
   {
     if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks need to have two bounds.");
