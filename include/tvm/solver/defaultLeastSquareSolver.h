@@ -29,7 +29,7 @@
 
 #pragma once
 
-/** Since all solver might not be available depending on the option compilations,
+/** Since all solvers might not be available depending on the compilation options,
   * this header offers conveniencies to include and use a default solver.
   * The first solver found in this (ordered) list is taken as default:
   * LSSOL, QLD, Quadprog
