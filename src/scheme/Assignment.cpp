@@ -56,6 +56,8 @@ namespace internal
     double scalarizationWeight)
     : source_(source)
     , target_(target)
+    , scalarWeight_(new double(1))
+    , minusScalarWeight_(new double(-1))
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
     , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
@@ -71,12 +73,13 @@ namespace internal
     : source_(source)
     , target_(target)
     , requirements_(nullptr)
-    , scalarWeight_(1)
-    , minusScalarWeight_(-1)
+    , scalarWeight_(new double(1))
+    , minusScalarWeight_(new double(-1))
     , anisotropicWeight_()
     , minusAnisotropicWeight_()
     , useDefaultScalarWeight_(true)
     , useDefaultAnisotropicWeight_(true)
+    , weightType_(RequirementWeightType::None)
   {
     checkBounds();
     assert(source->variables()[0] == variable);
@@ -117,6 +120,8 @@ namespace internal
 
   void Assignment::run()
   {
+    runRequirements();
+
     for (auto& a : matrixAssignments_)
       a.assignment.run();
 
@@ -386,14 +391,14 @@ namespace internal
         if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
         {
           useDefaultScalarWeight_ = true;
-          scalarWeight_ = 1;
-          minusScalarWeight_ = -1;
+          *scalarWeight_ = 1;
+          *minusScalarWeight_ = -1;
         }
         else
         {
           useDefaultScalarWeight_ = false;
-          scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
-          minusScalarWeight_ = -scalarWeight_;
+          *scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+          *minusScalarWeight_ = -*scalarWeight_;
         }
         if (requirements_->anisotropicWeight().isDefault())
         {
@@ -403,9 +408,10 @@ namespace internal
         {
           useDefaultAnisotropicWeight_ = false;
           anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
-          anisotropicWeight_ *= scalarWeight_;
+          anisotropicWeight_ *= *scalarWeight_;
           minusAnisotropicWeight_ = -anisotropicWeight_;
         }
+        weightType_ = static_cast<RequirementWeightType>(((int)!useDefaultAnisotropicWeight_ << 1) + (int)!useDefaultScalarWeight_);
         break;
       case requirements::ViolationEvaluationType::LINF:
         throw std::runtime_error("Unimplemented violation evaluation type.");
@@ -415,6 +421,33 @@ namespace internal
     {
       useDefaultScalarWeight_ = true;
       useDefaultAnisotropicWeight_ = true;
+      weightType_ = RequirementWeightType::None;
+    }
+  }
+
+  void Assignment::runRequirements()
+  {
+    switch (weightType_)
+    {
+    case RequirementWeightType::None:
+      break;
+    case RequirementWeightType::ScalarOnly:
+      *scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      *minusScalarWeight_ = -*scalarWeight_;
+      break;
+    case RequirementWeightType::AnistropicOnly:
+      anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+      minusAnisotropicWeight_ = -anisotropicWeight_;
+      break;
+    case RequirementWeightType::Both:
+      *scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      *minusScalarWeight_ = -*scalarWeight_;
+      anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+      anisotropicWeight_ *= *scalarWeight_;
+      minusAnisotropicWeight_ = -anisotropicWeight_;
+      break;
+    default:
+      assert(false);
     }
   }
 

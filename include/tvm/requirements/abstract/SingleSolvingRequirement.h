@@ -48,7 +48,12 @@ namespace abstract
   class SingleSolvingRequirement
   {
   public:
+    /** Get the current value. */
     const T& value() const { return value_; }
+    /** Change the current value */
+    void value(const T& value) { value_ = value; default_ = false; }
+
+    /** check it the requirement is at its default value. */
     bool isDefault() const { return default_; }
 
   protected:
@@ -56,7 +61,7 @@ namespace abstract
       : default_(isDefault), value_(val)
     {}
 
-    /** Is this requirement at it default value*/
+    /** Is this requirement at its default value*/
     bool default_;
 
     T value_;

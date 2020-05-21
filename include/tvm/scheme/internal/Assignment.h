@@ -105,6 +105,8 @@ namespace internal
 
     Assignment(const Assignment&) = delete;
     Assignment(Assignment&&) = default;
+    Assignment& operator= (const Assignment&) = delete;
+    Assignment& operator= (Assignment&&) = default;
 
     /** To be called when the source has been resized*/
     void onUpdatedSource();
@@ -122,6 +124,14 @@ namespace internal
     static double big_;
 
   private:
+    enum class RequirementWeightType
+    {
+      None = 0,
+      ScalarOnly = 1,
+      AnistropicOnly = 2,
+      Both = 3
+    };
+
     /** A structure grouping a matrix assignment and some of the elements that
       * defined it.
       */
@@ -171,6 +181,9 @@ namespace internal
     
     /** Build internal data from the requirements*/
     void processRequirements();
+
+    /** Run the requirements-related computations*/
+    void runRequirements();
     
     /** Creates a matrix assigment from the jacobian of \p source_ corresponding
       * to variable \p x to the block of matrix described by \p M and \p range.
@@ -306,10 +319,11 @@ namespace internal
     std::vector<VectorSubstitutionAssignement> vectorSubstitutionAssignments_;
 
     /** Processed requirements*/
-    double scalarWeight_;
-    double minusScalarWeight_;
+    std::unique_ptr<double> scalarWeight_;
+    std::unique_ptr<double> minusScalarWeight_;
     Eigen::VectorXd anisotropicWeight_;
     Eigen::VectorXd minusAnisotropicWeight_;
+    RequirementWeightType weightType_;
 
     /** Data for substitutions */
     VariableVector substitutedVariables_;
@@ -410,9 +424,9 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, minusScalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *minusScalarWeight_);
         else
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *scalarWeight_);
       }
     }
     else
@@ -442,9 +456,9 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, minusScalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, *minusScalarWeight_, Mult);
         else
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, scalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, *scalarWeight_, Mult);
       }
     }
     else

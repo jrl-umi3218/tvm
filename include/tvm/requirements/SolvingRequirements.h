@@ -69,6 +69,7 @@ namespace requirements
   #define ADD_REQUIREMENT(T, name, member) \
   public: \
     const T& name() const { return member; } \
+    T& name() { return member; } \
   private: \
     T member; \
     template<typename ... Args> \
