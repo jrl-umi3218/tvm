@@ -1,0 +1,417 @@
+// Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
+
+/**
+ * \file
+ * \brief How to write a problem
+ *
+ * Preliminaries
+ * =============
+ *
+ * \image html problemIK.svg
+ *
+ * In this tutorial, we look at how to write and solve a control problem in TVM, 
+ * through an Inverse Kinematics (IK) example.
+ *
+ * We consider a 2d 3-links robot, and we want to bring itd end effector to a
+ * circle (see the figure above). Let's call \f$ q \in \mathbb{R}^3 \f$ the
+ * configuration of the robot, and \f$ g(q) \f$ the position of its end effector.
+ * For a given initial \f$ q_0 \f$, we are interested in computing a trajectory
+ * \f$ q(t) \f$ converging to a value where 
+ * 
+ * \f$ 
+ *    \left\| g(q) - c \right\|^2 - r^2 = 0                      \qquad (1)
+ * \f$
+ * 
+ * where \f$ c \f$ and \f$ r \f$ are the center and radius of the circle.
+ *
+ * Note that the constraint above can be rewritten equivalently by introducing
+ * an intermediate variable \f$ x \in \mathbb{R}^2 \f$, and requiring that
+ *
+ * \f$
+ *   \begin{align}
+ *     g(q) - x = 0                                            \qquad (2) \\
+ *     \left\| x - c \right\|^2 - r^2 = 0                      \qquad (3)
+ *   \end{align}
+ * \f$
+ *
+ * The constraint of having the end effector of a robot on a circle is very
+ * specific. So, rather than writing a dedicated function for that, and use
+ * expression (1), and for the purpose of illustrating features of TVM, we will
+ * use of formulation (2)-(3).
+ *
+ * Let us note \f$ e_1(q,x) = g(q) - x\f$, 
+ * \f$ e_2(x) = \left\| x - c \right\|^2 - r^2\f$ and further assume that each
+ * joint must stay within the bounds \f$ [-\pi/2, \pi/2]\f$. The target
+ * configuration must be such that
+ *
+ * \f$
+ *   \begin{align}
+ *     e_1(q) = 0 & \\
+ *     e_2(q) = 0 & \\
+ *     -\pi/2 \leq q_i \leq \pi/2&, \ i=1..3
+ *   \end{align}
+ * \f$
+ *
+ * This is a static target. If we want to control the robot toward such a 
+ * configuration, we need to describe how it should converge to it from a 
+ * configuration that does not respect the constraints. This behavior
+ * description is what we call in TVM <em>task dynamics</em>. For the two
+ * equality constraints, we will specify the desired rate of reduction of the
+ * functions \f$ e_i \f$ with a simple proportional behavior: \f$ \dot{e}_i^* = -k_p e_i \f$.
+ * The control should then try to achieve \f$ \dot{e}_i = \dot{e}_i^* \f$.
+ * For the bounds, we will be using a <em>velocity damper</em> of the form
+ *
+ * \f$ 
+ *   \begin{equation}
+ *     \dot{d}^* = \left\{
+ *     \begin{array}{ll}
+ *       -\xi \frac{d-d_s}{d_{int}-d_s} &\mbox{if}\ d \leq d_{int}\\
+ *       -\infty & \mbox{otherwise}
+ *     \end{array}\right.           \qquad (4)
+ *   \end{equation}
+ * \f$
+ * 
+ * for \f$ d \f$ defined as \f$ d_i^- = q_i + \pi/2 \f$ or \f$ d_i^+ = \pi/2 - q_i \f$
+ * (see also tvm::task_dynamics::VelocityDamper for more details).
+ *
+ * The trajectory of \f$ q \f$ is not uniquely defined by by the above
+ * specifications (we are only constraining 2 of the 3 degrees of freedom of the
+ * robot). As an additional requirement, that would help specifying the trajectory
+ * completely, we would like to have minimal velocity. 
+ * The velocity would be minimum for \f$ \dot{q} = 0 \f$. This however will have
+ * a lower priority than fulfilling the other tasks.
+ *
+ * What we wish to achieve (our IK problem) is thus
+ *
+ * \f$
+ *   \begin{align}
+ *     e_1(q) = 0 &,\ \ \dot{e}_1^* = -k_{p1} e_1 & \mbox{(high priority)} \quad (5.a)\\
+ *     e_2(q) = 0 &,\ \ \dot{e}_1^* = -k_{p2} e_2 & \mbox{(high priority)} \quad (5.b)\\
+ *     -pi/2 \leq q_i \leq \pi/2&,\ \ \dot{d}_i^{-*},\ \dot{d}_i^{+*}  \mbox{as in (4)}, \ i=1..3 & \mbox{(high priority)}  \quad (5.c)\\
+ *     \dot{q} = 0 & & \mbox{(low priority)} \quad (5.d)
+ *   \end{align}
+ * \f$
+ *
+ * This is the problem we will write in TVM.
+ *
+ * A triplet (function, comparison to 0, task dynamics), such as 
+ * \f$ (e_1, =, \dot{e}_1^*) \f$, constitutes a \e task.
+ *
+ *
+ * The task dynamics chosen are specifying the desired derivative of the error
+ * functions. The instantenous (linearized) control problem we will end up
+ * solving is thus
+ * 
+ * \f$
+ *    \begin{align}
+ *    \min_{\dot{q}, \dot{x}}. &\ \frac{1}{2}\left\| \dot{q} \right\|^2 &\quad (6)\\
+ *    \mbox{s.t.} &\ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q)\\
+ *                &\ \frac{\partial e_1}{\partial x}(x) \dot{x} = -k_{p2} e_2(x)\\
+ *                &\ \dot{d}_i^{-*} \leq \dot{q}_i \leq \dot{d}_i^{+*}, \ i=1..3
+ *    \end{align}
+ * \f$
+ *
+ * However, we do not need to write it ourself. TVM takes care of it
+ * automatically.
+ *
+ * Solving this problem for some values \f$ (q_k, x_k) \f$, we get the optimal
+ * values \f$ (\dot{q}^*, \dot{x}^*) \f$. We can then integrate with a given
+ * timestep \f$ dt \f$:
+ *
+ * \f$
+ *    \begin{align}
+ *      q_{k+1} = q_k + \dot{q}^*\\
+ *      x_{k+1} = x_k + \dot{x}^*
+ *    \end{align}
+ * \f$
+ *
+ * The process can be repeated until convergence.
+ *
+ *
+ * Implementation outline
+ * ======================
+ * 
+ * To define and solve the problem above, we need to the following steps
+ *  1. Declare and initialize the variables of our problem
+ *  2. Define the functions \f$ e_1 \f$ and \f$ e_2 \f$ (the other functions
+ *     are trivial and can be written directly)
+ *  3. Write the control problem
+ *  4. Create a resolution scheme
+ *  5. Solve and integrate until convergence
+ *
+ * To define the functions, we will use the following tvm::function::abstract::Function
+ *  * \p Simple2dRobotEE, which computes the end-effector position of a 2d n-link
+ *    robot (i.e. the function \f$ g(q) \f$)
+ *  * \p SphereFunction, which compute the distance of a point to a sphere (that
+ *    is a circle in 2d)
+ *  * \p IdentityFunction, self explanatory
+ *  * \p DifferenceFunction, which computes the difference of two functions.
+ *
+ * \note Except for \p IdentityFunction, these function are example functions,
+ * not part of the TVM library.
+ *
+ *
+ * Implementation details
+ * ======================
+ *
+ * \note In the following, the code snippet are written with the assumption of
+ * these declarations:
+ * \code
+ *   using namespace tvm;
+ *   using namespace tvm::requirements;
+ *   using namespace tvm::task_dynamics;
+ *   using std::make_shared;
+ * \endcode
+ *
+ *
+ * Variable creation
+ * -----------------
+ * Variables do not exist on their own. They are points in some mathematical
+ * spaces. To create a variable, we thus need to have a space first. The objects
+ * tvm::Space and tvm::Variable are available through the inclusion of 
+ * \c tvm/Variable.h. Here our variables live in Euclidean spaces (\f$ \mathbb{R}^2 \f$
+ * and \f$ \mathbb{R}^3 \f$), so that simply giving the dimension of the space is
+ * enough to characterize it. Non-Euclidean manifolds can be described as well
+ * with tvm::Space (to e.g. use SO(3) or SE(3)).
+ * tvm::Space act as a factory for tvm::Variable, requiring a name to create a
+ * variable:
+ * <pre>\code
+ *   Space R2(2);                             // Creating a 2-dimensional space
+ *   VariablePtr x = R2.createVariable("x");  
+ *   Space R3(3);                             // Creating a 3-dimensional space
+ *   VariablePtr q = R3.createVariable("q");
+ * \endcode</pre>
+ * This is one of the only way to create variables (the other is to get a
+ * derivative or primitive of an already existing variable). tvm::Variable keeps
+ * a copy of the tvm::Space it was created from, so there is no need to pay
+ * attention to the lifetime of the tvm::Space it was create from.
+ *
+ * It is good practice to initialize the value of the variables immediately.
+ * This can be done in one of the following two ways:
+ * <pre>\code
+ *    x << 0.5, 0.5;                          // Eigen-like initialization
+ *    q->value(Vector3d(0.4, -0.6, -0.1));    // Change value through setter.
+ * \endcode</pre>
+ *
+ *
+ * Task function definitions
+ * -------------------------
+ * We create the function \f$ e_1 \f$ as follows:
+ * <pre>\code
+ *    auto g = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1)); // g(q)
+ *    auto idx = make_shared<function::IdentityFunction>(x);                        // I x
+ *    auto e1 = make_shared<Difference>(g, idx);                                    // e_1(q,x) = g(q) - x
+ * \endcode</pre>
+ * The first line creates the function \p g computing the position of the end-
+ * effector of a robot whose configuration is given by the variable \p q, is
+ * rooted in \f$ (-3,0) \f$, and whose 3 links have unit length
+ * (\p Vector3d(1,1,1) ). <br>
+ * The second line creates an identity function of the variable \p x. <br>
+ * The third line defines \f$ e_1(q,x) = g(q) - x \f$. Note that \p Difference
+ * automatically detect what are its variables, no need to specify them.
+ *
+ * For \f$ e_2 \f$, we take a circle with center \f$ c = (0, 0) \f$ and radius 1:
+ * <pre>\code
+ *    auto e2 = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);                  // e_2(x)
+ * \endcode</pre>
+ *
+ *
+ * Writing the control problem
+ * ---------------------------
+ * To describe problem (5), we need to populate an instance of tvm::ControlProblem.
+ * This is done by adding tasks (tvm::Task) paired with the way we want to solve
+ * them, e.g. the level of priority, possible weights, ..., what is known in TVM
+ * as <em>solving requirements</em> and is implemented by classes found in 
+ * tvm::requirements. To do so, we simply use the method tvm::ControlProblem::add. <br>
+ * While we can construct a tvm::Task explicitely from a triplet (function,
+ * operator, task dynamics), tvm::ControlProblem::add in conjunction with some
+ * utility functions of TVM offers a lighter syntax that we will demonstrate.
+ * <pre>\code
+ *   ControlProblem pb;
+ *   auto t1 = pb.add(e1 == 0., Proportional(2), PriorityLevel(0));
+ *   auto t2 = pb.add(e2 == 0., Proportional(2), PriorityLevel(0));
+ *   auto t3 = pb.add(-b <= q <= b, VelocityDamper({ 1, 0.01, 0, 0.1 }), PriorityLevel(0));
+ *   auto t4 = pb.add(dot(q) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+ * \endcode</pre>
+ * The first line create a tvm::ControlProblem instance. The last four lines are
+ * a direct transcription of (5.a) - (5.d):
+ *  * Line 2 is creating the task based on the error function \f$ e_1 \f$ that
+ *    must be and equality task, with a task dynamics of type tvm::task_dynamics::Proportional
+ *    whose gain \f$ k_p \f$ is 2. This task is required to be solved with a
+ *    priority level of 0 (the highest priority).
+ *    \note The dot after the 0 in `e1==0.` is important. If absent, the compiler
+ *    will attempt a pointer comparison.
+ *  * Line 3 does exactly the same for the task based on \f$ e_2 \f$.
+ *  * Line 4 creates the task on the bounds. Here, \p b is the vector
+ *    `Vector3d b = Vector3d::Constant(tvm::constant::pi/2);`. We can directly
+ *    write the comparison of the variable \p q to its bounds \p -b and \p b
+ *    without explicitely creating a function (more generally, linear expressions
+*     of the variables can be written directly). The task dynamics for this task
+ *    is a velocity damper, whose constructor takes a tvm::task_dynamics::VelocityDamperConfig.
+ *    The parameters read as follows: the first one (1) is \f$ d_{int}\f$, 
+ *    the second one (0.01) is \f$ d_s\f$. Since the third one is 0, the 
+ *    parameter \f$ \xi \f$ will be computed automatically. The fourth parameter
+ *    is an offset for this automatic computation. See tvm::task_dynamics::VelocityDamper
+ *    and tvm::task_dynamics::VelocityDamperConfig::VelocityDamperConfig for more
+ *    details. This task also needs to be solved at priority level 0.
+ *  * Line 5 introduces the task on \f$ \dot{q} \f$. It relies on the tvm::dot
+ *    functions which returns the time derivative of a tvm::Variable.
+ *    (dot(q,2) would return \f$ \ddot{q} \f$).
+ *    The implicit task dynamics here is that \f$ \dot{q}^* = 0 \f$, which is 
+ *    materialized by an instance of tvm::task_dynamics::None that we don't need
+ *    to write explicitely. This task needs to be solved at priority level 0.
+ *    We also give an example of weight: here we require that the weight on 
+ *    minimizing the velocity of the first joint is 5 times the weight for the
+ *    second joint and 10 times the weight for the third one (note the use of
+ *    brackets around the list of requirements).
+ *
+ * So far, we described the problem. Now we need to specify what way we want to
+ * solve it. First, we will make a linearized version of it:
+ * <pre>\code
+ *   LinearizedControlProblem lpb(pb);
+ * \endcode</pre>
+ * tvm::ControlProblem and tvm::LinearizedControlProblem are available through
+ * the inclusion of tvm/LinearizedControlProblem.h.
+ *
+ * Then we choose a <em>resolution scheme</em> to solve it
+ * <pre>\code
+ *   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+ * \endcode</pre>
+ * Here we choose a scheme, available by inclusion of tvm/scheme/WeightedLeastSquares.h, 
+ * that transforms our problem into a constrained least-squares problem, where
+ * the constraints comes from the tasks at priority 0 and the objective is a sum
+ * of tasks at priority 1 (or higher, but this is out of scope) with the possible
+ * weights specified with <em>solving requirements</em>.
+ * This scheme is build by passing options which will in particular indicates the
+ * underlying solver to be used.
+ *
+ * \note TVM makes the distinction between a \a solver, which is essentially a
+ * routine to solve a type of problem, and a <em>resolution scheme</em> which
+ * assembles the problem data in a specific way and call one or several solvers
+ * on them. For example, tvm::scheme::WeightedLeastSquares "interprets" our 
+ * tvm::LinearizedControlProblem as (6), and call one of the possible QP solvers
+ * as specified by the options chosen.
+ *
+ * By including tvm/solver/defaultLeastSquareSolver.h, and using 
+ * tvm::solver::DefaultLSSolverOptions (or tvm::solver::DefaultLSSolverFactory)
+ * we are choosing the first available solver supported by TVM (see the header
+ * for more details on which solver get chosen). If you want to choose a specific
+ * solver, you can simply include its header and choose the corresponding option.
+ * For example, QLD is available by including tvm/solver/QLDLeastSqaureSolver.h
+ * and using tvm::solver::QLDLSSolverOptions. Choosing a specific solver offers
+ * more fine control with the options.
+ * 
+ * Now, we can just do \c solver.solve(lpb). The variables of our problem have
+ * been automatically detected as being \f$ \dot{x} \f$ and \f$ \dot{q} \f$.
+ * Their counterpart in the code are \c dot(x) and \c dot(q), whose value after
+ * the call to \c solve are containing the solution of the problem.
+ *
+ * If we consider as a stopping criterion for the IK that we should have
+ * \f$ \left\| e_1 \right\| \leq 10^{-8} \f$, then we can write the IK as
+ * <pre>\code
+ * while (e1->value().norm() > 1e-8)
+ * {
+ *   solver.solve(lpb);
+ *   x->value(x->value() + dot(x)->value() * dt);
+ *   q->value(q->value() + dot(q)->value() * dt);
+ * }
+ * \endcode</pre>
+ *
+ * This is the total code for this example:
+ * <pre> \dontinclude ProblemWritingExample.cpp
+ * \skipline IKExample
+ * \until return
+ * \skipline } 
+ * </pre>
+ *
+ *
+ * Remarks
+ * -------
+ *  * We never have to define an optimization variable as an aggregate of
+ *    \f$ \dot{x} \f$ and \f$ \dot{q} \f$. This is done automatically and
+ *    internally by TVM. The user just need to manipulate the variables 
+ *    independently, including to retrieve the solution.
+ *  * In the definition of a task, the right hand side of the comparison operator
+ *    (e.g. \p == in the first task) need not be 0. It can be any scalar or
+ *    vector with the correct dimension (a scalar is interpreted as a vector with
+ *    the same dimension as the left hand side and whose elements are all equal
+ *    to the scalar). For example, if we wanted the robot end-effector to go to
+ *    [-1;1] we could simply write <code>g == Vector2d(-1,1)</code>.
+ *  * As a shortcut, we can directly declare \c pb to be a 
+ *    tvm::LinearizedControlProblem and use the \c add method on it.
+ *  * If you want to see the matrices and vectors assembled by \p solver, you can
+ *    pass <code>solver::DefaultLSSolverOptions().verbose(true)</code> at its
+ *    creation.
+ *  * Thanks to our introduction of the variable \f$ x \f$, it is easy to change
+ *    the shape we want the robot end-effector to reach. For example, \f$ x \f$
+ *    could be constrained on a line \f$ n^t x = a \f$. This can be done by
+ *    simply replacing \c e2==0. by \c n.transpose()==a with \p n a Eigen::VectorXd
+ *    and \p a a \p double.
+ *  * In our code, the value of the functions is only updated in the call to
+ *    solve. This is due to the way TVM organize the computations under the hood
+ *    to ensure all the quantities are up to date before solving the problem
+ *    while avoiding to repeat computations. When testing the value of \f$ e_1 \f$
+ *    for the stopping criterion, we thus have the value for the previous
+ *    \f$ x \f$ and \f$ q \f$, and perform one iteration too many.
+ *
+ *
+ * To go further
+ * =============
+ *
+ * Substitutions
+ * -------------
+ * The introduction of the variable \f$ x \f$ is useful to write the problem
+ * simply, without having to implement a specific function for our particular
+ * example. But it also makes the problem bigger, and that could be a concern for
+ * computation time.
+ * 
+ * However, the variable \f$ x \f$ appears in a very simple way in \f$ e_1 \f$,
+ * and thus in the linearization of problem (6), 
+ * \f$ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q) \f$, 
+ * \f$ \frac{\partial e_1}{\partial x}(x,q) \f$ is simply \f$ -I \f$, that is
+ * there is a simple way to express \f$ \dot{x} \f$ from \f$ \dot{q} \f$ and the
+ * other quantities of the problem.
+ *
+ * We can tell the scheme that it can use the constraint derived from the task
+ * \f$ e_1 \f$, to pre-solve the problem in \f$ \dot{x} \f$ by adding
+ * <pre>\code
+ *   lpb.add(hint::Substitution(lpb.constraint(t1.get()), dot(x)));
+ * \endcode</pre>
+ * Doing so, the scheme will reduce the problem to an optimization on \f$ \dot{q} \f$
+ * only, by susbtituting \f$ \dot{x} \f$ by the expression deduced from the
+ * specified constraint. After solving the reduced problem, the value of 
+ * \f$ \dot{x} \f$ is computed as well.
+ * In the end the problem solved will be exactly the same as what we would have
+ * got by implementing manually the equation (1), \a i.e. a composition of 
+ * \p Simple2dRobotEE and \p SphereFunction, but it was obtained with less coding
+ * and in a more generic way.
+ *
+ * Substitutions are working when the matrix in front of the variable to
+ * substitute is not simple, and even if the matrix is not invertible.
+ * But they are useful only when the matrix has a structure or properties that
+ * could help speed up the computations. Otherwise, using them is at best not
+ * necessary and could even degrade the performance of the resolution.
+ *
+ * Formulation in acceleration
+ * ---------------------------
+ * So far, we have used task dynamics of \e order one (or zero for the velocity
+ * task), and thus the variables were automatically deduced to be \f$ \dot{x} \f$
+ * and \f$ \dot{q} \f$. We may want to use task dynamics of order two instead, in
+ * which case the linearized problem will have \f$ \ddot{x} \f$ and \f$ \ddot{q} \f$
+ * as variable. This can be done by changing the definition of the control problem 
+ * e.g.
+ * <pre>\code
+ *   auto t1 = pb.add(e1 == 0., ProportionalDerivative(50), PriorityLevel(0));
+ *   auto t2 = pb.add(e2 == 0., ProportionalDerivative(50), PriorityLevel(0));
+ *   auto t3 = pb.add(-b <= q <= b, VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), PriorityLevel(0));
+ *   auto t4 = pb.add(dot(q, 2) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+ * \endcode</pre>
+ * The rest of the code is left unchanged, but for the need to initialize the
+ * values of \f$ \dot{x} \f$ and \f$ \dot{q} \f$, and to perform the integration
+ * from \f$ \ddot{x} \f$ and \f$ \ddot{q} \f$.
+ *
+ *
+ * Example file
+ * ------------
+ * ProblemWritingExample.cpp
+ */

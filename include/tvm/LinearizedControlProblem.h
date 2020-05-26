@@ -73,6 +73,10 @@ namespace tvm
     /** Access to constraints*/
     std::vector<LinearConstraintWithRequirements> constraints() const;
 
+    /** Access to the linear constraint corresponding to the task \p t
+      *
+      * \param t TaskWithRequirements object as return by add.
+      */
     LinearConstraintPtr constraint(TaskWithRequirements* t) const;
 
     /** Compute all quantities necessary for solving the problem.*/

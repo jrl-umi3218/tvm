@@ -8,4 +8,5 @@ macro(addExample name)
   set_target_properties(${name} PROPERTIES FOLDER "Examples")
 endmacro(addExample)
 
+addExample(ProblemWritingExample ../tests/SolverTestFunctions.cpp)
 addExample(TaskDynamicsExample)
