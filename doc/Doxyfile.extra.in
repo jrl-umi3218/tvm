@@ -1,0 +1,5 @@
+INPUT                  = @PROJECT_SOURCE_DIR@/include @PROJECT_SOURCE_DIR@/examples
+IMAGE_PATH             = @PROJECT_SOURCE_DIR@/doc/pictures
+EXAMPLE_PATH           = @PROJECT_SOURCE_DIR@/examples
+FILE_PATTERNS          = *.h *.idl
+MARKDOWN_SUPPORT       = YES
