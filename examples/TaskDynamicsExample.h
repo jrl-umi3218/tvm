@@ -194,4 +194,9 @@
  *    you need to declare the computation dependencies in the constructor of
  *    \p Impl. The constructor of tvm::task_dynamics::abstract::TaskDynamicsImpl
  *    offers a good example of how to do so.
+ *
+ *
+ * Example file
+ * ------------
+ * example/TaskDynamicsExample.cpp
  */

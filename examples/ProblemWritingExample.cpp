@@ -18,6 +18,9 @@ using namespace tvm::requirements;
 using namespace tvm::task_dynamics;
 using std::make_shared;
 
+constexpr int maxIt = 1000;
+constexpr double dt = 0.1;
+
 VectorXd IKExample()
 {
   //Creating variable x in R^2 and initialize it to [0.5, 0.5]
@@ -53,15 +56,13 @@ VectorXd IKExample()
 
   //IK loop
   int i = 0;
-  int maxIt = 1000;
-  double dt = 0.1;
-  while (e1->value().norm() > 1e-8 && i<maxIt)
+  do
   {
     solver.solve(lpb);
     x->value(x->value() + dot(x)->value() * dt);
     q->value(q->value() + dot(q)->value() * dt);
     ++i;
-  }
+  } while (dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8 && i < maxIt);
 
   std::cout << "At q = " << q->value().transpose() << ",\n    e1 = " << e1->value().transpose() << "\n"
             << "   convergence in " << i << " iterations" << std::endl;
@@ -97,15 +98,13 @@ VectorXd IKSubstitutionExample()
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
   int i = 0;
-  int maxIt = 1000;
-  double dt = 0.1;
-  while (e1->value().norm() > 1e-8 && i < maxIt)
+  do
   {
     solver.solve(lpb);
     x->value(x->value() + dot(x)->value() * dt);
     q->value(q->value() + dot(q)->value() * dt);
     ++i;
-  }
+  } while (dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8 && i < maxIt);
 
   std::cout << "At q = " << q->value().transpose() << ",\n    e1 = " << e1->value().transpose() << "\n"
     << "   convergence in " << i << " iterations" << std::endl;
@@ -122,5 +121,5 @@ TEST_CASE("Runing IK examples")
 {
   VectorXd q1 = IKExample();
   VectorXd q2 = IKSubstitutionExample();
-  FAST_CHECK_UNARY(q1.isApprox(q2, 1e-8));
+  FAST_CHECK_UNARY(q1.isApprox(q2, 1e-6));
 }

@@ -307,15 +307,17 @@
  * the call to \c solve are containing the solution of the problem.
  *
  * If we consider as a stopping criterion for the IK that we should have
- * \f$ \left\| e_1 \right\| \leq 10^{-8} \f$, then we can write the IK as
+ * \f$ \left\| \dot{x} \right\| \leq 10^{-8} \f$ and
+ * \f$ \left\| \dot{q} \right\| \leq 10^{-8} \f$, then we can write the IK as
  * <pre>\code
- * while (e1->value().norm() > 1e-8)
+ * do
  * {
  *   solver.solve(lpb);
  *   x->value(x->value() + dot(x)->value() * dt);
  *   q->value(q->value() + dot(q)->value() * dt);
- * }
+ * } while (dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8);
  * \endcode</pre>
+ * with \p dt the value of the time step for integration (taken here as 0.1).
  *
  * This is the total code for this example:
  * <pre> \dontinclude ProblemWritingExample.cpp
@@ -347,12 +349,6 @@
  *    could be constrained on a line \f$ n^t x = a \f$. This can be done by
  *    simply replacing \c e2==0. by \c n.transpose()==a with \p n a Eigen::VectorXd
  *    and \p a a \p double.
- *  * In our code, the value of the functions is only updated in the call to
- *    solve. This is due to the way TVM organize the computations under the hood
- *    to ensure all the quantities are up to date before solving the problem
- *    while avoiding to repeat computations. When testing the value of \f$ e_1 \f$
- *    for the stopping criterion, we thus have the value for the previous
- *    \f$ x \f$ and \f$ q \f$, and perform one iteration too many.
  *
  *
  * To go further
@@ -413,5 +409,5 @@
  *
  * Example file
  * ------------
- * ProblemWritingExample.cpp
+ * example/ProblemWritingExample.cpp
  */
