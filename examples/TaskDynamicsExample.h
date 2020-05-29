@@ -20,7 +20,7 @@
  *     \dot{e}^* = -k_p(e) e                           \qquad (1)
  * \f$
  *
- * that is a proportional-like dynamics with an adaptive gain, where <br>
+ * that is a proportional-like dynamics with an adaptive gain, where
  *
  * \f$
  *     k_p(e) = a \exp(-b \left\|e\right\|) + c        \qquad (2)
