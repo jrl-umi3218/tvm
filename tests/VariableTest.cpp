@@ -281,3 +281,58 @@ TEST_CASE("Test VariableVector derivation")
   FAST_CHECK_EQ(dvv3b[1], dot(v2, 3));
   FAST_CHECK_EQ(dvv3b[2], dot(v3, 3));
 }
+
+TEST_CASE("Test derivative lifetime")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  {
+    dot(x)->value(Eigen::Vector3d(3, 1, 4));
+  }
+  FAST_CHECK_EQ(dot(x)->value()[0], 3);
+  FAST_CHECK_EQ(dot(x)->value()[1], 1);
+  FAST_CHECK_EQ(dot(x)->value()[2], 4);
+}
+
+VariablePtr createDerivative(const std::string& name, int ndiff)
+{
+  VariablePtr x = Space(3).createVariable(name);
+  return dot(x, ndiff);
+}
+
+std::weak_ptr<Variable> testRefCounting()
+{
+  // Creating a variable and its derivative, but loosing the ptr on the variable
+  VariablePtr dx = createDerivative("x", 1);
+  FAST_CHECK_EQ(dx.use_count(), 1);
+  
+  // Getting back the primitive, checking the ref count
+  {
+    VariablePtr x = dx->primitive();
+    FAST_CHECK_EQ(dx.use_count(), 2);
+    FAST_CHECK_EQ(x.use_count(), 2);
+  }
+  FAST_CHECK_EQ(dx.use_count(), 1);
+
+  //Creating a derivative, but loosing the shared_ptr on it
+  Variable *pddxa, *pddxb;
+  {
+    VariablePtr ddx = dot(dx);
+    pddxa = ddx.get();
+  }
+  //Getting the derivative again, with another way
+  {
+    VariablePtr d3x = dot(dx,2);
+    pddxb = d3x->primitive().get();
+  }
+  //Checking the derivative was both time the same
+  FAST_CHECK_EQ(pddxa, pddxb);
+
+  return dx;
+}
+
+TEST_CASE("Test derivatives ref counting")
+{
+  auto dx = testRefCounting();
+  //Checking dx was destroyed.
+  FAST_CHECK_UNARY(dx.expired());
+}

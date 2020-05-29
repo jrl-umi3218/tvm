@@ -40,29 +40,29 @@ namespace tvm
   {
     assert(ndiff > 0 && "you cannot derive less than 1 time.");
     int i;
-    VariablePtr derivative = var;
+    Variable* derivative = var.get();
 
     //find the ndiff-th derivative of var, or the largest i such that the i-th
     //derivative exists.
     for (i = 0; i < ndiff; ++i)
     {
-      if (derivative->derivative_.expired())
+      if (!derivative->derivative_)
         break;
       else
-        derivative = derivative->derivative_.lock();
+        derivative = derivative->derivative_.get();
     }
 
     if (i == ndiff)                 //the ndiff-th derivative already exists
-      return derivative;
+      return { var, derivative };
     else                            //we need to create the derivatives from i+1 to ndiff
     {
       for (; i < ndiff; ++i)
       {
         auto primitive = derivative;
-        derivative = VariablePtr(new Variable(derivative));
-        primitive->derivative_ = derivative;
+        primitive->derivative_.reset(new Variable(derivative));
+        derivative = primitive->derivative_.get();
       }
-      return derivative;
+      return { var, derivative };
     }
   }
 
@@ -159,9 +159,9 @@ namespace tvm
     {
       const Variable* ptr = this;
       for (int i = 0; i < derivativeNumber_ - 1; ++i)
-        ptr = ptr->primitive_.get();
+        ptr = ptr->primitive_;
 
-      return ptr->primitive_;
+      return ptr->primitive_->shared_from_this();
     }
   }
 
@@ -187,17 +187,19 @@ namespace tvm
     , value_(s.rSize())
     , derivativeNumber_(0)
     , primitive_(nullptr)
-    , derivative_()
+    , derivative_(nullptr)
+    , mappingHelper_()
   {
     value_.setZero();
   }
 
-  Variable::Variable(VariablePtr var)
+  Variable::Variable(Variable* var)
     : space_(var->space_)
     , value_(var->space_.tSize())
     , derivativeNumber_(var->derivativeNumber_ + 1)
     , primitive_(var)
-    , derivative_()
+    , derivative_(nullptr)
+    , mappingHelper_()
   {
     std::stringstream ss;
     if (derivativeNumber_ == 1)
