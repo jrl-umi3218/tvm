@@ -151,7 +151,7 @@ namespace tvm
     Variable(const Space& s, const std::string& name);
 
     /** Constructor for the derivative of var */
-    Variable(VariablePtr var);
+    Variable(Variable* var);
 
     /** Same as primitive<n> but without checking if n is valid.*/
     template <int n>
@@ -172,12 +172,12 @@ namespace tvm
     int derivativeNumber_;
 
     /** If the variable is the time derivative of another one, primitive_ is a
-      * reference to the latter, otherwise it is uninitialized.
+      * reference to the latter, otherwise it is a nullptr.
       */
-    VariablePtr primitive_;
+    Variable* primitive_;
 
     /** If the variable has a time derivative, keep a pointer on it */
-    std::weak_ptr<Variable> derivative_;
+    std::unique_ptr<Variable> derivative_;
 
     /** A helper structure for mapping purpose*/
     mutable MappingHelper mappingHelper_;
@@ -207,7 +207,10 @@ namespace tvm
   template <>
   inline VariablePtr Variable::primitiveNoCheck<1>() const
   {
-    return primitive_;
+    if (derivativeNumber_ > 1)
+      return { basePrimitive(), primitive_ };
+    else
+      return primitive_->shared_from_this();
   }
 
   inline Eigen::CommaInitializer<Eigen::VectorXd> Variable::operator<<(double d)
