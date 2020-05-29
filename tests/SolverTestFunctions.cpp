@@ -11,12 +11,12 @@ SphereFunction::SphereFunction(VariablePtr x, const VectorXd & x0, double radius
 {
   assert(x->size() == x0.size());
 
-  registerUpdates(SphereFunction::Update::Value, &SphereFunction::updateValue);
-  registerUpdates(SphereFunction::Update::Jacobian, &SphereFunction::updateJacobian);
-  registerUpdates(SphereFunction::Update::VelocityAndAcc, &SphereFunction::updateVelocityAndNormalAcc);
-  addOutputDependency<SphereFunction>(FirstOrderProvider::Output::Value, SphereFunction::Update::Value);
-  addOutputDependency<SphereFunction>(FirstOrderProvider::Output::Jacobian, SphereFunction::Update::Jacobian);
-  addOutputDependency<SphereFunction>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, SphereFunction::Update::VelocityAndAcc);
+  registerUpdates(Update::Value, &SphereFunction::updateValue);
+  registerUpdates(Update::Jacobian, &SphereFunction::updateJacobian);
+  registerUpdates(Update::VelocityAndAcc, &SphereFunction::updateVelocityAndNormalAcc);
+  addOutputDependency<SphereFunction>(Output::Value, Update::Value);
+  addOutputDependency<SphereFunction>(Output::Jacobian, Update::Jacobian);
+  addOutputDependency<SphereFunction>({ Output::Velocity, Output::NormalAcceleration }, Update::VelocityAndAcc);
 
   addVariable(x, false);
 }
@@ -71,13 +71,13 @@ Simple2dRobotEE::Simple2dRobotEE(VariablePtr x, const Vector2d& base, const Vect
 {
   assert(x->size() == lengths.size());
 
-  registerUpdates(Simple2dRobotEE::Update::Value, &Simple2dRobotEE::updateValue);
-  registerUpdates(Simple2dRobotEE::Update::Jacobian, &Simple2dRobotEE::updateJacobian);
-  registerUpdates(Simple2dRobotEE::Update::VelocityAndAcc, &Simple2dRobotEE::updateVelocityAndNormalAcc);
-  addOutputDependency<Simple2dRobotEE>(FirstOrderProvider::Output::Value, Simple2dRobotEE::Update::Value);
-  addOutputDependency<Simple2dRobotEE>(FirstOrderProvider::Output::Jacobian, Simple2dRobotEE::Update::Jacobian);
-  addOutputDependency<Simple2dRobotEE>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, Simple2dRobotEE::Update::VelocityAndAcc);
-  addInternalDependency<Simple2dRobotEE>(Simple2dRobotEE::Update::VelocityAndAcc, Simple2dRobotEE::Update::Jacobian);
+  registerUpdates(Update::Value, &Simple2dRobotEE::updateValue);
+  registerUpdates(Update::Jacobian, &Simple2dRobotEE::updateJacobian);
+  registerUpdates(Update::VelocityAndAcc, &Simple2dRobotEE::updateVelocityAndNormalAcc);
+  addOutputDependency<Simple2dRobotEE>(Output::Value, Update::Value);
+  addOutputDependency<Simple2dRobotEE>(Output::Jacobian, Update::Jacobian);
+  addOutputDependency<Simple2dRobotEE>({ Output::Velocity, Output::NormalAcceleration }, Update::VelocityAndAcc);
+  addInternalDependency<Simple2dRobotEE>(Update::VelocityAndAcc, Update::Jacobian);
 
   addVariable(x, false);
 }
@@ -272,12 +272,12 @@ BrokenSphereFunction::BrokenSphereFunction(VariablePtr x, const VectorXd & x0, d
 {
   assert(x->size() == x0.size());
 
-  registerUpdates(BrokenSphereFunction::Update::Value, &BrokenSphereFunction::updateValue);
-  registerUpdates(BrokenSphereFunction::Update::Jacobian, &BrokenSphereFunction::updateJacobian);
-  registerUpdates(BrokenSphereFunction::Update::VelocityAndAcc, &BrokenSphereFunction::updateVelocityAndNormalAcc);
-  addOutputDependency<BrokenSphereFunction>(FirstOrderProvider::Output::Value, BrokenSphereFunction::Update::Value);
-  addOutputDependency<BrokenSphereFunction>(FirstOrderProvider::Output::Jacobian, BrokenSphereFunction::Update::Jacobian);
-  addOutputDependency<BrokenSphereFunction>({ function::abstract::Function::Output::Velocity, function::abstract::Function::Output::NormalAcceleration }, BrokenSphereFunction::Update::VelocityAndAcc);
+  registerUpdates(Update::Value, &BrokenSphereFunction::updateValue);
+  registerUpdates(Update::Jacobian, &BrokenSphereFunction::updateJacobian);
+  registerUpdates(Update::VelocityAndAcc, &BrokenSphereFunction::updateVelocityAndNormalAcc);
+  addOutputDependency<BrokenSphereFunction>(Output::Value, Update::Value);
+  addOutputDependency<BrokenSphereFunction>(Output::Jacobian, Update::Jacobian);
+  addOutputDependency<BrokenSphereFunction>({ Output::Velocity, Output::NormalAcceleration }, Update::VelocityAndAcc);
 
   addVariable(x, false);
 }
