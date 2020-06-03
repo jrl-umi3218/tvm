@@ -51,7 +51,7 @@
  * variables \f$ x_i \f$ it depends on. It is implemented by creating a class
  * inheriting from tvm::function::abstract::Function.
  *
- * Behind the hood, TVM is making use of a <em>computation graph<\em>, that is a
+ * Behind the hood, TVM is making use of a <em>computation graph</em>, that is a
  * set of computation units whose inputs and outputs are connected in some way.
  * A tvm::function::abstract::Function is meant to be a set of computation units
  * and pre-defines 5 outputs, accessible through 5 methods, as summarized in the
@@ -66,13 +66,14 @@
  * | \c Output::JDot               | \f$ \frac{d}{dt}\frac{\partial f}{\partial x_i} \f$ | \c JDot()                 | \c JDot_ (map of MatrixXd)        |
  * 
  * To avoid duplicated computations, the output values are cached. The update
- * of this cached values is done by <em>update methods</em> that will be
- * called when needed and in the correct order. The name of the pre-defined cache
- * member is given in the above table. <br>
+ * of these cached values is done by <em>update methods</em> that will be
+ * called when needed and in the correct order. The names of the pre-defined
+ * cache members are given in the above table. <br>
  * The core of implementing a new TVM function consists thus in two steps:
  *  * declaring the update methods and their relations to the inputs, outputs
- *    (and in some cases other update methods)
+ *    and in some cases other update methods
  *  * implementing these methods
+ *
  * An update method may update several outputs, or be used by other update
  * methods.
  *
@@ -81,8 +82,9 @@
  *  * \c updateJacobian, updating \c jacobian_
  *  * \c updateVelocityAndNormalAcc, updating \c velocity_ and \c normalAcceleration_
  *  * \c updateJDot, updating \c JDot_
- * Grouping the updates of the velocity and the normal acceleration can often have
- * a sense, because these quantities are often use in the same context in robotic
+ *
+ * Grouping the updates of the velocity and the normal acceleration can often make
+ * sense, because these quantities are often used in the same context in robotic
  * control. Here we also do it for showing the possibility.
  *
  *
@@ -101,8 +103,8 @@
  * methods. The first argument needs to be the class name, the other are the
  * identifiers and can be chosen freely. <br>
  * \c SET_UPDATES is performing several tasks necessary for the computation graph
- * machinery, including creating an enumeration class DotProduct::Update, whose
- * elements are \c Value, \c Jacobian, \c VelocityAndNormalAcc and \c JDot.
+ * machinery, including creating an enumeration class-like DotProduct::Update,
+ * whose elements are \c Value, \c Jacobian, \c VelocityAndNormalAcc and \c JDot.
  *
  * The constructor of the class simply takes (shared) pointers on the variables
  * \p x and \p y. Then comes the 4 update methods we want to define. Their names
@@ -123,8 +125,9 @@
  *    \e size of the function (1 in our \c DotProduct example)
  *  * the variables it depends on
  *  * its internal computation graph
+ *
  * The size is passed as an argument to the base tvm::function::abstract::Function
- * constructor. <bre>
+ * constructor. <br>
  * The variables are specified by the \c addVariable method. <br>
  * For functions that depend only on their variables, and not on other functions
  * or computation nodes, the internal computation graph is described by
@@ -139,8 +142,238 @@
  * The code of our constructor is
  * <pre>\skipline DotProduct::DotProduct
  * \until }
+ * \until }
  * </pre>
- * \c Function(1) is the specification of the function size. 
+ * \c Function(1) is the specification of the function size. <br>
  * The references are initialized from the shared pointer to the adequate
- * variables. Those variables lifetime is ensured
+ * variables. Those variables lifetime is ensured, because the function will
+ * keep track of them through the calls to \c addVariable. <br>
+ * The call to \c registerUpdate associates the id \c Update::Value with the
+ * update method \c updateValue, the id \c Update::Jacobian with the method
+ * \c updateJacobian, ...  <br>
+ * The first call to \c addOutputDependency declares that the output with id
+ * \c Output::Value is updated by the update method associated to id
+ * \c Update::Value. The third call shows how to associate two outputs to a
+ * single update.
+ * Registering update methods must be done before calling \c addDependencies
+ * between outputs and updates. <br>
+ * Finally, \c x and \c y are added as variables of the function through the
+ * calls to \c addVariable. The second argument, set to \c true, means that the
+ * function linearly depends on those variables.
+ *
+ *
+ * Update methods
+ * --------------
+ * The implementation of the four update methods is a direct transcription of the
+ * mathematical expression.
+ * <pre>\skipline DotProduct::updateValue
+ * \until DotProduct::updateJDot
+ * \until }
+ * </pre>
+ * Members \c jacobian_ and \c JDot_ are \c std::map indexed by the variables.
+ *
+ * Example of use
+ * --------------
+ * See \ref example below.
+ *
+ * Remarks
+ * -------
+ *  * Cache members automatically have te correct size: this is ensured at
+ *    construction time or when \c addVariable is used. It is the responsibility
+ *    of the user to not change those sizes.
+ *  * The constructor should of course check that both variables have the same
+ *    size.
+ *
+ * Advanced example
+ * ================
+ * 
+ * So far, we saw the implementation of a rather simple function, that only
+ * depends on its variables. We present here an extension that requires a more
+ * complexe use of the computation graph.
+ *
+ * Instead of considering the dot product between two variables, we will now take
+ * the dot product of two functions. This will be done by implementing a class
+ * \c FunctionDotProduct.
+ *
+ * Formulas
+ * --------
+ * Given two functions \f$ g \f$ and \f$ h \f$, we are considering the function
+ * \f$ f = g^T h \f$.
+ * 
+ * We have that
+ *
+ * \f$
+ *  \begin{align}
+ *    &\frac{\partial f}{\partial x_i} = g^T \frac{\partial h}{\partial x_i} + h^T \frac{\partial g}{\partial x_i} \\
+ *    &\dot{f} = g^T \dot{h} + \dot{g}^T h \\
+ *    &\gamma_f = 2 \dot{g}^T \dot{h} + g^T \gamma_h + h^T \gamma_g
+ *  \end{align}
+ * \f$
+ *
+ *
+ * Class declaration
+ * -----------------
+ * The \c FunctionDotProduct class can be defined as follows
+ * <pre>\skipline FunctionDotProduct
+ * \until };
+ * </pre>
+ * There are two important differences with what we did before, both of which
+ * related to enabling/disabling outputs. Disabled outputs can not be used in the
+ * computation graph, and there are no need to implement update methods for them.
+ *
+ * First, the class does not derive directly from tvm::function::abstract::Function
+ * but from tvm::graph::abstract::OutputSelector<function::abstract::Function>
+ * (which in turn derives from tvm::function::abstract::Function). This allows to
+ * enable or disable outputs of the class <em>at runtime</em>: depending on the
+ * outputs available for functions \f$ g \f$ and \f$ h \f$, we might not be able
+ * to compute all the outputs of our function.
+ *
+ * Second, we are using the macro \c DISABLE_OUTPUTS to disable \e statically the
+ * \c JDot output. There are several reasons for disabling outputs this way, most
+ * notably the fact that one cannot or does not want to implement the
+ * computations for an output. <br>
+ * Calling \c DISABLE_OUTPUTS is independent of using graph::abstract::OutputSelector.
+ *
+ * Otherwise, the class has four update methods, and keep a pointer on \c g and
+ * \c h.
+ * We also have a helper function, \c processOutput, whose role is to check that
+ * \c g and \c h have the required outputs for computing a given output of our
+ * function, and if so make the adequate registrations and dependency
+ * declarations.
+ *
+ * Constructor
+ * -----------
+ * The constructor is doing the same job as before: specifying the size of the
+ * function (this time through tvm::graph::abstract::OutputSelector), creating the
+ * internal computation graph, and adding the variables the function depends on.
+ * <pre>\skipline FunctionDotProduct
+ * \until }
+ * \until }
+ * \until }
+ * </pre>
+ * The creation of the graph is using the method \c processOutput described
+ * below. The following table shows the dependency flow:
+ *
+ * |      outputs of g and h       |       update id      |          output of f          | 
+ * | :---------------------------: | :------------------: | :---------------------------: |
+ * | \c Output::Value              | \c Update::Value     | \c Output::Value              |
+ * | \c Output::Value              | \c Update::Jacobian  | \c Output::Jacobian           |
+ * | \c Output::Jacobian           | ^                    | ^                             |
+ * | \c Output::Value              | \c Update::Velocity  | \c Output::Velocity           |
+ * | \c Output::Velocity           | ^                    | ^                             |
+ * | \c Output::Value              | \c Update::NormalAcc | \c Output::NormalAcceleration |
+ * | \c Output::Velocity           | ^                    | ^                             |
+ * | \c Output::NormalAcceleration | ^                    | ^                             |
+ *
+ * An output of our function can be enabled only if the required output of \c g
+ * and \c h are available.
+ *
+ * Lastly, we add to our function the variables of \c g and \c h. Adding a second
+ * time the same variable has no effect, so that we do not need to check what
+ * variables are shared among \c g and \c h. To do things properly, we need to
+ * determine if a variable of our function will appear linearly. This is the case
+ * if it appears linearly in \c g or \c h and does not appear in the other.
+ *
+ * Methods implementation
+ * ----------------------
+ * The update methods are straigtforward transcription of the mathematical
+ * formulas.
+ * <pre>\skipline updateValue
+ * \until updateNormalAcc
+ * \until }
+ * </pre>
+ * 
+ * The function \c processOutput has a bit of complexity to allow passing a
+ * variable number of required outputs for \c g and \c h (which are thus inputs
+ * of our function). 
+ * Aside from this complexity, the implementation is quite straightforward: if
+ * \c g and \c h provide both all the necessary outputs
+ *  1. declare these outputs as inputs of our function with the method \c addInput
+ *  2. register the update method
+ *  3. specify the dependency between the update method and the inputs (what we
+ *     did not do in the previous example because we had no inputs other that the
+ *     variables). This is done with \c addInputDependency
+ *  4. specify the dependency between the output and the update method.
+ *
+ * If the necessary inputs are not present, we disable the corresponding output.
+ *
+ * <pre>\skipline template
+ * \until disableOutput
+ * \until }
+ * </pre>
+ *
+ * To check the availability of outputs on \c g and \c h with a variable number
+ * of inputs, we use [fold expression](https://en.cppreference.com/w/cpp/language/fold)
+ * in the computation of \c enableOutput.
+ * The methods \c addInput and \c addInputDependency both accept a variable
+ * number of inputs. We use there [parameter pack expansion]
+ * (https://en.cppreference.com/w/cpp/language/parameter_pack#Pack_expansion).
+ *
+ * \note The two first parameters of \c processOutput are template parameters to
+ * ease the writing and use of the method: for reason beyond the scope of this
+ * document, \c Output and \c Update are struct with static members mimicking
+ * enum, not enum, and the static members do not all have the same type.
+ *
+ *
+ * Example of use
+ * --------------
+ * See \ref example below.
+ *
+ *
+ * Remarks
+ * -------
+ *  * Instead of having a separate dot product for variables and functions, it
+ *    would be interesting to have a single class covering both cases, as well as
+ *    mixed cases (e.g. variable dot function), and to allow one of the operand
+ *    be a scalar. This could be done by having several versions of the update
+ *    method for the same output and registering at construction time the one
+ *    adapted to the nature of the operands.
+ *  * Update methods are expected to always compute the same values if the inputs
+ *    and variables they depend on didn't change. You should not write updates
+ *    that depends on internal state of your class.
+ *
+ *
+ * Example file {#example}
+ * ============
+ * Example of use for both functions described in this document can be found in
+ * file \p example/FunctionWritingExample.cpp, in the form of test methods.
+ *
+ * The first test <code>TEST_CASE("DotProduct")</code>, shows the use of the
+ * \c DotProduct function. It highlights that calling methods to access outputs,
+ * such as \c value(), do not trigger the update of these outputs. In this
+ * example, udpates are called manually. Updates are generally called
+ * automatically in TVM, but you have to pay attention to whether or not an
+ * update was called when you want to access an output yourself.
+ *
+ * The second test, <code>TEST_CASE("FunctionDotProduct")</code>, showcases the
+ * \c FunctionDotProduct function. It makes use of a \c DummyFunction class which
+ * is simple an identity function whose \c Velocity output was disabled to
+ * examplify the runtime disabling of outputs in \c FunctionDotProduct::processOutput.
+ * Because \c DummyFunction does not have a \c Velocity output, the \c Velocity
+ * and \c NormalAcceleration outputs of FunctionDotProduct get disbaled.
+ *
+ * In this test, to avoid tedious manual updates of the computations, we use the
+ * utility function \c utils::generateUpdateGraph to generate a computation graph
+ * that can then be run by the method \c execute.
+ *
+ *
+ * To go further
+ * =============
+ *
+ *  * Access methods for outputs, such as \c value can be overriden in case it
+ *    makes sense not to rely on a cache. This is for example the case if one
+ *    wants to simply forward the result of an input function. In this particular
+ *    case the link between input and ouput must be declared with \c addDirectDependency.
+ *  * Functions in TVM are considered primarily as nodes in a computation graph,
+ *    with a system of update methods and access to cache values optimized for
+ *    use in solving optimization problems, but that can be counterintuitive or
+ *    lack user-friendliness for manual use. The class tvm::utils::UpdatelessFunction
+ *    provides a mean to use function in a way closer to mathematical notations,
+ *    where the values of the variables are specified when calling the function,
+ *    e.g. \c f.value(x,y). This is meant for ease of use, in debugging or
+ *    testing context, but can incur overheads.
+ *  * The file tvm/utils/checkFunction.h offers several utilities to check the
+ *    jacobian, velocity and normal acceleration of a function, using finite
+ *    differences.
+ *
  */
