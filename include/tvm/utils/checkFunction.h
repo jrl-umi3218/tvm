@@ -59,7 +59,7 @@ namespace utils
   /** Check the jacobian matrices of function \a f by forward finite differences.*/
   bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt = CheckOptions());
 
-  /** Check the velocity of the function \a f by comparing it to J*x.
+  /** Check the velocity of the function \a f by comparing it to J*\dot{x}.
     * Assume that the jacobian matrices are correct.
     */
   bool TVM_DLLAPI checkVelocity(FunctionPtr f, CheckOptions opt = CheckOptions());

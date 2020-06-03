@@ -574,6 +574,7 @@ namespace internal
       dot << "    label=\"" << clean(p.second.back().name(), false) << "\";\n";
       //updates
       dot << "    {\n";
+      dot << "      rank=same;\n";
       for (const auto& u : updates[p.first])
       {
         dot << "      " << nodeName(u) << " [label=\"" << clean(u.name) << "\"";
