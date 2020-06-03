@@ -1,5 +1,5 @@
-INPUT                  = @PROJECT_SOURCE_DIR@/include @PROJECT_SOURCE_DIR@/examples
+INPUT                  = @PROJECT_SOURCE_DIR@/include @PROJECT_SOURCE_DIR@/examples @PROJECT_SOURCE_DIR@/doc
 IMAGE_PATH             = @PROJECT_SOURCE_DIR@/doc/pictures
 EXAMPLE_PATH           = @PROJECT_SOURCE_DIR@/examples
-FILE_PATTERNS          = *.h *.idl
+FILE_PATTERNS          = *.h *.idl *.dox
 MARKDOWN_SUPPORT       = YES

@@ -1,0 +1,43 @@
+// Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
+
+/*!
+\mainpage The TVM library
+
+TVM is a library meant for writing and solving linear control problems for robots.
+At its heart lies an optimization framework with several helpful features (such as variable management and handling of convention differences in the way of writing constraint), on top of which robotic functionalities are added.
+The library strives at separating the way a problem is written from the way it is solved. This allows to write problems in a way mirroring closely their natural mathematical formulations. The work of correctly assembling the corresponding matrices and vectors to be passed to a numerical solver is done automatically with little to no overhead over a painful and error-prone manual implementation.
+
+TVM has typically three types of users:
+ - the end-user, formulating the problem he/she want to solve. He/she does so my manipulating notions such as variables, functions, tasks and task dynamics, using the existing functions and task dynamics to do so,
+ - the user adding robotics functionnality, typically new functions or tasks dynamics. He/she need to understand some of the internals of the library such as the update mechanism,
+ - the user adding solving capability, such as a new resolution scheme, with a deeper knowledge of the internals.
+ 
+ The framework distinguishes two world: the task world and the optimization world. The end-user works in the tasks world. There, he/she creates variables, functions of them or their derivatives. A function is then associated with an equality or inequality goal and a prescribed dynamics to achieve this goal, forming a task. There is no differentiation between constraints and objectives at this point. The user can then add these tasks to a problem, completed by requirements on how to solve each task (level of priority, weight, ...).
+ The problem can then be linearized and solved, all of which is not the concern of the end-user.
+ The linearization makes the bridge to the second world. Here the tasks are turned into (linear) constraints, and a resolution scheme build the inputs to be passed to a numerical solver according to the tasks' accompanying requirements.
+
+
+Main features
+=============
+
+ - strong decoupling between the formulation of a problem and the way to solve it
+ - easy way to express a task from a function
+ - extensibility and numerous points of customization
+ - many classical robotic functions (Equation of dynamics, position and orientation of a body, collisions, ...)
+ - lightweight variable management
+ - variable substitution
+ - update mechanism to ensure each quantity is only computed once
+ - state-of-the-art resolution schemes
+ - low-level efficient tools to help writing new resolution schemes
+
+
+Topics
+======
+  - [how to write a function](\ref FunctionWritingExample.h")
+  - [how to write a problem](\ref ProblemWritingExample.h")
+  - [how to write a task dynamics](\ref TaskDynamicsExample.h")
+  - the update mechanism
+  - the assignment mechanism
+  - how to write a resolution scheme
+
+*/
