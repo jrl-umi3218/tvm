@@ -225,13 +225,6 @@ namespace tvm
   }
 }  // namespace tvm
 
-/** Helper to set the value of a variable v to val. */
-inline tvm::VariablePtr& operator<<(tvm::VariablePtr& v, const tvm::VectorConstRef& val)
-{
-  v->value(val);
-  return v;
-}
-
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
 inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr& v, double d)
 {
@@ -239,8 +232,21 @@ inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr& v, 
 }
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
+inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr&& v, double d)
+{
+  return *v.get() << d;
+}
+
+/** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
 template<typename Derived>
 inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr& v, const Eigen::DenseBase<Derived>& other)
+{
+  return *v.get() << other;
+}
+
+/** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
+template<typename Derived>
+inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr&& v, const Eigen::DenseBase<Derived>& other)
 {
   return *v.get() << other;
 }
