@@ -107,6 +107,13 @@ jobs:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
         options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }}
+    - name: Upload documentation
+      # Only run on master branch and for one configuration
+      if: matrix.os == 'ubuntu-18.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.matrix.with-robot == 'OFF'
+      uses: jrl-umi3218/github-actions/upload-documentation@master
+      with:
+        GH_USER: gergondet
+        GH_PAGES_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
     - name: Slack Notification
       if: failure()
       uses: archive/github-actions-slack@master
