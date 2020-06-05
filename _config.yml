@@ -1,0 +1,3 @@
+name: TVM documentation
+gems:
+  - jekyll-redirect-from
