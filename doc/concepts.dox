@@ -1,0 +1,92 @@
+// Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
+
+/*!
+\page concepts TVM concepts
+
+Space
+=====
+In TVM, a space is an Euclidean vector space \f$ \mathbb{R}^n \f$ of given size \f$ n \f$, or a non-Euclidean smooh manifold. Spaces are represented by the tvm::Space class.
+
+
+Variable
+========
+A variable in TVM is meant to have the same meaning as with mathematical notations: a point of a space whose value is unknown or varying with the problem to solve.
+
+Variables in TVM are represented by the tvm::Variable class, and usually used through a \p std::shared_ptr with the alias tvm::VariablePtr.
+
+Since variables are points of spaces, tvm::Variable can not be created directely, but need to be constructed from a tvm::Space.
+
+From a variable, one can create its time derivative with tvm::dot.
+
+Variables can also be grouped in tvm::VariableVector.
+
+
+Function
+========
+A TVM function (tvm::function::abstract::Function) is an object representing a mathematical function \f$ f: S_1 \times \ldots \times S_k \rightarrow \mathbb{R}^m\f$, where the \f$S_i\f$ are spaces as above. Note that the image space is always an Euclidean space.
+
+For given variables values, it can compute the value of the function, and some of its derivatives (with respect to time or its variables).
+
+An example on how to write new functions is given [here](\ref FunctionWritingExample.h)
+
+
+Task dynamics
+=============
+Given an error function \f$ e \f$, a task dynamics \f$ g \f$ gives the desired behavior of this error as a specification of its \f$k\f$-th time derivative, \e i.e. \f$ \frac{d^k e}{dt^k}^* = g(t,e,\dot{e}, \ldots, \frac{d^{k-1} e}{dt^{k-1}}) \f$. This is implemented through the tvm::task_dynamics::abstract::TaskDynamics class.
+
+An example on how to write new task dynamics is given [here](\ref TaskDynamicsExample.h)
+
+
+Task
+====
+A task is formally a triplet (error function, operator, task dynamics), where operator is a comparison to 0 (<=, == or >=). It is represented by the tvm::Task class.
+
+TVM offers the possibility to write the two first elements with syntax like <code> f == b </code> or <code> f >= b </code>, where \c f a function and \c b a \c double or \c VectorXd, which is converted to <code> e == 0. </code> or <code> e >= 0. </code> with \f$ e = f-b \f$.
+It is also possible to write <code> l <= f <= u </code>, which will be interpreted as parts of two tasks.
+
+
+Constraint
+==========
+A constraint is a triplet (function, operator, rhs) or (function, rhs1, rhs2).<br>
+The first case covers the form \f$ f == rhs \f$, \f$ f \geq rhs \f$ and \f$ f \leq rhs \f$, the second is for \f$ rhs1 \leq f \leq rhs2 \f$. It is implemented by the tvm::constraint::abstract::Constraint class.
+
+There is no concept of objective in TVM: objectives are constraints with the lower level of priority whose violation, by default, needs to be minimized in the least-square sense.
+
+
+Solving requirements
+============
+Solving requirements are specifications on how a task or constraint must be solved, especially in relations with other constraints or tasks, when not all are feasible.
+There are for now 4 types of requirements:
+  + \p ViolationEvaluation specifies how the constraint violation must be considered for minimization. Currently, there are only one type fully implemented: the L2 norm of the violation.
+  + \p Priority specifies the priority of a constraint in the sense of a stack of tasks
+  + \p Weight allows to indicate the relative importance of tasks at the same level of priority, by multiplying their violation by a scalar
+  + \p AnistropicWeight has the same purpose as \p Weight but each dimension of the violation is multiplied by a different weight.
+
+
+Hint
+====
+A hint is clue given to a resolution scheme about a way to solve the problem. The only hint implemented for now is about substitution: telling that using some constraints allow to presolve for somes variables, which can be removed from the problem by substitution.
+
+
+Control problem
+===============
+A control problem, implemented by tvm::ControlProblem is collection of (tasks, requirements) pairs and hints.
+
+A linearized control problem, implemented by tvm::LinearizedControlProblem is a control problem where functions have been linearized around a point. Tasks are turned into constraints.<br>
+For example the task \f$ (e(x), =, \dot{e}^* = - k_p e) \f$ is turned into the constraint \f$ (\frac{\partial e}{\partial x} \dot{x}, =, - k_p e) \f$.
+
+An example on the writing of a problem and its resolution is presented [here](\ref ProblemWritingExample.h)
+
+
+Resolution scheme
+=================
+A resolution scheme is an algorithm in charge of solving a problem. It can do so by one or several call(s) to one or several \e solver(s). Before solving, the scheme is in charge of arranging the data of the problems into inputs for the solver(s), according to the solving requirements.
+
+
+Computation graph
+=================
+Under the hood TVM is building a sequence of the computations to be executed each time we want to solve a given problem. This sequence is such that each required computation is done exactly once, and that computations are done in the correct order. The sequence is derived form a graph of computations that specify how computations depend on one another.
+
+Computation nodes, such as functions, describe the way they internally work by the mean of \e inputs, \e updates and \e outputs, and which update computation is called on which inputs to produce a given output. Inputs and outputs get connected during the problem creation, leading to the computation graph.
+
+*/
