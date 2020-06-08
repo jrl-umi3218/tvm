@@ -33,9 +33,10 @@ Main features
 
 Topics
 ======
-  - [how to write a function](\ref FunctionWritingExample.h")
-  - [how to write a problem](\ref ProblemWritingExample.h")
-  - [how to write a task dynamics](\ref TaskDynamicsExample.h")
+  - \subpage concepts
+  - \subpage problemWritingExample
+  - \subpage functionWritingExample
+  - \subpage taskDynamicsExample
   - the update mechanism
   - the assignment mechanism
   - how to write a resolution scheme

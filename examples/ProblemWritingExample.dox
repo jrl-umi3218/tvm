@@ -1,8 +1,7 @@
 // Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 
 /**
- * \file
- * \brief How to write a problem
+ * \page problemWritingExample How to write a problem
  *
  * Preliminaries
  * =============
@@ -12,7 +11,7 @@
  * In this tutorial, we look at how to write and solve a control problem in TVM, 
  * through an Inverse Kinematics (IK) example.
  *
- * We consider a 2d 3-links robot, and we want to bring itd end effector to a
+ * We consider a 2d 3-links robot, and we want to bring its end effector to a
  * circle (see the figure above). Let's call \f$ q \in \mathbb{R}^3 \f$ the
  * configuration of the robot, and \f$ g(q) \f$ the position of its end effector.
  * For a given initial \f$ q_0 \f$, we are interested in computing a trajectory
@@ -411,3 +410,4 @@
  * ------------
  * example/ProblemWritingExample.cpp
  */
+ 

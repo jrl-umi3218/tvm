@@ -1,8 +1,7 @@
 // Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
 
 /**
- * \file
- * \brief How to create a new TVM function.
+ * \page functionWritingExample How to create new TVM functions.
  *
  * Preliminaries
  * =============
@@ -174,7 +173,7 @@
  *
  * Example of use
  * --------------
- * See \ref example below.
+ * See \ref exampleFile below.
  *
  * Remarks
  * -------
@@ -317,7 +316,7 @@
  *
  * Example of use
  * --------------
- * See \ref example below.
+ * See \ref exampleFile below.
  *
  *
  * Remarks
@@ -333,7 +332,7 @@
  *    that depends on internal state of your class.
  *
  *
- * Example file {#example}
+ * Example file {#exampleFile}
  * ============
  * Example of use for both functions described in this document can be found in
  * file \p example/FunctionWritingExample.cpp, in the form of test methods.
@@ -377,3 +376,4 @@
  *    differences.
  *
  */
+ 
