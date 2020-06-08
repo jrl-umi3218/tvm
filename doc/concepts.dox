@@ -27,14 +27,14 @@ A TVM function (tvm::function::abstract::Function) is an object representing a m
 
 For given variables values, it can compute the value of the function, and some of its derivatives (with respect to time or its variables).
 
-An example on how to write new functions is given [here](\ref FunctionWritingExample.h)
+An example on how to write new functions is given [here](\ref functionWritingExample)
 
 
 Task dynamics
 =============
 Given an error function \f$ e \f$, a task dynamics \f$ g \f$ gives the desired behavior of this error as a specification of its \f$k\f$-th time derivative, \e i.e. \f$ \frac{d^k e}{dt^k}^* = g(t,e,\dot{e}, \ldots, \frac{d^{k-1} e}{dt^{k-1}}) \f$. This is implemented through the tvm::task_dynamics::abstract::TaskDynamics class.
 
-An example on how to write new task dynamics is given [here](\ref TaskDynamicsExample.h)
+An example on how to write new task dynamics is given [here](\ref taskDynamicsExample)
 
 
 Task
@@ -75,7 +75,7 @@ A control problem, implemented by tvm::ControlProblem is collection of (tasks, r
 A linearized control problem, implemented by tvm::LinearizedControlProblem is a control problem where functions have been linearized around a point. Tasks are turned into constraints.<br>
 For example the task \f$ (e(x), =, \dot{e}^* = - k_p e) \f$ is turned into the constraint \f$ (\frac{\partial e}{\partial x} \dot{x}, =, - k_p e) \f$.
 
-An example on the writing of a problem and its resolution is presented [here](\ref ProblemWritingExample.h)
+An example on the writing of a problem and its resolution is presented [here](\ref problemWritingExample)
 
 
 Resolution scheme
