@@ -8,3 +8,8 @@ code {
   font-family: monospace;
   background-color: #F8F8FF;
 }
+
+div.fragment {
+  display:table;
+  padding: 0pt;
+}
