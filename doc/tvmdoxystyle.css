@@ -1,4 +1,4 @@
-div.fragment, code {
+code {
   max-width:100%;
   border-collapse: collapse;
   border-style: solid;
@@ -7,13 +7,9 @@ div.fragment, code {
   font-size: 1em;
   font-family: monospace;
   background-color: #F8F8FF;
-  padding: 0px 1px 1px 1px;
 }
 
-div.fragment div.line {
-  font-family: monospace;
+div.fragment {
+  display:table;
+  padding: 0pt;
 }
-
-div.fragment div.line::after {
-  content: '\200b';    /* make sure empty line are displayed in code snippets */
-}  
