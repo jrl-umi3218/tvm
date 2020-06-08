@@ -1,8 +1,7 @@
 var NAVTREE =
 [
   [ "TVM", "index.html", [
-    [ "The TVM library", "index.html", null ],
-    [ "TVM concepts", "a02241.html", null ],
+    [ "The TVM library", "index.html", "index" ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
@@ -44,12 +43,12 @@ var NAVTREEINDEX =
 [
 "a00002.html",
 "a00284.html#af7793f96378dc79eab2695c67494b143",
-"a00992.html",
-"a01132.html#a02060e824b93abc03d0f800592b9633b",
-"a01276.html#ac726850f73e96d4c98e898a1e791802a",
-"a01452.html",
-"a01616.html",
-"a01764.html#a9d4add388135e92671b6af177682285d"
+"a01004.html",
+"a01132.html#a0a6ecc1f1bf8418fa3adc69c1ef88bae",
+"a01276.html#aec0c79c2310e934b45dca6a0982e755e",
+"a01456.html",
+"a01616.html#a99ad058c2c07a10b72a539e829fa4b50",
+"a01764.html#ac7641ac8683bb7d30cf945f8548bca58"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

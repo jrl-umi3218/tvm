@@ -74,11 +74,11 @@ var files =
       [ "DynamicFunction", "a01304.html", "a01304" ],
       [ "ForceContact", "a01308.html", "a01308" ]
     ] ],
-    [ "constraint/enums.h", "a02243.html", "a02243" ],
-    [ "event/enums.h", "a02246.html", "a02246" ],
-    [ "internal/enums.h", "a02249.html", "a02249" ],
-    [ "robot/enums.h", "a02252.html", "a02252" ],
-    [ "task_dynamics/enums.h", "a02255.html", "a02255" ],
+    [ "constraint/enums.h", "a02246.html", "a02246" ],
+    [ "event/enums.h", "a02249.html", "a02249" ],
+    [ "internal/enums.h", "a02252.html", "a02252" ],
+    [ "robot/enums.h", "a02255.html", "a02255" ],
+    [ "task_dynamics/enums.h", "a02258.html", "a02258" ],
     [ "exceptions.h", "a00038.html", [
       [ "Exception", "a00976.html", "a00976" ],
       [ "DataException", "a00980.html", null ],
@@ -99,7 +99,6 @@ var files =
     [ "Function.h", "a00041.html", [
       [ "Function", "a01008.html", "a01008" ]
     ] ],
-    [ "FunctionWritingExample.h", "a00320.html", null ],
     [ "GenericCalculator.h", "a00092.html", [
       [ "GenericCalculator", "a01152.html", "a01152" ],
       [ "Impl", "a01156.html", "a01156" ]
@@ -183,7 +182,6 @@ var files =
     [ "ProblemComputationData.h", "a00209.html", [
       [ "ProblemComputationData", "a01528.html", "a01528" ]
     ] ],
-    [ "ProblemWritingExample.h", "a00326.html", null ],
     [ "Proportional.h", "a00260.html", "a00260" ],
     [ "ProportionalDerivative.h", "a00263.html", "a00263" ],
     [ "ProtoTask.h", "a00299.html", "a00299" ],
@@ -254,7 +252,6 @@ var files =
     [ "TaskDynamics.h", "a00245.html", [
       [ "TaskDynamics", "a01624.html", "a01624" ]
     ] ],
-    [ "TaskDynamicsExample.h", "a00332.html", null ],
     [ "TaskDynamicsImpl.h", "a00248.html", [
       [ "TaskDynamicsImpl", "a01628.html", "a01628" ]
     ] ],
