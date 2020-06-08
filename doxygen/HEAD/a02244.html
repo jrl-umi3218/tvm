@@ -84,10 +84,10 @@ $(document).ready(function(){initNavTree('a02244.html','');});
 <h1>Function </h1>
 <p>A TVM function (<a class="el" href="a01008.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a>) is an object representing a mathematical function \( f: S_1 \times \ldots \times S_k \rightarrow \mathbb{R}^m\), where the \(S_i\) are spaces as above. Note that the image space is always an Euclidean space.</p>
 <p>For given variables values, it can compute the value of the function, and some of its derivatives (with respect to time or its variables).</p>
-<p>An example on how to write new functions is given here</p>
+<p>An example on how to write new functions is given <a class="el" href="a02241.html">here</a></p>
 <h1>Task dynamics </h1>
 <p>Given an error function \( e \), a task dynamics \( g \) gives the desired behavior of this error as a specification of its \(k\)-th time derivative, <em>i.e</em>. \( \frac{d^k e}{dt^k}^* = g(t,e,\dot{e}, \ldots, \frac{d^{k-1} e}{dt^{k-1}}) \). This is implemented through the <a class="el" href="a01624.html" title="This is a base class to describe how a task is to be regulated, i.e. ">tvm::task_dynamics::abstract::TaskDynamics</a> class.</p>
-<p>An example on how to write new task dynamics is given here</p>
+<p>An example on how to write new task dynamics is given <a class="el" href="a02243.html">here</a></p>
 <h1>Task </h1>
 <p>A task is formally a triplet (error function, operator, task dynamics), where operator is a comparison to 0 (&lt;=, == or &gt;=). It is represented by the <a class="el" href="a01620.html" title="A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=...">tvm::Task</a> class.</p>
 <p>TVM offers the possibility to write the two first elements with syntax like <code> f == b </code> or <code> f &gt;= b </code>, where <code>f</code> a function and <code>b</code> a <code>double</code> or <code>VectorXd</code>, which is converted to <code> e == 0. </code> or <code> e &gt;= 0. </code> with \( e = f-b \). It is also possible to write <code> l &lt;= f &lt;= u </code>, which will be interpreted as parts of two tasks.</p>
@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('a02244.html','');});
 <p>A control problem, implemented by <a class="el" href="a00964.html">tvm::ControlProblem</a> is collection of (tasks, requirements) pairs and hints.</p>
 <p>A linearized control problem, implemented by <a class="el" href="a01228.html">tvm::LinearizedControlProblem</a> is a control problem where functions have been linearized around a point. Tasks are turned into constraints.<br />
  For example the task \( (e(x), =, \dot{e}^* = - k_p e) \) is turned into the constraint \( (\frac{\partial e}{\partial x} \dot{x}, =, - k_p e) \).</p>
-<p>An example on the writing of a problem and its resolution is presented here</p>
+<p>An example on the writing of a problem and its resolution is presented <a class="el" href="a02242.html">here</a></p>
 <h1>Resolution scheme </h1>
 <p>A resolution scheme is an algorithm in charge of solving a problem. It can do so by one or several call(s) to one or several <em>solver(s)</em>. Before solving, the scheme is in charge of arranging the data of the problems into inputs for the solver(s), according to the solving requirements.</p>
 <h1>Computation graph </h1>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('a02244.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
-    <li class="footer">Generated on Mon Jun 8 2020 01:36:18 for TVM by
+    <li class="footer">Generated on Mon Jun 8 2020 01:56:35 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
