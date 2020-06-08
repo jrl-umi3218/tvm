@@ -3,3 +3,6 @@ IMAGE_PATH             = @PROJECT_SOURCE_DIR@/doc/pictures
 EXAMPLE_PATH           = @PROJECT_SOURCE_DIR@/examples
 FILE_PATTERNS          = *.h *.idl *.dox
 MARKDOWN_SUPPORT       = YES
+HTML_HEADER            = "@PROJECT_SOURCE_DIR@/doc/tvmdoxy_header.html"
+HTML_FOOTER            = "@PROJECT_SOURCE_DIR@/doc/tvmdoxy_footer.html"
+HTML_EXTRA_FILES       = "@PROJECT_SOURCE_DIR@/doc/tvmdoxystyle.css"
