@@ -107,6 +107,11 @@ jobs:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
         options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }}
+    - name: Check TVM usage
+      shell: bash
+      run: |
+        set -x
+        ./.github/workflows/scripts/test-usage.sh ${{ matrix.build-type }}
     - name: Upload documentation
       # Only run on master branch and for one configuration
       if: matrix.os == 'ubuntu-18.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.with-robot == 'OFF'
