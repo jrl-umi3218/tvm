@@ -1,5 +1,6 @@
 var a00373 =
 [
-    [ "LinearResolutionScheme", "a01344.html", "a01344" ],
-    [ "ResolutionScheme", "a01340.html", "a01340" ]
+    [ "abstract", "a00374.html", "a00374" ],
+    [ "internal", "a00375.html", "a00375" ],
+    [ "Substitution", "a01181.html", "a01181" ]
 ];

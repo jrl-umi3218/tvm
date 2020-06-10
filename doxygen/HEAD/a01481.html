@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01484.html','');});
+$(document).ready(function(){initNavTree('a01481.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,28 +88,151 @@ $(document).ready(function(){initNavTree('a01484.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01478.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt; Member List</div>  </div>
+<div class="title">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01484.html#aa9f7fd52985cf857b5a9b482007f32f0">applyMatrixMult</a>(const T &amp;M)</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01484.html#a13931a03addf934ba95e48f6cc73ea1d">applyMatrixMult</a>(const T &amp;M)</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01484.html#aadd50be0859c22263cb10590f4c850c1">applyMatrixMult</a>(const double &amp;d)</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01484.html#ac2b54dec91b9db12f82f3a7ec8c9c51f">applyMatrixMultCached</a>(MatrixType &amp;cache, const T &amp;M)</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01484.html#afaeb8334a9ac47eaff9d7f91fec4efbd">ConstType</a> typedef</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01484.html#abdd0beb3c2bb24191c72018922745da6">MatrixMultBase</a>(const Eigen::Ref&lt; const Eigen::MatrixXd &gt; &amp;M)</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01484.html#a2cf9a89c221254f318c5080a8ef3c9ab">PostType</a> typedef</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01484.html#ae9e51a359c8d96e54567c48fb894859f">PreType</a> typedef</td><td class="entry"><a class="el" href="a01484.html">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Specialization for DIAGONAL.  
+ <a href="a01481.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a66ab1fef180694583047fb6ec2a1e4da"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a66ab1fef180694583047fb6ec2a1e4da"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01481.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a> = decltype(std::declval&lt; Eigen::Ref&lt; const Eigen::VectorXd &gt; &gt;().asDiagonal() *std::declval&lt; T &gt;())</td></tr>
+<tr class="separator:a66ab1fef180694583047fb6ec2a1e4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a28a052651f644dc37d6e1fee5981892c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01481.html#a28a052651f644dc37d6e1fee5981892c">WeightMultBase</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;d)</td></tr>
+<tr class="separator:a28a052651f644dc37d6e1fee5981892c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01481.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01481.html#a28b2bfc2edfa94ffd7f8aec926d2c2a5">applyWeightMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3cec7fc02a24513e071d243c5402b7a"><td class="memItemLeft" align="right" valign="top">decltype(double() *std::declval&lt; Eigen::Ref&lt; const Eigen::VectorXd &gt;&gt;())&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01481.html#aa3cec7fc02a24513e071d243c5402b7a">applyWeightMult</a> (const double &amp;d)</td></tr>
+<tr class="memdesc:aa3cec7fc02a24513e071d243c5402b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagonal * constant vector case.  <a href="#aa3cec7fc02a24513e071d243c5402b7a">More...</a><br /></td></tr>
+<tr class="separator:aa3cec7fc02a24513e071d243c5402b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;&gt;<br />
+class tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</h3>
+
+<p>Specialization for DIAGONAL. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a66ab1fef180694583047fb6ec2a1e4da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ab1fef180694583047fb6ec2a1e4da">&#9670;&nbsp;</a></span>ReturnType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01465.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00383.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::<a class="el" href="a01481.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a> =  decltype(std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt; &gt;().asDiagonal() * std::declval&lt;T&gt;())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a28a052651f644dc37d6e1fee5981892c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a052651f644dc37d6e1fee5981892c">&#9670;&nbsp;</a></span>WeightMultBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01465.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00383.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::<a class="el" href="a01465.html">WeightMultBase</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a28b2bfc2edfa94ffd7f8aec926d2c2a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b2bfc2edfa94ffd7f8aec926d2c2a5">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01481.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a>&lt;T&gt; <a class="el" href="a01465.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00383.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::applyWeightMult </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3cec7fc02a24513e071d243c5402b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3cec7fc02a24513e071d243c5402b7a">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">decltype(double()*std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt;&gt;()) <a class="el" href="a01465.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00383.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::applyWeightMult </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Diagonal * constant vector case. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00381.html">scheme</a></li><li class="navelem"><a class="el" href="a00383.html">internal</a></li><li class="navelem"><a class="el" href="a01481.html">WeightMultBase&lt; DIAGONAL &gt;</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::requirements::abstract::SingleSolvingRequirement&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01252.html','');});
+$(document).ready(function(){initNavTree('a01249.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,21 +88,204 @@ $(document).ready(function(){initNavTree('a01252.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a01246.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::requirements::SolvingRequirements Member List</div>  </div>
+<div class="title">tvm::requirements::abstract::SingleSolvingRequirement&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01252.html">tvm::requirements::SolvingRequirements</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01252.html#a47ea623b32d749cc8fa6c9709d207855">SolvingRequirements</a>(const Args &amp;... args)</td><td class="entry"><a class="el" href="a01252.html">tvm::requirements::SolvingRequirements</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>A class representing the way a constraint has to be solved and how it interacts with other constraints in term of hierarchical and weighted priorities.  
+ <a href="a01249.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/requirements/abstract/SingleSolvingRequirement.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac0daf2476745b807bad9906a5dd66353"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html#ac0daf2476745b807bad9906a5dd66353">value</a> () const</td></tr>
+<tr class="separator:ac0daf2476745b807bad9906a5dd66353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99aa80c59822b0fc02bd9c04c137d2d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html#a99aa80c59822b0fc02bd9c04c137d2d8">isDefault</a> () const</td></tr>
+<tr class="separator:a99aa80c59822b0fc02bd9c04c137d2d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab5f065557cd3182df29a7b8f6a812d64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html#ab5f065557cd3182df29a7b8f6a812d64">SingleSolvingRequirement</a> (const T &amp;val, bool <a class="el" href="a01249.html#a99aa80c59822b0fc02bd9c04c137d2d8">isDefault</a>)</td></tr>
+<tr class="separator:ab5f065557cd3182df29a7b8f6a812d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a827d7a62654f40e12acce4e3e69626ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html#a827d7a62654f40e12acce4e3e69626ec">default_</a></td></tr>
+<tr class="memdesc:a827d7a62654f40e12acce4e3e69626ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this requirement at it default value.  <a href="#a827d7a62654f40e12acce4e3e69626ec">More...</a><br /></td></tr>
+<tr class="separator:a827d7a62654f40e12acce4e3e69626ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a969aaf70a9767bdd16886ee0a4a6159a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html#a969aaf70a9767bdd16886ee0a4a6159a">value_</a></td></tr>
+<tr class="separator:a969aaf70a9767bdd16886ee0a4a6159a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class tvm::requirements::abstract::SingleSolvingRequirement&lt; T &gt;</h3>
+
+<p>A class representing the way a constraint has to be solved and how it interacts with other constraints in term of hierarchical and weighted priorities. </p>
+<p>This is a base class for the sole purpose of conveniency. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab5f065557cd3182df29a7b8f6a812d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f065557cd3182df29a7b8f6a812d64">&#9670;&nbsp;</a></span>SingleSolvingRequirement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01249.html">tvm::requirements::abstract::SingleSolvingRequirement</a>&lt; T &gt;::<a class="el" href="a01249.html">SingleSolvingRequirement</a> </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isDefault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a99aa80c59822b0fc02bd9c04c137d2d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99aa80c59822b0fc02bd9c04c137d2d8">&#9670;&nbsp;</a></span>isDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01249.html">tvm::requirements::abstract::SingleSolvingRequirement</a>&lt; T &gt;::isDefault </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0daf2476745b807bad9906a5dd66353"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0daf2476745b807bad9906a5dd66353">&#9670;&nbsp;</a></span>value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T&amp; <a class="el" href="a01249.html">tvm::requirements::abstract::SingleSolvingRequirement</a>&lt; T &gt;::value </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a827d7a62654f40e12acce4e3e69626ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a827d7a62654f40e12acce4e3e69626ec">&#9670;&nbsp;</a></span>default_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01249.html">tvm::requirements::abstract::SingleSolvingRequirement</a>&lt; T &gt;::default_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is this requirement at it default value. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01249.html#a99aa80c59822b0fc02bd9c04c137d2d8">tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd &gt;::isDefault()</a>.</p>
+
+</div>
+</div>
+<a id="a969aaf70a9767bdd16886ee0a4a6159a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a969aaf70a9767bdd16886ee0a4a6159a">&#9670;&nbsp;</a></span>value_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="a01249.html">tvm::requirements::abstract::SingleSolvingRequirement</a>&lt; T &gt;::value_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01249.html#ac0daf2476745b807bad9906a5dd66353">tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd &gt;::value()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00362.html">requirements</a></li><li class="navelem"><a class="el" href="a00378.html">abstract</a></li><li class="navelem"><a class="el" href="a01249.html">SingleSolvingRequirement</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

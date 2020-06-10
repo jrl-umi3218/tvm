@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::internal::Log::InternalDependency Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01128.html','');});
+$(document).ready(function(){initNavTree('a01125.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,23 +88,146 @@ $(document).ready(function(){initNavTree('a01128.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01122.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::hint::abstract::SubstitutionCalculator Member List</div>  </div>
+<div class="title">tvm::graph::internal::Log::InternalDependency Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01128.html">tvm::hint::abstract::SubstitutionCalculator</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01128.html#a5dcdf7a18751233abb8bb85ff8be225f">impl</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank) const</td><td class="entry"><a class="el" href="a01128.html">tvm::hint::abstract::SubstitutionCalculator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01128.html#aa1544ef161969cbd72c1cdb186046165">impl_</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank) const =0</td><td class="entry"><a class="el" href="a01128.html">tvm::hint::abstract::SubstitutionCalculator</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01128.html#af186679977817b9c2bdc72d1128a0186">~SubstitutionCalculator</a>()=default</td><td class="entry"><a class="el" href="a01128.html">tvm::hint::abstract::SubstitutionCalculator</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Description of an update-&gt;update dependency.  
+ <a href="a01125.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8f6e7dc899e3a1ecfeab296db39b7a84"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#a8f6e7dc899e3a1ecfeab296db39b7a84">operator&lt;</a> (const <a class="el" href="a01125.html">InternalDependency</a> &amp;other) const</td></tr>
+<tr class="separator:a8f6e7dc899e3a1ecfeab296db39b7a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84bdb2881bc4f712065816e6811f768f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#a84bdb2881bc4f712065816e6811f768f">operator==</a> (const <a class="el" href="a01125.html">InternalDependency</a> &amp;other) const</td></tr>
+<tr class="separator:a84bdb2881bc4f712065816e6811f768f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adca86cb7c07883f07dd4b8c714c0fe42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01097.html">EnumValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#adca86cb7c07883f07dd4b8c714c0fe42">from</a></td></tr>
+<tr class="separator:adca86cb7c07883f07dd4b8c714c0fe42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e9a75430ebe5f792965f5a4d2b6d3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01097.html">EnumValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#a87e9a75430ebe5f792965f5a4d2b6d3f">to</a></td></tr>
+<tr class="separator:a87e9a75430ebe5f792965f5a4d2b6d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bb385b932d8614453a7d68c38436524"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01101.html">Pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#a3bb385b932d8614453a7d68c38436524">owner</a></td></tr>
+<tr class="separator:a3bb385b932d8614453a7d68c38436524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Description of an update-&gt;update dependency. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8f6e7dc899e3a1ecfeab296db39b7a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6e7dc899e3a1ecfeab296db39b7a84">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::InternalDependency::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01125.html">InternalDependency</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00372.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
+
+</div>
+</div>
+<a id="a84bdb2881bc4f712065816e6811f768f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84bdb2881bc4f712065816e6811f768f">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::InternalDependency::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01125.html">InternalDependency</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00372.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adca86cb7c07883f07dd4b8c714c0fe42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca86cb7c07883f07dd4b8c714c0fe42">&#9670;&nbsp;</a></span>from</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01097.html">EnumValue</a> tvm::graph::internal::Log::InternalDependency::from</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3bb385b932d8614453a7d68c38436524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bb385b932d8614453a7d68c38436524">&#9670;&nbsp;</a></span>owner</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01101.html">Pointer</a> tvm::graph::internal::Log::InternalDependency::owner</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87e9a75430ebe5f792965f5a4d2b6d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e9a75430ebe5f792965f5a4d2b6d3f">&#9670;&nbsp;</a></span>to</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01097.html">EnumValue</a> tvm::graph::internal::Log::InternalDependency::to</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00370.html">graph</a></li><li class="navelem"><a class="el" href="a00372.html">internal</a></li><li class="navelem"><a class="el" href="a01093.html">Log</a></li><li class="navelem"><a class="el" href="a01125.html">InternalDependency</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['how_20to_20create_20new_20tvm_20functions_2e',['How to create new TVM functions.',['../a02241.html',1,'index']]],
-  ['how_20to_20write_20a_20problem',['How to write a problem',['../a02242.html',1,'index']]],
-  ['how_20to_20create_20a_20new_20task_20dynamics',['How to create a new task dynamics',['../a02243.html',1,'index']]]
+  ['a_20least_2dsquares_20problem_20example',['A least-squares problem example',['../a02251.html',1,'index']]]
 ];

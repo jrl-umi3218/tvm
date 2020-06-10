@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::hint::internal::DiagonalCalculator Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01156.html','');});
+$(document).ready(function(){initNavTree('a01153.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,43 +88,181 @@ $(document).ready(function(){initNavTree('a01156.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a01150.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::hint::internal::GenericCalculator::Impl Member List</div>  </div>
+<div class="title">tvm::hint::internal::DiagonalCalculator Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01156.html">tvm::hint::internal::GenericCalculator::Impl</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#a02060e824b93abc03d0f800592b9633b">A</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#a8a21d77a7c86d327c60b8e85952e55f7">constant</a>(bool c)</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#ac4922e0eb5abfa1c74337ac87e8392da">constant</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#a0739d1398ecafa28df5472d506c1b28c">constraints_</a></td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#aca77fe3987263fa96fc49628cbeca6f1">fillA</a>()</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01156.html#a3cd21968118b01a88ffde9c47578afca">Impl</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank)</td><td class="entry"><a class="el" href="a01156.html">tvm::hint::internal::GenericCalculator::Impl</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#a42a04b887506e1435e88f30ea1194a10">isSimple</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#aac6e6321e067d84ce8c2960b254aefa7">m</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#a4650987880575ea323038e3a7de4bf9d">N</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#a89f78e6f92de7425d42a13fef25a1759">n</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#ac9bb9fd150fb555a9e56b4e197784dac">N_</a></td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#af61e705c79429e34d31304acf33ebd6d">postMultiplyByN</a>(MatrixRef out, const MatrixConstRef &amp;in, bool add=false) const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#a0a6ecc1f1bf8418fa3adc69c1ef88bae">postMultiplyByN</a>(MatrixRef out, const MatrixConstRef &amp;in, Range r, bool add=false) const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#ae1f2154e019a2a63e610f9d855582ace">postMultiplyByN_</a>(MatrixRef out, const MatrixConstRef &amp;in, bool add) const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#acb2e5f0a604959e78c531cc910f49f3b">postMultiplyByN_</a>(MatrixRef out, const MatrixConstRef &amp;in, Range r, bool add) const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#a032b040825d5827e0bf23e614bde0b24">premultiplyByASharpAndSTranspose</a>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01156.html#ae0bbb153203ece7dd40889e9c3d363ae">premultiplyByASharpAndSTranspose_</a>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const override</td><td class="entry"><a class="el" href="a01156.html">tvm::hint::internal::GenericCalculator::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#aaff150bc0554f84b570a3f0cc1f7d07b">r</a>() const</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#add58af7008f1052793b4e47f3c8b07b9">SubstitutionCalculatorImpl</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank)</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#a9b3f1027103b8e2dab510eeedaae6542">update</a>()</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01156.html#ac8ce133376562bce551228c399299e54">update_</a>() override</td><td class="entry"><a class="el" href="a01156.html">tvm::hint::internal::GenericCalculator::Impl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01132.html#af0ecd7a6897eed9a01c05265a274b96c">variables_</a></td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01132.html#a254a28c51c7721b8538dff607fc6c76f">~SubstitutionCalculatorImpl</a>()=default</td><td class="entry"><a class="el" href="a01132.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>A calculator for all matrices that are the row selection of a diagonal matrix.  
+ <a href="a01153.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/hint/internal/DiagonalCalculator.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::hint::internal::DiagonalCalculator:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01153.png" usemap="#tvm::hint::internal::DiagonalCalculator_map" alt=""/>
+  <map id="tvm::hint::internal::DiagonalCalculator_map" name="tvm::hint::internal::DiagonalCalculator_map">
+<area href="a01137.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. " alt="tvm::hint::abstract::SubstitutionCalculator" shape="rect" coords="0,0,236,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01157.html">Impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af3cb0adefccfcf9229e5f118bbf4e4c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html#af3cb0adefccfcf9229e5f118bbf4e4c1">DiagonalCalculator</a> (Eigen::DenseIndex first=0, Eigen::DenseIndex size=-1)</td></tr>
+<tr class="memdesc:af3cb0adefccfcf9229e5f118bbf4e4c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continuous rows of a diagonal matrix starting at row <code>first</code> of this matrix and finishing at row <code>first</code> + <code>size</code> (not included).  <a href="#af3cb0adefccfcf9229e5f118bbf4e4c1">More...</a><br /></td></tr>
+<tr class="separator:af3cb0adefccfcf9229e5f118bbf4e4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1e3e2fdafc9f5fea3dc9fff0f1785f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html#a5f1e3e2fdafc9f5fea3dc9fff0f1785f">DiagonalCalculator</a> (const std::vector&lt; Eigen::DenseIndex &gt; &amp;nnzRows, const std::vector&lt; Eigen::DenseIndex &gt; &amp;zeroRows={})</td></tr>
+<tr class="memdesc:a5f1e3e2fdafc9f5fea3dc9fff0f1785f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-continuous rows of a diagonal matrix.  <a href="#a5f1e3e2fdafc9f5fea3dc9fff0f1785f">More...</a><br /></td></tr>
+<tr class="separator:a5f1e3e2fdafc9f5fea3dc9fff0f1785f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01137"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01137')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01137.html">tvm::hint::abstract::SubstitutionCalculator</a></td></tr>
+<tr class="memitem:af186679977817b9c2bdc72d1128a0186 inherit pub_methods_a01137"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01137.html#af186679977817b9c2bdc72d1128a0186">~SubstitutionCalculator</a> ()=default</td></tr>
+<tr class="separator:af186679977817b9c2bdc72d1128a0186 inherit pub_methods_a01137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dcdf7a18751233abb8bb85ff8be225f inherit pub_methods_a01137"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01141.html">SubstitutionCalculatorImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01137.html#a5dcdf7a18751233abb8bb85ff8be225f">impl</a> (const std::vector&lt; <a class="el" href="a00356.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00356.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int rank) const</td></tr>
+<tr class="separator:a5dcdf7a18751233abb8bb85ff8be225f inherit pub_methods_a01137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a7742e917253f1f5587810a06547bd128"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01141.html">abstract::SubstitutionCalculatorImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html#a7742e917253f1f5587810a06547bd128">impl_</a> (const std::vector&lt; <a class="el" href="a00356.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00356.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int rank) const</td></tr>
+<tr class="separator:a7742e917253f1f5587810a06547bd128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A calculator for all matrices that are the row selection of a diagonal matrix. </p>
+<p>The structure of the matrix (position of non-zero elements) is assumed to be constant. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af3cb0adefccfcf9229e5f118bbf4e4c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3cb0adefccfcf9229e5f118bbf4e4c1">&#9670;&nbsp;</a></span>DiagonalCalculator() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::hint::internal::DiagonalCalculator::DiagonalCalculator </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>first</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continuous rows of a diagonal matrix starting at row <code>first</code> of this matrix and finishing at row <code>first</code> + <code>size</code> (not included). </p>
+<p>If <code>size</code> = -1, finishes at the last row. </p>
+
+</div>
+</div>
+<a id="a5f1e3e2fdafc9f5fea3dc9fff0f1785f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1e3e2fdafc9f5fea3dc9fff0f1785f">&#9670;&nbsp;</a></span>DiagonalCalculator() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::hint::internal::DiagonalCalculator::DiagonalCalculator </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Eigen::DenseIndex &gt; &amp;&#160;</td>
+          <td class="paramname"><em>nnzRows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; Eigen::DenseIndex &gt; &amp;&#160;</td>
+          <td class="paramname"><em>zeroRows</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Non-continuous rows of a diagonal matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nnzRows</td><td>indices of the rows with a non-zero element. </td></tr>
+    <tr><td class="paramname">zeroRows</td><td>indices of the rows (if any) with only zero</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Examples: Knowing that it describes a matrix with 6 columns, nnzRows = {0,2,3}, zeroRows = {} corresponds to the shape x 0 0 0 0 0 0 0 x 0 0 0 0 0 0 x 0 0</p>
+<p>while nnzRows = {0,2,3}, zeroRows = {1,4} corresponds to x 0 0 0 0 0 0 0 0 0 0 0 0 0 x 0 0 0 0 0 0 x 0 0 0 0 0 0 0 0 </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7742e917253f1f5587810a06547bd128"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7742e917253f1f5587810a06547bd128">&#9670;&nbsp;</a></span>impl_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01141.html">abstract::SubstitutionCalculatorImpl</a>&gt; tvm::hint::internal::DiagonalCalculator::impl_ </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00356.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00356.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rank</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01137.html#aa1544ef161969cbd72c1cdb186046165">tvm::hint::abstract::SubstitutionCalculator</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">hint</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01153.html">DiagonalCalculator</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

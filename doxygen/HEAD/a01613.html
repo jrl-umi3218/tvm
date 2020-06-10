@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::solver::QuadprogLSSolverOptions Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01616.html','');});
+$(document).ready(function(){initNavTree('a01613.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,30 +88,49 @@ $(document).ready(function(){initNavTree('a01616.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="a01610.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::Space Member List</div>  </div>
+<div class="title">tvm::solver::QuadprogLSSolverOptions Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01616.html">tvm::Space</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01616.html#a9410ecc4cb207ec8e65edaf61990e84e">createVariable</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01616.html#af45239f58ccd885d0a939084b125c979">isEuclidean</a>() const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01616.html#acddae3eb32a5bda913b0b9804e474e2b">operator!=</a>(const Space &amp;other) const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01616.html#aee25e1bfd33fac77fd95b79bbfc761b6">operator==</a>(const Space &amp;other) const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01616.html#ac5889d55dbe021af7edcc4d728e9c35e">rSize</a>() const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01616.html#a52d03cec25b4951255300be1925049f9">size</a>() const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01616.html#ac4b192406e699cc657b0a34d5f236ba4">Space</a>(int size)</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01616.html#a9ff75186b5b439819ec201be5c5f4b39">Space</a>(int size, int representationSize)</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01616.html#a99ad058c2c07a10b72a539e829fa4b50">Space</a>(int size, int representationSize, int tangentRepresentationSize)</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01616.html#ad182eecc9fce96331b8038a9bc8a0626">tSize</a>() const</td><td class="entry"><a class="el" href="a01616.html">tvm::Space</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A set of options for <a class="el" href="a01617.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a>.  
+ <a href="a01613.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/solver/QuadprogLeastSquareSolver.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a193c5e72d6d0e377e13da0c8240dd3ad"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01613.html#a193c5e72d6d0e377e13da0c8240dd3ad">Factory</a> = <a class="el" href="a01621.html">QuadprogLSSolverFactory</a></td></tr>
+<tr class="separator:a193c5e72d6d0e377e13da0c8240dd3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A set of options for <a class="el" href="a01617.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a>. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a193c5e72d6d0e377e13da0c8240dd3ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a193c5e72d6d0e377e13da0c8240dd3ad">&#9670;&nbsp;</a></span>Factory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01613.html#a193c5e72d6d0e377e13da0c8240dd3ad">tvm::solver::QuadprogLSSolverOptions::Factory</a> =  <a class="el" href="a01621.html">QuadprogLSSolverFactory</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">solver</a></li><li class="navelem"><a class="el" href="a01613.html">QuadprogLSSolverOptions</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['tvm_20concepts',['TVM concepts',['../a02244.html',1,'index']]],
-  ['the_20tvm_20library',['The TVM library',['../index.html',1,'']]]
+  ['how_20to_20create_20new_20tvm_20functions_2e',['How to create new TVM functions.',['../a02250.html',1,'index']]],
+  ['how_20to_20write_20a_20problem',['How to write a problem',['../a02252.html',1,'index']]],
+  ['how_20to_20create_20a_20new_20task_20dynamics',['How to create a new task dynamics',['../a02253.html',1,'index']]]
 ];

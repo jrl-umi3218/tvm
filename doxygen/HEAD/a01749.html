@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::utils::internal::RHS Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01752.html','');});
+$(document).ready(function(){initNavTree('a01749.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,26 +88,183 @@ $(document).ready(function(){initNavTree('a01752.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01746.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::UpdatelessFunction Member List</div>  </div>
+<div class="title">tvm::utils::internal::RHS Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01752.html#ac7e7f09ecab45d351b58e873eddb1dab">jacobian</a>(const Variable &amp;x, Vals &amp;&amp;... vals) const</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01752.html#a2a7d940785f1243ca6ddea93188224b6">JDot</a>(const Variable &amp;x, Vals &amp;&amp;... vals) const</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01752.html#a004656627bdf91004243a8d952cb866e">normalAcceleration</a>(Vals &amp;&amp;... vals) const</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01752.html#a3f84076a07f0d6c75d4efa6b2a75e0c5">UpdatelessFunction</a>(FunctionPtr f)</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01752.html#a44f1b92210fd9ca27e1ff2f7f750d68b">value</a>(Vals &amp;&amp;... vals) const</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01752.html#af4c6de7ea42256202f079afce81b2ba1">velocity</a>(Vals &amp;&amp;... vals) const</td><td class="entry"><a class="el" href="a01752.html">tvm::utils::UpdatelessFunction</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>A union-like class, that can represent nothing, a double or a vector.  
+ <a href="a01749.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/utils/internal/ProtoTaskDetails.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a057a959f6439cae968f0b45a1fb59d6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#a057a959f6439cae968f0b45a1fb59d6f">RHS</a> (double d)</td></tr>
+<tr class="separator:a057a959f6439cae968f0b45a1fb59d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2967e9355eed07d152608ee2ee71b142"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:a2967e9355eed07d152608ee2ee71b142"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01749.html#a2967e9355eed07d152608ee2ee71b142">RHS</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;v)</td></tr>
+<tr class="separator:a2967e9355eed07d152608ee2ee71b142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9136abba7f04fa204feec7e590bf665f"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#a9136abba7f04fa204feec7e590bf665f">toVector</a> (Eigen::DenseIndex n) const</td></tr>
+<tr class="separator:a9136abba7f04fa204feec7e590bf665f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aae64a2bdbfd69ec4dbec7d18755c818b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00386.html#abc830f391523910ef34e4594c2f98f54">RHSType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#aae64a2bdbfd69ec4dbec7d18755c818b">type_</a></td></tr>
+<tr class="separator:aae64a2bdbfd69ec4dbec7d18755c818b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78efc92c28c7276d73d64e8f65468823"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#a78efc92c28c7276d73d64e8f65468823">d_</a></td></tr>
+<tr class="separator:a78efc92c28c7276d73d64e8f65468823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bca6d304fa98feac4dcc4bdae33354f"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#a1bca6d304fa98feac4dcc4bdae33354f">v_</a></td></tr>
+<tr class="separator:a1bca6d304fa98feac4dcc4bdae33354f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A union-like class, that can represent nothing, a double or a vector. </p>
+<p>Which of these 3 options is described by its RHSType </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a057a959f6439cae968f0b45a1fb59d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a057a959f6439cae968f0b45a1fb59d6f">&#9670;&nbsp;</a></span>RHS() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::utils::internal::RHS::RHS </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2967e9355eed07d152608ee2ee71b142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2967e9355eed07d152608ee2ee71b142">&#9670;&nbsp;</a></span>RHS() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::utils::internal::RHS::RHS </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9136abba7f04fa204feec7e590bf665f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9136abba7f04fa204feec7e590bf665f">&#9670;&nbsp;</a></span>toVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::utils::internal::RHS::toVector </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a01749.html#a78efc92c28c7276d73d64e8f65468823">d_</a>, <a class="el" href="a00386.html#abc830f391523910ef34e4594c2f98f54ad909d38d705ce75386dd86e611a82f5b">tvm::utils::internal::Double</a>, <a class="el" href="a01749.html#aae64a2bdbfd69ec4dbec7d18755c818b">type_</a>, <a class="el" href="a01749.html#a1bca6d304fa98feac4dcc4bdae33354f">v_</a>, <a class="el" href="a00386.html#abc830f391523910ef34e4594c2f98f54a57dea6f5039281b7fee517fc43bf3110">tvm::utils::internal::Vector</a>, and <a class="el" href="a00386.html#abc830f391523910ef34e4594c2f98f54ad7ed4ee1df437474d005188535f74875">tvm::utils::internal::Zero</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a78efc92c28c7276d73d64e8f65468823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78efc92c28c7276d73d64e8f65468823">&#9670;&nbsp;</a></span>d_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::utils::internal::RHS::d_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01749.html#a9136abba7f04fa204feec7e590bf665f">toVector()</a>.</p>
+
+</div>
+</div>
+<a id="aae64a2bdbfd69ec4dbec7d18755c818b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae64a2bdbfd69ec4dbec7d18755c818b">&#9670;&nbsp;</a></span>type_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00386.html#abc830f391523910ef34e4594c2f98f54">RHSType</a> tvm::utils::internal::RHS::type_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01753.html#aa8bf3a509f038b6ba48f2c5ee2abc011">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;::ProtoTaskCommon()</a>, <a class="el" href="a01757.html#a00b1a161738d55592b835881bdad34b8">tvm::utils::ProtoTaskCommon&lt; constraint::Type::DOUBLE_SIDED, FunT &gt;::ProtoTaskCommon()</a>, and <a class="el" href="a01749.html#a9136abba7f04fa204feec7e590bf665f">toVector()</a>.</p>
+
+</div>
+</div>
+<a id="a1bca6d304fa98feac4dcc4bdae33354f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bca6d304fa98feac4dcc4bdae33354f">&#9670;&nbsp;</a></span>v_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::utils::internal::RHS::v_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01753.html#aa8bf3a509f038b6ba48f2c5ee2abc011">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;::ProtoTaskCommon()</a>, <a class="el" href="a01757.html#a00b1a161738d55592b835881bdad34b8">tvm::utils::ProtoTaskCommon&lt; constraint::Type::DOUBLE_SIDED, FunT &gt;::ProtoTaskCommon()</a>, and <a class="el" href="a01749.html#a9136abba7f04fa204feec7e590bf665f">toVector()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00376.html">utils</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01749.html">RHS</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -12,7 +12,7 @@ var indexSectionsWithContent =
   9: "cdlstv",
   10: "acdepst",
   11: "c",
-  12: "ht"
+  12: "aht"
 };
 
 var indexSectionNames =

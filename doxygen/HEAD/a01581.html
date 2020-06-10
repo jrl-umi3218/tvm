@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::solver::DefaultLSSolverOptions Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01584.html','');});
+$(document).ready(function(){initNavTree('a01581.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,60 +88,49 @@ $(document).ready(function(){initNavTree('a01584.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="a01578.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::LSSOLLeastSquareSolver Member List</div>  </div>
+<div class="title">tvm::solver::DefaultLSSolverOptions Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#acfc6a2abfa644473d566aae238eac5ba">addAssignement</a>(Args &amp;&amp;... args)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a498946e0c632ebd39ab03f61e552c6e7">addBound</a>(LinearConstraintPtr bound)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01584.html#afed6bcd81b204a62fab6fd2e8483b9ec">addBound_</a>(LinearConstraintPtr bound, RangePtr range, bool first) override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a5337ac438bec063f42603ee7d242a93e">addConstraint</a>(LinearConstraintPtr cstr)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01584.html#a5857b555377607f2d65529c20f9ad2b3">addEqualityConstraint_</a>(LinearConstraintPtr cstr) override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#af9f75a79105a40e437e2e081cdd8744a">addIneqalityConstraint_</a>(LinearConstraintPtr cstr) override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a24e01d03c08e5aa34c14afb3b40344c9">addObjective</a>(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight=1)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a80a6e5f678db5ba030b50317958f48c5">addObjective_</a>(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight) override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a8bc11c16f07a4b78be15fb84022a62b3">AssignmentPtrVector</a> typedef</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#af74f1d3d8b87eb891050f07eb9b428a4">AssignmentVector</a> typedef</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a64e3e91724bae85450bc20f93197094f">constraintSize</a>(const LinearConstraintPtr &amp;c) const</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#ad7414899385906729feedcd6c2cf20b9">eqSize_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#ac656025fb6da6de520001c78d6d1d4ec">finalizeBuild</a>()</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a78957d81cf1eb1504965b8c2fa97129c">handleDoubleSidedConstraint_</a>() const override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#ac97c443065a0e3d1a833af35fcff2c16">ineqSize_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a8ec19bae9b851281ecb216a805a1a16d">initializeBuild_</a>(int nObj, int nEq, int nIneq, bool useBounds) override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a6510ed405995eccc7b8b95eab6950606">LeastSquareSolver</a>(bool verbose=false)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a0f0e2bcf5b50e3c559687bc77c15b7db">LeastSquareSolver</a>(const LeastSquareSolver &amp;)=delete</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01584.html#abd73c4a6890bbf7a6f12c9c221f7d421">LSSOLLeastSquareSolver</a>(const LSSOLLSSolverOptions &amp;options={})</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a70271b0bd50e96801e3e1bb96c46f33b">map</a> typedef</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#ac2a72be1906713a1c11abe459e64adc2">MapToAssignment</a> typedef</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#af93ab7797fc1992046da3b518c21a4b4">nEq_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a4249508200e811ddcf52a909c3496de9">nIneq_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a3428deace130d2078b8c470acee81a53">nObj_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a247f51743146f9bcba380e65b405c672">objSize_</a></td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a54a2223ecdba20e93b409b545129007e">operator=</a>(const LeastSquareSolver &amp;)=delete</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01584.html#a212da1a4c1a113e423a4036fc61f79b6">postAssignmentProcess_</a>() override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a5b83dfc1e4a891a82158d3fbf0bf04ba">preAssignmentProcess_</a>() override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01584.html#a3ef5d128f843db95bf8427040b23b8de">printDiagnostic_</a>() const override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#aa2f4cbb3a305647d025d39da181c77b6">printProblemData_</a>() const override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#ae518e78de20d887d8f76469a4b8e124f">result</a>() const</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a371e638d7617e4f9d69232a56c33aa62">result_</a>() const override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a5e6d6bb8f6c74b8680a2d4a8cf801b68">setMinimumNorm</a>()</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#adc8b2cfb87e3236471b545836ead7ea3">setMinimumNorm_</a>() override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#ac9c495839db315c52ec06f6568814901">solve</a>()</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01584.html#a0bd868d0cb17932ee90e74202ae5ac90">solve_</a>() override</td><td class="entry"><a class="el" href="a01584.html">tvm::solver::LSSOLLeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#acab0b1da4af455451960f9044baae2ae">startBuild</a>(const VariableVector &amp;x, int nObj, int nEq, int nIneq, bool useBounds=true, const hint::internal::Substitutions *const subs=nullptr)</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#adf23f08e8f6a9d94a0f80c32333f3a54">substitutions</a>() const</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01564.html#a375e66619ca804359483acd385563fa7">variables</a>() const</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01564.html#a1c97dfc4a522e819e945706999716d96">~LeastSquareSolver</a>()=default</td><td class="entry"><a class="el" href="a01564.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>A minimal set of options for the default solver.  
+ <a href="a01581.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/solver/defaultLeastSquareSolver.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afcb331752f62889cafb9d7dc8a249163"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01581.html#afcb331752f62889cafb9d7dc8a249163">Factory</a> = <a class="el" href="a01585.html">DefaultLSSolverFactory</a></td></tr>
+<tr class="separator:afcb331752f62889cafb9d7dc8a249163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A minimal set of options for the default solver. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="afcb331752f62889cafb9d7dc8a249163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb331752f62889cafb9d7dc8a249163">&#9670;&nbsp;</a></span>Factory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01581.html#afcb331752f62889cafb9d7dc8a249163">tvm::solver::DefaultLSSolverOptions::Factory</a> =  <a class="el" href="a01585.html">DefaultLSSolverFactory</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">solver</a></li><li class="navelem"><a class="el" href="a01581.html">DefaultLSSolverOptions</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

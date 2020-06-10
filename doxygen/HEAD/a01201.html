@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::internal::MatrixProperties::Invertibility Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01204.html','');});
+$(document).ready(function(){initNavTree('a01201.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,23 +88,89 @@ $(document).ready(function(){initNavTree('a01204.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01198.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::internal::KeepProperties&lt; MatrixType &gt; Member List</div>  </div>
+<div class="title">tvm::internal::MatrixProperties::Invertibility Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01204.html">tvm::internal::KeepProperties&lt; MatrixType &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01204.html#aad31c7a9502f4334b05a805464e79eb7">KeepProperties</a>(ObjectWithProperties&lt; MatrixType &gt; &amp;M, bool keep)</td><td class="entry"><a class="el" href="a01204.html">tvm::internal::KeepProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01204.html#ad25800bcb0e960bc07561234f1ebf8a5">operator=</a>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td><td class="entry"><a class="el" href="a01204.html">tvm::internal::KeepProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01204.html#ae2f1b8bf8d5b1398decae9c9aab083bc">operator=</a>(const ObjectWithProperties&lt; MatrixType &gt; &amp;)=delete</td><td class="entry"><a class="el" href="a01204.html">tvm::internal::KeepProperties&lt; MatrixType &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A wrapper over a boolean representing the invertibility of a matrix.  
+ <a href="a01201.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/internal/MatrixProperties.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:afb36f8581408115f6b5ebc5e5a6375d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01201.html#afb36f8581408115f6b5ebc5e5a6375d2">Invertibility</a> (bool b=false)</td></tr>
+<tr class="separator:afb36f8581408115f6b5ebc5e5a6375d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af898bc6d33dba97cb03bdfd5b166e19d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01201.html#af898bc6d33dba97cb03bdfd5b166e19d">operator bool</a> () const</td></tr>
+<tr class="separator:af898bc6d33dba97cb03bdfd5b166e19d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A wrapper over a boolean representing the invertibility of a matrix. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="afb36f8581408115f6b5ebc5e5a6375d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb36f8581408115f6b5ebc5e5a6375d2">&#9670;&nbsp;</a></span>Invertibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::internal::MatrixProperties::Invertibility::Invertibility </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>b</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af898bc6d33dba97cb03bdfd5b166e19d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af898bc6d33dba97cb03bdfd5b166e19d">&#9670;&nbsp;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::internal::MatrixProperties::Invertibility::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00377.html">internal</a></li><li class="navelem"><a class="el" href="a01193.html">MatrixProperties</a></li><li class="navelem"><a class="el" href="a01201.html">Invertibility</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

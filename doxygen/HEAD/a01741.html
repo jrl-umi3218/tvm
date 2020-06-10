@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::utils::internal::BufferedMatrix Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01744.html','');});
+$(document).ready(function(){initNavTree('a01741.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,24 +88,184 @@ $(document).ready(function(){initNavTree('a01744.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01738.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt; Member List</div>  </div>
+<div class="title">tvm::utils::internal::BufferedMatrix Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01744.html">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01744.html#a0411deca84f15523ba9526a2e14fb60d">f_</a></td><td class="entry"><a class="el" href="a01744.html">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01744.html#aa8bf3a509f038b6ba48f2c5ee2abc011">ProtoTaskCommon</a>(FunT f, const internal::RHS &amp;rhs)</td><td class="entry"><a class="el" href="a01744.html">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01744.html#aa94880ba33e8b04608d8d1a16931b154">ProtoTaskCommon</a>(const ProtoTaskCommon&lt; T, FunU &gt; &amp;pt)</td><td class="entry"><a class="el" href="a01744.html">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01744.html#a81e8393cfe7557636d35ad0ca9c421ef">rhs_</a></td><td class="entry"><a class="el" href="a01744.html">tvm::utils::ProtoTaskCommon&lt; T, FunT &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>This class provides a matrix with resizable buffer, so that allocations are made only if there is not enough space.  
+ <a href="a01741.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/utils/internal/BufferedMatrix.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01741.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">BufferedMatrix</a> (Eigen::DenseIndex m, Eigen::DenseIndex n)</td></tr>
+<tr class="memdesc:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a m-by-n <a class="el" href="a01741.html" title="This class provides a matrix with resizable buffer, so that allocations are made only if there is not...">BufferedMatrix</a>.  <a href="#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">More...</a><br /></td></tr>
+<tr class="separator:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6c66d3c899f41387e25fa62e437d08"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01741.html#a8c6c66d3c899f41387e25fa62e437d08">get</a> () const</td></tr>
+<tr class="memdesc:a8c6c66d3c899f41387e25fa62e437d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a map to the matrix.  <a href="#a8c6c66d3c899f41387e25fa62e437d08">More...</a><br /></td></tr>
+<tr class="separator:a8c6c66d3c899f41387e25fa62e437d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78344857c727193490f2fb241153ec46"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01741.html#a78344857c727193490f2fb241153ec46">get</a> ()</td></tr>
+<tr class="memdesc:a78344857c727193490f2fb241153ec46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a map to the matrix.  <a href="#a78344857c727193490f2fb241153ec46">More...</a><br /></td></tr>
+<tr class="separator:a78344857c727193490f2fb241153ec46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01741.html#a8f55fa782901353fb36f4dba7fc1ed60">resize</a> (Eigen::DenseIndex m, Eigen::DenseIndex n)</td></tr>
+<tr class="memdesc:a8f55fa782901353fb36f4dba7fc1ed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize the matrix.  <a href="#a8f55fa782901353fb36f4dba7fc1ed60">More...</a><br /></td></tr>
+<tr class="separator:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class provides a matrix with resizable buffer, so that allocations are made only if there is not enough space. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac06ee8e6913eff18a8f3e9d2c2a3c6b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">&#9670;&nbsp;</a></span>BufferedMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::utils::internal::BufferedMatrix::BufferedMatrix </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build a m-by-n <a class="el" href="a01741.html" title="This class provides a matrix with resizable buffer, so that allocations are made only if there is not...">BufferedMatrix</a>. </p>
+<p>A buffer twice as big as needed is created. </p>
+
+<p class="reference">References <a class="el" href="a01741.html#a8f55fa782901353fb36f4dba7fc1ed60">resize()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8c6c66d3c899f41387e25fa62e437d08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c6c66d3c899f41387e25fa62e437d08">&#9670;&nbsp;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt; tvm::utils::internal::BufferedMatrix::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a map to the matrix. </p>
+<p>The matrix has the size specified at construction or during the last resize.\ </p>
+
+</div>
+</div>
+<a id="a78344857c727193490f2fb241153ec46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78344857c727193490f2fb241153ec46">&#9670;&nbsp;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt; tvm::utils::internal::BufferedMatrix::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a map to the matrix. </p>
+<p>The matrix has the size specified at construction or during the last resize. </p>
+
+</div>
+</div>
+<a id="a8f55fa782901353fb36f4dba7fc1ed60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f55fa782901353fb36f4dba7fc1ed60">&#9670;&nbsp;</a></span>resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::utils::internal::BufferedMatrix::resize </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resize the matrix. </p>
+<p>If the buffer is not big enough, reallocate memory to twice the neede size. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01741.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">BufferedMatrix()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00376.html">utils</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01741.html">BufferedMatrix</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,8 +1,8 @@
 var a00299 =
 [
-    [ "ProtoTaskCommon", "a01744.html", "a01744" ],
-    [ "ProtoTaskCommon", "a01744.html", "a01744" ],
-    [ "ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "a01748.html", "a01748" ],
+    [ "ProtoTaskCommon", "a01753.html", "a01753" ],
+    [ "ProtoTaskCommon", "a01753.html", "a01753" ],
+    [ "ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "a01757.html", "a01757" ],
     [ "TVM_ID", "a00299.html#ae1a920dc965c837bae948075e6fdaa8b", null ],
     [ "TVM_LIN", "a00299.html#a0297f6a53b0e2b16ebdd6b532a6da868", null ],
     [ "LinearProtoTask", "a00299.html#a509f413d9278f8193b7bafd5b026b0bc", null ],

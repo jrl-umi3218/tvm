@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::AssignBase&lt; MIN &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01460.html','');});
+$(document).ready(function(){initNavTree('a01457.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,23 +88,110 @@ $(document).ready(function(){initNavTree('a01460.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01454.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::WeightMultBase&lt; NONE &gt; Member List</div>  </div>
+<div class="title">tvm::scheme::internal::AssignBase&lt; MIN &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01460.html">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01460.html#acfcce16979e89e3ea5b90ef2645cc113">applyWeightMult</a>(const T &amp;M)</td><td class="entry"><a class="el" href="a01460.html">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01460.html#ab536968036aab3572b9686d0ab33ab06">useArg</a></td><td class="entry"><a class="el" href="a01460.html">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01460.html#a75693e1d7bc87996dcd8823a6db67f3b">WeightMultBase</a>(NoArg)</td><td class="entry"><a class="el" href="a01460.html">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8d85004ee6bd912012ef6b8dc69cb753"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a8d85004ee6bd912012ef6b8dc69cb753"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01457.html#a8d85004ee6bd912012ef6b8dc69cb753">assign</a> (U &amp;out, const T &amp;in)</td></tr>
+<tr class="separator:a8d85004ee6bd912012ef6b8dc69cb753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438fc1dc09006898ca36f9238edcd813"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a438fc1dc09006898ca36f9238edcd813"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01457.html#a438fc1dc09006898ca36f9238edcd813">assign</a> (U &amp;out, double in)</td></tr>
+<tr class="separator:a438fc1dc09006898ca36f9238edcd813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8d85004ee6bd912012ef6b8dc69cb753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d85004ee6bd912012ef6b8dc69cb753">&#9670;&nbsp;</a></span>assign() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01441.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00383.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a> &gt;::assign </td>
+          <td>(</td>
+          <td class="paramtype">U &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a438fc1dc09006898ca36f9238edcd813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438fc1dc09006898ca36f9238edcd813">&#9670;&nbsp;</a></span>assign() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01441.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00383.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a> &gt;::assign </td>
+          <td>(</td>
+          <td class="paramtype">U &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00381.html">scheme</a></li><li class="navelem"><a class="el" href="a00383.html">internal</a></li><li class="navelem"><a class="el" href="a01457.html">AssignBase&lt; MIN &gt;</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:15 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

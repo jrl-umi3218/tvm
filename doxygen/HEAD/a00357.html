@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::constant::internal Namespace Reference</title>
+<title>TVM: tvm::constraint Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,105 +89,55 @@ $(document).ready(function(){initNavTree('a00357.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::constant::internal Namespace Reference</div>  </div>
+<div class="title">tvm::constraint Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a4ac438333fb60e8bc76a956e33a3a9d1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4ac438333fb60e8bc76a956e33a3a9d1"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00357.html#a4ac438333fb60e8bc76a956e33a3a9d1">pow</a> (T base, unsigned int exp, T result=1)</td></tr>
-<tr class="memdesc:a4ac438333fb60e8bc76a956e33a3a9d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constexpr integer power base^exp Adapted from <a href="https://stackoverflow.com/a/17728525">https://stackoverflow.com/a/17728525</a>.  <a href="#a4ac438333fb60e8bc76a956e33a3a9d1">More...</a><br /></td></tr>
-<tr class="separator:a4ac438333fb60e8bc76a956e33a3a9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca8ba5d3eeccb1b947ea987123a875f0"><td class="memItemLeft" align="right" valign="top">constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00357.html#aca8ba5d3eeccb1b947ea987123a875f0">sqrtNewtonRaphson</a> (double x, double curr, double prev=0)</td></tr>
-<tr class="separator:aca8ba5d3eeccb1b947ea987123a875f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00358"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00358.html">abstract</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">internal</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ad36eb4bd10a887069a044cce4c4d2228"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00357.html#ad36eb4bd10a887069a044cce4c4d2228">sqrtGuess</a> = <a class="el" href="a00357.html#a4ac438333fb60e8bc76a956e33a3a9d1">pow</a>(2., std::numeric_limits&lt;double&gt;::max_exponent / 2)</td></tr>
-<tr class="separator:ad36eb4bd10a887069a044cce4c4d2228"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f5330f92255478145c2333d3571b135"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00357.html#a1f5330f92255478145c2333d3571b135">sqrtOfMax</a> = <a class="el" href="a00357.html#aca8ba5d3eeccb1b947ea987123a875f0">sqrtNewtonRaphson</a>(std::numeric_limits&lt;double&gt;::max(), <a class="el" href="a00357.html#ad36eb4bd10a887069a044cce4c4d2228">sqrtGuess</a>, 0)</td></tr>
-<tr class="separator:a1f5330f92255478145c2333d3571b135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00957.html">BasicLinearConstraint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The most basic linear constraint where the matrix and the vector(s) are constant.  <a href="a00957.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab6243a7da877a867f54ff7207959eb7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">Type</a> { <br />
+&#160;&#160;<a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44">Type::EQUAL</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e">Type::GREATER_THAN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146">Type::LOWER_THAN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5">Type::DOUBLE_SIDED</a>
+<br />
+ }<tr class="memdesc:ab6243a7da877a867f54ff7207959eb7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint.  <a href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ab6243a7da877a867f54ff7207959eb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf340c6d4875e2e7502c8a6243ae0551"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551">RHS</a> { <br />
+&#160;&#160;<a class="el" href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c">RHS::ZERO</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6">RHS::AS_GIVEN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65">RHS::OPPOSITE</a>
+<br />
+ }<tr class="memdesc:adf340c6d4875e2e7502c8a6243ae0551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell how a vector <code>u</code> should be considered as a right hand side of a constraint.  <a href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:adf340c6d4875e2e7502c8a6243ae0551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a4ac438333fb60e8bc76a956e33a3a9d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ac438333fb60e8bc76a956e33a3a9d1">&#9670;&nbsp;</a></span>pow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr T tvm::constant::internal::pow </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>exp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>result</em> = <code>1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constexpr integer power base^exp Adapted from <a href="https://stackoverflow.com/a/17728525">https://stackoverflow.com/a/17728525</a>. </p>
-
-</div>
-</div>
-<a id="aca8ba5d3eeccb1b947ea987123a875f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca8ba5d3eeccb1b947ea987123a875f0">&#9670;&nbsp;</a></span>sqrtNewtonRaphson()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr double tvm::constant::internal::sqrtNewtonRaphson </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>curr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>prev</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ad36eb4bd10a887069a044cce4c4d2228"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad36eb4bd10a887069a044cce4c4d2228">&#9670;&nbsp;</a></span>sqrtGuess</h2>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="adf340c6d4875e2e7502c8a6243ae0551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf340c6d4875e2e7502c8a6243ae0551">&#9670;&nbsp;</a></span>RHS</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,20 +146,30 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr double tvm::constant::internal::sqrtGuess = <a class="el" href="a00357.html#a4ac438333fb60e8bc76a956e33a3a9d1">pow</a>(2., std::numeric_limits&lt;double&gt;::max_exponent / 2)</td>
+          <td class="memname">enum <a class="el" href="a00357.html#adf340c6d4875e2e7502c8a6243ae0551">tvm::constraint::RHS</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Tell how a vector <code>u</code> should be considered as a right hand side of a constraint. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c"></a>ZERO&#160;</td><td class="fielddoc"><p>rhs = 0 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6"></a>AS_GIVEN&#160;</td><td class="fielddoc"><p>rhs = u </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65"></a>OPPOSITE&#160;</td><td class="fielddoc"><p>rhs = -u </p>
+</td></tr>
+</table>
+
 </div>
 </div>
-<a id="a1f5330f92255478145c2333d3571b135"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f5330f92255478145c2333d3571b135">&#9670;&nbsp;</a></span>sqrtOfMax</h2>
+<a id="ab6243a7da877a867f54ff7207959eb7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6243a7da877a867f54ff7207959eb7c">&#9670;&nbsp;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,15 +178,27 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr double tvm::constant::internal::sqrtOfMax = <a class="el" href="a00357.html#aca8ba5d3eeccb1b947ea987123a875f0">sqrtNewtonRaphson</a>(std::numeric_limits&lt;double&gt;::max(), <a class="el" href="a00357.html#ad36eb4bd10a887069a044cce4c4d2228">sqrtGuess</a>, 0)</td>
+          <td class="memname">enum <a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44"></a>EQUAL&#160;</td><td class="fielddoc"><p>f(x) = rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e"></a>GREATER_THAN&#160;</td><td class="fielddoc"><p>f(x) &gt;= rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146"></a>LOWER_THAN&#160;</td><td class="fielddoc"><p>f(x) &lt;= rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5"></a>DOUBLE_SIDED&#160;</td><td class="fielddoc"><p>rhs &lt;= f(x) &lt;= rhs2 </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -236,8 +208,8 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00347.html">tvm</a></li><li class="navelem"><a class="el" href="a00356.html">constant</a></li><li class="navelem"><a class="el" href="a00357.html">internal</a></li>
-    <li class="footer">Generated on Wed Jun 10 2020 05:08:27 for TVM by
+    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00357.html">constraint</a></li>
+    <li class="footer">Generated on Wed Jun 10 2020 07:04:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
