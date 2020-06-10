@@ -53,10 +53,10 @@
  *
  * We will call AdaptiveProportional the user-dedicated class. It simply needs to
  * store \p a, \p b and \p c, and is required to override the two following methods
- *
+ * \code
  *     Order order_() const
  *     std::unique_ptr<TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
- *
+ * \endcode
  * The first one has to return the task dynamics order (one, in our case), the
  * second creates an instance of the computation-related class.
  *
@@ -65,9 +65,9 @@
  * \p Impl. A few other classes rely on this convention such as
  * tvm::task_dynamics::Clamped, that would not be compatible with our example if
  * we didn't do so. This second class overrides the method
- *
+ * \code
  *     void updateValue()
- *
+ * \endcode
  * which implements the computation of the desired error derivative, i.e. the
  * formula (1) and (2) for our example. For that it will need to store store
  * \p a, \p b and \p c as well.

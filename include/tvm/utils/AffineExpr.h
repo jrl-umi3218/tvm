@@ -77,10 +77,12 @@ namespace utils
   };
 
 
-  /** A class representing an affine expression A1 * x1 + A2 *x2 + ... + Ak * xk + b
-    * where Ai is a matrix expression, xi is a Variable and b is a vector expression.
+  /** A class representing an affine expression \f$ A_1 x_1 + A_2 x_2 + \ldots + A_k x_k + b \f$
+    * where \f$ A_i \f$ is a matrix expression, \f$ x_i \f$ is a Variable and 
+    * \f$ b \f$ is a vector expression.
     *
-    * The class is essentially a list of LinearExpr in the form of a std:::tuple, and a vector expression.
+    * The class is essentially a list of LinearExpr in the form of a std:::tuple,
+    * and a vector expression.
     *
     * \tparam CstDerived The type of the constant part. Possibly NoConstant, otherwise an Eigen
     *         expression type with the characteristics of a vector.
