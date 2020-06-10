@@ -9,5 +9,6 @@ macro(addExample name)
 endmacro(addExample)
 
 addExample(FunctionWritingExample)
+addExample(LeastSquaresExample)
 addExample(ProblemWritingExample ../tests/SolverTestFunctions.cpp)
 addExample(TaskDynamicsExample)

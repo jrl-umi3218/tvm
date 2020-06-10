@@ -37,6 +37,7 @@ Topics
   - \subpage problemWritingExample
   - \subpage functionWritingExample
   - \subpage taskDynamicsExample
+  - \subpage leastSquaresExample
   - the update mechanism
   - the assignment mechanism
   - how to write a resolution scheme
