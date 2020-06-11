@@ -113,7 +113,7 @@
  * <pre>\code
  *   std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl> AdaptiveProportional::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
  *   {
- *     return std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, a_, b_, c_));
+ *     return std::make_unique<Impl>(f, t, rhs, a_, b_, c_);
  *   }
  * \endcode</pre>
  *
@@ -182,9 +182,6 @@
  * General notes
  * -------------
  * Here are some points to keep in minds when implementing new task dynamics:
- *  * If you want your task dynamics to be included in the TVM you'll need to
- *    add the macro \p TVM_DLLAPI in front of both classes. This requires to
- *    include \p tvm/defs.h
  *  * By default the computation of the task dynamics value only relies on the
  *    value of \f$ f \f$ (and its velocity for second-order task dynamics). The
  *    constructor of \p TaskDynamicsImpl ensures that the computation graph is
@@ -197,6 +194,6 @@
  *
  * Example file
  * ------------
- * example/TaskDynamicsExample.cpp
+ * [example/TaskDynamicsExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/TaskDynamicsExample.cpp)
  */
  

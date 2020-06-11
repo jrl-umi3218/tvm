@@ -49,7 +49,7 @@ namespace tvm::example
 
   std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl> AdaptiveProportional::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, a_, b_, c_));
+    return std::make_unique<Impl>(f, t, rhs, a_, b_, c_);
   }
 
   task_dynamics::Order AdaptiveProportional::order_() const

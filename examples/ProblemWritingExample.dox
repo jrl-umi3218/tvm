@@ -138,13 +138,16 @@
  *  4. Create a resolution scheme
  *  5. Solve and integrate until convergence
  *
- * To define the functions, we will use the following tvm::function::abstract::Function
+ * To define the functions, we assume that we have the following class derived
+ * from tvm::function::abstract::Function.
  *  * \p Simple2dRobotEE, which computes the end-effector position of a 2d n-link
  *    robot (i.e. the function \f$ g(q) \f$)
  *  * \p SphereFunction, which compute the distance of a point to a sphere (that
  *    is a circle in 2d)
  *  * \p IdentityFunction, self explanatory
  *  * \p DifferenceFunction, which computes the difference of two functions.
+ * The implementation of these function is not the topic of this example. The way
+ * to write functions is described in \ref functionWritingExample.
  *
  * \note Except for \p IdentityFunction, these function are example functions,
  * not part of the TVM library.
@@ -156,6 +159,7 @@
  * \note In the following, the code snippet are written with the assumption of
  * these declarations:
  * \code
+ *   using namespace Eigen;
  *   using namespace tvm;
  *   using namespace tvm::requirements;
  *   using namespace tvm::task_dynamics;
@@ -258,7 +262,7 @@
  *    (dot(q,2) would return \f$ \ddot{q} \f$).
  *    The implicit task dynamics here is that \f$ \dot{q}^* = 0 \f$, which is 
  *    materialized by an instance of tvm::task_dynamics::None that we don't need
- *    to write explicitely. This task needs to be solved at priority level 0.
+ *    to write explicitely. This task needs to be solved at priority level 1.
  *    We also give an example of weight: here we require that the weight on 
  *    minimizing the velocity of the first joint is 5 times the weight for the
  *    second joint and 10 times the weight for the third one (note the use of
@@ -346,7 +350,7 @@
  *  * Thanks to our introduction of the variable \f$ x \f$, it is easy to change
  *    the shape we want the robot end-effector to reach. For example, \f$ x \f$
  *    could be constrained on a line \f$ n^t x = a \f$. This can be done by
- *    simply replacing \c e2==0. by \c n.transpose()==a with \p n a Eigen::VectorXd
+ *    simply replacing \c e2==0. by \c n.transpose() * x == a with \p n a Eigen::VectorXd
  *    and \p a a \p double.
  *
  *
@@ -363,7 +367,7 @@
  * However, the variable \f$ x \f$ appears in a very simple way in \f$ e_1 \f$,
  * and thus in the linearization of problem (6), 
  * \f$ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q) \f$, 
- * \f$ \frac{\partial e_1}{\partial x}(x,q) \f$ is simply \f$ -I \f$, that is
+ * \f$ \frac{\partial e_1}{\partial x}(x,q) \f$ is simply \f$ -I \f$, i.e.
  * there is a simple way to express \f$ \dot{x} \f$ from \f$ \dot{q} \f$ and the
  * other quantities of the problem.
  *
@@ -408,6 +412,6 @@
  *
  * Example file
  * ------------
- * example/ProblemWritingExample.cpp
+ * [example/ProblemWritingExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/ProblemWritingExample.cpp)
  */
  

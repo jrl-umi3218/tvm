@@ -157,8 +157,6 @@ namespace tvm::example
 
     if (enableOutput)
     {
-      // In the following, we use fold expressions to repeat calls to addInput 
-      // and addInputDependency for all the elements in inputs.
       addInput(g_, inputs...);
       addInput(h_, inputs...);
       registerUpdates(u, update);

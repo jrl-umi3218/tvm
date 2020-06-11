@@ -50,7 +50,7 @@
  * variables \f$ x_i \f$ it depends on. It is implemented by creating a class
  * inheriting from tvm::function::abstract::Function.
  *
- * Behind the hood, TVM is making use of a <em>computation graph</em>, that is a
+ * Under the hood, TVM is making use of a <em>computation graph</em>, that is a
  * set of computation units whose inputs and outputs are connected in some way.
  * A tvm::function::abstract::Function is meant to be a set of computation units
  * and pre-defines 5 outputs, accessible through 5 methods, as summarized in the
@@ -62,7 +62,7 @@
  * | \c Output::Jacobian           | \f$ \frac{\partial f}{\partial x_i} \f$             | \c jacobian(xi)           | \c jacobian_ (map of MatrixXd)    |
  * | \c Output::Velocity           | \f$ \dot{f}(x_1, \ldots x_n) \f$                    | \c velocity()             | \c velocity_ (VectorXd)           |
  * | \c Output::NormalAcceleration | \f$ \sum \dot{J}_{x_i} \dot{x}_i \f$                | \c normalAcceleration(xi) | \c normalAcceleration_ (VectorXd) |
- * | \c Output::JDot               | \f$ \frac{d}{dt}\frac{\partial f}{\partial x_i} \f$ | \c JDot()                 | \c JDot_ (map of MatrixXd)        |
+ * | \c Output::JDot               | \f$ \frac{d}{dt}\frac{\partial f}{\partial x_i} \f$ | \c JDot(xi)               | \c JDot_ (map of MatrixXd)        |
  * 
  * To avoid duplicated computations, the output values are cached. The update
  * of these cached values is done by <em>update methods</em> that will be
@@ -177,7 +177,7 @@
  *
  * Remarks
  * -------
- *  * Cache members automatically have te correct size: this is ensured at
+ *  * Cache members automatically have the correct size: this is ensured at
  *    construction time or when \c addVariable is used. It is the responsibility
  *    of the user to not change those sizes.
  *  * The constructor should of course check that both variables have the same
@@ -335,7 +335,8 @@
  * Example file {#exampleFile}
  * ============
  * Example of use for both functions described in this document can be found in
- * file \p example/FunctionWritingExample.cpp, in the form of test methods.
+ * file \p [example/FunctionWritingExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/FunctionWritingExample.cpp),
+ * in the form of test methods.
  *
  * The first test <code>TEST_CASE("DotProduct")</code>, shows the use of the
  * \c DotProduct function. It highlights that calling methods to access outputs,
@@ -349,7 +350,8 @@
  * is simple an identity function whose \c Velocity output was disabled to
  * examplify the runtime disabling of outputs in \c FunctionDotProduct::processOutput.
  * Because \c DummyFunction does not have a \c Velocity output, the \c Velocity
- * and \c NormalAcceleration outputs of FunctionDotProduct get disbaled.
+ * and \c NormalAcceleration outputs of this instance of FunctionDotProduct get
+ * disbaled.
  *
  * In this test, to avoid tedious manual updates of the computations, we use the
  * utility function \c utils::generateUpdateGraph to generate a computation graph
