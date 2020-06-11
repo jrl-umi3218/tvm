@@ -3,6 +3,9 @@
 #include "SolverTestFunctions.h"
 #include <tvm/Variable.h>
 
+using namespace Eigen;
+using namespace tvm;
+
 SphereFunction::SphereFunction(VariablePtr x, const VectorXd & x0, double radius)
   : graph::abstract::OutputSelector<function::abstract::Function>(1)
   , dimension_(x->size())

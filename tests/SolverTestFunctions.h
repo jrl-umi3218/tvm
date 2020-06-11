@@ -3,17 +3,14 @@
 #include <tvm/function/abstract/Function.h>
 #include <tvm/graph/abstract/OutputSelector.h>
 
-using namespace tvm;
-using namespace Eigen;
-
 /** f(x) = (x-x0)^2 - r^2*/
-class SphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
+class SphereFunction : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(SphereFunction, Value, Jacobian, VelocityAndAcc)
 
-  SphereFunction(VariablePtr x, const VectorXd& x0, double radius);
+  SphereFunction(tvm::VariablePtr x, const Eigen::VectorXd& x0, double radius);
 
   void updateValue();
   void updateJacobian();
@@ -22,18 +19,18 @@ public:
 private:
   int dimension_;
   double radius2_;
-  VectorXd x0_;
+  Eigen::VectorXd x0_;
 };
 
 
 
-class Simple2dRobotEE : public graph::abstract::OutputSelector<function::abstract::Function>
+class Simple2dRobotEE : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(Simple2dRobotEE, Value, Jacobian, VelocityAndAcc)
 
-  Simple2dRobotEE(VariablePtr x, const Vector2d& base, const VectorXd& lengths);
+  Simple2dRobotEE(tvm::VariablePtr x, const Eigen::Vector2d& base, const Eigen::VectorXd& lengths);
 
   void updateValue();
   void updateJacobian();
@@ -41,18 +38,18 @@ public:
 
 private:
   int n_;
-  Vector2d base_;
-  VectorXd lengths_;
+  Eigen::Vector2d base_;
+  Eigen::VectorXd lengths_;
 };
 
 
 //f - g
-class Difference : public graph::abstract::OutputSelector<function::abstract::Function>
+class Difference : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
   SET_UPDATES(Difference, Value, Jacobian, Velocity, NormalAcceleration, JDot)
 
-  Difference(FunctionPtr f, FunctionPtr g);
+  Difference(tvm::FunctionPtr f, tvm::FunctionPtr g);
 
   void updateValue();
   void updateJacobian();
@@ -64,21 +61,21 @@ private:
   template<typename Input>
   void processOutput(Input input, Update_ u, void (Difference::*update)());
 
-  FunctionPtr f_;
-  FunctionPtr g_;
+  tvm::FunctionPtr f_;
+  tvm::FunctionPtr g_;
 };
 
 
 /** A brken f(x) = (x-x0)^2 - r^2
   *
   */
-class BrokenSphereFunction : public graph::abstract::OutputSelector<function::abstract::Function>
+class BrokenSphereFunction : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
-  DISABLE_OUTPUTS(function::abstract::Function::Output::JDot)
+  DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(BrokenSphereFunction, Value, Jacobian, VelocityAndAcc)
 
-  BrokenSphereFunction(VariablePtr x, const VectorXd& x0, double radius);
+  BrokenSphereFunction(tvm::VariablePtr x, const Eigen::VectorXd& x0, double radius);
 
   void breakJacobian(bool b);
   void breakVelocity(bool b);
@@ -91,7 +88,7 @@ public:
 private:
   int dimension_;
   double radius2_;
-  VectorXd x0_;
+  Eigen::VectorXd x0_;
   bool breakJacobian_;
   bool breakVelocity_;
   bool breakNormalAcceleration_;

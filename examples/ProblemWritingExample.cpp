@@ -13,6 +13,7 @@
 
 #include "SolverTestFunctions.h"
 
+using namespace Eigen;
 using namespace tvm;
 using namespace tvm::requirements;
 using namespace tvm::task_dynamics;

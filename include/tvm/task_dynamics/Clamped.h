@@ -192,8 +192,8 @@ namespace tvm::task_dynamics
   inline Clamped<TD>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max)
     : TaskDynamicsImpl(innerTaskDynamics.order(), f, t, rhs)
     , innerTaskDynamicsImpl_(static_cast<typename TD::Impl*>(innerTaskDynamics.impl(f, t, rhs).release()))
-    , min_(min.index() == 1 ? mpark::get<Eigen::VectorXd>(min) : VectorXd::Constant(f->size(), mpark::get<double>(min)))
-    , max_(max.index() == 1 ? mpark::get<Eigen::VectorXd>(max) : VectorXd::Constant(f->size(), mpark::get<double>(max)))
+    , min_(min.index() == 1 ? mpark::get<Eigen::VectorXd>(min) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(min)))
+    , max_(max.index() == 1 ? mpark::get<Eigen::VectorXd>(max) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(max)))
   {
     if (min_.size() != f->size() || max_.size() != f->size())
     {
