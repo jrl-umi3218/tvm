@@ -45,7 +45,7 @@ namespace tvm::task_dynamics
     * \f$ b_{min} \leq \ e_c^{(k)*} \leq b_{max}\f$ where \f$ b_{min} \f$ and
     * \f$ b_{max} \f$ are given bounds, specified as scalars or vectors.
     */
-  template <class TD>
+  template <class TD, class TDImpl = typename TD::Impl>
   class Clamped : public abstract::TaskDynamics
   {
   public:
@@ -58,7 +58,7 @@ namespace tvm::task_dynamics
       void updateValue() override;
 
       /** Access to the task dynamics being clamped. */
-      const std::shared_ptr<typename TD::Impl>& inner() const;
+      const std::shared_ptr<TDImpl>& inner() const;
 
       /** Access to \f$ b_{min} \f$. */
       const Eigen::VectorXd& min() const { return min_; }
@@ -80,7 +80,7 @@ namespace tvm::task_dynamics
       Eigen::VectorXd& max() { return max_; }
 
     private:
-      std::shared_ptr<typename TD::Impl> innerTaskDynamicsImpl_;
+      std::shared_ptr<TDImpl> innerTaskDynamicsImpl_;
       Eigen::VectorXd min_;
       Eigen::VectorXd max_;
     };
@@ -128,14 +128,14 @@ namespace tvm::task_dynamics
     Bounds max_;
   };
 
-  template<class TD>
-  inline Clamped<TD>::Clamped(const TD& innerTaskDynamics, double max)
-    : Clamped<TD>(innerTaskDynamics, -max, max)
+  template<class TD, class TDImpl>
+  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, double max)
+    : Clamped<TD, TDImpl>(innerTaskDynamics, -max, max)
   {
   }
 
-  template<class TD>
-  inline Clamped<TD>::Clamped(const TD& innerTaskDynamics, double min, double max)
+  template<class TD, class TDImpl>
+  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, double min, double max)
     : innerTaskDynamics_(innerTaskDynamics)
     , min_(min)
     , max_(max)
@@ -150,14 +150,14 @@ namespace tvm::task_dynamics
     }
   }
   
-  template<class TD>
-  inline Clamped<TD>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& max)
+  template<class TD, class TDImpl>
+  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& max)
     : Clamped<TD>(innerTaskDynamics, -max, max)
   {
   }
 
-  template<class TD>
-  inline Clamped<TD>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max)
+  template<class TD, class TDImpl>
+  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max)
     : innerTaskDynamics_(innerTaskDynamics)
     , min_(min)
     , max_(max)
@@ -176,22 +176,22 @@ namespace tvm::task_dynamics
     }
   }
   
-  template<class TD>
-  inline std::unique_ptr<abstract::TaskDynamicsImpl> Clamped<TD>::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
+  template<class TD, class TDImpl>
+  inline std::unique_ptr<abstract::TaskDynamicsImpl> Clamped<TD, TDImpl>::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, innerTaskDynamics_, min_, max_));
+    return std::make_unique<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, innerTaskDynamics_, min_, max_));
   }
 
-  template<class TD>
-  inline Order Clamped<TD>::order_() const
+  template<class TD, class TDImpl>
+  inline Order Clamped<TD, TDImpl>::order_() const
   {
     return innerTaskDynamics_.order();
   }
 
-  template<class TD>
-  inline Clamped<TD>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max)
+  template<class TD, class TDImpl>
+  inline Clamped<TD, TDImpl>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max)
     : TaskDynamicsImpl(innerTaskDynamics.order(), f, t, rhs)
-    , innerTaskDynamicsImpl_(static_cast<typename TD::Impl*>(innerTaskDynamics.impl(f, t, rhs).release()))
+    , innerTaskDynamicsImpl_(static_cast<TDImpl*>(innerTaskDynamics.impl(f, t, rhs).release()))
     , min_(min.index() == 1 ? mpark::get<Eigen::VectorXd>(min) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(min)))
     , max_(max.index() == 1 ? mpark::get<Eigen::VectorXd>(max) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(max)))
   {
@@ -212,8 +212,8 @@ namespace tvm::task_dynamics
   }
 
 
-  template<class TD>
-  inline void Clamped<TD>::Impl::updateValue()
+  template<class TD, class TDImpl>
+  inline void Clamped<TD, TDImpl>::Impl::updateValue()
   {
     const auto& innerValue = innerTaskDynamicsImpl_->value();
 
@@ -235,8 +235,8 @@ namespace tvm::task_dynamics
     value_ = s * innerValue;
   }
   
-  template<class TD>
-  inline const std::shared_ptr<typename TD::Impl>& Clamped<TD>::Impl::inner() const
+  template<class TD, class TDImpl>
+  inline const std::shared_ptr<TDImpl>& Clamped<TD, TDImpl>::Impl::inner() const
   {
     return innerTaskDynamicsImpl_;
   }
