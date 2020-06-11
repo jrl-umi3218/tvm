@@ -107,15 +107,15 @@ Inheritance diagram for tvm::task_dynamics::abstract::TaskDynamics:</div>
  <div class="center">
   <img src="a01633.png" usemap="#tvm::task_5Fdynamics::abstract::TaskDynamics_map" alt=""/>
   <map id="tvm::task_5Fdynamics::abstract::TaskDynamics_map" name="tvm::task_5Fdynamics::abstract::TaskDynamics_map">
-<area href="a01641.html" title="Given a task dynamics value , compute the new value , , such that  where  and  are given bounds..." alt="tvm::task_dynamics::Clamped&lt; TD &gt;" shape="rect" coords="0,56,257,80"/>
-<area href="a01649.html" title="Zero order dynamics with e* = 0, i.e. " alt="tvm::task_dynamics::Constant" shape="rect" coords="267,56,524,80"/>
-<area href="a01657.html" title="Compute e* = -f(0) + rhs (Geometric order). " alt="tvm::task_dynamics::None" shape="rect" coords="534,56,791,80"/>
-<area href="a01665.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix..." alt="tvm::task_dynamics::Proportional" shape="rect" coords="801,56,1058,80"/>
-<area href="a01673.html" title="Compute  (dynamic order) where  and  can be (independently) a scalar, a diagonal matrix (given as a v..." alt="tvm::task_dynamics::ProportionalDerivative" shape="rect" coords="1068,56,1325,80"/>
-<area href="a01681.html" title="Compute e^(k)* = ref (at given k-th order). " alt="tvm::task_dynamics::Reference" shape="rect" coords="1335,56,1592,80"/>
-<area href="a01701.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn..." alt="tvm::task_dynamics::VelocityDamper" shape="rect" coords="1602,56,1859,80"/>
-<area href="a01693.html" title="Compute ddot{e}* = ref (dynamic order). " alt="tvm::task_dynamics::ReferenceAcceleration" shape="rect" coords="1201,112,1458,136"/>
-<area href="a01689.html" title="Compute dot{e}* = ref (kinematic order). " alt="tvm::task_dynamics::ReferenceVelocity" shape="rect" coords="1468,112,1725,136"/>
+<area href="a01641.html" title="Given a task dynamics value , compute the new value , , such that  where  and  are given bounds..." alt="tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;" shape="rect" coords="0,56,261,80"/>
+<area href="a01649.html" title="Zero order dynamics with e* = 0, i.e. " alt="tvm::task_dynamics::Constant" shape="rect" coords="271,56,532,80"/>
+<area href="a01657.html" title="Compute e* = -f(0) + rhs (Geometric order). " alt="tvm::task_dynamics::None" shape="rect" coords="542,56,803,80"/>
+<area href="a01665.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix..." alt="tvm::task_dynamics::Proportional" shape="rect" coords="813,56,1074,80"/>
+<area href="a01673.html" title="Compute  (dynamic order) where  and  can be (independently) a scalar, a diagonal matrix (given as a v..." alt="tvm::task_dynamics::ProportionalDerivative" shape="rect" coords="1084,56,1345,80"/>
+<area href="a01681.html" title="Compute e^(k)* = ref (at given k-th order). " alt="tvm::task_dynamics::Reference" shape="rect" coords="1355,56,1616,80"/>
+<area href="a01701.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn..." alt="tvm::task_dynamics::VelocityDamper" shape="rect" coords="1626,56,1887,80"/>
+<area href="a01693.html" title="Compute ddot{e}* = ref (dynamic order). " alt="tvm::task_dynamics::ReferenceAcceleration" shape="rect" coords="1219,112,1480,136"/>
+<area href="a01689.html" title="Compute dot{e}* = ref (kinematic order). " alt="tvm::task_dynamics::ReferenceVelocity" shape="rect" coords="1490,112,1751,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -240,7 +240,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="a01673.html#a9c0722648d496cca84e0152c1b062cd0">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01701.html#a588e6cbd4fff5de6e5c021184b2fbb48">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01641.html#adbfcf1f87abf767360bd72e7239c19d4">tvm::task_dynamics::Clamped&lt; TD &gt;</a>, <a class="el" href="a01665.html#a36c06430efb0662c9ef87cbf7a06a4e7">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01681.html#ab8045f3656cac54d86d094ebbecd3e7d">tvm::task_dynamics::Reference</a>, <a class="el" href="a01657.html#aeb7ea66d0e8f31d758b7161c533fd2b5">tvm::task_dynamics::None</a>, and <a class="el" href="a01649.html#ace88a7cc059f3f4b2db1bff45b4d3e4b">tvm::task_dynamics::Constant</a>.</p>
+<p>Implemented in <a class="el" href="a01673.html#a9c0722648d496cca84e0152c1b062cd0">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01701.html#a588e6cbd4fff5de6e5c021184b2fbb48">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01641.html#a56acd0166554a537b6dc816749fd277f">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</a>, <a class="el" href="a01665.html#a36c06430efb0662c9ef87cbf7a06a4e7">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01681.html#ab8045f3656cac54d86d094ebbecd3e7d">tvm::task_dynamics::Reference</a>, <a class="el" href="a01657.html#aeb7ea66d0e8f31d758b7161c533fd2b5">tvm::task_dynamics::None</a>, and <a class="el" href="a01649.html#ace88a7cc059f3f4b2db1bff45b4d3e4b">tvm::task_dynamics::Constant</a>.</p>
 
 </div>
 </div>
@@ -284,7 +284,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="a01673.html#a74adb4a1aef02b7fe9fbfd6738206a40">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01701.html#a6cb34573a9cce06b9407331472c9b0ff">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01641.html#af7a28f3ba3c1d095c0b156ee755c79f0">tvm::task_dynamics::Clamped&lt; TD &gt;</a>, <a class="el" href="a01665.html#a510dcbb35e9c497fa50ec9d8ca80a19c">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01681.html#a265d9adb6b99ae2bebcfb68f79b7f530">tvm::task_dynamics::Reference</a>, <a class="el" href="a01657.html#ab6cacaa6764c52f9ffb67001d3ebc848">tvm::task_dynamics::None</a>, and <a class="el" href="a01649.html#a606c4cf535640483d61fdf5f676710d3">tvm::task_dynamics::Constant</a>.</p>
+<p>Implemented in <a class="el" href="a01673.html#a74adb4a1aef02b7fe9fbfd6738206a40">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01701.html#a6cb34573a9cce06b9407331472c9b0ff">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01641.html#ac256739ec3b13467146c6db85bfb50d1">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</a>, <a class="el" href="a01665.html#a510dcbb35e9c497fa50ec9d8ca80a19c">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01681.html#a265d9adb6b99ae2bebcfb68f79b7f530">tvm::task_dynamics::Reference</a>, <a class="el" href="a01657.html#ab6cacaa6764c52f9ffb67001d3ebc848">tvm::task_dynamics::None</a>, and <a class="el" href="a01649.html#a606c4cf535640483d61fdf5f676710d3">tvm::task_dynamics::Constant</a>.</p>
 
 </div>
 </div>
@@ -295,7 +295,7 @@ Protected Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00363.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00364.html">abstract</a></li><li class="navelem"><a class="el" href="a01633.html">TaskDynamics</a></li>
-    <li class="footer">Generated on Thu Jun 11 2020 04:52:36 for TVM by
+    <li class="footer">Generated on Thu Jun 11 2020 09:15:43 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

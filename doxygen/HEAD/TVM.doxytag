@@ -4613,55 +4613,56 @@
     <name>tvm::task_dynamics::Clamped</name>
     <filename>a01641.html</filename>
     <templarg></templarg>
+    <templarg></templarg>
     <base>tvm::task_dynamics::abstract::TaskDynamics</base>
     <class kind="class">tvm::task_dynamics::Clamped::Impl</class>
     <member kind="typedef">
       <type>mpark::variant&lt; double, Eigen::VectorXd &gt;</type>
       <name>Bounds</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>ae6de99e28e420129f13d899973fd68d8</anchor>
+      <anchor>a21bf20e2ae9a17c7cd24c51d6ff7ead1</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>Clamped</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>a2b85d8b62415f4a596d52798eb84048a</anchor>
+      <anchor>a81b6b2b17b09f021f46695fec6e797a3</anchor>
       <arglist>(const TD &amp;innerTaskDynamics, double max)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>Clamped</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>a07aee8482c31b47a14f7eb924619914d</anchor>
+      <anchor>acc76f4b0b382ec497f3292812bfaeff3</anchor>
       <arglist>(const TD &amp;innerTaskDynamics, double min, double max)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>Clamped</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>a6638a5b376e97773c507371fd3f2223b</anchor>
+      <anchor>a4e48aa54824c741b61bf1bd667336847</anchor>
       <arglist>(const TD &amp;innerTaskDynamics, const VectorConstRef &amp;max)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>Clamped</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>a205ecab51ef5a245a862a3d69a44fccc</anchor>
+      <anchor>ab00ab5d19ae43684d86692b8855e98b9</anchor>
       <arglist>(const TD &amp;innerTaskDynamics, const VectorConstRef &amp;min, const VectorConstRef &amp;max)</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>std::unique_ptr&lt; abstract::TaskDynamicsImpl &gt;</type>
       <name>impl_</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>adbfcf1f87abf767360bd72e7239c19d4</anchor>
+      <anchor>a56acd0166554a537b6dc816749fd277f</anchor>
       <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const override</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>Order</type>
       <name>order_</name>
       <anchorfile>a01641.html</anchorfile>
-      <anchor>af7a28f3ba3c1d095c0b156ee755c79f0</anchor>
+      <anchor>ac256739ec3b13467146c6db85bfb50d1</anchor>
       <arglist>() const override</arglist>
     </member>
   </compound>
@@ -6793,49 +6794,49 @@
       <type></type>
       <name>Impl</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a2fd1800fa6c47fe002cddf5e61be8206</anchor>
+      <anchor>affc42ed3b7f085ce7c316b1a39c80ffe</anchor>
       <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs, const TD &amp;innerTaskDynamics, const Bounds &amp;min, const Bounds &amp;max)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>updateValue</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a666363354b522e505cd157794548c7b3</anchor>
+      <anchor>ad058380bb126854206d9abbf06e3d3a3</anchor>
       <arglist>() override</arglist>
     </member>
     <member kind="function">
-      <type>const std::shared_ptr&lt; typename TD::Impl &gt; &amp;</type>
+      <type>const std::shared_ptr&lt; TDImpl &gt; &amp;</type>
       <name>inner</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a9498190a717b6b2a548980dc7186873f</anchor>
+      <anchor>ae41dcd6a0612be020704b5bcabc6d4d6</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>min</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>ac318b7d421d6579fc376b7a5060ad0a6</anchor>
+      <anchor>a279d5efaba7b100b4f13192f656b0e0b</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>min</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a36d23bad39fed93798f14082f45b560c</anchor>
+      <anchor>ac2ca601afac3bc73047231fd9fc20cd2</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>max</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>ac8779064ef067d8711af4de092a14f2e</anchor>
+      <anchor>a8708682a999b633a08f2b921758430b6</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>max</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>aafe080a320316d5e26307282b2e5ff96</anchor>
+      <anchor>afc0b959f36bd440f8245ec46ef3f7dee</anchor>
       <arglist>()</arglist>
     </member>
   </compound>

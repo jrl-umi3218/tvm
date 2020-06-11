@@ -108,17 +108,17 @@ Inheritance diagram for tvm::task_dynamics::abstract::TaskDynamicsImpl:</div>
  <div class="center">
   <img src="a01637.png" usemap="#tvm::task_5Fdynamics::abstract::TaskDynamicsImpl_map" alt=""/>
   <map id="tvm::task_5Fdynamics::abstract::TaskDynamicsImpl_map" name="tvm::task_5Fdynamics::abstract::TaskDynamicsImpl_map">
-<area href="a01037.html" alt="tvm::graph::abstract::Node&lt; TaskDynamicsImpl &gt;" shape="rect" coords="882,112,1166,136"/>
-<area href="a01077.html" title="An abstract node is the structure stored in the call graph to hide away the actual type of the node..." alt="tvm::graph::internal::AbstractNode" shape="rect" coords="882,56,1166,80"/>
-<area href="a01085.html" title="Inputs store a list of Outputs and the required output signals. " alt="tvm::graph::internal::Inputs" shape="rect" coords="735,0,1019,24"/>
-<area href="a01041.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. " alt="tvm::graph::abstract::Outputs" shape="rect" coords="1029,0,1313,24"/>
-<area href="a01645.html" alt="tvm::task_dynamics::Clamped&lt; TD &gt;::Impl" shape="rect" coords="0,224,284,248"/>
-<area href="a01653.html" alt="tvm::task_dynamics::Constant::Impl" shape="rect" coords="294,224,578,248"/>
-<area href="a01661.html" alt="tvm::task_dynamics::None::Impl" shape="rect" coords="588,224,872,248"/>
-<area href="a01669.html" alt="tvm::task_dynamics::Proportional::Impl" shape="rect" coords="882,224,1166,248"/>
-<area href="a01677.html" alt="tvm::task_dynamics::ProportionalDerivative::Impl" shape="rect" coords="1176,224,1460,248"/>
-<area href="a01685.html" alt="tvm::task_dynamics::Reference::Impl" shape="rect" coords="1470,224,1754,248"/>
-<area href="a01705.html" alt="tvm::task_dynamics::VelocityDamper::Impl" shape="rect" coords="1764,224,2048,248"/>
+<area href="a01037.html" alt="tvm::graph::abstract::Node&lt; TaskDynamicsImpl &gt;" shape="rect" coords="897,112,1186,136"/>
+<area href="a01077.html" title="An abstract node is the structure stored in the call graph to hide away the actual type of the node..." alt="tvm::graph::internal::AbstractNode" shape="rect" coords="897,56,1186,80"/>
+<area href="a01085.html" title="Inputs store a list of Outputs and the required output signals. " alt="tvm::graph::internal::Inputs" shape="rect" coords="747,0,1036,24"/>
+<area href="a01041.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. " alt="tvm::graph::abstract::Outputs" shape="rect" coords="1046,0,1335,24"/>
+<area href="a01645.html" alt="tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl" shape="rect" coords="0,224,289,248"/>
+<area href="a01653.html" alt="tvm::task_dynamics::Constant::Impl" shape="rect" coords="299,224,588,248"/>
+<area href="a01661.html" alt="tvm::task_dynamics::None::Impl" shape="rect" coords="598,224,887,248"/>
+<area href="a01669.html" alt="tvm::task_dynamics::Proportional::Impl" shape="rect" coords="897,224,1186,248"/>
+<area href="a01677.html" alt="tvm::task_dynamics::ProportionalDerivative::Impl" shape="rect" coords="1196,224,1485,248"/>
+<area href="a01685.html" alt="tvm::task_dynamics::Reference::Impl" shape="rect" coords="1495,224,1784,248"/>
+<area href="a01705.html" alt="tvm::task_dynamics::VelocityDamper::Impl" shape="rect" coords="1794,224,2083,248"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -510,7 +510,7 @@ template&lt;typename T &gt; </div>
 
 <p>Access to the task right hand side. </p>
 
-<p class="reference">Referenced by <a class="el" href="a01645.html#aafe080a320316d5e26307282b2e5ff96">tvm::task_dynamics::Clamped&lt; TD &gt;::Impl::max()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01645.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
 
 </div>
 </div>
@@ -564,7 +564,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="a01705.html#ae272496d38514a15ce562192ef0c8908">tvm::task_dynamics::VelocityDamper::Impl</a>, <a class="el" href="a01645.html#a666363354b522e505cd157794548c7b3">tvm::task_dynamics::Clamped&lt; TD &gt;::Impl</a>, <a class="el" href="a01677.html#ad7efd03386423c9215fc20970fa5016a">tvm::task_dynamics::ProportionalDerivative::Impl</a>, <a class="el" href="a01669.html#a1410721d388362d978fe70fdba8a76fd">tvm::task_dynamics::Proportional::Impl</a>, <a class="el" href="a01661.html#a61a2b600ab7ec3bcded0d8bc3819afb4">tvm::task_dynamics::None::Impl</a>, <a class="el" href="a01653.html#af5af1a0f843219b6bcbb06ab201d7a91">tvm::task_dynamics::Constant::Impl</a>, and <a class="el" href="a01685.html#aa1b2dd68d2bd4ea022d3133a52a4a87b">tvm::task_dynamics::Reference::Impl</a>.</p>
+<p>Implemented in <a class="el" href="a01705.html#ae272496d38514a15ce562192ef0c8908">tvm::task_dynamics::VelocityDamper::Impl</a>, <a class="el" href="a01645.html#ad058380bb126854206d9abbf06e3d3a3">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl</a>, <a class="el" href="a01677.html#ad7efd03386423c9215fc20970fa5016a">tvm::task_dynamics::ProportionalDerivative::Impl</a>, <a class="el" href="a01669.html#a1410721d388362d978fe70fdba8a76fd">tvm::task_dynamics::Proportional::Impl</a>, <a class="el" href="a01661.html#a61a2b600ab7ec3bcded0d8bc3819afb4">tvm::task_dynamics::None::Impl</a>, <a class="el" href="a01653.html#af5af1a0f843219b6bcbb06ab201d7a91">tvm::task_dynamics::Constant::Impl</a>, and <a class="el" href="a01685.html#aa1b2dd68d2bd4ea022d3133a52a4a87b">tvm::task_dynamics::Reference::Impl</a>.</p>
 
 </div>
 </div>
@@ -616,7 +616,7 @@ template&lt;typename T &gt; </div>
 
 <p>Cache to store the results of <a class="el" href="a01637.html#af4233ad13e8b0ea17839f969916f863d">updateValue()</a> </p>
 
-<p class="reference">Referenced by <a class="el" href="a01645.html#a666363354b522e505cd157794548c7b3">tvm::task_dynamics::Clamped&lt; TD &gt;::Impl::updateValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01645.html#ad058380bb126854206d9abbf06e3d3a3">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::updateValue()</a>.</p>
 
 </div>
 </div>
@@ -627,7 +627,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00363.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00364.html">abstract</a></li><li class="navelem"><a class="el" href="a01637.html">TaskDynamicsImpl</a></li>
-    <li class="footer">Generated on Thu Jun 11 2020 04:52:36 for TVM by
+    <li class="footer">Generated on Thu Jun 11 2020 09:15:43 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

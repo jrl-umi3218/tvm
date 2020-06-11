@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::Clamped&lt; TD &gt; Class Template Reference</title>
+<title>TVM: tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('a01641.html','');});
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01638.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::Clamped&lt; TD &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -104,12 +104,12 @@ $(document).ready(function(){initNavTree('a01641.html','');});
 
 <p><code>#include &lt;tvm/task_dynamics/Clamped.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::Clamped&lt; TD &gt;:</div>
+Inheritance diagram for tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01641.png" usemap="#tvm::task_5Fdynamics::Clamped_3C_20TD_20_3E_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::Clamped_3C_20TD_20_3E_map" name="tvm::task_5Fdynamics::Clamped_3C_20TD_20_3E_map">
-<area href="a01633.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
+  <img src="a01641.png" usemap="#tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" name="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map">
+<area href="a01633.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,261,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -120,23 +120,23 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ae6de99e28e420129f13d899973fd68d8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#ae6de99e28e420129f13d899973fd68d8">Bounds</a> = mpark::variant&lt; double, Eigen::VectorXd &gt;</td></tr>
-<tr class="separator:ae6de99e28e420129f13d899973fd68d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> = mpark::variant&lt; double, Eigen::VectorXd &gt;</td></tr>
+<tr class="separator:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2b85d8b62415f4a596d52798eb84048a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a2b85d8b62415f4a596d52798eb84048a">Clamped</a> (const TD &amp;innerTaskDynamics, double max)</td></tr>
-<tr class="memdesc:a2b85d8b62415f4a596d52798eb84048a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#a2b85d8b62415f4a596d52798eb84048a">More...</a><br /></td></tr>
-<tr class="separator:a2b85d8b62415f4a596d52798eb84048a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07aee8482c31b47a14f7eb924619914d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a07aee8482c31b47a14f7eb924619914d">Clamped</a> (const TD &amp;innerTaskDynamics, double min, double max)</td></tr>
-<tr class="memdesc:a07aee8482c31b47a14f7eb924619914d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#a07aee8482c31b47a14f7eb924619914d">More...</a><br /></td></tr>
-<tr class="separator:a07aee8482c31b47a14f7eb924619914d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6638a5b376e97773c507371fd3f2223b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a6638a5b376e97773c507371fd3f2223b">Clamped</a> (const TD &amp;innerTaskDynamics, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max)</td></tr>
-<tr class="memdesc:a6638a5b376e97773c507371fd3f2223b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#a6638a5b376e97773c507371fd3f2223b">More...</a><br /></td></tr>
-<tr class="separator:a6638a5b376e97773c507371fd3f2223b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a205ecab51ef5a245a862a3d69a44fccc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a205ecab51ef5a245a862a3d69a44fccc">Clamped</a> (const TD &amp;innerTaskDynamics, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;min, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max)</td></tr>
-<tr class="memdesc:a205ecab51ef5a245a862a3d69a44fccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#a205ecab51ef5a245a862a3d69a44fccc">More...</a><br /></td></tr>
-<tr class="separator:a205ecab51ef5a245a862a3d69a44fccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b6b2b17b09f021f46695fec6e797a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a81b6b2b17b09f021f46695fec6e797a3">Clamped</a> (const TD &amp;innerTaskDynamics, double max)</td></tr>
+<tr class="memdesc:a81b6b2b17b09f021f46695fec6e797a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#a81b6b2b17b09f021f46695fec6e797a3">More...</a><br /></td></tr>
+<tr class="separator:a81b6b2b17b09f021f46695fec6e797a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc76f4b0b382ec497f3292812bfaeff3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#acc76f4b0b382ec497f3292812bfaeff3">Clamped</a> (const TD &amp;innerTaskDynamics, double min, double max)</td></tr>
+<tr class="memdesc:acc76f4b0b382ec497f3292812bfaeff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#acc76f4b0b382ec497f3292812bfaeff3">More...</a><br /></td></tr>
+<tr class="separator:acc76f4b0b382ec497f3292812bfaeff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e48aa54824c741b61bf1bd667336847"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a4e48aa54824c741b61bf1bd667336847">Clamped</a> (const TD &amp;innerTaskDynamics, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max)</td></tr>
+<tr class="memdesc:a4e48aa54824c741b61bf1bd667336847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#a4e48aa54824c741b61bf1bd667336847">More...</a><br /></td></tr>
+<tr class="separator:a4e48aa54824c741b61bf1bd667336847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab00ab5d19ae43684d86692b8855e98b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#ab00ab5d19ae43684d86692b8855e98b9">Clamped</a> (const TD &amp;innerTaskDynamics, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;min, const <a class="el" href="a00356.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max)</td></tr>
+<tr class="memdesc:ab00ab5d19ae43684d86692b8855e98b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#ab00ab5d19ae43684d86692b8855e98b9">More...</a><br /></td></tr>
+<tr class="separator:ab00ab5d19ae43684d86692b8855e98b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a01633"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01633')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01633.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
 <tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01633"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
 <tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01633"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,27 +147,27 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:adbfcf1f87abf767360bd72e7239c19d4"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#adbfcf1f87abf767360bd72e7239c19d4">impl_</a> (<a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
-<tr class="separator:adbfcf1f87abf767360bd72e7239c19d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7a28f3ba3c1d095c0b156ee755c79f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#af7a28f3ba3c1d095c0b156ee755c79f0">order_</a> () const override</td></tr>
-<tr class="separator:af7a28f3ba3c1d095c0b156ee755c79f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56acd0166554a537b6dc816749fd277f"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#a56acd0166554a537b6dc816749fd277f">impl_</a> (<a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:a56acd0166554a537b6dc816749fd277f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac256739ec3b13467146c6db85bfb50d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html#ac256739ec3b13467146c6db85bfb50d1">order_</a> () const override</td></tr>
+<tr class="separator:ac256739ec3b13467146c6db85bfb50d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class TD&gt;<br />
-class tvm::task_dynamics::Clamped&lt; TD &gt;</h3>
+<div class="textblock"><h3>template&lt;class TD, class TDImpl = typename TD::Impl&gt;<br />
+class tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</h3>
 
 <p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae6de99e28e420129f13d899973fd68d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6de99e28e420129f13d899973fd68d8">&#9670;&nbsp;</a></span>Bounds</h2>
+<a id="a21bf20e2ae9a17c7cd24c51d6ff7ead1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21bf20e2ae9a17c7cd24c51d6ff7ead1">&#9670;&nbsp;</a></span>Bounds</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::<a class="el" href="a01641.html#ae6de99e28e420129f13d899973fd68d8">Bounds</a> =  mpark::variant&lt;double, Eigen::VectorXd&gt;</td>
+          <td class="memname">using <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01641.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> =  mpark::variant&lt;double, Eigen::VectorXd&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -175,19 +175,19 @@ template&lt;class TD &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2b85d8b62415f4a596d52798eb84048a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b85d8b62415f4a596d52798eb84048a">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[1/4]</span></h2>
+<a id="a81b6b2b17b09f021f46695fec6e797a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b6b2b17b09f021f46695fec6e797a3">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
+          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
           <td>(</td>
           <td class="paramtype">const TD &amp;&#160;</td>
           <td class="paramname"><em>innerTaskDynamics</em>, </td>
@@ -220,23 +220,23 @@ template&lt;class TD &gt; </div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="a01645.html#aafe080a320316d5e26307282b2e5ff96">tvm::task_dynamics::Clamped&lt; TD &gt;::Impl::max()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01645.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
 
 </div>
 </div>
-<a id="a07aee8482c31b47a14f7eb924619914d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07aee8482c31b47a14f7eb924619914d">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[2/4]</span></h2>
+<a id="acc76f4b0b382ec497f3292812bfaeff3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc76f4b0b382ec497f3292812bfaeff3">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
+          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
           <td>(</td>
           <td class="paramtype">const TD &amp;&#160;</td>
           <td class="paramname"><em>innerTaskDynamics</em>, </td>
@@ -278,19 +278,19 @@ template&lt;class TD &gt; </div>
 
 </div>
 </div>
-<a id="a6638a5b376e97773c507371fd3f2223b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6638a5b376e97773c507371fd3f2223b">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[3/4]</span></h2>
+<a id="a4e48aa54824c741b61bf1bd667336847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e48aa54824c741b61bf1bd667336847">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
+          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
           <td>(</td>
           <td class="paramtype">const TD &amp;&#160;</td>
           <td class="paramname"><em>innerTaskDynamics</em>, </td>
@@ -325,19 +325,19 @@ template&lt;class TD &gt; </div>
 
 </div>
 </div>
-<a id="a205ecab51ef5a245a862a3d69a44fccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a205ecab51ef5a245a862a3d69a44fccc">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[4/4]</span></h2>
+<a id="ab00ab5d19ae43684d86692b8855e98b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab00ab5d19ae43684d86692b8855e98b9">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
+          <td class="memname"><a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01641.html">Clamped</a> </td>
           <td>(</td>
           <td class="paramtype">const TD &amp;&#160;</td>
           <td class="paramname"><em>innerTaskDynamics</em>, </td>
@@ -380,19 +380,19 @@ template&lt;class TD &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adbfcf1f87abf767360bd72e7239c19d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbfcf1f87abf767360bd72e7239c19d4">&#9670;&nbsp;</a></span>impl_()</h2>
+<a id="a56acd0166554a537b6dc816749fd277f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56acd0166554a537b6dc816749fd277f">&#9670;&nbsp;</a></span>impl_()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt; <a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a> &gt; <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::impl_ </td>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a> &gt; <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::impl_ </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
@@ -424,23 +424,23 @@ template&lt;class TD &gt; </div>
 
 <p>Implements <a class="el" href="a01633.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a01645.html#aafe080a320316d5e26307282b2e5ff96">tvm::task_dynamics::Clamped&lt; TD &gt;::Impl::max()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01645.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
 
 </div>
 </div>
-<a id="af7a28f3ba3c1d095c0b156ee755c79f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7a28f3ba3c1d095c0b156ee755c79f0">&#9670;&nbsp;</a></span>order_()</h2>
+<a id="ac256739ec3b13467146c6db85bfb50d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac256739ec3b13467146c6db85bfb50d1">&#9670;&nbsp;</a></span>order_()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class TD &gt; </div>
+template&lt;class TD , class TDImpl &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a> <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD &gt;::order_ </td>
+          <td class="memname"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a> <a class="el" href="a01641.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::order_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -464,7 +464,7 @@ template&lt;class TD &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00363.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01641.html">Clamped</a></li>
-    <li class="footer">Generated on Thu Jun 11 2020 04:52:35 for TVM by
+    <li class="footer">Generated on Thu Jun 11 2020 09:15:43 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

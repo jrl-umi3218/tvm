@@ -116,7 +116,7 @@ var hierarchy =
         ] ],
         [ "tvm::graph::abstract::Node< TaskDynamicsImpl >", "a01037.html", [
           [ "tvm::task_dynamics::abstract::TaskDynamicsImpl", "a01637.html", [
-            [ "tvm::task_dynamics::Clamped< TD >::Impl", "a01645.html", null ],
+            [ "tvm::task_dynamics::Clamped< TD, TDImpl >::Impl", "a01645.html", null ],
             [ "tvm::task_dynamics::Constant::Impl", "a01653.html", null ],
             [ "tvm::task_dynamics::None::Impl", "a01661.html", null ],
             [ "tvm::task_dynamics::Proportional::Impl", "a01669.html", null ],
@@ -246,7 +246,7 @@ var hierarchy =
     [ "tvm::hint::internal::SubstitutionUnit", "a01177.html", null ],
     [ "tvm::Task", "a01629.html", null ],
     [ "tvm::task_dynamics::abstract::TaskDynamics", "a01633.html", [
-      [ "tvm::task_dynamics::Clamped< TD >", "a01641.html", null ],
+      [ "tvm::task_dynamics::Clamped< TD, TDImpl >", "a01641.html", null ],
       [ "tvm::task_dynamics::Constant", "a01649.html", null ],
       [ "tvm::task_dynamics::None", "a01657.html", null ],
       [ "tvm::task_dynamics::Proportional", "a01665.html", null ],

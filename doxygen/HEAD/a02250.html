@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('a02250.html','');});
 <p>\( \dot{J}_x = \dot{y}^T \ \ \mbox{and}\ \ \dot{J}_y = \dot{x}^T \quad (4) \)</p>
 <h1>Implementation outline </h1>
 <p>A TVM function is an object able to return the value of a mathematical function \( f \) and some of its derivatives, given the values of the variables \( x_i \) it depends on. It is implemented by creating a class inheriting from <a class="el" href="a01017.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a>.</p>
-<p>Behind the hood, TVM is making use of a <em>computation graph</em>, that is a set of computation units whose inputs and outputs are connected in some way. A <a class="el" href="a01017.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a> is meant to be a set of computation units and pre-defines 5 outputs, accessible through 5 methods, as summarized in the following table:</p>
+<p>Under the hood, TVM is making use of a <em>computation graph</em>, that is a set of computation units whose inputs and outputs are connected in some way. A <a class="el" href="a01017.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a> is meant to be a set of computation units and pre-defines 5 outputs, accessible through 5 methods, as summarized in the following table:</p>
 <table class="doxtable">
 <tr>
 <th align="center">output id </th><th align="center">mathematical meaning </th><th align="center">returned by </th><th align="center">cache member (type)  </th></tr>
@@ -118,7 +118,7 @@ $(document).ready(function(){initNavTree('a02250.html','');});
 <tr>
 <td align="center"><code>Output::NormalAcceleration</code> </td><td align="center">\( \sum \dot{J}_{x_i} \dot{x}_i \) </td><td align="center"><code>normalAcceleration(xi)</code> </td><td align="center"><code>normalAcceleration_</code> (VectorXd) </td></tr>
 <tr>
-<td align="center"><code>Output::JDot</code> </td><td align="center">\( \frac{d}{dt}\frac{\partial f}{\partial x_i} \) </td><td align="center"><code>JDot()</code> </td><td align="center"><code>JDot_</code> (map of MatrixXd) </td></tr>
+<td align="center"><code>Output::JDot</code> </td><td align="center">\( \frac{d}{dt}\frac{\partial f}{\partial x_i} \) </td><td align="center"><code>JDot(xi)</code> </td><td align="center"><code>JDot_</code> (map of MatrixXd) </td></tr>
 </table>
 <p>To avoid duplicated computations, the output values are cached. The update of these cached values is done by <em>update methods</em> that will be called when needed and in the correct order. The names of the pre-defined cache members are given in the above table. <br />
  The core of implementing a new TVM function consists thus in two steps:</p><ul>
@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('a02250.html','');});
 <p>See <a class="el" href="a02250.html#exampleFile">Example file </a> below.</p>
 <h2>Remarks </h2>
 <ul>
-<li>Cache members automatically have te correct size: this is ensured at construction time or when <code>addVariable</code> is used. It is the responsibility of the user to not change those sizes.</li>
+<li>Cache members automatically have the correct size: this is ensured at construction time or when <code>addVariable</code> is used. It is the responsibility of the user to not change those sizes.</li>
 <li>The constructor should of course check that both variables have the same size.</li>
 </ul>
 <h1>Advanced example </h1>
@@ -216,7 +216,7 @@ $(document).ready(function(){initNavTree('a02250.html','');});
 <li>specify the dependency between the output and the update method.</li>
 </ol>
 <p>If the necessary inputs are not present, we disable the corresponding output.</p>
-<pre><div class="fragment"><div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Out, <span class="keyword">typename</span> Up, <span class="keyword">typename</span>... In&gt;</div><div class="line">  <span class="keywordtype">void</span> FunctionDotProduct::processOutput(Out output, Up u, <span class="keywordtype">void</span> (FunctionDotProduct::* update)(), In... inputs)</div><div class="line">  {</div><div class="line">    <span class="comment">// We enable the output is all the required inputs are enabled for g and h</span></div><div class="line">    <span class="keywordtype">bool</span> enableOutput = (... &amp;&amp; (g_-&gt;isOutputEnabled(inputs) &amp;&amp; h_-&gt;isOutputEnabled(inputs)));</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (enableOutput)</div><div class="line">    {</div><div class="line">      <span class="comment">// In the following, we use fold expressions to repeat calls to addInput </span></div><div class="line">      <span class="comment">// and addInputDependency for all the elements in inputs.</span></div><div class="line">      addInput(g_, inputs...);</div><div class="line">      addInput(h_, inputs...);</div><div class="line">      registerUpdates(u, update);</div><div class="line">      addInputDependency&lt;FunctionDotProduct&gt;(u, g_, inputs...);</div><div class="line">      addInputDependency&lt;FunctionDotProduct&gt;(u, h_, inputs...);</div><div class="line">      addOutputDependency&lt;FunctionDotProduct&gt;(output, u);</div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">      disableOutput(output);</div><div class="line">  }</div></div><!-- fragment -->
+<pre><div class="fragment"><div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Out, <span class="keyword">typename</span> Up, <span class="keyword">typename</span>... In&gt;</div><div class="line">  <span class="keywordtype">void</span> FunctionDotProduct::processOutput(Out output, Up u, <span class="keywordtype">void</span> (FunctionDotProduct::* update)(), In... inputs)</div><div class="line">  {</div><div class="line">    <span class="comment">// We enable the output is all the required inputs are enabled for g and h</span></div><div class="line">    <span class="keywordtype">bool</span> enableOutput = (... &amp;&amp; (g_-&gt;isOutputEnabled(inputs) &amp;&amp; h_-&gt;isOutputEnabled(inputs)));</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (enableOutput)</div><div class="line">    {</div><div class="line">      addInput(g_, inputs...);</div><div class="line">      addInput(h_, inputs...);</div><div class="line">      registerUpdates(u, update);</div><div class="line">      addInputDependency&lt;FunctionDotProduct&gt;(u, g_, inputs...);</div><div class="line">      addInputDependency&lt;FunctionDotProduct&gt;(u, h_, inputs...);</div><div class="line">      addOutputDependency&lt;FunctionDotProduct&gt;(output, u);</div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">      disableOutput(output);</div><div class="line">  }</div></div><!-- fragment -->
 </pre><p>To check the availability of outputs on <code>g</code> and <code>h</code> with a variable number of inputs, we use <a href="https://en.cppreference.com/w/cpp/language/fold">fold expression</a> in the computation of <code>enableOutput</code>. The methods <code>addInput</code> and <code>addInputDependency</code> both accept a variable number of inputs. We use there <a href="https://en.cppreference.com/w/cpp/language/parameter_pack#Pack_expansion">parameter pack expansion</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>The two first parameters of <code>processOutput</code> are template parameters to ease the writing and use of the method: for reason beyond the scope of this document, <code>Output</code> and <code>Update</code> are struct with static members mimicking enum, not enum, and the static members do not all have the same type.</dd></dl>
 <h2>Example of use </h2>
@@ -228,9 +228,9 @@ $(document).ready(function(){initNavTree('a02250.html','');});
 </ul>
 <h1><a class="anchor" id="exampleFile"></a>
 Example file </h1>
-<p>Example of use for both functions described in this document can be found in file <code>example/FunctionWritingExample.cpp</code>, in the form of test methods.</p>
+<p>Example of use for both functions described in this document can be found in file <code></code> <a href="https://github.com/jrl-umi3218/tvm/blob/master/examples/FunctionWritingExample.cpp">example/FunctionWritingExample.cpp</a>, in the form of test methods.</p>
 <p>The first test <code>TEST_CASE("DotProduct")</code>, shows the use of the <code>DotProduct</code> function. It highlights that calling methods to access outputs, such as <code>value()</code>, do not trigger the update of these outputs. In this example, udpates are called manually. Updates are generally called automatically in TVM, but you have to pay attention to whether or not an update was called when you want to access an output yourself.</p>
-<p>The second test, <code>TEST_CASE("FunctionDotProduct")</code>, showcases the <code>FunctionDotProduct</code> function. It makes use of a <code>DummyFunction</code> class which is simple an identity function whose <code>Velocity</code> output was disabled to examplify the runtime disabling of outputs in <code>FunctionDotProduct::processOutput</code>. Because <code>DummyFunction</code> does not have a <code>Velocity</code> output, the <code>Velocity</code> and <code>NormalAcceleration</code> outputs of FunctionDotProduct get disbaled.</p>
+<p>The second test, <code>TEST_CASE("FunctionDotProduct")</code>, showcases the <code>FunctionDotProduct</code> function. It makes use of a <code>DummyFunction</code> class which is simple an identity function whose <code>Velocity</code> output was disabled to examplify the runtime disabling of outputs in <code>FunctionDotProduct::processOutput</code>. Because <code>DummyFunction</code> does not have a <code>Velocity</code> output, the <code>Velocity</code> and <code>NormalAcceleration</code> outputs of this instance of FunctionDotProduct get disbaled.</p>
 <p>In this test, to avoid tedious manual updates of the computations, we use the utility function <code>utils::generateUpdateGraph</code> to generate a computation graph that can then be run by the method <code>execute</code>.</p>
 <h1>To go further </h1>
 <ul>
@@ -245,7 +245,7 @@ Example file </h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
-    <li class="footer">Generated on Thu Jun 11 2020 04:52:35 for TVM by
+    <li class="footer">Generated on Thu Jun 11 2020 09:15:43 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
