@@ -179,7 +179,7 @@ namespace tvm::task_dynamics
   template<class TD, class TDImpl>
   inline std::unique_ptr<abstract::TaskDynamicsImpl> Clamped<TD, TDImpl>::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::make_unique<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, innerTaskDynamics_, min_, max_));
+    return std::make_unique<Impl>(f, t, rhs, innerTaskDynamics_, min_, max_);
   }
 
   template<class TD, class TDImpl>

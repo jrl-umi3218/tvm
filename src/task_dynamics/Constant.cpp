@@ -43,7 +43,7 @@ namespace tvm
 
     std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs));
+      return std::make_unique<Impl>(f, t, rhs);
     }
 
     Order Constant::order_() const

@@ -42,7 +42,7 @@ namespace tvm::task_dynamics
 
   std::unique_ptr<abstract::TaskDynamicsImpl> Reference::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
   {
-    return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, refOrder_, ref_));
+    return std::make_unique<Impl>(f, t, rhs, refOrder_, ref_);
   }
 
   Order Reference::order_() const

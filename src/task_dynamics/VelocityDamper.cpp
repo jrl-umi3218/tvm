@@ -109,11 +109,11 @@ namespace task_dynamics
   {
     if (dt_ > 0)
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, dt_, autoXsi_, di_, ds_, xsi_, big_));
+      return std::make_unique<Impl>(f, t, rhs, dt_, autoXsi_, di_, ds_, xsi_, big_);
     }
     else
     {
-      return std::unique_ptr<abstract::TaskDynamicsImpl>(new Impl(f, t, rhs, autoXsi_, di_, ds_, xsi_, big_));
+      return std::make_unique<Impl>(f, t, rhs, autoXsi_, di_, ds_, xsi_, big_);
     }
   }
 
