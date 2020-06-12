@@ -30,6 +30,7 @@
 #pragma once
 
 #include <tvm/Task.h>
+#include <tvm/graph/CallGraph.h>
 #include <tvm/requirements/SolvingRequirements.h>
 #include <tvm/scheme/internal/helpers.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
@@ -79,6 +80,40 @@ namespace tvm
     void add(TaskWithRequirementsPtr tr);
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
+
+    /** Compute all quantities necessary for solving the problem.*/
+    void update();
+
+    /** Finalize the data of the solver*/
+    void finalize();
+
+  protected:
+    class Updater
+    {
+    public:
+      Updater();
+
+      template<typename T, typename ... Args>
+      void addInput(std::shared_ptr<T> source, Args... args);
+      template<typename T>
+      void removeInput(T* source);
+
+      /** Manually calls for an update of the call graph, if needed.*/
+      void refresh();
+      /** Execute the call graph.*/
+      void run();
+
+    private:
+      bool upToDate_;
+      std::shared_ptr<graph::internal::Inputs> inputs_;
+      graph::CallGraph updateGraph_;
+    };
+
+    virtual void update_() {}
+    virtual void finalize_() {}
+
+    Updater updater_;
+
   private:
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
@@ -89,6 +124,8 @@ namespace tvm
 
     //Computation data for the resolution schemes
     std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
+    
+    bool finalized_ = false;
 
     template<typename Problem, typename Scheme>
     friend scheme::internal::ProblemComputationData*
@@ -111,5 +148,21 @@ namespace tvm
   TaskWithRequirementsPtr ControlProblem::add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements& req)
   {
     return add({ proto, task_dynamics::None() }, req);
+  }
+
+
+
+  template<typename T, typename ... Args>
+  inline void ControlProblem::Updater::addInput(std::shared_ptr<T> source, Args... args)
+  {
+    inputs_->addInput(source, args...);
+    upToDate_ = false;
+  }
+
+  template<typename T>
+  inline void ControlProblem::Updater::removeInput(T* source)
+  {
+    inputs_->removeInput(source);
+    upToDate_ = false;
   }
 }  // namespace tvm

@@ -49,6 +49,7 @@ namespace tvm
   void ControlProblem::add(TaskWithRequirementsPtr tr)
   {
     tr_.push_back(tr);
+    finalized_ = false;
   }
 
   void ControlProblem::remove(TaskWithRequirements* tr)
@@ -56,11 +57,52 @@ namespace tvm
     auto it = std::find_if(tr_.begin(), tr_.end(), [tr](const TaskWithRequirementsPtr& p) {return p.get() == tr; });
     if (it != tr_.end())
       tr_.erase(it);
+    finalized_ = false;
   }
 
   const std::vector<TaskWithRequirementsPtr>& ControlProblem::tasks() const
   {
     return tr_;
+  }
+
+  void ControlProblem::update()
+  {
+    assert(finalized_);
+    updater_.run();
+    update_();
+  }
+
+  void ControlProblem::finalize()
+  {
+    if (!finalized_)
+    {
+      updater_.refresh();
+      finalize_();
+      finalized_ = true;
+    }
+  }
+
+
+  ControlProblem::Updater::Updater()
+    : upToDate_(false)
+    , inputs_(new graph::internal::Inputs)
+  {
+  }
+
+  void ControlProblem::Updater::refresh()
+  {
+    if (!upToDate_)
+    {
+      updateGraph_.clear();
+      updateGraph_.add(inputs_);
+      updateGraph_.update();
+      upToDate_ = true;
+    }
+  }
+
+  void ControlProblem::Updater::run()
+  {
+    updateGraph_.execute();
   }
 
 }  // namespace tvm
