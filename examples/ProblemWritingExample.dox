@@ -85,7 +85,7 @@
  * \f$
  *   \begin{align}
  *     e_1(q) = 0 &,\ \ \dot{e}_1^* = -k_{p1} e_1 & \mbox{(high priority)} \quad (5.a)\\
- *     e_2(q) = 0 &,\ \ \dot{e}_1^* = -k_{p2} e_2 & \mbox{(high priority)} \quad (5.b)\\
+ *     e_2(q) = 0 &,\ \ \dot{e}_2^* = -k_{p2} e_2 & \mbox{(high priority)} \quad (5.b)\\
  *     -pi/2 \leq q_i \leq \pi/2&,\ \ \dot{d}_i^{-*},\ \dot{d}_i^{+*}  \mbox{as in (4)}, \ i=1..3 & \mbox{(high priority)}  \quad (5.c)\\
  *     \dot{q} = 0 & & \mbox{(low priority)} \quad (5.d)
  *   \end{align}
@@ -105,7 +105,7 @@
  *    \begin{align}
  *    \min_{\dot{q}, \dot{x}}. &\ \frac{1}{2}\left\| \dot{q} \right\|^2 &\quad (6)\\
  *    \mbox{s.t.} &\ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q)\\
- *                &\ \frac{\partial e_1}{\partial x}(x) \dot{x} = -k_{p2} e_2(x)\\
+ *                &\ \frac{\partial e_2}{\partial x}(x) \dot{x} = -k_{p2} e_2(x)\\
  *                &\ \dot{d}_i^{-*} \leq \dot{q}_i \leq \dot{d}_i^{+*}, \ i=1..3
  *    \end{align}
  * \f$
@@ -146,10 +146,10 @@
  *    is a circle in 2d)
  *  * \p IdentityFunction, self explanatory
  *  * \p DifferenceFunction, which computes the difference of two functions.
- * The implementation of these function is not the topic of this example. The way
+ * The implementation of these functions is not the topic of this example. The way
  * to write functions is described in \ref functionWritingExample.
  *
- * \note Except for \p IdentityFunction, these function are example functions,
+ * \note Except for \p IdentityFunction, these functions are example functions,
  * not part of the TVM library.
  *
  *
