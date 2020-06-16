@@ -110,11 +110,11 @@ $(document).ready(function(){initNavTree('a02252.html','');});
 <p>for \( d \) defined as \( d_i^- = q_i + \pi/2 \) or \( d_i^+ = \pi/2 - q_i \) (see also <a class="el" href="a01701.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn...">tvm::task_dynamics::VelocityDamper</a> for more details).</p>
 <p>The trajectory of \( q \) is not uniquely defined by by the above specifications (we are only constraining 2 of the 3 degrees of freedom of the robot). As an additional requirement, that would help specifying the trajectory completely, we would like to have minimal velocity. The velocity would be minimum for \( \dot{q} = 0 \). This however will have a lower priority than fulfilling the other tasks.</p>
 <p>What we wish to achieve (our IK problem) is thus</p>
-<p>\( \begin{align} e_1(q) = 0 &amp;,\ \ \dot{e}_1^* = -k_{p1} e_1 &amp; \mbox{(high priority)} \quad (5.a)\\ e_2(q) = 0 &amp;,\ \ \dot{e}_1^* = -k_{p2} e_2 &amp; \mbox{(high priority)} \quad (5.b)\\ -pi/2 \leq q_i \leq \pi/2&amp;,\ \ \dot{d}_i^{-*},\ \dot{d}_i^{+*} \mbox{as in (4)}, \ i=1..3 &amp; \mbox{(high priority)} \quad (5.c)\\ \dot{q} = 0 &amp; &amp; \mbox{(low priority)} \quad (5.d) \end{align} \)</p>
+<p>\( \begin{align} e_1(q) = 0 &amp;,\ \ \dot{e}_1^* = -k_{p1} e_1 &amp; \mbox{(high priority)} \quad (5.a)\\ e_2(q) = 0 &amp;,\ \ \dot{e}_2^* = -k_{p2} e_2 &amp; \mbox{(high priority)} \quad (5.b)\\ -pi/2 \leq q_i \leq \pi/2&amp;,\ \ \dot{d}_i^{-*},\ \dot{d}_i^{+*} \mbox{as in (4)}, \ i=1..3 &amp; \mbox{(high priority)} \quad (5.c)\\ \dot{q} = 0 &amp; &amp; \mbox{(low priority)} \quad (5.d) \end{align} \)</p>
 <p>This is the problem we will write in TVM.</p>
 <p>A triplet (function, comparison to 0, task dynamics), such as \( (e_1, =, \dot{e}_1^*) \), constitutes a <em>task</em>.</p>
 <p>The task dynamics chosen are specifying the desired derivative of the error functions. The instantenous (linearized) control problem we will end up solving is thus</p>
-<p>\( \begin{align} \min_{\dot{q}, \dot{x}}. &amp;\ \frac{1}{2}\left\| \dot{q} \right\|^2 &amp;\quad (6)\\ \mbox{s.t.} &amp;\ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q)\\ &amp;\ \frac{\partial e_1}{\partial x}(x) \dot{x} = -k_{p2} e_2(x)\\ &amp;\ \dot{d}_i^{-*} \leq \dot{q}_i \leq \dot{d}_i^{+*}, \ i=1..3 \end{align} \)</p>
+<p>\( \begin{align} \min_{\dot{q}, \dot{x}}. &amp;\ \frac{1}{2}\left\| \dot{q} \right\|^2 &amp;\quad (6)\\ \mbox{s.t.} &amp;\ \frac{\partial e_1}{\partial q}(x,q) \dot{q} + \frac{\partial e_1}{\partial x}(x,q) \dot{x} = -k_{p1} e_1(x,q)\\ &amp;\ \frac{\partial e_2}{\partial x}(x) \dot{x} = -k_{p2} e_2(x)\\ &amp;\ \dot{d}_i^{-*} \leq \dot{q}_i \leq \dot{d}_i^{+*}, \ i=1..3 \end{align} \)</p>
 <p>However, we do not need to write it ourself. TVM takes care of it automatically.</p>
 <p>Solving this problem for some values \( (q_k, x_k) \), we get the optimal values \( (\dot{q}^*, \dot{x}^*) \). We can then integrate with a given timestep \( dt \):</p>
 <p>\( \begin{align} q_{k+1} = q_k + \dot{q}^*\\ x_{k+1} = x_k + \dot{x}^* \end{align} \)</p>
@@ -184,7 +184,7 @@ $(document).ready(function(){initNavTree('a02252.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
-    <li class="footer">Generated on Thu Jun 11 2020 10:16:53 for TVM by
+    <li class="footer">Generated on Tue Jun 16 2020 02:35:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
