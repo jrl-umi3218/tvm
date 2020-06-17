@@ -117,7 +117,7 @@ namespace internal
     /** To be called when the target has been resized and/or range has changed*/
     void onUpdatedTarget();
     /** To be called when the variables change.*/
-    void onUpdatedMapping(const VariableVector& newVar);
+    void onUpdatedMapping(const VariableVector& newVar, bool updateMatrixtarget = true);
     /** Change the weight of constraint. TODO: how to specify the constraint?*/
     void weight(double alpha);
     void weight(const Eigen::VectorXd& w);
@@ -139,7 +139,7 @@ namespace internal
       MatrixFunction getTargetMatrix;
 
       void updateTarget(const AssignmentTarget& target);
-      void updateMapping(const VariableVector& newVar, const AssignmentTarget& target);
+      void updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget);
     };
 
     /** A structure grouping a vector assignment and some of the elements that

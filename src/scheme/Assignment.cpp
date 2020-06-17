@@ -105,12 +105,12 @@ namespace internal
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::onUpdatedMapping(const VariableVector& newVar)
+  void Assignment::onUpdatedMapping(const VariableVector& newVar, bool updateMatrixTarget)
   {
     for (auto& a : matrixAssignments_)
-      a.updateMapping(newVar, target_);
+      a.updateMapping(newVar, target_, updateMatrixTarget);
     for (auto& a : matrixSubstitutionAssignments_)
-      a.updateMapping(newVar, target_);
+      a.updateMapping(newVar, target_, updateMatrixTarget);
   }
 
   void Assignment::weight(double /*alpha*/)
@@ -636,7 +636,7 @@ namespace internal
     assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim));
   }
 
-  void Assignment::MatrixAssignment::updateMapping(const VariableVector& newVar, const AssignmentTarget& target)
+  void Assignment::MatrixAssignment::updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget)
   {
     if (newVar.contains(*x))
     {
@@ -644,6 +644,9 @@ namespace internal
       if (newRange != colRange)
       {
         colRange = newRange;
+      }
+      if (updateMatrixTarget)
+      {
         updateTarget(target);
       }
     }

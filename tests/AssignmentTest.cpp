@@ -925,12 +925,10 @@ TEST_CASE("Test assigments")
     FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pl), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
     FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
 
-    //now we change the range of the target and refresh the assignment
+    // We change the range of the target and refresh the assignment
     range->start = 0;
     a.onUpdatedTarget();
-    mem->A.setZero();
-    mem->l.setZero();
-    mem->u.setZero();
+    mem->reset();
     a.run();
 
     {
@@ -939,6 +937,23 @@ TEST_CASE("Test assigments")
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2)*cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2)*cstr_l);
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2)*VectorXd(3).setConstant(large));
+    }
+
+    // We change the memory of the target and the variables
+    VariablePtr y = Space(3).createVariable("y");
+    VariablePtr z = Space(2).createVariable("z");
+    VariableVector vv2(y, cstr.Ax_eq_0->variables(), z); // (y (size 3), x (size 7), z (size 3)) 
+    auto mem2 = std::make_shared<Memory>(3, 12);
+    a.target().changeData(mem2->A, mem2->l, mem2->u);
+    a.onUpdatedMapping(vv2, false);
+    a.onUpdatedTarget();
+    a.run();
+    {
+      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      FAST_CHECK_EQ(mem2->A.block(range->start, 3, 3, 7), sqrt(2) * cstr_A);
+      FAST_CHECK_EQ(mem2->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem2->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
   }
 
