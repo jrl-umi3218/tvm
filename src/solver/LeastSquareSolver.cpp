@@ -152,6 +152,7 @@ namespace abstract
     {
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
     }
+    AutoMap autoMap(obj, assignments_, objectiveToAssigments_);
     addObjective_(obj, req, additionalWeight);
     objSize_ += obj->size();
   }
