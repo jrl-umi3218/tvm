@@ -78,6 +78,10 @@ namespace internal
       */
     using VectorFunction = VectorRef(AssignmentTarget::*)() const;
 
+
+    /** \private Dummy struct serving as reminder*/
+    struct IWontForgetToCallUpdates {};
+
     /** Assignment constructor
       * \param source The linear constraints whose matrix and vector(s) will be
       * assigned.
@@ -106,12 +110,14 @@ namespace internal
     Assignment(const Assignment&) = delete;
     Assignment(Assignment&&) = default;
 
+    AssignmentTarget& target(IWontForgetToCallUpdates = {});
+
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
     void onUpdatedTarget();
     /** To be called when the variables change.*/
-    void onUpdatedMapping(const VariableVector& variables);
+    void onUpdatedMapping(const VariableVector& newVar);
     /** Change the weight of constraint. TODO: how to specify the constraint?*/
     void weight(double alpha);
     void weight(const Eigen::VectorXd& w);
@@ -131,6 +137,9 @@ namespace internal
       Variable* x;
       Range colRange;
       MatrixFunction getTargetMatrix;
+
+      void updateTarget(const AssignmentTarget& target);
+      void updateMapping(const VariableVector& newVar, const AssignmentTarget& target);
     };
 
     /** A structure grouping a vector assignment and some of the elements that

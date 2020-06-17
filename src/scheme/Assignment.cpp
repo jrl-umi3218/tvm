@@ -83,6 +83,11 @@ namespace internal
     build(variable, first);
   }
 
+  AssignmentTarget& Assignment::target(IWontForgetToCallUpdates)
+  {
+    return target_;
+  }
+
   void Assignment::onUpdatedSource()
   {
     //TODO
@@ -91,18 +96,21 @@ namespace internal
   void Assignment::onUpdatedTarget()
   {
     for (auto& a : matrixAssignments_)
-      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+      a.updateTarget(target_);
     for (auto& a : matrixSubstitutionAssignments_)
-      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+      a.updateTarget(target_);
     for (auto& a : vectorAssignments_)
       a.assignment.to((target_.*a.getTargetVector)());
     for (auto& a : vectorSubstitutionAssignments_)
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::onUpdatedMapping(const VariableVector& /*variables*/)
+  void Assignment::onUpdatedMapping(const VariableVector& newVar)
   {
-    //TODO
+    for (auto& a : matrixAssignments_)
+      a.updateMapping(newVar, target_);
+    for (auto& a : matrixSubstitutionAssignments_)
+      a.updateMapping(newVar, target_);
   }
 
   void Assignment::weight(double /*alpha*/)
@@ -620,6 +628,28 @@ namespace internal
         else
           gt ? addVectorAssignment<MAX>(f, v, J, false) : addVectorAssignment<MIN>(f, v, J, false);
       }
+    }
+  }
+
+  void Assignment::MatrixAssignment::updateTarget(const AssignmentTarget& target)
+  {
+    assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim));
+  }
+
+  void Assignment::MatrixAssignment::updateMapping(const VariableVector& newVar, const AssignmentTarget& target)
+  {
+    if (newVar.contains(*x))
+    {
+      Range newRange = x->getMappingIn(newVar);
+      if (newRange != colRange)
+      {
+        colRange = newRange;
+        updateTarget(target);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("[Assignment::MatrixAssignment::updateMapping]: new variables do not include this assignment variable.");
     }
   }
 
