@@ -65,17 +65,9 @@ namespace internal
   }
 
   AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef lu, constraint::Type ct)
-    : targetType_(TargetType::Linear), cstrType_(ct), range_(range)
+    : targetType_(TargetType::Linear), cstrType_(ct), range_(range), b_(lu)
   {
-    if (ct == constraint::Type::GREATER_THAN)
-    {
-      l_ = lu;
-    }
-    else if (ct == constraint::Type::LOWER_THAN)
-    {
-      u_ = lu;
-    }
-    else
+    if (!(ct == constraint::Type::GREATER_THAN || ct == constraint::Type::LOWER_THAN))
     {
       throw std::runtime_error("This constructor is for simple-bound constraint, only GREATER_THAN or LOWER_THAN are valid options.");
     }
@@ -159,6 +151,82 @@ namespace internal
   {
     const int half = range_->dim / 2;
     return VectorRef(static_cast<VectorRef>(b_).segment(range_->start + half, half));
+  }
+
+  AssignmentTarget& AssignmentTarget::setA(MatrixRef A)
+  {
+    assert(targetType_ == TargetType::Linear);
+    new(&A_) MatrixRef(A);
+    return *this;
+  }
+
+  AssignmentTarget& AssignmentTarget::setQ(MatrixRef Q)
+  {
+    assert(targetType_ == TargetType::Quadratic);
+    new(&Q_) MatrixRef(Q);
+    return *this;
+  }
+
+  AssignmentTarget& AssignmentTarget::setl(VectorRef l)
+  {
+    assert(targetType_ == TargetType::Linear);
+    assert(cstrType_ == constraint::Type::DOUBLE_SIDED);
+    assert(constraintRhs_ != constraint::RHS::ZERO);
+    new (&l_) VectorRef(l);
+    return *this;
+  }
+
+  AssignmentTarget& AssignmentTarget::setu(VectorRef u)
+  {
+    assert(targetType_ == TargetType::Linear);
+    assert(cstrType_ == constraint::Type::DOUBLE_SIDED);
+    assert(constraintRhs_ != constraint::RHS::ZERO);
+    new (&u_) VectorRef(u);
+    return *this;
+  }
+
+  AssignmentTarget& AssignmentTarget::setb(VectorRef b)
+  {
+    assert(targetType_ == TargetType::Linear);
+    assert(cstrType_ != constraint::Type::DOUBLE_SIDED);
+    assert(constraintRhs_ != constraint::RHS::ZERO);
+    new (&b_) VectorRef(b);
+    return *this;
+  }
+
+  AssignmentTarget& AssignmentTarget::setq(VectorRef q)
+  {
+    assert(targetType_ == TargetType::Quadratic);
+    assert(constraintRhs_ != constraint::RHS::ZERO);
+    new (&q_) VectorRef(q);
+    return *this;
+  }
+
+  void AssignmentTarget::changeData(MatrixRef AQ, VectorRef bq)
+  {
+    if (targetType_ == TargetType::Linear)
+    {
+      setA(AQ);
+      setb(bq);
+    }
+    else
+    {
+      setQ(AQ);
+      setq(bq);
+    }
+  }
+
+  void AssignmentTarget::changeData(MatrixRef A, VectorRef l, VectorRef u)
+  {
+    setA(A);
+    setl(l);
+    setu(u);
+  }
+
+  void AssignmentTarget::changeData(VectorRef l, VectorRef u)
+  {
+    setl(l);
+    setu(u);
   }
 
 }  // namespace internal
