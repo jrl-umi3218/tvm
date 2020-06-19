@@ -34,7 +34,7 @@ namespace task_dynamics
         return ((provider.get())->*method)();
       };
       makeImpl_ = [provider, signal](const FeedForward & self, FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) {
-        auto impl = std::make_unique<Impl>(static_cast<TDImpl&>(*self.TD::impl_(f, t, rhs).release()), self.feedForward_);
+        auto impl = std::make_unique<Impl>(static_cast<TDImpl&&>(*self.TD::impl_(f, t, rhs).release()), self.feedForward_);
         impl->addInputDependency(TDImpl::Update::UpdateValue, provider, signal);
         return impl;
       };
@@ -47,7 +47,7 @@ namespace task_dynamics
     public:
       friend class FeedForward;
 
-      Impl(const TDImpl& base, const getFeedForwardT& ff) : TDImpl(base), feedForward_(ff)
+      Impl(TDImpl&& base, const getFeedForwardT& ff) : TDImpl(base), feedForward_(ff)
       {
         if(feedForward_().size() != this->function().size())
         {
