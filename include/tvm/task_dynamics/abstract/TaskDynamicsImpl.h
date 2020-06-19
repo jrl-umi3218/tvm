@@ -91,9 +91,6 @@ namespace tvm
         constraint::Type type_;
         Eigen::VectorXd rhs_;
 
-        //for casting back to the derived type
-        size_t typeInfo_;
-
         friend TaskDynamics;
       };
 
@@ -126,7 +123,7 @@ namespace tvm
       template<typename T>
       inline bool TaskDynamicsImpl::checkType() const
       {
-        return typeid(T).hash_code() == typeInfo_;
+        return dynamic_cast<const T *>(this) != nullptr;
       }
 
     }  // namespace abstract

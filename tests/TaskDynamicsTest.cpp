@@ -46,8 +46,8 @@ TEST_CASE("Test Constant")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(1, 0, 0)));
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::Constant>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::None>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::Constant::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::None::Impl>());
 }
 
 TEST_CASE("Test None")
@@ -66,8 +66,8 @@ TEST_CASE("Test None")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector2d(0,-2)));
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::None>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::None::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 }
 
 TEST_CASE("Test Proportional")
@@ -87,8 +87,8 @@ TEST_CASE("Test Proportional")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 
   kp = 3;
   dynamic_cast<task_dynamics::P::Impl*>(tdi.get())->gain(kp);
@@ -176,8 +176,8 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16);
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 }
 
 TEST_CASE("Test Proportional Derivative gain types")
@@ -333,8 +333,8 @@ TEST_CASE("Test Velocity Damper")
     FAST_CHECK_EQ(tdl->value()[0], 0);
     FAST_CHECK_EQ(tdl->value()[1], -1);
     FAST_CHECK_EQ(tdl->value()[2], -constant::big_number);
-    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
-    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant>());
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
 
 
     x << -1, -2, -4;
@@ -362,8 +362,8 @@ TEST_CASE("Test Velocity Damper")
     FAST_CHECK_EQ(td2.order(), task_dynamics::Order::Two);
     FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::Two);
     FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-10, -20, -1000)));
-    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
-    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant>());
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
 
     x << -1, -2, -4;
     dx << -1, -1, -1;
@@ -386,7 +386,6 @@ TEST_CASE("Test automatic xsi")
   double di = 3;
   double ds = 1;
   double xsiOff = 1;
-  double dt = 0.1;
 
   //test kinematics
   double big = 100;
