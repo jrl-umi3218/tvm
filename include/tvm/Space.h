@@ -59,6 +59,15 @@ namespace tvm
   class TVM_DLLAPI Space
   {
   public:
+    /** Predifined space types.*/
+    enum class Type
+    {
+      Euclidean,    /** Euclidean space \f$ \mathbb{R}^n \f$.*/
+      SO3,          /** Space of 3d rotations, represented by unit quaternions.*/
+      SE3,          /** Space of 3d transformation, represented by a quaternion and a 3d-vector.*/
+      Unspecified   /** Non-euclidean space of unknown type.*/
+    };
+
     /** Constructor for an Euclidean space
       *
       * /param size size of the space
@@ -78,6 +87,13 @@ namespace tvm
       */
     Space(int size, int representationSize, int tangentRepresentationSize);
 
+    /** Constructor for a given space type
+      *
+      * /param type type of space
+      * /param size size of the space. Only for space types whose size is not fixed.
+      */
+    Space(Type type, int size=-1);
+
     /** Factory function to create a variable.*/
     std::unique_ptr<Variable> createVariable(const std::string& name) const;
 
@@ -87,7 +103,9 @@ namespace tvm
     int rSize() const;
     /** Size of the vector needed to represent a derivative in this space.*/
     int tSize() const;
-    /** Check if this is an Euclidean space (size==representationSize)*/
+    /** Type of the space. */
+    Type type() const;
+    /** Check if this is an Euclidean space.*/
     bool isEuclidean() const;
 
     bool operator==(const Space& other) const
@@ -101,9 +119,10 @@ namespace tvm
     }
 
   private:
-    int mSize_;   //size of this space (as a manifold)
-    int rSize_;   //size of a vector representing a point in this space
-    int tSize_;   //size of a vector representing a velocity in this space
+    int  mSize_;   //size of this space (as a manifold)
+    int  rSize_;   //size of a vector representing a point in this space
+    int  tSize_;   //size of a vector representing a velocity in this space
+    Type type_;    //the space type
   };
 
 }  // namespace tvm

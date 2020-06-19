@@ -22,6 +22,7 @@ TEST_CASE("Test Variable creation")
   FAST_CHECK_EQ(u->space().tSize(), 3);
   FAST_CHECK_UNARY(u->isEuclidean());
   FAST_CHECK_UNARY(dot(u)->isEuclidean());
+  FAST_CHECK_EQ(u->space().type(), Space::Type::Euclidean);
 
   VariablePtr v = Space(3, 4, 3).createVariable("v");
   FAST_CHECK_EQ(v->size(), 4);
@@ -33,12 +34,25 @@ TEST_CASE("Test Variable creation")
   FAST_CHECK_EQ(v->space().tSize(), 3);
   FAST_CHECK_UNARY_FALSE(v->isEuclidean());
   FAST_CHECK_UNARY(dot(v)->isEuclidean());
+  FAST_CHECK_EQ(v->space().type(), Space::Type::Unspecified);
 
   VariablePtr w = v->duplicate("w");
   FAST_CHECK_NE(v, w);
   FAST_CHECK_EQ(v->space(), w->space());
   FAST_CHECK_UNARY_FALSE(w->isEuclidean());
   FAST_CHECK_UNARY(dot(w)->isEuclidean());
+
+  VariablePtr x = Space(Space::Type::SO3).createVariable("x");
+  FAST_CHECK_EQ(x->size(), 4);
+  FAST_CHECK_EQ(dot(x)->size(), 3);
+  FAST_CHECK_UNARY_FALSE(x->space().isEuclidean());
+  FAST_CHECK_EQ(x->space().type(), Space::Type::SO3);
+
+  VariablePtr y = Space(Space::Type::SE3).createVariable("y");
+  FAST_CHECK_EQ(y->size(), 7);
+  FAST_CHECK_EQ(dot(y)->size(), 6);
+  FAST_CHECK_UNARY_FALSE(y->space().isEuclidean());
+  FAST_CHECK_EQ(y->space().type(), Space::Type::SE3);
 }
 
 TEST_CASE("Test Variable value")
