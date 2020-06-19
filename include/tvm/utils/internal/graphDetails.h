@@ -75,7 +75,7 @@ namespace internal
   */
   template<typename Object1, typename Object2, typename... Args>
   inline void parseSourcesAndOutputs(graph::CallGraph* g, std::shared_ptr<graph::internal::Inputs> user,
-    std::shared_ptr<Object1> obj1, std::shared_ptr<Object2> obj2, Args&&... args)
+    std::shared_ptr<Object1>, std::shared_ptr<Object2> obj2, Args&&... args)
   {
     g->add(user);
     auto newUser = std::make_shared<graph::internal::Inputs>();
@@ -86,7 +86,7 @@ namespace internal
   * End of recursion.
   */
   template<typename Object>
-  inline void parseSourcesAndOutputs(graph::CallGraph* g, std::shared_ptr<graph::internal::Inputs> user, std::shared_ptr<Object> obj)
+  inline void parseSourcesAndOutputs(graph::CallGraph* g, std::shared_ptr<graph::internal::Inputs> user, std::shared_ptr<Object>)
   {
     g->add(user);
   }
