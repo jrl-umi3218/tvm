@@ -224,20 +224,25 @@ TEST_CASE("Test Feed Forward Proportional Derivative")
   double kv = 3;
   task_dynamics::FeedForwardPD td(provider, &FFProvider::value, FFProvider::Output::Value, kp,kv);
   VectorXd rhs(1); rhs[0] = -1;
-  auto tdi = td.impl(f, constraint::Type::EQUAL, rhs);
+  TaskDynamicsPtr tdi = td.impl(f, constraint::Type::EQUAL, rhs);
 
+  auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+  auto gl = utils::generateUpdateGraph(tdi, Value);
+  gl->execute();
 
-  // FIXME Create a computation graph to ensure the FF dynamics depends on the reference update
-  f->updateValue();
-  f->updateVelocityAndNormalAcc();
-  tdi->updateValue();
-
+  FAST_CHECK_UNARY(provider->updated_);
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 - 10.0);
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>());
+  FAST_REQUIRE_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>()); // REQUIRE because we do a static_cast after
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
+
+  kp = 3;
+  kv = 2;
+  static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp , kv);
+  gl->execute();
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 - 10.0);
 }
 
 TEST_CASE("Test Proportional Derivative gain types")
