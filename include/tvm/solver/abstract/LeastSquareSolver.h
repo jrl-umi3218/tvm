@@ -84,6 +84,8 @@ namespace abstract
     /** Finalize the build.*/
     void finalizeBuild();
 
+    void updateBuild(int nObj, int nEq, int nIneq);
+
     /** Add a bound constraint to the solver. If multiple bounds appears on the
       * same variable, their intersection is taken.
       */

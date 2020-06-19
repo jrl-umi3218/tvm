@@ -180,9 +180,9 @@ CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
   return detail::call_impl<MatrixType, A, W, M, F, Tuple, 0 == std::tuple_size<ttype>::value, std::tuple_size<ttype>::value>::call(std::forward<Tuple>(t));
 }
 
-template<WeightMult W> struct WArg { static std::tuple<> get(double, const Ref<const VectorXd>&) { return {}; } };
-template<> struct WArg<SCALAR> { static std::tuple<double> get(double s, const Ref<const VectorXd>&) { return std::forward_as_tuple(s); } };
-template<> struct WArg<DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(double, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
+template<WeightMult W> struct WArg { static std::tuple<> get(const double&, const Ref<const VectorXd>&) { return {}; } };
+template<> struct WArg<SCALAR> { static std::tuple<const double&> get(const double& s, const Ref<const VectorXd>&) { return std::forward_as_tuple(s); } };
+template<> struct WArg<DIAGONAL> { static std::tuple<const Ref<const VectorXd>&> get(const double&, const Ref<const VectorXd>& w) { return std::forward_as_tuple(w); } };
 
 template<MatrixMult M, typename MatrixType>
 struct MArg { static std::tuple<> get(const Ref<const MatrixXd>&, TFun<MatrixType>) { return {}; } };
@@ -205,7 +205,7 @@ struct SArg<ZERO, MatrixType> { static std::tuple<> get(const Ref<const MatrixTy
   * exactly the arguments needed byt the constructor.
   */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
-CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to, double s, const Ref<const VectorXd>& w,
+CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to, const double& s, const Ref<const VectorXd>& w,
   const Ref<const MatrixXd>& Mult, TFun<MatrixType> f,
   const Ref<const MatrixType>& from, double constant)
 {

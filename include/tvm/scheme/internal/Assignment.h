@@ -111,6 +111,9 @@ namespace internal
     Assignment(Assignment&&) = default;
 
     AssignmentTarget& target(IWontForgetToCallUpdates = {});
+    /** Change the weight.*/
+    bool weight(double alpha);
+    bool weight(const Eigen::VectorXd& w);
 
     /** To be called when the source has been resized*/
     void onUpdatedSource();
@@ -118,9 +121,7 @@ namespace internal
     void onUpdatedTarget();
     /** To be called when the variables change.*/
     void onUpdatedMapping(const VariableVector& newVar, bool updateMatrixtarget = true);
-    /** Change the weight of constraint. TODO: how to specify the constraint?*/
-    void weight(double alpha);
-    void weight(const Eigen::VectorXd& w);
+    /** To be called after changing the weights.*/
 
     /** Perform the assignment.*/
     void run();
@@ -315,8 +316,8 @@ namespace internal
     std::vector<VectorSubstitutionAssignement> vectorSubstitutionAssignments_;
 
     /** Processed requirements*/
-    double scalarWeight_;
-    double minusScalarWeight_;
+    std::unique_ptr<double> scalarWeight_;
+    std::unique_ptr<double> minusScalarWeight_;
     Eigen::VectorXd anisotropicWeight_;
     Eigen::VectorXd minusAnisotropicWeight_;
 
@@ -419,9 +420,9 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, minusScalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *minusScalarWeight_);
         else
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *scalarWeight_);
       }
     }
     else
@@ -451,9 +452,9 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, minusScalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, *minusScalarWeight_, Mult);
         else
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, scalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, *scalarWeight_, Mult);
       }
     }
     else

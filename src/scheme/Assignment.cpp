@@ -58,6 +58,8 @@ namespace internal
     , target_(target)
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
+    , scalarWeight_(new double(1))
+    , minusScalarWeight_(new double(-1))
     , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
     , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
   {
@@ -71,8 +73,8 @@ namespace internal
     : source_(source)
     , target_(target)
     , requirements_(nullptr)
-    , scalarWeight_(1)
-    , minusScalarWeight_(-1)
+    , scalarWeight_(new double(1))
+    , minusScalarWeight_(new double(-1))
     , anisotropicWeight_()
     , minusAnisotropicWeight_()
     , useDefaultScalarWeight_(true)
@@ -113,14 +115,14 @@ namespace internal
       a.updateMapping(newVar, target_, updateMatrixTarget);
   }
 
-  void Assignment::weight(double /*alpha*/)
+  bool Assignment::weight(double /*alpha*/)
   {
-    //TODO
+    return true;
   }
 
-  void Assignment::weight(const Eigen::VectorXd& /*w*/)
+  bool Assignment::weight(const Eigen::VectorXd& /*w*/)
   {
-    //TODO
+    return true;
   }
 
   void Assignment::run()
@@ -394,14 +396,14 @@ namespace internal
         if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
         {
           useDefaultScalarWeight_ = true;
-          scalarWeight_ = 1;
-          minusScalarWeight_ = -1;
+          *scalarWeight_ = 1;
+          *minusScalarWeight_ = -1;
         }
         else
         {
           useDefaultScalarWeight_ = false;
-          scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
-          minusScalarWeight_ = -scalarWeight_;
+          *scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+          *minusScalarWeight_ = -*scalarWeight_;
         }
         if (requirements_->anisotropicWeight().isDefault())
         {
@@ -411,7 +413,7 @@ namespace internal
         {
           useDefaultAnisotropicWeight_ = false;
           anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
-          anisotropicWeight_ *= scalarWeight_;
+          anisotropicWeight_ *= *scalarWeight_;
           minusAnisotropicWeight_ = -anisotropicWeight_;
         }
         break;

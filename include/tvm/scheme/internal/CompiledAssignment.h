@@ -373,7 +373,7 @@ namespace internal
   class WeightMultBase<SCALAR>
   {
   public:
-    WeightMultBase(double s) : s_(s) {};
+    WeightMultBase(const double& s) : s_(s) {};
 
     template<typename T>
     decltype(double()*std::declval<T>()) applyWeightMult(const T& M) { return s_ * M; }
@@ -387,7 +387,7 @@ namespace internal
 #endif
 
   private:
-    double s_;
+    const double& s_;
   };
 
   /** Specialization for DIAGONAL */
