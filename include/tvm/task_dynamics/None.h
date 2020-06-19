@@ -46,10 +46,13 @@ namespace tvm
       public:
         Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs);
         void updateValue() override;
+        ~Impl() override = default;
 
       private:
         const function::abstract::LinearFunction* lf_;
       };
+
+      ~None() override = default;
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

@@ -56,6 +56,7 @@ namespace tvm::task_dynamics
     public:
       Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max);
       void updateValue() override;
+      ~Impl() override = default;
 
       /** Access to the task dynamics being clamped. */
       const std::shared_ptr<TDImpl>& inner() const;
@@ -117,6 +118,8 @@ namespace tvm::task_dynamics
       *        have (\f$ b_{min}\f$). We need \f$ b_{min} \leq 0 \leq b_{max}\f$.
       */
     Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max);
+
+    ~Clamped() override = default;
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

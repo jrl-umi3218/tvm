@@ -102,6 +102,8 @@ namespace tvm
         
         void updateValue() override;
 
+        ~Impl() override = default;
+
       private:
         /** Partial update computation. \p s is a sign factor to apply on the velocity.*/
         void updateValue_(double s);
@@ -138,6 +140,8 @@ namespace tvm
         * \param big value used as infinity.
         */
       VelocityDamper(double dt, const VelocityDamperConfig& config, double big = constant::big_number);
+
+      ~VelocityDamper() override = default;
 
     protected:
       std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

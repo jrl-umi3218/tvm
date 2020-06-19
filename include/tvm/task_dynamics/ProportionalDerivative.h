@@ -57,6 +57,8 @@ namespace task_dynamics
       Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp, const Gain& kv);
       void updateValue() override;
 
+      ~Impl() override = default;
+
       /** Get the current gains as a pair (kp, kv). */
       std::pair<const Gain&, const Gain&> gains() const;
       /** Set gains.
@@ -197,6 +199,8 @@ namespace task_dynamics
       * decomposition, matrices multiplications and memory allocation.
       */
     ProportionalDerivative(const Eigen::MatrixXd& kp);
+
+    ~ProportionalDerivative() override = default;
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

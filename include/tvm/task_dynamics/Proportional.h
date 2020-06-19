@@ -56,6 +56,8 @@ namespace task_dynamics
       Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Gain& kp);
       void updateValue() override;
 
+      ~Impl() override = default;
+
       /** Change the gain to a new scalar. */
       void gain(double kp);
       /** Change the gain to a new diagonal matrix. */
@@ -94,6 +96,8 @@ namespace task_dynamics
     Proportional(const Eigen::VectorXd& kp);
     /** Proportional dynamics with matrix gain. */
     Proportional(const Eigen::MatrixXd& kp);
+
+    ~Proportional() override = default;
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;

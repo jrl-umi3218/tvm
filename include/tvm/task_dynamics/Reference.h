@@ -43,6 +43,8 @@ namespace tvm::task_dynamics
       Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, Order order, FunctionPtr ref);
       void updateValue() override;
 
+      ~Impl() override = default;
+
       /** Getter on the reference function. */
       FunctionPtr ref() const { return ref_; }
       /** Setter on the reference function. */
@@ -58,6 +60,8 @@ namespace tvm::task_dynamics
       * \param ref The reference function. 
       */
     Reference(Order order, const FunctionPtr& ref);
+
+    ~Reference() override = default;
 
   protected:
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
