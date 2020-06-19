@@ -9,6 +9,7 @@
 #include <tvm/Variable.h>
 #include <tvm/task_dynamics/Clamped.h>
 #include <tvm/task_dynamics/Constant.h>
+#include <tvm/task_dynamics/FeedForward.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -22,6 +23,35 @@
 
 using namespace Eigen;
 using namespace tvm;
+
+/** Feed forward value provider */
+class FFProvider : public tvm::graph::abstract::Node<FFProvider>
+{
+public:
+  SET_OUTPUTS(FFProvider, Value)
+  SET_UPDATES(FFProvider, Value)
+
+  FFProvider(const Eigen::VectorXd & value)
+  {
+    registerUpdates(Update::Value, &FFProvider::updateValue);
+    addOutputDependency(Output::Value, Update::Value);
+    value_  = value;
+  }
+
+  const Eigen::VectorXd & value() const
+  {
+    return value_;
+  }
+
+  void updateValue()
+  {
+    updated_ = true;
+  }
+
+  Eigen::VectorXd value_;
+  bool updated_ = false;
+};
+
 
 TEST_CASE("Valid construction")
 {
@@ -177,6 +207,36 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16);
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
+}
+
+TEST_CASE("Test Feed Forward Proportional Derivative")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+  auto f = std::make_shared<SphereFunction>(x, Vector3d(1, 0, -3), 2);
+
+  auto provider = std::make_shared<FFProvider>(Eigen::VectorXd::Constant(1, 10.0));
+
+  double kp = 2;
+  double kv = 3;
+  task_dynamics::FeedForwardPD td(provider, &FFProvider::value, FFProvider::Output::Value, kp,kv);
+  VectorXd rhs(1); rhs[0] = -1;
+  auto tdi = td.impl(f, constraint::Type::EQUAL, rhs);
+
+
+  // FIXME Create a computation graph to ensure the FF dynamics depends on the reference update
+  f->updateValue();
+  f->updateVelocityAndNormalAcc();
+  tdi->updateValue();
+
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 - 10.0);
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>());
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 }
 
