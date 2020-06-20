@@ -34,8 +34,7 @@ namespace task_dynamics
         return ((provider.get())->*method)();
       };
       makeImpl_ = [provider, signal](const FeedForward & self, FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) {
-        auto impl = std::make_unique<Impl>(static_cast<TDImpl&&>(*self.TD::impl_(f, t, rhs).release()), self.feedForward_);
-        impl->addInputDependency(TDImpl::Update::UpdateValue, provider, signal);
+        auto impl = self.impl_(f, t, rhs, self.feedForward_, provider, signal);
         return impl;
       };
     }
@@ -47,12 +46,14 @@ namespace task_dynamics
     public:
       friend class FeedForward;
 
-      Impl(TDImpl&& base, const getFeedForwardT& ff) : TDImpl(base), feedForward_(ff)
+      template<class FFProvider, class FFSignal, typename ... Args>
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const getFeedForwardT& ff, std::shared_ptr<FFProvider> provider, FFSignal signal, Args && ... args) : TDImpl(f, t, rhs, std::forward<Args>(args)...), feedForward_(ff)
       {
         if(feedForward_().size() != this->function().size())
         {
           throw std::runtime_error("[task_dynamics::FeedForward] Feed forward term does not have the same size as the provided function");
         }
+        this->addInputDependency(TDImpl::Update::UpdateValue, provider, signal);
       }
 
       ~Impl() override = default;
@@ -72,6 +73,11 @@ namespace task_dynamics
     std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override
     {
       return makeImpl_(*this, f, t, rhs);
+    }
+    template<typename ... Args>
+    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, Args&& ... args) const
+    {
+      return TD::template impl_<FeedForward::Impl>(f, t, rhs, std::forward<Args>(args)...);
     }
   };
 
