@@ -110,7 +110,8 @@ namespace tvm
 
     bool operator==(const Space& other) const
     {
-      return this->mSize_ == other.mSize_ && this->rSize_ == other.rSize_ && this->tSize_ == other.tSize_;
+      return this->mSize_ == other.mSize_ && this->rSize_ == other.rSize_ 
+        && this->tSize_ == other.tSize_ && this->type_ == other.type_;
     }
 
     bool operator!=(const Space& other) const
