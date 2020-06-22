@@ -138,9 +138,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2fff79056fb0ffb39cd1c2dd8a40d40"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#ae2fff79056fb0ffb39cd1c2dd8a40d40">linearIn</a> (const <a class="el" href="a01765.html">Variable</a> &amp;x) const</td></tr>
 <tr class="memdesc:ae2fff79056fb0ffb39cd1c2dd8a40d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearity w.r.t <code>x</code>.  <a href="#ae2fff79056fb0ffb39cd1c2dd8a40d40">More...</a><br /></td></tr>
 <tr class="separator:ae2fff79056fb0ffb39cd1c2dd8a40d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5eadb4206e9b45ab7cbea26ca3a189f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01625.html">Space</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#af5eadb4206e9b45ab7cbea26ca3a189f">imageSpace</a> () const</td></tr>
+<tr class="separator:af5eadb4206e9b45ab7cbea26ca3a189f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fa00e06c0c1ec2686d5996c8ea75d85"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a1fa00e06c0c1ec2686d5996c8ea75d85">size</a> () const</td></tr>
-<tr class="memdesc:a1fa00e06c0c1ec2686d5996c8ea75d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the output size <code>m</code>.  <a href="#a1fa00e06c0c1ec2686d5996c8ea75d85">More...</a><br /></td></tr>
+<tr class="memdesc:a1fa00e06c0c1ec2686d5996c8ea75d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the image space size.  <a href="#a1fa00e06c0c1ec2686d5996c8ea75d85">More...</a><br /></td></tr>
 <tr class="separator:a1fa00e06c0c1ec2686d5996c8ea75d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f897d0aef9869861cf0f861cc2a1b84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a2f897d0aef9869861cf0f861cc2a1b84">rSize</a> () const</td></tr>
+<tr class="memdesc:a2f897d0aef9869861cf0f861cc2a1b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the output value (representation size of the image space).  <a href="#a2f897d0aef9869861cf0f861cc2a1b84">More...</a><br /></td></tr>
+<tr class="separator:a2f897d0aef9869861cf0f861cc2a1b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66843a84a3b39fa1a99dbc5de2676107"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a66843a84a3b39fa1a99dbc5de2676107">tSize</a> () const</td></tr>
+<tr class="memdesc:a66843a84a3b39fa1a99dbc5de2676107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the tangent space to the image space (or equivalently row size of the jacobian matrices).  <a href="#a66843a84a3b39fa1a99dbc5de2676107">More...</a><br /></td></tr>
+<tr class="separator:a66843a84a3b39fa1a99dbc5de2676107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a655953a67eeab73a1bba388716144e9f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01773.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a655953a67eeab73a1bba388716144e9f">variables</a> () const</td></tr>
 <tr class="memdesc:a655953a67eeab73a1bba388716144e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the variables.  <a href="#a655953a67eeab73a1bba388716144e9f">More...</a><br /></td></tr>
 <tr class="separator:a655953a67eeab73a1bba388716144e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,8 +215,11 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:af9184d29af7563cd7c0a2dc88a55a1cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#af9184d29af7563cd7c0a2dc88a55a1cf">FirstOrderProvider</a> (int m)</td></tr>
-<tr class="memdesc:af9184d29af7563cd7c0a2dc88a55a1cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#af9184d29af7563cd7c0a2dc88a55a1cf">More...</a><br /></td></tr>
+<tr class="memdesc:af9184d29af7563cd7c0a2dc88a55a1cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a function/constraint with value in \( \mathbb{R}^m \).  <a href="#af9184d29af7563cd7c0a2dc88a55a1cf">More...</a><br /></td></tr>
 <tr class="separator:af9184d29af7563cd7c0a2dc88a55a1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a924e364ff31bcd7d315b8cdea26bbd1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a924e364ff31bcd7d315b8cdea26bbd1b">FirstOrderProvider</a> (<a class="el" href="a01625.html">Space</a> image)</td></tr>
+<tr class="memdesc:a924e364ff31bcd7d315b8cdea26bbd1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a function/constraint with value in a specified space.  <a href="#a924e364ff31bcd7d315b8cdea26bbd1b">More...</a><br /></td></tr>
+<tr class="separator:a924e364ff31bcd7d315b8cdea26bbd1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f0411fb45d39bc1dca8f50d83297d77"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a0f0411fb45d39bc1dca8f50d83297d77">resizeCache</a> ()</td></tr>
 <tr class="memdesc:a0f0411fb45d39bc1dca8f50d83297d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize all cache members corresponding to active outputs.  <a href="#a0f0411fb45d39bc1dca8f50d83297d77">More...</a><br /></td></tr>
 <tr class="separator:a0f0411fb45d39bc1dca8f50d83297d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -277,8 +288,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a9c4ade899e4a0e07f716ea6d275d8f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a22c6f67c4de05fc344c661ac3c6c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00386.html#a1799eeadc084df3295499f98dad21b6d">utils::internal::map</a>&lt; <a class="el" href="a01765.html">Variable</a> const  *, <a class="el" href="a00377.html#a1817451238184d41f13b5502c872ec94">MatrixWithProperties</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a66a22c6f67c4de05fc344c661ac3c6c6">jacobian_</a></td></tr>
 <tr class="separator:a66a22c6f67c4de05fc344c661ac3c6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a53bbec2a310394f2e02e454b5ef013"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a3a53bbec2a310394f2e02e454b5ef013">m_</a></td></tr>
-<tr class="separator:a3a53bbec2a310394f2e02e454b5ef013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad026691e0b6d793385fc139ab565e88d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01625.html">Space</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#ad026691e0b6d793385fc139ab565e88d">imageSpace_</a></td></tr>
+<tr class="separator:ad026691e0b6d793385fc139ab565e88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a229c83683265d3b88b8c4305a5f05544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01773.html">VariableVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#a229c83683265d3b88b8c4305a5f05544">variables_</a></td></tr>
 <tr class="separator:a229c83683265d3b88b8c4305a5f05544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedd09cf8a42b924afeebbf534e08a415"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00386.html#a1799eeadc084df3295499f98dad21b6d">utils::internal::map</a>&lt; <a class="el" href="a01765.html">Variable</a> const  *, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html#aedd09cf8a42b924afeebbf534e08a415">linear_</a></td></tr>
@@ -373,7 +384,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
  </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af9184d29af7563cd7c0a2dc88a55a1cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9184d29af7563cd7c0a2dc88a55a1cf">&#9670;&nbsp;</a></span>FirstOrderProvider()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9184d29af7563cd7c0a2dc88a55a1cf">&#9670;&nbsp;</a></span>FirstOrderProvider() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,10 +407,44 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>Constructor for a function/constraint with value in \( \mathbb{R}^m \). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">m</td><td>the output size of the function/constraint, i.e. the size of the value (or equivalently the row size of the jacobians). </td></tr>
+    <tr><td class="paramname">m</td><td>the size of the function/constraint image space, i.e. the row size of the jacobians (or equivalently in this case the size of the output value). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a924e364ff31bcd7d315b8cdea26bbd1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a924e364ff31bcd7d315b8cdea26bbd1b">&#9670;&nbsp;</a></span>FirstOrderProvider() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::internal::FirstOrderProvider::FirstOrderProvider </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01625.html">Space</a>&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for a function/constraint with value in a specified space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Description of the image space </td></tr>
   </table>
   </dd>
 </dl>
@@ -522,6 +567,31 @@ Additional Inherited Members</h2></td></tr>
 <p>Called at the end of <a class="el" href="a01185.html#a716434d1c4ee931e2a7d1162934aad3c" title="Add a variable. ">addVariable()</a>; </p>
 
 <p>Reimplemented in <a class="el" href="a01017.html#a984382a49725fad906ec99ffccb8837f">tvm::function::abstract::Function</a>.</p>
+
+</div>
+</div>
+<a id="af5eadb4206e9b45ab7cbea26ca3a189f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5eadb4206e9b45ab7cbea26ca3a189f">&#9670;&nbsp;</a></span>imageSpace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01625.html">Space</a> &amp; tvm::internal::FirstOrderProvider::imageSpace </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -697,7 +767,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Resize all cache members corresponding to active outputs. </p>
 <p>This can be overriden in case you do not need all of the default mechanism (typically if you will not use part of the cache). If you override to perform additional operations, do not forget to call this base version in the derived classes. </p>
 
-<p>Reimplemented in <a class="el" href="a00949.html#abf34b9407c03d930db09d00627ee56b9">tvm::constraint::abstract::Constraint</a>, <a class="el" href="a01021.html#a91e805f79dd07e7f530eac257c15c932">tvm::function::abstract::LinearFunction</a>, and <a class="el" href="a01017.html#a6731cf72240474247174fdde116a2506">tvm::function::abstract::Function</a>.</p>
+<p>Reimplemented in <a class="el" href="a00949.html#abf34b9407c03d930db09d00627ee56b9">tvm::constraint::abstract::Constraint</a>, <a class="el" href="a01017.html#a6731cf72240474247174fdde116a2506">tvm::function::abstract::Function</a>, and <a class="el" href="a01021.html#a91e805f79dd07e7f530eac257c15c932">tvm::function::abstract::LinearFunction</a>.</p>
 
 </div>
 </div>
@@ -757,6 +827,33 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a2f897d0aef9869861cf0f861cc2a1b84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f897d0aef9869861cf0f861cc2a1b84">&#9670;&nbsp;</a></span>rSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tvm::internal::FirstOrderProvider::rSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size of the output value (representation size of the image space). </p>
+
+</div>
+</div>
 <a id="a1fa00e06c0c1ec2686d5996c8ea75d85"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fa00e06c0c1ec2686d5996c8ea75d85">&#9670;&nbsp;</a></span>size()</h2>
 
@@ -780,7 +877,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Return the output size <code>m</code>. </p>
+<p>Return the image space size. </p>
 
 <p class="reference">Referenced by <a class="el" href="a01025.html#a1201b8c94072ff552f38b4d459183f87">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>.</p>
 
@@ -884,6 +981,33 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a66843a84a3b39fa1a99dbc5de2676107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66843a84a3b39fa1a99dbc5de2676107">&#9670;&nbsp;</a></span>tSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tvm::internal::FirstOrderProvider::tSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size of the tangent space to the image space (or equivalently row size of the jacobian matrices). </p>
+
+</div>
+</div>
 <a id="a9037013380af4e4df35867e98b990605"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9037013380af4e4df35867e98b990605">&#9670;&nbsp;</a></span>value()</h2>
 
@@ -943,6 +1067,28 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad026691e0b6d793385fc139ab565e88d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad026691e0b6d793385fc139ab565e88d">&#9670;&nbsp;</a></span>imageSpace_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01625.html">Space</a> tvm::internal::FirstOrderProvider::imageSpace_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a66a22c6f67c4de05fc344c661ac3c6c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66a22c6f67c4de05fc344c661ac3c6c6">&#9670;&nbsp;</a></span>jacobian_</h2>
 
@@ -978,28 +1124,6 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="a00386.html#a1799eeadc084df3295499f98dad21b6d">utils::internal::map</a>&lt;<a class="el" href="a01765.html">Variable</a> const*, bool&gt; tvm::internal::FirstOrderProvider::linear_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3a53bbec2a310394f2e02e454b5ef013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a53bbec2a310394f2e02e454b5ef013">&#9670;&nbsp;</a></span>m_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int tvm::internal::FirstOrderProvider::m_</td>
         </tr>
       </table>
   </td>
@@ -1062,7 +1186,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00377.html">internal</a></li><li class="navelem"><a class="el" href="a01185.html">FirstOrderProvider</a></li>
-    <li class="footer">Generated on Tue Jun 16 2020 02:42:30 for TVM by
+    <li class="footer">Generated on Mon Jun 22 2020 05:29:56 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

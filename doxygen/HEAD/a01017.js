@@ -1,6 +1,7 @@
 var a01017 =
 [
     [ "Function", "a01017.html#a22a6013990c0d433610fbd9affeac6d9", null ],
+    [ "Function", "a01017.html#a759af5751424860ea38ee7c425b2d1e8", null ],
     [ "addVariable_", "a01017.html#a984382a49725fad906ec99ffccb8837f", null ],
     [ "JDot", "a01017.html#a590e4ad861913913a0824df05d5202c8", null ],
     [ "normalAcceleration", "a01017.html#a293c358e245f9a82b254d1d9f22db5f6", null ],

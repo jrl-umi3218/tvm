@@ -6239,10 +6239,31 @@
       <arglist>(const Variable &amp;x) const</arglist>
     </member>
     <member kind="function">
+      <type>const Space &amp;</type>
+      <name>imageSpace</name>
+      <anchorfile>a01185.html</anchorfile>
+      <anchor>af5eadb4206e9b45ab7cbea26ca3a189f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>int</type>
       <name>size</name>
       <anchorfile>a01185.html</anchorfile>
       <anchor>a1fa00e06c0c1ec2686d5996c8ea75d85</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>rSize</name>
+      <anchorfile>a01185.html</anchorfile>
+      <anchor>a2f897d0aef9869861cf0f861cc2a1b84</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>tSize</name>
+      <anchorfile>a01185.html</anchorfile>
+      <anchor>a66843a84a3b39fa1a99dbc5de2676107</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -6258,6 +6279,13 @@
       <anchorfile>a01185.html</anchorfile>
       <anchor>af9184d29af7563cd7c0a2dc88a55a1cf</anchor>
       <arglist>(int m)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type></type>
+      <name>FirstOrderProvider</name>
+      <anchorfile>a01185.html</anchorfile>
+      <anchor>a924e364ff31bcd7d315b8cdea26bbd1b</anchor>
+      <arglist>(Space image)</arglist>
     </member>
     <member kind="function" protection="protected" virtualness="virtual">
       <type>virtual void</type>
@@ -6351,10 +6379,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="protected">
-      <type>int</type>
-      <name>m_</name>
+      <type>Space</type>
+      <name>imageSpace_</name>
       <anchorfile>a01185.html</anchorfile>
-      <anchor>a3a53bbec2a310394f2e02e454b5ef013</anchor>
+      <anchor>ad026691e0b6d793385fc139ab565e88d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="protected">
@@ -6563,6 +6591,13 @@
       <anchorfile>a01017.html</anchorfile>
       <anchor>a22a6013990c0d433610fbd9affeac6d9</anchor>
       <arglist>(int m=0)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type></type>
+      <name>Function</name>
+      <anchorfile>a01017.html</anchorfile>
+      <anchor>a759af5751424860ea38ee7c425b2d1e8</anchor>
+      <arglist>(Space image)</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>void</type>
@@ -12353,6 +12388,17 @@
   <compound kind="class">
     <name>tvm::Space</name>
     <filename>a01625.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>Type</name>
+      <anchorfile>a01625.html</anchorfile>
+      <anchor>afed52b615be4ddd3ef124f791460f7e0</anchor>
+      <arglist></arglist>
+      <enumvalue file="a01625.html" anchor="afed52b615be4ddd3ef124f791460f7e0a3e43207685247008d9e1ae53ecf8cab3">Euclidean</enumvalue>
+      <enumvalue file="a01625.html" anchor="afed52b615be4ddd3ef124f791460f7e0a954c8ed8efbceb3a1b9495e4a1acf3a0">SO3</enumvalue>
+      <enumvalue file="a01625.html" anchor="afed52b615be4ddd3ef124f791460f7e0af011f2d250cf1ccf9b7f39e9f2ff3c2b">SE3</enumvalue>
+      <enumvalue file="a01625.html" anchor="afed52b615be4ddd3ef124f791460f7e0a6fcdc090caeade09d0efd6253932b6f5">Unspecified</enumvalue>
+    </member>
     <member kind="function">
       <type></type>
       <name>Space</name>
@@ -12373,6 +12419,13 @@
       <anchorfile>a01625.html</anchorfile>
       <anchor>a99ad058c2c07a10b72a539e829fa4b50</anchor>
       <arglist>(int size, int representationSize, int tangentRepresentationSize)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Space</name>
+      <anchorfile>a01625.html</anchorfile>
+      <anchor>af455f0e3a88391cb32a97ccc67d4d12a</anchor>
+      <arglist>(Type type, int size=-1)</arglist>
     </member>
     <member kind="function">
       <type>std::unique_ptr&lt; Variable &gt;</type>
@@ -12400,6 +12453,13 @@
       <name>tSize</name>
       <anchorfile>a01625.html</anchorfile>
       <anchor>ad182eecc9fce96331b8038a9bc8a0626</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Type</type>
+      <name>type</name>
+      <anchorfile>a01625.html</anchorfile>
+      <anchor>ab9ac5699b5f3c5e65f85f4edd0125095</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">

@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('a01625.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01622.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -101,6 +102,21 @@ $(document).ready(function(){initNavTree('a01625.html','');});
 
 <p><code>#include &lt;tvm/Space.h&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afed52b615be4ddd3ef124f791460f7e0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> { <br />
+&#160;&#160;<a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0a3e43207685247008d9e1ae53ecf8cab3">Type::Euclidean</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0a954c8ed8efbceb3a1b9495e4a1acf3a0">Type::SO3</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0af011f2d250cf1ccf9b7f39e9f2ff3c2b">Type::SE3</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0a6fcdc090caeade09d0efd6253932b6f5">Type::Unspecified</a>
+<br />
+ }<tr class="memdesc:afed52b615be4ddd3ef124f791460f7e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predifined space types.  <a href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afed52b615be4ddd3ef124f791460f7e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac4b192406e699cc657b0a34d5f236ba4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#ac4b192406e699cc657b0a34d5f236ba4">Space</a> (int <a class="el" href="a01625.html#a52d03cec25b4951255300be1925049f9">size</a>)</td></tr>
@@ -112,6 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99ad058c2c07a10b72a539e829fa4b50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#a99ad058c2c07a10b72a539e829fa4b50">Space</a> (int <a class="el" href="a01625.html#a52d03cec25b4951255300be1925049f9">size</a>, int representationSize, int tangentRepresentationSize)</td></tr>
 <tr class="memdesc:a99ad058c2c07a10b72a539e829fa4b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a manifold where tsize != size.  <a href="#a99ad058c2c07a10b72a539e829fa4b50">More...</a><br /></td></tr>
 <tr class="separator:a99ad058c2c07a10b72a539e829fa4b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af455f0e3a88391cb32a97ccc67d4d12a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#af455f0e3a88391cb32a97ccc67d4d12a">Space</a> (<a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> <a class="el" href="a01625.html#ab9ac5699b5f3c5e65f85f4edd0125095">type</a>, int <a class="el" href="a01625.html#a52d03cec25b4951255300be1925049f9">size</a>=-1)</td></tr>
+<tr class="memdesc:af455f0e3a88391cb32a97ccc67d4d12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a given space type.  <a href="#af455f0e3a88391cb32a97ccc67d4d12a">More...</a><br /></td></tr>
+<tr class="separator:af455f0e3a88391cb32a97ccc67d4d12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9410ecc4cb207ec8e65edaf61990e84e"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01765.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#a9410ecc4cb207ec8e65edaf61990e84e">createVariable</a> (const std::string &amp;name) const</td></tr>
 <tr class="memdesc:a9410ecc4cb207ec8e65edaf61990e84e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function to create a variable.  <a href="#a9410ecc4cb207ec8e65edaf61990e84e">More...</a><br /></td></tr>
 <tr class="separator:a9410ecc4cb207ec8e65edaf61990e84e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,8 +143,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad182eecc9fce96331b8038a9bc8a0626"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#ad182eecc9fce96331b8038a9bc8a0626">tSize</a> () const</td></tr>
 <tr class="memdesc:ad182eecc9fce96331b8038a9bc8a0626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the vector needed to represent a derivative in this space.  <a href="#ad182eecc9fce96331b8038a9bc8a0626">More...</a><br /></td></tr>
 <tr class="separator:ad182eecc9fce96331b8038a9bc8a0626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#ab9ac5699b5f3c5e65f85f4edd0125095">type</a> () const</td></tr>
+<tr class="memdesc:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the space.  <a href="#ab9ac5699b5f3c5e65f85f4edd0125095">More...</a><br /></td></tr>
+<tr class="separator:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af45239f58ccd885d0a939084b125c979"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#af45239f58ccd885d0a939084b125c979">isEuclidean</a> () const</td></tr>
-<tr class="memdesc:af45239f58ccd885d0a939084b125c979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this is an Euclidean space (size==representationSize)  <a href="#af45239f58ccd885d0a939084b125c979">More...</a><br /></td></tr>
+<tr class="memdesc:af45239f58ccd885d0a939084b125c979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this is an Euclidean space.  <a href="#af45239f58ccd885d0a939084b125c979">More...</a><br /></td></tr>
 <tr class="separator:af45239f58ccd885d0a939084b125c979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee25e1bfd33fac77fd95b79bbfc761b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html#aee25e1bfd33fac77fd95b79bbfc761b6">operator==</a> (const <a class="el" href="a01625.html">Space</a> &amp;other) const</td></tr>
 <tr class="separator:aee25e1bfd33fac77fd95b79bbfc761b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,9 +166,44 @@ Public Member Functions</h2></td></tr>
 <li>SO(3), the 3d rotation space, when represented by quaternions, has a size of 3, a rsize of 4 and a tsize of 3,</li>
 <li>S(2), the sphere in dimension 3 has a size of 2, and rsize and tsize of 3. </li>
 </ul>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="afed52b615be4ddd3ef124f791460f7e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed52b615be4ddd3ef124f791460f7e0">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">tvm::Space::Type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Predifined space types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a3e43207685247008d9e1ae53ecf8cab3"></a>Euclidean&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a954c8ed8efbceb3a1b9495e4a1acf3a0"></a>SO3&#160;</td><td class="fielddoc"><p>Euclidean space \( \mathbb{R}^n \). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0af011f2d250cf1ccf9b7f39e9f2ff3c2b"></a>SE3&#160;</td><td class="fielddoc"><p><a class="el" href="a01625.html" title="Description of a variable space, and factory for Variable. ">Space</a> of 3d rotations, represented by unit quaternions. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a6fcdc090caeade09d0efd6253932b6f5"></a>Unspecified&#160;</td><td class="fielddoc"><p><a class="el" href="a01625.html" title="Description of a variable space, and factory for Variable. ">Space</a> of 3d transformation, represented by a quaternion and a 3d-vector. </p>
+<p>Non-euclidean space of unknown type. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac4b192406e699cc657b0a34d5f236ba4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4b192406e699cc657b0a34d5f236ba4">&#9670;&nbsp;</a></span>Space() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4b192406e699cc657b0a34d5f236ba4">&#9670;&nbsp;</a></span>Space() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +224,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9ff75186b5b439819ec201be5c5f4b39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ff75186b5b439819ec201be5c5f4b39">&#9670;&nbsp;</a></span>Space() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ff75186b5b439819ec201be5c5f4b39">&#9670;&nbsp;</a></span>Space() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +255,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a99ad058c2c07a10b72a539e829fa4b50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99ad058c2c07a10b72a539e829fa4b50">&#9670;&nbsp;</a></span>Space() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ad058c2c07a10b72a539e829fa4b50">&#9670;&nbsp;</a></span>Space() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,6 +288,37 @@ Public Member Functions</h2></td></tr>
 
 <p>Constructor for a manifold where tsize != size. </p>
 <p>/param size size of the space /param representationSize size of the vector needed to represent a variable /param tangentRepresentationSize size of the vector needed to represent a derivative </p>
+
+</div>
+</div>
+<a id="af455f0e3a88391cb32a97ccc67d4d12a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af455f0e3a88391cb32a97ccc67d4d12a">&#9670;&nbsp;</a></span>Space() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::Space::Space </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor for a given space type. </p>
+<p>/param type type of space /param size size of the space. Only for space types whose size is not fixed. </p>
 
 </div>
 </div>
@@ -270,7 +358,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check if this is an Euclidean space (size==representationSize) </p>
+<p>Check if this is an Euclidean space. </p>
 
 </div>
 </div>
@@ -385,6 +473,25 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab9ac5699b5f3c5e65f85f4edd0125095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9ac5699b5f3c5e65f85f4edd0125095">&#9670;&nbsp;</a></span>type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01625.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> tvm::Space::type </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of the space. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
@@ -392,7 +499,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a01625.html">Space</a></li>
-    <li class="footer">Generated on Tue Jun 16 2020 02:42:30 for TVM by
+    <li class="footer">Generated on Mon Jun 22 2020 05:29:55 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
