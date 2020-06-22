@@ -47,6 +47,7 @@ namespace internal
     , f_(task.function())
     , td_(task.taskDynamics())
   {
+    assert(f_->imageSpace().isEuclidean());
     if (type() == constraint::Type::DOUBLE_SIDED)
     {
       td2_ = task.secondBoundTaskDynamics();

@@ -57,7 +57,7 @@ namespace utils
     ProtoTaskCommon(FunT f, const internal::RHS& rhs)
     : f_(f), rhs_(rhs)
     {
-      if (rhs.type_ == internal::RHSType::Vector && f->size() != rhs.v_.size())
+      if (rhs.type_ == internal::RHSType::Vector && f->rSize() != rhs.v_.size())
       {
         throw std::runtime_error("The vector you provided has not the correct size.");
       }
@@ -80,11 +80,11 @@ namespace utils
     ProtoTaskCommon(FunT f, const internal::RHS& l, const internal::RHS & u)
     : f_(f), l_(l), u_(u)
     {
-      if (l.type_ == internal::RHSType::Vector && f->size() != l.v_.size())
+      if (l.type_ == internal::RHSType::Vector && f->rSize() != l.v_.size())
       {
         throw std::runtime_error("The lower bound vector you provided has not the correct size.");
       }
-      if (u.type_ == internal::RHSType::Vector && f->size() != u.v_.size())
+      if (u.type_ == internal::RHSType::Vector && f->rSize() != u.v_.size())
       {
         throw std::runtime_error("The upper bound vector you provided has not the correct size.");
       }

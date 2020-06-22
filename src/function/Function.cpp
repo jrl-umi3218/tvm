@@ -41,7 +41,12 @@ namespace abstract
 {
 
   Function::Function(int m)
-    : FirstOrderProvider(m)
+    : Function(Space(m))
+  {
+  }
+
+  Function::Function(Space image)
+    : FirstOrderProvider(std::move(image))
   {
     resizeVelocityCache();
     resizeNormalAccelerationCache();
@@ -59,13 +64,13 @@ namespace abstract
   void Function::resizeVelocityCache()
   {
     if (isOutputEnabled((int)Output::Velocity))
-      velocity_.resize(size());
+      velocity_.resize(tSize());
   }
 
   void Function::resizeNormalAccelerationCache()
   {
     if (isOutputEnabled((int)Output::NormalAcceleration))
-      normalAcceleration_.resize(size());
+      normalAcceleration_.resize(tSize());
   }
 
   void Function::resizeJDotCache()
@@ -73,13 +78,13 @@ namespace abstract
     if (isOutputEnabled((int)Output::JDot))
     {
       for (auto v : variables())
-        JDot_[v.get()].resize(size(), v->space().tSize());
+        JDot_[v.get()].resize(tSize(), v->space().tSize());
     }
   }
 
   void Function::addVariable_(VariablePtr v)
   {
-    JDot_[v.get()].resize(size(), v->space().tSize());
+    JDot_[v.get()].resize(tSize(), v->space().tSize());
     variablesDot_.push_back(dot(v));
   }
 

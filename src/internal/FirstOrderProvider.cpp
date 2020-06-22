@@ -37,7 +37,12 @@ namespace tvm
 namespace internal
 {
   FirstOrderProvider::FirstOrderProvider(int m)
-    : m_(m)
+    : FirstOrderProvider(Space(m))
+  {
+  }
+
+  FirstOrderProvider::FirstOrderProvider(Space image)
+    : imageSpace_(std::move(image))
   {
     resizeCache(); //resize value_
   }
@@ -51,7 +56,7 @@ namespace internal
   void FirstOrderProvider::resizeValueCache()
   {
     if (isOutputEnabled((int)Output::Value))
-      value_.resize(m_);
+      value_.resize(imageSpace_.rSize());
   }
 
   void FirstOrderProvider::resizeJacobianCache()
@@ -59,7 +64,7 @@ namespace internal
     if (isOutputEnabled((int)Output::Jacobian))
     {
       for (auto v : variables_.variables())
-        jacobian_[v.get()].resize(m_, v->space().tSize());
+        jacobian_[v.get()].resize(imageSpace_.tSize(), v->space().tSize());
     }
   }
 
@@ -67,7 +72,7 @@ namespace internal
   {
     if(variables_.add(v))
     {
-      jacobian_[v.get()].resize(m_, v->space().tSize());
+      jacobian_[v.get()].resize(imageSpace_.tSize(), v->space().tSize());
       linear_[v.get()] = linear;
 
       addVariable_(v);
@@ -112,7 +117,8 @@ namespace internal
 
   void FirstOrderProvider::resize(int m)
   {
-    m_ = m;
+    assert(imageSpace_.isEuclidean());
+    imageSpace_ = Space(m);
     resizeCache();
   }
 
