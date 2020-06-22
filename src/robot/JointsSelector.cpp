@@ -119,7 +119,7 @@ std::unique_ptr<JointsSelector> JointsSelector::InactiveJoints(FunctionPtr f,
 }
 
  JointsSelector::JointsSelector(FunctionPtr f, RobotPtr robot, bool ffActive, const std::vector<std::pair<Eigen::DenseIndex, Eigen::DenseIndex>> & activeIndex)
-: function::abstract::Function(f->size()),
+: function::abstract::Function(f->imageSpace()),
   f_(f),
   robot_(robot),
   ffActive_(ffActive),

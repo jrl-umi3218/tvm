@@ -98,6 +98,8 @@ namespace tvm::example
     , g_(g)
     , h_(h)
   {
+    if (!g->imageSpace().isEuclidean() || !h->imageSpace().isEuclidean())
+      throw std::runtime_error("Function g and h must have their values in an Euclidean space.");
     if (g->size() != h->size())
       throw std::runtime_error("Function g and h must have the same size");
 

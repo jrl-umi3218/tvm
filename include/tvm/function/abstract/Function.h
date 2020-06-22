@@ -83,11 +83,19 @@ namespace abstract
     virtual const Eigen::MatrixXd& JDot(const Variable& x) const;
 
   protected:
-    /** Constructor
-      * /param m the output size of the function, i.e. the size of the value (or
-      * equivalently the row size of the jacobians).
+    /** Constructor for a function with value in \f$ \mathbb{R}^m \f$.
+      *
+      * \param m the size of the function/constraint image space, i.e. the row
+      * size of the jacobians (or equivalently in this case the size of the
+      * output value).
       */
     Function(int m=0);
+
+    /** Constructor for a function with value in a specified space.
+      *
+      * \param image Description of the image space
+      */
+    Function(Space image);
 
     /** Resize all cache members corresponding to active output*/
     void resizeCache() override;

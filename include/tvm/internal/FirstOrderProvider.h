@@ -88,18 +88,32 @@ namespace internal
     /** Linearity w.r.t \p x*/
     bool linearIn(const Variable& x) const;
 
-    /** Return the output size \p m*/
+    const Space& imageSpace() const;
+
+    /** Return the image space size.*/
     int size() const;
+    /** Size of the output value (representation size of the image space).*/
+    int rSize() const;
+    /** Size of the tangent space to the image space (or equivalently row size of the jacobian matrices).*/
+    int tSize() const;
 
     /** Return the variables*/
     const VariableVector& variables() const;
 
   protected:
-    /** Constructor
-      * \param m the output size of the function/constraint, i.e. the size of
-      * the value (or equivalently the row size of the jacobians).
+    /** Constructor for a function/constraint with value in \f$ \mathbb{R}^m \f$.
+      *
+      * \param m the size of the function/constraint image space, i.e. the row
+      * size of the jacobians (or equivalently in this case the size of the
+      * output value).
       */
     FirstOrderProvider(int m);
+
+    /** Constructor for a function/constraint with value in a specified space.
+      *
+      * \param image Description of the image space
+      */
+    FirstOrderProvider(Space image);
 
     /** Resize all cache members corresponding to active outputs.
       *
@@ -173,7 +187,7 @@ namespace internal
     /** Resize the function */
     void resize(int m);
 
-    int m_; //output size
+    Space imageSpace_; //output space
     VariableVector variables_;
     utils::internal::map<Variable const*, bool> linear_;
   };
@@ -194,9 +208,23 @@ namespace internal
     return linear_.at(&x);
   }
 
+  inline const Space& FirstOrderProvider::imageSpace() const
+  {
+    return imageSpace_;
+  }
+
   inline int FirstOrderProvider::size() const
   {
-    return m_;
+    return imageSpace_.size();
+  }
+
+  inline int FirstOrderProvider::rSize() const
+  {
+    return imageSpace_.rSize();
+  }
+  inline int FirstOrderProvider::tSize() const
+  {
+    return imageSpace_.tSize();
   }
 
   inline const VariableVector& FirstOrderProvider::variables() const

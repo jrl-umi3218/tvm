@@ -43,6 +43,8 @@ namespace tvm
   {
     if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks need to have non-zero bounds.");
+    if (!f->imageSpace().isEuclidean())
+      throw std::runtime_error("[Task::Task] Can't create a task for a function into a non-Euclidean space.");
   }
 
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double rhs)
@@ -57,6 +59,8 @@ namespace tvm
   {
     if (t == constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("Double sided tasks need to have two bounds.");
+    if (!f->imageSpace().isEuclidean())
+      throw std::runtime_error("[Task::Task] Can't create a task for a function into a non-Euclidean space.");
   }
 
   Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics& td, double l, double u)
@@ -72,6 +76,8 @@ namespace tvm
   {
     if (t != constraint::Type::DOUBLE_SIDED)
       throw std::runtime_error("This constructor is for double sided constraints only.");
+    if (!f->imageSpace().isEuclidean())
+      throw std::runtime_error("[Task::Task] Can't create a task for a function into a non-Euclidean space.");
   }
 
   Task::Task(utils::ProtoTaskEQ proto, const task_dynamics::abstract::TaskDynamics& td)

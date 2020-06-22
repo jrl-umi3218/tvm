@@ -174,6 +174,7 @@ Difference::Difference(FunctionPtr f, FunctionPtr g)
   , f_(f)
   , g_(g)
 {
+  assert(f->imageSpace().isEuclidean() && g->imageSpace().isEuclidean());
   assert(f->size() == g->size());
 
   using BasicOutput = tvm::internal::FirstOrderProvider::Output;

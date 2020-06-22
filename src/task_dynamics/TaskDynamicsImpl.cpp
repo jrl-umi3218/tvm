@@ -49,6 +49,8 @@ namespace tvm
         {
           throw std::runtime_error("[TaskDynamicsImpl] rhs does not have the same size as f.");
         }
+        if (!f->imageSpace().isEuclidean())
+          throw std::runtime_error("[TaskDynamicsImpl::TaskDynamicsImpl] Task dynamics are for function into a Euclidean space.");
         setFunction(f);
         registerUpdates(Update::UpdateValue, &TaskDynamicsImpl::updateValue);
         addOutputDependency(Output::Value, Update::UpdateValue);
