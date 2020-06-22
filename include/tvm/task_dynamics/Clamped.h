@@ -104,11 +104,7 @@ namespace tvm::task_dynamics
       return TD::template impl_<Impl>(f, t, rhs, min_, max_);
     }
 
-    template<typename Derived, typename ... Args>
-    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, Args&& ... args) const
-    {
-      return TD::template impl_<Derived>(f, t, rhs, std::forward<Args>(args)..., min_, max_);
-    }
+    COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY(TD, min_, max_)
 
   private:
     Bounds min_;

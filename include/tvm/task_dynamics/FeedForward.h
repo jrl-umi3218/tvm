@@ -76,11 +76,7 @@ namespace task_dynamics
       return TD::template impl_<Impl>(f, t, rhs, feedForward_, addProviderDependency_);
     }
 
-    template<typename Derived, typename ... Args>
-    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, Args&& ... args) const
-    {
-      return TD::template impl_<Derived>(f, t, rhs, std::forward<Args>(args)..., feedForward_, addProviderDependency_);
-    }
+    COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY(TD, feedForward_, addProviderDependency_)
   };
 
   using FeedForwardPD = FeedForward<ProportionalDerivative>;
