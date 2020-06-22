@@ -562,22 +562,19 @@ TEST_CASE("Test Clamped")
   auto f = std::make_shared<function::IdentityFunction>(x);
 
   double kp = 1;
-  task_dynamics::P td(kp);
+  task_dynamics::Clamped<task_dynamics::P> c(1.0, kp);
   VectorXd rhs = Vector3d::Ones();
 
-  {
-    task_dynamics::Clamped c(td, 1);
-    TaskDynamicsPtr tdi = c.impl(f, constraint::Type::EQUAL, rhs);
-    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
-    auto gl = utils::generateUpdateGraph(tdi, Value);
-    gl->execute();
+  TaskDynamicsPtr tdi = c.impl(f, constraint::Type::EQUAL, rhs);
+  auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+  auto gl = utils::generateUpdateGraph(tdi, Value);
+  gl->execute();
 
-    FAST_CHECK_EQ(c.order(), task_dynamics::Order::One);
-    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
-    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(-.5,-1,1))); // e'= -e = (-1,-2,2)
+  FAST_CHECK_EQ(c.order(), task_dynamics::Order::One);
+  FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
+  FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(-.5,-1,1))); // e'= -e = (-1,-2,2)
 
-    x << 0.5, 1, 1.5;
-    gl->execute();
-    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(.5, 0, -.5))); // e'= -e = (0.5,0,-0.5)
-  }
+  x << 0.5, 1, 1.5;
+  gl->execute();
+  FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(.5, 0, -.5))); // e'= -e = (0.5,0,-0.5)
 }
