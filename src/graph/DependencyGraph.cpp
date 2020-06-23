@@ -32,85 +32,59 @@
 
 #include <algorithm>
 #include <assert.h>
+#include <numeric>
 #include <stdexcept>
-
-namespace
-{
-  /** Find the root of the tree the element \p node is in.
-    * The structure of the tree is given by \p parent.
-    * The function also perform a path compression, in that all node discovered
-    * along the way are made to point directly to the root.
-    *
-    * This function is part of an implementation of the so-called disjoint-set
-    * data structure.
-    */
-  size_t root(size_t node, std::vector<size_t>& parent)
-  {
-    assert(node < parent.size());
-    if (node != parent[node])
-    {
-      parent[node] = root(parent[node], parent);
-    }
-    return parent[node];
-  }
-
-  /** Unify the tree \p node1 is in with the tree \p node2 is in.
-    * This is done by having the root of one of the trees point at the root of
-    * the other.
-    * The structure of the trees is given by \p parent.
-    * Chosing wich root points to which is done based on the rank of both roots,
-    * where the rank is a heuristic number approximating the tree depth. The
-    * root with the smallest rank point to the other, in which case the rank of
-    * the other remain unchanged. If both roots have the same rank, the second
-    * point to the first and the rank of the first one is incremented by one.
-    * The ranks are stored in the aptly named \p rank.
-    *
-    * This function is part of an implementation of the so-called disjoint-set
-    * data structure.
-    */
-  void unify(size_t node1, size_t node2, std::vector<size_t>& parent, std::vector<size_t>& rank)
-  {
-    assert(rank.size() == parent.size());
-    assert(node1 < parent.size());
-    assert(node2 < parent.size());
-    auto root1 = root(node1, parent);
-    auto root2 = root(node2, parent);
-
-    if (root1 == root2) return;
-
-    if (rank[root1] < rank[root2])
-    {
-      parent[root1] = root2;
-    }
-    else if (rank[root1] > rank[root2])
-    {
-      parent[root2] = root1;
-    }
-    else
-    {
-      parent[root2] = root1;
-      rank[root1]++;
-    }
-  }
-
-  /** Initialize the vectors describing a disjoint-set data structure.
-    *
-    * This function is part of an implementation of the so-called disjoint-set
-    * data structure.
-    */
-  void initialize(std::vector<size_t>& parent, std::vector<size_t>& rank)
-  {
-    assert(rank.size() == parent.size());
-    for (size_t i = 0; i < rank.size(); ++i)
-    {
-      rank[i] = 0;
-      parent[i] = i;
-    }
-  }
-}
 
 namespace tvm::graph::internal
 {
+  DependencyGraph::DisjointSet::DisjointSet(size_t n)
+    : parent_(n)
+    , rank_(n, 0)
+  {
+    // fill parents with elements from 0 to n-1, i.e. each element is its own parent
+    // (all elements are in different sets)
+    std::iota(parent_.begin(), parent_.end(), 0);
+  }
+
+  size_t DependencyGraph::DisjointSet::root(size_t node)
+  {
+    assert(node < parent_.size());
+    if (node != parent_[node])
+    {
+      parent_[node] = root(parent_[node]);
+    }
+    return parent_[node];
+  }
+  void DependencyGraph::DisjointSet::unify(size_t node1, size_t node2)
+  {
+    assert(node1 < parent_.size());
+    assert(node2 < parent_.size());
+    auto root1 = root(node1);
+    auto root2 = root(node2);
+
+    if (root1 == root2) return;
+
+    if (rank_[root1] < rank_[root2])
+    {
+      parent_[root1] = root2;
+    }
+    else if (rank_[root1] > rank_[root2])
+    {
+      parent_[root2] = root1;
+    }
+    else
+    {
+      parent_[root2] = root1;
+      rank_[root1]++;
+    }
+  }
+
+  bool DependencyGraph::DisjointSet::isRoot(size_t i) const
+  {
+    assert(i < parent_.size());
+    return parent_[i] == i;
+  }
+
   size_t DependencyGraph::addNode()
   {
     roots_.push_back(true);
@@ -144,16 +118,14 @@ namespace tvm::graph::internal
     order.reserve(n);
     std::vector<bool> visited(n, false);
     std::vector<bool> stack(n, false);
-    std::vector<size_t> parent(n);
-    std::vector<size_t> rank(n);
-    initialize(parent, rank);
+    DisjointSet components(n);
 
     bool has_root = false;
     for (size_t i = 0; i < visited.size(); ++i)
     {
       if (roots_[i])
       {
-        orderUtil(i, order, visited, stack, parent, rank);
+        orderUtil(i, order, visited, stack, components);
         has_root = true;
       }
     }
@@ -172,7 +144,7 @@ namespace tvm::graph::internal
     std::vector<size_t> map(n);
     for (size_t i = 0; i < n; ++i)
     {
-      if (parent[i] == i)
+      if (components.isRoot(i))
       {
         map[i] = orderedGroups.size();
         orderedGroups.push_back({});
@@ -182,7 +154,7 @@ namespace tvm::graph::internal
     //Second, we populate the groups in an ordered way
     for (auto i : order)
     {
-      orderedGroups[map[root(i, parent)]].push_back(i);
+      orderedGroups[map[components.root(i)]].push_back(i);
     }
 
     return orderedGroups;
@@ -275,7 +247,7 @@ namespace tvm::graph::internal
       }
     }
 
-    // head node found, pop the stack and print an SCC
+    // head node found, pop the stack and push an SCC
     if (low[u] == disc[u])
     {
       ret.push_back({});
@@ -293,7 +265,7 @@ namespace tvm::graph::internal
 
   void DependencyGraph::orderUtil(size_t v, std::vector<size_t>& order,
     std::vector<bool>& visited, std::vector<bool>& stack,
-    std::vector<size_t>& parent, std::vector<size_t>& rank) const
+    DisjointSet& components) const
   {
     if (!visited[v])
     {
@@ -302,10 +274,10 @@ namespace tvm::graph::internal
 
       for (auto i : children_[v])
       {
-        unify(v, i, parent, rank);
+        components.unify(v, i);
         if (!visited[i])
         {
-          orderUtil(i, order, visited, stack, parent, rank);
+          orderUtil(i, order, visited, stack, components);
         }
         else if (stack[i])
         {

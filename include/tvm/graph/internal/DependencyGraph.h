@@ -65,6 +65,47 @@ namespace tvm::graph::internal
     const std::set<std::pair<size_t, size_t>>& edges() const;
 
   private:
+    /** This class implements a minimalist disjoint set data structure.
+    * See https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+    *
+    * Given a number n, there are n elements with implicit id from 0 to n-1.
+    * Each element point to a parent and has a rank. This defines in
+    * particular trees, where a root point to itself.
+    * The rank is a heuristic on the depth at which a node is in its tree.
+    */
+    class DisjointSet
+    {
+    public:
+      /** Initialize for n elements*/
+      DisjointSet(size_t n);
+
+      /** Find the root of the tree the element \p node is in.
+        * The structure of the tree is given by \p parent.
+        * The function also perform a path compression, in that all node discovered
+        * along the way are made to point directly to the root.
+        */
+      size_t root(size_t node);
+
+      /** Unify the tree \p node1 is in with the tree \p node2 is in.
+        * This is done by having the root of one of the trees point at the root of
+        * the other.
+        * Chosing wich root points to which is done based on the rank of both roots,
+        * where the rank is a heuristic number approximating the tree depth. The
+        * root with the smallest rank point to the other, in which case the rank of
+        * the other remain unchanged. If both roots have the same rank, the second
+        * point to the first and the rank of the first one is incremented by one.
+        * The ranks are stored in the aptly named \p rank.
+        */
+      void unify(size_t node1, size_t node2);
+
+      /** Return the parent of node i*/
+      bool isRoot(size_t i) const;
+
+    private:
+      std::vector<size_t> parent_;  // parent_[i] is the id of the parent of element i
+      std::vector<size_t> rank_;    // rank of each element.
+    };
+
     /** A recursive function that finds and prints strongly connected
       * components (SCC) using DFS traversal
       * \param ret a vector of SCC
@@ -92,17 +133,12 @@ namespace tvm::graph::internal
       * \param visited visited[i] is true if and only if vertex i was visited
       * \param stack stack[i] is true if and only if vertex i is among the
       * vertices being processed.
-      * \parent a description of a tree collection used for detecting the
-      * connected components. For the first call to orderUtil, it must have a
-      * size equal to the number of vertices and be initialized so that
-      * parent[i] = i.
-      * \rank data used for the detection of the components. For the first
-      * call to orderUtil, it must have a size equal to the number of vertices
-      * and be initialized to 0.
+      * \param components A disjoint-set data structure representing the
+      * connected components
       */
     void orderUtil(size_t v, std::vector<size_t>& order,
       std::vector<bool>& visited, std::vector<bool>& stack,
-      std::vector<size_t>& parent, std::vector<size_t>& rank) const;
+      DisjointSet& components) const;
 
 
     std::vector<bool> roots_;                       //roots_[i] is true iff the i-th node has no incoming edges
