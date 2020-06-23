@@ -24,6 +24,7 @@ set(TVM_SOURCES
   geometry/Plane.cpp
 
   graph/CallGraph.cpp
+  graph/DependencyGraph.cpp
   graph/Inputs.cpp
   graph/Log.cpp
   graph/Logger.cpp
@@ -126,6 +127,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/abstract/Outputs.h
   ${TVM_INCLUDE_DIR}/graph/CallGraph.h
   ${TVM_INCLUDE_DIR}/graph/internal/AbstractNode.h
+  ${TVM_INCLUDE_DIR}/graph/internal/DependencyGraph.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
   ${TVM_INCLUDE_DIR}/graph/internal/Log.h
