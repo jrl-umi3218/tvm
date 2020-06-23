@@ -138,14 +138,11 @@ int CallGraph::addCall(Call c)
 void CallGraph::Plan::build(const CallGraph & graph)
 {
   plan_.clear();
-  auto orderGrouped = graph.dependencyGraph_.order();
+  const auto& order = graph.dependencyGraph_.order();
 
-  for (auto order : orderGrouped)
+  for (auto i : order)
   {
-    for (auto i : order)
-    {
-      plan_.push_back(graph.calls_[i]);
-    }
+    plan_.push_back(graph.calls_[i]);
   }
 }
 

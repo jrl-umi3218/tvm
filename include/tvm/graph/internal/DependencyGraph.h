@@ -37,7 +37,10 @@
 
 namespace tvm::graph::internal
 {
-  /** An oriented graph to represent dependencies between substitutions.*/
+  /** An oriented graph to represent dependencies between nodes.
+    * 
+    * An edge (f, t) represents a dependency from \p f on \p t.
+    */
   class TVM_DLLAPI DependencyGraph
   {
   public:
@@ -54,11 +57,13 @@ namespace tvm::graph::internal
       * g is the direct acyclic graph between these groups
       */
     std::pair<std::vector<std::vector<size_t>>, DependencyGraph> reduce() const;
+    /** Return the list of nodes in reversed topological order.*/
+    std::vector<size_t> order() const;
     /** Return the list of node groups. Each group corresponds to a connected
       * component of the graph seen as non-oriented. Within each group the
       * nodes are sorted in reversed topological order.
       */
-    std::vector<std::vector<size_t>> order() const;
+    std::vector<std::vector<size_t>> groupedOrder() const;
     /** Number of vertices*/
     size_t size() const;
     /** List of edges*/
@@ -79,15 +84,18 @@ namespace tvm::graph::internal
     class DisjointSet
     {
     public:
+      /** Initialize for 0 elements*/
+      DisjointSet() = default;
+
       /** Initialize for n elements*/
       DisjointSet(size_t n);
 
+      /** Resize to n elements*/
+      void resize(size_t n);
+
       /** Find the root of the tree the element \p node is in.
-        * The structure of the tree is given by \p parent.
-        * The function also perform a path compression, in that all node discovered
-        * along the way are made to point directly to the root.
         */
-      size_t root(size_t node);
+      size_t root(size_t node) const;
 
       /** Unify the tree \p node1 is in with the tree \p node2 is in.
         * This is done by having the root of one of the trees point at the root of
@@ -105,6 +113,12 @@ namespace tvm::graph::internal
       bool isRoot(size_t i) const;
 
     private:
+      /** Find the root of the tree the element \p node is in.
+        * The function also perform a path compression, in that all node discovered
+        * along the way are made to point directly to the root.
+        */
+      size_t rootCompr(size_t node);
+
       std::vector<size_t> parent_;  // parent_[i] is the id of the parent of element i
       std::vector<size_t> rank_;    // rank of each element.
     };
@@ -128,6 +142,10 @@ namespace tvm::graph::internal
     void SCCUtil(std::vector<std::vector<size_t>>& ret,
       size_t u, std::vector<int>& disc, std::vector<int>& low,
       std::stack<size_t>& st, std::vector<bool>& stackMember, int& time) const;
+
+    /** An intermediate function for computing the topological order.*/
+    std::pair<std::vector<size_t>, DisjointSet> order_() const;
+
 
     /** A recursive function used for topological ordering. It also detects
       * connected components of the graph.

@@ -46,21 +46,40 @@ namespace tvm::graph::internal
     std::iota(parent_.begin(), parent_.end(), 0);
   }
 
-  size_t DependencyGraph::DisjointSet::root(size_t node)
+  void DependencyGraph::DisjointSet::resize(size_t n)
+  {
+    parent_.resize(n);
+    std::iota(parent_.begin(), parent_.end(), 0);
+    rank_.resize(n);
+    std::fill_n(rank_.begin(), n, 0);
+  }
+
+  size_t DependencyGraph::DisjointSet::root(size_t node) const
   {
     assert(node < parent_.size());
     if (node != parent_[node])
     {
-      parent_[node] = root(parent_[node]);
+      return root(parent_[node]);
     }
     return parent_[node];
   }
+
+  size_t DependencyGraph::DisjointSet::rootCompr(size_t node)
+  {
+    assert(node < parent_.size());
+    if (node != parent_[node])
+    {
+      parent_[node] = rootCompr(parent_[node]);
+    }
+    return parent_[node];
+  }
+
   void DependencyGraph::DisjointSet::unify(size_t node1, size_t node2)
   {
     assert(node1 < parent_.size());
     assert(node2 < parent_.size());
-    auto root1 = root(node1);
-    auto root2 = root(node2);
+    auto root1 = rootCompr(node1);
+    auto root2 = rootCompr(node2);
 
     if (root1 == root2) return;
 
@@ -111,29 +130,15 @@ namespace tvm::graph::internal
     }
   }
 
-  std::vector<std::vector<size_t>> DependencyGraph::order() const
+  std::vector<size_t> DependencyGraph::order() const
+  {
+    return order_().first;
+  }
+
+  std::vector<std::vector<size_t>> DependencyGraph::groupedOrder() const
   {
     size_t n = roots_.size();
-    std::vector<size_t> order;
-    order.reserve(n);
-    std::vector<bool> visited(n, false);
-    std::vector<bool> stack(n, false);
-    DisjointSet components(n);
-
-    bool has_root = false;
-    for (size_t i = 0; i < visited.size(); ++i)
-    {
-      if (roots_[i])
-      {
-        orderUtil(i, order, visited, stack, components);
-        has_root = true;
-      }
-    }
-
-    if (!has_root && visited.size() != 0)
-    {
-      throw std::logic_error("[DependencyGraph::Order] Try to order a non-empty graph with no root. It contains at least one cycle.");
-    }
+    const auto& [order, components] = order_();
 
     //At this point, we have all the nodes ordered in order, but without the notion
     //of components. On the other hand, parent describes a collection of trees,
@@ -268,6 +273,33 @@ namespace tvm::graph::internal
       stackMember[st.top()] = false;
       st.pop();
     }
+  }
+
+  std::pair<std::vector<size_t>, DependencyGraph::DisjointSet> DependencyGraph::order_() const
+  {
+    size_t n = roots_.size();
+    std::pair<std::vector<size_t>, DependencyGraph::DisjointSet> ret;
+    ret.first.reserve(n);
+    ret.second.resize(n);
+    std::vector<bool> visited(n, false);
+    std::vector<bool> stack(n, false);
+
+    bool has_root = false;
+    for (size_t i = 0; i < visited.size(); ++i)
+    {
+      if (roots_[i])
+      {
+        orderUtil(i, ret.first, visited, stack, ret.second);
+        has_root = true;
+      }
+    }
+
+    if (!has_root && visited.size() != 0)
+    {
+      throw std::logic_error("[DependencyGraph::Order] Try to order a non-empty graph with no root. It contains at least one cycle.");
+    }
+
+    return ret;
   }
 
   void DependencyGraph::orderUtil(size_t v, std::vector<size_t>& order,

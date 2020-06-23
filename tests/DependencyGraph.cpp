@@ -93,7 +93,18 @@ TEST_CASE("Order test")
   g.addEdge(9, 4);
 
   auto r = g.order();
+  auto find = [&r](int i) {return std::find(r.begin(), r.end(), i); };
+  FAST_CHECK_LT(find(4), find(1));
+  FAST_CHECK_LT(find(4), find(2));
+  FAST_CHECK_LT(find(4), find(9));
+  FAST_CHECK_LT(find(1), find(0));
+  FAST_CHECK_LT(find(2), find(0));
+  FAST_CHECK_LT(find(9), find(8));
+  FAST_CHECK_LT(find(6), find(5));
+  FAST_CHECK_LT(find(6), find(3));
+  FAST_CHECK_LT(find(5), find(3));
 
-  std::set<std::vector<size_t>> v = { { 4,2,1,0,9,8 },{ 6,5,3 },{ 7 } };
-  FAST_CHECK_EQ(std::set<std::vector<size_t>>(r.begin(), r.end()), v);
+  auto rg = g.groupedOrder();
+  std::set<std::vector<size_t>> vg = { { 4,2,1,0,9,8 },{ 6,5,3 },{ 7 } };
+  FAST_CHECK_EQ(std::set<std::vector<size_t>>(rg.begin(), rg.end()), vg);
 }

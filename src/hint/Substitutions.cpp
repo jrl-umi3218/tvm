@@ -107,7 +107,7 @@ namespace internal
 
     //Compute the groups of substitutions and the order to carry out the substitutions
     //in each group. Indices in orderedGroups are relative to scc.
-    auto orderedGroups = g.order();
+    auto orderedGroups = g.groupedOrder();
 
     //We create a unit for each group
     units_.clear();
