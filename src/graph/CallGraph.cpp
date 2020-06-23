@@ -63,8 +63,7 @@ void CallGraph::clear()
 {
   callId_.clear();
   calls_.clear();
-  dependencies_.clear();
-  root_.clear();
+  dependencyGraph_.clear();
   visited_.clear();
   plan_.clear();
 }
@@ -108,17 +107,15 @@ int CallGraph::addCall(Call c)
   {
     return callId_[c];
   }
-  int id = static_cast<int>(callId_.size());
+  int id = static_cast<int>(dependencyGraph_.addNode());
   callId_[c] = id;
   calls_.push_back(c);
-  root_.push_back(true);
-  dependencies_.push_back({});
   if(c.node->internalDependencies_.count(c.id))
   {
     for(auto u : c.node->internalDependencies_[c.id])
     {
       int cId = addCall({c.node, u});
-      addEdge(id, cId);
+      dependencyGraph_.addEdge(id, cId);
     }
   }
   if(c.node->inputDependencies_.count(c.id))
@@ -130,7 +127,7 @@ int CallGraph::addCall(Call c)
         std::vector<int> cIds = addOutput(i.first, o);
         for(auto cId : cIds)
         {
-          addEdge(id, cId);
+          dependencyGraph_.addEdge(id, cId);
         }
       }
     }
@@ -138,69 +135,23 @@ int CallGraph::addCall(Call c)
   return id;
 }
 
-void CallGraph::addEdge(int from, int to)
-{
-  assert(static_cast<size_t>(from) < dependencies_.size());
-  assert(static_cast<size_t>(to) < root_.size());
-  dependencies_[from].push_back(to);
-  root_[to] = false;
-}
-
 void CallGraph::Plan::build(const CallGraph & graph)
 {
   plan_.clear();
-  std::vector<size_t> order;
-  order.reserve(graph.calls_.size());
-  std::vector<bool> visited(order.capacity(), false);
-  std::vector<bool> stack(order.capacity(), false);
+  auto orderGrouped = graph.dependencyGraph_.order();
 
-  bool has_root = false;
-  for(size_t i = 0; i < visited.size(); ++i)
+  for (auto order : orderGrouped)
   {
-    if(graph.root_[i])
+    for (auto i : order)
     {
-      recursiveBuild(graph, i, order, visited, stack);
-      has_root = true;
+      plan_.push_back(graph.calls_[i]);
     }
-  }
-
-  if(!has_root && visited.size() != 0)
-  {
-    throw std::logic_error("Try to build a plan on a non-empty graph with no root. It contains at least one cycle.");
-  }
-
-  for(auto i : order)
-  {
-    plan_.push_back(graph.calls_[i]);
   }
 }
 
 void CallGraph::Plan::clear()
 {
   plan_.clear();
-}
-
-void CallGraph::Plan::recursiveBuild(const CallGraph & graph, size_t v,
-                                     std::vector<size_t> & order,
-                                     std::vector<bool> & visited,
-                                     std::vector<bool> & stack)
-{
-  if(!visited[v])
-  {
-    visited[v] = true;
-    stack[v] = true;
-
-    for(auto i : graph.dependencies_[v])
-    {
-      if(!visited[i]) { recursiveBuild(graph, i, order, visited, stack); }
-      else if(stack[i])
-      {
-        throw std::logic_error("The graph contains a cycle");
-      }
-    }
-  }
-  stack[v] = false;
-  order.push_back(v);
 }
 
 } // namespace graph

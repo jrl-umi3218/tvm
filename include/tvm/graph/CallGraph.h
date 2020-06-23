@@ -31,6 +31,7 @@
 
 #include <tvm/api.h>
 #include <tvm/graph/internal/AbstractNode.h>
+#include <tvm/graph/internal/DependencyGraph.h>
 
 namespace tvm
 {
@@ -98,10 +99,6 @@ protected:
       }
     }
   private:
-    void recursiveBuild(const CallGraph & graph, size_t v,
-                        std::vector<size_t> & order,
-                        std::vector<bool> & visited,
-                        std::vector<bool> & stack);
     /** The calls in the correct call order */
     std::vector<Call> plan_;
   };
@@ -125,19 +122,14 @@ protected:
    */
   int addCall(Call c);
 
-  /** Add an edge to the graph */
-  void addEdge(int from, int to);
-
   /** Store inputs added to the graph */
   std::vector<std::shared_ptr<internal::Inputs>> inputs_;
   /** Call ids */
   std::map<Call, int, CompareCall> callId_;
   /** Id to Call */
   std::vector<Call> calls_;
-  /** Dependencies id of each call (edges) */
-  std::vector<std::vector<int>> dependencies_;
-  /** root_[id] is true if id is a root of the graph */
-  std::vector<bool> root_;
+  /** Dependency graph*/
+  internal::DependencyGraph dependencyGraph_;
 
   /** Used to avoid duplicate entries in the graph */
   std::map<std::intptr_t, std::map<int, std::vector<int> > > visited_;

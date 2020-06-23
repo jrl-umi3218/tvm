@@ -170,6 +170,13 @@ namespace tvm::graph::internal
     return edges_;
   }
 
+  void DependencyGraph::clear()
+  {
+    roots_.clear();
+    children_.clear();
+    edges_.clear();
+  }
+
 
   std::pair<std::vector<std::vector<size_t>>, DependencyGraph>  DependencyGraph::reduce() const
   {

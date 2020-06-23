@@ -63,6 +63,9 @@ namespace tvm::graph::internal
     size_t size() const;
     /** List of edges*/
     const std::set<std::pair<size_t, size_t>>& edges() const;
+    /** Clear the graph.*/
+    void clear();
+
 
   private:
     /** This class implements a minimalist disjoint set data structure.
