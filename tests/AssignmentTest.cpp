@@ -986,3 +986,87 @@ TEST_CASE("Test assigments")
     FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
   }
 }
+
+
+TEST_CASE("Change weights")
+{
+  Constraints cstr = buildConstraints(3, 7);
+
+  {
+    auto mem = std::make_shared<Memory>(6, 7);
+    //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
+    auto range = std::make_shared<Range>(2, 3);
+    AssignmentTarget at(range, mem->A, mem->l, mem->u, RHS::AS_GIVEN);
+    VariableVector vv(cstr.Ax_eq_0->variables());
+
+    // Requirement with default weights
+    {
+      auto req = std::make_shared<SolvingRequirements>();
+      Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
+      FAST_CHECK_UNARY_FALSE(a.changeScalarWeightIsAllowed());
+      FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
+      CHECK_NOTHROW(a.onUpdateWeights());
+      req->weight() = 1;
+      CHECK_NOTHROW(a.onUpdateWeights());
+      req->anisotropicWeight() = VectorXd(3).setOnes();
+      CHECK_NOTHROW(a.onUpdateWeights());
+      req->weight() = 2;
+      CHECK_THROWS(a.onUpdateWeights());
+      req->anisotropicWeight() = VectorXd(3).setConstant(2);
+      CHECK_THROWS(a.onUpdateWeights());
+    }
+
+    //Requirements with non default scalar weights
+    {
+      auto req = std::make_shared<SolvingRequirements>(Weight(2));
+      Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
+      FAST_CHECK_UNARY(a.changeScalarWeightIsAllowed());
+      FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
+      a.run();
+
+      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
+
+      req->weight() = 3;
+      CHECK_NOTHROW(a.onUpdateWeights());
+      a.run();
+
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(3) * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(3) * cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(3) * VectorXd(3).setConstant(large));
+
+      req->anisotropicWeight() = VectorXd(3).setConstant(2);
+      CHECK_THROWS(a.onUpdateWeights());
+    }
+
+    //Requirements with non default vector weights
+    {
+      VectorXd w0 = Vector3d(1, 2, 3);
+      auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight(w0));
+      Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
+      FAST_CHECK_UNARY_FALSE(a.changeScalarWeightIsAllowed());
+      FAST_CHECK_UNARY(a.changeVectorWeightIsAllowed());
+      a.run();
+
+      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), w0.cwiseSqrt().asDiagonal() * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * (-cstr_l));
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * VectorXd(3).setConstant(large));
+
+      req->anisotropicWeight() = VectorXd(3).setConstant(2);
+      CHECK_NOTHROW(a.onUpdateWeights());
+      a.run();
+
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
+
+      req->anisotropicWeight() = VectorXd(4).setOnes();
+      CHECK_THROWS(a.onUpdateWeights());
+    }
+  }
+}
