@@ -109,11 +109,13 @@ namespace internal
 
     Assignment(const Assignment&) = delete;
     Assignment(Assignment&&) = default;
+    Assignment& operator= (const Assignment&) = delete;
+    Assignment& operator= (Assignment&&) = default;
 
     AssignmentTarget& target(IWontForgetToCallUpdates = {});
     /** Change the weight.*/
-    bool weight(double alpha);
-    bool weight(const Eigen::VectorXd& w);
+    bool changeScalarWeightIsAllowed();
+    bool changeVectorWeightIsAllowed();
 
     /** To be called when the source has been resized*/
     void onUpdatedSource();
@@ -122,6 +124,7 @@ namespace internal
     /** To be called when the variables change.*/
     void onUpdatedMapping(const VariableVector& newVar, bool updateMatrixtarget = true);
     /** To be called after changing the weights.*/
+    void onUpdateWeights(bool scalar=true, bool vector=true);
 
     /** Perform the assignment.*/
     void run();

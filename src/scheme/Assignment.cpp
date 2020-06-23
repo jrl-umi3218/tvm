@@ -90,6 +90,16 @@ namespace internal
     return target_;
   }
 
+  bool Assignment::changeScalarWeightIsAllowed()
+  {
+    return !useDefaultScalarWeight_;
+  }
+
+  bool Assignment::changeVectorWeightIsAllowed()
+  {
+    return !useDefaultAnisotropicWeight_;
+  }
+
   void Assignment::onUpdatedSource()
   {
     //TODO
@@ -115,14 +125,29 @@ namespace internal
       a.updateMapping(newVar, target_, updateMatrixTarget);
   }
 
-  bool Assignment::weight(double /*alpha*/)
+  void Assignment::onUpdateWeights(bool scalar, bool vector)
   {
-    return true;
-  }
+    if (scalar)
+    {
+      if (useDefaultScalarWeight_ && requirements_->weight().value() != 1)
+        throw std::runtime_error("[Assignment::onUpdateWeights] Can't update a default weight.");
 
-  bool Assignment::weight(const Eigen::VectorXd& /*w*/)
-  {
-    return true;
+      *scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      *minusScalarWeight_ = -*scalarWeight_;
+    }
+    if (vector)
+    {
+      if (!requirements_->anisotropicWeight().isDefault() && requirements_->anisotropicWeight().value().size() != target_.size())
+        throw std::runtime_error("[Assignment::onUpdateWeights] Anisotropic weight has not the correct size.");
+
+      if (useDefaultAnisotropicWeight_ && !requirements_->anisotropicWeight().isDefault() 
+        && !requirements_->anisotropicWeight().value().isConstant(1))
+        throw std::runtime_error("[Assignment::onUpdateWeights] Can't update a default weight.");
+
+      anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+      anisotropicWeight_ *= *scalarWeight_;
+      minusAnisotropicWeight_ = -anisotropicWeight_;
+    }
   }
 
   void Assignment::run()
