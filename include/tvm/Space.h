@@ -70,27 +70,27 @@ namespace tvm
 
     /** Constructor for an Euclidean space
       *
-      * /param size size of the space
+      * \param size size of the space
       */
     Space(int size);
     /** Constructor for a manifold with tsize = size
       *
-      * /param size size of the space
-      * /param representationSize size of the vector needed to represent a variable
+      * \param size size of the space
+      * \param representationSize size of the vector needed to represent a variable
       */
     Space(int size, int representationSize);
     /** Constructor for a manifold where tsize != size
       *
-      * /param size size of the space
-      * /param representationSize size of the vector needed to represent a variable
-      * /param tangentRepresentationSize size of the vector needed to represent a derivative
+      * \param size size of the space
+      * \param representationSize size of the vector needed to represent a variable
+      * \param tangentRepresentationSize size of the vector needed to represent a derivative
       */
     Space(int size, int representationSize, int tangentRepresentationSize);
 
     /** Constructor for a given space type
       *
-      * /param type type of space
-      * /param size size of the space. Only for space types whose size is not fixed.
+      * \param type type of space
+      * \param size size of the space. Only for space types whose size is not fixed.
       */
     Space(Type type, int size=-1);
 
