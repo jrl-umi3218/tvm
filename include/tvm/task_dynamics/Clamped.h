@@ -125,8 +125,7 @@ namespace tvm::task_dynamics
       min_(minMax.first)
     , max_(minMax.second)
   {
-    const auto & min = minMax.first;
-    const auto & max = minMax.second;
+    const auto& [min, max] = minMax;
     if (min > 0)
     {
       throw std::runtime_error("[task_dynamics::Clamped] Minimum values must be negative.");
@@ -151,8 +150,7 @@ namespace tvm::task_dynamics
     , min_(minMax.first)
     , max_(minMax.second)
   {
-    const auto & min = minMax.first;
-    const auto & max = minMax.second;
+    const auto& [min, max] = minMax;
     if (min.size() !=  max.size())
     {
       throw std::runtime_error("[task_dynamics::Clamped] The minimum and maximum must have the same size.");

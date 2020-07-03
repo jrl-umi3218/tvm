@@ -53,7 +53,7 @@ namespace abstract
 }  // namespace tvm
 
 /** This macro can be used to define the derived factory required in
- * TaskDynamics implementation, Args are the arguments required by the derived
+ * TaskDynamics implementation, \p Args are the arguments required by the derived
  * class, the macro arguments are members of the class passed to the derived
  * constructor */
 #define TASK_DYNAMICS_DERIVED_FACTORY(...)                                                          \
@@ -67,7 +67,7 @@ namespace abstract
   }
 
 /** This macro can be used to define the derived factory required in composable
- * TaskDynamics implementation, Args are the arguments required by the derived
+ * TaskDynamics implementation, \p Args are the arguments required by the derived
  * class, the macro variadic arguments are members of the class passed to the
  * derived constructor, the first argument is the template argument
  * representing the encapsulated TaskDynamic type */
