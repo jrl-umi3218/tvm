@@ -62,7 +62,7 @@ namespace task_dynamics
       void updateValue() override
       {
         TDImpl::updateValue();
-        this->value_ -= feedForward_();
+        this->value_ += feedForward_();
       }
     private:
       getFeedForwardT feedForward_;

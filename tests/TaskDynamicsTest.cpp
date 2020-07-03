@@ -233,7 +233,7 @@ TEST_CASE("Test Feed Forward Proportional Derivative")
   FAST_CHECK_UNARY(provider->updated_);
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
-  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 - 10.0);
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 + 10.0);
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
   FAST_REQUIRE_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>()); // REQUIRE because we do a static_cast after
   FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
@@ -242,7 +242,7 @@ TEST_CASE("Test Feed Forward Proportional Derivative")
   kv = 2;
   static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp , kv);
   gl->execute();
-  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 - 10.0);
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 + 10.0);
 }
 
 TEST_CASE("Test Proportional Derivative gain types")
@@ -603,7 +603,7 @@ TEST_CASE("Test Clamped<FeedForward<PD>>")
   FAST_CHECK_UNARY(provider->updated_);
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
-  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 - 10.0)));
+  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 + 10.0)));
   FAST_CHECK_UNARY(tdi->value()[0] == -max); // clamped error
   FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
   FAST_CHECK_UNARY(tdi->checkType<decltype(td)::Impl>());
@@ -614,6 +614,6 @@ TEST_CASE("Test Clamped<FeedForward<PD>>")
   kv = 0.3;
   static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp , kv);
   gl->execute();
-  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 - 10.0)));
+  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 + 10.0)));
   FAST_CHECK_UNARY_FALSE(tdi->value()[0] == -max); // not clamped anymore
 }
