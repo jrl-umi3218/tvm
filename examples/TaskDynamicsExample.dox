@@ -90,6 +90,8 @@
  *       task_dynamics::Order order_() const override;
  *       std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
  *
+ *        TASK_DYNAMICS_DERIVED_FACTORY(a_, b_, c_)
+ *
  *     private:
  *       double a_, b_, c_;
  *   };
@@ -117,6 +119,10 @@
  *   }
  * \endcode</pre>
  *
+ * * \p TASK_DYNAMICS_DERIVED_FACTORY(a_, b_, c_) is required to enable the use
+ *   of our new task dynamic in a composable task dynamic (for example, to create
+ *   a \p Clamped<AdaptiveProportional> dynamic). The arguments provided to the
+ *   macro are the arguments that are required by \p AdaptiveProportional::Impl
  *
  * The \p Impl class is declared as
  * <pre>\code
@@ -190,10 +196,15 @@
  *    you need to declare the computation dependencies in the constructor of
  *    \p Impl. The constructor of tvm::task_dynamics::abstract::TaskDynamicsImpl
  *    offers a good example of how to do so.
+ *  * Composable task dynamic, i.e. a task dynamic that encapsulate another
+ *    task dynamic, are not covered by this document but the gist of the
+ *    implementation is similar. The \p Clamped task dynamic is a reasonably
+ *    simple example of such a dynamic.
  *
  *
- * Example file
+ * Example files
  * ------------
- * [example/TaskDynamicsExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/TaskDynamicsExample.cpp)
+ * * [example/TaskDynamicsExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/TaskDynamicsExample.cpp)
+ * * [Clamped composable task dynamic](https://github.com/jrl-umi3218/tvm/blob/master/include/tvm/task_dynamics/Clamped.h)
  */
- 
+
