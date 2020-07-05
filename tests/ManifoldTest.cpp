@@ -2,6 +2,7 @@
 
 #include <tvm/manifold/Real.h>
 #include <tvm/manifold/SO3.h>
+#include <tvm/manifold/internal/Adjoint.h>
 
 #include <Eigen/Geometry>
 #include <unsupported/Eigen/MatrixFunctions>
@@ -59,4 +60,30 @@ TEST_CASE("SO3")
   FAST_CHECK_UNARY(x.isApprox(SO3::exp(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::exp(SO3::algIdentity)), SO3::Identity>);
   FAST_CHECK_UNARY((x * y.transpose()).isApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
+}
+
+TEST_CASE("Adjoint")
+{
+  using R3 = manifold::Real<3>;
+  Vector3d x = Vector3d::Random();
+  Vector3d y = Vector3d::Random();
+  tvm::manifold::internal::Adjoint<R3> AdX(x);
+  tvm::manifold::internal::Adjoint<R3> AdY(y);
+  tvm::manifold::internal::Adjoint<R3, R3::Identity> AdI(R3::Identity{});
+  auto AdXY = AdX * AdY;
+  auto AdXI = AdX * AdI;
+  auto AdIX = AdI * AdX;
+  auto AdII = AdI * AdI;
+  FAST_CHECK_UNARY(AdXY.elem().isApprox(x + y));
+  FAST_CHECK_UNARY(std::is_same_v<decltype(AdXY)::LG, R3>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(AdXY)::Expr, tvm::manifold::internal::ReprOwn<R3>>);
+  FAST_CHECK_UNARY_FALSE(decltype(AdXY)::Inverse);
+  FAST_CHECK_UNARY_FALSE(decltype(AdXY)::Transpose);
+  FAST_CHECK_UNARY(decltype(AdXY)::PositiveSign);
+  FAST_CHECK_UNARY(AdXI.elem().isApprox(x));
+  FAST_CHECK_UNARY(AdIX.elem().isApprox(x));
+  FAST_CHECK_UNARY(std::is_same_v<decltype(AdII), decltype(AdI)>);
+  FAST_CHECK_UNARY_FALSE(decltype(AdII)::Inverse);
+  FAST_CHECK_UNARY_FALSE(decltype(AdII)::Transpose);
+  FAST_CHECK_UNARY(decltype(AdII)::PositiveSign);
 }

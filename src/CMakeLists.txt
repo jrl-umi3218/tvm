@@ -149,6 +149,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/math.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   
+  ${TVM_INCLUDE_DIR}/manifold/internal/Adjoint.h
   ${TVM_INCLUDE_DIR}/manifold/internal/details.h
   ${TVM_INCLUDE_DIR}/manifold/internal/Manifold.h
   ${TVM_INCLUDE_DIR}/manifold/internal/LieGroup.h

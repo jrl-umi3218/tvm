@@ -16,9 +16,14 @@ namespace tvm::manifold::internal
   {
   public:
     static constexpr int dim = traits<Derived>::dim;
-    using repr_t = typename traits<Derived>::repr_t;
-    using tan_t = Eigen::Matrix<double, dim, 1>;
 
+    struct Tangent
+    {
+      using type = Eigen::Matrix<double, dim, 1>;
+    };
+
+    using repr_t = typename traits<Derived>::repr_t;
+    using tan_t = typename Tangent::type;
 
     template<typename Repr>
     static constexpr bool alsoAcceptAsRepr() { return false; }

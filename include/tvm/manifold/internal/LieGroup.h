@@ -61,6 +61,11 @@ namespace tvm::manifold::internal
       return Y;
     }
 
+    static auto compose(const Identity&, const Identity&)
+    {
+      return Identity{};
+    }
+
     template<typename Repr>
     static auto inverse(const Repr& X)
     {
