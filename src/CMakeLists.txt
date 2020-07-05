@@ -146,6 +146,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/MatrixProperties.h
   ${TVM_INCLUDE_DIR}/internal/MatrixWithProperties.h
   ${TVM_INCLUDE_DIR}/internal/meta.h
+  ${TVM_INCLUDE_DIR}/internal/math.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
