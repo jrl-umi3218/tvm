@@ -27,9 +27,9 @@ namespace tvm::manifold::internal
   {
   public:
     /** Identity of the group*/
-    struct Identity {};
+    struct Identity { using LG = Derived;  };
     /** Identity of the algebra*/
-    struct AlgIdentity {};
+    struct AlgIdentity { using LG = Derived; };
 
     static constexpr auto identity = Identity{};
     static constexpr auto algIdentity = AlgIdentity{};

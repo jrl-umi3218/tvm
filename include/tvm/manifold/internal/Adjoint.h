@@ -7,6 +7,8 @@
 
 #include <tvm/internal/meta.h>
 
+TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(LG)
+
 namespace tvm::manifold::internal
 {
   template<typename LG>
@@ -42,6 +44,10 @@ namespace tvm::manifold::internal
       return t;
   }
 
+  template<typename LG>
+  struct AdjointOperations
+  {
+  };
 
 
   template<typename LG_, typename Expr_=ReprOwn<LG_>, bool Inverse_=false, bool Transpose_=false, bool PositiveSign_=true>
@@ -54,30 +60,64 @@ namespace tvm::manifold::internal
     static constexpr bool Transpose = Transpose_;
     static constexpr bool PositiveSign = PositiveSign_;
     static constexpr int dim = LG::dim;
+    using matrix_t = typename AdjointOperations<LG>::matrix_t;
 
 
-    explicit Adjoint(const Expr& X) : elem_(X) {}
+    explicit Adjoint(const Expr& X) : operand_(X) {}
 
-    const auto& elem() const { return get_repr(elem_); }
+    const auto& operand() const { return get_repr(operand_); }
+    const auto& reducedOperand() const 
+    { 
+      if constexpr (Inverse)
+        return LG::template inverse(operand());
+      else
+        return operand();
+    }
+
+    auto matrix() const
+    {
+      if constexpr (std::is_same_v<Expr, typename LG::Identity>)
+      {
+        return matrix_t::Identity();
+      }
+      else
+      {
+        const auto& mat = AdjointOperations<LG>::toMatrix(reducedOperand());
+        if constexpr (Transpose)
+        {
+          if constexpr (PositiveSign)
+            return mat.transpose();
+          else
+            return -mat.transpose();
+        }
+        else
+        {
+          if constexpr (PositiveSign)
+            return mat;
+          else
+            return -mat;
+        }
+      }
+    }
 
     auto inverse() const
     {
-      return Adjoint<LG, Expr, !Inverse, Transpose, PositiveSign>(elem_);
+      return Adjoint<LG, Expr, !Inverse, Transpose, PositiveSign>(operand_);
     }
 
     auto transpose() const
     {
-      return Adjoint<LG, Expr, Inverse, !Transpose, PositiveSign>(elem_);
+      return Adjoint<LG, Expr, Inverse, !Transpose, PositiveSign>(operand_);
     }
 
     auto dual() const
     {
-      return Adjoint<LG, Expr, !Inverse, !Transpose, PositiveSign>(elem_);
+      return Adjoint<LG, Expr, !Inverse, !Transpose, PositiveSign>(operand_);
     }
 
     auto operator-() const
     {
-      return Adjoint<LG, Expr, Inverse, Transpose, !PositiveSign>(elem_);
+      return Adjoint<LG, Expr, Inverse, Transpose, !PositiveSign>(operand_);
     }
 
     template<typename OtherExpr, bool OtherInverse, bool OtherTranspose, bool OtherPositiveSign>
@@ -92,34 +132,38 @@ namespace tvm::manifold::internal
         if constexpr (otherExprIsId)
           return Adjoint<LG, Id, false, false, retSign>(Id{});
         else
-          return Adjoint<LG, OtherExpr, OtherInverse, OtherTranspose, retSign>(other.elem());
+          return Adjoint<LG, OtherExpr, OtherInverse, OtherTranspose, retSign>(other.operand());
       }
       else
       {
         if constexpr (otherExprIsId)
-          return Adjoint<LG, Expr, Inverse, Transpose, retSign>(elem_);
+          return Adjoint<LG, Expr, Inverse, Transpose, retSign>(operand_);
         else
         {
           static_assert(!Transpose && !OtherTranspose, "Cannot use transpose types here. Pass to the matrix representation before performing the multiplication.");
           if constexpr (Inverse)
           {
             if constexpr (OtherInverse) //inv(Ad_x)*inv(Ad_y) = inv(Ad_{y*x})
-              return Adjoint<LG, ReprOwn<LG>, true, false, retSign>({ LG::template compose(other.elem(), this->elem()) });
+              return Adjoint<LG, ReprOwn<LG>, true, false, retSign>({ LG::template compose(other.operand(), this->operand()) });
             else //inv(Ad_x)*Ad_y = Ad_{inv(x)*y}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(LG::template inverse(this->elem()), other.elem()) });
+              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->reducedOperand(), other.operand()) });
           }
           else
           {
             if constexpr (OtherInverse) //Ad_x*inv(Ad_y) = Ad_{x*inv(y)}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->elem(), LG::template inverse(other.elem())) });
+              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->operand(), other.reducedOperand()) });
             else //Ad_x*Ad_y = Ad_{x*y}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->elem(), other.elem()) });
+              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->operand(), other.operand()) });
           }
         }
       }
     }
 
   private:
-    Expr elem_;
+    Expr operand_;
   };
+
+  // Deduction guide for identity
+  template<typename Id>
+  Adjoint(const Id& id)->Adjoint<typename Id::LG, Id>;
 }

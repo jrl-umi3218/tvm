@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include <tvm/manifold/internal/Adjoint.h>
 #include <tvm/manifold/internal/LieGroup.h>
 #include <tvm/manifold/internal/details.h>
 
@@ -17,6 +18,13 @@ namespace tvm::manifold
     {
       static constexpr int dim = 3;
       using repr_t = Eigen::Matrix3d;
+    };
+
+    template<>
+    struct AdjointOperations<SO3>
+    {
+      using matrix_t = Eigen::Matrix3d;
+      static auto toMatrix(const typename traits<SO3>::repr_t& X) { return X; }
     };
   }
 
