@@ -42,8 +42,8 @@ namespace tvm
 namespace task_dynamics
 {
 
-  /** Compute \f$ \dot{e}^* = -kp e \f$ (Kinematic order)
-   *  with \f$ kp \f$ a scalar, a diagonal matrix (given as a vector) or a matrix.
+  /** Compute \f$ \dot{e}^* = -k_p e \f$ (Kinematic order)
+   *  with \f$ k_p \f$ a scalar, a diagonal matrix (given as a vector) or a matrix.
    */
   class TVM_DLLAPI Proportional: public abstract::TaskDynamics
   {

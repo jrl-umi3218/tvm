@@ -42,7 +42,7 @@ namespace tvm
 namespace task_dynamics
 {
 
-  /** Compute \f$ \ddot{e}^* = -k_v dot{e} - k_p e\f$ (dynamic order)
+  /** Compute \f$ \ddot{e}^* = -k_v \dot{e} - k_p e\f$ (dynamic order)
    * where \f$ k_p \f$ and \f$ k_v \f$ can be (independently) a scalar, a
    * diagonal matrix (given as a vector) or a matrix.
    */
