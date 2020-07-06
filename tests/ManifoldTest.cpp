@@ -62,28 +62,39 @@ TEST_CASE("SO3")
   FAST_CHECK_UNARY((x * y.transpose()).isApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
 }
 
+template<typename LG, typename Expr>
+struct checkAdjoint
+{
+  template<typename Adj>
+  static void run(const Adj& adj, bool inverse, bool transpose, bool sign,
+    const typename LG::repr_t& opValue, const typename Adj::matrix_t& mat)
+  {
+    FAST_CHECK_UNARY(std::is_same_v<typename Adj::LG, LG>);
+    FAST_CHECK_UNARY(std::is_same_v<typename Adj::Expr, Expr>);
+    FAST_CHECK_EQ(Adj::Inverse, inverse);
+    FAST_CHECK_EQ(Adj::Transpose, transpose);
+    FAST_CHECK_EQ(Adj::PositiveSign, sign);
+    if constexpr (!std::is_same_v<Expr,typename LG::Identity>)
+      FAST_CHECK_UNARY(opValue.isApprox(adj.operand()));
+    FAST_CHECK_UNARY(mat.isApprox(adj.matrix()));
+  }
+};
+
 TEST_CASE("Adjoint")
 {
   using R3 = manifold::Real<3>;
+  using tvm::manifold::internal::ReprOwn;
   Vector3d x = Vector3d::Random();
   Vector3d y = Vector3d::Random();
   tvm::manifold::internal::Adjoint<R3> AdX(x);
   tvm::manifold::internal::Adjoint<R3> AdY(y);
-  tvm::manifold::internal::Adjoint<R3, R3::Identity> AdI(R3::Identity{});
+  tvm::manifold::internal::Adjoint AdI(R3::Identity{});
   auto AdXY = AdX * AdY;
   auto AdXI = AdX * AdI;
   auto AdIX = AdI * AdX;
   auto AdII = AdI * AdI;
-  FAST_CHECK_UNARY(AdXY.elem().isApprox(x + y));
-  FAST_CHECK_UNARY(std::is_same_v<decltype(AdXY)::LG, R3>);
-  FAST_CHECK_UNARY(std::is_same_v<decltype(AdXY)::Expr, tvm::manifold::internal::ReprOwn<R3>>);
-  FAST_CHECK_UNARY_FALSE(decltype(AdXY)::Inverse);
-  FAST_CHECK_UNARY_FALSE(decltype(AdXY)::Transpose);
-  FAST_CHECK_UNARY(decltype(AdXY)::PositiveSign);
-  FAST_CHECK_UNARY(AdXI.elem().isApprox(x));
-  FAST_CHECK_UNARY(AdIX.elem().isApprox(x));
-  FAST_CHECK_UNARY(std::is_same_v<decltype(AdII), decltype(AdI)>);
-  FAST_CHECK_UNARY_FALSE(decltype(AdII)::Inverse);
-  FAST_CHECK_UNARY_FALSE(decltype(AdII)::Transpose);
-  FAST_CHECK_UNARY(decltype(AdII)::PositiveSign);
+  checkAdjoint<R3, ReprOwn<R3>>::run(AdXY, false, false, true, x + y, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(AdXI, false, false, true, x, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(AdIX, false, false, true, x, Matrix3d::Identity());
+  checkAdjoint<R3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
 }
