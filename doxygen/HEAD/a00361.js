@@ -1,5 +1,5 @@
 var a00361 =
 [
-    [ "Function", "a01017.html", "a01017" ],
-    [ "LinearFunction", "a01021.html", "a01021" ]
+    [ "Constraint", "a00952.html", "a00952" ],
+    [ "LinearConstraint", "a00956.html", "a00956" ]
 ];

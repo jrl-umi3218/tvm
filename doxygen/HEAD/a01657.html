@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::None Class Reference</title>
+<title>TVM: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01657.html','');});
+$(document).ready(function(){initNavTree('a01660.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,134 +88,27 @@ $(document).ready(function(){initNavTree('a01657.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="a01654.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::None Class Reference</div>  </div>
+<div class="title">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Compute e* = -f(0) + rhs (Geometric order).  
- <a href="a01657.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/task_dynamics/None.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::None:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01657.png" usemap="#tvm::task_5Fdynamics::None_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::None_map" name="tvm::task_5Fdynamics::None_map">
-<area href="a01633.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html">Impl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:aeb7ea66d0e8f31d758b7161c533fd2b5"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01657.html#aeb7ea66d0e8f31d758b7161c533fd2b5">impl_</a> (<a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
-<tr class="separator:aeb7ea66d0e8f31d758b7161c533fd2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6cacaa6764c52f9ffb67001d3ebc848"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01657.html#ab6cacaa6764c52f9ffb67001d3ebc848">order_</a> () const override</td></tr>
-<tr class="separator:ab6cacaa6764c52f9ffb67001d3ebc848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_methods_a01633"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01633')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01633.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
-<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01633"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
-<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01633"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01637.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
-<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01633"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
-<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compute e* = -f(0) + rhs (Geometric order). </p>
-<p>For linear functions only. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aeb7ea66d0e8f31d758b7161c533fd2b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb7ea66d0e8f31d758b7161c533fd2b5">&#9670;&nbsp;</a></span>impl_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01637.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::None::impl_ </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00356.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00357.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="a01633.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
-
-</div>
-</div>
-<a id="ab6cacaa6764c52f9ffb67001d3ebc848"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6cacaa6764c52f9ffb67001d3ebc848">&#9670;&nbsp;</a></span>order_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00363.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::None::order_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="a01633.html#a0af2178117ec3fab102e808b863e9886">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01660.html#a366d738cb0a5b82dfa14403686041e49">addProviderDependency_</a></td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01660.html#ac8f4704379a17aa27b2bc08313d3f7e7">addProviderDependencyT</a> typedef</td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01660.html#ae5d30f49f50e6f11fa021d28ae7885d4">FeedForward</a>(std::shared_ptr&lt; FFProvider &gt; provider, const Eigen::VectorXd &amp;(FFProvider::*method)() const, FFSignal signal, Args &amp;&amp;... args)</td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01660.html#a6fdf46188bbae8c4829713a99318636f">feedForward_</a></td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01660.html#a8946ee14177601a7e60a05033bb59825">getFeedForwardT</a> typedef</td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01660.html#abda16526050397d7ef14bc4a8371a942">impl_</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const override</td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01660.html#a16f4bba041002d7a1509cc721d42a704">~FeedForward</a>() override=default</td><td class="entry"><a class="el" href="a01660.html">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00363.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01657.html">None</a></li>
-    <li class="footer">Generated on Mon Jun 22 2020 05:29:56 for TVM by
+    <li class="footer">Generated on Mon Jul 6 2020 06:30:47 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

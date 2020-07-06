@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Eigen Namespace Reference</title>
+<title>TVM: tvm::solver Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,42 +90,67 @@ $(document).ready(function(){initNavTree('a00387.html','');});
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Eigen Namespace Reference</div>  </div>
+<div class="title">tvm::solver Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00388"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00388.html">internal</a></td></tr>
+<tr class="memitem:a00388"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00388.html">abstract</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//eigen-quadprog.doxytag:https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//" href="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//a00563.html">QuadProgCommon</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01588.html">DefaultLSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create default solver instances with a given set of options.  <a href="a01588.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//eigen-quadprog.doxytag:https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//" href="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//a00567.html">QuadProgDense</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html">DefaultLSSolverOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A minimal set of options for the default solver.  <a href="a01584.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//eigen-quadprog.doxytag:https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//" href="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//a00571.html">QuadProgSparse</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01596.html">LSSOLLeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the LSSOL solver, to solve linear least-squares problems.  <a href="a01596.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a5de6a01bef47f841b3657c5e2d3c42c4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//eigen-quadprog.doxytag:https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//" href="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//a00015.html#a5de6a01bef47f841b3657c5e2d3c42c4">qpgen1_</a> (double *dmat, double *dvec, const int *fddmat, const int *n, double *sol, double *crval, double *amat, const int *iamat, double *bvec, const int *fdamat, const int *q, const int *meq, int *iact, int *nact, int *iter, double *work, const int *ierr)</td></tr>
-<tr class="separator:a5de6a01bef47f841b3657c5e2d3c42c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a9bc2322f12c41652d5595e5ef8ef4f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//eigen-quadprog.doxytag:https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//" href="https://jrl-umi3218.github.io/eigen-quadprog/doxygen/HEAD//a00015.html#a1a9bc2322f12c41652d5595e5ef8ef4f">qpgen2_</a> (double *dmat, double *dvec, const int *fddmat, const int *n, double *sol, double *crval, double *amat, double *bvec, const int *fdamat, const int *q, const int *meq, int *iact, int *nact, int *iter, double *work, const int *ierr)</td></tr>
-<tr class="separator:a1a9bc2322f12c41652d5595e5ef8ef4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01600.html">LSSOLLSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01596.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a> instances with a given set of options.  <a href="a01600.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01592.html">LSSOLLSSolverOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01596.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a>.  <a href="a01592.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01608.html">QLDLeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the QLD solver, to solve linear least-squares problems.  <a href="a01608.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01612.html">QLDLSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01608.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a> instances with a given set of options.  <a href="a01612.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01604.html">QLDLSSolverOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01608.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a>.  <a href="a01604.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01620.html">QuadprogLeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the Quadprog solver, to solve linear least-squares problems.  <a href="a01620.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01624.html">QuadprogLSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01620.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a> instances with a given set of options.  <a href="a01624.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01616.html">QuadprogLSSolverOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01620.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a>.  <a href="a01616.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. </p>
+<p>The first solver found in this (ordered) list is taken as default: LSSOL, QLD, Quadprog </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00387.html">Eigen</a></li>
-    <li class="footer">Generated on Mon Jun 22 2020 05:29:55 for TVM by
+    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00387.html">solver</a></li>
+    <li class="footer">Generated on Mon Jul 6 2020 06:30:47 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

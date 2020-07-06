@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['linearizedcontrolproblem',['LinearizedControlProblem',['../a00973.html#a92ba89182ead5aecaab77b0762a34986',1,'tvm::ControlProblem']]]
+  ['feedforward',['FeedForward',['../a01664.html#a5d2b3f15df52a06a4fe9f2bdbacb3502',1,'tvm::task_dynamics::FeedForward::Impl']]]
 ];

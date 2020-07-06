@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::requirements Namespace Reference</title>
+<title>TVM: tvm::constraint::internal Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,93 +89,29 @@ $(document).ready(function(){initNavTree('a00362.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::requirements Namespace Reference</div>  </div>
+<div class="title">tvm::constraint::internal Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00378"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html">abstract</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01253.html">AnisotropicWeight</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents an anisotropic weight to give more or less importance to the different rows of a constraint.  <a href="a01253.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00964.html">LinearizedTaskConstraint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task \((e, op, rhs, e^*)\), this class derives the constraint \(d^k e/dt^k\ op\ e^*(e,de/dt,...de^{k-1}/dt^{k-1}, rhs [,g])\), where e is an error function, op is ==, &gt;= or &lt;= and \(e^*\) is a desired error dynamics.  <a href="a00964.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01257.html">PriorityLevel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents the priority level of a constraint.  <a href="a01257.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00968.html">RHSVectors</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class manages the vectors <code>l</code>, <code>u</code> and <code>e</code> that appear in the various types of constraints.  <a href="a00968.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html">SolvingRequirements</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class groups a <a class="el" href="a01257.html" title="This class represents the priority level of a constraint. ">PriorityLevel</a>, a <a class="el" href="a01269.html" title="This class represents the scalar weight alpha of a constraint, within its priority level...">Weight</a>, an <a class="el" href="a01253.html" title="This class represents an anisotropic weight to give more or less importance to the different rows of ...">AnisotropicWeight</a> and a <a class="el" href="a01265.html" title="A class specifying how a constraint violation should be handled. ">ViolationEvaluation</a>, to describe the way a constraint need to be solved and interact with other constraints.  <a href="a01261.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01265.html">ViolationEvaluation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class specifying how a constraint violation should be handled.  <a href="a01265.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html">Weight</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents the scalar weight alpha of a constraint, within its priority level.  <a href="a01269.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198">ViolationEvaluationType</a> { <br />
-&#160;&#160;<a class="el" href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198a9ec4c0afd450ceac7adb81c3bcfc9732">ViolationEvaluationType::L1</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198a7e6aa2d53f6ee2b1a34b017fa403cb76">ViolationEvaluationType::L2</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198a38b6015d873e96433844072ccea5c553">ViolationEvaluationType::LINF</a>
-<br />
- }<tr class="memdesc:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a constraint, let the vector v(x) be its componentwise violation.  <a href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="aa4adc5cf6ecbfb56b852b529f1e29198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4adc5cf6ecbfb56b852b529f1e29198">&#9670;&nbsp;</a></span>ViolationEvaluationType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00362.html#aa4adc5cf6ecbfb56b852b529f1e29198">tvm::requirements::ViolationEvaluationType</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Given a constraint, let the vector v(x) be its componentwise violation. </p>
-<p>For example, for the constraint c(x) = 0, we simply have v(x) = c(x), for c(x) &gt;= b, we have v(x) = max(b-c(x),0).</p>
-<p>This enumeration specifies how v(x) is made into a scalar measure f(x) of this violation. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a9ec4c0afd450ceac7adb81c3bcfc9732"></a>L1&#160;</td><td class="fielddoc"><p>f(x) = sum(abs(v_i(x))) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a7e6aa2d53f6ee2b1a34b017fa403cb76"></a>L2&#160;</td><td class="fielddoc"><p>f(x) = v(x)^T*v(x) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a38b6015d873e96433844072ccea5c553"></a>LINF&#160;</td><td class="fielddoc"><p>f(x) = max(abs(v_i(x))) </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00362.html">requirements</a></li>
-    <li class="footer">Generated on Mon Jun 22 2020 05:29:56 for TVM by
+    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00360.html">constraint</a></li><li class="navelem"><a class="el" href="a00362.html">internal</a></li>
+    <li class="footer">Generated on Mon Jul 6 2020 06:30:46 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

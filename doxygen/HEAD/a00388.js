@@ -1,4 +1,5 @@
 var a00388 =
 [
-    [ "traits< tvm::utils::internal::NoConstant >", "a01737.html", null ]
+    [ "LeastSquareSolver", "a01576.html", "a01576" ],
+    [ "LSSolverFactory", "a01580.html", "a01580" ]
 ];

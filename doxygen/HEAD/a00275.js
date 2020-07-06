@@ -1,5 +1,6 @@
 var a00275 =
 [
-    [ "CheckOptions", "a01721.html", "a01721" ],
-    [ "checkJacobian", "a00275.html#ga8bb02aa8295218894c58053afefb1098", null ]
+    [ "LinearExpr", "a01720.html", "a01720" ],
+    [ "AffineExpr", "a01724.html", "a01724" ],
+    [ "make_AffineExpr", "a00275.html#a5aaf37f87c2b6c95abbfec5abd1c5607", null ]
 ];

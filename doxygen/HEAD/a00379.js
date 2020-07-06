@@ -1,14 +1,10 @@
 var a00379 =
 [
-    [ "internal", "a00380.html", "a00380" ],
-    [ "CollisionFunction", "a01273.html", "a01273" ],
-    [ "CoMFunction", "a01285.html", "a01285" ],
-    [ "CoMInConvexFunction", "a01289.html", "a01289" ],
-    [ "Contact", "a01293.html", "a01293" ],
-    [ "ConvexHull", "a01305.html", "a01305" ],
-    [ "Frame", "a01309.html", "a01309" ],
-    [ "JointsSelector", "a01329.html", "a01329" ],
-    [ "OrientationFunction", "a01333.html", "a01333" ],
-    [ "PositionFunction", "a01337.html", "a01337" ],
-    [ "PostureFunction", "a01341.html", "a01341" ]
+    [ "internal", "a00389.html", "a00389" ],
+    [ "AffineExpr", "a01724.html", "a01724" ],
+    [ "CheckOptions", "a01732.html", "a01732" ],
+    [ "LinearExpr", "a01720.html", "a01720" ],
+    [ "ProtoTaskCommon", "a01764.html", "a01764" ],
+    [ "ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "a01768.html", "a01768" ],
+    [ "UpdatelessFunction", "a01772.html", "a01772" ]
 ];

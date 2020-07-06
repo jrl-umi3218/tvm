@@ -1,8 +1,7 @@
 var a00375 =
 [
-    [ "AutoCalculator", "a01149.html", "a01149" ],
-    [ "DiagonalCalculator", "a01153.html", "a01153" ],
-    [ "GenericCalculator", "a01161.html", "a01161" ],
-    [ "Substitutions", "a01169.html", "a01169" ],
-    [ "SubstitutionUnit", "a01177.html", "a01177" ]
+    [ "AbstractNode", "a01080.html", "a01080" ],
+    [ "Inputs", "a01088.html", "a01088" ],
+    [ "Log", "a01096.html", "a01096" ],
+    [ "Logger", "a01136.html", "a01136" ]
 ];

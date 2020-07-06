@@ -1,5 +1,5 @@
 var a00364 =
 [
-    [ "TaskDynamics", "a01633.html", "a01633" ],
-    [ "TaskDynamicsImpl", "a01637.html", "a01637" ]
+    [ "Function", "a01020.html", "a01020" ],
+    [ "LinearFunction", "a01024.html", "a01024" ]
 ];

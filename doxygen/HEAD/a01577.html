@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::solver::abstract::LSSolverFactory Class Reference</title>
+<title>TVM: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01577.html','');});
+$(document).ready(function(){initNavTree('a01580.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,164 +88,24 @@ $(document).ready(function(){initNavTree('a01577.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="a01574.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::abstract::LSSolverFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">tvm::solver::abstract::LSSolverFactory Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A base class for <a class="el" href="a01573.html" title="Base class for a (constrained) least-square solver. ">LeastSquareSolver</a> factory.  
- <a href="a01577.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/solver/abstract/LeastSquareSolver.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::solver::abstract::LSSolverFactory:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01577.png" usemap="#tvm::solver::abstract::LSSolverFactory_map" alt=""/>
-  <map id="tvm::solver::abstract::LSSolverFactory_map" name="tvm::solver::abstract::LSSolverFactory_map">
-<area href="a01585.html" title="A factory class to create default solver instances with a given set of options. " alt="tvm::solver::DefaultLSSolverFactory" shape="rect" coords="0,56,231,80"/>
-<area href="a01597.html" title="A factory class to create LSSOLLeastSquareSolver instances with a given set of options. " alt="tvm::solver::LSSOLLSSolverFactory" shape="rect" coords="241,56,472,80"/>
-<area href="a01609.html" title="A factory class to create QLDLeastSquareSolver instances with a given set of options. " alt="tvm::solver::QLDLSSolverFactory" shape="rect" coords="482,56,713,80"/>
-<area href="a01621.html" title="A factory class to create QuadprogLeastSquareSolver instances with a given set of options..." alt="tvm::solver::QuadprogLSSolverFactory" shape="rect" coords="723,56,954,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa7253c409c8125f7806cac17adffb8b5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#aa7253c409c8125f7806cac17adffb8b5">~LSSolverFactory</a> ()=default</td></tr>
-<tr class="separator:aa7253c409c8125f7806cac17adffb8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fa2c837939850ad7a9acb3aa7e7e6fe"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a01577.html">LSSolverFactory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#a6fa2c837939850ad7a9acb3aa7e7e6fe">clone</a> () const =0</td></tr>
-<tr class="separator:a6fa2c837939850ad7a9acb3aa7e7e6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f66347b627c0e41deab82a2bbc0ee32"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a01573.html">LeastSquareSolver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#a9f66347b627c0e41deab82a2bbc0ee32">createSolver</a> () const =0</td></tr>
-<tr class="separator:a9f66347b627c0e41deab82a2bbc0ee32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a16f20ada8e2be7db1dfe20d6d19d27a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#a16f20ada8e2be7db1dfe20d6d19d27a2">LSSolverFactory</a> (const std::string &amp;solverName)</td></tr>
-<tr class="separator:a16f20ada8e2be7db1dfe20d6d19d27a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A base class for <a class="el" href="a01573.html" title="Base class for a (constrained) least-square solver. ">LeastSquareSolver</a> factory. </p>
-<p>The goal of this class is to be passed to a resolution scheme to specify its underlying solver. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a16f20ada8e2be7db1dfe20d6d19d27a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16f20ada8e2be7db1dfe20d6d19d27a2">&#9670;&nbsp;</a></span>LSSolverFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::solver::abstract::LSSolverFactory::LSSolverFactory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>solverName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa7253c409c8125f7806cac17adffb8b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7253c409c8125f7806cac17adffb8b5">&#9670;&nbsp;</a></span>~LSSolverFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual tvm::solver::abstract::LSSolverFactory::~LSSolverFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6fa2c837939850ad7a9acb3aa7e7e6fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fa2c837939850ad7a9acb3aa7e7e6fe">&#9670;&nbsp;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="a01577.html">LSSolverFactory</a>&gt; tvm::solver::abstract::LSSolverFactory::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="a01621.html#a7d11f82ebe54a9fa18a5e3df579f8e76">tvm::solver::QuadprogLSSolverFactory</a>, <a class="el" href="a01609.html#a54daecdbd121b208dad45d5c838865ab">tvm::solver::QLDLSSolverFactory</a>, <a class="el" href="a01597.html#a37498aa7021f22f076407a3106fdfc35">tvm::solver::LSSOLLSSolverFactory</a>, and <a class="el" href="a01585.html#ab33fd56442afba241f7883b94e5ce85d">tvm::solver::DefaultLSSolverFactory</a>.</p>
-
-</div>
-</div>
-<a id="a9f66347b627c0e41deab82a2bbc0ee32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f66347b627c0e41deab82a2bbc0ee32">&#9670;&nbsp;</a></span>createSolver()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="a01573.html">LeastSquareSolver</a>&gt; tvm::solver::abstract::LSSolverFactory::createSolver </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="a01621.html#ad1c07fab0f65837df1134da9bc2293f8">tvm::solver::QuadprogLSSolverFactory</a>, <a class="el" href="a01609.html#afaf1697b4e884815baa656f5a3e0e4d0">tvm::solver::QLDLSSolverFactory</a>, <a class="el" href="a01597.html#a0a7baded2c2cf864371d8e32f3add3c3">tvm::solver::LSSOLLSSolverFactory</a>, and <a class="el" href="a01585.html#a1a9473e53a4278e3429b44cae1c5fb13">tvm::solver::DefaultLSSolverFactory</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01580.html">tvm::solver::abstract::LSSolverFactory</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01580.html#a6fa2c837939850ad7a9acb3aa7e7e6fe">clone</a>() const =0</td><td class="entry"><a class="el" href="a01580.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01580.html#a9f66347b627c0e41deab82a2bbc0ee32">createSolver</a>() const =0</td><td class="entry"><a class="el" href="a01580.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01580.html#a16f20ada8e2be7db1dfe20d6d19d27a2">LSSolverFactory</a>(const std::string &amp;solverName)</td><td class="entry"><a class="el" href="a01580.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01580.html#aa7253c409c8125f7806cac17adffb8b5">~LSSolverFactory</a>()=default</td><td class="entry"><a class="el" href="a01580.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00356.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">solver</a></li><li class="navelem"><a class="el" href="a00385.html">abstract</a></li><li class="navelem"><a class="el" href="a01577.html">LSSolverFactory</a></li>
-    <li class="footer">Generated on Mon Jun 22 2020 05:29:56 for TVM by
+    <li class="footer">Generated on Mon Jul 6 2020 06:30:47 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
