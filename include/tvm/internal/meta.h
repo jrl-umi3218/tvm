@@ -31,9 +31,11 @@
 
 #include <type_traits>
 
+
 /** For a name \a XXX, this creates a templated class has_member_type_XXX in the
  * namespace tvm::internal such that has_member_type_XXX<T>::value is true if
- * t::XXX is a valid expression and refers to a type, and false otherwise.
+ * t::XXX is a valid expression and refers to a type, and false otherwise. This
+ * work whether t::XXX is valid or not.
  *
  * Adapted from https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Member_Detector
  * (section Detecting member types):
@@ -76,6 +78,27 @@ namespace tvm
 {
 namespace internal
 {
+  namespace detail 
+  {
+    template <template <class...> class Trait, class Enabler, class... Args>
+    struct is_detected : std::false_type {};
+
+    template <template <class...> class Trait, class... Args>
+    struct is_detected<Trait, std::void_t<Trait<Args...>>, Args...> : std::true_type {};
+  }
+
+  /** Detect whether Trait<Args...> compiles or not. 
+    * This is useful to detect if a class T has a given public method or member.
+    *
+    * For example by defining
+    * <code> template<typename T> using foo_trait = decltype(std::declval<T>().foo(0)); <\code>
+    * the return of
+    * <code> is_detected<j_trait, C>::value <\code> will be true if class \c C has a
+    * public method \c foo(int).
+    */
+  template <template <class...> class Trait, class... Args>
+  using is_detected = typename detail::is_detected<Trait, void, Args...>::type;
+
   /** An helper struct used by derives_from.*/
   template<template<typename...> class Base>
   struct is_base

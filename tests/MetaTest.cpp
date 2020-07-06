@@ -76,3 +76,46 @@ class B { using Foo = int; };
 static_assert(!has_member_type_Foo<int>::value);
 static_assert(!has_member_type_Foo<A>::value);
 static_assert(has_member_type_Foo<B>::value);
+
+//---------------------- is_detected -------------------------\\
+
+class C
+{
+  int i;
+  int foo(int k);
+public:
+  int j;
+  int bar(int k);
+  int bar(B b, double d);
+};
+
+template<typename T>
+using i_trait = decltype(std::declval<T>().i);
+
+template<typename T>
+using j_trait = decltype(std::declval<T>().j);
+
+template<typename T>
+using foo_trait = decltype(std::declval<T>().foo(0));
+
+template<typename T>
+using bar_trait = decltype(std::declval<T>().bar(0));
+
+template<typename T, typename U>
+using bar2_trait = decltype(std::declval<T>().bar(std::declval<U>(), 3.14));
+
+static_assert(!is_detected<i_trait, A>::value);
+#if not defined(MSVC) // There seems to be a regression bug with vc19.25 where the idom ignore private accessibility
+static_assert(!is_detected<i_trait, C>::value);
+#endif
+static_assert(!is_detected<j_trait, A>::value);
+static_assert(is_detected<j_trait, C>::value);
+static_assert(!is_detected<foo_trait, A>::value);
+#if not defined MSVC // There seems to be a regression bug with vc19.25 where the idom ignore private accessibility
+static_assert(!is_detected<foo_trait, C>::value);
+#endif
+static_assert(!is_detected<bar_trait, A>::value);
+static_assert(is_detected<bar_trait, C>::value);
+static_assert(!is_detected<bar2_trait, A, B>::value);
+static_assert(is_detected<bar2_trait, C, B>::value);
+static_assert(!is_detected<bar2_trait, C, A>::value);
