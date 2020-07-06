@@ -9,6 +9,7 @@
 #include <tvm/Variable.h>
 #include <tvm/task_dynamics/Clamped.h>
 #include <tvm/task_dynamics/Constant.h>
+#include <tvm/task_dynamics/FeedForward.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -22,6 +23,35 @@
 
 using namespace Eigen;
 using namespace tvm;
+
+/** Feed forward value provider */
+class FFProvider : public tvm::graph::abstract::Node<FFProvider>
+{
+public:
+  SET_OUTPUTS(FFProvider, Value)
+  SET_UPDATES(FFProvider, Value)
+
+  FFProvider(const Eigen::VectorXd & value)
+  {
+    registerUpdates(Update::Value, &FFProvider::updateValue);
+    addOutputDependency(Output::Value, Update::Value);
+    value_  = value;
+  }
+
+  const Eigen::VectorXd & value() const
+  {
+    return value_;
+  }
+
+  void updateValue()
+  {
+    updated_ = true;
+  }
+
+  Eigen::VectorXd value_;
+  bool updated_ = false;
+};
+
 
 TEST_CASE("Valid construction")
 {
@@ -46,8 +76,8 @@ TEST_CASE("Test Constant")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(1, 0, 0)));
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::Constant>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::None>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::Constant::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::None::Impl>());
 }
 
 TEST_CASE("Test None")
@@ -66,8 +96,8 @@ TEST_CASE("Test None")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Zero);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Zero);
   FAST_CHECK_UNARY(tdi->value().isApprox(Vector2d(0,-2)));
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::None>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::None::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 }
 
 TEST_CASE("Test Proportional")
@@ -87,8 +117,8 @@ TEST_CASE("Test Proportional")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0]));  // -kp*||(1,2,3) - (1,0,-3)||^2 - 2^2 - rhs
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::P::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
 
   kp = 3;
   dynamic_cast<task_dynamics::P::Impl*>(tdi.get())->gain(kp);
@@ -176,8 +206,43 @@ TEST_CASE("Test Proportional Derivative")
   FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
   FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16);
-  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD>());
-  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant>());
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
+}
+
+TEST_CASE("Test Feed Forward Proportional Derivative")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+  auto f = std::make_shared<SphereFunction>(x, Vector3d(1, 0, -3), 2);
+
+  auto provider = std::make_shared<FFProvider>(Eigen::VectorXd::Constant(1, 10.0));
+
+  double kp = 2;
+  double kv = 3;
+  task_dynamics::FeedForwardPD td(provider, &FFProvider::value, FFProvider::Output::Value, kp,kv);
+  VectorXd rhs(1); rhs[0] = -1;
+  TaskDynamicsPtr tdi = td.impl(f, constraint::Type::EQUAL, rhs);
+
+  auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+  auto gl = utils::generateUpdateGraph(tdi, Value);
+  gl->execute();
+
+  FAST_CHECK_UNARY(provider->updated_);
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 + 10.0);
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_REQUIRE_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>()); // REQUIRE because we do a static_cast after
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
+
+  kp = 3;
+  kv = 2;
+  static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp , kv);
+  gl->execute();
+  FAST_CHECK_EQ(tdi->value()[0], -kp*(36 - rhs[0])-kv*16 + 10.0);
 }
 
 TEST_CASE("Test Proportional Derivative gain types")
@@ -333,8 +398,8 @@ TEST_CASE("Test Velocity Damper")
     FAST_CHECK_EQ(tdl->value()[0], 0);
     FAST_CHECK_EQ(tdl->value()[1], -1);
     FAST_CHECK_EQ(tdl->value()[2], -constant::big_number);
-    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
-    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant>());
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
 
 
     x << -1, -2, -4;
@@ -362,8 +427,8 @@ TEST_CASE("Test Velocity Damper")
     FAST_CHECK_EQ(td2.order(), task_dynamics::Order::Two);
     FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::Two);
     FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-10, -20, -1000)));
-    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper>());
-    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant>());
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
 
     x << -1, -2, -4;
     dx << -1, -1, -1;
@@ -386,7 +451,6 @@ TEST_CASE("Test automatic xsi")
   double di = 3;
   double ds = 1;
   double xsiOff = 1;
-  double dt = 0.1;
 
   //test kinematics
   double big = 100;
@@ -498,22 +562,58 @@ TEST_CASE("Test Clamped")
   auto f = std::make_shared<function::IdentityFunction>(x);
 
   double kp = 1;
-  task_dynamics::P td(kp);
+  task_dynamics::Clamped<task_dynamics::P> c(1.0, kp);
   VectorXd rhs = Vector3d::Ones();
 
-  {
-    task_dynamics::Clamped c(td, 1);
-    TaskDynamicsPtr tdi = c.impl(f, constraint::Type::EQUAL, rhs);
-    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
-    auto gl = utils::generateUpdateGraph(tdi, Value);
-    gl->execute();
+  TaskDynamicsPtr tdi = c.impl(f, constraint::Type::EQUAL, rhs);
+  auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+  auto gl = utils::generateUpdateGraph(tdi, Value);
+  gl->execute();
 
-    FAST_CHECK_EQ(c.order(), task_dynamics::Order::One);
-    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
-    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(-.5,-1,1))); // e'= -e = (-1,-2,2)
+  FAST_CHECK_EQ(c.order(), task_dynamics::Order::One);
+  FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
+  FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(-.5,-1,1))); // e'= -e = (-1,-2,2)
 
-    x << 0.5, 1, 1.5;
-    gl->execute();
-    FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(.5, 0, -.5))); // e'= -e = (0.5,0,-0.5)
-  }
+  x << 0.5, 1, 1.5;
+  gl->execute();
+  FAST_CHECK_UNARY(tdi->value().isApprox(Vector3d(.5, 0, -.5))); // e'= -e = (0.5,0,-0.5)
+}
+
+TEST_CASE("Test Clamped<FeedForward<PD>>")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+  auto f = std::make_shared<SphereFunction>(x, Vector3d(1, 0, -3), 2);
+
+  auto provider = std::make_shared<FFProvider>(Eigen::VectorXd::Constant(1, 10.0));
+
+  double kp = 2;
+  double kv = 3;
+  double max = 25;
+  task_dynamics::Clamped<task_dynamics::FeedForwardPD> td(max, provider, &FFProvider::value, FFProvider::Output::Value, kp, kv);
+  Eigen::VectorXd rhs = Eigen::VectorXd::Constant(1, -1);
+  TaskDynamicsPtr tdi = td.impl(f, constraint::Type::EQUAL, rhs);
+
+  auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+  auto gl = utils::generateUpdateGraph(tdi, Value);
+  gl->execute();
+
+  FAST_CHECK_UNARY(provider->updated_);
+  FAST_CHECK_EQ(td.order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
+  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 + 10.0)));
+  FAST_CHECK_UNARY(tdi->value()[0] == -max); // clamped error
+  FAST_CHECK_UNARY(tdi->checkType<task_dynamics::PD::Impl>());
+  FAST_CHECK_UNARY(tdi->checkType<decltype(td)::Impl>());
+  FAST_REQUIRE_UNARY(tdi->checkType<task_dynamics::FeedForwardPD::Impl>()); // REQUIRE because we do a static_cast after
+  FAST_CHECK_UNARY_FALSE(tdi->checkType<task_dynamics::Constant::Impl>());
+
+  kp = 0.2;
+  kv = 0.3;
+  static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp , kv);
+  gl->execute();
+  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp*(36 - rhs[0])-kv*16 + 10.0)));
+  FAST_CHECK_UNARY_FALSE(tdi->value()[0] == -max); // not clamped anymore
 }

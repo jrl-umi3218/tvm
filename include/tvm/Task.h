@@ -62,8 +62,8 @@ namespace tvm
     TaskDynamicsPtr taskDynamics() const;
     TaskDynamicsPtr secondBoundTaskDynamics() const;  //the dynamics of the upper bound, in the case of double-sided task only.
 
-    template<typename T>
-    std::shared_ptr<typename T::Impl> taskDynamics() const;
+    template<typename T, typename TDImpl = typename T::Impl>
+    std::shared_ptr<TDImpl> taskDynamics() const;
 
     template<typename T>
     std::shared_ptr<typename T::Impl> secondBoundTaskDynamics() const;
@@ -76,11 +76,11 @@ namespace tvm
   };
 
 
-  template<typename T>
-  std::shared_ptr<typename T::Impl> Task::taskDynamics() const
+  template<typename T, typename TDImpl>
+  std::shared_ptr<TDImpl> Task::taskDynamics() const
   {
-    if (td_->checkType<T>())
-      return std::static_pointer_cast<typename T::Impl>(td_);
+    if (td_->checkType<TDImpl>())
+      return std::static_pointer_cast<TDImpl>(td_);
     else
       throw std::runtime_error("Unable to cast the task dynamics into the desired type.");
   }

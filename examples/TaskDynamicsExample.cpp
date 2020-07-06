@@ -4,7 +4,7 @@
 
 namespace tvm::example
 {
-  /** A class implementing the task dynamics 
+  /** A class implementing the task dynamics
     * \f$
     *     \dot{e}^* = - (a \exp(-b \left\|e\right\|) + c) e
     * \f$
@@ -30,6 +30,8 @@ namespace tvm::example
       std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
       task_dynamics::Order order_() const override;
 
+      TASK_DYNAMICS_DERIVED_FACTORY(a_, b_, c_)
+
     private:
       double a_;
       double b_;
@@ -37,7 +39,7 @@ namespace tvm::example
   };
 }
 
-// So far tvm::function::abstract::Function was only forward-declared 
+// So far tvm::function::abstract::Function was only forward-declared
 #include<tvm/function/abstract/Function.h>
 
 namespace tvm::example

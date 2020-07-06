@@ -1,31 +1,6 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/*
+ * Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
+ */
 
 #pragma once
 
@@ -46,23 +21,22 @@ namespace tvm::task_dynamics
     * \f$ b_{max} \f$ are given bounds, specified as scalars or vectors.
     */
   template <class TD, class TDImpl = typename TD::Impl>
-  class Clamped : public abstract::TaskDynamics
+  class Clamped : public TD
   {
   public:
     using Bounds = mpark::variant<double, Eigen::VectorXd>;
 
-    class Impl : public abstract::TaskDynamicsImpl
+    class Impl : public TDImpl
     {
     public:
-      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max);
+      template<typename ... Args>
+      Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, const Bounds& min, const Bounds& max, Args&& ... args);
       void updateValue() override;
-
-      /** Access to the task dynamics being clamped. */
-      const std::shared_ptr<TDImpl>& inner() const;
+      ~Impl() override = default;
 
       /** Access to \f$ b_{min} \f$. */
       const Eigen::VectorXd& min() const { return min_; }
-      /** Access to \f$ b_{min} \f$. 
+      /** Access to \f$ b_{min} \f$.
         *
         * \warning It is your responsibility to give a valid \f$ b_{min} \f$ i.e.
         *  * correct size
@@ -80,66 +54,78 @@ namespace tvm::task_dynamics
       Eigen::VectorXd& max() { return max_; }
 
     private:
-      std::shared_ptr<TDImpl> innerTaskDynamicsImpl_;
       Eigen::VectorXd min_;
       Eigen::VectorXd max_;
     };
 
     /** Constructor with \f$ b_{min} = -b_{max}\f$  (scalar version).
       *
-      * \param innerTaskDynamics The task dynamics to clamp.
       * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
       *        have, in absolute value (\f$ b_{max}\f$).
+      * \param args These are forwarded to the TD constructor
       */
-    Clamped(const TD& innerTaskDynamics, double max);
-    /** Constructor with \f$ b_{min} = -b_{max}\f$  (scalar version).
+    template<typename ... Args>
+    Clamped(double max, Args&& ... args);
+
+    /** Constructor with \f$b_{min}\f$ and \f$b_{max}\f$  (scalar version).
       *
-      * \param innerTaskDynamics The task dynamics to clamp.
-      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
-      *        have (\f$ b_{max}\f$).
-      * \param min The minimum value that a component of \f$ e_c^{(k)*} \f$ can
-      *        have (\f$ b_{min}\f$). We need \f$ b_{min} \leq 0 \leq b_{max}\f$.
+      * \param minMax The minimum (\f$b_{min}\f$) and maximum (\f$b_{max}\f$)
+      *               value that a component of \f$ e_c^{(k)*}\f$ can have. We require that
+      *               \f$b_{min} \leq 0 \leq b_{max}\f$.
+      * \param args These are forwarded to the TD constructor
       */
-    Clamped(const TD& innerTaskDynamics, double min, double max);
+    template<typename ... Args>
+    Clamped(const std::pair<double, double>& minMax, Args&& ... args);
+
     /** Constructor with \f$ b_{min} = -b_{max}\f$  (vector version).
       *
-      * \param innerTaskDynamics The task dynamics to clamp.
       * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
       *        have, in absolute value (\f$ b_{max}\f$).
+      * \param args These are forwarded to the TD constructor
       */
-    Clamped(const TD& innerTaskDynamics, const VectorConstRef& max);
-    /** Constructor with \f$ b_{min} = -b_{max}\f$  (vector version).
+    template<typename ... Args>
+    Clamped(const VectorConstRef& max, Args&& ... args);
+
+    /** Constructor with \f$b_{min}\f$ and \f$b_{max}\f$  (vector version).
       *
-      * \param innerTaskDynamics The task dynamics to clamp.
-      * \param max The maximum value that a component of \f$ e_c^{(k)*} \f$ can
-      *        have (\f$ b_{max}\f$).
-      * \param min The minimum value that a component of \f$ e_c^{(k)*} \f$ can
-      *        have (\f$ b_{min}\f$). We need \f$ b_{min} \leq 0 \leq b_{max}\f$.
+      * \param minMax The minimum (\f$b_{min}\f$) and maximum (\f$b_{max}\f$)
+      *               value that a component of \f$ e_c^{(k)*}\f$ can have. We require that
+      *               \f$b_{min} \leq 0 \leq b_{max}\f$.
+      * \param args These are forwarded to the TD constructor
       */
-    Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max);
+    template<typename ... Args>
+    Clamped(const std::pair<VectorConstRef, VectorConstRef>& minMax, Args&& ... args);
+
+    ~Clamped() override = default;
 
   protected:
-    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
-    Order order_() const override;
+    std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override
+    {
+      return TD::template impl_<Impl>(f, t, rhs, min_, max_);
+    }
+
+    COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY(TD, min_, max_)
 
   private:
-    TD innerTaskDynamics_;
     Bounds min_;
     Bounds max_;
   };
 
   template<class TD, class TDImpl>
-  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, double max)
-    : Clamped<TD, TDImpl>(innerTaskDynamics, -max, max)
+  template<typename ... Args>
+  inline Clamped<TD, TDImpl>::Clamped(double max, Args&& ... args)
+    : Clamped<TD, TDImpl>({-max, max}, std::forward<Args>(args)...)
   {
   }
 
   template<class TD, class TDImpl>
-  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, double min, double max)
-    : innerTaskDynamics_(innerTaskDynamics)
-    , min_(min)
-    , max_(max)
+  template<typename ... Args>
+  inline Clamped<TD, TDImpl>::Clamped(const std::pair<double, double> & minMax, Args&& ... args)
+    : TD(std::forward<Args>(args)...),
+      min_(minMax.first)
+    , max_(minMax.second)
   {
+    const auto& [min, max] = minMax;
     if (min > 0)
     {
       throw std::runtime_error("[task_dynamics::Clamped] Minimum values must be negative.");
@@ -149,19 +135,22 @@ namespace tvm::task_dynamics
       throw std::runtime_error("[task_dynamics::Clamped] Maximum values must be positive.");
     }
   }
-  
+
   template<class TD, class TDImpl>
-  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& max)
-    : Clamped<TD>(innerTaskDynamics, -max, max)
+  template<typename ... Args>
+  inline Clamped<TD, TDImpl>::Clamped(const VectorConstRef& max, Args&& ... args)
+    : Clamped<TD>({-max, max}, std::forward<Args>(args)...)
   {
   }
 
   template<class TD, class TDImpl>
-  inline Clamped<TD, TDImpl>::Clamped(const TD& innerTaskDynamics, const VectorConstRef& min, const VectorConstRef& max)
-    : innerTaskDynamics_(innerTaskDynamics)
-    , min_(min)
-    , max_(max)
+  template<typename ... Args>
+  inline Clamped<TD, TDImpl>::Clamped(const std::pair<VectorConstRef, VectorConstRef>& minMax, Args&& ... args)
+    : TD(std::forward<Args>(args)...)
+    , min_(minMax.first)
+    , max_(minMax.second)
   {
+    const auto& [min, max] = minMax;
     if (min.size() !=  max.size())
     {
       throw std::runtime_error("[task_dynamics::Clamped] The minimum and maximum must have the same size.");
@@ -175,23 +164,11 @@ namespace tvm::task_dynamics
       throw std::runtime_error("[task_dynamics::Clamped] Maximum values must be positive.");
     }
   }
-  
-  template<class TD, class TDImpl>
-  inline std::unique_ptr<abstract::TaskDynamicsImpl> Clamped<TD, TDImpl>::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
-  {
-    return std::make_unique<Impl>(f, t, rhs, innerTaskDynamics_, min_, max_);
-  }
 
   template<class TD, class TDImpl>
-  inline Order Clamped<TD, TDImpl>::order_() const
-  {
-    return innerTaskDynamics_.order();
-  }
-
-  template<class TD, class TDImpl>
-  inline Clamped<TD, TDImpl>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const TD& innerTaskDynamics, const Bounds& min, const Bounds& max)
-    : TaskDynamicsImpl(innerTaskDynamics.order(), f, t, rhs)
-    , innerTaskDynamicsImpl_(static_cast<TDImpl*>(innerTaskDynamics.impl(f, t, rhs).release()))
+  template<typename ... Args>
+  inline Clamped<TD, TDImpl>::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs, const Bounds& min, const Bounds& max, Args&& ... args)
+    : TDImpl(f, t, rhs, std::forward<Args>(args)...)
     , min_(min.index() == 1 ? mpark::get<Eigen::VectorXd>(min) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(min)))
     , max_(max.index() == 1 ? mpark::get<Eigen::VectorXd>(max) : Eigen::VectorXd::Constant(f->size(), mpark::get<double>(max)))
   {
@@ -207,37 +184,28 @@ namespace tvm::task_dynamics
     {
       throw std::runtime_error("[task_dynamics::Clamped::Impl] Maximum values must be positive.");
     }
-    addInput(innerTaskDynamicsImpl_, TaskDynamicsImpl::Output::Value);
-    addInputDependency(Update::UpdateValue, innerTaskDynamicsImpl_, TaskDynamicsImpl::Output::Value);
   }
 
 
   template<class TD, class TDImpl>
   inline void Clamped<TD, TDImpl>::Impl::updateValue()
   {
-    const auto& innerValue = innerTaskDynamicsImpl_->value();
-
+    TDImpl::updateValue();
     double s = 1;
-    for (int i = 0; i < function().size(); ++i)
+    for (int i = 0; i < this->function().size(); ++i)
     {
-      if (innerValue[i] > max_[i])
+      if (this->value_[i] > max_[i])
       {
         // innerValue[i] > max_[i] >= 0 so that innerValue[i] != 0
-        s = std::min(s, max_[i] / innerValue[i]);
+        s = std::min(s, max_[i] / this->value_[i]);
       }
-      else if (innerValue[i] < min_[i])
+      else if (this->value_[i] < min_[i])
       {
-        // innerValue[i] < min_[i] <= 0 so that innerValue[i] != 0
-        s = std::min(s, min_[i] / innerValue[i]);
+        // this->value_[i] < min_[i] <= 0 so that this->value_[i] != 0
+        s = std::min(s, min_[i] / this->value_[i]);
       }
     }
+    this->value_ *= s;
+  }
 
-    value_ = s * innerValue;
-  }
-  
-  template<class TD, class TDImpl>
-  inline const std::shared_ptr<TDImpl>& Clamped<TD, TDImpl>::Impl::inner() const
-  {
-    return innerTaskDynamicsImpl_;
-  }
-}
+} // namespace task_dynamics
