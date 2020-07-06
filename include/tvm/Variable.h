@@ -47,8 +47,8 @@ namespace tvm
 
   /** Get the ndiff-th time derivative of a variable
     *
-    * /param var the variable to be derived
-    * /param ndiff the order of the derivation
+    * \param var the variable to be derived
+    * \param ndiff the order of the derivation
     */
   VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff=1);
 

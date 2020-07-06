@@ -63,7 +63,7 @@ VectorXd IKExample()
     x->value(x->value() + dot(x)->value() * dt);
     q->value(q->value() + dot(q)->value() * dt);
     ++i;
-  } while (dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8 && i < maxIt);
+  } while ((dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8) && i < maxIt);
 
   std::cout << "At q = " << q->value().transpose() << ",\n    e1 = " << e1->value().transpose() << "\n"
             << "   convergence in " << i << " iterations" << std::endl;
@@ -105,7 +105,7 @@ VectorXd IKSubstitutionExample()
     x->value(x->value() + dot(x)->value() * dt);
     q->value(q->value() + dot(q)->value() * dt);
     ++i;
-  } while (dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8 && i < maxIt);
+  } while ((dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8) && i < maxIt);
 
   std::cout << "At q = " << q->value().transpose() << ",\n    e1 = " << e1->value().transpose() << "\n"
     << "   convergence in " << i << " iterations" << std::endl;

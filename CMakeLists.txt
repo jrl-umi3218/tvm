@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.3)
+cmake_minimum_required(VERSION 3.8)
 
 set(PROJECT_NAME TVM)
 set(PROJECT_DESCRIPTION "...")
