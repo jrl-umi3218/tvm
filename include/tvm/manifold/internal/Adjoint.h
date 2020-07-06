@@ -61,6 +61,9 @@ namespace tvm::manifold::internal
     static constexpr bool PositiveSign = PositiveSign_;
     static constexpr int dim = LG::dim;
     using matrix_t = typename AdjointOperations<LG>::matrix_t;
+    template<typename T>
+    using isId = std::is_same<T, typename LG::Identity>;
+    static constexpr bool exprIsId = std::is_same_v<Expr, typename LG::Identity>;
 
 
     explicit Adjoint(const Expr& X) : operand_(X) {}
@@ -74,11 +77,23 @@ namespace tvm::manifold::internal
         return operand();
     }
 
+    template<typename U = Expr_, typename = std::enable_if_t<(isId<U>::value && dim < 0), int> >
+    auto matrix(typename matrix_t::Index s) const
+    {
+      static_assert(std::is_same_v<U, Expr_>);
+      return matrix_t::Identity(s,s);
+    }
+
+    template<typename U = Expr_, typename = std::enable_if_t<!(isId<U>::value && dim < 0), int> >
     auto matrix() const
     {
-      if constexpr (std::is_same_v<Expr, typename LG::Identity>)
+      static_assert(std::is_same_v<U, Expr_>);
+      if constexpr (exprIsId)
       {
-        return matrix_t::Identity();
+        if constexpr (dim >= 0)
+          return matrix_t::Identity();
+        else
+          static_assert(tvm::internal::always_false<Expr>::value, "we should not reach here");
       }
       else
       {
@@ -124,7 +139,6 @@ namespace tvm::manifold::internal
     auto operator*(const Adjoint<LG, OtherExpr, OtherInverse, OtherTranspose, OtherPositiveSign>& other)
     {
       using Id = typename LG::Identity;
-      constexpr bool exprIsId = std::is_same_v<Expr, Id>;
       constexpr bool otherExprIsId = std::is_same_v<OtherExpr, Id>;
       constexpr bool retSign = PositiveSign == OtherPositiveSign;
       if constexpr (exprIsId)
