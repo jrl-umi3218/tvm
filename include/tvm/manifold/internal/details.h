@@ -9,8 +9,8 @@ namespace tvm::manifold::internal
 {
 
   /** sinus cardinal: sin(x)/x
- * Code adapted from boost::math::detail::sinc
- */
+    * Code adapted from boost::math::detail::sinc
+    */
   template<typename T>
   T sinc(const T x)
   {
@@ -35,6 +35,43 @@ namespace tvm::manifold::internal
         result -= x2 / static_cast<T>(6);
 
         if (std::abs(x) >= taylor_2_bound)
+        {
+          // approximation by taylor series in x at 0 up to order 4
+          result += (x2 * x2) / static_cast<T>(120);
+        }
+      }
+
+      return (result);
+    }
+  }
+
+  /** sinus cardinal when x^2 is available: sin(sqrt(x))/sqrt(x)
+    * Code adapted from boost::math::detail::sinc
+    */
+  template<typename T>
+  T sincsqrt(const T x2)
+  {
+    assert(x2 >= 0);
+    constexpr T taylor_0_bound = std::numeric_limits<double>::epsilon();
+    constexpr T taylor_s_bound = taylor_0_bound * taylor_0_bound;
+    constexpr T taylor_2_bound = tvm::internal::sqrt(taylor_0_bound);
+
+    if (x2 >= taylor_2_bound)
+    {
+      auto x = sqrt(x2);
+      return (std::sin(x) / x);
+    }
+    else
+    {
+      // approximation by taylor series in x at 0 up to order 0
+      T result = static_cast<T>(1);
+
+      if (x2 >= taylor_s_bound)
+      {
+        // approximation by taylor series in x at 0 up to order 2
+        result -= x2 / static_cast<T>(6);
+
+        if (x2 >= taylor_0_bound)
         {
           // approximation by taylor series in x at 0 up to order 4
           result += (x2 * x2) / static_cast<T>(120);

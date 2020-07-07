@@ -3,57 +3,17 @@
  */
 #pragma once
 
-#include <tvm/manifold/internal/Adjoint.h>
-#include <tvm/manifold/internal/LieGroup.h>
+#include <tvm/manifold/internal/RotationBase.h>
 #include <tvm/manifold/internal/details.h>
 
 namespace tvm::manifold
 {
-  class SO3;
-
-  namespace internal
-  {
-    template<>
-    struct traits<SO3>
-    {
-      static constexpr int dim = 3;
-      using repr_t = Eigen::Matrix3d;
-    };
-
-    template<>
-    struct AdjointOperations<SO3>
-    {
-      using matrix_t = Eigen::Matrix3d;
-      static auto toMatrix(const typename traits<SO3>::repr_t& X) { return X; }
-    };
-  }
-
-
-  class SO3: public internal::LieGroup<SO3>
+  class SO3: public internal::RotationBase, public internal::LieGroup<SO3>
   {
   public:
     using Base = internal::LieGroup<SO3>;
     using typename Base::repr_t;
     using typename Base::tan_t;
-
-    template<typename Tan>
-    static Eigen::Matrix3d hat(const Tan& t)
-    {
-      static_assert(std::is_convertible_v<Tan, tan_t>);
-      const typename Tan::PlainObject& t_ = t;
-      Eigen::Matrix3d mat;
-      mat << 0., -t_.z(),  t_.y(), 
-         t_.z(),    0.  , -t_.x(), 
-        -t_.y(),  t_.x(),    0.;
-      return mat;
-    }
-
-    template<typename Mat>
-    static tan_t vee(const Mat& M)
-    {
-      static_assert(std::is_convertible_v<Mat, Eigen::Matrix3d>);
-      return {M(2,1), M(0,2), M(1,0)};
-    }
 
   private:
     template<typename Repr>
@@ -72,18 +32,15 @@ namespace tvm::manifold
       typename Tan::PlainObject u = t;
       const auto n = u.norm();
       u /= n;
+      if (n < tvm::internal::sqrt(std::numeric_limits<repr_t::Scalar>::epsilon()))
+        return repr_t::Identity() + hat(u);
+
       repr_t::Scalar c = std::cos(n);
       repr_t::Scalar s = std::sin(n);
       repr_t X = (1 - c) * u * u.transpose(); // (1-c)uu^t
       X += hat(s * u);                        // + s*hat(u)
       X.diagonal().array() += c;              // + c*I 
       return X;
-    }
-
-    template<typename ReprX, typename ReprY>
-    static auto composeImpl(const ReprX& X, const ReprY& Y)
-    {
-      return X * Y;
     }
 
     template<typename Repr>
