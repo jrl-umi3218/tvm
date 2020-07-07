@@ -122,6 +122,25 @@ TEST_CASE("AdjointR3")
   checkAdjoint<R3, ReprOwn<R3>>::run(AdXI, false, false, true, x, Matrix3d::Identity());
   checkAdjoint<R3, ReprOwn<R3>>::run(AdIX, false, false, true, x, Matrix3d::Identity());
   checkAdjoint<R3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
+
+  auto Ax_i = AdX.inverse();
+  auto Ax_t = AdX.transpose();
+  auto Ax_d = AdX.dual();
+  auto Ax_m = -AdX;
+  checkAdjoint<R3, ReprOwn<R3>>::run(Ax_i, true, false, true, x, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(Ax_t, false, true, true, x, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(Ax_d, true, true, true, x, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(Ax_m, false, false, false, x, -Matrix3d::Identity());
+  auto Ay_i = AdY.inverse();
+  auto Ay_m = -AdY;
+  auto xi_yi = Ax_i * Ay_i;
+  auto xi_ym = Ax_i * Ay_m;
+  auto xm_yi = Ax_m * Ay_i;
+  auto xm_ym = Ax_m * Ay_m;
+  checkAdjoint<R3, ReprOwn<R3>>::run(xi_yi, true, false, true, y + x, Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(xi_ym, false, false, false, y - x, -Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(xm_yi, false, false, false, x - y, -Matrix3d::Identity());
+  checkAdjoint<R3, ReprOwn<R3>>::run(xm_ym, false, false, true, x + y, Matrix3d::Identity());
 }
 
 TEST_CASE("AdjointRn")
@@ -141,6 +160,25 @@ TEST_CASE("AdjointRn")
   checkAdjoint<Rn, ReprOwn<Rn>>::run(AdXI, false, false, true, x, MatrixXd::Identity(8, 8));
   checkAdjoint<Rn, ReprOwn<Rn>>::run(AdIX, false, false, true, x, MatrixXd::Identity(8, 8));
   checkAdjoint<Rn, decltype(AdI)::Expr>::run(AdII, false, false, true, VectorXd::Zero(8), MatrixXd::Identity(8, 8));
+
+  auto Ax_i = AdX.inverse();
+  auto Ax_t = AdX.transpose();
+  auto Ax_d = AdX.dual();
+  auto Ax_m = -AdX;
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(Ax_i, true, false, true, x, MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(Ax_t, false, true, true, x, MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(Ax_d, true, true, true, x, MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(Ax_m, false, false, false, x, -MatrixXd::Identity(8,8));
+  auto Ay_i = AdY.inverse();
+  auto Ay_m = -AdY;
+  auto xi_yi = Ax_i * Ay_i;
+  auto xi_ym = Ax_i * Ay_m;
+  auto xm_yi = Ax_m * Ay_i;
+  auto xm_ym = Ax_m * Ay_m;
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(xi_yi, true, false, true, y + x, MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(xi_ym, false, false, false, y - x, -MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(xm_yi, false, false, false, x - y, -MatrixXd::Identity(8,8));
+  checkAdjoint<Rn, ReprOwn<Rn>>::run(xm_ym, false, false, true, x + y, MatrixXd::Identity(8,8));
 }
 
 TEST_CASE("AdjointSO3")
@@ -149,15 +187,70 @@ TEST_CASE("AdjointSO3")
   using tvm::manifold::internal::ReprOwn;
   Matrix3d x = Quaterniond::UnitRandom().toRotationMatrix();
   Matrix3d y = Quaterniond::UnitRandom().toRotationMatrix();
-  tvm::manifold::internal::Adjoint<SO3> AdX(x);
-  tvm::manifold::internal::Adjoint<SO3> AdY(y);
-  tvm::manifold::internal::Adjoint AdI(SO3::Identity{});
-  auto AdXY = AdX * AdY;
-  auto AdXI = AdX * AdI;
-  auto AdIX = AdI * AdX;
-  auto AdII = AdI * AdI;
-  checkAdjoint<SO3, ReprOwn<SO3>>::run(AdXY, false, false, true, x * y, x * y);
-  checkAdjoint<SO3, ReprOwn<SO3>>::run(AdXI, false, false, true, x, x);
-  checkAdjoint<SO3, ReprOwn<SO3>>::run(AdIX, false, false, true, x, x);
-  checkAdjoint<SO3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
+  {
+    tvm::manifold::internal::Adjoint<SO3> AdX(x);
+    tvm::manifold::internal::Adjoint<SO3> AdY(y);
+    tvm::manifold::internal::Adjoint AdI(SO3::Identity{});
+    auto AdXY = AdX * AdY;
+    auto AdXI = AdX * AdI;
+    auto AdIX = AdI * AdX;
+    auto AdII = AdI * AdI;
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(AdXY, false, false, true, x * y, x * y);
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(AdXI, false, false, true, x, x);
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(AdIX, false, false, true, x, x);
+    checkAdjoint<SO3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
+
+    auto Ax_i = AdX.inverse();
+    auto Ax_t = AdX.transpose();
+    auto Ax_d = AdX.dual();
+    auto Ax_m = -AdX;
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(Ax_i, true, false, true, x, x.transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(Ax_t, false, true, true, x, x.transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(Ax_d, true, true, true, x, x);
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(Ax_m, false, false, false, x, -x);
+    auto Ay_i = AdY.inverse();
+    auto Ay_m = -AdY;
+    auto xi_yi = Ax_i * Ay_i;
+    auto xi_ym = Ax_i * Ay_m;
+    auto xm_yi = Ax_m * Ay_i;
+    auto xm_ym = Ax_m * Ay_m;
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xi_yi, true, false, true, y * x, (y * x).transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xi_ym, false, false, false, x.transpose() * y, -x.transpose() * y);
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_yi, false, false, false, x * y.transpose(), -x * y.transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_ym, false, false, true, x * y, x * y);
+  }
+
+  using tvm::manifold::internal::ReprRef;
+  {
+    tvm::manifold::internal::Adjoint<SO3, ReprRef<SO3>> AdX(x);
+    tvm::manifold::internal::Adjoint<SO3> AdY(y);
+    tvm::manifold::internal::Adjoint AdI(SO3::Identity{});
+    auto AdXY = AdX * AdY;
+    auto AdXI = AdX * AdI;
+    auto AdIX = AdI * AdX;
+    auto AdII = AdI * AdI;
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(AdXY, false, false, true, x * y, x * y);
+    checkAdjoint<SO3, ReprRef<SO3>>::run(AdXI, false, false, true, x, x);
+    checkAdjoint<SO3, ReprRef<SO3>>::run(AdIX, false, false, true, x, x);
+    checkAdjoint<SO3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
+
+    auto Ax_i = AdX.inverse();
+    auto Ax_t = AdX.transpose();
+    auto Ax_d = AdX.dual();
+    auto Ax_m = -AdX;
+    checkAdjoint<SO3, ReprRef<SO3>>::run(Ax_i, true, false, true, x, x.transpose());
+    checkAdjoint<SO3, ReprRef<SO3>>::run(Ax_t, false, true, true, x, x.transpose());
+    checkAdjoint<SO3, ReprRef<SO3>>::run(Ax_d, true, true, true, x, x);
+    checkAdjoint<SO3, ReprRef<SO3>>::run(Ax_m, false, false, false, x, -x);
+    auto Ay_i = AdY.inverse();
+    auto Ay_m = -AdY;
+    auto xi_yi = Ax_i * Ay_i;
+    auto xi_ym = Ax_i * Ay_m;
+    auto xm_yi = Ax_m * Ay_i;
+    auto xm_ym = Ax_m * Ay_m;
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xi_yi, true, false, true, y * x, (y * x).transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xi_ym, false, false, false, x.transpose() * y, -x.transpose() * y);
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_yi, false, false, false, x * y.transpose(), -x * y.transpose());
+    checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_ym, false, false, true, x * y, x * y);
+  }
 }
