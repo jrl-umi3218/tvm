@@ -63,19 +63,18 @@ namespace tvm::manifold::internal
     using matrix_t = typename AdjointOperations<LG>::matrix_t;
     template<typename T>
     using isId = std::is_same<T, typename LG::Identity>;
-    static constexpr bool exprIsId = std::is_same_v<Expr, typename LG::Identity>;
+    static constexpr bool exprIsId = isId<Expr>::value;
 
 
     explicit Adjoint(const Expr& X) : operand_(X) {}
 
     const auto& operand() const { return get_repr(operand_); }
-    const auto& reducedOperand() const 
-    { 
-      if constexpr (Inverse)
-        return LG::template inverse(operand());
-      else
-        return operand();
-    }
+
+    template<bool U = Inverse_, typename = std::enable_if_t<U, int> >
+    auto reducedOperand() const { return LG::template inverse(operand()); }
+
+    template<bool U = Inverse_, typename = std::enable_if_t<!U, int> >
+    const auto& reducedOperand() const { return operand(); }
 
     template<typename U = Expr_, typename = std::enable_if_t<(isId<U>::value && dim < 0), int> >
     auto matrix(typename matrix_t::Index s) const
@@ -97,20 +96,22 @@ namespace tvm::manifold::internal
       }
       else
       {
+        // We're getting a temporary here. When using it with - or transpose(), we need to force
+        // the evaluation. Otherwise we would return an Eigen expression based on a temporary.
         const auto& mat = AdjointOperations<LG>::toMatrix(reducedOperand());
         if constexpr (Transpose)
         {
           if constexpr (PositiveSign)
-            return mat.transpose();
+            return matrix_t(mat.transpose());
           else
-            return -mat.transpose();
+            return matrix_t(-mat.transpose());
         }
         else
         {
           if constexpr (PositiveSign)
             return mat;
           else
-            return -mat;
+            return matrix_t(-mat);
         }
       }
     }
@@ -139,7 +140,7 @@ namespace tvm::manifold::internal
     auto operator*(const Adjoint<LG, OtherExpr, OtherInverse, OtherTranspose, OtherPositiveSign>& other)
     {
       using Id = typename LG::Identity;
-      constexpr bool otherExprIsId = std::is_same_v<OtherExpr, Id>;
+      constexpr bool otherExprIsId = isId<OtherExpr>::value;
       constexpr bool retSign = PositiveSign == OtherPositiveSign;
       if constexpr (exprIsId)
       {

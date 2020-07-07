@@ -37,13 +37,13 @@ namespace tvm::manifold
 
   private:
     template<typename Repr>
-    static auto logImpl(const Repr& X)
+    static const auto& logImpl(const Repr& X)
     {
       return X;
     }
 
     template<typename Tan>
-    static auto expImpl(const Tan& t)
+    static const auto& expImpl(const Tan& t)
     {
       return t;
     }
