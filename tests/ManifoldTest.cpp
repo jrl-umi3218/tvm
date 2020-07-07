@@ -324,3 +324,24 @@ TEST_CASE("AdjointSO3")
   checkAdjoint<S3, ReprOwn<S3>>::run(xm_yi, false, false, false, x * y.inverse(), -x.toRotationMatrix() * y.toRotationMatrix().transpose());
   checkAdjoint<S3, ReprOwn<S3>>::run(xm_ym, false, false, true, x * y, (x * y).toRotationMatrix());
 }
+
+TEST_CASE("log-exp on rotations")
+{
+  using SO3 = manifold::SO3;
+  using S3 = manifold::S3;
+
+  Vector3d v = Vector3d::Random().normalized();
+  double h = 1;
+  for (int i = 0; i < 18; ++i)
+  {
+    Vector3d t = h * v;
+    Quaterniond q = S3::exp(t);
+    Matrix3d R = SO3::exp(t);
+    Matrix3d R0 = SO3::hat(t).exp();
+    FAST_CHECK_UNARY(R0.isApprox(R));
+    FAST_CHECK_UNARY(R0.isApprox(q.toRotationMatrix()));
+    FAST_CHECK_UNARY(t.isApprox(SO3::log(R)));
+    FAST_CHECK_UNARY(t.isApprox(S3::log(q)));
+    h /= 10;
+  }
+}

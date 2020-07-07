@@ -31,10 +31,10 @@ namespace tvm::manifold
     {
       typename Tan::PlainObject u = t;
       const auto n = u.norm();
-      u /= n;
       if (n < tvm::internal::sqrt(std::numeric_limits<repr_t::Scalar>::epsilon()))
         return repr_t::Identity() + hat(u);
 
+      u /= n;
       repr_t::Scalar c = std::cos(n);
       repr_t::Scalar s = std::sin(n);
       repr_t X = (1 - c) * u * u.transpose(); // (1-c)uu^t
