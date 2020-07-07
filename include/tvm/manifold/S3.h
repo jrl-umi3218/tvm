@@ -4,7 +4,6 @@
 #pragma once
 
 #include <tvm/manifold/internal/RotationBase.h>
-#include <tvm/manifold/internal/details.h>
 
 namespace tvm::manifold
 {

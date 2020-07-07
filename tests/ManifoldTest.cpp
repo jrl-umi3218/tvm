@@ -6,6 +6,7 @@
 #include <tvm/manifold/internal/Adjoint.h>
 
 #include <Eigen/Geometry>
+#include <Eigen/LU>
 #include <unsupported/Eigen/MatrixFunctions>
 
 #include <iostream>
@@ -141,8 +142,12 @@ TEST_CASE("AdjointR3")
 {
   using R3 = manifold::Real<3>;
   using tvm::manifold::internal::ReprOwn;
+  using tvm::manifold::internal::ReprRef;
   Vector3d x = Vector3d::Random();
   Vector3d y = Vector3d::Random();
+  FAST_CHECK_UNARY(std::is_same_v<decltype(R3::adjoint(x))::Expr, ReprRef<R3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(R3::adjoint(x+y))::Expr, ReprOwn<R3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(R3::adjoint(R3::Identity{}))::Expr, R3::Identity>);
   tvm::manifold::internal::Adjoint<R3> AdX(x);
   tvm::manifold::internal::Adjoint<R3> AdY(y);
   tvm::manifold::internal::Adjoint AdI(R3::Identity{});
@@ -179,8 +184,12 @@ TEST_CASE("AdjointRn")
 {
   using Rn = manifold::Real<Dynamic>;
   using tvm::manifold::internal::ReprOwn;
+  using tvm::manifold::internal::ReprRef;
   VectorXd x = VectorXd::Random(8);
   VectorXd y = VectorXd::Random(8);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::adjoint(x))::Expr, ReprRef<Rn>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::adjoint(x + y))::Expr, ReprOwn<Rn>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::adjoint(Rn::Identity{}))::Expr, Rn::Identity > );
   tvm::manifold::internal::Adjoint<Rn> AdX(x);
   tvm::manifold::internal::Adjoint<Rn> AdY(y);
   tvm::manifold::internal::Adjoint AdI(Rn::Identity{});
@@ -217,8 +226,12 @@ TEST_CASE("AdjointSO3")
 {
   using SO3 = manifold::SO3;
   using tvm::manifold::internal::ReprOwn;
+  using tvm::manifold::internal::ReprRef;
   Matrix3d x = Quaterniond::UnitRandom().toRotationMatrix();
   Matrix3d y = Quaterniond::UnitRandom().toRotationMatrix();
+  FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::adjoint(x))::Expr, ReprRef<SO3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::adjoint(x * y))::Expr, ReprOwn<SO3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::adjoint(SO3::Identity{}))::Expr, SO3::Identity > );
   {
     tvm::manifold::internal::Adjoint<SO3> AdX(x);
     tvm::manifold::internal::Adjoint<SO3> AdY(y);
@@ -252,7 +265,6 @@ TEST_CASE("AdjointSO3")
     checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_ym, false, false, true, x * y, x * y);
   }
 
-  using tvm::manifold::internal::ReprRef;
   {
     tvm::manifold::internal::Adjoint<SO3, ReprRef<SO3>> AdX(x);
     tvm::manifold::internal::Adjoint<SO3> AdY(y);
@@ -287,12 +299,16 @@ TEST_CASE("AdjointSO3")
   }
 }
 
-TEST_CASE("AdjointSO3")
+TEST_CASE("AdjointS3")
 {
   using S3 = manifold::S3;
   using tvm::manifold::internal::ReprOwn;
+  using tvm::manifold::internal::ReprRef;
   Quaterniond x = Quaterniond::UnitRandom();
   Quaterniond y = Quaterniond::UnitRandom();
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::adjoint(x))::Expr, ReprRef<S3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::adjoint(x * y))::Expr, ReprOwn<S3>>);
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::adjoint(S3::Identity{}))::Expr, S3::Identity > );
   tvm::manifold::internal::Adjoint<S3> AdX(x);
   tvm::manifold::internal::Adjoint<S3> AdY(y);
   tvm::manifold::internal::Adjoint AdI(S3::Identity{});
@@ -344,4 +360,37 @@ TEST_CASE("log-exp on rotations")
     FAST_CHECK_UNARY(t.isApprox(S3::log(q)));
     h /= 10;
   }
+}
+
+template <typename LG>
+void checkJacobians()
+{
+  static_assert(LG::dim >= 0);
+  double h = 1e-8;
+  VectorXd t = VectorXd::Random(LG::dim);
+  auto e0 = LG::exp(t);
+  typename LG::jacobian_t Jr0 = LG::rightJacobian(t);
+  typename LG::jacobian_t Jl0 = LG::leftJacobian(t);
+  typename LG::jacobian_t Jr, Jl;
+
+  for (int i = 0; i < LG::dim; ++i)
+  {
+    t[i] += h;
+    Jr.col(i) = LG::log(LG::compose(LG::inverse(e0), LG::exp(t))) / h;
+    Jl.col(i) = LG::log(LG::compose(LG::exp(t), LG::inverse(e0))) / h;
+    t[i] -= h;
+  }
+
+  FAST_CHECK_UNARY(Jr0.isApprox(Jr, 1e-6));
+  FAST_CHECK_UNARY(Jl0.isApprox(Jl, 1e-6));
+  FAST_CHECK_UNARY(LG::invRightJacobian(t).isApprox(Jr0.inverse()));
+  FAST_CHECK_UNARY(LG::invLeftJacobian(t).isApprox(Jl0.inverse()));
+}
+
+TEST_CASE("Manifold jacobian")
+{
+  using namespace tvm::manifold;
+  checkJacobians<Real<3>>();
+  checkJacobians<SO3>();
+  checkJacobians<S3>();
 }

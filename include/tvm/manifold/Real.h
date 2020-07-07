@@ -34,6 +34,7 @@ namespace tvm::manifold
     using Base = internal::LieGroup<Real<N>>;
     using typename Base::repr_t;
     using typename Base::tan_t;
+    using typename Base::jacobian_t;
 
   private:
     template<typename Repr>
@@ -58,6 +59,30 @@ namespace tvm::manifold
     static auto inverseImpl(const Repr& X)
     {
       return -X;
+    }
+
+    template<typename Tan, typename Which>
+    static auto jacobianImpl(const Tan& t, Which)
+    {
+      if constexpr (std::is_same_v<Which, internal::rOnly_t> || std::is_same_v<Which, internal::lOnly_t>)
+        return jacobian_t::Identity(t.size(), t.size());
+      else
+      {
+        static_assert(std::is_same_v<Which, internal::both_t>);
+        return std::make_pair(jacobian_t::Identity(t.size(), t.size()), jacobian_t::Identity(t.size(), t.size()));
+      }
+    }
+
+    template<typename Tan, typename Which>
+    static auto invJacobianImpl(const Tan& t, Which)
+    {
+      if constexpr (std::is_same_v<Which, internal::rOnly_t> || std::is_same_v<Which, internal::lOnly_t>)
+        return jacobian_t::Identity(t.size(), t.size());
+      else
+      {
+        static_assert(std::is_same_v<Which, internal::both_t>);
+        return std::make_pair(jacobian_t::Identity(t.size(), t.size()), jacobian_t::Identity(t.size(), t.size()));
+      }
     }
 
     friend Base;

@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include <tvm/manifold/internal/Adjoint.h>
 #include <tvm/manifold/internal/Manifold.h>
 
 namespace tvm::manifold::internal
@@ -17,6 +18,11 @@ namespace tvm::manifold::internal
     static constexpr int dim = traits<Derived>::dim;
     using repr_t = typename traits<Derived>::repr_t;
   };
+
+
+  struct rOnly_t {};
+  struct lOnly_t {};
+  struct both_t {};
 
   /** This class serves as a base class for all Lie groups.
     * It introduces the composition operation, the inverse
@@ -37,7 +43,15 @@ namespace tvm::manifold::internal
     using Base = Manifold<LieGroup<Derived>>;
     using typename Base::repr_t;
     using typename Base::tan_t;
+    using Base::dim;
+    using jacobian_t = Eigen::Matrix<typename tan_t::Scalar, dim, dim>;
 
+  private:
+    static constexpr rOnly_t rOnly = {};
+    static constexpr lOnly_t lOnly = {};
+    static constexpr both_t both = {};
+
+  public:
     template<typename ReprX, typename ReprY>
     static auto compose(const ReprX& X, const ReprY& Y)
     {
@@ -76,6 +90,68 @@ namespace tvm::manifold::internal
     static auto inverse(const Identity& X)
     {
       return X;
+    }
+
+    template<typename Repr>
+    static auto adjoint(const Repr& X)
+    {
+      static_assert(std::is_convertible_v<Repr, repr_t>);
+      if constexpr (std::is_same_v<Repr, repr_t>)
+        return Adjoint<Derived, ReprRef<Derived>>(X);
+      else
+        return Adjoint<Derived>(repr_t(X));
+    }
+
+    static auto adjoint(repr_t&& X)
+    {
+      return Adjoint<Derived>(std::forward<repr_t>(X));
+    }
+
+    static auto adjoint(const Identity& X)
+    {
+      return Adjoint(X);
+    }
+
+    template<typename Tan>
+    static auto rightJacobian(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::jacobianImpl(t, rOnly);
+    }
+
+    template<typename Tan>
+    static auto leftJacobian(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::jacobianImpl(t, lOnly);
+    }
+
+    template<typename Tan>
+    static auto jacobians(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::jacobianImpl(t, both);
+    }
+
+    template<typename Tan>
+    static auto invRightJacobian(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::invJacobianImpl(t, rOnly);
+    }
+
+    template<typename Tan>
+    static auto invLeftJacobian(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::invJacobianImpl(t, lOnly);
+    }
+
+    template<typename Tan>
+    static auto invJacobians(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t> || alsoAcceptAsTan<Tan>());
+      return Derived::invJacobianImpl(t, both);
     }
 
   private:

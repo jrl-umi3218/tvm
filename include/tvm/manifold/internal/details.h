@@ -132,4 +132,100 @@ namespace tvm::manifold::internal
       return (result);
     }
   }
+
+  /// Compute the value \f$ \frac{1}{x^2} - \frac{1+\cos(x)}{2 x \sin(x)} \f$.
+  template <typename T>
+  inline T SO3JacInvF2(const T& x)
+  {
+    using tvm::internal::sqrt;
+    constexpr T ulp = std::numeric_limits<T>::epsilon();
+    constexpr T taylor_0_bound = ulp;
+    constexpr T taylor_2_bound = sqrt(60 * ulp);
+    constexpr T taylor_4_bound = sqrt(sqrt(2520 * ulp));
+    constexpr T taylor_8_bound = sqrt(sqrt(sqrt(3991680 * ulp)));
+
+    double absx = std::abs(x);
+    if (absx >= taylor_8_bound)
+    {
+      return static_cast<T>(1) / (x * x) - (static_cast<T>(1) + std::cos(x)) / (static_cast<T>(2) * x * std::sin(x));
+    }
+    else
+    {
+      // approximation by taylor series in x at 0 up to order 0
+      T result = static_cast<T>(1);
+
+      if (absx >= taylor_0_bound)
+      {
+        T x2 = x * x;
+        // approximation by taylor series in x at 0 up to order 2
+        result += x2 / static_cast<T>(60);
+
+        if (absx >= taylor_2_bound)
+        {
+          T x4 = x2 * x2;
+          // approximation by taylor series in x at 0 up to order 4
+          result += x4 / static_cast<T>(2520);
+
+          if (absx >= taylor_4_bound)
+          {
+            // approximation by taylor series in x at 0 up to order 8
+            result += (x2 * x4) / static_cast<T>(100800) + (x4 * x4) / static_cast<T>(3991680);
+          }
+        }
+      }
+
+      return result / static_cast<T>(12);
+    }
+  }
+
+  template <typename T>
+  inline std::pair<T,T> SO3JacF1F2(const T& x)
+  {
+    using tvm::internal::sqrt;
+    constexpr T ulp = std::numeric_limits<T>::epsilon();
+    constexpr T taylor_0_bound = ulp;
+    constexpr T taylor_2_bound = sqrt(12 * ulp);
+    constexpr T taylor_4_bound = sqrt(sqrt(360 * ulp));
+    constexpr T taylor_8_bound = sqrt(sqrt(sqrt(1814400 * ulp)));
+
+    double absx = std::abs(x);
+    if (absx >= taylor_8_bound)
+    {
+      T x2 = x * x;
+      return { (static_cast<T>(1) - std::cos(x)) / x2, (x - std::sin(x)) / (x2 * x) };
+    }
+    else
+    {
+      // approximation by taylor series in x at 0 up to order 0
+      T f1 = static_cast<T>(1);
+      T f2 = static_cast<T>(1);
+
+      if (absx >= taylor_0_bound)
+      {
+        T x2 = x * x;
+        // approximation by taylor series in x at 0 up to order 2
+        f1 -= x2 / static_cast<T>(12);
+        f2 -= x2 / static_cast<T>(20);
+
+        if (absx >= taylor_2_bound)
+        {
+          T x4 = x2 * x2;
+          // approximation by taylor series in x at 0 up to order 4
+          f1 += x4 / static_cast<T>(360);
+          f2 += x4 / static_cast<T>(840);
+
+          if (absx >= taylor_4_bound)
+          {
+            // approximation by taylor series in x at 0 up to order 8
+            T x6 = x2 * x4;
+            T x8 = x4 * x4;
+            f1 += x8 / static_cast<T>(1814400) - x6 / static_cast<T>(20160);
+            f2 += x8 / static_cast<T>(6652800) - x6 / static_cast<T>(60480);
+          }
+        }
+      }
+
+      return { f1 / static_cast<T>(2), f2 / static_cast<T>(6) };
+    }
+  }
 }
