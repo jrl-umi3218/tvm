@@ -2,6 +2,7 @@
 
 #include <tvm/manifold/Real.h>
 #include <tvm/manifold/SO3.h>
+#include <tvm/manifold/S3.h>
 #include <tvm/manifold/internal/Adjoint.h>
 
 #include <Eigen/Geometry>
@@ -16,6 +17,15 @@
 using namespace tvm;
 using namespace Eigen;
 
+TEST_CASE("sincsqrt")
+{
+  double x = 1.;
+  for (int i = 0; i < 18; ++i)
+  {
+    FAST_CHECK_EQ(tvm::manifold::internal::sinc(x), tvm::manifold::internal::sincsqrt(x * x));
+    x /= 10;
+  }
+}
 
 TEST_CASE("R3")
 {
@@ -84,6 +94,28 @@ TEST_CASE("SO3")
   FAST_CHECK_UNARY((x * y.transpose()).isApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
 }
 
+TEST_CASE("S3")
+{
+  using S3 = manifold::S3;
+  Quaterniond x = Quaterniond::UnitRandom();
+  Quaterniond y = Quaterniond::UnitRandom();
+  Quaterniond z = Quaterniond::UnitRandom();
+  FAST_CHECK_UNARY((x * y).isApprox(S3::compose(x, y)));
+  FAST_CHECK_UNARY(x.isApprox(S3::compose(x, S3::identity)));
+  FAST_CHECK_UNARY(y.isApprox(S3::compose(S3::identity, y)));
+  FAST_CHECK_UNARY((z * x * y).isApprox(S3::compose(z, x * y)));
+  FAST_CHECK_UNARY(x.inverse().isApprox(S3::inverse(x)));
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::inverse(S3::identity)), S3::Identity>);
+
+  auto l = S3::log(x);
+  FAST_CHECK_UNARY(S3::vee(S3::hat(l)).isApprox(l));
+  FAST_CHECK_UNARY(x.toRotationMatrix().log().isApprox(S3::hat(l)));
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::log(S3::identity)), S3::AlgIdentity>);
+  FAST_CHECK_UNARY(x.toRotationMatrix().isApprox(S3::exp(l).toRotationMatrix()));
+  FAST_CHECK_UNARY(std::is_same_v<decltype(S3::exp(S3::algIdentity)), S3::Identity>);
+  FAST_CHECK_UNARY((x * y.inverse()).toRotationMatrix().isApprox(S3::compose(S3::exp(l), S3::inverse(y)).toRotationMatrix()));
+}
+
 template<typename LG, typename Expr>
 struct checkAdjoint
 {
@@ -98,7 +130,7 @@ struct checkAdjoint
     FAST_CHECK_EQ(Adj::PositiveSign, sign);
     if constexpr (!std::is_same_v<Expr,typename LG::Identity>)
       FAST_CHECK_UNARY(opValue.isApprox(adj.operand()));
-    if constexpr (LG::dim>=0 || !Adj::template isId<Adj::Expr>::value)
+    if constexpr (LG::dim>=0 || !Adj::template isId<typename Adj::Expr>::value)
       FAST_CHECK_UNARY(mat.isApprox(adj.matrix()));
     else
       FAST_CHECK_UNARY(mat.isApprox(adj.matrix(opValue.size())));
@@ -253,4 +285,42 @@ TEST_CASE("AdjointSO3")
     checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_yi, false, false, false, x * y.transpose(), -x * y.transpose());
     checkAdjoint<SO3, ReprOwn<SO3>>::run(xm_ym, false, false, true, x * y, x * y);
   }
+}
+
+TEST_CASE("AdjointSO3")
+{
+  using S3 = manifold::S3;
+  using tvm::manifold::internal::ReprOwn;
+  Quaterniond x = Quaterniond::UnitRandom();
+  Quaterniond y = Quaterniond::UnitRandom();
+  tvm::manifold::internal::Adjoint<S3> AdX(x);
+  tvm::manifold::internal::Adjoint<S3> AdY(y);
+  tvm::manifold::internal::Adjoint AdI(S3::Identity{});
+  auto AdXY = AdX * AdY;
+  auto AdXI = AdX * AdI;
+  auto AdIX = AdI * AdX;
+  auto AdII = AdI * AdI;
+  checkAdjoint<S3, ReprOwn<S3>>::run(AdXY, false, false, true, x * y, (x * y).toRotationMatrix());
+  checkAdjoint<S3, ReprOwn<S3>>::run(AdXI, false, false, true, x, x.toRotationMatrix());
+  checkAdjoint<S3, ReprOwn<S3>>::run(AdIX, false, false, true, x, x.toRotationMatrix());
+  checkAdjoint<S3, decltype(AdI)::Expr>::run(AdII, false, false, true, {}, Matrix3d::Identity());
+
+  auto Ax_i = AdX.inverse();
+  auto Ax_t = AdX.transpose();
+  auto Ax_d = AdX.dual();
+  auto Ax_m = -AdX;
+  checkAdjoint<S3, ReprOwn<S3>>::run(Ax_i, true, false, true, x, x.toRotationMatrix().transpose());
+  checkAdjoint<S3, ReprOwn<S3>>::run(Ax_t, false, true, true, x, x.toRotationMatrix().transpose());
+  checkAdjoint<S3, ReprOwn<S3>>::run(Ax_d, true, true, true, x, x.toRotationMatrix());
+  checkAdjoint<S3, ReprOwn<S3>>::run(Ax_m, false, false, false, x, -x.toRotationMatrix());
+  auto Ay_i = AdY.inverse();
+  auto Ay_m = -AdY;
+  auto xi_yi = Ax_i * Ay_i;
+  auto xi_ym = Ax_i * Ay_m;
+  auto xm_yi = Ax_m * Ay_i;
+  auto xm_ym = Ax_m * Ay_m;
+  checkAdjoint<S3, ReprOwn<S3>>::run(xi_yi, true, false, true, y * x, (y * x).toRotationMatrix().transpose());
+  checkAdjoint<S3, ReprOwn<S3>>::run(xi_ym, false, false, false, x.inverse() * y, -x.toRotationMatrix().transpose() * y);
+  checkAdjoint<S3, ReprOwn<S3>>::run(xm_yi, false, false, false, x * y.inverse(), -x.toRotationMatrix() * y.toRotationMatrix().transpose());
+  checkAdjoint<S3, ReprOwn<S3>>::run(xm_ym, false, false, true, x * y, (x * y).toRotationMatrix());
 }

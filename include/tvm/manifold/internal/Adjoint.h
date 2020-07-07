@@ -156,19 +156,20 @@ namespace tvm::manifold::internal
         else
         {
           static_assert(!Transpose && !OtherTranspose, "Cannot use transpose types here. Pass to the matrix representation before performing the multiplication.");
+          using ReprP = ReprOwn<LG>;
           if constexpr (Inverse)
           {
             if constexpr (OtherInverse) //inv(Ad_x)*inv(Ad_y) = inv(Ad_{y*x})
-              return Adjoint<LG, ReprOwn<LG>, true, false, retSign>({ LG::template compose(other.operand(), this->operand()) });
+              return Adjoint<LG, ReprP, true, false, retSign>(ReprP{ LG::template compose(other.operand(), this->operand()) });
             else //inv(Ad_x)*Ad_y = Ad_{inv(x)*y}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->reducedOperand(), other.operand()) });
+              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>(ReprP{ LG::template compose(this->reducedOperand(), other.operand()) });
           }
           else
           {
             if constexpr (OtherInverse) //Ad_x*inv(Ad_y) = Ad_{x*inv(y)}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->operand(), other.reducedOperand()) });
+              return Adjoint<LG, ReprP, false, false, retSign>(ReprP{ LG::template compose(this->operand(), other.reducedOperand()) });
             else //Ad_x*Ad_y = Ad_{x*y}
-              return Adjoint<LG, ReprOwn<LG>, false, false, retSign>({ LG::template compose(this->operand(), other.operand()) });
+              return Adjoint<LG, ReprP, false, false, retSign>(ReprP{ LG::template compose(this->operand(), other.operand()) });
           }
         }
       }
