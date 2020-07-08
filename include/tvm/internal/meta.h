@@ -93,7 +93,7 @@ namespace internal
     * For example by defining
     * <code> template<typename T> using foo_trait = decltype(std::declval<T>().foo(0)); <\code>
     * the return of
-    * <code> is_detected<j_trait, C>::value <\code> will be true if class \c C has a
+    * <code> is_detected<foo_trait, C>::value <\code> will be true if class \c C has a
     * public method \c foo(int).
     */
   template <template <class...> class Trait, class... Args>

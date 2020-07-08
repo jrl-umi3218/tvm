@@ -35,6 +35,8 @@ TEST_CASE("R3")
   Vector3d y = Vector3d::Random();
   MatrixXd M = MatrixXd::Random(3, 4);
   auto z = M.row(0).transpose().head(3);
+  FAST_CHECK_EQ(R3::dim, 3);
+  FAST_CHECK_EQ(R3::dynamicDim(x), 3);
   FAST_CHECK_UNARY((x + y).isApprox(R3::compose(x, y)));
   FAST_CHECK_UNARY(x.isApprox(R3::compose(x, R3::identity)));
   FAST_CHECK_UNARY(y.isApprox(R3::compose(R3::identity, y)));
@@ -57,6 +59,8 @@ TEST_CASE("Rn")
   VectorXd y = VectorXd::Random(8);
   MatrixXd M = MatrixXd::Random(3, 10);
   auto z = M.row(0).transpose().head(8);
+  FAST_CHECK_EQ(Rn::dim, Dynamic);
+  FAST_CHECK_EQ(Rn::dynamicDim(x), 8);
   FAST_CHECK_UNARY((x + y).isApprox(Rn::compose(x, y)));
   FAST_CHECK_UNARY(x.isApprox(Rn::compose(x, Rn::identity)));
   FAST_CHECK_UNARY(y.isApprox(Rn::compose(Rn::identity, y)));
@@ -78,6 +82,8 @@ TEST_CASE("SO3")
   Matrix3d x = Quaterniond::UnitRandom().toRotationMatrix();
   Matrix3d y = Quaterniond::UnitRandom().toRotationMatrix();
   MatrixXd M = MatrixXd::Random(3, 4);
+  FAST_CHECK_EQ(SO3::dim, 3);
+  FAST_CHECK_EQ(SO3::dynamicDim(x), 3);
   auto z = M.leftCols<3>();
   FAST_CHECK_UNARY((x * y).isApprox(SO3::compose(x, y)));
   FAST_CHECK_UNARY(x.isApprox(SO3::compose(x, SO3::identity)));
@@ -101,6 +107,8 @@ TEST_CASE("S3")
   Quaterniond x = Quaterniond::UnitRandom();
   Quaterniond y = Quaterniond::UnitRandom();
   Quaterniond z = Quaterniond::UnitRandom();
+  FAST_CHECK_EQ(S3::dim, 3);
+  FAST_CHECK_EQ(S3::dynamicDim(x), 3);
   FAST_CHECK_UNARY((x * y).isApprox(S3::compose(x, y)));
   FAST_CHECK_UNARY(x.isApprox(S3::compose(x, S3::identity)));
   FAST_CHECK_UNARY(y.isApprox(S3::compose(S3::identity, y)));
@@ -373,11 +381,12 @@ void checkJacobians()
   typename LG::jacobian_t Jl0 = LG::leftJacobian(t);
   typename LG::jacobian_t Jr, Jl;
 
+  //finite differences
   for (int i = 0; i < LG::dim; ++i)
   {
     t[i] += h;
-    Jr.col(i) = LG::log(LG::compose(LG::inverse(e0), LG::exp(t))) / h;
-    Jl.col(i) = LG::log(LG::compose(LG::exp(t), LG::inverse(e0))) / h;
+    Jr.col(i) = LG::log(LG::compose(LG::inverse(e0), LG::exp(t))) / h; //log(exp(t)^-1*exp(t+h))/h (right jacobian of exp)
+    Jl.col(i) = LG::log(LG::compose(LG::exp(t), LG::inverse(e0))) / h; //log(exp(t+h)*exp(t)^-1)/h (left jacobian of exp)
     t[i] -= h;
   }
 
@@ -385,6 +394,7 @@ void checkJacobians()
   FAST_CHECK_UNARY(Jl0.isApprox(Jl, 1e-6));
   FAST_CHECK_UNARY(LG::invRightJacobian(t).isApprox(Jr0.inverse()));
   FAST_CHECK_UNARY(LG::invLeftJacobian(t).isApprox(Jl0.inverse()));
+  FAST_CHECK_UNARY(LG::adjoint(e0).matrix().isApprox(Jl0 * Jr0.inverse()));  // Checking identity Ad_{exp(t)} = Jl(t)*Jr^-1
 }
 
 TEST_CASE("Manifold jacobian")

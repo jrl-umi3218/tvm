@@ -17,6 +17,14 @@ namespace tvm::manifold
     {
       static constexpr int dim = N;
       using repr_t = Eigen::Matrix<double, N, 1>;
+      template<typename Repr>
+      static int dynamicDim(const Repr& X)
+      {
+        if constexpr (dim >= 0)
+          return dim;
+        else
+          return static_cast<int>(X.size());
+      }
     };
 
     template<int N>
@@ -64,7 +72,7 @@ namespace tvm::manifold
     template<typename Tan, typename Which>
     static auto jacobianImpl(const Tan& t, Which)
     {
-      if constexpr (std::is_same_v<Which, internal::rOnly_t> || std::is_same_v<Which, internal::lOnly_t>)
+      if constexpr (std::is_same_v<Which, internal::right_t> || std::is_same_v<Which, internal::left_t>)
         return jacobian_t::Identity(t.size(), t.size());
       else
       {
@@ -76,7 +84,7 @@ namespace tvm::manifold
     template<typename Tan, typename Which>
     static auto invJacobianImpl(const Tan& t, Which)
     {
-      if constexpr (std::is_same_v<Which, internal::rOnly_t> || std::is_same_v<Which, internal::lOnly_t>)
+      if constexpr (std::is_same_v<Which, internal::right_t> || std::is_same_v<Which, internal::left_t>)
         return jacobian_t::Identity(t.size(), t.size());
       else
       {

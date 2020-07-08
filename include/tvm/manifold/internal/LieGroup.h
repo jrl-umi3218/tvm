@@ -13,15 +13,13 @@ namespace tvm::manifold::internal
 
   /** Specialization of traits for LieGroup*/
   template<typename Derived>
-  struct traits<LieGroup<Derived>>
+  struct traits<LieGroup<Derived>>: public traits<Derived>
   {
-    static constexpr int dim = traits<Derived>::dim;
-    using repr_t = typename traits<Derived>::repr_t;
   };
 
 
-  struct rOnly_t {};
-  struct lOnly_t {};
+  struct right_t {};
+  struct left_t {};
   struct both_t {};
 
   /** This class serves as a base class for all Lie groups.
@@ -47,8 +45,8 @@ namespace tvm::manifold::internal
     using jacobian_t = Eigen::Matrix<typename tan_t::Scalar, dim, dim>;
 
   private:
-    static constexpr rOnly_t rOnly = {};
-    static constexpr lOnly_t lOnly = {};
+    static constexpr right_t rOnly = {};
+    static constexpr left_t lOnly = {};
     static constexpr both_t both = {};
 
   public:

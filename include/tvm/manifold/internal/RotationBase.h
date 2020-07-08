@@ -104,9 +104,9 @@ namespace tvm::manifold::internal
       Eigen::Matrix3d C = hat(Eigen::Vector3d(f1*u));
       auto I = Eigen::Matrix3d::Identity();
       
-      if constexpr (std::is_same_v<Which, rOnly_t>)
+      if constexpr (std::is_same_v<Which, right_t>)
         return Eigen::Matrix3d(I - C + C2);
-      else if constexpr (std::is_same_v<Which, lOnly_t>)
+      else if constexpr (std::is_same_v<Which, left_t>)
         return Eigen::Matrix3d(I + C + C2);
       else
       {
@@ -136,9 +136,9 @@ namespace tvm::manifold::internal
       Eigen::Matrix3d C = hat(Eigen::Vector3d(u / 2));
       auto I = Eigen::Matrix3d::Identity();
 
-      if constexpr (std::is_same_v<Which, rOnly_t>)
+      if constexpr (std::is_same_v<Which, right_t>)
         return Eigen::Matrix3d(I + C + C2);
-      else if constexpr (std::is_same_v<Which, lOnly_t>)
+      else if constexpr (std::is_same_v<Which, left_t>)
         return Eigen::Matrix3d(I - C + C2);
       else
       {

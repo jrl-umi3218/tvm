@@ -3,13 +3,17 @@
  */
 #pragma once
 
+#include <type_traits>
+
 #include <Eigen/Core>
 
-#include <type_traits>
+#include <tvm/internal/meta.h>
 
 namespace tvm::manifold::internal
 {
   template<typename Derived> struct traits {};
+
+  template<typename T> using has_dynamicDim_t = decltype(T::dynamicDim(std::declval<typename T::repr_t>));
 
   template<typename Derived>
   class Manifold
@@ -31,7 +35,21 @@ namespace tvm::manifold::internal
     template<typename Tan>
     static constexpr bool alsoAcceptAsTan() { return false; }
 
-    static constexpr bool FiniteDim() { return dim > 0; }
+    static constexpr bool hasStaticDim() { return dim >= 0; }
+
+    template<typename Repr>
+    static int dynamicDim(const Repr& X)
+    {
+      if constexpr (tvm::internal::is_detected<has_dynamicDim_t, traits<Derived>>::value)
+        return traits<Derived>::dynamicDim(X);
+      else
+      {
+        static_assert(hasStaticDim(), "The dimension is not known at compile time, "
+          "and traits::Derived does not offer a way to know it at runtime (no dynamicDyn function).");
+        return dim;
+      }
+
+    }
 
     template<typename Repr>
     static auto log(const Repr& X)
