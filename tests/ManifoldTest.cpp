@@ -6,8 +6,8 @@
 #include <tvm/manifold/internal/Adjoint.h>
 
 #include <Eigen/Geometry>
-#include <Eigen/LU>
-#include <unsupported/Eigen/MatrixFunctions>
+#include <Eigen/LU>                           // for inverse
+#include <unsupported/Eigen/MatrixFunctions>  // for generic log and exp on matrices
 
 #include <iostream>
 

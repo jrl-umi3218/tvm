@@ -154,6 +154,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/manifold/internal/Manifold.h
   ${TVM_INCLUDE_DIR}/manifold/internal/LieGroup.h
   ${TVM_INCLUDE_DIR}/manifold/internal/RotationBase.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/Plus.h
   ${TVM_INCLUDE_DIR}/manifold/Real.h
   ${TVM_INCLUDE_DIR}/manifold/SE3.h
   ${TVM_INCLUDE_DIR}/manifold/SO3.h
