@@ -22,6 +22,13 @@ namespace tvm::manifold::internal
   struct left_t {};
   struct both_t {};
 
+  template<typename T>
+  static constexpr bool isLocal()
+  {
+    static_assert(std::is_same_v<T, right_t> || std::is_same_v<T, left_t>, "Invalid type: righ_t or left_t expected.");
+    return std::is_same_v<T, internal::right_t>;
+  }
+
   /** This class serves as a base class for all Lie groups.
     * It introduces the composition operation, the inverse
     * and the identity.

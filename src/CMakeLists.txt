@@ -150,11 +150,19 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   
   ${TVM_INCLUDE_DIR}/manifold/internal/Adjoint.h
+  ${TVM_INCLUDE_DIR}/manifold/internal/BinaryOperator.h
   ${TVM_INCLUDE_DIR}/manifold/internal/details.h
   ${TVM_INCLUDE_DIR}/manifold/internal/Manifold.h
   ${TVM_INCLUDE_DIR}/manifold/internal/LieGroup.h
   ${TVM_INCLUDE_DIR}/manifold/internal/RotationBase.h
+  ${TVM_INCLUDE_DIR}/manifold/internal/UnaryOperator.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/Exp.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/LMinus.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/Log.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/LPlus.h
   ${TVM_INCLUDE_DIR}/manifold/operators/Plus.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/RMinus.h
+  ${TVM_INCLUDE_DIR}/manifold/operators/RPlus.h
   ${TVM_INCLUDE_DIR}/manifold/Real.h
   ${TVM_INCLUDE_DIR}/manifold/SE3.h
   ${TVM_INCLUDE_DIR}/manifold/SO3.h

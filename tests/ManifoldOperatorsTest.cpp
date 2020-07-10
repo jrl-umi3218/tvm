@@ -2,19 +2,20 @@
  * Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
  */
 
-#include <tvm/manifold/operators/Plus.h>
 #include <tvm/manifold/Real.h>
 #include <tvm/manifold/SO3.h>
 #include <tvm/manifold/S3.h>
+#include <tvm/manifold/operators/Plus.h>
+#include <tvm/manifold/operators/RMinus.h>
+#include <tvm/manifold/operators/LMinus.h>
 
-#include <Eigen/geometry>
+#include <Eigen/Geometry>
 
 #include <iostream>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
-
 
 using namespace tvm;
 using namespace Eigen;
@@ -81,8 +82,35 @@ TEST_CASE("Plus")
   using Rn = manifold::Real<Dynamic>;
   using SO3 = manifold::SO3;
   using S3 = manifold::S3;
-  checkJacobians<manifold::operators::Plus<R3>>(Vector3d::Random(), Vector3d::Random());
-  checkJacobians<manifold::operators::Plus<Rn>>(VectorXd::Random(8), VectorXd::Random(8));
-  checkJacobians<manifold::operators::Plus<SO3>>(Quaterniond::UnitRandom().toRotationMatrix(), Quaterniond::UnitRandom().toRotationMatrix());
-  checkJacobians<manifold::operators::Plus<S3>>(Quaterniond::UnitRandom(), Quaterniond::UnitRandom());
+  using namespace manifold::operators;
+  checkJacobians<Plus<R3>>(Vector3d::Random(), Vector3d::Random());
+  checkJacobians<Plus<Rn>>(VectorXd::Random(8), VectorXd::Random(8));
+  checkJacobians<Plus<SO3>>(Quaterniond::UnitRandom().toRotationMatrix(), Quaterniond::UnitRandom().toRotationMatrix());
+  checkJacobians<Plus<S3>>(Quaterniond::UnitRandom(), Quaterniond::UnitRandom());
+}
+
+TEST_CASE("RMinus")
+{
+  using R3 = manifold::Real<3>;
+  using Rn = manifold::Real<Dynamic>;
+  using SO3 = manifold::SO3;
+  using S3 = manifold::S3;
+  using namespace manifold::operators;
+  checkJacobians<RMinus<R3>>(Vector3d::Random(), Vector3d::Random());
+  checkJacobians<RMinus<Rn>>(VectorXd::Random(8), VectorXd::Random(8));
+  checkJacobians<RMinus<SO3>>(Quaterniond::UnitRandom().toRotationMatrix(), Quaterniond::UnitRandom().toRotationMatrix());
+  checkJacobians<RMinus<S3>>(Quaterniond::UnitRandom(), Quaterniond::UnitRandom());
+}
+
+TEST_CASE("LMinus")
+{
+  using R3 = manifold::Real<3>;
+  using Rn = manifold::Real<Dynamic>;
+  using SO3 = manifold::SO3;
+  using S3 = manifold::S3;
+  using namespace manifold::operators;
+  checkJacobians<LMinus<R3>>(Vector3d::Random(), Vector3d::Random());
+  checkJacobians<LMinus<Rn>>(VectorXd::Random(8), VectorXd::Random(8));
+  checkJacobians<LMinus<SO3>>(Quaterniond::UnitRandom().toRotationMatrix(), Quaterniond::UnitRandom().toRotationMatrix());
+  checkJacobians<LMinus<S3>>(Quaterniond::UnitRandom(), Quaterniond::UnitRandom());
 }
