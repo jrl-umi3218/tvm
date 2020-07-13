@@ -7,6 +7,7 @@
 
 namespace tvm::manifold
 {
+  /** Group of unit quaternions.*/
   class S3 : public internal::RotationBase, public internal::LieGroup<S3>
   {
   public:

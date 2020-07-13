@@ -52,11 +52,17 @@ namespace tvm::manifold
 
 namespace tvm::manifold::internal
 {
+  /** Base class for both SO3 and S3, as they share several operations.*/
   class RotationBase
   {
   public:
     using tan_t = typename internal::LieGroup<SO3>::tan_t;
 
+    /** Transform a vector representation of an element of the tangent space into
+      * a matrix representation (in this case going from 3d vector x to the skew-
+      * symmetric matrix \f$ \hat{x} \f$ such that the cross product \f$ x \times y \f$
+      * equals \f$ \hat{x}y \f$.
+      */
     template<typename Tan>
     static Eigen::Matrix3d hat(const Tan& t)
     {
@@ -69,6 +75,9 @@ namespace tvm::manifold::internal
       return mat;
     }
 
+    /** Transform a matrix representation of an element of the tangent space into
+      * a vector representation. Inverse of hat.
+      */
     template<typename Mat>
     static tan_t vee(const Mat& M)
     {

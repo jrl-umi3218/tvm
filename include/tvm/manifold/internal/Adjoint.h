@@ -11,6 +11,7 @@ TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(LG)
 
 namespace tvm::manifold::internal
 {
+  /** Small wrapper around a const reference on an object of type LG::repr_t*/
   template<typename LG>
   struct ReprRef
   {
@@ -20,6 +21,7 @@ namespace tvm::manifold::internal
     ReprRef(const type& X) : X_(X) {}
   };
 
+  /** Small wrapper owning an object of type LG::repr_t*/
   template<typename LG>
   struct ReprOwn
   {
@@ -29,12 +31,11 @@ namespace tvm::manifold::internal
     ReprOwn(const type& X) : X_(X) {}
   };
 
-  template<typename T, typename = void>
-  struct has_X_member : std::false_type {};
+  /** Utility to detect that an object as a public member X_.*/
+  template<typename T> using has_X_trait_t = decltype(std::declval<T>().X_);
+  template<typename T> using has_X_member = tvm::internal::is_detected<has_X_trait_t, T>;
 
-  template<typename T>
-  struct has_X_member<T, std::void_t<decltype(std::declval<T>().X_)>> : std::true_type {};
-
+  /** Dispatch utility: it \p t.X_ is a valid expression, return its value, otherwise return \p t.*/
   template<typename T> 
   static const auto& get_repr(const T& t) 
   { 
@@ -44,12 +45,27 @@ namespace tvm::manifold::internal
       return t;
   }
 
+  /** Struct to be specialized if some operations need to be specified for a given Lie group.*/
   template<typename LG>
-  struct AdjointOperations
-  {
-  };
+  struct AdjointOperations {};
 
-
+  /** Class representing the Adjoint of an element of the Lie group \p LG_.
+    *
+    * \tparam LG_ The Lie Group
+    * \tparam Expr_ The type of the underlying expression representing an element of the Lie group.
+    * \internal At the present, the only type used are ReprOwn<LG_>, ReprRef<LG_> and LG_::Identity
+    * but we could imagine having Eigen-like expressions for elements of the group.
+    * \tparam Inverse_ Whether this is the inverse of the adjoint of the underlying element or not
+    * \tparam Transpose_ Whether the adjoint (matrix) should be transpose or not. In conjunction
+    * with Inverse_, we can express the dual.
+    * \tparam PositiveSign_ If false, we have -Ad_X.
+    *
+    * \internal This design is an attempt at avoiding CRTP and numerous classes, while allowing to
+    * have "non-owning" object through the ReprRef mechanism to avoid copies, and not explicitely
+    * computing the inverse of the underlying element or the dual of the adoint when its not
+    * necessary. It's not fully clean though, and there are room for improvements, that would be
+    * easier to carry out with a full Eigen-like expression system on the Lie group elements. 
+    */
   template<typename LG_, typename Expr_=ReprOwn<LG_>, bool Inverse_=false, bool Transpose_=false, bool PositiveSign_=true>
   class Adjoint
   {
@@ -68,22 +84,30 @@ namespace tvm::manifold::internal
 
     explicit Adjoint(const Expr& X) : operand_(X) {}
 
+    /** Get the underlying element. */
     const auto& operand() const { return get_repr(operand_); }
 
+    /** Get the operand or its inverse, depending on the Inverse_ flag*/
     template<bool U = Inverse_, typename = std::enable_if_t<U, int> >
     auto reducedOperand() const { return LG::template inverse(operand()); }
 
+    /** Get the operand or its inverse, depending on the Inverse_ flag*/
     template<bool U = Inverse_, typename = std::enable_if_t<!U, int> >
     const auto& reducedOperand() const { return operand(); }
 
-    template<typename U = Expr_, typename = std::enable_if_t<(isId<U>::value && dim < 0), int> >
+    /** Get the matrix representation of the adjoint.
+      * This overload is meant for the special case when the underlying element is
+      * the identiy and the manifold has a dynamic size.
+      */
+    template<typename U = Expr_, typename = std::enable_if_t<(isId<U>::value && !LG::hasStaticDim()), int> >
     auto matrix(typename matrix_t::Index s) const
     {
       static_assert(std::is_same_v<U, Expr_>);
       return matrix_t::Identity(s,s);
     }
 
-    template<typename U = Expr_, typename = std::enable_if_t<!(isId<U>::value && dim < 0), int> >
+    /** Get the matrix representation of the adjoint.*/
+    template<typename U = Expr_, typename = std::enable_if_t<!(isId<U>::value && !LG::hasStaticDim()), int> >
     auto matrix() const
     {
       static_assert(std::is_same_v<U, Expr_>);
@@ -116,26 +140,41 @@ namespace tvm::manifold::internal
       }
     }
 
+    /** Return the inverse of the adjoint.*/
     auto inverse() const
     {
       return Adjoint<LG, Expr, !Inverse, Transpose, PositiveSign>(operand_);
     }
 
+    /** Return the transpose of the adjoint.
+      *
+      * \internal Mathematically speaking, the transpose of the adjoint itself is
+      * not defined AFAIK. This concerns the matrix representation of the adjoint
+      * and comes into play when the matrix multiplies another element, so maybe
+      * the transpose could be defered to the multiplication operation.
+      */
     auto transpose() const
     {
       return Adjoint<LG, Expr, Inverse, !Transpose, PositiveSign>(operand_);
     }
 
+    /** Return the dual of the adjoint.*/
     auto dual() const
     {
       return Adjoint<LG, Expr, !Inverse, !Transpose, PositiveSign>(operand_);
     }
 
+    /** Return the opposite of the adjoint.
+      *
+      * \internal Again, not mathematically perfect. We mix the adjoit and its
+      * matrix representation here.
+      */
     auto operator-() const
     {
       return Adjoint<LG, Expr, Inverse, Transpose, !PositiveSign>(operand_);
     }
 
+    /** Multiplication between adjoints.*/
     template<typename OtherExpr, bool OtherInverse, bool OtherTranspose, bool OtherPositiveSign>
     auto operator*(const Adjoint<LG, OtherExpr, OtherInverse, OtherTranspose, OtherPositiveSign>& other)
     {
@@ -176,7 +215,7 @@ namespace tvm::manifold::internal
     }
 
   private:
-    Expr operand_;
+    Expr operand_;  //The underlying element of LG.
   };
 
   // Deduction guide for identity

@@ -7,6 +7,7 @@
 
 namespace tvm::manifold
 {
+  /** Group of rotation in 3d represented by orthogonal matrices.*/
   class SO3: public internal::RotationBase, public internal::LieGroup<SO3>
   {
   public:

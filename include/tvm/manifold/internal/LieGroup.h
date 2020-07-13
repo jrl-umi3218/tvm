@@ -17,11 +17,12 @@ namespace tvm::manifold::internal
   {
   };
 
-
+  /** Dummy structures to specifies "sides" e.g when talking about jacobians.*/
   struct right_t {};
   struct left_t {};
   struct both_t {};
 
+  /** Check if T is equal to right_t. T can only be right_t or left_t*/
   template<typename T>
   static constexpr bool isLocal()
   {
@@ -30,8 +31,11 @@ namespace tvm::manifold::internal
   }
 
   /** This class serves as a base class for all Lie groups.
-    * It introduces the composition operation, the inverse
-    * and the identity.
+    * It introduces the composition operation, the inverse and the identity, as
+    * well as the notions of ajoint and (manifold) jacobians.
+    *
+    * \internal In particular, the class handles the cases when arguments of
+    * methods are the identity.
     */
   template<typename Derived>
   class LieGroup : public Manifold<LieGroup<Derived>>
@@ -57,6 +61,10 @@ namespace tvm::manifold::internal
     static constexpr both_t both = {};
 
   public:
+    /** General compose function X o Y.
+      *
+      * The operation is carried out by Derived::composeImpl.
+      */
     template<typename ReprX, typename ReprY>
     static auto compose(const ReprX& X, const ReprY& Y)
     {
@@ -66,6 +74,7 @@ namespace tvm::manifold::internal
       return Derived::composeImpl(X, Y);
     }
 
+    /** Composition X o Y when Y is the identity.*/
     template<typename Repr>
     static auto compose(const Repr& X, const Identity&)
     {
@@ -73,6 +82,7 @@ namespace tvm::manifold::internal
       return X;
     }
 
+    /** Composition X o Y when X is the identity.*/
     template<typename Repr>
     static auto compose(const Identity&, const Repr& Y)
     {
@@ -80,11 +90,13 @@ namespace tvm::manifold::internal
       return Y;
     }
 
+    /** Composition of two identities.*/
     static auto compose(const Identity&, const Identity&)
     {
       return Identity{};
     }
 
+    /** Inverse of element X, general case.*/
     template<typename Repr>
     static auto inverse(const Repr& X)
     {
@@ -92,11 +104,20 @@ namespace tvm::manifold::internal
       return Derived::inverseImpl(X);
     }
 
+    /** Inverse of the identity.*/
     static auto inverse(const Identity& X)
     {
       return X;
     }
 
+    /** Return the adjoint of X. 
+      *
+      * If X is of type \p repr_t and not a temporary, the adjoint takes a
+      * reference on it.
+      *
+      * \internal There is definitely room for improvement here, to make this
+      * behavior air-tight.
+      */
     template<typename Repr>
     static auto adjoint(const Repr& X)
     {
@@ -107,16 +128,22 @@ namespace tvm::manifold::internal
         return Adjoint<Derived>(repr_t(X));
     }
 
+    /** Return the adjoint of a temporary element*/
     static auto adjoint(repr_t&& X)
     {
       return Adjoint<Derived>(std::forward<repr_t>(X));
     }
 
+    /** Ajoint of identity.*/
     static auto adjoint(const Identity& X)
     {
       return Adjoint(X);
     }
 
+    /** Compute the right jacobian Jr of the manifold at \p t (i.e. the derivative
+      * of exp(t) w.r.t \p t, where small variations of \p t are mapped to small
+      * variation of X = exp(t) in local tangent space: exp(t+dt) ~ X exp(Jr(t) dt).
+      */
     template<typename Tan>
     static auto rightJacobian(const Tan& t)
     {
@@ -124,6 +151,10 @@ namespace tvm::manifold::internal
       return Derived::jacobianImpl(t, rOnly);
     }
 
+    /** Compute the left jacobian Jl of the manifold at \p t (i.e. the derivative
+      * of exp(t) w.r.t \p t, where small variations of \p t are mapped to small
+      * variation of X = exp(t) in global tangent space: exp(t+dt) ~ exp(Jl(t) dt) X.
+      */
     template<typename Tan>
     static auto leftJacobian(const Tan& t)
     {
@@ -131,6 +162,7 @@ namespace tvm::manifold::internal
       return Derived::jacobianImpl(t, lOnly);
     }
 
+    /** Compute both right and left jacobians, returned as a pair (right, left).*/
     template<typename Tan>
     static auto jacobians(const Tan& t)
     {
@@ -138,6 +170,7 @@ namespace tvm::manifold::internal
       return Derived::jacobianImpl(t, both);
     }
 
+    /** Compute the inverse of the right jacobian.*/
     template<typename Tan>
     static auto invRightJacobian(const Tan& t)
     {
@@ -145,6 +178,7 @@ namespace tvm::manifold::internal
       return Derived::invJacobianImpl(t, rOnly);
     }
 
+    /** Compute the inverse of the left jacobian.*/
     template<typename Tan>
     static auto invLeftJacobian(const Tan& t)
     {
@@ -152,6 +186,7 @@ namespace tvm::manifold::internal
       return Derived::invJacobianImpl(t, lOnly);
     }
 
+    /** Compute the inverse of both jacobians, return as a pair (right, left).*/
     template<typename Tan>
     static auto invJacobians(const Tan& t)
     {
@@ -160,9 +195,11 @@ namespace tvm::manifold::internal
     }
 
   private:
+    /** We want methods of manifold to accept also identity.*/
     template<typename Repr>
     static constexpr bool alsoAcceptAsRepr() { return std::is_same_v<Repr, Identity>; }
 
+    /** We want methods of manifold to accept also identity.*/
     template<typename Tan>
     static constexpr bool alsoAcceptAsTan() { return std::is_same_v<Tan, AlgIdentity>; }
 
