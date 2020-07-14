@@ -158,6 +158,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/manifold/operators/LPlus.h
   ${TVM_INCLUDE_DIR}/manifold/operators/Plus.h
   ${TVM_INCLUDE_DIR}/manifold/DirectProduct.h
+  ${TVM_INCLUDE_DIR}/manifold/DirectProductCollection.h
   ${TVM_INCLUDE_DIR}/manifold/Real.h
   ${TVM_INCLUDE_DIR}/manifold/SE3.h
   ${TVM_INCLUDE_DIR}/manifold/SO3.h

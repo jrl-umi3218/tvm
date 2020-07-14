@@ -1,6 +1,6 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#include <tvm/manifold/DirectProduct.h>
+#include <tvm/manifold/DirectProductCollection.h>
 #include <tvm/manifold/Real.h>
 #include <tvm/manifold/SO3.h>
 #include <tvm/manifold/S3.h>
@@ -145,29 +145,61 @@ TEST_CASE("DirectProductUtils")
 
 TEST_CASE("DirecProduct")
 {
-  using R3 = manifold::Real<3>;
-  using R4 = manifold::Real<4>;
-  using P = manifold::DirectProduct<R3, R4>;
+  {
+    using R3 = manifold::Real<3>;
+    using R4 = manifold::Real<4>;
+    using P = manifold::DirectProduct<R3, R4>;
 
-  typename P::repr_t x = P::repr_t::Random();
-  P::repr_t y = P::repr_t::Random();
-  MatrixXd M = MatrixXd::Random(3, 8);
-  auto z = M.row(0).transpose().head(7);
-  FAST_CHECK_EQ(P::dim, 7);
-  FAST_CHECK_EQ(P::dynamicDim(x), 7);
-  FAST_CHECK_UNARY((x + y).isApprox(P::compose(x, y)));
-  FAST_CHECK_UNARY(x.isApprox(P::compose(x, P::identity)));
-  FAST_CHECK_UNARY(y.isApprox(P::compose(P::identity, y)));
-  FAST_CHECK_UNARY((z + x + y).isApprox(P::compose(z, x + y)));
-  FAST_CHECK_UNARY((-x).isApprox(P::inverse(x)));
-  FAST_CHECK_UNARY(std::is_same_v<decltype(R3::inverse(R3::identity)), R3::Identity>);
-  
-  auto l = P::log(x);
-  FAST_CHECK_UNARY(x.isApprox(l));
-  FAST_CHECK_UNARY(std::is_same_v<decltype(P::log(P::identity)), P::AlgIdentity>);
-  FAST_CHECK_UNARY(x.isApprox(P::exp(l)));
-  FAST_CHECK_UNARY(std::is_same_v<decltype(P::exp(P::algIdentity)), P::Identity>);
-  FAST_CHECK_UNARY((x - y).isApprox(P::compose(P::exp(l), P::inverse(y))));
+    typename P::repr_t x = P::repr_t::Random();
+    P::repr_t y = P::repr_t::Random();
+    MatrixXd M = MatrixXd::Random(3, 8);
+    auto z = M.row(0).transpose().head(7);
+    FAST_CHECK_EQ(P::dim, 7);
+    FAST_CHECK_EQ(P::dynamicDim(x), 7);
+    FAST_CHECK_UNARY((x + y).isApprox(P::compose(x, y)));
+    FAST_CHECK_UNARY(x.isApprox(P::compose(x, P::identity)));
+    FAST_CHECK_UNARY(y.isApprox(P::compose(P::identity, y)));
+    FAST_CHECK_UNARY((z + x + y).isApprox(P::compose(z, x + y)));
+    FAST_CHECK_UNARY((-x).isApprox(P::inverse(x)));
+    FAST_CHECK_UNARY(std::is_same_v<decltype(R3::inverse(R3::identity)), R3::Identity>);
+
+    auto l = P::log(x);
+    FAST_CHECK_UNARY(x.isApprox(l));
+    FAST_CHECK_UNARY(std::is_same_v<decltype(P::log(P::identity)), P::AlgIdentity>);
+    FAST_CHECK_UNARY(x.isApprox(P::exp(l)));
+    FAST_CHECK_UNARY(std::is_same_v<decltype(P::exp(P::algIdentity)), P::Identity>);
+    FAST_CHECK_UNARY((x - y).isApprox(P::compose(P::exp(l), P::inverse(y))));
+  }
+  {
+    using R3 = manifold::Real<3>;
+    using SO3 = manifold::SO3;
+    using Repr = std::pair<Matrix3d, Vector3d>;
+    using SO3R3 = manifold::DirectProduct<SO3, R3, Repr>;
+    Repr x; x.first = Quaterniond::UnitRandom().toRotationMatrix(); x.second = Vector3d::Random();
+    Repr y; y.first = Quaterniond::UnitRandom().toRotationMatrix(); y.second = Vector3d::Random();
+    FAST_CHECK_EQ(SO3R3::dim, 6);
+    FAST_CHECK_EQ(SO3R3::dynamicDim(x), 6);
+    Repr xy = { x.first * y.first, x.second + y.second };
+    FAST_CHECK_UNARY(xy.first.isApprox(SO3R3::compose(x, y).first));
+    FAST_CHECK_UNARY(xy.second.isApprox(SO3R3::compose(x, y).second));
+    FAST_CHECK_UNARY(x.first.isApprox(SO3R3::compose(x, SO3R3::identity).first));
+    FAST_CHECK_UNARY(x.second.isApprox(SO3R3::compose(x, SO3R3::identity).second));
+    FAST_CHECK_UNARY(y.first.isApprox(SO3R3::compose(SO3R3::identity, y).first));
+    FAST_CHECK_UNARY(y.second.isApprox(SO3R3::compose(SO3R3::identity, y).second));
+    FAST_CHECK_UNARY((x.first.transpose()).isApprox(SO3R3::inverse(x).first));
+    FAST_CHECK_UNARY((-x.second).isApprox(SO3R3::inverse(x).second));
+
+    auto l = SO3R3::log(x);
+    //FAST_CHECK_UNARY(x.first.isApprox(l.head<3>()));
+    //FAST_CHECK_UNARY(x.second.isApprox(l.tail<3>()));
+    FAST_CHECK_UNARY(std::is_same_v<decltype(SO3R3::log(SO3R3::identity)), SO3R3::AlgIdentity>);
+    FAST_CHECK_UNARY(x.first.isApprox(SO3R3::exp(l).first));
+    FAST_CHECK_UNARY(x.second.isApprox(SO3R3::exp(l).second));
+    FAST_CHECK_UNARY(std::is_same_v<decltype(SO3R3::exp(SO3R3::algIdentity)), SO3R3::Identity>);
+    Repr z = { x.first * y.first.transpose(), x.second - y.second };
+    FAST_CHECK_UNARY(z.first.isApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).first));
+    FAST_CHECK_UNARY(z.second.isApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).second));
+  }
 }
 
 template<typename LG, typename Expr>
