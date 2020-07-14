@@ -61,8 +61,9 @@ void checkJacobian(const typename BinOp::repr_t& X, const typename BinOp::repr_t
       Jy.col(i) = Out::log(Out::compose(vyi, Out::inverse(v0))) / h;
     }
   }
-  FAST_CHECK_UNARY(Jx0.isApprox(Jx, 1e-6));
-  FAST_CHECK_UNARY(Jy0.isApprox(Jy, 1e-6));
+
+  FAST_CHECK_UNARY(Jx0.isApprox(Jx, 5e-6));
+  FAST_CHECK_UNARY(Jy0.isApprox(Jy, 5e-6));
 }
 
 template<typename BinOp>
