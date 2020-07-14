@@ -61,6 +61,27 @@ namespace tvm::manifold::internal
     static constexpr both_t both = {};
 
   public:
+    /** Transform a vector representation of an element of the tangent space into
+      * a matrix representation
+      */
+    template<typename Tan>
+    static auto hat(const Tan& t)
+    {
+      static_assert(std::is_convertible_v<Tan, tan_t>);
+      return Derived::hatImpl(t);
+    }
+
+    /** Transform a matrix representation of an element of the tangent space into
+      * a vector representation. Inverse of hat.
+      */
+    template<typename Mat>
+    static auto vee(const Mat& M)
+    {
+      static_assert(std::is_convertible_v<decltype(Derived::veeImpl(M)), tan_t>);
+      return Derived::veeImpl(M);
+    }
+
+
     /** General compose function X o Y.
       *
       * The operation is carried out by Derived::composeImpl.

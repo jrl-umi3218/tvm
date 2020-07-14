@@ -45,6 +45,18 @@ namespace tvm::manifold
     using typename Base::jacobian_t;
 
   private:
+    template<typename Tan>
+    static const Tan& hatImpl(const Tan& t)
+    {
+      return t;
+    }
+
+    template<typename Mat>
+    static const Mat& veeImpl(const Mat& M)
+    {
+      return M;
+    }
+
     template<typename Repr>
     static const auto& logImpl(const Repr& X)
     {

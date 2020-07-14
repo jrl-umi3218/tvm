@@ -93,6 +93,18 @@ namespace tvm::manifold
         else if constexpr (LG1::hasStaticDim()) return t.tail(t.size() - LG1::dim);
         else static_assert(tvm::internal::always_false<Tan>::value, "Unable to determine the size of tan2.");
       }
+
+      template<typename Tan>
+      static const auto& hat(const Tan& t)
+      {
+        return t;
+      }
+
+      template<typename Mat>
+      static const Mat& vee(const Mat& M)
+      {
+        return M;
+      }
     };
 
 
@@ -167,6 +179,26 @@ namespace tvm::manifold
         static_assert(std::is_convertible_v<Tan, tan1_t>);
         if constexpr (is_pair_v) return t.template tail<3>();
         else return std::ref(t.linear());
+      }
+
+      template<typename Tan>
+      static auto hat(const Tan& t)
+      {
+        Eigen::Matrix4d T;
+        T.topLeftCorner<3, 3>() = SO3::hat(t.template head<3>());
+        T.col(3).head<3>() = t.template tail<3>();
+        T.row(3).setZero();
+        return T;
+      }
+
+      template<typename Mat>
+      static auto vee(const Mat& M)
+      {
+        static_assert(std::is_convertible_v<Mat, Eigen::Matrix4d>);
+        Eigen::Matrix<double, 6, 1> v;
+        v.head<3>() = SO3::vee(M.template topLeftCorner<3, 3>());
+        v.tail<3>() = M.col(3).template head<3>();
+        return v;
       }
     };
   }

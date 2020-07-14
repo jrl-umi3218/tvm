@@ -58,15 +58,15 @@ namespace tvm::manifold::internal
   public:
     using tan_t = typename internal::LieGroup<SO3>::tan_t;
 
+  protected:
     /** Transform a vector representation of an element of the tangent space into
       * a matrix representation (in this case going from 3d vector x to the skew-
       * symmetric matrix \f$ \hat{x} \f$ such that the cross product \f$ x \times y \f$
       * equals \f$ \hat{x}y \f$.
       */
     template<typename Tan>
-    static Eigen::Matrix3d hat(const Tan& t)
+    static Eigen::Matrix3d hatImpl(const Tan& t)
     {
-      static_assert(std::is_convertible_v<Tan, tan_t>);
       const typename Tan::PlainObject& t_ = t;
       Eigen::Matrix3d mat;
       mat <<    0., -t_.z(),  t_.y(),
@@ -79,13 +79,11 @@ namespace tvm::manifold::internal
       * a vector representation. Inverse of hat.
       */
     template<typename Mat>
-    static tan_t vee(const Mat& M)
+    static tan_t veeImpl(const Mat& M)
     {
-      static_assert(std::is_convertible_v<Mat, Eigen::Matrix3d>);
       return { M(2,1), M(0,2), M(1,0) };
     }
 
-  protected:
     template<typename ReprX, typename ReprY>
     static auto composeImpl(const ReprX& X, const ReprY& Y)
     {
@@ -110,7 +108,7 @@ namespace tvm::manifold::internal
              xy, -xx - zz, yz,
              xz, yz, -xx - yy;
 
-      Eigen::Matrix3d C = hat(Eigen::Vector3d(f1*u));
+      Eigen::Matrix3d C = hatImpl(Eigen::Vector3d(f1*u));
       auto I = Eigen::Matrix3d::Identity();
       
       if constexpr (std::is_same_v<Which, right_t>)
@@ -142,7 +140,7 @@ namespace tvm::manifold::internal
              xy, -xx - zz, yz,
              xz, yz, -xx - yy;
 
-      Eigen::Matrix3d C = hat(Eigen::Vector3d(u / 2));
+      Eigen::Matrix3d C = hatImpl(Eigen::Vector3d(u / 2));
       auto I = Eigen::Matrix3d::Identity();
 
       if constexpr (std::is_same_v<Which, right_t>)

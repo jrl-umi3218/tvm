@@ -190,8 +190,7 @@ TEST_CASE("DirecProduct")
     FAST_CHECK_UNARY((-x.second).isApprox(SO3R3::inverse(x).second));
 
     auto l = SO3R3::log(x);
-    //FAST_CHECK_UNARY(x.first.isApprox(l.head<3>()));
-    //FAST_CHECK_UNARY(x.second.isApprox(l.tail<3>()));
+    FAST_CHECK_UNARY(SO3R3::vee(SO3R3::hat(l)).isApprox(l));
     FAST_CHECK_UNARY(std::is_same_v<decltype(SO3R3::log(SO3R3::identity)), SO3R3::AlgIdentity>);
     FAST_CHECK_UNARY(x.first.isApprox(SO3R3::exp(l).first));
     FAST_CHECK_UNARY(x.second.isApprox(SO3R3::exp(l).second));
