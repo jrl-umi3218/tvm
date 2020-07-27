@@ -15,9 +15,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
+#include "doctestUtils.h"
 
 using namespace tvm;
 using namespace Eigen;
+using namespace doctest;
 
 TEST_CASE("sincsqrt")
 {
@@ -38,19 +40,19 @@ TEST_CASE("R3")
   auto z = M.row(0).transpose().head(3);
   FAST_CHECK_EQ(R3::dim, 3);
   FAST_CHECK_EQ(R3::dynamicDim(x), 3);
-  FAST_CHECK_UNARY((x + y).isApprox(R3::compose(x, y)));
-  FAST_CHECK_UNARY(x.isApprox(R3::compose(x, R3::identity)));
-  FAST_CHECK_UNARY(y.isApprox(R3::compose(R3::identity, y)));
-  FAST_CHECK_UNARY((z + x + y).isApprox(R3::compose(z, x+y)));
-  FAST_CHECK_UNARY((-x).isApprox(R3::inverse(x)));
+  FAST_CHECK_EQ((x + y), MApprox(R3::compose(x, y)));
+  FAST_CHECK_EQ(x, MApprox(R3::compose(x, R3::identity)));
+  FAST_CHECK_EQ(y, MApprox(R3::compose(R3::identity, y)));
+  FAST_CHECK_EQ((z + x + y), MApprox(R3::compose(z, x+y)));
+  FAST_CHECK_EQ((-x), MApprox(R3::inverse(x)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(R3::inverse(R3::identity)),R3::Identity>);
 
   auto l = R3::log(x);
-  FAST_CHECK_UNARY(x.isApprox(l));
+  FAST_CHECK_EQ(x, MApprox(l));
   FAST_CHECK_UNARY(std::is_same_v<decltype(R3::log(R3::identity)), R3::AlgIdentity>);
-  FAST_CHECK_UNARY(x.isApprox(R3::exp(l)));
+  FAST_CHECK_EQ(x, MApprox(R3::exp(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(R3::exp(R3::algIdentity)), R3::Identity>);
-  FAST_CHECK_UNARY((x - y).isApprox(R3::compose(R3::exp(l), R3::inverse(y))));
+  FAST_CHECK_EQ((x - y), MApprox(R3::compose(R3::exp(l), R3::inverse(y))));
 }
 
 TEST_CASE("Rn")
@@ -62,19 +64,19 @@ TEST_CASE("Rn")
   auto z = M.row(0).transpose().head(8);
   FAST_CHECK_EQ(Rn::dim, Dynamic);
   FAST_CHECK_EQ(Rn::dynamicDim(x), 8);
-  FAST_CHECK_UNARY((x + y).isApprox(Rn::compose(x, y)));
-  FAST_CHECK_UNARY(x.isApprox(Rn::compose(x, Rn::identity)));
-  FAST_CHECK_UNARY(y.isApprox(Rn::compose(Rn::identity, y)));
-  FAST_CHECK_UNARY((z + x + y).isApprox(Rn::compose(z, x + y)));
-  FAST_CHECK_UNARY((-x).isApprox(Rn::inverse(x)));
+  FAST_CHECK_EQ((x + y), MApprox(Rn::compose(x, y)));
+  FAST_CHECK_EQ(x, MApprox(Rn::compose(x, Rn::identity)));
+  FAST_CHECK_EQ(y, MApprox(Rn::compose(Rn::identity, y)));
+  FAST_CHECK_EQ((z + x + y), MApprox(Rn::compose(z, x + y)));
+  FAST_CHECK_EQ((-x), MApprox(Rn::inverse(x)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::inverse(Rn::identity)), Rn::Identity>);
 
   auto l = Rn::log(x);
-  FAST_CHECK_UNARY(x.isApprox(l));
+  FAST_CHECK_EQ(x, MApprox(l));
   FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::log(Rn::identity)), Rn::AlgIdentity>);
-  FAST_CHECK_UNARY(x.isApprox(Rn::exp(l)));
+  FAST_CHECK_EQ(x, MApprox(Rn::exp(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(Rn::exp(Rn::algIdentity)), Rn::Identity>);
-  FAST_CHECK_UNARY((x - y).isApprox(Rn::compose(Rn::exp(l), Rn::inverse(y))));
+  FAST_CHECK_EQ((x - y), MApprox(Rn::compose(Rn::exp(l), Rn::inverse(y))));
 }
 
 TEST_CASE("SO3")
@@ -86,20 +88,20 @@ TEST_CASE("SO3")
   FAST_CHECK_EQ(SO3::dim, 3);
   FAST_CHECK_EQ(SO3::dynamicDim(x), 3);
   auto z = M.leftCols<3>();
-  FAST_CHECK_UNARY((x * y).isApprox(SO3::compose(x, y)));
-  FAST_CHECK_UNARY(x.isApprox(SO3::compose(x, SO3::identity)));
-  FAST_CHECK_UNARY(y.isApprox(SO3::compose(SO3::identity, y)));
-  FAST_CHECK_UNARY((z * x * y).isApprox(SO3::compose(z, x * y)));
-  FAST_CHECK_UNARY(x.transpose().isApprox(SO3::inverse(x)));
+  FAST_CHECK_EQ((x * y), MApprox(SO3::compose(x, y)));
+  FAST_CHECK_EQ(x, MApprox(SO3::compose(x, SO3::identity)));
+  FAST_CHECK_EQ(y, MApprox(SO3::compose(SO3::identity, y)));
+  FAST_CHECK_EQ((z * x * y), MApprox(SO3::compose(z, x * y)));
+  FAST_CHECK_EQ(x.transpose(), MApprox(SO3::inverse(x)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::inverse(SO3::identity)), SO3::Identity>);
 
   auto l = SO3::log(x);
-  FAST_CHECK_UNARY(SO3::vee(SO3::hat(l)).isApprox(l));
-  FAST_CHECK_UNARY(Matrix3d(x.log()).isApprox(SO3::hat(l)));
+  FAST_CHECK_EQ(SO3::vee(SO3::hat(l)), MApprox(l));
+  FAST_CHECK_EQ(Matrix3d(x.log()), MApprox(SO3::hat(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::log(SO3::identity)), SO3::AlgIdentity>);
-  FAST_CHECK_UNARY(x.isApprox(SO3::exp(l)));
+  FAST_CHECK_EQ(x, MApprox(SO3::exp(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::exp(SO3::algIdentity)), SO3::Identity>);
-  FAST_CHECK_UNARY((x * y.transpose()).isApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
+  FAST_CHECK_EQ((x * y.transpose()), MApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
 }
 
 TEST_CASE("S3")
@@ -110,20 +112,20 @@ TEST_CASE("S3")
   Quaterniond z = Quaterniond::UnitRandom();
   FAST_CHECK_EQ(S3::dim, 3);
   FAST_CHECK_EQ(S3::dynamicDim(x), 3);
-  FAST_CHECK_UNARY((x * y).isApprox(S3::compose(x, y)));
-  FAST_CHECK_UNARY(x.isApprox(S3::compose(x, S3::identity)));
-  FAST_CHECK_UNARY(y.isApprox(S3::compose(S3::identity, y)));
-  FAST_CHECK_UNARY((z * x * y).isApprox(S3::compose(z, x * y)));
-  FAST_CHECK_UNARY(x.inverse().isApprox(S3::inverse(x)));
+  FAST_CHECK_EQ((x * y), MApprox(S3::compose(x, y)));
+  FAST_CHECK_EQ(x, MApprox(S3::compose(x, S3::identity)));
+  FAST_CHECK_EQ(y, MApprox(S3::compose(S3::identity, y)));
+  FAST_CHECK_EQ((z * x * y), MApprox(S3::compose(z, x * y)));
+  FAST_CHECK_EQ(x.inverse(), MApprox(S3::inverse(x)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(S3::inverse(S3::identity)), S3::Identity>);
 
   auto l = S3::log(x);
-  FAST_CHECK_UNARY(S3::vee(S3::hat(l)).isApprox(l));
-  FAST_CHECK_UNARY(x.toRotationMatrix().log().isApprox(S3::hat(l)));
+  FAST_CHECK_EQ(S3::vee(S3::hat(l)), MApprox(l));
+  FAST_CHECK_EQ(x.toRotationMatrix().log(), MApprox(S3::hat(l)));
   FAST_CHECK_UNARY(std::is_same_v<decltype(S3::log(S3::identity)), S3::AlgIdentity>);
-  FAST_CHECK_UNARY(x.toRotationMatrix().isApprox(S3::exp(l).toRotationMatrix()));
+  FAST_CHECK_EQ(x.toRotationMatrix(), MApprox(S3::exp(l).toRotationMatrix()));
   FAST_CHECK_UNARY(std::is_same_v<decltype(S3::exp(S3::algIdentity)), S3::Identity>);
-  FAST_CHECK_UNARY((x * y.inverse()).toRotationMatrix().isApprox(S3::compose(S3::exp(l), S3::inverse(y)).toRotationMatrix()));
+  FAST_CHECK_EQ((x * y.inverse()).toRotationMatrix(), MApprox(S3::compose(S3::exp(l), S3::inverse(y)).toRotationMatrix()));
 }
 
 TEST_CASE("DirectProductUtils")
@@ -156,19 +158,19 @@ TEST_CASE("DirecProduct")
     auto z = M.row(0).transpose().head(7);
     FAST_CHECK_EQ(P::dim, 7);
     FAST_CHECK_EQ(P::dynamicDim(x), 7);
-    FAST_CHECK_UNARY((x + y).isApprox(P::compose(x, y)));
-    FAST_CHECK_UNARY(x.isApprox(P::compose(x, P::identity)));
-    FAST_CHECK_UNARY(y.isApprox(P::compose(P::identity, y)));
-    FAST_CHECK_UNARY((z + x + y).isApprox(P::compose(z, x + y)));
-    FAST_CHECK_UNARY((-x).isApprox(P::inverse(x)));
+    FAST_CHECK_EQ((x + y), MApprox(P::compose(x, y)));
+    FAST_CHECK_EQ(x, MApprox(P::compose(x, P::identity)));
+    FAST_CHECK_EQ(y, MApprox(P::compose(P::identity, y)));
+    FAST_CHECK_EQ((z + x + y), MApprox(P::compose(z, x + y)));
+    FAST_CHECK_EQ((-x), MApprox(P::inverse(x)));
     FAST_CHECK_UNARY(std::is_same_v<decltype(R3::inverse(R3::identity)), R3::Identity>);
 
     auto l = P::log(x);
-    FAST_CHECK_UNARY(x.isApprox(l));
+    FAST_CHECK_EQ(x, MApprox(l));
     FAST_CHECK_UNARY(std::is_same_v<decltype(P::log(P::identity)), P::AlgIdentity>);
-    FAST_CHECK_UNARY(x.isApprox(P::exp(l)));
+    FAST_CHECK_EQ(x, MApprox(P::exp(l)));
     FAST_CHECK_UNARY(std::is_same_v<decltype(P::exp(P::algIdentity)), P::Identity>);
-    FAST_CHECK_UNARY((x - y).isApprox(P::compose(P::exp(l), P::inverse(y))));
+    FAST_CHECK_EQ((x - y), MApprox(P::compose(P::exp(l), P::inverse(y))));
   }
   {
     using R3 = manifold::Real<3>;
@@ -180,24 +182,24 @@ TEST_CASE("DirecProduct")
     FAST_CHECK_EQ(SO3R3::dim, 6);
     FAST_CHECK_EQ(SO3R3::dynamicDim(x), 6);
     Repr xy = { x.first * y.first, x.second + y.second };
-    FAST_CHECK_UNARY(xy.first.isApprox(SO3R3::compose(x, y).first));
-    FAST_CHECK_UNARY(xy.second.isApprox(SO3R3::compose(x, y).second));
-    FAST_CHECK_UNARY(x.first.isApprox(SO3R3::compose(x, SO3R3::identity).first));
-    FAST_CHECK_UNARY(x.second.isApprox(SO3R3::compose(x, SO3R3::identity).second));
-    FAST_CHECK_UNARY(y.first.isApprox(SO3R3::compose(SO3R3::identity, y).first));
-    FAST_CHECK_UNARY(y.second.isApprox(SO3R3::compose(SO3R3::identity, y).second));
-    FAST_CHECK_UNARY((x.first.transpose()).isApprox(SO3R3::inverse(x).first));
-    FAST_CHECK_UNARY((-x.second).isApprox(SO3R3::inverse(x).second));
+    FAST_CHECK_EQ(xy.first, MApprox(SO3R3::compose(x, y).first));
+    FAST_CHECK_EQ(xy.second, MApprox(SO3R3::compose(x, y).second));
+    FAST_CHECK_EQ(x.first, MApprox(SO3R3::compose(x, SO3R3::identity).first));
+    FAST_CHECK_EQ(x.second, MApprox(SO3R3::compose(x, SO3R3::identity).second));
+    FAST_CHECK_EQ(y.first, MApprox(SO3R3::compose(SO3R3::identity, y).first));
+    FAST_CHECK_EQ(y.second, MApprox(SO3R3::compose(SO3R3::identity, y).second));
+    FAST_CHECK_EQ((x.first.transpose()), MApprox(SO3R3::inverse(x).first));
+    FAST_CHECK_EQ((-x.second), MApprox(SO3R3::inverse(x).second));
 
     auto l = SO3R3::log(x);
-    FAST_CHECK_UNARY(SO3R3::vee(SO3R3::hat(l)).isApprox(l));
+    FAST_CHECK_EQ(SO3R3::vee(SO3R3::hat(l)), MApprox(l));
     FAST_CHECK_UNARY(std::is_same_v<decltype(SO3R3::log(SO3R3::identity)), SO3R3::AlgIdentity>);
-    FAST_CHECK_UNARY(x.first.isApprox(SO3R3::exp(l).first));
-    FAST_CHECK_UNARY(x.second.isApprox(SO3R3::exp(l).second));
+    FAST_CHECK_EQ(x.first, MApprox(SO3R3::exp(l).first));
+    FAST_CHECK_EQ(x.second, MApprox(SO3R3::exp(l).second));
     FAST_CHECK_UNARY(std::is_same_v<decltype(SO3R3::exp(SO3R3::algIdentity)), SO3R3::Identity>);
     Repr z = { x.first * y.first.transpose(), x.second - y.second };
-    FAST_CHECK_UNARY(z.first.isApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).first));
-    FAST_CHECK_UNARY(z.second.isApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).second));
+    FAST_CHECK_EQ(z.first, MApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).first));
+    FAST_CHECK_EQ(z.second, MApprox(SO3R3::compose(SO3R3::exp(l), SO3R3::inverse(y)).second));
   }
 }
 
@@ -214,11 +216,11 @@ struct checkAdjoint
     FAST_CHECK_EQ(Adj::Transpose, transpose);
     FAST_CHECK_EQ(Adj::PositiveSign, sign);
     if constexpr (!std::is_same_v<Expr,typename LG::Identity>)
-      FAST_CHECK_UNARY(opValue.isApprox(adj.operand()));
+      FAST_CHECK_EQ(opValue, MApprox(adj.operand()));
     if constexpr (LG::dim>=0 || !Adj::template isId<typename Adj::Expr>::value)
-      FAST_CHECK_UNARY(mat.isApprox(adj.matrix()));
+      FAST_CHECK_EQ(mat, MApprox(adj.matrix()));
     else
-      FAST_CHECK_UNARY(mat.isApprox(adj.matrix(opValue.size())));
+      FAST_CHECK_EQ(mat, MApprox(adj.matrix(opValue.size())));
   }
 };
 
@@ -438,10 +440,10 @@ TEST_CASE("log-exp on rotations")
     Quaterniond q = S3::exp(t);
     Matrix3d R = SO3::exp(t);
     Matrix3d R0 = SO3::hat(t).exp();
-    FAST_CHECK_UNARY(R0.isApprox(R));
-    FAST_CHECK_UNARY(R0.isApprox(q.toRotationMatrix()));
-    FAST_CHECK_UNARY(t.isApprox(SO3::log(R)));
-    FAST_CHECK_UNARY(t.isApprox(S3::log(q)));
+    FAST_CHECK_EQ(R0, MApprox(R));
+    FAST_CHECK_EQ(R0, MApprox(q.toRotationMatrix()));
+    FAST_CHECK_EQ(t, MApprox(SO3::log(R)));
+    FAST_CHECK_EQ(t, MApprox(S3::log(q)));
     h /= 10;
   }
 }
@@ -466,11 +468,11 @@ void checkJacobians()
     t[i] -= h;
   }
 
-  FAST_CHECK_UNARY(Jr0.isApprox(Jr, 1e-6));
-  FAST_CHECK_UNARY(Jl0.isApprox(Jl, 1e-6));
-  FAST_CHECK_UNARY(LG::invRightJacobian(t).isApprox(Jr0.inverse()));
-  FAST_CHECK_UNARY(LG::invLeftJacobian(t).isApprox(Jl0.inverse()));
-  FAST_CHECK_UNARY(LG::adjoint(e0).matrix().isApprox(Jl0 * Jr0.inverse()));  // Checking identity Ad_{exp(t)} = Jl(t)*Jr^-1
+  FAST_CHECK_EQ(Jr0, MApprox(Jr).precision(1e-6));
+  FAST_CHECK_EQ(Jl0, MApprox(Jl).precision(1e-6));
+  FAST_CHECK_EQ(LG::invRightJacobian(t), MApprox(Jr0.inverse()));
+  FAST_CHECK_EQ(LG::invLeftJacobian(t), MApprox(Jl0.inverse()));
+  FAST_CHECK_EQ(LG::adjoint(e0).matrix(), MApprox(Jl0 * Jr0.inverse()));  // Checking identity Ad_{exp(t)} = Jl(t)*Jr^-1
 }
 
 TEST_CASE("Manifold jacobian")

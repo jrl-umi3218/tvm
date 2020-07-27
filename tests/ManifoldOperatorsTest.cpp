@@ -16,9 +16,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
+#include "doctestUtils.h"
 
 using namespace tvm;
 using namespace Eigen;
+using namespace doctest;
 
 template<typename BinOp, typename FromSide, typename ToSide>
 void checkJacobian(const typename BinOp::repr_t& X, const typename BinOp::repr_t& Y, FromSide fs = {}, ToSide ts = {})
@@ -62,8 +64,8 @@ void checkJacobian(const typename BinOp::repr_t& X, const typename BinOp::repr_t
     }
   }
 
-  FAST_CHECK_UNARY(Jx0.isApprox(Jx, 5e-6));
-  FAST_CHECK_UNARY(Jy0.isApprox(Jy, 5e-6));
+  FAST_CHECK_EQ(Jx0, MApprox(Jx).precision(1e-5));
+  FAST_CHECK_EQ(Jy0, MApprox(Jy).precision(1e-5));
 }
 
 template<typename BinOp>
