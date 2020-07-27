@@ -97,11 +97,11 @@ TEST_CASE("SO3")
 
   auto l = SO3::log(x);
   FAST_CHECK_EQ(SO3::vee(SO3::hat(l)), MApprox(l));
-  FAST_CHECK_EQ(Matrix3d(x.log()), MApprox(SO3::hat(l)));
+  FAST_CHECK_EQ(Matrix3d(x.log()), MApprox(SO3::hat(l)).precision(1e-6));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::log(SO3::identity)), SO3::AlgIdentity>);
-  FAST_CHECK_EQ(x, MApprox(SO3::exp(l)));
+  FAST_CHECK_EQ(x, MApprox(SO3::exp(l)).precision(1e-6));
   FAST_CHECK_UNARY(std::is_same_v<decltype(SO3::exp(SO3::algIdentity)), SO3::Identity>);
-  FAST_CHECK_EQ((x * y.transpose()), MApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))));
+  FAST_CHECK_EQ((x * y.transpose()), MApprox(SO3::compose(SO3::exp(l), SO3::inverse(y))).precision(1e-6));
 }
 
 TEST_CASE("S3")
