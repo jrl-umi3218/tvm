@@ -27,7 +27,7 @@ namespace tvm::manifold
     struct AdjointOperations<SO3>
     {
       using matrix_t = Eigen::Matrix3d;
-      static const auto& toMatrix(const typename traits<SO3>::repr_t& X) { return X; }
+      static auto toMatrix(const typename traits<SO3>::repr_t& X) { return X; }
     };
   }
 
