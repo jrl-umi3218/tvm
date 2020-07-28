@@ -27,7 +27,20 @@ namespace tvm::manifold
     struct AdjointOperations<SO3>
     {
       using matrix_t = Eigen::Matrix3d;
-      static auto toMatrix(const typename traits<SO3>::repr_t& X) { return X; }
+      template<bool Transpose, bool PositiveSign>
+      static matrix_t toMatrix(const typename traits<SO3>::repr_t& X)
+      { 
+        if constexpr (Transpose)
+        {
+          if constexpr (PositiveSign) return X.transpose();
+          else return -X.transpose();
+        }
+        else
+        {
+          if constexpr (PositiveSign) return X;
+          else return -X;
+        }
+      }
     };
   }
 
@@ -44,7 +57,20 @@ namespace tvm::manifold
     struct AdjointOperations<S3>
     {
       using matrix_t = Eigen::Matrix3d;
-      static auto toMatrix(const typename traits<S3>::repr_t& X) { return X.toRotationMatrix(); }
+      template<bool Transpose, bool PositiveSign>
+      static matrix_t toMatrix(const typename traits<S3>::repr_t& X)
+      {
+        if constexpr (Transpose)
+        {
+          if constexpr (PositiveSign) return X.toRotationMatrix().transpose();
+          else return -X.toRotationMatrix().transpose();
+        }
+        else
+        {
+          if constexpr (PositiveSign) return X.toRotationMatrix();
+          else return -X.toRotationMatrix();
+        }
+      }
     };
   }
 }

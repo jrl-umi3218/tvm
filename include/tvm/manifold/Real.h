@@ -31,7 +31,13 @@ namespace tvm::manifold
     struct AdjointOperations<Real<N>>
     {
       using matrix_t = Eigen::Matrix<double, N, N>;
-      static auto toMatrix(const typename traits<Real<N>>::repr_t& X) { return matrix_t::Identity(X.size(), X.size()); }
+
+      template<bool, bool PositiveSign>
+      static auto toMatrix(const typename traits<Real<N>>::repr_t& X)
+      {
+        if constexpr (PositiveSign) return matrix_t::Identity(X.size(), X.size());
+        else return -matrix_t::Identity(X.size(), X.size());
+      }
     };
   }
 

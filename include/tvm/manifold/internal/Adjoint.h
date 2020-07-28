@@ -120,23 +120,7 @@ namespace tvm::manifold::internal
       }
       else
       {
-        // We're getting a temporary here. When using it with - or transpose(), we need to force
-        // the evaluation. Otherwise we would return an Eigen expression based on a temporary.
-        const auto& mat = AdjointOperations<LG>::toMatrix(reducedOperand());
-        if constexpr (Transpose)
-        {
-          if constexpr (PositiveSign)
-            return matrix_t(mat.transpose());
-          else
-            return matrix_t(-mat.transpose());
-        }
-        else
-        {
-          if constexpr (PositiveSign)
-            return mat;
-          else
-            return matrix_t(-mat);
-        }
+        return AdjointOperations<LG>::template toMatrix<Transpose, PositiveSign>(reducedOperand());
       }
     }
 

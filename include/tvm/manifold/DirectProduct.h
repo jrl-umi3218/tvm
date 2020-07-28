@@ -64,9 +64,12 @@ namespace tvm::manifold
     {
       using Prod = DirectProduct<LG1, LG2, Repr>;
       using matrix_t = Eigen::Matrix<double, Prod::dim, Prod::dim>;
-      static auto toMatrix(const typename Prod::repr_t& X) 
-      { 
-        return matrix_t::Identity(X.size(), X.size()); 
+
+      template<bool, bool PositiveSign>
+      static auto toMatrix(const typename Prod::repr_t& X)
+      {
+        if constexpr (PositiveSign) return matrix_t::Identity(X.size(), X.size());
+        else return -matrix_t::Identity(X.size(), X.size());
       }
     };
   }
