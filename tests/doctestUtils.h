@@ -14,11 +14,19 @@ namespace doctest
   public:
     template<typename Derived>
     explicit MApprox(const Eigen::DenseBase<Derived>& m)
-      : matrix_(m), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
+      : tmp_(), matrix_(m), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
+
+    template<typename Derived>
+    explicit MApprox(Eigen::DenseBase<Derived>&& m)
+      : tmp_(m), matrix_(tmp_), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
 
     template<typename Derived>
     explicit MApprox(const Eigen::QuaternionBase<Derived>& m)
-      : matrix_(m.coeffs()), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
+      : tmp_(), matrix_(m.coeffs()), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
+
+    template<typename Derived>
+    explicit MApprox(Eigen::QuaternionBase<Derived>&& m)
+      : tmp_(m.coeffs()), matrix_(tmp_), precision_(Eigen::NumTraits<double>::dummy_precision()) {}
 
     MApprox& precision(double p)
     {
@@ -43,6 +51,7 @@ namespace doctest
     }
 
   private:
+    Eigen::MatrixXd tmp_;
     Eigen::Ref<const Eigen::MatrixXd> matrix_;
     double precision_;
   };
