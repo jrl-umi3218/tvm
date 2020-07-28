@@ -32,9 +32,10 @@ namespace tvm::manifold
     {
       using matrix_t = Eigen::Matrix<double, N, N>;
 
-      template<bool, bool PositiveSign>
-      static auto toMatrix(const typename traits<Real<N>>::repr_t& X)
+      template<bool, bool PositiveSign, typename Repr>
+      static auto toMatrix(const Repr& X)
       {
+        static_assert(std::is_convertible_v<Repr, typename traits<Real<N>>::repr_t>);
         if constexpr (PositiveSign) return matrix_t::Identity(X.size(), X.size());
         else return -matrix_t::Identity(X.size(), X.size());
       }

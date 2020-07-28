@@ -65,9 +65,10 @@ namespace tvm::manifold
       using Prod = DirectProduct<LG1, LG2, Repr>;
       using matrix_t = Eigen::Matrix<double, Prod::dim, Prod::dim>;
 
-      template<bool, bool PositiveSign>
-      static auto toMatrix(const typename Prod::repr_t& X)
+      template<bool, bool PositiveSign, typename ReprX>
+      static auto toMatrix(const ReprX& X)
       {
+        static_assert(std::is_convertible_v<ReprX, typename Prod::repr_t>);
         if constexpr (PositiveSign) return matrix_t::Identity(X.size(), X.size());
         else return -matrix_t::Identity(X.size(), X.size());
       }
