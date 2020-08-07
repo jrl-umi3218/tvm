@@ -30,7 +30,6 @@
 
 #pragma once
 
-#include <tvm/api.h>
 #include <tvm/requirements/abstract/SingleSolvingRequirement.h>
 
 namespace tvm
@@ -48,13 +47,22 @@ namespace requirements
     *
     * By default the weight is 1.
     */
-  class TVM_DLLAPI Weight : public abstract::SingleSolvingRequirement<double>
+  template<bool Lightweight = true>
+  class WeightBase : public abstract::SingleSolvingRequirement<double, Lightweight>
   {
   public:
     /** Default weight = 1*/
-    Weight();
-    Weight(double alpha);
+    WeightBase() : abstract::SingleSolvingRequirement<double, Lightweight>(1.0, true) {}
+
+    WeightBase(double alpha)
+      : abstract::SingleSolvingRequirement<double, Lightweight>(alpha, false)
+    {
+      if (alpha < 0)
+        throw std::runtime_error("weight must be non negative.");
+    }
   };
+
+  using Weight = WeightBase<true>;
 
 }  // namespace requirements
 

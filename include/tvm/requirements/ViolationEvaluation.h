@@ -29,7 +29,6 @@
 
 #pragma once
 
-#include <tvm/api.h>
 #include <tvm/requirements/abstract/SingleSolvingRequirement.h>
 
 #include <Eigen/Core>
@@ -63,13 +62,21 @@ namespace requirements
     * By default the L2 norm of the violation is used.
     * \sa ViolationEvaluationType
     */
-  class TVM_DLLAPI ViolationEvaluation : public abstract::SingleSolvingRequirement<ViolationEvaluationType>
+  template<bool Lightweight = true>
+  class ViolationEvaluationBase : public abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>
   {
   public:
     /** Default value: ViolationEvaluationType::L2*/
-    ViolationEvaluation();
-    ViolationEvaluation(ViolationEvaluationType t);
+    ViolationEvaluationBase() 
+      : abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>(ViolationEvaluationType::L2, true) 
+    {}
+
+    ViolationEvaluationBase(ViolationEvaluationType t) 
+      : abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>(t, false) 
+    {}
   };
+
+  using ViolationEvaluation = ViolationEvaluationBase<true>;
 
 }  // namespace requirements
 

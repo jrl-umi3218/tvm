@@ -86,7 +86,8 @@ namespace requirements
     * ViolationEvaluation, to describe the way a constraint need to be solved
     * and interact with other constraints.
     */
-  class TVM_DLLAPI SolvingRequirements
+  template<bool Lightweight = true>
+  class SolvingRequirementsBase
   {
   public:
     /** Constructor. The arguments can be a PriorityLevel, a Weight, an
@@ -97,7 +98,7 @@ namespace requirements
       * \sa PriorityLevel, Weight, AnisotropicWeight, ViolationEvaluation
       */
     template<typename ... Args>
-    SolvingRequirements(const Args & ... args)
+    SolvingRequirementsBase(const Args & ... args)
     {
       build(args...);
     }
@@ -115,12 +116,22 @@ namespace requirements
       return false;
     }
 
-    ADD_REQUIREMENT(PriorityLevel, priorityLevel, priority_)
-    ADD_REQUIREMENT(Weight, weight, weight_)
-    ADD_REQUIREMENT(AnisotropicWeight, anisotropicWeight, aWeight_)
-    ADD_REQUIREMENT(ViolationEvaluation, violationEvaluation, evalType_)
+    ADD_REQUIREMENT(PriorityLevelBase<Lightweight>, priorityLevel, priority_)
+    ADD_REQUIREMENT(WeightBase<Lightweight>, weight, weight_)
+    ADD_REQUIREMENT(AnisotropicWeightBase<Lightweight>, anisotropicWeight, aWeight_)
+    ADD_REQUIREMENT(ViolationEvaluationBase<Lightweight>, violationEvaluation, evalType_)
 
     void build() {}
+  };
+
+  class SolvingRequirements : public SolvingRequirementsBase<true>
+  {
+    using SolvingRequirementsBase::SolvingRequirementsBase;
+  };
+
+  class SolvingRequirementsWithCallbacks : public SolvingRequirementsBase<false>
+  {
+    using SolvingRequirementsBase::SolvingRequirementsBase;
   };
 
   #undef ADD_REQUIREMENT
