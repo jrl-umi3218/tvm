@@ -89,7 +89,7 @@ TEST_CASE("Lifetime 3")
 PairElementTokenHandle addToken(std::vector<PairElementToken>& tokens)
 {
   tokens.emplace_back();
-  return { tokens.back() };
+  return PairElementTokenHandle(tokens.back());
 }
 
 TEST_CASE("Use with vector and handle")

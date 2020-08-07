@@ -10,7 +10,7 @@ namespace tvm::internal
 {
   class PairElementToken;
 
-  /** Proxy over a PairElementToken that needs to be converted to PairElementToken
+  /** Proxy over a PairElementToken from which can be create a paired token.
     *
     * \internal This class allows to delay the construction of the second element
     * a pair of token, avoiding constructions and moves
@@ -24,7 +24,7 @@ namespace tvm::internal
     PairElementTokenHandle& operator=(const PairElementTokenHandle&) = delete;
     PairElementTokenHandle& operator=(PairElementTokenHandle&&) = delete;
 
-    PairElementTokenHandle(PairElementToken& t) noexcept;
+    explicit PairElementTokenHandle(PairElementToken& t) noexcept;
 
     bool isValid() const { return token_ != nullptr; }
 
@@ -57,7 +57,9 @@ namespace tvm::internal
         otherPairElement_->notifyMove(this); // if paired, we need to notify to otherPairElement_ that this changed place.
     }
 
-    /** Construction from a PairElementTokenHandle*/
+    /** Construction from a PairElementTokenHandle. The token constructed and the
+      * token pointed to by the handle are paired.
+      */
     PairElementToken(PairElementTokenHandle&& h) noexcept
       : otherPairElement_(h.token_)
     {
@@ -69,12 +71,26 @@ namespace tvm::internal
     /** Move-assign operator*/
     PairElementToken& operator=(PairElementToken&& other) noexcept
     {
-      if (isPaired())                // If we move into an already paired token, we basically erase it and its otherHalf must be notified
+      if (isPaired())                 // If we move into an already paired token, we basically erase it and its paired element must be notified
         otherPairElement_->notifyDeath();
       otherPairElement_ = other.otherPairElement_;
       other.otherPairElement_ = nullptr;   // we need to leave the previous token in an unpaired state.
       if (isPaired())
         otherPairElement_->notifyMove(this); // if paired, we need to notify to otherPairElement_ that this changed place.
+      return *this;
+    }
+
+    /** Move-assign-like operator for PairElementTokenHandle. The token assigned
+      * to and the token pointed to by the handle are paired.
+      */
+    PairElementToken& operator=(PairElementTokenHandle&& h) noexcept
+    {
+      assert(h.isValid());
+      if (isPaired())                 // If we move into an already paired token, we basically erase it and its  paired element must be notified
+        otherPairElement_->notifyDeath();
+      otherPairElement_ = h.token_;
+      h.token_->otherPairElement_ = this;
+      h.invalidate();                 // we need to leave the handle in an invalid state.
       return *this;
     }
 
