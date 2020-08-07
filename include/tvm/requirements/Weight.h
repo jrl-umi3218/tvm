@@ -60,6 +60,8 @@ namespace requirements
       if (alpha < 0)
         throw std::runtime_error("weight must be non negative.");
     }
+
+    DEFINE_LW_NON_LW_CONVERSION_OPERATORS(WeightBase, double, Lightweight)
   };
 
   using Weight = WeightBase<true>;
