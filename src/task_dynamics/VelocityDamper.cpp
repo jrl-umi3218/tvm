@@ -16,7 +16,7 @@ namespace task_dynamics
   {
     if (di_ <= ds_)
     {
-      throw std::runtime_error("di needs to be greater than ds");
+      throw std::runtime_error("di must be greater than ds");
     }
     if (ds_ < 0)
     {
@@ -32,13 +32,60 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamper::VelocityDamper(const VelocityDamperConfig& config, double big)
+  VelocityDamperAnisotropicConfig::VelocityDamperAnisotropicConfig(const VectorConstRef & di,
+                                                                   const VectorConstRef & ds,
+                                                                   const VectorConstRef & xsi,
+                                                                   const std::optional<VectorConstRef> & xsiOff)
+  : di_(di), ds_(ds), xsi_(xsi),
+    xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
+  {
+    if(di_.size() != ds_.size() || di_.size() != xsi_.size() || di_.size() != xsiOff_.size())
+    {
+      throw std::runtime_error("All vector components must have the same size");
+    }
+    if((di_.array() <= ds_.array()).any())
+    {
+      throw std::runtime_error("di must be greater than ds");
+    }
+    if((ds_.array() < 0).any())
+    {
+      throw std::runtime_error("ds should be non-negative.");
+    }
+    if((xsi_.array() < 0).any())
+    {
+      throw std::runtime_error("xsi should be non-negative.");
+    }
+    auto automatic = xsi_.array() == 0;
+    if(automatic.any() && !automatic.all())
+    {
+      throw std::runtime_error("Automatic damping must be enabled for all dimensions");
+    }
+    if ((xsiOff_.array() < 0).any())
+    {
+      throw std::runtime_error("xsiOff should be positive.");
+    }
+  }
+
+  VelocityDamperAnisotropicConfig::VelocityDamperAnisotropicConfig(const VelocityDamperConfig & config)
+  : VelocityDamperAnisotropicConfig(Eigen::VectorXd::Constant(1, 1, config.di_),
+                                    Eigen::VectorXd::Constant(1, 1, config.ds_),
+                                    Eigen::VectorXd::Constant(1, 1, config.xsi_),
+                                    Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
+  {
+  }
+
+  VelocityDamper::VelocityDamper(const VelocityDamperConfig & config, double big)
+  : VelocityDamper(VelocityDamperAnisotropicConfig{config}, big)
+  {
+  }
+
+  VelocityDamper::VelocityDamper(const VelocityDamperAnisotropicConfig& config, double big)
     : dt_(0)
     , xsi_(0)
     , ds_(config.ds_)
     , di_(config.di_)
     , big_(big)
-    , autoXsi_(config.xsi_==0)
+    , autoXsi_(config.xsi_(0) == 0) // we have ensure they are either all 0 or all specified
   {
     if (autoXsi_)
     {
@@ -54,13 +101,18 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamper::VelocityDamper(double dt, const VelocityDamperConfig& config, double big)
+  VelocityDamper::VelocityDamper(double dt, const VelocityDamperConfig & config, double big)
+  : VelocityDamper(dt, VelocityDamperAnisotropicConfig{config}, big)
+  {
+  }
+
+  VelocityDamper::VelocityDamper(double dt, const VelocityDamperAnisotropicConfig& config, double big)
     : dt_(dt)
     , xsi_(0)
     , ds_(config.ds_)
     , di_(config.di_)
     , big_(big)
-    , autoXsi_(config.xsi_ == 0)
+    , autoXsi_(config.xsi_(0) == 0) // we have ensure they are either all 0 or all specified
   {
     if (autoXsi_)
     {
@@ -97,13 +149,32 @@ namespace task_dynamics
     return dt_ > 0 ? Order::Two : Order::One;
   }
 
-  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, bool autoXsi, double di, double ds, double xsi, double big)
+  namespace
+  {
+
+  static inline Eigen::VectorXd resizeParameter(const FunctionPtr & f, const Eigen::VectorXd & in, const char * desc)
+  {
+    if(in.size() == 1)
+    {
+      return Eigen::VectorXd::Constant(f->size(), 1, in(0));
+    }
+    else if(in.size() != f->size())
+    {
+      std::string error = "Size of the " + std::string(desc) + " vector ( " + std::to_string(in.size()) + " ) does not match the function size ( " + std::to_string(f->size()) + " ) ";
+      throw std::runtime_error(error.c_str());
+    }
+    return in;
+  }
+
+  }
+
+  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, bool autoXsi, const Eigen::VectorXd & di, const Eigen::VectorXd & ds, const Eigen::VectorXd & xsi, double big)
     : TaskDynamicsImpl(Order::One, f, t, rhs)
     , dt_(0)
-    , ds_(ds)
-    , di_(di)
+    , ds_(resizeParameter(f, ds, "safety distance"))
+    , di_(resizeParameter(f, di, "interaction distance"))
     , xsiOff_(0)
-    , a_(-1 / (di - ds))
+    , a_(-(di_ - ds_).cwiseInverse())
     , big_(big)
     , autoXsi_(autoXsi)
     , d_(f->size())
@@ -113,22 +184,22 @@ namespace task_dynamics
     if (autoXsi)
     {
       axsi_.setOnes();
-      xsiOff_ = xsi;
+      xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
       addInputDependency<TaskDynamicsImpl>(Update::UpdateValue, f, function::abstract::Function::Output::Velocity);
     }
     else
     {
-      axsi_.setConstant(a_*xsi);
+      axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
     }
   }
 
-  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double dt, bool autoXsi, double di, double ds, double xsi, double big)
+  VelocityDamper::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, double dt, bool autoXsi, const Eigen::VectorXd & di, const Eigen::VectorXd & ds, const Eigen::VectorXd & xsi, double big)
     : TaskDynamicsImpl(Order::Two, f, t, rhs)
     , dt_(dt)
-    , ds_(ds)
-    , di_(di)
-    , xsiOff_(xsi)
-    , a_(-1 / (di - ds))
+    , ds_(resizeParameter(f, ds, "safety distance"))
+    , di_(resizeParameter(f, di, "interaction distance"))
+    , xsiOff_(0)
+    , a_(-(di_ - ds_).cwiseInverse())
     , big_(big)
     , autoXsi_(autoXsi)
     , d_(f->size())
@@ -138,11 +209,11 @@ namespace task_dynamics
     if (autoXsi)
     {
       axsi_.setOnes();
-      xsiOff_ = xsi;
+      xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
     }
     else
     {
-      axsi_.setConstant(a_*xsi);
+      axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
     }
   }
 
@@ -157,7 +228,7 @@ namespace task_dynamics
         value_ += function().velocity();
         value_ /= dt_;
       }
-      value_ = (d_.array() > di_).select(big_, -value_);
+      value_ = (d_.array() > di_.array()).select(big_, -value_);
     }
     else
     {
@@ -168,7 +239,7 @@ namespace task_dynamics
         value_ -= function().velocity();
         value_ /= dt_;
       }
-      value_ = (d_.array() > di_).select(-big_, value_);
+      value_ = (d_.array() > di_.array()).select(-big_, value_);
     }
   }
 
@@ -179,18 +250,18 @@ namespace task_dynamics
       const auto& dv = function().velocity();
       for (int i = 0; i < function().size(); ++i)
       {
-        if (d_[i] <= di_ && !active_[static_cast<size_t>(i)])
+        if (d_[i] <= di_(i) && !active_[static_cast<size_t>(i)])
         {
           active_[static_cast<size_t>(i)] = true;
-          axsi_[i] = a_ * (s * dv[i] * (ds_ - di_) / (d_[i] - ds_) + xsiOff_);
+          axsi_[i] = a_(i) * (s * dv[i] * (ds_(i) - di_(i)) / (d_[i] - ds_(i)) + xsiOff_(i));
         }
-        else if (d_[i] > di_ && active_[static_cast<size_t>(i)])
+        else if (d_[i] > di_(i) && active_[static_cast<size_t>(i)])
         {
           active_[static_cast<size_t>(i)] = false;
         }
       }
     }
-    value_.array() = d_.array() - ds_;
+    value_.array() = d_.array() - ds_.array();
     value_.array() *= axsi_.array();
   }
 
