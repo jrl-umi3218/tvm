@@ -11,7 +11,7 @@ namespace tvm
 
 namespace task_dynamics
 {
-  VelocityDamperConfig::VelocityDamperConfig(double di, double ds, double xsi, double xsiOff)
+  VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
     : di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff)
   {
     if (di_ <= ds_)
@@ -32,10 +32,10 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamperAnisotropicConfig::VelocityDamperAnisotropicConfig(const VectorConstRef & di,
-                                                                   const VectorConstRef & ds,
-                                                                   const VectorConstRef & xsi,
-                                                                   const std::optional<VectorConstRef> & xsiOff)
+  VelocityDamper::AnisotropicConfig::AnisotropicConfig(const VectorConstRef & di,
+                                                       const VectorConstRef & ds,
+                                                       const VectorConstRef & xsi,
+                                                       const std::optional<VectorConstRef> & xsiOff)
   : di_(di), ds_(ds), xsi_(xsi),
     xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
   {
@@ -66,20 +66,20 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamperAnisotropicConfig::VelocityDamperAnisotropicConfig(const VelocityDamperConfig & config)
-  : VelocityDamperAnisotropicConfig(Eigen::VectorXd::Constant(1, 1, config.di_),
-                                    Eigen::VectorXd::Constant(1, 1, config.ds_),
-                                    Eigen::VectorXd::Constant(1, 1, config.xsi_),
-                                    Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
+  VelocityDamper::AnisotropicConfig::AnisotropicConfig(const Config & config)
+  : AnisotropicConfig(Eigen::VectorXd::Constant(1, 1, config.di_),
+                      Eigen::VectorXd::Constant(1, 1, config.ds_),
+                      Eigen::VectorXd::Constant(1, 1, config.xsi_),
+                      Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
   {
   }
 
-  VelocityDamper::VelocityDamper(const VelocityDamperConfig & config, double big)
-  : VelocityDamper(VelocityDamperAnisotropicConfig{config}, big)
+  VelocityDamper::VelocityDamper(const Config & config, double big)
+  : VelocityDamper(AnisotropicConfig{config}, big)
   {
   }
 
-  VelocityDamper::VelocityDamper(const VelocityDamperAnisotropicConfig& config, double big)
+  VelocityDamper::VelocityDamper(const AnisotropicConfig& config, double big)
     : dt_(0)
     , xsi_(0)
     , ds_(config.ds_)
@@ -101,12 +101,12 @@ namespace task_dynamics
     }
   }
 
-  VelocityDamper::VelocityDamper(double dt, const VelocityDamperConfig & config, double big)
-  : VelocityDamper(dt, VelocityDamperAnisotropicConfig{config}, big)
+  VelocityDamper::VelocityDamper(double dt, const Config & config, double big)
+  : VelocityDamper(dt, AnisotropicConfig{config}, big)
   {
   }
 
-  VelocityDamper::VelocityDamper(double dt, const VelocityDamperAnisotropicConfig& config, double big)
+  VelocityDamper::VelocityDamper(double dt, const AnisotropicConfig& config, double big)
     : dt_(dt)
     , xsi_(0)
     , ds_(config.ds_)

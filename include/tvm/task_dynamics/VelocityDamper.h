@@ -11,68 +11,6 @@ namespace tvm
 
   namespace task_dynamics
   {
-    /** A structure grouping the parameters of a velocity damper.
-      * \sa VelocityDamper.
-      */
-    class TVM_DLLAPI VelocityDamperConfig
-    {
-    public:
-      /**
-        * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
-        * \param ds safety distance \f$d_s\f$.
-        * \param xsi damping parameter \f$\xi \f$. If xsi = 0, the value will
-        * be computed automatically, otherwise, we need \f$\xi > 0\f$.
-        * In automatic mode, the value is recomputed each time the error value
-        * is at a distance to its bound lower or equal to \p \di with the
-        * formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k +
-        * \xi_{\mathrm{off}} \f$.
-        * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
-        * computation of \f$\xi\f$. Used only in the case xsi=0.
-        */
-      VelocityDamperConfig(double di, double ds, double xsi, double xsiOff=0);
-
-      double di_;
-      double ds_;
-      double xsi_;
-      double xsiOff_;
-    };
-
-    /** A structure grouping the parameters for an anisotropic velocity damper.
-     * \sa VelocityDamper
-     */
-    class TVM_DLLAPI VelocityDamperAnisotropicConfig
-    {
-    public:
-      /**
-        * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
-        * \param ds safety distance \f$d_s\f$.
-        * \param xsi damping parameter \f$\xi \f$. If xsi = 0, the value will
-        * be computed automatically, otherwise, we need \f$\xi > 0\f$.
-        * In automatic mode, the value is recomputed each time the error value
-        * is at a distance to its bound lower or equal to \p \di with the
-        * formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k +
-        * \xi_{\mathrm{off}} \f$.
-        * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
-        * computation of \f$\xi\f$. Used only in the case xsi=0.
-        *
-        * All parameters must be of the same size
-        */
-      VelocityDamperAnisotropicConfig(const VectorConstRef & di,
-                                      const VectorConstRef & ds,
-                                      const VectorConstRef & xsi,
-                                      const std::optional<VectorConstRef> & xsiOff = std::nullopt);
-
-      /** Construct from a non-anisotropic configuration
-       *
-       * \param config Configuration to use
-       */
-      VelocityDamperAnisotropicConfig(const VelocityDamperConfig & config);
-
-      Eigen::VectorXd di_;
-      Eigen::VectorXd ds_;
-      Eigen::VectorXd xsi_;
-      Eigen::VectorXd xsiOff_;
-    };
 
     /** A first or second order dynamic task implementing the so-called velocity
       * damper of Faverjon and Tournassoud.
@@ -104,6 +42,69 @@ namespace tvm
     class TVM_DLLAPI VelocityDamper : public abstract::TaskDynamics
     {
     public:
+      /** A structure grouping the parameters of a velocity damper.
+        * \sa VelocityDamper.
+        */
+      class TVM_DLLAPI Config
+      {
+      public:
+        /**
+          * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
+          * \param ds safety distance \f$d_s\f$.
+          * \param xsi damping parameter \f$\xi \f$. If xsi = 0, the value will
+          * be computed automatically, otherwise, we need \f$\xi > 0\f$.
+          * In automatic mode, the value is recomputed each time the error value
+          * is at a distance to its bound lower or equal to \p \di with the
+          * formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k +
+          * \xi_{\mathrm{off}} \f$.
+          * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
+          * computation of \f$\xi\f$. Used only in the case xsi=0.
+          */
+        Config(double di, double ds, double xsi, double xsiOff=0);
+
+        double di_;
+        double ds_;
+        double xsi_;
+        double xsiOff_;
+      };
+
+      /** A structure grouping the parameters for an anisotropic velocity damper.
+       * \sa VelocityDamper
+       */
+      class TVM_DLLAPI AnisotropicConfig
+      {
+      public:
+        /**
+          * \param di interaction distance \f$d_i\f$. We need \f$ d_i > d_s \f$.
+          * \param ds safety distance \f$d_s\f$.
+          * \param xsi damping parameter \f$\xi \f$. If xsi = 0, the value will
+          * be computed automatically, otherwise, we need \f$\xi > 0\f$.
+          * In automatic mode, the value is recomputed each time the error value
+          * is at a distance to its bound lower or equal to \p \di with the
+          * formula \f$ \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k +
+          * \xi_{\mathrm{off}} \f$.
+          * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
+          * computation of \f$\xi\f$. Used only in the case xsi=0.
+          *
+          * All parameters must be of the same size
+          */
+        AnisotropicConfig(const VectorConstRef & di,
+                                        const VectorConstRef & ds,
+                                        const VectorConstRef & xsi,
+                                        const std::optional<VectorConstRef> & xsiOff = std::nullopt);
+
+        /** Construct from a non-anisotropic configuration
+         *
+         * \param config Configuration to use
+         */
+        AnisotropicConfig(const Config & config);
+
+        Eigen::VectorXd di_;
+        Eigen::VectorXd ds_;
+        Eigen::VectorXd xsi_;
+        Eigen::VectorXd xsiOff_;
+      };
+
       class TVM_DLLAPI Impl : public abstract::TaskDynamicsImpl
       {
       public:
@@ -145,7 +146,7 @@ namespace tvm
        * particular, this might require the value of the variables first
        * derivatives to be set correctly).
        */
-      VelocityDamper(const VelocityDamperConfig& config, double big = constant::big_number);
+      VelocityDamper(const Config& config, double big = constant::big_number);
 
       /** \bried Velocity damper for first order dynamics.
        *
@@ -157,7 +158,7 @@ namespace tvm
         * dimensions of \p config must match the function for which this task
         * dynamic will be used.
         */
-      VelocityDamper(const VelocityDamperAnisotropicConfig& config, double big = constant::big_number);
+      VelocityDamper(const AnisotropicConfig& config, double big = constant::big_number);
 
       /** \brief Velocity damper for second order dynamics.
        *
@@ -168,7 +169,7 @@ namespace tvm
        *
        * \param big value used as infinity.
        */
-      VelocityDamper(double dt, const VelocityDamperConfig& config, double big = constant::big_number);
+      VelocityDamper(double dt, const Config& config, double big = constant::big_number);
 
       /** \brief Velocity damper for second order dynamics.
        *
@@ -179,7 +180,7 @@ namespace tvm
        *
        * \param big value used as infinity.
        */
-      VelocityDamper(double dt, const VelocityDamperAnisotropicConfig& config, double big = constant::big_number);
+      VelocityDamper(double dt, const AnisotropicConfig& config, double big = constant::big_number);
 
       ~VelocityDamper() override = default;
 
