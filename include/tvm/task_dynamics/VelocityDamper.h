@@ -6,6 +6,8 @@
 
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
+#include <optional>
+
 namespace tvm
 {
 
