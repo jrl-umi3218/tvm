@@ -142,6 +142,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/hint/internal/Substitutions.h
   ${TVM_INCLUDE_DIR}/hint/internal/SubstitutionUnit.h
 
+  ${TVM_INCLUDE_DIR}/internal/CallbackManager.h
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/internal/IdProvider.h
