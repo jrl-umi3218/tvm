@@ -85,7 +85,7 @@ namespace task_dynamics
     , ds_(config.ds_)
     , di_(config.di_)
     , big_(big)
-    , autoXsi_(config.xsi_(0) == 0) // we have ensure they are either all 0 or all specified
+    , autoXsi_(config.xsi_[0] == 0) // we have ensure they are either all 0 or all specified
   {
     if (autoXsi_)
     {
@@ -112,7 +112,7 @@ namespace task_dynamics
     , ds_(config.ds_)
     , di_(config.di_)
     , big_(big)
-    , autoXsi_(config.xsi_(0) == 0) // we have ensure they are either all 0 or all specified
+    , autoXsi_(config.xsi_[0] == 0) // we have ensure they are either all 0 or all specified
   {
     if (autoXsi_)
     {
@@ -156,7 +156,7 @@ namespace task_dynamics
   {
     if(in.size() == 1)
     {
-      return Eigen::VectorXd::Constant(f->size(), 1, in(0));
+      return Eigen::VectorXd::Constant(f->size(), 1, in[0]);
     }
     else if(in.size() != f->size())
     {
@@ -250,12 +250,12 @@ namespace task_dynamics
       const auto& dv = function().velocity();
       for (int i = 0; i < function().size(); ++i)
       {
-        if (d_[i] <= di_(i) && !active_[static_cast<size_t>(i)])
+        if (d_[i] <= di_[i] && !active_[static_cast<size_t>(i)])
         {
           active_[static_cast<size_t>(i)] = true;
-          axsi_[i] = a_(i) * (s * dv[i] * (ds_(i) - di_(i)) / (d_[i] - ds_(i)) + xsiOff_(i));
+          axsi_[i] = a_[i] * (s * dv[i] * (ds_[i] - di_[i]) / (d_[i] - ds_[i]) + xsiOff_[i]);
         }
-        else if (d_[i] > di_(i) && active_[static_cast<size_t>(i)])
+        else if (d_[i] > di_[i] && active_[static_cast<size_t>(i)])
         {
           active_[static_cast<size_t>(i)] = false;
         }
