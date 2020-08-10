@@ -230,6 +230,23 @@ namespace abstract
       }
     }
   }
+
+  void LeastSquareSolver::updateAnisotropicWeight(constraint::abstract::LinearConstraint* c)
+  {
+    auto& assignments = objectiveToAssigments_.at(c);
+
+    for (auto& a : assignments)
+    {
+      if (a->changeVectorWeightIsAllowed())
+      {
+        a->onUpdateWeights(false, true);
+      }
+      else
+      {
+        *a = tvm::scheme::internal::Assignment::reprocess(*a, variables(), substitutions());
+      }
+    }
+  }
 }
 
 }

@@ -39,4 +39,9 @@ TEST_CASE("Weight change")
   t1->requirements.weight() = 3;
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
+
+  t1->requirements.anisotropicWeight() = Vector2d(3, 1);
+  t2->requirements.anisotropicWeight() = Vector2d(1, 3);
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.5, 2)));
 }

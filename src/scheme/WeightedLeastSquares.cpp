@@ -67,7 +67,9 @@ namespace scheme
         case ProblemDefinitionEvent::Type::WeightChange: 
           memory->solver->updateWeight(problem.constraint(e.emitter()).get()); 
           break;
-        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: break;
+        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: 
+          memory->solver->updateAnisotropicWeight(problem.constraint(e.emitter()).get());
+          break;
         default: throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
         }
       }

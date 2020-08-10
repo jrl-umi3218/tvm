@@ -121,7 +121,9 @@ namespace abstract
       */
     int constraintSize(const LinearConstraintPtr& c) const;
 
+    // TODO allow to update all weights at the same time
     void updateWeight(constraint::abstract::LinearConstraint* c);
+    void updateAnisotropicWeight(constraint::abstract::LinearConstraint* c);
 
   protected:
     virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
