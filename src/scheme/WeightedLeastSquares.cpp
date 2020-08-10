@@ -53,6 +53,27 @@ namespace scheme
     return memory->solver->solve();
   }
 
+  void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
+  {
+    if (data->hasEvents())
+    {
+      Memory* memory = dynamic_cast<Memory*>(data);
+      //TODO group events on the same constraint (at least weight/anisotropic weight
+      while (memory->hasEvents())
+      {
+        auto e = memory->popEvent();
+        switch (e.type())
+        {
+        case ProblemDefinitionEvent::Type::WeightChange: 
+          memory->solver->updateWeight(problem.constraint(e.emitter()).get()); 
+          break;
+        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: break;
+        default: throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
+        }
+      }
+    }
+  }
+
   std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComputationData_(const LinearizedControlProblem& problem) const
   {
     auto memory = std::unique_ptr<Memory>(new Memory(id(), solverFactory_->createSolver()));
@@ -106,7 +127,7 @@ namespace scheme
     for (const auto& c : subs.additionalConstraints())
     {
       nEq += c->size();
-      constr.push_back({ c, std::make_shared<requirements::SolvingRequirements>(requirements::PriorityLevel(0)), false });
+      constr.push_back({ c, std::make_shared<requirements::SolvingRequirementsWithCallbacks>(requirements::PriorityLevel(0)), false });
     }
 
     bool autoMinNorm = false;

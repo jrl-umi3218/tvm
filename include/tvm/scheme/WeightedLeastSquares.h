@@ -140,6 +140,7 @@ namespace scheme
 
     /** Private interface for CRTP*/
     bool solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const;
+    void updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const;
     std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
 
   protected:
