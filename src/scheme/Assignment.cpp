@@ -49,7 +49,7 @@ namespace internal
   double Assignment::big_ = constant::big_number;
 
   Assignment::Assignment(LinearConstraintPtr source,
-    std::shared_ptr<requirements::SolvingRequirements> req,
+    SolvingRequirementsPtr req,
     const AssignmentTarget& target,
     const VariableVector& variables,
     const hint::internal::Substitutions* const substitutions,
@@ -83,6 +83,14 @@ namespace internal
     checkBounds();
     assert(source->variables()[0] == variable);
     build(variable, first);
+  }
+
+  Assignment Assignment::reprocess(const Assignment& other, const VariableVector& variables, 
+    const hint::internal::Substitutions* const subs)
+  {
+    if (!other.requirements_)
+      throw std::runtime_error("[Assignment::reprocess] Only valid for general assignment, not bound assignement.");
+    return Assignment(other.source_, other.requirements_, other.target_, variables, subs, other.scalarizationWeight_);
   }
 
   AssignmentTarget& Assignment::target(IWontForgetToCallUpdates)

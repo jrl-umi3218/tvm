@@ -49,6 +49,7 @@ namespace tvm
   void ControlProblem::add(TaskWithRequirementsPtr tr)
   {
     tr_.push_back(tr);
+    addCallBackToTask(tr);
     finalized_ = false;
   }
 
@@ -80,6 +81,29 @@ namespace tvm
       finalize_();
       finalized_ = true;
     }
+  }
+
+  void ControlProblem::notify(const scheme::internal::ProblemDefinitionEvent& e)
+  {
+    for (auto& c : computationData_)
+    {
+      c.second->addEvent(e);
+    }
+  }
+
+  void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
+  {
+    using EventType = scheme::internal::ProblemDefinitionEvent::Type;
+    std::vector<internal::PairElementToken> tokens;
+    TaskWithRequirements* t = tr.get();
+    
+    auto l1 = [this, t]() {this->notify({ EventType::WeightChange, t }); };
+    tokens.emplace_back(tr->requirements.weight().registerCallback(l1));
+    
+    auto l2 = [this, t]() {this->notify({ EventType::AnisotropicWeightChange, t }); };
+    tokens.emplace_back(tr->requirements.anisotropicWeight().registerCallback(l2));
+
+    callbackTokens_[t] = std::move(tokens);
   }
 
 

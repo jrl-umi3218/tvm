@@ -62,7 +62,7 @@ namespace tvm
     lcr.constraint = std::make_shared<constraint::internal::LinearizedTaskConstraint>(tr->task);
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
-    lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
+    lcr.requirements = std::shared_ptr<requirements::SolvingRequirementsWithCallbacks>(tr, &tr->requirements);
     lcr.bound = scheme::internal::isBound(lcr.constraint);
     constraints_[tr.get()] = lcr;
 

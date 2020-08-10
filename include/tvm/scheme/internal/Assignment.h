@@ -94,7 +94,7 @@ namespace internal
       * constraint, used by the solver to emulate priority.
       */
     Assignment(LinearConstraintPtr source, 
-               std::shared_ptr<requirements::SolvingRequirements> req,
+               SolvingRequirementsPtr req,
                const AssignmentTarget& target, 
                const VariableVector& variables, 
                const hint::internal::Substitutions* const subs = nullptr,
@@ -111,6 +111,8 @@ namespace internal
     Assignment(Assignment&&) = default;
     Assignment& operator= (const Assignment&) = delete;
     Assignment& operator= (Assignment&&) = default;
+
+    static Assignment reprocess(const Assignment&, const VariableVector&, const hint::internal::Substitutions* const);
 
     AssignmentTarget& target(IWontForgetToCallUpdates = {});
     /** Change the weight.*/
@@ -299,7 +301,7 @@ namespace internal
     /** The weight used to emulate hierarchy in a weight scheme.*/
     double scalarizationWeight_;
     /** The requirements attached to the source.*/
-    std::shared_ptr<requirements::SolvingRequirements> requirements_;
+    SolvingRequirementsPtr requirements_;
     /** Indicates if the requirements use a default weight AND the scalarizationWeight is 1.*/
     bool useDefaultScalarWeight_;
     /** Indicates if the requirements use a defautl anisotropic weight.*/

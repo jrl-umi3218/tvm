@@ -35,6 +35,7 @@
 #include <tvm/scheme/internal/helpers.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
+#include <tvm/scheme/internal/ProblemDefinitionEvent.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/utils/ProtoTask.h>
@@ -50,7 +51,7 @@ namespace tvm
     TaskWithRequirements(const Task& task, requirements::SolvingRequirements req);
 
     Task task;
-    requirements::SolvingRequirements requirements;
+    requirements::SolvingRequirementsWithCallbacks requirements;
   };
 
   using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
@@ -115,12 +116,18 @@ namespace tvm
     Updater updater_;
 
   private:
+    void notify(const scheme::internal::ProblemDefinitionEvent& e);
+    void addCallBackToTask(TaskWithRequirementsPtr tr);
+
     //Note: we want to keep the tasks in the order they were introduced, mostly
     //for human understanding and debugging purposes, so that we take a
     //std::vector.
     //If this induces too much overhead when adding/removing a constraint, then
     //we should consider std::set.
     std::vector<TaskWithRequirementsPtr> tr_;
+
+    // Tokens to identify and keep callbacks alive
+    tvm::utils::internal::map<TaskWithRequirements*, std::vector<internal::PairElementToken> > callbackTokens_;
 
     //Computation data for the resolution schemes
     std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;

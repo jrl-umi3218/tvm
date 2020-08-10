@@ -381,7 +381,7 @@ void checkSubstitution(BLCPtr cstr, RHS subRhs, const Memory& mem, Type t, RHS r
 
 void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, RHS r, bool throws)
 {
-  auto req = std::make_shared<SolvingRequirements>();
+  auto req = std::make_shared<SolvingRequirementsWithCallbacks>();
   VariableVector vars(c->variables());
   mem.randomize();
   if (throws)
@@ -398,7 +398,7 @@ void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, 
 
 void checkSubstitutionAssignment(BLCPtr c, Substitutions& s, const AssignmentTarget& at, Memory& mem, Type t, RHS r, bool throws)
 {
-  auto req = std::make_shared<SolvingRequirements>();
+  auto req = std::make_shared<SolvingRequirementsWithCallbacks>();
   VariableVector vars;
   vars.add(s.otherVariables());
   mem.randomize();
@@ -908,7 +908,7 @@ TEST_CASE("Test assigments")
     //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
     AssignmentTarget at(range, mem->A, mem->l, mem->u , RHS::AS_GIVEN);
-    auto req = std::make_shared<SolvingRequirements>(Weight(2.));
+    auto req = std::make_shared<SolvingRequirementsWithCallbacks>(Weight(2.));
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
     a.run();
@@ -963,7 +963,7 @@ TEST_CASE("Test assigments")
     auto range = std::make_shared<Range>(0, 6); //we need double range
     AssignmentTarget at(range, mem->A, mem->b, Type::LOWER_THAN, RHS::AS_GIVEN);
     Vector3d aW = {1., 2., 3.};
-    auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight{ aW });
+    auto req = std::make_shared<SolvingRequirementsWithCallbacks>(AnisotropicWeight{ aW });
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();
@@ -1001,7 +1001,7 @@ TEST_CASE("Change weights")
 
     // Requirement with default weights
     {
-      auto req = std::make_shared<SolvingRequirements>();
+      auto req = std::make_shared<SolvingRequirementsWithCallbacks>();
       Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
       FAST_CHECK_UNARY_FALSE(a.changeScalarWeightIsAllowed());
       FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
@@ -1018,7 +1018,7 @@ TEST_CASE("Change weights")
 
     //Requirements with non default scalar weights
     {
-      auto req = std::make_shared<SolvingRequirements>(Weight(2));
+      auto req = std::make_shared<SolvingRequirementsWithCallbacks>(Weight(2));
       Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
       FAST_CHECK_UNARY(a.changeScalarWeightIsAllowed());
       FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
@@ -1045,7 +1045,7 @@ TEST_CASE("Change weights")
     //Requirements with non default vector weights
     {
       VectorXd w0 = Vector3d(1, 2, 3);
-      auto req = std::make_shared<SolvingRequirements>(AnisotropicWeight(w0));
+      auto req = std::make_shared<SolvingRequirementsWithCallbacks>(AnisotropicWeight(w0));
       Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
       FAST_CHECK_UNARY_FALSE(a.changeScalarWeightIsAllowed());
       FAST_CHECK_UNARY(a.changeVectorWeightIsAllowed());
