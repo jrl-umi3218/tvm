@@ -91,9 +91,9 @@ namespace tvm
           * All parameters must be of the same size
           */
         AnisotropicConfig(const VectorConstRef & di,
-                                        const VectorConstRef & ds,
-                                        const VectorConstRef & xsi,
-                                        const std::optional<VectorConstRef> & xsiOff = std::nullopt);
+                          const VectorConstRef & ds,
+                          const VectorConstRef & xsi,
+                          const std::optional<VectorConstRef> & xsiOff = std::nullopt);
 
         /** Construct from a non-anisotropic configuration
          *
