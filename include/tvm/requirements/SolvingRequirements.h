@@ -141,6 +141,7 @@ namespace requirements
 
   class SolvingRequirementsWithCallbacks : public SolvingRequirementsBase<false>
   {
+  public:
     using SolvingRequirementsBase::SolvingRequirementsBase;
     SolvingRequirementsWithCallbacks(const SolvingRequirementsWithCallbacks&) = delete;
     SolvingRequirementsWithCallbacks& operator=(const SolvingRequirementsWithCallbacks&) = delete;

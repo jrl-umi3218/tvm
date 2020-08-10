@@ -77,8 +77,6 @@ namespace abstract
       }
     }
 
-    SingleSolvingRequirement& operator=(const T& val) { value(val); return *this; }
-
     /** check it the requirement is at its default value. */
     bool isDefault() const { return default_; }
 
@@ -97,6 +95,8 @@ namespace abstract
       default_ = other.isDefault();
       return *this;
     }
+
+    SingleSolvingRequirement& operator=(const T& val) { value(val); return *this; }
 
     /** Is this requirement at its default value?*/
     bool default_;
@@ -117,5 +117,10 @@ namespace abstract
   className& operator=(const className<!L>& other)              \
   {                                                             \
     abstract::SingleSolvingRequirement<T,L>::operator=(other);  \
+    return *this;                                               \
+  }                                                             \
+  className& operator=(const T& val)                            \
+  {                                                             \
+    abstract::SingleSolvingRequirement<T, L>::operator=(val);   \
     return *this;                                               \
   }

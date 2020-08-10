@@ -42,8 +42,6 @@ set(TVM_SOURCES
   internal/MatrixProperties.cpp
   internal/ObjWithId.cpp
 
-  requirements/SolvingRequirements.cpp
-
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
