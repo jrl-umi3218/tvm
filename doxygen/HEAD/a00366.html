@@ -105,50 +105,47 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01644.html">Clamped</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors.  <a href="a01644.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html">Clamped</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors.  <a href="a01635.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01652.html">Constant</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero order dynamics with e* = 0, i.e.  <a href="a01652.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01643.html">Constant</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero order dynamics with e* = 0, i.e.  <a href="a01643.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01660.html">FeedForward</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_ff^{(k)*} = e^{(k)*} - ff \), \( ff \) is data provided by another TVM node of the same size.  <a href="a01660.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01651.html">FeedForward</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_ff^{(k)*} = e^{(k)*} - ff \), \( ff \) is data provided by another TVM node of the same size.  <a href="a01651.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html">None</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute e* = -f(0) + rhs (Geometric order).  <a href="a01668.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01659.html">None</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute e* = -f(0) + rhs (Geometric order).  <a href="a01659.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01676.html">Proportional</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01676.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01667.html">Proportional</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01667.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01684.html">ProportionalDerivative</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \ddot{e}^* = -k_v \dot{e} - k_p e\) (dynamic order) where \( k_p \) and \( k_v \) can be (independently) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01684.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html">ProportionalDerivative</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \ddot{e}^* = -k_v \dot{e} - k_p e\) (dynamic order) where \( k_p \) and \( k_v \) can be (independently) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01675.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01692.html">Reference</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute e^(k)* = ref (at given k-th order).  <a href="a01692.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html">Reference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute e^(k)* = ref (at given k-th order).  <a href="a01683.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01704.html">ReferenceAcceleration</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute ddot{e}* = ref (dynamic order).  <a href="a01704.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01695.html">ReferenceAcceleration</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute ddot{e}* = ref (dynamic order).  <a href="a01695.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01700.html">ReferenceVelocity</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute dot{e}* = ref (kinematic order).  <a href="a01700.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01691.html">ReferenceVelocity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute dot{e}* = ref (kinematic order).  <a href="a01691.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01712.html">VelocityDamper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud.  <a href="a01712.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01708.html">VelocityDamperConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure grouping the parameters of a velocity damper.  <a href="a01708.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01699.html">VelocityDamper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud.  <a href="a01699.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aef391d4ea376d9ddb35b3bcace52d51e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#aef391d4ea376d9ddb35b3bcace52d51e">FeedForwardPD</a> = <a class="el" href="a01660.html">FeedForward</a>&lt; <a class="el" href="a01684.html">ProportionalDerivative</a> &gt;</td></tr>
+<tr class="memitem:aef391d4ea376d9ddb35b3bcace52d51e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#aef391d4ea376d9ddb35b3bcace52d51e">FeedForwardPD</a> = <a class="el" href="a01651.html">FeedForward</a>&lt; <a class="el" href="a01675.html">ProportionalDerivative</a> &gt;</td></tr>
 <tr class="separator:aef391d4ea376d9ddb35b3bcace52d51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abefacce58ac7386489ddd237a5fb0ecb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#abefacce58ac7386489ddd237a5fb0ecb">FeedForwardP</a> = <a class="el" href="a01660.html">FeedForward</a>&lt; <a class="el" href="a01676.html">Proportional</a> &gt;</td></tr>
+<tr class="memitem:abefacce58ac7386489ddd237a5fb0ecb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#abefacce58ac7386489ddd237a5fb0ecb">FeedForwardP</a> = <a class="el" href="a01651.html">FeedForward</a>&lt; <a class="el" href="a01667.html">Proportional</a> &gt;</td></tr>
 <tr class="separator:abefacce58ac7386489ddd237a5fb0ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48db1a4191bee9b4313893cbc71c60d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#a48db1a4191bee9b4313893cbc71c60d2">P</a> = <a class="el" href="a01676.html">Proportional</a></td></tr>
+<tr class="memitem:a48db1a4191bee9b4313893cbc71c60d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#a48db1a4191bee9b4313893cbc71c60d2">P</a> = <a class="el" href="a01667.html">Proportional</a></td></tr>
 <tr class="memdesc:a48db1a4191bee9b4313893cbc71c60d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for convenience.  <a href="#a48db1a4191bee9b4313893cbc71c60d2">More...</a><br /></td></tr>
 <tr class="separator:a48db1a4191bee9b4313893cbc71c60d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbc550226fefd54eb4205711373370ee"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#abbc550226fefd54eb4205711373370ee">PD</a> = <a class="el" href="a01684.html">ProportionalDerivative</a></td></tr>
+<tr class="memitem:abbc550226fefd54eb4205711373370ee"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html#abbc550226fefd54eb4205711373370ee">PD</a> = <a class="el" href="a01675.html">ProportionalDerivative</a></td></tr>
 <tr class="memdesc:abbc550226fefd54eb4205711373370ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for convenience.  <a href="#abbc550226fefd54eb4205711373370ee">More...</a><br /></td></tr>
 <tr class="separator:abbc550226fefd54eb4205711373370ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -172,7 +169,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00366.html#abefacce58ac7386489ddd237a5fb0ecb">tvm::task_dynamics::FeedForwardP</a> = typedef <a class="el" href="a01660.html">FeedForward</a>&lt;<a class="el" href="a01676.html">Proportional</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00366.html#abefacce58ac7386489ddd237a5fb0ecb">tvm::task_dynamics::FeedForwardP</a> = typedef <a class="el" href="a01651.html">FeedForward</a>&lt;<a class="el" href="a01667.html">Proportional</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -186,7 +183,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00366.html#aef391d4ea376d9ddb35b3bcace52d51e">tvm::task_dynamics::FeedForwardPD</a> = typedef <a class="el" href="a01660.html">FeedForward</a>&lt;<a class="el" href="a01684.html">ProportionalDerivative</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00366.html#aef391d4ea376d9ddb35b3bcace52d51e">tvm::task_dynamics::FeedForwardPD</a> = typedef <a class="el" href="a01651.html">FeedForward</a>&lt;<a class="el" href="a01675.html">ProportionalDerivative</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -200,7 +197,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00366.html#a48db1a4191bee9b4313893cbc71c60d2">tvm::task_dynamics::P</a> = typedef <a class="el" href="a01676.html">Proportional</a></td>
+          <td class="memname">using <a class="el" href="a00366.html#a48db1a4191bee9b4313893cbc71c60d2">tvm::task_dynamics::P</a> = typedef <a class="el" href="a01667.html">Proportional</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -216,7 +213,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00366.html#abbc550226fefd54eb4205711373370ee">tvm::task_dynamics::PD</a> = typedef <a class="el" href="a01684.html">ProportionalDerivative</a></td>
+          <td class="memname">using <a class="el" href="a00366.html#abbc550226fefd54eb4205711373370ee">tvm::task_dynamics::PD</a> = typedef <a class="el" href="a01675.html">ProportionalDerivative</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -260,7 +257,7 @@ Enumerations</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li>
-    <li class="footer">Generated on Mon Jul 6 2020 06:54:38 for TVM by
+    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

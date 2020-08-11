@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt; Class Template Reference</title>
+<title>TVM: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01528.html','');});
+$(document).ready(function(){initNavTree('a01531.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,182 +88,32 @@ $(document).ready(function(){initNavTree('a01528.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a01525.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::ProblemComputationData Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization for F=0 and A=MIN.  
- <a href="a01528.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a9518daddba36379921d52b70c6f2fdab"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html#a9518daddba36379921d52b70c6f2fdab">SourceType</a> = Eigen::Ref&lt; const MatrixType &gt;</td></tr>
-<tr class="separator:a9518daddba36379921d52b70c6f2fdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a0abd408f8bda204bc75720c6022316b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html#a0abd408f8bda204bc75720c6022316b5">run</a> ()</td></tr>
-<tr class="separator:a0abd408f8bda204bc75720c6022316b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4ed73db8864d927e193a6e0f903483a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html#af4ed73db8864d927e193a6e0f903483a">from</a> (const Eigen::Ref&lt; const MatrixType &gt; &amp;)</td></tr>
-<tr class="separator:af4ed73db8864d927e193a6e0f903483a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8111c3427c538ae28e0cc4e38abaaf76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html#a8111c3427c538ae28e0cc4e38abaaf76">to</a> (const Eigen::Ref&lt; MatrixType &gt; &amp;to)</td></tr>
-<tr class="separator:a8111c3427c538ae28e0cc4e38abaaf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:aea3144f72908072b25ad07815140e73d"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType_ &gt; </td></tr>
-<tr class="memitem:aea3144f72908072b25ad07815140e73d"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01528.html#aea3144f72908072b25ad07815140e73d">CompiledAssignmentWrapper</a></td></tr>
-<tr class="separator:aea3144f72908072b25ad07815140e73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename MatrixType, WeightMult W, MatrixMult M&gt;<br />
-class tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt;</h3>
-
-<p>Specialization for F=0 and A=MIN. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a9518daddba36379921d52b70c6f2fdab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9518daddba36379921d52b70c6f2fdab">&#9670;&nbsp;</a></span>SourceType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01516.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::<a class="el" href="a01528.html#a9518daddba36379921d52b70c6f2fdab">SourceType</a> =  Eigen::Ref&lt;const MatrixType&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af4ed73db8864d927e193a6e0f903483a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4ed73db8864d927e193a6e0f903483a">&#9670;&nbsp;</a></span>from()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01516.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::from </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const MatrixType &gt; &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0abd408f8bda204bc75720c6022316b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0abd408f8bda204bc75720c6022316b5">&#9670;&nbsp;</a></span>run()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01516.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::run </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8111c3427c538ae28e0cc4e38abaaf76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8111c3427c538ae28e0cc4e38abaaf76">&#9670;&nbsp;</a></span>to()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01516.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578abf1eccb4f3bd4c3867e067d7b3d62b8b">MIN</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::to </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; MatrixType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>to</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="aea3144f72908072b25ad07815140e73d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea3144f72908072b25ad07815140e73d">&#9670;&nbsp;</a></span>CompiledAssignmentWrapper</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<div class="memtemplate">
-template&lt;typename MatrixType_ &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a01536.html">CompiledAssignmentWrapper</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#aa3fb6b078098e20cb4fa51de26d75d46">addVariable</a>(VariablePtr var)</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#a7f77e4f6bbc76a6df63d5f420c3765d5">addVariable</a>(const VariableVector &amp;vars)</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#ab5ba42c5270fb93ffddaee562c02cc73">ProblemComputationData</a>(int solverId)</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#a72b037eaff3c68715bad7d22eeff6a2d">ProblemComputationData</a>()=delete</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#a9d29629c9ce08ba2ed1059ad0a41aeec">removeVariable</a>(Variable *v)</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#a14ebde29b15f2b4ca8f8bcf176d246ad">removeVariable</a>(const VariableVector &amp;vars)</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#a7a12195f4bfcdce9297da51364f50892">setVariablesToSolution</a>()</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#a32eea38f2dce8263ba1661a2570e73fd">setVariablesToSolution_</a>(VariableVector &amp;x)=0</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#ae81e44f0373c64c02ab4aa0bb4e7bd61">solverId</a>() const</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#a58cbf3db7ca4b701751e3737ae2348f3">variables</a>() const</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01531.html#a1a4f25982df27bbf939afe9377704ef4">x_</a></td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01531.html#ae25cf5d3b44a97562d04ce2945404509">~ProblemComputationData</a>()=default</td><td class="entry"><a class="el" href="a01531.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01528.html">CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt;</a></li>
-    <li class="footer">Generated on Mon Jul 6 2020 06:54:38 for TVM by
+    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

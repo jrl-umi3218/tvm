@@ -1,8 +1,8 @@
 var a00378 =
 [
-    [ "AutoCalculator", "a01152.html", "a01152" ],
-    [ "DiagonalCalculator", "a01156.html", "a01156" ],
-    [ "GenericCalculator", "a01164.html", "a01164" ],
-    [ "Substitutions", "a01172.html", "a01172" ],
-    [ "SubstitutionUnit", "a01180.html", "a01180" ]
+    [ "AutoCalculator", "a01143.html", "a01143" ],
+    [ "DiagonalCalculator", "a01147.html", "a01147" ],
+    [ "GenericCalculator", "a01155.html", "a01155" ],
+    [ "Substitutions", "a01163.html", "a01163" ],
+    [ "SubstitutionUnit", "a01171.html", "a01171" ]
 ];

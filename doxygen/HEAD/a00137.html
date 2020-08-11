@@ -104,8 +104,8 @@ $(document).ready(function(){initNavTree('a00137.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01264.html">tvm::requirements::SolvingRequirements</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class groups a <a class="el" href="a01260.html" title="This class represents the priority level of a constraint. ">PriorityLevel</a>, a <a class="el" href="a01272.html" title="This class represents the scalar weight alpha of a constraint, within its priority level...">Weight</a>, an <a class="el" href="a01256.html" title="This class represents an anisotropic weight to give more or less importance to the different rows of ...">AnisotropicWeight</a> and a <a class="el" href="a01268.html" title="A class specifying how a constraint violation should be handled. ">ViolationEvaluation</a>, to describe the way a constraint need to be solved and interact with other constraints.  <a href="a01264.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01255.html">tvm::requirements::SolvingRequirements</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class groups a <a class="el" href="a01251.html" title="This class represents the priority level of a constraint. ">PriorityLevel</a>, a <a class="el" href="a01263.html" title="This class represents the scalar weight alpha of a constraint, within its priority level...">Weight</a>, an <a class="el" href="a01247.html" title="This class represents an anisotropic weight to give more or less importance to the different rows of ...">AnisotropicWeight</a> and a <a class="el" href="a01259.html" title="A class specifying how a constraint violation should be handled. ">ViolationEvaluation</a>, to describe the way a constraint need to be solved and interact with other constraints.  <a href="a01255.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -156,7 +156,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><span class="keyword">public</span>: \</div><div class="line">    const T&amp; name()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> member; } \</div><div class="line">  private: \</div><div class="line">    T member; \</div><div class="line">    template&lt;<span class="keyword">typename</span> ... Args&gt; \</div><div class="line">    void build(<span class="keyword">const</span> T&amp; m, <span class="keyword">const</span> Args&amp; ... args) \</div><div class="line">    { \</div><div class="line">      static_assert(!check_args&lt;T, Args...&gt;(), \</div><div class="line">                    #T<span class="stringliteral">&quot; has already been specified&quot;</span>); \</div><div class="line">      member = m; \</div><div class="line">      build(args...); \</div><div class="line">    }</div></div><!-- fragment -->
 <p>This macro adds a member of type <code>T</code> named <code>member</code> to a class, and a method <code>name</code> to access this member. </p>
 
-<p class="reference">Referenced by <a class="el" href="a01264.html#a47ea623b32d749cc8fa6c9709d207855">tvm::requirements::SolvingRequirements::SolvingRequirements()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01255.html#a47ea623b32d749cc8fa6c9709d207855">tvm::requirements::SolvingRequirements::SolvingRequirements()</a>.</p>
 
 </div>
 </div>
@@ -167,7 +167,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_3da2fb1a4e92ae5a07969183ba8f1a5f.html">requirements</a></li><li class="navelem"><a class="el" href="a00137.html">SolvingRequirements.h</a></li>
-    <li class="footer">Generated on Mon Jul 6 2020 06:54:37 for TVM by
+    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

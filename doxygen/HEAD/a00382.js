@@ -1,14 +1,14 @@
 var a00382 =
 [
     [ "internal", "a00383.html", "a00383" ],
-    [ "CollisionFunction", "a01276.html", "a01276" ],
-    [ "CoMFunction", "a01288.html", "a01288" ],
-    [ "CoMInConvexFunction", "a01292.html", "a01292" ],
-    [ "Contact", "a01296.html", "a01296" ],
-    [ "ConvexHull", "a01308.html", "a01308" ],
-    [ "Frame", "a01312.html", "a01312" ],
-    [ "JointsSelector", "a01332.html", "a01332" ],
-    [ "OrientationFunction", "a01336.html", "a01336" ],
-    [ "PositionFunction", "a01340.html", "a01340" ],
-    [ "PostureFunction", "a01344.html", "a01344" ]
+    [ "CollisionFunction", "a01267.html", "a01267" ],
+    [ "CoMFunction", "a01279.html", "a01279" ],
+    [ "CoMInConvexFunction", "a01283.html", "a01283" ],
+    [ "Contact", "a01287.html", "a01287" ],
+    [ "ConvexHull", "a01299.html", "a01299" ],
+    [ "Frame", "a01303.html", "a01303" ],
+    [ "JointsSelector", "a01323.html", "a01323" ],
+    [ "OrientationFunction", "a01327.html", "a01327" ],
+    [ "PositionFunction", "a01331.html", "a01331" ],
+    [ "PostureFunction", "a01335.html", "a01335" ]
 ];

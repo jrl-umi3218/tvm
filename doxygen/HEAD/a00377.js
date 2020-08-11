@@ -1,5 +1,5 @@
 var a00377 =
 [
-    [ "SubstitutionCalculator", "a01140.html", "a01140" ],
-    [ "SubstitutionCalculatorImpl", "a01144.html", "a01144" ]
+    [ "SubstitutionCalculator", "a01131.html", "a01131" ],
+    [ "SubstitutionCalculatorImpl", "a01135.html", "a01135" ]
 ];

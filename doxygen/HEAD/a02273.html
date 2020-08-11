@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: TVM concepts</title>
+<title>TVM: enums.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,59 +88,35 @@ $(document).ready(function(){initNavTree('a02273.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">TVM concepts </div>  </div>
+<div class="title">event/enums.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1>Space </h1>
-<p>In TVM, a space is an Euclidean vector space \( \mathbb{R}^n \) of given size \( n \), or a non-Euclidean smooh manifold. Spaces are represented by the <a class="el" href="a01628.html" title="Description of a variable space, and factory for Variable. ">tvm::Space</a> class.</p>
-<h1>Variable </h1>
-<p>A variable in TVM is meant to have the same meaning as with mathematical notations: a point of a space whose value is unknown or varying with the problem to solve.</p>
-<p>Variables in TVM are represented by the <a class="el" href="a01776.html" title="Representation of a Variable, i.e. ">tvm::Variable</a> class, and usually used through a <code>std::shared_ptr</code> with the alias <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a>.</p>
-<p>Since variables are points of spaces, <a class="el" href="a01776.html" title="Representation of a Variable, i.e. ">tvm::Variable</a> can not be created directely, but need to be constructed from a <a class="el" href="a01628.html" title="Description of a variable space, and factory for Variable. ">tvm::Space</a>.</p>
-<p>From a variable, one can create its time derivative with <a class="el" href="a00359.html#a87d6cb6ff8019ac998b40578d2a27438" title="Get the ndiff-th time derivative of a variable. ">tvm::dot</a>.</p>
-<p>Variables can also be grouped in <a class="el" href="a01784.html" title="A vector of variables, with some useful manipulation/analysis functions. ">tvm::VariableVector</a>.</p>
-<h1>Function </h1>
-<p>A TVM function (<a class="el" href="a01020.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a>) is an object representing a mathematical function \( f: S_1 \times \ldots \times S_k \rightarrow \mathbb{R}^m\), where the \(S_i\) are spaces as above. Note that the image space is always an Euclidean space.</p>
-<p>For given variables values, it can compute the value of the function, and some of its derivatives (with respect to time or its variables).</p>
-<p>An example on how to write new functions is given <a class="el" href="a02269.html">here</a></p>
-<h1>Task dynamics </h1>
-<p>Given an error function \( e \), a task dynamics \( g \) gives the desired behavior of this error as a specification of its \(k\)-th time derivative, <em>i.e</em>. \( \frac{d^k e}{dt^k}^* = g(t,e,\dot{e}, \ldots, \frac{d^{k-1} e}{dt^{k-1}}) \). This is implemented through the <a class="el" href="a01636.html" title="This is a base class to describe how a task is to be regulated, i.e. ">tvm::task_dynamics::abstract::TaskDynamics</a> class.</p>
-<p>An example on how to write new task dynamics is given <a class="el" href="a02272.html">here</a></p>
-<h1>Task </h1>
-<p>A task is formally a triplet (error function, operator, task dynamics), where operator is a comparison to 0 (&lt;=, == or &gt;=). It is represented by the <a class="el" href="a01632.html" title="A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=...">tvm::Task</a> class.</p>
-<p>TVM offers the possibility to write the two first elements with syntax like <code> f == b </code> or <code> f &gt;= b </code>, where <code>f</code> a function and <code>b</code> a <code>double</code> or <code>VectorXd</code>, which is converted to <code> e == 0. </code> or <code> e &gt;= 0. </code> with \( e = f-b \). It is also possible to write <code> l &lt;= f &lt;= u </code>, which will be interpreted as parts of two tasks.</p>
-<h1>Constraint </h1>
-<p>A constraint is a triplet (function, operator, rhs) or (function, rhs1, rhs2).<br />
- The first case covers the form \( f == rhs \), \( f \geq rhs \) and \( f \leq rhs \), the second is for \( rhs1 \leq f \leq rhs2 \). It is implemented by the <a class="el" href="a00952.html" title="Base class for representing a constraint. ">tvm::constraint::abstract::Constraint</a> class.</p>
-<p>There is no concept of objective in TVM: objectives are constraints with the lower level of priority whose violation, by default, needs to be minimized in the least-square sense.</p>
-<h1>Solving requirements </h1>
-<p>Solving requirements are specifications on how a task or constraint must be solved, especially in relations with other constraints or tasks, when not all are feasible. There are for now 4 types of requirements:</p><ul>
-<li><code>ViolationEvaluation</code> specifies how the constraint violation must be considered for minimization. Currently, there are only one type fully implemented: the L2 norm of the violation.</li>
-<li><code>Priority</code> specifies the priority of a constraint in the sense of a stack of tasks</li>
-<li><code>Weight</code> allows to indicate the relative importance of tasks at the same level of priority, by multiplying their violation by a scalar</li>
-<li><code>AnistropicWeight</code> has the same purpose as <code>Weight</code> but each dimension of the violation is multiplied by a different weight.</li>
-</ul>
-<h1>Hint </h1>
-<p>A hint is clue given to a resolution scheme about a way to solve the problem. The only hint implemented for now is about substitution: telling that using some constraints allow to presolve for somes variables, which can be removed from the problem by substitution.</p>
-<h1>Control problem </h1>
-<p>A control problem, implemented by <a class="el" href="a00976.html">tvm::ControlProblem</a> is collection of (tasks, requirements) pairs and hints.</p>
-<p>A linearized control problem, implemented by <a class="el" href="a01240.html">tvm::LinearizedControlProblem</a> is a control problem where functions have been linearized around a point. Tasks are turned into constraints.<br />
- For example the task \( (e(x), =, \dot{e}^* = - k_p e) \) is turned into the constraint \( (\frac{\partial e}{\partial x} \dot{x}, =, - k_p e) \).</p>
-<p>An example on the writing of a problem and its resolution is presented <a class="el" href="a02271.html">here</a></p>
-<h1>Resolution scheme </h1>
-<p>A resolution scheme is an algorithm in charge of solving a problem. It can do so by one or several call(s) to one or several <em>solver(s)</em>. Before solving, the scheme is in charge of arranging the data of the problems into inputs for the solver(s), according to the solving requirements.</p>
-<h1>Computation graph </h1>
-<p>Under the hood TVM is building a sequence of the computations to be executed each time we want to solve a given problem. This sequence is such that each required computation is done exactly once, and that computations are done in the correct order. The sequence is derived form a graph of computations that specify how computations depend on one another.</p>
-<p>Computation nodes, such as functions, describe the way they internally work by the mean of <em>inputs</em>, <em>updates</em> and <em>outputs</em>, and which update computation is called on which inputs to produce a given output. Inputs and outputs get connected during the problem creation, leading to the computation graph. </p>
-</div></div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00370"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00370.html">tvm::event</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:acdfefdd31f6d8d11f9e4813ac51638ab"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00370.html#acdfefdd31f6d8d11f9e4813ac51638ab">tvm::event::Type</a> { <a class="el" href="a00370.html#acdfefdd31f6d8d11f9e4813ac51638aba33eab728ee77b73e187b72e1ab05500c">tvm::event::Type::CONTACT_NUMBER_CHANGED</a>
+ }</td></tr>
+<tr class="separator:acdfefdd31f6d8d11f9e4813ac51638ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
-    <li class="footer">Generated on Mon Jul 6 2020 06:54:37 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_b8e451a011a5b9e6724163508c5acc32.html">event</a></li><li class="navelem"><a class="el" href="a02273.html">enums.h</a></li>
+    <li class="footer">Generated on Tue Aug 11 2020 00:15:00 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
