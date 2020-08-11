@@ -419,7 +419,7 @@ TEST_CASE("Test Velocity Damper")
     x << 1, 2, 4;
     dx << 1, 1, 1;
     auto tdl = td2.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
-    
+
     f->updateValue();
     f->updateVelocity();
     tdl->updateValue();
@@ -438,6 +438,90 @@ TEST_CASE("Test Velocity Damper")
     f->updateVelocity();
     tdu->updateValue();
     FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(10, 20, 1000)));
+  }
+
+}
+
+TEST_CASE("Test Anisotropic Velocity Damper")
+{
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  auto f = std::make_shared<function::IdentityFunction>(x);
+
+  Eigen::Vector3d di = {3, 6, 1};
+  Eigen::Vector3d ds = {1, 1, 0.1};
+  Eigen::Vector3d xsi = {2, 1, 0.5};
+  double dt = 0.1;
+
+  //test validity
+  // Should throw because ds > di
+  CHECK_THROWS(task_dynamics::VelocityDamper({ds, di, xsi}));
+  // Should throw because xsi dimension don't match the others
+  CHECK_THROWS(task_dynamics::VelocityDamper({di, ds, Eigen::Vector4d::Zero()}));
+  // Should throw because negative damping
+  CHECK_THROWS(task_dynamics::VelocityDamper({di, ds, Eigen::Vector3d::Constant(-1)}));
+  // Same 3 checks with dt parameter
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, {ds, di, xsi}));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, {di, ds, Eigen::Vector4d::Zero()}));
+  CHECK_THROWS(task_dynamics::VelocityDamper(dt, {di, ds, Eigen::Vector3d::Constant(-1)}));
+  // Should throw because dt <= 0
+  CHECK_THROWS(task_dynamics::VelocityDamper(0, {di, ds, xsi}));
+  CHECK_THROWS(task_dynamics::VelocityDamper(-0.1, {di, ds, xsi}));
+
+  //test kinematics
+  task_dynamics::VelocityDamper td1({ di, ds, xsi });
+  {
+    x << 1, 2, 4;
+    auto tdl = td1.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
+
+    f->updateValue();
+    tdl->updateValue();
+
+    FAST_CHECK_EQ(td1.order(), task_dynamics::Order::One);
+    FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::One);
+    FAST_CHECK_EQ(tdl->value()[0], 0);
+    FAST_CHECK_EQ(tdl->value()[1], -0.2);
+    FAST_CHECK_EQ(tdl->value()[2], -constant::big_number);
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
+
+
+    x << -1, -2, -4;
+    auto tdu = td1.impl(f, constraint::Type::LOWER_THAN, Vector3d::Zero());
+    f->updateValue();
+    tdu->updateValue();
+    FAST_CHECK_EQ(tdu->value()[0], 0);
+    FAST_CHECK_EQ(tdu->value()[1], 0.2);
+    FAST_CHECK_EQ(tdu->value()[2], constant::big_number);
+  }
+
+
+  //test dynamics
+  double big = 1000;
+  task_dynamics::VelocityDamper td2(dt, { di, ds, xsi }, big);
+  {
+    x << 1, 2, 4;
+    dx << 1, 1, 1;
+    auto tdl = td2.impl(f, constraint::Type::GREATER_THAN, Vector3d::Zero());
+
+    f->updateValue();
+    f->updateVelocity();
+    tdl->updateValue();
+
+    FAST_CHECK_EQ(td2.order(), task_dynamics::Order::Two);
+    FAST_CHECK_EQ(tdl->order(), task_dynamics::Order::Two);
+    FAST_CHECK_UNARY(tdl->value().isApprox(Vector3d(-10, -12, -1000)));
+    FAST_CHECK_UNARY(tdl->checkType<task_dynamics::VelocityDamper::Impl>());
+    FAST_CHECK_UNARY_FALSE(tdl->checkType<task_dynamics::Constant::Impl>());
+
+    x << -1, -2, -4;
+    dx << -1, -1, -1;
+    auto tdu = td2.impl(f, constraint::Type::LOWER_THAN, Vector3d::Zero());
+
+    f->updateValue();
+    f->updateVelocity();
+    tdu->updateValue();
+    FAST_CHECK_UNARY(tdu->value().isApprox(Vector3d(10, 12, 1000)));
   }
 
 }
