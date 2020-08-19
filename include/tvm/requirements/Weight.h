@@ -61,7 +61,7 @@ namespace requirements
         throw std::runtime_error("weight must be non negative.");
     }
 
-    DEFINE_LW_NON_LW_CONVERSION_OPERATORS(WeightBase, double, Lightweight)
+    TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(WeightBase, double, Lightweight)
   };
 
   using Weight = WeightBase<true>;

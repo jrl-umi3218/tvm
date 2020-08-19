@@ -75,7 +75,7 @@ namespace requirements
       : abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>(t, false) 
     {}
 
-    DEFINE_LW_NON_LW_CONVERSION_OPERATORS(ViolationEvaluationBase, ViolationEvaluationType, Lightweight)
+    TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(ViolationEvaluationBase, ViolationEvaluationType, Lightweight)
   };
 
   using ViolationEvaluation = ViolationEvaluationBase<true>;

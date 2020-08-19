@@ -55,7 +55,7 @@ namespace requirements
         throw std::runtime_error("Priority level must be non-negative.");
     }
 
-    DEFINE_LW_NON_LW_CONVERSION_OPERATORS(PriorityLevelBase, int, Lightweight)
+    TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(PriorityLevelBase, int, Lightweight)
   };
 
   using PriorityLevel = PriorityLevelBase<true>;

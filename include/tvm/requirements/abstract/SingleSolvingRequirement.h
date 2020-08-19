@@ -54,15 +54,6 @@ namespace abstract
     using Base = std::conditional_t<Lightweight, std::monostate, internal::CallbackManager>;
 
   public:
-    //template<bool b = Lightweight, typename = std::enable_if_t<b, int> >
-    //SingleSolvingRequirement(const SingleSolvingRequirement&) = default;
-    //template<bool b = Lightweight, typename = std::enable_if_t<b, int> >
-    //SingleSolvingRequirement& operator=(const SingleSolvingRequirement&) = default;
-    //template<bool b = Lightweight, typename = std::enable_if_t<!b, int> >
-    //SingleSolvingRequirement(const SingleSolvingRequirement&) = delete;
-    //template<bool b = Lightweight, typename = std::enable_if_t<!b, int> >
-    //SingleSolvingRequirement& operator=(const SingleSolvingRequirement&) = delete;
-
     /** Get the current value. */
     const T& value() const { return value_; }
 
@@ -111,7 +102,7 @@ namespace abstract
 }  // namespace tvm
 
 
-#define DEFINE_LW_NON_LW_CONVERSION_OPERATORS(className, T, L)  \
+#define TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(className, T, L)  \
   className(const className<!L>& other)                         \
    : abstract::SingleSolvingRequirement<T,L>(other) {}          \
   className& operator=(const className<!L>& other)              \

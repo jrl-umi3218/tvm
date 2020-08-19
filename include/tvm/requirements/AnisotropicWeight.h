@@ -76,7 +76,7 @@ namespace requirements
         throw std::runtime_error("weights must be non-negative.");
     }
 
-    DEFINE_LW_NON_LW_CONVERSION_OPERATORS(AnisotropicWeightBase, Eigen::VectorXd, Lightweight)
+    TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(AnisotropicWeightBase, Eigen::VectorXd, Lightweight)
   };
 
   using AnisotropicWeight = AnisotropicWeightBase<true>;
