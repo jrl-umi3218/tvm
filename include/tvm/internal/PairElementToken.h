@@ -100,22 +100,6 @@ namespace tvm::internal
         otherPairElement_->notifyDeath();
     }
 
-    /** Create the second part of a pair for this token (static allocation)*/
-    PairElementToken createPair()
-    {
-      if (isPaired())
-        throw std::runtime_error("This token is already paired.");
-      return PairElementToken(this);
-    }
-
-    /** Create the second part of a pair for this token (dynamic allocation)*/
-    std::unique_ptr<PairElementToken> createPairDynamically()
-    {
-      if (isPaired())
-        throw std::runtime_error("This token is already paired.");
-      return std::unique_ptr<PairElementToken>(new PairElementToken(this));
-    }
-
     /** Pair this with other. Throw if this object is already paired.*/
     void pairWith(PairElementToken& other)
     {

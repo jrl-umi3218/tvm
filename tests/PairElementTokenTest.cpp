@@ -18,7 +18,8 @@ TEST_CASE("Lifetime 1")
     PairElementToken t1;
     {
       // Create t2 from t1
-      PairElementToken t2 = t1.createPair();
+      PairElementToken t2;
+      t1.pairWith(t2);
       FAST_CHECK_UNARY(t1.isPaired());
       FAST_CHECK_UNARY(t2.isPaired());
       FAST_CHECK_UNARY(t1.isPairedWith(t2));
@@ -29,7 +30,8 @@ TEST_CASE("Lifetime 1")
     }
     FAST_CHECK_UNARY(!t1.isPaired());
     // Create t3 from t1
-    t3 = t1.createPairDynamically();
+    t3.reset(new PairElementToken());
+    t3->pairWith(t1);
     FAST_CHECK_UNARY(t1.isPaired());
     FAST_CHECK_UNARY(t3->isPaired());
     FAST_CHECK_UNARY(t1.isPairedWith(*t3));
@@ -46,7 +48,8 @@ TEST_CASE("Lifetime 1")
 std::pair<PairElementToken, PairElementToken> createPair1()
 {
   PairElementToken t1;
-  PairElementToken t2 = t1.createPair();
+  PairElementToken t2;
+  t1.pairWith(t2);
   return { std::move(t1), std::move(t2) };
 }
 
