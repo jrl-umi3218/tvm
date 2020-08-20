@@ -320,21 +320,29 @@ namespace internal
       */
     std::vector<VectorSubstitutionAssignement> vectorSubstitutionAssignments_;
 
-    /** Processed requirements*/
-    std::unique_ptr<double> scalarWeight_;
-    std::unique_ptr<double> minusScalarWeight_;
-    Eigen::VectorXd anisotropicWeight_;
-    Eigen::VectorXd minusAnisotropicWeight_;
-
     /** Data for substitutions */
     VariableVector substitutedVariables_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
 
-    /** Temporary vectors for bound assignements*/
-    Eigen::VectorXd tmp1_;
-    Eigen::VectorXd tmp2_;
-    Eigen::VectorXd tmp3_;
-    Eigen::VectorXd tmp4_;
+    /** Helper structure grouping data whose adress should remain constant through
+      * a move
+      */
+    struct ReferenceableData
+    {
+      /** Processed requirements*/
+      double scalarWeight_ = 1;
+      double minusScalarWeight_  = -1;
+      Eigen::VectorXd anisotropicWeight_;
+      Eigen::VectorXd minusAnisotropicWeight_;
+
+      /** Temporary vectors for bound assignements*/
+      Eigen::VectorXd tmp1_;
+      Eigen::VectorXd tmp2_;
+      Eigen::VectorXd tmp3_;
+      Eigen::VectorXd tmp4_;
+    };
+
+    std::unique_ptr<ReferenceableData> data_;
   };
 
   template<typename L, typename U>
@@ -343,7 +351,7 @@ namespace internal
     const auto& J = source_->jacobian(*variable);
     if (substitutedVariables_.contains(*variable))
     {
-      addBounds(variable, l, u, VectorRef(tmp1_), VectorRef(tmp2_), first);
+      addBounds(variable, l, u, VectorRef(data_->tmp1_), VectorRef(data_->tmp2_), first);
     }
     else
     {
@@ -384,25 +392,25 @@ namespace internal
     else
     {
       assert(J.properties().isDiagonal());
-      tmp1_.resize(variable->size());
-      tmp2_.resize(variable->size());
-      tmp3_.resize(variable->size());
-      tmp4_.resize(variable->size());
-      addVectorAssignment(l, VectorRef(tmp1_), J, false, true, false);  // tmp1_ = inv(J)*l
-      addVectorAssignment(u, VectorRef(tmp2_), J, false, true, false);  // tmp2_ = inv(J)*u
-      addVectorAssignment(VectorConstRef(tmp1_), VectorRef(tmp3_), false, false, false); // tmp3_ = inv(J)*l
-      addVectorAssignment(VectorConstRef(tmp2_), VectorRef(tmp4_), false, false, false); // tmp4_ = inv(J)*u
-      addVectorAssignment<MIN>(VectorConstRef(tmp2_), VectorRef(tmp3_), false, false, false); //tmp3_ = min(inv(J)*l, inv(J)*u)
-      addVectorAssignment<MAX>(VectorConstRef(tmp1_), VectorRef(tmp4_), false, false, false); //tmp4_ = max(inv(J)*l, inv(J)*u)
+      data_->tmp1_.resize(variable->size());
+      data_->tmp2_.resize(variable->size());
+      data_->tmp3_.resize(variable->size());
+      data_->tmp4_.resize(variable->size());
+      addVectorAssignment(l, VectorRef(data_->tmp1_), J, false, true, false);  // tmp1_ = inv(J)*l
+      addVectorAssignment(u, VectorRef(data_->tmp2_), J, false, true, false);  // tmp2_ = inv(J)*u
+      addVectorAssignment(VectorConstRef(data_->tmp1_), VectorRef(data_->tmp3_), false, false, false); // tmp3_ = inv(J)*l
+      addVectorAssignment(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp4_), false, false, false); // tmp4_ = inv(J)*u
+      addVectorAssignment<MIN>(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp3_), false, false, false); //tmp3_ = min(inv(J)*l, inv(J)*u)
+      addVectorAssignment<MAX>(VectorConstRef(data_->tmp1_), VectorRef(data_->tmp4_), false, false, false); //tmp4_ = max(inv(J)*l, inv(J)*u)
       if (first)
       {
-        addVectorAssignment(VectorConstRef(tmp3_), tl, false, false, true);
-        addVectorAssignment(VectorConstRef(tmp4_), tu, false, false, true);
+        addVectorAssignment(VectorConstRef(data_->tmp3_), tl, false, false, true);
+        addVectorAssignment(VectorConstRef(data_->tmp4_), tu, false, false, true);
       }
       else
       {
-        addVectorAssignment<MAX>(VectorConstRef(tmp3_), tl, false, false, true);
-        addVectorAssignment<MIN>(VectorConstRef(tmp4_), tu, false, false, true);
+        addVectorAssignment<MAX>(VectorConstRef(data_->tmp3_), tl, false, false, true);
+        addVectorAssignment<MIN>(VectorConstRef(data_->tmp4_), tu, false, false, true);
       }
     }
   }
@@ -425,17 +433,17 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *minusScalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, data_->minusScalarWeight_);
         else
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, *scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, data_->scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, minusAnisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, data_->minusAnisotropicWeight_);
       else
-        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, anisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, data_->anisotropicWeight_);
     }
   }
 
@@ -457,17 +465,17 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, *minusScalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, data_->minusScalarWeight_, Mult);
         else
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, *scalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, data_->scalarWeight_, Mult);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, minusAnisotropicWeight_, Mult);
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, data_->minusAnisotropicWeight_, Mult);
       else
-        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, anisotropicWeight_, Mult);
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, data_->anisotropicWeight_, Mult);
     }
   }
 
