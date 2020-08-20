@@ -114,7 +114,7 @@ namespace tvm::graph::internal
       */
     void SCCUtil(std::vector<std::vector<size_t>>& ret,
       size_t u, std::vector<int>& disc, std::vector<int>& low,
-      std::stack<size_t>& st, std::vector<bool>& stackMember, int& time) const;
+      std::stack<size_t>& st, std::vector<uint8_t>& stackMember, int& time) const;
 
     /** An intermediate function for computing the topological order.*/
     std::pair<std::vector<size_t>, DisjointSet> order_() const;
@@ -131,11 +131,11 @@ namespace tvm::graph::internal
       * connected components
       */
     void orderUtil(size_t v, std::vector<size_t>& order,
-      std::vector<bool>& visited, std::vector<bool>& stack,
+      std::vector<uint8_t>& visited, std::vector<uint8_t>& stack,
       DisjointSet& components) const;
 
 
-    std::vector<bool> roots_;                       //roots_[i] is true iff the i-th node has no incoming edges
+    std::vector<uint8_t> roots_;                    //roots_[i] is true iff the i-th node has no incoming edges
     std::vector<std::vector<size_t>> children_;     //children_[i] lists all the childs of node i
     std::set<std::pair<size_t, size_t>> edges_;     //a list of edges (from, to)
 

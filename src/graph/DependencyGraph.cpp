@@ -161,7 +161,7 @@ namespace tvm::graph::internal
     size_t n = roots_.size();
     std::vector<int> disc(n, -1);
     std::vector<int> low(n, -1);
-    std::vector<bool> stackMember(n, false);
+    std::vector<uint8_t> stackMember(n, false);
     std::stack<size_t> st;
     int time = 0;
 
@@ -203,7 +203,7 @@ namespace tvm::graph::internal
 
   void DependencyGraph::SCCUtil(std::vector<std::vector<size_t>>& ret,
     size_t u, std::vector<int>& disc, std::vector<int>& low,
-    std::stack<size_t>& st, std::vector<bool>& stackMember, int& time) const
+    std::stack<size_t>& st, std::vector<uint8_t>& stackMember, int& time) const
   {
     assert(time >= 0);
 
@@ -254,8 +254,8 @@ namespace tvm::graph::internal
     std::pair<std::vector<size_t>, DependencyGraph::DisjointSet> ret;
     ret.first.reserve(n);
     ret.second.resize(n);
-    std::vector<bool> visited(n, false);
-    std::vector<bool> stack(n, false);
+    std::vector<uint8_t> visited(n, false);
+    std::vector<uint8_t> stack(n, false);
 
     bool has_root = false;
     for (size_t i = 0; i < visited.size(); ++i)
@@ -276,7 +276,7 @@ namespace tvm::graph::internal
   }
 
   void DependencyGraph::orderUtil(size_t v, std::vector<size_t>& order,
-    std::vector<bool>& visited, std::vector<bool>& stack,
+    std::vector<uint8_t>& visited, std::vector<uint8_t>& stack,
     DisjointSet& components) const
   {
     if (!visited[v])
