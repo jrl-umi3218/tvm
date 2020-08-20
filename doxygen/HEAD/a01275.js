@@ -1,5 +1,5 @@
 var a01275 =
 [
-    [ "jac_", "a01275.html#af1728be56b625036637f33c733a6f592", null ],
-    [ "nearestPoint_", "a01275.html#a76a1aebaef648808cef92eb00922eb01", null ]
+    [ "AnisotropicWeightBase", "a01275.html#a08c2f1697b1812090cbe4727006192f5", null ],
+    [ "AnisotropicWeightBase", "a01275.html#ab224584c8934c79aaa2c04926b56df65", null ]
 ];

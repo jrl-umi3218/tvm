@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: AffineExpr.h File Reference</title>
+<title>TVM: Proportional.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,42 +91,35 @@ $(document).ready(function(){initNavTree('a00275.html','');});
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">AffineExpr.h File Reference</div>  </div>
+<div class="title">Proportional.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00311.html">tvm/Variable.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00116.html">tvm/internal/meta.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00284.html">tvm/utils/internal/AffineExprDetail.h</a>&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;tuple&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00287.html">tvm/utils/internal/AffineExprOperators.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;mpark/variant.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00257.html">tvm/task_dynamics/abstract/TaskDynamics.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class representing an expression A * x with A a matrix expression and x a variable.  <a href="a01715.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01715.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01719.html">tvm::utils::AffineExpr&lt; CstDerived, Derived &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class representing an affine expression \( A_1 x_1 + A_2 x_2 + \ldots + A_k x_k + b \) where \( A_i \) is a matrix expression, \( x_i \) is a <a class="el" href="a01771.html" title="Representation of a Variable, i.e. ">Variable</a> and \( b \) is a vector expression.  <a href="a01719.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01719.html">tvm::task_dynamics::Proportional::Impl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00379"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00379.html">tvm::utils</a></td></tr>
+<tr class="memitem:a00378"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html">tvm::task_dynamics</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a5aaf37f87c2b6c95abbfec5abd1c5607"><td class="memTemplParams" colspan="2">template&lt;typename CstDerived , typename... Derived&gt; </td></tr>
-<tr class="memitem:a5aaf37f87c2b6c95abbfec5abd1c5607"><td class="memTemplItemLeft" align="right" valign="top">AffineExpr&lt; CstDerived, Derived... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00379.html#a5aaf37f87c2b6c95abbfec5abd1c5607">tvm::utils::make_AffineExpr</a> (const CstDerived &amp;constant, const std::tuple&lt; LinearExpr&lt; Derived &gt;... &gt; &amp;linear)</td></tr>
-<tr class="memdesc:a5aaf37f87c2b6c95abbfec5abd1c5607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a <a class="el" href="a01719.html" title="A class representing an affine expression  where  is a matrix expression,  is a Variable and  is a ve...">AffineExpr</a> and infer automatically the template arguments.  <a href="a00379.html#a5aaf37f87c2b6c95abbfec5abd1c5607">More...</a><br /></td></tr>
-<tr class="separator:a5aaf37f87c2b6c95abbfec5abd1c5607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a48db1a4191bee9b4313893cbc71c60d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html#a48db1a4191bee9b4313893cbc71c60d2">tvm::task_dynamics::P</a> = Proportional</td></tr>
+<tr class="memdesc:a48db1a4191bee9b4313893cbc71c60d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for convenience.  <a href="a00378.html#a48db1a4191bee9b4313893cbc71c60d2">More...</a><br /></td></tr>
+<tr class="separator:a48db1a4191bee9b4313893cbc71c60d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -134,8 +127,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="a00275.html">AffineExpr.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:00 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00275.html">Proportional.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -89,22 +89,30 @@ $(document).ready(function(){initNavTree('a01067.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::graph::CallGraph::Plan Member List</div>  </div>
+<div class="title">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01067.html">tvm::graph::CallGraph::Plan</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01067.html#ac6830efb1d692d3094a7129f1c93a866">build</a>(const CallGraph &amp;graph)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::CallGraph::Plan</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01067.html#a01178b52a508fe369caefa3e95e29fe0">clear</a>()</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::CallGraph::Plan</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01067.html#acc8fe0adb65059f464a60409f68b22b1">execute</a>() const</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::CallGraph::Plan</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01067.html#a766fd1ed72d2502853d44ee247c28b7b">disableOutput</a>(EnumT e)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01067.html#aa3c3c49cdca30d9298ba677889ab06ae">disableOutput</a>(EnumT e, Args ... args)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01059.html#afb9aaff5b2ec6d854da3c825e1896198">dynamicallyEnabled_</a></td><td class="entry"><a class="el" href="a01059.html">tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01067.html#ac4c44ef0be45d2fbe9a0eb262ec9fd62">enableOutput</a>(EnumT e)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01067.html#a29ae45142cb1934ccf79e6d1b64b2502">enableOutput</a>(EnumT e, Args ... args)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01067.html#acecd5431d8669020975745445eda213e">isLocked</a>() const</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01067.html#a9055289bba2c2a08cbde4cd4825cb77f">isOutputCustomEnabled</a>(int e) const override</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01067.html#a708907741c7ed1e5bbdc0c8b18ab0f3d">lock</a>()</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01059.html#a0c9eb868c9839d51c75cc7206c94edcb">locked_</a></td><td class="entry"><a class="el" href="a01059.html">tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01067.html#a56304a7795c79d5fbb55d8e1b34689cd">OutputSelector</a>(Args &amp;&amp;... args)</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01067.html#a20e59e5e0041a4a04b2d4c574f5357c5">unlock</a>()</td><td class="entry"><a class="el" href="a01067.html">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

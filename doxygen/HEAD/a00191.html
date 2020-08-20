@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: ResolutionScheme.h File Reference</title>
+<title>TVM: PostureFunction.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,31 +92,24 @@ $(document).ready(function(){initNavTree('a00191.html','');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">ResolutionScheme.h File Reference</div>  </div>
+<div class="title">PostureFunction.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00314.html">tvm/VariableVector.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00215.html">tvm/scheme/internal/SchemeAbilities.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00209.html">tvm/scheme/internal/ProblemComputationData.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00212.html">tvm/scheme/internal/ResolutionSchemeBase.h</a>&gt;</code><br />
-<code>#include &lt;tvm/scheme/internal/helpers.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00197.html">tvm/Robot.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00041.html">tvm/function/abstract/Function.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01343.html">tvm::scheme::abstract::ResolutionScheme&lt; Derived &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution schemes may be defined only for a particular type of problems.  <a href="a01343.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01347.html">tvm::scheme::abstract::LinearResolutionScheme&lt; Derived &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for scheme solving linear problems For now, it is there only for allowing to differentiate with future non-linear schemes.  <a href="a01347.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01371.html">tvm::robot::PostureFunction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class implements a posture function for a given robot.  <a href="a01371.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00384"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00384.html">tvm::scheme</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00385"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00385.html">tvm::scheme::abstract</a></td></tr>
+<tr class="memitem:a00394"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00394.html">tvm::robot</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -125,8 +118,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_2692b72ddc0701b0608665f2dcf95618.html">scheme</a></li><li class="navelem"><a class="el" href="dir_6f80ecda2be865f7daf1ae4b320b3254.html">abstract</a></li><li class="navelem"><a class="el" href="a00191.html">ResolutionScheme.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_d042aebbf1171e016bcc9e6a6ed11000.html">robot</a></li><li class="navelem"><a class="el" href="a00191.html">PostureFunction.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

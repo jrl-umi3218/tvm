@@ -1,6 +1,5 @@
 var a01591 =
 [
-    [ "LSSOLLSSolverFactory", "a01591.html#a4161a1c6228053efd1f61b5dab901a1e", null ],
-    [ "clone", "a01591.html#a37498aa7021f22f076407a3106fdfc35", null ],
-    [ "createSolver", "a01591.html#a0a7baded2c2cf864371d8e32f3add3c3", null ]
+    [ "SchemeAbilities", "a01591.html#ab61249256197b2b931e1972ed6b050f6", null ],
+    [ "check", "a01591.html#a697c0b2a93af995e3f6f43b9aeb15908", null ]
 ];

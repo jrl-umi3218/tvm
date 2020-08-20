@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::VelocityDamper::Config Class Reference</title>
+<title>TVM: tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::Impl Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,67 +90,87 @@ $(document).ready(function(){initNavTree('a01703.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01700.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::VelocityDamper::Config Class Reference</div>  </div>
+<div class="title">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::Impl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A structure grouping the parameters of a velocity damper.  
- <a href="a01703.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/task_dynamics/VelocityDamper.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/FeedForward.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::Impl:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01703.png" usemap="#tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E::Impl_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E::Impl_map" name="tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E::Impl_map">
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af3a63bc3e9f55d47b1a9223d97314c41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#af3a63bc3e9f55d47b1a9223d97314c41">Config</a> (double di, double ds, double xsi, double xsiOff=0)</td></tr>
-<tr class="separator:af3a63bc3e9f55d47b1a9223d97314c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65754116d7bf261c3f6c8674dd702d8e"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:a65754116d7bf261c3f6c8674dd702d8e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01703.html#a65754116d7bf261c3f6c8674dd702d8e">Impl</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs, const <a class="el" href="a01699.html#a8946ee14177601a7e60a05033bb59825">getFeedForwardT</a> &amp;ff, const <a class="el" href="a01699.html#ac8f4704379a17aa27b2bc08313d3f7e7">addProviderDependencyT</a> &amp;addPD, Args &amp;&amp;... args)</td></tr>
+<tr class="separator:a65754116d7bf261c3f6c8674dd702d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dc9b8de20b1d753942d958b9c25c289"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#a7dc9b8de20b1d753942d958b9c25c289">~Impl</a> () override=default</td></tr>
+<tr class="separator:a7dc9b8de20b1d753942d958b9c25c289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e9f88470f2a3efa8b056edb43b6a896"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#a6e9f88470f2a3efa8b056edb43b6a896">updateValue</a> () override</td></tr>
+<tr class="separator:a6e9f88470f2a3efa8b056edb43b6a896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:af7fc35cb19ece546f33a61165fa0a509"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#af7fc35cb19ece546f33a61165fa0a509">di_</a></td></tr>
-<tr class="separator:af7fc35cb19ece546f33a61165fa0a509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abac487e36e9878bda39e627882ab5a2d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#abac487e36e9878bda39e627882ab5a2d">ds_</a></td></tr>
-<tr class="separator:abac487e36e9878bda39e627882ab5a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b729669f846363c1d3ad28111c9a131"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#a8b729669f846363c1d3ad28111c9a131">xsi_</a></td></tr>
-<tr class="separator:a8b729669f846363c1d3ad28111c9a131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac87e5d78a69700e370e2ef300c84cbc3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#ac87e5d78a69700e370e2ef300c84cbc3">xsiOff_</a></td></tr>
-<tr class="separator:ac87e5d78a69700e370e2ef300c84cbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a5d2b3f15df52a06a4fe9f2bdbacb3502"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01703.html#a5d2b3f15df52a06a4fe9f2bdbacb3502">FeedForward</a></td></tr>
+<tr class="separator:a5d2b3f15df52a06a4fe9f2bdbacb3502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A structure grouping the parameters of a velocity damper. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01699.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn...">VelocityDamper</a>. </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af3a63bc3e9f55d47b1a9223d97314c41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3a63bc3e9f55d47b1a9223d97314c41">&#9670;&nbsp;</a></span>Config()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a65754116d7bf261c3f6c8674dd702d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65754116d7bf261c3f6c8674dd702d8e">&#9670;&nbsp;</a></span>Impl()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::task_dynamics::VelocityDamper::Config::Config </td>
+          <td class="memname"><a class="el" href="a01699.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::Impl::Impl </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>di</em>, </td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>ds</em>, </td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xsi</em>, </td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xsiOff</em> = <code>0</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01699.html#a8946ee14177601a7e60a05033bb59825">getFeedForwardT</a> &amp;&#160;</td>
+          <td class="paramname"><em>ff</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01699.html#ac8f4704379a17aa27b2bc08313d3f7e7">addProviderDependencyT</a> &amp;&#160;</td>
+          <td class="paramname"><em>addPD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,72 +178,95 @@ Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">di</td><td>interaction distance \(d_i\). We need \( d_i &gt; d_s \). </td></tr>
-    <tr><td class="paramname">ds</td><td>safety distance \(d_s\). </td></tr>
-    <tr><td class="paramname">xsi</td><td>damping parameter \(\xi \). If xsi = 0, the value will be computed automatically, otherwise, we need \(\xi &gt; 0\). In automatic mode, the value is recomputed each time the error value is at a distance to its bound lower or equal to <code></code>  with the formula \( \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k + \xi_{\mathrm{off}} \). </td></tr>
-    <tr><td class="paramname">xsiOff</td><td>offset \( \xi_{\mathrm{off}} \) used in the automatic computation of \(\xi\). Used only in the case xsi=0. </td></tr>
-  </table>
-  </dd>
-</dl>
+
+<p class="reference">References <a class="el" href="a01703.html#a7dc9b8de20b1d753942d958b9c25c289">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::Impl::~Impl()</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="af7fc35cb19ece546f33a61165fa0a509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7fc35cb19ece546f33a61165fa0a509">&#9670;&nbsp;</a></span>di_</h2>
+<a id="a7dc9b8de20b1d753942d958b9c25c289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dc9b8de20b1d753942d958b9c25c289">&#9670;&nbsp;</a></span>~Impl()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::di_</td>
+          <td class="memname"><a class="el" href="a01699.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::Impl::~Impl </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01703.html#a65754116d7bf261c3f6c8674dd702d8e">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::Impl::Impl()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6e9f88470f2a3efa8b056edb43b6a896"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e9f88470f2a3efa8b056edb43b6a896">&#9670;&nbsp;</a></span>updateValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01699.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::Impl::updateValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="abac487e36e9878bda39e627882ab5a2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abac487e36e9878bda39e627882ab5a2d">&#9670;&nbsp;</a></span>ds_</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a5d2b3f15df52a06a4fe9f2bdbacb3502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d2b3f15df52a06a4fe9f2bdbacb3502">&#9670;&nbsp;</a></span>FeedForward</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::ds_</td>
+          <td class="memname">friend class <a class="el" href="a01699.html">FeedForward</a></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8b729669f846363c1d3ad28111c9a131"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b729669f846363c1d3ad28111c9a131">&#9670;&nbsp;</a></span>xsi_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::xsi_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac87e5d78a69700e370e2ef300c84cbc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac87e5d78a69700e370e2ef300c84cbc3">&#9670;&nbsp;</a></span>xsiOff_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::xsiOff_</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -234,8 +277,8 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01699.html">VelocityDamper</a></li><li class="navelem"><a class="el" href="a01703.html">Config</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01699.html">FeedForward</a></li><li class="navelem"><a class="el" href="a01703.html">Impl</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

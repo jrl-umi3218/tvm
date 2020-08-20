@@ -1,9 +1,11 @@
 var a01715 =
 [
-    [ "LinearExpr", "a01715.html#ace550799fdb22b967ce5f5bddd0aa4a0", null ],
-    [ "LinearExpr", "a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
-    [ "LinearExpr", "a01715.html#aa715dc995e4c492fb70b7046afbe7e74", null ],
-    [ "LinearExpr", "a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
-    [ "matrix", "a01715.html#abda44d8407e3f1fabf7f43616e621ea0", null ],
-    [ "variable", "a01715.html#ab518500d32934cbf912c9f50c7fbcd19", null ]
+    [ "Impl", "a01719.html", "a01719" ],
+    [ "Gain", "a01715.html#ab07b19a8764c8f30db69656dcbc9e9f5", null ],
+    [ "Proportional", "a01715.html#ac0871e9c927f66d2ba860dbdc4e43c2e", null ],
+    [ "Proportional", "a01715.html#a864547b2a4a6a6da51ea4cb40ae1a7dc", null ],
+    [ "Proportional", "a01715.html#a45c5ec3ca85c63ce7f094b1c4c6949d1", null ],
+    [ "~Proportional", "a01715.html#aa985834754c95d59194e584c089d96f3", null ],
+    [ "impl_", "a01715.html#a36c06430efb0662c9ef87cbf7a06a4e7", null ],
+    [ "order_", "a01715.html#a510dcbb35e9c497fa50ec9d8ca80a19c", null ]
 ];

@@ -1,14 +1,18 @@
 var a01303 =
 [
-    [ "Frame", "a01303.html#a635eac920668a3109a1e3230938a857d", null ],
-    [ "body", "a01303.html#a7c7b11383a5c05cb593075f1b838c416", null ],
-    [ "jacobian", "a01303.html#afbeb5eea7c8a679250c6fc0bc56bc04c", null ],
-    [ "name", "a01303.html#accce1b0aeee4a0493a6025e760b74467", null ],
-    [ "normalAcceleration", "a01303.html#ab3587255f0ad1fbe3b50761ccb8ca46d", null ],
-    [ "position", "a01303.html#a86fe5c3cfc6e0a3c5d7be8736e51909a", null ],
-    [ "rbdJacobian", "a01303.html#a3670aba0d9280524c6e18cea389cad15", null ],
-    [ "rbdJacobian", "a01303.html#ac35b94cce92a068d02945ab7c87fd532", null ],
-    [ "robot", "a01303.html#a2ea6528157b5a187b6ede16f07790828", null ],
-    [ "robot", "a01303.html#aa040bc0a29a67780311c8533d68faea5", null ],
-    [ "velocity", "a01303.html#ac358128299eb4b9446241a1a9a383304", null ]
+    [ "CollisionData", "a01307.html", "a01307" ],
+    [ "CollisionFunction", "a01303.html#a59942498e65dc00b48f2107947ab4892", null ],
+    [ "addCollision", "a01303.html#a5eef39a9b9f860af449ca04482f4d12e", null ],
+    [ "reset", "a01303.html#a9cce7c94ca754ae3c7e069ad6638989f", null ],
+    [ "updateJacobian", "a01303.html#a9aeb92ad849447b914b0bbf2fb646116", null ],
+    [ "updateNormalAcceleration", "a01303.html#a595e737da00e25d782d5b124a2874229", null ],
+    [ "updateTimeDependency", "a01303.html#addf016ad8ca557ea7ef9ef0196a1a30f", null ],
+    [ "updateValue", "a01303.html#aea1ff6bab1ce54dd3bcda6da5e77ec71", null ],
+    [ "updateVelocity", "a01303.html#a5972916c2e51bc24ca700d96a8aa525c", null ],
+    [ "clock_", "a01303.html#aa68f5e5d2a71bd79bb734bbb285ae8b2", null ],
+    [ "closestPoints_", "a01303.html#a9208a5e74054fd9f724d4262d0fcc600", null ],
+    [ "colls_", "a01303.html#abadb54659dd562863c75557ff3ff5ef6", null ],
+    [ "distJac_", "a01303.html#a739d3e96517dfe8f226b37c08a8915f6", null ],
+    [ "fullJac_", "a01303.html#a3c2cdbff681ff981fb26dee8a320db38", null ],
+    [ "last_tick_", "a01303.html#ae98c5b26c87f994a5ce6b79e56ed84a9", null ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::utils::LinearExpr&lt; Derived &gt; Class Template Reference</title>
+<title>TVM: tvm::task_dynamics::Proportional Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,212 +89,227 @@ $(document).ready(function(){initNavTree('a01715.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01712.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::LinearExpr&lt; Derived &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::task_dynamics::Proportional Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A class representing an expression A * x with A a matrix expression and x a variable.  
+<p>Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix.  
  <a href="a01715.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/utils/AffineExpr.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/Proportional.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::task_dynamics::Proportional:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01715.png" usemap="#tvm::task_5Fdynamics::Proportional_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::Proportional_map" name="tvm::task_5Fdynamics::Proportional_map">
+<area href="a01675.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01719.html">Impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab07b19a8764c8f30db69656dcbc9e9f5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#ab07b19a8764c8f30db69656dcbc9e9f5">Gain</a> = mpark::variant&lt; double, Eigen::VectorXd, Eigen::MatrixXd &gt;</td></tr>
+<tr class="separator:ab07b19a8764c8f30db69656dcbc9e9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#ace550799fdb22b967ce5f5bddd0aa4a0">LinearExpr</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;<a class="el" href="a01715.html#abda44d8407e3f1fabf7f43616e621ea0">matrix</a>, const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#ace550799fdb22b967ce5f5bddd0aa4a0">More...</a><br /></td></tr>
-<tr class="separator:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::IdentityType &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a> (const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for Identity linear expression.  <a href="#aa8b13db5c36b8e2d4a55544a74687e5f">More...</a><br /></td></tr>
-<tr class="separator:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa715dc995e4c492fb70b7046afbe7e74"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MultIdentityType &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:aa715dc995e4c492fb70b7046afbe7e74"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01715.html#aa715dc995e4c492fb70b7046afbe7e74">LinearExpr</a> (double a, const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:aa715dc995e4c492fb70b7046afbe7e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a*v where a is a scalar.  <a href="#aa715dc995e4c492fb70b7046afbe7e74">More...</a><br /></td></tr>
-<tr class="separator:aa715dc995e4c492fb70b7046afbe7e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MinusIdentityType &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a> (const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for -v.  <a href="#aa8b13db5c36b8e2d4a55544a74687e5f">More...</a><br /></td></tr>
-<tr class="separator:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abda44d8407e3f1fabf7f43616e621ea0"><td class="memItemLeft" align="right" valign="top">const Derived &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#abda44d8407e3f1fabf7f43616e621ea0">matrix</a> () const</td></tr>
-<tr class="separator:abda44d8407e3f1fabf7f43616e621ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab518500d32934cbf912c9f50c7fbcd19"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#ab518500d32934cbf912c9f50c7fbcd19">variable</a> () const</td></tr>
-<tr class="separator:ab518500d32934cbf912c9f50c7fbcd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0871e9c927f66d2ba860dbdc4e43c2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#ac0871e9c927f66d2ba860dbdc4e43c2e">Proportional</a> (double kp)</td></tr>
+<tr class="memdesc:ac0871e9c927f66d2ba860dbdc4e43c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with scalar gain.  <a href="#ac0871e9c927f66d2ba860dbdc4e43c2e">More...</a><br /></td></tr>
+<tr class="separator:ac0871e9c927f66d2ba860dbdc4e43c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864547b2a4a6a6da51ea4cb40ae1a7dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#a864547b2a4a6a6da51ea4cb40ae1a7dc">Proportional</a> (const Eigen::VectorXd &amp;kp)</td></tr>
+<tr class="memdesc:a864547b2a4a6a6da51ea4cb40ae1a7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with diagonal matrix gain.  <a href="#a864547b2a4a6a6da51ea4cb40ae1a7dc">More...</a><br /></td></tr>
+<tr class="separator:a864547b2a4a6a6da51ea4cb40ae1a7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45c5ec3ca85c63ce7f094b1c4c6949d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#a45c5ec3ca85c63ce7f094b1c4c6949d1">Proportional</a> (const Eigen::MatrixXd &amp;kp)</td></tr>
+<tr class="memdesc:a45c5ec3ca85c63ce7f094b1c4c6949d1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with matrix gain.  <a href="#a45c5ec3ca85c63ce7f094b1c4c6949d1">More...</a><br /></td></tr>
+<tr class="separator:a45c5ec3ca85c63ce7f094b1c4c6949d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa985834754c95d59194e584c089d96f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#aa985834754c95d59194e584c089d96f3">~Proportional</a> () override=default</td></tr>
+<tr class="separator:aa985834754c95d59194e584c089d96f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01675"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01675')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
+<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
+<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
+<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
+<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a36c06430efb0662c9ef87cbf7a06a4e7"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#a36c06430efb0662c9ef87cbf7a06a4e7">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:a36c06430efb0662c9ef87cbf7a06a4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510dcbb35e9c497fa50ec9d8ca80a19c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html#a510dcbb35e9c497fa50ec9d8ca80a19c">order_</a> () const override</td></tr>
+<tr class="separator:a510dcbb35e9c497fa50ec9d8ca80a19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Derived&gt;<br />
-class tvm::utils::LinearExpr&lt; Derived &gt;</h3>
-
-<p>A class representing an expression A * x with A a matrix expression and x a variable. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Derived</td><td>The type of the matrix expression. </td></tr>
-  </table>
-  </dd>
-</dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ace550799fdb22b967ce5f5bddd0aa4a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace550799fdb22b967ce5f5bddd0aa4a0">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[1/4]</span></h2>
+<div class="textblock"><p>Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab07b19a8764c8f30db69656dcbc9e9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab07b19a8764c8f30db69656dcbc9e9f5">&#9670;&nbsp;</a></span>Gain</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01715.html">LinearExpr</a> </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">using <a class="el" href="a01715.html#ab07b19a8764c8f30db69656dcbc9e9f5">tvm::task_dynamics::Proportional::Gain</a> =  mpark::variant&lt;double, Eigen::VectorXd, Eigen::MatrixXd&gt;</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>General constructor. </p>
-
 </div>
 </div>
-<a id="aa8b13db5c36b8e2d4a55544a74687e5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b13db5c36b8e2d4a55544a74687e5f">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[2/4]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac0871e9c927f66d2ba860dbdc4e43c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0871e9c927f66d2ba860dbdc4e43c2e">&#9670;&nbsp;</a></span>Proportional() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
-<div class="memtemplate">
-template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::IdentityType &gt;, int &gt;  = 0&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01715.html">LinearExpr</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor for Identity linear expression. </p>
-
-</div>
-</div>
-<a id="aa715dc995e4c492fb70b7046afbe7e74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa715dc995e4c492fb70b7046afbe7e74">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
-<div class="memtemplate">
-template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MultIdentityType &gt;, int &gt;  = 0&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01715.html">LinearExpr</a> </td>
+          <td class="memname">tvm::task_dynamics::Proportional::Proportional </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>kp</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Constructor for a*v where a is a scalar. </p>
+<p><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with scalar gain. </p>
 
 </div>
 </div>
-<a id="aa8b13db5c36b8e2d4a55544a74687e5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b13db5c36b8e2d4a55544a74687e5f">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[4/4]</span></h2>
+<a id="a864547b2a4a6a6da51ea4cb40ae1a7dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a864547b2a4a6a6da51ea4cb40ae1a7dc">&#9670;&nbsp;</a></span>Proportional() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
-<div class="memtemplate">
-template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MinusIdentityType &gt;, int &gt;  = 0&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::Proportional::Proportional </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>kp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with diagonal matrix gain. </p>
+
+</div>
+</div>
+<a id="a45c5ec3ca85c63ce7f094b1c4c6949d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45c5ec3ca85c63ce7f094b1c4c6949d1">&#9670;&nbsp;</a></span>Proportional() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::Proportional::Proportional </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
+          <td class="paramname"><em>kp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix...">Proportional</a> dynamics with matrix gain. </p>
+
+</div>
+</div>
+<a id="aa985834754c95d59194e584c089d96f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa985834754c95d59194e584c089d96f3">&#9670;&nbsp;</a></span>~Proportional()</h2>
+
+<div class="memitem">
+<div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01715.html">LinearExpr</a> </td>
+          <td class="memname">tvm::task_dynamics::Proportional::~Proportional </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Constructor for -v. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abda44d8407e3f1fabf7f43616e621ea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abda44d8407e3f1fabf7f43616e621ea0">&#9670;&nbsp;</a></span>matrix()</h2>
+<a id="a36c06430efb0662c9ef87cbf7a06a4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c06430efb0662c9ef87cbf7a06a4e7">&#9670;&nbsp;</a></span>impl_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Derived&amp; <a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::matrix </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::Proportional::impl_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01675.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
+
+</div>
+</div>
+<a id="a510dcbb35e9c497fa50ec9d8ca80a19c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510dcbb35e9c497fa50ec9d8ca80a19c">&#9670;&nbsp;</a></span>order_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::Proportional::order_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -302,41 +317,12 @@ template&lt;typename Derived&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a01019.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00379.html#a41553ea968b600c4399caa109bca5fd9">tvm::utils::operator*()</a>, and <a class="el" href="a00379.html#a3cdde69915328393a888c9062f24d7cd">tvm::utils::operator-()</a>.</p>
-
-</div>
-</div>
-<a id="ab518500d32934cbf912c9f50c7fbcd19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab518500d32934cbf912c9f50c7fbcd19">&#9670;&nbsp;</a></span>variable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Derived&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; <a class="el" href="a01715.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::variable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a01019.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00379.html#a41553ea968b600c4399caa109bca5fd9">tvm::utils::operator*()</a>, and <a class="el" href="a00379.html#a3cdde69915328393a888c9062f24d7cd">tvm::utils::operator-()</a>.</p>
+<p>Implements <a class="el" href="a01675.html#a0af2178117ec3fab102e808b863e9886">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
 
 </div>
 </div>
@@ -346,8 +332,8 @@ template&lt;typename Derived&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00379.html">utils</a></li><li class="navelem"><a class="el" href="a01715.html">LinearExpr</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:02 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01715.html">Proportional</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

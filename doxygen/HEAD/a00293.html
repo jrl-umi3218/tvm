@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: graphDetails.h File Reference</title>
+<title>TVM: graph.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,36 +92,28 @@ $(document).ready(function(){initNavTree('a00293.html','');});
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">graphDetails.h File Reference</div>  </div>
+<div class="title">graph.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="a00065.html">tvm/graph/CallGraph.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00071.html">tvm/graph/internal/Inputs.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00305.html">tvm/utils/internal/graphDetails.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00074.html">tvm/graph/internal/Inputs.h</a>&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00379"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00379.html">tvm::utils</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00389"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html">tvm::utils::internal</a></td></tr>
+<tr class="memitem:a00392"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00392.html">tvm::utils</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7c60a66c02c99b2d38d05c90e31c3b74"><td class="memTemplParams" colspan="2">template&lt;typename Object , typename Output , typename... Args&gt; </td></tr>
-<tr class="memitem:a7c60a66c02c99b2d38d05c90e31c3b74"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00389.html#a7c60a66c02c99b2d38d05c90e31c3b74">tvm::utils::internal::parseSourcesAndOutputs</a> (graph::CallGraph *g, std::shared_ptr&lt; graph::internal::Inputs &gt; user, std::shared_ptr&lt; Object &gt; obj, Output output, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a7c60a66c02c99b2d38d05c90e31c3b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursion over the sources and outputs.  <a href="a00389.html#a7c60a66c02c99b2d38d05c90e31c3b74">More...</a><br /></td></tr>
-<tr class="separator:a7c60a66c02c99b2d38d05c90e31c3b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab011b26e01ceb7daae3301e972b317e5"><td class="memTemplParams" colspan="2">template&lt;typename Object1 , typename Object2 , typename... Args&gt; </td></tr>
-<tr class="memitem:ab011b26e01ceb7daae3301e972b317e5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00389.html#ab011b26e01ceb7daae3301e972b317e5">tvm::utils::internal::parseSourcesAndOutputs</a> (graph::CallGraph *g, std::shared_ptr&lt; graph::internal::Inputs &gt; user, std::shared_ptr&lt; Object1 &gt; obj1, std::shared_ptr&lt; Object2 &gt; obj2, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ab011b26e01ceb7daae3301e972b317e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursion over the sources and outputs.  <a href="a00389.html#ab011b26e01ceb7daae3301e972b317e5">More...</a><br /></td></tr>
-<tr class="separator:ab011b26e01ceb7daae3301e972b317e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f7de31deb6c74c399f6492e5ca7d595"><td class="memTemplParams" colspan="2">template&lt;typename Object &gt; </td></tr>
-<tr class="memitem:a1f7de31deb6c74c399f6492e5ca7d595"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00389.html#a1f7de31deb6c74c399f6492e5ca7d595">tvm::utils::internal::parseSourcesAndOutputs</a> (graph::CallGraph *g, std::shared_ptr&lt; graph::internal::Inputs &gt; user, std::shared_ptr&lt; Object &gt; obj)</td></tr>
-<tr class="memdesc:a1f7de31deb6c74c399f6492e5ca7d595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursion over the sources and outputs.  <a href="a00389.html#a1f7de31deb6c74c399f6492e5ca7d595">More...</a><br /></td></tr>
-<tr class="separator:a1f7de31deb6c74c399f6492e5ca7d595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77af07c5e6ceaf37a0274d54eff0f26"><td class="memTemplParams" colspan="2">template&lt;typename Object , typename... Args&gt; </td></tr>
+<tr class="memitem:ac77af07c5e6ceaf37a0274d54eff0f26"><td class="memTemplItemLeft" align="right" valign="top">std::unique_ptr&lt; graph::CallGraph &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00392.html#ac77af07c5e6ceaf37a0274d54eff0f26">tvm::utils::generateUpdateGraph</a> (std::shared_ptr&lt; Object &gt; obj, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:ac77af07c5e6ceaf37a0274d54eff0f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the graph of updates for a list of objects and their specified outputs.  <a href="a00392.html#ac77af07c5e6ceaf37a0274d54eff0f26">More...</a><br /></td></tr>
+<tr class="separator:ac77af07c5e6ceaf37a0274d54eff0f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -129,8 +121,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="dir_0237412ea2d876d633a9fb0edc0cbd10.html">internal</a></li><li class="navelem"><a class="el" href="a00293.html">graphDetails.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="a00293.html">graph.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

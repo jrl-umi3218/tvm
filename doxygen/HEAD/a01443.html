@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::AssignBase&lt; ADD &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::CachedResult&lt; MatrixType, Cache &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,87 +92,47 @@ $(document).ready(function(){initNavTree('a01443.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01440.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::AssignBase&lt; ADD &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::CachedResult&lt; MatrixType, Cache &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A cache for holding temporary value in the evaluation of an assignment.  
+ <a href="a01443.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a999c945f44a40f226778705778dfb980"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a999c945f44a40f226778705778dfb980"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01443.html#a999c945f44a40f226778705778dfb980">assign</a> (U &amp;out, const T &amp;in)</td></tr>
-<tr class="separator:a999c945f44a40f226778705778dfb980"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbcd287e1413fd32d6173490538e65e9"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:afbcd287e1413fd32d6173490538e65e9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01443.html#afbcd287e1413fd32d6173490538e65e9">assign</a> (U &amp;out, double in)</td></tr>
-<tr class="separator:afbcd287e1413fd32d6173490538e65e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6348426970a32cb1d8a1f166bfbb5b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aeb6348426970a32cb1d8a1f166bfbb5b"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01443.html#aeb6348426970a32cb1d8a1f166bfbb5b">cache</a> (const T &amp;M)</td></tr>
+<tr class="separator:aeb6348426970a32cb1d8a1f166bfbb5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a999c945f44a40f226778705778dfb980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a999c945f44a40f226778705778dfb980">&#9670;&nbsp;</a></span>assign() <span class="overload">[1/2]</span></h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType, bool Cache&gt;<br />
+class tvm::scheme::internal::CachedResult&lt; MatrixType, Cache &gt;</h3>
+
+<p>A cache for holding temporary value in the evaluation of an assignment. </p>
+<p>By default, it does not do anything but forward an expression. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aeb6348426970a32cb1d8a1f166bfbb5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb6348426970a32cb1d8a1f166bfbb5b">&#9670;&nbsp;</a></span>cache()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename U &gt; </div>
+template&lt;typename MatrixType, bool Cache&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578a010df03f1145be89b73897c0d8b8f7c0">ADD</a> &gt;::assign </td>
+          <td class="memname">const T&amp; <a class="el" href="a01443.html">tvm::scheme::internal::CachedResult</a>&lt; MatrixType, Cache &gt;::cache </td>
           <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>M</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afbcd287e1413fd32d6173490538e65e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbcd287e1413fd32d6173490538e65e9">&#9670;&nbsp;</a></span>assign() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578a010df03f1145be89b73897c0d8b8f7c0">ADD</a> &gt;::assign </td>
-          <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -190,8 +150,8 @@ template&lt;typename U &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01443.html">AssignBase&lt; ADD &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01443.html">CachedResult</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

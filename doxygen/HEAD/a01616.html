@@ -89,32 +89,23 @@ $(document).ready(function(){initNavTree('a01619.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::Space Member List</div>  </div>
+<div class="title">tvm::solver::abstract::LSSolverFactory Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01619.html">tvm::Space</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#a9410ecc4cb207ec8e65edaf61990e84e">createVariable</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#af45239f58ccd885d0a939084b125c979">isEuclidean</a>() const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#acddae3eb32a5bda913b0b9804e474e2b">operator!=</a>(const Space &amp;other) const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#aee25e1bfd33fac77fd95b79bbfc761b6">operator==</a>(const Space &amp;other) const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#ac5889d55dbe021af7edcc4d728e9c35e">rSize</a>() const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#a52d03cec25b4951255300be1925049f9">size</a>() const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#ac4b192406e699cc657b0a34d5f236ba4">Space</a>(int size)</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#a9ff75186b5b439819ec201be5c5f4b39">Space</a>(int size, int representationSize)</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#a99ad058c2c07a10b72a539e829fa4b50">Space</a>(int size, int representationSize, int tangentRepresentationSize)</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#af455f0e3a88391cb32a97ccc67d4d12a">Space</a>(Type type, int size=-1)</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#ad182eecc9fce96331b8038a9bc8a0626">tSize</a>() const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01619.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> enum name</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01619.html#ab9ac5699b5f3c5e65f85f4edd0125095">type</a>() const</td><td class="entry"><a class="el" href="a01619.html">tvm::Space</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01619.html#a6fa2c837939850ad7a9acb3aa7e7e6fe">clone</a>() const =0</td><td class="entry"><a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01619.html#a9f66347b627c0e41deab82a2bbc0ee32">createSolver</a>() const =0</td><td class="entry"><a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01619.html#a16f20ada8e2be7db1dfe20d6d19d27a2">LSSolverFactory</a>(const std::string &amp;solverName)</td><td class="entry"><a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01619.html#aa7253c409c8125f7806cac17adffb8b5">~LSSolverFactory</a>()=default</td><td class="entry"><a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

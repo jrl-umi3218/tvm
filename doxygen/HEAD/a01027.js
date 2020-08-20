@@ -1,18 +1,17 @@
 var a01027 =
 [
-    [ "Plane", "a01027.html#ad74165f0db46cd2d2df2b00c94428b65", null ],
-    [ "Plane", "a01027.html#a9e7c196ed05f5f2c4a507afbd73c741e", null ],
-    [ "acceleration", "a01027.html#abec3e16bdde80750ff9762d889bd706c", null ],
-    [ "acceleration", "a01027.html#a0717cd9e9c938bfa7a78f9876ed9cc48", null ],
-    [ "normal", "a01027.html#a968a02cc2f42d3c8b3eeb2157dc0e94b", null ],
-    [ "normalDot", "a01027.html#ad738b3a103c3ce0188dfcd15f84b7bab", null ],
-    [ "normalDotDot", "a01027.html#a8038ea0966c53871016e4e38176f1265", null ],
-    [ "offset", "a01027.html#ae050d736738243ac7ee56bc15ed61edb", null ],
-    [ "point", "a01027.html#a711b8330853b07303cf72219d32b6940", null ],
-    [ "position", "a01027.html#a745000c56b8ddbb2bad193198cd5efec", null ],
-    [ "position", "a01027.html#a80fb8c553ada1375f54c94f0f4a38b60", null ],
-    [ "setIntegrator", "a01027.html#ab9f41c4e1420d5ce1b7877e3b28005da", null ],
-    [ "setIntegrator", "a01027.html#ae591e6d2e33838eb17c2efa78cc46cf7", null ],
-    [ "speed", "a01027.html#a8df08f03f7cae135d9e3b28e566d70c8", null ],
-    [ "velocity", "a01027.html#a5a4cd2a5300b3a634c18bcc985570f6d", null ]
+    [ "Function", "a01027.html#a22a6013990c0d433610fbd9affeac6d9", null ],
+    [ "Function", "a01027.html#a759af5751424860ea38ee7c425b2d1e8", null ],
+    [ "addVariable_", "a01027.html#a984382a49725fad906ec99ffccb8837f", null ],
+    [ "JDot", "a01027.html#a590e4ad861913913a0824df05d5202c8", null ],
+    [ "normalAcceleration", "a01027.html#a293c358e245f9a82b254d1d9f22db5f6", null ],
+    [ "removeVariable_", "a01027.html#a4706bc4563ac19c1f79b5eb5b1b202fe", null ],
+    [ "resizeCache", "a01027.html#a6731cf72240474247174fdde116a2506", null ],
+    [ "resizeJDotCache", "a01027.html#a17068f4b443734c45693737985e6a24a", null ],
+    [ "resizeNormalAccelerationCache", "a01027.html#abc7180784baa30af537f4153c7cb1b99", null ],
+    [ "resizeVelocityCache", "a01027.html#a777d67d775aa4e0b6232796e19da5dc0", null ],
+    [ "velocity", "a01027.html#adc483e1f5af549175ee4629361f5fe6c", null ],
+    [ "JDot_", "a01027.html#a443072809d5cdae5a872446a4aef2ff3", null ],
+    [ "normalAcceleration_", "a01027.html#a15a10205ed422955d4c30c2146a218df", null ],
+    [ "velocity_", "a01027.html#acb13855ae41acba66ddd2594e1c8d5c8", null ]
 ];

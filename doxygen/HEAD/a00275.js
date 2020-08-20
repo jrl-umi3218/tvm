@@ -1,6 +1,6 @@
 var a00275 =
 [
-    [ "LinearExpr", "a01715.html", "a01715" ],
-    [ "AffineExpr", "a01719.html", "a01719" ],
-    [ "make_AffineExpr", "a00275.html#a5aaf37f87c2b6c95abbfec5abd1c5607", null ]
+    [ "Proportional", "a01715.html", "a01715" ],
+    [ "Impl", "a01719.html", "a01719" ],
+    [ "P", "a00275.html#a48db1a4191bee9b4313893cbc71c60d2", null ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::hint::Substitution Class Reference</title>
+<title>TVM: tvm::hint::internal::DiagonalCalculator::Impl Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,81 +92,135 @@ $(document).ready(function(){initNavTree('a01175.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01172.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::hint::Substitution Class Reference</div>  </div>
+<div class="title">tvm::hint::internal::DiagonalCalculator::Impl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Hint for a substitution that could be done by the solver.  
- <a href="a01175.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/hint/Substitution.h&gt;</code></p>
+<p><code>#include &lt;tvm/hint/internal/DiagonalCalculator.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::hint::internal::DiagonalCalculator::Impl:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01175.png" usemap="#tvm::hint::internal::DiagonalCalculator::Impl_map" alt=""/>
+  <map id="tvm::hint::internal::DiagonalCalculator::Impl_map" name="tvm::hint::internal::DiagonalCalculator::Impl_map">
+<area href="a01159.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. " alt="tvm::hint::abstract::SubstitutionCalculatorImpl" shape="rect" coords="0,0,258,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a55194c52b4053da3ce1e2ee6e5d78be8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a55194c52b4053da3ce1e2ee6e5d78be8">Substitution</a> (<a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr, <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> x, int <a class="el" href="a01175.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a>=<a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a>, const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;calc=<a class="el" href="a01143.html">internal::AutoCalculator</a>())</td></tr>
-<tr class="memdesc:a55194c52b4053da3ce1e2ee6e5d78be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a single constraint and a single variable.  <a href="#a55194c52b4053da3ce1e2ee6e5d78be8">More...</a><br /></td></tr>
-<tr class="separator:a55194c52b4053da3ce1e2ee6e5d78be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8da60f444b20f358d9280a2027067757"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a8da60f444b20f358d9280a2027067757">Substitution</a> (const std::vector&lt; <a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> x, int <a class="el" href="a01175.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a>=<a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a>, const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;calc=<a class="el" href="a01143.html">internal::AutoCalculator</a>())</td></tr>
-<tr class="memdesc:a8da60f444b20f358d9280a2027067757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a set of constraints and a single variable.  <a href="#a8da60f444b20f358d9280a2027067757">More...</a><br /></td></tr>
-<tr class="separator:a8da60f444b20f358d9280a2027067757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af90e547fb92f2ad2619118d5b9211e33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#af90e547fb92f2ad2619118d5b9211e33">Substitution</a> (<a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr, std::vector&lt; <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int <a class="el" href="a01175.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a>=<a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a>, const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;calc=<a class="el" href="a01143.html">internal::AutoCalculator</a>())</td></tr>
-<tr class="memdesc:af90e547fb92f2ad2619118d5b9211e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a single constraint and a set of variables.  <a href="#af90e547fb92f2ad2619118d5b9211e33">More...</a><br /></td></tr>
-<tr class="separator:af90e547fb92f2ad2619118d5b9211e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b7fae6c328d639e872226ea4f809c11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a4b7fae6c328d639e872226ea4f809c11">Substitution</a> (const std::vector&lt; <a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int <a class="el" href="a01175.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a>=<a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a>, const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;calc=<a class="el" href="a01143.html">internal::AutoCalculator</a>())</td></tr>
-<tr class="memdesc:a4b7fae6c328d639e872226ea4f809c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a set of constraints and a set of variables.  <a href="#a4b7fae6c328d639e872226ea4f809c11">More...</a><br /></td></tr>
-<tr class="separator:a4b7fae6c328d639e872226ea4f809c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f3eacd65b9c7b82698f96ee16de510b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a> () const</td></tr>
-<tr class="memdesc:a0f3eacd65b9c7b82698f96ee16de510b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rank of the matrix multiplying <code>x</code>.  <a href="#a0f3eacd65b9c7b82698f96ee16de510b">More...</a><br /></td></tr>
-<tr class="separator:a0f3eacd65b9c7b82698f96ee16de510b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a881f8ab3e4ee31f531957520187f0ee5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a881f8ab3e4ee31f531957520187f0ee5">m</a> () const</td></tr>
-<tr class="memdesc:a881f8ab3e4ee31f531957520187f0ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total (row) size of the constraints.  <a href="#a881f8ab3e4ee31f531957520187f0ee5">More...</a><br /></td></tr>
-<tr class="separator:a881f8ab3e4ee31f531957520187f0ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb474e8d04c2e8031aa01edf5e0e74c9"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#afb474e8d04c2e8031aa01edf5e0e74c9">constraints</a> () const</td></tr>
-<tr class="memdesc:afb474e8d04c2e8031aa01edf5e0e74c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set of constraints used in the substitution.  <a href="#afb474e8d04c2e8031aa01edf5e0e74c9">More...</a><br /></td></tr>
-<tr class="separator:afb474e8d04c2e8031aa01edf5e0e74c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a352a4cddee84363876e25b090a8fe332"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a352a4cddee84363876e25b090a8fe332">variables</a> () const</td></tr>
-<tr class="memdesc:a352a4cddee84363876e25b090a8fe332"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set of variables to substitute.  <a href="#a352a4cddee84363876e25b090a8fe332">More...</a><br /></td></tr>
-<tr class="separator:a352a4cddee84363876e25b090a8fe332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a207f2a8aaf6602a01ca212d0d9670162"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a207f2a8aaf6602a01ca212d0d9670162">isSimple</a> () const</td></tr>
-<tr class="memdesc:a207f2a8aaf6602a01ca212d0d9670162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return <code>true</code> is this subsitution is based on a single constraint and a single variable.  <a href="#a207f2a8aaf6602a01ca212d0d9670162">More...</a><br /></td></tr>
-<tr class="separator:a207f2a8aaf6602a01ca212d0d9670162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7b56ba247a30f5709faca2a380b50e0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="a01135.html">abstract::SubstitutionCalculatorImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#af7b56ba247a30f5709faca2a380b50e0">calculator</a> () const</td></tr>
-<tr class="memdesc:af7b56ba247a30f5709faca2a380b50e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the calculator used by this substitution.  <a href="#af7b56ba247a30f5709faca2a380b50e0">More...</a><br /></td></tr>
-<tr class="separator:af7b56ba247a30f5709faca2a380b50e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e761fcbdc84880bb08c3e45e92eaa2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a9e761fcbdc84880bb08c3e45e92eaa2c">Impl</a> (const std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00371.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int rank, Eigen::DenseIndex first, Eigen::DenseIndex size)</td></tr>
+<tr class="separator:a9e761fcbdc84880bb08c3e45e92eaa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3f8608cbea14c86602f98e725fa9ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a9f3f8608cbea14c86602f98e725fa9ca">Impl</a> (const std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00371.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int rank, const std::vector&lt; Eigen::DenseIndex &gt; &amp;nnzRows, const std::vector&lt; Eigen::DenseIndex &gt; &amp;zeroRows)</td></tr>
+<tr class="separator:a9f3f8608cbea14c86602f98e725fa9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689eb31e7153ede2fc05484c2fd5f012"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#a689eb31e7153ede2fc05484c2fd5f012">update_</a> () override</td></tr>
+<tr class="memdesc:a689eb31e7153ede2fc05484c2fd5f012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for the derived class to perform the computations in <a class="el" href="a01159.html#a9b3f1027103b8e2dab510eeedaae6542" title="Update the internal computations based on the current value of A, i.e the current values of the const...">update()</a>  <a href="#a689eb31e7153ede2fc05484c2fd5f012">More...</a><br /></td></tr>
+<tr class="separator:a689eb31e7153ede2fc05484c2fd5f012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3bd65db2d6831b7d639aa68642699ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#ad3bd65db2d6831b7d639aa68642699ce">premultiplyByASharpAndSTranspose_</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> outA, <a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> outS, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, bool minus) const override</td></tr>
+<tr class="memdesc:ad3bd65db2d6831b7d639aa68642699ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computations for <a class="el" href="a01159.html#a032b040825d5827e0bf23e614bde0b24" title="If  = , perform outA = A^# * in and outS = S^T * in otherwise perform outA = - A^# * in and outS = S^...">premultiplyByASharpAndSTranspose()</a>  <a href="#ad3bd65db2d6831b7d639aa68642699ce">More...</a><br /></td></tr>
+<tr class="separator:ad3bd65db2d6831b7d639aa68642699ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa30bc070d8fedaef48715d5e660ec6f5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01175.html#aa30bc070d8fedaef48715d5e660ec6f5">postMultiplyByN_</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> out, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, bool add) const override</td></tr>
+<tr class="memdesc:aa30bc070d8fedaef48715d5e660ec6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computations for <a class="el" href="a01159.html#af61e705c79429e34d31304acf33ebd6d" title="Compute out = in * N. ">postMultiplyByN()</a>  <a href="#aa30bc070d8fedaef48715d5e660ec6f5">More...</a><br /></td></tr>
+<tr class="separator:aa30bc070d8fedaef48715d5e660ec6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01159"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01159')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01159.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td></tr>
+<tr class="memitem:a254a28c51c7721b8538dff607fc6c76f inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a254a28c51c7721b8538dff607fc6c76f">~SubstitutionCalculatorImpl</a> ()=default</td></tr>
+<tr class="separator:a254a28c51c7721b8538dff607fc6c76f inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3f1027103b8e2dab510eeedaae6542 inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a9b3f1027103b8e2dab510eeedaae6542">update</a> ()</td></tr>
+<tr class="memdesc:a9b3f1027103b8e2dab510eeedaae6542 inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the internal computations based on the current value of A, i.e the current values of the constraints' jacobian matrices.  <a href="a01159.html#a9b3f1027103b8e2dab510eeedaae6542">More...</a><br /></td></tr>
+<tr class="separator:a9b3f1027103b8e2dab510eeedaae6542 inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a032b040825d5827e0bf23e614bde0b24 inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a032b040825d5827e0bf23e614bde0b24">premultiplyByASharpAndSTranspose</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> outA, <a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> outS, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, bool minus) const</td></tr>
+<tr class="memdesc:a032b040825d5827e0bf23e614bde0b24 inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">If  = , perform <code>outA</code> = A^# * <code>in</code> and <code>outS</code> = S^T * <code>in</code> otherwise perform <code>outA</code> = - A^# * <code>in</code> and <code>outS</code> = S^T * <code>in</code>.  <a href="a01159.html#a032b040825d5827e0bf23e614bde0b24">More...</a><br /></td></tr>
+<tr class="separator:a032b040825d5827e0bf23e614bde0b24 inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61e705c79429e34d31304acf33ebd6d inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#af61e705c79429e34d31304acf33ebd6d">postMultiplyByN</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> out, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, bool add=false) const</td></tr>
+<tr class="memdesc:af61e705c79429e34d31304acf33ebd6d inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute <code>out</code> = <code>in</code> * <code>N</code>.  <a href="a01159.html#af61e705c79429e34d31304acf33ebd6d">More...</a><br /></td></tr>
+<tr class="separator:af61e705c79429e34d31304acf33ebd6d inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6ecc1f1bf8418fa3adc69c1ef88bae inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a0a6ecc1f1bf8418fa3adc69c1ef88bae">postMultiplyByN</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> out, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, <a class="el" href="a01267.html">Range</a> <a class="el" href="a01159.html#aaff150bc0554f84b570a3f0cc1f7d07b">r</a>, bool add=false) const</td></tr>
+<tr class="memdesc:a0a6ecc1f1bf8418fa3adc69c1ef88bae inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute <code>out</code> = <code>in</code> * <code>N(r,:)</code>.  <a href="a01159.html#a0a6ecc1f1bf8418fa3adc69c1ef88bae">More...</a><br /></td></tr>
+<tr class="separator:a0a6ecc1f1bf8418fa3adc69c1ef88bae inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4650987880575ea323038e3a7de4bf9d inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">const Eigen::MatrixXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a4650987880575ea323038e3a7de4bf9d">N</a> () const</td></tr>
+<tr class="memdesc:a4650987880575ea323038e3a7de4bf9d inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return N as a dense matrix.  <a href="a01159.html#a4650987880575ea323038e3a7de4bf9d">More...</a><br /></td></tr>
+<tr class="separator:a4650987880575ea323038e3a7de4bf9d inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac6e6321e067d84ce8c2960b254aefa7 inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">Eigen::DenseIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aac6e6321e067d84ce8c2960b254aefa7">m</a> () const</td></tr>
+<tr class="memdesc:aac6e6321e067d84ce8c2960b254aefa7 inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of lines of A (i.e.  <a href="a01159.html#aac6e6321e067d84ce8c2960b254aefa7">More...</a><br /></td></tr>
+<tr class="separator:aac6e6321e067d84ce8c2960b254aefa7 inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f78e6f92de7425d42a13fef25a1759 inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">Eigen::DenseIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a89f78e6f92de7425d42a13fef25a1759">n</a> () const</td></tr>
+<tr class="memdesc:a89f78e6f92de7425d42a13fef25a1759 inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of x (i.e.  <a href="a01159.html#a89f78e6f92de7425d42a13fef25a1759">More...</a><br /></td></tr>
+<tr class="separator:a89f78e6f92de7425d42a13fef25a1759 inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff150bc0554f84b570a3f0cc1f7d07b inherit pub_methods_a01159"><td class="memItemLeft" align="right" valign="top">Eigen::DenseIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aaff150bc0554f84b570a3f0cc1f7d07b">r</a> () const</td></tr>
+<tr class="memdesc:aaff150bc0554f84b570a3f0cc1f7d07b inherit pub_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rank of A.  <a href="a01159.html#aaff150bc0554f84b570a3f0cc1f7d07b">More...</a><br /></td></tr>
+<tr class="separator:aaff150bc0554f84b570a3f0cc1f7d07b inherit pub_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_a01159"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01159')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01159.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td></tr>
+<tr class="memitem:add58af7008f1052793b4e47f3c8b07b9 inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#add58af7008f1052793b4e47f3c8b07b9">SubstitutionCalculatorImpl</a> (const std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;cstr, const std::vector&lt; <a class="el" href="a00371.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;x, int rank)</td></tr>
+<tr class="memdesc:add58af7008f1052793b4e47f3c8b07b9 inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="a01159.html#add58af7008f1052793b4e47f3c8b07b9">More...</a><br /></td></tr>
+<tr class="separator:add58af7008f1052793b4e47f3c8b07b9 inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a21d77a7c86d327c60b8e85952e55f7 inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a8a21d77a7c86d327c60b8e85952e55f7">constant</a> (bool c)</td></tr>
+<tr class="memdesc:a8a21d77a7c86d327c60b8e85952e55f7 inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify wheter A is constant (in which case only the first update will actually perform computations.  <a href="a01159.html#a8a21d77a7c86d327c60b8e85952e55f7">More...</a><br /></td></tr>
+<tr class="separator:a8a21d77a7c86d327c60b8e85952e55f7 inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4922e0eb5abfa1c74337ac87e8392da inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#ac4922e0eb5abfa1c74337ac87e8392da">constant</a> () const</td></tr>
+<tr class="memdesc:ac4922e0eb5abfa1c74337ac87e8392da inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return wheter A is constant.  <a href="a01159.html#ac4922e0eb5abfa1c74337ac87e8392da">More...</a><br /></td></tr>
+<tr class="separator:ac4922e0eb5abfa1c74337ac87e8392da inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02060e824b93abc03d0f800592b9633b inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">const Eigen::MatrixXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a02060e824b93abc03d0f800592b9633b">A</a> () const</td></tr>
+<tr class="memdesc:a02060e824b93abc03d0f800592b9633b inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the matrix A.  <a href="a01159.html#a02060e824b93abc03d0f800592b9633b">More...</a><br /></td></tr>
+<tr class="separator:a02060e824b93abc03d0f800592b9633b inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a04b887506e1435e88f30ea1194a10 inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a42a04b887506e1435e88f30ea1194a10">isSimple</a> () const</td></tr>
+<tr class="memdesc:a42a04b887506e1435e88f30ea1194a10 inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if there is only one variable and one constraint.  <a href="a01159.html#a42a04b887506e1435e88f30ea1194a10">More...</a><br /></td></tr>
+<tr class="separator:a42a04b887506e1435e88f30ea1194a10 inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb2e5f0a604959e78c531cc910f49f3b inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#acb2e5f0a604959e78c531cc910f49f3b">postMultiplyByN_</a> (<a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a> out, const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;in, <a class="el" href="a01267.html">Range</a> <a class="el" href="a01159.html#aaff150bc0554f84b570a3f0cc1f7d07b">r</a>, bool add) const</td></tr>
+<tr class="memdesc:acb2e5f0a604959e78c531cc910f49f3b inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computations for <a class="el" href="a01159.html#af61e705c79429e34d31304acf33ebd6d" title="Compute out = in * N. ">postMultiplyByN()</a>.  <a href="a01159.html#acb2e5f0a604959e78c531cc910f49f3b">More...</a><br /></td></tr>
+<tr class="separator:acb2e5f0a604959e78c531cc910f49f3b inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca77fe3987263fa96fc49628cbeca6f1 inherit pro_methods_a01159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aca77fe3987263fa96fc49628cbeca6f1">fillA</a> ()</td></tr>
+<tr class="memdesc:aca77fe3987263fa96fc49628cbeca6f1 inherit pro_methods_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy in A_ the values of the relevant jacobian matrices.  <a href="a01159.html#aca77fe3987263fa96fc49628cbeca6f1">More...</a><br /></td></tr>
+<tr class="separator:aca77fe3987263fa96fc49628cbeca6f1 inherit pro_methods_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01159"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01159')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01159.html">tvm::hint::abstract::SubstitutionCalculatorImpl</a></td></tr>
+<tr class="memitem:ac9bb9fd150fb555a9e56b4e197784dac inherit pro_attribs_a01159"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#ac9bb9fd150fb555a9e56b4e197784dac">N_</a></td></tr>
+<tr class="memdesc:ac9bb9fd150fb555a9e56b4e197784dac inherit pro_attribs_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">The matrix N.  <a href="a01159.html#ac9bb9fd150fb555a9e56b4e197784dac">More...</a><br /></td></tr>
+<tr class="separator:ac9bb9fd150fb555a9e56b4e197784dac inherit pro_attribs_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0739d1398ecafa28df5472d506c1b28c inherit pro_attribs_a01159"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a0739d1398ecafa28df5472d506c1b28c">constraints_</a></td></tr>
+<tr class="memdesc:a0739d1398ecafa28df5472d506c1b28c inherit pro_attribs_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of constraints.  <a href="a01159.html#a0739d1398ecafa28df5472d506c1b28c">More...</a><br /></td></tr>
+<tr class="separator:a0739d1398ecafa28df5472d506c1b28c inherit pro_attribs_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ecd7a6897eed9a01c05265a274b96c inherit pro_attribs_a01159"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01827.html">VariableVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#af0ecd7a6897eed9a01c05265a274b96c">variables_</a></td></tr>
+<tr class="memdesc:af0ecd7a6897eed9a01c05265a274b96c inherit pro_attribs_a01159"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of variables.  <a href="a01159.html#af0ecd7a6897eed9a01c05265a274b96c">More...</a><br /></td></tr>
+<tr class="separator:af0ecd7a6897eed9a01c05265a274b96c inherit pro_attribs_a01159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Hint for a substitution that could be done by the solver. </p>
-<p>A substitution is a set of variables and a set of constraints used to presolve them, which allow to effectively removing them from the problem. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a55194c52b4053da3ce1e2ee6e5d78be8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55194c52b4053da3ce1e2ee6e5d78be8">&#9670;&nbsp;</a></span>Substitution() <span class="overload">[1/4]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9e761fcbdc84880bb08c3e45e92eaa2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e761fcbdc84880bb08c3e45e92eaa2c">&#9670;&nbsp;</a></span>Impl() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::hint::Substitution::Substitution </td>
+          <td class="memname">tvm::hint::internal::DiagonalCalculator::Impl::Impl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>cstr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00371.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rank</em> = <code><a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a></code>, </td>
+          <td class="paramname"><em>rank</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;&#160;</td>
-          <td class="paramname"><em>calc</em> = <code><a class="el" href="a01143.html">internal::AutoCalculator</a>()</code>&#160;</td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::DenseIndex&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -176,50 +230,43 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor for a single constraint and a single variable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cstr</td><td>The constraint used for the substitution. </td></tr>
-    <tr><td class="paramname">x</td><td>The variable to substitute. </td></tr>
-    <tr><td class="paramname">rank</td><td>the rank of the matrix multiplying <code>x</code>. By default it is the row size of this matrix. </td></tr>
-    <tr><td class="paramname">calc</td><td>A class that performs matrix operations related to the substitution </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01131.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. ">tvm::hint::abstract::SubstitutionCalculator</a>, <a class="el" href="a01135.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. ">tvm::hint::abstract::SubstitutionCalculatorImpl</a></dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>Rank matters and is supposed to be fixed. This is because it is influencing the size of other matrices in the problem. However, the matrix doesn't need to be full rank. </dd></dl>
-
 </div>
 </div>
-<a id="a8da60f444b20f358d9280a2027067757"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8da60f444b20f358d9280a2027067757">&#9670;&nbsp;</a></span>Substitution() <span class="overload">[2/4]</span></h2>
+<a id="a9f3f8608cbea14c86602f98e725fa9ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f3f8608cbea14c86602f98e725fa9ca">&#9670;&nbsp;</a></span>Impl() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::hint::Substitution::Substitution </td>
+          <td class="memname">tvm::hint::internal::DiagonalCalculator::Impl::Impl </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>cstr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a00371.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rank</em> = <code><a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a></code>, </td>
+          <td class="paramname"><em>rank</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;&#160;</td>
-          <td class="paramname"><em>calc</em> = <code><a class="el" href="a01143.html">internal::AutoCalculator</a>()</code>&#160;</td>
+          <td class="paramtype">const std::vector&lt; Eigen::DenseIndex &gt; &amp;&#160;</td>
+          <td class="paramname"><em>nnzRows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; Eigen::DenseIndex &gt; &amp;&#160;</td>
+          <td class="paramname"><em>zeroRows</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -228,240 +275,134 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Constructor for a set of constraints and a single variable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cstr</td><td>The set of constraints used for the substitution. </td></tr>
-    <tr><td class="paramname">x</td><td>The variable to substitute. </td></tr>
-    <tr><td class="paramname">rank</td><td>the rank of the matrix multiplying <code>x</code> obtained by stacking the matrices in factor of <code>x</code> in each constraint. By default it is the row size of this matrix. </td></tr>
-    <tr><td class="paramname">calc</td><td>A class that performs matrix operations related to the substitution </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01131.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. ">tvm::hint::abstract::SubstitutionCalculator</a>, <a class="el" href="a01135.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. ">tvm::hint::abstract::SubstitutionCalculatorImpl</a></dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>Rank matters and is supposed to be fixed. This is because it is influencing the size of other matrices in the problem. However, the matrix doesn't need to be full rank. </dd></dl>
-
-</div>
-</div>
-<a id="af90e547fb92f2ad2619118d5b9211e33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af90e547fb92f2ad2619118d5b9211e33">&#9670;&nbsp;</a></span>Substitution() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::hint::Substitution::Substitution </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
-          <td class="paramname"><em>cstr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rank</em> = <code><a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;&#160;</td>
-          <td class="paramname"><em>calc</em> = <code><a class="el" href="a01143.html">internal::AutoCalculator</a>()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor for a single constraint and a set of variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cstr</td><td>The constraint used for the substitution. </td></tr>
-    <tr><td class="paramname">x</td><td>The set variables to substitute. </td></tr>
-    <tr><td class="paramname">rank</td><td>the rank of the matrices multiplying <code>x</code> obtained by concatening the matrices in front of each <code>xi</code>. By default it is the row size of this matrix. </td></tr>
-    <tr><td class="paramname">calc</td><td>A class that performs matrix operations related to the substitution </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01131.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. ">tvm::hint::abstract::SubstitutionCalculator</a>, <a class="el" href="a01135.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. ">tvm::hint::abstract::SubstitutionCalculatorImpl</a></dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>Rank matters and is supposed to be fixed. This is because it is influencing the size of other matrices in the problem. However, the matrix doesn't need to be full rank. </dd></dl>
-
-</div>
-</div>
-<a id="a4b7fae6c328d639e872226ea4f809c11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b7fae6c328d639e872226ea4f809c11">&#9670;&nbsp;</a></span>Substitution() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::hint::Substitution::Substitution </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>cstr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rank</em> = <code><a class="el" href="a00368.html#a0e46dc26c7ee9d3faf743cacf02265d1">constant::fullRank</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01131.html">abstract::SubstitutionCalculator</a> &amp;&#160;</td>
-          <td class="paramname"><em>calc</em> = <code><a class="el" href="a01143.html">internal::AutoCalculator</a>()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor for a set of constraints and a set of variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cstr</td><td>The set of constraints used for the substitution. </td></tr>
-    <tr><td class="paramname">x</td><td>The set variables to substitute. </td></tr>
-    <tr><td class="paramname">rank</td><td>the rank of the matrix multiplying <code>x</code>, i.e the agreggation of all the matrices in front of the <code>xi</code> in all the constraints. By default, it is the row size of this matrix. </td></tr>
-    <tr><td class="paramname">calc</td><td>A class that performs matrix operations related to the substitution </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01131.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. ">tvm::hint::abstract::SubstitutionCalculator</a>, <a class="el" href="a01135.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. ">tvm::hint::abstract::SubstitutionCalculatorImpl</a></dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>Rank matters and is supposed to be fixed. This is because it is influencing the size of other matrices in the problem. However, the matrix doesn't need to be full rank. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af7b56ba247a30f5709faca2a380b50e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7b56ba247a30f5709faca2a380b50e0">&#9670;&nbsp;</a></span>calculator()</h2>
+<a id="aa30bc070d8fedaef48715d5e660ec6f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa30bc070d8fedaef48715d5e660ec6f5">&#9670;&nbsp;</a></span>postMultiplyByN_()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="a01135.html">abstract::SubstitutionCalculatorImpl</a>&gt; tvm::hint::Substitution::calculator </td>
+          <td class="memname">virtual void tvm::hint::internal::DiagonalCalculator::Impl::postMultiplyByN_ </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a>&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>add</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Return the calculator used by this substitution. </p>
+<p>Computations for <a class="el" href="a01159.html#af61e705c79429e34d31304acf33ebd6d" title="Compute out = in * N. ">postMultiplyByN()</a> </p>
+
+<p>Reimplemented from <a class="el" href="a01159.html#ae1f2154e019a2a63e610f9d855582ace">tvm::hint::abstract::SubstitutionCalculatorImpl</a>.</p>
 
 </div>
 </div>
-<a id="afb474e8d04c2e8031aa01edf5e0e74c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb474e8d04c2e8031aa01edf5e0e74c9">&#9670;&nbsp;</a></span>constraints()</h2>
+<a id="ad3bd65db2d6831b7d639aa68642699ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3bd65db2d6831b7d639aa68642699ce">&#9670;&nbsp;</a></span>premultiplyByASharpAndSTranspose_()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;<a class="el" href="a00359.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&gt;&amp; tvm::hint::Substitution::constraints </td>
+          <td class="memname">virtual void tvm::hint::internal::DiagonalCalculator::Impl::premultiplyByASharpAndSTranspose_ </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a>&#160;</td>
+          <td class="paramname"><em>outA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00371.html#adcb821eec4218eb93e3faf0d8a751171">MatrixRef</a>&#160;</td>
+          <td class="paramname"><em>outS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00371.html#af4fdc88306faf6e863cff28f44459ec8">MatrixConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>minus</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The set of constraints used in the substitution. </p>
+<p>Computations for <a class="el" href="a01159.html#a032b040825d5827e0bf23e614bde0b24" title="If  = , perform outA = A^# * in and outS = S^T * in otherwise perform outA = - A^# * in and outS = S^...">premultiplyByASharpAndSTranspose()</a> </p>
+
+<p>Implements <a class="el" href="a01159.html#ab08f8832118ffb4dbbe481ae2b35c6a0">tvm::hint::abstract::SubstitutionCalculatorImpl</a>.</p>
 
 </div>
 </div>
-<a id="a207f2a8aaf6602a01ca212d0d9670162"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a207f2a8aaf6602a01ca212d0d9670162">&#9670;&nbsp;</a></span>isSimple()</h2>
+<a id="a689eb31e7153ede2fc05484c2fd5f012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689eb31e7153ede2fc05484c2fd5f012">&#9670;&nbsp;</a></span>update_()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::hint::Substitution::isSimple </td>
+          <td class="memname">virtual void tvm::hint::internal::DiagonalCalculator::Impl::update_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Return <code>true</code> is this subsitution is based on a single constraint and a single variable. </p>
+<p>Handle for the derived class to perform the computations in <a class="el" href="a01159.html#a9b3f1027103b8e2dab510eeedaae6542" title="Update the internal computations based on the current value of A, i.e the current values of the const...">update()</a> </p>
 
-</div>
-</div>
-<a id="a881f8ab3e4ee31f531957520187f0ee5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a881f8ab3e4ee31f531957520187f0ee5">&#9670;&nbsp;</a></span>m()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int tvm::hint::Substitution::m </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The total (row) size of the constraints. </p>
-
-</div>
-</div>
-<a id="a0f3eacd65b9c7b82698f96ee16de510b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f3eacd65b9c7b82698f96ee16de510b">&#9670;&nbsp;</a></span>rank()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int tvm::hint::Substitution::rank </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The rank of the matrix multiplying <code>x</code>. </p>
-
-</div>
-</div>
-<a id="a352a4cddee84363876e25b090a8fe332"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a352a4cddee84363876e25b090a8fe332">&#9670;&nbsp;</a></span>variables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;<a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&gt;&amp; tvm::hint::Substitution::variables </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The set of variables to substitute. </p>
+<p>Implements <a class="el" href="a01159.html#a97f87d4f36604e55752c648ab1663069">tvm::hint::abstract::SubstitutionCalculatorImpl</a>.</p>
 
 </div>
 </div>
@@ -471,8 +412,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00376.html">hint</a></li><li class="navelem"><a class="el" href="a01175.html">Substitution</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00388.html">hint</a></li><li class="navelem"><a class="el" href="a00390.html">internal</a></li><li class="navelem"><a class="el" href="a01171.html">DiagonalCalculator</a></li><li class="navelem"><a class="el" href="a01175.html">Impl</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

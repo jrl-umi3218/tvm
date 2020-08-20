@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::Robot Class Reference</title>
+<title>TVM: tvm::robot::Frame Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,363 +92,272 @@ $(document).ready(function(){initNavTree('a01339.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01336.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::Robot Class Reference</div>  </div>
+<div class="title">tvm::robot::Frame Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represent a <a class="el" href="a01339.html" title="Represent a Robot. ">Robot</a>.  
+<p>A frame belonging to a robot.  
  <a href="a01339.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/Robot.h&gt;</code></p>
+<p><code>#include &lt;tvm/robot/Frame.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::Robot:</div>
+Inheritance diagram for tvm::robot::Frame:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01339.png" usemap="#tvm::Robot_map" alt=""/>
-  <map id="tvm::Robot_map" name="tvm::Robot_map">
-<area href="a01031.html" alt="tvm::graph::abstract::Node&lt; Robot &gt;" shape="rect" coords="111,112,324,136"/>
-<area href="a01071.html" title="An abstract node is the structure stored in the call graph to hide away the actual type of the node..." alt="tvm::graph::internal::AbstractNode" shape="rect" coords="111,56,324,80"/>
-<area href="a01079.html" title="Inputs store a list of Outputs and the required output signals. " alt="tvm::graph::internal::Inputs" shape="rect" coords="0,0,213,24"/>
-<area href="a01035.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. " alt="tvm::graph::abstract::Outputs" shape="rect" coords="223,0,436,24"/>
+  <img src="a01339.png" usemap="#tvm::robot::Frame_map" alt=""/>
+  <map id="tvm::robot::Frame_map" name="tvm::robot::Frame_map">
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; Frame &gt;" shape="rect" coords="113,112,330,136"/>
+<area href="a01087.html" title="An abstract node is the structure stored in the call graph to hide away the actual type of the node..." alt="tvm::graph::internal::AbstractNode" shape="rect" coords="113,56,330,80"/>
+<area href="a01103.html" title="Inputs store a list of Outputs and the required output signals. " alt="tvm::graph::internal::Inputs" shape="rect" coords="0,0,217,24"/>
+<area href="a01051.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. " alt="tvm::graph::abstract::Outputs" shape="rect" coords="227,0,444,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad2bf2e0ca3c6e492c4df0e10ab94a342"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ad2bf2e0ca3c6e492c4df0e10ab94a342">Robot</a> (<a class="el" href="a00939.html">Clock</a> &amp;clock, const std::string &amp;<a class="el" href="a01339.html#ae626a4c93e130c8f728a88c9784b3ed9">name</a>, rbd::MultiBodyGraph &amp;mbg, rbd::MultiBody <a class="el" href="a01339.html#ac372f0bcefd2263fd2bb2bf13a4559b7">mb</a>, rbd::MultiBodyConfig <a class="el" href="a01339.html#acfe90640af7ddc39c9f2cfd0ff5b1b4b">mbc</a>, const rbd::parsers::Limits &amp;limits={{},{},{},{}})</td></tr>
-<tr class="memdesc:ad2bf2e0ca3c6e492c4df0e10ab94a342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad2bf2e0ca3c6e492c4df0e10ab94a342">More...</a><br /></td></tr>
-<tr class="separator:ad2bf2e0ca3c6e492c4df0e10ab94a342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae626a4c93e130c8f728a88c9784b3ed9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ae626a4c93e130c8f728a88c9784b3ed9">name</a> () const</td></tr>
-<tr class="memdesc:ae626a4c93e130c8f728a88c9784b3ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's name.  <a href="#ae626a4c93e130c8f728a88c9784b3ed9">More...</a><br /></td></tr>
-<tr class="separator:ae626a4c93e130c8f728a88c9784b3ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac36ab193f2d533130dc33daa816d35b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#aac36ab193f2d533130dc33daa816d35b">mass</a> () const</td></tr>
-<tr class="memdesc:aac36ab193f2d533130dc33daa816d35b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the robot's mass.  <a href="#aac36ab193f2d533130dc33daa816d35b">More...</a><br /></td></tr>
-<tr class="separator:aac36ab193f2d533130dc33daa816d35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1e9a931383d7d9c6f3ab89800102c69"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01779.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ab1e9a931383d7d9c6f3ab89800102c69">q</a> () const</td></tr>
-<tr class="memdesc:ab1e9a931383d7d9c6f3ab89800102c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access q variable (const)  <a href="#ab1e9a931383d7d9c6f3ab89800102c69">More...</a><br /></td></tr>
-<tr class="separator:ab1e9a931383d7d9c6f3ab89800102c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e8726a979baab49f6dcc6e1744f8406"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01779.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a4e8726a979baab49f6dcc6e1744f8406">q</a> ()</td></tr>
-<tr class="memdesc:a4e8726a979baab49f6dcc6e1744f8406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access q variable.  <a href="#a4e8726a979baab49f6dcc6e1744f8406">More...</a><br /></td></tr>
-<tr class="separator:a4e8726a979baab49f6dcc6e1744f8406"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64691afca2a00f1e1afe26742803f7bf"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a64691afca2a00f1e1afe26742803f7bf">qFreeFlyer</a> () const</td></tr>
-<tr class="memdesc:a64691afca2a00f1e1afe26742803f7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access free-flyer variable (const)  <a href="#a64691afca2a00f1e1afe26742803f7bf">More...</a><br /></td></tr>
-<tr class="separator:a64691afca2a00f1e1afe26742803f7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebbd5abff07e8e7bf8b5f2ba924b06fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#aebbd5abff07e8e7bf8b5f2ba924b06fb">qFreeFlyer</a> ()</td></tr>
-<tr class="memdesc:aebbd5abff07e8e7bf8b5f2ba924b06fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access free-flyer variable.  <a href="#aebbd5abff07e8e7bf8b5f2ba924b06fb">More...</a><br /></td></tr>
-<tr class="separator:aebbd5abff07e8e7bf8b5f2ba924b06fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ed09fbb014009fd826527a430db37c3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a5ed09fbb014009fd826527a430db37c3">qJoints</a> () const</td></tr>
-<tr class="memdesc:a5ed09fbb014009fd826527a430db37c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access joints variable (const)  <a href="#a5ed09fbb014009fd826527a430db37c3">More...</a><br /></td></tr>
-<tr class="separator:a5ed09fbb014009fd826527a430db37c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aced0dbf0215b5367f5c8ec0ce85fa694"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#aced0dbf0215b5367f5c8ec0ce85fa694">qJoints</a> ()</td></tr>
-<tr class="memdesc:aced0dbf0215b5367f5c8ec0ce85fa694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access joints variable.  <a href="#aced0dbf0215b5367f5c8ec0ce85fa694">More...</a><br /></td></tr>
-<tr class="separator:aced0dbf0215b5367f5c8ec0ce85fa694"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46d251c77a1382d17a10f13b364f3c02"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a46d251c77a1382d17a10f13b364f3c02">tau</a> () const</td></tr>
-<tr class="memdesc:a46d251c77a1382d17a10f13b364f3c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access tau variable (const)  <a href="#a46d251c77a1382d17a10f13b364f3c02">More...</a><br /></td></tr>
-<tr class="separator:a46d251c77a1382d17a10f13b364f3c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b65ccdf6d05c34cc24f405b6ed5b99f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a8b65ccdf6d05c34cc24f405b6ed5b99f">tau</a> ()</td></tr>
-<tr class="memdesc:a8b65ccdf6d05c34cc24f405b6ed5b99f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access tau variable.  <a href="#a8b65ccdf6d05c34cc24f405b6ed5b99f">More...</a><br /></td></tr>
-<tr class="separator:a8b65ccdf6d05c34cc24f405b6ed5b99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac372f0bcefd2263fd2bb2bf13a4559b7"><td class="memItemLeft" align="right" valign="top">const rbd::MultiBody &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ac372f0bcefd2263fd2bb2bf13a4559b7">mb</a> () const</td></tr>
-<tr class="memdesc:ac372f0bcefd2263fd2bb2bf13a4559b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's related rbd::MultiBody (const)  <a href="#ac372f0bcefd2263fd2bb2bf13a4559b7">More...</a><br /></td></tr>
-<tr class="separator:ac372f0bcefd2263fd2bb2bf13a4559b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00ac99ab0d7a0bdbf79b8e6d5b281a07"><td class="memItemLeft" align="right" valign="top">rbd::MultiBody &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a00ac99ab0d7a0bdbf79b8e6d5b281a07">mb</a> ()</td></tr>
-<tr class="memdesc:a00ac99ab0d7a0bdbf79b8e6d5b281a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's related rbd::MultiBody.  <a href="#a00ac99ab0d7a0bdbf79b8e6d5b281a07">More...</a><br /></td></tr>
-<tr class="separator:a00ac99ab0d7a0bdbf79b8e6d5b281a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfe90640af7ddc39c9f2cfd0ff5b1b4b"><td class="memItemLeft" align="right" valign="top">const rbd::MultiBodyConfig &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#acfe90640af7ddc39c9f2cfd0ff5b1b4b">mbc</a> () const</td></tr>
-<tr class="memdesc:acfe90640af7ddc39c9f2cfd0ff5b1b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's related rbd::MultiBodyConfig (const)  <a href="#acfe90640af7ddc39c9f2cfd0ff5b1b4b">More...</a><br /></td></tr>
-<tr class="separator:acfe90640af7ddc39c9f2cfd0ff5b1b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44ed6ad1537057db552f8dd9f2a85ef7"><td class="memItemLeft" align="right" valign="top">rbd::MultiBodyConfig &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a44ed6ad1537057db552f8dd9f2a85ef7">mbc</a> ()</td></tr>
-<tr class="memdesc:a44ed6ad1537057db552f8dd9f2a85ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's related rbd::MultiBodyConfig.  <a href="#a44ed6ad1537057db552f8dd9f2a85ef7">More...</a><br /></td></tr>
-<tr class="separator:a44ed6ad1537057db552f8dd9f2a85ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58cb743d5fde666eb98a8b2f7d7b781c"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; sva::MotionVecd &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a58cb743d5fde666eb98a8b2f7d7b781c">normalAccB</a> () const</td></tr>
-<tr class="memdesc:a58cb743d5fde666eb98a8b2f7d7b781c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the vector of normal acceleration expressed in the body's frame (const)  <a href="#a58cb743d5fde666eb98a8b2f7d7b781c">More...</a><br /></td></tr>
-<tr class="separator:a58cb743d5fde666eb98a8b2f7d7b781c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c77f287a481ed47eee0fa85dd75abfb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; sva::MotionVecd &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a9c77f287a481ed47eee0fa85dd75abfb">normalAccB</a> ()</td></tr>
-<tr class="memdesc:a9c77f287a481ed47eee0fa85dd75abfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the vector of normal acceleration expressed in the body's frame.  <a href="#a9c77f287a481ed47eee0fa85dd75abfb">More...</a><br /></td></tr>
-<tr class="separator:a9c77f287a481ed47eee0fa85dd75abfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a056dd0be4b10ef2a35760100a2ee7f7e"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a056dd0be4b10ef2a35760100a2ee7f7e">lQBound</a> () const</td></tr>
-<tr class="memdesc:a056dd0be4b10ef2a35760100a2ee7f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' lower position limit (const)  <a href="#a056dd0be4b10ef2a35760100a2ee7f7e">More...</a><br /></td></tr>
-<tr class="separator:a056dd0be4b10ef2a35760100a2ee7f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09a42da48cebaa8e51794e3af6b9d2a8"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a09a42da48cebaa8e51794e3af6b9d2a8">lQBound</a> ()</td></tr>
-<tr class="memdesc:a09a42da48cebaa8e51794e3af6b9d2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' lower position limit.  <a href="#a09a42da48cebaa8e51794e3af6b9d2a8">More...</a><br /></td></tr>
-<tr class="separator:a09a42da48cebaa8e51794e3af6b9d2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57e68ad7f29273d03f822123d31abfb7"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a57e68ad7f29273d03f822123d31abfb7">uQBound</a> () const</td></tr>
-<tr class="memdesc:a57e68ad7f29273d03f822123d31abfb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' upper position limit (const)  <a href="#a57e68ad7f29273d03f822123d31abfb7">More...</a><br /></td></tr>
-<tr class="separator:a57e68ad7f29273d03f822123d31abfb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e661897d3b93d559e0e5325442a2dfd"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a4e661897d3b93d559e0e5325442a2dfd">uQBound</a> ()</td></tr>
-<tr class="memdesc:a4e661897d3b93d559e0e5325442a2dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' upper position limit.  <a href="#a4e661897d3b93d559e0e5325442a2dfd">More...</a><br /></td></tr>
-<tr class="separator:a4e661897d3b93d559e0e5325442a2dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c0015be7272306da0f69861e959acf4"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a3c0015be7272306da0f69861e959acf4">lVelBound</a> () const</td></tr>
-<tr class="memdesc:a3c0015be7272306da0f69861e959acf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' lower velocity limit (const)  <a href="#a3c0015be7272306da0f69861e959acf4">More...</a><br /></td></tr>
-<tr class="separator:a3c0015be7272306da0f69861e959acf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1879757837b6f71adb2639f8525a4189"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a1879757837b6f71adb2639f8525a4189">lVelBound</a> ()</td></tr>
-<tr class="memdesc:a1879757837b6f71adb2639f8525a4189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' lower velocity limit.  <a href="#a1879757837b6f71adb2639f8525a4189">More...</a><br /></td></tr>
-<tr class="separator:a1879757837b6f71adb2639f8525a4189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05697d7bfbca4f0aa67a857bc6bcd764"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a05697d7bfbca4f0aa67a857bc6bcd764">uVelBound</a> () const</td></tr>
-<tr class="memdesc:a05697d7bfbca4f0aa67a857bc6bcd764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' upper velocity limit (const)  <a href="#a05697d7bfbca4f0aa67a857bc6bcd764">More...</a><br /></td></tr>
-<tr class="separator:a05697d7bfbca4f0aa67a857bc6bcd764"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad464236a0b6acb8d8183caa86ab7eaf6"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ad464236a0b6acb8d8183caa86ab7eaf6">uVelBound</a> ()</td></tr>
-<tr class="memdesc:ad464236a0b6acb8d8183caa86ab7eaf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the joints' upper velocity limit.  <a href="#ad464236a0b6acb8d8183caa86ab7eaf6">More...</a><br /></td></tr>
-<tr class="separator:ad464236a0b6acb8d8183caa86ab7eaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8ff2cdee502fa8b34b14b94fc2f31e3"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ad8ff2cdee502fa8b34b14b94fc2f31e3">lTauBound</a> () const</td></tr>
-<tr class="memdesc:ad8ff2cdee502fa8b34b14b94fc2f31e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's lower torque limit (const)  <a href="#ad8ff2cdee502fa8b34b14b94fc2f31e3">More...</a><br /></td></tr>
-<tr class="separator:ad8ff2cdee502fa8b34b14b94fc2f31e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a386b08dd3bf3d9fe319061b15f3794af"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a386b08dd3bf3d9fe319061b15f3794af">lTauBound</a> ()</td></tr>
-<tr class="memdesc:a386b08dd3bf3d9fe319061b15f3794af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's lower torque limit.  <a href="#a386b08dd3bf3d9fe319061b15f3794af">More...</a><br /></td></tr>
-<tr class="separator:a386b08dd3bf3d9fe319061b15f3794af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d0328f7cdacdbc5dbb66e05c0a922bf"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a7d0328f7cdacdbc5dbb66e05c0a922bf">uTauBound</a> () const</td></tr>
-<tr class="memdesc:a7d0328f7cdacdbc5dbb66e05c0a922bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's upper torque limit (const)  <a href="#a7d0328f7cdacdbc5dbb66e05c0a922bf">More...</a><br /></td></tr>
-<tr class="separator:a7d0328f7cdacdbc5dbb66e05c0a922bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48d5f6c161d5e7db67c097494f8c54bd"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a48d5f6c161d5e7db67c097494f8c54bd">uTauBound</a> ()</td></tr>
-<tr class="memdesc:a48d5f6c161d5e7db67c097494f8c54bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot's upper torque limit.  <a href="#a48d5f6c161d5e7db67c097494f8c54bd">More...</a><br /></td></tr>
-<tr class="separator:a48d5f6c161d5e7db67c097494f8c54bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a482747ba5d6f2816f365950b9837df0b"><td class="memItemLeft" align="right" valign="top">const Eigen::MatrixXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a482747ba5d6f2816f365950b9837df0b">H</a> () const</td></tr>
-<tr class="memdesc:a482747ba5d6f2816f365950b9837df0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the inertia matrix.  <a href="#a482747ba5d6f2816f365950b9837df0b">More...</a><br /></td></tr>
-<tr class="separator:a482747ba5d6f2816f365950b9837df0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bee0bc9884664793305f13974011d00"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a5bee0bc9884664793305f13974011d00">C</a> () const</td></tr>
-<tr class="memdesc:a5bee0bc9884664793305f13974011d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the non-linear effect vector.  <a href="#a5bee0bc9884664793305f13974011d00">More...</a><br /></td></tr>
-<tr class="separator:a5bee0bc9884664793305f13974011d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8cb56d567b017f10cf0ea9938e7375d"><td class="memItemLeft" align="right" valign="top">const Eigen::Vector3d &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ac8cb56d567b017f10cf0ea9938e7375d">com</a> () const</td></tr>
-<tr class="memdesc:ac8cb56d567b017f10cf0ea9938e7375d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the CoM position.  <a href="#ac8cb56d567b017f10cf0ea9938e7375d">More...</a><br /></td></tr>
-<tr class="separator:ac8cb56d567b017f10cf0ea9938e7375d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae737814e27817c0336446e3a5951c7c0"><td class="memItemLeft" align="right" valign="top">const sva::PTransformd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ae737814e27817c0336446e3a5951c7c0">bodyTransform</a> (const std::string &amp;b) const</td></tr>
-<tr class="memdesc:ae737814e27817c0336446e3a5951c7c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the transformation that allows to retrieve the original base of a body.  <a href="#ae737814e27817c0336446e3a5951c7c0">More...</a><br /></td></tr>
-<tr class="separator:ae737814e27817c0336446e3a5951c7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01071"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01071')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01071"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
-<tr class="memitem:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01071"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01071.html#a6bbb3a8c43895a4f8d270100aedcb82c">isUpdateEnabled</a> (EnumT e) const</td></tr>
-<tr class="memdesc:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled, be it at the class (static) or instance (dynamic) level).  <a href="a01071.html#a6bbb3a8c43895a4f8d270100aedcb82c">More...</a><br /></td></tr>
-<tr class="separator:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01071"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#ab5c43e0a081f5622ded1ff5693f4ab6d">isUpdateStaticallyEnabled</a> (int) const</td></tr>
-<tr class="memdesc:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled at the class level (run-time).  <a href="a01071.html#ab5c43e0a081f5622ded1ff5693f4ab6d">More...</a><br /></td></tr>
-<tr class="separator:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01071"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a211ec74b66961ad450511ccf07a8082c">isUpdateCustomEnabled</a> (int) const</td></tr>
-<tr class="memdesc:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if an update is enabled given a custom criterion.  <a href="a01071.html#a211ec74b66961ad450511ccf07a8082c">More...</a><br /></td></tr>
-<tr class="separator:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30cd15a0a35da061802335616544e195 inherit pub_methods_a01071"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a30cd15a0a35da061802335616544e195">~AbstractNode</a> ()=default</td></tr>
-<tr class="separator:a30cd15a0a35da061802335616544e195 inherit pub_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01071"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#aa33b9554a9a9f835cda51e12ddc101bc">update</a> (int i)</td></tr>
-<tr class="memdesc:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the function stored at index i.  <a href="a01071.html#aa33b9554a9a9f835cda51e12ddc101bc">More...</a><br /></td></tr>
-<tr class="separator:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01079"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01079')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01079.html">tvm::graph::internal::Inputs</a></td></tr>
-<tr class="memitem:aee57010cd59189302e03828097aad3a3 inherit pub_methods_a01079"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html#aee57010cd59189302e03828097aad3a3">~Inputs</a> ()=default</td></tr>
-<tr class="separator:aee57010cd59189302e03828097aad3a3 inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args&gt; </td></tr>
-<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#afd28cb6b0518021d7cb3ca6b1d434810">addInput</a> (std::shared_ptr&lt; T &gt; source, EnumI i, Args ... args)</td></tr>
-<tr class="memdesc:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="a01079.html#afd28cb6b0518021d7cb3ca6b1d434810">More...</a><br /></td></tr>
-<tr class="separator:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args, typename std::enable_if&lt; std::is_base_of&lt; abstract::Outputs, T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
-<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#adfca69bc37336a6f8040a38d1e52b33f">addInput</a> (T &amp;source, EnumI i, Args ... args)</td></tr>
-<tr class="memdesc:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="a01079.html#adfca69bc37336a6f8040a38d1e52b33f">More...</a><br /></td></tr>
-<tr class="separator:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a> (T *source)</td></tr>
-<tr class="memdesc:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all outputs from a given Output object.  <a href="a01079.html#ad60a58128da7e4cdafba2e4ae358a23b">More...</a><br /></td></tr>
-<tr class="separator:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T , typename ... Args&gt; </td></tr>
-<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#a83c340d294e0e092e8a1ecfe4b94be70">removeInput</a> (T *source, Args ... args)</td></tr>
-<tr class="memdesc:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove outputs from a given Output object.  <a href="a01079.html#a83c340d294e0e092e8a1ecfe4b94be70">More...</a><br /></td></tr>
-<tr class="separator:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01083.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a> (T *source)</td></tr>
-<tr class="memdesc:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="a01079.html#aa460986cd8bbf0060ed476a8625aeac0">More...</a><br /></td></tr>
-<tr class="separator:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01079"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01079"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01083.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01079.html#ae18f52958730844f8f29f727ca89e112">getInput</a> (const std::shared_ptr&lt; T &gt; &amp;source)</td></tr>
-<tr class="memdesc:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="a01079.html#ae18f52958730844f8f29f727ca89e112">More...</a><br /></td></tr>
-<tr class="separator:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01035"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01035')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01035.html">tvm::graph::abstract::Outputs</a></td></tr>
-<tr class="memitem:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01035"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a3c7c267d448dea54dfc3e6ab64e07f60">~Outputs</a> ()=default</td></tr>
-<tr class="separator:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01035"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
-<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01035"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01035.html#a0f1f636c33817fa12f4162f692cb381b">isOutputEnabled</a> (EnumT e) const</td></tr>
-<tr class="memdesc:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled, be it at the class (static) or instance (dynamic) level).  <a href="a01035.html#a0f1f636c33817fa12f4162f692cb381b">More...</a><br /></td></tr>
-<tr class="separator:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01035"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a9906689532225c28da9490e2b8eb0ced">isOutputEnabled</a> (int i) const</td></tr>
-<tr class="memdesc:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as above, but taking int, for conveniency.  <a href="a01035.html#a9906689532225c28da9490e2b8eb0ced">More...</a><br /></td></tr>
-<tr class="separator:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01035"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a6aba2d7e20119b41b6895f5406795a3b">isOutputStaticallyEnabled</a> (int) const</td></tr>
-<tr class="memdesc:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (run-time).  <a href="a01035.html#a6aba2d7e20119b41b6895f5406795a3b">More...</a><br /></td></tr>
-<tr class="separator:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01035"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#afc310e1cf7c222ce1c71ad5cc51c6db5">isOutputCustomEnabled</a> (int) const</td></tr>
-<tr class="memdesc:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if an output is enabled given a custom criterion.  <a href="a01035.html#afc310e1cf7c222ce1c71ad5cc51c6db5">More...</a><br /></td></tr>
-<tr class="separator:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635eac920668a3109a1e3230938a857d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a635eac920668a3109a1e3230938a857d">Frame</a> (std::string <a class="el" href="a01339.html#accce1b0aeee4a0493a6025e760b74467">name</a>, <a class="el" href="a00371.html#a003ca276319664eb1bd64c0b25b99509">RobotPtr</a> <a class="el" href="a01339.html#a2ea6528157b5a187b6ede16f07790828">robot</a>, const std::string &amp;<a class="el" href="a01339.html#a7c7b11383a5c05cb593075f1b838c416">body</a>, sva::PTransformd X_b_f)</td></tr>
+<tr class="memdesc:a635eac920668a3109a1e3230938a857d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a635eac920668a3109a1e3230938a857d">More...</a><br /></td></tr>
+<tr class="separator:a635eac920668a3109a1e3230938a857d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea6528157b5a187b6ede16f07790828"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01375.html">Robot</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a2ea6528157b5a187b6ede16f07790828">robot</a> () const</td></tr>
+<tr class="memdesc:a2ea6528157b5a187b6ede16f07790828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot to which this frame belongs (const)  <a href="#a2ea6528157b5a187b6ede16f07790828">More...</a><br /></td></tr>
+<tr class="separator:a2ea6528157b5a187b6ede16f07790828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa040bc0a29a67780311c8533d68faea5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01375.html">Robot</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#aa040bc0a29a67780311c8533d68faea5">robot</a> ()</td></tr>
+<tr class="memdesc:aa040bc0a29a67780311c8533d68faea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the robot to which this frame belongs.  <a href="#aa040bc0a29a67780311c8533d68faea5">More...</a><br /></td></tr>
+<tr class="separator:aa040bc0a29a67780311c8533d68faea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3670aba0d9280524c6e18cea389cad15"><td class="memItemLeft" align="right" valign="top">rbd::Jacobian &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a3670aba0d9280524c6e18cea389cad15">rbdJacobian</a> ()</td></tr>
+<tr class="memdesc:a3670aba0d9280524c6e18cea389cad15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the internal Jacobian object to perform extra-computation.  <a href="#a3670aba0d9280524c6e18cea389cad15">More...</a><br /></td></tr>
+<tr class="separator:a3670aba0d9280524c6e18cea389cad15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac35b94cce92a068d02945ab7c87fd532"><td class="memItemLeft" align="right" valign="top">const rbd::Jacobian &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ac35b94cce92a068d02945ab7c87fd532">rbdJacobian</a> () const</td></tr>
+<tr class="memdesc:ac35b94cce92a068d02945ab7c87fd532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the internal Jacobian object to perform extra-computation (const)  <a href="#ac35b94cce92a068d02945ab7c87fd532">More...</a><br /></td></tr>
+<tr class="separator:ac35b94cce92a068d02945ab7c87fd532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accce1b0aeee4a0493a6025e760b74467"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#accce1b0aeee4a0493a6025e760b74467">name</a> () const</td></tr>
+<tr class="memdesc:accce1b0aeee4a0493a6025e760b74467"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame's name.  <a href="#accce1b0aeee4a0493a6025e760b74467">More...</a><br /></td></tr>
+<tr class="separator:accce1b0aeee4a0493a6025e760b74467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86fe5c3cfc6e0a3c5d7be8736e51909a"><td class="memItemLeft" align="right" valign="top">const sva::PTransformd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a86fe5c3cfc6e0a3c5d7be8736e51909a">position</a> () const</td></tr>
+<tr class="memdesc:a86fe5c3cfc6e0a3c5d7be8736e51909a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame's position in world coordinates.  <a href="#a86fe5c3cfc6e0a3c5d7be8736e51909a">More...</a><br /></td></tr>
+<tr class="separator:a86fe5c3cfc6e0a3c5d7be8736e51909a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbeb5eea7c8a679250c6fc0bc56bc04c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00391.html#a1817451238184d41f13b5502c872ec94">tvm::internal::MatrixWithProperties</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#afbeb5eea7c8a679250c6fc0bc56bc04c">jacobian</a> () const</td></tr>
+<tr class="memdesc:afbeb5eea7c8a679250c6fc0bc56bc04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame's jacobian in world coordinates.  <a href="#afbeb5eea7c8a679250c6fc0bc56bc04c">More...</a><br /></td></tr>
+<tr class="separator:afbeb5eea7c8a679250c6fc0bc56bc04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac358128299eb4b9446241a1a9a383304"><td class="memItemLeft" align="right" valign="top">const sva::MotionVecd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ac358128299eb4b9446241a1a9a383304">velocity</a> () const</td></tr>
+<tr class="memdesc:ac358128299eb4b9446241a1a9a383304"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame's velocity in world coordinates.  <a href="#ac358128299eb4b9446241a1a9a383304">More...</a><br /></td></tr>
+<tr class="separator:ac358128299eb4b9446241a1a9a383304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3587255f0ad1fbe3b50761ccb8ca46d"><td class="memItemLeft" align="right" valign="top">const sva::MotionVecd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#ab3587255f0ad1fbe3b50761ccb8ca46d">normalAcceleration</a> () const</td></tr>
+<tr class="memdesc:ab3587255f0ad1fbe3b50761ccb8ca46d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame's normal acceleration in world coordinates.  <a href="#ab3587255f0ad1fbe3b50761ccb8ca46d">More...</a><br /></td></tr>
+<tr class="separator:ab3587255f0ad1fbe3b50761ccb8ca46d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7b11383a5c05cb593075f1b838c416"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01339.html#a7c7b11383a5c05cb593075f1b838c416">body</a> () const</td></tr>
+<tr class="memdesc:a7c7b11383a5c05cb593075f1b838c416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the frame's parent body.  <a href="#a7c7b11383a5c05cb593075f1b838c416">More...</a><br /></td></tr>
+<tr class="separator:a7c7b11383a5c05cb593075f1b838c416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01087"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01087')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01087"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01087"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01087.html#a6bbb3a8c43895a4f8d270100aedcb82c">isUpdateEnabled</a> (EnumT e) const</td></tr>
+<tr class="memdesc:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled, be it at the class (static) or instance (dynamic) level).  <a href="a01087.html#a6bbb3a8c43895a4f8d270100aedcb82c">More...</a><br /></td></tr>
+<tr class="separator:a6bbb3a8c43895a4f8d270100aedcb82c inherit pub_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01087"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#ab5c43e0a081f5622ded1ff5693f4ab6d">isUpdateStaticallyEnabled</a> (int) const</td></tr>
+<tr class="memdesc:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled at the class level (run-time).  <a href="a01087.html#ab5c43e0a081f5622ded1ff5693f4ab6d">More...</a><br /></td></tr>
+<tr class="separator:ab5c43e0a081f5622ded1ff5693f4ab6d inherit pub_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01087"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a211ec74b66961ad450511ccf07a8082c">isUpdateCustomEnabled</a> (int) const</td></tr>
+<tr class="memdesc:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if an update is enabled given a custom criterion.  <a href="a01087.html#a211ec74b66961ad450511ccf07a8082c">More...</a><br /></td></tr>
+<tr class="separator:a211ec74b66961ad450511ccf07a8082c inherit pub_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30cd15a0a35da061802335616544e195 inherit pub_methods_a01087"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a30cd15a0a35da061802335616544e195">~AbstractNode</a> ()=default</td></tr>
+<tr class="separator:a30cd15a0a35da061802335616544e195 inherit pub_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#aa33b9554a9a9f835cda51e12ddc101bc">update</a> (int i)</td></tr>
+<tr class="memdesc:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the function stored at index i.  <a href="a01087.html#aa33b9554a9a9f835cda51e12ddc101bc">More...</a><br /></td></tr>
+<tr class="separator:aa33b9554a9a9f835cda51e12ddc101bc inherit pub_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01103"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01103')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01103.html">tvm::graph::internal::Inputs</a></td></tr>
+<tr class="memitem:aee57010cd59189302e03828097aad3a3 inherit pub_methods_a01103"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#aee57010cd59189302e03828097aad3a3">~Inputs</a> ()=default</td></tr>
+<tr class="separator:aee57010cd59189302e03828097aad3a3 inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args&gt; </td></tr>
+<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#afd28cb6b0518021d7cb3ca6b1d434810">addInput</a> (std::shared_ptr&lt; T &gt; source, EnumI i, Args ... args)</td></tr>
+<tr class="memdesc:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="a01103.html#afd28cb6b0518021d7cb3ca6b1d434810">More...</a><br /></td></tr>
+<tr class="separator:afd28cb6b0518021d7cb3ca6b1d434810 inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args, typename std::enable_if&lt; std::is_base_of&lt; abstract::Outputs, T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
+<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#adfca69bc37336a6f8040a38d1e52b33f">addInput</a> (T &amp;source, EnumI i, Args ... args)</td></tr>
+<tr class="memdesc:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="a01103.html#adfca69bc37336a6f8040a38d1e52b33f">More...</a><br /></td></tr>
+<tr class="separator:adfca69bc37336a6f8040a38d1e52b33f inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a> (T *source)</td></tr>
+<tr class="memdesc:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all outputs from a given Output object.  <a href="a01103.html#ad60a58128da7e4cdafba2e4ae358a23b">More...</a><br /></td></tr>
+<tr class="separator:ad60a58128da7e4cdafba2e4ae358a23b inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T , typename ... Args&gt; </td></tr>
+<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#a83c340d294e0e092e8a1ecfe4b94be70">removeInput</a> (T *source, Args ... args)</td></tr>
+<tr class="memdesc:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove outputs from a given Output object.  <a href="a01103.html#a83c340d294e0e092e8a1ecfe4b94be70">More...</a><br /></td></tr>
+<tr class="separator:a83c340d294e0e092e8a1ecfe4b94be70 inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01107.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a> (T *source)</td></tr>
+<tr class="memdesc:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="a01103.html#aa460986cd8bbf0060ed476a8625aeac0">More...</a><br /></td></tr>
+<tr class="separator:aa460986cd8bbf0060ed476a8625aeac0 inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01103"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01103"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01107.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#ae18f52958730844f8f29f727ca89e112">getInput</a> (const std::shared_ptr&lt; T &gt; &amp;source)</td></tr>
+<tr class="memdesc:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="a01103.html#ae18f52958730844f8f29f727ca89e112">More...</a><br /></td></tr>
+<tr class="separator:ae18f52958730844f8f29f727ca89e112 inherit pub_methods_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01051"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01051')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01051.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01051"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a3c7c267d448dea54dfc3e6ab64e07f60">~Outputs</a> ()=default</td></tr>
+<tr class="separator:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01051"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01051"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01051.html#a0f1f636c33817fa12f4162f692cb381b">isOutputEnabled</a> (EnumT e) const</td></tr>
+<tr class="memdesc:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled, be it at the class (static) or instance (dynamic) level).  <a href="a01051.html#a0f1f636c33817fa12f4162f692cb381b">More...</a><br /></td></tr>
+<tr class="separator:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01051"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a9906689532225c28da9490e2b8eb0ced">isOutputEnabled</a> (int i) const</td></tr>
+<tr class="memdesc:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as above, but taking int, for conveniency.  <a href="a01051.html#a9906689532225c28da9490e2b8eb0ced">More...</a><br /></td></tr>
+<tr class="separator:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01051"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a6aba2d7e20119b41b6895f5406795a3b">isOutputStaticallyEnabled</a> (int) const</td></tr>
+<tr class="memdesc:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (run-time).  <a href="a01051.html#a6aba2d7e20119b41b6895f5406795a3b">More...</a><br /></td></tr>
+<tr class="separator:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01051"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#afc310e1cf7c222ce1c71ad5cc51c6db5">isOutputCustomEnabled</a> (int) const</td></tr>
+<tr class="memdesc:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if an output is enabled given a custom criterion.  <a href="a01051.html#afc310e1cf7c222ce1c71ad5cc51c6db5">More...</a><br /></td></tr>
+<tr class="separator:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_a01071"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01071')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:a790faeb964ed1317fc122684e9894efa inherit pub_types_a01071"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a790faeb964ed1317fc122684e9894efa">Update_</a> <tr class="memdesc:a790faeb964ed1317fc122684e9894efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="a01075.html" title="Base class for Update. ">Update</a> enumeration.  <a href="a01071.html#a790faeb964ed1317fc122684e9894efa">More...</a><br /></td></tr>
+<tr class="inherit_header pub_types_a01087"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01087')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:a790faeb964ed1317fc122684e9894efa inherit pub_types_a01087"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a790faeb964ed1317fc122684e9894efa">Update_</a> <tr class="memdesc:a790faeb964ed1317fc122684e9894efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="a01091.html" title="Base class for Update. ">Update</a> enumeration.  <a href="a01087.html#a790faeb964ed1317fc122684e9894efa">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:a790faeb964ed1317fc122684e9894efa inherit pub_types_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01071"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a9ec81271334fed0d3e4f084eb25978bf">UpdateParent</a> = <a class="el" href="a01071.html">AbstractNode</a></td></tr>
-<tr class="memdesc:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information regarding the class inheritance diagram.  <a href="a01071.html#a9ec81271334fed0d3e4f084eb25978bf">More...</a><br /></td></tr>
-<tr class="separator:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01071"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#ac7bda88cc7186ef0bd06b1a98526808a">UpdateBase</a> = <a class="el" href="a01071.html">AbstractNode</a></td></tr>
-<tr class="memdesc:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information used during inheritance to retrieve the base-class output size.  <a href="a01071.html#ac7bda88cc7186ef0bd06b1a98526808a">More...</a><br /></td></tr>
-<tr class="separator:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_a01079"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01079')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01079.html">tvm::graph::internal::Inputs</a></td></tr>
-<tr class="memitem:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01079"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> = std::unordered_map&lt; <a class="el" href="a01035.html">abstract::Outputs</a> *, std::set&lt; int &gt; &gt;</td></tr>
-<tr class="memdesc:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs.  <a href="a01079.html#a5f83c4f362fa09c25249bec6f6ad7c4f">More...</a><br /></td></tr>
-<tr class="separator:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01079"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> = std::unordered_set&lt; std::shared_ptr&lt; <a class="el" href="a01035.html">abstract::Outputs</a> &gt; &gt;</td></tr>
-<tr class="memdesc:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs data.  <a href="a01079.html#ac6e7f546232c0333a259b677cfd3446f">More...</a><br /></td></tr>
-<tr class="separator:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_a01035"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01035')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01035.html">tvm::graph::abstract::Outputs</a></td></tr>
-<tr class="memitem:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01035"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a> <tr class="memdesc:a7426f1ecfb4746a92196ee6ec31dddeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="a01039.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01035.html#a7426f1ecfb4746a92196ee6ec31dddeb">More...</a><br /></td></tr>
+<tr class="separator:a790faeb964ed1317fc122684e9894efa inherit pub_types_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01087"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a9ec81271334fed0d3e4f084eb25978bf">UpdateParent</a> = <a class="el" href="a01087.html">AbstractNode</a></td></tr>
+<tr class="memdesc:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information regarding the class inheritance diagram.  <a href="a01087.html#a9ec81271334fed0d3e4f084eb25978bf">More...</a><br /></td></tr>
+<tr class="separator:a9ec81271334fed0d3e4f084eb25978bf inherit pub_types_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01087"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#ac7bda88cc7186ef0bd06b1a98526808a">UpdateBase</a> = <a class="el" href="a01087.html">AbstractNode</a></td></tr>
+<tr class="memdesc:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information used during inheritance to retrieve the base-class output size.  <a href="a01087.html#ac7bda88cc7186ef0bd06b1a98526808a">More...</a><br /></td></tr>
+<tr class="separator:ac7bda88cc7186ef0bd06b1a98526808a inherit pub_types_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_a01103"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01103')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01103.html">tvm::graph::internal::Inputs</a></td></tr>
+<tr class="memitem:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01103"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> = std::unordered_map&lt; <a class="el" href="a01051.html">abstract::Outputs</a> *, std::set&lt; int &gt; &gt;</td></tr>
+<tr class="memdesc:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs.  <a href="a01103.html#a5f83c4f362fa09c25249bec6f6ad7c4f">More...</a><br /></td></tr>
+<tr class="separator:a5f83c4f362fa09c25249bec6f6ad7c4f inherit pub_types_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01103"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> = std::unordered_set&lt; std::shared_ptr&lt; <a class="el" href="a01051.html">abstract::Outputs</a> &gt; &gt;</td></tr>
+<tr class="memdesc:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs data.  <a href="a01103.html#ac6e7f546232c0333a259b677cfd3446f">More...</a><br /></td></tr>
+<tr class="separator:ac6e7f546232c0333a259b677cfd3446f inherit pub_types_a01103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_a01051"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01051')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01051.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01051"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a> <tr class="memdesc:a7426f1ecfb4746a92196ee6ec31dddeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="a01055.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01051.html#a7426f1ecfb4746a92196ee6ec31dddeb">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01035"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a0f92178ca250dd757ab141a92b41c03a">OutputParent</a> = <a class="el" href="a01035.html">Outputs</a></td></tr>
-<tr class="memdesc:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information regarding the class inheritance diagram.  <a href="a01035.html#a0f92178ca250dd757ab141a92b41c03a">More...</a><br /></td></tr>
-<tr class="separator:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01035"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a28091daa5c502e591f5ccb07f6d7915f">OutputBase</a> = <a class="el" href="a01035.html">Outputs</a></td></tr>
-<tr class="memdesc:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information used during inheritance to retrieve the base-class output size.  <a href="a01035.html#a28091daa5c502e591f5ccb07f6d7915f">More...</a><br /></td></tr>
-<tr class="separator:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_a01071"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a01071')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01071"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#afd08cb36177f92f4a3fb16402e93b39f">UpdateName</a> (<a class="el" href="a01071.html#a790faeb964ed1317fc122684e9894efa">Update_</a>)</td></tr>
-<tr class="memdesc:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a given update.  <a href="a01071.html#afd08cb36177f92f4a3fb16402e93b39f">More...</a><br /></td></tr>
-<tr class="separator:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01071"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
-<tr class="memitem:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01071"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01071.html#a635fb252e53f6d8cd758f1b5b8510592">UpdateStaticallyEnabled</a> (EnumT)</td></tr>
-<tr class="memdesc:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled (compile-time)  <a href="a01071.html#a635fb252e53f6d8cd758f1b5b8510592">More...</a><br /></td></tr>
-<tr class="separator:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_a01035"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a01035')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="a01035.html">tvm::graph::abstract::Outputs</a></td></tr>
-<tr class="memitem:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01035"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a24af6171e8e80e31c2d41b3d1272a9a8">OutputName</a> (<a class="el" href="a01035.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a>)</td></tr>
-<tr class="memdesc:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a given output.  <a href="a01035.html#a24af6171e8e80e31c2d41b3d1272a9a8">More...</a><br /></td></tr>
-<tr class="separator:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01035"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
-<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01035"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01035.html#ad0772c09826310a52fb60d12333ed8e1">OutputStaticallyEnabled</a> (EnumT)</td></tr>
-<tr class="memdesc:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (compile-time)  <a href="a01035.html#ad0772c09826310a52fb60d12333ed8e1">More...</a><br /></td></tr>
-<tr class="separator:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_attribs_a01071"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_a01071')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01071"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a9ba18bfdd20b769be09129d996847830">UpdateSize</a> = 0</td></tr>
-<tr class="memdesc:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the size of the <a class="el" href="a01075.html" title="Base class for Update. ">Update</a> enumeration.  <a href="a01071.html#a9ba18bfdd20b769be09129d996847830">More...</a><br /></td></tr>
-<tr class="separator:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01071"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a64eefa91bdf144b3781ec662f6321847">UpdateBaseName</a> = &quot;AbstractNode&quot;</td></tr>
-<tr class="memdesc:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information holding the name of the class to which the <a class="el" href="a01075.html" title="Base class for Update. ">Update</a> enum belong.  <a href="a01071.html#a64eefa91bdf144b3781ec662f6321847">More...</a><br /></td></tr>
-<tr class="separator:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_attribs_a01035"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_a01035')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="a01035.html">tvm::graph::abstract::Outputs</a></td></tr>
-<tr class="memitem:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01035"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a1bb139d1761eac8f2b56635c8a684b18">OutputSize</a> = 0</td></tr>
-<tr class="memdesc:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the size of the <a class="el" href="a01039.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01035.html#a1bb139d1761eac8f2b56635c8a684b18">More...</a><br /></td></tr>
-<tr class="separator:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01035"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a79f6e3d77cf784915bdbfb69b5789992">OutputBaseName</a> = &quot;Outputs&quot;</td></tr>
-<tr class="memdesc:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information holding the name of the class to which the <a class="el" href="a01039.html" title="Base class for Output. ">Output</a> enum belong.  <a href="a01035.html#a79f6e3d77cf784915bdbfb69b5789992">More...</a><br /></td></tr>
-<tr class="separator:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_types_a01071"><td colspan="2" onclick="javascript:toggleInherit('pro_types_a01071')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01071"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> = std::map&lt; Outputs *, std::set&lt; int &gt; &gt;</td></tr>
-<tr class="memdesc:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an update to the list of inputs it depends on (expressed by the respective ids).  <a href="a01071.html#a11b35a84d53fa223e34497bbad7d4eef">More...</a><br /></td></tr>
-<tr class="separator:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_a01031"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01031')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01031.html">tvm::graph::abstract::Node&lt; Robot &gt;</a></td></tr>
-<tr class="memitem:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#a8d05ae3764eec43dc2444a21636b04e9">registerUpdates</a> (EnumT u, void(U::*fn)(), Args ... args)</td></tr>
-<tr class="memdesc:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register updates.  <a href="a01031.html#a8d05ae3764eec43dc2444a21636b04e9">More...</a><br /></td></tr>
-<tr class="separator:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#a13fc273cdc8b130963e377ca2ebc23ec">registerUpdates</a> (EnumT u, void(U::*fn)())</td></tr>
-<tr class="memdesc:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a single update.  <a href="a01031.html#a13fc273cdc8b130963e377ca2ebc23ec">More...</a><br /></td></tr>
-<tr class="separator:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#aab69441987f72e1a7f748e7680040b53">addOutputDependency</a> (EnumO o, EnumU u)</td></tr>
-<tr class="memdesc:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an update call.  <a href="a01031.html#aab69441987f72e1a7f748e7680040b53">More...</a><br /></td></tr>
-<tr class="separator:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#a4ec29838fb05b1d999e255848608f42c">addOutputDependency</a> (std::initializer_list&lt; EnumO &gt; os, EnumU u)</td></tr>
-<tr class="memdesc:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of multiple outputs to an update call.  <a href="a01031.html#a4ec29838fb05b1d999e255848608f42c">More...</a><br /></td></tr>
-<tr class="separator:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#aae1fb781215cdc67d7aab925ca578580">addInternalDependency</a> (EnumU1 uDependent, EnumU2 u)</td></tr>
-<tr class="memdesc:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency between two update calls.  <a href="a01031.html#aae1fb781215cdc67d7aab925ca578580">More...</a><br /></td></tr>
-<tr class="separator:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#a6d4a5a073bdab44628101cbb45300491">addInputDependency</a> (EnumU u, std::shared_ptr&lt; S &gt; source, EnumO i, Args ... args)</td></tr>
-<tr class="memdesc:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an update function to multiple input signals from a source.  <a href="a01031.html#a6d4a5a073bdab44628101cbb45300491">More...</a><br /></td></tr>
-<tr class="separator:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#acdadbe57cf47ebc7639944e069977dd1">addInputDependency</a> (EnumU u, S &amp;source, EnumO i, Args ... args)</td></tr>
-<tr class="memdesc:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an update function to multiple input signals from a source.  <a href="a01031.html#acdadbe57cf47ebc7639944e069977dd1">More...</a><br /></td></tr>
-<tr class="separator:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#ae92f7743eb69a459cecb3be61f1b6e47">addDirectDependency</a> (EnumO o, std::shared_ptr&lt; S &gt; source, EnumI i)</td></tr>
-<tr class="memdesc:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an input signal and its source.  <a href="a01031.html#ae92f7743eb69a459cecb3be61f1b6e47">More...</a><br /></td></tr>
-<tr class="separator:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01031.html#ad0c8e10dbd78025cd1b67873368b5a57">addDirectDependency</a> (EnumO o, S &amp;source, EnumI i)</td></tr>
-<tr class="memdesc:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an input signal and its source.  <a href="a01031.html#ad0c8e10dbd78025cd1b67873368b5a57">More...</a><br /></td></tr>
-<tr class="separator:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a01071"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01071')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01071.html">tvm::graph::internal::AbstractNode</a></td></tr>
-<tr class="memitem:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01071"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::function&lt; void(<a class="el" href="a01071.html">AbstractNode</a> &amp;)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a03be13d3a865915ec7412f02c557913a">updates_</a></td></tr>
-<tr class="memdesc:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from a update id to corresponding dependency function.  <a href="a01071.html#a03be13d3a865915ec7412f02c557913a">More...</a><br /></td></tr>
-<tr class="separator:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01071"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a8a47ad0e14298cd09d74f81987b70394">outputDependencies_</a></td></tr>
-<tr class="memdesc:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an output to the list of updates it depends on (expressed by the respective ids).  <a href="a01071.html#a8a47ad0e14298cd09d74f81987b70394">More...</a><br /></td></tr>
-<tr class="separator:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01071"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">internalDependencies_</a></td></tr>
-<tr class="memdesc:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an update to the list of updates it depends on (expressed by the respective ids).  <a href="a01071.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">More...</a><br /></td></tr>
-<tr class="separator:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9ba8826223fd52b49fea487fcd61cce inherit pro_attribs_a01071"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, <a class="el" href="a01071.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#af9ba8826223fd52b49fea487fcd61cce">inputDependencies_</a></td></tr>
-<tr class="separator:af9ba8826223fd52b49fea487fcd61cce inherit pro_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01071"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::pair&lt; Outputs *, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#acc492564f93a7d94c99ac42cf26e5afe">directDependencies_</a></td></tr>
-<tr class="memdesc:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an output to the input it directly uses, without requiring an update (expressed by the respective ids).  <a href="a01071.html#acc492564f93a7d94c99ac42cf26e5afe">More...</a><br /></td></tr>
-<tr class="separator:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a01035"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01035')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01035.html">tvm::graph::abstract::Outputs</a></td></tr>
-<tr class="memitem:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01035"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01035.html#a23a32e4238b7900d0f3b7787bfa6232b">is_node_</a> = false</td></tr>
-<tr class="memdesc:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to avoid a dynamic cast when working on <a class="el" href="a01035.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> that may be tvm::data::Node.  <a href="a01035.html#a23a32e4238b7900d0f3b7787bfa6232b">More...</a><br /></td></tr>
-<tr class="separator:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01051"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a0f92178ca250dd757ab141a92b41c03a">OutputParent</a> = <a class="el" href="a01051.html">Outputs</a></td></tr>
+<tr class="memdesc:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information regarding the class inheritance diagram.  <a href="a01051.html#a0f92178ca250dd757ab141a92b41c03a">More...</a><br /></td></tr>
+<tr class="separator:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01051"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a28091daa5c502e591f5ccb07f6d7915f">OutputBase</a> = <a class="el" href="a01051.html">Outputs</a></td></tr>
+<tr class="memdesc:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information used during inheritance to retrieve the base-class output size.  <a href="a01051.html#a28091daa5c502e591f5ccb07f6d7915f">More...</a><br /></td></tr>
+<tr class="separator:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_a01087"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a01087')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01087"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#afd08cb36177f92f4a3fb16402e93b39f">UpdateName</a> (<a class="el" href="a01087.html#a790faeb964ed1317fc122684e9894efa">Update_</a>)</td></tr>
+<tr class="memdesc:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a given update.  <a href="a01087.html#afd08cb36177f92f4a3fb16402e93b39f">More...</a><br /></td></tr>
+<tr class="separator:afd08cb36177f92f4a3fb16402e93b39f inherit pub_static_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01087"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01087"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01087.html#a635fb252e53f6d8cd758f1b5b8510592">UpdateStaticallyEnabled</a> (EnumT)</td></tr>
+<tr class="memdesc:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given update is enabled (compile-time)  <a href="a01087.html#a635fb252e53f6d8cd758f1b5b8510592">More...</a><br /></td></tr>
+<tr class="separator:a635fb252e53f6d8cd758f1b5b8510592 inherit pub_static_methods_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_a01051"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a01051')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="a01051.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01051"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a24af6171e8e80e31c2d41b3d1272a9a8">OutputName</a> (<a class="el" href="a01051.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a>)</td></tr>
+<tr class="memdesc:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a given output.  <a href="a01051.html#a24af6171e8e80e31c2d41b3d1272a9a8">More...</a><br /></td></tr>
+<tr class="separator:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01051"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01051"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01051.html#ad0772c09826310a52fb60d12333ed8e1">OutputStaticallyEnabled</a> (EnumT)</td></tr>
+<tr class="memdesc:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (compile-time)  <a href="a01051.html#ad0772c09826310a52fb60d12333ed8e1">More...</a><br /></td></tr>
+<tr class="separator:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_a01087"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_a01087')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01087"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a9ba18bfdd20b769be09129d996847830">UpdateSize</a> = 0</td></tr>
+<tr class="memdesc:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the size of the <a class="el" href="a01091.html" title="Base class for Update. ">Update</a> enumeration.  <a href="a01087.html#a9ba18bfdd20b769be09129d996847830">More...</a><br /></td></tr>
+<tr class="separator:a9ba18bfdd20b769be09129d996847830 inherit pub_static_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01087"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a64eefa91bdf144b3781ec662f6321847">UpdateBaseName</a> = &quot;AbstractNode&quot;</td></tr>
+<tr class="memdesc:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information holding the name of the class to which the <a class="el" href="a01091.html" title="Base class for Update. ">Update</a> enum belong.  <a href="a01087.html#a64eefa91bdf144b3781ec662f6321847">More...</a><br /></td></tr>
+<tr class="separator:a64eefa91bdf144b3781ec662f6321847 inherit pub_static_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_a01051"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_a01051')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="a01051.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01051"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a1bb139d1761eac8f2b56635c8a684b18">OutputSize</a> = 0</td></tr>
+<tr class="memdesc:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the size of the <a class="el" href="a01055.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01051.html#a1bb139d1761eac8f2b56635c8a684b18">More...</a><br /></td></tr>
+<tr class="separator:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01051"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a79f6e3d77cf784915bdbfb69b5789992">OutputBaseName</a> = &quot;Outputs&quot;</td></tr>
+<tr class="memdesc:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information holding the name of the class to which the <a class="el" href="a01055.html" title="Base class for Output. ">Output</a> enum belong.  <a href="a01051.html#a79f6e3d77cf784915bdbfb69b5789992">More...</a><br /></td></tr>
+<tr class="separator:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_a01087"><td colspan="2" onclick="javascript:toggleInherit('pro_types_a01087')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01087"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> = std::map&lt; Outputs *, std::set&lt; int &gt; &gt;</td></tr>
+<tr class="memdesc:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an update to the list of inputs it depends on (expressed by the respective ids).  <a href="a01087.html#a11b35a84d53fa223e34497bbad7d4eef">More...</a><br /></td></tr>
+<tr class="separator:a11b35a84d53fa223e34497bbad7d4eef inherit pro_types_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_a01047"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01047')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01047.html">tvm::graph::abstract::Node&lt; Frame &gt;</a></td></tr>
+<tr class="memitem:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#a8d05ae3764eec43dc2444a21636b04e9">registerUpdates</a> (EnumT u, void(U::*fn)(), Args ... args)</td></tr>
+<tr class="memdesc:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register updates.  <a href="a01047.html#a8d05ae3764eec43dc2444a21636b04e9">More...</a><br /></td></tr>
+<tr class="separator:a8d05ae3764eec43dc2444a21636b04e9 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#a13fc273cdc8b130963e377ca2ebc23ec">registerUpdates</a> (EnumT u, void(U::*fn)())</td></tr>
+<tr class="memdesc:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a single update.  <a href="a01047.html#a13fc273cdc8b130963e377ca2ebc23ec">More...</a><br /></td></tr>
+<tr class="separator:a13fc273cdc8b130963e377ca2ebc23ec inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#aab69441987f72e1a7f748e7680040b53">addOutputDependency</a> (EnumO o, EnumU u)</td></tr>
+<tr class="memdesc:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an update call.  <a href="a01047.html#aab69441987f72e1a7f748e7680040b53">More...</a><br /></td></tr>
+<tr class="separator:aab69441987f72e1a7f748e7680040b53 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#a4ec29838fb05b1d999e255848608f42c">addOutputDependency</a> (std::initializer_list&lt; EnumO &gt; os, EnumU u)</td></tr>
+<tr class="memdesc:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of multiple outputs to an update call.  <a href="a01047.html#a4ec29838fb05b1d999e255848608f42c">More...</a><br /></td></tr>
+<tr class="separator:a4ec29838fb05b1d999e255848608f42c inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#aae1fb781215cdc67d7aab925ca578580">addInternalDependency</a> (EnumU1 uDependent, EnumU2 u)</td></tr>
+<tr class="memdesc:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency between two update calls.  <a href="a01047.html#aae1fb781215cdc67d7aab925ca578580">More...</a><br /></td></tr>
+<tr class="separator:aae1fb781215cdc67d7aab925ca578580 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#a6d4a5a073bdab44628101cbb45300491">addInputDependency</a> (EnumU u, std::shared_ptr&lt; S &gt; source, EnumO i, Args ... args)</td></tr>
+<tr class="memdesc:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an update function to multiple input signals from a source.  <a href="a01047.html#a6d4a5a073bdab44628101cbb45300491">More...</a><br /></td></tr>
+<tr class="separator:a6d4a5a073bdab44628101cbb45300491 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#acdadbe57cf47ebc7639944e069977dd1">addInputDependency</a> (EnumU u, S &amp;source, EnumO i, Args ... args)</td></tr>
+<tr class="memdesc:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an update function to multiple input signals from a source.  <a href="a01047.html#acdadbe57cf47ebc7639944e069977dd1">More...</a><br /></td></tr>
+<tr class="separator:acdadbe57cf47ebc7639944e069977dd1 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#ae92f7743eb69a459cecb3be61f1b6e47">addDirectDependency</a> (EnumO o, std::shared_ptr&lt; S &gt; source, EnumI i)</td></tr>
+<tr class="memdesc:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an input signal and its source.  <a href="a01047.html#ae92f7743eb69a459cecb3be61f1b6e47">More...</a><br /></td></tr>
+<tr class="separator:ae92f7743eb69a459cecb3be61f1b6e47 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html#ad0c8e10dbd78025cd1b67873368b5a57">addDirectDependency</a> (EnumO o, S &amp;source, EnumI i)</td></tr>
+<tr class="memdesc:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a dependency of an output to an input signal and its source.  <a href="a01047.html#ad0c8e10dbd78025cd1b67873368b5a57">More...</a><br /></td></tr>
+<tr class="separator:ad0c8e10dbd78025cd1b67873368b5a57 inherit pro_methods_a01047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01087"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01087')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01087.html">tvm::graph::internal::AbstractNode</a></td></tr>
+<tr class="memitem:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01087"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::function&lt; void(<a class="el" href="a01087.html">AbstractNode</a> &amp;)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a03be13d3a865915ec7412f02c557913a">updates_</a></td></tr>
+<tr class="memdesc:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from a update id to corresponding dependency function.  <a href="a01087.html#a03be13d3a865915ec7412f02c557913a">More...</a><br /></td></tr>
+<tr class="separator:a03be13d3a865915ec7412f02c557913a inherit pro_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01087"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#a8a47ad0e14298cd09d74f81987b70394">outputDependencies_</a></td></tr>
+<tr class="memdesc:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an output to the list of updates it depends on (expressed by the respective ids).  <a href="a01087.html#a8a47ad0e14298cd09d74f81987b70394">More...</a><br /></td></tr>
+<tr class="separator:a8a47ad0e14298cd09d74f81987b70394 inherit pro_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01087"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">internalDependencies_</a></td></tr>
+<tr class="memdesc:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an update to the list of updates it depends on (expressed by the respective ids).  <a href="a01087.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">More...</a><br /></td></tr>
+<tr class="separator:ae862f5c5b2e0ce6a49c1c65ddf0ae057 inherit pro_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9ba8826223fd52b49fea487fcd61cce inherit pro_attribs_a01087"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, <a class="el" href="a01087.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#af9ba8826223fd52b49fea487fcd61cce">inputDependencies_</a></td></tr>
+<tr class="separator:af9ba8826223fd52b49fea487fcd61cce inherit pro_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01087"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::pair&lt; Outputs *, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html#acc492564f93a7d94c99ac42cf26e5afe">directDependencies_</a></td></tr>
+<tr class="memdesc:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an output to the input it directly uses, without requiring an update (expressed by the respective ids).  <a href="a01087.html#acc492564f93a7d94c99ac42cf26e5afe">More...</a><br /></td></tr>
+<tr class="separator:acc492564f93a7d94c99ac42cf26e5afe inherit pro_attribs_a01087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01051"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01051')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01051.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01051"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html#a23a32e4238b7900d0f3b7787bfa6232b">is_node_</a> = false</td></tr>
+<tr class="memdesc:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to avoid a dynamic cast when working on <a class="el" href="a01051.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> that may be tvm::data::Node.  <a href="a01051.html#a23a32e4238b7900d0f3b7787bfa6232b">More...</a><br /></td></tr>
+<tr class="separator:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represent a <a class="el" href="a01339.html" title="Represent a Robot. ">Robot</a>. </p>
-<p>A robot is constructed by providing instances of MultiBodyGraph, MultiBody and MultiBodyConfig that are created from each other. It provides signals that are relevant for computing quantities related to a robot.</p>
-<p>Variables:</p><ul>
-<li>q (split between free-flyer and joints)</li>
-<li>tau (see Outputs)</li>
-</ul>
-<p>Individual outputs:</p>
-<ul>
-<li>FK: forward kinematics (computed by RBDyn::FK)</li>
-<li>FV: forward velocity (computed by RBDyn::FV), depends on FK</li>
-<li>FA: forward acceleration (computed by RBDyn::FA), depends on FV</li>
-<li>NormalAcceleration: update bodies' normal acceleration, depends on FA</li>
-<li>tau: generalized torque vector, this output isn't currently linked to any computation</li>
-<li>CoM: center of mass signal, depends on FK</li>
-<li>H: inertia matrix signal, depends on FV</li>
-<li>C: non-linear effect vector signal (Coriolis, gravity, external forces), depends on FV</li>
-</ul>
-<p>Meta outputs: These outputs are provided for convenience sake</p><ul>
-<li>Geometry: depends on CoM (i.e. CoM + FK)</li>
-<li>Dynamics: depends on FA + normalAcceleration (i.e. everything) </li>
+<div class="textblock"><p>A frame belonging to a robot. </p>
+<p>Provides the frame position, jacobian, velocity and normal acceleration. These signals are correctly initialized on the object's creation.</p>
+<p>Outputs:</p><ul>
+<li>Position: position of the frame in world coordinates</li>
+<li>Jacobian: jacobian of the frame in world coordinates</li>
+<li>Velocity: velocity of the frame in world coordinates</li>
+<li>NormalAcceleration: normal acceleration of the frame in world coordinates </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad2bf2e0ca3c6e492c4df0e10ab94a342"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2bf2e0ca3c6e492c4df0e10ab94a342">&#9670;&nbsp;</a></span>Robot()</h2>
+<a id="a635eac920668a3109a1e3230938a857d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a635eac920668a3109a1e3230938a857d">&#9670;&nbsp;</a></span>Frame()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::Robot::Robot </td>
+          <td class="memname">tvm::robot::Frame::Frame </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00939.html">Clock</a> &amp;&#160;</td>
-          <td class="paramname"><em>clock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">rbd::MultiBodyGraph &amp;&#160;</td>
-          <td class="paramname"><em>mbg</em>, </td>
+          <td class="paramtype"><a class="el" href="a00371.html#a003ca276319664eb1bd64c0b25b99509">RobotPtr</a>&#160;</td>
+          <td class="paramname"><em>robot</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">rbd::MultiBody&#160;</td>
-          <td class="paramname"><em>mb</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>body</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">rbd::MultiBodyConfig&#160;</td>
-          <td class="paramname"><em>mbc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const rbd::parsers::Limits &amp;&#160;</td>
-          <td class="paramname"><em>limits</em> = <code>{{},{},{},{}}</code>&#160;</td>
+          <td class="paramtype">sva::PTransformd&#160;</td>
+          <td class="paramname"><em>X_b_f</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -459,14 +368,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
+<p>Creates a frame belonging to a robot</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clock</td><td><a class="el" href="a00939.html" title="Represent a clock for the ControlProblem. ">Clock</a> used in the <a class="el" href="a00967.html">ControlProblem</a></td></tr>
-    <tr><td class="paramname">name</td><td>Name of the robot</td></tr>
-    <tr><td class="paramname">mbg</td><td>MultiBodyGraph used to create mb/mbc</td></tr>
-    <tr><td class="paramname">mb</td><td>MultiBody representing the robot's kinematic structure</td></tr>
-    <tr><td class="paramname">mbc</td><td>MultiBodyConfig giving the robot's initial configuration</td></tr>
-    <tr><td class="paramname">limits</td><td>Joint limits </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the frame</td></tr>
+    <tr><td class="paramname">robot</td><td><a class="el" href="a01375.html" title="Represent a Robot. ">Robot</a> to which the frame is attached</td></tr>
+    <tr><td class="paramname">body</td><td>Parent body of the frame</td></tr>
+    <tr><td class="paramname">X_b_f</td><td>Static transformation from the body to the frame </td></tr>
   </table>
   </dd>
 </dl>
@@ -474,36 +382,27 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae737814e27817c0336446e3a5951c7c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae737814e27817c0336446e3a5951c7c0">&#9670;&nbsp;</a></span>bodyTransform()</h2>
+<a id="a7c7b11383a5c05cb593075f1b838c416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7b11383a5c05cb593075f1b838c416">&#9670;&nbsp;</a></span>body()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const sva::PTransformd&amp; tvm::Robot::bodyTransform </td>
+          <td class="memname">const std::string&amp; tvm::robot::Frame::body </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>b</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Access the transformation that allows to retrieve the original base of a body. </p>
+<p>Returns the frame's parent body. </p>
 
 </div>
 </div>
-<a id="a5bee0bc9884664793305f13974011d00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bee0bc9884664793305f13974011d00">&#9670;&nbsp;</a></span>C()</h2>
+<a id="afbeb5eea7c8a679250c6fc0bc56bc04c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbeb5eea7c8a679250c6fc0bc56bc04c">&#9670;&nbsp;</a></span>jacobian()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -512,7 +411,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::C </td>
+          <td class="memname">const <a class="el" href="a00391.html#a1817451238184d41f13b5502c872ec94">tvm::internal::MatrixWithProperties</a>&amp; tvm::robot::Frame::jacobian </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -525,13 +424,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the non-linear effect vector. </p>
-<p>Access the non-linear effect vector (coriolis, gravity, external force). </p>
+<p>The frame's jacobian in world coordinates. </p>
 
 </div>
 </div>
-<a id="ac8cb56d567b017f10cf0ea9938e7375d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8cb56d567b017f10cf0ea9938e7375d">&#9670;&nbsp;</a></span>com()</h2>
+<a id="accce1b0aeee4a0493a6025e760b74467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accce1b0aeee4a0493a6025e760b74467">&#9670;&nbsp;</a></span>name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -540,7 +438,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::Vector3d&amp; tvm::Robot::com </td>
+          <td class="memname">const std::string&amp; tvm::robot::Frame::name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -553,12 +451,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the CoM position. </p>
+<p>The frame's name. </p>
 
 </div>
 </div>
-<a id="a482747ba5d6f2816f365950b9837df0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482747ba5d6f2816f365950b9837df0b">&#9670;&nbsp;</a></span>H()</h2>
+<a id="ab3587255f0ad1fbe3b50761ccb8ca46d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3587255f0ad1fbe3b50761ccb8ca46d">&#9670;&nbsp;</a></span>normalAcceleration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -567,7 +465,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::MatrixXd&amp; tvm::Robot::H </td>
+          <td class="memname">const sva::MotionVecd&amp; tvm::robot::Frame::normalAcceleration </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -580,12 +478,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the inertia matrix. </p>
+<p>The frame's normal acceleration in world coordinates. </p>
 
 </div>
 </div>
-<a id="a056dd0be4b10ef2a35760100a2ee7f7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a056dd0be4b10ef2a35760100a2ee7f7e">&#9670;&nbsp;</a></span>lQBound() <span class="overload">[1/2]</span></h2>
+<a id="a86fe5c3cfc6e0a3c5d7be8736e51909a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fe5c3cfc6e0a3c5d7be8736e51909a">&#9670;&nbsp;</a></span>position()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -594,7 +492,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::lQBound </td>
+          <td class="memname">const sva::PTransformd&amp; tvm::robot::Frame::position </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -607,12 +505,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the joints' lower position limit (const) </p>
+<p>The frame's position in world coordinates. </p>
 
 </div>
 </div>
-<a id="a09a42da48cebaa8e51794e3af6b9d2a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09a42da48cebaa8e51794e3af6b9d2a8">&#9670;&nbsp;</a></span>lQBound() <span class="overload">[2/2]</span></h2>
+<a id="a3670aba0d9280524c6e18cea389cad15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3670aba0d9280524c6e18cea389cad15">&#9670;&nbsp;</a></span>rbdJacobian() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,7 +519,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::lQBound </td>
+          <td class="memname">rbd::Jacobian&amp; tvm::robot::Frame::rbdJacobian </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -634,12 +532,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the joints' lower position limit. </p>
+<p>Access the internal Jacobian object to perform extra-computation. </p>
 
 </div>
 </div>
-<a id="ad8ff2cdee502fa8b34b14b94fc2f31e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8ff2cdee502fa8b34b14b94fc2f31e3">&#9670;&nbsp;</a></span>lTauBound() <span class="overload">[1/2]</span></h2>
+<a id="ac35b94cce92a068d02945ab7c87fd532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac35b94cce92a068d02945ab7c87fd532">&#9670;&nbsp;</a></span>rbdJacobian() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -648,7 +546,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::lTauBound </td>
+          <td class="memname">const rbd::Jacobian&amp; tvm::robot::Frame::rbdJacobian </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -661,12 +559,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the robot's lower torque limit (const) </p>
+<p>Access the internal Jacobian object to perform extra-computation (const) </p>
 
 </div>
 </div>
-<a id="a386b08dd3bf3d9fe319061b15f3794af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a386b08dd3bf3d9fe319061b15f3794af">&#9670;&nbsp;</a></span>lTauBound() <span class="overload">[2/2]</span></h2>
+<a id="a2ea6528157b5a187b6ede16f07790828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea6528157b5a187b6ede16f07790828">&#9670;&nbsp;</a></span>robot() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -675,7 +573,34 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::lTauBound </td>
+          <td class="memname">const <a class="el" href="a01375.html">Robot</a>&amp; tvm::robot::Frame::robot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the robot to which this frame belongs (const) </p>
+
+</div>
+</div>
+<a id="aa040bc0a29a67780311c8533d68faea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa040bc0a29a67780311c8533d68faea5">&#9670;&nbsp;</a></span>robot() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01375.html">Robot</a>&amp; tvm::robot::Frame::robot </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -688,12 +613,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the robot's lower torque limit. </p>
+<p>Access the robot to which this frame belongs. </p>
 
 </div>
 </div>
-<a id="a3c0015be7272306da0f69861e959acf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c0015be7272306da0f69861e959acf4">&#9670;&nbsp;</a></span>lVelBound() <span class="overload">[1/2]</span></h2>
+<a id="ac358128299eb4b9446241a1a9a383304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac358128299eb4b9446241a1a9a383304">&#9670;&nbsp;</a></span>velocity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -702,7 +627,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::lVelBound </td>
+          <td class="memname">const sva::MotionVecd&amp; tvm::robot::Frame::velocity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -715,628 +640,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the joints' lower velocity limit (const) </p>
-
-</div>
-</div>
-<a id="a1879757837b6f71adb2639f8525a4189"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1879757837b6f71adb2639f8525a4189">&#9670;&nbsp;</a></span>lVelBound() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::lVelBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the joints' lower velocity limit. </p>
-
-</div>
-</div>
-<a id="aac36ab193f2d533130dc33daa816d35b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac36ab193f2d533130dc33daa816d35b">&#9670;&nbsp;</a></span>mass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tvm::Robot::mass </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the robot's mass. </p>
-
-</div>
-</div>
-<a id="ac372f0bcefd2263fd2bb2bf13a4559b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac372f0bcefd2263fd2bb2bf13a4559b7">&#9670;&nbsp;</a></span>mb() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const rbd::MultiBody&amp; tvm::Robot::mb </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's related rbd::MultiBody (const) </p>
-
-</div>
-</div>
-<a id="a00ac99ab0d7a0bdbf79b8e6d5b281a07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00ac99ab0d7a0bdbf79b8e6d5b281a07">&#9670;&nbsp;</a></span>mb() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rbd::MultiBody&amp; tvm::Robot::mb </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's related rbd::MultiBody. </p>
-
-</div>
-</div>
-<a id="acfe90640af7ddc39c9f2cfd0ff5b1b4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfe90640af7ddc39c9f2cfd0ff5b1b4b">&#9670;&nbsp;</a></span>mbc() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const rbd::MultiBodyConfig&amp; tvm::Robot::mbc </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's related rbd::MultiBodyConfig (const) </p>
-
-</div>
-</div>
-<a id="a44ed6ad1537057db552f8dd9f2a85ef7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44ed6ad1537057db552f8dd9f2a85ef7">&#9670;&nbsp;</a></span>mbc() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rbd::MultiBodyConfig&amp; tvm::Robot::mbc </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's related rbd::MultiBodyConfig. </p>
-
-</div>
-</div>
-<a id="ae626a4c93e130c8f728a88c9784b3ed9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae626a4c93e130c8f728a88c9784b3ed9">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; tvm::Robot::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's name. </p>
-
-</div>
-</div>
-<a id="a58cb743d5fde666eb98a8b2f7d7b781c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58cb743d5fde666eb98a8b2f7d7b781c">&#9670;&nbsp;</a></span>normalAccB() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;sva::MotionVecd&gt;&amp; tvm::Robot::normalAccB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the vector of normal acceleration expressed in the body's frame (const) </p>
-
-</div>
-</div>
-<a id="a9c77f287a481ed47eee0fa85dd75abfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c77f287a481ed47eee0fa85dd75abfb">&#9670;&nbsp;</a></span>normalAccB() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;sva::MotionVecd&gt;&amp; tvm::Robot::normalAccB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the vector of normal acceleration expressed in the body's frame. </p>
-
-</div>
-</div>
-<a id="ab1e9a931383d7d9c6f3ab89800102c69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1e9a931383d7d9c6f3ab89800102c69">&#9670;&nbsp;</a></span>q() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01779.html">VariableVector</a>&amp; tvm::Robot::q </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access q variable (const) </p>
-
-</div>
-</div>
-<a id="a4e8726a979baab49f6dcc6e1744f8406"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e8726a979baab49f6dcc6e1744f8406">&#9670;&nbsp;</a></span>q() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01779.html">VariableVector</a>&amp; tvm::Robot::q </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access q variable. </p>
-
-</div>
-</div>
-<a id="a64691afca2a00f1e1afe26742803f7bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64691afca2a00f1e1afe26742803f7bf">&#9670;&nbsp;</a></span>qFreeFlyer() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::qFreeFlyer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access free-flyer variable (const) </p>
-
-</div>
-</div>
-<a id="aebbd5abff07e8e7bf8b5f2ba924b06fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebbd5abff07e8e7bf8b5f2ba924b06fb">&#9670;&nbsp;</a></span>qFreeFlyer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::qFreeFlyer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access free-flyer variable. </p>
-
-</div>
-</div>
-<a id="a5ed09fbb014009fd826527a430db37c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ed09fbb014009fd826527a430db37c3">&#9670;&nbsp;</a></span>qJoints() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::qJoints </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access joints variable (const) </p>
-
-</div>
-</div>
-<a id="aced0dbf0215b5367f5c8ec0ce85fa694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aced0dbf0215b5367f5c8ec0ce85fa694">&#9670;&nbsp;</a></span>qJoints() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::qJoints </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access joints variable. </p>
-
-</div>
-</div>
-<a id="a46d251c77a1382d17a10f13b364f3c02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46d251c77a1382d17a10f13b364f3c02">&#9670;&nbsp;</a></span>tau() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::tau </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access tau variable (const) </p>
-
-</div>
-</div>
-<a id="a8b65ccdf6d05c34cc24f405b6ed5b99f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b65ccdf6d05c34cc24f405b6ed5b99f">&#9670;&nbsp;</a></span>tau() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00359.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; tvm::Robot::tau </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access tau variable. </p>
-
-</div>
-</div>
-<a id="a57e68ad7f29273d03f822123d31abfb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57e68ad7f29273d03f822123d31abfb7">&#9670;&nbsp;</a></span>uQBound() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::uQBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the joints' upper position limit (const) </p>
-
-</div>
-</div>
-<a id="a4e661897d3b93d559e0e5325442a2dfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e661897d3b93d559e0e5325442a2dfd">&#9670;&nbsp;</a></span>uQBound() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::uQBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the joints' upper position limit. </p>
-
-</div>
-</div>
-<a id="a7d0328f7cdacdbc5dbb66e05c0a922bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d0328f7cdacdbc5dbb66e05c0a922bf">&#9670;&nbsp;</a></span>uTauBound() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::uTauBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's upper torque limit (const) </p>
-
-</div>
-</div>
-<a id="a48d5f6c161d5e7db67c097494f8c54bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48d5f6c161d5e7db67c097494f8c54bd">&#9670;&nbsp;</a></span>uTauBound() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::uTauBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the robot's upper torque limit. </p>
-
-</div>
-</div>
-<a id="a05697d7bfbca4f0aa67a857bc6bcd764"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05697d7bfbca4f0aa67a857bc6bcd764">&#9670;&nbsp;</a></span>uVelBound() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const Eigen::VectorXd&amp; tvm::Robot::uVelBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the joints' upper velocity limit (const) </p>
-
-</div>
-</div>
-<a id="ad464236a0b6acb8d8183caa86ab7eaf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad464236a0b6acb8d8183caa86ab7eaf6">&#9670;&nbsp;</a></span>uVelBound() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd&amp; tvm::Robot::uVelBound </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access the joints' upper velocity limit. </p>
+<p>The frame's velocity in world coordinates. </p>
 
 </div>
 </div>
@@ -1346,8 +650,8 @@ Additional Inherited Members</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a01339.html">Robot</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00394.html">robot</a></li><li class="navelem"><a class="el" href="a01339.html">Frame</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

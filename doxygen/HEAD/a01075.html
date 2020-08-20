@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::internal::AbstractNode::Update Struct Reference</title>
+<title>TVM: tvm::graph::CallGraph::Call Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,26 +88,103 @@ $(document).ready(function(){initNavTree('a01075.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01072.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::AbstractNode::Update Struct Reference</div>  </div>
+<div class="title">tvm::graph::CallGraph::Call Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for <a class="el" href="a01075.html" title="Base class for Update. ">Update</a>.  
+<p>A call is formed by the combination of a Node and and id.  
  <a href="a01075.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/graph/internal/AbstractNode.h&gt;</code></p>
+<p><code>#include &lt;tvm/graph/CallGraph.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a439d96926840507581844482a2412904"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#a439d96926840507581844482a2412904">operator()</a> () const</td></tr>
+<tr class="separator:a439d96926840507581844482a2412904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a463fd9e7dad85b1241803ffd6bc18b2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01087.html">internal::AbstractNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#a463fd9e7dad85b1241803ffd6bc18b2e">node</a></td></tr>
+<tr class="separator:a463fd9e7dad85b1241803ffd6bc18b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16bacd3a15608ea7b0cec7abbc0e25de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#a16bacd3a15608ea7b0cec7abbc0e25de">id</a></td></tr>
+<tr class="separator:a16bacd3a15608ea7b0cec7abbc0e25de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for <a class="el" href="a01075.html" title="Base class for Update. ">Update</a>. </p>
-<p>Empty </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>A call is formed by the combination of a Node and and id. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a439d96926840507581844482a2412904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439d96926840507581844482a2412904">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::CallGraph::Call::operator() </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a01087.html#aa33b9554a9a9f835cda51e12ddc101bc">tvm::graph::internal::AbstractNode::update()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a16bacd3a15608ea7b0cec7abbc0e25de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16bacd3a15608ea7b0cec7abbc0e25de">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tvm::graph::CallGraph::Call::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01079.html#a43d07159a902bd69708e47c2e9bb2336">tvm::graph::CallGraph::CompareCall::operator()()</a>.</p>
+
+</div>
+</div>
+<a id="a463fd9e7dad85b1241803ffd6bc18b2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a463fd9e7dad85b1241803ffd6bc18b2e">&#9670;&nbsp;</a></span>node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01087.html">internal::AbstractNode</a>* tvm::graph::CallGraph::Call::node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01079.html#a43d07159a902bd69708e47c2e9bb2336">tvm::graph::CallGraph::CompareCall::operator()()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">graph</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01071.html">AbstractNode</a></li><li class="navelem"><a class="el" href="a01075.html">Update</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a01071.html">CallGraph</a></li><li class="navelem"><a class="el" href="a01075.html">Call</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

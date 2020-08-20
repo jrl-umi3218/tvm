@@ -1,13 +1,10 @@
 var a01327 =
 [
-    [ "OrientationFunction", "a01327.html#aa9c4b1ffe33d44449bcfd22b82c557fb", null ],
-    [ "orientation", "a01327.html#a1f9d0701f055781ee5573280b88704d0", null ],
-    [ "orientation", "a01327.html#a1a6442b7d2cf30d959933b19b7b972ed", null ],
-    [ "reset", "a01327.html#a560db2f56638945dd384091474c35d6d", null ],
-    [ "updateJacobian", "a01327.html#a5221d447cf166644fea3b4d66b774d61", null ],
-    [ "updateNormalAcceleration", "a01327.html#acf513041e7b9b517ae4e9f6821f82433", null ],
-    [ "updateValue", "a01327.html#ae2e90b6644897b77a87144a9121979ab", null ],
-    [ "updateVelocity", "a01327.html#a61c6168d1574c5a9bf6bf96e704730a5", null ],
-    [ "frame_", "a01327.html#a7541921c783576ee3b2240c1504f8286", null ],
-    [ "ori_", "a01327.html#a1c727c316ef27d6709e6d2e7c0a7e8db", null ]
+    [ "operator<", "a01327.html#a4f5e1f170ed218b883cef8eba7d7f14e", null ],
+    [ "operator==", "a01327.html#a04b9c312fe5aa25f38a9d8ae7917be2a", null ],
+    [ "ambiguityId", "a01327.html#a3d71573ccb1cbbf8b6d8d92a5c023cd5", null ],
+    [ "f1", "a01327.html#ab933388e108f1d855a97774e42b404ca", null ],
+    [ "f2", "a01327.html#a64b768bf4d7e2cad1b666889a947507c", null ],
+    [ "r1", "a01327.html#ad2b840503887fcc26793c8a1b1cd3925", null ],
+    [ "r2", "a01327.html#a1ba742b7c8bdcfe969d4e40177d90a68", null ]
 ];

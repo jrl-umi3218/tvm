@@ -89,20 +89,35 @@ $(document).ready(function(){initNavTree('a01575.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::solver::DefaultLSSolverOptions Member List</div>  </div>
+<div class="title">tvm::scheme::internal::ProblemComputationData Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01575.html">tvm::solver::DefaultLSSolverOptions</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01575.html#afcb331752f62889cafb9d7dc8a249163">Factory</a> typedef</td><td class="entry"><a class="el" href="a01575.html">tvm::solver::DefaultLSSolverOptions</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#a13844b89e570800dbc657bd8ce2505b9">addEvent</a>(const ProblemDefinitionEvent &amp;e)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#aa3fb6b078098e20cb4fa51de26d75d46">addVariable</a>(VariablePtr var)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#a7f77e4f6bbc76a6df63d5f420c3765d5">addVariable</a>(const VariableVector &amp;vars)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#afae2058692ecd15d9583e4eab0786886">events_</a></td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#aba12e428a82870bfd1922c1a51fd8313">hasEvents</a>() const</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#a4f64bb80e0b42dafa4fc6e5a022f34a7">popEvent</a>()</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#ab5ba42c5270fb93ffddaee562c02cc73">ProblemComputationData</a>(int solverId)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#a72b037eaff3c68715bad7d22eeff6a2d">ProblemComputationData</a>()=delete</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#a9d29629c9ce08ba2ed1059ad0a41aeec">removeVariable</a>(Variable *v)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#a14ebde29b15f2b4ca8f8bcf176d246ad">removeVariable</a>(const VariableVector &amp;vars)</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#a7a12195f4bfcdce9297da51364f50892">setVariablesToSolution</a>()</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#a32eea38f2dce8263ba1661a2570e73fd">setVariablesToSolution_</a>(VariableVector &amp;x)=0</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#ae81e44f0373c64c02ab4aa0bb4e7bd61">solverId</a>() const</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#a58cbf3db7ca4b701751e3737ae2348f3">variables</a>() const</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01575.html#a1a4f25982df27bbf939afe9377704ef4">x_</a></td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01575.html#ae25cf5d3b44a97562d04ce2945404509">~ProblemComputationData</a>()=default</td><td class="entry"><a class="el" href="a01575.html">tvm::scheme::internal::ProblemComputationData</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

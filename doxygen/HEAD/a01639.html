@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl Class Reference</title>
+<title>TVM: tvm::solver::LSSOLLSSolverFactory Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,148 +92,78 @@ $(document).ready(function(){initNavTree('a01639.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01636.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl Class Reference</div>  </div>
+<div class="title">tvm::solver::LSSOLLSSolverFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;tvm/task_dynamics/Clamped.h&gt;</code></p>
+<p>A factory class to create <a class="el" href="a01635.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a> instances with a given set of options.  
+ <a href="a01639.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/solver/LSSOLLeastSquareSolver.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl:</div>
+Inheritance diagram for tvm::solver::LSSOLLSSolverFactory:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01639.png" usemap="#tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E::Impl_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E::Impl_map" name="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E::Impl_map">
+  <img src="a01639.png" usemap="#tvm::solver::LSSOLLSSolverFactory_map" alt=""/>
+  <map id="tvm::solver::LSSOLLSSolverFactory_map" name="tvm::solver::LSSOLLSSolverFactory_map">
+<area href="a01619.html" title="A base class for LeastSquareSolver factory. " alt="tvm::solver::abstract::LSSolverFactory" shape="rect" coords="0,0,225,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acdd69bf914b9c06060d90a5bf1495696"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:acdd69bf914b9c06060d90a5bf1495696"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01639.html#acdd69bf914b9c06060d90a5bf1495696">Impl</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs, const <a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> &amp;<a class="el" href="a01639.html#a279d5efaba7b100b4f13192f656b0e0b">min</a>, const <a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> &amp;<a class="el" href="a01639.html#a8708682a999b633a08f2b921758430b6">max</a>, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:acdd69bf914b9c06060d90a5bf1495696"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad058380bb126854206d9abbf06e3d3a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#ad058380bb126854206d9abbf06e3d3a3">updateValue</a> () override</td></tr>
-<tr class="separator:ad058380bb126854206d9abbf06e3d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a239fe1e7a808267521ece371db52eb17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a239fe1e7a808267521ece371db52eb17">~Impl</a> () override=default</td></tr>
-<tr class="separator:a239fe1e7a808267521ece371db52eb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a279d5efaba7b100b4f13192f656b0e0b"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a279d5efaba7b100b4f13192f656b0e0b">min</a> () const</td></tr>
-<tr class="memdesc:a279d5efaba7b100b4f13192f656b0e0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to \( b_{min} \).  <a href="#a279d5efaba7b100b4f13192f656b0e0b">More...</a><br /></td></tr>
-<tr class="separator:a279d5efaba7b100b4f13192f656b0e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2ca601afac3bc73047231fd9fc20cd2"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#ac2ca601afac3bc73047231fd9fc20cd2">min</a> ()</td></tr>
-<tr class="memdesc:ac2ca601afac3bc73047231fd9fc20cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to \( b_{min} \).  <a href="#ac2ca601afac3bc73047231fd9fc20cd2">More...</a><br /></td></tr>
-<tr class="separator:ac2ca601afac3bc73047231fd9fc20cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8708682a999b633a08f2b921758430b6"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a8708682a999b633a08f2b921758430b6">max</a> () const</td></tr>
-<tr class="memdesc:a8708682a999b633a08f2b921758430b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to \( b_{max} \).  <a href="#a8708682a999b633a08f2b921758430b6">More...</a><br /></td></tr>
-<tr class="separator:a8708682a999b633a08f2b921758430b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc0b959f36bd440f8245ec46ef3f7dee"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#afc0b959f36bd440f8245ec46ef3f7dee">max</a> ()</td></tr>
-<tr class="memdesc:afc0b959f36bd440f8245ec46ef3f7dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to \( b_{max} \).  <a href="#afc0b959f36bd440f8245ec46ef3f7dee">More...</a><br /></td></tr>
-<tr class="separator:afc0b959f36bd440f8245ec46ef3f7dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4161a1c6228053efd1f61b5dab901a1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a4161a1c6228053efd1f61b5dab901a1e">LSSOLLSSolverFactory</a> (const <a class="el" href="a01631.html">LSSOLLSSolverOptions</a> &amp;options={})</td></tr>
+<tr class="memdesc:a4161a1c6228053efd1f61b5dab901a1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creation of a configuration from a set of options.  <a href="#a4161a1c6228053efd1f61b5dab901a1e">More...</a><br /></td></tr>
+<tr class="separator:a4161a1c6228053efd1f61b5dab901a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37498aa7021f22f076407a3106fdfc35"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01619.html">abstract::LSSolverFactory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a37498aa7021f22f076407a3106fdfc35">clone</a> () const override</td></tr>
+<tr class="separator:a37498aa7021f22f076407a3106fdfc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a7baded2c2cf864371d8e32f3add3c3"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01615.html">abstract::LeastSquareSolver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html#a0a7baded2c2cf864371d8e32f3add3c3">createSolver</a> () const override</td></tr>
+<tr class="separator:a0a7baded2c2cf864371d8e32f3add3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01619"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01619')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td></tr>
+<tr class="memitem:aa7253c409c8125f7806cac17adffb8b5 inherit pub_methods_a01619"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01619.html#aa7253c409c8125f7806cac17adffb8b5">~LSSolverFactory</a> ()=default</td></tr>
+<tr class="separator:aa7253c409c8125f7806cac17adffb8b5 inherit pub_methods_a01619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_a01619"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01619')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td></tr>
+<tr class="memitem:a16f20ada8e2be7db1dfe20d6d19d27a2 inherit pro_methods_a01619"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01619.html#a16f20ada8e2be7db1dfe20d6d19d27a2">LSSolverFactory</a> (const std::string &amp;solverName)</td></tr>
+<tr class="separator:a16f20ada8e2be7db1dfe20d6d19d27a2 inherit pro_methods_a01619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acdd69bf914b9c06060d90a5bf1495696"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdd69bf914b9c06060d90a5bf1495696">&#9670;&nbsp;</a></span>Impl()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A factory class to create <a class="el" href="a01635.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a> instances with a given set of options. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4161a1c6228053efd1f61b5dab901a1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4161a1c6228053efd1f61b5dab901a1e">&#9670;&nbsp;</a></span>LSSOLLSSolverFactory()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::Impl </td>
+          <td class="memname">tvm::solver::LSSOLLSSolverFactory::LSSOLLSSolverFactory </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> &amp;&#160;</td>
-          <td class="paramname"><em>min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> &amp;&#160;</td>
-          <td class="paramname"><em>max</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a239fe1e7a808267521ece371db52eb17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a239fe1e7a808267521ece371db52eb17">&#9670;&nbsp;</a></span>~Impl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::~Impl </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a01631.html">LSSOLLSSolverOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em> = <code>{}</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p>Creation of a configuration from a set of options. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8708682a999b633a08f2b921758430b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8708682a999b633a08f2b921758430b6">&#9670;&nbsp;</a></span>max() <span class="overload">[1/2]</span></h2>
+<a id="a37498aa7021f22f076407a3106fdfc35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37498aa7021f22f076407a3106fdfc35">&#9670;&nbsp;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Eigen::VectorXd&amp; <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::max </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01619.html">abstract::LSSolverFactory</a>&gt; tvm::solver::LSSOLLSSolverFactory::clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -241,66 +171,26 @@ template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access to \( b_{max} \). </p>
-
-<p class="reference">Referenced by <a class="el" href="a01639.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
+<p>Implements <a class="el" href="a01619.html#a6fa2c837939850ad7a9acb3aa7e7e6fe">tvm::solver::abstract::LSSolverFactory</a>.</p>
 
 </div>
 </div>
-<a id="afc0b959f36bd440f8245ec46ef3f7dee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc0b959f36bd440f8245ec46ef3f7dee">&#9670;&nbsp;</a></span>max() <span class="overload">[2/2]</span></h2>
+<a id="a0a7baded2c2cf864371d8e32f3add3c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7baded2c2cf864371d8e32f3add3c3">&#9670;&nbsp;</a></span>createSolver()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd&amp; <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::max </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access to \( b_{max} \). </p>
-<dl class="section warning"><dt>Warning</dt><dd>It is your responsibility to give a valid \( b_{max} \) i.e.<ul>
-<li>correct size</li>
-<li>\( b_{min} \leq 0 \leq b_{max}\) </li>
-</ul>
-</dd></dl>
-
-<p class="reference">References <a class="el" href="a01635.html#ac7f67c11e585b23f97870950cb8d457f">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Clamped()</a>, <a class="el" href="a01639.html#a8708682a999b633a08f2b921758430b6">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>, and <a class="el" href="a01635.html#a21d2e10eb13358ced2f2926ce534b6e3">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::~Clamped()</a>.</p>
-
-</div>
-</div>
-<a id="a279d5efaba7b100b4f13192f656b0e0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a279d5efaba7b100b4f13192f656b0e0b">&#9670;&nbsp;</a></span>min() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const Eigen::VectorXd&amp; <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::min </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01615.html">abstract::LeastSquareSolver</a>&gt; tvm::solver::LSSOLLSSolverFactory::createSolver </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -308,73 +198,12 @@ template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access to \( b_{min} \). </p>
-
-</div>
-</div>
-<a id="ac2ca601afac3bc73047231fd9fc20cd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2ca601afac3bc73047231fd9fc20cd2">&#9670;&nbsp;</a></span>min() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd&amp; <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::min </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Access to \( b_{min} \). </p>
-<dl class="section warning"><dt>Warning</dt><dd>It is your responsibility to give a valid \( b_{min} \) i.e.<ul>
-<li>correct size</li>
-<li>\( b_{min} \leq 0 \leq b_{max}\) </li>
-</ul>
-</dd></dl>
-
-</div>
-</div>
-<a id="ad058380bb126854206d9abbf06e3d3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad058380bb126854206d9abbf06e3d3a3">&#9670;&nbsp;</a></span>updateValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::Impl::updateValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Implements <a class="el" href="a01619.html#a9f66347b627c0e41deab82a2bbc0ee32">tvm::solver::abstract::LSSolverFactory</a>.</p>
 
 </div>
 </div>
@@ -384,8 +213,8 @@ template&lt;class TD , class TDImpl &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01635.html">Clamped</a></li><li class="navelem"><a class="el" href="a01639.html">Impl</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00399.html">solver</a></li><li class="navelem"><a class="el" href="a01639.html">LSSOLLSSolverFactory</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

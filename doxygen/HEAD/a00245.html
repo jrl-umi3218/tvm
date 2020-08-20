@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: TaskDynamics.h File Reference</title>
+<title>TVM: QLDLeastSquareSolver.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,109 +90,44 @@ $(document).ready(function(){initNavTree('a00245.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">TaskDynamics.h File Reference</div>  </div>
+<div class="title">QLDLeastSquareSolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00056.html">tvm/graph/abstract/Node.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02282.html">tvm/task_dynamics/enums.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248.html">tvm/task_dynamics/abstract/TaskDynamicsImpl.h</a>&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00233.html">tvm/solver/abstract/LeastSquareSolver.h</a>&gt;</code><br />
+<code>#include &lt;eigen-qld/QLDDirect.h&gt;</code><br />
+<code>#include &lt;Eigen/QR&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a base class to describe how a task is to be regulated, i.e.  <a href="a01627.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01643.html">tvm::solver::QLDLSSolverOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01647.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a>.  <a href="a01643.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01647.html">tvm::solver::QLDLeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the QLD solver, to solve linear least-squares problems.  <a href="a01647.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01651.html">tvm::solver::QLDLSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01647.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a> instances with a given set of options.  <a href="a01651.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00366"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00366.html">tvm::task_dynamics</a></td></tr>
+<tr class="memitem:a00399"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html">tvm::solver</a></td></tr>
+<tr class="memdesc:a00399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00367"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00367.html">tvm::task_dynamics::abstract</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:abb698affbe75e6eb09581fed3cb1ad62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#abb698affbe75e6eb09581fed3cb1ad62">TASK_DYNAMICS_DERIVED_FACTORY</a>(...)</td></tr>
-<tr class="memdesc:abb698affbe75e6eb09581fed3cb1ad62"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro can be used to define the derived factory required in TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro arguments are members of the class passed to the derived constructor.  <a href="#abb698affbe75e6eb09581fed3cb1ad62">More...</a><br /></td></tr>
-<tr class="separator:abb698affbe75e6eb09581fed3cb1ad62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f5f030eca0b25436ca268039666277"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#a78f5f030eca0b25436ca268039666277">COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</a>(T, ...)</td></tr>
-<tr class="memdesc:a78f5f030eca0b25436ca268039666277"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro can be used to define the derived factory required in composable TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro variadic arguments are members of the class passed to the derived constructor, the first argument is the template argument representing the encapsulated TaskDynamic type.  <a href="#a78f5f030eca0b25436ca268039666277">More...</a><br /></td></tr>
-<tr class="separator:a78f5f030eca0b25436ca268039666277"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a78f5f030eca0b25436ca268039666277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78f5f030eca0b25436ca268039666277">&#9670;&nbsp;</a></span>COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">T, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived, <span class="keyword">typename</span> ... Args&gt;                                                     \</div><div class="line">  std::unique_ptr&lt;tvm::task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(<a class="code" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a> f,         \</div><div class="line">                                                                        <a class="code" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> t,    \</div><div class="line">                                                                        <span class="keyword">const</span> Eigen::VectorXd&amp; rhs, \</div><div class="line">                                                                        Args&amp;&amp; ... args) <span class="keyword">const</span>      \</div><div class="line">  {                                                                                                 \</div><div class="line">    return T::template impl_&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., ## __VA_ARGS__);      \</div><div class="line">  }</div><div class="ttc" id="a00360_html_ab6243a7da877a867f54ff7207959eb7c"><div class="ttname"><a href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint. </div><div class="ttdef"><b>Definition:</b> constraint/enums.h:41</div></div>
-<div class="ttc" id="a00359_html_a42313833bbb66bf5318f67e0dca5936a"><div class="ttname"><a href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a></div><div class="ttdeci">std::shared_ptr&lt; function::abstract::Function &gt; FunctionPtr</div><div class="ttdef"><b>Definition:</b> defs.h:83</div></div>
-</div><!-- fragment -->
-<p>This macro can be used to define the derived factory required in composable TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro variadic arguments are members of the class passed to the derived constructor, the first argument is the template argument representing the encapsulated TaskDynamic type. </p>
-
-<p class="reference">Referenced by <a class="el" href="a01651.html#abda16526050397d7ef14bc4a8371a942">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::impl_()</a>, and <a class="el" href="a01635.html#af6bfa86084554c96555a11e7a163f611">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::impl_()</a>.</p>
-
-</div>
-</div>
-<a id="abb698affbe75e6eb09581fed3cb1ad62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb698affbe75e6eb09581fed3cb1ad62">&#9670;&nbsp;</a></span>TASK_DYNAMICS_DERIVED_FACTORY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TASK_DYNAMICS_DERIVED_FACTORY</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived, <span class="keyword">typename</span> ... Args&gt;                                                     \</div><div class="line">  std::unique_ptr&lt;tvm::task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(<a class="code" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a> f,         \</div><div class="line">                                                                        <a class="code" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> t,    \</div><div class="line">                                                                        <span class="keyword">const</span> Eigen::VectorXd&amp; rhs, \</div><div class="line">                                                                        Args&amp;&amp; ... args) <span class="keyword">const</span>      \</div><div class="line">  {                                                                                                 \</div><div class="line">    return std::make_unique&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., ## __VA_ARGS__);       \</div><div class="line">  }</div><div class="ttc" id="a00360_html_ab6243a7da877a867f54ff7207959eb7c"><div class="ttname"><a href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint. </div><div class="ttdef"><b>Definition:</b> constraint/enums.h:41</div></div>
-<div class="ttc" id="a00359_html_a42313833bbb66bf5318f67e0dca5936a"><div class="ttname"><a href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a></div><div class="ttdeci">std::shared_ptr&lt; function::abstract::Function &gt; FunctionPtr</div><div class="ttdef"><b>Definition:</b> defs.h:83</div></div>
-</div><!-- fragment -->
-<p>This macro can be used to define the derived factory required in TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro arguments are members of the class passed to the derived constructor. </p>
-
-<p class="reference">Referenced by <a class="el" href="a01671.html#a3661929073f3f3d686b3d03144ac02a0">tvm::task_dynamics::Proportional::Impl::gain()</a>, <a class="el" href="a01679.html#a23c3aac3e327d343e7046c92e59ab257">tvm::task_dynamics::ProportionalDerivative::Impl::kv()</a>, and <a class="el" href="a01687.html#af16a3771bfacda732f04266476ef79e1">tvm::task_dynamics::Reference::Impl::ref()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="dir_ff52d1014f3c86f7680f449f83cac727.html">abstract</a></li><li class="navelem"><a class="el" href="a00245.html">TaskDynamics.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_cd62ff3f67c488611cd9ffc617bc0d4a.html">solver</a></li><li class="navelem"><a class="el" href="a00245.html">QLDLeastSquareSolver.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

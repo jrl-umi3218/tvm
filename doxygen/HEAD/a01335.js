@@ -1,12 +1,8 @@
 var a01335 =
 [
-    [ "PostureFunction", "a01335.html#aa210f6036aa38778df64ea6eb78f9819", null ],
-    [ "posture", "a01335.html#a5d6e83625186b9bc577872e9f2a9944f", null ],
-    [ "posture", "a01335.html#a011bb38a71229800f6cfb8a4d2084331", null ],
-    [ "reset", "a01335.html#a3ec0c03915e67ce498965f7e9af1a0c2", null ],
-    [ "updateValue", "a01335.html#acb4b1c6f39e4627b1ac7c14dfcef15cb", null ],
-    [ "updateVelocity", "a01335.html#aff6fc65cdac8fc7b45ea190de05df800", null ],
-    [ "j0_", "a01335.html#aba5265bfc9ede51c2b3460c0e01ae87e", null ],
-    [ "posture_", "a01335.html#a5ed6f766d06e9dd939bacff7c1c02449", null ],
-    [ "robot_", "a01335.html#a1bfe636c3d72fc3aab6d19f23d593afa", null ]
+    [ "ConvexHull", "a01335.html#a395a277d2130b235c47a68f9d623da39", null ],
+    [ "ConvexHull", "a01335.html#a3d915999d14bc1417cf4f7d99801c060", null ],
+    [ "frame", "a01335.html#ad813622ed979369964a39b21dc91c812", null ],
+    [ "frame", "a01335.html#a9c66082a615790fe315389b7600ce9b1", null ],
+    [ "makePair", "a01335.html#aa157d2d5d638dd854a74e38d547b9422", null ]
 ];

@@ -89,21 +89,29 @@ $(document).ready(function(){initNavTree('a01195.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::internal::MatrixProperties::Invertibility Member List</div>  </div>
+<div class="title">tvm::hint::Substitution Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01195.html">tvm::internal::MatrixProperties::Invertibility</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01195.html">tvm::hint::Substitution</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01195.html#afb36f8581408115f6b5ebc5e5a6375d2">Invertibility</a>(bool b=false)</td><td class="entry"><a class="el" href="a01195.html">tvm::internal::MatrixProperties::Invertibility</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01195.html#af898bc6d33dba97cb03bdfd5b166e19d">operator bool</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::internal::MatrixProperties::Invertibility</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01195.html#af7b56ba247a30f5709faca2a380b50e0">calculator</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01195.html#afb474e8d04c2e8031aa01edf5e0e74c9">constraints</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01195.html#a207f2a8aaf6602a01ca212d0d9670162">isSimple</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01195.html#a881f8ab3e4ee31f531957520187f0ee5">m</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01195.html#a0f3eacd65b9c7b82698f96ee16de510b">rank</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01195.html#a55194c52b4053da3ce1e2ee6e5d78be8">Substitution</a>(LinearConstraintPtr cstr, VariablePtr x, int rank=constant::fullRank, const abstract::SubstitutionCalculator &amp;calc=internal::AutoCalculator())</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01195.html#a8da60f444b20f358d9280a2027067757">Substitution</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, VariablePtr x, int rank=constant::fullRank, const abstract::SubstitutionCalculator &amp;calc=internal::AutoCalculator())</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01195.html#af90e547fb92f2ad2619118d5b9211e33">Substitution</a>(LinearConstraintPtr cstr, std::vector&lt; VariablePtr &gt; &amp;x, int rank=constant::fullRank, const abstract::SubstitutionCalculator &amp;calc=internal::AutoCalculator())</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01195.html#a4b7fae6c328d639e872226ea4f809c11">Substitution</a>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank=constant::fullRank, const abstract::SubstitutionCalculator &amp;calc=internal::AutoCalculator())</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01195.html#a352a4cddee84363876e25b090a8fe332">variables</a>() const</td><td class="entry"><a class="el" href="a01195.html">tvm::hint::Substitution</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

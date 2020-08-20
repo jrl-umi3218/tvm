@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: AssignmentTarget.h File Reference</title>
+<title>TVM: Robot.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,42 +90,32 @@ $(document).ready(function(){initNavTree('a00197.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">AssignmentTarget.h File Reference</div>  </div>
+<div class="title">Robot.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02270.html">tvm/constraint/enums.h</a>&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00005.html">tvm/Clock.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00323.html">tvm/Variable.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00326.html">tvm/VariableVector.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00056.html">tvm/graph/abstract/Node.h</a>&gt;</code><br />
+<code>#include &lt;RBDyn/FD.h&gt;</code><br />
+<code>#include &lt;RBDyn/MultiBody.h&gt;</code><br />
+<code>#include &lt;RBDyn/MultiBodyConfig.h&gt;</code><br />
+<code>#include &lt;RBDyn/MultiBodyGraph.h&gt;</code><br />
+<code>#include &lt;RBDyn/parsers/urdf.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01367.html">tvm::scheme::internal::AssignmentTarget</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class describes the matrix and vector(s) rows in which a given constraint needs to be copied, and the convention to be used for those matrix and vectors.  <a href="a01367.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01375.html">tvm::Robot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent a <a class="el" href="a01375.html" title="Represent a Robot. ">Robot</a>.  <a href="a01375.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00384"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00384.html">tvm::scheme</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00386"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00386.html">tvm::scheme::internal</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:abe11da65d6ccf4412671e16317eb1f3b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00386.html#abe11da65d6ccf4412671e16317eb1f3b">tvm::scheme::internal::TargetType</a> { <br />
-&#160;&#160;<a class="el" href="a00386.html#abe11da65d6ccf4412671e16317eb1f3ba32a843da6ea40ab3b17a3421ccdf671b">tvm::scheme::internal::TargetType::Linear</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00386.html#abe11da65d6ccf4412671e16317eb1f3ba8b2972385ed28d0e199ae2985d6fea4c">tvm::scheme::internal::TargetType::Quadratic</a>
-<br />
- }</td></tr>
-<tr class="separator:abe11da65d6ccf4412671e16317eb1f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -133,8 +123,8 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_2692b72ddc0701b0608665f2dcf95618.html">scheme</a></li><li class="navelem"><a class="el" href="dir_95c1fd391bbcbe5883f133198784cdc1.html">internal</a></li><li class="navelem"><a class="el" href="a00197.html">AssignmentTarget.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:00 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="a00197.html">Robot.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

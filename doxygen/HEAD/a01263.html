@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::requirements::Weight Class Reference</title>
+<title>TVM: tvm::LinearizedControlProblem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,65 +90,113 @@ $(document).ready(function(){initNavTree('a01263.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01260.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::requirements::Weight Class Reference</div>  </div>
+<div class="title">tvm::LinearizedControlProblem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This class represents the scalar weight alpha of a constraint, within its priority level.  
- <a href="a01263.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/requirements/Weight.h&gt;</code></p>
+<p><code>#include &lt;tvm/LinearizedControlProblem.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::requirements::Weight:</div>
+Inheritance diagram for tvm::LinearizedControlProblem:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01263.png" usemap="#tvm::requirements::Weight_map" alt=""/>
-  <map id="tvm::requirements::Weight_map" name="tvm::requirements::Weight_map">
-<area href="a01243.html" alt="tvm::requirements::abstract::SingleSolvingRequirement&lt; double &gt;" shape="rect" coords="0,0,374,24"/>
+  <img src="a01263.png" usemap="#tvm::LinearizedControlProblem_map" alt=""/>
+  <map id="tvm::LinearizedControlProblem_map" name="tvm::LinearizedControlProblem_map">
+<area href="a00979.html" alt="tvm::ControlProblem" shape="rect" coords="0,0,183,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af0de8ebb30ff25b523181405f2e8cd10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#af0de8ebb30ff25b523181405f2e8cd10">Weight</a> ()</td></tr>
-<tr class="memdesc:af0de8ebb30ff25b523181405f2e8cd10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default weight = 1.  <a href="#af0de8ebb30ff25b523181405f2e8cd10">More...</a><br /></td></tr>
-<tr class="separator:af0de8ebb30ff25b523181405f2e8cd10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a324ad324718c883b0f17ec451f499ad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a324ad324718c883b0f17ec451f499ad1">Weight</a> (double alpha)</td></tr>
-<tr class="separator:a324ad324718c883b0f17ec451f499ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01243"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01243')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01243.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; double &gt;</a></td></tr>
-<tr class="memitem:ac0daf2476745b807bad9906a5dd66353 inherit pub_methods_a01243"><td class="memItemLeft" align="right" valign="top">const double &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#ac0daf2476745b807bad9906a5dd66353">value</a> () const</td></tr>
-<tr class="separator:ac0daf2476745b807bad9906a5dd66353 inherit pub_methods_a01243"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99aa80c59822b0fc02bd9c04c137d2d8 inherit pub_methods_a01243"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a99aa80c59822b0fc02bd9c04c137d2d8">isDefault</a> () const</td></tr>
-<tr class="separator:a99aa80c59822b0fc02bd9c04c137d2d8 inherit pub_methods_a01243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185f50144ac73b3714a8aa791d138542"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a185f50144ac73b3714a8aa791d138542">LinearizedControlProblem</a> ()</td></tr>
+<tr class="separator:a185f50144ac73b3714a8aa791d138542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6fa8721c64bbe7815f8ce56ff2be8fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#ac6fa8721c64bbe7815f8ce56ff2be8fd">LinearizedControlProblem</a> (const <a class="el" href="a00979.html">ControlProblem</a> &amp;pb)</td></tr>
+<tr class="separator:ac6fa8721c64bbe7815f8ce56ff2be8fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a06a4ee0e5e54207b44aff7288ad4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a95a06a4ee0e5e54207b44aff7288ad4c">add</a> (const <a class="el" href="a01671.html">Task</a> &amp;task, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:a95a06a4ee0e5e54207b44aff7288ad4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a020de24e49ecdcd3b54eef51f4c3f168"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:a020de24e49ecdcd3b54eef51f4c3f168"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01263.html#a020de24e49ecdcd3b54eef51f4c3f168">add</a> (<a class="el" href="a00392.html#a2dfe19cb30968d93c81382f2b5463f47">utils::ProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:a020de24e49ecdcd3b54eef51f4c3f168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3565021e75500149b2e7b9966209890f"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:a3565021e75500149b2e7b9966209890f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01263.html#a3565021e75500149b2e7b9966209890f">add</a> (<a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:a3565021e75500149b2e7b9966209890f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf0201670cbea4dec6276e55ff89904"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:afcf0201670cbea4dec6276e55ff89904"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01263.html#afcf0201670cbea4dec6276e55ff89904">add</a> (<a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:afcf0201670cbea4dec6276e55ff89904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c49d719940c575cf3b6fb11991a65f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a13c49d719940c575cf3b6fb11991a65f">add</a> (<a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tr)</td></tr>
+<tr class="separator:a13c49d719940c575cf3b6fb11991a65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade5c2dbb9049e1f470b952b38e66b580"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#ade5c2dbb9049e1f470b952b38e66b580">remove</a> (<a class="el" href="a00975.html">TaskWithRequirements</a> *tr)</td></tr>
+<tr class="separator:ade5c2dbb9049e1f470b952b38e66b580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221e3d94b2858896c0e226bcb2640d65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a221e3d94b2858896c0e226bcb2640d65">add</a> (const <a class="el" href="a01195.html">hint::Substitution</a> &amp;s)</td></tr>
+<tr class="separator:a221e3d94b2858896c0e226bcb2640d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c72fec3889c47156712d2525d3af078"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01187.html">hint::internal::Substitutions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a3c72fec3889c47156712d2525d3af078">substitutions</a> () const</td></tr>
+<tr class="separator:a3c72fec3889c47156712d2525d3af078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b8667cb321d850d9d62608cf73b3cb9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01827.html">VariableVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a4b8667cb321d850d9d62608cf73b3cb9">variables</a> () const</td></tr>
+<tr class="memdesc:a4b8667cb321d850d9d62608cf73b3cb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the variables.  <a href="#a4b8667cb321d850d9d62608cf73b3cb9">More...</a><br /></td></tr>
+<tr class="separator:a4b8667cb321d850d9d62608cf73b3cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d8adbf4c712eb5ce148e6df32d4961e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01259.html">LinearConstraintWithRequirements</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a6d8adbf4c712eb5ce148e6df32d4961e">constraints</a> () const</td></tr>
+<tr class="memdesc:a6d8adbf4c712eb5ce148e6df32d4961e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to constraints.  <a href="#a6d8adbf4c712eb5ce148e6df32d4961e">More...</a><br /></td></tr>
+<tr class="separator:a6d8adbf4c712eb5ce148e6df32d4961e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34dd0b835d4e281927f4122660aba19f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a34dd0b835d4e281927f4122660aba19f">constraint</a> (<a class="el" href="a00975.html">TaskWithRequirements</a> *t) const</td></tr>
+<tr class="memdesc:a34dd0b835d4e281927f4122660aba19f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the linear constraint corresponding to the task <code>t</code>.  <a href="#a34dd0b835d4e281927f4122660aba19f">More...</a><br /></td></tr>
+<tr class="separator:a34dd0b835d4e281927f4122660aba19f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a00979"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a00979')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a00979.html">tvm::ControlProblem</a></td></tr>
+<tr class="memitem:aa26e9fb05bc3e5a4aa099a59690dac0c inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#aa26e9fb05bc3e5a4aa099a59690dac0c">ControlProblem</a> ()=default</td></tr>
+<tr class="separator:aa26e9fb05bc3e5a4aa099a59690dac0c inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a494bf6e4a7035ac685998578070996a7 inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a494bf6e4a7035ac685998578070996a7">ControlProblem</a> (const <a class="el" href="a00979.html">ControlProblem</a> &amp;)=delete</td></tr>
+<tr class="separator:a494bf6e4a7035ac685998578070996a7 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105f49549e8d86ca3323546032bff1a5 inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00979.html">ControlProblem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a105f49549e8d86ca3323546032bff1a5">operator=</a> (const <a class="el" href="a00979.html">ControlProblem</a> &amp;)=delete</td></tr>
+<tr class="separator:a105f49549e8d86ca3323546032bff1a5 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6210225650f48069ef46d62701ff15b inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#ab6210225650f48069ef46d62701ff15b">add</a> (const <a class="el" href="a01671.html">Task</a> &amp;task, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:ab6210225650f48069ef46d62701ff15b inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0735dd3af1c4598d10545c614b570511 inherit pub_methods_a00979"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:a0735dd3af1c4598d10545c614b570511 inherit pub_methods_a00979"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00979.html#a0735dd3af1c4598d10545c614b570511">add</a> (<a class="el" href="a00392.html#a2dfe19cb30968d93c81382f2b5463f47">utils::ProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:a0735dd3af1c4598d10545c614b570511 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd49cb70575fb5b46f0c3a473871dac inherit pub_methods_a00979"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:aebd49cb70575fb5b46f0c3a473871dac inherit pub_methods_a00979"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00979.html#aebd49cb70575fb5b46f0c3a473871dac">add</a> (<a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:aebd49cb70575fb5b46f0c3a473871dac inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a238c66cab8b9103dd501b4c3e60244 inherit pub_methods_a00979"><td class="memTemplParams" colspan="2">template&lt;constraint::Type T&gt; </td></tr>
+<tr class="memitem:a6a238c66cab8b9103dd501b4c3e60244 inherit pub_methods_a00979"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00979.html#a6a238c66cab8b9103dd501b4c3e60244">add</a> (<a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt; proto, const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;req={})</td></tr>
+<tr class="separator:a6a238c66cab8b9103dd501b4c3e60244 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ace9b41936e3bd34e2a939a43871e3f inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a8ace9b41936e3bd34e2a939a43871e3f">add</a> (<a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tr)</td></tr>
+<tr class="separator:a8ace9b41936e3bd34e2a939a43871e3f inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5093af14ef4e96ee685094e3fb19b80e inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a5093af14ef4e96ee685094e3fb19b80e">remove</a> (<a class="el" href="a00975.html">TaskWithRequirements</a> *tr)</td></tr>
+<tr class="separator:a5093af14ef4e96ee685094e3fb19b80e inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a606e35f53e2dd15dbf848c0b4195e inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#ac3a606e35f53e2dd15dbf848c0b4195e">tasks</a> () const</td></tr>
+<tr class="separator:ac3a606e35f53e2dd15dbf848c0b4195e inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59f2080238e33168e7fda68523dbe70d inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a59f2080238e33168e7fda68523dbe70d">update</a> ()</td></tr>
+<tr class="memdesc:a59f2080238e33168e7fda68523dbe70d inherit pub_methods_a00979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute all quantities necessary for solving the problem.  <a href="a00979.html#a59f2080238e33168e7fda68523dbe70d">More...</a><br /></td></tr>
+<tr class="separator:a59f2080238e33168e7fda68523dbe70d inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d19087a0579c9ab14b775c67957aed inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a60d19087a0579c9ab14b775c67957aed">finalize</a> ()</td></tr>
+<tr class="memdesc:a60d19087a0579c9ab14b775c67957aed inherit pub_methods_a00979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the data of the solver.  <a href="a00979.html#a60d19087a0579c9ab14b775c67957aed">More...</a><br /></td></tr>
+<tr class="separator:a60d19087a0579c9ab14b775c67957aed inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:abf09a96310e5820d348a18bd8f94501a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#abf09a96310e5820d348a18bd8f94501a">update_</a> () override</td></tr>
+<tr class="memdesc:abf09a96310e5820d348a18bd8f94501a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute all quantities necessary for solving the problem.  <a href="#abf09a96310e5820d348a18bd8f94501a">More...</a><br /></td></tr>
+<tr class="separator:abf09a96310e5820d348a18bd8f94501a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3405a3add15a392d0d7d23f80d47981b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01263.html#a3405a3add15a392d0d7d23f80d47981b">finalize_</a> () override</td></tr>
+<tr class="memdesc:a3405a3add15a392d0d7d23f80d47981b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the data of the solver.  <a href="#a3405a3add15a392d0d7d23f80d47981b">More...</a><br /></td></tr>
+<tr class="separator:a3405a3add15a392d0d7d23f80d47981b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_a01243"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01243')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01243.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; double &gt;</a></td></tr>
-<tr class="memitem:ab5f065557cd3182df29a7b8f6a812d64 inherit pro_methods_a01243"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#ab5f065557cd3182df29a7b8f6a812d64">SingleSolvingRequirement</a> (const double &amp;val, bool <a class="el" href="a01243.html#a99aa80c59822b0fc02bd9c04c137d2d8">isDefault</a>)</td></tr>
-<tr class="separator:ab5f065557cd3182df29a7b8f6a812d64 inherit pro_methods_a01243"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a01243"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01243')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01243.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; double &gt;</a></td></tr>
-<tr class="memitem:a827d7a62654f40e12acce4e3e69626ec inherit pro_attribs_a01243"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a827d7a62654f40e12acce4e3e69626ec">default_</a></td></tr>
-<tr class="memdesc:a827d7a62654f40e12acce4e3e69626ec inherit pro_attribs_a01243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this requirement at it default value.  <a href="a01243.html#a827d7a62654f40e12acce4e3e69626ec">More...</a><br /></td></tr>
-<tr class="separator:a827d7a62654f40e12acce4e3e69626ec inherit pro_attribs_a01243"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a969aaf70a9767bdd16886ee0a4a6159a inherit pro_attribs_a01243"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a969aaf70a9767bdd16886ee0a4a6159a">value_</a></td></tr>
-<tr class="separator:a969aaf70a9767bdd16886ee0a4a6159a inherit pro_attribs_a01243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a00979"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a00979')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a00979.html">tvm::ControlProblem</a></td></tr>
+<tr class="memitem:afe5807c324c53675cb853e76159fe621 inherit pro_attribs_a00979"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00983.html">Updater</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#afe5807c324c53675cb853e76159fe621">updater_</a></td></tr>
+<tr class="separator:afe5807c324c53675cb853e76159fe621 inherit pro_attribs_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class represents the scalar weight alpha of a constraint, within its priority level. </p>
-<p>It is meant to ajust the influence of several constraints at the same level.</p>
-<p>Given a scalar weight <code>alpha</code>, and a constraint violation measurement f(x), the product alpha*f(x) will be minimized.</p>
-<p>By default the weight is 1. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af0de8ebb30ff25b523181405f2e8cd10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0de8ebb30ff25b523181405f2e8cd10">&#9670;&nbsp;</a></span>Weight() <span class="overload">[1/2]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a185f50144ac73b3714a8aa791d138542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a185f50144ac73b3714a8aa791d138542">&#9670;&nbsp;</a></span>LinearizedControlProblem() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::requirements::Weight::Weight </td>
+          <td class="memname">tvm::LinearizedControlProblem::LinearizedControlProblem </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -156,25 +204,348 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default weight = 1. </p>
-
 </div>
 </div>
-<a id="a324ad324718c883b0f17ec451f499ad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a324ad324718c883b0f17ec451f499ad1">&#9670;&nbsp;</a></span>Weight() <span class="overload">[2/2]</span></h2>
+<a id="ac6fa8721c64bbe7815f8ce56ff2be8fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fa8721c64bbe7815f8ce56ff2be8fd">&#9670;&nbsp;</a></span>LinearizedControlProblem() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::requirements::Weight::Weight </td>
+          <td class="memname">tvm::LinearizedControlProblem::LinearizedControlProblem </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>alpha</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00979.html">ControlProblem</a> &amp;&#160;</td>
+          <td class="paramname"><em>pb</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a95a06a4ee0e5e54207b44aff7288ad4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a06a4ee0e5e54207b44aff7288ad4c">&#9670;&nbsp;</a></span>add() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01671.html">Task</a> &amp;&#160;</td>
+          <td class="paramname"><em>task</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;&#160;</td>
+          <td class="paramname"><em>req</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a020de24e49ecdcd3b54eef51f4c3f168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a020de24e49ecdcd3b54eef51f4c3f168">&#9670;&nbsp;</a></span>add() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::Type T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00392.html#a2dfe19cb30968d93c81382f2b5463f47">utils::ProtoTask</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
+          <td class="paramname"><em>td</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;&#160;</td>
+          <td class="paramname"><em>req</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3565021e75500149b2e7b9966209890f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3565021e75500149b2e7b9966209890f">&#9670;&nbsp;</a></span>add() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::Type T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01675.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
+          <td class="paramname"><em>td</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;&#160;</td>
+          <td class="paramname"><em>req</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcf0201670cbea4dec6276e55ff89904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcf0201670cbea4dec6276e55ff89904">&#9670;&nbsp;</a></span>add() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::Type T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00392.html#a509f413d9278f8193b7bafd5b026b0bc">utils::LinearProtoTask</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01287.html">requirements::SolvingRequirements</a> &amp;&#160;</td>
+          <td class="paramname"><em>req</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13c49d719940c575cf3b6fb11991a65f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13c49d719940c575cf3b6fb11991a65f">&#9670;&nbsp;</a></span>add() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a>&#160;</td>
+          <td class="paramname"><em>tr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a221e3d94b2858896c0e226bcb2640d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221e3d94b2858896c0e226bcb2640d65">&#9670;&nbsp;</a></span>add() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::LinearizedControlProblem::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01195.html">hint::Substitution</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34dd0b835d4e281927f4122660aba19f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34dd0b835d4e281927f4122660aba19f">&#9670;&nbsp;</a></span>constraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> tvm::LinearizedControlProblem::constraint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00975.html">TaskWithRequirements</a> *&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access to the linear constraint corresponding to the task <code>t</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td><a class="el" href="a00975.html">TaskWithRequirements</a> object as return by add. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6d8adbf4c712eb5ce148e6df32d4961e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8adbf4c712eb5ce148e6df32d4961e">&#9670;&nbsp;</a></span>constraints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01259.html">LinearConstraintWithRequirements</a>&gt; tvm::LinearizedControlProblem::constraints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access to constraints. </p>
+
+</div>
+</div>
+<a id="a3405a3add15a392d0d7d23f80d47981b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3405a3add15a392d0d7d23f80d47981b">&#9670;&nbsp;</a></span>finalize_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::LinearizedControlProblem::finalize_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finalize the data of the solver. </p>
+
+<p>Reimplemented from <a class="el" href="a00979.html#a204e58c08ba50b7dca7bb8c70369096e">tvm::ControlProblem</a>.</p>
+
+</div>
+</div>
+<a id="ade5c2dbb9049e1f470b952b38e66b580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5c2dbb9049e1f470b952b38e66b580">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::LinearizedControlProblem::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00975.html">TaskWithRequirements</a> *&#160;</td>
+          <td class="paramname"><em>tr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c72fec3889c47156712d2525d3af078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c72fec3889c47156712d2525d3af078">&#9670;&nbsp;</a></span>substitutions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01187.html">hint::internal::Substitutions</a>&amp; tvm::LinearizedControlProblem::substitutions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf09a96310e5820d348a18bd8f94501a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf09a96310e5820d348a18bd8f94501a">&#9670;&nbsp;</a></span>update_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::LinearizedControlProblem::update_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute all quantities necessary for solving the problem. </p>
+
+<p>Reimplemented from <a class="el" href="a00979.html#a9b8e6ce5aa3451a567c0b0c3707c92ae">tvm::ControlProblem</a>.</p>
+
+</div>
+</div>
+<a id="a4b8667cb321d850d9d62608cf73b3cb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b8667cb321d850d9d62608cf73b3cb9">&#9670;&nbsp;</a></span>variables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01827.html">VariableVector</a> tvm::LinearizedControlProblem::variables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access to the variables. </p>
+<dl class="section note"><dt>Note</dt><dd>The result is not cached, i.e. it is recomputed at each call. </dd></dl>
 
 </div>
 </div>
@@ -184,8 +555,8 @@ Additional Inherited Members</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00365.html">requirements</a></li><li class="navelem"><a class="el" href="a01263.html">Weight</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a01263.html">LinearizedControlProblem</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

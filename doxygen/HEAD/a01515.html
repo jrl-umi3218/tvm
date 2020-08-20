@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::WeightMultBase&lt; SCALAR &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,167 +89,81 @@ $(document).ready(function(){initNavTree('a01515.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a01512.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::WeightMultBase&lt; SCALAR &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization for F=0 and A=COPY.  
+<p>Specialization for SCALAR.  
  <a href="a01515.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:afae28ff68888e81280517ad18ced9b29"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01515.html#afae28ff68888e81280517ad18ced9b29">SourceType</a> = Eigen::Ref&lt; const MatrixType &gt;</td></tr>
-<tr class="separator:afae28ff68888e81280517ad18ced9b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af3c12628ed37ee3ec4abf80c8d45d0b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01515.html#af3c12628ed37ee3ec4abf80c8d45d0b2">run</a> ()</td></tr>
-<tr class="separator:af3c12628ed37ee3ec4abf80c8d45d0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bf8ccffbc79a0ac2cc7d7b2cba7f7fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01515.html#a6bf8ccffbc79a0ac2cc7d7b2cba7f7fc">from</a> (const Eigen::Ref&lt; const MatrixType &gt; &amp;)</td></tr>
-<tr class="separator:a6bf8ccffbc79a0ac2cc7d7b2cba7f7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6565505ec5bc719771d820685d8672e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01515.html#af6565505ec5bc719771d820685d8672e">to</a> (const Eigen::Ref&lt; MatrixType &gt; &amp;to)</td></tr>
-<tr class="separator:af6565505ec5bc719771d820685d8672e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:aea3144f72908072b25ad07815140e73d"><td class="memTemplParams" colspan="2">template&lt;typename MatrixType_ &gt; </td></tr>
-<tr class="memitem:aea3144f72908072b25ad07815140e73d"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01515.html#aea3144f72908072b25ad07815140e73d">CompiledAssignmentWrapper</a></td></tr>
-<tr class="separator:aea3144f72908072b25ad07815140e73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b0f5905d36a95a6a076c7e3d6086a5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01515.html#a0b0f5905d36a95a6a076c7e3d6086a5e">WeightMultBase</a> (const double &amp;s)</td></tr>
+<tr class="separator:a0b0f5905d36a95a6a076c7e3d6086a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48373eecd7cf81c95c6b20c4b4328a8b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a48373eecd7cf81c95c6b20c4b4328a8b"><td class="memTemplItemLeft" align="right" valign="top">decltype(double() *std::declval&lt; T &gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01515.html#a48373eecd7cf81c95c6b20c4b4328a8b">applyWeightMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:a48373eecd7cf81c95c6b20c4b4328a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename MatrixType, WeightMult W, MatrixMult M&gt;<br />
-class tvm::scheme::internal::CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt;</h3>
+<div class="textblock"><h3>template&lt;&gt;<br />
+class tvm::scheme::internal::WeightMultBase&lt; SCALAR &gt;</h3>
 
-<p>Specialization for F=0 and A=COPY. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="afae28ff68888e81280517ad18ced9b29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae28ff68888e81280517ad18ced9b29">&#9670;&nbsp;</a></span>SourceType</h2>
+<p>Specialization for SCALAR. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0b0f5905d36a95a6a076c7e3d6086a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b0f5905d36a95a6a076c7e3d6086a5e">&#9670;&nbsp;</a></span>WeightMultBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01507.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::<a class="el" href="a01515.html#afae28ff68888e81280517ad18ced9b29">SourceType</a> =  Eigen::Ref&lt;const MatrixType&gt;</td>
+          <td class="memname"><a class="el" href="a01503.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00398.html#a2b54e954c3d23656d60f46fef6c8b728a3f600fcc9178227d4221692248a607cf">SCALAR</a> &gt;::<a class="el" href="a01503.html">WeightMultBase</a> </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6bf8ccffbc79a0ac2cc7d7b2cba7f7fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bf8ccffbc79a0ac2cc7d7b2cba7f7fc">&#9670;&nbsp;</a></span>from()</h2>
+<a id="a48373eecd7cf81c95c6b20c4b4328a8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48373eecd7cf81c95c6b20c4b4328a8b">&#9670;&nbsp;</a></span>applyWeightMult()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a01507.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::from </td>
+          <td class="memname">decltype(double()*std::declval&lt;T&gt;()) <a class="el" href="a01503.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00398.html#a2b54e954c3d23656d60f46fef6c8b728a3f600fcc9178227d4221692248a607cf">SCALAR</a> &gt;::applyWeightMult </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const MatrixType &gt; &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af3c12628ed37ee3ec4abf80c8d45d0b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3c12628ed37ee3ec4abf80c8d45d0b2">&#9670;&nbsp;</a></span>run()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01507.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::run </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af6565505ec5bc719771d820685d8672e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6565505ec5bc719771d820685d8672e">&#9670;&nbsp;</a></span>to()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01507.html">tvm::scheme::internal::CompiledAssignment</a>&lt; MatrixType, <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a>, W, M, <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3a59651a5fd37a9eaf58a55149baf8c490">ZERO</a> &gt;::to </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; MatrixType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>to</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="aea3144f72908072b25ad07815140e73d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea3144f72908072b25ad07815140e73d">&#9670;&nbsp;</a></span>CompiledAssignmentWrapper</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , WeightMult W, MatrixMult M&gt; </div>
-<div class="memtemplate">
-template&lt;typename MatrixType_ &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a01527.html">CompiledAssignmentWrapper</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -262,8 +176,8 @@ template&lt;typename MatrixType_ &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01515.html">CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01515.html">WeightMultBase&lt; SCALAR &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

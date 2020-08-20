@@ -1,9 +1,9 @@
 var a01767 =
 [
-    [ "UpdatelessFunction", "a01767.html#a3f84076a07f0d6c75d4efa6b2a75e0c5", null ],
-    [ "jacobian", "a01767.html#ac7e7f09ecab45d351b58e873eddb1dab", null ],
-    [ "JDot", "a01767.html#a2a7d940785f1243ca6ddea93188224b6", null ],
-    [ "normalAcceleration", "a01767.html#a004656627bdf91004243a8d952cb866e", null ],
-    [ "value", "a01767.html#a44f1b92210fd9ca27e1ff2f7f750d68b", null ],
-    [ "velocity", "a01767.html#af4c6de7ea42256202f079afce81b2ba1", null ]
+    [ "AffineExpr", "a01767.html#ad304f33ae6978599a7dc604986c84b08", null ],
+    [ "AffineExpr", "a01767.html#a100f729ca296ded77ceaa2e93740a3c0", null ],
+    [ "AffineExpr", "a01767.html#a8f13ce4a543aa7e79404acb7d3d2dd83", null ],
+    [ "AffineExpr", "a01767.html#a0bd9ac10136b4ae56e141162b9a77e8e", null ],
+    [ "constant", "a01767.html#a5095307086839de4af4f11a12bf65c59", null ],
+    [ "linear", "a01767.html#a0f49ee3f2d97db4abd456de88831bd0e", null ]
 ];

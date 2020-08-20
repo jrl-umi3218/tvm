@@ -1,8 +1,7 @@
 var a01703 =
 [
-    [ "Config", "a01703.html#af3a63bc3e9f55d47b1a9223d97314c41", null ],
-    [ "di_", "a01703.html#af7fc35cb19ece546f33a61165fa0a509", null ],
-    [ "ds_", "a01703.html#abac487e36e9878bda39e627882ab5a2d", null ],
-    [ "xsi_", "a01703.html#a8b729669f846363c1d3ad28111c9a131", null ],
-    [ "xsiOff_", "a01703.html#ac87e5d78a69700e370e2ef300c84cbc3", null ]
+    [ "Impl", "a01703.html#a65754116d7bf261c3f6c8674dd702d8e", null ],
+    [ "~Impl", "a01703.html#a7dc9b8de20b1d753942d958b9c25c289", null ],
+    [ "updateValue", "a01703.html#a6e9f88470f2a3efa8b056edb43b6a896", null ],
+    [ "FeedForward", "a01703.html#a5d2b3f15df52a06a4fe9f2bdbacb3502", null ]
 ];

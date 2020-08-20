@@ -1,10 +1,7 @@
 var a01171 =
 [
-    [ "SubstitutionUnit", "a01171.html#ae3b3f4e26825b2cd0aa2af959a75ba89", null ],
-    [ "additionalConstraints", "a01171.html#a614ad27d169c6292c930f0e61c7fb2aa", null ],
-    [ "additionalVariables", "a01171.html#aabb61f691b559ea9674d20e990b924cd", null ],
-    [ "otherVariables", "a01171.html#aba0b2517e42d54290995f3d49736d148", null ],
-    [ "update", "a01171.html#a4f76bc4ad1e3503c4ba2f9a2b7c73446", null ],
-    [ "variables", "a01171.html#a4a179db7e292f425bcd141e0b0014917", null ],
-    [ "variableSubstitutions", "a01171.html#ab6b653e57bbc0508f0ad9dc3b6aa80bd", null ]
+    [ "Impl", "a01175.html", "a01175" ],
+    [ "DiagonalCalculator", "a01171.html#af3cb0adefccfcf9229e5f118bbf4e4c1", null ],
+    [ "DiagonalCalculator", "a01171.html#a5f1e3e2fdafc9f5fea3dc9fff0f1785f", null ],
+    [ "impl_", "a01171.html#a7742e917253f1f5587810a06547bd128", null ]
 ];

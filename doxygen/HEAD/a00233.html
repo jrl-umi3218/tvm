@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: QLDLeastSquareSolver.h File Reference</title>
+<title>TVM: LeastSquareSolver.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,31 +92,34 @@ $(document).ready(function(){initNavTree('a00233.html','');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">QLDLeastSquareSolver.h File Reference</div>  </div>
+<div class="title">LeastSquareSolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00221.html">tvm/solver/abstract/LeastSquareSolver.h</a>&gt;</code><br />
-<code>#include &lt;eigen-qld/QLDDirect.h&gt;</code><br />
-<code>#include &lt;Eigen/QR&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00098.html">tvm/hint/internal/Substitutions.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00203.html">tvm/scheme/internal/Assignment.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00239.html">tvm/solver/internal/Option.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00308.html">tvm/utils/internal/map.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01595.html">tvm::solver::QLDLSSolverOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01599.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a>.  <a href="a01595.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for a (constrained) least-square solver.  <a href="a01615.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01599.html">tvm::solver::QLDLeastSquareSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the QLD solver, to solve linear least-squares problems.  <a href="a01599.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html">tvm::solver::QLDLSSolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01599.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a> instances with a given set of options.  <a href="a01603.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01619.html">tvm::solver::abstract::LSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A base class for <a class="el" href="a01615.html" title="Base class for a (constrained) least-square solver. ">LeastSquareSolver</a> factory.  <a href="a01619.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00359"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00359.html">tvm</a></td></tr>
+<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
+<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00387"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00387.html">tvm::solver</a></td></tr>
-<tr class="memdesc:a00387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. <br /></td></tr>
+<tr class="memitem:a00399"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html">tvm::solver</a></td></tr>
+<tr class="memdesc:a00399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00400"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html">tvm::solver::abstract</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -125,8 +128,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_cd62ff3f67c488611cd9ffc617bc0d4a.html">solver</a></li><li class="navelem"><a class="el" href="a00233.html">QLDLeastSquareSolver.h</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_cd62ff3f67c488611cd9ffc617bc0d4a.html">solver</a></li><li class="navelem"><a class="el" href="dir_b2cafb07201e725d493e5231c9833d80.html">abstract</a></li><li class="navelem"><a class="el" href="a00233.html">LeastSquareSolver.h</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

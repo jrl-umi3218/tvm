@@ -89,25 +89,29 @@ $(document).ready(function(){initNavTree('a01715.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::utils::LinearExpr&lt; Derived &gt; Member List</div>  </div>
+<div class="title">tvm::task_dynamics::Proportional Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01715.html#ace550799fdb22b967ce5f5bddd0aa4a0">LinearExpr</a>(const Eigen::MatrixBase&lt; Derived &gt; &amp;matrix, const VariablePtr &amp;v)</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a>(const tvm::VariablePtr &amp;v)</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01715.html#aa715dc995e4c492fb70b7046afbe7e74">LinearExpr</a>(double a, const tvm::VariablePtr &amp;v)</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01715.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a>(const tvm::VariablePtr &amp;v)</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01715.html#abda44d8407e3f1fabf7f43616e621ea0">matrix</a>() const</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01715.html#ab518500d32934cbf912c9f50c7fbcd19">variable</a>() const</td><td class="entry"><a class="el" href="a01715.html">tvm::utils::LinearExpr&lt; Derived &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#ab07b19a8764c8f30db69656dcbc9e9f5">Gain</a> typedef</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01675.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const</td><td class="entry"><a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#a36c06430efb0662c9ef87cbf7a06a4e7">impl_</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const override</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a>() const</td><td class="entry"><a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#a510dcbb35e9c497fa50ec9d8ca80a19c">order_</a>() const override</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01715.html#ac0871e9c927f66d2ba860dbdc4e43c2e">Proportional</a>(double kp)</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#a864547b2a4a6a6da51ea4cb40ae1a7dc">Proportional</a>(const Eigen::VectorXd &amp;kp)</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01715.html#a45c5ec3ca85c63ce7f094b1c4c6949d1">Proportional</a>(const Eigen::MatrixXd &amp;kp)</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#aa985834754c95d59194e584c089d96f3">~Proportional</a>() override=default</td><td class="entry"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01675.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a>()=default</td><td class="entry"><a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:02 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

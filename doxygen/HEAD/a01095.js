@@ -1,9 +1,11 @@
 var a01095 =
 [
-    [ "Pointer", "a01095.html#ae6fd2b3fe5f45fb6435d8aa8c74318cf", null ],
-    [ "Pointer", "a01095.html#a9d7242d4c45dc0664bb07de1ccb11413", null ],
-    [ "operator<", "a01095.html#a5e059086cba9bbe42aa76555e5d91d26", null ],
-    [ "operator==", "a01095.html#ad32392904aa55c7d3aa094bade598718", null ],
-    [ "type", "a01095.html#a47ca500da504fbe40e1f7f467cd7fdd0", null ],
-    [ "value", "a01095.html#af4b840f84e5951f2952959179d6c41a8", null ]
+    [ "addEdge", "a01095.html#ae26dad1f527f3e404eb4677c15f91bd8", null ],
+    [ "addNode", "a01095.html#aee290367d6bb4a7a65d8c18bf9951504", null ],
+    [ "clear", "a01095.html#aefd7b54f55ae4857034c339b1bb6707f", null ],
+    [ "edges", "a01095.html#a8090f67c05f27d9bed44bec887fc7eab", null ],
+    [ "groupedOrder", "a01095.html#a22302100a7d8d4c1b0a8182e7da566f9", null ],
+    [ "order", "a01095.html#aa64ef5d79fca6cfc12754cb74765964b", null ],
+    [ "reduce", "a01095.html#a6e5193af0ea781b84f6ed83460d46d5a", null ],
+    [ "size", "a01095.html#ae4ab069840fa478652656d43672a2a7b", null ]
 ];

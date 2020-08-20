@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::Range Class Reference</title>
+<title>TVM: tvm::internal::always_true&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,200 +88,36 @@ $(document).ready(function(){initNavTree('a01239.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a01236.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::Range Class Reference</div>  </div>
+<div class="title">tvm::internal::always_true&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A pair <code></code>(start, dim) representing the integer range from <code>start</code> (included) to <code>start+dim</code> (excluded).  
+<p>A sink, whose value is always true.  
  <a href="a01239.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/Range.h&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a6ac34b69de245b88f01a3268855ef748"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#a6ac34b69de245b88f01a3268855ef748">Range</a> ()</td></tr>
-<tr class="separator:a6ac34b69de245b88f01a3268855ef748"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1341354e4e7e37e91a25a057ebc86da7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#a1341354e4e7e37e91a25a057ebc86da7">Range</a> (int s, int d)</td></tr>
-<tr class="separator:a1341354e4e7e37e91a25a057ebc86da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9580601c7733542244bf2be8c2d2272d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#a9580601c7733542244bf2be8c2d2272d">operator==</a> (const <a class="el" href="a01239.html">Range</a> &amp;other) const</td></tr>
-<tr class="separator:a9580601c7733542244bf2be8c2d2272d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa59f647c90c329982d3ae8c58696b3bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#aa59f647c90c329982d3ae8c58696b3bc">operator!=</a> (const <a class="el" href="a01239.html">Range</a> &amp;other) const</td></tr>
-<tr class="separator:aa59f647c90c329982d3ae8c58696b3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aa0734c5492110755bac0ff7a7346bcf0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#aa0734c5492110755bac0ff7a7346bcf0">start</a></td></tr>
-<tr class="separator:aa0734c5492110755bac0ff7a7346bcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a252127b997a5428dff3735f52f48313d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01239.html#a252127b997a5428dff3735f52f48313d">dim</a></td></tr>
-<tr class="separator:a252127b997a5428dff3735f52f48313d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
+<p><code>#include &lt;tvm/internal/meta.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::internal::always_true&lt; T &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01239.png" usemap="#tvm::internal::always_5Ftrue_3C_20T_20_3E_map" alt=""/>
+  <map id="tvm::internal::always_5Ftrue_3C_20T_20_3E_map" name="tvm::internal::always_5Ftrue_3C_20T_20_3E_map">
+</map>
+ </div></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A pair <code></code>(start, dim) representing the integer range from <code>start</code> (included) to <code>start+dim</code> (excluded). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6ac34b69de245b88f01a3268855ef748"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ac34b69de245b88f01a3268855ef748">&#9670;&nbsp;</a></span>Range() <span class="overload">[1/2]</span></h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class tvm::internal::always_true&lt; T &gt;</h3>
 
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Range::Range </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1341354e4e7e37e91a25a057ebc86da7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1341354e4e7e37e91a25a057ebc86da7">&#9670;&nbsp;</a></span>Range() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Range::Range </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>d</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa59f647c90c329982d3ae8c58696b3bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa59f647c90c329982d3ae8c58696b3bc">&#9670;&nbsp;</a></span>operator!=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tvm::Range::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01239.html">Range</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">References <a class="el" href="a00302.html#a2765d8761839c9be488c1791caf607eb">operator==()</a>.</p>
-
-</div>
-</div>
-<a id="a9580601c7733542244bf2be8c2d2272d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9580601c7733542244bf2be8c2d2272d">&#9670;&nbsp;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tvm::Range::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01239.html">Range</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">References <a class="el" href="a01239.html#a252127b997a5428dff3735f52f48313d">dim</a>, and <a class="el" href="a01239.html#aa0734c5492110755bac0ff7a7346bcf0">start</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a252127b997a5428dff3735f52f48313d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a252127b997a5428dff3735f52f48313d">&#9670;&nbsp;</a></span>dim</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int tvm::Range::dim</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a01239.html#a9580601c7733542244bf2be8c2d2272d">operator==()</a>.</p>
-
-</div>
-</div>
-<a id="aa0734c5492110755bac0ff7a7346bcf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0734c5492110755bac0ff7a7346bcf0">&#9670;&nbsp;</a></span>start</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int tvm::Range::start</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a01239.html#a9580601c7733542244bf2be8c2d2272d">operator==()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>A sink, whose value is always true. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a01239.html">Range</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00391.html">internal</a></li><li class="navelem"><a class="el" href="a01239.html">always_true</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

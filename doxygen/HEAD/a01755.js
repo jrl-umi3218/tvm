@@ -1,9 +1,9 @@
 var a01755 =
 [
-    [ "RHS", "a01755.html#a057a959f6439cae968f0b45a1fb59d6f", null ],
-    [ "RHS", "a01755.html#a2967e9355eed07d152608ee2ee71b142", null ],
-    [ "toVector", "a01755.html#a9136abba7f04fa204feec7e590bf665f", null ],
-    [ "d_", "a01755.html#a78efc92c28c7276d73d64e8f65468823", null ],
-    [ "type_", "a01755.html#aae64a2bdbfd69ec4dbec7d18755c818b", null ],
-    [ "v_", "a01755.html#a1bca6d304fa98feac4dcc4bdae33354f", null ]
+    [ "AnisotropicConfig", "a01755.html#afc7ecaa852a20424f3c041d1a4b1c242", null ],
+    [ "AnisotropicConfig", "a01755.html#a5567236c24c9cd91c68a7bd5f493b8cc", null ],
+    [ "di_", "a01755.html#a6c0b8e74ea1724f4e1c295462d4bcf44", null ],
+    [ "ds_", "a01755.html#a7550ce203f5bcfacad6843bf9c2781b5", null ],
+    [ "xsi_", "a01755.html#a41f03ac5682ff5e07c28f81c98404012", null ],
+    [ "xsiOff_", "a01755.html#ae94f23415291566e03f10004d4b89162", null ]
 ];

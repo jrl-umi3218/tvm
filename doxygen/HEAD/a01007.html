@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::exception::NotImplemented Class Reference</title>
+<title>TVM: tvm::exception::FunctionException Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,46 +91,49 @@ $(document).ready(function(){initNavTree('a01007.html','');});
   <div class="summary">
 <a href="a01004.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::exception::NotImplemented Class Reference</div>  </div>
+<div class="title">tvm::exception::FunctionException Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Thrown when attempting to use a feature that is not implemented in the framework yet.  
+<p>General function-related exception.  
  <a href="a01007.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/exception/exceptions.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::exception::NotImplemented:</div>
+Inheritance diagram for tvm::exception::FunctionException:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01007.png" usemap="#tvm::exception::NotImplemented_map" alt=""/>
-  <map id="tvm::exception::NotImplemented_map" name="tvm::exception::NotImplemented_map">
-<area href="a00979.html" title="Base exception class for TVM specific exceptions. " alt="tvm::exception::Exception" shape="rect" coords="0,56,185,80"/>
+  <img src="a01007.png" usemap="#tvm::exception::FunctionException_map" alt=""/>
+  <map id="tvm::exception::FunctionException_map" name="tvm::exception::FunctionException_map">
+<area href="a00995.html" title="Base exception class for TVM specific exceptions. " alt="tvm::exception::Exception" shape="rect" coords="228,56,446,80"/>
+<area href="a01015.html" title="Thrown when adding a variable already present. " alt="tvm::exception::DuplicateVariable" shape="rect" coords="0,168,218,192"/>
+<area href="a01019.html" title="Thrown when attempting to access a non-existing variable. " alt="tvm::exception::NonExistingVariable" shape="rect" coords="228,168,446,192"/>
+<area href="a01011.html" title="Thrown when attempting to call an output without an implementation. " alt="tvm::exception::UnimplementedOutput" shape="rect" coords="456,168,674,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_methods_a00979"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a00979')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a00979.html">tvm::exception::Exception</a></td></tr>
-<tr class="memitem:afd6f053bccef9dd30a3a2162695b8516 inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#afd6f053bccef9dd30a3a2162695b8516">Exception</a> ()</td></tr>
-<tr class="separator:afd6f053bccef9dd30a3a2162695b8516 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbecc954c569883fc6422e57c718a953 inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#adbecc954c569883fc6422e57c718a953">Exception</a> (const std::string &amp;<a class="el" href="a00979.html#ab4925492b25d5ddd16ce511eb966555d">what</a>)</td></tr>
-<tr class="separator:adbecc954c569883fc6422e57c718a953 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5782a0c2f97b0ed569c4605e190d2568 inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#a5782a0c2f97b0ed569c4605e190d2568">Exception</a> (const char *<a class="el" href="a00979.html#ab4925492b25d5ddd16ce511eb966555d">what</a>)</td></tr>
-<tr class="separator:a5782a0c2f97b0ed569c4605e190d2568 inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4925492b25d5ddd16ce511eb966555d inherit pub_methods_a00979"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00979.html#ab4925492b25d5ddd16ce511eb966555d">what</a> () const noexcept override</td></tr>
-<tr class="separator:ab4925492b25d5ddd16ce511eb966555d inherit pub_methods_a00979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a00995"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a00995')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a00995.html">tvm::exception::Exception</a></td></tr>
+<tr class="memitem:afd6f053bccef9dd30a3a2162695b8516 inherit pub_methods_a00995"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html#afd6f053bccef9dd30a3a2162695b8516">Exception</a> ()</td></tr>
+<tr class="separator:afd6f053bccef9dd30a3a2162695b8516 inherit pub_methods_a00995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbecc954c569883fc6422e57c718a953 inherit pub_methods_a00995"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html#adbecc954c569883fc6422e57c718a953">Exception</a> (const std::string &amp;<a class="el" href="a00995.html#ab4925492b25d5ddd16ce511eb966555d">what</a>)</td></tr>
+<tr class="separator:adbecc954c569883fc6422e57c718a953 inherit pub_methods_a00995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5782a0c2f97b0ed569c4605e190d2568 inherit pub_methods_a00995"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html#a5782a0c2f97b0ed569c4605e190d2568">Exception</a> (const char *<a class="el" href="a00995.html#ab4925492b25d5ddd16ce511eb966555d">what</a>)</td></tr>
+<tr class="separator:a5782a0c2f97b0ed569c4605e190d2568 inherit pub_methods_a00995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4925492b25d5ddd16ce511eb966555d inherit pub_methods_a00995"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html#ab4925492b25d5ddd16ce511eb966555d">what</a> () const noexcept override</td></tr>
+<tr class="separator:ab4925492b25d5ddd16ce511eb966555d inherit pub_methods_a00995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Thrown when attempting to use a feature that is not implemented in the framework yet. </p>
+<div class="textblock"><p>General function-related exception. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00371.html">exception</a></li><li class="navelem"><a class="el" href="a01007.html">NotImplemented</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00383.html">exception</a></li><li class="navelem"><a class="el" href="a01007.html">FunctionException</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

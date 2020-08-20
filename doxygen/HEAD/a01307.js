@@ -1,17 +1,12 @@
 var a01307 =
 [
-    [ "ForceContact", "a01311.html", "a01311" ],
-    [ "Output", "a01307.html#a5afbf4c899efddfac935bee27606e7f6", null ],
-    [ "DynamicFunction", "a01307.html#a30534f8a2683a7889eb145bf300127a2", null ],
-    [ "addContact", "a01307.html#a42c3954015bbb65cf83cafb9583ec5a2", null ],
-    [ "addContact_", "a01307.html#af3f0b400d53434f185f0a66cf4a34d69", null ],
-    [ "addPositiveLambdaToProblem", "a01307.html#ac60e3c2535d6d7e25d77d29a292435ec", null ],
-    [ "contactForce", "a01307.html#af07693dc079be0ff6fab02887900c36a", null ],
-    [ "getContact", "a01307.html#a8d99f568d3bd469cc9bb263a5a7413ef", null ],
-    [ "getContact", "a01307.html#a3a1d6c071205f0086243ad88f7afe43e", null ],
-    [ "removeContact", "a01307.html#a328065658c7e1c834c53cdaaab7456b6", null ],
-    [ "updateb", "a01307.html#a8c42d44213993fe40ab8bf92f4150fdc", null ],
-    [ "updateJacobian", "a01307.html#aac5baaf3ded35fe5f366fd520c5bfd02", null ],
-    [ "contacts_", "a01307.html#a4bee1d74b99cdde1d7bffe77e42140a5", null ],
-    [ "robot_", "a01307.html#ab24a9ed85cd7743e1b516d8f4197b8c8", null ]
+    [ "ObjectData", "a01311.html", "a01311" ],
+    [ "CollisionData", "a01307.html#a9268cd7f248c1f8d0c8017b29affb0a2", null ],
+    [ "CollisionData", "a01307.html#a5c2d9261d2ea76934f006a6ca8b57523", null ],
+    [ "ch_", "a01307.html#a1e741fcefd17e1d6a79d329253988681", null ],
+    [ "normVecDist_", "a01307.html#a2e8b91445cf9b2d4216c587184f65e94", null ],
+    [ "objects_", "a01307.html#a349abcf4d20a7749499c1373c05ba19f", null ],
+    [ "pair_", "a01307.html#ac6604996fc085ac9dc1bb2e64b506900", null ],
+    [ "prevNormVecDist_", "a01307.html#a8fcaf4938f07d72b549ea5de236b269c", null ],
+    [ "speedVec_", "a01307.html#a1bbf6824eafa6b1c2f9cebb012e3b830", null ]
 ];

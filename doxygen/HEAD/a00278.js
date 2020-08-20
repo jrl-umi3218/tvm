@@ -1,5 +1,6 @@
 var a00278 =
 [
-    [ "CheckOptions", "a01727.html", "a01727" ],
-    [ "checkJacobian", "a00278.html#ga8bb02aa8295218894c58053afefb1098", null ]
+    [ "ProportionalDerivative", "a01723.html", "a01723" ],
+    [ "Impl", "a01727.html", "a01727" ],
+    [ "PD", "a00278.html#abbc550226fefd54eb4205711373370ee", null ]
 ];

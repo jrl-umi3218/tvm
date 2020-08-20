@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::Reference Class Reference</title>
+<title>TVM: tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,27 +90,25 @@ $(document).ready(function(){initNavTree('a01683.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01680.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::Reference Class Reference</div>  </div>
+<div class="title">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Compute e^(k)* = ref (at given k-th order).  
+<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors.  
  <a href="a01683.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/task_dynamics/Reference.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/Clamped.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::Reference:</div>
+Inheritance diagram for tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01683.png" usemap="#tvm::task_5Fdynamics::Reference_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::Reference_map" name="tvm::task_5Fdynamics::Reference_map">
-<area href="a01627.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="133,0,390,24"/>
-<area href="a01695.html" title="Compute ddot{e}* = ref (dynamic order). " alt="tvm::task_dynamics::ReferenceAcceleration" shape="rect" coords="0,112,257,136"/>
-<area href="a01691.html" title="Compute dot{e}* = ref (kinematic order). " alt="tvm::task_dynamics::ReferenceVelocity" shape="rect" coords="267,112,524,136"/>
+  <img src="a01683.png" usemap="#tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" name="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map">
 </map>
  </div></div>
 <table class="memberdecls">
@@ -119,47 +117,84 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01687.html">Impl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> = mpark::variant&lt; double, Eigen::VectorXd &gt;</td></tr>
+<tr class="separator:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e040ff17b6792a2981632ef0d0b8e0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#a6e040ff17b6792a2981632ef0d0b8e0a">Reference</a> (<a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a> <a class="el" href="a01627.html#adde099a2989ba116db9c6a3ff41b895f">order</a>, const <a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;ref)</td></tr>
-<tr class="separator:a6e040ff17b6792a2981632ef0d0b8e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adafe4dc92bc399211d15dd6caef498da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#adafe4dc92bc399211d15dd6caef498da">~Reference</a> () override=default</td></tr>
-<tr class="separator:adafe4dc92bc399211d15dd6caef498da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01627"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01627')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01627.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
-<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
-<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01631.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
-<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
-<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7f67c11e585b23f97870950cb8d457f"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:ac7f67c11e585b23f97870950cb8d457f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01683.html#ac7f67c11e585b23f97870950cb8d457f">Clamped</a> (double max, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:ac7f67c11e585b23f97870950cb8d457f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#ac7f67c11e585b23f97870950cb8d457f">More...</a><br /></td></tr>
+<tr class="separator:ac7f67c11e585b23f97870950cb8d457f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01683.html#a93cc96ce10ad556b41d5b8d8a48d3147">Clamped</a> (const std::pair&lt; double, double &gt; &amp;minMax, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \(b_{min}\) and \(b_{max}\) (scalar version).  <a href="#a93cc96ce10ad556b41d5b8d8a48d3147">More...</a><br /></td></tr>
+<tr class="separator:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01683.html#a4d3b11d54a29a1a7050e67e0d3a8b46e">Clamped</a> (const <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#a4d3b11d54a29a1a7050e67e0d3a8b46e">More...</a><br /></td></tr>
+<tr class="separator:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7d7588dbb6529b3051c926d26077da"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:afb7d7588dbb6529b3051c926d26077da"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01683.html#afb7d7588dbb6529b3051c926d26077da">Clamped</a> (const std::pair&lt; <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a>, <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;minMax, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:afb7d7588dbb6529b3051c926d26077da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \(b_{min}\) and \(b_{max}\) (vector version).  <a href="#afb7d7588dbb6529b3051c926d26077da">More...</a><br /></td></tr>
+<tr class="separator:afb7d7588dbb6529b3051c926d26077da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d2e10eb13358ced2f2926ce534b6e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#a21d2e10eb13358ced2f2926ce534b6e3">~Clamped</a> () override=default</td></tr>
+<tr class="separator:a21d2e10eb13358ced2f2926ce534b6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab8045f3656cac54d86d094ebbecd3e7d"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#ab8045f3656cac54d86d094ebbecd3e7d">impl_</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
-<tr class="separator:ab8045f3656cac54d86d094ebbecd3e7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a265d9adb6b99ae2bebcfb68f79b7f530"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#a265d9adb6b99ae2bebcfb68f79b7f530">order_</a> () const override</td></tr>
-<tr class="separator:a265d9adb6b99ae2bebcfb68f79b7f530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6bfa86084554c96555a11e7a163f611"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html#af6bfa86084554c96555a11e7a163f611">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:af6bfa86084554c96555a11e7a163f611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compute e^(k)* = ref (at given k-th order). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6e040ff17b6792a2981632ef0d0b8e0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e040ff17b6792a2981632ef0d0b8e0a">&#9670;&nbsp;</a></span>Reference()</h2>
+<div class="textblock"><h3>template&lt;class TD, class TDImpl = typename TD::Impl&gt;<br />
+class tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</h3>
+
+<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a21bf20e2ae9a17c7cd24c51d6ff7ead1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21bf20e2ae9a17c7cd24c51d6ff7ead1">&#9670;&nbsp;</a></span>Bounds</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">tvm::task_dynamics::Reference::Reference </td>
+          <td class="memname">using <a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01683.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> =  mpark::variant&lt;double, Eigen::VectorXd&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac7f67c11e585b23f97870950cb8d457f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7f67c11e585b23f97870950cb8d457f">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01683.html">Clamped</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td>
-          <td class="paramname"><em>order</em>, </td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>ref</em>&#160;</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -167,28 +202,186 @@ Protected Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Constructor with \( b_{min} = -b_{max}\) (scalar version). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">order</td><td>The order of derivation k of the error that need to follow the reference </td></tr>
-    <tr><td class="paramname">ref</td><td>The reference function. </td></tr>
+    <tr><td class="paramname">max</td><td>The maximum value that a component of \( e_c^{(k)*} \) can have, in absolute value ( \( b_{max}\)). </td></tr>
+    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referenced by <a class="el" href="a01687.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
+
+</div>
+</div>
+<a id="a93cc96ce10ad556b41d5b8d8a48d3147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93cc96ce10ad556b41d5b8d8a48d3147">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01683.html">Clamped</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>minMax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor with \(b_{min}\) and \(b_{max}\) (scalar version). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">minMax</td><td>The minimum ( \(b_{min}\)) and maximum ( \(b_{max}\)) value that a component of \( e_c^{(k)*}\) can have. We require that \(b_{min} \leq 0 \leq b_{max}\). </td></tr>
+    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="adafe4dc92bc399211d15dd6caef498da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adafe4dc92bc399211d15dd6caef498da">&#9670;&nbsp;</a></span>~Reference()</h2>
+<a id="a4d3b11d54a29a1a7050e67e0d3a8b46e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d3b11d54a29a1a7050e67e0d3a8b46e">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::task_dynamics::Reference::~Reference </td>
+          <td class="memname"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01683.html">Clamped</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor with \( b_{min} = -b_{max}\) (vector version). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max</td><td>The maximum value that a component of \( e_c^{(k)*} \) can have, in absolute value ( \( b_{max}\)). </td></tr>
+    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afb7d7588dbb6529b3051c926d26077da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb7d7588dbb6529b3051c926d26077da">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01683.html">Clamped</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::pair&lt; <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a>, <a class="el" href="a00371.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>minMax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor with \(b_{min}\) and \(b_{max}\) (vector version). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">minMax</td><td>The minimum ( \(b_{min}\)) and maximum ( \(b_{max}\)) value that a component of \( e_c^{(k)*}\) can have. We require that \(b_{min} \leq 0 \leq b_{max}\). </td></tr>
+    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a21d2e10eb13358ced2f2926ce534b6e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21d2e10eb13358ced2f2926ce534b6e3">&#9670;&nbsp;</a></span>~Clamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::~<a class="el" href="a01683.html">Clamped</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -201,28 +394,32 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="reference">Referenced by <a class="el" href="a01687.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab8045f3656cac54d86d094ebbecd3e7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8045f3656cac54d86d094ebbecd3e7d">&#9670;&nbsp;</a></span>impl_()</h2>
+<a id="af6bfa86084554c96555a11e7a163f611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6bfa86084554c96555a11e7a163f611">&#9670;&nbsp;</a></span>impl_()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::Reference::impl_ </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a>&gt; <a class="el" href="a01683.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::impl_ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
@@ -239,39 +436,12 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="a01627.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
-
-</div>
-</div>
-<a id="a265d9adb6b99ae2bebcfb68f79b7f530"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a265d9adb6b99ae2bebcfb68f79b7f530">&#9670;&nbsp;</a></span>order_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::Reference::order_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="a01627.html#a0af2178117ec3fab102e808b863e9886">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
+<p class="reference">References <a class="el" href="a00257.html#a78f5f030eca0b25436ca268039666277">COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</a>.</p>
 
 </div>
 </div>
@@ -281,8 +451,8 @@ Protected Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01683.html">Reference</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01683.html">Clamped</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

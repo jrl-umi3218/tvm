@@ -1,15 +1,18 @@
 var a01323 =
 [
-    [ "JointsSelector", "a01323.html#a07acf27b0e062fecde75823273a496a5", null ],
-    [ "ActiveJoints", "a01323.html#a31cbae13c006173253aaed589d473728", null ],
-    [ "InactiveJoints", "a01323.html#adc089a9d69b7f7629f6fba0b11bb59e1", null ],
-    [ "normalAcceleration", "a01323.html#aee6955070f6f724e12997b9dd5481890", null ],
-    [ "updateJacobian", "a01323.html#abc9583df3461ae5c643ffdeb6024b698", null ],
-    [ "updateJDot", "a01323.html#a5af259a4c3a5b163cfb35dfce93122c8", null ],
-    [ "value", "a01323.html#ac8b5c195ebba49cdf9718f967de4ecd7", null ],
-    [ "velocity", "a01323.html#aa543e0e1838563e45f4c8a3cc95c0e2a", null ],
-    [ "activeIndex_", "a01323.html#a5ee253b852a0e6954634919d3363c6ba", null ],
-    [ "f_", "a01323.html#aa4c7cf24cdc20fe15b64ff4dffd2bb6a", null ],
-    [ "ffActive_", "a01323.html#abf88aa82d9399e6af0aa613e15b4174e", null ],
-    [ "robot_", "a01323.html#af62b21859edb23b7b93e551a72292d32", null ]
+    [ "Id", "a01327.html", "a01327" ],
+    [ "View", "a01331.html", "a01331" ],
+    [ "f1", "a01323.html#a7afa2912cbe58c31b728091271ac6e28", null ],
+    [ "f1Points", "a01323.html#a0e2a92976633bbadd73bd86ba2d4e02f", null ],
+    [ "f1View", "a01323.html#a20c370f6b35c2cff0c3a4d598a0d6a7d", null ],
+    [ "f2", "a01323.html#a0c8baf595da6cdf330b5bfc5c68aa227", null ],
+    [ "f2Points", "a01323.html#ad95dc671a1bdde57b74b8e8d785425c5", null ],
+    [ "f2View", "a01323.html#a8846f11c4391ea0374444f1b8a4de2e3", null ],
+    [ "id", "a01323.html#a608fe01bc014e09fac09f1c716417257", null ],
+    [ "SET_OUTPUTS", "a01323.html#aabe53967ae7c505a2161590d1d6b408d", null ],
+    [ "X_f1_f2", "a01323.html#a834a79f0094fc8d5a054d21d19b0c094", null ],
+    [ "X_f2_f1", "a01323.html#a429044f55301d8bd92746ab108a1d996", null ],
+    [ "ambiguityId", "a01323.html#a4ed278bc8918a109ca64c2653f62b98c", null ],
+    [ "f2", "a01323.html#a90eb1848cf616e48e882dc474ab346a3", null ],
+    [ "points", "a01323.html#a9f567cbc5af7b5cc87d618d0458caac4", null ]
 ];

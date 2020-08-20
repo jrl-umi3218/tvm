@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::ProportionalDerivative Class Reference</title>
+<title>TVM: tvm::task_dynamics::abstract::TaskDynamics Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,528 +89,58 @@ $(document).ready(function(){initNavTree('a01675.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01672.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::ProportionalDerivative Class Reference</div>  </div>
+<div class="title">tvm::task_dynamics::abstract::TaskDynamics Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Compute \( \ddot{e}^* = -k_v \dot{e} - k_p e\) (dynamic order) where \( k_p \) and \( k_v \) can be (independently) a scalar, a diagonal matrix (given as a vector) or a matrix.  
+<p>This is a base class to describe how a task is to be regulated, i.e.  
  <a href="a01675.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/task_dynamics/ProportionalDerivative.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/abstract/TaskDynamics.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::ProportionalDerivative:</div>
+Inheritance diagram for tvm::task_dynamics::abstract::TaskDynamics:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01675.png" usemap="#tvm::task_5Fdynamics::ProportionalDerivative_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::ProportionalDerivative_map" name="tvm::task_5Fdynamics::ProportionalDerivative_map">
-<area href="a01627.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
+  <img src="a01675.png" usemap="#tvm::task_5Fdynamics::abstract::TaskDynamics_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::abstract::TaskDynamics_map" name="tvm::task_5Fdynamics::abstract::TaskDynamics_map">
+<area href="a01691.html" title="Zero order dynamics with e* = 0, i.e. " alt="tvm::task_dynamics::Constant" shape="rect" coords="0,56,257,80"/>
+<area href="a01707.html" title="Compute e* = -f(0) + rhs (Geometric order). " alt="tvm::task_dynamics::None" shape="rect" coords="267,56,524,80"/>
+<area href="a01715.html" title="Compute  (Kinematic order) with  a scalar, a diagonal matrix (given as a vector) or a matrix..." alt="tvm::task_dynamics::Proportional" shape="rect" coords="534,56,791,80"/>
+<area href="a01723.html" title="Compute  (dynamic order) where  and  can be (independently) a scalar, a diagonal matrix (given as a v..." alt="tvm::task_dynamics::ProportionalDerivative" shape="rect" coords="801,56,1058,80"/>
+<area href="a01731.html" title="Compute e^(k)* = ref (at given k-th order). " alt="tvm::task_dynamics::Reference" shape="rect" coords="1068,56,1325,80"/>
+<area href="a01747.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn..." alt="tvm::task_dynamics::VelocityDamper" shape="rect" coords="1335,56,1592,80"/>
+<area href="a01743.html" title="Compute ddot{e}* = ref (dynamic order). " alt="tvm::task_dynamics::ReferenceAcceleration" shape="rect" coords="934,112,1191,136"/>
+<area href="a01739.html" title="Compute dot{e}* = ref (kinematic order). " alt="tvm::task_dynamics::ReferenceVelocity" shape="rect" coords="1201,112,1458,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01679.html">Impl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a7f25d6570ea1203bcb84da3b62b101b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a7f25d6570ea1203bcb84da3b62b101b8">Gain</a> = mpark::variant&lt; double, Eigen::VectorXd, Eigen::MatrixXd &gt;</td></tr>
-<tr class="separator:a7f25d6570ea1203bcb84da3b62b101b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a30e1720a9d0f30828bec2799c9ed3701"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a30e1720a9d0f30828bec2799c9ed3701">ProportionalDerivative</a> (double kp)</td></tr>
-<tr class="memdesc:a30e1720a9d0f30828bec2799c9ed3701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critically damped version.  <a href="#a30e1720a9d0f30828bec2799c9ed3701">More...</a><br /></td></tr>
-<tr class="separator:a30e1720a9d0f30828bec2799c9ed3701"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d44f946ec9d3c52e4b9a163952e8f20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a7d44f946ec9d3c52e4b9a163952e8f20">ProportionalDerivative</a> (const Eigen::VectorXd &amp;kp)</td></tr>
-<tr class="memdesc:a7d44f946ec9d3c52e4b9a163952e8f20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critically damped version.  <a href="#a7d44f946ec9d3c52e4b9a163952e8f20">More...</a><br /></td></tr>
-<tr class="separator:a7d44f946ec9d3c52e4b9a163952e8f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aded0ff4791dfb70251425f0173ca34a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#aded0ff4791dfb70251425f0173ca34a8">ProportionalDerivative</a> (const Eigen::MatrixXd &amp;kp)</td></tr>
-<tr class="memdesc:aded0ff4791dfb70251425f0173ca34a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critically damped version.  <a href="#aded0ff4791dfb70251425f0173ca34a8">More...</a><br /></td></tr>
-<tr class="separator:aded0ff4791dfb70251425f0173ca34a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65d282a27174dd8b54e6130780c5403e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a65d282a27174dd8b54e6130780c5403e">~ProportionalDerivative</a> () override=default</td></tr>
-<tr class="separator:a65d282a27174dd8b54e6130780c5403e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a1d377fa8f2e0030b298e74706e3efc72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a1d377fa8f2e0030b298e74706e3efc72">ProportionalDerivative</a> (double kp, double kv)</td></tr>
-<tr class="memdesc:a1d377fa8f2e0030b298e74706e3efc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a1d377fa8f2e0030b298e74706e3efc72">More...</a><br /></td></tr>
-<tr class="separator:a1d377fa8f2e0030b298e74706e3efc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79f939c0606aba984f59e982f29cd89c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a79f939c0606aba984f59e982f29cd89c">ProportionalDerivative</a> (const Eigen::VectorXd &amp;kp, const Eigen::VectorXd &amp;kv)</td></tr>
-<tr class="memdesc:a79f939c0606aba984f59e982f29cd89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a79f939c0606aba984f59e982f29cd89c">More...</a><br /></td></tr>
-<tr class="separator:a79f939c0606aba984f59e982f29cd89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac56de6b4cb46db6535ade715a5678c3e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#ac56de6b4cb46db6535ade715a5678c3e">ProportionalDerivative</a> (const Eigen::MatrixXd &amp;kp, const Eigen::MatrixXd &amp;kv)</td></tr>
-<tr class="memdesc:ac56de6b4cb46db6535ade715a5678c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#ac56de6b4cb46db6535ade715a5678c3e">More...</a><br /></td></tr>
-<tr class="separator:ac56de6b4cb46db6535ade715a5678c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620bbb6ab0d8ad2c13b373a7469ec71c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a620bbb6ab0d8ad2c13b373a7469ec71c">ProportionalDerivative</a> (double kp, const Eigen::VectorXd &amp;kv)</td></tr>
-<tr class="memdesc:a620bbb6ab0d8ad2c13b373a7469ec71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a620bbb6ab0d8ad2c13b373a7469ec71c">More...</a><br /></td></tr>
-<tr class="separator:a620bbb6ab0d8ad2c13b373a7469ec71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9bee348091060739e0531df678e6ce3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#aa9bee348091060739e0531df678e6ce3">ProportionalDerivative</a> (double kp, const Eigen::MatrixXd &amp;kv)</td></tr>
-<tr class="memdesc:aa9bee348091060739e0531df678e6ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#aa9bee348091060739e0531df678e6ce3">More...</a><br /></td></tr>
-<tr class="separator:aa9bee348091060739e0531df678e6ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af34fca2ed02a44cd684201f967049d86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#af34fca2ed02a44cd684201f967049d86">ProportionalDerivative</a> (const Eigen::VectorXd &amp;kp, double kv)</td></tr>
-<tr class="memdesc:af34fca2ed02a44cd684201f967049d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#af34fca2ed02a44cd684201f967049d86">More...</a><br /></td></tr>
-<tr class="separator:af34fca2ed02a44cd684201f967049d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a619a9647c17587e281eaaab4c998e9db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a619a9647c17587e281eaaab4c998e9db">ProportionalDerivative</a> (const Eigen::VectorXd &amp;kp, const Eigen::MatrixXd &amp;kv)</td></tr>
-<tr class="memdesc:a619a9647c17587e281eaaab4c998e9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a619a9647c17587e281eaaab4c998e9db">More...</a><br /></td></tr>
-<tr class="separator:a619a9647c17587e281eaaab4c998e9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1715518cfe97dc10d06089c57b571a8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a1715518cfe97dc10d06089c57b571a8f">ProportionalDerivative</a> (const Eigen::MatrixXd &amp;kp, double kv)</td></tr>
-<tr class="memdesc:a1715518cfe97dc10d06089c57b571a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a1715518cfe97dc10d06089c57b571a8f">More...</a><br /></td></tr>
-<tr class="separator:a1715518cfe97dc10d06089c57b571a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2434f3ad96d66f897e20a32cbbdb2dc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a2434f3ad96d66f897e20a32cbbdb2dc0">ProportionalDerivative</a> (const Eigen::MatrixXd &amp;kp, const Eigen::VectorXd &amp;kv)</td></tr>
-<tr class="memdesc:a2434f3ad96d66f897e20a32cbbdb2dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#a2434f3ad96d66f897e20a32cbbdb2dc0">More...</a><br /></td></tr>
-<tr class="separator:a2434f3ad96d66f897e20a32cbbdb2dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01627"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01627')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01627.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
-<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
-<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01631.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
-<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01627"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01627.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
-<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
+<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
+<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
+<tr class="separator:adde099a2989ba116db9c6a3ff41b895f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a9c0722648d496cca84e0152c1b062cd0"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a9c0722648d496cca84e0152c1b062cd0">impl_</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
-<tr class="separator:a9c0722648d496cca84e0152c1b062cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74adb4a1aef02b7fe9fbfd6738206a40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a74adb4a1aef02b7fe9fbfd6738206a40">order_</a> () const override</td></tr>
-<tr class="separator:a74adb4a1aef02b7fe9fbfd6738206a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e1626637ba2315c65b9bfacceefe783"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a01679.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a1e1626637ba2315c65b9bfacceefe783">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const =0</td></tr>
+<tr class="separator:a1e1626637ba2315c65b9bfacceefe783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af2178117ec3fab102e808b863e9886"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a0af2178117ec3fab102e808b863e9886">order_</a> () const =0</td></tr>
+<tr class="separator:a0af2178117ec3fab102e808b863e9886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compute \( \ddot{e}^* = -k_v \dot{e} - k_p e\) (dynamic order) where \( k_p \) and \( k_v \) can be (independently) a scalar, a diagonal matrix (given as a vector) or a matrix. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a7f25d6570ea1203bcb84da3b62b101b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f25d6570ea1203bcb84da3b62b101b8">&#9670;&nbsp;</a></span>Gain</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01675.html#a7f25d6570ea1203bcb84da3b62b101b8">tvm::task_dynamics::ProportionalDerivative::Gain</a> =  mpark::variant&lt;double, Eigen::VectorXd, Eigen::MatrixXd&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1d377fa8f2e0030b298e74706e3efc72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d377fa8f2e0030b298e74706e3efc72">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[1/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a79f939c0606aba984f59e982f29cd89c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79f939c0606aba984f59e982f29cd89c">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[2/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac56de6b4cb46db6535ade715a5678c3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac56de6b4cb46db6535ade715a5678c3e">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[3/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a620bbb6ab0d8ad2c13b373a7469ec71c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a620bbb6ab0d8ad2c13b373a7469ec71c">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[4/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa9bee348091060739e0531df678e6ce3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9bee348091060739e0531df678e6ce3">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[5/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af34fca2ed02a44cd684201f967049d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af34fca2ed02a44cd684201f967049d86">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[6/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a619a9647c17587e281eaaab4c998e9db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a619a9647c17587e281eaaab4c998e9db">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[7/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a1715518cfe97dc10d06089c57b571a8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1715518cfe97dc10d06089c57b571a8f">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[8/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2434f3ad96d66f897e20a32cbbdb2dc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2434f3ad96d66f897e20a32cbbdb2dc0">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[9/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>General constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-    <tr><td class="paramname">kv</td><td>Damping gain, as a scalar, a vector representing a diagonal matrix, or a matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a30e1720a9d0f30828bec2799c9ed3701"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30e1720a9d0f30828bec2799c9ed3701">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[10/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>kp</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Critically damped version. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain. The damping gain is automatically computed to get a critically damped behavior. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a7d44f946ec9d3c52e4b9a163952e8f20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d44f946ec9d3c52e4b9a163952e8f20">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[11/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Critically damped version. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Diagonal of the stiffness gain matrix. The damping gain is automatically computed to get a critically damped behavior. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aded0ff4791dfb70251425f0173ca34a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aded0ff4791dfb70251425f0173ca34a8">&#9670;&nbsp;</a></span>ProportionalDerivative() <span class="overload">[12/12]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::ProportionalDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
-          <td class="paramname"><em>kp</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Critically damped version. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kp</td><td>Stiffness gain matrix. The damping gain is automatically computed to get a critically damped behavior. For this version, <code>kp</code> is supposed to be symmetric and positive definite.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The automatic damping computation is relatively heavy, involving a Schur decomposition, matrices multiplications and memory allocation. </dd></dl>
-
-</div>
-</div>
-<a id="a65d282a27174dd8b54e6130780c5403e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65d282a27174dd8b54e6130780c5403e">&#9670;&nbsp;</a></span>~ProportionalDerivative()</h2>
+<div class="textblock"><p>This is a base class to describe how a task is to be regulated, i.e. </p>
+<p>how to compute e^(d)* for a task with constraint part f op rhs, where f is a function, op is one operator among (==, &lt;=, &gt;=), rhs is a constant or a vector and e = f-rhs. d is the order of the task dynamics.</p>
+<p><a class="el" href="a01675.html" title="This is a base class to describe how a task is to be regulated, i.e. ">TaskDynamics</a> is a lightweight descriptor, independent of a particular task, that is meant for the end user. Internally, it is turned into a <a class="el" href="a01679.html" title="Base class for the implementation of a task dynamics. ">TaskDynamicsImpl</a> when linked to a given function and rhs. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad3ac366f863378eb52e6fe07d767eedb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ac366f863378eb52e6fe07d767eedb">&#9670;&nbsp;</a></span>~TaskDynamics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -619,7 +149,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::task_dynamics::ProportionalDerivative::~ProportionalDerivative </td>
+          <td class="memname">virtual tvm::task_dynamics::abstract::TaskDynamics::~TaskDynamics </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -627,7 +157,7 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -635,8 +165,42 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9c0722648d496cca84e0152c1b062cd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c0722648d496cca84e0152c1b062cd0">&#9670;&nbsp;</a></span>impl_()</h2>
+<a id="a213c35ee9a1eaa3f5c47fd2a54d1e64e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a213c35ee9a1eaa3f5c47fd2a54d1e64e">&#9670;&nbsp;</a></span>impl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01679.html">TaskDynamicsImpl</a>&gt; tvm::task_dynamics::abstract::TaskDynamics::impl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e1626637ba2315c65b9bfacceefe783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e1626637ba2315c65b9bfacceefe783">&#9670;&nbsp;</a></span>impl_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -645,15 +209,15 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::ProportionalDerivative::impl_ </td>
+          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="a01679.html">TaskDynamicsImpl</a>&gt; tvm::task_dynamics::abstract::TaskDynamics::impl_ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
@@ -670,17 +234,34 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="a01627.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
+<p>Implemented in <a class="el" href="a01747.html#a588e6cbd4fff5de6e5c021184b2fbb48">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01723.html#a9c0722648d496cca84e0152c1b062cd0">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01715.html#a36c06430efb0662c9ef87cbf7a06a4e7">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01731.html#ab8045f3656cac54d86d094ebbecd3e7d">tvm::task_dynamics::Reference</a>, <a class="el" href="a01707.html#aeb7ea66d0e8f31d758b7161c533fd2b5">tvm::task_dynamics::None</a>, and <a class="el" href="a01691.html#ace88a7cc059f3f4b2db1bff45b4d3e4b">tvm::task_dynamics::Constant</a>.</p>
 
 </div>
 </div>
-<a id="a74adb4a1aef02b7fe9fbfd6738206a40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74adb4a1aef02b7fe9fbfd6738206a40">&#9670;&nbsp;</a></span>order_()</h2>
+<a id="adde099a2989ba116db9c6a3ff41b895f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde099a2989ba116db9c6a3ff41b895f">&#9670;&nbsp;</a></span>order()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::abstract::TaskDynamics::order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0af2178117ec3fab102e808b863e9886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0af2178117ec3fab102e808b863e9886">&#9670;&nbsp;</a></span>order_()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -689,7 +270,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00366.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::ProportionalDerivative::order_ </td>
+          <td class="memname">virtual <a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::abstract::TaskDynamics::order_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -697,12 +278,12 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="a01627.html#a0af2178117ec3fab102e808b863e9886">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
+<p>Implemented in <a class="el" href="a01747.html#a6cb34573a9cce06b9407331472c9b0ff">tvm::task_dynamics::VelocityDamper</a>, <a class="el" href="a01723.html#a74adb4a1aef02b7fe9fbfd6738206a40">tvm::task_dynamics::ProportionalDerivative</a>, <a class="el" href="a01715.html#a510dcbb35e9c497fa50ec9d8ca80a19c">tvm::task_dynamics::Proportional</a>, <a class="el" href="a01731.html#a265d9adb6b99ae2bebcfb68f79b7f530">tvm::task_dynamics::Reference</a>, <a class="el" href="a01707.html#ab6cacaa6764c52f9ffb67001d3ebc848">tvm::task_dynamics::None</a>, and <a class="el" href="a01691.html#a606c4cf535640483d61fdf5f676710d3">tvm::task_dynamics::Constant</a>.</p>
 
 </div>
 </div>
@@ -712,8 +293,8 @@ Protected Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01675.html">ProportionalDerivative</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00379.html">abstract</a></li><li class="navelem"><a class="el" href="a01675.html">TaskDynamics</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

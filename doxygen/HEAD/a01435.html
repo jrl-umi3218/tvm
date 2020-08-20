@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::AssignBase&lt; A &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::ArgCount&lt; T, Args &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,37 +88,62 @@ $(document).ready(function(){initNavTree('a01435.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01432.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::AssignBase&lt; A &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::ArgCount&lt; T, Args &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for the assignation.  
+<p>Given a list of types, count how many of then havec a constructor accepting <a class="el" href="a01415.html" title="Dummy type for constructors with no arguments. ">NoArg</a>.  
  <a href="a01435.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::scheme::internal::AssignBase&lt; A &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01435.png" usemap="#tvm::scheme::internal::AssignBase_3C_20A_20_3E_map" alt=""/>
-  <map id="tvm::scheme::internal::AssignBase_3C_20A_20_3E_map" name="tvm::scheme::internal::AssignBase_3C_20A_20_3E_map">
-<area href="a01507.html" title="The main class. " alt="tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;" shape="rect" coords="0,56,412,80"/>
-</map>
- </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a2c5fdcfe9e5e18daa941ae36ee95a9e0"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01435.html#a2c5fdcfe9e5e18daa941ae36ee95a9e0">count</a> = <a class="el" href="a01435.html">ArgCount</a>&lt;Args...&gt;::count + (<a class="el" href="a01431.html">hasNoArgCtor</a>&lt;T&gt;::value ? 0 : 1)</td></tr>
+<tr class="separator:a2c5fdcfe9e5e18daa941ae36ee95a9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;AssignType A&gt;<br />
-class tvm::scheme::internal::AssignBase&lt; A &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename... Args&gt;<br />
+class tvm::scheme::internal::ArgCount&lt; T, Args &gt;</h3>
 
-<p>Base class for the assignation. </p>
-</div></div><!-- contents -->
+<p>Given a list of types, count how many of then havec a constructor accepting <a class="el" href="a01415.html" title="Dummy type for constructors with no arguments. ">NoArg</a>. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2c5fdcfe9e5e18daa941ae36ee95a9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5fdcfe9e5e18daa941ae36ee95a9e0">&#9670;&nbsp;</a></span>count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int <a class="el" href="a01435.html">tvm::scheme::internal::ArgCount</a>&lt; T, Args &gt;::count = <a class="el" href="a01435.html">ArgCount</a>&lt;Args...&gt;::count + (<a class="el" href="a01431.html">hasNoArgCtor</a>&lt;T&gt;::value ? 0 : 1)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01435.html">AssignBase</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01435.html">ArgCount</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

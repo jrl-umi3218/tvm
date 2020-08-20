@@ -1,7 +1,6 @@
 var a00257 =
 [
-    [ "FeedForward", "a01651.html", "a01651" ],
-    [ "Impl", "a01655.html", "a01655" ],
-    [ "FeedForwardP", "a00257.html#abefacce58ac7386489ddd237a5fb0ecb", null ],
-    [ "FeedForwardPD", "a00257.html#aef391d4ea376d9ddb35b3bcace52d51e", null ]
+    [ "TaskDynamics", "a01675.html", "a01675" ],
+    [ "COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY", "a00257.html#a78f5f030eca0b25436ca268039666277", null ],
+    [ "TASK_DYNAMICS_DERIVED_FACTORY", "a00257.html#abb698affbe75e6eb09581fed3cb1ad62", null ]
 ];

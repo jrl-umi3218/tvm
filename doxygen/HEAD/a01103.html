@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::internal::Log::Output Struct Reference</title>
+<title>TVM: tvm::graph::internal::Inputs Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,40 +89,125 @@ $(document).ready(function(){initNavTree('a01103.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01100.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Log::Output Struct Reference</div>  </div>
+<div class="title">tvm::graph::internal::Inputs Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Description of an output.  
+<p><a class="el" href="a01103.html" title="Inputs store a list of Outputs and the required output signals. ">Inputs</a> store a list of Outputs and the required output signals.  
  <a href="a01103.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<p><code>#include &lt;tvm/graph/internal/Inputs.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::graph::internal::Inputs:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01103.png" usemap="#tvm::graph::internal::Inputs_map" alt=""/>
+  <map id="tvm::graph::internal::Inputs_map" name="tvm::graph::internal::Inputs_map">
+<area href="a01087.html" title="An abstract node is the structure stored in the call graph to hide away the actual type of the node..." alt="tvm::graph::internal::AbstractNode" shape="rect" coords="0,56,289,80"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; Contact &gt;" shape="rect" coords="299,112,588,136"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; ConvexHull &gt;" shape="rect" coords="299,168,588,192"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;" shape="rect" coords="299,224,588,248"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; Frame &gt;" shape="rect" coords="299,280,588,304"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; Plane &gt;" shape="rect" coords="299,336,588,360"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; Robot &gt;" shape="rect" coords="299,392,588,416"/>
+<area href="a01047.html" alt="tvm::graph::abstract::Node&lt; TaskDynamicsImpl &gt;" shape="rect" coords="299,448,588,472"/>
+<area href="a01047.html" title="Node is the concrete base for AbstractNode. " alt="tvm::graph::abstract::Node&lt; T &gt;" shape="rect" coords="299,504,588,528"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html">Iterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple extension to inputs_t iterator that also stores the end iterator, allowing to cast the iterator to a boolean value.  <a href="a01107.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5f83c4f362fa09c25249bec6f6ad7c4f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> = std::unordered_map&lt; <a class="el" href="a01051.html">abstract::Outputs</a> *, std::set&lt; int &gt; &gt;</td></tr>
+<tr class="memdesc:a5f83c4f362fa09c25249bec6f6ad7c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs.  <a href="#a5f83c4f362fa09c25249bec6f6ad7c4f">More...</a><br /></td></tr>
+<tr class="separator:a5f83c4f362fa09c25249bec6f6ad7c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e7f546232c0333a259b677cfd3446f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> = std::unordered_set&lt; std::shared_ptr&lt; <a class="el" href="a01051.html">abstract::Outputs</a> &gt; &gt;</td></tr>
+<tr class="memdesc:ac6e7f546232c0333a259b677cfd3446f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to store the inputs data.  <a href="#ac6e7f546232c0333a259b677cfd3446f">More...</a><br /></td></tr>
+<tr class="separator:ac6e7f546232c0333a259b677cfd3446f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aece7f645175657b11afadc5e9b4843d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#aece7f645175657b11afadc5e9b4843d8">operator&lt;</a> (const <a class="el" href="a01103.html">Output</a> &amp;other) const</td></tr>
-<tr class="separator:aece7f645175657b11afadc5e9b4843d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24c6a949361bf4b7457f0cda932357f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#a24c6a949361bf4b7457f0cda932357f6">operator==</a> (const <a class="el" href="a01103.html">Output</a> &amp;other) const</td></tr>
-<tr class="separator:a24c6a949361bf4b7457f0cda932357f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee57010cd59189302e03828097aad3a3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#aee57010cd59189302e03828097aad3a3">~Inputs</a> ()=default</td></tr>
+<tr class="separator:aee57010cd59189302e03828097aad3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args&gt; </td></tr>
+<tr class="memitem:afd28cb6b0518021d7cb3ca6b1d434810"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#afd28cb6b0518021d7cb3ca6b1d434810">addInput</a> (std::shared_ptr&lt; T &gt; source, EnumI i, Args ... args)</td></tr>
+<tr class="memdesc:afd28cb6b0518021d7cb3ca6b1d434810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="#afd28cb6b0518021d7cb3ca6b1d434810">More...</a><br /></td></tr>
+<tr class="separator:afd28cb6b0518021d7cb3ca6b1d434810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumI , typename ... Args, typename std::enable_if&lt; std::is_base_of&lt; abstract::Outputs, T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
+<tr class="memitem:adfca69bc37336a6f8040a38d1e52b33f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#adfca69bc37336a6f8040a38d1e52b33f">addInput</a> (T &amp;source, EnumI i, Args ... args)</td></tr>
+<tr class="memdesc:adfca69bc37336a6f8040a38d1e52b33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add outputs from a given Output object.  <a href="#adfca69bc37336a6f8040a38d1e52b33f">More...</a><br /></td></tr>
+<tr class="separator:adfca69bc37336a6f8040a38d1e52b33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad60a58128da7e4cdafba2e4ae358a23b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a> (T *source)</td></tr>
+<tr class="memdesc:ad60a58128da7e4cdafba2e4ae358a23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all outputs from a given Output object.  <a href="#ad60a58128da7e4cdafba2e4ae358a23b">More...</a><br /></td></tr>
+<tr class="separator:ad60a58128da7e4cdafba2e4ae358a23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70"><td class="memTemplParams" colspan="2">template&lt;typename T , typename ... Args&gt; </td></tr>
+<tr class="memitem:a83c340d294e0e092e8a1ecfe4b94be70"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#a83c340d294e0e092e8a1ecfe4b94be70">removeInput</a> (T *source, Args ... args)</td></tr>
+<tr class="memdesc:a83c340d294e0e092e8a1ecfe4b94be70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove outputs from a given Output object.  <a href="#a83c340d294e0e092e8a1ecfe4b94be70">More...</a><br /></td></tr>
+<tr class="separator:a83c340d294e0e092e8a1ecfe4b94be70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa460986cd8bbf0060ed476a8625aeac0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01107.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a> (T *source)</td></tr>
+<tr class="memdesc:aa460986cd8bbf0060ed476a8625aeac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="#aa460986cd8bbf0060ed476a8625aeac0">More...</a><br /></td></tr>
+<tr class="separator:aa460986cd8bbf0060ed476a8625aeac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18f52958730844f8f29f727ca89e112"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae18f52958730844f8f29f727ca89e112"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01107.html">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01103.html#ae18f52958730844f8f29f727ca89e112">getInput</a> (const std::shared_ptr&lt; T &gt; &amp;source)</td></tr>
+<tr class="memdesc:ae18f52958730844f8f29f727ca89e112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve an input from a given Output object.  <a href="#ae18f52958730844f8f29f727ca89e112">More...</a><br /></td></tr>
+<tr class="separator:ae18f52958730844f8f29f727ca89e112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aebb7180e249b0dd0bcde56b811bf153b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01091.html">EnumValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#aebb7180e249b0dd0bcde56b811bf153b">id</a></td></tr>
-<tr class="separator:aebb7180e249b0dd0bcde56b811bf153b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cc6a42382f567b7b491904b7fd8a14b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#a3cc6a42382f567b7b491904b7fd8a14b">name</a></td></tr>
-<tr class="separator:a3cc6a42382f567b7b491904b7fd8a14b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d6a30adbe700862b885726b8afa51d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01095.html">Pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#a7d6a30adbe700862b885726b8afa51d8">owner</a></td></tr>
-<tr class="separator:a7d6a30adbe700862b885726b8afa51d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ad30a0da6c3cc968e6b25d709ddab5e76"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html#ad30a0da6c3cc968e6b25d709ddab5e76">tvm::graph::CallGraph</a></td></tr>
+<tr class="separator:ad30a0da6c3cc968e6b25d709ddab5e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Description of an output. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aece7f645175657b11afadc5e9b4843d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aece7f645175657b11afadc5e9b4843d8">&#9670;&nbsp;</a></span>operator<()</h2>
+<div class="textblock"><p><a class="el" href="a01103.html" title="Inputs store a list of Outputs and the required output signals. ">Inputs</a> store a list of Outputs and the required output signals. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5f83c4f362fa09c25249bec6f6ad7c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f83c4f362fa09c25249bec6f6ad7c4f">&#9670;&nbsp;</a></span>inputs_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01103.html#a5f83c4f362fa09c25249bec6f6ad7c4f">tvm::graph::internal::Inputs::inputs_t</a> =  std::unordered_map&lt;<a class="el" href="a01051.html">abstract::Outputs</a> *, std::set&lt;int&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type used to store the inputs. </p>
+
+</div>
+</div>
+<a id="ac6e7f546232c0333a259b677cfd3446f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e7f546232c0333a259b677cfd3446f">&#9670;&nbsp;</a></span>store_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01103.html#ac6e7f546232c0333a259b677cfd3446f">tvm::graph::internal::Inputs::store_t</a> =  std::unordered_set&lt;std::shared_ptr&lt;<a class="el" href="a01051.html">abstract::Outputs</a>&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type used to store the inputs data. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aee57010cd59189302e03828097aad3a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee57010cd59189302e03828097aad3a3">&#9670;&nbsp;</a></span>~Inputs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,26 +216,200 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::graph::internal::Log::Output::operator&lt; </td>
+          <td class="memname">virtual tvm::graph::internal::Inputs::~Inputs </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01103.html">Output</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">References <a class="el" href="a00375.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afd28cb6b0518021d7cb3ca6b1d434810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd28cb6b0518021d7cb3ca6b1d434810">&#9670;&nbsp;</a></span>addInput() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename EnumI , typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::Inputs::addInput </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EnumI&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args ...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add outputs from a given Output object. </p>
 
 </div>
 </div>
-<a id="a24c6a949361bf4b7457f0cda932357f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24c6a949361bf4b7457f0cda932357f6">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="adfca69bc37336a6f8040a38d1e52b33f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfca69bc37336a6f8040a38d1e52b33f">&#9670;&nbsp;</a></span>addInput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename EnumI , typename ... Args, typename std::enable_if&lt; std::is_base_of&lt; abstract::Outputs, T &gt;::value, int &gt;::type  = 0&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::Inputs::addInput </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EnumI&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args ...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add outputs from a given Output object. </p>
+<p>Leave the caller responsible for the source lifetime </p>
+
+</div>
+</div>
+<a id="aa460986cd8bbf0060ed476a8625aeac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa460986cd8bbf0060ed476a8625aeac0">&#9670;&nbsp;</a></span>getInput() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01107.html">Iterator</a> tvm::graph::internal::Inputs::getInput </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve an input from a given Output object. </p>
+
+</div>
+</div>
+<a id="ae18f52958730844f8f29f727ca89e112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18f52958730844f8f29f727ca89e112">&#9670;&nbsp;</a></span>getInput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01107.html">Iterator</a> tvm::graph::internal::Inputs::getInput </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve an input from a given Output object. </p>
+
+</div>
+</div>
+<a id="ad60a58128da7e4cdafba2e4ae358a23b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60a58128da7e4cdafba2e4ae358a23b">&#9670;&nbsp;</a></span>removeInput() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::Inputs::removeInput </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove all outputs from a given Output object. </p>
+
+</div>
+</div>
+<a id="a83c340d294e0e092e8a1ecfe4b94be70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83c340d294e0e092e8a1ecfe4b94be70">&#9670;&nbsp;</a></span>removeInput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::Inputs::removeInput </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args ...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove outputs from a given Output object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ad30a0da6c3cc968e6b25d709ddab5e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30a0da6c3cc968e6b25d709ddab5e76">&#9670;&nbsp;</a></span>tvm::graph::CallGraph</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,63 +418,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::graph::internal::Log::Output::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01103.html">Output</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">friend class <a class="el" href="a01071.html">tvm::graph::CallGraph</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-<p class="reference">References <a class="el" href="a00375.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aebb7180e249b0dd0bcde56b811bf153b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebb7180e249b0dd0bcde56b811bf153b">&#9670;&nbsp;</a></span>id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01091.html">EnumValue</a> tvm::graph::internal::Log::Output::id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3cc6a42382f567b7b491904b7fd8a14b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cc6a42382f567b7b491904b7fd8a14b">&#9670;&nbsp;</a></span>name</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string tvm::graph::internal::Log::Output::name</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7d6a30adbe700862b885726b8afa51d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d6a30adbe700862b885726b8afa51d8">&#9670;&nbsp;</a></span>owner</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01095.html">Pointer</a> tvm::graph::internal::Log::Output::owner</td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>
@@ -226,8 +436,8 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">graph</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01087.html">Log</a></li><li class="navelem"><a class="el" href="a01103.html">Output</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a00387.html">internal</a></li><li class="navelem"><a class="el" href="a01103.html">Inputs</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

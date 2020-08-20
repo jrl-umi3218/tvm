@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::LevelAbilities Class Reference</title>
+<title>TVM: tvm::scheme::internal::MatrixMultBase&lt; MatrixType, CUSTOM &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,37 +92,82 @@ $(document).ready(function(){initNavTree('a01539.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01536.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::LevelAbilities Class Reference</div>  </div>
+<div class="title">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, CUSTOM &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;tvm/scheme/internal/SchemeAbilities.h&gt;</code></p>
+<p>Partial specialization for CUSTOM.  
+ <a href="a01539.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a29f0dfcc1af655aa62ae69ed34e9a6f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01539.html#a29f0dfcc1af655aa62ae69ed34e9a6f1">LevelAbilities</a> (bool inequality, const std::vector&lt; <a class="el" href="a00365.html#aa4adc5cf6ecbfb56b852b529f1e29198">requirements::ViolationEvaluationType</a> &gt; &amp;types)</td></tr>
-<tr class="separator:a29f0dfcc1af655aa62ae69ed34e9a6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85312f82b21cc59ce2256d81fa76d6e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01539.html#a85312f82b21cc59ce2256d81fa76d6e0">check</a> (const <a class="el" href="a00359.html#a6b21f7495f7ef45e0ef41efdbb08d150">ConstraintPtr</a> &amp;c, const <a class="el" href="a00359.html#aa8bd5137ddc607b012b80f5a6eaf4bc1">SolvingRequirementsPtr</a> &amp;req, bool emitWarnings=true) const</td></tr>
-<tr class="separator:a85312f82b21cc59ce2256d81fa76d6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f607efbce088a211ef9d358b0ca98a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01539.html#a9f607efbce088a211ef9d358b0ca98a0">MatrixMultBase</a> (void(*mult)(Eigen::Ref&lt; MatrixType &gt; out, const Eigen::Ref&lt; const MatrixType &gt; &amp;in))</td></tr>
+<tr class="separator:a9f607efbce088a211ef9d358b0ca98a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ff5eff6f90da0cb22f1f6966b02f70"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab0ff5eff6f90da0cb22f1f6966b02f70"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01539.html#ab0ff5eff6f90da0cb22f1f6966b02f70">applyMatrixMultCached</a> (MatrixType &amp;cache, const T &amp;M)</td></tr>
+<tr class="separator:ab0ff5eff6f90da0cb22f1f6966b02f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a29f0dfcc1af655aa62ae69ed34e9a6f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29f0dfcc1af655aa62ae69ed34e9a6f1">&#9670;&nbsp;</a></span>LevelAbilities()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType&gt;<br />
+class tvm::scheme::internal::MatrixMultBase&lt; MatrixType, CUSTOM &gt;</h3>
+
+<p>Partial specialization for CUSTOM. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9f607efbce088a211ef9d358b0ca98a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f607efbce088a211ef9d358b0ca98a0">&#9670;&nbsp;</a></span>MatrixMultBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::scheme::internal::LevelAbilities::LevelAbilities </td>
+          <td class="memname"><a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fda406a9749aea3c711f544bc3bb79ea0a2">CUSTOM</a> &gt;::<a class="el" href="a01523.html">MatrixMultBase</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>inequality</em>, </td>
+          <td class="paramtype">void(*)(Eigen::Ref&lt; MatrixType &gt; out, const Eigen::Ref&lt; const MatrixType &gt; &amp;in)&#160;</td>
+          <td class="paramname"><em>mult</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab0ff5eff6f90da0cb22f1f6966b02f70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0ff5eff6f90da0cb22f1f6966b02f70">&#9670;&nbsp;</a></span>applyMatrixMultCached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fda406a9749aea3c711f544bc3bb79ea0a2">CUSTOM</a> &gt;::applyMatrixMultCached </td>
+          <td>(</td>
+          <td class="paramtype">MatrixType &amp;&#160;</td>
+          <td class="paramname"><em>cache</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a00365.html#aa4adc5cf6ecbfb56b852b529f1e29198">requirements::ViolationEvaluationType</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>types</em>&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -130,41 +175,11 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a85312f82b21cc59ce2256d81fa76d6e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85312f82b21cc59ce2256d81fa76d6e0">&#9670;&nbsp;</a></span>check()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::scheme::internal::LevelAbilities::check </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a6b21f7495f7ef45e0ef41efdbb08d150">ConstraintPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00359.html#aa8bd5137ddc607b012b80f5a6eaf4bc1">SolvingRequirementsPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>req</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>emitWarnings</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -175,8 +190,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01539.html">LevelAbilities</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01539.html">MatrixMultBase&lt; MatrixType, CUSTOM &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

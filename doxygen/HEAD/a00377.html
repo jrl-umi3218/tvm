@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::hint::abstract Namespace Reference</title>
+<title>TVM: tvm::requirements Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,29 +89,166 @@ $(document).ready(function(){initNavTree('a00377.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::hint::abstract Namespace Reference</div>  </div>
+<div class="title">tvm::requirements Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00393"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html">abstract</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01131.html">SubstitutionCalculator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="a01131.html" title="A SubstitutionCalculator is a lightweight factory that can generates a SubstitutionCalculatorImpl. ">SubstitutionCalculator</a> is a lightweight factory that can generates a <a class="el" href="a01135.html" title="Given a set of variables aggregated as x, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions. ">SubstitutionCalculatorImpl</a>.  <a href="a01131.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01275.html">AnisotropicWeightBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents an anisotropic weight to give more or less importance to the different rows of a constraint.  <a href="a01275.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01135.html">SubstitutionCalculatorImpl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a set of variables aggregated as <code>x</code>, and a set of constraints that, once aggregated, writes A x + ..., this base class proposes a set of operations related to A that are useful for performing substitutions.  <a href="a01135.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01279.html">PriorityLevelBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents the priority level of a constraint.  <a href="a01279.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01287.html">SolvingRequirements</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html">SolvingRequirementsBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class groups a PriorityLevel, a Weight, an AnisotropicWeight and a ViolationEvaluation, to describe the way a constraint need to be solved and interact with other constraints.  <a href="a01283.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01291.html">SolvingRequirementsWithCallbacks</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01295.html">ViolationEvaluationBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class specifying how a constraint violation should be handled.  <a href="a01295.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01299.html">WeightBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents the scalar weight alpha of a constraint, within its priority level.  <a href="a01299.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0bbe98ef109d5802048b074fc010ed55"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html#a0bbe98ef109d5802048b074fc010ed55">AnisotropicWeight</a> = <a class="el" href="a01275.html">AnisotropicWeightBase</a>&lt; true &gt;</td></tr>
+<tr class="separator:a0bbe98ef109d5802048b074fc010ed55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5d3c61ef15897a9eee0c742a80fbee3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a> = <a class="el" href="a01279.html">PriorityLevelBase</a>&lt; true &gt;</td></tr>
+<tr class="separator:aa5d3c61ef15897a9eee0c742a80fbee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34fbea9cdc1068d953d49a7a2642b60e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html#a34fbea9cdc1068d953d49a7a2642b60e">ViolationEvaluation</a> = <a class="el" href="a01295.html">ViolationEvaluationBase</a>&lt; true &gt;</td></tr>
+<tr class="separator:a34fbea9cdc1068d953d49a7a2642b60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad596b52ac03ded388e26964e3e995866"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html#ad596b52ac03ded388e26964e3e995866">Weight</a> = <a class="el" href="a01299.html">WeightBase</a>&lt; true &gt;</td></tr>
+<tr class="separator:ad596b52ac03ded388e26964e3e995866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198">ViolationEvaluationType</a> { <br />
+&#160;&#160;<a class="el" href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198a9ec4c0afd450ceac7adb81c3bcfc9732">ViolationEvaluationType::L1</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198a7e6aa2d53f6ee2b1a34b017fa403cb76">ViolationEvaluationType::L2</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198a38b6015d873e96433844072ccea5c553">ViolationEvaluationType::LINF</a>
+<br />
+ }<tr class="memdesc:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a constraint, let the vector v(x) be its componentwise violation.  <a href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:aa4adc5cf6ecbfb56b852b529f1e29198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a0bbe98ef109d5802048b074fc010ed55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bbe98ef109d5802048b074fc010ed55">&#9670;&nbsp;</a></span>AnisotropicWeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00377.html#a0bbe98ef109d5802048b074fc010ed55">tvm::requirements::AnisotropicWeight</a> = typedef <a class="el" href="a01275.html">AnisotropicWeightBase</a>&lt;true&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5d3c61ef15897a9eee0c742a80fbee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5d3c61ef15897a9eee0c742a80fbee3">&#9670;&nbsp;</a></span>PriorityLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00377.html#aa5d3c61ef15897a9eee0c742a80fbee3">tvm::requirements::PriorityLevel</a> = typedef <a class="el" href="a01279.html">PriorityLevelBase</a>&lt;true&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34fbea9cdc1068d953d49a7a2642b60e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34fbea9cdc1068d953d49a7a2642b60e">&#9670;&nbsp;</a></span>ViolationEvaluation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00377.html#a34fbea9cdc1068d953d49a7a2642b60e">tvm::requirements::ViolationEvaluation</a> = typedef <a class="el" href="a01295.html">ViolationEvaluationBase</a>&lt;true&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad596b52ac03ded388e26964e3e995866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad596b52ac03ded388e26964e3e995866">&#9670;&nbsp;</a></span>Weight</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00377.html#ad596b52ac03ded388e26964e3e995866">tvm::requirements::Weight</a> = typedef <a class="el" href="a01299.html">WeightBase</a>&lt;true&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="aa4adc5cf6ecbfb56b852b529f1e29198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4adc5cf6ecbfb56b852b529f1e29198">&#9670;&nbsp;</a></span>ViolationEvaluationType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00377.html#aa4adc5cf6ecbfb56b852b529f1e29198">tvm::requirements::ViolationEvaluationType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a constraint, let the vector v(x) be its componentwise violation. </p>
+<p>For example, for the constraint c(x) = 0, we simply have v(x) = c(x), for c(x) &gt;= b, we have v(x) = max(b-c(x),0).</p>
+<p>This enumeration specifies how v(x) is made into a scalar measure f(x) of this violation. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a9ec4c0afd450ceac7adb81c3bcfc9732"></a>L1&#160;</td><td class="fielddoc"><p>f(x) = sum(abs(v_i(x))) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a7e6aa2d53f6ee2b1a34b017fa403cb76"></a>L2&#160;</td><td class="fielddoc"><p>f(x) = v(x)^T*v(x) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa4adc5cf6ecbfb56b852b529f1e29198a38b6015d873e96433844072ccea5c553"></a>LINF&#160;</td><td class="fielddoc"><p>f(x) = max(abs(v_i(x))) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00376.html">hint</a></li><li class="navelem"><a class="el" href="a00377.html">abstract</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00377.html">requirements</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

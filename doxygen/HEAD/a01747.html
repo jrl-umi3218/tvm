@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::utils::internal::BufferedMatrix Class Reference</title>
+<title>TVM: tvm::task_dynamics::VelocityDamper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,56 +89,108 @@ $(document).ready(function(){initNavTree('a01747.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01744.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::internal::BufferedMatrix Class Reference</div>  </div>
+<div class="title">tvm::task_dynamics::VelocityDamper Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This class provides a matrix with resizable buffer, so that allocations are made only if there is not enough space.  
+<p>A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud.  
  <a href="a01747.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/utils/internal/BufferedMatrix.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/VelocityDamper.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::task_dynamics::VelocityDamper:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01747.png" usemap="#tvm::task_5Fdynamics::VelocityDamper_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::VelocityDamper_map" name="tvm::task_5Fdynamics::VelocityDamper_map">
+<area href="a01675.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01755.html">AnisotropicConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure grouping the parameters for an anisotropic velocity damper.  <a href="a01755.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01751.html">Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure grouping the parameters of a velocity damper.  <a href="a01751.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html">Impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">BufferedMatrix</a> (Eigen::DenseIndex m, Eigen::DenseIndex n)</td></tr>
-<tr class="memdesc:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a m-by-n <a class="el" href="a01747.html" title="This class provides a matrix with resizable buffer, so that allocations are made only if there is not...">BufferedMatrix</a>.  <a href="#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">More...</a><br /></td></tr>
-<tr class="separator:ac06ee8e6913eff18a8f3e9d2c2a3c6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c6c66d3c899f41387e25fa62e437d08"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a8c6c66d3c899f41387e25fa62e437d08">get</a> () const</td></tr>
-<tr class="memdesc:a8c6c66d3c899f41387e25fa62e437d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a map to the matrix.  <a href="#a8c6c66d3c899f41387e25fa62e437d08">More...</a><br /></td></tr>
-<tr class="separator:a8c6c66d3c899f41387e25fa62e437d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78344857c727193490f2fb241153ec46"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a78344857c727193490f2fb241153ec46">get</a> ()</td></tr>
-<tr class="memdesc:a78344857c727193490f2fb241153ec46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a map to the matrix.  <a href="#a78344857c727193490f2fb241153ec46">More...</a><br /></td></tr>
-<tr class="separator:a78344857c727193490f2fb241153ec46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a8f55fa782901353fb36f4dba7fc1ed60">resize</a> (Eigen::DenseIndex m, Eigen::DenseIndex n)</td></tr>
-<tr class="memdesc:a8f55fa782901353fb36f4dba7fc1ed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize the matrix.  <a href="#a8f55fa782901353fb36f4dba7fc1ed60">More...</a><br /></td></tr>
-<tr class="separator:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae15e7f1b8b9ce3374fa40dee84e83da9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#ae15e7f1b8b9ce3374fa40dee84e83da9">VelocityDamper</a> (const <a class="el" href="a01751.html">Config</a> &amp;config, double big=<a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
+<tr class="memdesc:ae15e7f1b8b9ce3374fa40dee84e83da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity damper for first order dynamics.  <a href="#ae15e7f1b8b9ce3374fa40dee84e83da9">More...</a><br /></td></tr>
+<tr class="separator:ae15e7f1b8b9ce3374fa40dee84e83da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04070d2efacde00713659e190d6539e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#ad04070d2efacde00713659e190d6539e">VelocityDamper</a> (const <a class="el" href="a01755.html">AnisotropicConfig</a> &amp;config, double big=<a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
+<tr class="memdesc:ad04070d2efacde00713659e190d6539e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity damper for first order dynamics.  <a href="#ad04070d2efacde00713659e190d6539e">More...</a><br /></td></tr>
+<tr class="separator:ad04070d2efacde00713659e190d6539e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04482c838c55d714c8177d617f00be4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a04482c838c55d714c8177d617f00be4b">VelocityDamper</a> (double dt, const <a class="el" href="a01751.html">Config</a> &amp;config, double big=<a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
+<tr class="memdesc:a04482c838c55d714c8177d617f00be4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity damper for second order dynamics.  <a href="#a04482c838c55d714c8177d617f00be4b">More...</a><br /></td></tr>
+<tr class="separator:a04482c838c55d714c8177d617f00be4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00a13d5ce4c903788b60da51ab416565"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a00a13d5ce4c903788b60da51ab416565">VelocityDamper</a> (double dt, const <a class="el" href="a01755.html">AnisotropicConfig</a> &amp;config, double big=<a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
+<tr class="memdesc:a00a13d5ce4c903788b60da51ab416565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity damper for second order dynamics.  <a href="#a00a13d5ce4c903788b60da51ab416565">More...</a><br /></td></tr>
+<tr class="separator:a00a13d5ce4c903788b60da51ab416565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a325110a772ec18ce66cc2d8a2db2b379"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a325110a772ec18ce66cc2d8a2db2b379">~VelocityDamper</a> () override=default</td></tr>
+<tr class="separator:a325110a772ec18ce66cc2d8a2db2b379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01675"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01675')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
+<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
+<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
+<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
+<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a588e6cbd4fff5de6e5c021184b2fbb48"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a588e6cbd4fff5de6e5c021184b2fbb48">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:a588e6cbd4fff5de6e5c021184b2fbb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb34573a9cce06b9407331472c9b0ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01747.html#a6cb34573a9cce06b9407331472c9b0ff">order_</a> () const override</td></tr>
+<tr class="separator:a6cb34573a9cce06b9407331472c9b0ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfdd2313d0000fdedfa770d88cb8e9d0"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename ... Args&gt; </td></tr>
+<tr class="memitem:adfdd2313d0000fdedfa770d88cb8e9d0"><td class="memTemplItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01747.html#adfdd2313d0000fdedfa770d88cb8e9d0">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs, Args &amp;&amp;... args) const</td></tr>
+<tr class="separator:adfdd2313d0000fdedfa770d88cb8e9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class provides a matrix with resizable buffer, so that allocations are made only if there is not enough space. </p>
+<div class="textblock"><p>A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud. </p>
+<p>For a lower bound tasks e&gt;=0, we have, for e&lt;=di:</p><ul>
+<li>first order: dot{e}_i* = -xsi * (e_i-ds)/(di-ds)</li>
+<li>second order: ddot{e}_i* = -xsi/dt * (e_i-ds)/(di-ds) -dot{e}_i/dt</li>
+</ul>
+<p>and for e&gt;di:</p><ul>
+<li>first order: dot{e}* = big</li>
+<li>second order: ddot{e}* = big</li>
+</ul>
+<p>For upper bound tasks e &lt;= 0 this is adapted to get the same behavior as -e &gt;= 0.</p>
+<p>xsi can be computed automatically (see <code>autoXsi</code> parameter).</p>
+<dl class="section attention"><dt>Attention</dt><dd>For xsi to be computed automatically in the first order case, the value of dot{e} is used.</dd>
+<dd>
+To know when to compute xsi in automatic mode, the class keeps data on the last iterations. Consequently if the velocity damper is applied to a function <code>f</code> with variable <code>x</code>, its output value will be the same if <code>x</code> keeps the same value <code>x0</code> and velocity <code>v0</code> between two consecutive updates, but the same entries <code>x0</code> and <code>v0</code> <em>may</em> give different values for unrelated updates, because of history differences. <br />
+ This remark only applies when the automatic computation of xsi is required. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac06ee8e6913eff18a8f3e9d2c2a3c6b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">&#9670;&nbsp;</a></span>BufferedMatrix()</h2>
+<a id="ae15e7f1b8b9ce3374fa40dee84e83da9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15e7f1b8b9ce3374fa40dee84e83da9">&#9670;&nbsp;</a></span>VelocityDamper() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::utils::internal::BufferedMatrix::BufferedMatrix </td>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::VelocityDamper </td>
           <td>(</td>
-          <td class="paramtype">Eigen::DenseIndex&#160;</td>
-          <td class="paramname"><em>m</em>, </td>
+          <td class="paramtype">const <a class="el" href="a01751.html">Config</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Eigen::DenseIndex&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em> = <code><a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -146,23 +198,172 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Build a m-by-n <a class="el" href="a01747.html" title="This class provides a matrix with resizable buffer, so that allocations are made only if there is not...">BufferedMatrix</a>. </p>
-<p>A buffer twice as big as needed is created. </p>
-
-<p class="reference">References <a class="el" href="a01747.html#a8f55fa782901353fb36f4dba7fc1ed60">resize()</a>.</p>
+<p>Velocity damper for first order dynamics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>configuration of the damper. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>VelocityDamperConfig</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">big</td><td>value used as infinity.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>When <code>autoXsi</code> is <code>true</code>, the value update will declare a dependency to the <code>Velocity</code> of the error function. It is the user responsibility to ensure the velocity is correctly provided (in particular, this might require the value of the variables first derivatives to be set correctly). </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8c6c66d3c899f41387e25fa62e437d08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c6c66d3c899f41387e25fa62e437d08">&#9670;&nbsp;</a></span>get() <span class="overload">[1/2]</span></h2>
+<a id="ad04070d2efacde00713659e190d6539e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04070d2efacde00713659e190d6539e">&#9670;&nbsp;</a></span>VelocityDamper() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::VelocityDamper </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01755.html">AnisotropicConfig</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em> = <code><a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Velocity damper for first order dynamics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>configuration of the damper. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>VelocityDamperAnisotropicConfig</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">big</td><td>value used as infinity.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>Previous remark on <code>autoXsi</code> apply. Furthermore, the dimensions of <code>config</code> must match the function for which this task dynamic will be used. </dd></dl>
+
+</div>
+</div>
+<a id="a04482c838c55d714c8177d617f00be4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04482c838c55d714c8177d617f00be4b">&#9670;&nbsp;</a></span>VelocityDamper() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::VelocityDamper </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01751.html">Config</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em> = <code><a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Velocity damper for second order dynamics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>integration time step to integrate acceleration to velocity (should be the control time step). Must be strictly positive.</td></tr>
+    <tr><td class="paramname">config</td><td>configuration of the damper. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>VelocityDamperConfig</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">big</td><td>value used as infinity. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a00a13d5ce4c903788b60da51ab416565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00a13d5ce4c903788b60da51ab416565">&#9670;&nbsp;</a></span>VelocityDamper() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::VelocityDamper </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01755.html">AnisotropicConfig</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em> = <code><a class="el" href="a00380.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Velocity damper for second order dynamics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>integration time step to integrate acceleration to velocity (should be the control time step). Must be strictly positive.</td></tr>
+    <tr><td class="paramname">config</td><td>configuration of the damper. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>VelocityDamperAnisotropicConfig</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">big</td><td>value used as infinity. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a325110a772ec18ce66cc2d8a2db2b379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a325110a772ec18ce66cc2d8a2db2b379">&#9670;&nbsp;</a></span>~VelocityDamper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +372,127 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt; tvm::utils::internal::BufferedMatrix::get </td>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::~VelocityDamper </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a588e6cbd4fff5de6e5c021184b2fbb48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a588e6cbd4fff5de6e5c021184b2fbb48">&#9670;&nbsp;</a></span>impl_() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::VelocityDamper::impl_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01675.html#a1e1626637ba2315c65b9bfacceefe783">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
+
+</div>
+</div>
+<a id="adfdd2313d0000fdedfa770d88cb8e9d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfdd2313d0000fdedfa770d88cb8e9d0">&#9670;&nbsp;</a></span>impl_() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived , typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a>&gt; tvm::task_dynamics::VelocityDamper::impl_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cb34573a9cce06b9407331472c9b0ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cb34573a9cce06b9407331472c9b0ff">&#9670;&nbsp;</a></span>order_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a> tvm::task_dynamics::VelocityDamper::order_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -179,82 +500,12 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get a map to the matrix. </p>
-<p>The matrix has the size specified at construction or during the last resize.\ </p>
-
-</div>
-</div>
-<a id="a78344857c727193490f2fb241153ec46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78344857c727193490f2fb241153ec46">&#9670;&nbsp;</a></span>get() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt; tvm::utils::internal::BufferedMatrix::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get a map to the matrix. </p>
-<p>The matrix has the size specified at construction or during the last resize. </p>
-
-</div>
-</div>
-<a id="a8f55fa782901353fb36f4dba7fc1ed60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f55fa782901353fb36f4dba7fc1ed60">&#9670;&nbsp;</a></span>resize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::utils::internal::BufferedMatrix::resize </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::DenseIndex&#160;</td>
-          <td class="paramname"><em>m</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Eigen::DenseIndex&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Resize the matrix. </p>
-<p>If the buffer is not big enough, reallocate memory to twice the neede size. </p>
-
-<p class="reference">Referenced by <a class="el" href="a01747.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6">BufferedMatrix()</a>.</p>
+<p>Implements <a class="el" href="a01675.html#a0af2178117ec3fab102e808b863e9886">tvm::task_dynamics::abstract::TaskDynamics</a>.</p>
 
 </div>
 </div>
@@ -264,8 +515,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00379.html">utils</a></li><li class="navelem"><a class="el" href="a00389.html">internal</a></li><li class="navelem"><a class="el" href="a01747.html">BufferedMatrix</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:02 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01747.html">VelocityDamper</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::ResolutionSchemeBase Class Reference</title>
+<title>TVM: tvm::scheme::internal::MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,88 +89,280 @@ $(document).ready(function(){initNavTree('a01535.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01532.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::ResolutionSchemeBase Class Reference</div>  </div>
+<div class="title">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for solving a <a class="el" href="a00967.html">ControlProblem</a>.  
+<p>Partial specialization for INVERSE_DIAGONAL.  
  <a href="a01535.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/scheme/internal/ResolutionSchemeBase.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::scheme::internal::ResolutionSchemeBase:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01535.png" usemap="#tvm::scheme::internal::ResolutionSchemeBase_map" alt=""/>
-  <map id="tvm::scheme::internal::ResolutionSchemeBase_map" name="tvm::scheme::internal::ResolutionSchemeBase_map">
-<area href="a01223.html" title="A class with a unique id. " alt="tvm::internal::ObjWithId" shape="rect" coords="219,0,647,24"/>
-<area href="a01343.html" alt="tvm::scheme::abstract::ResolutionScheme&lt; WeightedLeastSquares &gt;" shape="rect" coords="0,112,428,136"/>
-<area href="a01343.html" title="Resolution schemes may be defined only for a particular type of problems. " alt="tvm::scheme::abstract::ResolutionScheme&lt; Derived &gt;" shape="rect" coords="438,112,866,136"/>
-<area href="a01347.html" alt="tvm::scheme::abstract::LinearResolutionScheme&lt; WeightedLeastSquares &gt;" shape="rect" coords="0,168,428,192"/>
-<area href="a01347.html" title="Base class for scheme solving linear problems For now, it is there only for allowing to differentiate..." alt="tvm::scheme::abstract::LinearResolutionScheme&lt; Derived &gt;" shape="rect" coords="438,168,866,192"/>
-<area href="a01551.html" title="This class implements the classic weighted least square scheme. " alt="tvm::scheme::WeightedLeastSquares" shape="rect" coords="0,224,428,248"/>
-</map>
- </div></div>
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab9e879eaa68813bb22452c2f85dcdb79"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a> = decltype(std::declval&lt; Eigen::Ref&lt; const Eigen::MatrixXd &gt; &gt;().diagonal().cwiseInverse().asDiagonal())</td></tr>
+<tr class="memdesc:ab9e879eaa68813bb22452c2f85dcdb79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the diagonal inverse.  <a href="#ab9e879eaa68813bb22452c2f85dcdb79">More...</a><br /></td></tr>
+<tr class="separator:ab9e879eaa68813bb22452c2f85dcdb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09ecef717b707825e7745a911f676485"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a09ecef717b707825e7745a911f676485"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#a09ecef717b707825e7745a911f676485">PreType</a> = decltype(std::declval&lt; <a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a> &gt;() *std::declval&lt; T &gt;())</td></tr>
+<tr class="memdesc:a09ecef717b707825e7745a911f676485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of Matrix*T.  <a href="#a09ecef717b707825e7745a911f676485">More...</a><br /></td></tr>
+<tr class="separator:a09ecef717b707825e7745a911f676485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b432bd95d351e10d917964b672cbb76"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a8b432bd95d351e10d917964b672cbb76"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#a8b432bd95d351e10d917964b672cbb76">PostType</a> = decltype(std::declval&lt; T &gt;() *std::declval&lt; <a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a> &gt;())</td></tr>
+<tr class="memdesc:a8b432bd95d351e10d917964b672cbb76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of T*Matrix.  <a href="#a8b432bd95d351e10d917964b672cbb76">More...</a><br /></td></tr>
+<tr class="separator:a8b432bd95d351e10d917964b672cbb76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91696d9b7a3e5daf31c85b32cc50a890"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a91696d9b7a3e5daf31c85b32cc50a890">ConstType</a> = decltype(std::declval&lt; <a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a> &gt;() *Eigen::VectorXd::Constant(1, 1))</td></tr>
+<tr class="memdesc:a91696d9b7a3e5daf31c85b32cc50a890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of Matrix * ConstantVector.  <a href="#a91696d9b7a3e5daf31c85b32cc50a890">More...</a><br /></td></tr>
+<tr class="separator:a91696d9b7a3e5daf31c85b32cc50a890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69ceec7e83fd0d65311b7dded6e38671"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a69ceec7e83fd0d65311b7dded6e38671">big_number</a> () const</td></tr>
-<tr class="separator:a69ceec7e83fd0d65311b7dded6e38671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad90acf5e20b8b1c9759a6491b7b83ff6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#ad90acf5e20b8b1c9759a6491b7b83ff6">big_number</a> (double big)</td></tr>
-<tr class="separator:ad90acf5e20b8b1c9759a6491b7b83ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01223"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01223')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01223.html">tvm::internal::ObjWithId</a></td></tr>
-<tr class="memitem:a56106dc0b038e076a2c8420368615efd inherit pub_methods_a01223"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01223.html#a56106dc0b038e076a2c8420368615efd">ObjWithId</a> (const <a class="el" href="a01223.html">ObjWithId</a> &amp;)=delete</td></tr>
-<tr class="separator:a56106dc0b038e076a2c8420368615efd inherit pub_methods_a01223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c7051ea19885a16a459149fe36dd555 inherit pub_methods_a01223"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01223.html">ObjWithId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01223.html#a2c7051ea19885a16a459149fe36dd555">operator=</a> (const <a class="el" href="a01223.html">ObjWithId</a> &amp;)=delete</td></tr>
-<tr class="separator:a2c7051ea19885a16a459149fe36dd555 inherit pub_methods_a01223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab153084b455818dae756548bc210ba49 inherit pub_methods_a01223"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01223.html#ab153084b455818dae756548bc210ba49">id</a> () const</td></tr>
-<tr class="separator:ab153084b455818dae756548bc210ba49 inherit pub_methods_a01223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:aefb80f832f4441e510feb64dbcf56ffd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#aefb80f832f4441e510feb64dbcf56ffd">ResolutionSchemeBase</a> (<a class="el" href="a01543.html">SchemeAbilities</a> abilities, double big=<a class="el" href="a00368.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
-<tr class="memdesc:aefb80f832f4441e510feb64dbcf56ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, meant only for derived classes.  <a href="#aefb80f832f4441e510feb64dbcf56ffd">More...</a><br /></td></tr>
-<tr class="separator:aefb80f832f4441e510feb64dbcf56ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_a01223"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01223')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01223.html">tvm::internal::ObjWithId</a></td></tr>
-<tr class="memitem:a28e6fb5a7fdf04111cdd47209e825f9a inherit pro_methods_a01223"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01223.html#a28e6fb5a7fdf04111cdd47209e825f9a">ObjWithId</a> ()</td></tr>
-<tr class="separator:a28e6fb5a7fdf04111cdd47209e825f9a inherit pro_methods_a01223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:adcf8dff7e4b436825a1502a60b616cdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01543.html">SchemeAbilities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#adcf8dff7e4b436825a1502a60b616cdc">abilities_</a></td></tr>
-<tr class="separator:adcf8dff7e4b436825a1502a60b616cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae80cba12e377a8574bbff19a005b94a7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#ae80cba12e377a8574bbff19a005b94a7">big_number_</a></td></tr>
-<tr class="memdesc:ae80cba12e377a8574bbff19a005b94a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A number to use for infinite bounds.  <a href="#ae80cba12e377a8574bbff19a005b94a7">More...</a><br /></td></tr>
-<tr class="separator:ae80cba12e377a8574bbff19a005b94a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dc3d14bfdff03e5c9fd32cbdcae508e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a4dc3d14bfdff03e5c9fd32cbdcae508e">MatrixMultBase</a> (const Eigen::Ref&lt; const Eigen::MatrixXd &gt; &amp;M)</td></tr>
+<tr class="separator:a4dc3d14bfdff03e5c9fd32cbdcae508e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ec3b654e0811725112d73eb5a2f0fb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad4ec3b654e0811725112d73eb5a2f0fb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; <a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; MatrixType &gt;::value, <a class="el" href="a01535.html#a09ecef717b707825e7745a911f676485">PreType</a>&lt; T &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#ad4ec3b654e0811725112d73eb5a2f0fb">applyMatrixMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:ad4ec3b654e0811725112d73eb5a2f0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87942b35f10bb6b5907896d9cb7dc944"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a87942b35f10bb6b5907896d9cb7dc944"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!<a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; MatrixType &gt;::value, <a class="el" href="a01535.html#a8b432bd95d351e10d917964b672cbb76">PostType</a>&lt; T &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#a87942b35f10bb6b5907896d9cb7dc944">applyMatrixMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:a87942b35f10bb6b5907896d9cb7dc944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f84cf690666a1065ab3385b74094ab5"><td class="memTemplParams" colspan="2">template&lt;typename U  = MatrixType&gt; </td></tr>
+<tr class="memitem:a0f84cf690666a1065ab3385b74094ab5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; <a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; U &gt;::value, <a class="el" href="a01535.html#a91696d9b7a3e5daf31c85b32cc50a890">ConstType</a> &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#a0f84cf690666a1065ab3385b74094ab5">applyMatrixMult</a> (const double &amp;d)</td></tr>
+<tr class="separator:a0f84cf690666a1065ab3385b74094ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78f8cd1895f05578110ede48f2b4a0ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a78f8cd1895f05578110ede48f2b4a0ec"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01535.html#a78f8cd1895f05578110ede48f2b4a0ec">applyMatrixMultCached</a> (MatrixType &amp;cache, const T &amp;M)</td></tr>
+<tr class="memdesc:a78f8cd1895f05578110ede48f2b4a0ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached version of applyMatrixMult.  <a href="#a78f8cd1895f05578110ede48f2b4a0ec">More...</a><br /></td></tr>
+<tr class="separator:a78f8cd1895f05578110ede48f2b4a0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for solving a <a class="el" href="a00967.html">ControlProblem</a>. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aefb80f832f4441e510feb64dbcf56ffd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefb80f832f4441e510feb64dbcf56ffd">&#9670;&nbsp;</a></span>ResolutionSchemeBase()</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType&gt;<br />
+class tvm::scheme::internal::MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt;</h3>
+
+<p>Partial specialization for INVERSE_DIAGONAL. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a91696d9b7a3e5daf31c85b32cc50a890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91696d9b7a3e5daf31c85b32cc50a890">&#9670;&nbsp;</a></span>ConstType</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::<a class="el" href="a01535.html#a91696d9b7a3e5daf31c85b32cc50a890">ConstType</a> =  decltype(std::declval&lt;<a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a>&gt;()*Eigen::VectorXd::Constant(1, 1))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of Matrix * ConstantVector. </p>
+
+</div>
+</div>
+<a id="ab9e879eaa68813bb22452c2f85dcdb79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e879eaa68813bb22452c2f85dcdb79">&#9670;&nbsp;</a></span>InvDiagType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::<a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a> =  decltype(std::declval&lt;Eigen::Ref&lt;const Eigen::MatrixXd&gt; &gt;().diagonal().cwiseInverse().asDiagonal())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of the diagonal inverse. </p>
+
+</div>
+</div>
+<a id="a8b432bd95d351e10d917964b672cbb76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b432bd95d351e10d917964b672cbb76">&#9670;&nbsp;</a></span>PostType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::<a class="el" href="a01535.html#a8b432bd95d351e10d917964b672cbb76">PostType</a> =  decltype(std::declval&lt;T&gt;()*std::declval&lt;<a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a>&gt;())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of T*Matrix. </p>
+
+</div>
+</div>
+<a id="a09ecef717b707825e7745a911f676485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09ecef717b707825e7745a911f676485">&#9670;&nbsp;</a></span>PreType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::<a class="el" href="a01535.html#a09ecef717b707825e7745a911f676485">PreType</a> =  decltype(std::declval&lt;<a class="el" href="a01535.html#ab9e879eaa68813bb22452c2f85dcdb79">InvDiagType</a>&gt;()*std::declval&lt;T&gt;())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of Matrix*T. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4dc3d14bfdff03e5c9fd32cbdcae508e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc3d14bfdff03e5c9fd32cbdcae508e">&#9670;&nbsp;</a></span>MatrixMultBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::scheme::internal::ResolutionSchemeBase::ResolutionSchemeBase </td>
+          <td class="memname"><a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::<a class="el" href="a01523.html">MatrixMultBase</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01543.html">SchemeAbilities</a>&#160;</td>
-          <td class="paramname"><em>abilities</em>, </td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::MatrixXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad4ec3b654e0811725112d73eb5a2f0fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4ec3b654e0811725112d73eb5a2f0fb">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;<a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;MatrixType&gt;::value, <a class="el" href="a01535.html#a09ecef717b707825e7745a911f676485">PreType</a>&lt;T&gt; &gt;::type <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87942b35f10bb6b5907896d9cb7dc944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87942b35f10bb6b5907896d9cb7dc944">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;!<a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;MatrixType&gt;::value, <a class="el" href="a01535.html#a8b432bd95d351e10d917964b672cbb76">PostType</a>&lt;T&gt; &gt;::type <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0f84cf690666a1065ab3385b74094ab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f84cf690666a1065ab3385b74094ab5">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename U  = MatrixType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;<a class="el" href="a00398.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;U&gt;::value, <a class="el" href="a01535.html#a91696d9b7a3e5daf31c85b32cc50a890">ConstType</a>&gt;::type <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78f8cd1895f05578110ede48f2b4a0ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f8cd1895f05578110ede48f2b4a0ec">&#9670;&nbsp;</a></span>applyMatrixMultCached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01523.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00398.html#accdeba42434e6c326e35e438acca74fdae656c7c4b3f1e7026cafcd5a8508f870">INVERSE_DIAGONAL</a> &gt;::applyMatrixMultCached </td>
+          <td>(</td>
+          <td class="paramtype">MatrixType &amp;&#160;</td>
+          <td class="paramname"><em>cache</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>big</em> = <code><a class="el" href="a00368.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -180,102 +372,12 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor, meant only for derived classes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">abilities</td><td>The set of abilities for this scheme. </td></tr>
-    <tr><td class="paramname">big</td><td>A big number use to represent infinity, in particular when specifying non-existing bounds (e.g. x &lt;= Inf is given as x &lt;= big). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a69ceec7e83fd0d65311b7dded6e38671"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69ceec7e83fd0d65311b7dded6e38671">&#9670;&nbsp;</a></span>big_number() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tvm::scheme::internal::ResolutionSchemeBase::big_number </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad90acf5e20b8b1c9759a6491b7b83ff6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad90acf5e20b8b1c9759a6491b7b83ff6">&#9670;&nbsp;</a></span>big_number() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::scheme::internal::ResolutionSchemeBase::big_number </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>big</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="adcf8dff7e4b436825a1502a60b616cdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcf8dff7e4b436825a1502a60b616cdc">&#9670;&nbsp;</a></span>abilities_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01543.html">SchemeAbilities</a> tvm::scheme::internal::ResolutionSchemeBase::abilities_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae80cba12e377a8574bbff19a005b94a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae80cba12e377a8574bbff19a005b94a7">&#9670;&nbsp;</a></span>big_number_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tvm::scheme::internal::ResolutionSchemeBase::big_number_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A number to use for infinite bounds. </p>
+<p>Cached version of applyMatrixMult. </p>
 
 </div>
 </div>
@@ -285,8 +387,8 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01535.html">ResolutionSchemeBase</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01535.html">MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

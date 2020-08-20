@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::AssignBase&lt; MAX &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,110 +89,52 @@ $(document).ready(function(){initNavTree('a01499.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01496.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::AssignBase&lt; MAX &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for managing the source.  
- <a href="a01499.html#details">More...</a></p>
-
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01499.png" usemap="#tvm::scheme::internal::SourceBase_3C_20MatrixType_2C_20F_20_3E_map" alt=""/>
-  <map id="tvm::scheme::internal::SourceBase_3C_20MatrixType_2C_20F_20_3E_map" name="tvm::scheme::internal::SourceBase_3C_20MatrixType_2C_20F_20_3E_map">
-<area href="a01507.html" title="The main class. " alt="tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;" shape="rect" coords="0,56,412,80"/>
-</map>
- </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:abdba30070c33b048825cd51e6aee6a6c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> = typename std::conditional&lt; F==<a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3ab46dfc1bff46ccf28be89dbab0426e03">CONSTANT</a>, double, Eigen::Ref&lt; const MatrixType &gt; &gt;::type</td></tr>
-<tr class="separator:abdba30070c33b048825cd51e6aee6a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a554b96ce4db16ccaf30195c866ea1dc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01499.html#a554b96ce4db16ccaf30195c866ea1dc2">SourceBase</a> (const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> &amp;<a class="el" href="a01499.html#a2629254e33031a6a56112e1208b96a31">from</a>)</td></tr>
-<tr class="separator:a554b96ce4db16ccaf30195c866ea1dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2629254e33031a6a56112e1208b96a31"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01499.html#a2629254e33031a6a56112e1208b96a31">from</a> () const</td></tr>
-<tr class="separator:a2629254e33031a6a56112e1208b96a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a967d6c3947961a3085876ea0463b7a04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01499.html#a967d6c3947961a3085876ea0463b7a04">from</a> (const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> &amp;from)</td></tr>
-<tr class="separator:a967d6c3947961a3085876ea0463b7a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ae6d008b96068e87a984930062e90a5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a5ae6d008b96068e87a984930062e90a5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01499.html#a5ae6d008b96068e87a984930062e90a5">assign</a> (U &amp;out, const T &amp;in)</td></tr>
+<tr class="separator:a5ae6d008b96068e87a984930062e90a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba22d88483e4918b81bb7d9439076880"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:aba22d88483e4918b81bb7d9439076880"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01499.html#aba22d88483e4918b81bb7d9439076880">assign</a> (U &amp;out, double in)</td></tr>
+<tr class="separator:aba22d88483e4918b81bb7d9439076880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename MatrixType, Source F&gt;<br />
-class tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;</h3>
-
-<p>Base class for managing the source. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="abdba30070c33b048825cd51e6aee6a6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdba30070c33b048825cd51e6aee6a6c">&#9670;&nbsp;</a></span>SourceType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , Source F&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01499.html">tvm::scheme::internal::SourceBase</a>&lt; MatrixType, F &gt;::<a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> =  typename std::conditional&lt;F == <a class="el" href="a00386.html#a04d5b16c84893afd4865703cbe3f47a3ab46dfc1bff46ccf28be89dbab0426e03">CONSTANT</a>, double, Eigen::Ref&lt;const MatrixType&gt; &gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a554b96ce4db16ccaf30195c866ea1dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a554b96ce4db16ccaf30195c866ea1dc2">&#9670;&nbsp;</a></span>SourceBase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MatrixType , Source F&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01499.html">tvm::scheme::internal::SourceBase</a>&lt; MatrixType, F &gt;::<a class="el" href="a01499.html">SourceBase</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2629254e33031a6a56112e1208b96a31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2629254e33031a6a56112e1208b96a31">&#9670;&nbsp;</a></span>from() <span class="overload">[1/2]</span></h2>
+<a id="a5ae6d008b96068e87a984930062e90a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ae6d008b96068e87a984930062e90a5">&#9670;&nbsp;</a></span>assign() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MatrixType , Source F&gt; </div>
+template&lt;typename T , typename U &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a>&amp; <a class="el" href="a01499.html">tvm::scheme::internal::SourceBase</a>&lt; MatrixType, F &gt;::from </td>
+          <td class="memname">void <a class="el" href="a01479.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00398.html#a6e11ce78bce8f4d8e54c5fb61aa23578a190a2f70edc18fc77838e54c617ce79e">MAX</a> &gt;::assign </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">U &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -204,23 +146,33 @@ template&lt;typename MatrixType , Source F&gt; </div>
 
 </div>
 </div>
-<a id="a967d6c3947961a3085876ea0463b7a04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a967d6c3947961a3085876ea0463b7a04">&#9670;&nbsp;</a></span>from() <span class="overload">[2/2]</span></h2>
+<a id="aba22d88483e4918b81bb7d9439076880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba22d88483e4918b81bb7d9439076880">&#9670;&nbsp;</a></span>assign() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MatrixType , Source F&gt; </div>
+template&lt;typename U &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a01499.html">tvm::scheme::internal::SourceBase</a>&lt; MatrixType, F &gt;::from </td>
+          <td class="memname">void <a class="el" href="a01479.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00398.html#a6e11ce78bce8f4d8e54c5fb61aa23578a190a2f70edc18fc77838e54c617ce79e">MAX</a> &gt;::assign </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01499.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> &amp;&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
+          <td class="paramtype">U &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -238,8 +190,8 @@ template&lt;typename MatrixType , Source F&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01499.html">SourceBase</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01499.html">AssignBase&lt; MAX &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

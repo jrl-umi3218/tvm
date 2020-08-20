@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::internal::Log::Pointer Struct Reference</title>
+<title>TVM: tvm::graph::internal::DependencyGraph Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,93 +89,67 @@ $(document).ready(function(){initNavTree('a01095.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01092.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Log::Pointer Struct Reference</div>  </div>
+<div class="title">tvm::graph::internal::DependencyGraph Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A type-independent representation of a pointer as a pair (type, address).  
+<p>An oriented graph to represent dependencies between nodes.  
  <a href="a01095.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<p><code>#include &lt;tvm/graph/internal/DependencyGraph.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01095.html#ae6fd2b3fe5f45fb6435d8aa8c74318cf">Pointer</a> (T *p)</td></tr>
-<tr class="memdesc:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build from an pointer.  <a href="#ae6fd2b3fe5f45fb6435d8aa8c74318cf">More...</a><br /></td></tr>
-<tr class="separator:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d7242d4c45dc0664bb07de1ccb11413"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a9d7242d4c45dc0664bb07de1ccb11413">Pointer</a> (const std::type_index &amp;t, std::uintptr_t v)</td></tr>
-<tr class="memdesc:a9d7242d4c45dc0664bb07de1ccb11413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build from a pair (type, address).  <a href="#a9d7242d4c45dc0664bb07de1ccb11413">More...</a><br /></td></tr>
-<tr class="separator:a9d7242d4c45dc0664bb07de1ccb11413"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e059086cba9bbe42aa76555e5d91d26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a5e059086cba9bbe42aa76555e5d91d26">operator&lt;</a> (const <a class="el" href="a01095.html">Pointer</a> &amp;other) const</td></tr>
-<tr class="separator:a5e059086cba9bbe42aa76555e5d91d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad32392904aa55c7d3aa094bade598718"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ad32392904aa55c7d3aa094bade598718">operator==</a> (const <a class="el" href="a01095.html">Pointer</a> &amp;other) const</td></tr>
-<tr class="separator:ad32392904aa55c7d3aa094bade598718"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a47ca500da504fbe40e1f7f467cd7fdd0"><td class="memItemLeft" align="right" valign="top">std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a47ca500da504fbe40e1f7f467cd7fdd0">type</a></td></tr>
-<tr class="separator:a47ca500da504fbe40e1f7f467cd7fdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4b840f84e5951f2952959179d6c41a8"><td class="memItemLeft" align="right" valign="top">std::uintptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#af4b840f84e5951f2952959179d6c41a8">value</a></td></tr>
-<tr class="separator:af4b840f84e5951f2952959179d6c41a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee290367d6bb4a7a65d8c18bf9951504"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aee290367d6bb4a7a65d8c18bf9951504">addNode</a> ()</td></tr>
+<tr class="memdesc:aee290367d6bb4a7a65d8c18bf9951504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a node and return its id.  <a href="#aee290367d6bb4a7a65d8c18bf9951504">More...</a><br /></td></tr>
+<tr class="separator:aee290367d6bb4a7a65d8c18bf9951504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26dad1f527f3e404eb4677c15f91bd8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ae26dad1f527f3e404eb4677c15f91bd8">addEdge</a> (size_t from, size_t to)</td></tr>
+<tr class="memdesc:ae26dad1f527f3e404eb4677c15f91bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an edge from node with id <code>from</code> to node with id <code>to</code>.  <a href="#ae26dad1f527f3e404eb4677c15f91bd8">More...</a><br /></td></tr>
+<tr class="separator:ae26dad1f527f3e404eb4677c15f91bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5193af0ea781b84f6ed83460d46d5a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; std::vector&lt; size_t &gt; &gt;, <a class="el" href="a01095.html">DependencyGraph</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a6e5193af0ea781b84f6ed83460d46d5a">reduce</a> () const</td></tr>
+<tr class="memdesc:a6e5193af0ea781b84f6ed83460d46d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the reduced graph of this graph as a pair (v,g) v is a list of groups of vertices, each group corresponding to a strongly connected component.  <a href="#a6e5193af0ea781b84f6ed83460d46d5a">More...</a><br /></td></tr>
+<tr class="separator:a6e5193af0ea781b84f6ed83460d46d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa64ef5d79fca6cfc12754cb74765964b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aa64ef5d79fca6cfc12754cb74765964b">order</a> () const</td></tr>
+<tr class="memdesc:aa64ef5d79fca6cfc12754cb74765964b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the list of nodes in reversed topological order.  <a href="#aa64ef5d79fca6cfc12754cb74765964b">More...</a><br /></td></tr>
+<tr class="separator:aa64ef5d79fca6cfc12754cb74765964b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22302100a7d8d4c1b0a8182e7da566f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; size_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a22302100a7d8d4c1b0a8182e7da566f9">groupedOrder</a> () const</td></tr>
+<tr class="memdesc:a22302100a7d8d4c1b0a8182e7da566f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the list of node groups.  <a href="#a22302100a7d8d4c1b0a8182e7da566f9">More...</a><br /></td></tr>
+<tr class="separator:a22302100a7d8d4c1b0a8182e7da566f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ab069840fa478652656d43672a2a7b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ae4ab069840fa478652656d43672a2a7b">size</a> () const</td></tr>
+<tr class="memdesc:ae4ab069840fa478652656d43672a2a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of vertices.  <a href="#ae4ab069840fa478652656d43672a2a7b">More...</a><br /></td></tr>
+<tr class="separator:ae4ab069840fa478652656d43672a2a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8090f67c05f27d9bed44bec887fc7eab"><td class="memItemLeft" align="right" valign="top">const std::set&lt; std::pair&lt; size_t, size_t &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a8090f67c05f27d9bed44bec887fc7eab">edges</a> () const</td></tr>
+<tr class="memdesc:a8090f67c05f27d9bed44bec887fc7eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of edges.  <a href="#a8090f67c05f27d9bed44bec887fc7eab">More...</a><br /></td></tr>
+<tr class="separator:a8090f67c05f27d9bed44bec887fc7eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd7b54f55ae4857034c339b1bb6707f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aefd7b54f55ae4857034c339b1bb6707f">clear</a> ()</td></tr>
+<tr class="memdesc:aefd7b54f55ae4857034c339b1bb6707f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the graph.  <a href="#aefd7b54f55ae4857034c339b1bb6707f">More...</a><br /></td></tr>
+<tr class="separator:aefd7b54f55ae4857034c339b1bb6707f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A type-independent representation of a pointer as a pair (type, address). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae6fd2b3fe5f45fb6435d8aa8c74318cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6fd2b3fe5f45fb6435d8aa8c74318cf">&#9670;&nbsp;</a></span>Pointer() <span class="overload">[1/2]</span></h2>
+<div class="textblock"><p>An oriented graph to represent dependencies between nodes. </p>
+<p>An edge (f, t) represents a dependency from <code>f</code> on <code>t</code>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae26dad1f527f3e404eb4677c15f91bd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26dad1f527f3e404eb4677c15f91bd8">&#9670;&nbsp;</a></span>addEdge()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::graph::internal::Log::Pointer::Pointer </td>
+          <td class="memname">bool tvm::graph::internal::DependencyGraph::addEdge </td>
           <td>(</td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Build from an pointer. </p>
-
-</div>
-</div>
-<a id="a9d7242d4c45dc0664bb07de1ccb11413"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d7242d4c45dc0664bb07de1ccb11413">&#9670;&nbsp;</a></span>Pointer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::graph::internal::Log::Pointer::Pointer </td>
-          <td>(</td>
-          <td class="paramtype">const std::type_index &amp;&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uintptr_t&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,100 +157,145 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Build from a pair (type, address). </p>
+<p>Add an edge from node with id <code>from</code> to node with id <code>to</code>. </p>
+<p>Return <code>true</code> if this indeed creates a new edge, <code>false</code> if this edge was already present. </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5e059086cba9bbe42aa76555e5d91d26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e059086cba9bbe42aa76555e5d91d26">&#9670;&nbsp;</a></span>operator<()</h2>
+<a id="aee290367d6bb4a7a65d8c18bf9951504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee290367d6bb4a7a65d8c18bf9951504">&#9670;&nbsp;</a></span>addNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::graph::internal::Log::Pointer::operator&lt; </td>
+          <td class="memname">size_t tvm::graph::internal::DependencyGraph::addNode </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01095.html">Pointer</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a node and return its id. </p>
+
+</div>
+</div>
+<a id="aefd7b54f55ae4857034c339b1bb6707f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd7b54f55ae4857034c339b1bb6707f">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::DependencyGraph::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear the graph. </p>
+
+</div>
+</div>
+<a id="a8090f67c05f27d9bed44bec887fc7eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8090f67c05f27d9bed44bec887fc7eab">&#9670;&nbsp;</a></span>edges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::set&lt;std::pair&lt;size_t, size_t&gt; &gt;&amp; tvm::graph::internal::DependencyGraph::edges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="reference">References <a class="el" href="a00375.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
+<p>List of edges. </p>
 
 </div>
 </div>
-<a id="ad32392904aa55c7d3aa094bade598718"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad32392904aa55c7d3aa094bade598718">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a22302100a7d8d4c1b0a8182e7da566f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22302100a7d8d4c1b0a8182e7da566f9">&#9670;&nbsp;</a></span>groupedOrder()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::graph::internal::Log::Pointer::operator== </td>
+          <td class="memname">std::vector&lt;std::vector&lt;size_t&gt; &gt; tvm::graph::internal::DependencyGraph::groupedOrder </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01095.html">Pointer</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="reference">References <a class="el" href="a00375.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
+<p>Return the list of node groups. </p>
+<p>Each group corresponds to a connected component of the graph seen as non-oriented. Within each group the nodes are sorted in reversed topological order. </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a47ca500da504fbe40e1f7f467cd7fdd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47ca500da504fbe40e1f7f467cd7fdd0">&#9670;&nbsp;</a></span>type</h2>
+<a id="aa64ef5d79fca6cfc12754cb74765964b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa64ef5d79fca6cfc12754cb74765964b">&#9670;&nbsp;</a></span>order()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::type_index tvm::graph::internal::Log::Pointer::type</td>
+          <td class="memname">std::vector&lt;size_t&gt; tvm::graph::internal::DependencyGraph::order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Return the list of nodes in reversed topological order. </p>
+
 </div>
 </div>
-<a id="af4b840f84e5951f2952959179d6c41a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4b840f84e5951f2952959179d6c41a8">&#9670;&nbsp;</a></span>value</h2>
+<a id="a6e5193af0ea781b84f6ed83460d46d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5193af0ea781b84f6ed83460d46d5a">&#9670;&nbsp;</a></span>reduce()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::uintptr_t tvm::graph::internal::Log::Pointer::value</td>
+          <td class="memname">std::pair&lt;std::vector&lt;std::vector&lt;size_t&gt; &gt;, <a class="el" href="a01095.html">DependencyGraph</a>&gt; tvm::graph::internal::DependencyGraph::reduce </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Return the reduced graph of this graph as a pair (v,g) v is a list of groups of vertices, each group corresponding to a strongly connected component. </p>
+<p>g is the direct acyclic graph between these groups </p>
+
+</div>
+</div>
+<a id="ae4ab069840fa478652656d43672a2a7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ab069840fa478652656d43672a2a7b">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t tvm::graph::internal::DependencyGraph::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of vertices. </p>
 
 </div>
 </div>
@@ -286,8 +305,8 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">graph</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01087.html">Log</a></li><li class="navelem"><a class="el" href="a01095.html">Pointer</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a00387.html">internal</a></li><li class="navelem"><a class="el" href="a01095.html">DependencyGraph</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

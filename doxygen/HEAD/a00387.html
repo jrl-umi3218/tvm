@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::solver Namespace Reference</title>
+<title>TVM: tvm::graph::internal Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,68 +89,311 @@ $(document).ready(function(){initNavTree('a00387.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver Namespace Reference</div>  </div>
+<div class="title">tvm::graph::internal Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00388"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00388.html">abstract</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01579.html">DefaultLSSolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create default solver instances with a given set of options.  <a href="a01579.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html">AbstractNode</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstract node is the structure stored in the call graph to hide away the actual type of the node.  <a href="a01087.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01575.html">DefaultLSSolverOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A minimal set of options for the default solver.  <a href="a01575.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html">DependencyGraph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An oriented graph to represent dependencies between nodes.  <a href="a01095.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01587.html">LSSOLLeastSquareSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the LSSOL solver, to solve linear least-squares problems.  <a href="a01587.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html">Inputs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01103.html" title="Inputs store a list of Outputs and the required output signals. ">Inputs</a> store a list of Outputs and the required output signals.  <a href="a01103.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01591.html">LSSOLLSSolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01587.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a> instances with a given set of options.  <a href="a01591.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01111.html">Log</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A data structure, used by <a class="el" href="a01151.html">Logger</a> to log the inputs, outputs, updates and dependencies that are declared at runtime.  <a href="a01111.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01583.html">LSSOLLSSolverOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01587.html" title="An encapsulation of the LSSOL solver, to solve linear least-squares problems. ">LSSOLLeastSquareSolver</a>.  <a href="a01583.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01151.html">Logger</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01599.html">QLDLeastSquareSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the QLD solver, to solve linear least-squares problems.  <a href="a01599.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html">QLDLSSolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01599.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a> instances with a given set of options.  <a href="a01603.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01595.html">QLDLSSolverOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01599.html" title="An encapsulation of the QLD solver, to solve linear least-squares problems. ">QLDLeastSquareSolver</a>.  <a href="a01595.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01611.html">QuadprogLeastSquareSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An encapsulation of the Quadprog solver, to solve linear least-squares problems.  <a href="a01611.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html">QuadprogLSSolverFactory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A factory class to create <a class="el" href="a01611.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a> instances with a given set of options.  <a href="a01615.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01607.html">QuadprogLSSolverOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of options for <a class="el" href="a01611.html" title="An encapsulation of the Quadprog solver, to solve linear least-squares problems. ">QuadprogLeastSquareSolver</a>.  <a href="a01607.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a447a144be9f3728a7edd8decf10430d0"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT &gt; </td></tr>
+<tr class="memitem:a447a144be9f3728a7edd8decf10430d0"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#a447a144be9f3728a7edd8decf10430d0">is_valid_update</a> (EnumT v)</td></tr>
+<tr class="memdesc:a447a144be9f3728a7edd8decf10430d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a value of EnumT is a valid update for Node type T.  <a href="#a447a144be9f3728a7edd8decf10430d0">More...</a><br /></td></tr>
+<tr class="separator:a447a144be9f3728a7edd8decf10430d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36eb922b44beb7381a9b159042a7e94b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT , typename ... Args&gt; </td></tr>
+<tr class="memitem:a36eb922b44beb7381a9b159042a7e94b"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#a36eb922b44beb7381a9b159042a7e94b">is_valid_update</a> (EnumT v, Args ... args)</td></tr>
+<tr class="memdesc:a36eb922b44beb7381a9b159042a7e94b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if all values of a given set are valid updates for Updates type T.  <a href="#a36eb922b44beb7381a9b159042a7e94b">More...</a><br /></td></tr>
+<tr class="separator:a36eb922b44beb7381a9b159042a7e94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad9e7110f7a2fd2790b9af19849fd846"><td class="memTemplParams" colspan="2">template&lt;typename ObjType , typename MemberType , typename... Args&gt; </td></tr>
+<tr class="memitem:aad9e7110f7a2fd2790b9af19849fd846"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#aad9e7110f7a2fd2790b9af19849fd846">lexLess</a> (const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:aad9e7110f7a2fd2790b9af19849fd846"><td class="mdescLeft">&#160;</td><td class="mdescRight">lexicographic comparison of two objects given an ordered list of the members to compare.  <a href="#aad9e7110f7a2fd2790b9af19849fd846">More...</a><br /></td></tr>
+<tr class="separator:aad9e7110f7a2fd2790b9af19849fd846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec241ce2358d14a409f0e578430f068f"><td class="memTemplParams" colspan="2">template&lt;typename ObjType , typename MemberType , typename... Args&gt; </td></tr>
+<tr class="memitem:aec241ce2358d14a409f0e578430f068f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#aec241ce2358d14a409f0e578430f068f">eq</a> (const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:aec241ce2358d14a409f0e578430f068f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison of two objects given an ordered list of the members to compare.  <a href="#aec241ce2358d14a409f0e578430f068f">More...</a><br /></td></tr>
+<tr class="separator:aec241ce2358d14a409f0e578430f068f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dec35c5717c5e0acf167b1b03617cd7"><td class="memTemplParams" colspan="2">template&lt;typename ObjType , typename MemberType &gt; </td></tr>
+<tr class="memitem:a8dec35c5717c5e0acf167b1b03617cd7"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#a8dec35c5717c5e0acf167b1b03617cd7">lexLess</a> (const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member)</td></tr>
+<tr class="memdesc:a8dec35c5717c5e0acf167b1b03617cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">End of recursion.  <a href="#a8dec35c5717c5e0acf167b1b03617cd7">More...</a><br /></td></tr>
+<tr class="separator:a8dec35c5717c5e0acf167b1b03617cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae10ef3aa20955e32c33119274e9a4c96"><td class="memTemplParams" colspan="2">template&lt;typename ObjType , typename MemberType &gt; </td></tr>
+<tr class="memitem:ae10ef3aa20955e32c33119274e9a4c96"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#ae10ef3aa20955e32c33119274e9a4c96">eq</a> (const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member)</td></tr>
+<tr class="memdesc:ae10ef3aa20955e32c33119274e9a4c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">End of recursion.  <a href="#ae10ef3aa20955e32c33119274e9a4c96">More...</a><br /></td></tr>
+<tr class="separator:ae10ef3aa20955e32c33119274e9a4c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa595f4e0beceebe4489e216d83a7c096"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa595f4e0beceebe4489e216d83a7c096"><td class="memTemplItemLeft" align="right" valign="top">std::uintptr_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00387.html#aa595f4e0beceebe4489e216d83a7c096">getPointerValue</a> (void(T::*ptfm)())</td></tr>
+<tr class="separator:aa595f4e0beceebe4489e216d83a7c096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. </p>
-<p>The first solver found in this (ordered) list is taken as default: LSSOL, QLD, Quadprog </p>
-</div></div><!-- contents -->
+<h2 class="groupheader">Function Documentation</h2>
+<a id="aec241ce2358d14a409f0e578430f068f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec241ce2358d14a409f0e578430f068f">&#9670;&nbsp;</a></span>eq() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ObjType , typename MemberType , typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::eq </td>
+          <td>(</td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemberType ObjType::*&#160;</td>
+          <td class="paramname"><em>member</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Equality comparison of two objects given an ordered list of the members to compare. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01115.html#a2eab6b3e1fb0800da09c303e55bc8544">tvm::graph::internal::Log::EnumValue::operator==()</a>, <a class="el" href="a01119.html#ad32392904aa55c7d3aa094bade598718">tvm::graph::internal::Log::Pointer::operator==()</a>, <a class="el" href="a01123.html#a3aa5eb8672d86e7ba2c951cccc15431e">tvm::graph::internal::Log::Update::operator==()</a>, <a class="el" href="a01127.html#a24c6a949361bf4b7457f0cda932357f6">tvm::graph::internal::Log::Output::operator==()</a>, <a class="el" href="a01131.html#a6a4893cc1681a6d42bcb64597920da07">tvm::graph::internal::Log::Input::operator==()</a>, <a class="el" href="a01135.html#afa831ed58cdbff33e32365839eb9997e">tvm::graph::internal::Log::InputDependency::operator==()</a>, <a class="el" href="a01139.html#abe8dbfc9d736c036bcfb5086d26c5897">tvm::graph::internal::Log::OutputDependency::operator==()</a>, <a class="el" href="a01143.html#a84bdb2881bc4f712065816e6811f768f">tvm::graph::internal::Log::InternalDependency::operator==()</a>, and <a class="el" href="a01147.html#a4b8a785a5b9b61a5137939a653d367f6">tvm::graph::internal::Log::DirectDependency::operator==()</a>.</p>
+
+</div>
+</div>
+<a id="ae10ef3aa20955e32c33119274e9a4c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10ef3aa20955e32c33119274e9a4c96">&#9670;&nbsp;</a></span>eq() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ObjType , typename MemberType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::eq </td>
+          <td>(</td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemberType ObjType::*&#160;</td>
+          <td class="paramname"><em>member</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End of recursion. </p>
+
+</div>
+</div>
+<a id="aa595f4e0beceebe4489e216d83a7c096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa595f4e0beceebe4489e216d83a7c096">&#9670;&nbsp;</a></span>getPointerValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uintptr_t tvm::graph::internal::getPointerValue </td>
+          <td>(</td>
+          <td class="paramtype">void(T::*)()&#160;</td>
+          <td class="paramname"><em>ptfm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a447a144be9f3728a7edd8decf10430d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447a144be9f3728a7edd8decf10430d0">&#9670;&nbsp;</a></span>is_valid_update() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename EnumT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool tvm::graph::internal::is_valid_update </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a value of EnumT is a valid update for Node type T. </p>
+
+</div>
+</div>
+<a id="a36eb922b44beb7381a9b159042a7e94b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36eb922b44beb7381a9b159042a7e94b">&#9670;&nbsp;</a></span>is_valid_update() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename EnumT , typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool tvm::graph::internal::is_valid_update </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args ...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if all values of a given set are valid updates for Updates type T. </p>
+
+</div>
+</div>
+<a id="aad9e7110f7a2fd2790b9af19849fd846"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad9e7110f7a2fd2790b9af19849fd846">&#9670;&nbsp;</a></span>lexLess() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ObjType , typename MemberType , typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::lexLess </td>
+          <td>(</td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemberType ObjType::*&#160;</td>
+          <td class="paramname"><em>member</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lexicographic comparison of two objects given an ordered list of the members to compare. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01115.html#a40326cbbefa6f819da83981efafb79bd">tvm::graph::internal::Log::EnumValue::operator&lt;()</a>, <a class="el" href="a01119.html#a5e059086cba9bbe42aa76555e5d91d26">tvm::graph::internal::Log::Pointer::operator&lt;()</a>, <a class="el" href="a01123.html#a3d16b7319980984e1457d250731a3ce1">tvm::graph::internal::Log::Update::operator&lt;()</a>, <a class="el" href="a01127.html#aece7f645175657b11afadc5e9b4843d8">tvm::graph::internal::Log::Output::operator&lt;()</a>, <a class="el" href="a01131.html#a5de0f643eed6c526cdd0ccbd753fe8c0">tvm::graph::internal::Log::Input::operator&lt;()</a>, <a class="el" href="a01135.html#a25ceaabd740dfee5842744633c7f49ee">tvm::graph::internal::Log::InputDependency::operator&lt;()</a>, <a class="el" href="a01139.html#af503b0dc02469115a0b2a80744e9e366">tvm::graph::internal::Log::OutputDependency::operator&lt;()</a>, <a class="el" href="a01143.html#a8f6e7dc899e3a1ecfeab296db39b7a84">tvm::graph::internal::Log::InternalDependency::operator&lt;()</a>, and <a class="el" href="a01147.html#ab8e26d71b8b05005995eb6003ba324a5">tvm::graph::internal::Log::DirectDependency::operator&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a8dec35c5717c5e0acf167b1b03617cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dec35c5717c5e0acf167b1b03617cd7">&#9670;&nbsp;</a></span>lexLess() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ObjType , typename MemberType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::lexLess </td>
+          <td>(</td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ObjType &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MemberType ObjType::*&#160;</td>
+          <td class="paramname"><em>member</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End of recursion. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00387.html">solver</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a00387.html">internal</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

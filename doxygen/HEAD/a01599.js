@@ -1,17 +1,16 @@
 var a01599 =
 [
-    [ "QLDLeastSquareSolver", "a01599.html#a161456ab65fc6de687cd8171877d9190", null ],
-    [ "addBound_", "a01599.html#a2a9c38f37a822486b609c657169c0642", null ],
-    [ "addEqualityConstraint_", "a01599.html#ad3a8f7c680b7905ae19e3fa85299e374", null ],
-    [ "addIneqalityConstraint_", "a01599.html#abe32cdda8febe3c913f0aca14e497e63", null ],
-    [ "addObjective_", "a01599.html#a060df26b1bf16ce7fd20d919a4127f2b", null ],
-    [ "handleDoubleSidedConstraint_", "a01599.html#a06aeccab58a66f11881f276e3274580c", null ],
-    [ "initializeBuild_", "a01599.html#abf7b4ddb6965711cefc654eb13d41eba", null ],
-    [ "postAssignmentProcess_", "a01599.html#ad72c8cef7135647487542d70f00e4640", null ],
-    [ "preAssignmentProcess_", "a01599.html#a35492f419e0f95e62daff9fabb212774", null ],
-    [ "printDiagnostic_", "a01599.html#a838c09e6eba5fde9901259644bb0724d", null ],
-    [ "printProblemData_", "a01599.html#a37e21a83fc3c7f150efe2b756fcdbe9d", null ],
-    [ "result_", "a01599.html#a29586cebe605b9d922fd1c8e0ac34311", null ],
-    [ "setMinimumNorm_", "a01599.html#a4bd43c70c18f0ca23d35d899e33de97b", null ],
-    [ "solve_", "a01599.html#a3d71c9c033a737a145dc2147711d23f4", null ]
+    [ "ComputationDataType", "a01599.html#a032bd2f6f711f812ee060a82896377a5", null ],
+    [ "WeightedLeastSquares", "a01599.html#a41beb897e6977b937a451406d4c277f0", null ],
+    [ "WeightedLeastSquares", "a01599.html#a205528dc20af248bfe4a9ba9240461f4", null ],
+    [ "WeightedLeastSquares", "a01599.html#a49576bc7b7c161c147368409d9a2ce51", null ],
+    [ "WeightedLeastSquares", "a01599.html#afb2556b1f9e36a5da4571bf1fc0f0790", null ],
+    [ "WeightedLeastSquares", "a01599.html#a2988361ee2c830e352af0b6414752b04", null ],
+    [ "createComputationData_", "a01599.html#af2d7a80be88b965a90ab0935ff8b2d5b", null ],
+    [ "operator=", "a01599.html#aa58444701a312519ea0fd2e4a54da225", null ],
+    [ "operator=", "a01599.html#aba0130c5c228e595dbdffd85b76189b9", null ],
+    [ "solve_", "a01599.html#ada00ec86fc26435a703fda3bab5c14d2", null ],
+    [ "updateComputationData_", "a01599.html#a0ef2221a41f9ec83f8034cecaedac989", null ],
+    [ "options_", "a01599.html#ac3da728a6159c2658e0b559bc13467a9", null ],
+    [ "solverFactory_", "a01599.html#a785aed54ed1aef40a4a06adf25e93c3f", null ]
 ];

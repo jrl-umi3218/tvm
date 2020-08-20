@@ -1,16 +1,12 @@
 var a00951 =
 [
-    [ "BasicLinearConstraint", "a00951.html#a9d3597efba3abe0c706fd8eca939cdce", null ],
-    [ "BasicLinearConstraint", "a00951.html#add1dcbf34397fb7751e18349c4a71a67", null ],
-    [ "BasicLinearConstraint", "a00951.html#ad03d4fe958f5e6c67592ffcd0e7dbbd8", null ],
-    [ "BasicLinearConstraint", "a00951.html#a0321981f6429e35995a2db79e417663d", null ],
-    [ "BasicLinearConstraint", "a00951.html#a01083cafd0d1c8932f1cc54b9a6ddd89", null ],
-    [ "BasicLinearConstraint", "a00951.html#ae3a975fb63efabda0bdbfca15135087c", null ],
-    [ "BasicLinearConstraint", "a00951.html#a328df4402ab8802b933a8630dee71db4", null ],
-    [ "BasicLinearConstraint", "a00951.html#a8c3990a1fd790f74a2cfe8b10471de3b", null ],
-    [ "A", "a00951.html#a1c4d687cf3ed7b6241f812351039555f", null ],
-    [ "A", "a00951.html#a4c4d96fae911b055be8de76abbf22ed4", null ],
-    [ "b", "a00951.html#afce2cc21f7697f016878d6d650896362", null ],
-    [ "l", "a00951.html#aa55f4910c66047a76bb1ea8663876c2f", null ],
-    [ "u", "a00951.html#a5c1612c6cf030cb0dec4ae490f16dbef", null ]
+    [ "Clock", "a00951.html#a194ce7ea14c33cf236559234a3c5ce11", null ],
+    [ "Clock", "a00951.html#a329c2aec12c5e8a1e4c503595039e12a", null ],
+    [ "Clock", "a00951.html#aaf908fe2aa1a9d8beaf5bc3f78ab06f8", null ],
+    [ "advance", "a00951.html#a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7", null ],
+    [ "dt", "a00951.html#a76a9b9fe23b44288975f389ca2d5b991", null ],
+    [ "operator=", "a00951.html#a59eb68285e021fabd3c739ed0918155d", null ],
+    [ "operator=", "a00951.html#a05585bd84ffff0c0fb1fb8d60fc4bb90", null ],
+    [ "ticks", "a00951.html#ad19e6eca17c557b70d3d9b2c37e9a9b9", null ],
+    [ "ControlProblem", "a00951.html#a456b206388ee0b1f6a64b83a34ee8c99", null ]
 ];

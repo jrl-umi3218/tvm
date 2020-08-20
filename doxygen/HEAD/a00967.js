@@ -1,15 +1,14 @@
 var a00967 =
 [
-    [ "ControlProblem", "a00967.html#aa26e9fb05bc3e5a4aa099a59690dac0c", null ],
-    [ "ControlProblem", "a00967.html#a494bf6e4a7035ac685998578070996a7", null ],
-    [ "add", "a00967.html#ab6210225650f48069ef46d62701ff15b", null ],
-    [ "add", "a00967.html#a0735dd3af1c4598d10545c614b570511", null ],
-    [ "add", "a00967.html#aebd49cb70575fb5b46f0c3a473871dac", null ],
-    [ "add", "a00967.html#a6a238c66cab8b9103dd501b4c3e60244", null ],
-    [ "add", "a00967.html#a8ace9b41936e3bd34e2a939a43871e3f", null ],
-    [ "operator=", "a00967.html#a105f49549e8d86ca3323546032bff1a5", null ],
-    [ "remove", "a00967.html#a5093af14ef4e96ee685094e3fb19b80e", null ],
-    [ "tasks", "a00967.html#ac3a606e35f53e2dd15dbf848c0b4195e", null ],
-    [ "LinearizedControlProblem", "a00967.html#a92ba89182ead5aecaab77b0762a34986", null ],
-    [ "scheme::internal::getComputationData", "a00967.html#ab8ff59c7a8a8ff07f65f3da3a38ca00c", null ]
+    [ "LinearizedTaskConstraint", "a00967.html#a4b0903cc8e0051a82649b2f8289cea17", null ],
+    [ "LinearizedTaskConstraint", "a00967.html#ac61b8c5c69c76ecc169a0c7e97a5a3c2", null ],
+    [ "jacobian", "a00967.html#ad679ce8ec72c734e4c6f2e9905b94453", null ],
+    [ "updateEDyn", "a00967.html#a5cff0e1ce9b297aedee86930cdd6c1ba", null ],
+    [ "updateEKin", "a00967.html#a7329c828984a9fa2b4152b079e9a2546", null ],
+    [ "updateLDyn", "a00967.html#a3c2b7efb6f73b771d189073505f18009", null ],
+    [ "updateLKin", "a00967.html#ab3f4d6d2aecd68f596bb4c4fe975cc2f", null ],
+    [ "updateU2Dyn", "a00967.html#a2765d2ec2842c5c9af49fb42eca14fd8", null ],
+    [ "updateU2Kin", "a00967.html#af333a6b75d65e4f94f4a032a8ec8b77f", null ],
+    [ "updateUDyn", "a00967.html#a9e01dd04b8ff33f0aa6ee1915b49fdef", null ],
+    [ "updateUKin", "a00967.html#ab9ca82e201a6fc4f5c92700bd8e12449", null ]
 ];

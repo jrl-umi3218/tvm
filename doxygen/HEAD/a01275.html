@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::robot::CollisionFunction::CollisionData::ObjectData Struct Reference</title>
+<title>TVM: tvm::requirements::AnisotropicWeightBase&lt; Lightweight &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,48 +89,132 @@ $(document).ready(function(){initNavTree('a01275.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01272.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::robot::CollisionFunction::CollisionData::ObjectData Struct Reference</div>  </div>
+<div class="title">tvm::requirements::AnisotropicWeightBase&lt; Lightweight &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;tvm/robot/CollisionFunction.h&gt;</code></p>
+<p>This class represents an anisotropic weight to give more or less importance to the different rows of a constraint.  
+ <a href="a01275.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/requirements/AnisotropicWeight.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::requirements::AnisotropicWeightBase&lt; Lightweight &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01275.png" usemap="#tvm::requirements::AnisotropicWeightBase_3C_20Lightweight_20_3E_map" alt=""/>
+  <map id="tvm::requirements::AnisotropicWeightBase_3C_20Lightweight_20_3E_map" name="tvm::requirements::AnisotropicWeightBase_3C_20Lightweight_20_3E_map">
+<area href="a01271.html" alt="tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;" shape="rect" coords="0,56,500,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a76a1aebaef648808cef92eb00922eb01"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01275.html#a76a1aebaef648808cef92eb00922eb01">nearestPoint_</a></td></tr>
-<tr class="separator:a76a1aebaef648808cef92eb00922eb01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1728be56b625036637f33c733a6f592"><td class="memItemLeft" align="right" valign="top">rbd::Jacobian&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01275.html#af1728be56b625036637f33c733a6f592">jac_</a></td></tr>
-<tr class="separator:af1728be56b625036637f33c733a6f592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a08c2f1697b1812090cbe4727006192f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01275.html#a08c2f1697b1812090cbe4727006192f5">AnisotropicWeightBase</a> ()</td></tr>
+<tr class="memdesc:a08c2f1697b1812090cbe4727006192f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor: all elements of w are 1.  <a href="#a08c2f1697b1812090cbe4727006192f5">More...</a><br /></td></tr>
+<tr class="separator:a08c2f1697b1812090cbe4727006192f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab224584c8934c79aaa2c04926b56df65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01275.html#ab224584c8934c79aaa2c04926b56df65">AnisotropicWeightBase</a> (const Eigen::VectorXd &amp;w)</td></tr>
+<tr class="memdesc:ab224584c8934c79aaa2c04926b56df65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a given vector of weights <code>w</code>.  <a href="#ab224584c8934c79aaa2c04926b56df65">More...</a><br /></td></tr>
+<tr class="separator:ab224584c8934c79aaa2c04926b56df65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01271"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01271')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01271.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;</a></td></tr>
+<tr class="memitem:a2a061aa7a18a12dfb3b1adfba3fd4370 inherit pub_methods_a01271"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a2a061aa7a18a12dfb3b1adfba3fd4370">value</a> () const</td></tr>
+<tr class="memdesc:a2a061aa7a18a12dfb3b1adfba3fd4370 inherit pub_methods_a01271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current value.  <a href="a01271.html#a2a061aa7a18a12dfb3b1adfba3fd4370">More...</a><br /></td></tr>
+<tr class="separator:a2a061aa7a18a12dfb3b1adfba3fd4370 inherit pub_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89e054cc4c4fe0d530e4c6f2ab7e15d2 inherit pub_methods_a01271"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a89e054cc4c4fe0d530e4c6f2ab7e15d2">value</a> (const Eigen::VectorXd &amp;val)</td></tr>
+<tr class="memdesc:a89e054cc4c4fe0d530e4c6f2ab7e15d2 inherit pub_methods_a01271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the current value.  <a href="a01271.html#a89e054cc4c4fe0d530e4c6f2ab7e15d2">More...</a><br /></td></tr>
+<tr class="separator:a89e054cc4c4fe0d530e4c6f2ab7e15d2 inherit pub_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f68f343f338d7379954b34af515f074 inherit pub_methods_a01271"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a1f68f343f338d7379954b34af515f074">isDefault</a> () const</td></tr>
+<tr class="memdesc:a1f68f343f338d7379954b34af515f074 inherit pub_methods_a01271"><td class="mdescLeft">&#160;</td><td class="mdescRight">check it the requirement is at its default value.  <a href="a01271.html#a1f68f343f338d7379954b34af515f074">More...</a><br /></td></tr>
+<tr class="separator:a1f68f343f338d7379954b34af515f074 inherit pub_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_a01271"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01271')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01271.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;</a></td></tr>
+<tr class="memitem:a1ee8cde93fc0d43fc81bcdbc76dd651f inherit pro_methods_a01271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a1ee8cde93fc0d43fc81bcdbc76dd651f">SingleSolvingRequirement</a> (const Eigen::VectorXd &amp;val, bool <a class="el" href="a01271.html#a1f68f343f338d7379954b34af515f074">isDefault</a>)</td></tr>
+<tr class="separator:a1ee8cde93fc0d43fc81bcdbc76dd651f inherit pro_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb02949df757b7a2d5a84b456072437b inherit pro_methods_a01271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#abb02949df757b7a2d5a84b456072437b">SingleSolvingRequirement</a> (const <a class="el" href="a01271.html">SingleSolvingRequirement</a>&lt; Eigen::VectorXd, !Lightweight &gt; &amp;other)</td></tr>
+<tr class="separator:abb02949df757b7a2d5a84b456072437b inherit pro_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3956323ea98086c619c2ca26dc1c036c inherit pro_methods_a01271"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01271.html">SingleSolvingRequirement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a3956323ea98086c619c2ca26dc1c036c">operator=</a> (const <a class="el" href="a01271.html">SingleSolvingRequirement</a>&lt; Eigen::VectorXd, !Lightweight &gt; &amp;other)</td></tr>
+<tr class="separator:a3956323ea98086c619c2ca26dc1c036c inherit pro_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a951d90158ed3b6ebe869fb024e8696cb inherit pro_methods_a01271"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01271.html">SingleSolvingRequirement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a951d90158ed3b6ebe869fb024e8696cb">operator=</a> (const Eigen::VectorXd &amp;val)</td></tr>
+<tr class="separator:a951d90158ed3b6ebe869fb024e8696cb inherit pro_methods_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01271"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01271')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01271.html">tvm::requirements::abstract::SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;</a></td></tr>
+<tr class="memitem:aa0e2367a4d7aa5d7f9bf67832a9ca067 inherit pro_attribs_a01271"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#aa0e2367a4d7aa5d7f9bf67832a9ca067">default_</a></td></tr>
+<tr class="memdesc:aa0e2367a4d7aa5d7f9bf67832a9ca067 inherit pro_attribs_a01271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this requirement at its default value?  <a href="a01271.html#aa0e2367a4d7aa5d7f9bf67832a9ca067">More...</a><br /></td></tr>
+<tr class="separator:aa0e2367a4d7aa5d7f9bf67832a9ca067 inherit pro_attribs_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d5f516e85a437941b0ac9584421966 inherit pro_attribs_a01271"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01271.html#a56d5f516e85a437941b0ac9584421966">value_</a></td></tr>
+<tr class="separator:a56d5f516e85a437941b0ac9584421966 inherit pro_attribs_a01271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="af1728be56b625036637f33c733a6f592"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1728be56b625036637f33c733a6f592">&#9670;&nbsp;</a></span>jac_</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool Lightweight = true&gt;<br />
+class tvm::requirements::AnisotropicWeightBase&lt; Lightweight &gt;</h3>
+
+<p>This class represents an anisotropic weight to give more or less importance to the different rows of a constraint. </p>
+<p>It is given as a vector w. It results in the violation v(x) of the constraint being multiplied by diag(w'), where w' depends on the constraint violation evaluation chosen. w' is such that if w was a uniform vector with all components equal to alpha, the result would be coherent with using a Weight with value alpha.</p>
+<p>This class can be redundant with Weight, as having a Weight alpha and an AnisotropicWeight w is the same as having a just an AnisotropicWeight w. As a guideline, it should be used only to discriminate between the rows of a constraint, while Weight would be used to discriminate between different constraints. As such the "mean" value of w should be 1.</p>
+<p>This class replaces the notion of dimWeight in Tasks.</p>
+<p>The default value for this class is weights of 1 on every row. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a08c2f1697b1812090cbe4727006192f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c2f1697b1812090cbe4727006192f5">&#9670;&nbsp;</a></span>AnisotropicWeightBase() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;bool Lightweight = true&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rbd::Jacobian tvm::robot::CollisionFunction::CollisionData::ObjectData::jac_</td>
+          <td class="memname"><a class="el" href="a01275.html">tvm::requirements::AnisotropicWeightBase</a>&lt; Lightweight &gt;::<a class="el" href="a01275.html">AnisotropicWeightBase</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Default constructor: all elements of w are 1. </p>
 
 </div>
 </div>
-<a id="a76a1aebaef648808cef92eb00922eb01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76a1aebaef648808cef92eb00922eb01">&#9670;&nbsp;</a></span>nearestPoint_</h2>
+<a id="ab224584c8934c79aaa2c04926b56df65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab224584c8934c79aaa2c04926b56df65">&#9670;&nbsp;</a></span>AnisotropicWeightBase() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;bool Lightweight = true&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Vector3d tvm::robot::CollisionFunction::CollisionData::ObjectData::nearestPoint_</td>
+          <td class="memname"><a class="el" href="a01275.html">tvm::requirements::AnisotropicWeightBase</a>&lt; Lightweight &gt;::<a class="el" href="a01275.html">AnisotropicWeightBase</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>w</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Constructor for a given vector of weights <code>w</code>. </p>
+
+<p class="reference">References <a class="el" href="a00137.html#a5988269b909594350680cd55493ff232">TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS</a>.</p>
 
 </div>
 </div>
@@ -140,8 +224,8 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00382.html">robot</a></li><li class="navelem"><a class="el" href="a01267.html">CollisionFunction</a></li><li class="navelem"><a class="el" href="a01271.html">CollisionData</a></li><li class="navelem"><a class="el" href="a01275.html">ObjectData</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00377.html">requirements</a></li><li class="navelem"><a class="el" href="a01275.html">AnisotropicWeightBase</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

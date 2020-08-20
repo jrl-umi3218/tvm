@@ -1,8 +1,6 @@
 var a01627 =
 [
-    [ "~TaskDynamics", "a01627.html#ad3ac366f863378eb52e6fe07d767eedb", null ],
-    [ "impl", "a01627.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e", null ],
-    [ "impl_", "a01627.html#a1e1626637ba2315c65b9bfacceefe783", null ],
-    [ "order", "a01627.html#adde099a2989ba116db9c6a3ff41b895f", null ],
-    [ "order_", "a01627.html#a0af2178117ec3fab102e808b863e9886", null ]
+    [ "DefaultLSSolverFactory", "a01627.html#ad05494972228006357ddd76340ab77e4", null ],
+    [ "clone", "a01627.html#ab33fd56442afba241f7883b94e5ce85d", null ],
+    [ "createSolver", "a01627.html#a1a9473e53a4278e3429b44cae1c5fb13", null ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::ParseArg_&lt; N &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,37 +88,70 @@ $(document).ready(function(){initNavTree('a01419.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01416.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::ParseArg_&lt; N &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization for GENERAL*CONSTANT.  
+<p>Helper structure to get the N-th argument in a function call.  
  <a href="a01419.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01419.png" usemap="#tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map" alt=""/>
-  <map id="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map" name="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map">
-</map>
- </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af0126d894fd15e55277b65bd6d7d7ec6"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:af0126d894fd15e55277b65bd6d7d7ec6"><td class="memTemplItemLeft" align="right" valign="top">static std::tuple_element&lt; N, std::tuple&lt; Args... &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01419.html#af0126d894fd15e55277b65bd6d7d7ec6">get</a> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:af0126d894fd15e55277b65bd6d7d7ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename MatrixType, AssignType A, WeightMult W&gt;<br />
-class tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</h3>
+<div class="textblock"><h3>template&lt;int N&gt;<br />
+class tvm::scheme::internal::ParseArg_&lt; N &gt;</h3>
 
-<p>Specialization for GENERAL*CONSTANT. </p>
-<p>This should not be necessary, but the product needs a temporary. Maybe it's not the case anymore with <a class="el" href="a00390.html">Eigen</a> 3.3. </p>
-</div></div><!-- contents -->
+<p>Helper structure to get the N-th argument in a function call. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01427.html" title="A helper structure with a static get method to retrieve the N-th argument in a function call...">ParseArg</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af0126d894fd15e55277b65bd6d7d7ec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0126d894fd15e55277b65bd6d7d7ec6">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::tuple_element&lt;N, std::tuple&lt;Args...&gt; &gt;::type <a class="el" href="a01419.html">tvm::scheme::internal::ParseArg_</a>&lt; N &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01419.html">use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01419.html">ParseArg_</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

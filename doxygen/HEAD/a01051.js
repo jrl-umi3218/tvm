@@ -1,12 +1,18 @@
 var a01051 =
 [
-    [ "OutputSelector", "a01051.html#a56304a7795c79d5fbb55d8e1b34689cd", null ],
-    [ "disableOutput", "a01051.html#a766fd1ed72d2502853d44ee247c28b7b", null ],
-    [ "disableOutput", "a01051.html#aa3c3c49cdca30d9298ba677889ab06ae", null ],
-    [ "enableOutput", "a01051.html#ac4c44ef0be45d2fbe9a0eb262ec9fd62", null ],
-    [ "enableOutput", "a01051.html#a29ae45142cb1934ccf79e6d1b64b2502", null ],
-    [ "isLocked", "a01051.html#acecd5431d8669020975745445eda213e", null ],
-    [ "isOutputCustomEnabled", "a01051.html#a9055289bba2c2a08cbde4cd4825cb77f", null ],
-    [ "lock", "a01051.html#a708907741c7ed1e5bbdc0c8b18ab0f3d", null ],
-    [ "unlock", "a01051.html#a20e59e5e0041a4a04b2d4c574f5357c5", null ]
+    [ "Output", "a01055.html", null ],
+    [ "OutputBase", "a01051.html#a28091daa5c502e591f5ccb07f6d7915f", null ],
+    [ "OutputParent", "a01051.html#a0f92178ca250dd757ab141a92b41c03a", null ],
+    [ "Output_", "a01051.html#a7426f1ecfb4746a92196ee6ec31dddeb", null ],
+    [ "~Outputs", "a01051.html#a3c7c267d448dea54dfc3e6ab64e07f60", null ],
+    [ "isOutputCustomEnabled", "a01051.html#afc310e1cf7c222ce1c71ad5cc51c6db5", null ],
+    [ "isOutputEnabled", "a01051.html#a0f1f636c33817fa12f4162f692cb381b", null ],
+    [ "isOutputEnabled", "a01051.html#a9906689532225c28da9490e2b8eb0ced", null ],
+    [ "isOutputStaticallyEnabled", "a01051.html#a6aba2d7e20119b41b6895f5406795a3b", null ],
+    [ "OutputName", "a01051.html#a24af6171e8e80e31c2d41b3d1272a9a8", null ],
+    [ "OutputStaticallyEnabled", "a01051.html#ad0772c09826310a52fb60d12333ed8e1", null ],
+    [ "tvm::graph::CallGraph", "a01051.html#ad30a0da6c3cc968e6b25d709ddab5e76", null ],
+    [ "is_node_", "a01051.html#a23a32e4238b7900d0f3b7787bfa6232b", null ],
+    [ "OutputBaseName", "a01051.html#a79f6e3d77cf784915bdbfb69b5789992", null ],
+    [ "OutputSize", "a01051.html#a1bb139d1761eac8f2b56635c8a684b18", null ]
 ];

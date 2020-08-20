@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::AssignBase&lt; COPY &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::ArgCount&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,95 +89,47 @@ $(document).ready(function(){initNavTree('a01439.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a01436.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::AssignBase&lt; COPY &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::ArgCount&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>End of reccursion for <a class="el" href="a01435.html" title="Given a list of types, count how many of then havec a constructor accepting NoArg. ">ArgCount</a>.  
+ <a href="a01439.html#details">More...</a></p>
+
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a4ed3580b43ef0ec6ace0e9ede73091bb"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a4ed3580b43ef0ec6ace0e9ede73091bb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01439.html#a4ed3580b43ef0ec6ace0e9ede73091bb">assign</a> (U &amp;out, const T &amp;in)</td></tr>
-<tr class="separator:a4ed3580b43ef0ec6ace0e9ede73091bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9550ba04ce9103ba2096124fab3a2fcc"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:a9550ba04ce9103ba2096124fab3a2fcc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01439.html#a9550ba04ce9103ba2096124fab3a2fcc">assign</a> (U &amp;out, double in)</td></tr>
-<tr class="separator:a9550ba04ce9103ba2096124fab3a2fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a5f79266e505cd53e8080b553d3b3f1e7"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01439.html#a5f79266e505cd53e8080b553d3b3f1e7">count</a> = <a class="el" href="a01431.html">hasNoArgCtor</a>&lt;T&gt;::value ? 0 : 1</td></tr>
+<tr class="separator:a5f79266e505cd53e8080b553d3b3f1e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4ed3580b43ef0ec6ace0e9ede73091bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed3580b43ef0ec6ace0e9ede73091bb">&#9670;&nbsp;</a></span>assign() <span class="overload">[1/2]</span></h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class tvm::scheme::internal::ArgCount&lt; T &gt;</h3>
+
+<p>End of reccursion for <a class="el" href="a01435.html" title="Given a list of types, count how many of then havec a constructor accepting NoArg. ">ArgCount</a>. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a5f79266e505cd53e8080b553d3b3f1e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f79266e505cd53e8080b553d3b3f1e7">&#9670;&nbsp;</a></span>count</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename U &gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a> &gt;::assign </td>
-          <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">constexpr int <a class="el" href="a01435.html">tvm::scheme::internal::ArgCount</a>&lt; T &gt;::count = <a class="el" href="a01431.html">hasNoArgCtor</a>&lt;T&gt;::value ? 0 : 1</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9550ba04ce9103ba2096124fab3a2fcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9550ba04ce9103ba2096124fab3a2fcc">&#9670;&nbsp;</a></span>assign() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578af0c73515adef86a0d1f825bfb86a4784">COPY</a> &gt;::assign </td>
-          <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -190,8 +142,8 @@ template&lt;typename U &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01439.html">AssignBase&lt; COPY &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01439.html">ArgCount&lt; T &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,12 +1,12 @@
 var a01271 =
 [
-    [ "ObjectData", "a01275.html", "a01275" ],
-    [ "CollisionData", "a01271.html#a9268cd7f248c1f8d0c8017b29affb0a2", null ],
-    [ "CollisionData", "a01271.html#a5c2d9261d2ea76934f006a6ca8b57523", null ],
-    [ "ch_", "a01271.html#a1e741fcefd17e1d6a79d329253988681", null ],
-    [ "normVecDist_", "a01271.html#a2e8b91445cf9b2d4216c587184f65e94", null ],
-    [ "objects_", "a01271.html#a349abcf4d20a7749499c1373c05ba19f", null ],
-    [ "pair_", "a01271.html#ac6604996fc085ac9dc1bb2e64b506900", null ],
-    [ "prevNormVecDist_", "a01271.html#a8fcaf4938f07d72b549ea5de236b269c", null ],
-    [ "speedVec_", "a01271.html#a1bbf6824eafa6b1c2f9cebb012e3b830", null ]
+    [ "SingleSolvingRequirement", "a01271.html#a1ee8cde93fc0d43fc81bcdbc76dd651f", null ],
+    [ "SingleSolvingRequirement", "a01271.html#abb02949df757b7a2d5a84b456072437b", null ],
+    [ "isDefault", "a01271.html#a1f68f343f338d7379954b34af515f074", null ],
+    [ "operator=", "a01271.html#a3956323ea98086c619c2ca26dc1c036c", null ],
+    [ "operator=", "a01271.html#a951d90158ed3b6ebe869fb024e8696cb", null ],
+    [ "value", "a01271.html#a2a061aa7a18a12dfb3b1adfba3fd4370", null ],
+    [ "value", "a01271.html#a89e054cc4c4fe0d530e4c6f2ab7e15d2", null ],
+    [ "default_", "a01271.html#aa0e2367a4d7aa5d7f9bf67832a9ca067", null ],
+    [ "value_", "a01271.html#a56d5f516e85a437941b0ac9584421966", null ]
 ];

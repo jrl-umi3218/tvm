@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::internal::Logger Class Reference</title>
+<title>TVM: tvm::graph::internal::Log::Output Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,315 +90,39 @@ $(document).ready(function(){initNavTree('a01127.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01124.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Logger Class Reference</div>  </div>
+<div class="title">tvm::graph::internal::Log::Output Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;tvm/graph/internal/Logger.h&gt;</code></p>
+<p>Description of an output.  
+ <a href="a01127.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e4c749af0d1b14cb19f0e822bb4f0a0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01087.html">Log</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#a6e4c749af0d1b14cb19f0e822bb4f0a0">log</a> () const</td></tr>
-<tr class="separator:a6e4c749af0d1b14cb19f0e822bb4f0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2526684e619e81f6be23498f8dc37652"><td class="memTemplParams" colspan="2">template&lt;typename U , typename EnumT &gt; </td></tr>
-<tr class="memitem:a2526684e619e81f6be23498f8dc37652"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a2526684e619e81f6be23498f8dc37652">registerUpdate</a> (U *node, EnumT u, void(U::*fn)())</td></tr>
-<tr class="separator:a2526684e619e81f6be23498f8dc37652"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d1845206da4abbf6b4d6ae9863e0915"><td class="memTemplParams" colspan="2">template&lt;typename S , typename EnumO &gt; </td></tr>
-<tr class="memitem:a5d1845206da4abbf6b4d6ae9863e0915"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a5d1845206da4abbf6b4d6ae9863e0915">addInput</a> (<a class="el" href="a01079.html">Inputs</a> *node, S *source, EnumO i)</td></tr>
-<tr class="separator:a5d1845206da4abbf6b4d6ae9863e0915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0956c344448da3457dc6b3d241297850"><td class="memTemplParams" colspan="2">template&lt;typename U , typename EnumO , typename EnumU &gt; </td></tr>
-<tr class="memitem:a0956c344448da3457dc6b3d241297850"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a0956c344448da3457dc6b3d241297850">addOutputDependency</a> (U *node, EnumO o, EnumU u)</td></tr>
-<tr class="separator:a0956c344448da3457dc6b3d241297850"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf7ca127b7d13c5a2aa4130caf83d0db"><td class="memTemplParams" colspan="2">template&lt;typename U , typename EnumU1 , typename EnumU2 &gt; </td></tr>
-<tr class="memitem:abf7ca127b7d13c5a2aa4130caf83d0db"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#abf7ca127b7d13c5a2aa4130caf83d0db">addInternalDependency</a> (U *node, EnumU1 uDependent, EnumU2 u)</td></tr>
-<tr class="separator:abf7ca127b7d13c5a2aa4130caf83d0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7839f87a2b90316995ecab90b6ac70f7"><td class="memTemplParams" colspan="2">template&lt;typename U , typename EnumU , typename S , typename EnumO &gt; </td></tr>
-<tr class="memitem:a7839f87a2b90316995ecab90b6ac70f7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a7839f87a2b90316995ecab90b6ac70f7">addInputDependency</a> (U *node, EnumU u, S *source, EnumO i)</td></tr>
-<tr class="separator:a7839f87a2b90316995ecab90b6ac70f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedefca285a6f19617292c4f2372a5852"><td class="memTemplParams" colspan="2">template&lt;typename U , typename EnumO , typename S , typename EnumI &gt; </td></tr>
-<tr class="memitem:aedefca285a6f19617292c4f2372a5852"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#aedefca285a6f19617292c4f2372a5852">addDirectDependency</a> (U *node, EnumO o, S *source, EnumI i)</td></tr>
-<tr class="separator:aedefca285a6f19617292c4f2372a5852"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacb1106daf43100ddd139cb690359fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#aacb1106daf43100ddd139cb690359fef">addGraphOutput</a> (<a class="el" href="a01055.html">CallGraph</a> *g, <a class="el" href="a01079.html">Inputs</a> *node)</td></tr>
-<tr class="separator:aacb1106daf43100ddd139cb690359fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45e47a539aaebf9745f3cfa726b7d877"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:a45e47a539aaebf9745f3cfa726b7d877"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a45e47a539aaebf9745f3cfa726b7d877">registerType</a> (U *node)</td></tr>
-<tr class="memdesc:a45e47a539aaebf9745f3cfa726b7d877"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register the type associated to a pointer.  <a href="#a45e47a539aaebf9745f3cfa726b7d877">More...</a><br /></td></tr>
-<tr class="separator:a45e47a539aaebf9745f3cfa726b7d877"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc181c60124a1d9d60b3ddd9e8b7b6f"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:a2cc181c60124a1d9d60b3ddd9e8b7b6f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01127.html#a2cc181c60124a1d9d60b3ddd9e8b7b6f">logCall</a> (U *node, void(U::*fn)())</td></tr>
-<tr class="separator:a2cc181c60124a1d9d60b3ddd9e8b7b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece7f645175657b11afadc5e9b4843d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#aece7f645175657b11afadc5e9b4843d8">operator&lt;</a> (const <a class="el" href="a01127.html">Output</a> &amp;other) const</td></tr>
+<tr class="separator:aece7f645175657b11afadc5e9b4843d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c6a949361bf4b7457f0cda932357f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#a24c6a949361bf4b7457f0cda932357f6">operator==</a> (const <a class="el" href="a01127.html">Output</a> &amp;other) const</td></tr>
+<tr class="separator:a24c6a949361bf4b7457f0cda932357f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d18c4d67dcbfc474c12a6600c7d2199"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01127.html">Logger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#a6d18c4d67dcbfc474c12a6600c7d2199">logger</a> ()</td></tr>
-<tr class="separator:a6d18c4d67dcbfc474c12a6600c7d2199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aebb7180e249b0dd0bcde56b811bf153b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01115.html">EnumValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#aebb7180e249b0dd0bcde56b811bf153b">id</a></td></tr>
+<tr class="separator:aebb7180e249b0dd0bcde56b811bf153b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc6a42382f567b7b491904b7fd8a14b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#a3cc6a42382f567b7b491904b7fd8a14b">name</a></td></tr>
+<tr class="separator:a3cc6a42382f567b7b491904b7fd8a14b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6a30adbe700862b885726b8afa51d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01119.html">Pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01127.html#a7d6a30adbe700862b885726b8afa51d8">owner</a></td></tr>
+<tr class="separator:a7d6a30adbe700862b885726b8afa51d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aedefca285a6f19617292c4f2372a5852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedefca285a6f19617292c4f2372a5852">&#9670;&nbsp;</a></span>addDirectDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename EnumO , typename S , typename EnumI &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addDirectDependency </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumO&#160;</td>
-          <td class="paramname"><em>o</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">S *&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumI&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aacb1106daf43100ddd139cb690359fef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacb1106daf43100ddd139cb690359fef">&#9670;&nbsp;</a></span>addGraphOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addGraphOutput </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01055.html">CallGraph</a> *&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01079.html">Inputs</a> *&#160;</td>
-          <td class="paramname"><em>node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5d1845206da4abbf6b4d6ae9863e0915"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d1845206da4abbf6b4d6ae9863e0915">&#9670;&nbsp;</a></span>addInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename S , typename EnumO &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addInput </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01079.html">Inputs</a> *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">S *&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumO&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7839f87a2b90316995ecab90b6ac70f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7839f87a2b90316995ecab90b6ac70f7">&#9670;&nbsp;</a></span>addInputDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename EnumU , typename S , typename EnumO &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addInputDependency </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumU&#160;</td>
-          <td class="paramname"><em>u</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">S *&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumO&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abf7ca127b7d13c5a2aa4130caf83d0db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf7ca127b7d13c5a2aa4130caf83d0db">&#9670;&nbsp;</a></span>addInternalDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename EnumU1 , typename EnumU2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addInternalDependency </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumU1&#160;</td>
-          <td class="paramname"><em>uDependent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumU2&#160;</td>
-          <td class="paramname"><em>u</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0956c344448da3457dc6b3d241297850"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0956c344448da3457dc6b3d241297850">&#9670;&nbsp;</a></span>addOutputDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename EnumO , typename EnumU &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::addOutputDependency </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumO&#160;</td>
-          <td class="paramname"><em>o</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumU&#160;</td>
-          <td class="paramname"><em>u</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6e4c749af0d1b14cb19f0e822bb4f0a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e4c749af0d1b14cb19f0e822bb4f0a0">&#9670;&nbsp;</a></span>log()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Description of an output. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aece7f645175657b11afadc5e9b4843d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece7f645175657b11afadc5e9b4843d8">&#9670;&nbsp;</a></span>operator<()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -407,9 +131,10 @@ template&lt;typename U , typename EnumO , typename EnumU &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01087.html">Log</a> &amp; tvm::graph::internal::Logger::log </td>
+          <td class="memname">bool tvm::graph::internal::Log::Output::operator&lt; </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a01127.html">Output</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -420,40 +145,12 @@ template&lt;typename U , typename EnumO , typename EnumU &gt; </div>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a2cc181c60124a1d9d60b3ddd9e8b7b6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cc181c60124a1d9d60b3ddd9e8b7b6f">&#9670;&nbsp;</a></span>logCall()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::logCall </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(U::*)()&#160;</td>
-          <td class="paramname"><em>fn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="reference">References <a class="el" href="a00387.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
 
 </div>
 </div>
-<a id="a6d18c4d67dcbfc474c12a6600c7d2199"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d18c4d67dcbfc474c12a6600c7d2199">&#9670;&nbsp;</a></span>logger()</h2>
+<a id="a24c6a949361bf4b7457f0cda932357f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c6a949361bf4b7457f0cda932357f6">&#9670;&nbsp;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -462,38 +159,11 @@ template&lt;typename U &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="a01127.html">Logger</a>&amp; tvm::graph::internal::Logger::logger </td>
+          <td class="memname">bool tvm::graph::internal::Log::Output::operator== </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a45e47a539aaebf9745f3cfa726b7d877"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45e47a539aaebf9745f3cfa726b7d877">&#9670;&nbsp;</a></span>registerType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tvm::graph::internal::Logger::registerType </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const <a class="el" href="a01127.html">Output</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -503,50 +173,49 @@ template&lt;typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Register the type associated to a pointer. </p>
+<p class="reference">References <a class="el" href="a00387.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
 
 </div>
 </div>
-<a id="a2526684e619e81f6be23498f8dc37652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2526684e619e81f6be23498f8dc37652">&#9670;&nbsp;</a></span>registerUpdate()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aebb7180e249b0dd0bcde56b811bf153b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebb7180e249b0dd0bcde56b811bf153b">&#9670;&nbsp;</a></span>id</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename EnumT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void tvm::graph::internal::Logger::registerUpdate </td>
-          <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EnumT&#160;</td>
-          <td class="paramname"><em>u</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(U::*)()&#160;</td>
-          <td class="paramname"><em>fn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a01115.html">EnumValue</a> tvm::graph::internal::Log::Output::id</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cc6a42382f567b7b491904b7fd8a14b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc6a42382f567b7b491904b7fd8a14b">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tvm::graph::internal::Log::Output::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d6a30adbe700862b885726b8afa51d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6a30adbe700862b885726b8afa51d8">&#9670;&nbsp;</a></span>owner</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01119.html">Pointer</a> tvm::graph::internal::Log::Output::owner</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -557,8 +226,8 @@ template&lt;typename U , typename EnumT &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">graph</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01127.html">Logger</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a00387.html">internal</a></li><li class="navelem"><a class="el" href="a01111.html">Log</a></li><li class="navelem"><a class="el" href="a01127.html">Output</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -89,23 +89,36 @@ $(document).ready(function(){initNavTree('a00979.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::exception::Exception Member List</div>  </div>
+<div class="title">tvm::ControlProblem Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00979.html">tvm::exception::Exception</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00979.html">tvm::ControlProblem</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00979.html#afd6f053bccef9dd30a3a2162695b8516">Exception</a>()</td><td class="entry"><a class="el" href="a00979.html">tvm::exception::Exception</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00979.html#adbecc954c569883fc6422e57c718a953">Exception</a>(const std::string &amp;what)</td><td class="entry"><a class="el" href="a00979.html">tvm::exception::Exception</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a5782a0c2f97b0ed569c4605e190d2568">Exception</a>(const char *what)</td><td class="entry"><a class="el" href="a00979.html">tvm::exception::Exception</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00979.html#ab4925492b25d5ddd16ce511eb966555d">what</a>() const noexcept override</td><td class="entry"><a class="el" href="a00979.html">tvm::exception::Exception</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#ab6210225650f48069ef46d62701ff15b">add</a>(const Task &amp;task, const requirements::SolvingRequirements &amp;req={})</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a0735dd3af1c4598d10545c614b570511">add</a>(utils::ProtoTask&lt; T &gt; proto, const task_dynamics::abstract::TaskDynamics &amp;td, const requirements::SolvingRequirements &amp;req={})</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#aebd49cb70575fb5b46f0c3a473871dac">add</a>(utils::LinearProtoTask&lt; T &gt; proto, const task_dynamics::abstract::TaskDynamics &amp;td, const requirements::SolvingRequirements &amp;req={})</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a6a238c66cab8b9103dd501b4c3e60244">add</a>(utils::LinearProtoTask&lt; T &gt; proto, const requirements::SolvingRequirements &amp;req={})</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a8ace9b41936e3bd34e2a939a43871e3f">add</a>(TaskWithRequirementsPtr tr)</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#aa26e9fb05bc3e5a4aa099a59690dac0c">ControlProblem</a>()=default</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a494bf6e4a7035ac685998578070996a7">ControlProblem</a>(const ControlProblem &amp;)=delete</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a60d19087a0579c9ab14b775c67957aed">finalize</a>()</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a204e58c08ba50b7dca7bb8c70369096e">finalize_</a>()</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a92ba89182ead5aecaab77b0762a34986">LinearizedControlProblem</a> class</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a105f49549e8d86ca3323546032bff1a5">operator=</a>(const ControlProblem &amp;)=delete</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a5093af14ef4e96ee685094e3fb19b80e">remove</a>(TaskWithRequirements *tr)</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#ab8ff59c7a8a8ff07f65f3da3a38ca00c">scheme::internal::getComputationData</a>(Problem &amp;problem, const Scheme &amp;resolutionScheme)</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#ac3a606e35f53e2dd15dbf848c0b4195e">tasks</a>() const</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#a59f2080238e33168e7fda68523dbe70d">update</a>()</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00979.html#a9b8e6ce5aa3451a567c0b0c3707c92ae">update_</a>()</td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00979.html#afe5807c324c53675cb853e76159fe621">updater_</a></td><td class="entry"><a class="el" href="a00979.html">tvm::ControlProblem</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

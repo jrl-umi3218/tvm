@@ -1,8 +1,10 @@
 var a01687 =
 [
-    [ "Impl", "a01687.html#ad7c64cd9cc353327a18a2b7f134c4975", null ],
-    [ "~Impl", "a01687.html#aacd985ba942fbde1397a969bdb63f339", null ],
-    [ "ref", "a01687.html#af16a3771bfacda732f04266476ef79e1", null ],
-    [ "ref", "a01687.html#aaf479f67b60a8ea0883d4395008741f3", null ],
-    [ "updateValue", "a01687.html#aa1b2dd68d2bd4ea022d3133a52a4a87b", null ]
+    [ "Impl", "a01687.html#acdd69bf914b9c06060d90a5bf1495696", null ],
+    [ "~Impl", "a01687.html#a239fe1e7a808267521ece371db52eb17", null ],
+    [ "max", "a01687.html#a8708682a999b633a08f2b921758430b6", null ],
+    [ "max", "a01687.html#afc0b959f36bd440f8245ec46ef3f7dee", null ],
+    [ "min", "a01687.html#a279d5efaba7b100b4f13192f656b0e0b", null ],
+    [ "min", "a01687.html#ac2ca601afac3bc73047231fd9fc20cd2", null ],
+    [ "updateValue", "a01687.html#ad058380bb126854206d9abbf06e3d3a3", null ]
 ];

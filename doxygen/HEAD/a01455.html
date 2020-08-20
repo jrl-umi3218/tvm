@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::AssignBase&lt; MAX &gt; Class Template Reference</title>
+<title>TVM: tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,110 +88,37 @@ $(document).ready(function(){initNavTree('a01455.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01452.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::AssignBase&lt; MAX &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Specialization for min/max with general matrix product.  
+ <a href="a01455.html#details">More...</a></p>
+
 <p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a5ae6d008b96068e87a984930062e90a5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a5ae6d008b96068e87a984930062e90a5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01455.html#a5ae6d008b96068e87a984930062e90a5">assign</a> (U &amp;out, const T &amp;in)</td></tr>
-<tr class="separator:a5ae6d008b96068e87a984930062e90a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba22d88483e4918b81bb7d9439076880"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:aba22d88483e4918b81bb7d9439076880"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01455.html#aba22d88483e4918b81bb7d9439076880">assign</a> (U &amp;out, double in)</td></tr>
-<tr class="separator:aba22d88483e4918b81bb7d9439076880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5ae6d008b96068e87a984930062e90a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ae6d008b96068e87a984930062e90a5">&#9670;&nbsp;</a></span>assign() <span class="overload">[1/2]</span></h2>
+<div class="dynheader">
+Inheritance diagram for tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01455.png" usemap="#tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20MIN_2C_20W_2C_20GENERAL_2C_20EXTERNAL_20_3E_map" alt=""/>
+  <map id="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20MIN_2C_20W_2C_20GENERAL_2C_20EXTERNAL_20_3E_map" name="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20MIN_2C_20W_2C_20GENERAL_2C_20EXTERNAL_20_3E_map">
+</map>
+ </div></div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType, WeightMult W&gt;<br />
+class tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt;</h3>
 
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578a190a2f70edc18fc77838e54c617ce79e">MAX</a> &gt;::assign </td>
-          <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aba22d88483e4918b81bb7d9439076880"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba22d88483e4918b81bb7d9439076880">&#9670;&nbsp;</a></span>assign() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01435.html">tvm::scheme::internal::AssignBase</a>&lt; <a class="el" href="a00386.html#a6e11ce78bce8f4d8e54c5fb61aa23578a190a2f70edc18fc77838e54c617ce79e">MAX</a> &gt;::assign </td>
-          <td>(</td>
-          <td class="paramtype">U &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<p>Specialization for min/max with general matrix product. </p>
+<p>In this case, we use the cache </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">scheme</a></li><li class="navelem"><a class="el" href="a00386.html">internal</a></li><li class="navelem"><a class="el" href="a01455.html">AssignBase&lt; MAX &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">scheme</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li><li class="navelem"><a class="el" href="a01455.html">use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt;</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

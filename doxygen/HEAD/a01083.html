@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::internal::Inputs::Iterator Struct Reference</title>
+<title>TVM: tvm::graph::CallGraph::Plan Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,74 +92,58 @@ $(document).ready(function(){initNavTree('a01083.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01080.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Inputs::Iterator Struct Reference</div>  </div>
+<div class="title">tvm::graph::CallGraph::Plan Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A simple extension to inputs_t iterator that also stores the end iterator, allowing to cast the iterator to a boolean value.  
+<p>An execution plan built from the graph.  
  <a href="a01083.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/graph/internal/Inputs.h&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for tvm::graph::internal::Inputs::Iterator:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a01083.png" usemap="#tvm::graph::internal::Inputs::Iterator_map" alt=""/>
-  <map id="tvm::graph::internal::Inputs::Iterator_map" name="tvm::graph::internal::Inputs::Iterator_map">
-</map>
- </div></div>
+<p><code>#include &lt;tvm/graph/CallGraph.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae0575801e2a31a008828efc9071e9ee7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html#ae0575801e2a31a008828efc9071e9ee7">Iterator</a> (inputs_t::iterator it, inputs_t::iterator end)</td></tr>
-<tr class="memdesc:ae0575801e2a31a008828efc9071e9ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct from an existing iterator and the end iterator.  <a href="#ae0575801e2a31a008828efc9071e9ee7">More...</a><br /></td></tr>
-<tr class="separator:ae0575801e2a31a008828efc9071e9ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a103f60c2e1bd1b54ca3cc8e7cd0cfc91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html#a103f60c2e1bd1b54ca3cc8e7cd0cfc91">operator bool</a> ()</td></tr>
-<tr class="memdesc:a103f60c2e1bd1b54ca3cc8e7cd0cfc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the iterator is valid.  <a href="#a103f60c2e1bd1b54ca3cc8e7cd0cfc91">More...</a><br /></td></tr>
-<tr class="separator:a103f60c2e1bd1b54ca3cc8e7cd0cfc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6830efb1d692d3094a7129f1c93a866"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html#ac6830efb1d692d3094a7129f1c93a866">build</a> (const <a class="el" href="a01071.html">CallGraph</a> &amp;graph)</td></tr>
+<tr class="memdesc:ac6830efb1d692d3094a7129f1c93a866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the plan from the <a class="el" href="a01071.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>.  <a href="#ac6830efb1d692d3094a7129f1c93a866">More...</a><br /></td></tr>
+<tr class="separator:ac6830efb1d692d3094a7129f1c93a866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01178b52a508fe369caefa3e95e29fe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html#a01178b52a508fe369caefa3e95e29fe0">clear</a> ()</td></tr>
+<tr class="memdesc:a01178b52a508fe369caefa3e95e29fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the plan.  <a href="#a01178b52a508fe369caefa3e95e29fe0">More...</a><br /></td></tr>
+<tr class="separator:a01178b52a508fe369caefa3e95e29fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8fe0adb65059f464a60409f68b22b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html#acc8fe0adb65059f464a60409f68b22b1">execute</a> () const</td></tr>
+<tr class="memdesc:acc8fe0adb65059f464a60409f68b22b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the plan.  <a href="#acc8fe0adb65059f464a60409f68b22b1">More...</a><br /></td></tr>
+<tr class="separator:acc8fe0adb65059f464a60409f68b22b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A simple extension to inputs_t iterator that also stores the end iterator, allowing to cast the iterator to a boolean value. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae0575801e2a31a008828efc9071e9ee7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0575801e2a31a008828efc9071e9ee7">&#9670;&nbsp;</a></span>Iterator()</h2>
+<div class="textblock"><p>An execution plan built from the graph. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6830efb1d692d3094a7129f1c93a866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6830efb1d692d3094a7129f1c93a866">&#9670;&nbsp;</a></span>build()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::graph::internal::Inputs::Iterator::Iterator </td>
+          <td class="memname">void tvm::graph::CallGraph::Plan::build </td>
           <td>(</td>
-          <td class="paramtype">inputs_t::iterator&#160;</td>
-          <td class="paramname"><em>it</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a01071.html">CallGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">inputs_t::iterator&#160;</td>
-          <td class="paramname"><em>end</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct from an existing iterator and the end iterator. </p>
+<p>Build the plan from the <a class="el" href="a01071.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>. </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a103f60c2e1bd1b54ca3cc8e7cd0cfc91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a103f60c2e1bd1b54ca3cc8e7cd0cfc91">&#9670;&nbsp;</a></span>operator bool()</h2>
+<a id="a01178b52a508fe369caefa3e95e29fe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01178b52a508fe369caefa3e95e29fe0">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::graph::internal::Inputs::Iterator::operator bool </td>
+          <td class="memname">void tvm::graph::CallGraph::Plan::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -167,7 +151,34 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>True if the iterator is valid. </p>
+<p>Clear the plan. </p>
+
+</div>
+</div>
+<a id="acc8fe0adb65059f464a60409f68b22b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc8fe0adb65059f464a60409f68b22b1">&#9670;&nbsp;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::CallGraph::Plan::execute </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the plan. </p>
 
 </div>
 </div>
@@ -177,8 +188,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00373.html">graph</a></li><li class="navelem"><a class="el" href="a00375.html">internal</a></li><li class="navelem"><a class="el" href="a01079.html">Inputs</a></li><li class="navelem"><a class="el" href="a01083.html">Iterator</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00385.html">graph</a></li><li class="navelem"><a class="el" href="a01071.html">CallGraph</a></li><li class="navelem"><a class="el" href="a01083.html">Plan</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

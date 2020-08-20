@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</title>
+<title>TVM: tvm::solver::LSSOLLeastSquareSolver Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,112 +89,286 @@ $(document).ready(function(){initNavTree('a01635.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01632.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::solver::LSSOLLeastSquareSolver Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors.  
+<p>An encapsulation of the LSSOL solver, to solve linear least-squares problems.  
  <a href="a01635.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/task_dynamics/Clamped.h&gt;</code></p>
+<p><code>#include &lt;tvm/solver/LSSOLLeastSquareSolver.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;:</div>
+Inheritance diagram for tvm::solver::LSSOLLeastSquareSolver:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01635.png" usemap="#tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" alt=""/>
-  <map id="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map" name="tvm::task_5Fdynamics::Clamped_3C_20TD_2C_20TDImpl_20_3E_map">
+  <img src="a01635.png" usemap="#tvm::solver::LSSOLLeastSquareSolver_map" alt=""/>
+  <map id="tvm::solver::LSSOLLeastSquareSolver_map" name="tvm::solver::LSSOLLeastSquareSolver_map">
+<area href="a01615.html" title="Base class for a (constrained) least-square solver. " alt="tvm::solver::abstract::LeastSquareSolver" shape="rect" coords="0,0,236,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01639.html">Impl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> = mpark::variant&lt; double, Eigen::VectorXd &gt;</td></tr>
-<tr class="separator:a21bf20e2ae9a17c7cd24c51d6ff7ead1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac7f67c11e585b23f97870950cb8d457f"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:ac7f67c11e585b23f97870950cb8d457f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01635.html#ac7f67c11e585b23f97870950cb8d457f">Clamped</a> (double max, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ac7f67c11e585b23f97870950cb8d457f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (scalar version).  <a href="#ac7f67c11e585b23f97870950cb8d457f">More...</a><br /></td></tr>
-<tr class="separator:ac7f67c11e585b23f97870950cb8d457f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01635.html#a93cc96ce10ad556b41d5b8d8a48d3147">Clamped</a> (const std::pair&lt; double, double &gt; &amp;minMax, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \(b_{min}\) and \(b_{max}\) (scalar version).  <a href="#a93cc96ce10ad556b41d5b8d8a48d3147">More...</a><br /></td></tr>
-<tr class="separator:a93cc96ce10ad556b41d5b8d8a48d3147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01635.html#a4d3b11d54a29a1a7050e67e0d3a8b46e">Clamped</a> (const <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;max, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \( b_{min} = -b_{max}\) (vector version).  <a href="#a4d3b11d54a29a1a7050e67e0d3a8b46e">More...</a><br /></td></tr>
-<tr class="separator:a4d3b11d54a29a1a7050e67e0d3a8b46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb7d7588dbb6529b3051c926d26077da"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:afb7d7588dbb6529b3051c926d26077da"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01635.html#afb7d7588dbb6529b3051c926d26077da">Clamped</a> (const std::pair&lt; <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a>, <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;minMax, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:afb7d7588dbb6529b3051c926d26077da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with \(b_{min}\) and \(b_{max}\) (vector version).  <a href="#afb7d7588dbb6529b3051c926d26077da">More...</a><br /></td></tr>
-<tr class="separator:afb7d7588dbb6529b3051c926d26077da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21d2e10eb13358ced2f2926ce534b6e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a21d2e10eb13358ced2f2926ce534b6e3">~Clamped</a> () override=default</td></tr>
-<tr class="separator:a21d2e10eb13358ced2f2926ce534b6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd73c4a6890bbf7a6f12c9c221f7d421"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#abd73c4a6890bbf7a6f12c9c221f7d421">LSSOLLeastSquareSolver</a> (const <a class="el" href="a01631.html">LSSOLLSSolverOptions</a> &amp;options={})</td></tr>
+<tr class="separator:abd73c4a6890bbf7a6f12c9c221f7d421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01615"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01615')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01615.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memitem:a6510ed405995eccc7b8b95eab6950606 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a6510ed405995eccc7b8b95eab6950606">LeastSquareSolver</a> (bool verbose=false)</td></tr>
+<tr class="separator:a6510ed405995eccc7b8b95eab6950606 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0e2bcf5b50e3c559687bc77c15b7db inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a0f0e2bcf5b50e3c559687bc77c15b7db">LeastSquareSolver</a> (const <a class="el" href="a01615.html">LeastSquareSolver</a> &amp;)=delete</td></tr>
+<tr class="separator:a0f0e2bcf5b50e3c559687bc77c15b7db inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a2223ecdba20e93b409b545129007e inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01615.html">LeastSquareSolver</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a54a2223ecdba20e93b409b545129007e">operator=</a> (const <a class="el" href="a01615.html">LeastSquareSolver</a> &amp;)=delete</td></tr>
+<tr class="separator:a54a2223ecdba20e93b409b545129007e inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c97dfc4a522e819e945706999716d96 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a1c97dfc4a522e819e945706999716d96">~LeastSquareSolver</a> ()=default</td></tr>
+<tr class="separator:a1c97dfc4a522e819e945706999716d96 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab0b1da4af455451960f9044baae2ae inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#acab0b1da4af455451960f9044baae2ae">startBuild</a> (const <a class="el" href="a01827.html">VariableVector</a> &amp;x, int nObj, int nEq, int nIneq, bool useBounds=true, const <a class="el" href="a01187.html">hint::internal::Substitutions</a> *const subs=nullptr)</td></tr>
+<tr class="memdesc:acab0b1da4af455451960f9044baae2ae inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a build sequence for a problem on the current variables (set through the inherited ProblemComputationData::addVariable) with the specified dimensions, allocating the memory needed.  <a href="a01615.html#acab0b1da4af455451960f9044baae2ae">More...</a><br /></td></tr>
+<tr class="separator:acab0b1da4af455451960f9044baae2ae inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac656025fb6da6de520001c78d6d1d4ec inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ac656025fb6da6de520001c78d6d1d4ec">finalizeBuild</a> ()</td></tr>
+<tr class="memdesc:ac656025fb6da6de520001c78d6d1d4ec inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the build.  <a href="a01615.html#ac656025fb6da6de520001c78d6d1d4ec">More...</a><br /></td></tr>
+<tr class="separator:ac656025fb6da6de520001c78d6d1d4ec inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf3ce3b916a374add949ca3178b94e3 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a9cf3ce3b916a374add949ca3178b94e3">updateBuild</a> (int nObj, int nEq, int nIneq)</td></tr>
+<tr class="separator:a9cf3ce3b916a374add949ca3178b94e3 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498946e0c632ebd39ab03f61e552c6e7 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a498946e0c632ebd39ab03f61e552c6e7">addBound</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> bound)</td></tr>
+<tr class="memdesc:a498946e0c632ebd39ab03f61e552c6e7 inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a bound constraint to the solver.  <a href="a01615.html#a498946e0c632ebd39ab03f61e552c6e7">More...</a><br /></td></tr>
+<tr class="separator:a498946e0c632ebd39ab03f61e552c6e7 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5337ac438bec063f42603ee7d242a93e inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a5337ac438bec063f42603ee7d242a93e">addConstraint</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr)</td></tr>
+<tr class="memdesc:a5337ac438bec063f42603ee7d242a93e inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a constraint to the solver.  <a href="a01615.html#a5337ac438bec063f42603ee7d242a93e">More...</a><br /></td></tr>
+<tr class="separator:a5337ac438bec063f42603ee7d242a93e inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79a538ae98946c3d09416244400fadf3 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a79a538ae98946c3d09416244400fadf3">addObjective</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> obj, <a class="el" href="a00371.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a> req, double additionalWeight=1)</td></tr>
+<tr class="memdesc:a79a538ae98946c3d09416244400fadf3 inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an objective to the solver with given requirements.  <a href="a01615.html#a79a538ae98946c3d09416244400fadf3">More...</a><br /></td></tr>
+<tr class="separator:a79a538ae98946c3d09416244400fadf3 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e6d6bb8f6c74b8680a2d4a8cf801b68 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a5e6d6bb8f6c74b8680a2d4a8cf801b68">setMinimumNorm</a> ()</td></tr>
+<tr class="memdesc:a5e6d6bb8f6c74b8680a2d4a8cf801b68 inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set ||x||^2 as the least square objective of the problem.  <a href="a01615.html#a5e6d6bb8f6c74b8680a2d4a8cf801b68">More...</a><br /></td></tr>
+<tr class="separator:a5e6d6bb8f6c74b8680a2d4a8cf801b68 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c495839db315c52ec06f6568814901 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ac9c495839db315c52ec06f6568814901">solve</a> ()</td></tr>
+<tr class="memdesc:ac9c495839db315c52ec06f6568814901 inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the problem.  <a href="a01615.html#ac9c495839db315c52ec06f6568814901">More...</a><br /></td></tr>
+<tr class="separator:ac9c495839db315c52ec06f6568814901 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae518e78de20d887d8f76469a4b8e124f inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ae518e78de20d887d8f76469a4b8e124f">result</a> () const</td></tr>
+<tr class="memdesc:ae518e78de20d887d8f76469a4b8e124f inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of the previous call to <a class="el" href="a01615.html#ac9c495839db315c52ec06f6568814901" title="Solve the problem. ">solve()</a>  <a href="a01615.html#ae518e78de20d887d8f76469a4b8e124f">More...</a><br /></td></tr>
+<tr class="separator:ae518e78de20d887d8f76469a4b8e124f inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e3e91724bae85450bc20f93197094f inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a64e3e91724bae85450bc20f93197094f">constraintSize</a> (const <a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> &amp;c) const</td></tr>
+<tr class="memdesc:a64e3e91724bae85450bc20f93197094f inherit pub_methods_a01615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the constraint size for the solver.  <a href="a01615.html#a64e3e91724bae85450bc20f93197094f">More...</a><br /></td></tr>
+<tr class="separator:a64e3e91724bae85450bc20f93197094f inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad0eb2e29cdff8ac9687dee79d81d65d inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#aad0eb2e29cdff8ac9687dee79d81d65d">updateWeight</a> (<a class="el" href="a00959.html">constraint::abstract::LinearConstraint</a> *c)</td></tr>
+<tr class="separator:aad0eb2e29cdff8ac9687dee79d81d65d inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e8fc2e6fb17185bc658890e2c9ff094 inherit pub_methods_a01615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a6e8fc2e6fb17185bc658890e2c9ff094">updateAnisotropicWeight</a> (<a class="el" href="a00959.html">constraint::abstract::LinearConstraint</a> *c)</td></tr>
+<tr class="separator:a6e8fc2e6fb17185bc658890e2c9ff094 inherit pub_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af6bfa86084554c96555a11e7a163f611"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#af6bfa86084554c96555a11e7a163f611">impl_</a> (<a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
-<tr class="separator:af6bfa86084554c96555a11e7a163f611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ec19bae9b851281ecb216a805a1a16d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a8ec19bae9b851281ecb216a805a1a16d">initializeBuild_</a> (int nObj, int nEq, int nIneq, bool useBounds) override</td></tr>
+<tr class="separator:a8ec19bae9b851281ecb216a805a1a16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afed6bcd81b204a62fab6fd2e8483b9ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#afed6bcd81b204a62fab6fd2e8483b9ec">addBound_</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> bound, <a class="el" href="a00371.html#a9d1e2ac6e0fb302696dd5ac857aea214">RangePtr</a> range, bool first) override</td></tr>
+<tr class="separator:afed6bcd81b204a62fab6fd2e8483b9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5857b555377607f2d65529c20f9ad2b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a5857b555377607f2d65529c20f9ad2b3">addEqualityConstraint_</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr) override</td></tr>
+<tr class="separator:a5857b555377607f2d65529c20f9ad2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9f75a79105a40e437e2e081cdd8744a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#af9f75a79105a40e437e2e081cdd8744a">addIneqalityConstraint_</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr) override</td></tr>
+<tr class="separator:af9f75a79105a40e437e2e081cdd8744a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80a6e5f678db5ba030b50317958f48c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a80a6e5f678db5ba030b50317958f48c5">addObjective_</a> (<a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> cstr, <a class="el" href="a00371.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a> req, double additionalWeight) override</td></tr>
+<tr class="separator:a80a6e5f678db5ba030b50317958f48c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8b2cfb87e3236471b545836ead7ea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#adc8b2cfb87e3236471b545836ead7ea3">setMinimumNorm_</a> () override</td></tr>
+<tr class="separator:adc8b2cfb87e3236471b545836ead7ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b83dfc1e4a891a82158d3fbf0bf04ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a5b83dfc1e4a891a82158d3fbf0bf04ba">preAssignmentProcess_</a> () override</td></tr>
+<tr class="separator:a5b83dfc1e4a891a82158d3fbf0bf04ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212da1a4c1a113e423a4036fc61f79b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a212da1a4c1a113e423a4036fc61f79b6">postAssignmentProcess_</a> () override</td></tr>
+<tr class="separator:a212da1a4c1a113e423a4036fc61f79b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd868d0cb17932ee90e74202ae5ac90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a0bd868d0cb17932ee90e74202ae5ac90">solve_</a> () override</td></tr>
+<tr class="separator:a0bd868d0cb17932ee90e74202ae5ac90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a371e638d7617e4f9d69232a56c33aa62"><td class="memItemLeft" align="right" valign="top">virtual const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a371e638d7617e4f9d69232a56c33aa62">result_</a> () const override</td></tr>
+<tr class="separator:a371e638d7617e4f9d69232a56c33aa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78957d81cf1eb1504965b8c2fa97129c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a78957d81cf1eb1504965b8c2fa97129c">handleDoubleSidedConstraint_</a> () const override</td></tr>
+<tr class="separator:a78957d81cf1eb1504965b8c2fa97129c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f4cbb3a305647d025d39da181c77b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#aa2f4cbb3a305647d025d39da181c77b6">printProblemData_</a> () const override</td></tr>
+<tr class="separator:aa2f4cbb3a305647d025d39da181c77b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef5d128f843db95bf8427040b23b8de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01635.html#a3ef5d128f843db95bf8427040b23b8de">printDiagnostic_</a> () const override</td></tr>
+<tr class="separator:a3ef5d128f843db95bf8427040b23b8de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_a01615"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01615')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01615.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memitem:a375e66619ca804359483acd385563fa7 inherit pro_methods_a01615"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01827.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a375e66619ca804359483acd385563fa7">variables</a> () const</td></tr>
+<tr class="separator:a375e66619ca804359483acd385563fa7 inherit pro_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf23f08e8f6a9d94a0f80c32333f3a54 inherit pro_methods_a01615"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01187.html">hint::internal::Substitutions</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#adf23f08e8f6a9d94a0f80c32333f3a54">substitutions</a> () const</td></tr>
+<tr class="separator:adf23f08e8f6a9d94a0f80c32333f3a54 inherit pro_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc6a2abfa644473d566aae238eac5ba inherit pro_methods_a01615"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:acfc6a2abfa644473d566aae238eac5ba inherit pro_methods_a01615"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01615.html#acfc6a2abfa644473d566aae238eac5ba">addAssignement</a> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:acfc6a2abfa644473d566aae238eac5ba inherit pro_methods_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_a01615"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01615')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01615.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memitem:a70271b0bd50e96801e3e1bb96c46f33b inherit pub_types_a01615"><td class="memTemplParams" colspan="2">template&lt;typename K , typename T &gt; </td></tr>
+<tr class="memitem:a70271b0bd50e96801e3e1bb96c46f33b inherit pub_types_a01615"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01615.html#a70271b0bd50e96801e3e1bb96c46f33b">map</a> = <a class="el" href="a00401.html#a1799eeadc084df3295499f98dad21b6d">utils::internal::map</a>&lt; K, T &gt;</td></tr>
+<tr class="separator:a70271b0bd50e96801e3e1bb96c46f33b inherit pub_types_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95988cb51b89236e363bf48acb695d7a inherit pub_types_a01615"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a95988cb51b89236e363bf48acb695d7a">AssignmentVector</a> = std::vector&lt; std::unique_ptr&lt; <a class="el" href="a01387.html">scheme::internal::Assignment</a> &gt; &gt;</td></tr>
+<tr class="separator:a95988cb51b89236e363bf48acb695d7a inherit pub_types_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc11c16f07a4b78be15fb84022a62b3 inherit pub_types_a01615"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a8bc11c16f07a4b78be15fb84022a62b3">AssignmentPtrVector</a> = std::vector&lt; <a class="el" href="a01387.html">scheme::internal::Assignment</a> * &gt;</td></tr>
+<tr class="separator:a8bc11c16f07a4b78be15fb84022a62b3 inherit pub_types_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2a72be1906713a1c11abe459e64adc2 inherit pub_types_a01615"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ac2a72be1906713a1c11abe459e64adc2">MapToAssignment</a> = <a class="el" href="a01615.html#a70271b0bd50e96801e3e1bb96c46f33b">map</a>&lt; <a class="el" href="a00959.html">constraint::abstract::LinearConstraint</a> *, <a class="el" href="a01615.html#a8bc11c16f07a4b78be15fb84022a62b3">AssignmentPtrVector</a> &gt;</td></tr>
+<tr class="separator:ac2a72be1906713a1c11abe459e64adc2 inherit pub_types_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01615"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01615')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01615.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memitem:af93ab7797fc1992046da3b518c21a4b4 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#af93ab7797fc1992046da3b518c21a4b4">nEq_</a></td></tr>
+<tr class="separator:af93ab7797fc1992046da3b518c21a4b4 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4249508200e811ddcf52a909c3496de9 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a4249508200e811ddcf52a909c3496de9">nIneq_</a></td></tr>
+<tr class="separator:a4249508200e811ddcf52a909c3496de9 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3428deace130d2078b8c470acee81a53 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a3428deace130d2078b8c470acee81a53">nObj_</a></td></tr>
+<tr class="separator:a3428deace130d2078b8c470acee81a53 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247f51743146f9bcba380e65b405c672 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a247f51743146f9bcba380e65b405c672">objSize_</a></td></tr>
+<tr class="separator:a247f51743146f9bcba380e65b405c672 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7414899385906729feedcd6c2cf20b9 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ad7414899385906729feedcd6c2cf20b9">eqSize_</a></td></tr>
+<tr class="separator:ad7414899385906729feedcd6c2cf20b9 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97c443065a0e3d1a833af35fcff2c16 inherit pro_attribs_a01615"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ac97c443065a0e3d1a833af35fcff2c16">ineqSize_</a></td></tr>
+<tr class="separator:ac97c443065a0e3d1a833af35fcff2c16 inherit pro_attribs_a01615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class TD, class TDImpl = typename TD::Impl&gt;<br />
-class tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</h3>
-
-<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a21bf20e2ae9a17c7cd24c51d6ff7ead1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21bf20e2ae9a17c7cd24c51d6ff7ead1">&#9670;&nbsp;</a></span>Bounds</h2>
+<div class="textblock"><p>An encapsulation of the LSSOL solver, to solve linear least-squares problems. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abd73c4a6890bbf7a6f12c9c221f7d421"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd73c4a6890bbf7a6f12c9c221f7d421">&#9670;&nbsp;</a></span>LSSOLLeastSquareSolver()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01635.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1">Bounds</a> =  mpark::variant&lt;double, Eigen::VectorXd&gt;</td>
+          <td class="memname">tvm::solver::LSSOLLeastSquareSolver::LSSOLLeastSquareSolver </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01631.html">LSSOLLSSolverOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em> = <code>{}</code></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac7f67c11e585b23f97870950cb8d457f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7f67c11e585b23f97870950cb8d457f">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[1/4]</span></h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afed6bcd81b204a62fab6fd2e8483b9ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed6bcd81b204a62fab6fd2e8483b9ec">&#9670;&nbsp;</a></span>addBound_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01635.html">Clamped</a> </td>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::addBound_ </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
+          <td class="paramname"><em>bound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00371.html#a9d1e2ac6e0fb302696dd5ac857aea214">RangePtr</a>&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>first</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#af856b350aface97620be43d34f9d19a6">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="a5857b555377607f2d65529c20f9ad2b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5857b555377607f2d65529c20f9ad2b3">&#9670;&nbsp;</a></span>addEqualityConstraint_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::addEqualityConstraint_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
+          <td class="paramname"><em>cstr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#a60fcdf249fe024639e292ee10bdcd489">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="af9f75a79105a40e437e2e081cdd8744a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9f75a79105a40e437e2e081cdd8744a">&#9670;&nbsp;</a></span>addIneqalityConstraint_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::addIneqalityConstraint_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
+          <td class="paramname"><em>cstr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#a572230e38a5269d985a55a3618b2135a">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="a80a6e5f678db5ba030b50317958f48c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80a6e5f678db5ba030b50317958f48c5">&#9670;&nbsp;</a></span>addObjective_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::addObjective_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00371.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td>
+          <td class="paramname"><em>cstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00371.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a>&#160;</td>
+          <td class="paramname"><em>req</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
+          <td class="paramname"><em>additionalWeight</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -204,97 +378,74 @@ template&lt;typename ... Args&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor with \( b_{min} = -b_{max}\) (scalar version). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">max</td><td>The maximum value that a component of \( e_c^{(k)*} \) can have, in absolute value ( \( b_{max}\)). </td></tr>
-    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="reference">Referenced by <a class="el" href="a01639.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
+<p>Implements <a class="el" href="a01615.html#a01d7fea7e60c4e0dcc6a73ce3a75519e">tvm::solver::abstract::LeastSquareSolver</a>.</p>
 
 </div>
 </div>
-<a id="a93cc96ce10ad556b41d5b8d8a48d3147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93cc96ce10ad556b41d5b8d8a48d3147">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[2/4]</span></h2>
+<a id="a78957d81cf1eb1504965b8c2fa97129c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78957d81cf1eb1504965b8c2fa97129c">&#9670;&nbsp;</a></span>handleDoubleSidedConstraint_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01635.html">Clamped</a> </td>
+          <td class="memname">bool tvm::solver::LSSOLLeastSquareSolver::handleDoubleSidedConstraint_ </td>
           <td>(</td>
-          <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>minMax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor with \(b_{min}\) and \(b_{max}\) (scalar version). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">minMax</td><td>The minimum ( \(b_{min}\)) and maximum ( \(b_{max}\)) value that a component of \( e_c^{(k)*}\) can have. We require that \(b_{min} \leq 0 \leq b_{max}\). </td></tr>
-    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Implements <a class="el" href="a01615.html#a97323b60663d92a9de70df4965429fdd">tvm::solver::abstract::LeastSquareSolver</a>.</p>
 
 </div>
 </div>
-<a id="a4d3b11d54a29a1a7050e67e0d3a8b46e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d3b11d54a29a1a7050e67e0d3a8b46e">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[3/4]</span></h2>
+<a id="a8ec19bae9b851281ecb216a805a1a16d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ec19bae9b851281ecb216a805a1a16d">&#9670;&nbsp;</a></span>initializeBuild_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01635.html">Clamped</a> </td>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::initializeBuild_ </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>max</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nObj</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nEq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nIneq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>useBounds</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -304,84 +455,26 @@ template&lt;typename ... Args&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor with \( b_{min} = -b_{max}\) (vector version). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">max</td><td>The maximum value that a component of \( e_c^{(k)*} \) can have, in absolute value ( \( b_{max}\)). </td></tr>
-    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Implements <a class="el" href="a01615.html#ad6511a50e125da09c826b3590996e8fb">tvm::solver::abstract::LeastSquareSolver</a>.</p>
 
 </div>
 </div>
-<a id="afb7d7588dbb6529b3051c926d26077da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb7d7588dbb6529b3051c926d26077da">&#9670;&nbsp;</a></span>Clamped() <span class="overload">[4/4]</span></h2>
+<a id="a212da1a4c1a113e423a4036fc61f79b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a212da1a4c1a113e423a4036fc61f79b6">&#9670;&nbsp;</a></span>postAssignmentProcess_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01635.html">Clamped</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::pair&lt; <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a>, <a class="el" href="a00359.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>minMax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor with \(b_{min}\) and \(b_{max}\) (vector version). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">minMax</td><td>The minimum ( \(b_{min}\)) and maximum ( \(b_{max}\)) value that a component of \( e_c^{(k)*}\) can have. We require that \(b_{min} \leq 0 \leq b_{max}\). </td></tr>
-    <tr><td class="paramname">args</td><td>These are forwarded to the TD constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a21d2e10eb13358ced2f2926ce534b6e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21d2e10eb13358ced2f2926ce534b6e3">&#9670;&nbsp;</a></span>~Clamped()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::~<a class="el" href="a01635.html">Clamped</a> </td>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::postAssignmentProcess_ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -389,59 +482,174 @@ template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a01639.html#afc0b959f36bd440f8245ec46ef3f7dee">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl::max()</a>.</p>
+<p>Reimplemented from <a class="el" href="a01615.html#af03aba3b20ea70b9984ecc59b57316e1">tvm::solver::abstract::LeastSquareSolver</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af6bfa86084554c96555a11e7a163f611"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6bfa86084554c96555a11e7a163f611">&#9670;&nbsp;</a></span>impl_()</h2>
+<a id="a5b83dfc1e4a891a82158d3fbf0bf04ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b83dfc1e4a891a82158d3fbf0bf04ba">&#9670;&nbsp;</a></span>preAssignmentProcess_()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01631.html">abstract::TaskDynamicsImpl</a>&gt; <a class="el" href="a01635.html">tvm::task_dynamics::Clamped</a>&lt; TD, TDImpl &gt;::impl_ </td>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::preAssignmentProcess_ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00359.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00360.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">References <a class="el" href="a00245.html#a78f5f030eca0b25436ca268039666277">COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</a>.</p>
+<p>Reimplemented from <a class="el" href="a01615.html#a19f0461f07bbe91d72f32e0a7c2057d9">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="a3ef5d128f843db95bf8427040b23b8de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ef5d128f843db95bf8427040b23b8de">&#9670;&nbsp;</a></span>printDiagnostic_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::printDiagnostic_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#ac9dd179e0e5ba0e03c12c9a17e973c70">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="aa2f4cbb3a305647d025d39da181c77b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2f4cbb3a305647d025d39da181c77b6">&#9670;&nbsp;</a></span>printProblemData_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::printProblemData_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#ab0461b8b275ece5ce0a9f5913a987284">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="a371e638d7617e4f9d69232a56c33aa62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371e638d7617e4f9d69232a56c33aa62">&#9670;&nbsp;</a></span>result_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const Eigen::VectorXd&amp; tvm::solver::LSSOLLeastSquareSolver::result_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#a8b5703ef1e13c55b8acda6e854356e27">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="adc8b2cfb87e3236471b545836ead7ea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8b2cfb87e3236471b545836ead7ea3">&#9670;&nbsp;</a></span>setMinimumNorm_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::solver::LSSOLLeastSquareSolver::setMinimumNorm_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#a781e05b42b55803c23ba222b5d897bff">tvm::solver::abstract::LeastSquareSolver</a>.</p>
+
+</div>
+</div>
+<a id="a0bd868d0cb17932ee90e74202ae5ac90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd868d0cb17932ee90e74202ae5ac90">&#9670;&nbsp;</a></span>solve_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::solver::LSSOLLeastSquareSolver::solve_ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="a01615.html#abf5eca61b379efa6074bd4912015c207">tvm::solver::abstract::LeastSquareSolver</a>.</p>
 
 </div>
 </div>
@@ -451,8 +659,8 @@ template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00359.html">tvm</a></li><li class="navelem"><a class="el" href="a00366.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01635.html">Clamped</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00399.html">solver</a></li><li class="navelem"><a class="el" href="a01635.html">LSSOLLeastSquareSolver</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,8 +1,14 @@
 var a01151 =
 [
-    [ "Impl", "a01151.html#a9e761fcbdc84880bb08c3e45e92eaa2c", null ],
-    [ "Impl", "a01151.html#a9f3f8608cbea14c86602f98e725fa9ca", null ],
-    [ "postMultiplyByN_", "a01151.html#aa30bc070d8fedaef48715d5e660ec6f5", null ],
-    [ "premultiplyByASharpAndSTranspose_", "a01151.html#ad3bd65db2d6831b7d639aa68642699ce", null ],
-    [ "update_", "a01151.html#a689eb31e7153ede2fc05484c2fd5f012", null ]
+    [ "addDirectDependency", "a01151.html#aedefca285a6f19617292c4f2372a5852", null ],
+    [ "addGraphOutput", "a01151.html#aacb1106daf43100ddd139cb690359fef", null ],
+    [ "addInput", "a01151.html#a5d1845206da4abbf6b4d6ae9863e0915", null ],
+    [ "addInputDependency", "a01151.html#a7839f87a2b90316995ecab90b6ac70f7", null ],
+    [ "addInternalDependency", "a01151.html#abf7ca127b7d13c5a2aa4130caf83d0db", null ],
+    [ "addOutputDependency", "a01151.html#a0956c344448da3457dc6b3d241297850", null ],
+    [ "log", "a01151.html#a6e4c749af0d1b14cb19f0e822bb4f0a0", null ],
+    [ "logCall", "a01151.html#a2cc181c60124a1d9d60b3ddd9e8b7b6f", null ],
+    [ "logger", "a01151.html#a6d18c4d67dcbfc474c12a6600c7d2199", null ],
+    [ "registerType", "a01151.html#a45e47a539aaebf9745f3cfa726b7d877", null ],
+    [ "registerUpdate", "a01151.html#a2526684e619e81f6be23498f8dc37652", null ]
 ];

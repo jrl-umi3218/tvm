@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Eigen::internal::traits&lt; tvm::utils::internal::NoConstant &gt; Struct Template Reference</title>
+<title>TVM: tvm::task_dynamics::ReferenceAcceleration Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,36 +88,84 @@ $(document).ready(function(){initNavTree('a01743.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01740.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Eigen::internal::traits&lt; tvm::utils::internal::NoConstant &gt; Struct Template Reference</div>  </div>
+<div class="title">tvm::task_dynamics::ReferenceAcceleration Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is required to get GCC to compile the SFINAE constructors.  
+<p>Compute ddot{e}* = ref (dynamic order).  
  <a href="a01743.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/utils/internal/AffineExprDetail.h&gt;</code></p>
+<p><code>#include &lt;tvm/task_dynamics/Reference.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for Eigen::internal::traits&lt; tvm::utils::internal::NoConstant &gt;:</div>
+Inheritance diagram for tvm::task_dynamics::ReferenceAcceleration:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a01743.png" usemap="#Eigen::internal::traits_3C_20tvm::utils::internal::NoConstant_20_3E_map" alt=""/>
-  <map id="Eigen::internal::traits_3C_20tvm::utils::internal::NoConstant_20_3E_map" name="Eigen::internal::traits_3C_20tvm::utils::internal::NoConstant_20_3E_map">
+  <img src="a01743.png" usemap="#tvm::task_5Fdynamics::ReferenceAcceleration_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::ReferenceAcceleration_map" name="tvm::task_5Fdynamics::ReferenceAcceleration_map">
+<area href="a01731.html" title="Compute e^(k)* = ref (at given k-th order). " alt="tvm::task_dynamics::Reference" shape="rect" coords="0,56,257,80"/>
+<area href="a01675.html" title="This is a base class to describe how a task is to be regulated, i.e. " alt="tvm::task_dynamics::abstract::TaskDynamics" shape="rect" coords="0,0,257,24"/>
 </map>
  </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a562c8db40fba1ce58b150de09e201971"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01743.html#a562c8db40fba1ce58b150de09e201971">ReferenceAcceleration</a> (const <a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;ref)</td></tr>
+<tr class="separator:a562c8db40fba1ce58b150de09e201971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01731"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01731')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01731.html">tvm::task_dynamics::Reference</a></td></tr>
+<tr class="memitem:a6e040ff17b6792a2981632ef0d0b8e0a inherit pub_methods_a01731"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01731.html#a6e040ff17b6792a2981632ef0d0b8e0a">Reference</a> (<a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a> <a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a>, const <a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;ref)</td></tr>
+<tr class="separator:a6e040ff17b6792a2981632ef0d0b8e0a inherit pub_methods_a01731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adafe4dc92bc399211d15dd6caef498da inherit pub_methods_a01731"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01731.html#adafe4dc92bc399211d15dd6caef498da">~Reference</a> () override=default</td></tr>
+<tr class="separator:adafe4dc92bc399211d15dd6caef498da inherit pub_methods_a01731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01675"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01675')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01675.html">tvm::task_dynamics::abstract::TaskDynamics</a></td></tr>
+<tr class="memitem:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a> ()=default</td></tr>
+<tr class="separator:ad3ac366f863378eb52e6fe07d767eedb inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const</td></tr>
+<tr class="separator:a213c35ee9a1eaa3f5c47fd2a54d1e64e inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01675.html#adde099a2989ba116db9c6a3ff41b895f">order</a> () const</td></tr>
+<tr class="separator:adde099a2989ba116db9c6a3ff41b895f inherit pub_methods_a01675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_a01731"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01731')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01731.html">tvm::task_dynamics::Reference</a></td></tr>
+<tr class="memitem:ab8045f3656cac54d86d094ebbecd3e7d inherit pro_methods_a01731"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01679.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01731.html#ab8045f3656cac54d86d094ebbecd3e7d">impl_</a> (<a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00372.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:ab8045f3656cac54d86d094ebbecd3e7d inherit pro_methods_a01731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a265d9adb6b99ae2bebcfb68f79b7f530 inherit pro_methods_a01731"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cad">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01731.html#a265d9adb6b99ae2bebcfb68f79b7f530">order_</a> () const override</td></tr>
+<tr class="separator:a265d9adb6b99ae2bebcfb68f79b7f530 inherit pro_methods_a01731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-struct Eigen::internal::traits&lt; tvm::utils::internal::NoConstant &gt;</h3>
+<div class="textblock"><p>Compute ddot{e}* = ref (dynamic order). </p>
+<p>This is a simple conveniency shortcut for a <a class="el" href="a01731.html" title="Compute e^(k)* = ref (at given k-th order). ">Reference</a> instance with order <a class="el" href="a00378.html#a2104706f158c0b024e10716d3c176cadaaada29daee1d64ed0fe907043855cb7e">Order::Two</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a562c8db40fba1ce58b150de09e201971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a562c8db40fba1ce58b150de09e201971">&#9670;&nbsp;</a></span>ReferenceAcceleration()</h2>
 
-<p>This is required to get GCC to compile the SFINAE constructors. </p>
-</div></div><!-- contents -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::ReferenceAcceleration::ReferenceAcceleration </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00371.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ref</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00390.html">Eigen</a></li><li class="navelem"><a class="el" href="a00391.html">internal</a></li><li class="navelem"><a class="el" href="a01743.html">traits&lt; tvm::utils::internal::NoConstant &gt;</a></li>
-    <li class="footer">Generated on Tue Aug 11 2020 00:15:01 for TVM by
+    <li class="navelem"><a class="el" href="a00371.html">tvm</a></li><li class="navelem"><a class="el" href="a00378.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01743.html">ReferenceAcceleration</a></li>
+    <li class="footer">Generated on Thu Aug 20 2020 07:01:06 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
