@@ -63,17 +63,40 @@ namespace tvm
   class TVM_DLLAPI VariableVector
   {
   public:
+    /** Construct an empty vector*/
     VariableVector();
-    VariableVector(const std::vector<VariablePtr>& variables);
-    VariableVector(std::initializer_list<VariablePtr> variables);
+    /** General construction
+      *
+      * \tparam Can be any list from the following type:
+      *   * VariablePtr
+      *   * std::unique_ptr<Variable>
+      *   * VariableVector
+      *   * std::vector<VariablePtr>
+      *
+      * \param variables A coma-separated list of instances of the above types.
+      *   Variables will be added in the order they appear.
+      */
+    template <typename... VarPtr>
+    VariableVector(VarPtr&&... variables);
 
     /** Add a variable to the vector.
       *
-      * \param v the variable to be added
+      * \param v The variable to be added.
       *
-      * \returns True if the variable was added, false otherwise
+      * \returns True if the variable was added, false otherwise.
       */
     bool add(VariablePtr v);
+    /** Add a variable to the vector. This version is mostly to be used directly
+      * with the output of tvm::Spave::createVariable.
+      *
+      * \param v The variable to be added.
+      *
+      * \returns True if the variable was added, false otherwise
+      *
+      * \internal This version is meant to disembiguate between add(VariablePtr v)
+      * and add(const VariableVector& variables) when passing a std::unique_ptr<Variable>.
+      */
+    bool add(std::unique_ptr<Variable> v);
     /** Same as add(VariablePtr), but for adding a vector of variables.*/
     void add(const std::vector<VariablePtr>& variables);
     /** Same as add(VariablePtr), but for adding a vector of variables.*/
@@ -146,6 +169,18 @@ namespace tvm
 
     mutable Eigen::VectorXd value_;
   };
+
+
+  template <typename... VarPtr>
+  VariableVector::VariableVector(VarPtr&&... variables)
+    : VariableVector()
+  {
+    static_assert((... && (std::is_same_v<typename std::decay_t<VarPtr>, VariablePtr> 
+                        || std::is_same_v<typename std::decay_t<VarPtr>, std::unique_ptr<Variable>>
+                        || std::is_same_v<typename std::decay_t<VarPtr>, VariableVector>
+                        || std::is_same_v<typename std::decay_t<VarPtr>, std::vector<VariablePtr>>)));
+    (add(std::forward<VarPtr>(variables)), ...);
+  }
 
   /** Get the vector of ndiff-th time derivatives of the variables of the input
     * vector.

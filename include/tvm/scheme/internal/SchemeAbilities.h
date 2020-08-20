@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/requirements/ViolationEvaluation.h>
 

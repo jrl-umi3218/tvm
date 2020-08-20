@@ -31,7 +31,6 @@
 
 #include <tvm/defs.h>
 #include <tvm/ControlProblem.h>
-#include <tvm/graph/CallGraph.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/hint/internal/Substitutions.h>
 
@@ -79,37 +78,15 @@ namespace tvm
       */
     LinearConstraintPtr constraint(TaskWithRequirements* t) const;
 
+  protected:
     /** Compute all quantities necessary for solving the problem.*/
-    void update();
+    void update_() override;
 
     /** Finalize the data of the solver*/
-    void finalize();
+    void finalize_() override;
 
   private:
-    class Updater
-    {
-    public:
-      Updater();
-
-      template<typename T, typename ... Args>
-      void addInput(std::shared_ptr<T> source, Args... args);
-      template<typename T>
-      void removeInput(T* source);
-
-      /** Manually calls for an update of the call graph, if needed.*/
-      void refresh();
-      /** Execute the call graph.*/
-      void run();
-
-    private:
-      bool upToDate_;
-      std::shared_ptr<graph::internal::Inputs> inputs_;
-      graph::CallGraph updateGraph_;
-    };
-
-    bool finalized_;
     utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements> constraints_;
-    Updater updater_;
     hint::internal::Substitutions substitutions_;
   };
 
@@ -130,19 +107,5 @@ namespace tvm
   TaskWithRequirementsPtr LinearizedControlProblem::add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements& req)
   {
     return add({ proto, task_dynamics::None() }, req);
-  }
-
-  template<typename T, typename ... Args>
-  inline void LinearizedControlProblem::Updater::addInput(std::shared_ptr<T> source, Args... args)
-  {
-    inputs_->addInput(source, args...);
-    upToDate_ = false;
-  }
-
-  template<typename T>
-  inline void LinearizedControlProblem::Updater::removeInput(T* source)
-  {
-    inputs_->removeInput(source);
-    upToDate_ = false;
   }
 }  // namespace tvm

@@ -66,18 +66,29 @@ namespace requirements
   /** This macro adds a member of type \p T named \p member to a class, and a
     * method \p name to access this member.
     */
-  #define ADD_REQUIREMENT(T, name, member) \
-  public: \
-    const T& name() const { return member; } \
-  private: \
-    T member; \
-    template<typename ... Args> \
-    void build(const T& m, const Args& ... args) \
-    { \
-      static_assert(!check_args<T, Args...>(), \
-                    #T" has already been specified"); \
-      member = m; \
-      build(args...); \
+  #define ADD_REQUIREMENT(T, name, member)                        \
+  public:                                                         \
+    const T<Lightweight>& name() const { return member; }         \
+    T<Lightweight>& name() { return member; }                     \
+  private:                                                        \
+    T<Lightweight> member;                                        \
+    template<typename ... Args>                                   \
+    void build(const T<Lightweight>& m, const Args& ... args)     \
+    {                                                             \
+      static_assert(!check_args<T<Lightweight>, Args...>()        \
+                    && !check_args<T<!Lightweight>, Args...>(),   \
+                    #T" has already been specified");             \
+      member = m;                                                 \
+      build(args...);                                             \
+    }                                                             \
+    template<typename ... Args>                                   \
+    void build(const T<!Lightweight>& m, const Args& ... args)    \
+    {                                                             \
+      static_assert(!check_args<T<Lightweight>, Args...>()        \
+                    && !check_args<T<!Lightweight>, Args...>(),   \
+                    #T" has already been specified");             \
+      member = m;                                                 \
+      build(args...);                                             \
     }
 
 
@@ -85,7 +96,8 @@ namespace requirements
     * ViolationEvaluation, to describe the way a constraint need to be solved
     * and interact with other constraints.
     */
-  class TVM_DLLAPI SolvingRequirements
+  template<bool Lightweight = true>
+  class SolvingRequirementsBase
   {
   public:
     /** Constructor. The arguments can be a PriorityLevel, a Weight, an
@@ -96,7 +108,7 @@ namespace requirements
       * \sa PriorityLevel, Weight, AnisotropicWeight, ViolationEvaluation
       */
     template<typename ... Args>
-    SolvingRequirements(const Args & ... args)
+    SolvingRequirementsBase(const Args & ... args)
     {
       build(args...);
     }
@@ -114,12 +126,30 @@ namespace requirements
       return false;
     }
 
-    ADD_REQUIREMENT(PriorityLevel, priorityLevel, priority_)
-    ADD_REQUIREMENT(Weight, weight, weight_)
-    ADD_REQUIREMENT(AnisotropicWeight, anisotropicWeight, aWeight_)
-    ADD_REQUIREMENT(ViolationEvaluation, violationEvaluation, evalType_)
+    ADD_REQUIREMENT(PriorityLevelBase, priorityLevel, priority_)
+    ADD_REQUIREMENT(WeightBase, weight, weight_)
+    ADD_REQUIREMENT(AnisotropicWeightBase, anisotropicWeight, aWeight_)
+    ADD_REQUIREMENT(ViolationEvaluationBase, violationEvaluation, evalType_)
 
     void build() {}
+  };
+
+  class SolvingRequirements : public SolvingRequirementsBase<true>
+  {
+    using SolvingRequirementsBase::SolvingRequirementsBase;
+  };
+
+  class SolvingRequirementsWithCallbacks : public SolvingRequirementsBase<false>
+  {
+  public:
+    using SolvingRequirementsBase::SolvingRequirementsBase;
+    SolvingRequirementsWithCallbacks(const SolvingRequirementsWithCallbacks&) = delete;
+    SolvingRequirementsWithCallbacks& operator=(const SolvingRequirementsWithCallbacks&) = delete;
+
+    explicit SolvingRequirementsWithCallbacks(const SolvingRequirements& req)
+      : SolvingRequirementsBase(req.priorityLevel(), req.weight(), req.anisotropicWeight(), req.violationEvaluation())
+    {
+    }
   };
 
   #undef ADD_REQUIREMENT

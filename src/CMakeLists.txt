@@ -24,6 +24,7 @@ set(TVM_SOURCES
   geometry/Plane.cpp
 
   graph/CallGraph.cpp
+  graph/DependencyGraph.cpp
   graph/Inputs.cpp
   graph/Log.cpp
   graph/Logger.cpp
@@ -40,8 +41,6 @@ set(TVM_SOURCES
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
   internal/ObjWithId.cpp
-
-  requirements/SolvingRequirements.cpp
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
@@ -126,6 +125,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/graph/abstract/Outputs.h
   ${TVM_INCLUDE_DIR}/graph/CallGraph.h
   ${TVM_INCLUDE_DIR}/graph/internal/AbstractNode.h
+  ${TVM_INCLUDE_DIR}/graph/internal/DependencyGraph.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.h
   ${TVM_INCLUDE_DIR}/graph/internal/Inputs.hpp
   ${TVM_INCLUDE_DIR}/graph/internal/Log.h
@@ -140,6 +140,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/hint/internal/Substitutions.h
   ${TVM_INCLUDE_DIR}/hint/internal/SubstitutionUnit.h
 
+  ${TVM_INCLUDE_DIR}/internal/CallbackManager.h
   ${TVM_INCLUDE_DIR}/internal/enums.h
   ${TVM_INCLUDE_DIR}/internal/FirstOrderProvider.h
   ${TVM_INCLUDE_DIR}/internal/IdProvider.h
@@ -147,6 +148,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/MatrixWithProperties.h
   ${TVM_INCLUDE_DIR}/internal/meta.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
+  ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
   ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h
@@ -163,6 +165,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.hpp
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/ProblemDefinitionEvent.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h

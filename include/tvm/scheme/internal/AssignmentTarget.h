@@ -73,7 +73,7 @@ namespace internal
     /** l <= x <= u */
     AssignmentTarget(RangePtr range, VectorRef l, VectorRef u);
 
-    /** x >= l or x <= u*/
+    /** x >= b or x <= b*/
     AssignmentTarget(RangePtr range, VectorRef lu, constraint::Type ct);
 
     /** Quadratic function 1/2 x^T Q x +\epsilon q, where \epsilon = 0, 1 or -1 depending on cr.*/
@@ -110,6 +110,22 @@ namespace internal
     VectorRef bFirstHalf() const;
     VectorRef bSecondHalf() const;
     /**@}*/
+
+    AssignmentTarget& setA(MatrixRef A);
+    AssignmentTarget& setQ(MatrixRef Q);
+    AssignmentTarget& setl(VectorRef l);
+    AssignmentTarget& setu(VectorRef u);
+    AssignmentTarget& setb(VectorRef b);
+    AssignmentTarget& setq(VectorRef q);
+
+    /** Ax = +/-b, Ax <= +/-b, Ax >= +/-b or 1/2 x^T Q x +\epsilon q*/
+    void changeData(MatrixRef AQ, VectorRef bq);
+
+    /** l <= Ax <= u */
+    void changeData(MatrixRef A, VectorRef l, VectorRef u);
+
+    /** l <= x <= u */
+    void changeData(VectorRef l, VectorRef u);
 
   private:
     /** Type of target*/

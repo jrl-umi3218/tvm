@@ -35,13 +35,11 @@
 namespace tvm
 {
   LinearizedControlProblem::LinearizedControlProblem()
-    : finalized_(false)
   {
   }
 
   LinearizedControlProblem::LinearizedControlProblem(const ControlProblem& pb)
   : ControlProblem()
-  , finalized_(false)
   {
     for (auto tr : pb.tasks())
       add(tr);
@@ -64,7 +62,7 @@ namespace tvm
     lcr.constraint = std::make_shared<constraint::internal::LinearizedTaskConstraint>(tr->task);
     //we use the aliasing constructor of std::shared_ptr to ensure that
     //lcr.requirements points to and doesn't outlive tr->requirements.
-    lcr.requirements = std::shared_ptr<requirements::SolvingRequirements>(tr, &tr->requirements);
+    lcr.requirements = std::shared_ptr<requirements::SolvingRequirementsWithCallbacks>(tr, &tr->requirements);
     lcr.bound = scheme::internal::isBound(lcr.constraint);
     constraints_[tr.get()] = lcr;
 
@@ -77,7 +75,6 @@ namespace tvm
     case constraint::Type::LOWER_THAN: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::U); break;
     case constraint::Type::DOUBLE_SIDED: updater_.addInput(lcr.constraint, constraint::abstract::Constraint::Output::L, constraint::abstract::Constraint::Output::U); break;
     }
-    finalized_ = false;
   }
 
   void LinearizedControlProblem::remove(TaskWithRequirements* tr)
@@ -86,7 +83,6 @@ namespace tvm
     // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
     updater_.removeInput(constraints_[tr].constraint.get());
     constraints_.erase(tr);
-    finalized_ = false;
   }
 
   void LinearizedControlProblem::add(const hint::Substitution & s)
@@ -123,42 +119,13 @@ namespace tvm
     return constraints_.at(t).constraint;
   }
 
-  void LinearizedControlProblem::update()
+  void LinearizedControlProblem::update_()
   {
-    assert(finalized_);
-    updater_.run();
     substitutions_.updateSubstitutions();
   }
 
-  void LinearizedControlProblem::finalize()
+  void LinearizedControlProblem::finalize_()
   {
-    if (!finalized_)
-    {
-      updater_.refresh();
-      substitutions_.finalize();
-      finalized_ = true;
-    }
-  }
-
-  LinearizedControlProblem::Updater::Updater()
-    : upToDate_(false)
-    , inputs_(new graph::internal::Inputs)
-  {
-  }
-
-  void LinearizedControlProblem::Updater::refresh()
-  {
-    if (!upToDate_)
-    {
-      updateGraph_.clear();
-      updateGraph_.add(inputs_);
-      updateGraph_.update();
-      upToDate_ = true;
-    }
-  }
-
-  void LinearizedControlProblem::Updater::run()
-  {
-    updateGraph_.execute();
+    substitutions_.finalize();
   }
 }  // namespace tvm

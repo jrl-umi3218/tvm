@@ -56,6 +56,7 @@ namespace tvm
   namespace requirements
   {
     class SolvingRequirements;
+    class SolvingRequirementsWithCallbacks;
   }
   namespace task_dynamics
   {
@@ -86,7 +87,7 @@ namespace tvm
   using ClockPtr = std::shared_ptr<Clock>;
   using RangePtr = std::shared_ptr<Range>;
   using RobotPtr = std::shared_ptr<Robot>;
-  using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirements>;
+  using SolvingRequirementsPtr = std::shared_ptr<requirements::SolvingRequirementsWithCallbacks>;
   using TaskDynamicsPtr = std::shared_ptr<task_dynamics::abstract::TaskDynamicsImpl>;
   using VariablePtr = std::shared_ptr<Variable>;
 

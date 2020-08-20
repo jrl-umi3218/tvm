@@ -84,6 +84,8 @@ namespace abstract
     /** Finalize the build.*/
     void finalizeBuild();
 
+    void updateBuild(int nObj, int nEq, int nIneq);
+
     /** Add a bound constraint to the solver. If multiple bounds appears on the
       * same variable, their intersection is taken.
       */
@@ -98,7 +100,7 @@ namespace abstract
       *   will be taken into account
       * \param additionalWeight An additional factor that will multiply the other weights.
       */
-    void addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight = 1);
+    void addObjective(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight = 1);
     
     /** Set ||x||^2 as the least square objective of the problem.
       * \warning this replace previously added objectives.
@@ -118,6 +120,10 @@ namespace abstract
       * but the solver only accept simple sided constraints
       */
     int constraintSize(const LinearConstraintPtr& c) const;
+
+    // TODO allow to update all weights at the same time
+    void updateWeight(constraint::abstract::LinearConstraint* c);
+    void updateAnisotropicWeight(constraint::abstract::LinearConstraint* c);
 
   protected:
     virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
@@ -143,7 +149,7 @@ namespace abstract
 
   public:
     template<typename K, typename T> using map = utils::internal::map<K, T>;
-    using AssignmentVector = std::vector<scheme::internal::Assignment>;
+    using AssignmentVector = std::vector<std::unique_ptr<scheme::internal::Assignment>>;
     using AssignmentPtrVector = std::vector<scheme::internal::Assignment*>;
     using MapToAssignment = map<constraint::abstract::LinearConstraint*, AssignmentPtrVector>;
 
@@ -162,7 +168,7 @@ namespace abstract
     /** Used to track if this is the first time bounds are applied to a given variable. */
     map<Variable*, bool> first_;
     /** List of assignments used for assembling the problem data. */
-    std::vector<scheme::internal::Assignment> assignments_;
+    AssignmentVector assignments_;
     /** Keeping tracks of which assignments are associated to a constraint. 
       * \todo most of the times, there will be a single assignment per constraint.
       * This would be a good place to use small vector-like container.
@@ -199,7 +205,7 @@ namespace abstract
   template<typename ...Args>
   inline void LeastSquareSolver::addAssignement(Args&& ... args)
   {
-    assignments_.emplace_back(std::forward<Args>(args)...);
+    assignments_.emplace_back(new scheme::internal::Assignment(std::forward<Args>(args)...));
   }
 
 }

@@ -29,7 +29,6 @@
 
 #pragma once
 
-#include <tvm/api.h>
 #include <tvm/requirements/abstract/SingleSolvingRequirement.h>
 
 #include <Eigen/Core>
@@ -62,14 +61,25 @@ namespace requirements
    * \internal FIXME Do we want to implement some kind of mechanism for constraints
    * whose size can change?
    */
-  class TVM_DLLAPI AnisotropicWeight : public abstract::SingleSolvingRequirement<Eigen::VectorXd>
+  template<bool Lightweight = true>
+  class AnisotropicWeightBase : public abstract::SingleSolvingRequirement<Eigen::VectorXd, Lightweight>
   {
   public:
     /** Default constructor: all elements of w are 1*/
-    AnisotropicWeight();
+    AnisotropicWeightBase() : abstract::SingleSolvingRequirement<Eigen::VectorXd, Lightweight>(Eigen::VectorXd(), true) {}
+
     /** Constructor for a given vector of weights \p w*/
-    AnisotropicWeight(const Eigen::VectorXd& w);
+    AnisotropicWeightBase(const Eigen::VectorXd& w)
+      : abstract::SingleSolvingRequirement<Eigen::VectorXd, Lightweight>(w, false)
+    {
+      if ((w.array() < 0).any())
+        throw std::runtime_error("weights must be non-negative.");
+    }
+
+    TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(AnisotropicWeightBase, Eigen::VectorXd, Lightweight)
   };
+
+  using AnisotropicWeight = AnisotropicWeightBase<true>;
 
 }  // namespace requirements
 

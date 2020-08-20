@@ -49,7 +49,7 @@ namespace internal
   double Assignment::big_ = constant::big_number;
 
   Assignment::Assignment(LinearConstraintPtr source,
-    std::shared_ptr<requirements::SolvingRequirements> req,
+    SolvingRequirementsPtr req,
     const AssignmentTarget& target,
     const VariableVector& variables,
     const hint::internal::Substitutions* const substitutions,
@@ -60,6 +60,7 @@ namespace internal
     , requirements_(req)
     , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
     , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
+    , data_(new ReferenceableData())
   {
     checkTarget();
     //TODO check also that the variables of source are in the variable vector
@@ -71,16 +72,36 @@ namespace internal
     : source_(source)
     , target_(target)
     , requirements_(nullptr)
-    , scalarWeight_(1)
-    , minusScalarWeight_(-1)
-    , anisotropicWeight_()
-    , minusAnisotropicWeight_()
     , useDefaultScalarWeight_(true)
     , useDefaultAnisotropicWeight_(true)
+    , data_(new ReferenceableData())
   {
     checkBounds();
     assert(source->variables()[0] == variable);
     build(variable, first);
+  }
+
+  Assignment Assignment::reprocess(const Assignment& other, const VariableVector& variables, 
+    const hint::internal::Substitutions* const subs)
+  {
+    if (!other.requirements_)
+      throw std::runtime_error("[Assignment::reprocess] Only valid for general assignment, not bound assignement.");
+    return Assignment(other.source_, other.requirements_, other.target_, variables, subs, other.scalarizationWeight_);
+  }
+
+  AssignmentTarget& Assignment::target(IWontForgetToCallUpdates)
+  {
+    return target_;
+  }
+
+  bool Assignment::changeScalarWeightIsAllowed()
+  {
+    return !useDefaultScalarWeight_;
+  }
+
+  bool Assignment::changeVectorWeightIsAllowed()
+  {
+    return !useDefaultAnisotropicWeight_;
   }
 
   void Assignment::onUpdatedSource()
@@ -91,28 +112,46 @@ namespace internal
   void Assignment::onUpdatedTarget()
   {
     for (auto& a : matrixAssignments_)
-      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+      a.updateTarget(target_);
     for (auto& a : matrixSubstitutionAssignments_)
-      a.assignment.to((target_.*a.getTargetMatrix)(a.colRange.start, a.colRange.dim));
+      a.updateTarget(target_);
     for (auto& a : vectorAssignments_)
       a.assignment.to((target_.*a.getTargetVector)());
     for (auto& a : vectorSubstitutionAssignments_)
       a.assignment.to((target_.*a.getTargetVector)());
   }
 
-  void Assignment::onUpdatedMapping(const VariableVector& /*variables*/)
+  void Assignment::onUpdatedMapping(const VariableVector& newVar, bool updateMatrixTarget)
   {
-    //TODO
+    for (auto& a : matrixAssignments_)
+      a.updateMapping(newVar, target_, updateMatrixTarget);
+    for (auto& a : matrixSubstitutionAssignments_)
+      a.updateMapping(newVar, target_, updateMatrixTarget);
   }
 
-  void Assignment::weight(double /*alpha*/)
+  void Assignment::onUpdateWeights(bool scalar, bool vector)
   {
-    //TODO
-  }
+    if (scalar)
+    {
+      if (useDefaultScalarWeight_ && requirements_->weight().value() != 1)
+        throw std::runtime_error("[Assignment::onUpdateWeights] Can't update a default weight.");
 
-  void Assignment::weight(const Eigen::VectorXd& /*w*/)
-  {
-    //TODO
+      data_->scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+      data_->minusScalarWeight_ = -data_->scalarWeight_;
+    }
+    if (vector)
+    {
+      if (!requirements_->anisotropicWeight().isDefault() && requirements_->anisotropicWeight().value().size() != target_.size())
+        throw std::runtime_error("[Assignment::onUpdateWeights] Anisotropic weight has not the correct size.");
+
+      if (useDefaultAnisotropicWeight_ && !requirements_->anisotropicWeight().isDefault() 
+        && !requirements_->anisotropicWeight().value().isConstant(1))
+        throw std::runtime_error("[Assignment::onUpdateWeights] Can't update a default weight.");
+
+      data_->anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+      data_->anisotropicWeight_ *= data_->scalarWeight_;
+      data_->minusAnisotropicWeight_ = -data_->anisotropicWeight_;
+    }
   }
 
   void Assignment::run()
@@ -386,14 +425,14 @@ namespace internal
         if (requirements_->weight().isDefault() && scalarizationWeight_ == 1)
         {
           useDefaultScalarWeight_ = true;
-          scalarWeight_ = 1;
-          minusScalarWeight_ = -1;
+          data_->scalarWeight_ = 1;
+          data_->minusScalarWeight_ = -1;
         }
         else
         {
           useDefaultScalarWeight_ = false;
-          scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
-          minusScalarWeight_ = -scalarWeight_;
+          data_->scalarWeight_ = std::sqrt(requirements_->weight().value()) * scalarizationWeight_;
+          data_->minusScalarWeight_ = -data_->scalarWeight_;
         }
         if (requirements_->anisotropicWeight().isDefault())
         {
@@ -402,9 +441,9 @@ namespace internal
         else
         {
           useDefaultAnisotropicWeight_ = false;
-          anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
-          anisotropicWeight_ *= scalarWeight_;
-          minusAnisotropicWeight_ = -anisotropicWeight_;
+          data_->anisotropicWeight_ = requirements_->anisotropicWeight().value().cwiseSqrt();
+          data_->anisotropicWeight_ *= data_->scalarWeight_;
+          data_->minusAnisotropicWeight_ = -data_->anisotropicWeight_;
         }
         break;
       case requirements::ViolationEvaluationType::LINF:
@@ -620,6 +659,31 @@ namespace internal
         else
           gt ? addVectorAssignment<MAX>(f, v, J, false) : addVectorAssignment<MIN>(f, v, J, false);
       }
+    }
+  }
+
+  void Assignment::MatrixAssignment::updateTarget(const AssignmentTarget& target)
+  {
+    assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim));
+  }
+
+  void Assignment::MatrixAssignment::updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget)
+  {
+    if (newVar.contains(*x))
+    {
+      Range newRange = x->getMappingIn(newVar);
+      if (newRange != colRange)
+      {
+        colRange = newRange;
+      }
+      if (updateMatrixTarget)
+      {
+        updateTarget(target);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("[Assignment::MatrixAssignment::updateMapping]: new variables do not include this assignment variable.");
     }
   }
 

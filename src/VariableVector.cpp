@@ -41,19 +41,6 @@ namespace tvm
     getNewStamp();
   }
 
-  VariableVector::VariableVector(const std::vector<VariablePtr>& variables)
-    : VariableVector()
-  {
-    add(variables);
-  }
-
-  VariableVector::VariableVector(std::initializer_list<VariablePtr> variables)
-    : VariableVector()
-  {
-    for (auto& v : variables)
-      add(v);
-  }
-
   bool VariableVector::add(VariablePtr v)
   {
     if (contains(*v.get()))
@@ -65,6 +52,12 @@ namespace tvm
     getNewStamp();
     return true;
   }
+
+  bool VariableVector::add(std::unique_ptr<Variable> v)
+  {
+    return add(VariablePtr(std::move(v)));
+  }
+
 
   void VariableVector::add(const std::vector<VariablePtr>& variables)
   {

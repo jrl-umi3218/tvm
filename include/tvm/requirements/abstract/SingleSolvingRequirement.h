@@ -29,6 +29,10 @@
 
 #pragma once
 
+#include <variant>
+
+#include <tvm/internal/CallbackManager.h>
+
 namespace tvm
 {
 
@@ -44,11 +48,27 @@ namespace abstract
     *
     * This is a base class for the sole purpose of conveniency.
     */
-  template<typename T>
-  class SingleSolvingRequirement
+  template<typename T, bool Lightweight = true>
+  class SingleSolvingRequirement : public std::conditional_t<Lightweight, std::monostate, internal::CallbackManager>
   {
+    using Base = std::conditional_t<Lightweight, std::monostate, internal::CallbackManager>;
+
   public:
+    /** Get the current value. */
     const T& value() const { return value_; }
+
+    /** Change the current value */
+    void value(const T& val)
+    {
+      value_ = val;
+      default_ = false;
+      if constexpr (!Lightweight)
+      {
+        Base::run();
+      }
+    }
+
+    /** check it the requirement is at its default value. */
     bool isDefault() const { return default_; }
 
   protected:
@@ -56,7 +76,20 @@ namespace abstract
       : default_(isDefault), value_(val)
     {}
 
-    /** Is this requirement at it default value*/
+    SingleSolvingRequirement(const SingleSolvingRequirement<T, !Lightweight>& other)
+      : value_(other.value()), default_(other.isDefault())
+    {}
+
+    SingleSolvingRequirement& operator=(const SingleSolvingRequirement<T, !Lightweight>& other)
+    {
+      value_ = other.value();
+      default_ = other.isDefault();
+      return *this;
+    }
+
+    SingleSolvingRequirement& operator=(const T& val) { value(val); return *this; }
+
+    /** Is this requirement at its default value?*/
     bool default_;
 
     T value_;
@@ -67,3 +100,18 @@ namespace abstract
 }  // namespace requirements
 
 }  // namespace tvm
+
+
+#define TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(className, T, L)  \
+  className(const className<!L>& other)                         \
+   : abstract::SingleSolvingRequirement<T,L>(other) {}          \
+  className& operator=(const className<!L>& other)              \
+  {                                                             \
+    abstract::SingleSolvingRequirement<T,L>::operator=(other);  \
+    return *this;                                               \
+  }                                                             \
+  className& operator=(const T& val)                            \
+  {                                                             \
+    abstract::SingleSolvingRequirement<T, L>::operator=(val);   \
+    return *this;                                               \
+  }

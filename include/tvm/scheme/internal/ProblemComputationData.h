@@ -32,7 +32,9 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 #include <tvm/VariableVector.h>
+#include <tvm/scheme/internal/ProblemDefinitionEvent.h>
 
+#include <queue>
 #include <vector>
 
 namespace tvm
@@ -49,6 +51,8 @@ namespace internal
     * The rationale is that a resolution scheme is stateless, and when given
     * for the first time a problem to solve, creates a ProblemComputationData
     * that it gives to the problem and retrieves at each further resolution.
+    * A problem computation data further act as a queue of events changing the
+    * problem definition.
     */
   class TVM_DLLAPI ProblemComputationData
   {
@@ -66,6 +70,15 @@ namespace internal
     /** Set the value of the variables to that of the solution. */
     void setVariablesToSolution();
 
+    /** Adding an event changing the problem definition, that needs to be handled
+      * by the resolution scheme. Events are stored in a queue (FIFO).
+      */
+    void addEvent(const ProblemDefinitionEvent& e);
+    /** Read and remove the first event in the queue. Need the queue to be non-empty.*/
+    ProblemDefinitionEvent popEvent();
+    /** Is the queue not empty?*/
+    bool hasEvents() const;
+
   protected:
     ProblemComputationData(int solverId);
     ProblemComputationData() = delete;
@@ -75,6 +88,9 @@ namespace internal
 
     /** The problem variable*/
     VariableVector x_;
+
+    /** Problem definition events*/
+    std::queue<ProblemDefinitionEvent> events_;
 
   private:
     int solverId_;
@@ -116,6 +132,24 @@ namespace internal
   inline void ProblemComputationData::setVariablesToSolution()
   {
     setVariablesToSolution_(x_);
+  }
+
+  inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent& e)
+  {
+    events_.push(e);
+  }
+
+  inline ProblemDefinitionEvent ProblemComputationData::popEvent()
+  {
+    assert(hasEvents());
+    auto e = events_.front();
+    events_.pop();
+    return e;
+  }
+
+  inline bool ProblemComputationData::hasEvents() const
+  {
+    return !events_.empty();
   }
 
   inline ProblemComputationData::ProblemComputationData(int solverId)

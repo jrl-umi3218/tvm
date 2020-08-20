@@ -216,6 +216,14 @@ TEST_CASE("Test VariableVector creation")
   FAST_CHECK_UNARY(vv3.contains(*v2));
   FAST_CHECK_UNARY(vv3.contains(*v3));
   FAST_CHECK_UNARY(vv3.contains(*v4));
+
+  VariableVector vv4(v3, vv3, vec2);
+  FAST_CHECK_EQ(vv4.numberOfVariables(), 4);
+  FAST_CHECK_EQ(vv4.totalSize(), 12);
+  FAST_CHECK_EQ(vv4[0], v3);
+  FAST_CHECK_EQ(vv4[1], v1);
+  FAST_CHECK_EQ(vv4[2], v2);
+  FAST_CHECK_EQ(vv4[3], v4);
 }
 
 TEST_CASE("Test Mapping")

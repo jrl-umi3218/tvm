@@ -78,6 +78,10 @@ namespace internal
       */
     using VectorFunction = VectorRef(AssignmentTarget::*)() const;
 
+
+    /** \private Dummy struct serving as reminder*/
+    struct IWontForgetToCallUpdates {};
+
     /** Assignment constructor
       * \param source The linear constraints whose matrix and vector(s) will be
       * assigned.
@@ -90,7 +94,7 @@ namespace internal
       * constraint, used by the solver to emulate priority.
       */
     Assignment(LinearConstraintPtr source, 
-               std::shared_ptr<requirements::SolvingRequirements> req,
+               SolvingRequirementsPtr req,
                const AssignmentTarget& target, 
                const VariableVector& variables, 
                const hint::internal::Substitutions* const subs = nullptr,
@@ -105,16 +109,24 @@ namespace internal
 
     Assignment(const Assignment&) = delete;
     Assignment(Assignment&&) = default;
+    Assignment& operator= (const Assignment&) = delete;
+    Assignment& operator= (Assignment&&) = default;
+
+    static Assignment reprocess(const Assignment&, const VariableVector&, const hint::internal::Substitutions* const);
+
+    AssignmentTarget& target(IWontForgetToCallUpdates = {});
+    /** Change the weight.*/
+    bool changeScalarWeightIsAllowed();
+    bool changeVectorWeightIsAllowed();
 
     /** To be called when the source has been resized*/
     void onUpdatedSource();
     /** To be called when the target has been resized and/or range has changed*/
     void onUpdatedTarget();
     /** To be called when the variables change.*/
-    void onUpdatedMapping(const VariableVector& variables);
-    /** Change the weight of constraint. TODO: how to specify the constraint?*/
-    void weight(double alpha);
-    void weight(const Eigen::VectorXd& w);
+    void onUpdatedMapping(const VariableVector& newVar, bool updateMatrixtarget = true);
+    /** To be called after changing the weights.*/
+    void onUpdateWeights(bool scalar=true, bool vector=true);
 
     /** Perform the assignment.*/
     void run();
@@ -131,6 +143,9 @@ namespace internal
       Variable* x;
       Range colRange;
       MatrixFunction getTargetMatrix;
+
+      void updateTarget(const AssignmentTarget& target);
+      void updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget);
     };
 
     /** A structure grouping a vector assignment and some of the elements that
@@ -286,7 +301,7 @@ namespace internal
     /** The weight used to emulate hierarchy in a weight scheme.*/
     double scalarizationWeight_;
     /** The requirements attached to the source.*/
-    std::shared_ptr<requirements::SolvingRequirements> requirements_;
+    SolvingRequirementsPtr requirements_;
     /** Indicates if the requirements use a default weight AND the scalarizationWeight is 1.*/
     bool useDefaultScalarWeight_;
     /** Indicates if the requirements use a defautl anisotropic weight.*/
@@ -305,21 +320,29 @@ namespace internal
       */
     std::vector<VectorSubstitutionAssignement> vectorSubstitutionAssignments_;
 
-    /** Processed requirements*/
-    double scalarWeight_;
-    double minusScalarWeight_;
-    Eigen::VectorXd anisotropicWeight_;
-    Eigen::VectorXd minusAnisotropicWeight_;
-
     /** Data for substitutions */
     VariableVector substitutedVariables_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
 
-    /** Temporary vectors for bound assignements*/
-    Eigen::VectorXd tmp1_;
-    Eigen::VectorXd tmp2_;
-    Eigen::VectorXd tmp3_;
-    Eigen::VectorXd tmp4_;
+    /** Helper structure grouping data whose adress should remain constant through
+      * a move
+      */
+    struct ReferenceableData
+    {
+      /** Processed requirements*/
+      double scalarWeight_ = 1;
+      double minusScalarWeight_  = -1;
+      Eigen::VectorXd anisotropicWeight_;
+      Eigen::VectorXd minusAnisotropicWeight_;
+
+      /** Temporary vectors for bound assignements*/
+      Eigen::VectorXd tmp1_;
+      Eigen::VectorXd tmp2_;
+      Eigen::VectorXd tmp3_;
+      Eigen::VectorXd tmp4_;
+    };
+
+    std::unique_ptr<ReferenceableData> data_;
   };
 
   template<typename L, typename U>
@@ -328,7 +351,7 @@ namespace internal
     const auto& J = source_->jacobian(*variable);
     if (substitutedVariables_.contains(*variable))
     {
-      addBounds(variable, l, u, VectorRef(tmp1_), VectorRef(tmp2_), first);
+      addBounds(variable, l, u, VectorRef(data_->tmp1_), VectorRef(data_->tmp2_), first);
     }
     else
     {
@@ -369,25 +392,25 @@ namespace internal
     else
     {
       assert(J.properties().isDiagonal());
-      tmp1_.resize(variable->size());
-      tmp2_.resize(variable->size());
-      tmp3_.resize(variable->size());
-      tmp4_.resize(variable->size());
-      addVectorAssignment(l, VectorRef(tmp1_), J, false, true, false);  // tmp1_ = inv(J)*l
-      addVectorAssignment(u, VectorRef(tmp2_), J, false, true, false);  // tmp2_ = inv(J)*u
-      addVectorAssignment(VectorConstRef(tmp1_), VectorRef(tmp3_), false, false, false); // tmp3_ = inv(J)*l
-      addVectorAssignment(VectorConstRef(tmp2_), VectorRef(tmp4_), false, false, false); // tmp4_ = inv(J)*u
-      addVectorAssignment<MIN>(VectorConstRef(tmp2_), VectorRef(tmp3_), false, false, false); //tmp3_ = min(inv(J)*l, inv(J)*u)
-      addVectorAssignment<MAX>(VectorConstRef(tmp1_), VectorRef(tmp4_), false, false, false); //tmp4_ = max(inv(J)*l, inv(J)*u)
+      data_->tmp1_.resize(variable->size());
+      data_->tmp2_.resize(variable->size());
+      data_->tmp3_.resize(variable->size());
+      data_->tmp4_.resize(variable->size());
+      addVectorAssignment(l, VectorRef(data_->tmp1_), J, false, true, false);  // tmp1_ = inv(J)*l
+      addVectorAssignment(u, VectorRef(data_->tmp2_), J, false, true, false);  // tmp2_ = inv(J)*u
+      addVectorAssignment(VectorConstRef(data_->tmp1_), VectorRef(data_->tmp3_), false, false, false); // tmp3_ = inv(J)*l
+      addVectorAssignment(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp4_), false, false, false); // tmp4_ = inv(J)*u
+      addVectorAssignment<MIN>(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp3_), false, false, false); //tmp3_ = min(inv(J)*l, inv(J)*u)
+      addVectorAssignment<MAX>(VectorConstRef(data_->tmp1_), VectorRef(data_->tmp4_), false, false, false); //tmp4_ = max(inv(J)*l, inv(J)*u)
       if (first)
       {
-        addVectorAssignment(VectorConstRef(tmp3_), tl, false, false, true);
-        addVectorAssignment(VectorConstRef(tmp4_), tu, false, false, true);
+        addVectorAssignment(VectorConstRef(data_->tmp3_), tl, false, false, true);
+        addVectorAssignment(VectorConstRef(data_->tmp4_), tu, false, false, true);
       }
       else
       {
-        addVectorAssignment<MAX>(VectorConstRef(tmp3_), tl, false, false, true);
-        addVectorAssignment<MIN>(VectorConstRef(tmp4_), tu, false, false, true);
+        addVectorAssignment<MAX>(VectorConstRef(data_->tmp3_), tl, false, false, true);
+        addVectorAssignment<MIN>(VectorConstRef(data_->tmp4_), tu, false, false, true);
       }
     }
   }
@@ -410,17 +433,17 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, minusScalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, data_->minusScalarWeight_);
         else
-          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, scalarWeight_);
+          return Wrapper::template make<A, SCALAR, IDENTITY, F>(to, from, data_->scalarWeight_);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, minusAnisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, data_->minusAnisotropicWeight_);
       else
-        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, anisotropicWeight_);
+        return Wrapper::template make<A, DIAGONAL, IDENTITY, F>(to, from, data_->anisotropicWeight_);
     }
   }
 
@@ -442,17 +465,17 @@ namespace internal
       else
       {
         if (flip)
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, minusScalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, data_->minusScalarWeight_, Mult);
         else
-          return Wrapper::template make<A, SCALAR, M, F>(to, from, scalarWeight_, Mult);
+          return Wrapper::template make<A, SCALAR, M, F>(to, from, data_->scalarWeight_, Mult);
       }
     }
     else
     {
       if (flip)
-        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, minusAnisotropicWeight_, Mult);
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, data_->minusAnisotropicWeight_, Mult);
       else
-        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, anisotropicWeight_, Mult);
+        return Wrapper::template make<A, DIAGONAL, M, F>(to, from, data_->anisotropicWeight_, Mult);
     }
   }
 

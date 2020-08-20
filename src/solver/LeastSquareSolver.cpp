@@ -51,7 +51,7 @@ namespace
     ~AutoMap()
     {
       for (size_t i = observedSize_; i < observed_.size(); ++i)
-        target_.push_back(&observed_[i]);
+        target_.push_back(observed_[i].get());
     }
 
   private:
@@ -143,7 +143,7 @@ namespace abstract
     }
   }
 
-  void LeastSquareSolver::addObjective(LinearConstraintPtr obj, const SolvingRequirementsPtr req, double additionalWeight)
+  void LeastSquareSolver::addObjective(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight)
   {
     assert(req->priorityLevel().value() != 0);
     assert(buildInProgress_ && "Attempting to add an objective without calling startBuild first");
@@ -152,6 +152,7 @@ namespace abstract
     {
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
     }
+    AutoMap autoMap(obj, assignments_, objectiveToAssigments_);
     addObjective_(obj, req, additionalWeight);
     objSize_ += obj->size();
   }
@@ -176,7 +177,7 @@ namespace abstract
 
     preAssignmentProcess_();
     for (auto& a : assignments_)
-      a.run();
+      a->run();
     postAssignmentProcess_();
 
     if (verbose_)
@@ -210,6 +211,40 @@ namespace abstract
     else
     {
       return 2 * c->size();
+    }
+  }
+
+  void LeastSquareSolver::updateWeight(constraint::abstract::LinearConstraint* c)
+  {
+    auto& assignments = objectiveToAssigments_.at(c);
+
+    for (auto& a : assignments)
+    {
+      if (a->changeScalarWeightIsAllowed())
+      {
+        a->onUpdateWeights(true, false);
+      }
+      else
+      {
+        *a = tvm::scheme::internal::Assignment::reprocess(*a, variables(), substitutions());
+      }
+    }
+  }
+
+  void LeastSquareSolver::updateAnisotropicWeight(constraint::abstract::LinearConstraint* c)
+  {
+    auto& assignments = objectiveToAssigments_.at(c);
+
+    for (auto& a : assignments)
+    {
+      if (a->changeVectorWeightIsAllowed())
+      {
+        a->onUpdateWeights(false, true);
+      }
+      else
+      {
+        *a = tvm::scheme::internal::Assignment::reprocess(*a, variables(), substitutions());
+      }
     }
   }
 }
