@@ -1,31 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/scheme/internal/Assignment.h>
 
@@ -34,13 +7,7 @@
 #include <tvm/VariableVector.h>
 #include <tvm/scheme/internal/helpers.h>
 
-namespace tvm
-{
-
-namespace scheme
-{
-
-namespace internal
+namespace tvm::scheme::internal
 {
   using constraint::abstract::LinearConstraint;
   using constraint::Type;
@@ -81,7 +48,7 @@ namespace internal
     build(variable, first);
   }
 
-  Assignment Assignment::reprocess(const Assignment& other, const VariableVector& variables, 
+  Assignment Assignment::reprocess(const Assignment& other, const VariableVector& variables,
     const hint::internal::Substitutions* const subs)
   {
     if (!other.requirements_)
@@ -144,7 +111,7 @@ namespace internal
       if (!requirements_->anisotropicWeight().isDefault() && requirements_->anisotropicWeight().value().size() != target_.size())
         throw std::runtime_error("[Assignment::onUpdateWeights] Anisotropic weight has not the correct size.");
 
-      if (useDefaultAnisotropicWeight_ && !requirements_->anisotropicWeight().isDefault() 
+      if (useDefaultAnisotropicWeight_ && !requirements_->anisotropicWeight().isDefault()
         && !requirements_->anisotropicWeight().value().isConstant(1))
         throw std::runtime_error("[Assignment::onUpdateWeights] Can't update a default weight.");
 
@@ -194,9 +161,9 @@ namespace internal
       hasNonZero = hasNonZero || !p.isZero() || !p.isConstant();
     }
     if ((source_->rhs() != RHS::ZERO || hasNonZero) && target_.constraintRhs() == RHS::ZERO)
-       throw std::runtime_error("Incompatible conventions: source with rhs other than ZERO "
-          "(or when using susbtitutions with non-zero vector term) "
-          "cannot be assigned to target with rhs ZERO.");
+      throw std::runtime_error("Incompatible conventions: source with rhs other than ZERO "
+        "(or when using susbtitutions with non-zero vector term) "
+        "cannot be assigned to target with rhs ZERO.");
 
     //check the sizes
     if (source_->type() == Type::DOUBLE_SIDED)
@@ -209,7 +176,7 @@ namespace internal
       }
       else
       {
-        if (target_.size() != 2*source_->size())
+        if (target_.size() != 2 * source_->size())
           throw std::runtime_error("Size of the source and the target are not coherent with "
             "the conventions.");
       }
@@ -217,15 +184,15 @@ namespace internal
     else
     {
       if (target_.size() != source_->size())
-          throw std::runtime_error("Size of the source and the target are not coherent with "
-            "the conventions.");
+        throw std::runtime_error("Size of the source and the target are not coherent with "
+          "the conventions.");
     }
   }
 
   void Assignment::checkBounds()
   {
     if (!canBeUsedAsBound(source_, substitutedVariables_.variables(),
-                          variableSubstitutions_, target_.constraintType()))
+      variableSubstitutions_, target_.constraintType()))
     {
       throw std::runtime_error("Incompatible bound conventions or properties");
     }
@@ -248,12 +215,12 @@ namespace internal
       {
       case constraint::Type::EQUAL:
         addAssignments(variables, &AssignmentTarget::A,
-                       &LinearConstraint::e, &AssignmentTarget::b, false);
+          &LinearConstraint::e, &AssignmentTarget::b, false);
         break;
       case constraint::Type::DOUBLE_SIDED:
         addAssignments(variables, &AssignmentTarget::A,
-                       &LinearConstraint::e, &AssignmentTarget::l,
-                       &LinearConstraint::e, &AssignmentTarget::u);
+          &LinearConstraint::e, &AssignmentTarget::l,
+          &LinearConstraint::e, &AssignmentTarget::u);
         break;
       default:
         throw std::runtime_error("Impossible to assign source for the given target convention.");
@@ -275,8 +242,8 @@ namespace internal
         {
           //case 9
           addAssignments(variables, &AssignmentTarget::A,
-                         &LinearConstraint::l, &AssignmentTarget::l,
-                         &LinearConstraint::u, &AssignmentTarget::u);
+            &LinearConstraint::l, &AssignmentTarget::l,
+            &LinearConstraint::u, &AssignmentTarget::u);
         }
         else
         {
@@ -284,17 +251,17 @@ namespace internal
           {
             //case 7
             addAssignments(variables, &AssignmentTarget::AFirstHalf,
-                          &LinearConstraint::l, &AssignmentTarget::bFirstHalf, false);
+              &LinearConstraint::l, &AssignmentTarget::bFirstHalf, false);
             addAssignments(variables, &AssignmentTarget::ASecondHalf,
-                           &LinearConstraint::u, &AssignmentTarget::bSecondHalf, true);
+              &LinearConstraint::u, &AssignmentTarget::bSecondHalf, true);
           }
           else
           {
             //case 8
             addAssignments(variables, &AssignmentTarget::AFirstHalf,
-                           &LinearConstraint::u, &AssignmentTarget::bFirstHalf, false);
+              &LinearConstraint::u, &AssignmentTarget::bFirstHalf, false);
             addAssignments(variables, &AssignmentTarget::ASecondHalf,
-                           &LinearConstraint::l, &AssignmentTarget::bSecondHalf, true);
+              &LinearConstraint::l, &AssignmentTarget::bSecondHalf, true);
           }
         }
       }
@@ -354,16 +321,16 @@ namespace internal
     {
       switch (source_->type())
       {
-      case Type::EQUAL: 
+      case Type::EQUAL:
         addBounds(variable, &LinearConstraint::e, &LinearConstraint::e, first);
         break;
-      case Type::GREATER_THAN: 
+      case Type::GREATER_THAN:
         addBounds(variable, &LinearConstraint::l, +big_, first);
         break;
-      case Type::LOWER_THAN: 
+      case Type::LOWER_THAN:
         addBounds(variable, -big_, &LinearConstraint::u, first);
         break;
-      case Type::DOUBLE_SIDED: 
+      case Type::DOUBLE_SIDED:
         addBounds(variable, &LinearConstraint::l, &LinearConstraint::u, first);
         break;
       default: assert(false);
@@ -466,8 +433,8 @@ namespace internal
     matrixAssignments_.push_back({ w, &x, range, M });
   }
 
-  void Assignment::addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M, 
-                                                    const function::BasicLinearFunction& sub, bool flip)
+  void Assignment::addMatrixSubstitutionAssignments(const VariableVector& variables, Variable& x, MatrixFunction M,
+    const function::BasicLinearFunction& sub, bool flip)
   {
     const auto& J = source_->jacobian(x);
     for (const auto& xi : sub.variables())
@@ -506,8 +473,8 @@ namespace internal
     }
   }
 
-  void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFunction& sub, 
-                                                    VectorFunction v, Variable& x, bool flip)
+  void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFunction& sub,
+    VectorFunction v, Variable& x, bool flip)
   {
     bool useSource = !sub.b().properties().isConstant() || !sub.b().properties().isZero();
     if (useSource)
@@ -549,28 +516,28 @@ namespace internal
     }
   }
 
-  void Assignment::addZeroAssignment(Variable& x, MatrixFunction M, const Range & range)
+  void Assignment::addZeroAssignment(Variable& x, MatrixFunction M, const Range& range)
   {
     const MatrixRef& to = (target_.*M)(range.start, range.dim);
     auto w = CompiledAssignmentWrapper<Eigen::MatrixXd>::make<COPY, NONE, IDENTITY, ZERO>(to);
-    
+
     matrixAssignments_.push_back({ w, &x, range, M });
   }
 
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
-                                  RHSFunction f, VectorFunction v, bool flip)
+    RHSFunction f, VectorFunction v, bool flip)
   {
     addAssignments(variables, M, f, v, nullptr, nullptr, flip);
   }
 
   void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M,
-                                  RHSFunction f1, VectorFunction v1,
-                                  RHSFunction f2, VectorFunction v2)
+    RHSFunction f1, VectorFunction v1,
+    RHSFunction f2, VectorFunction v2)
   {
     addAssignments(variables, M, f1, v1, f2, v2, false);
   }
 
-  void Assignment::addAssignments(const VariableVector & variables, MatrixFunction M, RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2, bool flip)
+  void Assignment::addAssignments(const VariableVector& variables, MatrixFunction M, RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2, bool flip)
   {
     const auto& xs = substitutedVariables_; //susbstituted variables
     const auto& xc = source_->variables();  //variables of the source constraint
@@ -599,7 +566,7 @@ namespace internal
     for (const auto& x : xc)
     {
       int i = xs.indexOf(*x);
-      if (i>=0)  // x needs to be subsituted
+      if (i >= 0)  // x needs to be subsituted
       {
         const auto& sub = *variableSubstitutions_[static_cast<int>(i)];
         addMatrixSubstitutionAssignments(variables, *x, M, sub, flip);
@@ -661,34 +628,4 @@ namespace internal
       }
     }
   }
-
-  void Assignment::MatrixAssignment::updateTarget(const AssignmentTarget& target)
-  {
-    assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim));
-  }
-
-  void Assignment::MatrixAssignment::updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget)
-  {
-    if (newVar.contains(*x))
-    {
-      Range newRange = x->getMappingIn(newVar);
-      if (newRange != colRange)
-      {
-        colRange = newRange;
-      }
-      if (updateMatrixTarget)
-      {
-        updateTarget(target);
-      }
-    }
-    else
-    {
-      throw std::runtime_error("[Assignment::MatrixAssignment::updateMapping]: new variables do not include this assignment variable.");
-    }
-  }
-
-}  // namespace internal
-
-}  // namespace scheme
-
-}  // namespace tvm
+}
