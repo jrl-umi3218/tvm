@@ -45,6 +45,7 @@ set(TVM_SOURCES
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
+  scheme/MatrixAssignment.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
@@ -159,11 +160,13 @@ set(TVM_HEADERS
 
   ${TVM_INCLUDE_DIR}/scheme/abstract/ResolutionScheme.h
   ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.h
+  ${TVM_INCLUDE_DIR}/scheme/internal/Assignment.hpp
   ${TVM_INCLUDE_DIR}/scheme/internal/AssignmentTarget.h
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.hpp
+  ${TVM_INCLUDE_DIR}/scheme/internal/MatrixAssignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemDefinitionEvent.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
@@ -172,6 +175,7 @@ set(TVM_HEADERS
 
   ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/internal/Option.h
+  ${TVM_INCLUDE_DIR}/solver/internal/SolverEvents.h
   ${TVM_INCLUDE_DIR}/solver/defaultLeastSquareSolver.h
 
   ${TVM_INCLUDE_DIR}/task_dynamics/abstract/TaskDynamics.h

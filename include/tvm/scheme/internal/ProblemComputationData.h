@@ -139,7 +139,7 @@ namespace internal
     events_.push(e);
   }
 
-  inline ProblemDefinitionEvent ProblemComputationData::popEvent()
+  [[nodiscard]] inline ProblemDefinitionEvent ProblemComputationData::popEvent()
   {
     assert(hasEvents());
     auto e = events_.front();

@@ -32,6 +32,7 @@
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/solver/internal/SolverEvents.h>
 #include <tvm/utils/internal/map.h>
 
 #include <iostream>
@@ -55,24 +56,28 @@ namespace scheme
 
   void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
+    solver::internal::SolverEvents se;
+
     if (data->hasEvents())
     {
       Memory* memory = dynamic_cast<Memory*>(data);
-      //TODO group events on the same constraint (at least weight/anisotropic weight
+
       while (memory->hasEvents())
       {
         auto e = memory->popEvent();
         switch (e.type())
         {
-        case ProblemDefinitionEvent::Type::WeightChange: 
-          memory->solver->updateWeight(problem.constraint(e.emitter()).get()); 
+        case ProblemDefinitionEvent::Type::WeightChange:
+          se.addScalarWeigthEvent(problem.constraint(e.emitter()).get()); 
           break;
-        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: 
-          memory->solver->updateAnisotropicWeight(problem.constraint(e.emitter()).get());
+        case ProblemDefinitionEvent::Type::AnisotropicWeightChange:
+          se.addVectorWeigthEvent(problem.constraint(e.emitter()).get());
           break;
         default: throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
         }
       }
+
+      memory->solver->process(se);
     }
   }
 

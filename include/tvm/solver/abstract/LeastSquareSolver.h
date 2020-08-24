@@ -34,6 +34,7 @@
 #include <tvm/hint/internal/Substitutions.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/solver/internal/Option.h>
+#include <tvm/solver/internal/SolverEvents.h>
 #include <tvm/utils/internal/map.h>
 
 namespace tvm
@@ -121,9 +122,8 @@ namespace abstract
       */
     int constraintSize(const LinearConstraintPtr& c) const;
 
-    // TODO allow to update all weights at the same time
-    void updateWeight(constraint::abstract::LinearConstraint* c);
-    void updateAnisotropicWeight(constraint::abstract::LinearConstraint* c);
+    void process(const internal::SolverEvents& se);
+    void updateWeights(const internal::SolverEvents& se);
 
   protected:
     virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
