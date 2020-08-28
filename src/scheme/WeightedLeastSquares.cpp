@@ -68,16 +68,35 @@ namespace scheme
         switch (e.type())
         {
         case ProblemDefinitionEvent::Type::WeightChange:
-          se.addScalarWeigthEvent(problem.constraint(e.emitter()).get()); 
-          break;
+        {
+          const auto& c = problem.constraintWithRequirements(e.emitter());
+          if (c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] "
+              "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addScalarWeigthEvent(c.constraint.get());
+        }
+        break;
         case ProblemDefinitionEvent::Type::AnisotropicWeightChange:
-          se.addVectorWeigthEvent(problem.constraint(e.emitter()).get());
+        {
+          const auto& c = problem.constraintWithRequirements(e.emitter());
+          if (c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] "
+              "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addVectorWeigthEvent(c.constraint.get());
+        }
+          break;
+        case ProblemDefinitionEvent::Type::TaskAddition:
+          addTask(problem, memory, e.emitter(), se);
+          break;
+        case ProblemDefinitionEvent::Type::TaskRemoval:
+          removeTask(problem, memory, e.emitter(), se);
           break;
         default: throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
         }
       }
 
       memory->solver->process(se);
+      memory->clearRemovedConstraints();
     }
   }
 
@@ -115,9 +134,9 @@ namespace scheme
         if (p == 0)
         {
           if (c.constraint->isEquality())
-            nEq += solver.constraintSize(c.constraint);
+            nEq += solver.constraintSize(*c.constraint);
           else
-            nIneq += solver.constraintSize(c.constraint);
+            nIneq += solver.constraintSize(*c.constraint);
         }
         else
         {
@@ -150,6 +169,8 @@ namespace scheme
     //allocating memory for the solver
     solver.startBuild(memory->variables(), nObj, nEq, nIneq, bounds.size() > 0, &subs);
     //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
+
+    memory->maxp = maxp;
 
     //assigments for general constraints
     for (const auto& c : constr)
@@ -190,8 +211,79 @@ namespace scheme
     return memory;
   }
 
+  void WeightedLeastSquares::addTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
+  {
+    auto c = problem.constraintWithRequirements(task);
+    const auto& subs = problem.substitutions();
+
+    abilities_.check(c.constraint, c.requirements);
+    for (const auto& xi : c.constraint->variables())
+    {
+      auto s = subs.substitute(xi);
+      for (const auto& si : s)
+      {
+        if (memory->addVariable(si))
+          se.addedVariables_.push_back(si);
+      }
+    }
+
+    int p = task->requirements.priorityLevel().value();
+    if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
+    {
+      se.addedBounds_.push_back(c.constraint);
+    }
+    else
+    {
+      if (p == 0)
+      {
+        se.addedConstraints_.push_back(c.constraint);
+      }
+      else
+      {
+        // We dont adapt maxp, meaning that a constraint with priority level p>max_p will get a weight<1
+        se.addedObjectives_.push_back({ c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), memory->maxp - p )});
+      }
+    }
+  }
+
+  void WeightedLeastSquares::removeTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
+  {
+    const auto& c = memory->removedConstraint(task);
+    const auto& subs = problem.substitutions();
+
+    if (subs.uses(c.constraint))
+      throw std::runtime_error("[WeightedLeastSquares::removeTask]: You cannot remove a constraint used for a substitution.");
+
+    for (const auto& xi : c.constraint->variables())
+    {
+      auto s = subs.substitute(xi);
+      for (const auto& si : s)
+      {
+        if (memory->removeVariable(si.get()))
+          se.removedVariables_.push_back(si);
+      }
+    }
+
+    int p = task->requirements.priorityLevel().value();
+    if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
+    {
+      se.removedBounds_.push_back(c.constraint);
+    }
+    else
+    {
+      if (p == 0)
+      {
+        se.removedConstraints_.push_back(c.constraint);
+      }
+      else
+      {
+        se.removedObjectives_.push_back(c.constraint);
+      }
+    }
+  }
+
   WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
-    : ProblemComputationData(solverId)
+    : LinearizedProblemComputationData(solverId)
     , solver(std::move(solver))
   {
   }

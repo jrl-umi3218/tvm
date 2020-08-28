@@ -32,7 +32,7 @@
 #include <tvm/internal/meta.h>
 #include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/Assignment.h>
-#include <tvm/scheme/internal/ProblemComputationData.h>
+#include <tvm/scheme/internal/LinearizedProblemComputationData.h>
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
 // Creating a class tvm::internal::has_member_type_Factory<T>
@@ -63,11 +63,13 @@ namespace scheme
   class TVM_DLLAPI WeightedLeastSquares : public abstract::LinearResolutionScheme<WeightedLeastSquares>
   {
   private:
-    struct Memory : public internal::ProblemComputationData
+    struct Memory : public internal::LinearizedProblemComputationData
     {
       Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver);
 
       std::unique_ptr<solver::abstract::LeastSquareSolver> solver;
+
+      int maxp;
 
     protected:
       void setVariablesToSolution_(VariableVector& x) override;
@@ -144,6 +146,9 @@ namespace scheme
     std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem& problem) const;
 
   protected:
+    void addTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const;
+    void removeTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const;
+
     WeightedLeastSquaresOptions options_;
     /** The factory to create solvers attached to each problem. */
     std::unique_ptr<solver::abstract::LSSolverFactory> solverFactory_;
