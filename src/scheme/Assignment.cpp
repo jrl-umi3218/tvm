@@ -51,9 +51,12 @@ namespace tvm::scheme::internal
   Assignment Assignment::reprocess(const Assignment& other, const VariableVector& variables,
     const hint::internal::Substitutions* const subs)
   {
-    if (!other.requirements_)
-      throw std::runtime_error("[Assignment::reprocess] Only valid for general assignment, not bound assignement.");
     return Assignment(other.source_, other.requirements_, other.target_, variables, subs, other.scalarizationWeight_);
+  }
+
+  Assignment Assignment::reprocess(const Assignment& other, const VariablePtr& x, bool first)
+  {
+    return Assignment(other.source_, other.target_, x, first);
   }
 
   AssignmentTarget& Assignment::target(IWontForgetToCallUpdates)

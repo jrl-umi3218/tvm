@@ -81,6 +81,7 @@ namespace tvm::scheme::internal
     Assignment& operator= (Assignment&&) = default;
 
     static Assignment reprocess(const Assignment&, const VariableVector&, const hint::internal::Substitutions* const);
+    static Assignment reprocess(const Assignment&, const VariablePtr&, bool);
 
     AssignmentTarget& target(IWontForgetToCallUpdates = {});
     /** Change the weight.*/
