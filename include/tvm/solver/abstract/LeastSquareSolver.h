@@ -1,31 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -85,8 +58,6 @@ namespace abstract
     /** Finalize the build.*/
     void finalizeBuild();
 
-    void updateBuild(int nObj, int nEq, int nIneq);
-
     /** Add a bound constraint to the solver. If multiple bounds appears on the
       * same variable, their intersection is taken.
       */
@@ -120,13 +91,34 @@ namespace abstract
       * the actual constraint size if the constraint is a double-sided inequality
       * but the solver only accept simple sided constraints
       */
-    int constraintSize(const LinearConstraintPtr& c) const;
+    int constraintSize(const constraint::abstract::LinearConstraint& c) const;
 
+    /** Update the data according to the events
+      * 
+      * \internal Assumes the vector of variables and substitions are the same as
+      * when the problem was built.
+      */
     void process(const internal::SolverEvents& se);
-    void updateWeights(const internal::SolverEvents& se);
 
   protected:
+    struct ImpactFromChanges
+    {
+      bool equalityConstraints_   = false;
+      bool inequalityConstraints_ = false;
+      bool bounds_                = false;
+      bool objectives_            = false;
+
+      template<typename Derived>
+      static bool willReallocate(const Eigen::DenseBase<Derived>& M, int rows, int cols = 1);
+
+      ImpactFromChanges operator||(bool b);
+      ImpactFromChanges operator||(const ImpactFromChanges& other);
+      /** this = this || other*/
+      ImpactFromChanges& orAssign(const ImpactFromChanges& other);
+    };
+
     virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
+    virtual ImpactFromChanges resize_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
     virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
     virtual void addEqualityConstraint_(LinearConstraintPtr cstr) = 0;
     virtual void addIneqalityConstraint_(LinearConstraintPtr cstr) = 0;
@@ -137,6 +129,22 @@ namespace abstract
     virtual bool solve_() = 0;
     virtual const Eigen::VectorXd& result_() const = 0;
     virtual bool handleDoubleSidedConstraint_() const = 0;
+    virtual Range nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
+    virtual Range nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
+    virtual Range nextObjectiveRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
+    /** Remove the bounds on variable x from the data passed to the solver (e.g.
+      * set the bounds to -/+Inf).
+      */
+    virtual void removeBounds_(const Variable& x) = 0;
+    virtual void updateEqualityTargetData(scheme::internal::AssignmentTarget& target) = 0;
+    virtual void updateInequalityTargetData(scheme::internal::AssignmentTarget& target) = 0;
+    virtual void updateBoundTargetData(scheme::internal::AssignmentTarget& target) = 0;
+    virtual void updateObjectiveTargetData(scheme::internal::AssignmentTarget& target) = 0;
+
+    /** If for a derived class, the change on a category implies the change on
+      * others, \p impact is changed accordingly.
+      */
+    virtual void applyImpactLogic(ImpactFromChanges& impact);
 
     virtual void printProblemData_() const = 0;
     virtual void printDiagnostic_() const = 0;
@@ -147,10 +155,24 @@ namespace abstract
     template<typename ... Args>
     void addAssignement(Args&& ... args);
 
+  private:
+    void updateWeights(const internal::SolverEvents& se);
+    bool updateVariables(const internal::SolverEvents& se);
+    ImpactFromChanges processRemovedConstraints(const internal::SolverEvents& se);
+    ImpactFromChanges previewAddedConstraints(const internal::SolverEvents& se);
+    void processAddedConstraints(const internal::SolverEvents& se);
+
   public:
+    struct MarkedAssignment
+    {
+      template<typename... Args>
+      MarkedAssignment(Args&&... args) : assignment(std::forward<Args>(args)...), markedForRemoval(false) {}
+      scheme::internal::Assignment assignment;
+      bool markedForRemoval;
+    };
     template<typename K, typename T> using map = utils::internal::map<K, T>;
-    using AssignmentVector = std::vector<std::unique_ptr<scheme::internal::Assignment>>;
-    using AssignmentPtrVector = std::vector<scheme::internal::Assignment*>;
+    using AssignmentVector = std::vector<std::unique_ptr<MarkedAssignment>>;
+    using AssignmentPtrVector = std::vector<MarkedAssignment*>;
     using MapToAssignment = map<constraint::abstract::LinearConstraint*, AssignmentPtrVector>;
 
   protected:
@@ -166,7 +188,7 @@ namespace abstract
     bool verbose_;
     VariableVector const* variables_;
     /** Used to track if this is the first time bounds are applied to a given variable. */
-    map<Variable*, bool> first_;
+    map<Variable*, std::vector<constraint::abstract::LinearConstraint*>> first_;
     /** List of assignments used for assembling the problem data. */
     AssignmentVector assignments_;
     /** Keeping tracks of which assignments are associated to a constraint. 
@@ -174,7 +196,8 @@ namespace abstract
       * This would be a good place to use small vector-like container.
       */
     MapToAssignment objectiveToAssigments_;
-    MapToAssignment constraintToAssigments_;
+    MapToAssignment equalityConstraintToAssigments_;
+    MapToAssignment inequalityConstraintToAssigments_;
     MapToAssignment boundToAssigments_;
     const hint::internal::Substitutions* subs_;
   };
@@ -205,7 +228,13 @@ namespace abstract
   template<typename ...Args>
   inline void LeastSquareSolver::addAssignement(Args&& ... args)
   {
-    assignments_.emplace_back(new scheme::internal::Assignment(std::forward<Args>(args)...));
+    assignments_.emplace_back(new MarkedAssignment(std::forward<Args>(args)...));
+  }
+
+  template<typename Derived>
+  inline static bool LeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived>& M, int rows, int cols) 
+  { 
+    return M.rows() * M.cols() != rows * cols; 
   }
 
 }

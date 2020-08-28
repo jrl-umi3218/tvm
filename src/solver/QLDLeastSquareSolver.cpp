@@ -1,31 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -34,6 +7,7 @@
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
 #include <iostream>
+#include "..\..\include\tvm\solver\QLDLeastSquareSolver.h"
 
 namespace tvm
 {
@@ -54,40 +28,56 @@ namespace solver
 
   void QLDLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
   {
+    resize_(nObj, nEq, nIneq, true);
+
+    autoMinNorm_ = false;
+  }
+
+  QLDLeastSquareSolver::ImpactFromChanges QLDLeastSquareSolver::resize_(int nObj, int nEq, int nIneq, bool)
+  {
     int n = variables().totalSize();
     int nCstr = nEq + nIneq;
     underspecifiedObj_ = nObj < n;
+    ImpactFromChanges impact;
+
     if (cholesky_ && underspecifiedObj_)
     {
+      impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj + n, n);
       D_.resize(nObj + n, n);
       D_.bottomRows(n).setZero();
       D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
     }
     else
+    {
       D_.resize(nObj, n);
+      impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj, n);
+    }
     e_.resize(nObj);
     if (!cholesky_)
       Q_.resize(n, n);
     c_.resize(n);
+    impact.equalityConstraints_ = ImpactFromChanges::willReallocate(A_, nCstr, n);
     A_.resize(nCstr, n);
     b_.resize(nCstr);
+    impact.bounds_ = ImpactFromChanges::willReallocate(xl_, n);
     xl_ = Eigen::VectorXd::Constant(n, -big_number_);
     xu_ = Eigen::VectorXd::Constant(n, +big_number_);
     new(&Aineq_) MatrixXdBottom(A_.bottomRows(nIneq));
     new(&bineq_) VectorXdTail(b_.tail(nIneq));
     if (underspecifiedObj_)
-      qld_.problem(n, nEq, nIneq, n+nObj);
+      qld_.problem(n, nEq, nIneq, n + nObj);
     else
       qld_.problem(n, nEq, nIneq);
     if (cholesky_)
     {
       if (underspecifiedObj_)
-        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj+n, n);
+        new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj + n, n);
       else
         new(&qr_) Eigen::HouseholderQR<Eigen::MatrixXd>(nObj, n);
     }
 
-    autoMinNorm_ = false;
+    impact.inequalityConstraints_ = impact.equalityConstraints_;
+    return impact;
   }
 
   void QLDLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
@@ -98,21 +88,21 @@ namespace solver
 
   void QLDLeastSquareSolver::addEqualityConstraint_(LinearConstraintPtr cstr)
   {
-    RangePtr r = std::make_shared<Range>(eqSize_, cstr->size());
+    RangePtr r = std::make_shared<Range>(nextEqualityConstraintRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::OPPOSITE);
     addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void QLDLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
   {
-    RangePtr r = std::make_shared<Range>(ineqSize_, constraintSize(cstr));
+    RangePtr r = std::make_shared<Range>(nextInequalityConstraintRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, Aineq_, bineq_, constraint::Type::GREATER_THAN, constraint::RHS::OPPOSITE);
     addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void QLDLeastSquareSolver::addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight)
   {
-    RangePtr r = std::make_shared<Range>(objSize_, cstr->size());
+    RangePtr r = std::make_shared<Range>(nextObjectiveRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, D_, e_, constraint::Type::EQUAL, constraint::RHS::OPPOSITE);
     addAssignement(cstr, req, target, variables(), substitutions(), additionalWeight);
   }
@@ -176,6 +166,53 @@ namespace solver
   const Eigen::VectorXd& QLDLeastSquareSolver::result_() const
   {
     return qld_.result();
+  }
+
+  Range QLDLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { eqSize_, cstr.size() };
+  }
+
+  Range QLDLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { ineqSize_, constraintSize(cstr) };
+  }
+
+  Range QLDLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { objSize_, cstr.size() };
+  }
+
+  void QLDLeastSquareSolver::removeBounds_(const Variable& x)
+  {
+    auto range = x.getMappingIn(variables());
+    xl_.segment(range.start, range.dim).setConstant(-big_number_);
+    xu_.segment(range.start, range.dim).setConstant(+big_number_);
+  }
+
+  void QLDLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(A_, b_);
+  }
+
+  void QLDLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(Aineq_, bineq_);
+  }
+
+  void QLDLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(VectorRef(xl_), xu_);
+  }
+
+  void QLDLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(D_, e_);
+  }
+
+  void QLDLeastSquareSolver::applyImpactLogic(ImpactFromChanges& impact)
+  {
+    if (impact.equalityConstraints_) impact.inequalityConstraints_ = true;
   }
 
   void QLDLeastSquareSolver::printProblemData_() const
