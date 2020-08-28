@@ -79,7 +79,7 @@ namespace tvm
     template <typename... VarPtr>
     VariableVector(VarPtr&&... variables);
 
-    /** Add a variable to the vector.
+    /** Add a variable to the vector if not already present.
       *
       * \param v The variable to be added.
       *
@@ -87,7 +87,7 @@ namespace tvm
       */
     bool add(VariablePtr v);
     /** Add a variable to the vector. This version is mostly to be used directly
-      * with the output of tvm::Spave::createVariable.
+      * with the output of tvm::Space::createVariable.
       *
       * \param v The variable to be added.
       *
@@ -101,13 +101,27 @@ namespace tvm
     void add(const std::vector<VariablePtr>& variables);
     /** Same as add(VariablePtr), but for adding a vector of variables.*/
     void add(const VariableVector& variables);
-    /** Remove a variable from the vector.
+    /** Add a variable to the vector, if not already present and return the index
+      * of the variable in the vector whether it was added or not.
+      *
+      * \param v The variable to be added.
+      *
+      * \returns Index of variable \p v in the vector.
+      */
+    int addAndGetIndex(VariablePtr v);
+
+    /** Remove a variable from the vector, if present.
       *
       * \param v the variable to be removed
       *
       * \returns True if the variable was removed, false otherwise
       */
     bool remove(const Variable& v);
+    /** Remove the variable with the given index
+      *
+      * \param i Index of the variable to be removed
+      */
+    void remove(int i);
 
     /** Sum of the sizes of all the variables.*/
     int totalSize() const;
@@ -159,6 +173,8 @@ namespace tvm
     std::vector<VariablePtr>::const_iterator end() const;
 
   private:
+    void add_(VariablePtr v);
+    void remove_(std::vector<VariablePtr>::const_iterator it);
     void getNewStamp() const;
 
     static int counter;

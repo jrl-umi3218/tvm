@@ -47,9 +47,7 @@ namespace tvm
     {
       return false;
     }
-    variables_.push_back(v);
-    size_ += v->size();
-    getNewStamp();
+    add_(v);
     return true;
   }
 
@@ -70,6 +68,20 @@ namespace tvm
     add(variables.variables());
   }
 
+  int VariableVector::addAndGetIndex(VariablePtr v)
+  {
+    auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == v.get()); });
+    if (it == variables_.end())
+    {
+      add_(v);
+      return static_cast<int>(variables_.size() - 1);
+    }
+    else
+    {
+      return static_cast<int>(it - variables_.begin());
+    }
+  }
+
   bool VariableVector::remove(const Variable& v)
   {
     if (!contains(v))
@@ -77,10 +89,19 @@ namespace tvm
       return false;
     }
     auto it = std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr& it) {return (it.get() == &v); });
-    variables_.erase(it);
-    size_ -= v.size();
-    getNewStamp();
+    remove_(it);
     return true;
+  }
+
+  void VariableVector::remove(int i)
+  {
+    if (i < 0 || i >= static_cast<int>(variables_.size()))
+    {
+      throw std::out_of_range("[VariableVector::remove] Invalid index.");
+    }
+
+    auto it = variables_.begin() + i;
+    remove_(it);
   }
 
   int VariableVector::totalSize() const
@@ -174,6 +195,20 @@ namespace tvm
   int VariableVector::stamp() const
   {
     return stamp_;
+  }
+
+  void VariableVector::add_(VariablePtr v)
+  {
+    variables_.push_back(v);
+    size_ += v->size();
+    getNewStamp();
+  }
+
+  void VariableVector::remove_(std::vector<VariablePtr>::const_iterator it)
+  {
+    size_ -= (*it)->size();
+    variables_.erase(it);
+    getNewStamp();
   }
 
   void VariableVector::getNewStamp() const
