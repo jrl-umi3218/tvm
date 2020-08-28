@@ -26,6 +26,7 @@ namespace tvm::scheme::internal
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
     , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
+    , variablesSubstitutedInto_(substitutions ? substitutions->otherVariables() : VariableVector())
     , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
     , data_(new ReferenceableData())
   {
@@ -554,7 +555,7 @@ namespace tvm::scheme::internal
 
     // For all problem variables not in xc, we set the corresponding matrix block
     // to zero.
-    for (const auto& x : variables)
+    for (const auto& x : variablesSubstitutedInto_)
     {
       if (!xc.contains(*x))
       {

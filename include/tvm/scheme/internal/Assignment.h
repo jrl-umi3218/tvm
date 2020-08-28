@@ -260,6 +260,7 @@ namespace tvm::scheme::internal
 
     /** Data for substitutions */
     VariableVector substitutedVariables_;
+    VariableVector variablesSubstitutedInto_;
     std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
 
     /** Helper structure grouping data whose adress should remain constant through

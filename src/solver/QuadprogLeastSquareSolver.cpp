@@ -1,31 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -73,13 +46,14 @@ namespace solver
     {
       impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj + n, n);
       D_.resize(nObj + n, n);
-      D_.bottomRows(n).setZero();
+      D_.setZero();
       D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
     }
     else
     {
       impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj, n);
       D_.resize(nObj, n);
+      D_.setZero();
     }
     e_.resize(nObj);
     if (!cholesky_)
@@ -93,10 +67,10 @@ namespace solver
       impact.equalityConstraints_ = ImpactFromChanges::willReallocate(A_, nCstr + 2 * n, n);
       nIneqInclBounds_ = nIneq + 2 * n;
       A_.resize(nCstr + 2 * n, n);
+      A_.setZero();
       b_.resize(nCstr + 2 * n);
-      A_.middleRows(nCstr, n).setIdentity();
-      A_.middleRows(nCstr, n).diagonal() *= -1;
-      A_.bottomRows(n).setIdentity();
+      A_.middleRows(nCstr, n).diagonal().setConstant(-1);
+      A_.bottomRows(n).diagonal().setConstant(1);
       new(&xl_) VectorXdSeg(b_.segment(nCstr, n));
       new(&xu_) VectorXdSeg(b_.segment(nCstr + n, n));
       xl_.setConstant(-big_number_);
@@ -107,6 +81,7 @@ namespace solver
       impact.equalityConstraints_ = ImpactFromChanges::willReallocate(A_, nCstr, n);
       nIneqInclBounds_ = nIneq;
       A_.resize(nCstr, n);
+      A_.setZero();
       b_.resize(nCstr);
       new(&xl_) VectorXdSeg(b_.segment(nCstr, 0));
       new(&xu_) VectorXdSeg(b_.segment(nCstr, 0));
@@ -176,6 +151,17 @@ namespace solver
     // the correct value. Since the signs on xl will be flipped later, we need to reset this
     // correct value.
     xl_.setConstant(-big_number_);
+
+    // In some instance, D is overwritten, we need to reset it.
+    if (!autoMinNorm_ && cholesky_)
+    {
+      D_.setZero();
+      if (underspecifiedObj_)
+      { 
+        int n = variables().totalSize();
+        D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
+      }
+    }
   }
 
   void QuadprogLeastSquareSolver::postAssignmentProcess_()

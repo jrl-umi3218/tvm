@@ -44,12 +44,13 @@ namespace solver
     {
       impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj + n, n);
       D_.resize(nObj + n, n);
-      D_.bottomRows(n).setZero();
+      D_.setZero();
       D_.bottomRows(n).diagonal().setConstant(choleskyDamping_);
     }
     else
     {
       D_.resize(nObj, n);
+      D_.setZero();
       impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj, n);
     }
     e_.resize(nObj);
@@ -58,6 +59,7 @@ namespace solver
     c_.resize(n);
     impact.equalityConstraints_ = ImpactFromChanges::willReallocate(A_, nCstr, n);
     A_.resize(nCstr, n);
+    A_.setZero();
     b_.resize(nCstr);
     impact.bounds_ = ImpactFromChanges::willReallocate(xl_, n);
     xl_ = Eigen::VectorXd::Constant(n, -big_number_);
