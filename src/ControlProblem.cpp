@@ -50,6 +50,7 @@ namespace tvm
   {
     tr_.push_back(tr);
     addCallBackToTask(tr);
+    notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, tr.get()));
     finalized_ = false;
   }
 
@@ -58,6 +59,8 @@ namespace tvm
     auto it = std::find_if(tr_.begin(), tr_.end(), [tr](const TaskWithRequirementsPtr& p) {return p.get() == tr; });
     if (it != tr_.end())
       tr_.erase(it);
+    notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
+    callbackTokens_.erase(tr);
     finalized_ = false;
   }
 
@@ -68,7 +71,7 @@ namespace tvm
 
   void ControlProblem::update()
   {
-    assert(finalized_);
+    finalize();
     updater_.run();
     update_();
   }

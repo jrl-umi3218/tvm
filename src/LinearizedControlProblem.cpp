@@ -31,6 +31,7 @@
 
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/scheme/internal/helpers.h>
+#include <tvm/scheme/internal/LinearizedProblemComputationData.h>
 
 namespace tvm
 {
@@ -80,9 +81,13 @@ namespace tvm
   void LinearizedControlProblem::remove(TaskWithRequirements* tr)
   {
     ControlProblem::remove(tr);
-    // if the above line did not throw, tr exists in the problem and in bounds_ or constraints_
-    updater_.removeInput(constraints_[tr].constraint.get());
-    constraints_.erase(tr);
+    // if the above line did not throw, tr exists in the problem and in constraints_
+    auto it = constraints_.find(tr);
+    assert(it != constraints_.end());
+    updater_.removeInput(it->second.constraint.get());
+    for (auto& c : computationData_)
+      static_cast<scheme::internal::LinearizedProblemComputationData*>(c.second.get())->transferRemovedConstraint({ tr, it->second });
+    constraints_.erase(it);
   }
 
   void LinearizedControlProblem::add(const hint::Substitution & s)
@@ -117,6 +122,11 @@ namespace tvm
   LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements* t) const
   {
     return constraints_.at(t).constraint;
+  }
+
+  const LinearConstraintWithRequirements& LinearizedControlProblem::constraintWithRequirements(TaskWithRequirements* t) const
+  {
+    return constraints_.at(t);
   }
 
   void LinearizedControlProblem::update_()

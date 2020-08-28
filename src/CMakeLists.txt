@@ -166,6 +166,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/CompiledAssignmentWrapper.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.h
   ${TVM_INCLUDE_DIR}/scheme/internal/helpers.hpp
+  ${TVM_INCLUDE_DIR}/scheme/internal/LinearizedProblemComputationData.h
   ${TVM_INCLUDE_DIR}/scheme/internal/MatrixAssignment.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemComputationData.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemDefinitionEvent.h
