@@ -3,14 +3,9 @@
 #pragma once
 
 #include <tvm/api.h>
+#include <tvm/defs.h>
 
 #include <vector>
-
-// Forward declaration
-namespace tvm::constraint::abstract
-{
-  class LinearConstraint;
-}
 
 namespace tvm::solver::internal
 {
@@ -25,10 +20,29 @@ namespace tvm::solver::internal
       bool vector;
     };
 
+    struct Objective
+    {
+      LinearConstraintPtr c;
+      SolvingRequirementsPtr req;
+      double scalarizationWeight;
+    };
+
+
     void addScalarWeigthEvent(constraint::abstract::LinearConstraint* c);
     void addVectorWeigthEvent(constraint::abstract::LinearConstraint* c);
 
     const std::vector<WeightEvent>& weightEvents() const { return weightEvents_; }
+
+
+    std::vector<LinearConstraintPtr> addedConstraints_;
+    std::vector<LinearConstraintPtr> addedBounds_;
+    std::vector<Objective> addedObjectives_;
+    std::vector<LinearConstraintPtr> removedConstraints_;
+    std::vector<LinearConstraintPtr> removedBounds_;
+    std::vector<LinearConstraintPtr> removedObjectives_;
+
+    std::vector<VariablePtr> addedVariables_;
+    std::vector<VariablePtr> removedVariables_;
 
   private:
     /** \internal We don't anticipate to have many events at the same time so 
