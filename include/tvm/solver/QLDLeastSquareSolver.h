@@ -87,7 +87,7 @@ namespace solver
     double big_number_;
     double eps_;
     bool   cholesky_; //compute the Cholesky decomposition before calling the solver.
-    double choleskyDamping_; // if nObj<n, the cholesky factor R is trapezoidal. A multiple of 
+    double choleskyDamping_; // if nObj<n, the cholesky factor R is trapezoidal. A multiple of
                              // the identity is used to make it triangular using this value.
   };
 
@@ -98,7 +98,7 @@ namespace solver
   {
   public:
     std::unique_ptr<abstract::LSSolverFactory> clone() const override;
-    
+
     /** Creation of a configuration from a set of options*/
     QLDLSSolverFactory(const QLDLSSolverOptions & options = {});
 

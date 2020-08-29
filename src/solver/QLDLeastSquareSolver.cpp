@@ -46,9 +46,9 @@ namespace solver
     }
     else
     {
+      impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj, n);
       D_.resize(nObj, n);
       D_.setZero();
-      impact.objectives_ = ImpactFromChanges::willReallocate(D_, nObj, n);
     }
     e_.resize(nObj);
     if (!cholesky_)
