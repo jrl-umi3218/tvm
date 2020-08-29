@@ -55,7 +55,7 @@ namespace tvm
      *
      * \param t TaskWithRequirements object as return by add.
      */
-    const LinearConstraintWithRequirements& LinearizedControlProblem::constraintWithRequirements(TaskWithRequirements* t) const;
+    const LinearConstraintWithRequirements& constraintWithRequirements(TaskWithRequirements* t) const;
 
   protected:
     /** Compute all quantities necessary for solving the problem.*/

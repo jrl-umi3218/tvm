@@ -18,7 +18,7 @@ namespace solver
 
 namespace abstract
 {
-  /** Base class for a (constrained) least-square solver. 
+  /** Base class for a (constrained) least-square solver.
     *
     * The problem to be solved has the general form
     * min. ||Ax-b||^2
@@ -39,7 +39,7 @@ namespace abstract
     LeastSquareSolver(const LeastSquareSolver&) = delete;
     LeastSquareSolver& operator=(const LeastSquareSolver&) = delete;
     virtual ~LeastSquareSolver() = default;
-    /** Open a build sequence for a problem on the current variables (set 
+    /** Open a build sequence for a problem on the current variables (set
       * through the inherited ProblemComputationData::addVariable) with the
       * specified dimensions, allocating the memory needed.
       *
@@ -73,12 +73,12 @@ namespace abstract
       * \param additionalWeight An additional factor that will multiply the other weights.
       */
     void addObjective(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight = 1);
-    
+
     /** Set ||x||^2 as the least square objective of the problem.
       * \warning this replace previously added objectives.
       */
     void setMinimumNorm();
-    
+
     /** Solve the problem
       * \return true upon success of the resolution.
       */
@@ -94,7 +94,7 @@ namespace abstract
     int constraintSize(const constraint::abstract::LinearConstraint& c) const;
 
     /** Update the data according to the events
-      * 
+      *
       * \internal Assumes the vector of variables and substitions are the same as
       * when the problem was built.
       */
@@ -191,7 +191,7 @@ namespace abstract
     map<Variable*, std::vector<constraint::abstract::LinearConstraint*>> first_;
     /** List of assignments used for assembling the problem data. */
     AssignmentVector assignments_;
-    /** Keeping tracks of which assignments are associated to a constraint. 
+    /** Keeping tracks of which assignments are associated to a constraint.
       * \todo most of the times, there will be a single assignment per constraint.
       * This would be a good place to use small vector-like container.
       */
@@ -211,7 +211,7 @@ namespace abstract
   class TVM_DLLAPI LSSolverFactory
   {
   protected:
-    LSSolverFactory(const std::string& solverName) 
+    LSSolverFactory(const std::string& solverName)
       : solverName_(solverName) {}
 
   public:
@@ -232,9 +232,9 @@ namespace abstract
   }
 
   template<typename Derived>
-  inline static bool LeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived>& M, int rows, int cols) 
-  { 
-    return M.rows() * M.cols() != rows * cols; 
+  inline bool LeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived>& M, int rows, int cols)
+  {
+    return M.rows() * M.cols() != rows * cols;
   }
 
 }
