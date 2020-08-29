@@ -1,13 +1,10 @@
 /* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#pragma once
-
 #include <tvm/solver/QLDLeastSquareSolver.h>
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
 #include <iostream>
-#include "..\..\include\tvm\solver\QLDLeastSquareSolver.h"
 
 namespace tvm
 {
