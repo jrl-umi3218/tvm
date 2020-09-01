@@ -6,6 +6,15 @@
 #include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
+#ifdef TVM_USE_LSSOL
+# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#endif
+#ifdef TVM_USE_QLD
+# include <tvm/solver/QLDLeastSquareSolver.h>
+#endif
+#ifdef TVM_USE_QUADPROG
+# include <tvm/solver/QuadprogLeastSquareSolver.h>
+#endif
 
 #include <array>
 
@@ -20,33 +29,33 @@ using namespace Eigen;
 using namespace tvm;
 using namespace tvm::requirements;
 
-//TEST_CASE("Weight change")
-//{
-//  Space R2(2);
-//  VariablePtr x = R2.createVariable("x");
-//
-//  LinearizedControlProblem pb;
-//  auto t1 = pb.add(x == -1., { PriorityLevel(1) });
-//  auto t2 = pb.add(x == Vector2d(1,3), {PriorityLevel(1), Weight(1)});
-//
-//  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
-//
-//  solver.solve(pb);
-//  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0,1)));
-//
-//  t2->requirements.weight() = 3;
-//  solver.solve(pb);
-//  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0.5, 2)));
-//
-//  t1->requirements.weight() = 3;
-//  solver.solve(pb);
-//  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
-//
-//  t1->requirements.anisotropicWeight() = Vector2d(3, 1);
-//  t2->requirements.anisotropicWeight() = Vector2d(1, 3);
-//  solver.solve(pb);
-//  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.5, 2)));
-//}
+TEST_CASE("Weight change")
+{
+  Space R2(2);
+  VariablePtr x = R2.createVariable("x");
+
+  LinearizedControlProblem pb;
+  auto t1 = pb.add(x == -1., { PriorityLevel(1) });
+  auto t2 = pb.add(x == Vector2d(1,3), {PriorityLevel(1), Weight(1)});
+
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0,1)));
+
+  t2->requirements.weight() = 3;
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0.5, 2)));
+
+  t1->requirements.weight() = 3;
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
+
+  t1->requirements.anisotropicWeight() = Vector2d(3, 1);
+  t2->requirements.anisotropicWeight() = Vector2d(1, 3);
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.5, 2)));
+}
 
 TEST_CASE("Simple add/Remove constraint")
 {
@@ -130,11 +139,9 @@ void buildPb(LinearizedControlProblem& pb,
   }
 }
 
-void test1Change(const std::array<TaskWithRequirementsPtr, 12>& tasks, const std::array<bool, 12>& selection)
+void test1Change(const std::array<TaskWithRequirementsPtr, 12>& tasks, const std::array<bool, 12>& selection, const scheme::WeightedLeastSquares& solver)
 {
-  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(false));
-
-  for (int i = 1; i < 12; ++i)
+  for (int i = 0; i < 12; ++i)
   {
     LinearizedControlProblem pb;
     LinearizedControlProblem pbGroundTruth;
@@ -173,7 +180,7 @@ void test1Change(const std::array<TaskWithRequirementsPtr, 12>& tasks, const std
         Vector2d v = f->value() - tasks[j]->task.taskDynamics<task_dynamics::None>()->value();
         switch (t.type())
         {
-        case constraint::Type::EQUAL: FAST_CHECK_UNARY(v.isZero()); break;
+        case constraint::Type::EQUAL: FAST_CHECK_UNARY(v.isZero(1e-6)); break;
         case constraint::Type::GREATER_THAN: FAST_CHECK_UNARY((v.array() >= -eps.array()).all()); break;
         case constraint::Type::LOWER_THAN: FAST_CHECK_UNARY((v.array() <= eps.array()).all()); break;
         case constraint::Type::DOUBLE_SIDED:
@@ -198,7 +205,7 @@ void test1Change(const std::array<TaskWithRequirementsPtr, 12>& tasks, const std
         pb.variables().value(s);
         f->updateValue();
         Vector2d obj = f->value();
-        FAST_CHECK_UNARY((obj0-obj).isZero());
+        FAST_CHECK_UNARY((obj0-obj).isZero(1e-6));
       }
     }
   }
@@ -229,9 +236,7 @@ TEST_CASE("Systematic add/remove of one task")
   std::make_shared<TaskWithRequirements>(Task{ x == 0.,         None() }, P1),
   std::make_shared<TaskWithRequirements>(Task{ y == 0.,         None() }, P1),
   std::make_shared<TaskWithRequirements>(Task{ z == 0.,         None() }, P1) };
-  //std::array<bool, 12> added = { true, true, true, true, false, false, false, false, false, false, false, true };
-  std::array<bool, 12> added = { false, false, false, true, false, false, false, false, false, false, false, false };
-  //std::array<bool, 12> added = {false, false, false, false, false, false, false, false, false, false, false, false};
+  std::array<bool, 12> added = {false, false, false, false, false, false, false, false, false, false, false, false};
 
   // all combinations of true/false for added
   for (int i = 1; i < 4096; ++i)
@@ -242,10 +247,27 @@ TEST_CASE("Systematic add/remove of one task")
       added[j] = !added[j];
       if (added[j]) break;
     }
-    //for (int j = 0; j < 12; ++j)
-    //  std::cout << added[j] ? "1 " : "0 ";
-    //std::cout << "\n";
+
     if (!skip(added))
-      test1Change(tasks, added);
+    {
+#ifdef TVM_USE_LSSOL
+      {
+        scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions{});
+        test1Change(tasks, added, solver);
+      }
+#endif
+#ifdef TVM_USE_QLD
+      {
+        scheme::WeightedLeastSquares solver(solver::QLDLSSolverOptions().cholesky(true));
+        test1Change(tasks, added, solver);
+      }
+#endif
+#ifdef TVM_USE_QUADPROG
+      {
+        scheme::WeightedLeastSquares solver(solver::QuadprogLSSolverOptions().cholesky(true));
+        test1Change(tasks, added, solver);
+      }
+#endif
+    }
   }
 }
