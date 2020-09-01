@@ -50,8 +50,12 @@ namespace scheme
 
   bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
-    Memory* memory = dynamic_cast<Memory*>(data);
-    return memory->solver->solve();
+    if (problem.size())
+    {
+      Memory* memory = dynamic_cast<Memory*>(data);
+      return memory->solver->solve();
+    }
+    return true;
   }
 
   void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const

@@ -69,6 +69,11 @@ namespace tvm
     return tr_;
   }
 
+  int ControlProblem::size() const
+  {
+    return static_cast<int>(tr_.size());
+  }
+
   void ControlProblem::update()
   {
     finalize();

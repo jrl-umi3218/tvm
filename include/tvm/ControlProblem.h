@@ -82,6 +82,9 @@ namespace tvm
     void remove(TaskWithRequirements* tr);
     const std::vector<TaskWithRequirementsPtr>& tasks() const;
 
+    /** Number of tasks in the problem.*/
+    int size() const;
+
     /** Compute all quantities necessary for solving the problem.*/
     void update();
 

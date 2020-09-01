@@ -108,6 +108,7 @@ namespace tvm::scheme::internal
     if (varCount_[i] == 0)
     {
       x_.remove(i);
+      varCount_.erase(varCount_.begin() + i);
       return true;
     }
     else

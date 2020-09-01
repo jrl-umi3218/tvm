@@ -190,11 +190,9 @@ namespace tvm::solver::abstract
 
   void LeastSquareSolver::process(const internal::SolverEvents& se)
   {
-    bool skipForDebug = false;
-    if (skipForDebug) return;
     updateWeights(se);
+    auto impactRemove = processRemovedConstraints(se);
     bool needMappingUpdate = updateVariables(se);
-    auto impactRemove = processRemovedConstraints(se); //ImpactFromChanges impactRemove;
     auto impactAdd = previewAddedConstraints(se);
     auto impactResize = resize_(nObj_, nEq_, nIneq_, !first_.empty());
 
@@ -234,7 +232,7 @@ namespace tvm::solver::abstract
                         [&](const auto& c) { return constraintSize(c); });
 
     int dummy;
-    if (impact.bounds_)
+    if (impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
       updateTargetRange(boundToAssigments_, 
                         dummy, 
                         [&](const auto& b) { return b.variables()[0]->getMappingIn(variables()); },
@@ -268,7 +266,7 @@ namespace tvm::solver::abstract
     if (impactResize.objectives_)
       updateTargetData(objectiveToAssigments_, [&](auto& target) { updateObjectiveTargetData(target); });
 
-    // Final update of the impacted mapping
+    // Final update of the impacted mappings
     if (needMappingUpdate)
     {
       for (auto& a : assignments_)
@@ -375,6 +373,7 @@ namespace tvm::solver::abstract
     for (const auto& b : se.removedBounds_)
     {
       Variable* xb = b->variables()[0].get();
+      assert(first_.find(xb) != first_.end());
       auto& first = first_[xb];
       if (first[0] == b.get() && variables().contains(*xb))
       {
@@ -397,7 +396,7 @@ namespace tvm::solver::abstract
       }
       else
       {
-        auto it = std::find(first.begin() + 1, first.end(), b.get());
+        auto it = std::find(first.begin(), first.end(), b.get());
         first.erase(it);
       }
 
