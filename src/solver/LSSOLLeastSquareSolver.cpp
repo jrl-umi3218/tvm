@@ -31,6 +31,16 @@ namespace solver
     TVM_PROCESS_OPTION(printLevel,         ls_)
     TVM_PROCESS_OPTION(rankTol,            ls_)
     TVM_PROCESS_OPTION(warm,               ls_)
+    TVM_PROCESS_OPTION(crashTol,           fp_)
+    TVM_PROCESS_OPTION(feasibilityMaxIter, fp_)
+    TVM_PROCESS_OPTION(feasibilityTol,     fp_)
+    TVM_PROCESS_OPTION(infiniteBnd,        fp_)
+    TVM_PROCESS_OPTION(infiniteStep,       fp_)
+    TVM_PROCESS_OPTION(optimalityMaxIter,  fp_)
+    TVM_PROCESS_OPTION(persistence,        fp_)
+    TVM_PROCESS_OPTION(printLevel,         fp_)
+    TVM_PROCESS_OPTION(rankTol,            fp_)
+    TVM_PROCESS_OPTION(warm,               fp_)
   }
 
   void LSSOLLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
@@ -49,19 +59,23 @@ namespace solver
     impact.objectives_ = ImpactFromChanges::willReallocate(A_, nObj, n);
     A_.resize(nObj, n);
     A_.setZero();
+    b_.resize(nObj);
+    b_.setZero();
     impact.equalityConstraints_ = ImpactFromChanges::willReallocate(C_, nCstr, n);
     C_.resize(nCstr, n);
     C_.setZero();
-    b_.resize(nObj);
-    b_.setZero();
     impact.bounds_ = ImpactFromChanges::willReallocate(l_, nCstr + n);
     l_ = Eigen::VectorXd::Constant(nCstr + n, -big_number_);
     u_ = Eigen::VectorXd::Constant(nCstr + n, +big_number_);
     new(&cl_) VectorXdTail(l_.tail(nCstr));
     new(&cu_) VectorXdTail(u_.tail(nCstr));
-    ls_.resize(n, nCstr, Eigen::lssol::eType::LS1);
+    if (nObj > 0)
+      ls_.resize(n, nCstr, Eigen::lssol::eType::LS1);
+    else
+      fp_.resize(n, nCstr);
     
     impact.inequalityConstraints_ = impact.equalityConstraints_;
+    impact.bounds_ = impact.bounds_ || impact.inequalityConstraints_;
     return impact;
   }
 
@@ -114,12 +128,18 @@ namespace solver
 
   bool LSSOLLeastSquareSolver::solve_()
   {
-    return ls_.solve(A_, b_, C_, l_, u_);
+    if (nObj_ > 0)
+      return ls_.solve(A_, b_, C_, l_, u_);
+    else
+      return fp_.solve(C_, l_, u_);
   }
 
   const Eigen::VectorXd& LSSOLLeastSquareSolver::result_() const
   {
-    return ls_.result();
+    if (nObj_ > 0)
+      return ls_.result();
+    else
+      return fp_.result();
   }
 
   Range LSSOLLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const
@@ -181,8 +201,16 @@ namespace solver
 
   void LSSOLLeastSquareSolver::printDiagnostic_() const
   {
-    std::cout << ls_.inform() << std::endl;
-    ls_.print_inform();
+    if (nObj_)
+    {
+      std::cout << ls_.inform() << std::endl;
+      ls_.print_inform();
+    }
+    else
+    {
+      std::cout << fp_.inform() << std::endl;
+      fp_.print_inform();
+    }
   }
 
 

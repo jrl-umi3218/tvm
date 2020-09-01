@@ -5,6 +5,7 @@
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
 #include <eigen-lssol/LSSOL_LS.h>
+#include <eigen-lssol//LSSOL_FP.h>
 
 namespace tvm
 {
@@ -81,6 +82,7 @@ namespace solver
     VectorXdTail    cu_;   // part of u_ corresponding to general constraints
 
     Eigen::LSSOL_LS ls_;
+    Eigen::LSSOL_FP fp_;
 
     bool autoMinNorm_;
     double big_number_;
