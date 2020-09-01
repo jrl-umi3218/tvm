@@ -209,7 +209,6 @@ namespace tvm::solver::abstract
     auto impact = impactRemove || impactAdd;
     auto updateTargetRange = [](const auto& map, int& cumSize, auto rangeProvider, auto sizeProvider)
     {
-      cumSize = 0;
       for (const auto& ca : map)
       {
         Range r = rangeProvider(*ca.first);
@@ -218,6 +217,11 @@ namespace tvm::solver::abstract
         cumSize += sizeProvider(*ca.first);
       }
     };
+
+    // We first reset all necessary size accumulators, as they can be used together for deciding ranges.
+    if (impact.equalityConstraints_) eqSize_ = 0;
+    if (impact.inequalityConstraints_) ineqSize_ = 0;
+    if (impact.objectives_) objSize_ = 0;
 
     if (impact.equalityConstraints_)
       updateTargetRange(equalityConstraintToAssigments_,
@@ -410,7 +414,9 @@ namespace tvm::solver::abstract
     auto it = std::remove_if(assignments_.begin(), assignments_.end(), [](const auto& it) {return it->markedForRemoval; });
     assignments_.erase(it, assignments_.end());
 
-    return { !se.removedConstraints_.empty(), !se.removedConstraints_.empty(), !se.removedBounds_.empty(), !se.removedObjectives_.empty() };
+    ImpactFromChanges impact = { !se.removedConstraints_.empty(), !se.removedConstraints_.empty(), !se.removedBounds_.empty(), !se.removedObjectives_.empty() };
+    applyImpactLogic(impact);
+    return impact;
   }
 
   LeastSquareSolver::ImpactFromChanges LeastSquareSolver::previewAddedConstraints(const internal::SolverEvents& se)
@@ -432,9 +438,9 @@ namespace tvm::solver::abstract
     for (const auto& o : se.addedObjectives_)
       nObj_ += o.c->size();
 
-    bool impactEq = nEq_ != eqSize_;
-    bool impactIneq = nIneq_ != ineqSize_;
-    return { impactEq, impactIneq, false, !se.addedObjectives_.empty() };
+    ImpactFromChanges impact = { nEq_ != eqSize_, nIneq_ != ineqSize_, false, !se.addedObjectives_.empty() };
+    applyImpactLogic(impact);
+    return impact;
   }
 
   void LeastSquareSolver::processAddedConstraints(const internal::SolverEvents& se)
