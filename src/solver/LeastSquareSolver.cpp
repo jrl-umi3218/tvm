@@ -332,20 +332,20 @@ namespace tvm::solver::abstract
 
   bool LeastSquareSolver::updateVariables(const internal::SolverEvents& se)
   {
-    for (const auto& v : se.removedVariables_)
+    for (const auto& v : se.removedVariables())
     {
       first_.erase(v.get());
     }
-    for (const auto& v : se.addedVariables_)
+    for (const auto& v : se.addedVariables())
     {
       first_[v.get()] = {};
     }
-    return !(se.removedVariables_.empty() && se.addedVariables_.empty());
+    return !(se.removedVariables().empty() && se.addedVariables().empty());
   }
 
   LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraints(const internal::SolverEvents& se)
   {
-    for (const auto& c: se.removedConstraints_)
+    for (const auto& c: se.removedConstraints())
     {
       if (c->isEquality())
       {
@@ -365,7 +365,7 @@ namespace tvm::solver::abstract
       }
     }
 
-    for (const auto& o : se.removedObjectives_)
+    for (const auto& o : se.removedObjectives())
     {
       nObj_ -= o->size();
       const auto& assignments = objectiveToAssigments_[o.get()];
@@ -374,7 +374,7 @@ namespace tvm::solver::abstract
       objectiveToAssigments_.erase(o.get());
     }
 
-    for (const auto& b : se.removedBounds_)
+    for (const auto& b : se.removedBounds())
     {
       Variable* xb = b->variables()[0].get();
       assert(first_.find(xb) != first_.end());
@@ -414,7 +414,7 @@ namespace tvm::solver::abstract
     auto it = std::remove_if(assignments_.begin(), assignments_.end(), [](const auto& it) {return it->markedForRemoval; });
     assignments_.erase(it, assignments_.end());
 
-    ImpactFromChanges impact = { !se.removedConstraints_.empty(), !se.removedConstraints_.empty(), !se.removedBounds_.empty(), !se.removedObjectives_.empty() };
+    ImpactFromChanges impact = { !se.removedConstraints().empty(), !se.removedConstraints().empty(), !se.removedBounds().empty(), !se.removedObjectives().empty() };
     applyImpactLogic(impact);
     return impact;
   }
@@ -427,7 +427,7 @@ namespace tvm::solver::abstract
     eqSize_ = nEq_;
     ineqSize_ = nIneq_;
     objSize_ = nObj_;
-    for (const auto& c : se.addedConstraints_)
+    for (const auto& c : se.addedConstraints())
     {
       if (c->isEquality())
         nEq_ += constraintSize(*c);
@@ -435,10 +435,10 @@ namespace tvm::solver::abstract
         nIneq_ += constraintSize(*c);
     }
 
-    for (const auto& o : se.addedObjectives_)
+    for (const auto& o : se.addedObjectives())
       nObj_ += o.c->size();
 
-    ImpactFromChanges impact = { nEq_ != eqSize_, nIneq_ != ineqSize_, false, !se.addedObjectives_.empty() };
+    ImpactFromChanges impact = { nEq_ != eqSize_, nIneq_ != ineqSize_, false, !se.addedObjectives().empty() };
     applyImpactLogic(impact);
     return impact;
   }
@@ -446,13 +446,13 @@ namespace tvm::solver::abstract
   void LeastSquareSolver::processAddedConstraints(const internal::SolverEvents& se)
   {
     buildInProgress_ = true;
-    for (const auto& c : se.addedConstraints_)
+    for (const auto& c : se.addedConstraints())
       addConstraint(c);
 
-    for (const auto& b : se.addedBounds_)
+    for (const auto& b : se.addedBounds())
       addBound(b);
 
-    for (const auto& o : se.addedObjectives_)
+    for (const auto& o : se.addedObjectives())
       addObjective(o.c, o.req, o.scalarizationWeight);
 
     assert(nObj_ == objSize_);

@@ -227,25 +227,25 @@ namespace scheme
       for (const auto& si : s)
       {
         if (memory->addVariable(si))
-          se.addedVariables_.push_back(si);
+          se.addVariable(si);
       }
     }
 
     int p = task->requirements.priorityLevel().value();
     if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
     {
-      se.addedBounds_.push_back(c.constraint);
+      se.addBound(c.constraint);
     }
     else
     {
       if (p == 0)
       {
-        se.addedConstraints_.push_back(c.constraint);
+        se.addConstraint(c.constraint);
       }
       else
       {
         // We dont adapt maxp, meaning that a constraint with priority level p>max_p will get a weight<1
-        se.addedObjectives_.push_back({ c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), memory->maxp - p )});
+        se.addObjective({ c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), memory->maxp - p )});
       }
     }
   }
@@ -264,24 +264,24 @@ namespace scheme
       for (const auto& si : s)
       {
         if (memory->removeVariable(si.get()))
-          se.removedVariables_.push_back(si);
+          se.removeVariable(si);
       }
     }
 
     int p = task->requirements.priorityLevel().value();
     if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
     {
-      se.removedBounds_.push_back(c.constraint);
+      se.removeBound(c.constraint);
     }
     else
     {
       if (p == 0)
       {
-        se.removedConstraints_.push_back(c.constraint);
+        se.removeConstraint(c.constraint);
       }
       else
       {
-        se.removedObjectives_.push_back(c.constraint);
+        se.removeObjective(c.constraint);
       }
     }
   }
