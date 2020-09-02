@@ -25,6 +25,22 @@ using namespace Eigen;
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
+#ifdef TVM_USE_LSSOL
+#define IF_USE_LSSOL(x) x
+#else
+#define IF_USE_LSSOL(x) do {} while(0)
+#endif
+#ifdef TVM_USE_QLD
+#define IF_USE_QLD(x) x
+#else
+#define IF_USE_QLD(x) do {} while(0)
+#endif
+#ifdef TVM_USE_QUADPROG
+#define IF_USE_QUADPROG(x) x
+#else
+#define IF_USE_QUADPROG(x) do {} while(0)
+#endif
+
 using namespace Eigen;
 using namespace tvm;
 using namespace tvm::requirements;
@@ -139,80 +155,55 @@ void buildPb(LinearizedControlProblem& pb,
   }
 }
 
-void test1Change(const std::array<TaskWithRequirementsPtr, 12>& tasks, const std::array<bool, 12>& selection, const scheme::WeightedLeastSquares& solver)
+void checkSolution(const std::array<TaskWithRequirementsPtr, 12>& tasks, 
+                   const std::array<bool, 12>& added, VariableVector& x0, 
+                   const VectorXd& s0, 
+                   VariableVector& x, 
+                   const VectorXd s)
 {
-  for (int i = 0; i < 12; ++i)
+  Vector2d eps = Vector2d::Constant(1e-6);
+  for (int j = 0; j < 9; ++j) // all constraints
   {
-    LinearizedControlProblem pb;
-    LinearizedControlProblem pbGroundTruth;
-    buildPb(pb, tasks, selection);
-    buildPb(pbGroundTruth, tasks, selection);
-
-    // We solve pb for the current list of tasks, but not pbGroundTruth
-    solver.solve(pb);
-    
-    if (selection[i])
+    if (added[j])
     {
-      pb.remove(tasks[i].get());
-      pbGroundTruth.remove(tasks[i].get());
-    }
-    else
-    {
-      pb.add(tasks[i]);
-      pbGroundTruth.add(tasks[i]);
-    }
-
-    // Now we solve both problem. Only pb is performing an update
-    FAST_CHECK_UNARY(solver.solve(pb));
-    VectorXd s = pb.variables().value();
-    FAST_CHECK_UNARY(solver.solve(pbGroundTruth));
-    VectorXd s0 = pbGroundTruth.variables().value();
-
-    Vector2d eps = Vector2d::Constant(1e-6);
-    for (int j = 0; j < 9; ++j) // all constraints
-    {
-      if ((selection[j] && i != j) || (!selection[j] && i == j))
+      auto t = tasks[j]->task;
+      auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
+      x.value(s);
+      f->updateValue();
+      Vector2d v = f->value() - tasks[j]->task.taskDynamics<task_dynamics::None>()->value();
+      switch (t.type())
       {
-        auto t = tasks[j]->task;
-        auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-        pb.variables().value(s);
-        f->updateValue();
-        Vector2d v = f->value() - tasks[j]->task.taskDynamics<task_dynamics::None>()->value();
-        switch (t.type())
-        {
-        case constraint::Type::EQUAL: FAST_CHECK_UNARY(v.isZero(1e-6)); break;
-        case constraint::Type::GREATER_THAN: FAST_CHECK_UNARY((v.array() >= -eps.array()).all()); break;
-        case constraint::Type::LOWER_THAN: FAST_CHECK_UNARY((v.array() <= eps.array()).all()); break;
-        case constraint::Type::DOUBLE_SIDED:
-        {
-          Vector2d v2 = f->value() - tasks[j]->task.secondBoundTaskDynamics<task_dynamics::None>()->value();
-          FAST_CHECK_UNARY((v.array() >= -eps.array()).all());
-          FAST_CHECK_UNARY((v2.array() <= eps.array()).all());
-        }
-        break;
-        }
+      case constraint::Type::EQUAL: FAST_CHECK_UNARY(v.isZero(1e-6)); break;
+      case constraint::Type::GREATER_THAN: FAST_CHECK_UNARY((v.array() >= -eps.array()).all()); break;
+      case constraint::Type::LOWER_THAN: FAST_CHECK_UNARY((v.array() <= eps.array()).all()); break;
+      case constraint::Type::DOUBLE_SIDED:
+      {
+        Vector2d v2 = f->value() - tasks[j]->task.secondBoundTaskDynamics<task_dynamics::None>()->value();
+        FAST_CHECK_UNARY((v.array() >= -eps.array()).all());
+        FAST_CHECK_UNARY((v2.array() <= eps.array()).all());
       }
-    }
-    for (int j = 9; j < 12; ++j) //objectives
-    {
-      if ((selection[j] && i != j) || (!selection[j] && i == j))
-      {
-        auto t = tasks[j]->task;
-        auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-        pbGroundTruth.variables().value(s0);
-        f->updateValue();
-        Vector2d obj0 = f->value();
-        pb.variables().value(s);
-        f->updateValue();
-        Vector2d obj = f->value();
-        FAST_CHECK_UNARY((obj0-obj).isZero(1e-6));
+      break;
       }
     }
   }
-
+  for (int j = 9; j < 12; ++j) //objectives
+  {
+    if (added[j])
+    {
+      auto t = tasks[j]->task;
+      auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
+      x0.value(s0);
+      f->updateValue();
+      Vector2d obj0 = f->value();
+      x.value(s);
+      f->updateValue();
+      Vector2d obj = f->value();
+      FAST_CHECK_UNARY((obj0 - obj).isZero(1e-6));
+    }
+  }
 }
 
-TEST_CASE("Systematic add/remove of one task")
+void test1Change(const std::array<bool, 12>& selection)
 {
   Space R2(2);
   VariablePtr x = R2.createVariable("x");
@@ -236,8 +227,69 @@ TEST_CASE("Systematic add/remove of one task")
   std::make_shared<TaskWithRequirements>(Task{ x == 0.,         None() }, P1),
   std::make_shared<TaskWithRequirements>(Task{ y == 0.,         None() }, P1),
   std::make_shared<TaskWithRequirements>(Task{ z == 0.,         None() }, P1) };
-  std::array<bool, 12> added = {false, false, false, false, false, false, false, false, false, false, false, false};
 
+  IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
+  IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
+  IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+
+  for (int i = 0; i < 12; ++i)
+  {
+    std::array<bool, 12> added = selection;
+    LinearizedControlProblem pb;
+    buildPb(pb, tasks, added);
+
+    // We solve pb for the current list of tasks
+    IF_USE_LSSOL(solverLssol.solve(pb));
+    IF_USE_QLD(solverQLD.solve(pb));
+    IF_USE_QUADPROG(solverQuadprog.solve(pb));
+    
+    if (added[i])
+    {
+      pb.remove(tasks[i].get());
+      added[i] = false;
+    }
+    else
+    {
+      pb.add(tasks[i]);
+      added[i] = true;
+    }
+
+    // Create a gound truth problem
+    LinearizedControlProblem pbGroundTruth;
+    buildPb(pbGroundTruth, tasks, added);
+
+    // Now we solve both problem. Only pb is performing an update
+#if defined(TVM_USE_LSSOL)
+    FAST_CHECK_UNARY(solverLssol.solve(pbGroundTruth));
+#elif defined(TVM_USE_QLD)
+    FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
+#elif defined(TVM_USE_QUADPROG)
+    FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#endif
+    VectorXd s0 = pbGroundTruth.variables().value();
+
+#ifdef TVM_USE_LSSOL
+    FAST_CHECK_UNARY(solverLssol.solve(pb));
+    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+#ifdef TVM_USE_QLD
+    FAST_CHECK_UNARY(solverQLD.solve(pb));
+    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+#ifdef TVM_USE_QUADPROG
+    FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+  }
+}
+
+TEST_CASE("Systematic add/remove of one task")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
+
+  std::array<bool, 12> added = { false, false, false, false, false, false, false, false, false, false, false, false };
   // all combinations of true/false for added
   for (int i = 1; i < 4096; ++i)
   {
@@ -250,24 +302,7 @@ TEST_CASE("Systematic add/remove of one task")
 
     if (!skip(added))
     {
-#ifdef TVM_USE_LSSOL
-      {
-        scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions{});
-        test1Change(tasks, added, solver);
-      }
-#endif
-#ifdef TVM_USE_QLD
-      {
-        scheme::WeightedLeastSquares solver(solver::QLDLSSolverOptions().cholesky(true));
-        test1Change(tasks, added, solver);
-      }
-#endif
-#ifdef TVM_USE_QUADPROG
-      {
-        scheme::WeightedLeastSquares solver(solver::QuadprogLSSolverOptions().cholesky(true));
-        test1Change(tasks, added, solver);
-      }
-#endif
+      test1Change(added);
     }
   }
 }
