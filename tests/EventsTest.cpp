@@ -160,7 +160,7 @@ bool skip2(const std::array<bool, 8>& a)
   return n1 > 1 && n2 > 3;
 }
 
-template<int N>
+template<std::size_t N>
 void buildPb(LinearizedControlProblem& pb,
              const std::array<TaskWithRequirementsPtr, N>& tasks,
              const std::array<bool, N>& selection)
@@ -171,11 +171,12 @@ void buildPb(LinearizedControlProblem& pb,
   }
 }
 
-template<int N>
+template<std::size_t N>
 void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
-                   const std::array<bool, N>& added, VariableVector& x0, 
+                   const std::array<bool, N>& added, 
+                   const LinearizedControlProblem& pb0,
                    const VectorXd& s0, 
-                   VariableVector& x, 
+                   const LinearizedControlProblem& pb,
                    const VectorXd s)
 {
   Vector2d eps = Vector2d::Constant(1e-6);
@@ -185,9 +186,9 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
     {
       auto t = tasks[j]->task;
       auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-      x.value(s);
+      pb.variables().value(s);
       f->updateValue();
-      Vector2d v = f->value() - tasks[j]->task.taskDynamics<task_dynamics::None>()->value();
+      Vector2d v = f->value() - tasks[j]->task.template taskDynamics<task_dynamics::None>()->value();
       switch (t.type())
       {
       case constraint::Type::EQUAL: FAST_CHECK_UNARY(v.isZero(1e-6)); break;
@@ -195,7 +196,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
       case constraint::Type::LOWER_THAN: FAST_CHECK_UNARY((v.array() <= eps.array()).all()); break;
       case constraint::Type::DOUBLE_SIDED:
       {
-        Vector2d v2 = f->value() - tasks[j]->task.secondBoundTaskDynamics<task_dynamics::None>()->value();
+        Vector2d v2 = f->value() - tasks[j]->task.template secondBoundTaskDynamics<task_dynamics::None>()->value();
         FAST_CHECK_UNARY((v.array() >= -eps.array()).all());
         FAST_CHECK_UNARY((v2.array() <= eps.array()).all());
       }
@@ -209,10 +210,10 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
     {
       auto t = tasks[j]->task;
       auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-      x0.value(s0);
+      pb0.variables().value(s0);
       f->updateValue();
       Vector2d obj0 = f->value();
-      x.value(s);
+      pb.variables().value(s);
       f->updateValue();
       Vector2d obj = f->value();
       FAST_CHECK_UNARY((obj0 - obj).isZero(1e-6));
@@ -287,15 +288,15 @@ void test1Change(const std::array<bool, 12>& selection)
 
 #ifdef TVM_USE_LSSOL
     FAST_CHECK_UNARY(solverLssol.solve(pb));
-    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+    checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
 #ifdef TVM_USE_QLD
     FAST_CHECK_UNARY(solverQLD.solve(pb));
-    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+    checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
 #ifdef TVM_USE_QUADPROG
     FAST_CHECK_UNARY(solverQuadprog.solve(pb));
-    checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+    checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
   }
 }
@@ -389,15 +390,15 @@ void test3Change(const std::array<bool, 8>& selection)
 
 #ifdef TVM_USE_LSSOL
         FAST_CHECK_UNARY(solverLssol.solve(pb));
-        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+        checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
 #ifdef TVM_USE_QLD
         FAST_CHECK_UNARY(solverQLD.solve(pb));
-        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+        checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
 #ifdef TVM_USE_QUADPROG
         FAST_CHECK_UNARY(solverQuadprog.solve(pb));
-        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+        checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
       }
     }

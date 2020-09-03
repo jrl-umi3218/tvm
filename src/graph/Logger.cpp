@@ -53,7 +53,7 @@ namespace internal
 
   void Logger::enable()
   {
-    disabled_ = false();
+    disabled_ = false;
   }
 
   void Logger::addGraphOutput(CallGraph* g, Inputs* node)
