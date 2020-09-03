@@ -134,6 +134,7 @@ TEST_CASE("Add/Remove variables from problem")
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
 }
 
+// Skip if more than one type of constraints/objective is added more than once
 bool skip(const std::array<bool, 12>& a)
 {
   int eq = a[0] + a[1] + a[2];
@@ -145,24 +146,40 @@ bool skip(const std::array<bool, 12>& a)
   return n > 1;
 }
 
-void buildPb(LinearizedControlProblem& pb,
-             const std::array<TaskWithRequirementsPtr, 12>& tasks,
-             const std::array<bool, 12>& selection)
+// Skip if more than one type of constraints/objective is added more than once
+// and more than three types is added. 
+bool skip2(const std::array<bool, 8>& a)
 {
-  for (int i = 0; i < 12; ++i)
+  int eq = a[0] + a[1];
+  int ineq = a[2] + a[3];
+  int bnd = a[4] + a[5];
+  int obj = a[6] + a[7];
+
+  int n1 = (eq > 1) + (ineq > 1) + (bnd > 1) + (obj > 1);
+  int n2 = (eq > 0) + (ineq > 0) + (bnd > 0) + (obj > 0);
+  return n1 > 1 && n2 > 3;
+}
+
+template<int N>
+void buildPb(LinearizedControlProblem& pb,
+             const std::array<TaskWithRequirementsPtr, N>& tasks,
+             const std::array<bool, N>& selection)
+{
+  for (int i = 0; i < N; ++i)
   {
     if (selection[i]) pb.add(tasks[i]);
   }
 }
 
-void checkSolution(const std::array<TaskWithRequirementsPtr, 12>& tasks, 
-                   const std::array<bool, 12>& added, VariableVector& x0, 
+template<int N>
+void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
+                   const std::array<bool, N>& added, VariableVector& x0, 
                    const VectorXd& s0, 
                    VariableVector& x, 
                    const VectorXd s)
 {
   Vector2d eps = Vector2d::Constant(1e-6);
-  for (int j = 0; j < 9; ++j) // all constraints
+  for (int j = 0; j < (3*N)/4; ++j) // all constraints
   {
     if (added[j])
     {
@@ -186,7 +203,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, 12>& tasks,
       }
     }
   }
-  for (int j = 9; j < 12; ++j) //objectives
+  for (int j = (3 * N) / 4; j < N; ++j) //objectives
   {
     if (added[j])
     {
@@ -283,6 +300,111 @@ void test1Change(const std::array<bool, 12>& selection)
   }
 }
 
+void test3Change(const std::array<bool, 8>& selection)
+{
+  Space R2(2);
+  VariablePtr x = R2.createVariable("x");
+  VariablePtr y = R2.createVariable("y");
+  VariablePtr z = R2.createVariable("z");
+
+  using task_dynamics::None;
+  SolvingRequirements P0 = { PriorityLevel(0) };
+  SolvingRequirements P1 = { PriorityLevel(1) };
+  // 3 of each: equality, inequality, bound and objective, in that order
+  std::array<TaskWithRequirementsPtr, 8> tasks = {
+  std::make_shared<TaskWithRequirements>(Task{ x + 2 * y == 3., None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ 3 * x + z == 4., None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ x + y >= 0.,     None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ x + z <= 3.,     None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ 0. <= x <= 4.,   None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ -2. <= x <= 2.,  None() }, P0),
+  std::make_shared<TaskWithRequirements>(Task{ y == 0.,         None() }, P1),
+  std::make_shared<TaskWithRequirements>(Task{ z == 0.,         None() }, P1) };
+
+  IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
+  IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
+  IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+
+  for (int i = 0; i < 8; ++i)
+  {
+    for (int j = 0; j < 8; ++j)
+    {
+      for (int k = 0; k < 8; k+=2)
+      {
+        std::array<bool, 8> added = selection;
+        LinearizedControlProblem pb;
+        buildPb(pb, tasks, added);
+
+        // We solve pb for the current list of tasks
+        IF_USE_LSSOL(solverLssol.solve(pb));
+        IF_USE_QLD(solverQLD.solve(pb));
+        IF_USE_QUADPROG(solverQuadprog.solve(pb));
+
+        if (added[i])
+        {
+          pb.remove(tasks[i].get());
+          added[i] = false;
+        }
+        else
+        {
+          pb.add(tasks[i]);
+          added[i] = true;
+        }
+
+        if (added[j])
+        {
+          pb.remove(tasks[j].get());
+          added[j] = false;
+        }
+        else
+        {
+          pb.add(tasks[j]);
+          added[j] = true;
+        }
+
+        if (added[k])
+        {
+          pb.remove(tasks[k].get());
+          added[k] = false;
+        }
+        else
+        {
+          pb.add(tasks[k]);
+          added[k] = true;
+        }
+
+        // Create a gound truth problem
+        LinearizedControlProblem pbGroundTruth;
+        buildPb(pbGroundTruth, tasks, added);
+
+        // Now we solve both problem. Only pb is performing an update
+#if defined(TVM_USE_LSSOL)
+        FAST_CHECK_UNARY(solverLssol.solve(pbGroundTruth));
+#elif defined(TVM_USE_QLD)
+        FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
+#elif defined(TVM_USE_QUADPROG)
+        FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#endif
+        VectorXd s0 = pbGroundTruth.variables().value();
+
+#ifdef TVM_USE_LSSOL
+        FAST_CHECK_UNARY(solverLssol.solve(pb));
+        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+#ifdef TVM_USE_QLD
+        FAST_CHECK_UNARY(solverQLD.solve(pb));
+        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+#ifdef TVM_USE_QUADPROG
+        FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+        checkSolution(tasks, added, pbGroundTruth.variables(), s0, pb.variables(), pb.variables().value());
+#endif
+      }
+    }
+  }
+}
+
+
 TEST_CASE("Systematic add/remove of one task")
 {
   // This test is creating a large number of problems, leading to a large log.
@@ -303,6 +425,30 @@ TEST_CASE("Systematic add/remove of one task")
     if (!skip(added))
     {
       test1Change(added);
+    }
+  }
+}
+
+TEST_CASE("Systematic add/remove of three tasks")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
+
+  std::array<bool, 8> added = { false, false, false, false, false, false, false, false};
+  // all combinations of true/false for added
+  for (int i = 1; i < 256; ++i)
+  {
+    // Take the next value of added
+    for (int j = 0; j < 8; ++j)
+    {
+      added[j] = !added[j];
+      if (added[j]) break;
+    }
+
+    if (!skip2(added))
+    {
+      test3Change(added);
     }
   }
 }
