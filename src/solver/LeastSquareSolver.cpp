@@ -258,16 +258,18 @@ namespace tvm::solver::abstract
       }
     };
 
-    if (impactResize.equalityConstraints_)
+    impact.orAssign(impactResize); // There are case where no resize are necessary (e.g. a constraint was removed and
+    applyImpactLogic(impact);      // another added with same size) but the target need to change. 
+    if (impact.equalityConstraints_)
       updateTargetData(equalityConstraintToAssigments_, [&](auto& target) { updateEqualityTargetData(target); });
 
-    if (impactResize.inequalityConstraints_)
+    if (impact.inequalityConstraints_)
       updateTargetData(inequalityConstraintToAssigments_, [&](auto& target) { updateInequalityTargetData(target); });
 
-    if (impactResize.bounds_)
+    if (impact.bounds_)
       updateTargetData(boundToAssigments_, [&](auto& target) { updateBoundTargetData(target); });
 
-    if (impactResize.objectives_)
+    if (impact.objectives_)
       updateTargetData(objectiveToAssigments_, [&](auto& target) { updateObjectiveTargetData(target); });
 
     // Final update of the impacted mappings
@@ -278,7 +280,6 @@ namespace tvm::solver::abstract
     }
     else
     {
-      impact.orAssign(impactResize);
       auto updateMapping = [](const auto& map)
       {
         for (const auto& ca : map)
@@ -288,7 +289,6 @@ namespace tvm::solver::abstract
         }
       };
 
-      applyImpactLogic(impact);
       if (impact.equalityConstraints_) updateMapping(equalityConstraintToAssigments_);
       if (impact.inequalityConstraints_) updateMapping(inequalityConstraintToAssigments_);
       if (impact.bounds_) updateMapping(boundToAssigments_);
@@ -340,7 +340,7 @@ namespace tvm::solver::abstract
     {
       first_[v.get()] = {};
     }
-    return !(se.removedVariables().empty() && se.addedVariables().empty());
+    return (!(se.removedVariables().empty() && se.addedVariables().empty())) || se.hasHiddenVariableChange();
   }
 
   LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraints(const internal::SolverEvents& se)
@@ -386,7 +386,11 @@ namespace tvm::solver::abstract
         if (first.size() == 1)
         {
           // There will be no more bounds on xb.
-          removeBounds_(*xb);
+          auto& boundAssignment = boundToAssigments_[b.get()];
+          assert(boundAssignment.size() == 1);
+          // We retrieve the range on the bounds from the assignment because the variable
+          // mapping may have changed already but the assignment were not.
+          removeBounds_(boundAssignment[0]->assignment.target().range());
         }
         else
         {

@@ -157,11 +157,10 @@ namespace solver
     return { objSize_, cstr.size() };
   }
 
-  void LSSOLLeastSquareSolver::removeBounds_(const Variable& x)
+  void LSSOLLeastSquareSolver::removeBounds_(const Range& r)
   {
-    auto range = x.getMappingIn(variables());
-    l_.segment(range.start, range.dim).setConstant(-big_number_);
-    u_.segment(range.start, range.dim).setConstant(+big_number_);
+    l_.segment(r.start, r.dim).setConstant(-big_number_);
+    u_.segment(r.start, r.dim).setConstant(+big_number_);
   }
 
   void LSSOLLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget& target)

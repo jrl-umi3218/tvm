@@ -4,52 +4,58 @@
 
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
+#include <tvm/utils/internal/map.h>
 
 namespace tvm::scheme::internal
 {
   /** An extension of ProblemComputationData containing data specific to
-    * linearized problems.
+    * linearized problems, in particular a mapping from task to constraint.
+    *
+    * \internal Keeping a local mapping is necessary, because addition and
+    * removal of tasks on the problem may change the association between a
+    * task and a constraint (LinearizedControlProblem recreates a constraint
+    * if a task is removed and added again).
     */
   class LinearizedProblemComputationData : public ProblemComputationData
   {
   public:
-    /** Give the copy to the computation data of a pair (TaskWithRequirements*, 
-      * LinearConstraintWithRequirements) being deleted from the problem.
-      *
-      * \note THis is needed because the removal in the computation data is
-      * delayed compared to the removal from the problem, but we still need data
-      * related to the constraint being removed, so that we need to make sure its
-      * life is extended.
-      * It is the scheme implementation responsability to clear the list of
-      * removed constraints with \c clearRemovedConstraints. Failing to do so
-      * will not cause error, but can induce higher memory usage and slightly
-      * slower operations in future removal processes.
-      */
-    void transferRemovedConstraint(std::pair<TaskWithRequirements*, LinearConstraintWithRequirements> c)
+    void addConstraint(TaskWithRequirements* tr, const LinearConstraintWithRequirements& c)
     {
-      removedConstraints_.emplace_back(std::move(c));
+      assert(task2Constraint_.find(tr) == task2Constraint_.end());
+      task2Constraint_[tr] = c;
     }
 
-    /** Access the removed constraint corresponding to \p tr.*/
-    const LinearConstraintWithRequirements& removedConstraint(TaskWithRequirements* tr)
+    /** Remove constraint corresponding to task \p tr.*/
+    void removeConstraint(TaskWithRequirements* tr)
     {
-      for (const auto& c : removedConstraints_)
-      {
-        if (c.first == tr) return c.second;
-      }
-      throw std::runtime_error("[LinearConstraintWithRequirements::removedConstraint] invalid task pointer.");
+      task2Constraint_.erase(tr);
     }
 
-    /** Remove all the registered pait (TaskWithRequirements*,  LinearConstraintWithRequirements)
-      *
-      * To be called after the scheme has processed all the removed constraints.
-      */
-    void clearRemovedConstraints() { removedConstraints_.clear(); }
+    void addConstraints(const tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements>& map)
+    {
+      task2Constraint_.insert(map.begin(), map.end());
+    }
+
+    /** Access the constraint corresponding to \p tr.*/
+    const LinearConstraintWithRequirements& constraint(TaskWithRequirements* tr) const
+    {
+      return task2Constraint_.at(tr);
+    }
+
+
+    std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintNoThrow(TaskWithRequirements* tr) const
+    {
+      auto it = task2Constraint_.find(tr);
+      if (it != task2Constraint_.end())
+        return it->second;
+      else
+        return {};
+    }
 
   protected:
     LinearizedProblemComputationData(int solverId) : ProblemComputationData(solverId) {}
 
   private:
-    std::vector<std::pair<TaskWithRequirements*, LinearConstraintWithRequirements>> removedConstraints_;
+    tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements> task2Constraint_;
   };
 }

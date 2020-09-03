@@ -7,6 +7,8 @@
 #include <tvm/hint/Substitution.h>
 #include <tvm/hint/internal/Substitutions.h>
 
+#include <optional>
+
 namespace tvm
 {
   class TVM_DLLAPI LinearConstraintWithRequirements
@@ -51,11 +53,31 @@ namespace tvm
       */
     LinearConstraintPtr constraint(TaskWithRequirements* t) const;
 
+    /** Access to the linear constraint corresponding to the task \p t
+      *
+      * \param t TaskWithRequirements object as return by add.
+      *
+      * \return A shared_ptr that can be null if \p t is not in the problem.
+      */
+    LinearConstraintPtr constraintNoThrow(TaskWithRequirements* t) const;
+
     /** Access to the linear constraint and requirements corresponding to the task \p t
      *
      * \param t TaskWithRequirements object as return by add.
      */
     const LinearConstraintWithRequirements& constraintWithRequirements(TaskWithRequirements* t) const;
+
+    /** Access to the linear constraint and requirements corresponding to the task \p t
+     *
+     * \param t TaskWithRequirements object as return by add.
+     *
+     * \return An std::optional containing a const reference on LinearConstraintWithRequirements
+     * if \p t is in the problem.
+     */
+    std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintWithRequirementsNoThrow(TaskWithRequirements* t) const;
+
+    /** Return the map task -> constraint*/
+    const tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements>& constraintMap() const;
 
   protected:
     /** Compute all quantities necessary for solving the problem.*/

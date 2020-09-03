@@ -182,9 +182,8 @@ namespace solver
     return { objSize_, cstr.size() };
   }
 
-  void QLDLeastSquareSolver::removeBounds_(const Variable& x)
+  void QLDLeastSquareSolver::removeBounds_(const Range& range)
   {
-    auto range = x.getMappingIn(variables());
     xl_.segment(range.start, range.dim).setConstant(-big_number_);
     xu_.segment(range.start, range.dim).setConstant(+big_number_);
   }

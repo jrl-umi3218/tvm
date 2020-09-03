@@ -52,10 +52,17 @@ namespace tvm::solver::internal
     const std::vector<VariablePtr>& addedVariables() const { return addedVariables_; }
     const std::vector<VariablePtr>& removedVariables() const { return removedVariables_; }
 
+    /** Adding and removing variable may cancel one another so that addedVariables 
+      * and removedVariables will not keep track of these changes. But the underlying 
+      * variable vector may have changed with a variable removed then added being
+      * at a different place.
+      */
+    bool hasHiddenVariableChange() const { return hiddenVariableChange_; }
+
   private:
-    /** If c is in removeVec, remove it, otherwise, add it to addVec*/
+    /** If c is in removeVec, remove it, otherwise, add it to addVec. Return true in the second case.*/
     template<typename T>
-    void addIfPair(T& c, std::vector<T>& addVec, std::vector<T>& removeVec);
+    bool addIfPair(T& c, std::vector<T>& addVec, std::vector<T>& removeVec);
 
     /** \internal We don't anticipate to have many events at the same time so 
       * that searching in the vector will be fast. If it was not the case, we can
@@ -71,6 +78,7 @@ namespace tvm::solver::internal
 
     std::vector<VariablePtr> addedVariables_;
     std::vector<VariablePtr> removedVariables_;
+    bool hiddenVariableChange_;
   };
 
   inline void SolverEvents::addScalarWeigthEvent(constraint::abstract::LinearConstraint* c)
@@ -141,21 +149,25 @@ namespace tvm::solver::internal
 
   inline void SolverEvents::addVariable(VariablePtr v)
   {
-    addIfPair(v, addedVariables_, removedVariables_);
+    if (!addIfPair(v, addedVariables_, removedVariables_))
+      hiddenVariableChange_ = true;
   }
 
   inline void SolverEvents::removeVariable(VariablePtr v)
   {
-    addIfPair(v, removedVariables_, addedVariables_);
+    if (!addIfPair(v, removedVariables_, addedVariables_))
+      hiddenVariableChange_ = true;
   }
 
   template<typename T>
-  inline void SolverEvents::addIfPair(T& c, std::vector<T>& addVec, std::vector<T>& removeVec)
+  inline bool SolverEvents::addIfPair(T& c, std::vector<T>& addVec, std::vector<T>& removeVec)
   {
     auto it = std::find(removeVec.begin(), removeVec.end(), c);
-    if (it == removeVec.end())
+    bool notFound = it == removeVec.end();
+    if (notFound)
       addVec.push_back(c);
     else
       removeVec.erase(it);
+    return notFound;
   }
 }

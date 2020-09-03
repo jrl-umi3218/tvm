@@ -235,9 +235,8 @@ namespace solver
     return { objSize_, cstr.size() };
   }
 
-  void QuadprogLeastSquareSolver::removeBounds_(const Variable& x)
+  void QuadprogLeastSquareSolver::removeBounds_(const Range& range)
   {
-    auto range = x.getMappingIn(variables());
     xl_.segment(range.start, range.dim).setConstant(-big_number_);
     xu_.segment(range.start, range.dim).setConstant(+big_number_);
   }

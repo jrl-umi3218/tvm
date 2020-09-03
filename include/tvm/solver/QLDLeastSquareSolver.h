@@ -49,7 +49,7 @@ namespace solver
     Range nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const override;
     Range nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const override;
     Range nextObjectiveRange_(const constraint::abstract::LinearConstraint& cstr) const override;
-    void removeBounds_(const Variable& x) override;
+    void removeBounds_(const Range& r) override;
     void updateEqualityTargetData(scheme::internal::AssignmentTarget& target) override;
     void updateInequalityTargetData(scheme::internal::AssignmentTarget& target) override;
     void updateBoundTargetData(scheme::internal::AssignmentTarget& target) override;

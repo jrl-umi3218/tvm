@@ -85,8 +85,6 @@ namespace tvm
     auto it = constraints_.find(tr);
     assert(it != constraints_.end());
     updater_.removeInput(it->second.constraint.get());
-    for (auto& c : computationData_)
-      static_cast<scheme::internal::LinearizedProblemComputationData*>(c.second.get())->transferRemovedConstraint({ tr, it->second });
     constraints_.erase(it);
   }
 
@@ -124,9 +122,32 @@ namespace tvm
     return constraints_.at(t).constraint;
   }
 
+  LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(TaskWithRequirements* t) const
+  {
+    auto it = constraints_.find(t);
+    if (it != constraints_.end())
+      return it->second.constraint;
+    else
+      return {};
+  }
+
   const LinearConstraintWithRequirements& LinearizedControlProblem::constraintWithRequirements(TaskWithRequirements* t) const
   {
     return constraints_.at(t);
+  }
+
+  std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> LinearizedControlProblem::constraintWithRequirementsNoThrow(TaskWithRequirements* t) const
+  {
+    auto it = constraints_.find(t);
+    if (it != constraints_.end())
+      return it->second;
+    else
+      return {};
+  }
+
+  const tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements>& LinearizedControlProblem::constraintMap() const
+  {
+    return constraints_;
   }
 
   void LinearizedControlProblem::update_()

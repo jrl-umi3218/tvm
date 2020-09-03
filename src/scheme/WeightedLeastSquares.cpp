@@ -1,31 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/scheme/WeightedLeastSquares.h>
 
@@ -100,7 +73,6 @@ namespace scheme
       }
 
       memory->solver->process(se);
-      memory->clearRemovedConstraints();
     }
   }
 
@@ -111,6 +83,7 @@ namespace scheme
 
     const auto& constraints = problem.constraints();
     const auto& subs = problem.substitutions();
+    memory->addConstraints(problem.constraintMap());
 
     std::vector<LinearConstraintWithRequirements> constr;
     std::vector<LinearConstraintWithRequirements> bounds;
@@ -217,7 +190,15 @@ namespace scheme
 
   void WeightedLeastSquares::addTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
   {
-    auto c = problem.constraintWithRequirements(task);
+    // We add a task that is not in the computation data. We get the constraint from problem.
+    // However this task might have been removed from problem after being added (but before
+    // the computation data have been updated). If this is the case, we skip the addition.
+    auto optc = problem.constraintWithRequirementsNoThrow(task);
+    if (!optc) return;
+
+    // If there is really a task to be added, we need to record the mapping in memory
+    auto c = optc->get();
+    memory->addConstraint(task, c);
     const auto& subs = problem.substitutions();
 
     abilities_.check(c.constraint, c.requirements);
@@ -252,7 +233,13 @@ namespace scheme
 
   void WeightedLeastSquares::removeTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
   {
-    const auto& c = memory->removedConstraint(task);
+    // We need to remove the constraint that was last added for the task.
+    // We get this info from memory. It the task is not present, it's because we
+    // skipped its addition in addTask before, so wee skip the removal as well.
+    auto optc = memory->constraintNoThrow(task);
+    if (!optc) return;
+
+    const auto& c = optc->get();
     const auto& subs = problem.substitutions();
 
     if (subs.uses(c.constraint))
@@ -284,6 +271,7 @@ namespace scheme
         se.removeObjective(c.constraint);
       }
     }
+    memory->removeConstraint(task);
   }
 
   WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)

@@ -132,10 +132,10 @@ namespace abstract
     virtual Range nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
     virtual Range nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
     virtual Range nextObjectiveRange_(const constraint::abstract::LinearConstraint& cstr) const = 0;
-    /** Remove the bounds on variable x from the data passed to the solver (e.g.
-      * set the bounds to -/+Inf).
+    /** Remove the bounds on variable at given range from the data passed to the
+      * solver (e.g. set the bounds to -/+Inf).
       */
-    virtual void removeBounds_(const Variable& x) = 0;
+    virtual void removeBounds_(const Range& range) = 0;
     virtual void updateEqualityTargetData(scheme::internal::AssignmentTarget& target) = 0;
     virtual void updateInequalityTargetData(scheme::internal::AssignmentTarget& target) = 0;
     virtual void updateBoundTargetData(scheme::internal::AssignmentTarget& target) = 0;
