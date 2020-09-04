@@ -23,12 +23,16 @@ namespace scheme
 
   bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
-    if (problem.size())
+    if (problem.size()>problem.substitutions().substitutions().size())
     {
       Memory* memory = dynamic_cast<Memory*>(data);
       return memory->solver->solve();
     }
-    return true;
+    else
+    {
+      problem.variables().setZero();
+      return true;
+    }
   }
 
   void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
