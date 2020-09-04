@@ -216,12 +216,12 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
       pb.variables().value(s);
       f->updateValue();
       Vector2d obj = f->value();
-      FAST_CHECK_UNARY((obj0 - obj).isZero(1e-6));
+      FAST_CHECK_UNARY((obj0 - obj).isZero(5e-5));
     }
   }
 }
 
-void test1Change(const std::array<bool, 12>& selection)
+void test1Change(const std::array<bool, 12>& selection, bool withSubstitution = false)
 {
   Space R2(2);
   VariablePtr x = R2.createVariable("x");
@@ -242,19 +242,27 @@ void test1Change(const std::array<bool, 12>& selection)
   std::make_shared<TaskWithRequirements>(Task{ 0. <= x <= 4.,   None() }, P0),
   std::make_shared<TaskWithRequirements>(Task{ -2. <= x <= 2.,  None() }, P0),
   std::make_shared<TaskWithRequirements>(Task{ x <= 3.,         None() }, P0),
-  std::make_shared<TaskWithRequirements>(Task{ x == 0.,         None() }, P1),
   std::make_shared<TaskWithRequirements>(Task{ y == 0.,         None() }, P1),
-  std::make_shared<TaskWithRequirements>(Task{ z == 0.,         None() }, P1) };
+  std::make_shared<TaskWithRequirements>(Task{ z == 0.,         None() }, P1),
+  std::make_shared<TaskWithRequirements>(Task{ x == 0.,         None() }, P1) };
 
   IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
   IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
   IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
-
-  for (int i = 0; i < 12; ++i)
+  
+  int start = withSubstitution ? 1 : 0;
+  int stop = withSubstitution ? 11 : 12;
+  for (int i = start; i < stop; ++i)
   {
     std::array<bool, 12> added = selection;
+    if (withSubstitution)
+    {
+      added[0] = true;      // We always want the first constraint, for substitution
+      added[11] = false;     // Since x is substituted, we make sure the objective is full rank (due to current limitations of QLD and quadprog)
+    }
     LinearizedControlProblem pb;
     buildPb(pb, tasks, added);
+    if (withSubstitution) pb.add(hint::Substitution(pb.constraint(tasks[0].get()), x));
 
     // We solve pb for the current list of tasks
     IF_USE_LSSOL(solverLssol.solve(pb));
@@ -311,7 +319,7 @@ void test3Change(const std::array<bool, 8>& selection)
   using task_dynamics::None;
   SolvingRequirements P0 = { PriorityLevel(0) };
   SolvingRequirements P1 = { PriorityLevel(1) };
-  // 3 of each: equality, inequality, bound and objective, in that order
+  // 2 of each: equality, inequality, bound and objective, in that order
   std::array<TaskWithRequirementsPtr, 8> tasks = {
   std::make_shared<TaskWithRequirements>(Task{ x + 2 * y == 3., None() }, P0),
   std::make_shared<TaskWithRequirements>(Task{ 3 * x + z == 4., None() }, P0),
@@ -426,6 +434,30 @@ TEST_CASE("Systematic add/remove of one task")
     if (!skip(added))
     {
       test1Change(added);
+    }
+  }
+}
+
+TEST_CASE("Systematic add/remove of one task with substitution")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
+
+  std::array<bool, 12> added = { true, false, false, false, false, false, false, false, false, false, false, false };
+  // all combinations of true/false for added[1..10]
+  for (int i = 1; i < 1024; ++i)
+  {
+    // Take the next value of added
+    for (int j = 1; j < 11; ++j)
+    {
+      added[j] = !added[j];
+      if (added[j]) break;
+    }
+
+    if (!skip(added))
+    {
+      test1Change(added, true);
     }
   }
 }
