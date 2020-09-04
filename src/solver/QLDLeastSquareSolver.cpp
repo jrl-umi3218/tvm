@@ -66,7 +66,7 @@ namespace solver
     if (underspecifiedObj_)
       qld_.problem(n, nEq, nIneq, n + nObj);
     else
-      qld_.problem(n, nEq, nIneq);
+      qld_.problem(n, nEq, nIneq, cholesky_?nObj:n);
     if (cholesky_)
     {
       if (underspecifiedObj_)
