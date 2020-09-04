@@ -20,7 +20,7 @@ namespace solver
   {
     TVM_ADD_NON_DEFAULT_OPTION  (big_number,          constant::big_number)
     TVM_ADD_NON_DEFAULT_OPTION  (cholesky,            false)
-    TVM_ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-7)
+    TVM_ADD_NON_DEFAULT_OPTION  (choleskyDamping,     1e-6)
     TVM_ADD_NON_DEFAULT_OPTION  (damping,             1e-12)
     TVM_ADD_NON_DEFAULT_OPTION  (verbose,             false)
 
