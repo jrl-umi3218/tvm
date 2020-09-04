@@ -26,7 +26,6 @@ namespace tvm::scheme::internal
     , scalarizationWeight_(scalarizationWeight)
     , requirements_(req)
     , substitutedVariables_(substitutions ? substitutions->variables() : VariableVector())
-    , variablesSubstitutedInto_(substitutions ? substitutions->otherVariables() : VariableVector())
     , variableSubstitutions_(substitutions ? substitutions->variableSubstitutions() : std::vector<std::shared_ptr<function::BasicLinearFunction>>())
     , data_(new ReferenceableData())
   {
@@ -553,9 +552,18 @@ namespace tvm::scheme::internal
       addVectorAssignment(f2, v2, flip);
     }
 
-    // For all problem variables not in xc, we set the corresponding matrix block
-    // to zero.
-    for (const auto& x : variablesSubstitutedInto_)
+    // For all variables that are substituted into but are not part of the source variables,
+    // we set the corresponding matrix block to zero.
+    VariableVector substitutedInto;
+    for (const auto& x : xc)
+    {
+      int i = xs.indexOf(*x);
+      if (i >= 0)  // x needs to be subsituted
+      {
+        substitutedInto.add(variableSubstitutions_[static_cast<int>(i)]->variables());
+      }
+    }
+    for (const auto& x : substitutedInto)
     {
       if (!xc.contains(*x))
       {
