@@ -194,7 +194,7 @@ namespace tvm::solver::abstract
     auto impactRemove = processRemovedConstraints(se);
     bool needMappingUpdate = updateVariables(se);
     auto impactAdd = previewAddedConstraints(se);
-    auto impactResize = resize_(nObj_, nEq_, nIneq_, !first_.empty());
+    auto impactResize = resize_(nObj_, nEq_, nIneq_, boundToAssigments_.size()>0 || se.addedBounds().size()>0);
 
     if (needMappingUpdate)
     {
