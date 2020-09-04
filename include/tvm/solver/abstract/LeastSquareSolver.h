@@ -195,10 +195,10 @@ namespace abstract
       * \todo most of the times, there will be a single assignment per constraint.
       * This would be a good place to use small vector-like container.
       */
-    MapToAssignment objectiveToAssigments_;
-    MapToAssignment equalityConstraintToAssigments_;
-    MapToAssignment inequalityConstraintToAssigments_;
-    MapToAssignment boundToAssigments_;
+    MapToAssignment objectiveToAssignments_;
+    MapToAssignment equalityConstraintToAssignments_;
+    MapToAssignment inequalityConstraintToAssignments_;
+    MapToAssignment boundToAssignments_;
     const hint::internal::Substitutions* subs_;
   };
 

@@ -61,10 +61,10 @@ namespace tvm::solver::abstract
       first_[xi.get()] = {};
     }
 
-    objectiveToAssigments_.clear();
-    equalityConstraintToAssigments_.clear();
-    inequalityConstraintToAssigments_.clear();
-    boundToAssigments_.clear();
+    objectiveToAssignments_.clear();
+    equalityConstraintToAssignments_.clear();
+    inequalityConstraintToAssignments_.clear();
+    boundToAssignments_.clear();
     assignments_.clear();
 
     subs_ = subs;
@@ -93,7 +93,7 @@ namespace tvm::solver::abstract
     const auto& xi = bound->variables()[0];
     RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables()));
 
-    AutoMap autoMap(bound, assignments_, boundToAssigments_);
+    AutoMap autoMap(bound, assignments_, boundToAssignments_);
     auto& first = first_[xi.get()];
     addBound_(bound, range, first.empty());
     first.push_back(bound.get());
@@ -105,13 +105,13 @@ namespace tvm::solver::abstract
 
     if (cstr->isEquality())
     {
-      AutoMap autoMap(cstr, assignments_, equalityConstraintToAssigments_);
+      AutoMap autoMap(cstr, assignments_, equalityConstraintToAssignments_);
       addEqualityConstraint_(cstr);
       eqSize_ += constraintSize(*cstr);
     }
     else
     {
-      AutoMap autoMap(cstr, assignments_, inequalityConstraintToAssigments_);
+      AutoMap autoMap(cstr, assignments_, inequalityConstraintToAssignments_);
       addIneqalityConstraint_(cstr);
       ineqSize_ += constraintSize(*cstr);
     }
@@ -126,7 +126,7 @@ namespace tvm::solver::abstract
     {
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
     }
-    AutoMap autoMap(obj, assignments_, objectiveToAssigments_);
+    AutoMap autoMap(obj, assignments_, objectiveToAssignments_);
     addObjective_(obj, req, additionalWeight);
     objSize_ += obj->size();
   }
@@ -194,7 +194,7 @@ namespace tvm::solver::abstract
     auto impactRemove = processRemovedConstraints(se);
     bool needMappingUpdate = updateVariables(se);
     auto impactAdd = previewAddedConstraints(se);
-    auto impactResize = resize_(nObj_, nEq_, nIneq_, boundToAssigments_.size()>0 || se.addedBounds().size()>0);
+    auto impactResize = resize_(nObj_, nEq_, nIneq_, boundToAssignments_.size()>0 || se.addedBounds().size()>0);
 
     if (needMappingUpdate)
     {
@@ -224,26 +224,26 @@ namespace tvm::solver::abstract
     if (impact.objectives_) objSize_ = 0;
 
     if (impact.equalityConstraints_)
-      updateTargetRange(equalityConstraintToAssigments_,
+      updateTargetRange(equalityConstraintToAssignments_,
                         eqSize_,
                         [&](const auto& c) { return nextEqualityConstraintRange_(c); },
                         [&](const auto& c) { return constraintSize(c); });
 
     if (impact.inequalityConstraints_)
-      updateTargetRange(inequalityConstraintToAssigments_,
+      updateTargetRange(inequalityConstraintToAssignments_,
                         ineqSize_,
                         [&](const auto& c) { return nextInequalityConstraintRange_(c); },
                         [&](const auto& c) { return constraintSize(c); });
 
     int dummy;
     if (impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
-      updateTargetRange(boundToAssigments_, 
+      updateTargetRange(boundToAssignments_, 
                         dummy, 
                         [&](const auto& b) { return b.variables()[0]->getMappingIn(variables()); },
                         [](const auto& b) { return 0; });
 
     if (impact.objectives_)
-      updateTargetRange(objectiveToAssigments_,
+      updateTargetRange(objectiveToAssignments_,
                         objSize_,
                         [&](const auto& c) { return nextObjectiveRange_(c); },
                         [&](const auto& c) { return c.size(); });
@@ -261,16 +261,16 @@ namespace tvm::solver::abstract
     impact.orAssign(impactResize); // There are case where no resize are necessary (e.g. a constraint was removed and
     applyImpactLogic(impact);      // another added with same size) but the target need to change. 
     if (impact.equalityConstraints_)
-      updateTargetData(equalityConstraintToAssigments_, [&](auto& target) { updateEqualityTargetData(target); });
+      updateTargetData(equalityConstraintToAssignments_, [&](auto& target) { updateEqualityTargetData(target); });
 
     if (impact.inequalityConstraints_)
-      updateTargetData(inequalityConstraintToAssigments_, [&](auto& target) { updateInequalityTargetData(target); });
+      updateTargetData(inequalityConstraintToAssignments_, [&](auto& target) { updateInequalityTargetData(target); });
 
     if (impact.bounds_)
-      updateTargetData(boundToAssigments_, [&](auto& target) { updateBoundTargetData(target); });
+      updateTargetData(boundToAssignments_, [&](auto& target) { updateBoundTargetData(target); });
 
     if (impact.objectives_)
-      updateTargetData(objectiveToAssigments_, [&](auto& target) { updateObjectiveTargetData(target); });
+      updateTargetData(objectiveToAssignments_, [&](auto& target) { updateObjectiveTargetData(target); });
 
     // Final update of the impacted mappings
     if (needMappingUpdate)
@@ -289,10 +289,10 @@ namespace tvm::solver::abstract
         }
       };
 
-      if (impact.equalityConstraints_) updateMapping(equalityConstraintToAssigments_);
-      if (impact.inequalityConstraints_) updateMapping(inequalityConstraintToAssigments_);
-      if (impact.bounds_) updateMapping(boundToAssigments_);
-      if (impact.objectives_) updateMapping(objectiveToAssigments_);
+      if (impact.equalityConstraints_) updateMapping(equalityConstraintToAssignments_);
+      if (impact.inequalityConstraints_) updateMapping(inequalityConstraintToAssignments_);
+      if (impact.bounds_) updateMapping(boundToAssignments_);
+      if (impact.objectives_) updateMapping(objectiveToAssignments_);
     }
 
     processAddedConstraints(se);
@@ -310,8 +310,8 @@ namespace tvm::solver::abstract
       // of weight arise before processing added constraints - if we'd process the weight after, we
       // could have change of weight on removed constraints). Therefore we need to ignore constraints
       // that were not found in the map.
-      auto it = objectiveToAssigments_.find(c);
-      if (it == objectiveToAssigments_.end()) continue;
+      auto it = objectiveToAssignments_.find(c);
+      if (it == objectiveToAssignments_.end()) continue;
       auto& assignments = it->second;
 
       for (auto& a : assignments)
@@ -350,28 +350,28 @@ namespace tvm::solver::abstract
       if (c->isEquality())
       {
         nEq_ -= constraintSize(*c);
-        const auto& assignments = equalityConstraintToAssigments_[c.get()];
+        const auto& assignments = equalityConstraintToAssignments_[c.get()];
         for (auto& a : assignments)
           a->markedForRemoval = true;
-        equalityConstraintToAssigments_.erase(c.get());
+        equalityConstraintToAssignments_.erase(c.get());
       }
       else
       {
         nIneq_ -= constraintSize(*c);
-        const auto& assignments = inequalityConstraintToAssigments_[c.get()];
+        const auto& assignments = inequalityConstraintToAssignments_[c.get()];
         for (auto& a : assignments)
           a->markedForRemoval = true;
-        inequalityConstraintToAssigments_.erase(c.get());
+        inequalityConstraintToAssignments_.erase(c.get());
       }
     }
 
     for (const auto& o : se.removedObjectives())
     {
       nObj_ -= o->size();
-      const auto& assignments = objectiveToAssigments_[o.get()];
+      const auto& assignments = objectiveToAssignments_[o.get()];
       for (auto& a : assignments)
         a->markedForRemoval = true;
-      objectiveToAssigments_.erase(o.get());
+      objectiveToAssignments_.erase(o.get());
     }
 
     for (const auto& b : se.removedBounds())
@@ -386,7 +386,7 @@ namespace tvm::solver::abstract
         if (first.size() == 1)
         {
           // There will be no more bounds on xb.
-          auto& boundAssignment = boundToAssigments_[b.get()];
+          auto& boundAssignment = boundToAssignments_[b.get()];
           assert(boundAssignment.size() == 1);
           // We retrieve the range on the bounds from the assignment because the variable
           // mapping may have changed already but the assignment were not.
@@ -396,7 +396,7 @@ namespace tvm::solver::abstract
         {
           // We make the next bound constraint as first.
           auto nextBound = first[1];
-          auto& nextBoundAssignments = boundToAssigments_[nextBound];
+          auto& nextBoundAssignments = boundToAssignments_[nextBound];
           for (auto& a : nextBoundAssignments)
             a->assignment = tvm::scheme::internal::Assignment::reprocess(a->assignment, b->variables()[0], true);
         }
@@ -408,10 +408,10 @@ namespace tvm::solver::abstract
         first.erase(it);
       }
 
-      const auto& assignments = boundToAssigments_[b.get()];
+      const auto& assignments = boundToAssignments_[b.get()];
       for (auto& a : assignments)
         a->markedForRemoval = true;
-      boundToAssigments_.erase(b.get());
+      boundToAssignments_.erase(b.get());
     }
 
     //clear assignements
