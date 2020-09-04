@@ -100,6 +100,8 @@ namespace tvm
     const Eigen::VectorXd& value() const;
     /** Set the value of the variable.*/
     void value(const VectorConstRef& x);
+    /** Set the value of the variable to 0*/
+    void setZero();
     /** If this variable is a base primitive (i.e. built from a space), return 0.
       * Otherwise, return the number of time a base primitive variable had to be
       * derived to get to this variable.

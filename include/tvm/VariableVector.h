@@ -142,7 +142,8 @@ namespace tvm
       * the variables as given by variables().
       */
     void value(const VectorConstRef& val);
-
+    /** Set the value of all variables to 0.*/
+    void setZero();
     /** Compute the mapping for all variables in this vector. The result is
       * stored in each variable and can be queried by Variable::getMappingIn.
       */

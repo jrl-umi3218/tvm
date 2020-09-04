@@ -150,6 +150,14 @@ namespace tvm
     }
   }
 
+  void VariableVector::setZero()
+  {
+    for (auto& v : variables_)
+    {
+      v->setZero();
+    }
+  }
+
   void VariableVector::computeMapping() const
   {
     int size = 0;
