@@ -414,6 +414,7 @@ void test3Change(const std::array<bool, 8>& selection)
 }
 
 
+#ifdef TVM_THOROUGH_TESTING
 TEST_CASE("Systematic add/remove of one task")
 {
   // This test is creating a large number of problems, leading to a large log.
@@ -437,7 +438,38 @@ TEST_CASE("Systematic add/remove of one task")
     }
   }
 }
+#else
+TEST_CASE("Some add/remove of one task")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
 
+  std::vector<std::array<bool, 12>> added = {
+  { true, true, false, false, false, false, false, false, false, false, false, false },
+  { true, true, false, true, false, false, false, false, false, false, false, false },
+  { true, true, false, false, false, false, true, false, false, false, false, false },
+  { true, true, false, false, false, false, false, false, false, true, false, false },
+  { false, false, false, true, true, false, false, false, false, false, false, false },
+  { true, false, false, true, true, false, false, false, false, false, false, false },
+  { false, false, false, true, true, false, true, false, false, false, false, false },
+  { false, false, false, true, true, false, false, false, false, true, false, false },
+  { false, false, false, false, false, false, true, true, false, false, false, false },
+  { true, false, false, false, false, false, true, true, false, false, false, false },
+  { false, false, false, true, false, false, true, true, false, false, false, false },
+  { false, false, false, false, false, false, true, true, false, true, false, false },
+  { false, false, false, false, false, false, false, false, false, true, true, false },
+  { true, false, false, false, false, false, false, false, false, true, true, false },
+  { false, false, false, true, false, false, false, false, false, true, true, false },
+  { false, false, false, false, false, false, true, false, false, true, true, false }};
+  for (size_t i = 0; i<added.size(); ++i)
+  {
+    test1Change(added[i]);
+  }
+}
+#endif
+
+#ifdef TVM_THOROUGH_TESTING
 TEST_CASE("Systematic add/remove of one task with substitution")
 {
   // This test is creating a large number of problems, leading to a large log.
@@ -461,7 +493,35 @@ TEST_CASE("Systematic add/remove of one task with substitution")
     }
   }
 }
+#else
+TEST_CASE("Some add/remove of one task with substitution")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
 
+  std::vector<std::array<bool, 12>> added = {
+  { true, true, false, false, false, false, false, false, false, false, false, false },
+  { true, true, false, true, false, false, false, false, false, false, false, false },
+  { true, true, false, false, false, false, true, false, false, false, false, false },
+  { true, true, false, false, false, false, false, false, false, true, false, false },
+  { true, false, false, true, true, false, false, false, false, false, false, false },
+  { true, false, false, true, true, false, true, false, false, false, false, false },
+  { true, false, false, true, true, false, false, false, false, true, false, false },
+  { true, false, false, false, false, false, true, true, false, false, false, false },
+  { true, false, false, true, false, false, true, true, false, false, false, false },
+  { true, false, false, false, false, false, true, true, false, true, false, false },
+  { true, false, false, false, false, false, false, false, false, true, true, false },
+  { true, false, false, true, false, false, false, false, false, true, true, false },
+  { true, false, false, false, false, false, true, false, false, true, true, false } };
+  for (size_t i = 0; i < added.size(); ++i)
+  {
+    test1Change(added[i], true);
+  }
+}
+#endif
+
+#ifdef TVM_THOROUGH_TESTING
 TEST_CASE("Systematic add/remove of three tasks")
 {
   // This test is creating a large number of problems, leading to a large log.
@@ -485,3 +545,21 @@ TEST_CASE("Systematic add/remove of three tasks")
     }
   }
 }
+#else
+TEST_CASE("Some add/remove of three tasks")
+{
+  // This test is creating a large number of problems, leading to a large log.
+  // So we disable the logs here.
+  tvm::graph::internal::Logger::logger().disable();
+
+  std::vector<std::array<bool, 8>> added = {
+  { true, true, false, false, false, false, false, false},
+  { false, false, true, true, false, false, false, false},
+  { false, false, false, false, true, true, false, false},
+  { false, false, false, false, false, false, true, true} };
+  for (size_t i = 0; i < added.size(); ++i)
+  {
+    test3Change(added[i]);
+  }
+}
+#endif
