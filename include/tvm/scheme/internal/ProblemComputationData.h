@@ -32,13 +32,20 @@ namespace tvm::scheme::internal
       * effectively added. The class counts how many time a variable was added.
       */
     bool addVariable(VariablePtr var);
+    /** Add a set of variables, calling addVariable(VariablePtr var) on each
+      * variable.
+      */
     void addVariable(const VariableVector& vars);
     /** Effectively remove a variable if as many calls were made to this method
       * as to addVariable, for the given variable. Return true if the variable
       * was really removed.
       */
     bool removeVariable(Variable* v);
+    /** Remove a set of variables, calling removeVariable(Variable* v) on each
+      * variable.
+      */
     void removeVariable(const VariableVector& vars);
+    /** Get the variables of the problem.*/
     const VariableVector& variables() const;
 
     /** Set the value of the variables to that of the solution. */
@@ -80,7 +87,7 @@ namespace tvm::scheme::internal
   inline bool ProblemComputationData::addVariable(VariablePtr var)
   {
     assert(x_.numberOfVariables() == varCount_.size());
-    size_t i = x_.addAndGetIndex(var);
+    int i = x_.addAndGetIndex(var);
     if (i >= varCount_.size())
     {
       varCount_.push_back(1);

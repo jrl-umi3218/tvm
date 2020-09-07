@@ -187,8 +187,8 @@ namespace abstract
     bool buildInProgress_;
     bool verbose_;
     VariableVector const* variables_;
-    /** Used to track if this is the first time bounds are applied to a given variable. */
-    map<Variable*, std::vector<constraint::abstract::LinearConstraint*>> first_;
+    /** Used to track what is the first bound applied to a given variable, if any. */
+    map<Variable*, std::vector<constraint::abstract::LinearConstraint*>> boundsOrder_;
     /** List of assignments used for assembling the problem data. */
     AssignmentVector assignments_;
     /** Keeping tracks of which assignments are associated to a constraint.

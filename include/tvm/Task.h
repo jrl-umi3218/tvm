@@ -39,7 +39,7 @@ namespace tvm
     std::shared_ptr<TDImpl> taskDynamics() const;
 
     template<typename T, typename TDImpl = typename T::Impl>
-    std::shared_ptr<typename T::Impl> secondBoundTaskDynamics() const;
+    std::shared_ptr<TDImpl> secondBoundTaskDynamics() const;
 
   private:
     FunctionPtr f_;
@@ -59,7 +59,7 @@ namespace tvm
   }
 
   template<typename T, typename TDImpl>
-  std::shared_ptr<typename T::Impl> Task::secondBoundTaskDynamics() const
+  std::shared_ptr<TDImpl> Task::secondBoundTaskDynamics() const
   {
     if (td2_->checkType<TDImpl>())
       return std::static_pointer_cast<TDImpl>(td2_);

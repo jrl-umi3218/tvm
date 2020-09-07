@@ -55,10 +55,10 @@ namespace tvm::solver::abstract
 
     buildInProgress_ = true;
     variables_ = &x;
-    first_.clear();
+    boundsOrder_.clear();
     for (const auto& xi : variables())
     {
-      first_[xi.get()] = {};
+      boundsOrder_[xi.get()] = {};
     }
 
     objectiveToAssignments_.clear();
@@ -94,7 +94,7 @@ namespace tvm::solver::abstract
     RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables()));
 
     AutoMap autoMap(bound, assignments_, boundToAssignments_);
-    auto& first = first_[xi.get()];
+    auto& first = boundsOrder_[xi.get()];
     addBound_(bound, range, first.empty());
     first.push_back(bound.get());
   }
@@ -334,11 +334,11 @@ namespace tvm::solver::abstract
   {
     for (const auto& v : se.removedVariables())
     {
-      first_.erase(v.get());
+      boundsOrder_.erase(v.get());
     }
     for (const auto& v : se.addedVariables())
     {
-      first_[v.get()] = {};
+      boundsOrder_[v.get()] = {};
     }
     return (!(se.removedVariables().empty() && se.addedVariables().empty())) || se.hasHiddenVariableChange();
   }
@@ -377,8 +377,8 @@ namespace tvm::solver::abstract
     for (const auto& b : se.removedBounds())
     {
       Variable* xb = b->variables()[0].get();
-      assert(first_.find(xb) != first_.end());
-      auto& first = first_[xb];
+      assert(boundsOrder_.find(xb) != boundsOrder_.end());
+      auto& first = boundsOrder_[xb];
       if (first[0] == b.get() && variables().contains(*xb))
       {
         // We need to remove the bound that appears first, and the associated variable

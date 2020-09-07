@@ -58,8 +58,9 @@ namespace internal
 
   void Logger::addGraphOutput(CallGraph* g, Inputs* node)
   {
-    if (!disabled_)
-      log_.graphOutputs_[g].push_back(node);
+    if (disabled_) return;
+
+    log_.graphOutputs_[g].push_back(node);
   }
 
 

@@ -112,14 +112,17 @@ namespace tvm
 
     /** Remove a variable from the vector, if present.
       *
-      * \param v the variable to be removed
+      * \param v the variable to be removed.
       *
-      * \returns True if the variable was removed, false otherwise
+      * \returns True if the variable was removed, false otherwise.
       */
     bool remove(const Variable& v);
-    /** Remove the variable with the given index
+    /** Remove the variable with the given index.
       *
-      * \param i Index of the variable to be removed
+      * \param i Index of the variable to be removed.
+      *
+      * \throws std::out_of_range if i is smaller than 0 or greater than the
+      * number of variables.
       */
     void remove(int i);
 

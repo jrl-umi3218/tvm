@@ -28,7 +28,14 @@ namespace tvm::scheme::internal
     Range colRange;
     MatrixFunction getTargetMatrix;
 
+    /** Effectively update the output matrix of the underlying compiled assignment. */
     void updateTarget(const AssignmentTarget& target);
+    /** Update the the column mapping of this assignment, based on the new variable
+      * layout specified by \p newVar.
+      * If \c updateMatrixTarget is \c true, the output matrix is effectively
+      * updated (if not, only \c colRange is changed, but the change is not
+      * reflected in the actual compiled assignment).
+      */
     void updateMapping(const VariableVector& newVar, const AssignmentTarget& target, bool updateMatrixTarget);
   };
 
@@ -49,8 +56,8 @@ namespace tvm::scheme::internal
       : assignment(a), getTargetVector(getTarget)
     {}
 
-    CompiledAssignmentWrapper<Eigen::VectorXd> assignment;
-    VectorFunction getTargetVector;
+    CompiledAssignmentWrapper<Eigen::VectorXd> assignment; // The underlying assignment
+    VectorFunction getTargetVector;                        // The way to retrieve the target vector part
   };
 
   /** A structure grouping a vector assignment and some of the elements that
@@ -69,8 +76,8 @@ namespace tvm::scheme::internal
       : VectorSubstitutionAssignement(a, getTarget), useSource(useSource), getSourceVector(getSource)
     {}
 
-    bool useSource;
-    RHSFunction getSourceVector;
+    bool useSource;               // Whether or not this assignment uses a source
+    RHSFunction getSourceVector;  // The way to retrieve the source vector.
   };
 }
 

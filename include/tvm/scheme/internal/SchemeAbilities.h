@@ -20,14 +20,29 @@ namespace scheme
 namespace internal
 {
 
+  /** Used to describe any level that is not explicitly specified.*/
   inline constexpr int GeneralLevel = -1;
+  /** Used to specify that a scheme can handle an unlimited number of levels.*/
   inline constexpr int NoLimit = GeneralLevel;
 
+  /** A class to describe what type of constraint and solving requirements a
+    * level of a resolution scheme can handle.
+    */
   class TVM_DLLAPI LevelAbilities
   {
   public:
+    /** \param inequality True if the level is able to handle inequality
+      * constraints.
+      * \param types The types of violation evaluation that can be handled at
+      * this level.
+      */
     LevelAbilities(bool inequality, const std::vector<requirements::ViolationEvaluationType>& types);
 
+    /** Check that the given constraint \c and requirements \req can be handled
+      * by this level.
+      *
+      * \throws std::runtime_error if the level cannot handled them.
+      */
     template<class RequirementsPtr>
     void check(const ConstraintPtr& c, const RequirementsPtr& req, bool emitWarnings = true) const;
 
@@ -43,8 +58,26 @@ namespace internal
   class TVM_DLLAPI SchemeAbilities
   {
   public:
+    /** \param numberOfLevels The number of levels that the scheme can handle. 
+      * Use \c NoLimit to indicate an unlimited number of levels.
+      * \param abilies The association of a level number and the LevelAbilities
+      * of that level. Use \c GeneralLevel to specify all levels that do not
+      * appear explicitly in the map.
+      * \param scalarization Specify is this scheme can use weights to approximate
+      * priority.
+      *
+      * \note \p numberOfLevels should be the number of levels the scheme can
+      * handle without scalarization. Scalarization is an artificial way to add
+      * levels. For example, a QP-based scheme should declare 2 levels, even if
+      * scalarization will make it possible to emulate a few more.
+      */
     SchemeAbilities(int numberOfLevels, const std::map<int, LevelAbilities>& abilities, bool scalarization=false);
 
+    /** Check that the given constraint \c and requirements \req can be handled
+      * by this scheme.
+      *
+      * \throws std::runtime_error if the scheme cannot handled them.
+      */
     template<class RequirementsPtr>
     void check(const ConstraintPtr& c, const RequirementsPtr& req, bool emitWarnings = true) const;
 

@@ -19,6 +19,9 @@ namespace tvm::scheme::internal
   class LinearizedProblemComputationData : public ProblemComputationData
   {
   public:
+    /** Add a constraint \c c and the task \c tr it is derived from so as to keep
+      * the mapping \c tr -> \c c
+      */
     void addConstraint(TaskWithRequirements* tr, const LinearConstraintWithRequirements& c)
     {
       assert(task2Constraint_.find(tr) == task2Constraint_.end());
@@ -31,6 +34,7 @@ namespace tvm::scheme::internal
       task2Constraint_.erase(tr);
     }
 
+    /** Add a mapping task -> constraint.*/
     void addConstraints(const tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements>& map)
     {
       task2Constraint_.insert(map.begin(), map.end());
@@ -42,7 +46,7 @@ namespace tvm::scheme::internal
       return task2Constraint_.at(tr);
     }
 
-
+    /** Access the constraint corresponding to \p tr, and return it as a std::optional.*/
     std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintNoThrow(TaskWithRequirements* tr) const
     {
       auto it = task2Constraint_.find(tr);
@@ -53,6 +57,7 @@ namespace tvm::scheme::internal
     }
 
   protected:
+    /** Constructor, using the id of the solver.*/
     LinearizedProblemComputationData(int solverId) : ProblemComputationData(solverId) {}
 
   private:

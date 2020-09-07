@@ -25,7 +25,7 @@ namespace scheme
   {
     if (problem.size()>problem.substitutions().substitutions().size())
     {
-      Memory* memory = dynamic_cast<Memory*>(data);
+      Memory* memory = static_cast<Memory*>(data);
       return memory->solver->solve();
     }
     else
@@ -41,7 +41,7 @@ namespace scheme
 
     if (data->hasEvents())
     {
-      Memory* memory = dynamic_cast<Memory*>(data);
+      Memory* memory = static_cast<Memory*>(data);
 
       while (memory->hasEvents())
       {
@@ -217,7 +217,7 @@ namespace scheme
     }
 
     int p = task->requirements.priorityLevel().value();
-    if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
+    if ((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
     {
       se.addBound(c.constraint);
     }
@@ -260,7 +260,7 @@ namespace scheme
     }
 
     int p = task->requirements.priorityLevel().value();
-    if (canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
+    if ((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
     {
       se.removeBound(c.constraint);
     }
