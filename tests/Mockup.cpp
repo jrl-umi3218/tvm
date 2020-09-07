@@ -3,13 +3,14 @@
 #include "Mockup.h"
 #include <string>
 
-RobotMockup::RobotMockup()
-: k(0), v(0), d(0), a(0)
+RobotMockup::RobotMockup() : k(0), v(0), d(0), a(0)
 {
+  // clang-format off
   registerUpdates(Update::Kinematics, &RobotMockup::updateK,
                   Update::Velocity, &RobotMockup::updateV,
                   Update::Dynamics, &RobotMockup::updateD,
                   Update::Acceleration, &RobotMockup::updateA);
+  // clang-format on
 
   addOutputDependency({Output::K1, Output::K2, Output::K3}, Update::Kinematics);
   addOutputDependency({Output::V1, Output::V2}, Update::Velocity);
@@ -21,18 +22,19 @@ RobotMockup::RobotMockup()
   addInternalDependency(Update::Acceleration, Update::Velocity);
 }
 
-
 FunctionMockup::FunctionMockup()
 {
+  // clang-format off
   registerUpdates(Update::Value, &FunctionMockup::updateValue,
                   Update::Velocity, &FunctionMockup::updateVelocity,
                   Update::JDot, &FunctionMockup::updateJDot);
+  // clang-format on
 }
 
-RobotFunction::RobotFunction(std::shared_ptr<RobotMockup> robot)
-: robot_(robot)
+RobotFunction::RobotFunction(std::shared_ptr<RobotMockup> robot) : robot_(robot)
 {
-  addInput(robot, RobotMockup::Output::K1, RobotMockup::Output::K2, RobotMockup::Output::K3, RobotMockup::Output::V1, RobotMockup::Output::V2, RobotMockup::Output::D1, RobotMockup::Output::D2);
+  addInput(robot, RobotMockup::Output::K1, RobotMockup::Output::K2, RobotMockup::Output::K3, RobotMockup::Output::V1,
+           RobotMockup::Output::V2, RobotMockup::Output::D1, RobotMockup::Output::D2);
 
   addInternalDependency(Update::Velocity, Update::Value);
   addInternalDependency(Update::JDot, Update::Velocity);
@@ -42,8 +44,7 @@ RobotFunction::RobotFunction(std::shared_ptr<RobotMockup> robot)
   addInputDependency(Update::JDot, robot_, RobotMockup::Output::V1, RobotMockup::Output::V2);
 }
 
-SomeRobotFunction1::SomeRobotFunction1(std::shared_ptr<RobotMockup> robot)
-: RobotFunction(robot)
+SomeRobotFunction1::SomeRobotFunction1(std::shared_ptr<RobotMockup> robot) : RobotFunction(robot)
 {
   addOutputDependency(Output::Value, Update::Value);
   addOutputDependency(Output::Jacobian, Update::Velocity);
@@ -62,16 +63,15 @@ void SomeRobotFunction1::updateVelocity()
   std::cout << "update SomeRobotFunction1::Velocity" << std::endl;
   j = (int)robot_->getV1();
   vel = (int)robot_->getV2();
-  na = (int)robot_->getK3()*(int)robot_->getV1();
+  na = (int)robot_->getK3() * (int)robot_->getV1();
 }
 void SomeRobotFunction1::updateJDot()
 {
   std::cout << "update SomeRobotFunction1::JDot" << std::endl;
-  jdot = (int)robot_->getK3()*(int)robot_->getV1() + (int)robot_->getV2();
+  jdot = (int)robot_->getK3() * (int)robot_->getV1() + (int)robot_->getV2();
 }
 
-SomeRobotFunction2::SomeRobotFunction2(std::shared_ptr<RobotMockup> robot)
-: RobotFunction(robot)
+SomeRobotFunction2::SomeRobotFunction2(std::shared_ptr<RobotMockup> robot) : RobotFunction(robot)
 {
   addOutputDependency(Output::Value, Update::Value);
   addOutputDependency(Output::Jacobian, Update::Velocity);
@@ -88,16 +88,14 @@ void SomeRobotFunction2::updateVelocity()
   std::cout << "update SomeRobotFunction2::Velocity" << std::endl;
 }
 
-BadRobotFunction::BadRobotFunction(std::shared_ptr<RobotMockup> robot)
-: RobotFunction(robot)
+BadRobotFunction::BadRobotFunction(std::shared_ptr<RobotMockup> robot) : RobotFunction(robot)
 {
   addOutputDependency(Output::Value, Update::Value);
   addOutputDependency(Output::Jacobian, Update::Velocity);
-  addInternalDependency(Update::Velocity, Update::JDot); //BAAAAAD
+  addInternalDependency(Update::Velocity, Update::JDot); // BAAAAAD
 }
 
-LinearConstraint::LinearConstraint(const std::string& name)
-: name_(name)
+LinearConstraint::LinearConstraint(const std::string & name) : name_(name)
 {
   registerUpdates(Update::Matrices, &LinearConstraint::updateMatrices);
 
@@ -106,23 +104,17 @@ LinearConstraint::LinearConstraint(const std::string& name)
 
 Dummy<int(LinearConstraint::Output::Value)> LinearConstraint::value(int x) const
 {
-  //obviously, in real setting we would depend from a variable and take its value
-  return A_*x + b_;
+  // obviously, in real setting we would depend from a variable and take its value
+  return A_ * x + b_;
 }
 
-Dummy<int(LinearConstraint::Output::A)> LinearConstraint::A() const
-{
-  return A_;
-}
+Dummy<int(LinearConstraint::Output::A)> LinearConstraint::A() const { return A_; }
 
-Dummy<int(LinearConstraint::Output::b)> LinearConstraint::b() const
-{
-  return b_;
-}
+Dummy<int(LinearConstraint::Output::b)> LinearConstraint::b() const { return b_; }
 
-KinematicLinearizedConstraint::KinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
-  : LinearConstraint(name)
-  , function_(function)
+KinematicLinearizedConstraint::KinematicLinearizedConstraint(const std::string & name,
+                                                             std::shared_ptr<FunctionMockup> function)
+: LinearConstraint(name), function_(function)
 {
   addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
   addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
@@ -135,19 +127,15 @@ void KinematicLinearizedConstraint::updateMatrices()
   std::cout << "update KinematicLinearizedConstraint::updateMatrices" << std::endl;
 }
 
-DynamicLinearizedConstraint::DynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
-  : LinearConstraint(name)
-  , function_(function)
+DynamicLinearizedConstraint::DynamicLinearizedConstraint(const std::string & name,
+                                                         std::shared_ptr<FunctionMockup> function)
+: LinearConstraint(name), function_(function)
 {
-  addInput(function, FunctionMockup::Output::Value,
-                     FunctionMockup::Output::Jacobian,
-                     FunctionMockup::Output::Velocity,
-                     FunctionMockup::Output::NormalAcceleration);
+  addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian, FunctionMockup::Output::Velocity,
+           FunctionMockup::Output::NormalAcceleration);
 
-  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value,
-                                                  FunctionMockup::Output::Jacobian,
-                                                  FunctionMockup::Output::Velocity,
-                                                  FunctionMockup::Output::NormalAcceleration);
+  addInputDependency(Update::Matrices, function_, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian,
+                     FunctionMockup::Output::Velocity, FunctionMockup::Output::NormalAcceleration);
 }
 
 void DynamicLinearizedConstraint::updateMatrices()
@@ -157,9 +145,8 @@ void DynamicLinearizedConstraint::updateMatrices()
   std::cout << "update DynamicLinearizedConstraint::updateMatrices" << std::endl;
 }
 
-DynamicEquation::DynamicEquation(const std::string& name, std::shared_ptr<RobotMockup> robot)
-  : LinearConstraint(name)
-  , robot_(robot)
+DynamicEquation::DynamicEquation(const std::string & name, std::shared_ptr<RobotMockup> robot)
+: LinearConstraint(name), robot_(robot)
 {
   addInput(robot, RobotMockup::Output::D1, RobotMockup::Output::D2);
 
@@ -173,30 +160,21 @@ void DynamicEquation::updateMatrices()
   std::cout << "update DynamicEquation::updateMatrices" << std::endl;
 }
 
-BetterLinearConstraint::BetterLinearConstraint(const std::string& name)
-  : name_(name)
-{
-}
+BetterLinearConstraint::BetterLinearConstraint(const std::string & name) : name_(name) {}
 
 Dummy<int(BetterLinearConstraint::Output::Value)> BetterLinearConstraint::value(int x) const
 {
-  //obviously, in real setting we would depend from a variable and take its value
-  return A_*x + b_;
+  // obviously, in real setting we would depend from a variable and take its value
+  return A_ * x + b_;
 }
 
-Dummy<int(BetterLinearConstraint::Output::A)> BetterLinearConstraint::A() const
-{
-  return A_;
-}
+Dummy<int(BetterLinearConstraint::Output::A)> BetterLinearConstraint::A() const { return A_; }
 
-Dummy<int(BetterLinearConstraint::Output::b)> BetterLinearConstraint::b() const
-{
-  return b_;
-}
+Dummy<int(BetterLinearConstraint::Output::b)> BetterLinearConstraint::b() const { return b_; }
 
-BetterKinematicLinearizedConstraint::BetterKinematicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
-  : BetterLinearConstraint(name)
-  , function_(function)
+BetterKinematicLinearizedConstraint::BetterKinematicLinearizedConstraint(const std::string & name,
+                                                                         std::shared_ptr<FunctionMockup> function)
+: BetterLinearConstraint(name), function_(function)
 {
   addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian);
   addDirectDependency(Output::A, function, FunctionMockup::Output::Jacobian);
@@ -213,20 +191,16 @@ Dummy<int(BetterLinearConstraint::Output::A)> BetterKinematicLinearizedConstrain
   return static_cast<int>(function_->jacobian());
 }
 
-BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::string& name, std::shared_ptr<FunctionMockup> function)
-  : BetterLinearConstraint(name)
-  , function_(function)
+BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::string & name,
+                                                                     std::shared_ptr<FunctionMockup> function)
+: BetterLinearConstraint(name), function_(function)
 {
   registerUpdates(Update::Updateb, &BetterDynamicLinearizedConstraint::updateb);
 
-
-  addInput(function, FunctionMockup::Output::Value,
-           FunctionMockup::Output::Jacobian,
-           FunctionMockup::Output::Velocity,
+  addInput(function, FunctionMockup::Output::Value, FunctionMockup::Output::Jacobian, FunctionMockup::Output::Velocity,
            FunctionMockup::Output::NormalAcceleration);
 
-  addInputDependency<BetterDynamicLinearizedConstraint>(Update::Updateb, function_,
-                                                        FunctionMockup::Output::Value,
+  addInputDependency<BetterDynamicLinearizedConstraint>(Update::Updateb, function_, FunctionMockup::Output::Value,
                                                         FunctionMockup::Output::Velocity,
                                                         FunctionMockup::Output::NormalAcceleration);
 
@@ -244,4 +218,3 @@ void BetterDynamicLinearizedConstraint::updateb()
   b_ = function_->value() + function_->velocity() + function_->normalAcc();
   std::cout << "update BetterDynamicLinearizedConstraint::updateb" << std::endl;
 }
-

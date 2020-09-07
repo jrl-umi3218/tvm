@@ -45,10 +45,7 @@ struct AnotherOutput : public tvm::graph::abstract::Outputs
 
 struct TestInputs : public tvm::graph::internal::Inputs
 {
-  TestInputs(std::shared_ptr<Derived> s)
-  {
-    addInput(s, Derived::Output::O0, Derived::Output::O1);
-  }
+  TestInputs(std::shared_ptr<Derived> s) { addInput(s, Derived::Output::O0, Derived::Output::O1); }
 };
 
 struct Robot : public tvm::graph::abstract::Node<Robot>
@@ -58,8 +55,10 @@ struct Robot : public tvm::graph::abstract::Node<Robot>
 
   Robot()
   {
+    // clang-format off
     registerUpdates(Update::Kinematics, &Robot::updateKinematics,
                     Update::Velocity, &Robot::updateVelocity);
+    // clang-format on
 
     addOutputDependency(Output::K1, Update::Kinematics);
     addOutputDependency(Output::K2, Update::Kinematics);
@@ -70,15 +69,9 @@ struct Robot : public tvm::graph::abstract::Node<Robot>
     addInternalDependency(Update::Velocity, Update::Kinematics);
   }
 
-  virtual void updateKinematics()
-  {
-    k = k.transpose();
-  }
+  virtual void updateKinematics() { k = k.transpose(); }
 
-  virtual void updateVelocity()
-  {
-    v = v*v;
-  }
+  virtual void updateVelocity() { v = v * v; }
 
   Eigen::Matrix3d k = Eigen::Matrix3d::Random();
   Eigen::Matrix3d v = Eigen::Matrix3d::Random();
@@ -99,15 +92,9 @@ struct Robot2 : public Robot
     addInternalDependency<Robot2>(Update::Dynamics, Robot::Update::Velocity);
   }
 
-  void updateKinematics() override
-  {
-    k = k*k;
-  }
+  void updateKinematics() override { k = k * k; }
 
-  virtual void updateDynamics()
-  {
-    d = d*d;
-  }
+  virtual void updateDynamics() { d = d * d; }
 
   Eigen::Matrix3d d = Eigen::Matrix3d::Random();
 };
@@ -124,7 +111,9 @@ void compile_check()
   static_assert(Derived4::OutputSize == 9, "");
   static_assert(tvm::graph::abstract::is_valid_output<Derived3>(Derived::Output::O2), "");
   static_assert(!tvm::graph::abstract::is_valid_output<Derived3>(AnotherOutput::Output::O1), "");
-  static_assert(tvm::graph::abstract::is_valid_output<Derived4>(Derived4::Output::O8, Derived2::Output::O3, Derived::Output::O0), "");
+  static_assert(
+      tvm::graph::abstract::is_valid_output<Derived4>(Derived4::Output::O8, Derived2::Output::O3, Derived::Output::O0),
+      "");
   static_assert(!Derived5::OutputStaticallyEnabled(Derived4::Output::O4), "");
   static_assert(Derived5::OutputStaticallyEnabled(Derived4::Output::O7), "");
   static_assert(!Derived5::OutputStaticallyEnabled(Derived::Output::O0), "");
@@ -145,8 +134,7 @@ static void BM_ManualGraph(benchmark::State & state)
 {
   auto r2 = std::make_shared<Robot2>();
 
-  auto update = [&]()
-  {
+  auto update = [&]() {
     r2->update(static_cast<int>(Robot::Update::Kinematics));
     r2->update(static_cast<int>(Robot::Update::Velocity));
     r2->update(static_cast<int>(Robot2::Update::Dynamics));

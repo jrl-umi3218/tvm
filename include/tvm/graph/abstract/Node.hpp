@@ -8,22 +8,21 @@
 
 #include <sstream>
 
-
 #define TVM_GRAPH_LOG_REGISTER_UPDATE(node, u, fn) \
-  tvm::graph::internal::Logger::logger().registerUpdate<U,EnumT>(static_cast<U*>(node), u, fn);
+  tvm::graph::internal::Logger::logger().registerUpdate<U, EnumT>(static_cast<U *>(node), u, fn);
 
 #define TVM_GRAPH_LOG_ADD_OUTPUT_DEPENDENCY(node, o, u) \
-  tvm::graph::internal::Logger::logger().addOutputDependency<U,EnumO,EnumU>(static_cast<U*>(node), o, u);
+  tvm::graph::internal::Logger::logger().addOutputDependency<U, EnumO, EnumU>(static_cast<U *>(node), o, u);
 
-#define TVM_GRAPH_LOG_ADD_INTERNAL_DEPENDENCY(node, uDependent, u) \
-  tvm::graph::internal::Logger::logger().addInternalDependency<U,EnumU1,EnumU2>(static_cast<U*>(node), uDependent, u);
+#define TVM_GRAPH_LOG_ADD_INTERNAL_DEPENDENCY(node, uDependent, u)                                                    \
+  tvm::graph::internal::Logger::logger().addInternalDependency<U, EnumU1, EnumU2>(static_cast<U *>(node), uDependent, \
+                                                                                  u);
 
 #define TVM_GRAPH_LOG_ADD_INPUT_DEPENDENCY(node, u, source, i) \
-  tvm::graph::internal::Logger::logger().addInputDependency<U,EnumU,S,EnumO>(static_cast<U*>(node), u, source, i);
+  tvm::graph::internal::Logger::logger().addInputDependency<U, EnumU, S, EnumO>(static_cast<U *>(node), u, source, i);
 
 #define TVM_GRAPH_LOG_ADD_DIRECT_DEPENDENCY(node, o, source, i) \
-  tvm::graph::internal::Logger::logger().addDirectDependency(static_cast<U*>(node), o, source, i);
-
+  tvm::graph::internal::Logger::logger().addDirectDependency(static_cast<U *>(node), o, source, i);
 
 namespace tvm
 {
@@ -35,8 +34,8 @@ namespace abstract
 {
 
 template<typename T>
-template<typename EnumT, typename U, typename ... Args>
-void Node<T>::registerUpdates(EnumT u, void(U::*fn)(), Args ... args)
+template<typename EnumT, typename U, typename... Args>
+void Node<T>::registerUpdates(EnumT u, void (U::*fn)(), Args... args)
 {
   registerUpdates(u, fn);
   if(sizeof...(args))
@@ -47,7 +46,7 @@ void Node<T>::registerUpdates(EnumT u, void(U::*fn)(), Args ... args)
 
 template<typename T>
 template<typename EnumT, typename U>
-void Node<T>::registerUpdates(EnumT u, void(U::*fn)())
+void Node<T>::registerUpdates(EnumT u, void (U::*fn)())
 {
   static_assert(internal::is_valid_update<U>(EnumT()), "This update signal is not part of this Node");
   if(!U::UpdateStaticallyEnabled(u))
@@ -61,10 +60,7 @@ void Node<T>::registerUpdates(EnumT u, void(U::*fn)())
   {
     throw std::range_error("Attempted to register an update call using an id that was already registered.");
   }
-  updates_[static_cast<int>(u)] = [fn](AbstractNode & self)
-  {
-    return (static_cast<U&>(self).*fn)();
-  };
+  updates_[static_cast<int>(u)] = [fn](AbstractNode & self) { return (static_cast<U &>(self).*fn)(); };
   TVM_GRAPH_LOG_REGISTER_UPDATE(this, u, fn)
 }
 
@@ -72,18 +68,21 @@ template<typename T>
 template<typename U, typename EnumO, typename EnumU>
 void Node<T>::addOutputDependency(EnumO o, EnumU u)
 {
-  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
-  static_assert(internal::is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a "
+                                             "derived class, put this class in template parameter.");
+  static_assert(internal::is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method "
+                                                       "from a derived class, put this class in template parameter.");
   if(!U::OutputStaticallyEnabled(o))
   {
     std::stringstream ss;
     ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
     throw std::runtime_error(ss.str());
   }
-  if (directDependencies_.count(static_cast<int>(o)))
+  if(directDependencies_.count(static_cast<int>(o)))
   {
     std::stringstream ss;
-    ss << "Output " << U::OutputName(o) << " already has a direct dependency. You cannot mix direct and output dependencies";
+    ss << "Output " << U::OutputName(o)
+       << " already has a direct dependency. You cannot mix direct and output dependencies";
     throw std::runtime_error(ss.str());
   }
   outputDependencies_[static_cast<int>(o)].push_back(static_cast<int>(u));
@@ -104,8 +103,11 @@ template<typename T>
 template<typename U, typename EnumU1, typename EnumU2>
 void Node<T>::addInternalDependency(EnumU1 uDependent, EnumU2 u)
 {
-  static_assert(internal::is_valid_update<U>(EnumU1()), "Invalid dependent update for this type. If you are calling this method from a derived class, put this class in template parameter.");
-  static_assert(internal::is_valid_update<U>(EnumU2()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(internal::is_valid_update<U>(EnumU1()),
+                "Invalid dependent update for this type. If you are calling this method from a derived class, put this "
+                "class in template parameter.");
+  static_assert(internal::is_valid_update<U>(EnumU2()), "Invalid update for this type. If you are calling this method "
+                                                        "from a derived class, put this class in template parameter.");
   if(!U::UpdateStaticallyEnabled(uDependent))
   {
     std::stringstream ss;
@@ -126,7 +128,8 @@ template<typename T>
 template<typename U, typename EnumU, typename S>
 void Node<T>::checkAddInputDependency(EnumU u)
 {
-  static_assert(internal::is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(internal::is_valid_update<U>(EnumU()), "Invalid update for this type. If you are calling this method "
+                                                       "from a derived class, put this class in template parameter.");
   if(!U::UpdateStaticallyEnabled(u))
   {
     std::stringstream ss;
@@ -136,8 +139,8 @@ void Node<T>::checkAddInputDependency(EnumU u)
 }
 
 template<typename T>
-template<typename U, typename EnumU, typename S, typename EnumO, typename ... Args>
-void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args ... args)
+template<typename U, typename EnumU, typename S, typename EnumO, typename... Args>
+void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Args... args)
 {
   // Make sure the call makes sense
   checkAddInputDependency<U, EnumU, S>(u);
@@ -148,9 +151,13 @@ void Node<T>::addInputDependency(EnumU u, std::shared_ptr<S> source, EnumO i, Ar
 }
 
 template<typename T>
-template<typename U, typename EnumU, typename S, typename EnumO, typename ... Args,
-    typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type>
-void Node<T>::addInputDependency(EnumU u, S & source, EnumO i, Args ... args)
+template<typename U,
+         typename EnumU,
+         typename S,
+         typename EnumO,
+         typename... Args,
+         typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type>
+void Node<T>::addInputDependency(EnumU u, S & source, EnumO i, Args... args)
 {
   // Make sure the call makes sense
   checkAddInputDependency<U, EnumU, S>(u);
@@ -169,13 +176,10 @@ void Node<T>::addInputDependency(EnumU u, S * source, EnumO i)
   {
     auto & inputDependency = inputDependencies_[static_cast<int>(u)];
     auto depIt = std::find_if(inputDependency.begin(), inputDependency.end(),
-                              [&source](const input_dependency_t::value_type & p)
-                              {
-                                return source == p.first;
-                              });
+                              [&source](const input_dependency_t::value_type & p) { return source == p.first; });
     if(depIt == inputDependency.end())
     {
-      inputDependency[source] = { static_cast<int>(i) };
+      inputDependency[source] = {static_cast<int>(i)};
     }
     else
     {
@@ -190,8 +194,8 @@ void Node<T>::addInputDependency(EnumU u, S * source, EnumO i)
 }
 
 template<typename T>
-template<typename U, typename EnumU, typename S, typename EnumO, typename ... Args>
-void Node<T>::addInputDependency(EnumU u, S * source, EnumO i, Args ... args)
+template<typename U, typename EnumU, typename S, typename EnumO, typename... Args>
+void Node<T>::addInputDependency(EnumU u, S * source, EnumO i, Args... args)
 {
   addInputDependency<U>(u, source, i);
   if(sizeof...(args))
@@ -204,24 +208,26 @@ template<typename T>
 template<typename U, typename EnumO, typename S, typename EnumI>
 void Node<T>::checkAddDirectDependency(EnumO o)
 {
-  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a derived class, put this class in template parameter.");
+  static_assert(is_valid_output<U>(EnumO()), "Invalid output for this type. If you are calling this method from a "
+                                             "derived class, put this class in template parameter.");
   static_assert(is_valid_output<S>(EnumI()), "Invalid output for this type of source.");
-  if (!U::OutputStaticallyEnabled(o))
+  if(!U::OutputStaticallyEnabled(o))
   {
     std::stringstream ss;
     ss << "Output " << U::OutputName(o) << " is disabled within " << U::OutputBaseName;
     throw std::runtime_error(ss.str());
   }
-  if (directDependencies_.count(static_cast<int>(o)))
+  if(directDependencies_.count(static_cast<int>(o)))
   {
     std::stringstream ss;
     ss << "Output " << U::OutputName(o) << " already has a direct dependency. ";
     throw std::runtime_error(ss.str());
   }
-  if (outputDependencies_.count(static_cast<int>(o)))
+  if(outputDependencies_.count(static_cast<int>(o)))
   {
     std::stringstream ss;
-    ss << "Output " << U::OutputName(o) << " already has output dependencies. You cannot mix direct and output dependencies";
+    ss << "Output " << U::OutputName(o)
+       << " already has output dependencies. You cannot mix direct and output dependencies";
     throw std::runtime_error(ss.str());
   }
 }
@@ -239,8 +245,11 @@ inline void Node<T>::addDirectDependency(EnumO o, std::shared_ptr<S> source, Enu
 }
 
 template<typename T>
-template<typename U, typename EnumO, typename S, typename EnumI,
-    typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type>
+template<typename U,
+         typename EnumO,
+         typename S,
+         typename EnumI,
+         typename std::enable_if<std::is_base_of<abstract::Outputs, S>::value, int>::type>
 inline void Node<T>::addDirectDependency(EnumO o, S & source, EnumI i)
 {
   // Check the add is valid
@@ -255,7 +264,7 @@ template<typename T>
 template<typename U, typename EnumO, typename S, typename EnumI>
 inline void Node<T>::addDirectDependency(EnumO o, S * source, EnumI i)
 {
-  directDependencies_[static_cast<int>(o)] = { source, static_cast<int>(i) };
+  directDependencies_[static_cast<int>(o)] = {source, static_cast<int>(i)};
   TVM_GRAPH_LOG_ADD_DIRECT_DEPENDENCY(this, o, source, i);
 }
 

@@ -27,7 +27,7 @@ TEST_CASE("Test Variable creation")
   VariablePtr v = Space(3, 4, 3).createVariable("v");
   FAST_CHECK_EQ(v->size(), 4);
   FAST_CHECK_EQ(dot(v)->size(), 3);
-  FAST_CHECK_EQ(dot(v,4)->size(), 3);
+  FAST_CHECK_EQ(dot(v, 4)->size(), 3);
   FAST_CHECK_UNARY(!v->space().isEuclidean());
   FAST_CHECK_EQ(v->space().size(), 3);
   FAST_CHECK_EQ(v->space().rSize(), 4);
@@ -67,24 +67,26 @@ TEST_CASE("Test Variable value")
   }
   {
     VariablePtr v = Space(3).createVariable("v");
-    Eigen::Vector3d val(1,2,3);
+    Eigen::Vector3d val(1, 2, 3);
     v << val;
     FAST_CHECK_UNARY(v->value().isApprox(val));
   }
   {
     VariablePtr v = Space(3).createVariable("v");
-    Eigen::VectorXd val(5); val << 1, 2, 3, 4, 5;
+    Eigen::VectorXd val(5);
+    val << 1, 2, 3, 4, 5;
     v << val.head(3);
     FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(1, 2, 3)));
   }
   {
     VariablePtr v = Space(3).createVariable("v");
     v << 1, 2, 3;
-    FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(1,2,3)));
+    FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(1, 2, 3)));
   }
   {
     VariablePtr v = Space(3).createVariable("v");
-    Eigen::VectorXd val(5); val << 1, 2, 3, 4, 5;
+    Eigen::VectorXd val(5);
+    val << 1, 2, 3, 4, 5;
     v << val.tail(2), 6;
     FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(4, 5, 6)));
   }
@@ -187,7 +189,7 @@ TEST_CASE("Test VariableVector creation")
   FAST_CHECK_EQ(vv1.indexOf(*v3), -1);
   FAST_CHECK_EQ(vv1.indexOf(*v4), -1);
 
-  VariableVector vv2({ v1, v2, v3 });
+  VariableVector vv2({v1, v2, v3});
   FAST_CHECK_EQ(vv2.numberOfVariables(), 3);
   FAST_CHECK_EQ(vv2.totalSize(), 9);
   FAST_CHECK_EQ(vv2[0], v1);
@@ -197,15 +199,21 @@ TEST_CASE("Test VariableVector creation")
   CHECK(vv2.add(v1) == false);
   CHECK(vv2.remove(*v4) == false);
 
-  std::vector<VariablePtr> vec = { v1, v2 };
-  std::vector<VariablePtr> vec2 = { v1, v3, v4 };
+  std::vector<VariablePtr> vec = {v1, v2};
+  std::vector<VariablePtr> vec2 = {v1, v3, v4};
   VariableVector vv3(vec);
-  for(const auto & v : vec) { vv3.add(v); }
+  for(const auto & v : vec)
+  {
+    vv3.add(v);
+  }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 2);
   FAST_CHECK_EQ(vv3.totalSize(), 7);
   FAST_CHECK_EQ(vv3[0], v1);
   FAST_CHECK_EQ(vv3[1], v2);
-  for(const auto & v : vec2) { vv3.add(v); }
+  for(const auto & v : vec2)
+  {
+    vv3.add(v);
+  }
   FAST_CHECK_EQ(vv3.numberOfVariables(), 4);
   FAST_CHECK_EQ(vv3.totalSize(), 12);
   FAST_CHECK_EQ(vv3[0], v1);
@@ -247,13 +255,13 @@ TEST_CASE("Test Mapping")
   FAST_CHECK_EQ(vv1.stamp(), s + 3);
   FAST_CHECK_EQ(vv2.stamp(), s + 7);
 
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
-  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{ 3, 4 });
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 7, 2 });
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
+  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{3, 4});
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{7, 2});
   CHECK_THROWS(v4->getMappingIn(vv1));
-  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{ 6, 3 });
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{ 2, 4 });
-  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{ 0, 2 });
+  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{6, 3});
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{2, 4});
+  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{0, 2});
   CHECK_THROWS(v4->getMappingIn(vv2));
 
   FAST_CHECK_EQ(vv1.stamp(), s + 3);
@@ -261,19 +269,19 @@ TEST_CASE("Test Mapping")
 
   vv1.add(v4);
   FAST_CHECK_EQ(vv1.stamp(), s + 8);
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
-  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{ 3, 4 });
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 7, 2 });
-  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{ 9, 3 });
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
+  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{3, 4});
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{7, 2});
+  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{9, 3});
   vv1.remove(*v2);
   FAST_CHECK_EQ(vv1.stamp(), s + 9);
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{ 0, 3 });
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
   CHECK_THROWS(v2->getMappingIn(vv1));
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{ 3, 2 });
-  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{ 5, 3 });
-  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{ 6, 3 });
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{ 2, 4 });
-  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{ 0, 2 });
+  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{3, 2});
+  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{5, 3});
+  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{6, 3});
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{2, 4});
+  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{0, 2});
   CHECK_THROWS(v4->getMappingIn(vv2));
 }
 
@@ -315,7 +323,7 @@ TEST_CASE("Test derivative lifetime")
   FAST_CHECK_EQ(dot(x)->value()[2], 4);
 }
 
-VariablePtr createDerivative(const std::string& name, int ndiff)
+VariablePtr createDerivative(const std::string & name, int ndiff)
 {
   VariablePtr x = Space(3).createVariable(name);
   return dot(x, ndiff);
@@ -326,7 +334,7 @@ std::weak_ptr<Variable> testRefCounting()
   // Creating a variable and its derivative, but loosing the ptr on the variable
   VariablePtr dx = createDerivative("x", 1);
   FAST_CHECK_EQ(dx.use_count(), 1);
-  
+
   // Getting back the primitive, checking the ref count
   {
     VariablePtr x = dx->primitive();
@@ -335,18 +343,18 @@ std::weak_ptr<Variable> testRefCounting()
   }
   FAST_CHECK_EQ(dx.use_count(), 1);
 
-  //Creating a derivative, but loosing the shared_ptr on it
+  // Creating a derivative, but loosing the shared_ptr on it
   Variable *pddxa, *pddxb;
   {
     VariablePtr ddx = dot(dx);
     pddxa = ddx.get();
   }
-  //Getting the derivative again, with another way
+  // Getting the derivative again, with another way
   {
-    VariablePtr d3x = dot(dx,2);
+    VariablePtr d3x = dot(dx, 2);
     pddxb = d3x->primitive().get();
   }
-  //Checking the derivative was both time the same
+  // Checking the derivative was both time the same
   FAST_CHECK_EQ(pddxa, pddxb);
 
   return dx;
@@ -355,6 +363,6 @@ std::weak_ptr<Variable> testRefCounting()
 TEST_CASE("Test derivatives ref counting")
 {
   auto dx = testRefCounting();
-  //Checking dx was destroyed.
+  // Checking dx was destroyed.
   FAST_CHECK_UNARY(dx.expired());
 }

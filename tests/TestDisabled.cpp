@@ -4,17 +4,16 @@
 
 #include <iostream>
 
-struct FailedTest {};
+struct FailedTest
+{
+};
 
 struct RegisterDisabledUpdate : public tvm::graph::abstract::Node<RegisterDisabledUpdate>
 {
   SET_UPDATES(RegisterDisabledUpdate, U0, U1)
   DISABLE_UPDATES(Update::U0)
 
-  RegisterDisabledUpdate()
-  {
-    registerUpdates(Update::U0, &RegisterDisabledUpdate::updateU0);
-  }
+  RegisterDisabledUpdate() { registerUpdates(Update::U0, &RegisterDisabledUpdate::updateU0); }
 
   void updateU0() {}
 };
@@ -25,10 +24,7 @@ struct DisabledOutputDependency : public tvm::graph::abstract::Node<DisabledOutp
   DISABLE_OUTPUTS(Output::O0)
   SET_UPDATES(DisabledOutputDependency, U0)
 
-  DisabledOutputDependency()
-  {
-    addOutputDependency({Output::O0, Output::O1}, Update::U0);
-  }
+  DisabledOutputDependency() { addOutputDependency({Output::O0, Output::O1}, Update::U0); }
 };
 
 struct DisabledInternalDependency : public tvm::graph::abstract::Node<DisabledInternalDependency>
@@ -36,10 +32,7 @@ struct DisabledInternalDependency : public tvm::graph::abstract::Node<DisabledIn
   SET_UPDATES(DisabledInternalDependency, U0, U1)
   DISABLE_UPDATES(Update::U0)
 
-  DisabledInternalDependency()
-  {
-    addInternalDependency(Update::U0, Update::U1);
-  }
+  DisabledInternalDependency() { addInternalDependency(Update::U0, Update::U1); }
 };
 
 struct DisabledOutput : public tvm::graph::abstract::Node<DisabledOutput>
@@ -67,8 +60,16 @@ struct DisabledOutputInputDependency : public tvm::graph::abstract::Node<Disable
   }
 };
 
-#define TEST(T, ...) \
-  try { T obj{__VA_ARGS__}; throw FailedTest(); } catch(std::runtime_error & exc) { std::cout << #T" threw runtime_error: " << exc.what() << std::endl; }
+#define TEST(T, ...)                                                     \
+  try                                                                    \
+  {                                                                      \
+    T obj{__VA_ARGS__};                                                  \
+    throw FailedTest();                                                  \
+  }                                                                      \
+  catch(std::runtime_error & exc)                                        \
+  {                                                                      \
+    std::cout << #T " threw runtime_error: " << exc.what() << std::endl; \
+  }
 
 int main()
 {

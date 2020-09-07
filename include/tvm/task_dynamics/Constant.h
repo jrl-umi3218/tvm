@@ -9,31 +9,33 @@
 namespace tvm
 {
 
-  namespace task_dynamics
+namespace task_dynamics
+{
+/** Zero order dynamics with e* = 0, i.e. f* = rhs.*/
+class TVM_DLLAPI Constant : public abstract::TaskDynamics
+{
+public:
+  class TVM_DLLAPI Impl : public abstract::TaskDynamicsImpl
   {
-    /** Zero order dynamics with e* = 0, i.e. f* = rhs.*/
-    class TVM_DLLAPI Constant : public abstract::TaskDynamics
-    {
-    public:
-      class TVM_DLLAPI Impl: public abstract::TaskDynamicsImpl
-      {
-      public:
-        Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd& rhs);
-        void updateValue() override;
-        ~Impl() override = default;
-      };
+  public:
+    Impl(FunctionPtr, constraint::Type t, const Eigen::VectorXd & rhs);
+    void updateValue() override;
+    ~Impl() override = default;
+  };
 
-      Constant();
+  Constant();
 
-      ~Constant() override = default;
+  ~Constant() override = default;
 
-    protected:
-      std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const override;
-      Order order_() const override;
+protected:
+  std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f,
+                                                    constraint::Type t,
+                                                    const Eigen::VectorXd & rhs) const override;
+  Order order_() const override;
 
-      TASK_DYNAMICS_DERIVED_FACTORY()
-    };
+  TASK_DYNAMICS_DERIVED_FACTORY()
+};
 
-  }  // namespace task_dynamics
+} // namespace task_dynamics
 
-}  // namespace tvm
+} // namespace tvm

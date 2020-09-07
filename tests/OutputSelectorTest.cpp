@@ -16,9 +16,7 @@ class Provider1 : public Node<Provider1>
 public:
   SET_OUTPUTS(Provider1, O0, O1, O2)
 
-  Provider1()
-  {
-  }
+  Provider1() {}
 };
 
 class Provider2 : public Provider1
@@ -27,18 +25,13 @@ public:
   SET_OUTPUTS(Provider2, O3, O4)
   DISABLE_OUTPUTS(Provider1::Output::O1)
 
-  Provider2()
-  {
-  }
+  Provider2() {}
 };
 
 class Provider3 : public OutputSelector<Provider2>
 {
 public:
-  Provider3()
-  {
-    disableOutput(Provider1::Output::O1, Provider2::Output::O3);
-  }
+  Provider3() { disableOutput(Provider1::Output::O1, Provider2::Output::O3); }
 };
 
 class Provider4 : public Provider3
@@ -46,24 +39,25 @@ class Provider4 : public Provider3
 public:
   SET_OUTPUTS(Provider4, O5, O6, O7)
 
-  Provider4()
-  {
-  }
+  Provider4() {}
 };
 
 class Provider5 : public OutputSelector<Provider4>
 {
 public:
-  Provider5()
+  Provider5() { disableOutput(Provider1::Output::O0, Provider4::Output::O6); }
+
+  template<typename EnumT>
+  void manualEnable(EnumT e)
   {
-    disableOutput(Provider1::Output::O0, Provider4::Output::O6);
+    enableOutput(e);
   }
 
   template<typename EnumT>
-  void manualEnable(EnumT e) { enableOutput(e); }
-
-  template<typename EnumT>
-  void manualDisable(EnumT e) { disableOutput(e); }
+  void manualDisable(EnumT e)
+  {
+    disableOutput(e);
+  }
 };
 
 class Provider6 : public OutputSelector<Provider6, Provider4>
@@ -77,7 +71,6 @@ public:
   }
 };
 
-
 TEST_CASE("Test outputs selector")
 {
   Provider3 p3;
@@ -88,7 +81,7 @@ TEST_CASE("Test outputs selector")
   FAST_CHECK_UNARY(p3.isOutputEnabled(Provider2::Output::O4));
 
   Provider5 p5;
-  for (int i = 0; i < 8; ++i)
+  for(int i = 0; i < 8; ++i)
   {
     if(i != 0 && i != 1 && i != 3 && i != 6)
     {

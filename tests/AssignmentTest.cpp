@@ -11,15 +11,15 @@
 #include <tvm/Variable.h>
 #include <tvm/VariableVector.h>
 #include <tvm/constraint/BasicLinearConstraint.h>
-#include <tvm/hint/internal/Substitutions.h>
 #include <tvm/hint/Substitution.h>
+#include <tvm/hint/internal/Substitutions.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
 #include <Eigen/Core>
 #include <Eigen/QR>
 
-//FIXME see src/Assignment.cpp
+// FIXME see src/Assignment.cpp
 static const double large = tvm::constant::big_number;
 
 using namespace tvm;
@@ -53,10 +53,7 @@ struct Constraints
 
 struct Memory
 {
-  Memory(int m, int n) : A(m, n), b(m), l(m), u(m)
-  {
-    reset();
-  }
+  Memory(int m, int n) : A(m, n), b(m), l(m), u(m) { reset(); }
 
   void reset()
   {
@@ -80,75 +77,104 @@ struct Memory
   VectorXd u;
 };
 
-//Check if the constraint is satisfied for the current value of the variable
-bool check(BLCPtr c, const VectorXd& x)
+// Check if the constraint is satisfied for the current value of the variable
+bool check(BLCPtr c, const VectorXd & x)
 {
   const double eps = 1e-12;
-  const_cast<VariableVector&>(c->variables()).value(x);
+  const_cast<VariableVector &>(c->variables()).value(x);
   c->updateValue();
   auto v = c->value();
-  if (c->type() == Type::DOUBLE_SIDED)
+  if(c->type() == Type::DOUBLE_SIDED)
   {
-    if (c->rhs() == RHS::AS_GIVEN)
-      return (c->l().array()-eps <= v.array()).all() && (v.array() <= c->u().array()+eps).all();
+    if(c->rhs() == RHS::AS_GIVEN)
+      return (c->l().array() - eps <= v.array()).all() && (v.array() <= c->u().array() + eps).all();
     else
-      return (-c->l().array()-eps <= v.array()).all() && (v.array() <= -c->u().array()+eps).all();
+      return (-c->l().array() - eps <= v.array()).all() && (v.array() <= -c->u().array() + eps).all();
   }
   else
   {
-    std::function<bool(const VectorXd&, const VectorXd&)> comp;
-    const VectorXd&(BasicLinearConstraint::*rhs)() const;
-    switch (c->type())
+    std::function<bool(const VectorXd &, const VectorXd &)> comp;
+    const VectorXd & (BasicLinearConstraint::*rhs)() const;
+    switch(c->type())
     {
-    case Type::EQUAL: comp = [](const VectorXd& u, const VectorXd& v) {return u.isApprox(v); }; rhs =& BasicLinearConstraint::e;  break;
-    case Type::GREATER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; rhs = &BasicLinearConstraint::l; break;
-    case Type::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; rhs = &BasicLinearConstraint::u; break;
-    default: break;
+      case Type::EQUAL:
+        comp = [](const VectorXd & u, const VectorXd & v) { return u.isApprox(v); };
+        rhs = &BasicLinearConstraint::e;
+        break;
+      case Type::GREATER_THAN:
+        comp = [eps](const VectorXd & u, const VectorXd & v) { return (u.array() + eps >= v.array()).all(); };
+        rhs = &BasicLinearConstraint::l;
+        break;
+      case Type::LOWER_THAN:
+        comp = [eps](const VectorXd & u, const VectorXd & v) { return (u.array() - eps <= v.array()).all(); };
+        rhs = &BasicLinearConstraint::u;
+        break;
+      default:
+        break;
     }
-    switch (c->rhs())
+    switch(c->rhs())
     {
-    case RHS::AS_GIVEN: return comp(v, (c.get()->*rhs)()); break;
-    case RHS::OPPOSITE: return comp(v, -(c.get()->*rhs)()); break;
-    case RHS::ZERO: return comp(v, VectorXd::Zero(c->size())); break;
-    default:
-      return false;
+      case RHS::AS_GIVEN:
+        return comp(v, (c.get()->*rhs)());
+        break;
+      case RHS::OPPOSITE:
+        return comp(v, -(c.get()->*rhs)());
+        break;
+      case RHS::ZERO:
+        return comp(v, VectorXd::Zero(c->size()));
+        break;
+      default:
+        return false;
     }
   }
 }
 
-bool check(const Memory& mem, Type ct, RHS cr, const VectorXd& x, bool bound=false)
+bool check(const Memory & mem, Type ct, RHS cr, const VectorXd & x, bool bound = false)
 {
   const double eps = 1e-12;
   VectorXd v;
-  if (bound)
+  if(bound)
     v = x;
   else
-    v = mem.A*x;
+    v = mem.A * x;
 
-  if (ct == Type::DOUBLE_SIDED)
+  if(ct == Type::DOUBLE_SIDED)
   {
-    if (cr == RHS::AS_GIVEN)
+    if(cr == RHS::AS_GIVEN)
       return (mem.l.array() - eps <= v.array()).all() && (v.array() <= mem.u.array() + eps).all();
     else
       return (-mem.l.array() - eps <= v.array()).all() && (v.array() <= -mem.u.array() + eps).all();
   }
   else
   {
-    std::function<bool(const VectorXd&, const VectorXd&)> comp;
-    switch (ct)
+    std::function<bool(const VectorXd &, const VectorXd &)> comp;
+    switch(ct)
     {
-    case Type::EQUAL: comp = [](const VectorXd& u, const VectorXd& v) {return u.isApprox(v); };  break;
-    case Type::GREATER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() + eps >= v.array()).all(); }; break;
-    case Type::LOWER_THAN: comp = [eps](const VectorXd& u, const VectorXd& v) {return (u.array() - eps <= v.array()).all(); }; break;
-    default: break;
+      case Type::EQUAL:
+        comp = [](const VectorXd & u, const VectorXd & v) { return u.isApprox(v); };
+        break;
+      case Type::GREATER_THAN:
+        comp = [eps](const VectorXd & u, const VectorXd & v) { return (u.array() + eps >= v.array()).all(); };
+        break;
+      case Type::LOWER_THAN:
+        comp = [eps](const VectorXd & u, const VectorXd & v) { return (u.array() - eps <= v.array()).all(); };
+        break;
+      default:
+        break;
     }
-    switch (cr)
+    switch(cr)
     {
-    case RHS::AS_GIVEN: return comp(v, mem.b); break;
-    case RHS::OPPOSITE: return comp(v, -mem.b); break;
-    case RHS::ZERO: return comp(v, VectorXd::Zero(mem.b.rows())); break;
-    default:
-      return false;
+      case RHS::AS_GIVEN:
+        return comp(v, mem.b);
+        break;
+      case RHS::OPPOSITE:
+        return comp(v, -mem.b);
+        break;
+      case RHS::ZERO:
+        return comp(v, VectorXd::Zero(mem.b.rows()));
+        break;
+      default:
+        return false;
     }
   }
 }
@@ -158,16 +184,16 @@ Constraints buildConstraints(int m, int n)
   Constraints cstr;
   VariablePtr x = Space(n).createVariable("x");
 
-  //generate matrix
+  // generate matrix
   MatrixXd A = MatrixXd::Random(m, n);
   VectorXd l = -VectorXd::Random(m).cwiseAbs();
   VectorXd u = VectorXd::Random(m).cwiseAbs();
 
-  //Point p0 such that Ap0 = 0
+  // Point p0 such that Ap0 = 0
   cstr.p0 = A.householderQr().solve(VectorXd::Zero(m));
-  //Point pl such that Apl = l
+  // Point pl such that Apl = l
   cstr.pl = A.householderQr().solve(l);
-  //Point pu such that Apu = u
+  // Point pu such that Apu = u
   cstr.pu = A.householderQr().solve(u);
 
   cstr.Ax_eq_0 = std::make_shared<BasicLinearConstraint>(A, x, Type::EQUAL);
@@ -187,29 +213,28 @@ Constraints buildConstraints(int m, int n)
   return cstr;
 }
 
-//build constraints x op 0, x op +/-2 such that 0 is feasible, and -2 <= x <= 2
-//if minus = true, we take -x instead of x
+// build constraints x op 0, x op +/-2 such that 0 is feasible, and -2 <= x <= 2
+// if minus = true, we take -x instead of x
 Constraints buildSimpleConstraints(double s = 1, VariablePtr y = nullptr)
 {
   assert(s != 0);
   Constraints cstr;
   VariablePtr x;
-  if (y)
+  if(y)
     x = y;
   else
     x = Space(1).createVariable("x");
 
   tvm::internal::MatrixProperties p;
-  if (s == -1)
-    p = { tvm::internal::MatrixProperties::MINUS_IDENTITY };
-  else if (s == 1)
-    p = { tvm::internal::MatrixProperties::IDENTITY };
+  if(s == -1)
+    p = {tvm::internal::MatrixProperties::MINUS_IDENTITY};
+  else if(s == 1)
+    p = {tvm::internal::MatrixProperties::IDENTITY};
   else
-    p = { tvm::internal::MatrixProperties::MULTIPLE_OF_IDENTITY, 
-          tvm::internal::MatrixProperties::Invertibility(s != 0) };
+    p = {tvm::internal::MatrixProperties::MULTIPLE_OF_IDENTITY, tvm::internal::MatrixProperties::Invertibility(s != 0)};
 
-  //generate matrix
-  MatrixXd A = s*MatrixXd::Identity(1, 1);
+  // generate matrix
+  MatrixXd A = s * MatrixXd::Identity(1, 1);
   VectorXd l = VectorXd::Constant(1, -2);
   VectorXd u = VectorXd::Constant(1, 2);
 
@@ -241,7 +266,7 @@ Constraints buildSimpleConstraints(double s = 1, VariablePtr y = nullptr)
   return cstr;
 }
 
-//create a set of constraints -3x+4y op +/-2 and a constraint for substitution
+// create a set of constraints -3x+4y op +/-2 and a constraint for substitution
 // -x + 2y - z = 0/1/-1 (the latter value depending on the rhs param).
 std::pair<Constraints, BLCPtr> buildSimpleSubstitution(RHS rhs)
 {
@@ -250,25 +275,25 @@ std::pair<Constraints, BLCPtr> buildSimpleSubstitution(RHS rhs)
   VariablePtr y = Space(1).createVariable("y");
   VariablePtr z = Space(1).createVariable("z");
 
-  //generate matrix
+  // generate matrix
   MatrixXd I = MatrixXd::Identity(1, 1);
   MatrixXd Ax = -3 * I;
   MatrixXd Ay = 4 * I;
   VectorXd l = VectorXd::Constant(1, -2);
   VectorXd u = VectorXd::Constant(1, 2);
 
-  std::vector<Ref<const MatrixXd>> A = { Ax, Ay };
-  std::vector<VariablePtr> v = { x, y };
+  std::vector<Ref<const MatrixXd>> A = {Ax, Ay};
+  std::vector<VariablePtr> v = {x, y};
 
-  cstr.Ax_eq_0 = std::make_shared<BasicLinearConstraint>( A, v, Type::EQUAL);
+  cstr.Ax_eq_0 = std::make_shared<BasicLinearConstraint>(A, v, Type::EQUAL);
   cstr.Ax_geq_0 = std::make_shared<BasicLinearConstraint>(A, v, Type::GREATER_THAN);
   cstr.Ax_leq_0 = std::make_shared<BasicLinearConstraint>(A, v, Type::LOWER_THAN);
 
-  cstr.Ax_eq_b = std::make_shared<BasicLinearConstraint>( A, v, l, Type::EQUAL);
+  cstr.Ax_eq_b = std::make_shared<BasicLinearConstraint>(A, v, l, Type::EQUAL);
   cstr.Ax_geq_b = std::make_shared<BasicLinearConstraint>(A, v, l, Type::GREATER_THAN);
   cstr.Ax_leq_b = std::make_shared<BasicLinearConstraint>(A, v, u, Type::LOWER_THAN);
 
-  cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>( A, v, -l, Type::EQUAL, RHS::OPPOSITE);
+  cstr.Ax_eq_minus_b = std::make_shared<BasicLinearConstraint>(A, v, -l, Type::EQUAL, RHS::OPPOSITE);
   cstr.Ax_geq_minus_b = std::make_shared<BasicLinearConstraint>(A, v, -l, Type::GREATER_THAN, RHS::OPPOSITE);
   cstr.Ax_leq_minus_b = std::make_shared<BasicLinearConstraint>(A, v, -u, Type::LOWER_THAN, RHS::OPPOSITE);
 
@@ -278,10 +303,10 @@ std::pair<Constraints, BLCPtr> buildSimpleSubstitution(RHS rhs)
   MatrixXd Cx = -I;
   MatrixXd Cy = 2 * I;
   MatrixXd Cz = -I;
-  std::vector<Ref<const MatrixXd>> C = { Cx, Cy, Cz };
-  std::vector<VariablePtr> w = { x, y, z };
+  std::vector<Ref<const MatrixXd>> C = {Cx, Cy, Cz};
+  std::vector<VariablePtr> w = {x, y, z};
   VectorXd d = VectorXd::Constant(1, 1);
-  if (rhs == RHS::ZERO)
+  if(rhs == RHS::ZERO)
   {
     return std::make_pair(cstr, std::make_shared<BasicLinearConstraint>(C, w, Type::EQUAL));
   }
@@ -291,9 +316,9 @@ std::pair<Constraints, BLCPtr> buildSimpleSubstitution(RHS rhs)
   }
 }
 
-//check that each point -3, -2, -1, 0, 1, 2 and 3 is either verifying at the same time
-//the two descriptions of the constraint or violating both of them.
-void checkSimple(BLCPtr cstr, const Memory& mem, Type t, RHS r, bool bound = false)
+// check that each point -3, -2, -1, 0, 1, 2 and 3 is either verifying at the same time
+// the two descriptions of the constraint or violating both of them.
+void checkSimple(BLCPtr cstr, const Memory & mem, Type t, RHS r, bool bound = false)
 {
   VectorXd pm3 = VectorXd::Constant(1, -3);
   VectorXd pm2 = VectorXd::Constant(1, -2);
@@ -312,8 +337,8 @@ void checkSimple(BLCPtr cstr, const Memory& mem, Type t, RHS r, bool bound = fal
   FAST_CHECK_EQ(check(cstr, p3), check(mem, t, r, p3, bound));
 }
 
-//check for the intersection of 2 bound constraints
-void checkSimple(BLCPtr cstr1, BLCPtr cstr2, const Memory& mem)
+// check for the intersection of 2 bound constraints
+void checkSimple(BLCPtr cstr1, BLCPtr cstr2, const Memory & mem)
 {
   Type t = Type::DOUBLE_SIDED;
   RHS r = RHS::AS_GIVEN;
@@ -338,37 +363,57 @@ void checkSimple(BLCPtr cstr1, BLCPtr cstr2, const Memory& mem)
 // Check that each point (x,z) with z=-x, for x = -5,-3,1,0,1,3,5 verifies or violates the
 // substituted constraint in mem at the same time as the corresponding (x, y) point verifies
 // or violates the constraint.
-void checkSubstitution(BLCPtr cstr, RHS subRhs, const Memory& mem, Type t, RHS r)
+void checkSubstitution(BLCPtr cstr, RHS subRhs, const Memory & mem, Type t, RHS r)
 {
   double y;
-  switch (subRhs)
+  switch(subRhs)
   {
-  case RHS::ZERO: y = 0; break;
-  case RHS::AS_GIVEN: y = 0.5; break;
-  case RHS::OPPOSITE: y = -0.5; break;
+    case RHS::ZERO:
+      y = 0;
+      break;
+    case RHS::AS_GIVEN:
+      y = 0.5;
+      break;
+    case RHS::OPPOSITE:
+      y = -0.5;
+      break;
   }
-  VectorXd xym5(2); xym5 << -2, y;
-  VectorXd xym3(2); xym3 << -4./3, y;
-  VectorXd xym1(2); xym1 << -2./3, y;
-  VectorXd xy0(2); xy0 << 0, y;
-  VectorXd xy1(2); xy1 << 2./3, y;
-  VectorXd xy3(2); xy3 << 4./3, y;
-  VectorXd xy5(2); xy5 << 2, y;
-  VectorXd xzm5(2); xzm5 << -2, 2;
-  VectorXd xzm3(2); xzm3 << -4./3, 4./3;
-  VectorXd xzm1(2); xzm1 << -2./3, 2./3;
-  VectorXd xz0(2); xz0 << 0, 0;
-  VectorXd xz1(2); xz1 << 2./3, -2./3;
-  VectorXd xz3(2); xz3 << 4./3, -4./3;
-  VectorXd xz5(2); xz5 << 2, -2;
+  VectorXd xym5(2);
+  xym5 << -2, y;
+  VectorXd xym3(2);
+  xym3 << -4. / 3, y;
+  VectorXd xym1(2);
+  xym1 << -2. / 3, y;
+  VectorXd xy0(2);
+  xy0 << 0, y;
+  VectorXd xy1(2);
+  xy1 << 2. / 3, y;
+  VectorXd xy3(2);
+  xy3 << 4. / 3, y;
+  VectorXd xy5(2);
+  xy5 << 2, y;
+  VectorXd xzm5(2);
+  xzm5 << -2, 2;
+  VectorXd xzm3(2);
+  xzm3 << -4. / 3, 4. / 3;
+  VectorXd xzm1(2);
+  xzm1 << -2. / 3, 2. / 3;
+  VectorXd xz0(2);
+  xz0 << 0, 0;
+  VectorXd xz1(2);
+  xz1 << 2. / 3, -2. / 3;
+  VectorXd xz3(2);
+  xz3 << 4. / 3, -4. / 3;
+  VectorXd xz5(2);
+  xz5 << 2, -2;
 
-  //std::cout << check(cstr, xym5) <<", " << check(mem, t, r, xzm5, false) << std::endl;
-  //std::cout << check(cstr, xym3) <<", " << check(mem, t, r, xzm3, false) << std::endl;
-  //std::cout << check(cstr, xym1) <<", " << check(mem, t, r, xzm1, false) << std::endl;
-  //std::cout << check(cstr, xy0)  <<", " << check(mem, t, r, xz0, false)  << std::endl;
-  //std::cout << check(cstr, xy1)  <<", " << check(mem, t, r, xz1, false)  << std::endl;
-  //std::cout << check(cstr, xy3)  <<", " << check(mem, t, r, xz3, false)  << std::endl;
-  //std::cout << check(cstr, xy5)  <<", " << check(mem, t, r, xz5, false)  << std::endl;
+  // std::cout << check(cstr, xym5) <<", " << check(mem, t, r, xzm5, false) << std::endl;
+  // std::cout << check(cstr, xym3) <<", " << check(mem, t, r, xzm3, false) << std::endl;
+  // std::cout << check(cstr, xym1) <<", " << check(mem, t, r, xzm1, false) << std::endl;
+  // std::cout << check(cstr, xy0)  <<", " << check(mem, t, r, xz0, false)  << std::endl;
+  // std::cout << check(cstr, xy1)  <<", " << check(mem, t, r, xz1, false)  << std::endl;
+  // std::cout << check(cstr, xy3)  <<", " << check(mem, t, r, xz3, false)  << std::endl;
+  // std::cout << check(cstr, xy5)  <<", " << check(mem, t, r, xz5, false)  << std::endl;
 
   FAST_CHECK_EQ(check(cstr, xym5), check(mem, t, r, xzm5, false));
   FAST_CHECK_EQ(check(cstr, xym3), check(mem, t, r, xzm3, false));
@@ -379,12 +424,12 @@ void checkSubstitution(BLCPtr cstr, RHS subRhs, const Memory& mem, Type t, RHS r
   FAST_CHECK_EQ(check(cstr, xy5), check(mem, t, r, xz5, false));
 }
 
-void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, RHS r, bool throws)
+void checkAssignment(BLCPtr c, const AssignmentTarget & at, Memory & mem, Type t, RHS r, bool throws)
 {
   auto req = std::make_shared<SolvingRequirementsWithCallbacks>();
   VariableVector vars(c->variables());
   mem.randomize();
-  if (throws)
+  if(throws)
   {
     CHECK_THROWS(Assignment a(c, req, at, vars));
   }
@@ -396,13 +441,19 @@ void checkAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem, Type t, 
   }
 }
 
-void checkSubstitutionAssignment(BLCPtr c, Substitutions& s, const AssignmentTarget& at, Memory& mem, Type t, RHS r, bool throws)
+void checkSubstitutionAssignment(BLCPtr c,
+                                 Substitutions & s,
+                                 const AssignmentTarget & at,
+                                 Memory & mem,
+                                 Type t,
+                                 RHS r,
+                                 bool throws)
 {
   auto req = std::make_shared<SolvingRequirementsWithCallbacks>();
   VariableVector vars;
   vars.add(s.otherVariables());
   mem.randomize();
-  if (throws)
+  if(throws)
   {
     CHECK_THROWS(Assignment a(c, req, at, vars, &s));
   }
@@ -415,14 +466,14 @@ void checkSubstitutionAssignment(BLCPtr c, Substitutions& s, const AssignmentTar
   }
 }
 
-void checkBoundAssignment(BLCPtr c, const AssignmentTarget& at, Memory& mem)
+void checkBoundAssignment(BLCPtr c, const AssignmentTarget & at, Memory & mem)
 {
   Assignment a(c, at, c->variables()[0], true);
   a.run();
   checkSimple(c, mem, Type::DOUBLE_SIDED, RHS::AS_GIVEN, true);
 }
 
-void checkBoundAssignment(BLCPtr c1, BLCPtr c2, const AssignmentTarget& at, Memory& mem)
+void checkBoundAssignment(BLCPtr c1, BLCPtr c2, const AssignmentTarget & at, Memory & mem)
 {
   assert(c1->variables()[0] == c2->variables()[0]);
   Assignment a1(c1, at, c1->variables()[0], true);
@@ -433,10 +484,10 @@ void checkBoundAssignment(BLCPtr c1, BLCPtr c2, const AssignmentTarget& at, Memo
 }
 
 /** Check the assignement of a constraint \p c to a target
-  * \p throws is a vector of 11 bool indicating if the assignement construction is
-  * expected to throw. The order of the targets conventions are:
-  * Cx=0, Cx=d, Cx=-d, Cx>=0, Cx>=d, Cx>=-d, Cx<=0, Cx<=d, Cx<=-d, l<=Cx<=u, -l<=Cx<=-u
-  */
+ * \p throws is a vector of 11 bool indicating if the assignement construction is
+ * expected to throw. The order of the targets conventions are:
+ * Cx=0, Cx=d, Cx=-d, Cx>=0, Cx>=d, Cx>=-d, Cx<=0, Cx<=d, Cx<=-d, l<=Cx<=u, -l<=Cx<=-u
+ */
 void checkSimple(BLCPtr c, std::vector<bool> throws)
 {
   int s = c->type() == Type::DOUBLE_SIDED ? 2 : 1;
@@ -527,8 +578,8 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   }
 }
 
-//same as above but introducing a substitution
-void checkSimple(BLCPtr c, const Substitution& sub, std::vector<bool> throws)
+// same as above but introducing a substitution
+void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
 {
   int s = c->type() == Type::DOUBLE_SIDED ? 2 : 1;
   auto sMem = std::make_shared<Memory>(s, 2);
@@ -627,7 +678,7 @@ void checkSimpleBound(BLCPtr c)
 {
   auto dMem = std::make_shared<Memory>(1, 1);
   auto dRange = std::make_shared<Range>(0, 1);
-  
+
   // target l<=x<=u
   AssignmentTarget at(dRange, dMem->l, dMem->u);
   checkBoundAssignment(c, at, *dMem);
@@ -653,71 +704,71 @@ TEST_CASE("Test simple assignment")
   // constraint Ax = 0
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { f,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
+    T v = {f, f, f, t, t, t, t, t, t, f, f};
     checkSimple(cstr.Ax_eq_0, v);
   }
   // constraint Ax >= 0
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      f,      f,      f,      f,      f,      f,      f,      f };
+    T v = {t, t, t, f, f, f, f, f, f, f, f};
     checkSimple(cstr.Ax_geq_0, v);
   }
   // constraint Ax <= 0
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      f,      f,      f,      f,      f,      f,      f,      f };
+    T v = {t, t, t, f, f, f, f, f, f, f, f};
     checkSimple(cstr.Ax_leq_0, v);
   }
   // constraint Ax = d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
+    T v = {t, f, f, t, t, t, t, t, t, f, f};
     checkSimple(cstr.Ax_eq_b, v);
   }
   // constraint Ax >= d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.Ax_geq_b, v);
   }
   // constraint Ax <= d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.Ax_leq_b, v);
   }
   // constraint Ax = -d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
+    T v = {t, f, f, t, t, t, t, t, t, f, f};
     checkSimple(cstr.Ax_eq_minus_b, v);
   }
   // constraint Ax >= -d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.Ax_geq_minus_b, v);
   }
   // constraint Ax <= -d
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.Ax_leq_minus_b, v);
   }
   // constraint l <= Ax <= u
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.l_leq_Ax_leq_u, v);
   }
   // constraint -l <= Ax <= -u
   {
     //     Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v = {t, t, t, t, f, f, t, f, f, f, f};
     checkSimple(cstr.l_leq_Ax_leq_u, v);
   }
 
-  //now the bounds
+  // now the bounds
   checkSimpleBound(cstr.Ax_eq_0);
   checkSimpleBound(cstr.Ax_geq_0);
   checkSimpleBound(cstr.Ax_leq_0);
@@ -730,7 +781,7 @@ TEST_CASE("Test simple assignment")
   checkSimpleBound(cstr.l_leq_Ax_leq_u);
   checkSimpleBound(cstr.minus_l_leq_Ax_leq_minus_u);
 
-  //with -Identity
+  // with -Identity
   auto cstr2 = buildSimpleConstraints(-1, cstr.Ax_eq_0->variables()[0]);
   checkSimpleBound(cstr2.Ax_eq_0);
   checkSimpleBound(cstr2.Ax_geq_0);
@@ -772,17 +823,33 @@ TEST_CASE("Test simple assignment")
   checkSimpleBound(cstr4.l_leq_Ax_leq_u);
   checkSimpleBound(cstr4.minus_l_leq_Ax_leq_minus_u);
 
-  std::vector<BLCPtr> c1 = {cstr.Ax_eq_0, cstr.Ax_geq_0, cstr.Ax_leq_0, cstr.Ax_eq_b,
-                            cstr.Ax_geq_b, cstr.Ax_leq_b, cstr.Ax_eq_minus_b, cstr.Ax_geq_minus_b,
-                            cstr.Ax_leq_minus_b, cstr.l_leq_Ax_leq_u, cstr.minus_l_leq_Ax_leq_minus_u };
-  std::vector<BLCPtr> c2 = {cstr2.Ax_eq_0, cstr2.Ax_geq_0, cstr2.Ax_leq_0, cstr2.Ax_eq_b,
-                            cstr2.Ax_geq_b, cstr2.Ax_leq_b, cstr2.Ax_eq_minus_b, cstr2.Ax_geq_minus_b,
-                            cstr2.Ax_leq_minus_b, cstr2.l_leq_Ax_leq_u, cstr2.minus_l_leq_Ax_leq_minus_u };
+  std::vector<BLCPtr> c1 = {cstr.Ax_eq_0,
+                            cstr.Ax_geq_0,
+                            cstr.Ax_leq_0,
+                            cstr.Ax_eq_b,
+                            cstr.Ax_geq_b,
+                            cstr.Ax_leq_b,
+                            cstr.Ax_eq_minus_b,
+                            cstr.Ax_geq_minus_b,
+                            cstr.Ax_leq_minus_b,
+                            cstr.l_leq_Ax_leq_u,
+                            cstr.minus_l_leq_Ax_leq_minus_u};
+  std::vector<BLCPtr> c2 = {cstr2.Ax_eq_0,
+                            cstr2.Ax_geq_0,
+                            cstr2.Ax_leq_0,
+                            cstr2.Ax_eq_b,
+                            cstr2.Ax_geq_b,
+                            cstr2.Ax_leq_b,
+                            cstr2.Ax_eq_minus_b,
+                            cstr2.Ax_geq_minus_b,
+                            cstr2.Ax_leq_minus_b,
+                            cstr2.l_leq_Ax_leq_u,
+                            cstr2.minus_l_leq_Ax_leq_minus_u};
 
-  //check the intersection of bounds constraints
-  for (size_t i = 0; i < 11; ++i)
+  // check the intersection of bounds constraints
+  for(size_t i = 0; i < 11; ++i)
   {
-    for (size_t j = 0; j < 11; ++j)
+    for(size_t j = 0; j < 11; ++j)
     {
       checkSimpleBound(c1[i], c1[j]);
       checkSimpleBound(c1[i], c2[j]);
@@ -795,19 +862,19 @@ TEST_CASE("Test assignements with substitution")
   auto p0 = buildSimpleSubstitution(RHS::ZERO);
   auto p1 = buildSimpleSubstitution(RHS::AS_GIVEN);
   auto p2 = buildSimpleSubstitution(RHS::OPPOSITE);
-  Substitution s0(p0.second, p0.second->variables()[1]); //substitution of y
-  Substitution s1(p1.second, p1.second->variables()[1]); //substitution of y
-  Substitution s2(p2.second, p2.second->variables()[1]); //substitution of y
-  
+  Substitution s0(p0.second, p0.second->variables()[1]); // substitution of y
+  Substitution s1(p1.second, p1.second->variables()[1]); // substitution of y
+  Substitution s2(p2.second, p2.second->variables()[1]); // substitution of y
+
   using T = std::vector<bool>;
   const bool t = true;
   const bool f = false;
   // constraint Ax = 0
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { f,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
-    T v1 = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
-    T v2 = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
+    T v0 = {f, f, f, t, t, t, t, t, t, f, f};
+    T v1 = {t, f, f, t, t, t, t, t, t, f, f};
+    T v2 = {t, f, f, t, t, t, t, t, t, f, f};
 
     checkSimple(p0.first.Ax_eq_0, s0, v0);
     checkSimple(p1.first.Ax_eq_0, s1, v1);
@@ -817,9 +884,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax >= 0
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      f,      f,      f,      f,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, f, f, f, f, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.Ax_geq_0, s0, v0);
     checkSimple(p1.first.Ax_geq_0, s1, v1);
@@ -829,9 +896,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax <= 0
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      f,      f,      f,      f,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, f, f, f, f, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.Ax_leq_0, s0, v0);
     checkSimple(p1.first.Ax_leq_0, s1, v1);
@@ -841,9 +908,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax = 0
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
-    T v1 = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
-    T v2 = { t,      f,      f,      t,      t,      t,      t,      t,      t,      f,      f };
+    T v0 = {t, f, f, t, t, t, t, t, t, f, f};
+    T v1 = {t, f, f, t, t, t, t, t, t, f, f};
+    T v2 = {t, f, f, t, t, t, t, t, t, f, f};
 
     checkSimple(p0.first.Ax_eq_b, s0, v0);
     checkSimple(p1.first.Ax_eq_b, s1, v1);
@@ -853,9 +920,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax >= b
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.Ax_geq_b, s0, v0);
     checkSimple(p1.first.Ax_geq_b, s1, v1);
@@ -865,9 +932,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax <= b
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.Ax_leq_b, s0, v0);
     checkSimple(p1.first.Ax_leq_b, s1, v1);
@@ -877,9 +944,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax >= b
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.l_leq_Ax_leq_u, s0, v0);
     checkSimple(p1.first.l_leq_Ax_leq_u, s1, v1);
@@ -889,9 +956,9 @@ TEST_CASE("Test assignements with substitution")
   // constraint Ax <= b
   {
     //      Cx=0,  Cx=d,  Cx=-d,  Cx>=0,  Cx>=d, Cx>=-d,  Cx<=0,  Cx<=d, Cx<=-d,l<=Cx<=u,-l<=Cx<=-u
-    T v0 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v1 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
-    T v2 = { t,      t,      t,      t,      f,      f,      t,      f,      f,      f,      f };
+    T v0 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v1 = {t, t, t, t, f, f, t, f, f, f, f};
+    T v2 = {t, t, t, t, f, f, t, f, f, f, f};
 
     checkSimple(p0.first.minus_l_leq_Ax_leq_minus_u, s0, v0);
     checkSimple(p1.first.minus_l_leq_Ax_leq_minus_u, s1, v1);
@@ -905,9 +972,9 @@ TEST_CASE("Test assigments")
 
   {
     auto mem = std::make_shared<Memory>(6, 7);
-    //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
+    // assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
-    AssignmentTarget at(range, mem->A, mem->l, mem->u , RHS::AS_GIVEN);
+    AssignmentTarget at(range, mem->A, mem->l, mem->u, RHS::AS_GIVEN);
     auto req = std::make_shared<SolvingRequirementsWithCallbacks>(Weight(2.));
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
@@ -916,14 +983,17 @@ TEST_CASE("Test assigments")
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2)*cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2)*cstr_l);
-      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2)*VectorXd(3).setConstant(large));
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
 
-    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.p0), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
-    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pl), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
-    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.p0),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pl),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    FAST_CHECK_EQ(check(cstr.Ax_geq_minus_b, cstr.pu),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
 
     // We change the range of the target and refresh the assignment
     range->start = 0;
@@ -934,23 +1004,23 @@ TEST_CASE("Test assigments")
     {
       const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2)*cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2)*cstr_l);
-      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2)*VectorXd(3).setConstant(large));
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
 
     // We change the memory of the target and the variables
     VariablePtr y = Space(3).createVariable("y");
     VariablePtr z = Space(2).createVariable("z");
-    VariableVector vv2(y, cstr.Ax_eq_0->variables(), z); // (y (size 3), x (size 7), z (size 3)) 
+    VariableVector vv2(y, cstr.Ax_eq_0->variables(), z); // (y (size 3), x (size 7), z (size 3))
     auto mem2 = std::make_shared<Memory>(3, 12);
     a.target().changeData(mem2->A, mem2->l, mem2->u);
     a.onUpdatedMapping(vv2, false);
     a.onUpdatedTarget();
     a.run();
     {
-      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
-      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem2->A.block(range->start, 3, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem2->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
       FAST_CHECK_EQ(mem2->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
@@ -959,11 +1029,11 @@ TEST_CASE("Test assigments")
 
   {
     auto mem = std::make_shared<Memory>(6, 7);
-    //assignment to a target with convention Ax <= b, from convention l <= Ax <= u
-    auto range = std::make_shared<Range>(0, 6); //we need double range
+    // assignment to a target with convention Ax <= b, from convention l <= Ax <= u
+    auto range = std::make_shared<Range>(0, 6); // we need double range
     AssignmentTarget at(range, mem->A, mem->b, Type::LOWER_THAN, RHS::AS_GIVEN);
     Vector3d aW = {1., 2., 3.};
-    auto req = std::make_shared<SolvingRequirementsWithCallbacks>(AnisotropicWeight{ aW });
+    auto req = std::make_shared<SolvingRequirementsWithCallbacks>(AnisotropicWeight{aW});
     VariableVector vv(cstr.Ax_eq_0->variables());
     Assignment a(cstr.l_leq_Ax_leq_u, req, at, vv);
     a.run();
@@ -974,19 +1044,21 @@ TEST_CASE("Test assigments")
       const auto & cstr_u = cstr.l_leq_Ax_leq_u->u();
       for(size_t i = 0; i < 3; ++i)
       {
-        FAST_CHECK_EQ(mem->A.row(i), sqrt(aW(i))*cstr_A.row(i));
-        FAST_CHECK_EQ(mem->A.row(i + 3), -sqrt(aW(i))*cstr_A.row(i));
-        FAST_CHECK_EQ(mem->b(i), sqrt(aW(i))*cstr_u(i));
-        FAST_CHECK_EQ(mem->b(i + 3), -sqrt(aW(i))*cstr_l(i));
+        FAST_CHECK_EQ(mem->A.row(i), sqrt(aW(i)) * cstr_A.row(i));
+        FAST_CHECK_EQ(mem->A.row(i + 3), -sqrt(aW(i)) * cstr_A.row(i));
+        FAST_CHECK_EQ(mem->b(i), sqrt(aW(i)) * cstr_u(i));
+        FAST_CHECK_EQ(mem->b(i + 3), -sqrt(aW(i)) * cstr_l(i));
       }
     }
 
-    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.p0), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
-    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pl), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
-    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pu), check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.p0),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.p0));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pl),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pl));
+    FAST_CHECK_EQ(check(cstr.l_leq_Ax_leq_u, cstr.pu),
+                  check(*mem.get(), at.constraintType(), at.constraintRhs(), cstr.pu));
   }
 }
-
 
 TEST_CASE("Change weights")
 {
@@ -994,7 +1066,7 @@ TEST_CASE("Change weights")
 
   {
     auto mem = std::make_shared<Memory>(6, 7);
-    //assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
+    // assignment to a target with convention l <= Ax <= u, from convention Ax >= -b
     auto range = std::make_shared<Range>(2, 3);
     AssignmentTarget at(range, mem->A, mem->l, mem->u, RHS::AS_GIVEN);
     VariableVector vv(cstr.Ax_eq_0->variables());
@@ -1016,7 +1088,7 @@ TEST_CASE("Change weights")
       CHECK_THROWS(a.onUpdateWeights());
     }
 
-    //Requirements with non default scalar weights
+    // Requirements with non default scalar weights
     {
       auto req = std::make_shared<SolvingRequirementsWithCallbacks>(Weight(2));
       Assignment a(cstr.Ax_geq_minus_b, req, at, vv);
@@ -1024,8 +1096,8 @@ TEST_CASE("Change weights")
       FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
       a.run();
 
-      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
-      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
@@ -1042,7 +1114,7 @@ TEST_CASE("Change weights")
       CHECK_THROWS(a.onUpdateWeights());
     }
 
-    //Requirements with non default vector weights
+    // Requirements with non default vector weights
     {
       VectorXd w0 = Vector3d(1, 2, 3);
       auto req = std::make_shared<SolvingRequirementsWithCallbacks>(AnisotropicWeight(w0));
@@ -1051,8 +1123,8 @@ TEST_CASE("Change weights")
       FAST_CHECK_UNARY(a.changeVectorWeightIsAllowed());
       a.run();
 
-      const auto& cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
-      const auto& cstr_l = cstr.Ax_geq_minus_b->l();
+      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), w0.cwiseSqrt().asDiagonal() * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * (-cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * VectorXd(3).setConstant(large));

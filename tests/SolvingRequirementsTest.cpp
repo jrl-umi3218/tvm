@@ -11,11 +11,15 @@
 using namespace tvm::requirements;
 using namespace Eigen;
 
-bool checkRequirements(const SolvingRequirements& sr,
-                       bool defaultPriority, int priority,
-                       bool defaultWeight, double weight,
-                       bool defaultAWeight, const VectorXd& aweight,
-                       bool defaultEval, ViolationEvaluationType type)
+bool checkRequirements(const SolvingRequirements & sr,
+                       bool defaultPriority,
+                       int priority,
+                       bool defaultWeight,
+                       double weight,
+                       bool defaultAWeight,
+                       const VectorXd & aweight,
+                       bool defaultEval,
+                       ViolationEvaluationType type)
 {
   bool b = (sr.priorityLevel().isDefault() == defaultPriority);
   b = b && (sr.priorityLevel().value() == priority);
@@ -42,12 +46,14 @@ TEST_CASE("Test SolvingRequirements")
   SolvingRequirements s3(Weight(3), PriorityLevel(2));
   FAST_CHECK_UNARY(checkRequirements(s3, false, 2, false, 3, true, VectorXd(), true, ViolationEvaluationType::L2));
 
-  SolvingRequirements s4(AnisotropicWeight((VectorXd(3) << 3,4,5).finished()), Weight(3), ViolationEvaluation(ViolationEvaluationType::L1), PriorityLevel(2));
-  FAST_CHECK_UNARY(checkRequirements(s4, false, 2, false, 3, false, (VectorXd(3) << 3, 4, 5).finished(), false, ViolationEvaluationType::L1));
+  SolvingRequirements s4(AnisotropicWeight((VectorXd(3) << 3, 4, 5).finished()), Weight(3),
+                         ViolationEvaluation(ViolationEvaluationType::L1), PriorityLevel(2));
+  FAST_CHECK_UNARY(checkRequirements(s4, false, 2, false, 3, false, (VectorXd(3) << 3, 4, 5).finished(), false,
+                                     ViolationEvaluationType::L1));
 
   CHECK_THROWS_AS(SolvingRequirements s(PriorityLevel(-1)), std::runtime_error);
 
   CHECK_THROWS_AS(SolvingRequirements s(Weight(-1)), std::runtime_error);
 
-  CHECK_THROWS_AS(SolvingRequirements s(AnisotropicWeight(Vector3d(-1,2,3))), std::runtime_error);
+  CHECK_THROWS_AS(SolvingRequirements s(AnisotropicWeight(Vector3d(-1, 2, 3))), std::runtime_error);
 }

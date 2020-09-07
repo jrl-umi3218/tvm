@@ -9,34 +9,28 @@
 namespace tvm
 {
 
-  namespace task_dynamics
-  {
+namespace task_dynamics
+{
 
-    Constant::Constant()
-    {
-    }
+Constant::Constant() {}
 
-    std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
-    {
-      return std::make_unique<Impl>(f, t, rhs);
-    }
+std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f,
+                                                            constraint::Type t,
+                                                            const Eigen::VectorXd & rhs) const
+{
+  return std::make_unique<Impl>(f, t, rhs);
+}
 
-    Order Constant::order_() const
-    {
-      return Order::Zero;
-    }
+Order Constant::order_() const { return Order::Zero; }
 
-    Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs)
-      : TaskDynamicsImpl(Order::Zero, f, t, rhs)
-    {
-      value_ = rhs;
-    }
+Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs)
+: TaskDynamicsImpl(Order::Zero, f, t, rhs)
+{
+  value_ = rhs;
+}
 
-    void Constant::Impl::updateValue()
-    {
-      value_ = rhs();
-    }
+void Constant::Impl::updateValue() { value_ = rhs(); }
 
-  }  // namespace task_dynamics
+} // namespace task_dynamics
 
-}  // namespace tvm
+} // namespace tvm

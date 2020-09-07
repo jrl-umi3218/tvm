@@ -2,11 +2,11 @@
 
 #include "RobotPublisher.h"
 
-struct RobotPublisherImpl {};
+struct RobotPublisherImpl
+{
+};
 
-RobotPublisher::RobotPublisher(const std::string &):
-  impl_()
-{}
+RobotPublisher::RobotPublisher(const std::string &) : impl_() {}
 
 RobotPublisher::~RobotPublisher() {}
 
