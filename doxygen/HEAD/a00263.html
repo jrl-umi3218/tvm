@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Clamped.h File Reference</title>
+<title>TVM: Task.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,25 +92,27 @@ $(document).ready(function(){initNavTree('a00263.html','');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Clamped.h File Reference</div>  </div>
+<div class="title">Task.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;mpark/variant.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00041.html">tvm/function/abstract/Function.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00257.html">tvm/task_dynamics/abstract/TaskDynamics.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02392.html">tvm/constraint/enums.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00023.html">tvm/constraint/internal/RHSVectors.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00323.html">tvm/utils/ProtoTask.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00266.html">tvm/task_dynamics/abstract/TaskDynamics.h</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01683.html">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_c^{(k)*} = s e^{(k)*} \), \( s \in [0, 1] \), such that \( b_{min} \leq \ e_c^{(k)*} \leq b_{max}\) where \( b_{min} \) and \( b_{max} \) are given bounds, specified as scalars or vectors.  <a href="a01683.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01687.html">tvm::task_dynamics::Clamped&lt; TD, TDImpl &gt;::Impl</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01705.html">tvm::Task</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=.  <a href="a01705.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00378"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html">tvm::task_dynamics</a></td></tr>
+<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
+<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -119,8 +121,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00263.html">Clamped.h</a></li>
-    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="a00263.html">Task.h</a></li>
+    <li class="footer">Generated on Mon Sep 7 2020 11:06:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

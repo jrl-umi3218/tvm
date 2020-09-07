@@ -1,6 +1,7 @@
 var a00278 =
 [
-    [ "ProportionalDerivative", "a01723.html", "a01723" ],
-    [ "Impl", "a01727.html", "a01727" ],
-    [ "PD", "a00278.html#abbc550226fefd54eb4205711373370ee", null ]
+    [ "FeedForward", "a01733.html", "a01733" ],
+    [ "Impl", "a01737.html", "a01737" ],
+    [ "FeedForwardP", "a00278.html#abefacce58ac7386489ddd237a5fb0ecb", null ],
+    [ "FeedForwardPD", "a00278.html#aef391d4ea376d9ddb35b3bcace52d51e", null ]
 ];

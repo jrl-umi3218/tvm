@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Option.h File Reference</title>
+<title>TVM: LeastSquareSolver.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,165 +89,52 @@ $(document).ready(function(){initNavTree('a00239.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Option.h File Reference</div>  </div>
+<div class="title">LeastSquareSolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
-<code>#include &lt;optional&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00098.html">tvm/hint/internal/Substitutions.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00203.html">tvm/scheme/internal/Assignment.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00245.html">tvm/solver/internal/Option.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00248.html">tvm/solver/internal/SolverEvents.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00317.html">tvm/utils/internal/map.h</a>&gt;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a70519f978d2c3715515fe90b494deecc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00239.html#a70519f978d2c3715515fe90b494deecc">TVM_ADD_OPTION_GET_SET</a>(optionName,  type)</td></tr>
-<tr class="memdesc:a70519f978d2c3715515fe90b494deecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding getter and setter for the option <em>optionName</em> of type <em>type</em>.  <a href="#a70519f978d2c3715515fe90b494deecc">More...</a><br /></td></tr>
-<tr class="separator:a70519f978d2c3715515fe90b494deecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ffff88740d63b9201263c15b56eb9c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00239.html#a4ffff88740d63b9201263c15b56eb9c4">TVM_ADD_DEFAULT_OPTION</a>(optionName,  type)</td></tr>
-<tr class="memdesc:a4ffff88740d63b9201263c15b56eb9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding an option <em>optionName</em> of type <em>type</em> with no default value.  <a href="#a4ffff88740d63b9201263c15b56eb9c4">More...</a><br /></td></tr>
-<tr class="separator:a4ffff88740d63b9201263c15b56eb9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a518217413c2a9b0d2a903055860bd958"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00239.html#a518217413c2a9b0d2a903055860bd958">TVM_ADD_NON_DEFAULT_OPTION</a>(optionName,  defaultValue)</td></tr>
-<tr class="memdesc:a518217413c2a9b0d2a903055860bd958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding an option <em>optionName</em> with new default value <em>defaultValue</em>, that will replace the value of the underlying solver.  <a href="#a518217413c2a9b0d2a903055860bd958">More...</a><br /></td></tr>
-<tr class="separator:a518217413c2a9b0d2a903055860bd958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27d52adabb184fba0791fad905ee41c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00239.html#a27d52adabb184fba0791fad905ee41c2">TVM_PROCESS_OPTION_2</a>(optionName,  target,  setterName)</td></tr>
-<tr class="memdesc:a27d52adabb184fba0791fad905ee41c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process <em>optionName:</em> if <em>optionName</em> has a non-default value, use <em>target.setterName</em> to set that value for <em>target</em>.  <a href="#a27d52adabb184fba0791fad905ee41c2">More...</a><br /></td></tr>
-<tr class="separator:a27d52adabb184fba0791fad905ee41c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01629.html">tvm::solver::abstract::LeastSquareSolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for a (constrained) least-square solver.  <a href="a01629.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html">tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html">tvm::solver::abstract::LeastSquareSolver::MarkedAssignment</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html">tvm::solver::abstract::LSSolverFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A base class for <a class="el" href="a01629.html" title="Base class for a (constrained) least-square solver. ">LeastSquareSolver</a> factory.  <a href="a01641.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
+<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00408"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00408.html">tvm::solver</a></td></tr>
+<tr class="memdesc:a00408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Since all solver might not be available depending on the option compilations, this header offers conveniencies to include and use a default solver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00409"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00409.html">tvm::solver::abstract</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a4ffff88740d63b9201263c15b56eb9c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ffff88740d63b9201263c15b56eb9c4">&#9670;&nbsp;</a></span>TVM_ADD_DEFAULT_OPTION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TVM_ADD_DEFAULT_OPTION</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">optionName, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">type&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>:                                          \</div><div class="line">  using optionName##_t = type;                    \</div><div class="line">  std::optional&lt;type&gt; optionName##_;              \</div><div class="line">TVM_ADD_OPTION_GET_SET(optionName, type)</div></div><!-- fragment -->
-<p>Adding an option <em>optionName</em> of type <em>type</em> with no default value. </p>
-<p>(The default value of the underlying solver will be used. </p>
-
-</div>
-</div>
-<a id="a518217413c2a9b0d2a903055860bd958"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a518217413c2a9b0d2a903055860bd958">&#9670;&nbsp;</a></span>TVM_ADD_NON_DEFAULT_OPTION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TVM_ADD_NON_DEFAULT_OPTION</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">optionName, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">defaultValue&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>:                                                              \</div><div class="line">  using optionName##_t = std::remove_const_t&lt;decltype(defaultValue)&gt;; \</div><div class="line">  std::optional&lt;optionName##_t&gt; optionName##_ = defaultValue;         \</div><div class="line">TVM_ADD_OPTION_GET_SET(optionName, optionName##_t)</div></div><!-- fragment -->
-<p>Adding an option <em>optionName</em> with new default value <em>defaultValue</em>, that will replace the value of the underlying solver. </p>
-
-</div>
-</div>
-<a id="a70519f978d2c3715515fe90b494deecc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70519f978d2c3715515fe90b494deecc">&#9670;&nbsp;</a></span>TVM_ADD_OPTION_GET_SET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TVM_ADD_OPTION_GET_SET</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">optionName, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">type&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">public</span>:                                                                    \</div><div class="line">  const std::optional&lt;type&gt;&amp; optionName()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> optionName##_; }  \</div><div class="line">  auto&amp; optionName(<span class="keyword">const</span> type&amp; v) { optionName##_ = v; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div></div><!-- fragment -->
-<p>Adding getter and setter for the option <em>optionName</em> of type <em>type</em>. </p>
-
-</div>
-</div>
-<a id="a27d52adabb184fba0791fad905ee41c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27d52adabb184fba0791fad905ee41c2">&#9670;&nbsp;</a></span>TVM_PROCESS_OPTION_2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TVM_PROCESS_OPTION_2</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">optionName, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">target, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">setterName&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span> (options.optionName())                                     \</div><div class="line">  target.setterName(options.optionName().value());</div></div><!-- fragment -->
-<p>Process <em>optionName:</em> if <em>optionName</em> has a non-default value, use <em>target.setterName</em> to set that value for <em>target</em>. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_cd62ff3f67c488611cd9ffc617bc0d4a.html">solver</a></li><li class="navelem"><a class="el" href="dir_8679b0fbb08ca6194387597835b1e602.html">internal</a></li><li class="navelem"><a class="el" href="a00239.html">Option.h</a></li>
-    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_cd62ff3f67c488611cd9ffc617bc0d4a.html">solver</a></li><li class="navelem"><a class="el" href="dir_b2cafb07201e725d493e5231c9833d80.html">abstract</a></li><li class="navelem"><a class="el" href="a00239.html">LeastSquareSolver.h</a></li>
+    <li class="footer">Generated on Mon Sep 7 2020 11:06:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,6 +1,5 @@
 var a00385 =
 [
-    [ "abstract", "a00386.html", "a00386" ],
-    [ "internal", "a00387.html", "a00387" ],
-    [ "CallGraph", "a01071.html", "a01071" ]
+    [ "Function", "a01037.html", "a01037" ],
+    [ "LinearFunction", "a01041.html", "a01041" ]
 ];

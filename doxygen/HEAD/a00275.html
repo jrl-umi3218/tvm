@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Proportional.h File Reference</title>
+<title>TVM: Constant.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,36 +90,28 @@ $(document).ready(function(){initNavTree('a00275.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Proportional.h File Reference</div>  </div>
+<div class="title">Constant.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;mpark/variant.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00257.html">tvm/task_dynamics/abstract/TaskDynamics.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00266.html">tvm/task_dynamics/abstract/TaskDynamics.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01715.html">tvm::task_dynamics::Proportional</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute \( \dot{e}^* = -k_p e \) (Kinematic order) with \( k_p \) a scalar, a diagonal matrix (given as a vector) or a matrix.  <a href="a01715.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html">tvm::task_dynamics::Constant</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero order dynamics with e* = 0, i.e.  <a href="a01725.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01719.html">tvm::task_dynamics::Proportional::Impl</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01729.html">tvm::task_dynamics::Constant::Impl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00371"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00371.html">tvm</a></td></tr>
-<tr class="memdesc:a00371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
+<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00378"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html">tvm::task_dynamics</a></td></tr>
+<tr class="memitem:a00387"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00387.html">tvm::task_dynamics</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a48db1a4191bee9b4313893cbc71c60d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00378.html#a48db1a4191bee9b4313893cbc71c60d2">tvm::task_dynamics::P</a> = Proportional</td></tr>
-<tr class="memdesc:a48db1a4191bee9b4313893cbc71c60d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for convenience.  <a href="a00378.html#a48db1a4191bee9b4313893cbc71c60d2">More...</a><br /></td></tr>
-<tr class="separator:a48db1a4191bee9b4313893cbc71c60d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -127,8 +119,8 @@ Typedefs</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00275.html">Proportional.h</a></li>
-    <li class="footer">Generated on Thu Aug 20 2020 07:01:05 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a00275.html">Constant.h</a></li>
+    <li class="footer">Generated on Mon Sep 7 2020 11:06:14 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

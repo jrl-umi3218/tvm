@@ -1,7 +1,8 @@
 var a00396 =
 [
-    [ "abstract", "a00397.html", "a00397" ],
-    [ "internal", "a00398.html", "a00398" ],
-    [ "WeightedLeastSquares", "a01599.html", "a01599" ],
-    [ "WeightedLeastSquaresOptions", "a01595.html", null ]
+    [ "AbstractNode", "a01097.html", "a01097" ],
+    [ "DependencyGraph", "a01105.html", "a01105" ],
+    [ "Inputs", "a01113.html", "a01113" ],
+    [ "Log", "a01121.html", "a01121" ],
+    [ "Logger", "a01161.html", "a01161" ]
 ];
