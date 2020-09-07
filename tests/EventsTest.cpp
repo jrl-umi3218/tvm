@@ -17,6 +17,7 @@
 #endif
 
 #include <array>
+#include <bitset>
 
 using namespace tvm;
 using namespace Eigen;
@@ -135,7 +136,7 @@ TEST_CASE("Add/Remove variables from problem")
 }
 
 // Skip if more than one type of constraints/objective is added more than once
-bool skip(const std::array<bool, 12>& a)
+bool skip(const std::bitset<12>& a)
 {
   int eq = a[0] + a[1] + a[2];
   int ineq = a[3] + a[4] + a[5];
@@ -148,7 +149,7 @@ bool skip(const std::array<bool, 12>& a)
 
 // Skip if more than one type of constraints/objective is added more than once
 // and more than three types is added. 
-bool skip2(const std::array<bool, 8>& a)
+bool skip2(const std::bitset<8>& a)
 {
   int eq = a[0] + a[1];
   int ineq = a[2] + a[3];
@@ -163,7 +164,7 @@ bool skip2(const std::array<bool, 8>& a)
 template<std::size_t N>
 void buildPb(LinearizedControlProblem& pb,
              const std::array<TaskWithRequirementsPtr, N>& tasks,
-             const std::array<bool, N>& selection)
+             const std::bitset<N>& selection)
 {
   for (int i = 0; i < N; ++i)
   {
@@ -173,7 +174,7 @@ void buildPb(LinearizedControlProblem& pb,
 
 template<std::size_t N>
 void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
-                   const std::array<bool, N>& added, 
+                   const std::bitset<N>& added, 
                    const LinearizedControlProblem& pb0,
                    const VectorXd& s0, 
                    const LinearizedControlProblem& pb,
@@ -221,8 +222,11 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N>& tasks,
   }
 }
 
-void test1Change(const std::array<bool, 12>& selection, bool withSubstitution = false)
+void test1Change(const std::bitset<12>& selection, bool withSubstitution = false)
 {
+  if (skip(selection))
+    return;
+
   Space R2(2);
   VariablePtr x = R2.createVariable("x");
   VariablePtr y = R2.createVariable("y");
@@ -254,7 +258,7 @@ void test1Change(const std::array<bool, 12>& selection, bool withSubstitution = 
   int stop = withSubstitution ? 11 : 12;
   for (int i = start; i < stop; ++i)
   {
-    std::array<bool, 12> added = selection;
+    std::bitset<12> added = selection;
     if (withSubstitution)
     {
       added[0] = true;      // We always want the first constraint, for substitution
@@ -309,8 +313,11 @@ void test1Change(const std::array<bool, 12>& selection, bool withSubstitution = 
   }
 }
 
-void test3Change(const std::array<bool, 8>& selection)
+void test3Change(const std::bitset<8>& selection)
 {
+  if (skip2(selection))
+    return;
+
   Space R2(2);
   VariablePtr x = R2.createVariable("x");
   VariablePtr y = R2.createVariable("y");
@@ -340,7 +347,7 @@ void test3Change(const std::array<bool, 8>& selection)
     {
       for (int k = 0; k < 8; k+=2)
       {
-        std::array<bool, 8> added = selection;
+        std::bitset<8> added = selection;
         LinearizedControlProblem pb;
         buildPb(pb, tasks, added);
 
@@ -421,21 +428,12 @@ TEST_CASE("Systematic add/remove of one task")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::array<bool, 12> added = { false, false, false, false, false, false, false, false, false, false, false, false };
+  std::bitset<12> added(0);
   // all combinations of true/false for added
-  for (int i = 1; i < 4096; ++i)
+  for (uint16_t i = 1; i < (1<<12); ++i)
   {
-    // Take the next value of added
-    for (int j = 0; j < 12; ++j)
-    {
-      added[j] = !added[j];
-      if (added[j]) break;
-    }
-
-    if (!skip(added))
-    {
-      test1Change(added);
-    }
+    added = i;
+    test1Change(added);
   }
 }
 #else
@@ -445,23 +443,22 @@ TEST_CASE("Some add/remove of one task")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::vector<std::array<bool, 12>> added = {
-  { true, true, false, false, false, false, false, false, false, false, false, false },
-  { true, true, false, true, false, false, false, false, false, false, false, false },
-  { true, true, false, false, false, false, true, false, false, false, false, false },
-  { true, true, false, false, false, false, false, false, false, true, false, false },
-  { false, false, false, true, true, false, false, false, false, false, false, false },
-  { true, false, false, true, true, false, false, false, false, false, false, false },
-  { false, false, false, true, true, false, true, false, false, false, false, false },
-  { false, false, false, true, true, false, false, false, false, true, false, false },
-  { false, false, false, false, false, false, true, true, false, false, false, false },
-  { true, false, false, false, false, false, true, true, false, false, false, false },
-  { false, false, false, true, false, false, true, true, false, false, false, false },
-  { false, false, false, false, false, false, true, true, false, true, false, false },
-  { false, false, false, false, false, false, false, false, false, true, true, false },
-  { true, false, false, false, false, false, false, false, false, true, true, false },
-  { false, false, false, true, false, false, false, false, false, true, true, false },
-  { false, false, false, false, false, false, true, false, false, true, true, false }};
+  std::vector<std::bitset<12>> added = {std::bitset<12>("110000000000"),
+                                        std::bitset<12>("110100000000"),
+                                        std::bitset<12>("110000100000"),
+                                        std::bitset<12>("110000000100"),
+                                        std::bitset<12>("000110000000"),
+                                        std::bitset<12>("100110000000"),
+                                        std::bitset<12>("000110100000"),
+                                        std::bitset<12>("000110000100"),
+                                        std::bitset<12>("000000110000"),
+                                        std::bitset<12>("100000110000"),
+                                        std::bitset<12>("000100110000"),
+                                        std::bitset<12>("000000110100"),
+                                        std::bitset<12>("000000000110"),
+                                        std::bitset<12>("100000000110"),
+                                        std::bitset<12>("000100000110"),
+                                        std::bitset<12>("000000100110")};
   for (size_t i = 0; i<added.size(); ++i)
   {
     test1Change(added[i]);
@@ -476,21 +473,12 @@ TEST_CASE("Systematic add/remove of one task with substitution")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::array<bool, 12> added = { true, false, false, false, false, false, false, false, false, false, false, false };
+  std::bitset<12> added(1);
   // all combinations of true/false for added[1..10]
-  for (int i = 1; i < 1024; ++i)
+  for (int i = 1; i < (1 << 10); ++i)
   {
-    // Take the next value of added
-    for (int j = 1; j < 11; ++j)
-    {
-      added[j] = !added[j];
-      if (added[j]) break;
-    }
-
-    if (!skip(added))
-    {
-      test1Change(added, true);
-    }
+    added = 1 + 2 * i + (1 << 11);
+    test1Change(added, true);
   }
 }
 #else
@@ -500,20 +488,19 @@ TEST_CASE("Some add/remove of one task with substitution")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::vector<std::array<bool, 12>> added = {
-  { true, true, false, false, false, false, false, false, false, false, false, false },
-  { true, true, false, true, false, false, false, false, false, false, false, false },
-  { true, true, false, false, false, false, true, false, false, false, false, false },
-  { true, true, false, false, false, false, false, false, false, true, false, false },
-  { true, false, false, true, true, false, false, false, false, false, false, false },
-  { true, false, false, true, true, false, true, false, false, false, false, false },
-  { true, false, false, true, true, false, false, false, false, true, false, false },
-  { true, false, false, false, false, false, true, true, false, false, false, false },
-  { true, false, false, true, false, false, true, true, false, false, false, false },
-  { true, false, false, false, false, false, true, true, false, true, false, false },
-  { true, false, false, false, false, false, false, false, false, true, true, false },
-  { true, false, false, true, false, false, false, false, false, true, true, false },
-  { true, false, false, false, false, false, true, false, false, true, true, false } };
+  std::vector<std::bitset<12>> added = {std::bitset<12>("110000000000"),
+                                        std::bitset<12>("110000100000"),
+                                        std::bitset<12>("110000100000"),
+                                        std::bitset<12>("110000000100"),
+                                        std::bitset<12>("100110000000"),
+                                        std::bitset<12>("100110100000"),
+                                        std::bitset<12>("100110000100"),
+                                        std::bitset<12>("100000110000"),
+                                        std::bitset<12>("100100110000"),
+                                        std::bitset<12>("100000110100"),
+                                        std::bitset<12>("100000000110"),
+                                        std::bitset<12>("100100000110"),
+                                        std::bitset<12>("100000100110")};
   for (size_t i = 0; i < added.size(); ++i)
   {
     test1Change(added[i], true);
@@ -528,21 +515,12 @@ TEST_CASE("Systematic add/remove of three tasks")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::array<bool, 8> added = { false, false, false, false, false, false, false, false};
+  std::bitset<8> added(0);
   // all combinations of true/false for added
-  for (int i = 1; i < 256; ++i)
+  for (int i = 1; i < (1 << 8); ++i)
   {
-    // Take the next value of added
-    for (int j = 0; j < 8; ++j)
-    {
-      added[j] = !added[j];
-      if (added[j]) break;
-    }
-
-    if (!skip2(added))
-    {
-      test3Change(added);
-    }
+    added = i;
+    test3Change(added);
   }
 }
 #else
@@ -552,11 +530,10 @@ TEST_CASE("Some add/remove of three tasks")
   // So we disable the logs here.
   tvm::graph::internal::Logger::logger().disable();
 
-  std::vector<std::array<bool, 8>> added = {
-  { true, true, false, false, false, false, false, false},
-  { false, false, true, true, false, false, false, false},
-  { false, false, false, false, true, true, false, false},
-  { false, false, false, false, false, false, true, true} };
+  std::vector<std::bitset<8>> added = { std::bitset<8>("11000000"),
+                                        std::bitset<8>("00110000"),
+                                        std::bitset<8>("00001100"),
+                                        std::bitset<8>("00000011")};
   for (size_t i = 0; i < added.size(); ++i)
   {
     test3Change(added[i]);
