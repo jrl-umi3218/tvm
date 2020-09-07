@@ -85,6 +85,8 @@ namespace internal
     constraint::RHS constraintRhs() const;
     /** Row size of the target.*/
     int size() const;
+    Range& range();
+    const Range& range() const;
 
     /** Return the (range.dim x colDim) block of A starting at
     *(range.start,colStart) */

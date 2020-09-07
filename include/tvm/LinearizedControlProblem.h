@@ -1,31 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -33,6 +6,8 @@
 #include <tvm/ControlProblem.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/hint/internal/Substitutions.h>
+
+#include <optional>
 
 namespace tvm
 {
@@ -77,6 +52,32 @@ namespace tvm
       * \param t TaskWithRequirements object as return by add.
       */
     LinearConstraintPtr constraint(TaskWithRequirements* t) const;
+
+    /** Access to the linear constraint corresponding to the task \p t
+      *
+      * \param t TaskWithRequirements object as return by add.
+      *
+      * \return A shared_ptr that can be null if \p t is not in the problem.
+      */
+    LinearConstraintPtr constraintNoThrow(TaskWithRequirements* t) const;
+
+    /** Access to the linear constraint and requirements corresponding to the task \p t
+     *
+     * \param t TaskWithRequirements object as return by add.
+     */
+    const LinearConstraintWithRequirements& constraintWithRequirements(TaskWithRequirements* t) const;
+
+    /** Access to the linear constraint and requirements corresponding to the task \p t
+     *
+     * \param t TaskWithRequirements object as return by add.
+     *
+     * \return An std::optional containing a const reference on LinearConstraintWithRequirements
+     * if \p t is in the problem.
+     */
+    std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintWithRequirementsNoThrow(TaskWithRequirements* t) const;
+
+    /** Return the map task -> constraint*/
+    const tvm::utils::internal::map<TaskWithRequirements*, LinearConstraintWithRequirements>& constraintMap() const;
 
   protected:
     /** Compute all quantities necessary for solving the problem.*/

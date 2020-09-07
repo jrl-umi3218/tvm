@@ -1,31 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 #include <tvm/VariableVector.h>
@@ -61,13 +34,7 @@ namespace
   };
 }
 
-namespace tvm
-{
-
-namespace solver
-{
-
-namespace abstract
+namespace tvm::solver::abstract
 {
   LeastSquareSolver::LeastSquareSolver(bool verbose)
     : objSize_(-1)
@@ -88,11 +55,17 @@ namespace abstract
 
     buildInProgress_ = true;
     variables_ = &x;
-    first_.clear();
+    boundsOrder_.clear();
     for (const auto& xi : variables())
     {
-      first_[xi.get()] = true;
+      boundsOrder_[xi.get()] = {};
     }
+
+    objectiveToAssignments_.clear();
+    equalityConstraintToAssignments_.clear();
+    inequalityConstraintToAssignments_.clear();
+    boundToAssignments_.clear();
+    assignments_.clear();
 
     subs_ = subs;
 
@@ -118,28 +91,29 @@ namespace abstract
     assert(buildInProgress_ && "Attempting to add a bound without calling startBuild first");
     assert(bound->variables().numberOfVariables() == 1 && "A bound constraint can be only on one variable.");
     const auto& xi = bound->variables()[0];
-    RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables())); //FIXME: for now we do not keep a pointer on the range nor the target.
+    RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables()));
 
-    AutoMap autoMap(bound, assignments_, boundToAssigments_);
-    bool& first = first_[xi.get()];
-    addBound_(bound, range, first);
-    first = false;
+    AutoMap autoMap(bound, assignments_, boundToAssignments_);
+    auto& first = boundsOrder_[xi.get()];
+    addBound_(bound, range, first.empty());
+    first.push_back(bound.get());
   }
 
   void LeastSquareSolver::addConstraint(LinearConstraintPtr cstr)
   {
     assert(buildInProgress_ && "Attempting to add a constraint without calling startBuild first");
 
-    AutoMap autoMap(cstr, assignments_, constraintToAssigments_);
     if (cstr->isEquality())
     {
+      AutoMap autoMap(cstr, assignments_, equalityConstraintToAssignments_);
       addEqualityConstraint_(cstr);
-      eqSize_ += constraintSize(cstr);
+      eqSize_ += constraintSize(*cstr);
     }
     else
     {
+      AutoMap autoMap(cstr, assignments_, inequalityConstraintToAssignments_);
       addIneqalityConstraint_(cstr);
-      ineqSize_ += constraintSize(cstr);
+      ineqSize_ += constraintSize(*cstr);
     }
   }
 
@@ -152,7 +126,7 @@ namespace abstract
     {
       throw std::runtime_error("[LeastSquareSolver::addObjective]: least-squares only support L2 norm for violation evaluation");
     }
-    AutoMap autoMap(obj, assignments_, objectiveToAssigments_);
+    AutoMap autoMap(obj, assignments_, objectiveToAssignments_);
     addObjective_(obj, req, additionalWeight);
     objSize_ += obj->size();
   }
@@ -177,7 +151,7 @@ namespace abstract
 
     preAssignmentProcess_();
     for (auto& a : assignments_)
-      a->run();
+      a->assignment.run();
     postAssignmentProcess_();
 
     if (verbose_)
@@ -202,53 +176,319 @@ namespace abstract
     return result_();
   }
 
-  int LeastSquareSolver::constraintSize(const LinearConstraintPtr& c) const
+  int LeastSquareSolver::constraintSize(const constraint::abstract::LinearConstraint& c) const
   {
-    if (c->type() != constraint::Type::DOUBLE_SIDED || handleDoubleSidedConstraint_())
+    if (c.type() != constraint::Type::DOUBLE_SIDED || handleDoubleSidedConstraint_())
     {
-      return c->size();
+      return c.size();
     }
     else
     {
-      return 2 * c->size();
+      return 2 * c.size();
     }
   }
 
-  void LeastSquareSolver::updateWeight(constraint::abstract::LinearConstraint* c)
+  void LeastSquareSolver::process(const internal::SolverEvents& se)
   {
-    auto& assignments = objectiveToAssigments_.at(c);
+    updateWeights(se);
+    auto impactRemove = processRemovedConstraints(se);
+    bool needMappingUpdate = updateVariables(se);
+    auto impactAdd = previewAddedConstraints(se);
+    auto impactResize = resize_(nObj_, nEq_, nIneq_, boundToAssignments_.size()>0 || se.addedBounds().size()>0);
 
-    for (auto& a : assignments)
+    if (needMappingUpdate)
     {
-      if (a->changeScalarWeightIsAllowed())
+      for (auto& a : assignments_)
+        a->assignment.onUpdatedMapping(variables(), false);
+    }
+
+    // Update the target ranges when needed.
+    // We could be much more fine grain as added constraints could be placed last,
+    // and not update existing constraints if only constraints are added but this
+    // makes things much more complex.
+    auto impact = impactRemove || impactAdd;
+    auto updateTargetRange = [](const auto& map, int& cumSize, auto rangeProvider, auto sizeProvider)
+    {
+      for (const auto& ca : map)
       {
-        a->onUpdateWeights(true, false);
+        Range r = rangeProvider(*ca.first);
+        for (auto& a : ca.second)
+          a->assignment.target().range().start = r.start;
+        cumSize += sizeProvider(*ca.first);
+      }
+    };
+
+    // We first reset all necessary size accumulators, as they can be used together for deciding ranges.
+    if (impact.equalityConstraints_) eqSize_ = 0;
+    if (impact.inequalityConstraints_) ineqSize_ = 0;
+    if (impact.objectives_) objSize_ = 0;
+
+    if (impact.equalityConstraints_)
+      updateTargetRange(equalityConstraintToAssignments_,
+                        eqSize_,
+                        [&](const auto& c) { return nextEqualityConstraintRange_(c); },
+                        [&](const auto& c) { return constraintSize(c); });
+
+    if (impact.inequalityConstraints_)
+      updateTargetRange(inequalityConstraintToAssignments_,
+                        ineqSize_,
+                        [&](const auto& c) { return nextInequalityConstraintRange_(c); },
+                        [&](const auto& c) { return constraintSize(c); });
+
+    int dummy;
+    if (impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
+      updateTargetRange(boundToAssignments_, 
+                        dummy, 
+                        [&](const auto& b) { return b.variables()[0]->getMappingIn(variables()); },
+                        [](const auto& b) { return 0; });
+
+    if (impact.objectives_)
+      updateTargetRange(objectiveToAssignments_,
+                        objSize_,
+                        [&](const auto& c) { return nextObjectiveRange_(c); },
+                        [&](const auto& c) { return c.size(); });
+
+    // Update the matrices and vectors of the target when needed
+    auto updateTargetData = [](const auto& map, auto updateFn)
+    {
+      for (const auto& ca : map)
+      {
+        for (auto& a : ca.second)
+          updateFn(a->assignment.target());
+      }
+    };
+
+    impact.orAssign(impactResize); // There are case where no resize are necessary (e.g. a constraint was removed and
+    applyImpactLogic(impact);      // another added with same size) but the target need to change. 
+    if (impact.equalityConstraints_)
+      updateTargetData(equalityConstraintToAssignments_, [&](auto& target) { updateEqualityTargetData(target); });
+
+    if (impact.inequalityConstraints_)
+      updateTargetData(inequalityConstraintToAssignments_, [&](auto& target) { updateInequalityTargetData(target); });
+
+    if (impact.bounds_)
+      updateTargetData(boundToAssignments_, [&](auto& target) { updateBoundTargetData(target); });
+
+    if (impact.objectives_)
+      updateTargetData(objectiveToAssignments_, [&](auto& target) { updateObjectiveTargetData(target); });
+
+    // Final update of the impacted mappings
+    if (needMappingUpdate)
+    {
+      for (auto& a : assignments_)
+        a->assignment.onUpdatedTarget(); // onUpdateTarget also takes into account the mapping change due to variable.
+    }
+    else
+    {
+      auto updateMapping = [](const auto& map)
+      {
+        for (const auto& ca : map)
+        {
+          for (auto& a : ca.second)
+            a->assignment.onUpdatedTarget();
+        }
+      };
+
+      if (impact.equalityConstraints_) updateMapping(equalityConstraintToAssignments_);
+      if (impact.inequalityConstraints_) updateMapping(inequalityConstraintToAssignments_);
+      if (impact.bounds_) updateMapping(boundToAssignments_);
+      if (impact.objectives_) updateMapping(objectiveToAssignments_);
+    }
+
+    processAddedConstraints(se);
+  }
+
+  void LeastSquareSolver::updateWeights(const internal::SolverEvents& se)
+  {
+    const auto& we = se.weightEvents();
+
+    for (const auto& e : we)
+    {
+      auto [c, scalar, vector] = e;
+
+      // We might have change of weights on constraints that were not added yet (because process of
+      // of weight arise before processing added constraints - if we'd process the weight after, we
+      // could have change of weight on removed constraints). Therefore we need to ignore constraints
+      // that were not found in the map.
+      auto it = objectiveToAssignments_.find(c);
+      if (it == objectiveToAssignments_.end()) continue;
+      auto& assignments = it->second;
+
+      for (auto& a : assignments)
+      {
+        bool needReprocess = (scalar && !a->assignment.changeScalarWeightIsAllowed())
+                          || (vector && !a->assignment.changeVectorWeightIsAllowed());
+        if (needReprocess)
+        {
+          a->assignment = tvm::scheme::internal::Assignment::reprocess(a->assignment, variables(), substitutions());
+        }
+        else
+        {
+          a->assignment.onUpdateWeights(scalar, vector);
+        }
+      }
+    }
+  }
+
+  bool LeastSquareSolver::updateVariables(const internal::SolverEvents& se)
+  {
+    for (const auto& v : se.removedVariables())
+    {
+      boundsOrder_.erase(v.get());
+    }
+    for (const auto& v : se.addedVariables())
+    {
+      boundsOrder_[v.get()] = {};
+    }
+    return (!(se.removedVariables().empty() && se.addedVariables().empty())) || se.hasHiddenVariableChange();
+  }
+
+  LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraints(const internal::SolverEvents& se)
+  {
+    for (const auto& c: se.removedConstraints())
+    {
+      if (c->isEquality())
+      {
+        nEq_ -= constraintSize(*c);
+        const auto& assignments = equalityConstraintToAssignments_[c.get()];
+        for (auto& a : assignments)
+          a->markedForRemoval = true;
+        equalityConstraintToAssignments_.erase(c.get());
       }
       else
       {
-        *a = tvm::scheme::internal::Assignment::reprocess(*a, variables(), substitutions());
+        nIneq_ -= constraintSize(*c);
+        const auto& assignments = inequalityConstraintToAssignments_[c.get()];
+        for (auto& a : assignments)
+          a->markedForRemoval = true;
+        inequalityConstraintToAssignments_.erase(c.get());
       }
     }
-  }
 
-  void LeastSquareSolver::updateAnisotropicWeight(constraint::abstract::LinearConstraint* c)
-  {
-    auto& assignments = objectiveToAssigments_.at(c);
-
-    for (auto& a : assignments)
+    for (const auto& o : se.removedObjectives())
     {
-      if (a->changeVectorWeightIsAllowed())
+      nObj_ -= o->size();
+      const auto& assignments = objectiveToAssignments_[o.get()];
+      for (auto& a : assignments)
+        a->markedForRemoval = true;
+      objectiveToAssignments_.erase(o.get());
+    }
+
+    for (const auto& b : se.removedBounds())
+    {
+      Variable* xb = b->variables()[0].get();
+      assert(boundsOrder_.find(xb) != boundsOrder_.end());
+      auto& first = boundsOrder_[xb];
+      if (first[0] == b.get() && variables().contains(*xb))
       {
-        a->onUpdateWeights(false, true);
+        // We need to remove the bound that appears first, and the associated variable
+        // is still present in the variable vector. 
+        if (first.size() == 1)
+        {
+          // There will be no more bounds on xb.
+          auto& boundAssignment = boundToAssignments_[b.get()];
+          assert(boundAssignment.size() == 1);
+          // We retrieve the range on the bounds from the assignment because the variable
+          // mapping may have changed already but the assignment were not.
+          removeBounds_(boundAssignment[0]->assignment.target().range());
+        }
+        else
+        {
+          // We make the next bound constraint as first.
+          auto nextBound = first[1];
+          auto& nextBoundAssignments = boundToAssignments_[nextBound];
+          for (auto& a : nextBoundAssignments)
+            a->assignment = tvm::scheme::internal::Assignment::reprocess(a->assignment, b->variables()[0], true);
+        }
+        first.erase(first.begin());
       }
       else
       {
-        *a = tvm::scheme::internal::Assignment::reprocess(*a, variables(), substitutions());
+        auto it = std::find(first.begin(), first.end(), b.get());
+        first.erase(it);
       }
+
+      const auto& assignments = boundToAssignments_[b.get()];
+      for (auto& a : assignments)
+        a->markedForRemoval = true;
+      boundToAssignments_.erase(b.get());
     }
+
+    //clear assignements
+    auto it = std::remove_if(assignments_.begin(), assignments_.end(), [](const auto& it) {return it->markedForRemoval; });
+    assignments_.erase(it, assignments_.end());
+
+    ImpactFromChanges impact = { !se.removedConstraints().empty(), !se.removedConstraints().empty(), !se.removedBounds().empty(), !se.removedObjectives().empty() };
+    applyImpactLogic(impact);
+    return impact;
   }
-}
 
-}
+  LeastSquareSolver::ImpactFromChanges LeastSquareSolver::previewAddedConstraints(const internal::SolverEvents& se)
+  {
+    // When used as part of process, the following code will generate target ranges
+    // outside of the matrices bounds. It relies on the fact that the mapping of the
+    // assignment is updated after.
+    eqSize_ = nEq_;
+    ineqSize_ = nIneq_;
+    objSize_ = nObj_;
+    for (const auto& c : se.addedConstraints())
+    {
+      if (c->isEquality())
+        nEq_ += constraintSize(*c);
+      else
+        nIneq_ += constraintSize(*c);
+    }
 
+    for (const auto& o : se.addedObjectives())
+      nObj_ += o.c->size();
+
+    ImpactFromChanges impact = { nEq_ != eqSize_, nIneq_ != ineqSize_, false, !se.addedObjectives().empty() };
+    applyImpactLogic(impact);
+    return impact;
+  }
+
+  void LeastSquareSolver::processAddedConstraints(const internal::SolverEvents& se)
+  {
+    buildInProgress_ = true;
+    for (const auto& c : se.addedConstraints())
+      addConstraint(c);
+
+    for (const auto& b : se.addedBounds())
+      addBound(b);
+
+    for (const auto& o : se.addedObjectives())
+      addObjective(o.c, o.req, o.scalarizationWeight);
+
+    assert(nObj_ == objSize_);
+    assert(nEq_ == eqSize_);
+    assert(nIneq_ == ineqSize_);
+    buildInProgress_ = false;
+  }
+
+  LeastSquareSolver::ImpactFromChanges LeastSquareSolver::ImpactFromChanges::operator||(bool b)
+  {
+    return { this->equalityConstraints_ || b,
+             this->inequalityConstraints_ || b,
+             this->bounds_ || b,
+             this->objectives_ || b };
+  }
+
+  LeastSquareSolver::ImpactFromChanges LeastSquareSolver::ImpactFromChanges::operator||(const ImpactFromChanges& other)
+  {
+    return { this->equalityConstraints_ || other.equalityConstraints_,
+             this->inequalityConstraints_ || other.inequalityConstraints_,
+             this->bounds_ || other.bounds_,
+             this->objectives_ || other.objectives_ };
+  }
+
+  LeastSquareSolver::ImpactFromChanges& LeastSquareSolver::ImpactFromChanges::orAssign(const ImpactFromChanges& other)
+  {
+    *this = *this || other;
+    return *this;
+  }
+
+  void LeastSquareSolver::applyImpactLogic(ImpactFromChanges& impact)
+  {
+    // do nothing;
+  }
 }

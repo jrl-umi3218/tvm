@@ -68,6 +68,9 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem>& lpb, std::vect
     scheme::WeightedLeastSquares s(*c);
     s.solve(*lpb);
     solutions.push_back(variables.value());
+    //Solve a second time
+    s.solve(*lpb);
+    FAST_CHECK_UNARY(solutions.back().isApprox(variables.value()));
   }
 
   for (size_t i = 0; i < solutions.size(); ++i)

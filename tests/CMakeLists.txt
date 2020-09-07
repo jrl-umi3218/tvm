@@ -19,6 +19,7 @@ macro(addUnitTest name)
   # Adding a project configuration file (for MSVC only)
   GENERATE_MSVC_DOT_USER_FILE(${name} "${CMAKE_INSTALL_PREFIX}/bin")
   set_target_properties(${name} PROPERTIES FOLDER "Tests")
+  target_compile_definitions(${name} PUBLIC ${TEST_FLAGS})
 endmacro(addUnitTest)
 
 addUnitTest(AffineExprTest)

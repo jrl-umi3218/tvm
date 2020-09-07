@@ -46,8 +46,20 @@ namespace internal
     return *logger_;
   }
 
+  void Logger::disable()
+  {
+    disabled_ = true;
+  }
+
+  void Logger::enable()
+  {
+    disabled_ = false;
+  }
+
   void Logger::addGraphOutput(CallGraph* g, Inputs* node)
   {
+    if (disabled_) return;
+
     log_.graphOutputs_[g].push_back(node);
   }
 

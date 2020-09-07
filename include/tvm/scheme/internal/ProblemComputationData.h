@@ -1,31 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -37,13 +10,7 @@
 #include <queue>
 #include <vector>
 
-namespace tvm
-{
-
-namespace scheme
-{
-
-namespace internal
+namespace tvm::scheme::internal
 {
 
   /** Base class to be derived by each resolution scheme to hold all of the
@@ -61,10 +28,24 @@ namespace internal
 
     int solverId() const;
 
-    void addVariable(VariablePtr var);
+    /** Add a variable if not already present. Return true if the variable was
+      * effectively added. The class counts how many time a variable was added.
+      */
+    bool addVariable(VariablePtr var);
+    /** Add a set of variables, calling addVariable(VariablePtr var) on each
+      * variable.
+      */
     void addVariable(const VariableVector& vars);
-    void removeVariable(Variable* v);
+    /** Effectively remove a variable if as many calls were made to this method
+      * as to addVariable, for the given variable. Return true if the variable
+      * was really removed.
+      */
+    bool removeVariable(Variable* v);
+    /** Remove a set of variables, calling removeVariable(Variable* v) on each
+      * variable.
+      */
     void removeVariable(const VariableVector& vars);
+    /** Get the variables of the problem.*/
     const VariableVector& variables() const;
 
     /** Set the value of the variables to that of the solution. */
@@ -88,6 +69,8 @@ namespace internal
 
     /** The problem variable*/
     VariableVector x_;
+    /** Count on the number of time a variable was added to x_.*/
+    std::vector<int> varCount_;
 
     /** Problem definition events*/
     std::queue<ProblemDefinitionEvent> events_;
@@ -101,21 +84,44 @@ namespace internal
     return solverId_;
   }
 
-  inline void ProblemComputationData::addVariable(VariablePtr var)
+  inline bool ProblemComputationData::addVariable(VariablePtr var)
   {
-    x_.add(var);
+    assert(x_.numberOfVariables() == varCount_.size());
+    int i = x_.addAndGetIndex(var);
+    if (i >= varCount_.size())
+    {
+      varCount_.push_back(1);
+      return true;
+    }
+    else
+    {
+      ++varCount_[i];
+      return false;
+    }
   }
 
   inline void ProblemComputationData::addVariable(const VariableVector& vars)
   {
-    x_.add(vars);
+    for (const auto& v : vars.variables())
+      addVariable(v);
   }
 
-  inline void ProblemComputationData::removeVariable(Variable* v)
+  inline bool ProblemComputationData::removeVariable(Variable* v)
   {
-    //we don't raise an exception is the variable is not there, as we merge
-    //identical variables when we add them.
-    x_.remove(*v);
+    int i = x_.indexOf(*v);
+    assert(i >= 0 && i < static_cast<int>(varCount_.size()));
+
+    --varCount_[i];
+    if (varCount_[i] == 0)
+    {
+      x_.remove(i);
+      varCount_.erase(varCount_.begin() + i);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   inline void ProblemComputationData::removeVariable(const VariableVector& vars)
@@ -139,7 +145,7 @@ namespace internal
     events_.push(e);
   }
 
-  inline ProblemDefinitionEvent ProblemComputationData::popEvent()
+  [[nodiscard]] inline ProblemDefinitionEvent ProblemComputationData::popEvent()
   {
     assert(hasEvents());
     auto e = events_.front();
@@ -156,9 +162,4 @@ namespace internal
     : solverId_(solverId)
   {
   }
-
-}  // namespace internal
-
-}  // namespace scheme
-
-}  // namespace tvm
+}

@@ -125,6 +125,11 @@ namespace tvm
       throw std::runtime_error("x has not the correct size.");
   }
 
+  void Variable::setZero()
+  {
+    value_.setZero();
+  }
+
   int Variable::derivativeNumber() const
   {
     return derivativeNumber_;

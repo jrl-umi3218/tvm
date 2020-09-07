@@ -98,6 +98,16 @@ namespace internal
     return range_->dim;
   }
 
+  Range& AssignmentTarget::range()
+  {
+    return *range_;
+  }
+
+  const Range& AssignmentTarget::range() const
+  {
+    return *range_;
+  }
+
   MatrixRef AssignmentTarget::A(int colStart, int colDim) const
   {
     //return MatrixRef(const_cast<AssignmentTarget*>(this)->A_.block(range_->start, colStart, range_->dim, colDim));

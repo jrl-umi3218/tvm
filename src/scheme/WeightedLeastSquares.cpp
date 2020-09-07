@@ -1,37 +1,11 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/scheme/WeightedLeastSquares.h>
 
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
+#include <tvm/solver/internal/SolverEvents.h>
 #include <tvm/utils/internal/map.h>
 
 #include <iostream>
@@ -49,30 +23,60 @@ namespace scheme
 
   bool WeightedLeastSquares::solve_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
-    Memory* memory = dynamic_cast<Memory*>(data);
-    return memory->solver->solve();
+    if (problem.size()>problem.substitutions().substitutions().size())
+    {
+      Memory* memory = static_cast<Memory*>(data);
+      return memory->solver->solve();
+    }
+    else
+    {
+      problem.variables().setZero();
+      return true;
+    }
   }
 
   void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem& problem, internal::ProblemComputationData* data) const
   {
+    solver::internal::SolverEvents se;
+
     if (data->hasEvents())
     {
-      Memory* memory = dynamic_cast<Memory*>(data);
-      //TODO group events on the same constraint (at least weight/anisotropic weight
+      Memory* memory = static_cast<Memory*>(data);
+
       while (memory->hasEvents())
       {
         auto e = memory->popEvent();
         switch (e.type())
         {
-        case ProblemDefinitionEvent::Type::WeightChange: 
-          memory->solver->updateWeight(problem.constraint(e.emitter()).get()); 
+        case ProblemDefinitionEvent::Type::WeightChange:
+        {
+          const auto& c = problem.constraintWithRequirements(e.emitter());
+          if (c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] "
+              "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addScalarWeigthEvent(c.constraint.get());
+        }
+        break;
+        case ProblemDefinitionEvent::Type::AnisotropicWeightChange:
+        {
+          const auto& c = problem.constraintWithRequirements(e.emitter());
+          if (c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] "
+              "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addVectorWeigthEvent(c.constraint.get());
+        }
           break;
-        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: 
-          memory->solver->updateAnisotropicWeight(problem.constraint(e.emitter()).get());
+        case ProblemDefinitionEvent::Type::TaskAddition:
+          addTask(problem, memory, e.emitter(), se);
+          break;
+        case ProblemDefinitionEvent::Type::TaskRemoval:
+          removeTask(problem, memory, e.emitter(), se);
           break;
         default: throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
         }
       }
+
+      memory->solver->process(se);
     }
   }
 
@@ -83,6 +87,7 @@ namespace scheme
 
     const auto& constraints = problem.constraints();
     const auto& subs = problem.substitutions();
+    memory->addConstraints(problem.constraintMap());
 
     std::vector<LinearConstraintWithRequirements> constr;
     std::vector<LinearConstraintWithRequirements> bounds;
@@ -110,9 +115,9 @@ namespace scheme
         if (p == 0)
         {
           if (c.constraint->isEquality())
-            nEq += solver.constraintSize(c.constraint);
+            nEq += solver.constraintSize(*c.constraint);
           else
-            nIneq += solver.constraintSize(c.constraint);
+            nIneq += solver.constraintSize(*c.constraint);
         }
         else
         {
@@ -145,6 +150,8 @@ namespace scheme
     //allocating memory for the solver
     solver.startBuild(memory->variables(), nObj, nEq, nIneq, bounds.size() > 0, &subs);
     //memory->assignments.reserve(constr.size() + bounds.size()); //TODO something equivalent
+
+    memory->maxp = maxp;
 
     //assigments for general constraints
     for (const auto& c : constr)
@@ -185,8 +192,94 @@ namespace scheme
     return memory;
   }
 
+  void WeightedLeastSquares::addTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
+  {
+    // We add a task that is not in the computation data. We get the constraint from problem.
+    // However this task might have been removed from problem after being added (but before
+    // the computation data have been updated). If this is the case, we skip the addition.
+    auto optc = problem.constraintWithRequirementsNoThrow(task);
+    if (!optc) return;
+
+    // If there is really a task to be added, we need to record the mapping in memory
+    auto c = optc->get();
+    memory->addConstraint(task, c);
+    const auto& subs = problem.substitutions();
+
+    abilities_.check(c.constraint, c.requirements);
+    for (const auto& xi : c.constraint->variables())
+    {
+      auto s = subs.substitute(xi);
+      for (const auto& si : s)
+      {
+        if (memory->addVariable(si))
+          se.addVariable(si);
+      }
+    }
+
+    int p = task->requirements.priorityLevel().value();
+    if ((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
+    {
+      se.addBound(c.constraint);
+    }
+    else
+    {
+      if (p == 0)
+      {
+        se.addConstraint(c.constraint);
+      }
+      else
+      {
+        // We dont adapt maxp, meaning that a constraint with priority level p>max_p will get a weight<1
+        se.addObjective({ c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), memory->maxp - p )});
+      }
+    }
+  }
+
+  void WeightedLeastSquares::removeTask(LinearizedControlProblem& problem, Memory* memory, TaskWithRequirements* task, solver::internal::SolverEvents& se) const
+  {
+    // We need to remove the constraint that was last added for the task.
+    // We get this info from memory. It the task is not present, it's because we
+    // skipped its addition in addTask before, so wee skip the removal as well.
+    auto optc = memory->constraintNoThrow(task);
+    if (!optc) return;
+
+    const auto& c = optc->get();
+    const auto& subs = problem.substitutions();
+
+    if (subs.uses(c.constraint))
+      throw std::runtime_error("[WeightedLeastSquares::removeTask]: You cannot remove a constraint used for a substitution.");
+
+    for (const auto& xi : c.constraint->variables())
+    {
+      auto s = subs.substitute(xi);
+      for (const auto& si : s)
+      {
+        if (memory->removeVariable(si.get()))
+          se.removeVariable(si);
+      }
+    }
+
+    int p = task->requirements.priorityLevel().value();
+    if ((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
+    {
+      se.removeBound(c.constraint);
+    }
+    else
+    {
+      if (p == 0)
+      {
+        se.removeConstraint(c.constraint);
+      }
+      else
+      {
+        se.removeObjective(c.constraint);
+      }
+    }
+    memory->removeConstraint(task);
+  }
+
   WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
-    : ProblemComputationData(solverId)
+    : LinearizedProblemComputationData(solverId)
     , solver(std::move(solver))
   {
   }

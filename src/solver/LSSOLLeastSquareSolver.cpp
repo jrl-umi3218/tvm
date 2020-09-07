@@ -1,31 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -58,25 +31,52 @@ namespace solver
     TVM_PROCESS_OPTION(printLevel,         ls_)
     TVM_PROCESS_OPTION(rankTol,            ls_)
     TVM_PROCESS_OPTION(warm,               ls_)
+    TVM_PROCESS_OPTION(crashTol,           fp_)
+    TVM_PROCESS_OPTION(feasibilityMaxIter, fp_)
+    TVM_PROCESS_OPTION(feasibilityTol,     fp_)
+    TVM_PROCESS_OPTION(infiniteBnd,        fp_)
+    TVM_PROCESS_OPTION(infiniteStep,       fp_)
+    TVM_PROCESS_OPTION(optimalityMaxIter,  fp_)
+    TVM_PROCESS_OPTION(persistence,        fp_)
+    TVM_PROCESS_OPTION(printLevel,         fp_)
+    TVM_PROCESS_OPTION(rankTol,            fp_)
+    TVM_PROCESS_OPTION(warm,               fp_)
   }
 
   void LSSOLLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
   {
+    resize_(nObj, nEq, nIneq, true);
+
+    autoMinNorm_ = false;
+  }
+
+  LSSOLLeastSquareSolver::ImpactFromChanges LSSOLLeastSquareSolver::resize_(int nObj, int nEq, int nIneq, bool)
+  {
     int n = variables().totalSize();
     int nCstr = nEq + nIneq;
+    ImpactFromChanges impact;
+
+    impact.objectives_ = ImpactFromChanges::willReallocate(A_, nObj, n);
     A_.resize(nObj, n);
     A_.setZero();
-    C_.resize(nCstr, n);
-    C_.setZero();
     b_.resize(nObj);
     b_.setZero();
+    impact.equalityConstraints_ = ImpactFromChanges::willReallocate(C_, nCstr, n);
+    C_.resize(nCstr, n);
+    C_.setZero();
+    impact.bounds_ = ImpactFromChanges::willReallocate(l_, nCstr + n);
     l_ = Eigen::VectorXd::Constant(nCstr + n, -big_number_);
     u_ = Eigen::VectorXd::Constant(nCstr + n, +big_number_);
     new(&cl_) VectorXdTail(l_.tail(nCstr));
     new(&cu_) VectorXdTail(u_.tail(nCstr));
-    ls_.resize(n, nCstr, Eigen::lssol::eType::LS1);
-
-    autoMinNorm_ = false;
+    if (nObj > 0)
+      ls_.resize(n, nCstr, Eigen::lssol::eType::LS1);
+    else
+      fp_.resize(n, nCstr);
+    
+    impact.inequalityConstraints_ = impact.equalityConstraints_;
+    impact.bounds_ = impact.bounds_ || impact.inequalityConstraints_;
+    return impact;
   }
 
   void LSSOLLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
@@ -87,21 +87,21 @@ namespace solver
 
   void LSSOLLeastSquareSolver::addEqualityConstraint_(LinearConstraintPtr cstr)
   {
-    RangePtr r = std::make_shared<Range>(eqSize_+ineqSize_, cstr->size());
+    RangePtr r = std::make_shared<Range>(nextEqualityConstraintRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void LSSOLLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
   {
-    RangePtr r = std::make_shared<Range>(eqSize_ + ineqSize_, cstr->size());
+    RangePtr r = std::make_shared<Range>(nextInequalityConstraintRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, C_, cl_, cu_, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, nullptr, target, variables(), substitutions());
   }
 
   void LSSOLLeastSquareSolver::addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight)
   {
-    RangePtr r = std::make_shared<Range>(objSize_, cstr->size());
+    RangePtr r = std::make_shared<Range>(nextObjectiveRange_(*cstr));
     scheme::internal::AssignmentTarget target(r, A_, b_, constraint::Type::EQUAL, constraint::RHS::AS_GIVEN);
     addAssignement(cstr, req, target, variables(), substitutions(), additionalWeight);
   }
@@ -128,12 +128,65 @@ namespace solver
 
   bool LSSOLLeastSquareSolver::solve_()
   {
-    return ls_.solve(A_, b_, C_, l_, u_);
+    if (nObj_ > 0)
+      return ls_.solve(A_, b_, C_, l_, u_);
+    else
+      return fp_.solve(C_, l_, u_);
   }
 
   const Eigen::VectorXd& LSSOLLeastSquareSolver::result_() const
   {
-    return ls_.result();
+    if (nObj_ > 0)
+      return ls_.result();
+    else
+      return fp_.result();
+  }
+
+  Range LSSOLLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { eqSize_ + ineqSize_, cstr.size() };
+  }
+
+  Range LSSOLLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { eqSize_ + ineqSize_, cstr.size() };
+  }
+
+  Range LSSOLLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint& cstr) const
+  {
+    return { objSize_, cstr.size() };
+  }
+
+  void LSSOLLeastSquareSolver::removeBounds_(const Range& r)
+  {
+    l_.segment(r.start, r.dim).setConstant(-big_number_);
+    u_.segment(r.start, r.dim).setConstant(+big_number_);
+  }
+
+  void LSSOLLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(C_, cl_, cu_);
+  }
+
+  void LSSOLLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(C_, cl_, cu_);
+  }
+
+  void LSSOLLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(VectorRef(l_), u_);
+  }
+
+  void LSSOLLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget& target)
+  {
+    target.changeData(A_, b_);
+  }
+
+  void LSSOLLeastSquareSolver::applyImpactLogic(ImpactFromChanges& impact)
+  {
+    if (impact.equalityConstraints_) impact.inequalityConstraints_ = true;
+    if (impact.inequalityConstraints_) impact.equalityConstraints_ = true;
   }
 
   void LSSOLLeastSquareSolver::printProblemData_() const
@@ -147,8 +200,16 @@ namespace solver
 
   void LSSOLLeastSquareSolver::printDiagnostic_() const
   {
-    std::cout << ls_.inform() << std::endl;
-    ls_.print_inform();
+    if (nObj_)
+    {
+      std::cout << ls_.inform() << std::endl;
+      ls_.print_inform();
+    }
+    else
+    {
+      std::cout << fp_.inform() << std::endl;
+      fp_.print_inform();
+    }
   }
 
 

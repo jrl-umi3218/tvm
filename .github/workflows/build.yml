@@ -106,7 +106,7 @@ jobs:
       with:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
-        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }}
+        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }} -DTVM_THOROUGH_TESTING:BOOL=${{(github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/master')) || startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/tags/')}}
     - name: Check TVM usage
       shell: bash
       run: |
