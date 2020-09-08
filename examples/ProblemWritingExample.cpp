@@ -36,9 +36,9 @@ VectorXd IKExample()
 
   // Creating the functions
   auto g = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1)); // g(q)
-  auto idx = make_shared<function::IdentityFunction>(x); // I x
-  auto e1 = make_shared<Difference>(g, idx); // e_1(q,x) = g(q) - x
-  auto e2 = make_shared<SphereFunction>(x, Vector2d(0, 0), 1); // e_2(x)
+  auto idx = make_shared<function::IdentityFunction>(x);                        // I x
+  auto e1 = make_shared<Difference>(g, idx);                                    // e_1(q,x) = g(q) - x
+  auto e2 = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);                  // e_2(x)
 
   Vector3d b = Vector3d::Constant(tvm::constant::pi / 2);
 
@@ -82,9 +82,9 @@ VectorXd IKSubstitutionExample()
   q->value(Vector3d(0.4, -0.6, -0.1));
 
   auto g = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1)); // g(q)
-  auto idx = make_shared<function::IdentityFunction>(x); // I x
-  auto e1 = make_shared<Difference>(g, idx); // e_1(q,x) = g(q) - x
-  auto e2 = make_shared<SphereFunction>(x, Vector2d(0, 0), 1); // e_2(x)
+  auto idx = make_shared<function::IdentityFunction>(x);                        // I x
+  auto e1 = make_shared<Difference>(g, idx);                                    // e_1(q,x) = g(q) - x
+  auto e2 = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);                  // e_2(x)
 
   Vector3d b = Vector3d::Constant(tvm::constant::pi / 2);
 

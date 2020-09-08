@@ -255,7 +255,7 @@ void LeastSquareSolver::process(const internal::SolverEvents & se)
   };
 
   impact.orAssign(impactResize); // There are case where no resize are necessary (e.g. a constraint was removed and
-  applyImpactLogic(impact); // another added with same size) but the target need to change.
+  applyImpactLogic(impact);      // another added with same size) but the target need to change.
   if(impact.equalityConstraints_)
     updateTargetData(equalityConstraintToAssignments_, [&](auto & target) { updateEqualityTargetData(target); });
 

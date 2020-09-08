@@ -19,7 +19,7 @@
 #    define TVM_DLLEXPORT
 #    define TVM_DLLLOCAL
 #  endif // __GNUC__ >= 4
-#endif // defined _WIN32 || defined __CYGWIN__
+#endif   // defined _WIN32 || defined __CYGWIN__
 
 #ifdef TVM_STATIC
 // If one is using the library statically, get rid of

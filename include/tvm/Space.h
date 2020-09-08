@@ -35,9 +35,9 @@ public:
   /** Predifined space types.*/
   enum class Type
   {
-    Euclidean, /** Euclidean space \f$ \mathbb{R}^n \f$.*/
-    SO3, /** Space of 3d rotations, represented by unit quaternions.*/
-    SE3, /** Space of 3d transformation, represented by a quaternion and a 3d-vector.*/
+    Euclidean,  /** Euclidean space \f$ \mathbb{R}^n \f$.*/
+    SO3,        /** Space of 3d rotations, represented by unit quaternions.*/
+    SE3,        /** Space of 3d transformation, represented by a quaternion and a 3d-vector.*/
     Unspecified /** Non-euclidean space of unknown type.*/
   };
 

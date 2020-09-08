@@ -92,7 +92,7 @@ private:
     size_t rootCompr(size_t node);
 
     std::vector<size_t> parent_; // parent_[i] is the id of the parent of element i
-    std::vector<size_t> rank_; // rank of each element.
+    std::vector<size_t> rank_;   // rank of each element.
   };
 
   /** A recursive function that finds and returns strongly connected components
@@ -138,7 +138,7 @@ private:
                  std::vector<uint8_t> & stack,
                  DisjointSet & components) const;
 
-  std::vector<uint8_t> roots_; // roots_[i] is true iff the i-th node has no incoming edges
+  std::vector<uint8_t> roots_;                // roots_[i] is true iff the i-th node has no incoming edges
   std::vector<std::vector<size_t>> children_; // children_[i] lists all the childs of node i
   std::set<std::pair<size_t, size_t>> edges_; // a list of edges (from, to)
 };

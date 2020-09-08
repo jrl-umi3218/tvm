@@ -44,7 +44,7 @@ public:
 
   private:
     Eigen::ColPivHouseholderQR<Eigen::MatrixXd> qr_;
-    Eigen::MatrixXd invR1R2_; // inv(R1)*R2
+    Eigen::MatrixXd invR1R2_;                     // inv(R1)*R2
     mutable utils::internal::BufferedMatrix tmp_; // temporary for the premultiplication by Asharp and S^T
   };
 

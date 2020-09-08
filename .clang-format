@@ -6,7 +6,7 @@ AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
 AlignEscapedNewlinesLeft: true
 AlignOperands:   true
-AlignTrailingComments: false
+AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: false
@@ -43,26 +43,6 @@ ForEachMacros:
   - Q_FOREACH
   - BOOST_FOREACH
 IncludeBlocks: Preserve
-IncludeCategories:
-  - Regex:           '^(<mc_[a-z]*/)'
-    Priority:        1
-  - Regex:           '^(<Tasks/)'
-    Priority:        2
-  - Regex:           '^(<mc_rbdyn_urdf/)'
-    Priority:        3
-  - Regex:           '^(<RBDyn/)'
-    Priority:        4
-  - Regex:           '^(<SpaceVecAlg/)'
-    Priority:        5
-  - Regex:           '^(<sch-core/)'
-    Priority:        6
-  - Regex:           '^(<boost/)'
-    Priority:        7
-  - Regex:           '^(<(nanomsg|geos|.*_msgs|ros|tf2.*)/)'
-    Priority:        8
-  - Regex:           '.*'
-    Priority:        9
-IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: true
 IndentPPDirectives: AfterHash
 IndentWidth:     2

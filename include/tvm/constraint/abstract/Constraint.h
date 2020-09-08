@@ -108,7 +108,7 @@ protected:
   internal::RHSVectors vectors_;
 
 private:
-  Type cstrType_; // The constraint type
+  Type cstrType_;     // The constraint type
   RHS constraintRhs_; // The rhs convention
 };
 

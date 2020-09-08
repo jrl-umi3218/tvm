@@ -45,7 +45,7 @@ class PairElementToken
 {
 public:
   PairElementToken() noexcept {}
-  PairElementToken(const PairElementToken &) = delete; // To keep a pair valid we cannot duplicate tokens
+  PairElementToken(const PairElementToken &) = delete;             // To keep a pair valid we cannot duplicate tokens
   PairElementToken & operator=(const PairElementToken &) = delete; // idem
 
   /** Move constructor.*/

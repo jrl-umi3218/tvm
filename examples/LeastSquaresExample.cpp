@@ -68,10 +68,10 @@ bool leastSquares3points()
   Space S(3);
 
   // Data for first contact point
-  Vector3d p1(-1, -1, 0); // Contact point position
-  Vector3d n1(1, 1, 1); // Normal vector to contact surface
-  MatrixXd R1 = rotationFromZ(n1); // Rotation between world frame and a local contact frame
-  Vector3d f1des = Vector3d::Zero(); // Desired force for f1
+  Vector3d p1(-1, -1, 0);                  // Contact point position
+  Vector3d n1(1, 1, 1);                    // Normal vector to contact surface
+  MatrixXd R1 = rotationFromZ(n1);         // Rotation between world frame and a local contact frame
+  Vector3d f1des = Vector3d::Zero();       // Desired force for f1
   VariablePtr f1 = S.createVariable("f1"); // Variable creation
 
   // Data for second contact point
@@ -88,8 +88,8 @@ bool leastSquares3points()
   Vector3d f3des = Vector3d::Zero();
   VariablePtr f3 = S.createVariable("f3");
 
-  const double m = 1; // Mass
-  const Vector3d g(0, 0, -9.81); // Gravity vector
+  const double m = 1;                    // Mass
+  const Vector3d g(0, 0, -9.81);         // Gravity vector
   VariablePtr c = S.createVariable("c"); // Center of mass variable
 
   MatrixXd C = discretizedFrictionCone(0.6); // Matrix of a discretized cone with friction coefficient 0.6
@@ -98,7 +98,7 @@ bool leastSquares3points()
   LinearizedControlProblem pb;
   pb.add(R1 * f1 + R2 * f2 + R3 * f3 + m * g == 0., PriorityLevel(0)); // Newton equation
   pb.add(hat(p1) * R1 * f1 + hat(p2) * R2 * f2 + hat(p3) * R3 * f3 + m * hat(g) * c == 0.,
-         PriorityLevel(0)); // Euler equation
+         PriorityLevel(0));               // Euler equation
   pb.add(C * f1 >= 0., PriorityLevel(0)); // Friction cone constraints
   pb.add(C * f2 >= 0., PriorityLevel(0));
   pb.add(C * f3 >= 0., PriorityLevel(0));

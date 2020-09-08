@@ -71,21 +71,21 @@ TEST_CASE("Test AffineExpr compilation and validity")
   VectorXd d = VectorXd::Random(6);
   VectorXd e = VectorXd::Random(6);
 
-  TEST_AFFINE_EXPR(A * x, x, vx) // LinearExpr, simple case
-  TEST_AFFINE_EXPR(M * A * x, x, vx) // LinearExpr, simple matrix expression
-  TEST_AFFINE_EXPR((d.asDiagonal() * A + M * B) * x, x, vx) // complex matrix expression
-  TEST_AFFINE_EXPR(A * x + d, x, vx) // AffineExpr = LinearExpr + vector
-  TEST_AFFINE_EXPR(d + A * x, x, vx) // AffineExpr = vector + LinearExpr
-  TEST_AFFINE_EXPR(A * x + (3 * d + M * e), x, vx) // AffineExpr = LinearExpr + vector(complex expr)
-  TEST_AFFINE_EXPR(A * x + B * y, x, vx, y, vy) // AffineExpr = LinearExpr + LinearExpr
-  TEST_AFFINE_EXPR(A * x + B * y + C * z, x, vx, y, vy, z, vz) // AffineExpr = AffineExpr + LinearExpr
+  TEST_AFFINE_EXPR(A * x, x, vx)                                 // LinearExpr, simple case
+  TEST_AFFINE_EXPR(M * A * x, x, vx)                             // LinearExpr, simple matrix expression
+  TEST_AFFINE_EXPR((d.asDiagonal() * A + M * B) * x, x, vx)      // complex matrix expression
+  TEST_AFFINE_EXPR(A * x + d, x, vx)                             // AffineExpr = LinearExpr + vector
+  TEST_AFFINE_EXPR(d + A * x, x, vx)                             // AffineExpr = vector + LinearExpr
+  TEST_AFFINE_EXPR(A * x + (3 * d + M * e), x, vx)               // AffineExpr = LinearExpr + vector(complex expr)
+  TEST_AFFINE_EXPR(A * x + B * y, x, vx, y, vy)                  // AffineExpr = LinearExpr + LinearExpr
+  TEST_AFFINE_EXPR(A * x + B * y + C * z, x, vx, y, vy, z, vz)   // AffineExpr = AffineExpr + LinearExpr
   TEST_AFFINE_EXPR(A * x + (B * y + C * z), x, vx, y, vy, z, vz) // AffineExpr = LinearExpr + AffineExpr
-  TEST_AFFINE_EXPR(A * x + B * y + d, x, vx, y, vy) // AffineExpr = AffineExpr(NoConstant) + vector
-  TEST_AFFINE_EXPR(d + (A * x + B * y), x, vx, y, vy) // AffineExpr = vector + AffineExpr(NoConstant)
-  TEST_AFFINE_EXPR(A * x + d + e, x, vx) // AffineExpr = AffineExpr(with constant) + vector
-  TEST_AFFINE_EXPR(A * x + d + B * y + e, x, vx, y, vy) // AffineExpr = AffineExpr(with constant) + vector
-  TEST_AFFINE_EXPR(e + (A * x + d), x, vx) // AffineExpr = vector + AffineExpr(with constant)
-  TEST_AFFINE_EXPR(e + (A * x + d + B * y), x, vx, y, vy) // AffineExpr = vector + AffineExpr(with constant)
+  TEST_AFFINE_EXPR(A * x + B * y + d, x, vx, y, vy)              // AffineExpr = AffineExpr(NoConstant) + vector
+  TEST_AFFINE_EXPR(d + (A * x + B * y), x, vx, y, vy)            // AffineExpr = vector + AffineExpr(NoConstant)
+  TEST_AFFINE_EXPR(A * x + d + e, x, vx)                         // AffineExpr = AffineExpr(with constant) + vector
+  TEST_AFFINE_EXPR(A * x + d + B * y + e, x, vx, y, vy)          // AffineExpr = AffineExpr(with constant) + vector
+  TEST_AFFINE_EXPR(e + (A * x + d), x, vx)                       // AffineExpr = vector + AffineExpr(with constant)
+  TEST_AFFINE_EXPR(e + (A * x + d + B * y), x, vx, y, vy)        // AffineExpr = vector + AffineExpr(with constant)
   TEST_AFFINE_EXPR((A * x + B * y) + (C * z + C * w), x, vx, y, vy, z, vz, w,
                    vw) // AffineExpr = AffineExpr(NoConstant) + AffineExpr(NoConstant)
   TEST_AFFINE_EXPR((A * x + B * y) + (C * z + C * w + e), x, vx, y, vy, z, vz, w,

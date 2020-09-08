@@ -546,7 +546,7 @@ void Assignment::addAssignments(const VariableVector & variables,
                                 bool flip)
 {
   const auto & xs = substitutedVariables_; // susbstituted variables
-  const auto & xc = source_->variables(); // variables of the source constraint
+  const auto & xc = source_->variables();  // variables of the source constraint
 
   addVectorAssignment(f1, v1, flip);
   if(f2)

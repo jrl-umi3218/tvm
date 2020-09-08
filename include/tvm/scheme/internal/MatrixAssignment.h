@@ -57,7 +57,7 @@ public:
   }
 
   CompiledAssignmentWrapper<Eigen::VectorXd> assignment; // The underlying assignment
-  VectorFunction getTargetVector; // The way to retrieve the target vector part
+  VectorFunction getTargetVector;                        // The way to retrieve the target vector part
 };
 
 /** A structure grouping a vector assignment and some of the elements that
@@ -80,7 +80,7 @@ public:
   {
   }
 
-  bool useSource; // Whether or not this assignment uses a source
+  bool useSource;              // Whether or not this assignment uses a source
   RHSFunction getSourceVector; // The way to retrieve the source vector.
 };
 } // namespace tvm::scheme::internal

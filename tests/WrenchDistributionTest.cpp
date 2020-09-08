@@ -89,13 +89,13 @@ struct RobotState
 
 public:
   Eigen::MatrixXd wrenchFaceMatrix; /**< Inequality matrix of contact wrench cone */
-  Eigen::Vector6d ankleWeights; /**< Ankle anisotropic weights */
-  double lfr; /**< Left foot pressure ratio */
-  sva::ForceVecd w_d; /**< Desired net wrench */
-  sva::PTransformd X_0_la; /**< Plucker transform to left ankle */
-  sva::PTransformd X_0_lc; /**< Plucker transform to left foot center */
-  sva::PTransformd X_0_ra; /**< Plucker transform to right ankle */
-  sva::PTransformd X_0_rc; /**< Plucker transform to right foot center */
+  Eigen::Vector6d ankleWeights;     /**< Ankle anisotropic weights */
+  double lfr;                       /**< Left foot pressure ratio */
+  sva::ForceVecd w_d;               /**< Desired net wrench */
+  sva::PTransformd X_0_la;          /**< Plucker transform to left ankle */
+  sva::PTransformd X_0_lc;          /**< Plucker transform to left foot center */
+  sva::PTransformd X_0_ra;          /**< Plucker transform to right ankle */
+  sva::PTransformd X_0_rc;          /**< Plucker transform to right foot center */
 };
 
 #ifdef TVM_USE_LSSOL

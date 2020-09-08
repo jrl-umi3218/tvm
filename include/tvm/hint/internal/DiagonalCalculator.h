@@ -49,9 +49,9 @@ public:
 
     Eigen::DenseIndex first_;
     Eigen::DenseIndex size_;
-    std::vector<Eigen::DenseIndex> nnz_; // indices of the non-zero rows
-    std::vector<Eigen::DenseIndex> innz_; // indices of the non-zero rows in the resulting matrix
-    std::vector<Eigen::DenseIndex> cnnz_; // complementary to nnz in [0:col-1]
+    std::vector<Eigen::DenseIndex> nnz_;   // indices of the non-zero rows
+    std::vector<Eigen::DenseIndex> innz_;  // indices of the non-zero rows in the resulting matrix
+    std::vector<Eigen::DenseIndex> cnnz_;  // complementary to nnz in [0:col-1]
     std::vector<Eigen::DenseIndex> zeros_; // indices of the zero rows
 
     Eigen::VectorXd inverse_;
@@ -91,7 +91,7 @@ protected:
 private:
   Eigen::DenseIndex first_;
   Eigen::DenseIndex size_;
-  std::vector<Eigen::DenseIndex> nnz_; // indices of the non-zero rows
+  std::vector<Eigen::DenseIndex> nnz_;   // indices of the non-zero rows
   std::vector<Eigen::DenseIndex> zeros_; // indices of the zero rows
 };
 } // namespace internal

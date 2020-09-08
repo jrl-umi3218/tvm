@@ -276,7 +276,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     std::bitset<12> added = selection;
     if(withSubstitution)
     {
-      added[0] = true; // We always want the first constraint, for substitution
+      added[0] = true;   // We always want the first constraint, for substitution
       added[11] = false; // Since x is substituted, we make sure the objective is full rank (due to current limitations
                          // of QLD and quadprog)
     }

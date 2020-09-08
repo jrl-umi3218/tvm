@@ -39,8 +39,8 @@ public:
   void resize(Eigen::DenseIndex m, Eigen::DenseIndex n);
 
 private:
-  Eigen::DenseIndex m_; /** Row size of the matrix*/
-  Eigen::DenseIndex n_; /** Column size of the matrix*/
+  Eigen::DenseIndex m_;    /** Row size of the matrix*/
+  Eigen::DenseIndex n_;    /** Column size of the matrix*/
   Eigen::VectorXd buffer_; /** vector, used as buffer*/
 };
 

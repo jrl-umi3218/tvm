@@ -74,7 +74,7 @@ private:
   Eigen::VectorXd xu_;
 
   MatrixXdBottom Aineq_; // part of A_ corresponding to inequality constraints
-  VectorXdTail bineq_; // part of b_ corresponding to inequality constraints
+  VectorXdTail bineq_;   // part of b_ corresponding to inequality constraints
 
   Eigen::QLDDirect qld_;
   Eigen::HouseholderQR<Eigen::MatrixXd> qr_; // TODO add option for ColPiv variant
@@ -85,7 +85,7 @@ private:
   // options
   double big_number_;
   double eps_;
-  bool cholesky_; // compute the Cholesky decomposition before calling the solver.
+  bool cholesky_;          // compute the Cholesky decomposition before calling the solver.
   double choleskyDamping_; // if nObj<n, the cholesky factor R is trapezoidal. A multiple of
                            // the identity is used to make it triangular using this value.
 };

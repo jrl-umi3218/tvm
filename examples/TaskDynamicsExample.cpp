@@ -69,9 +69,9 @@ AdaptiveProportional::Impl::Impl(FunctionPtr f,
 
 void AdaptiveProportional::Impl::updateValue()
 {
-  value_ = function().value() - rhs(); // e = f - rhs
+  value_ = function().value() - rhs();            // e = f - rhs
   double kp = a_ * exp(-b_ * value_.norm()) + c_; // k_p = a exp(-b ||e||) + c
-  value_ *= -kp; // \dot{e} = -k_p e
+  value_ *= -kp;                                  // \dot{e} = -k_p e
 }
 } // namespace tvm::example
 

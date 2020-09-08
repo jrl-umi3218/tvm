@@ -115,10 +115,10 @@ private:
   Eigen::DenseIndex m_; // row size of A
   Eigen::DenseIndex n_; // col size of A
   Eigen::DenseIndex r_; // rank of A
-  bool constant_; // constness of A
-  bool init_; // used to perform update_() only once if A is constant
-  bool simple_; // true if there is only one variable and one constraint
-  Eigen::MatrixXd A_; // aggregated matrix for non-simple case;
+  bool constant_;       // constness of A
+  bool init_;           // used to perform update_() only once if A is constant
+  bool simple_;         // true if there is only one variable and one constraint
+  Eigen::MatrixXd A_;   // aggregated matrix for non-simple case;
   /** All the pairs (x,c) with x in variables_ and c in constraints_ for which
    * c.contains(x), and the block of A in which to copy c.jacobian(x)
    */

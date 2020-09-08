@@ -71,7 +71,7 @@ public:
     EnumValue(E e);
 
     std::type_index type; // representation of the enumeration type
-    int value; // value of the enumeration
+    int value;            // value of the enumeration
 
     bool operator<(const EnumValue & other) const { return lexLess(*this, other, &EnumValue::type, &EnumValue::value); }
     bool operator==(const EnumValue & other) const { return eq(*this, other, &EnumValue::type, &EnumValue::value); }
@@ -97,10 +97,10 @@ public:
   /** Description of an update. */
   struct Update
   {
-    EnumValue id; // id of the update
-    std::string name; // name of the update
+    EnumValue id;            // id of the update
+    std::string name;        // name of the update
     std::uintptr_t function; // address of the update function
-    Pointer owner; // address of the instance registering the update
+    Pointer owner;           // address of the instance registering the update
     bool operator<(const Update & other) const
     {
       return lexLess(*this, other, &Update::owner, &Update::id, &Update::function);
@@ -114,9 +114,9 @@ public:
   /** Description of an output. */
   struct Output
   {
-    EnumValue id; // id of the output
+    EnumValue id;     // id of the output
     std::string name; // name of the output
-    Pointer owner; // address of the instance registering the output
+    Pointer owner;    // address of the instance registering the output
     bool operator<(const Output & other) const { return lexLess(*this, other, &Output::owner, &Output::id); }
     bool operator==(const Output & other) const { return eq(*this, other, &Output::owner, &Output::id); }
   };
@@ -124,10 +124,10 @@ public:
   /** Description of an input. */
   struct Input
   {
-    EnumValue id; // id of the input
+    EnumValue id;     // id of the input
     std::string name; // name of the input
-    Pointer source; // address of the instance providing the input
-    Pointer owner; // address of the instance registering the input
+    Pointer source;   // address of the instance providing the input
+    Pointer owner;    // address of the instance registering the input
     bool operator<(const Input & other) const
     {
       return lexLess(*this, other, &Input::owner, &Input::id, &Input::source);
@@ -138,10 +138,10 @@ public:
   /** Description of an input->update dependency. */
   struct InputDependency
   {
-    EnumValue input; // the input
+    EnumValue input;  // the input
     EnumValue update; // the update
-    Pointer source; // address of the instance providing the input
-    Pointer owner; // address of the instance registering the dependency
+    Pointer source;   // address of the instance providing the input
+    Pointer owner;    // address of the instance registering the dependency
     bool operator<(const InputDependency & other) const
     {
       return lexLess(*this, other, &InputDependency::owner, &InputDependency::update, &InputDependency::source,
@@ -159,7 +159,7 @@ public:
   {
     EnumValue update; // the update
     EnumValue output; // the output
-    Pointer owner; // address of the instance registering the dependency
+    Pointer owner;    // address of the instance registering the dependency
     bool operator<(const OutputDependency & other) const
     {
       return lexLess(*this, other, &OutputDependency::owner, &OutputDependency::update, &OutputDependency::output);
@@ -174,8 +174,8 @@ public:
   struct InternalDependency
   {
     EnumValue from; // the update depended upon
-    EnumValue to; // the depending update
-    Pointer owner; // address of the instance registering the dependency
+    EnumValue to;   // the depending update
+    Pointer owner;  // address of the instance registering the dependency
     bool operator<(const InternalDependency & other) const
     {
       return lexLess(*this, other, &InternalDependency::owner, &InternalDependency::from, &InternalDependency::to);
@@ -189,10 +189,10 @@ public:
   /** Description of an input->output dependency. */
   struct DirectDependency
   {
-    EnumValue input; // the input
+    EnumValue input;  // the input
     EnumValue output; // the output
-    Pointer source; // address of the instance providing the input
-    Pointer owner; // address of the instance registering the dependency
+    Pointer source;   // address of the instance providing the input
+    Pointer owner;    // address of the instance registering the dependency
     bool operator<(const DirectDependency & other) const
     {
       return lexLess(*this, other, &DirectDependency::owner, &DirectDependency::output, &DirectDependency::source,

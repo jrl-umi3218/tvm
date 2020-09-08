@@ -312,8 +312,8 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
 
   // Solve A [x;y] = b
   auto svdA = A.jacobiSvd(ComputeFullU | ComputeFullV);
-  auto sol0 = svdA.solve(b); // least square solution
-  auto r0 = (A * sol0 - b).norm(); // residual
+  auto sol0 = svdA.solve(b);                                      // least square solution
+  auto r0 = (A * sol0 - b).norm();                                // residual
   MatrixXd Na = svdA.matrixV().rightCols(A.cols() - svdA.rank()); // nullspace of A0
   FAST_CHECK_LE(r0, 1e-9);
 
@@ -323,7 +323,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   if(C.size() > 0)
   {
     auto svdC = C.jacobiSvd(ComputeFullU | ComputeFullV);
-    sol1 = svdC.solve(d); // least square solution
+    sol1 = svdC.solve(d);                                  // least square solution
     Nc = svdC.matrixV().rightCols(C.cols() - svdC.rank()); // nullspace of C
   }
   else
@@ -712,8 +712,8 @@ void randomSubstitutions()
   double nonFullRankP = 0.33;
   int nx = randI(nxmin, nxmax); // number of x variables
   int ny = randI(nymin, nymax); // number of y variables
-  double px = 0.4; // probability to have a non-zero off-diagonal block in the 'x part' of A
-  double py = 0.3; // probability to have a non-zero block in the 'y part' of B
+  double px = 0.4;              // probability to have a non-zero off-diagonal block in the 'x part' of A
+  double py = 0.3;              // probability to have a non-zero block in the 'y part' of B
 
   std::vector<VariablePtr> x;
   std::vector<VariablePtr> y;

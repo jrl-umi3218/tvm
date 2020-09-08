@@ -55,8 +55,8 @@ inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, TL tl,
     data_->tmp2_.resize(variable->size());
     data_->tmp3_.resize(variable->size());
     data_->tmp4_.resize(variable->size());
-    addVectorAssignment(l, VectorRef(data_->tmp1_), J, false, true, false); // tmp1_ = inv(J)*l
-    addVectorAssignment(u, VectorRef(data_->tmp2_), J, false, true, false); // tmp2_ = inv(J)*u
+    addVectorAssignment(l, VectorRef(data_->tmp1_), J, false, true, false);                          // tmp1_ = inv(J)*l
+    addVectorAssignment(u, VectorRef(data_->tmp2_), J, false, true, false);                          // tmp2_ = inv(J)*u
     addVectorAssignment(VectorConstRef(data_->tmp1_), VectorRef(data_->tmp3_), false, false, false); // tmp3_ = inv(J)*l
     addVectorAssignment(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp4_), false, false, false); // tmp4_ = inv(J)*u
     addVectorAssignment<MIN>(VectorConstRef(data_->tmp2_), VectorRef(data_->tmp3_), false, false,

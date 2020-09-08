@@ -265,7 +265,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  ifndef DOCTEST_CONFIG_WITH_VARIADIC_MACROS
 #    define DOCTEST_CONFIG_WITH_VARIADIC_MACROS
 #  endif // DOCTEST_CONFIG_WITH_VARIADIC_MACROS
-#endif // __cplusplus >= 201103L
+#endif   // __cplusplus >= 201103L
 
 // MSVC C++11 feature support table: https://msdn.microsoft.com/en-us/library/hh567368.aspx
 // GCC C++11 feature support table: https://gcc.gnu.org/projects/cxx-status.html
@@ -290,7 +290,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if DOCTEST_GCC >= DOCTEST_COMPILER(4, 5, 0) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define DOCTEST_CONFIG_WITH_DELETED_FUNCTIONS
 #  endif // GCC
-#endif // DOCTEST_CONFIG_WITH_DELETED_FUNCTIONS
+#endif   // DOCTEST_CONFIG_WITH_DELETED_FUNCTIONS
 
 #if defined(DOCTEST_CONFIG_NO_DELETED_FUNCTIONS) && defined(DOCTEST_CONFIG_WITH_DELETED_FUNCTIONS)
 #  undef DOCTEST_CONFIG_WITH_DELETED_FUNCTIONS
@@ -308,7 +308,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if DOCTEST_GCC >= DOCTEST_COMPILER(4, 3, 0) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define DOCTEST_CONFIG_WITH_RVALUE_REFERENCES
 #  endif // GCC
-#endif // DOCTEST_CONFIG_WITH_RVALUE_REFERENCES
+#endif   // DOCTEST_CONFIG_WITH_RVALUE_REFERENCES
 
 #if defined(DOCTEST_CONFIG_NO_RVALUE_REFERENCES) && defined(DOCTEST_CONFIG_WITH_RVALUE_REFERENCES)
 #  undef DOCTEST_CONFIG_WITH_RVALUE_REFERENCES
@@ -326,7 +326,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if DOCTEST_MSVC >= DOCTEST_COMPILER(16, 0, 0)
 #    define DOCTEST_CONFIG_WITH_NULLPTR
 #  endif // MSVC
-#endif // DOCTEST_CONFIG_WITH_NULLPTR
+#endif   // DOCTEST_CONFIG_WITH_NULLPTR
 
 #if defined(DOCTEST_CONFIG_NO_NULLPTR) && defined(DOCTEST_CONFIG_WITH_NULLPTR)
 #  undef DOCTEST_CONFIG_WITH_NULLPTR
@@ -341,7 +341,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if(DOCTEST_CLANG || DOCTEST_GCC >= DOCTEST_COMPILER(4, 1, 0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define DOCTEST_CONFIG_WITH_VARIADIC_MACROS
 #  endif // GCC and clang
-#endif // DOCTEST_CONFIG_WITH_VARIADIC_MACROS
+#endif   // DOCTEST_CONFIG_WITH_VARIADIC_MACROS
 
 #if defined(DOCTEST_CONFIG_NO_VARIADIC_MACROS) && defined(DOCTEST_CONFIG_WITH_VARIADIC_MACROS)
 #  undef DOCTEST_CONFIG_WITH_VARIADIC_MACROS
@@ -356,7 +356,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if(DOCTEST_CLANG || DOCTEST_GCC >= DOCTEST_COMPILER(4, 5, 0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define DOCTEST_CONFIG_WITH_LONG_LONG
 #  endif // GCC and clang
-#endif // DOCTEST_CONFIG_WITH_LONG_LONG
+#endif   // DOCTEST_CONFIG_WITH_LONG_LONG
 
 #if defined(DOCTEST_CONFIG_NO_LONG_LONG) && defined(DOCTEST_CONFIG_WITH_LONG_LONG)
 #  undef DOCTEST_CONFIG_WITH_LONG_LONG
@@ -374,7 +374,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4640) // construction of local static object is no
 #  if DOCTEST_MSVC >= DOCTEST_COMPILER(16, 0, 0)
 #    define DOCTEST_CONFIG_WITH_STATIC_ASSERT
 #  endif // MSVC
-#endif // DOCTEST_CONFIG_WITH_STATIC_ASSERT
+#endif   // DOCTEST_CONFIG_WITH_STATIC_ASSERT
 
 #if defined(DOCTEST_CONFIG_NO_STATIC_ASSERT) && defined(DOCTEST_CONFIG_WITH_STATIC_ASSERT)
 #  undef DOCTEST_CONFIG_WITH_STATIC_ASSERT
@@ -419,7 +419,7 @@ DOCTEST_CLANG_SUPPRESS_WARNING("-Wc++98-compat-pedantic")
 #  ifndef DOCTEST_CONFIG_NO_EXCEPTIONS
 #    define DOCTEST_CONFIG_NO_EXCEPTIONS
 #  endif // DOCTEST_CONFIG_NO_EXCEPTIONS
-#endif // DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS
+#endif   // DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS
 
 #if defined(DOCTEST_CONFIG_NO_EXCEPTIONS) && !defined(DOCTEST_CONFIG_NO_TRY_CATCH_IN_ASSERTS)
 #  define DOCTEST_CONFIG_NO_TRY_CATCH_IN_ASSERTS
@@ -437,7 +437,7 @@ DOCTEST_CLANG_SUPPRESS_WARNING("-Wc++98-compat-pedantic")
 #    define DOCTEST_SYMBOL_EXPORT __attribute__((dllexport))
 #    define DOCTEST_SYMBOL_IMPORT __attribute__((dllimport))
 #  endif // MSVC
-#else // _WIN32
+#else    // _WIN32
 #  define DOCTEST_SYMBOL_EXPORT __attribute__((visibility("default")))
 #  define DOCTEST_SYMBOL_IMPORT
 #endif // _WIN32
@@ -448,7 +448,7 @@ DOCTEST_CLANG_SUPPRESS_WARNING("-Wc++98-compat-pedantic")
 #  else // DOCTEST_CONFIG_IMPLEMENT
 #    define DOCTEST_INTERFACE DOCTEST_SYMBOL_IMPORT
 #  endif // DOCTEST_CONFIG_IMPLEMENT
-#else // DOCTEST_CONFIG_IMPLEMENTATION_IN_DLL
+#else    // DOCTEST_CONFIG_IMPLEMENTATION_IN_DLL
 #  define DOCTEST_INTERFACE
 #endif // DOCTEST_CONFIG_IMPLEMENTATION_IN_DLL
 
@@ -549,7 +549,7 @@ typedef basic_ostream<char, char_traits<char>> ostream;
 #  else // DOCTEST_CONFIG_USE_IOSFWD
 #    include <iosfwd>
 #  endif // DOCTEST_CONFIG_USE_IOSFWD
-#endif // _LIBCPP_VERSION
+#endif   // _LIBCPP_VERSION
 
 // static assert macro - because of the c++98 support requires that the message is an
 // identifier (no spaces and not a C string) - example without quotes: I_am_a_message
@@ -572,13 +572,13 @@ typedef basic_ostream<char, char_traits<char>> ostream;
 #ifdef DOCTEST_CONFIG_WITH_NULLPTR
 #  ifdef _LIBCPP_VERSION
 #    include <cstddef>
-#  else // _LIBCPP_VERSION
+#  else  // _LIBCPP_VERSION
 namespace std
 {
 typedef decltype(nullptr) nullptr_t;
 }
 #  endif // _LIBCPP_VERSION
-#endif // DOCTEST_CONFIG_WITH_NULLPTR
+#endif   // DOCTEST_CONFIG_WITH_NULLPTR
 
 #ifndef DOCTEST_CONFIG_DISABLE
 
@@ -656,7 +656,7 @@ namespace doctest
 // - relational operators as free functions - taking const char* as one of the params
 class DOCTEST_INTERFACE String
 {
-  static const unsigned len = 24; //! OCLINT avoid private static members
+  static const unsigned len = 24;       //! OCLINT avoid private static members
   static const unsigned last = len - 1; //! OCLINT avoid private static members
 
   struct view // len should be more than sizeof(view) - because of the final byte for flags
@@ -903,7 +903,7 @@ struct ForEachType<Typelist<Head, Tail>, Callable> : public ForEachType<Tail, Ca
   {
 #if DOCTEST_MSVC && DOCTEST_MSVC < DOCTEST_COMPILER(19, 10, 0)
     callable.operator()<value, Head>();
-#else // MSVC
+#else  // MSVC
     callable.template operator()<value, Head>();
 #endif // MSVC
   }
@@ -923,7 +923,7 @@ public:
   {
 #if DOCTEST_MSVC && DOCTEST_MSVC < DOCTEST_COMPILER(19, 10, 0)
     callable.operator()<value, Head>();
-#else // MSVC
+#else  // MSVC
     callable.template operator()<value, Head>();
 #endif // MSVC
   }
@@ -1382,7 +1382,7 @@ DOCTEST_INTERFACE void throwException();
 struct TestAccessibleContextState
 {
   bool no_throw; // to skip exceptions-related assertion macros
-  bool success; // include successful assertions in output
+  bool success;  // include successful assertions in output
 };
 
 struct ContextState;
@@ -1627,10 +1627,10 @@ struct ExpressionDecomposer
 struct DOCTEST_INTERFACE TestCase
 {
   // not used for determining uniqueness
-  funcType m_test; // a function pointer to the test case
-  String m_full_name; // contains the name (only for templated test cases!) + the template type
-  const char * m_name; // name of the test case
-  const char * m_type; // for templated test cases - gets appended to the real name
+  funcType m_test;           // a function pointer to the test case
+  String m_full_name;        // contains the name (only for templated test cases!) + the template type
+  const char * m_name;       // name of the test case
+  const char * m_type;       // for templated test cases - gets appended to the real name
   const char * m_test_suite; // the test suite in which the test was added
   const char * m_description;
   bool m_skip;
@@ -1641,8 +1641,8 @@ struct DOCTEST_INTERFACE TestCase
 
   // fields by which uniqueness of test cases shall be determined
   const char * m_file; // the file in which the test was registered
-  unsigned m_line; // the line where the test was registered
-  int m_template_id; // an ID used to distinguish between the different versions of a templated test case
+  unsigned m_line;     // the line where the test was registered
+  int m_template_id;   // an ID used to distinguish between the different versions of a templated test case
 
   TestCase(funcType test,
            const char * file,
@@ -1893,14 +1893,14 @@ public:
       // cppcheck-suppress catchExceptionByValue
     }
     catch(T ex)
-    { // NOLINT
+    {                                // NOLINT
       res = m_translateFunction(ex); //! OCLINT parameter reassignment
       return true;
     }
     catch(...)
     {
-    } //! OCLINT -  empty catch statement
-#  endif // DOCTEST_CONFIG_NO_EXCEPTIONS
+    }            //! OCLINT -  empty catch statement
+#  endif         // DOCTEST_CONFIG_NO_EXCEPTIONS
     ((void)res); // to silence -Wunused-parameter
     return false;
   }
@@ -2231,7 +2231,7 @@ int registerExceptionTranslator(String (*translateFunction)(T))
   return 0;
 }
 
-#else // DOCTEST_CONFIG_DISABLE
+#else  // DOCTEST_CONFIG_DISABLE
 template<typename T>
 int registerExceptionTranslator(String (*)(T))
 {
@@ -2520,7 +2520,7 @@ constexpr T to_lvalue = x;
 #    else // DOCTEST_CONFIG_WITH_VARIADIC_MACROS
 #      define DOCTEST_TO_LVALUE(x) TO_LVALUE_CAN_BE_USED_ONLY_IN_CPP14_MODE_OR_WITH_VS_2017_OR_NEWER
 #    endif // DOCTEST_CONFIG_WITH_VARIADIC_MACROS
-#  endif // TO_LVALUE hack for logging macros like INFO()
+#  endif   // TO_LVALUE hack for logging macros like INFO()
 
 // common code in asserts - for convenience
 #  define DOCTEST_ASSERT_LOG_AND_REACT(rb) \
@@ -3566,7 +3566,7 @@ struct Endianness
       char asChar[sizeof(int)];
     } u;
 
-    u.asInt = 1; // NOLINT
+    u.asInt = 1;                                            // NOLINT
     return (u.asChar[sizeof(int) - 1] == 1) ? Big : Little; // NOLINT
   }
 };
@@ -3605,32 +3605,32 @@ struct ContextState : TestAccessibleContextState //! OCLINT too many fields
 
   std::vector<std::vector<String>> filters;
 
-  String order_by; // how tests should be ordered
+  String order_by;    // how tests should be ordered
   unsigned rand_seed; // the seed for rand ordering
 
   unsigned first; // the first (matching) test to be executed
-  unsigned last; // the last (matching) test to be executed
+  unsigned last;  // the last (matching) test to be executed
 
-  int abort_after; // stop tests after this many failed assertions
+  int abort_after;           // stop tests after this many failed assertions
   int subcase_filter_levels; // apply the subcase filters for the first N levels
-  bool case_sensitive; // if filtering should be case sensitive
-  bool exit; // if the program should be exited after the tests are ran/whatever
-  bool duration; // print the time duration of each test case
-  bool no_exitcode; // if the framework should return 0 as the exitcode
-  bool no_run; // to not run the tests at all (can be done with an "*" exclude)
-  bool no_version; // to not print the version of the framework
-  bool no_colors; // if output to the console should be colorized
-  bool force_colors; // forces the use of colors even when a tty cannot be detected
-  bool no_breaks; // to not break into the debugger
-  bool no_skip; // don't skip test cases which are marked to be skipped
+  bool case_sensitive;       // if filtering should be case sensitive
+  bool exit;                 // if the program should be exited after the tests are ran/whatever
+  bool duration;             // print the time duration of each test case
+  bool no_exitcode;          // if the framework should return 0 as the exitcode
+  bool no_run;               // to not run the tests at all (can be done with an "*" exclude)
+  bool no_version;           // to not print the version of the framework
+  bool no_colors;            // if output to the console should be colorized
+  bool force_colors;         // forces the use of colors even when a tty cannot be detected
+  bool no_breaks;            // to not break into the debugger
+  bool no_skip;              // don't skip test cases which are marked to be skipped
   bool no_path_in_filenames; // if the path to files should be removed from the output
-  bool no_line_numbers; // if source code line numbers should be omitted from the output
-  bool no_skipped_summary; // don't print "skipped" in the summary !!! UNDOCUMENTED !!!
+  bool no_line_numbers;      // if source code line numbers should be omitted from the output
+  bool no_skipped_summary;   // don't print "skipped" in the summary !!! UNDOCUMENTED !!!
 
-  bool help; // to print the help
-  bool version; // to print the version
-  bool count; // if only the count of matching tests is to be retreived
-  bool list_test_cases; // to list all tests matching the filters
+  bool help;             // to print the help
+  bool version;          // to print the version
+  bool count;            // if only the count of matching tests is to be retreived
+  bool list_test_cases;  // to list all tests matching the filters
   bool list_test_suites; // to list all suites matching the filters
 
   // == data for the tests being ran
@@ -3646,7 +3646,7 @@ struct ContextState : TestAccessibleContextState //! OCLINT too many fields
   int numFailedAssertions;
   bool hasCurrentTestFailed;
 
-  std::vector<IContextScope *> contexts; // for logging with INFO() and friends
+  std::vector<IContextScope *> contexts;        // for logging with INFO() and friends
   std::vector<std::string> exceptionalContexts; // logging from INFO() due to an exception
 
   // stuff for subcases
@@ -3937,8 +3937,8 @@ int Context::run() { return 0; }
 #        else // linux
 #          define DOCTEST_CONFIG_COLORS_ANSI
 #        endif // platform
-#      endif // DOCTEST_CONFIG_COLORS_WINDOWS && DOCTEST_CONFIG_COLORS_ANSI
-#    endif // DOCTEST_CONFIG_COLORS_NONE
+#      endif   // DOCTEST_CONFIG_COLORS_WINDOWS && DOCTEST_CONFIG_COLORS_ANSI
+#    endif     // DOCTEST_CONFIG_COLORS_NONE
 
 #    define DOCTEST_PRINTF_COLORED(buffer, color) \
       do                                          \
@@ -3960,7 +3960,7 @@ int Context::run() { return 0; }
 #      endif // MSVC
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(DOCTEST_WINDOWS_SAL_IN_OPT const char *);
 extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent();
-#    endif // MSVC || __MINGW32__
+#    endif   // MSVC || __MINGW32__
 
 #    ifdef DOCTEST_CONFIG_COLORS_ANSI
 #      include <unistd.h>
@@ -4211,7 +4211,7 @@ int wildcmp(const char * str, const char * wild, bool caseSensitive)
     }
     else
     {
-      wild = mp; //! OCLINT parameter reassignment
+      wild = mp;  //! OCLINT parameter reassignment
       str = cp++; //! OCLINT parameter reassignment
     }
   }
@@ -4259,7 +4259,7 @@ UInt64 getCurrentTicks()
   QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER *>(&t));
   return ((t - hzo) * 1000000) / hz;
 }
-#    else // DOCTEST_PLATFORM_WINDOWS
+#    else  // DOCTEST_PLATFORM_WINDOWS
 
 typedef uint64_t UInt64;
 
@@ -4371,7 +4371,7 @@ int fileOrderComparator(const void * a, const void * b)
   // this is needed because MSVC gives different case for drive letters
   // for __FILE__ when evaluated in a header and a source file
   const int res = stricmp(lhs->m_file, rhs->m_file);
-#    else // MSVC
+#    else  // MSVC
   const int res = std::strcmp(lhs->m_file, rhs->m_file);
 #    endif // MSVC
   if(res != 0)
@@ -4572,7 +4572,7 @@ String translateActiveException()
             return "unknown exception";
         }
 // clang-format on
-#    else // DOCTEST_CONFIG_NO_EXCEPTIONS
+#    else  // DOCTEST_CONFIG_NO_EXCEPTIONS
   return "";
 #    endif // DOCTEST_CONFIG_NO_EXCEPTIONS
 }
@@ -4785,7 +4785,7 @@ stack_t FatalConditionHandler::oldSigStack = {};
 char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
 
 #      endif // DOCTEST_PLATFORM_WINDOWS
-#    endif // DOCTEST_CONFIG_POSIX_SIGNALS || DOCTEST_CONFIG_WINDOWS_SEH
+#    endif   // DOCTEST_CONFIG_POSIX_SIGNALS || DOCTEST_CONFIG_WINDOWS_SEH
 
 // depending on the current options this will remove the path of filenames
 const char * fileForOutput(const char * file)
@@ -5330,7 +5330,7 @@ bool parseFlag(int argc, const char * const * argv, const char * pattern)
   if(!parseFlagImpl(argc, argv, pattern))
     return parseFlagImpl(argc, argv, pattern + 3); // 3 for "dt-"
   return true;
-#    else // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
+#    else  // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
   return parseFlagImpl(argc, argv, pattern);
 #    endif // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
 }
@@ -5381,7 +5381,7 @@ bool parseOption(int argc,
   if(!parseOptionImpl(argc, argv, pattern, res))
     return parseOptionImpl(argc, argv, pattern + 3, res); // 3 for "dt-"
   return true;
-#    else // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
+#    else  // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
   return parseOptionImpl(argc, argv, pattern, res);
 #    endif // DOCTEST_CONFIG_NO_UNPREFIXED_OPTIONS
 }
@@ -5424,7 +5424,7 @@ bool parseIntOption(int argc, const char * const * argv, const char * pattern, o
   if(type == 0)
   {
     // boolean
-    const char positive[][5] = {"1", "true", "on", "yes"}; // 5 - strlen("true") + 1
+    const char positive[][5] = {"1", "true", "on", "yes"};  // 5 - strlen("true") + 1
     const char negative[][6] = {"0", "false", "off", "no"}; // 6 - strlen("false") + 1
 
     // if the value matches any of the positive/negative possibilities

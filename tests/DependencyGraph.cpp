@@ -39,11 +39,11 @@ TEST_CASE("SCC test")
 {
   tvm::graph::internal::DependencyGraph g;
   g.addNode();
-  g.addNode(); //  0---+
-  g.addNode(); //  |   |
-  g.addNode(); //  |   v
-  g.addNode(); //  |   3
-  g.addNode(); //  |   |
+  g.addNode();     //  0---+
+  g.addNode();     //  |   |
+  g.addNode();     //  |   v
+  g.addNode();     //  |   3
+  g.addNode();     //  |   |
   g.addEdge(0, 3); //  1<--+
   g.addEdge(3, 1); //  |
   g.addEdge(1, 0); //  +-->4
@@ -74,14 +74,14 @@ TEST_CASE("Order test")
   tvm::graph::internal::DependencyGraph g;
   g.addNode();
   g.addNode();
-  g.addNode(); //  +-->1---+
-  g.addNode(); //  |       |
-  g.addNode(); //  0       |
-  g.addNode(); //  |       v
-  g.addNode(); //  +-->2-->4
-  g.addNode(); //          ^
-  g.addNode(); //          |
-  g.addNode(); //  8-->9---+
+  g.addNode();     //  +-->1---+
+  g.addNode();     //  |       |
+  g.addNode();     //  0       |
+  g.addNode();     //  |       v
+  g.addNode();     //  +-->2-->4
+  g.addNode();     //          ^
+  g.addNode();     //          |
+  g.addNode();     //  8-->9---+
   g.addEdge(0, 1); //
   g.addEdge(0, 2); //  +-->5
   g.addEdge(1, 2); //  |   |

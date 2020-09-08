@@ -73,21 +73,21 @@ private:
   Eigen::VectorXd b_;
 
   MatrixXdRows Aineq_; // part of A_ corresponding to inequality constraints
-  VectorXdSeg bineq_; // part of b_ corresponding to inequality constraints
-  VectorXdSeg xl_; // part of b_ corresponding to lower bound constraints
-  VectorXdSeg xu_; // part of b_ corresponding to uppor bound constraints
+  VectorXdSeg bineq_;  // part of b_ corresponding to inequality constraints
+  VectorXdSeg xl_;     // part of b_ corresponding to lower bound constraints
+  VectorXdSeg xu_;     // part of b_ corresponding to uppor bound constraints
 
   Eigen::QuadProgDense qpd_;
   Eigen::HouseholderQR<Eigen::MatrixXd> qr_; // TODO add option for ColPiv variant
 
   bool autoMinNorm_;
   bool underspecifiedObj_; // true when nObj<n
-  int nIneqInclBounds_; // number of inequality constraints including bounds.
+  int nIneqInclBounds_;    // number of inequality constraints including bounds.
 
   // options
   double big_number_;
-  double damping_; // value added to the diagonal of Q for regularization (non Cholesky case)
-  bool cholesky_; // compute the Cholesky decomposition before calling the solver.
+  double damping_;         // value added to the diagonal of Q for regularization (non Cholesky case)
+  bool cholesky_;          // compute the Cholesky decomposition before calling the solver.
   double choleskyDamping_; // if nObj<n, the cholesky factor R is trapezoidal. A multiple of
                            // the identity is used to make it triangular using this value.
 };

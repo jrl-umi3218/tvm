@@ -75,15 +75,15 @@ ProportionalDerivative::Impl::Impl(FunctionPtr f,
                                    const Gain & kv)
 : TaskDynamicsImpl(Order::Two, f, t, rhs), kp_(kp), kv_(kv)
 {
-  assert((kp.index() == 0 // Scalar gain
+  assert((kp.index() == 0                                                             // Scalar gain
           || (kp.index() == 1 && mpark::get<Eigen::VectorXd>(kp).size() == f->size()) // Diagonal gain
-          || (kp.index() == 2 && mpark::get<Eigen::MatrixXd>(kp).cols() == f->size() // Matrix gain
+          || (kp.index() == 2 && mpark::get<Eigen::MatrixXd>(kp).cols() == f->size()  // Matrix gain
               && mpark::get<Eigen::MatrixXd>(kp).rows() == f->size()))
          && "Gain kp and function have incompatible sizes");
 
-  assert((kv.index() == 0 // Scalar gain
+  assert((kv.index() == 0                                                             // Scalar gain
           || (kv.index() == 1 && mpark::get<Eigen::VectorXd>(kv).size() == f->size()) // Diagonal gain
-          || (kv.index() == 2 && mpark::get<Eigen::MatrixXd>(kv).cols() == f->size() // Matrix gain
+          || (kv.index() == 2 && mpark::get<Eigen::MatrixXd>(kv).cols() == f->size()  // Matrix gain
               && mpark::get<Eigen::MatrixXd>(kv).rows() == f->size()))
          && "Gain kv and function have incompatible sizes");
 }

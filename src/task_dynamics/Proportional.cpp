@@ -30,7 +30,7 @@ Order Proportional::order_() const { return Order::One; }
 Proportional::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, const Gain & kp)
 : TaskDynamicsImpl(Order::One, f, t, rhs), kp_(kp)
 {
-  if((kp.index() == 1 && mpark::get<Eigen::VectorXd>(kp).size() != f->size()) // Diagonal gain
+  if((kp.index() == 1 && mpark::get<Eigen::VectorXd>(kp).size() != f->size())   // Diagonal gain
      || (kp.index() == 2 && mpark::get<Eigen::MatrixXd>(kp).cols() != f->size() // Matrix gain
          && mpark::get<Eigen::MatrixXd>(kp).rows() != f->size()))
   {
