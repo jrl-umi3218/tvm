@@ -151,9 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a96a3317934f9bb6e77d4c58e88f4feb3"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::reference_wrapper&lt; const <a class="el" href="a01269.html">LinearConstraintWithRequirements</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01273.html#a96a3317934f9bb6e77d4c58e88f4feb3">constraintWithRequirementsNoThrow</a> (<a class="el" href="a00985.html">TaskWithRequirements</a> *t) const</td></tr>
 <tr class="memdesc:a96a3317934f9bb6e77d4c58e88f4feb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the linear constraint and requirements corresponding to the task <code>t</code>.  <a href="#a96a3317934f9bb6e77d4c58e88f4feb3">More...</a><br /></td></tr>
 <tr class="separator:a96a3317934f9bb6e77d4c58e88f4feb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7267652985dcb2f06dc1640e5c513eb1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00411.html#a1799eeadc084df3295499f98dad21b6d">tvm::utils::internal::map</a>&lt; <a class="el" href="a00985.html">TaskWithRequirements</a> *, <a class="el" href="a01269.html">LinearConstraintWithRequirements</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01273.html#a7267652985dcb2f06dc1640e5c513eb1">constraintMap</a> () const</td></tr>
-<tr class="memdesc:a7267652985dcb2f06dc1640e5c513eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the map task -&gt; constraint.  <a href="#a7267652985dcb2f06dc1640e5c513eb1">More...</a><br /></td></tr>
-<tr class="separator:a7267652985dcb2f06dc1640e5c513eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8a78e27f70c2a0ecec4645ef45f9b2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00411.html#a8596d3c79dcf5226377c8fab231f0fff">tvm::utils::internal::map</a>&lt; <a class="el" href="a00985.html">TaskWithRequirements</a> *, <a class="el" href="a01269.html">LinearConstraintWithRequirements</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01273.html#acc8a78e27f70c2a0ecec4645ef45f9b2">constraintMap</a> () const</td></tr>
+<tr class="memdesc:acc8a78e27f70c2a0ecec4645ef45f9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the map task -&gt; constraint.  <a href="#acc8a78e27f70c2a0ecec4645ef45f9b2">More...</a><br /></td></tr>
+<tr class="separator:acc8a78e27f70c2a0ecec4645ef45f9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a00989"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a00989')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a00989.html">tvm::ControlProblem</a></td></tr>
 <tr class="memitem:aa26e9fb05bc3e5a4aa099a59690dac0c inherit pub_methods_a00989"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00989.html#aa26e9fb05bc3e5a4aa099a59690dac0c">ControlProblem</a> ()=default</td></tr>
 <tr class="separator:aa26e9fb05bc3e5a4aa099a59690dac0c inherit pub_methods_a00989"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -432,14 +432,14 @@ template&lt;constraint::Type T&gt; </div>
 
 </div>
 </div>
-<a id="a7267652985dcb2f06dc1640e5c513eb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7267652985dcb2f06dc1640e5c513eb1">&#9670;&nbsp;</a></span>constraintMap()</h2>
+<a id="acc8a78e27f70c2a0ecec4645ef45f9b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc8a78e27f70c2a0ecec4645ef45f9b2">&#9670;&nbsp;</a></span>constraintMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00411.html#a1799eeadc084df3295499f98dad21b6d">tvm::utils::internal::map</a>&lt;<a class="el" href="a00985.html">TaskWithRequirements</a>*, <a class="el" href="a01269.html">LinearConstraintWithRequirements</a>&gt;&amp; tvm::LinearizedControlProblem::constraintMap </td>
+          <td class="memname">const <a class="el" href="a00411.html#a8596d3c79dcf5226377c8fab231f0fff">tvm::utils::internal::map</a>&lt;<a class="el" href="a00985.html">TaskWithRequirements</a> *, <a class="el" href="a01269.html">LinearConstraintWithRequirements</a>&gt;&amp; tvm::LinearizedControlProblem::constraintMap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -670,7 +670,7 @@ template&lt;constraint::Type T&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a01273.html">LinearizedControlProblem</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:15 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

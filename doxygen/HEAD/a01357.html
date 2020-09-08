@@ -112,29 +112,29 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a39238477b5ea9bf465a053c6561299c0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00380.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#a39238477b5ea9bf465a053c6561299c0">forces_</a></td></tr>
 <tr class="memdesc:a39238477b5ea9bf465a053c6561299c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Force (1 3d variable per contact point)  <a href="#a39238477b5ea9bf465a053c6561299c0">More...</a><br /></td></tr>
 <tr class="separator:a39238477b5ea9bf465a053c6561299c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab85b683f0bf3351796805db6b76c99ab"><td class="memItemLeft" align="right" valign="top">std::function&lt; sva::ForceVecd(const <a class="el" href="a01357.html">ForceContact</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#ab85b683f0bf3351796805db6b76c99ab">force_</a></td></tr>
-<tr class="memdesc:ab85b683f0bf3351796805db6b76c99ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the resulting force on the contact.  <a href="#ab85b683f0bf3351796805db6b76c99ab">More...</a><br /></td></tr>
-<tr class="separator:ab85b683f0bf3351796805db6b76c99ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a147e6ac09f687497e7254d9989494e52"><td class="memItemLeft" align="right" valign="top">std::function&lt; sva::ForceVecd(const <a class="el" href="a01357.html">ForceContact</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#a147e6ac09f687497e7254d9989494e52">force_</a></td></tr>
+<tr class="memdesc:a147e6ac09f687497e7254d9989494e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the resulting force on the contact.  <a href="#a147e6ac09f687497e7254d9989494e52">More...</a><br /></td></tr>
+<tr class="separator:a147e6ac09f687497e7254d9989494e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d449844262792a48d252ffddf23b0b9"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#a9d449844262792a48d252ffddf23b0b9">force_jac_</a></td></tr>
 <tr class="memdesc:a9d449844262792a48d252ffddf23b0b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for intermediate Jacobian computation.  <a href="#a9d449844262792a48d252ffddf23b0b9">More...</a><br /></td></tr>
 <tr class="separator:a9d449844262792a48d252ffddf23b0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f4924cc0e95937b45fe631a0cac50e"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#ab8f4924cc0e95937b45fe631a0cac50e">full_jac_</a></td></tr>
 <tr class="separator:ab8f4924cc0e95937b45fe631a0cac50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2420cd09156bbeb576928abed2fc6c4"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(<a class="el" href="a01357.html">ForceContact</a> &amp;, <a class="el" href="a01353.html">DynamicFunction</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#ac2420cd09156bbeb576928abed2fc6c4">updateJacobians_</a></td></tr>
-<tr class="memdesc:ac2420cd09156bbeb576928abed2fc6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update jacobians.  <a href="#ac2420cd09156bbeb576928abed2fc6c4">More...</a><br /></td></tr>
-<tr class="separator:ac2420cd09156bbeb576928abed2fc6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ffbea94a7d5041931c07f2dda6b6195"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(<a class="el" href="a01357.html">ForceContact</a> &amp;, <a class="el" href="a01353.html">DynamicFunction</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html#a8ffbea94a7d5041931c07f2dda6b6195">updateJacobians_</a></td></tr>
+<tr class="memdesc:a8ffbea94a7d5041931c07f2dda6b6195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update jacobians.  <a href="#a8ffbea94a7d5041931c07f2dda6b6195">More...</a><br /></td></tr>
+<tr class="separator:a8ffbea94a7d5041931c07f2dda6b6195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds data for the force part of the motion equation. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab85b683f0bf3351796805db6b76c99ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab85b683f0bf3351796805db6b76c99ab">&#9670;&nbsp;</a></span>force_</h2>
+<a id="a147e6ac09f687497e7254d9989494e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147e6ac09f687497e7254d9989494e52">&#9670;&nbsp;</a></span>force_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::function&lt;sva::ForceVecd(const <a class="el" href="a01357.html">ForceContact</a>&amp;)&gt; tvm::robot::internal::DynamicFunction::ForceContact::force_</td>
+          <td class="memname">std::function&lt;sva::ForceVecd(const <a class="el" href="a01357.html">ForceContact</a> &amp;)&gt; tvm::robot::internal::DynamicFunction::ForceContact::force_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -223,14 +223,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac2420cd09156bbeb576928abed2fc6c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2420cd09156bbeb576928abed2fc6c4">&#9670;&nbsp;</a></span>updateJacobians_</h2>
+<a id="a8ffbea94a7d5041931c07f2dda6b6195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ffbea94a7d5041931c07f2dda6b6195">&#9670;&nbsp;</a></span>updateJacobians_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::function&lt;void(<a class="el" href="a01357.html">ForceContact</a>&amp;, <a class="el" href="a01353.html">DynamicFunction</a>&amp;)&gt; tvm::robot::internal::DynamicFunction::ForceContact::updateJacobians_</td>
+          <td class="memname">std::function&lt;void(<a class="el" href="a01357.html">ForceContact</a> &amp;, <a class="el" href="a01353.html">DynamicFunction</a> &amp;)&gt; tvm::robot::internal::DynamicFunction::ForceContact::updateJacobians_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -246,7 +246,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00403.html">robot</a></li><li class="navelem"><a class="el" href="a00404.html">internal</a></li><li class="navelem"><a class="el" href="a01353.html">DynamicFunction</a></li><li class="navelem"><a class="el" href="a01357.html">ForceContact</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:15 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:45 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

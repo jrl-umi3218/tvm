@@ -10,7 +10,7 @@ var a00323 =
     [ "LinearProtoTaskEQ", "a00323.html#a67d50eddd53504a0b86fa2bfe7c6c36e", null ],
     [ "LinearProtoTaskGT", "a00323.html#ada1513adbbfbaf283d6495fad4728758", null ],
     [ "LinearProtoTaskLT", "a00323.html#ad9cfc9fd2ff34269264b54eb97d96eb2", null ],
-    [ "ProtoChoice", "a00323.html#a1c707dc549b7ec739bb11f88a0edcd1d", null ],
+    [ "ProtoChoice", "a00323.html#a1df1aae691ff0bb095653adcb5de642f", null ],
     [ "ProtoTask", "a00323.html#a2dfe19cb30968d93c81382f2b5463f47", null ],
     [ "ProtoTaskDS", "a00323.html#a8bb2ad8c3268c4f7459045e8ab119c8d", null ],
     [ "ProtoTaskDSRet", "a00323.html#a572f8731e1875065a8272c5732cbe217", null ],

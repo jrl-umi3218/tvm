@@ -22,8 +22,8 @@ var a01213 =
     [ "value", "a01213.html#a9037013380af4e4df35867e98b990605", null ],
     [ "variables", "a01213.html#a655953a67eeab73a1bba388716144e9f", null ],
     [ "imageSpace_", "a01213.html#ad026691e0b6d793385fc139ab565e88d", null ],
-    [ "jacobian_", "a01213.html#a66a22c6f67c4de05fc344c661ac3c6c6", null ],
-    [ "linear_", "a01213.html#aedd09cf8a42b924afeebbf534e08a415", null ],
+    [ "jacobian_", "a01213.html#af40a5e91f6c4d9fb1e49920b8914f7fc", null ],
+    [ "linear_", "a01213.html#a14e39dfa2178e0b1821dc21b9157e5a0", null ],
     [ "value_", "a01213.html#a9c4ade899e4a0e07f716ea6d275d8f2e", null ],
     [ "variables_", "a01213.html#a229c83683265d3b88b8c4305a5f05544", null ]
 ];

@@ -2,10 +2,10 @@ var a01629 =
 [
     [ "ImpactFromChanges", "a01633.html", "a01633" ],
     [ "MarkedAssignment", "a01637.html", "a01637" ],
-    [ "AssignmentPtrVector", "a01629.html#ab2280a5c1d840d3e10f00e92d8183988", null ],
+    [ "AssignmentPtrVector", "a01629.html#a1432605f0a89dd1ef93bf945bbec6e05", null ],
     [ "AssignmentVector", "a01629.html#a41ba6b20730e71f82c36c6a047d64e3f", null ],
     [ "map", "a01629.html#a70271b0bd50e96801e3e1bb96c46f33b", null ],
-    [ "MapToAssignment", "a01629.html#ac2a72be1906713a1c11abe459e64adc2", null ],
+    [ "MapToAssignment", "a01629.html#a8ae8c7341a90c4341c8573fef74ab2d6", null ],
     [ "LeastSquareSolver", "a01629.html#a6510ed405995eccc7b8b95eab6950606", null ],
     [ "LeastSquareSolver", "a01629.html#a0f0e2bcf5b50e3c559687bc77c15b7db", null ],
     [ "~LeastSquareSolver", "a01629.html#a1c97dfc4a522e819e945706999716d96", null ],

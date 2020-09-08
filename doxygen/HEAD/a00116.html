@@ -178,7 +178,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">T member = T(); \</div><div class="line">    template&lt;<span class="keyword">typename</span> ... Args&gt; \</div><div class="line">    std::pair&lt;bool,bool&gt; processArgs(<span class="keyword">const</span> T&amp; m, <span class="keyword">const</span> Args&amp; ... args) \</div><div class="line">    { \</div><div class="line">      static_assert(!check_args&lt;T, Args...&gt;(), \</div><div class="line">                    #T<span class="stringliteral">&quot; has already been specified&quot;</span>); \</div><div class="line">      member = m; \</div><div class="line">      auto p = processArgs(args...); \</div><div class="line">      return {p.first || b1, p.second || b2}; \</div><div class="line">    }</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line">T member = T();                                                               \</div><div class="line">  template&lt;<span class="keyword">typename</span>... Args&gt;                                                    \</div><div class="line">  std::pair&lt;bool, bool&gt; processArgs(<span class="keyword">const</span> T &amp; m, <span class="keyword">const</span> Args &amp;... args)          \</div><div class="line">  {                                                                             \</div><div class="line">    static_assert(!check_args&lt;T, Args...&gt;(), #T <span class="stringliteral">&quot; has already been specified&quot;</span>); \</div><div class="line">    member = m;                                                                 \</div><div class="line">    auto p = processArgs(args...);                                              \</div><div class="line">    return {p.first || b1, p.second || b2};                                     \</div><div class="line">  }</div></div><!-- fragment -->
 <p>This macro adds a member of type T named <em>member</em> to a struct, and a method <em>processArgs</em> to process it when it appears in a list of arguments. </p>
 <p>processArgs return a pair of boolean that is the memberwise "or" of another pair it gets by recursive call and {b1, b2} </p>
 
@@ -191,7 +191,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_020a04e36825fdb5d137e6f4f382bacd.html">internal</a></li><li class="navelem"><a class="el" href="a00116.html">MatrixProperties.h</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:14 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

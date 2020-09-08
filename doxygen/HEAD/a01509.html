@@ -108,13 +108,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8657bd4ce3719517c7fa58e7d1944cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59fbf619dc2ec6e609c112a64c6654f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01509.html#a59fbf619dc2ec6e609c112a64c6654f6">applyWeightMult</a> (const double &amp;M)</td></tr>
 <tr class="separator:a59fbf619dc2ec6e609c112a64c6654f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaccc0edbfc171c08369f7631f3aeeb3f"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
-<tr class="memitem:aaccc0edbfc171c08369f7631f3aeeb3f"><td class="memTemplItemLeft" align="right" valign="top">decltype(-std::declval&lt; Eigen::MatrixBase&lt; Derived &gt; &gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01509.html#aaccc0edbfc171c08369f7631f3aeeb3f">applyWeightMult</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;M)</td></tr>
-<tr class="separator:aaccc0edbfc171c08369f7631f3aeeb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2c85f3a9a89bfa84a259968874071e1"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename Lhs , typename Rhs &gt; </td></tr>
-<tr class="memitem:ac2c85f3a9a89bfa84a259968874071e1"><td class="memTemplItemLeft" align="right" valign="top">decltype((-std::declval&lt; Lhs &gt;()) *std::declval&lt; Rhs &gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01509.html#ac2c85f3a9a89bfa84a259968874071e1">applyWeightMult</a> (const Eigen::ProductBase&lt; Derived, Lhs, Rhs &gt; &amp;P)</td></tr>
-<tr class="memdesc:ac2c85f3a9a89bfa84a259968874071e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">We need this specialization because, odly, -(A*B) relies on a temporary evaluation while (-A)*B does not.  <a href="#ac2c85f3a9a89bfa84a259968874071e1">More...</a><br /></td></tr>
-<tr class="separator:ac2c85f3a9a89bfa84a259968874071e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18c584564e72b55bfc9591e2ab69460"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:ae18c584564e72b55bfc9591e2ab69460"><td class="memTemplItemLeft" align="right" valign="top">decltype(-std::declval&lt; Eigen::MatrixBase&lt; Derived &gt;&gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01509.html#ae18c584564e72b55bfc9591e2ab69460">applyWeightMult</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;M)</td></tr>
+<tr class="separator:ae18c584564e72b55bfc9591e2ab69460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d3721f7e08686a1098278195ac476d8"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename Lhs , typename Rhs &gt; </td></tr>
+<tr class="memitem:a6d3721f7e08686a1098278195ac476d8"><td class="memTemplItemLeft" align="right" valign="top">decltype((-std::declval&lt; Lhs &gt;()) *std::declval&lt; Rhs &gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01509.html#a6d3721f7e08686a1098278195ac476d8">applyWeightMult</a> (const Eigen::ProductBase&lt; Derived, Lhs, Rhs &gt; &amp;P)</td></tr>
+<tr class="memdesc:a6d3721f7e08686a1098278195ac476d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">We need this specialization because, odly, -(A*B) relies on a temporary evaluation while (-A)*B does not.  <a href="#a6d3721f7e08686a1098278195ac476d8">More...</a><br /></td></tr>
+<tr class="separator:a6d3721f7e08686a1098278195ac476d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -180,8 +180,8 @@ class tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</h3>
 
 </div>
 </div>
-<a id="aaccc0edbfc171c08369f7631f3aeeb3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaccc0edbfc171c08369f7631f3aeeb3f">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[2/3]</span></h2>
+<a id="ae18c584564e72b55bfc9591e2ab69460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18c584564e72b55bfc9591e2ab69460">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +192,7 @@ template&lt;typename Derived &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">decltype(-std::declval&lt;Eigen::MatrixBase&lt;Derived&gt; &gt;()) <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a8837683631cde0a3713dedea1ee833e2">MINUS</a> &gt;::applyWeightMult </td>
+          <td class="memname">decltype(-std::declval&lt;Eigen::MatrixBase&lt;Derived&gt;&gt;()) <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a8837683631cde0a3713dedea1ee833e2">MINUS</a> &gt;::applyWeightMult </td>
           <td>(</td>
           <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;&#160;</td>
           <td class="paramname"><em>M</em></td><td>)</td>
@@ -208,8 +208,8 @@ template&lt;typename Derived &gt; </div>
 
 </div>
 </div>
-<a id="ac2c85f3a9a89bfa84a259968874071e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2c85f3a9a89bfa84a259968874071e1">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[3/3]</span></h2>
+<a id="a6d3721f7e08686a1098278195ac476d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d3721f7e08686a1098278195ac476d8">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +220,7 @@ template&lt;typename Derived , typename Lhs , typename Rhs &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">decltype((-std::declval&lt;Lhs&gt;())*std::declval&lt;Rhs&gt;()) <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a8837683631cde0a3713dedea1ee833e2">MINUS</a> &gt;::applyWeightMult </td>
+          <td class="memname">decltype((-std::declval&lt;Lhs&gt;()) * std::declval&lt;Rhs&gt;()) <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a8837683631cde0a3713dedea1ee833e2">MINUS</a> &gt;::applyWeightMult </td>
           <td>(</td>
           <td class="paramtype">const Eigen::ProductBase&lt; Derived, Lhs, Rhs &gt; &amp;&#160;</td>
           <td class="paramname"><em>P</em></td><td>)</td>
@@ -268,7 +268,7 @@ template&lt;typename Derived , typename Lhs , typename Rhs &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00405.html">scheme</a></li><li class="navelem"><a class="el" href="a00407.html">internal</a></li><li class="navelem"><a class="el" href="a01509.html">WeightMultBase&lt; MINUS &gt;</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:15 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:45 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

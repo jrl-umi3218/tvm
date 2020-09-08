@@ -135,9 +135,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a9405c2755b4621868748e6ef57646a15"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a9405c2755b4621868748e6ef57646a15">AddConstantsRetType</a> = std::remove_const_t&lt; std::remove_reference_t&lt; decltype(std::declval&lt; LhsType &gt;()+std::declval&lt; RhsType &gt;())&gt; &gt;</td></tr>
 <tr class="memdesc:a9405c2755b4621868748e6ef57646a15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result type for the addition of two constant parts, existing or not.  <a href="#a9405c2755b4621868748e6ef57646a15">More...</a><br /></td></tr>
 <tr class="separator:a9405c2755b4621868748e6ef57646a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1799eeadc084df3295499f98dad21b6d"><td class="memTemplParams" colspan="2">template&lt;typename KeyWithId , typename Value , typename Allocator  = std::allocator&lt; std::pair&lt;const KeyWithId, Value&gt; &gt;&gt; </td></tr>
-<tr class="memitem:a1799eeadc084df3295499f98dad21b6d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a1799eeadc084df3295499f98dad21b6d">map</a> = std::map&lt; KeyWithId, Value, <a class="el" href="a01833.html">IdComparator</a>&lt; KeyWithId &gt;, Allocator &gt;</td></tr>
-<tr class="separator:a1799eeadc084df3295499f98dad21b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8596d3c79dcf5226377c8fab231f0fff"><td class="memTemplParams" colspan="2">template&lt;typename KeyWithId , typename Value , typename Allocator  = std::allocator&lt;std::pair&lt;const KeyWithId, Value&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a8596d3c79dcf5226377c8fab231f0fff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a8596d3c79dcf5226377c8fab231f0fff">map</a> = std::map&lt; KeyWithId, Value, <a class="el" href="a01833.html">IdComparator</a>&lt; KeyWithId &gt;, Allocator &gt;</td></tr>
+<tr class="separator:a8596d3c79dcf5226377c8fab231f0fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -169,11 +169,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a5dc2d1c292597817e4239ec5a7fefc97"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01813.html">NoConstant</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a5dc2d1c292597817e4239ec5a7fefc97">operator*</a> (const MultType &amp;, const <a class="el" href="a01813.html">NoConstant</a> &amp;)</td></tr>
 <tr class="memdesc:a5dc2d1c292597817e4239ec5a7fefc97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload for post-multiplying by <a class="el" href="a01813.html" title="A dummy class to represent the absence of constant part in an affine expression. ">NoConstant</a>.  <a href="#a5dc2d1c292597817e4239ec5a7fefc97">More...</a><br /></td></tr>
 <tr class="separator:a5dc2d1c292597817e4239ec5a7fefc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a953b63ac3bf3b93a21e8fb0fe5ff0f11"><td class="memTemplParams" colspan="2">template&lt;typename Tuple , size_t ... Indices&gt; </td></tr>
+<tr class="memitem:a953b63ac3bf3b93a21e8fb0fe5ff0f11"><td class="memTemplParams" colspan="2">template&lt;typename Tuple , size_t... Indices&gt; </td></tr>
 <tr class="memitem:a953b63ac3bf3b93a21e8fb0fe5ff0f11"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a953b63ac3bf3b93a21e8fb0fe5ff0f11">tupleUnaryMinus</a> (const Tuple &amp;tuple, std::index_sequence&lt; Indices... &gt;)</td></tr>
 <tr class="memdesc:a953b63ac3bf3b93a21e8fb0fe5ff0f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taking the opposite of each element i of the input tuple where the i's are the elements given by the sequence of index.  <a href="#a953b63ac3bf3b93a21e8fb0fe5ff0f11">More...</a><br /></td></tr>
 <tr class="separator:a953b63ac3bf3b93a21e8fb0fe5ff0f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a3de7863251546ec818c97434bc6007"><td class="memTemplParams" colspan="2">template&lt;typename MultType , typename Tuple , size_t ... Indices&gt; </td></tr>
+<tr class="memitem:a7a3de7863251546ec818c97434bc6007"><td class="memTemplParams" colspan="2">template&lt;typename MultType , typename Tuple , size_t... Indices&gt; </td></tr>
 <tr class="memitem:a7a3de7863251546ec818c97434bc6007"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00411.html#a7a3de7863251546ec818c97434bc6007">tuplePremult</a> (const MultType &amp;m, const Tuple &amp;tuple, std::index_sequence&lt; Indices... &gt;)</td></tr>
 <tr class="memdesc:a7a3de7863251546ec818c97434bc6007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Premultiplication by m of each element i of the input tuple where the i's are the elements given by the sequence of index.  <a href="#a7a3de7863251546ec818c97434bc6007">More...</a><br /></td></tr>
 <tr class="separator:a7a3de7863251546ec818c97434bc6007"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,16 +225,16 @@ template&lt;typename LhsType , typename RhsType &gt; </div>
 
 </div>
 </div>
-<a id="a1799eeadc084df3295499f98dad21b6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1799eeadc084df3295499f98dad21b6d">&#9670;&nbsp;</a></span>map</h2>
+<a id="a8596d3c79dcf5226377c8fab231f0fff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8596d3c79dcf5226377c8fab231f0fff">&#9670;&nbsp;</a></span>map</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename KeyWithId , typename Value , typename Allocator  = std::allocator&lt; std::pair&lt;const KeyWithId, Value&gt; &gt;&gt; </div>
+template&lt;typename KeyWithId , typename Value , typename Allocator  = std::allocator&lt;std::pair&lt;const KeyWithId, Value&gt;&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00411.html#a1799eeadc084df3295499f98dad21b6d">tvm::utils::internal::map</a> = typedef std::map&lt;KeyWithId, Value, <a class="el" href="a01833.html">IdComparator</a>&lt;KeyWithId&gt;, Allocator &gt;</td>
+          <td class="memname">using <a class="el" href="a00411.html#a8596d3c79dcf5226377c8fab231f0fff">tvm::utils::internal::map</a> = typedef std::map&lt;KeyWithId, Value, <a class="el" href="a01833.html">IdComparator</a>&lt;KeyWithId&gt;, Allocator&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -661,7 +661,7 @@ template&lt;typename Object &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MultType , typename Tuple , size_t ... Indices&gt; </div>
+template&lt;typename MultType , typename Tuple , size_t... Indices&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto tvm::utils::internal::tuplePremult </td>
@@ -701,7 +701,7 @@ template&lt;typename MultType , typename Tuple , size_t ... Indices&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tuple , size_t ... Indices&gt; </div>
+template&lt;typename Tuple , size_t... Indices&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto tvm::utils::internal::tupleUnaryMinus </td>
@@ -736,7 +736,7 @@ template&lt;typename Tuple , size_t ... Indices&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00401.html">utils</a></li><li class="navelem"><a class="el" href="a00411.html">internal</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:16 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:45 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

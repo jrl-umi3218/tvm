@@ -7,5 +7,5 @@ var a00068 =
     [ "DISABLE_UPDATES", "a00068.html#ab98a42d80dd95363599af2d95e71879b", null ],
     [ "SET_UPDATES", "a00068.html#abd38cd98a6567962387d6ebe5a27ce45", null ],
     [ "is_valid_update", "a00068.html#a447a144be9f3728a7edd8decf10430d0", null ],
-    [ "is_valid_update", "a00068.html#a36eb922b44beb7381a9b159042a7e94b", null ]
+    [ "is_valid_update", "a00068.html#a8b2ac5f0127e30c87a7286a41890d807", null ]
 ];

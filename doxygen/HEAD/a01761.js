@@ -2,7 +2,7 @@ var a01761 =
 [
     [ "Impl", "a01761.html#a2c75030a3df46f1a8e0213e72d8661b8", null ],
     [ "~Impl", "a01761.html#ac38f2c9888febaf27922bb62ebeeb94f", null ],
-    [ "gains", "a01761.html#a443b57d5a83a15cea5313ab383d0b160", null ],
+    [ "gains", "a01761.html#a2be9aa8712808451af4adb58dfe9cf82", null ],
     [ "gains", "a01761.html#ac98fc52e81c71ebdae8b92c28a474cbe", null ],
     [ "gains", "a01761.html#a7932416dbbaf9db6855e1b8f98f5015a", null ],
     [ "gains", "a01761.html#a7ddc3d1dad52778ed85c3b13963a0aa9", null ],

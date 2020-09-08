@@ -119,10 +119,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a447a144be9f3728a7edd8decf10430d0"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00396.html#a447a144be9f3728a7edd8decf10430d0">is_valid_update</a> (EnumT v)</td></tr>
 <tr class="memdesc:a447a144be9f3728a7edd8decf10430d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a value of EnumT is a valid update for Node type T.  <a href="#a447a144be9f3728a7edd8decf10430d0">More...</a><br /></td></tr>
 <tr class="separator:a447a144be9f3728a7edd8decf10430d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36eb922b44beb7381a9b159042a7e94b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT , typename ... Args&gt; </td></tr>
-<tr class="memitem:a36eb922b44beb7381a9b159042a7e94b"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00396.html#a36eb922b44beb7381a9b159042a7e94b">is_valid_update</a> (EnumT v, Args ... args)</td></tr>
-<tr class="memdesc:a36eb922b44beb7381a9b159042a7e94b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if all values of a given set are valid updates for Updates type T.  <a href="#a36eb922b44beb7381a9b159042a7e94b">More...</a><br /></td></tr>
-<tr class="separator:a36eb922b44beb7381a9b159042a7e94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b2ac5f0127e30c87a7286a41890d807"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT , typename... Args&gt; </td></tr>
+<tr class="memitem:a8b2ac5f0127e30c87a7286a41890d807"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00396.html#a8b2ac5f0127e30c87a7286a41890d807">is_valid_update</a> (EnumT v, Args... args)</td></tr>
+<tr class="memdesc:a8b2ac5f0127e30c87a7286a41890d807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if all values of a given set are valid updates for Updates type T.  <a href="#a8b2ac5f0127e30c87a7286a41890d807">More...</a><br /></td></tr>
+<tr class="separator:a8b2ac5f0127e30c87a7286a41890d807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad9e7110f7a2fd2790b9af19849fd846"><td class="memTemplParams" colspan="2">template&lt;typename ObjType , typename MemberType , typename... Args&gt; </td></tr>
 <tr class="memitem:aad9e7110f7a2fd2790b9af19849fd846"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00396.html#aad9e7110f7a2fd2790b9af19849fd846">lexLess</a> (const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member, Args &amp;&amp;... args)</td></tr>
 <tr class="memdesc:aad9e7110f7a2fd2790b9af19849fd846"><td class="mdescLeft">&#160;</td><td class="mdescRight">lexicographic comparison of two objects given an ordered list of the members to compare.  <a href="#aad9e7110f7a2fd2790b9af19849fd846">More...</a><br /></td></tr>
@@ -270,13 +270,13 @@ template&lt;typename T , typename EnumT &gt; </div>
 
 </div>
 </div>
-<a id="a36eb922b44beb7381a9b159042a7e94b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36eb922b44beb7381a9b159042a7e94b">&#9670;&nbsp;</a></span>is_valid_update() <span class="overload">[2/2]</span></h2>
+<a id="a8b2ac5f0127e30c87a7286a41890d807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b2ac5f0127e30c87a7286a41890d807">&#9670;&nbsp;</a></span>is_valid_update() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename EnumT , typename ... Args&gt; </div>
+template&lt;typename T , typename EnumT , typename... Args&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr bool tvm::graph::internal::is_valid_update </td>
@@ -287,7 +287,7 @@ template&lt;typename T , typename EnumT , typename ... Args&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Args ...&#160;</td>
+          <td class="paramtype">Args...&#160;</td>
           <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
@@ -393,7 +393,7 @@ template&lt;typename ObjType , typename MemberType &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00394.html">graph</a></li><li class="navelem"><a class="el" href="a00396.html">internal</a></li>
-    <li class="footer">Generated on Mon Sep 7 2020 11:06:15 for TVM by
+    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
