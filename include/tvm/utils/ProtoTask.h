@@ -119,55 +119,25 @@ using ProtoTaskDSRet = ProtoChoice<T, tvm::utils::ProtoTaskDS, tvm::utils::Linea
  * pick between this and shared_ptr operator.
  */
 /**@{*/
+// clang-format off
 template<typename F>
-inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS & rhs)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskEQRet<F> operator==(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-inline tvm::utils::ProtoTaskEQRet<F> operator==(const tvm::utils::internal::RHS & rhs, std::shared_ptr<F> f)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskEQRet<F> operator==(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 template<typename F>
-inline tvm::utils::ProtoTaskGTRet<F> operator>=(std::shared_ptr<F> f, const tvm::utils::internal::RHS & rhs)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskGTRet<F> operator>=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-inline tvm::utils::ProtoTaskLTRet<F> operator>=(const tvm::utils::internal::RHS & rhs, std::shared_ptr<F> f)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskLTRet<F> operator>=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 template<typename F>
-inline tvm::utils::ProtoTaskLTRet<F> operator<=(std::shared_ptr<F> f, const tvm::utils::internal::RHS & rhs)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskLTRet<F> operator<=(std::shared_ptr<F> f, const tvm::utils::internal::RHS& rhs) { return { f, rhs }; }
 template<typename F>
-inline tvm::utils::ProtoTaskGTRet<F> operator<=(const tvm::utils::internal::RHS & rhs, std::shared_ptr<F> f)
-{
-  return {f, rhs};
-}
+inline tvm::utils::ProtoTaskGTRet<F> operator<=(const tvm::utils::internal::RHS& rhs, std::shared_ptr<F> f) { return { f, rhs }; }
 
-inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT & ptl, const tvm::utils::internal::RHS & rhs)
-{
-  return {ptl.f_, rhs, ptl.rhs_};
-}
-inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT & ptg, const tvm::utils::internal::RHS & rhs)
-{
-  return {ptg.f_, ptg.rhs_, rhs};
-}
-inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT & ptl,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return {ptl.f_, rhs, ptl.rhs_};
-}
-inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT & ptg,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return {ptg.f_, ptg.rhs_, rhs};
-}
+inline tvm::utils::ProtoTaskDS operator>=(const tvm::utils::ProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs) { return { ptl.f_, rhs, ptl.rhs_ }; }
+inline tvm::utils::ProtoTaskDS operator<=(const tvm::utils::ProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
+inline tvm::utils::LinearProtoTaskDS operator>=(const tvm::utils::LinearProtoTaskLT& ptl, const tvm::utils::internal::RHS& rhs) { return { ptl.f_, rhs, ptl.rhs_ }; }
+inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTaskGT& ptg, const tvm::utils::internal::RHS& rhs) { return { ptg.f_, ptg.rhs_, rhs }; }
+// clang-format on
 /**@}*/
 
 #define TVM_ID(x) std::make_shared<tvm::function::IdentityFunction>(x)
@@ -180,30 +150,14 @@ inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTas
  * pick between this and shared_ptr operator.
  */
 /**@{*/
-inline tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_ID(x) == rhs;
-}
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
-{
-  return TVM_ID(x) == rhs;
-}
-inline tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_ID(x) >= rhs;
-}
-inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
-{
-  return TVM_ID(x) <= rhs;
-}
-inline tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_ID(x) <= rhs;
-}
-inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS & rhs, tvm::VariablePtr x)
-{
-  return TVM_ID(x) >= rhs;
-}
+// clang-format off
+inline tvm::utils::LinearProtoTaskEQ operator==(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) == rhs; }
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) == rhs; }
+inline tvm::utils::LinearProtoTaskGT operator>=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) >= rhs; }
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) <= rhs; }
+inline tvm::utils::LinearProtoTaskLT operator<=(tvm::VariablePtr x, const tvm::utils::internal::RHS& rhs) { return TVM_ID(x) <= rhs; }
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, tvm::VariablePtr x) { return TVM_ID(x) >= rhs; }
+// clang-format on
 /**@}*/
 #undef TVM_ID
 
@@ -220,78 +174,32 @@ inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS 
  * to the contrary of the operators working with shared_ptr on Function.
  */
 ///@{
+// clang-format off
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::LinearExpr<Derived> & lin,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(lin) == rhs;
-}
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) == rhs; }
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::LinearExpr<Derived> & lin)
-{
-  return TVM_LIN(lin) == rhs;
-}
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) == rhs; }
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::LinearExpr<Derived> & lin,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(lin) >= rhs;
-}
+inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) >= rhs; }
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::LinearExpr<Derived> & lin)
-{
-  return TVM_LIN(lin) <= rhs;
-}
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) <= rhs; }
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::LinearExpr<Derived> & lin,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(lin) <= rhs;
-}
+inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::LinearExpr<Derived>& lin, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(lin) <= rhs; }
 template<typename Derived>
-inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::LinearExpr<Derived> & lin)
-{
-  return TVM_LIN(lin) >= rhs;
-}
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, const tvm::utils::LinearExpr<Derived>& lin) { return TVM_LIN(lin) >= rhs; }
 
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::AffineExpr<CstDerived, Derived...> & aff,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(aff) == rhs;
-}
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) == rhs; }
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::AffineExpr<CstDerived, Derived...> & aff)
-{
-  return TVM_LIN(aff) == rhs;
-}
+inline tvm::utils::LinearProtoTaskEQ operator==(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) == rhs; }
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::AffineExpr<CstDerived, Derived...> & aff,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(aff) >= rhs;
-}
+inline tvm::utils::LinearProtoTaskGT operator>=(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) >= rhs; }
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::AffineExpr<CstDerived, Derived...> & aff)
-{
-  return TVM_LIN(aff) <= rhs;
-}
+inline tvm::utils::LinearProtoTaskLT operator>=(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) <= rhs; }
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::AffineExpr<CstDerived, Derived...> & aff,
-                                                const tvm::utils::internal::RHS & rhs)
-{
-  return TVM_LIN(aff) <= rhs;
-}
+inline tvm::utils::LinearProtoTaskLT operator<=(const tvm::utils::AffineExpr<CstDerived, Derived...>& aff, const tvm::utils::internal::RHS& rhs) { return TVM_LIN(aff) <= rhs; }
 template<typename CstDerived, typename... Derived>
-inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS & rhs,
-                                                const tvm::utils::AffineExpr<CstDerived, Derived...> & aff)
-{
-  return TVM_LIN(aff) >= rhs;
-}
+inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS& rhs, const tvm::utils::AffineExpr<CstDerived, Derived...>& aff) { return TVM_LIN(aff) >= rhs; }
+// clang-format on
 ///@}
 #undef TVM_LIN
