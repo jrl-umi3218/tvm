@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include <tvm/ControlProblem.h>
 #include <tvm/defs.h>
+
+#include <tvm/ControlProblem.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/hint/internal/Substitutions.h>
 

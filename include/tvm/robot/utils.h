@@ -2,9 +2,10 @@
 
 #pragma once
 
+#include <tvm/api.h>
+
 #include <tvm/Clock.h>
 #include <tvm/Robot.h>
-#include <tvm/api.h>
 
 namespace tvm
 {

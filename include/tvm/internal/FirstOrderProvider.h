@@ -2,9 +2,10 @@
 
 #pragma once
 
+#include <tvm/defs.h>
+
 #include <tvm/Variable.h>
 #include <tvm/VariableVector.h>
-#include <tvm/defs.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/internal/MatrixWithProperties.h>
 #include <tvm/utils/internal/map.h>

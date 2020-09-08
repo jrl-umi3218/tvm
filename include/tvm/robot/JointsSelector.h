@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include <tvm/Robot.h>
 #include <tvm/defs.h>
 
+#include <tvm/Robot.h>
 #include <tvm/function/abstract/Function.h>
 
 namespace tvm

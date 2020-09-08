@@ -1,6 +1,7 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/defs.h>
+
 #include <tvm/robot/internal/FrictionCone.h>
 
 #include <Eigen/Geometry>

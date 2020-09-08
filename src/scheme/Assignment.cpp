@@ -2,9 +2,10 @@
 
 #include <tvm/scheme/internal/Assignment.h>
 
+#include <tvm/defs.h>
+
 #include <tvm/VariableVector.h>
 #include <tvm/constraint/abstract/Constraint.h>
-#include <tvm/defs.h>
 #include <tvm/scheme/internal/helpers.h>
 
 namespace tvm::scheme::internal

@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include <tvm/Range.h>
-#include <tvm/VariableVector.h>
 #include <tvm/api.h>
 #include <tvm/defs.h>
+
+#include <tvm/Range.h>
+#include <tvm/VariableVector.h>
 
 #include <vector>
 

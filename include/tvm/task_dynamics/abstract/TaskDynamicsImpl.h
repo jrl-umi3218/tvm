@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include <tvm/constraint/enums.h>
 #include <tvm/defs.h>
+
+#include <tvm/constraint/enums.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/task_dynamics/enums.h>
 

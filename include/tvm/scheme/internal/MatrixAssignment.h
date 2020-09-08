@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include <tvm/Variable.h> // Range
 #include <tvm/api.h>
 #include <tvm/defs.h>
+
+#include <tvm/Variable.h> // Range
 #include <tvm/scheme/internal/AssignmentTarget.h>
 #include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
 

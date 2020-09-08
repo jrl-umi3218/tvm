@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include <tvm/Variable.h>
 #include <tvm/api.h>
 #include <tvm/defs.h>
+
+#include <tvm/Variable.h>
 #include <tvm/internal/meta.h>
 #include <tvm/utils/internal/AffineExprDetail.h>
 

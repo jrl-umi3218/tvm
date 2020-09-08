@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include <tvm/Range.h>
 #include <tvm/api.h>
+
+#include <tvm/Range.h>
 #include <tvm/constraint/BasicLinearConstraint.h>
 #include <tvm/function/BasicLinearFunction.h>
 #include <tvm/hint/Substitution.h>

@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include <tvm/Robot.h>
 #include <tvm/api.h>
+
+#include <tvm/Robot.h>
 
 #include <tvm/function/abstract/LinearFunction.h>
 

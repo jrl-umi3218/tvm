@@ -3,8 +3,9 @@
 #pragma once
 
 #include <tvm/api.h>
-#include <tvm/constraint/enums.h>
 #include <tvm/defs.h>
+
+#include <tvm/constraint/enums.h>
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/function/abstract/Function.h>
 

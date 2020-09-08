@@ -3,8 +3,9 @@
 #pragma once
 
 #include <tvm/api.h>
-#include <tvm/constraint/abstract/Constraint.h>
 #include <tvm/defs.h>
+
+#include <tvm/constraint/abstract/Constraint.h>
 #include <tvm/requirements/ViolationEvaluation.h>
 
 #include <iostream>

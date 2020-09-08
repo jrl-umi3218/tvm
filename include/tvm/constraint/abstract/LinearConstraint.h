@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include <tvm/constraint/abstract/Constraint.h>
 #include <tvm/defs.h>
+
+#include <tvm/constraint/abstract/Constraint.h>
 
 #include <Eigen/Core>
 

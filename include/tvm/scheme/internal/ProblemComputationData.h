@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include <tvm/VariableVector.h>
 #include <tvm/api.h>
 #include <tvm/defs.h>
+
+#include <tvm/VariableVector.h>
 #include <tvm/scheme/internal/ProblemDefinitionEvent.h>
 
 #include <queue>

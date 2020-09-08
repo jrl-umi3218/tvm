@@ -3,9 +3,10 @@
 #pragma once
 
 #include <tvm/api.h>
+#include <tvm/defs.h>
+
 #include <tvm/constraint/enums.h>
 #include <tvm/constraint/internal/RHSVectors.h>
-#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 #include <tvm/utils/ProtoTask.h>
 
