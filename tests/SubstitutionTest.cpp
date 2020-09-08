@@ -24,7 +24,6 @@ using namespace tvm::hint;
 using namespace tvm::hint::internal;
 using namespace Eigen;
 
-
 TEST_CASE("GenericCalculator")
 {
   VariablePtr x = Space(5).createVariable("x");
@@ -33,9 +32,10 @@ TEST_CASE("GenericCalculator")
   MatrixXd B = MatrixXd::Random(5, 3);
   VectorXd b = VectorXd::Random(5);
 
-  std::shared_ptr<constraint::BasicLinearConstraint> c(new constraint::BasicLinearConstraint({ A,B }, { x,y }, b, constraint::Type::EQUAL));
+  std::shared_ptr<constraint::BasicLinearConstraint> c(
+      new constraint::BasicLinearConstraint({A, B}, {x, y}, b, constraint::Type::EQUAL));
 
-  auto calc = GenericCalculator().impl({ std::static_pointer_cast<constraint::abstract::LinearConstraint>(c) }, { x }, 5);
+  auto calc = GenericCalculator().impl({std::static_pointer_cast<constraint::abstract::LinearConstraint>(c)}, {x}, 5);
   calc->update();
 
   MatrixXd AsA(5, 5);
@@ -50,15 +50,14 @@ TEST_CASE("GenericCalculator")
   FAST_CHECK_UNARY(AsB.isApprox(-MatrixXd(qrA.solve(B))));
 
   MatrixXd C(3, 5);
-  C << 1, 0, 0, 0, 0,
-       0, 1, 0, 0, 0,
-       0, 0, 0, 0, 0;
+  C << 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0;
   MatrixXd D = MatrixXd::Random(3, 3);
   VectorXd d = VectorXd::Random(3);
 
-  std::shared_ptr<constraint::BasicLinearConstraint> c2(new constraint::BasicLinearConstraint({ C,D }, { x,y }, d, constraint::Type::EQUAL));
+  std::shared_ptr<constraint::BasicLinearConstraint> c2(
+      new constraint::BasicLinearConstraint({C, D}, {x, y}, d, constraint::Type::EQUAL));
 
-  auto calc2 = GenericCalculator().impl({ std::static_pointer_cast<constraint::abstract::LinearConstraint>(c2) }, { x }, 2);
+  auto calc2 = GenericCalculator().impl({std::static_pointer_cast<constraint::abstract::LinearConstraint>(c2)}, {x}, 2);
   calc2->update();
   MatrixXd CsD(5, 3);
   MatrixXd StD(1, 3);
@@ -66,8 +65,8 @@ TEST_CASE("GenericCalculator")
   FAST_CHECK_UNARY(CsD.topRows(2).isApprox(-D.topRows(2)));
   FAST_CHECK_UNARY(CsD.bottomRows(3).isZero());
   FAST_CHECK_UNARY(StD.isApprox(D.row(2)));
-  FAST_CHECK_UNARY(MatrixXd(C*calc2->N()).isZero());
-  FAST_CHECK_EQ(calc2->N().colPivHouseholderQr().rank(),3);
+  FAST_CHECK_UNARY(MatrixXd(C * calc2->N()).isZero());
+  FAST_CHECK_EQ(calc2->N().colPivHouseholderQr().rank(), 3);
 }
 
 TEST_CASE("Diagonal Calculator")
@@ -80,9 +79,11 @@ TEST_CASE("Diagonal Calculator")
     MatrixXd B = MatrixXd::Random(7, 3);
     VectorXd b = VectorXd::Random(7);
 
-    std::shared_ptr<constraint::BasicLinearConstraint> c(new constraint::BasicLinearConstraint({ A,B }, { x,y }, b, constraint::Type::EQUAL));
+    std::shared_ptr<constraint::BasicLinearConstraint> c(
+        new constraint::BasicLinearConstraint({A, B}, {x, y}, b, constraint::Type::EQUAL));
 
-    auto calc = DiagonalCalculator().impl({ std::static_pointer_cast<constraint::abstract::LinearConstraint>(c) }, { x }, 7);
+    auto calc =
+        DiagonalCalculator().impl({std::static_pointer_cast<constraint::abstract::LinearConstraint>(c)}, {x}, 7);
     calc->update();
 
     MatrixXd AsA(7, 7);
@@ -101,100 +102,86 @@ TEST_CASE("Diagonal Calculator")
 
   {
     MatrixXd A(3, 7);
-    A << 0, 1, 0, 0, 0, 0, 0,
-         0, 0, 0, 1, 0, 0, 0,
-         0, 0, 0, 0, 1, 0, 0;
+    A << 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0;
     MatrixXd B = MatrixXd::Random(3, 3);
     VectorXd b = VectorXd::Random(3);
 
-    std::shared_ptr<constraint::BasicLinearConstraint> c(new constraint::BasicLinearConstraint({ A,B }, { x,y }, b, constraint::Type::EQUAL));
+    std::shared_ptr<constraint::BasicLinearConstraint> c(
+        new constraint::BasicLinearConstraint({A, B}, {x, y}, b, constraint::Type::EQUAL));
 
-    auto calc = DiagonalCalculator({1,3,4}).impl({ std::static_pointer_cast<constraint::abstract::LinearConstraint>(c) }, { x }, 3);
+    auto calc = DiagonalCalculator({1, 3, 4}).impl(
+        {std::static_pointer_cast<constraint::abstract::LinearConstraint>(c)}, {x}, 3);
     calc->update();
 
     MatrixXd AsA(7, 7);
     MatrixXd StA(0, 7);
     calc->premultiplyByASharpAndSTranspose(AsA, StA, A, false);
-    FAST_CHECK_UNARY(AsA.isApprox(A.transpose()* A));
+    FAST_CHECK_UNARY(AsA.isApprox(A.transpose() * A));
 
     MatrixXd AsB(7, 3);
     MatrixXd StB(0, 3);
     calc->premultiplyByASharpAndSTranspose(AsB, StB, B, false);
-    FAST_CHECK_UNARY(AsB.isApprox(A.transpose()*B));
+    FAST_CHECK_UNARY(AsB.isApprox(A.transpose() * B));
 
     MatrixXd N(7, 4);
-    N << 1, 0, 0, 0,
-         0, 0, 0, 0,
-         0, 1, 0, 0,
-         0, 0, 0, 0,
-         0, 0, 0, 0,
-         0, 0, 1, 0,
-         0, 0, 0 ,1;
+    N << 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1;
     FAST_CHECK_UNARY(N.isApprox(calc->N()));
   }
 
   {
     MatrixXd A(5, 7);
-    A << 0, 0, 0, 0, 0, 0, 0,
-         0, 1, 0, 0, 0, 0, 0,
-         0, 0, 0, 0, 0, 0, 0,
-         0, 0, 0, 1, 0, 0, 0,
-         0, 0, 0, 0, 1, 0, 0;
+    A << 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0;
     MatrixXd B = MatrixXd::Random(5, 3);
     VectorXd b = VectorXd::Random(5);
 
-    std::shared_ptr<constraint::BasicLinearConstraint> c(new constraint::BasicLinearConstraint({ A,B }, { x,y }, b, constraint::Type::EQUAL));
+    std::shared_ptr<constraint::BasicLinearConstraint> c(
+        new constraint::BasicLinearConstraint({A, B}, {x, y}, b, constraint::Type::EQUAL));
 
-    auto calc = DiagonalCalculator({ 1,3,4 }, { 0,2 }).impl({ std::static_pointer_cast<constraint::abstract::LinearConstraint>(c) }, { x }, 3);
+    auto calc = DiagonalCalculator({1, 3, 4}, {0, 2})
+                    .impl({std::static_pointer_cast<constraint::abstract::LinearConstraint>(c)}, {x}, 3);
     calc->update();
 
     MatrixXd AsA(7, 7);
     MatrixXd StA(2, 7);
     calc->premultiplyByASharpAndSTranspose(AsA, StA, A, false);
-    FAST_CHECK_UNARY(AsA.isApprox(A.transpose()* A));
+    FAST_CHECK_UNARY(AsA.isApprox(A.transpose() * A));
     FAST_CHECK_UNARY(StA.isZero());
 
     MatrixXd AsB(7, 3);
     MatrixXd StB(2, 3);
     calc->premultiplyByASharpAndSTranspose(AsB, StB, B, false);
-    FAST_CHECK_UNARY(AsB.isApprox(A.transpose()*B));
+    FAST_CHECK_UNARY(AsB.isApprox(A.transpose() * B));
     FAST_CHECK_UNARY(StB.row(0).isApprox(B.row(0)));
     FAST_CHECK_UNARY(StB.row(1).isApprox(B.row(2)));
 
     MatrixXd N(7, 4);
-    N << 1, 0, 0, 0,
-         0, 0, 0, 0,
-         0, 1, 0, 0,
-         0, 0, 0, 0,
-         0, 0, 0, 0,
-         0, 0, 1, 0,
-         0, 0, 0 ,1;
+    N << 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1;
     FAST_CHECK_UNARY(N.isApprox(calc->N()));
   }
-  
 }
 
-MatrixXd randM(int m, int n, int r=0)
+MatrixXd randM(int m, int n, int r = 0)
 {
-  if (r <= 0 || r==std::min(m,n))
+  if(r <= 0 || r == std::min(m, n))
     return MatrixXd::Random(m, n);
   else
-    return MatrixXd::Random(m, r)*MatrixXd::Random(r, n);
+    return MatrixXd::Random(m, r) * MatrixXd::Random(r, n);
 }
 
 /** check wether the systems given by cstr and by subs are equivalent.
-  * The system are supposed to be feasible.
-  * From cstr, we deduce a system A [x;y] = b (1)
-  * From subs, we deduce C [y;z] = d and x = E y + F z + g (2)
-  * We check that any solution of (1) is a solution of (2) by writting a
-  * solution of (1) [x;y] = pinv(A)*b + Na u with Na a base of the nullspace of
-  * A and u a vector. For size(u) different value of u, we the rewrite (2) as a
-  * system of z only, and verfy we can find a solution.
-  * To check that any solution of (2) yield a solution of (1), we first solve
-  * C [y;z] = d to get [y;z] = pinv(C)*d + Nc v. Then for size(v) value of v, we
-  * compute x from x = E y + F z + g, and check that [x;y] is a solution of (1).
-  */
-void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>>& cstr, Substitutions& subs)
+ * The system are supposed to be feasible.
+ * From cstr, we deduce a system A [x;y] = b (1)
+ * From subs, we deduce C [y;z] = d and x = E y + F z + g (2)
+ * We check that any solution of (1) is a solution of (2) by writting a
+ * solution of (1) [x;y] = pinv(A)*b + Na u with Na a base of the nullspace of
+ * A and u a vector. For size(u) different value of u, we the rewrite (2) as a
+ * system of z only, and verfy we can find a solution.
+ * To check that any solution of (2) yield a solution of (1), we first solve
+ * C [y;z] = d to get [y;z] = pinv(C)*d + Nc v. Then for size(v) value of v, we
+ * compute x from x = E y + F z + g, and check that [x;y] is a solution of (1).
+ */
+void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>> & cstr,
+                      Substitutions & subs)
 {
   subs.updateSubstitutions();
 
@@ -202,12 +189,12 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   VariableVector y;
   VariableVector z(subs.additionalVariables());
   int m0 = 0;
-  for (auto& c : cstr)
+  for(auto & c : cstr)
   {
     m0 += c->size();
-    for (auto& vi : c->variables())
+    for(auto & vi : c->variables())
     {
-      if (!x.contains(*vi))
+      if(!x.contains(*vi))
       {
         y.add(vi);
       }
@@ -215,7 +202,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   }
 
   int m1 = 0;
-  for (auto& c : subs.additionalConstraints())
+  for(auto & c : subs.additionalConstraints())
   {
     m1 += c->size();
   }
@@ -224,30 +211,36 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   MatrixXd A = MatrixXd::Zero(m0, x.totalSize() + y.totalSize());
   VectorXd b(m0);
   m0 = 0;
-  for (const auto& c : cstr)
+  for(const auto & c : cstr)
   {
     auto mi = c->size();
-    for (const auto& xi : x.variables())
+    for(const auto & xi : x.variables())
     {
-      if (c->variables().contains(*xi))
+      if(c->variables().contains(*xi))
       {
         auto rx = xi->getMappingIn(x);
         A.block(m0, rx.start, mi, rx.dim) = c->jacobian(*xi);
       }
     }
-    for (const auto& yi : y.variables())
+    for(const auto & yi : y.variables())
     {
-      if (c->variables().contains(*yi))
+      if(c->variables().contains(*yi))
       {
         auto ry = yi->getMappingIn(y);
         A.block(m0, ry.start + x.totalSize(), mi, ry.dim) = c->jacobian(*yi);
       }
     }
-    switch (c->rhs())
+    switch(c->rhs())
     {
-    case constraint::RHS::ZERO: b.segment(m0, mi).setZero(); break;
-    case constraint::RHS::AS_GIVEN: b.segment(m0, mi) = c->e(); break;
-    case constraint::RHS::OPPOSITE: b.segment(m0, mi) = -c->e(); break;
+      case constraint::RHS::ZERO:
+        b.segment(m0, mi).setZero();
+        break;
+      case constraint::RHS::AS_GIVEN:
+        b.segment(m0, mi) = c->e();
+        break;
+      case constraint::RHS::OPPOSITE:
+        b.segment(m0, mi) = -c->e();
+        break;
     }
     m0 += mi;
   }
@@ -256,30 +249,36 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   MatrixXd C = MatrixXd::Zero(m1, y.totalSize() + z.totalSize());
   VectorXd d(m1);
   m1 = 0;
-  for (const auto& c : subs.additionalConstraints())
+  for(const auto & c : subs.additionalConstraints())
   {
     auto mi = c->size();
-    for (const auto& yi : y.variables())
+    for(const auto & yi : y.variables())
     {
-      if (c->variables().contains(*yi))
+      if(c->variables().contains(*yi))
       {
         auto ry = yi->getMappingIn(y);
         C.block(m1, ry.start, mi, ry.dim) = c->jacobian(*yi);
       }
     }
-    for (const auto& zi : z.variables())
+    for(const auto & zi : z.variables())
     {
-      if (c->variables().contains(*zi))
+      if(c->variables().contains(*zi))
       {
         auto rz = zi->getMappingIn(z);
         C.block(m1, rz.start + y.totalSize(), mi, rz.dim) = c->jacobian(*zi);
       }
     }
-    switch (c->rhs())
+    switch(c->rhs())
     {
-    case constraint::RHS::ZERO: d.segment(m1, mi).setZero(); break;
-    case constraint::RHS::AS_GIVEN: d.segment(m1, mi) = c->e(); break;
-    case constraint::RHS::OPPOSITE: d.segment(m1, mi) = -c->e(); break;
+      case constraint::RHS::ZERO:
+        d.segment(m1, mi).setZero();
+        break;
+      case constraint::RHS::AS_GIVEN:
+        d.segment(m1, mi) = c->e();
+        break;
+      case constraint::RHS::OPPOSITE:
+        d.segment(m1, mi) = -c->e();
+        break;
     }
     m1 += mi;
   }
@@ -288,21 +287,21 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   MatrixXd E = MatrixXd::Zero(x.totalSize(), y.totalSize());
   MatrixXd F = MatrixXd::Zero(x.totalSize(), z.totalSize());
   VectorXd g(x.totalSize());
-  for (size_t i = 0; i < x.variables().size(); ++i)
+  for(size_t i = 0; i < x.variables().size(); ++i)
   {
-    const auto& f = subs.variableSubstitutions()[i];
+    const auto & f = subs.variableSubstitutions()[i];
     auto rx = x[static_cast<int>(i)]->getMappingIn(x);
-    for (const auto& yi : y.variables())
+    for(const auto & yi : y.variables())
     {
-      if (f->variables().contains(*yi))
+      if(f->variables().contains(*yi))
       {
         auto ry = yi->getMappingIn(y);
         E.block(rx.start, ry.start, rx.dim, ry.dim) = f->jacobian(*yi);
       }
     }
-    for (const auto& zi : z.variables())
+    for(const auto & zi : z.variables())
     {
-      if (f->variables().contains(*zi))
+      if(f->variables().contains(*zi))
       {
         auto rz = zi->getMappingIn(z);
         F.block(rx.start, rz.start, rx.dim, rz.dim) = f->jacobian(*zi);
@@ -313,19 +312,19 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
 
   // Solve A [x;y] = b
   auto svdA = A.jacobiSvd(ComputeFullU | ComputeFullV);
-  auto sol0 = svdA.solve(b);         //least square solution
-  auto r0 = (A*sol0 - b).norm();     //residual
-  MatrixXd Na = svdA.matrixV().rightCols(A.cols() - svdA.rank()); //nullspace of A0
+  auto sol0 = svdA.solve(b);                                      // least square solution
+  auto r0 = (A * sol0 - b).norm();                                // residual
+  MatrixXd Na = svdA.matrixV().rightCols(A.cols() - svdA.rank()); // nullspace of A0
   FAST_CHECK_LE(r0, 1e-9);
 
-   // Solve C [y;z] = d
+  // Solve C [y;z] = d
   VectorXd sol1;
   MatrixXd Nc;
-  if (C.size()>0)
+  if(C.size() > 0)
   {
     auto svdC = C.jacobiSvd(ComputeFullU | ComputeFullV);
-    sol1 = svdC.solve(d);         //least square solution
-    Nc = svdC.matrixV().rightCols(C.cols() - svdC.rank()); //nullspace of C
+    sol1 = svdC.solve(d);                                  // least square solution
+    Nc = svdC.matrixV().rightCols(C.cols() - svdC.rank()); // nullspace of C
   }
   else
   {
@@ -333,22 +332,22 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     Nc = MatrixXd::Identity(C.cols(), C.cols());
   }
 
-  //now check the equivalence:
+  // now check the equivalence:
   // 1 - The solutions of Solve C [y;z] = d give solutions of A [x;y] = b
-  for (auto i = 0; i < Nc.cols(); ++i)
+  for(auto i = 0; i < Nc.cols(); ++i)
   {
-    //one solution to the additional constraints
-    VectorXd yz = sol1 + Nc*VectorXd::Random(Nc.cols());
-    //split it over y and z
+    // one solution to the additional constraints
+    VectorXd yz = sol1 + Nc * VectorXd::Random(Nc.cols());
+    // split it over y and z
     y.value(yz.head(y.totalSize()));
     z.value(yz.tail(z.totalSize()));
-    //compute the corresponding x
+    // compute the corresponding x
     subs.updateVariableValues();
-    //compute the residual for the current x and y
+    // compute the residual for the current x and y
     VectorXd xy(x.totalSize() + y.totalSize());
     xy.head(x.totalSize()) = x.value();
     xy.tail(y.totalSize()) = y.value();
-    double res = (A*xy - b).norm();
+    double res = (A * xy - b).norm();
     FAST_CHECK_LE(res, 1e-9);
   }
 
@@ -358,23 +357,23 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   M.topRows(C.rows()) = C.rightCols(z.totalSize());
   M.bottomRows(F.rows()) = F;
   JacobiSVD<MatrixXd> svdM;
-  if (z.totalSize() > 0)
+  if(z.totalSize() > 0)
   {
     svdM.compute(M, ComputeThinU | ComputeThinV);
   }
-  for (auto i = 0; i < Na.cols(); ++i)
+  for(auto i = 0; i < Na.cols(); ++i)
   {
-    //one solution to the original system
+    // one solution to the original system
     VectorXd xy = sol0 + Na * VectorXd::Random(Na.cols());
-    //solve C2 z = d - C1 y and F z = x - E y - g
+    // solve C2 z = d - C1 y and F z = x - E y - g
     VectorXd u(C.rows() + F.rows());
     u.head(C.rows()) = d - C.leftCols(y.totalSize()) * xy.tail(y.totalSize());
     u.tail(F.rows()) = xy.head(x.totalSize()) - E * xy.tail(y.totalSize()) - g;
     double res;
-    if (z.totalSize() > 0)
+    if(z.totalSize() > 0)
     {
       VectorXd s = svdM.solve(u);
-      res = (M*s - u).norm();
+      res = (M * s - u).norm();
     }
     else
     {
@@ -405,7 +404,7 @@ TEST_CASE("Substitution construction")
     VectorXd b = VectorXd::Random(5);
 
     auto c = std::shared_ptr<BLC>(new BLC(5, x, eq));
-    c->A(A, { tvm::internal::MatrixProperties::IDENTITY });
+    c->A(A, {tvm::internal::MatrixProperties::IDENTITY});
     Substitution s(c, x);
     FAST_CHECK_EQ(s.rank(), 5);
     FAST_CHECK_EQ(typeid(*s.calculator()).hash_code(), typeid(DiagonalCalculator::Impl).hash_code());
@@ -422,11 +421,10 @@ TEST_CASE("Substitution construction")
     CHECK_THROWS(Substitution s(c, y));
 
     auto c2 = std::shared_ptr<BLC>(new BLC(3, y, eq));
-    CHECK_THROWS(Substitution s({ c, c2 }, x));
+    CHECK_THROWS(Substitution s({c, c2}, x));
 
     auto c3 = std::shared_ptr<BLC>(new BLC(5, y, eq));
     CHECK_THROWS(Substitution s(c3, y));
-
   }
 }
 
@@ -464,12 +462,24 @@ TEST_CASE("Substitution0")
 
 TEST_CASE("Substitution1")
 {
-  int m1 = 3; int n1 = 4; int r1 = 2;
-  int m2 = 3; int n2 = 3; int r2 = 3;
-  int m3 = 3; int n3 = 6; int r3 = 3;
-  int m4 = 4; int n4 = 4; int r4 = 4;
-  int m5 = 7; int n5 = 8; int r5 = 4;
-  int m6 = 3; int n6 = 3; int r6 = 3;
+  int m1 = 3;
+  int n1 = 4;
+  int r1 = 2;
+  int m2 = 3;
+  int n2 = 3;
+  int r2 = 3;
+  int m3 = 3;
+  int n3 = 6;
+  int r3 = 3;
+  int m4 = 4;
+  int n4 = 4;
+  int r4 = 4;
+  int m5 = 7;
+  int n5 = 8;
+  int r5 = 4;
+  int m6 = 3;
+  int n6 = 3;
+  int r6 = 3;
   int l1 = 3;
   int l2 = 7;
   int l3 = 4;
@@ -526,12 +536,12 @@ TEST_CASE("Substitution1")
 
   using BLC = constraint::BasicLinearConstraint;
   auto eq = constraint::Type::EQUAL;
-  auto c1 = std::shared_ptr<BLC>(new BLC({ A11, A12, A13, A16, B11 }, { x1, x2, x3, x6, y1 }, b1, eq));
-  auto c2 = std::shared_ptr<BLC>(new BLC({ A22, A24 }, { x2, x4 }, b2, eq));
-  auto c3 = std::shared_ptr<BLC>(new BLC({ A33, A35, A36, B31 }, { x3, x5, x6, y1 }, b3, eq));
-  auto c4 = std::shared_ptr<BLC>(new BLC({ A44, A45 }, { x4, x5 }, b4, eq));
-  auto c5 = std::shared_ptr<BLC>(new BLC({ A55, B52, B54 }, { x5, y2, y4 }, b5, eq));
-  auto c6 = std::shared_ptr<BLC>(new BLC({ A66, B62, B63 }, { x6, y2, y3}, b6, eq));
+  auto c1 = std::shared_ptr<BLC>(new BLC({A11, A12, A13, A16, B11}, {x1, x2, x3, x6, y1}, b1, eq));
+  auto c2 = std::shared_ptr<BLC>(new BLC({A22, A24}, {x2, x4}, b2, eq));
+  auto c3 = std::shared_ptr<BLC>(new BLC({A33, A35, A36, B31}, {x3, x5, x6, y1}, b3, eq));
+  auto c4 = std::shared_ptr<BLC>(new BLC({A44, A45}, {x4, x5}, b4, eq));
+  auto c5 = std::shared_ptr<BLC>(new BLC({A55, B52, B54}, {x5, y2, y4}, b5, eq));
+  auto c6 = std::shared_ptr<BLC>(new BLC({A66, B62, B63}, {x6, y2, y3}, b6, eq));
 
   Substitution s1(c1, x1, r1);
   Substitution s2(c2, x2, r2);
@@ -550,20 +560,29 @@ TEST_CASE("Substitution1")
 
   subs.finalize();
 
-  checkEquivalence({ c1,c2,c3,c4,c5,c6 }, subs);
+  checkEquivalence({c1, c2, c3, c4, c5, c6}, subs);
 }
 
 TEST_CASE("Substitution2")
 {
-  int m1 = 3; int n1 = 4;
-  int m2 = 3; int n2 = 3;
-  int m3 = 3; int n3 = 6;
-  int m4 = 5; int n4 = 4;
-  int m5 = 7; int n5 = 5;
-  int m6 = 3; int n6 = 2;
-  int m7 = 6; int n7 = 7;
-  int m8 = 4; int n8 = 4;
-  int m9 = 4; int n9 = 3;
+  int m1 = 3;
+  int n1 = 4;
+  int m2 = 3;
+  int n2 = 3;
+  int m3 = 3;
+  int n3 = 6;
+  int m4 = 5;
+  int n4 = 4;
+  int m5 = 7;
+  int n5 = 5;
+  int m6 = 3;
+  int n6 = 2;
+  int m7 = 6;
+  int n7 = 7;
+  int m8 = 4;
+  int n8 = 4;
+  int m9 = 4;
+  int n9 = 3;
   int l1 = 3;
   int l2 = 7;
 
@@ -630,22 +649,22 @@ TEST_CASE("Substitution2")
 
   using BLC = constraint::BasicLinearConstraint;
   auto eq = constraint::Type::EQUAL;
-  auto c1 = std::shared_ptr<BLC>(new BLC({ A14, A17, A19, B11 }, { x4, x7, x9, y1 }, b1, eq));
-  auto c2 = std::shared_ptr<BLC>(new BLC({ A22, B21, B22 }, { x2, y1, y2 }, b2, eq));
-  auto c3 = std::shared_ptr<BLC>(new BLC({ A36, A38, B31 }, { x6, x8, y1 }, b3, eq));
-  auto c4 = std::shared_ptr<BLC>(new BLC({ A45, B41 }, { x5, y1 }, b4, eq));
-  auto c5 = std::shared_ptr<BLC>(new BLC({ A54, A57, A59 }, { x4, x7, x9 }, b5, eq));
-  auto c6 = std::shared_ptr<BLC>(new BLC({ A66, A68, B62, B61 }, { x6, x8, y2, y1 }, b6, eq));
-  auto c7 = std::shared_ptr<BLC>(new BLC({ A73, A75, B72 }, { x3, x5, y2 }, b7, eq));
-  auto c8 = std::shared_ptr<BLC>(new BLC({ A81, A87, B81 }, { x1, x7, y1 }, b8, eq));
-  auto c9 = std::shared_ptr<BLC>(new BLC({ A94, B92 }, { x4, y2 }, b9, eq));
+  auto c1 = std::shared_ptr<BLC>(new BLC({A14, A17, A19, B11}, {x4, x7, x9, y1}, b1, eq));
+  auto c2 = std::shared_ptr<BLC>(new BLC({A22, B21, B22}, {x2, y1, y2}, b2, eq));
+  auto c3 = std::shared_ptr<BLC>(new BLC({A36, A38, B31}, {x6, x8, y1}, b3, eq));
+  auto c4 = std::shared_ptr<BLC>(new BLC({A45, B41}, {x5, y1}, b4, eq));
+  auto c5 = std::shared_ptr<BLC>(new BLC({A54, A57, A59}, {x4, x7, x9}, b5, eq));
+  auto c6 = std::shared_ptr<BLC>(new BLC({A66, A68, B62, B61}, {x6, x8, y2, y1}, b6, eq));
+  auto c7 = std::shared_ptr<BLC>(new BLC({A73, A75, B72}, {x3, x5, y2}, b7, eq));
+  auto c8 = std::shared_ptr<BLC>(new BLC({A81, A87, B81}, {x1, x7, y1}, b8, eq));
+  auto c9 = std::shared_ptr<BLC>(new BLC({A94, B92}, {x4, y2}, b9, eq));
 
   Substitution s1(c1, x9);
   Substitution s2(c2, x2);
-  Substitution s3(std::vector<LinearConstraintPtr>{ c3, c6 }, std::vector<VariablePtr>{ x6, x8 });
+  Substitution s3(std::vector<LinearConstraintPtr>{c3, c6}, std::vector<VariablePtr>{x6, x8});
   Substitution s4(c4, x5);
   Substitution s5(c5, x7);
-  //no s6: c3 and c6 are merged
+  // no s6: c3 and c6 are merged
   Substitution s7(c7, x3);
   Substitution s8(c8, x1);
   Substitution s9(c9, x4);
@@ -661,180 +680,179 @@ TEST_CASE("Substitution2")
   subs.add(s9);
 
   subs.finalize();
-  checkEquivalence({ c1,c2,c3,c4,c5,c6,c7,c8,c9 }, subs);
+  checkEquivalence({c1, c2, c3, c4, c5, c6, c7, c8, c9}, subs);
+}
 
-  }
+/** Generate a random number r, min <= r < max*/
+int randI(int min, int max)
+{
+  assert(min < max);
+  return (rand() % (max - min)) + min;
+}
 
-  /** Generate a random number r, min <= r < max*/
-  int randI(int min, int max)
+/** Return true with a probability p*/
+bool randP(double p)
+{
+  assert(0 <= p && p <= 1);
+  return static_cast<double>(rand()) / RAND_MAX < p;
+}
+
+/** Create a random system A [x;y] = b*/
+void randomSubstitutions()
+{
+  using BLC = constraint::BasicLinearConstraint;
+  auto eq = constraint::Type::EQUAL;
+
+  int nxmin = 4;
+  int nxmax = 16;
+  int nymin = 0;
+  int nymax = 9;
+  int nmin = 2;
+  int nmax = 16;
+  double nonFullRankP = 0.33;
+  int nx = randI(nxmin, nxmax); // number of x variables
+  int ny = randI(nymin, nymax); // number of y variables
+  double px = 0.4;              // probability to have a non-zero off-diagonal block in the 'x part' of A
+  double py = 0.3;              // probability to have a non-zero block in the 'y part' of B
+
+  std::vector<VariablePtr> x;
+  std::vector<VariablePtr> y;
+  std::vector<int> m;
+  std::vector<int> n;
+  std::vector<int> r;
+  std::vector<int> l;
+  std::vector<std::shared_ptr<BLC>> cstr;
+
+  bool fullRankSystem = false;
+
+  // We restart from scratch when we do not get a system that is full rank
+  while(!fullRankSystem)
   {
-    assert(min < max);
-    return (rand() % (max - min)) + min;
-  }
-
-  /** Return true with a probability p*/
-  bool randP(double p)
-  {
-    assert(0 <= p && p <= 1);
-    return static_cast<double>(rand()) / RAND_MAX < p;
-  }
-
-  /** Create a random system A [x;y] = b*/
-  void randomSubstitutions()
-  {
-    using BLC = constraint::BasicLinearConstraint;
-    auto eq = constraint::Type::EQUAL;
-
-    int nxmin = 4;
-    int nxmax = 16;
-    int nymin = 0;
-    int nymax = 9;
-    int nmin = 2;
-    int nmax = 16;
-    double nonFullRankP = 0.33;
-    int nx = randI(nxmin, nxmax); //number of x variables
-    int ny = randI(nymin, nymax); //number of y variables
-    double px = 0.4;              //probability to have a non-zero off-diagonal block in the 'x part' of A
-    double py = 0.3;              //probability to have a non-zero block in the 'y part' of B
-
-    std::vector<VariablePtr> x;
-    std::vector<VariablePtr> y;
-    std::vector<int> m;
-    std::vector<int> n;
-    std::vector<int> r;
-    std::vector<int> l;
-    std::vector<std::shared_ptr<BLC>> cstr;
-
-    bool fullRankSystem = false;
-
-    // We restart from scratch when we do not get a system that is full rank
-    while (!fullRankSystem)
+    int ma = 0;
+    int na = 0;
+    x.clear();
+    y.clear();
+    m.clear();
+    n.clear();
+    r.clear();
+    l.clear();
+    cstr.clear();
+    for(int i = 0; i < nx; ++i)
     {
-      int ma = 0;
-      int na = 0;
-      x.clear();
-      y.clear();
-      m.clear();
-      n.clear();
-      r.clear();
-      l.clear();
-      cstr.clear();
-      for (int i = 0; i < nx; ++i)
+      std::stringstream ss;
+      ss << "x" << i;
+      int ni = randI(nmin, nmax);
+      int mi = 1 + randI(1, ni);
+      n.push_back(ni);
+      m.push_back(mi);
+      x.push_back(Space(ni).createVariable(ss.str()));
+      if(randP(nonFullRankP))
       {
-        std::stringstream ss;
-        ss << "x" << i;
-        int ni = randI(nmin, nmax);
-        int mi = 1 + randI(1, ni);
-        n.push_back(ni);
-        m.push_back(mi);
-        x.push_back(Space(ni).createVariable(ss.str()));
-        if (randP(nonFullRankP))
+        r.push_back(randI(mi / 2, mi + 1));
+      }
+      else
+      {
+        r.push_back(mi);
+      }
+      ma += mi;
+      na += ni;
+    }
+    for(int i = 0; i < ny; ++i)
+    {
+      std::stringstream ss;
+      ss << "y" << i;
+      int ni = randI(nmin, nmax);
+      l.push_back(ni);
+      y.push_back(Space(ni).createVariable(ss.str()));
+      na += l.back();
+    }
+
+    for(size_t i = 0; i < static_cast<size_t>(nx); ++i)
+    {
+      std::vector<VariablePtr> v;
+      std::vector<MatrixXd> M;
+      std::vector<MatrixConstRef> Mr;
+      for(size_t j = 0; j < static_cast<size_t>(nx); ++j)
+      {
+        if(i == j)
         {
-          r.push_back(randI(mi / 2, mi + 1));
+          M.push_back(randM(m[i], n[j], r[i]));
+          v.push_back(x[j]);
         }
         else
         {
-          r.push_back(mi);
-        }
-        ma += mi;
-        na += ni;
-      }
-      for (int i = 0; i < ny; ++i)
-      {
-        std::stringstream ss;
-        ss << "y" << i;
-        int ni = randI(nmin, nmax);
-        l.push_back(ni);
-        y.push_back(Space(ni).createVariable(ss.str()));
-        na += l.back();
-      }
-
-      for (size_t i = 0; i < static_cast<size_t>(nx); ++i)
-      {
-        std::vector<VariablePtr> v;
-        std::vector<MatrixXd> M;
-        std::vector<MatrixConstRef> Mr;
-        for (size_t j = 0; j < static_cast<size_t>(nx); ++j)
-        {
-          if (i == j)
+          if(randP(px))
           {
-            M.push_back(randM(m[i], n[j], r[i]));
+            M.push_back(randM(m[i], n[j]));
             v.push_back(x[j]);
           }
-          else
-          {
-            if (randP(px))
-            {
-              M.push_back(randM(m[i], n[j]));
-              v.push_back(x[j]);
-            }
-          }
         }
-        for (size_t j = 0; j < static_cast<size_t>(ny); ++j)
-        {
-          if (randP(py))
-          {
-            M.push_back(randM(m[i], l[j]));
-            v.push_back(y[j]);
-          }
-        }
-        for (const auto& Mi : M)
-        {
-          Mr.push_back(Mi);
-        }
-        VectorXd b = VectorXd::Random(m[i]);
-        auto c = std::shared_ptr<BLC>(new BLC(Mr, v, b, eq));
-        cstr.push_back(c);
       }
-      //check if the system is feasible
-      MatrixXd A = MatrixXd::Zero(ma, na);
-      int ms = 0;
-      for (const auto& c : cstr)
+      for(size_t j = 0; j < static_cast<size_t>(ny); ++j)
       {
-        int ns = 0;
-        int mi = c->size();
-        for (const auto& xi : x)
+        if(randP(py))
         {
-          int ni = xi->size();
-          if (c->variables().contains(*xi))
-          {
-            A.block(ms, ns, mi, ni) = c->jacobian(*xi);
-          }
-          ns += ni;
+          M.push_back(randM(m[i], l[j]));
+          v.push_back(y[j]);
         }
-        for (const auto& yi : y)
-        {
-          int ni = yi->size();
-          if (c->variables().contains(*yi))
-          {
-            A.block(ms, ns, mi, ni) = c->jacobian(*yi);
-          }
-          ns += ni;
-        }
-        ms += mi;
       }
-      auto svd = A.jacobiSvd();
-      fullRankSystem = svd.rank() == A.rows();
+      for(const auto & Mi : M)
+      {
+        Mr.push_back(Mi);
+      }
+      VectorXd b = VectorXd::Random(m[i]);
+      auto c = std::shared_ptr<BLC>(new BLC(Mr, v, b, eq));
+      cstr.push_back(c);
     }
-
-    Substitutions subs;
-    for (size_t i = 0; i < cstr.size(); ++i)
+    // check if the system is feasible
+    MatrixXd A = MatrixXd::Zero(ma, na);
+    int ms = 0;
+    for(const auto & c : cstr)
     {
-      Substitution s(cstr[i], x[i], r[i]);
-      subs.add(s);
+      int ns = 0;
+      int mi = c->size();
+      for(const auto & xi : x)
+      {
+        int ni = xi->size();
+        if(c->variables().contains(*xi))
+        {
+          A.block(ms, ns, mi, ni) = c->jacobian(*xi);
+        }
+        ns += ni;
+      }
+      for(const auto & yi : y)
+      {
+        int ni = yi->size();
+        if(c->variables().contains(*yi))
+        {
+          A.block(ms, ns, mi, ni) = c->jacobian(*yi);
+        }
+        ns += ni;
+      }
+      ms += mi;
     }
-    subs.finalize();
-    checkEquivalence(cstr, subs);
+    auto svd = A.jacobiSvd();
+    fullRankSystem = svd.rank() == A.rows();
   }
 
-  TEST_CASE("Random substitutions")
+  Substitutions subs;
+  for(size_t i = 0; i < cstr.size(); ++i)
   {
-    //In some very rare instance, this test can fail because of rank issues
-    //during the qr decomposition of GenericCalculator. This is because of the
-    //heuristic taken to get the rank of a group of constraints. This is not to
-    //be regarded as an issue.
-    for (int i = 0; i < 10; ++i)
-    {
-      randomSubstitutions();
-    }
+    Substitution s(cstr[i], x[i], r[i]);
+    subs.add(s);
   }
+  subs.finalize();
+  checkEquivalence(cstr, subs);
+}
+
+TEST_CASE("Random substitutions")
+{
+  // In some very rare instance, this test can fail because of rank issues
+  // during the qr decomposition of GenericCalculator. This is because of the
+  // heuristic taken to get the rank of a group of constraints. This is not to
+  // be regarded as an issue.
+  for(int i = 0; i < 10; ++i)
+  {
+    randomSubstitutions();
+  }
+}

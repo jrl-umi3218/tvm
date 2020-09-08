@@ -10,7 +10,7 @@ public:
   DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(SphereFunction, Value, Jacobian, VelocityAndAcc)
 
-  SphereFunction(tvm::VariablePtr x, const Eigen::VectorXd& x0, double radius);
+  SphereFunction(tvm::VariablePtr x, const Eigen::VectorXd & x0, double radius);
 
   void updateValue();
   void updateJacobian();
@@ -22,15 +22,13 @@ private:
   Eigen::VectorXd x0_;
 };
 
-
-
 class Simple2dRobotEE : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
   DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(Simple2dRobotEE, Value, Jacobian, VelocityAndAcc)
 
-  Simple2dRobotEE(tvm::VariablePtr x, const Eigen::Vector2d& base, const Eigen::VectorXd& lengths);
+  Simple2dRobotEE(tvm::VariablePtr x, const Eigen::Vector2d & base, const Eigen::VectorXd & lengths);
 
   void updateValue();
   void updateJacobian();
@@ -42,8 +40,7 @@ private:
   Eigen::VectorXd lengths_;
 };
 
-
-//f - g
+// f - g
 class Difference : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
@@ -65,17 +62,16 @@ private:
   tvm::FunctionPtr g_;
 };
 
-
 /** A brken f(x) = (x-x0)^2 - r^2
-  *
-  */
+ *
+ */
 class BrokenSphereFunction : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>
 {
 public:
   DISABLE_OUTPUTS(Output::JDot)
   SET_UPDATES(BrokenSphereFunction, Value, Jacobian, VelocityAndAcc)
 
-  BrokenSphereFunction(tvm::VariablePtr x, const Eigen::VectorXd& x0, double radius);
+  BrokenSphereFunction(tvm::VariablePtr x, const Eigen::VectorXd & x0, double radius);
 
   void breakJacobian(bool b);
   void breakVelocity(bool b);
@@ -92,5 +88,4 @@ private:
   bool breakJacobian_;
   bool breakVelocity_;
   bool breakNormalAcceleration_;
-
 };

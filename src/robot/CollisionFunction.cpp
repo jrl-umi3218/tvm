@@ -1,31 +1,4 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/robot/CollisionFunction.h>
 
@@ -39,14 +12,12 @@ namespace robot
 {
 
 CollisionFunction::CollisionFunction(Clock & clock)
-: function::abstract::Function(0),
-  clock_(clock), last_tick_(clock.ticks())
+: function::abstract::Function(0), clock_(clock), last_tick_(clock.ticks())
 {
-  registerUpdates(Update::Value, &CollisionFunction::updateValue,
-                  Update::Velocity, &CollisionFunction::updateVelocity,
-                  Update::Jacobian, &CollisionFunction::updateJacobian,
-                  Update::Time, &CollisionFunction::updateTimeDependency,
-                  Update::NormalAcceleration, &CollisionFunction::updateNormalAcceleration);
+  registerUpdates(Update::Value, &CollisionFunction::updateValue, Update::Velocity, &CollisionFunction::updateVelocity,
+                  Update::Jacobian, &CollisionFunction::updateJacobian, Update::Time,
+                  &CollisionFunction::updateTimeDependency, Update::NormalAcceleration,
+                  &CollisionFunction::updateNormalAcceleration);
 
   addOutputDependency<CollisionFunction>(Output::Value, Update::Value);
   addOutputDependency<CollisionFunction>(Output::Velocity, Update::Velocity);
@@ -78,15 +49,10 @@ void CollisionFunction::addCollision(ConvexHullPtr ch1, ConvexHullPtr ch2)
   distJac_.resize(1, maxDof);
 }
 
-CollisionFunction::CollisionData::CollisionData()
-: pair_(nullptr, nullptr)
-{
-}
+CollisionFunction::CollisionData::CollisionData() : pair_(nullptr, nullptr) {}
 
-CollisionFunction::CollisionData::CollisionData(CollisionFunction & fn,
-                                                ConvexHullPtr ch1, ConvexHullPtr ch2)
-: ch_{ch1, ch2},
-  pair_(ch_[0]->makePair(*ch_[1]))
+CollisionFunction::CollisionData::CollisionData(CollisionFunction & fn, ConvexHullPtr ch1, ConvexHullPtr ch2)
+: ch_{ch1, ch2}, pair_(ch_[0]->makePair(*ch_[1]))
 {
   for(size_t i = 0; i < 2; ++i)
   {
@@ -110,19 +76,21 @@ void CollisionFunction::updateValue()
   {
     double dist = tvm::utils::distance(col.pair_, closestPoints_[0], closestPoints_[1]);
     dist = dist >= 0 ? std::sqrt(dist) : -std::sqrt(-dist);
-    if(dist == 0) { dist = std::numeric_limits<double>::min(); }
+    if(dist == 0)
+    {
+      dist = std::numeric_limits<double>::min();
+    }
     col.normVecDist_ = (closestPoints_[0] - closestPoints_[1]) / dist;
 
     for(size_t j = 0; j < col.objects_.size(); ++j)
     {
       auto & o = col.objects_[j];
-      o.nearestPoint_ = (sva::PTransformd(closestPoints_[i])*col.ch_[j]->frame().position().inv()).translation();
+      o.nearestPoint_ = (sva::PTransformd(closestPoints_[i]) * col.ch_[j]->frame().position().inv()).translation();
       o.jac_.point(o.nearestPoint_);
     }
 
     value_(i++) = dist;
   }
-
 }
 
 void CollisionFunction::updateJacobian()
@@ -141,21 +109,17 @@ void CollisionFunction::updateJacobian()
       const auto & r = col.ch_[j]->frame().robot();
       const Eigen::MatrixXd & jac = o.jac_.jacobian(r.mb(), r.mbc());
       distJac_.block(0, 0, 1, o.jac_.dof()).noalias() =
-        (sign *  col.normVecDist_).transpose() * jac.block(3, 0, 3, o.jac_.dof());
-      o.jac_.fullJacobian(r.mb(),
-                          distJac_.block(0, 0, 1, o.jac_.dof()),
-                          fullJac_);
+          (sign * col.normVecDist_).transpose() * jac.block(3, 0, 3, o.jac_.dof());
+      o.jac_.fullJacobian(r.mb(), distJac_.block(0, 0, 1, o.jac_.dof()), fullJac_);
       int ffSize = r.qFreeFlyer()->space().tSize();
       int jSize = r.qJoints()->space().tSize();
       if(ffSize)
       {
-        jacobian_[r.qFreeFlyer().get()].block(i, 0, 1, ffSize) +=
-          fullJac_.block(0, 0, 1, ffSize);
+        jacobian_[r.qFreeFlyer().get()].block(i, 0, 1, ffSize) += fullJac_.block(0, 0, 1, ffSize);
       }
       if(jSize)
       {
-        jacobian_[r.qJoints().get()].block(i, 0, 1, jSize) +=
-          fullJac_.block(0, ffSize, 1, jSize);
+        jacobian_[r.qJoints().get()].block(i, 0, 1, jSize) += fullJac_.block(0, ffSize, 1, jSize);
       }
       sign *= -1.;
     }
@@ -208,7 +172,7 @@ void CollisionFunction::updateNormalAcceleration()
       const auto & r = col.ch_[j]->frame().robot();
       Eigen::Vector3d pNormalAcc = o.jac_.normalAcceleration(r.mb(), r.mbc(), r.normalAccB()).linear();
       Eigen::Vector3d pSpeed = o.jac_.velocity(r.mb(), r.mbc()).linear();
-      normalAcceleration_(i) += sign * ( pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(col.speedVec_) );
+      normalAcceleration_(i) += sign * (pNormalAcc.dot(col.normVecDist_) + pSpeed.dot(col.speedVec_));
       sign *= -1.;
     }
     ++i;

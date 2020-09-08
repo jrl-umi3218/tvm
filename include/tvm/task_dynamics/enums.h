@@ -10,13 +10,13 @@ namespace tvm
 namespace task_dynamics
 {
 
-  enum class Order
-  {
-    Zero,
-    One,
-    Two
-  };
+enum class Order
+{
+  Zero,
+  One,
+  Two
+};
 
-}  // namespace task_dynamics
+} // namespace task_dynamics
 
-}  // namespace tvm
+} // namespace tvm

@@ -1,37 +1,9 @@
-/* Copyright 2017-2018 CNRS-AIST JRL and CNRS-UM LIRMM
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-* this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-* this list of conditions and the following disclaimer in the documentation
-* and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors
-* may be used to endorse or promote products derived from this software without
-* specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*/
+/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/graph/CallGraph.h>
 #include <tvm/graph/internal/Logger.h>
 
-#define TVM_GRAPH_LOG_ADD_GRAPH_OUTPUTS(graph, inputs) \
-  internal::Logger::logger().addGraphOutput(graph, inputs.get());
+#define TVM_GRAPH_LOG_ADD_GRAPH_OUTPUTS(graph, inputs) internal::Logger::logger().addGraphOutput(graph, inputs.get());
 
 namespace tvm
 {
@@ -54,10 +26,7 @@ void CallGraph::add(std::shared_ptr<internal::Inputs> inputs)
   TVM_GRAPH_LOG_ADD_GRAPH_OUTPUTS(this, inputs)
 }
 
-void CallGraph::update()
-{
-  plan_.build(*this);
-}
+void CallGraph::update() { plan_.build(*this); }
 
 void CallGraph::clear()
 {
@@ -68,8 +37,7 @@ void CallGraph::clear()
   plan_.clear();
 }
 
-std::vector<int> CallGraph::addOutput(abstract::Outputs * source,
-                                      int output)
+std::vector<int> CallGraph::addOutput(abstract::Outputs * source, int output)
 {
   std::intptr_t ptr = reinterpret_cast<std::intptr_t>(source);
   if(visited_.count(ptr) && visited_[ptr].count(output))
@@ -79,7 +47,7 @@ std::vector<int> CallGraph::addOutput(abstract::Outputs * source,
   std::vector<int> callId = {};
   if(source->is_node_)
   {
-    auto node = static_cast<internal::AbstractNode*>(source);
+    auto node = static_cast<internal::AbstractNode *>(source);
     if(node->outputDependencies_.count(output))
     {
       for(const auto & u : node->outputDependencies_[output])
@@ -87,9 +55,9 @@ std::vector<int> CallGraph::addOutput(abstract::Outputs * source,
         callId.push_back(addCall({node, u}));
       }
     }
-    else if (node->directDependencies_.count(output))
+    else if(node->directDependencies_.count(output))
     {
-      const auto& p = node->directDependencies_[output];
+      const auto & p = node->directDependencies_[output];
       callId = addOutput(p.first, p.second);
     }
   }
@@ -138,18 +106,15 @@ int CallGraph::addCall(Call c)
 void CallGraph::Plan::build(const CallGraph & graph)
 {
   plan_.clear();
-  const auto& order = graph.dependencyGraph_.order();
+  const auto & order = graph.dependencyGraph_.order();
 
-  for (auto i : order)
+  for(auto i : order)
   {
     plan_.push_back(graph.calls_[i]);
   }
 }
 
-void CallGraph::Plan::clear()
-{
-  plan_.clear();
-}
+void CallGraph::Plan::clear() { plan_.clear(); }
 
 } // namespace graph
 

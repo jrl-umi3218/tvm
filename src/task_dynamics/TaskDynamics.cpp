@@ -15,19 +15,18 @@ namespace task_dynamics
 namespace abstract
 {
 
-  std::unique_ptr<TaskDynamicsImpl> TaskDynamics::impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd& rhs) const
-  {
-    auto ptr = impl_(f, t, rhs);
-    return ptr;
-  }
+std::unique_ptr<TaskDynamicsImpl> TaskDynamics::impl(FunctionPtr f,
+                                                     constraint::Type t,
+                                                     const Eigen::VectorXd & rhs) const
+{
+  auto ptr = impl_(f, t, rhs);
+  return ptr;
+}
 
-  Order TaskDynamics::order() const
-  {
-    return order_();
-  }
+Order TaskDynamics::order() const { return order_(); }
 
-}  // namespace abstract
+} // namespace abstract
 
-}  // namespace task_dynamics
+} // namespace task_dynamics
 
-}  // namespace tvm
+} // namespace tvm

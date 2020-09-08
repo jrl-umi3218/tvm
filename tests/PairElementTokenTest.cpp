@@ -10,7 +10,6 @@
 
 using namespace tvm::internal;
 
-
 TEST_CASE("Lifetime 1")
 {
   std::unique_ptr<PairElementToken>(t3);
@@ -44,13 +43,12 @@ TEST_CASE("Lifetime 1")
   // End of t3's life
 }
 
-
 std::pair<PairElementToken, PairElementToken> createPair1()
 {
   PairElementToken t1;
   PairElementToken t2;
   t1.pairWith(t2);
-  return { std::move(t1), std::move(t2) };
+  return {std::move(t1), std::move(t2)};
 }
 
 TEST_CASE("Lifetime 2")
@@ -63,7 +61,6 @@ TEST_CASE("Lifetime 2")
   FAST_CHECK_EQ(&t1.otherPairElement(), &t2);
   FAST_CHECK_EQ(&t2.otherPairElement(), &t1);
 }
-
 
 std::pair<PairElementToken, PairElementToken> createPair2()
 {
@@ -88,8 +85,7 @@ TEST_CASE("Lifetime 3")
   FAST_CHECK_UNARY(!t1.isPaired());
 }
 
-
-PairElementTokenHandle addToken(std::vector<PairElementToken>& tokens)
+PairElementTokenHandle addToken(std::vector<PairElementToken> & tokens)
 {
   tokens.emplace_back();
   return PairElementTokenHandle(tokens.back());
@@ -101,7 +97,7 @@ TEST_CASE("Use with vector and handle")
   {
     std::vector<PairElementToken> tokens2;
 
-    //adding paired tokens in tokens1 and tokens2 with various methods
+    // adding paired tokens in tokens1 and tokens2 with various methods
     tokens2.emplace_back(addToken(tokens1));
     tokens2.push_back(addToken(tokens1));
     auto h = addToken(tokens1);
@@ -113,7 +109,7 @@ TEST_CASE("Use with vector and handle")
     FAST_CHECK_UNARY(tokens1[2].isPairedWith(tokens2[2]));
     FAST_CHECK_UNARY(tokens2[2].isPairedWith(tokens1[2]));
 
-    //removing an element
+    // removing an element
     tokens1.erase(tokens1.begin());
     FAST_CHECK_UNARY(!tokens2[0].isPaired());
     FAST_CHECK_UNARY(tokens1[0].isPairedWith(tokens2[1]));
@@ -121,7 +117,7 @@ TEST_CASE("Use with vector and handle")
     FAST_CHECK_UNARY(tokens1[1].isPairedWith(tokens2[2]));
     FAST_CHECK_UNARY(tokens2[2].isPairedWith(tokens1[1]));
   }
-  
+
   // tokens2 does not exist anymore
   FAST_CHECK_UNARY(!tokens1[0].isPaired());
   FAST_CHECK_UNARY(!tokens1[1].isPaired());

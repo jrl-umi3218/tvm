@@ -6,7 +6,6 @@
 #include <sensor_msgs/JointState.h>
 #include <tf2_ros/transform_broadcaster.h>
 
-
 namespace
 {
 
@@ -23,7 +22,11 @@ bool ros_init()
   return true;
 }
 
-geometry_msgs::TransformStamped PT2TF(const sva::PTransformd & X, const ros::Time & tm, const std::string & from, const std::string & to, unsigned int seq)
+geometry_msgs::TransformStamped PT2TF(const sva::PTransformd & X,
+                                      const ros::Time & tm,
+                                      const std::string & from,
+                                      const std::string & to,
+                                      unsigned int seq)
 {
   geometry_msgs::TransformStamped msg;
   msg.header.seq = seq;
@@ -46,13 +49,11 @@ geometry_msgs::TransformStamped PT2TF(const sva::PTransformd & X, const ros::Tim
   return msg;
 }
 
-}
+} // namespace
 
 struct RobotPublisherImpl
 {
-  RobotPublisherImpl(const std::string & prefix)
-  : nh(ros_init() ? new ros::NodeHandle() : 0),
-    prefix_(prefix)
+  RobotPublisherImpl(const std::string & prefix) : nh(ros_init() ? new ros::NodeHandle() : 0), prefix_(prefix)
   {
     if(nh)
     {
@@ -63,7 +64,10 @@ struct RobotPublisherImpl
 
   void publish(const tvm::Robot & robot)
   {
-    if(!nh) { return; }
+    if(!nh)
+    {
+      return;
+    }
     auto tm = ros::Time::now();
     sensor_msgs::JointState msg;
     msg.header.seq = seq_;
@@ -89,7 +93,8 @@ struct RobotPublisherImpl
     }
 
     std::vector<geometry_msgs::TransformStamped> tfs;
-    tfs.push_back(PT2TF(robot.bodyTransform(robot.mb().body(0).name())*robot.mbc().parentToSon[0], tm, std::string("robot_map"), prefix_+robot.mb().body(0).name(), seq_));
+    tfs.push_back(PT2TF(robot.bodyTransform(robot.mb().body(0).name()) * robot.mbc().parentToSon[0], tm,
+                        std::string("robot_map"), prefix_ + robot.mb().body(0).name(), seq_));
     for(int j = 1; j < robot.mb().nrJoints(); ++j)
     {
       const auto & predIndex = robot.mb().predecessor(j);
@@ -98,7 +103,8 @@ struct RobotPublisherImpl
       const auto & succName = robot.mb().body(succIndex).name();
       const auto & X_predp_pred = robot.bodyTransform(predName);
       const auto & X_succp_succ = robot.bodyTransform(succName);
-      tfs.push_back(PT2TF(X_succp_succ*robot.mbc().parentToSon[static_cast<unsigned int>(j)]*X_predp_pred.inv(), tm, prefix_ + predName, prefix_ + succName, seq_));
+      tfs.push_back(PT2TF(X_succp_succ * robot.mbc().parentToSon[static_cast<unsigned int>(j)] * X_predp_pred.inv(), tm,
+                          prefix_ + predName, prefix_ + succName, seq_));
     }
     seq_++;
     j_state_pub.publish(msg);
@@ -112,16 +118,8 @@ struct RobotPublisherImpl
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_caster;
 };
 
-RobotPublisher::RobotPublisher(const std::string & prefix)
-: impl_(new RobotPublisherImpl(prefix))
-{
-}
+RobotPublisher::RobotPublisher(const std::string & prefix) : impl_(new RobotPublisherImpl(prefix)) {}
 
-RobotPublisher::~RobotPublisher()
-{
-}
+RobotPublisher::~RobotPublisher() {}
 
-void RobotPublisher::publish(const tvm::Robot & robot)
-{
-  impl_->publish(robot);
-}
+void RobotPublisher::publish(const tvm::Robot & robot) { impl_->publish(robot); }

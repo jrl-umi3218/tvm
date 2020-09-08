@@ -14,6 +14,7 @@ public:
   ~RobotPublisher();
 
   void publish(const tvm::Robot & robot);
+
 private:
   std::unique_ptr<RobotPublisherImpl> impl_;
 };

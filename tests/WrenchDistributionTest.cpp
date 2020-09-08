@@ -18,7 +18,7 @@
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
 #ifdef TVM_USE_LSSOL
-# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#  include <tvm/solver/LSSOLLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -60,8 +60,7 @@ struct RobotState
   /** Default robot state.
    *
    */
-  RobotState()
-    : wrenchFaceMatrix(16, 6)
+  RobotState() : wrenchFaceMatrix(16, 6)
   {
     X_0_lc = Vector3d{0.035, -0.09, 0.0};
     X_0_rc = Vector3d{0.035, 0.09, 0.0};
@@ -78,35 +77,25 @@ struct RobotState
     constexpr double X = 0.112; // [m]
     constexpr double Y = 0.065; // [m]
     constexpr double mu = 0.7;
-    wrenchFaceMatrix << 
-      // mx,  my,  mz,  fx,  fy,            fz,
-          0,   0,   0,  -1,   0,           -mu,
-          0,   0,   0,  +1,   0,           -mu,
-          0,   0,   0,   0,  -1,           -mu,
-          0,   0,   0,   0,  +1,           -mu,
-         -1,   0,   0,   0,   0,            -Y,
-         +1,   0,   0,   0,   0,            -Y,
-          0,  -1,   0,   0,   0,            -X,
-          0,  +1,   0,   0,   0,            -X,
-        +mu, +mu,  -1,  -Y,  -X, -(X + Y) * mu,
-        +mu, -mu,  -1,  -Y,  +X, -(X + Y) * mu,
-        -mu, +mu,  -1,  +Y,  -X, -(X + Y) * mu,
-        -mu, -mu,  -1,  +Y,  +X, -(X + Y) * mu,
-        +mu, +mu,  +1,  +Y,  +X, -(X + Y) * mu,
-        +mu, -mu,  +1,  +Y,  -X, -(X + Y) * mu,
-        -mu, +mu,  +1,  -Y,  +X, -(X + Y) * mu,
-        -mu, -mu,  +1,  -Y,  -X, -(X + Y) * mu;
+    wrenchFaceMatrix <<
+        // mx,  my,  mz,  fx,  fy,            fz,
+        0,
+        0, 0, -1, 0, -mu, 0, 0, 0, +1, 0, -mu, 0, 0, 0, 0, -1, -mu, 0, 0, 0, 0, +1, -mu, -1, 0, 0, 0, 0, -Y, +1, 0, 0,
+        0, 0, -Y, 0, -1, 0, 0, 0, -X, 0, +1, 0, 0, 0, -X, +mu, +mu, -1, -Y, -X, -(X + Y) * mu, +mu, -mu, -1, -Y, +X,
+        -(X + Y) * mu, -mu, +mu, -1, +Y, -X, -(X + Y) * mu, -mu, -mu, -1, +Y, +X, -(X + Y) * mu, +mu, +mu, +1, +Y, +X,
+        -(X + Y) * mu, +mu, -mu, +1, +Y, -X, -(X + Y) * mu, -mu, +mu, +1, -Y, +X, -(X + Y) * mu, -mu, -mu, +1, -Y, -X,
+        -(X + Y) * mu;
   }
 
 public:
   Eigen::MatrixXd wrenchFaceMatrix; /**< Inequality matrix of contact wrench cone */
-  Eigen::Vector6d ankleWeights; /**< Ankle anisotropic weights */
-  double lfr; /**< Left foot pressure ratio */
-  sva::ForceVecd w_d; /**< Desired net wrench */
-  sva::PTransformd X_0_la; /**< Plucker transform to left ankle */
-  sva::PTransformd X_0_lc; /**< Plucker transform to left foot center */
-  sva::PTransformd X_0_ra; /**< Plucker transform to right ankle */
-  sva::PTransformd X_0_rc; /**< Plucker transform to right foot center */
+  Eigen::Vector6d ankleWeights;     /**< Ankle anisotropic weights */
+  double lfr;                       /**< Left foot pressure ratio */
+  sva::ForceVecd w_d;               /**< Desired net wrench */
+  sva::PTransformd X_0_la;          /**< Plucker transform to left ankle */
+  sva::PTransformd X_0_lc;          /**< Plucker transform to left foot center */
+  sva::PTransformd X_0_ra;          /**< Plucker transform to right ankle */
+  sva::PTransformd X_0_rc;          /**< Plucker transform to right foot center */
 };
 
 #ifdef TVM_USE_LSSOL
@@ -185,7 +174,7 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   A_pressure *= PRESSURE_WEIGHT_SQRT;
 
   constexpr unsigned CONS_DIM = 16 + 16 + 2;
-  Eigen::Matrix<double, CONS_DIM , NB_VAR> C;
+  Eigen::Matrix<double, CONS_DIM, NB_VAR> C;
   Eigen::VectorXd bl, bu;
   C.setZero(CONS_DIM, NB_VAR);
   bl.setConstant(NB_VAR + CONS_DIM, -1e5);
@@ -205,7 +194,7 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   blCons.segment<2>(32).setConstant(MIN_PRESSURE);
   buCons.segment<2>(32).setConstant(+1e5);
 
-  if (VERBOSE)
+  if(VERBOSE)
   {
     std::cout << "A_gt =\n" << A << std::endl;
     std::cout << "b_gt =\t" << b.transpose() << std::endl;
@@ -217,7 +206,7 @@ Eigen::VectorXd distributeWrenchGroundTruth(const RobotState & robot)
   Eigen::LSSOL_LS solver;
   solver.solve(A, b, C, bl, bu);
   Eigen::VectorXd x = solver.result();
-  if (solver.inform() != Eigen::lssol::eStatus::STRONG_MINIMUM)
+  if(solver.inform() != Eigen::lssol::eStatus::STRONG_MINIMUM)
   {
     std::cout << "Wrench distribution QP failed to run" << std::endl;
     solver.print_inform();
@@ -240,7 +229,7 @@ bool checkSolution(const RobotState & robot, Eigen::Vector6d w_l_0, Eigen::Vecto
   Eigen::Vector6d w_l_0_gt = x.segment<6>(0);
   Eigen::Vector6d w_r_0_gt = x.segment<6>(6);
 
-  if (VERBOSE)
+  if(VERBOSE)
   {
     std::cout << "w_l_0 = " << w_l_0.transpose() << std::endl;
     std::cout << "w_r_0 = " << w_r_0.transpose() << std::endl;
@@ -252,9 +241,9 @@ bool checkSolution(const RobotState & robot, Eigen::Vector6d w_l_0, Eigen::Vecto
   return ((w_l_0 - w_l_0_gt).norm() < EPSILON && (w_r_0 - w_r_0_gt).norm() < EPSILON);
 }
 #else
-bool checkSolution(const RobotState& robot, Eigen::Vector6d w_l_0, Eigen::Vector6d w_r_0)
+bool checkSolution(const RobotState & robot, Eigen::Vector6d w_l_0, Eigen::Vector6d w_r_0)
 {
-  if (VERBOSE)
+  if(VERBOSE)
   {
     std::cout << "w_l_0 = " << w_l_0.transpose() << std::endl;
     std::cout << "w_r_0 = " << w_r_0.transpose() << std::endl;
@@ -280,15 +269,23 @@ TEST_CASE("WrenchDistribQP")
   VariablePtr w_r_0 = wrenchSpace.createVariable("w_r_0");
 
   LinearizedControlProblem problem;
-  auto leftFootFricTask         = problem.add(wrenchFaceMatrix * X_0_lc.dualMatrix() * w_l_0 <= 0.           , { PriorityLevel(0) });
-  auto rightFootFricTask        = problem.add(wrenchFaceMatrix * X_0_rc.dualMatrix() * w_r_0 <= 0.           , { PriorityLevel(0) });
-  auto leftFootMinPressureTask  = problem.add(X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
-  auto rightFootMinPressureTask = problem.add(X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 >= MIN_PRESSURE    , { PriorityLevel(0) });
-  auto netWrenchTask            = problem.add(w_l_0 + w_r_0 == w_d.vector()                                  , { PriorityLevel(1), Weight(NET_WRENCH_WEIGHT) });
-  auto leftAnkleWrenchTask      = problem.add(X_0_la.dualMatrix() * w_l_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
-  auto rightAnkleWrenchTask     = problem.add(X_0_ra.dualMatrix() * w_r_0 == 0.                              , { PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT) });
-  auto pressureRatioTask        = problem.add((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 
-                                               - robot.lfr * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 == 0, { PriorityLevel(1), Weight(PRESSURE_WEIGHT) });
+  auto leftFootFricTask = problem.add(wrenchFaceMatrix * X_0_lc.dualMatrix() * w_l_0 <= 0., {PriorityLevel(0)});
+  auto rightFootFricTask = problem.add(wrenchFaceMatrix * X_0_rc.dualMatrix() * w_r_0 <= 0., {PriorityLevel(0)});
+  auto leftFootMinPressureTask =
+      problem.add(X_0_lc.dualMatrix().bottomRows<1>() * w_l_0 >= MIN_PRESSURE, {PriorityLevel(0)});
+  auto rightFootMinPressureTask =
+      problem.add(X_0_rc.dualMatrix().bottomRows<1>() * w_r_0 >= MIN_PRESSURE, {PriorityLevel(0)});
+  auto netWrenchTask = problem.add(w_l_0 + w_r_0 == w_d.vector(), {PriorityLevel(1), Weight(NET_WRENCH_WEIGHT)});
+  auto leftAnkleWrenchTask =
+      problem.add(X_0_la.dualMatrix() * w_l_0 == 0.,
+                  {PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT)});
+  auto rightAnkleWrenchTask =
+      problem.add(X_0_ra.dualMatrix() * w_r_0 == 0.,
+                  {PriorityLevel(1), AnisotropicWeight(ankleWeights), Weight(COMPLIANCE_WEIGHT)});
+  auto pressureRatioTask = problem.add((1 - robot.lfr) * X_0_lc.dualMatrix().bottomRows<1>() * w_l_0
+                                               - robot.lfr * X_0_rc.dualMatrix().bottomRows<1>() * w_r_0
+                                           == 0,
+                                       {PriorityLevel(1), Weight(PRESSURE_WEIGHT)});
 
   // First problem with initial left foot ratio
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(VERBOSE));

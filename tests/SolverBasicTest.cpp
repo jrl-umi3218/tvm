@@ -8,19 +8,19 @@
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/Variable.h>
 #include <tvm/constraint/abstract/Constraint.h>
-#include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/function/IdentityFunction.h>
+#include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
 #ifdef TVM_USE_LSSOL
-# include <tvm/solver/LSSOLLeastSquareSolver.h>
+#  include <tvm/solver/LSSOLLeastSquareSolver.h>
 #endif
 #ifdef TVM_USE_QLD
-# include <tvm/solver/QLDLeastSquareSolver.h>
+#  include <tvm/solver/QLDLeastSquareSolver.h>
 #endif
 #ifdef TVM_USE_QUADPROG
-# include <tvm/solver/QuadprogLeastSquareSolver.h>
+#  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
@@ -35,7 +35,7 @@ void solverTest01()
   Space s1(2);
   VariablePtr x = s1.createVariable("x");
   VariablePtr dx = dot(x);
-  x->value(Vector2d(0.5,0.5));
+  x->value(Vector2d(0.5, 0.5));
   dx->value(Vector2d::Zero());
 
   int dim = 3;
@@ -50,14 +50,16 @@ void solverTest01()
   auto idx = std::make_shared<function::IdentityFunction>(x);
   auto df = std::make_shared<Difference>(rf, idx);
 
-  VectorXd v(2); v << 0, 0;
+  VectorXd v(2);
+  v << 0, 0;
   Vector3d b = Vector3d::Constant(1.5);
 
   double dt = 1e-1;
   LinearizedControlProblem lpb;
-  auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), { requirements::PriorityLevel(0) });
-  auto t2 = lpb.add(df == v, task_dynamics::PD(2), { requirements::PriorityLevel(0) });
-  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 1 }), { requirements::PriorityLevel(0) });
+  auto t1 = lpb.add(sf == 0., task_dynamics::PD(2), {requirements::PriorityLevel(0)});
+  auto t2 = lpb.add(df == v, task_dynamics::PD(2), {requirements::PriorityLevel(0)});
+  auto t3 =
+      lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, {1., 0.01, 0, 1}), {requirements::PriorityLevel(0)});
   std::cout << t1->task.taskDynamics<task_dynamics::PD>()->kp<double>() << std::endl;
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
@@ -65,7 +67,6 @@ void solverTest01()
   std::cout << "ddx = " << dot(x, 2)->value().transpose() << std::endl;
   std::cout << "ddq = " << dot(q, 2)->value().transpose() << std::endl;
 }
-
 
 void solverTest02()
 {
@@ -79,8 +80,8 @@ void solverTest02()
   auto idq = std::make_shared<function::IdentityFunction>(q);
 
   ControlProblem pb;
-  pb.add(idx >= 0., { requirements::PriorityLevel(0) });
-  pb.add(idq >= 0., { requirements::PriorityLevel(0) });
+  pb.add(idx >= 0., {requirements::PriorityLevel(0)});
+  pb.add(idq >= 0., {requirements::PriorityLevel(0)});
 
   LinearizedControlProblem lpb(pb);
 
@@ -110,10 +111,10 @@ void minimalKin()
   Vector3d b = Vector3d::Constant(1.57);
 
   LinearizedControlProblem lpb;
-  auto t1 = lpb.add(sf == 0., task_dynamics::P(2), { PriorityLevel(0) });
-  auto t2 = lpb.add(df == v, task_dynamics::P(2), { PriorityLevel(0) });
-  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(dot(q) == 0., task_dynamics::None(), { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t1 = lpb.add(sf == 0., task_dynamics::P(2), {PriorityLevel(0)});
+  auto t2 = lpb.add(df == v, task_dynamics::P(2), {PriorityLevel(0)});
+  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({1, 0.01, 0, 0.1}), {PriorityLevel(0)});
+  auto t4 = lpb.add(dot(q) == 0., task_dynamics::None(), {PriorityLevel(1), AnisotropicWeight(Vector3d(10, 2, 1))});
 
 #ifdef TVM_USELSSOL
   scheme::WeightedLeastSquares solver(solver::LSSOLLSSolverOptions().verbose(true));
@@ -126,7 +127,7 @@ void minimalKin()
   scheme::WeightedLeastSquares solver4(solver::QuadprogLSSolverOptions().verbose(true));
   scheme::WeightedLeastSquares solver5(solver::QuadprogLSSolverOptions().verbose(true).cholesky(true));
 #endif
-  for (int i = 0; i < 1; ++i)
+  for(int i = 0; i < 1; ++i)
   {
 #ifdef TVM_USELSSOL
     solver.solve(lpb);
@@ -141,9 +142,9 @@ void minimalKin()
 #endif
 
     double dt = 0.01;
-    x->value(x->value() + dot(x, 1)->value()*dt);
-    q->value(q->value() + dot(q, 1)->value()*dt);
-    if (i % 10 == 0)
+    x->value(x->value() + dot(x, 1)->value() * dt);
+    q->value(q->value() + dot(q, 1)->value() * dt);
+    if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;
       std::cout << "x = " << x->value().transpose() << std::endl;
@@ -172,22 +173,22 @@ void minimalKinSub()
   Vector3d b = Vector3d::Constant(1.57);
 
   LinearizedControlProblem lpb;
-  auto t1 = lpb.add(sf == 0., task_dynamics::P(2), { PriorityLevel(0) });
-  auto t2 = lpb.add(df == v, task_dynamics::P(2), { PriorityLevel(0) });
-  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({ 1, 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(dot(q) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t1 = lpb.add(sf == 0., task_dynamics::P(2), {PriorityLevel(0)});
+  auto t2 = lpb.add(df == v, task_dynamics::P(2), {PriorityLevel(0)});
+  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({1, 0.01, 0, 0.1}), {PriorityLevel(0)});
+  auto t4 = lpb.add(dot(q) == 0., {PriorityLevel(1), AnisotropicWeight(Vector3d(10, 2, 1))});
 
   lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(true));
-  for (int i = 0; i < 1; ++i)
+  for(int i = 0; i < 1; ++i)
   {
     solver.solve(lpb);
 
     double dt = 0.01;
-    x->value(x->value() + dot(x, 1)->value()*dt);
-    q->value(q->value() + dot(q, 1)->value()*dt);
-    if (i % 10 == 0)
+    x->value(x->value() + dot(x, 1)->value() * dt);
+    q->value(q->value() + dot(q, 1)->value() * dt);
+    if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;
       std::cout << "x = " << x->value().transpose() << std::endl;
@@ -216,25 +217,26 @@ void minimalDyn()
   auto idx = make_shared<function::IdentityFunction>(x);
   auto df = make_shared<Difference>(rf, idx);
 
-  VectorXd v(2); v << 0, 0;
+  VectorXd v(2);
+  v << 0, 0;
   Vector3d b = Vector3d::Constant(1.5);
 
   double dt = 1e-2;
   LinearizedControlProblem lpb;
-  auto t1 = lpb.add(sf == 0., task_dynamics::PD(50), { PriorityLevel(0) });
-  auto t2 = lpb.add(df == v, task_dynamics::PD(50), { PriorityLevel(0) });
-  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, { 1., 0.01, 0, 0.1 }), { PriorityLevel(0) });
-  auto t4 = lpb.add(dot(q, 2) == 0., { PriorityLevel(1), AnisotropicWeight(Vector3d(10,2,1)) });
+  auto t1 = lpb.add(sf == 0., task_dynamics::PD(50), {PriorityLevel(0)});
+  auto t2 = lpb.add(df == v, task_dynamics::PD(50), {PriorityLevel(0)});
+  auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, {1., 0.01, 0, 0.1}), {PriorityLevel(0)});
+  auto t4 = lpb.add(dot(q, 2) == 0., {PriorityLevel(1), AnisotropicWeight(Vector3d(10, 2, 1))});
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
-  for (int i = 0; i < 5000; ++i)
+  for(int i = 0; i < 5000; ++i)
   {
     solver.solve(lpb);
 
     double dt = 0.01;
-    x->value(x->value() + dx->value()*dt + 0.5 * dot(x, 2)->value()*dt*dt);
-    q->value(q->value() + dq->value()*dt + 0.5 * dot(q, 2)->value()*dt*dt);
-    if (i % 10 == 0)
+    x->value(x->value() + dx->value() * dt + 0.5 * dot(x, 2)->value() * dt * dt);
+    q->value(q->value() + dq->value() * dt + 0.5 * dot(q, 2)->value() * dt * dt);
+    if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;
       std::cout << "x = " << x->value().transpose() << std::endl;
