@@ -12,8 +12,7 @@ namespace constraint
 
 BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef & A, VariablePtr x, Type ct)
 : BasicLinearConstraint(std::vector<MatrixConstRef>{A}, {x}, ct)
-{
-}
+{}
 
 BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef> & A,
                                              const std::vector<VariablePtr> & x,
@@ -38,8 +37,7 @@ BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef & A,
                                              Type ct,
                                              RHS cr)
 : BasicLinearConstraint(std::vector<MatrixConstRef>{A}, {x}, b, ct, cr)
-{
-}
+{}
 
 BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef> & A,
                                              const std::vector<VariablePtr> & x,
@@ -73,8 +71,7 @@ BasicLinearConstraint::BasicLinearConstraint(const MatrixConstRef & A,
                                              const VectorConstRef & u,
                                              RHS cr)
 : BasicLinearConstraint(std::vector<MatrixConstRef>{A}, {x}, l, u, cr)
-{
-}
+{}
 
 BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef> & A,
                                              const std::vector<VariablePtr> & x,

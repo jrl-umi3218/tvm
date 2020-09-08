@@ -122,8 +122,7 @@ template<class TD, class TDImpl>
 template<typename... Args>
 inline Clamped<TD, TDImpl>::Clamped(double max, Args &&... args)
 : Clamped<TD, TDImpl>({-max, max}, std::forward<Args>(args)...)
-{
-}
+{}
 
 template<class TD, class TDImpl>
 template<typename... Args>
@@ -145,8 +144,7 @@ template<class TD, class TDImpl>
 template<typename... Args>
 inline Clamped<TD, TDImpl>::Clamped(const VectorConstRef & max, Args &&... args)
 : Clamped<TD>({-max, max}, std::forward<Args>(args)...)
-{
-}
+{}
 
 template<class TD, class TDImpl>
 template<typename... Args>

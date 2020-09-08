@@ -18,8 +18,7 @@ QuadprogLeastSquareSolver::QuadprogLeastSquareSolver(const QuadprogLSSolverOptio
   xl_(b_.segment(0, 0)), xu_(b_.segment(0, 0)), big_number_(options.big_number().value()),
   cholesky_(options.cholesky().value()), choleskyDamping_(options.choleskyDamping().value()),
   damping_(options.damping().value()), autoMinNorm_(false)
-{
-}
+{}
 
 void QuadprogLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds)
 {
@@ -289,8 +288,7 @@ std::unique_ptr<abstract::LSSolverFactory> QuadprogLSSolverFactory::clone() cons
 
 QuadprogLSSolverFactory::QuadprogLSSolverFactory(const QuadprogLSSolverOptions & options)
 : LSSolverFactory("quadprog"), options_(options)
-{
-}
+{}
 
 std::unique_ptr<abstract::LeastSquareSolver> QuadprogLSSolverFactory::createSolver() const
 {

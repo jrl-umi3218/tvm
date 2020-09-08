@@ -18,8 +18,7 @@ namespace internal
 {
 LevelAbilities::LevelAbilities(bool inequality, const std::vector<requirements::ViolationEvaluationType> & types)
 : inequalities_(inequality), evaluationTypes_(types)
-{
-}
+{}
 
 SchemeAbilities::SchemeAbilities(int numberOfLevels,
                                  const std::map<int, LevelAbilities> & abilities,

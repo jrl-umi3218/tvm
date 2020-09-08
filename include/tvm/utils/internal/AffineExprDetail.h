@@ -108,7 +108,6 @@ namespace internal
 /** This is required to get GCC to compile the SFINAE constructors. */
 template<>
 struct traits<tvm::utils::internal::NoConstant> : public traits<tvm::utils::internal::IdentityType>
-{
-};
+{};
 } // namespace internal
 } // namespace Eigen

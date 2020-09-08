@@ -33,21 +33,18 @@ public:
   /** Constructor for Identity linear expression */
   template<class T = Derived, typename std::enable_if_t<std::is_same_v<T, internal::IdentityType>, int> = 0>
   LinearExpr(const tvm::VariablePtr & v) : matrix_(Eigen::MatrixXd::Identity(v->size(), v->size())), var_(v)
-  {
-  }
+  {}
 
   /** Constructor for a*v where a is a scalar */
   template<class T = Derived, typename std::enable_if_t<std::is_same_v<T, internal::MultIdentityType>, int> = 0>
   LinearExpr(double a, const tvm::VariablePtr & v)
   : matrix_(a * Eigen::MatrixXd::Identity(v->size(), v->size())), var_(v)
-  {
-  }
+  {}
 
   /** Constructor for -v */
   template<class T = Derived, typename std::enable_if_t<std::is_same_v<T, internal::MinusIdentityType>, int> = 0>
   LinearExpr(const tvm::VariablePtr & v) : matrix_(-Eigen::MatrixXd::Identity(v->size(), v->size())), var_(v)
-  {
-  }
+  {}
 
   const Derived & matrix() const { return matrix_; };
   const VariablePtr & variable() const { return var_; }
@@ -78,8 +75,7 @@ public:
   template<class T = CstDerived, typename std::enable_if_t<std::is_same_v<T, internal::NoConstant>, int> = 0>
   AffineExpr(const LinearExpr<Derived> &... linear)
   : linear_(std::forward_as_tuple(linear...)), constant_(internal::NoConstant())
-  {
-  }
+  {}
 
   /** Construction from a sequence of LinearExpr, in the case of CstDerived != NoConstant (existing constant part).*/
   template<class T = CstDerived, typename std::enable_if_t<!std::is_same_v<T, internal::NoConstant>, int> = 0>
@@ -93,8 +89,7 @@ public:
   template<class T = CstDerived, typename std::enable_if_t<std::is_same_v<T, internal::NoConstant>, int> = 0>
   AffineExpr(const internal::NoConstant & constant, const std::tuple<LinearExpr<Derived>...> & linear)
   : linear_(linear), constant_(constant)
-  {
-  }
+  {}
 
   /** Construction from a tuple of LinearExpr, in the case of CstDerived != NoConstant (existing constant part).*/
   template<class T = CstDerived, typename std::enable_if_t<!std::is_same_v<T, internal::NoConstant>, int> = 0>

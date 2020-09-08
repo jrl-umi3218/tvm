@@ -17,13 +17,11 @@ ProportionalDerivative::ProportionalDerivative(double kp, double kv) : kp_(kp), 
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::VectorXd & kp, const Eigen::VectorXd & kv)
 : kp_(kp), kv_(kv)
-{
-}
+{}
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp, const Eigen::MatrixXd & kv)
 : kp_(kp), kv_(kv)
-{
-}
+{}
 
 ProportionalDerivative::ProportionalDerivative(double kp, const Eigen::VectorXd & kv) : kp_(kp), kv_(kv) {}
 
@@ -33,22 +31,19 @@ ProportionalDerivative::ProportionalDerivative(const Eigen::VectorXd & kp, doubl
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::VectorXd & kp, const Eigen::MatrixXd & kv)
 : kp_(kp), kv_(kv)
-{
-}
+{}
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp, double kv) : kp_(kp), kv_(kv) {}
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp, const Eigen::VectorXd & kv)
 : kp_(kp), kv_(kv)
-{
-}
+{}
 
 ProportionalDerivative::ProportionalDerivative(double kp) : ProportionalDerivative(kp, 2 * std::sqrt(kp)) {}
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::VectorXd & kp)
 : kp_(kp), kv_(mpark::in_place_index<1>, 2 * kp.cwiseSqrt())
-{
-}
+{}
 
 ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp)
 : kp_(kp), kv_(Eigen::MatrixXd(kp.rows(), kp.cols()))

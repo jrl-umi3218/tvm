@@ -186,8 +186,7 @@ template<constraint::Type T>
 LinearizedTaskConstraint::LinearizedTaskConstraint(const utils::ProtoTask<T> & pt,
                                                    const task_dynamics::abstract::TaskDynamics & td)
 : LinearizedTaskConstraint(Task(pt, td))
-{
-}
+{}
 
 } // namespace internal
 

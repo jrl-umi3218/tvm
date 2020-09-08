@@ -119,8 +119,7 @@ public:
 
   explicit SolvingRequirementsWithCallbacks(const SolvingRequirements & req)
   : SolvingRequirementsBase(req.priorityLevel(), req.weight(), req.anisotropicWeight(), req.violationEvaluation())
-  {
-  }
+  {}
 };
 
 #undef ADD_REQUIREMENT

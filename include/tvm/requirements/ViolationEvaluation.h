@@ -42,13 +42,11 @@ public:
   /** Default value: ViolationEvaluationType::L2*/
   ViolationEvaluationBase()
   : abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>(ViolationEvaluationType::L2, true)
-  {
-  }
+  {}
 
   ViolationEvaluationBase(ViolationEvaluationType t)
   : abstract::SingleSolvingRequirement<ViolationEvaluationType, Lightweight>(t, false)
-  {
-  }
+  {}
 
   TVM_DEFINE_LW_NON_LW_CONVERSION_OPERATORS(ViolationEvaluationBase, ViolationEvaluationType, Lightweight)
 };

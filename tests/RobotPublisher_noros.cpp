@@ -3,8 +3,7 @@
 #include "RobotPublisher.h"
 
 struct RobotPublisherImpl
-{
-};
+{};
 
 RobotPublisher::RobotPublisher(const std::string &) : impl_() {}
 

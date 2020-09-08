@@ -15,8 +15,7 @@ QLDLeastSquareSolver::QLDLeastSquareSolver(const QLDLSSolverOptions & options)
 : LeastSquareSolver(options.verbose().value()), Aineq_(A_.bottomRows(0)), bineq_(b_.tail(0)),
   big_number_(options.big_number().value()), cholesky_(options.cholesky().value()),
   choleskyDamping_(options.choleskyDamping().value()), eps_(options.eps().value()), autoMinNorm_(false)
-{
-}
+{}
 
 void QLDLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
 {
@@ -225,8 +224,7 @@ std::unique_ptr<abstract::LSSolverFactory> QLDLSSolverFactory::clone() const
 }
 
 QLDLSSolverFactory::QLDLSSolverFactory(const QLDLSSolverOptions & options) : LSSolverFactory("qld"), options_(options)
-{
-}
+{}
 
 std::unique_ptr<abstract::LeastSquareSolver> QLDLSSolverFactory::createSolver() const
 {

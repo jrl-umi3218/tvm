@@ -214,8 +214,7 @@ void LSSOLLeastSquareSolver::printDiagnostic_() const
 
 LSSOLLSSolverFactory::LSSOLLSSolverFactory(const LSSOLLSSolverOptions & options)
 : LSSolverFactory("lssol"), options_(options)
-{
-}
+{}
 
 std::unique_ptr<abstract::LSSolverFactory> LSSOLLSSolverFactory::clone() const
 {

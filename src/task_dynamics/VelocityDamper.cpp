@@ -70,8 +70,7 @@ VelocityDamper::AnisotropicConfig::AnisotropicConfig(const Config & config)
                     Eigen::VectorXd::Constant(1, 1, config.ds_),
                     Eigen::VectorXd::Constant(1, 1, config.xsi_),
                     Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
-{
-}
+{}
 
 VelocityDamper::VelocityDamper(const Config & config, double big) : VelocityDamper(AnisotropicConfig{config}, big) {}
 
@@ -95,8 +94,7 @@ VelocityDamper::VelocityDamper(const AnisotropicConfig & config, double big)
 
 VelocityDamper::VelocityDamper(double dt, const Config & config, double big)
 : VelocityDamper(dt, AnisotropicConfig{config}, big)
-{
-}
+{}
 
 VelocityDamper::VelocityDamper(double dt, const AnisotropicConfig & config, double big)
 : dt_(dt), xsi_(0), ds_(config.ds_), di_(config.di_), big_(big),

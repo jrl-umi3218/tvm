@@ -32,17 +32,14 @@
   {                                                                                      \
   private:                                                                               \
     struct Dummy                                                                         \
-    {                                                                                    \
-    };                                                                                   \
+    {};                                                                                  \
     struct Fallback                                                                      \
     {                                                                                    \
       struct Type                                                                        \
-      {                                                                                  \
-      };                                                                                 \
+      {};                                                                                \
     };                                                                                   \
     struct Derived : std::conditional<std::is_class<T>::value, T, Dummy>::type, Fallback \
-    {                                                                                    \
-    };                                                                                   \
+    {};                                                                                  \
                                                                                          \
     template<class U>                                                                    \
     static std::false_type test(typename U::Type *);                                     \
@@ -113,13 +110,11 @@ using enable_for_templated_t = std::enable_if_t<(... || derives_from<T, Base>())
 /** A sink, whose value is always true. */
 template<typename T>
 class always_true : public std::true_type
-{
-};
+{};
 
 /** A sink, whose value is always false. */
 template<typename T>
 class always_false : public std::false_type
-{
-};
+{};
 } // namespace internal
 } // namespace tvm

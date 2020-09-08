@@ -30,8 +30,7 @@ struct SelectorMembers
 
 template<>
 struct SelectorMembers<false>
-{
-};
+{};
 
 // forward declaration
 template<typename T, typename Base>

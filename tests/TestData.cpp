@@ -20,8 +20,7 @@ struct Derived2 : public Derived
 };
 
 struct Derived3 : public Derived2
-{
-};
+{};
 
 struct Derived4 : public Derived3
 {
@@ -100,8 +99,7 @@ struct Robot2 : public Robot
 };
 
 struct RobotFunction : public tvm::graph::abstract::Node<RobotFunction>
-{
-};
+{};
 
 void compile_check()
 {

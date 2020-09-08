@@ -19,8 +19,7 @@ Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::Tas
 
 Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics & td, double rhs)
 : Task(f, t, td, Eigen::VectorXd::Constant(f->size(), rhs))
-{
-}
+{}
 
 Task::Task(FunctionPtr f,
            constraint::Type t,
@@ -36,8 +35,7 @@ Task::Task(FunctionPtr f,
 
 Task::Task(FunctionPtr f, constraint::Type t, const task_dynamics::abstract::TaskDynamics & td, double l, double u)
 : Task(f, t, td, Eigen::VectorXd::Constant(f->size(), l), Eigen::VectorXd::Constant(f->size(), u))
-{
-}
+{}
 
 Task::Task(FunctionPtr f,
            constraint::Type t,
@@ -54,18 +52,15 @@ Task::Task(FunctionPtr f,
 
 Task::Task(utils::ProtoTaskEQ proto, const task_dynamics::abstract::TaskDynamics & td)
 : Task(proto.f_, constraint::Type::EQUAL, td, proto.rhs_.toVector(proto.f_->size()))
-{
-}
+{}
 
 Task::Task(utils::ProtoTaskLT proto, const task_dynamics::abstract::TaskDynamics & td)
 : Task(proto.f_, constraint::Type::LOWER_THAN, td, proto.rhs_.toVector(proto.f_->size()))
-{
-}
+{}
 
 Task::Task(utils::ProtoTaskGT proto, const task_dynamics::abstract::TaskDynamics & td)
 : Task(proto.f_, constraint::Type::GREATER_THAN, td, proto.rhs_.toVector(proto.f_->size()))
-{
-}
+{}
 
 Task::Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics & td)
 : Task(proto.f_,
@@ -73,8 +68,7 @@ Task::Task(utils::ProtoTaskDS proto, const task_dynamics::abstract::TaskDynamics
        td,
        proto.l_.toVector(proto.f_->size()),
        proto.u_.toVector(proto.f_->size()))
-{
-}
+{}
 
 FunctionPtr Task::function() const { return f_; }
 

@@ -53,8 +53,7 @@ public:
 
   VectorSubstitutionAssignement(const CompiledAssignmentWrapper<Eigen::VectorXd> & a, VectorFunction getTarget)
   : assignment(a), getTargetVector(getTarget)
-  {
-  }
+  {}
 
   CompiledAssignmentWrapper<Eigen::VectorXd> assignment; // The underlying assignment
   VectorFunction getTargetVector;                        // The way to retrieve the target vector part
@@ -77,8 +76,7 @@ public:
                    RHSFunction getSource,
                    VectorFunction getTarget)
   : VectorSubstitutionAssignement(a, getTarget), useSource(useSource), getSourceVector(getSource)
-  {
-  }
+  {}
 
   bool useSource;              // Whether or not this assignment uses a source
   RHSFunction getSourceVector; // The way to retrieve the source vector.

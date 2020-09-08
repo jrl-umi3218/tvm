@@ -64,8 +64,7 @@ AdaptiveProportional::Impl::Impl(FunctionPtr f,
                                  double b,
                                  double c)
 : TaskDynamicsImpl(task_dynamics::Order::One, f, t, rhs), a_(a), b_(b), c_(c)
-{
-}
+{}
 
 void AdaptiveProportional::Impl::updateValue()
 {

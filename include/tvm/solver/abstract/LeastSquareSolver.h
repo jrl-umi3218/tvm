@@ -172,8 +172,7 @@ public:
   {
     template<typename... Args>
     MarkedAssignment(Args &&... args) : assignment(std::forward<Args>(args)...), markedForRemoval(false)
-    {
-    }
+    {}
     scheme::internal::Assignment assignment;
     bool markedForRemoval;
   };

@@ -85,8 +85,7 @@ private:
   /** Terminal case */
   template<typename T>
   void addInput(T &)
-  {
-  }
+  {}
 };
 
 } // namespace internal

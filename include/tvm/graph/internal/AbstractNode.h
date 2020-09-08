@@ -46,8 +46,7 @@ public:
   };
   /** Base class for Update. Empty */
   struct Update
-  {
-  };
+  {};
 
   /** Store the size of the Update enumeration */
   static constexpr unsigned int UpdateSize = 0;

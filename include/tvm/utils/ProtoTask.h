@@ -37,8 +37,7 @@ public:
 
   template<typename FunU>
   ProtoTaskCommon(const ProtoTaskCommon<T, FunU> & pt) : f_(pt.f_), rhs_(pt.rhs_)
-  {
-  }
+  {}
 
   FunT f_;
   internal::RHS rhs_;
@@ -62,8 +61,7 @@ public:
 
   template<typename FunU>
   ProtoTaskCommon(const ProtoTaskCommon<constraint::Type::DOUBLE_SIDED, FunU> & pt) : f_(pt.f_), l_(pt.l_), u_(pt.u_)
-  {
-  }
+  {}
 
   FunctionPtr f_;
   internal::RHS l_;

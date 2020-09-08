@@ -84,8 +84,7 @@ using isMatrix = typename std::conditional<MatrixType::ColsAtCompileTime != 1, s
 
 /** Dummy type for constructors with no arguments*/
 class NoArg
-{
-};
+{};
 
 /** Helper structure to get the N-th argument in a function call.
  * \sa ParseArg
@@ -122,8 +121,7 @@ public:
  */
 template<int N>
 class ParseArg : public std::conditional<(N >= 0), ParseArg_<N>, ParseNoArg_>::type
-{
-};
+{};
 
 /** A dummy helper function to build hasNoArgCtor*/
 template<typename T>
@@ -146,8 +144,7 @@ std::false_type hasNoArgCtor_(...);
  */
 template<typename T>
 class hasNoArgCtor : public decltype(hasNoArgCtor_<T>(0))
-{
-};
+{};
 
 /** Given a list of types, count how many of then havec a constructor
  * accepting NoArg
@@ -215,36 +212,31 @@ private:
  */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
 class use_assign_cache : public std::false_type
-{
-};
+{};
 
 /** Specialization for min/max with general matrix product. In this case, we
  * use the cache
  */
 template<typename MatrixType, WeightMult W>
 class use_assign_cache<MatrixType, MIN, W, GENERAL, EXTERNAL> : public std::true_type
-{
-};
+{};
 template<typename MatrixType, WeightMult W>
 class use_assign_cache<MatrixType, MAX, W, GENERAL, EXTERNAL> : public std::true_type
-{
-};
+{};
 
 /** Specialization for GENERAL*CONSTANT. This should not be necessary, but
  * the product needs a temporary. Maybe it's not the case anymore with Eigen 3.3.
  */
 template<typename MatrixType, AssignType A, WeightMult W>
 class use_assign_cache<MatrixType, A, W, GENERAL, CONSTANT> : public std::true_type
-{
-};
+{};
 
 /** Traits for deciding whether or not to use a cache for the product.
  * By default, no cache is used.
  */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
 class use_product_cache : public std::false_type
-{
-};
+{};
 
 /** Specialization for GENERAL product with diagonal weight
  *
@@ -252,18 +244,15 @@ class use_product_cache : public std::false_type
  */
 template<typename MatrixType, AssignType A>
 class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, EXTERNAL> : public std::true_type
-{
-};
+{};
 template<typename MatrixType, AssignType A>
 class use_product_cache<MatrixType, A, DIAGONAL, GENERAL, CONSTANT> : public std::true_type
-{
-};
+{};
 
 /** Base class for the assignation */
 template<AssignType A>
 class AssignBase
-{
-};
+{};
 
 template<>
 class AssignBase<COPY>
@@ -353,8 +342,7 @@ public:
 /** Base class for the multiplication by a scalar*/
 template<WeightMult W>
 class WeightMultBase
-{
-};
+{};
 
 /** Specialization for NONE */
 template<>
@@ -460,8 +448,7 @@ private:
 /** Base class for the multiplication by a matrix*/
 template<typename MatrixType, MatrixMult M>
 class MatrixMultBase
-{
-};
+{};
 
 /** Partial specialization for IDENTITY*/
 template<typename MatrixType>
@@ -612,8 +599,7 @@ private:
 /** Partial specialization for ZERO*/
 template<typename MatrixType>
 class SourceBase<MatrixType, ZERO>
-{
-};
+{};
 
 /** The main class. Its run method perfoms the assignment t = op(t, w*M*f)
  * (if f is a vector) or t = op(t, w*f*M) (if f is a matrix)

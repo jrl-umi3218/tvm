@@ -157,8 +157,7 @@ namespace internal
 MatrixProperties::MatrixProperties()
 : constant_(false), invertible_(false), shape_(MatrixProperties::GENERAL), symmetric_(false),
   positiveness_(MatrixProperties::NA)
-{
-}
+{}
 
 void MatrixProperties::build(const MatrixProperties::Arguments & args, const std::pair<bool, bool> & checks)
 {

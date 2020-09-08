@@ -210,8 +210,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
         case constraint::Type::LOWER_THAN:
           FAST_CHECK_UNARY((v.array() <= eps.array()).all());
           break;
-        case constraint::Type::DOUBLE_SIDED:
-        {
+        case constraint::Type::DOUBLE_SIDED: {
           Vector2d v2 = f->value() - tasks[j]->task.template secondBoundTaskDynamics<task_dynamics::None>()->value();
           FAST_CHECK_UNARY((v.array() >= -eps.array()).all());
           FAST_CHECK_UNARY((v2.array() <= eps.array()).all());

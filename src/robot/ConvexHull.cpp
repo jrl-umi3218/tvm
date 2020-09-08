@@ -12,8 +12,7 @@ namespace robot
 
 ConvexHull::ConvexHull(const std::string & path, FramePtr f, const sva::PTransformd & X_f_o)
 : ConvexHull(tvm::utils::Polyhedron(path), f, X_f_o)
-{
-}
+{}
 
 ConvexHull::ConvexHull(std::shared_ptr<sch::S_Object> o, FramePtr f, const sva::PTransformd & X_f_o)
 : o_(o), f_(f), X_f_o_(X_f_o)

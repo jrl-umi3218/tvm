@@ -50,8 +50,7 @@ void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem & pro
       auto e = memory->popEvent();
       switch(e.type())
       {
-        case ProblemDefinitionEvent::Type::WeightChange:
-        {
+        case ProblemDefinitionEvent::Type::WeightChange: {
           const auto & c = problem.constraintWithRequirements(e.emitter());
           if(c.requirements->priorityLevel().value() == 0)
             throw std::runtime_error(
@@ -60,8 +59,7 @@ void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem & pro
           se.addScalarWeigthEvent(c.constraint.get());
         }
         break;
-        case ProblemDefinitionEvent::Type::AnisotropicWeightChange:
-        {
+        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: {
           const auto & c = problem.constraintWithRequirements(e.emitter());
           if(c.requirements->priorityLevel().value() == 0)
             throw std::runtime_error(
@@ -295,8 +293,7 @@ void WeightedLeastSquares::removeTask(LinearizedControlProblem & problem,
 
 WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
 : LinearizedProblemComputationData(solverId), solver(std::move(solver))
-{
-}
+{}
 
 void WeightedLeastSquares::Memory::setVariablesToSolution_(VariableVector & x) { x.value(solver->result()); }
 

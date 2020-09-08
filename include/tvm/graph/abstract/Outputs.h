@@ -39,8 +39,7 @@ public:
   };
   /** Base class for Output. Empty */
   struct Output
-  {
-  };
+  {};
 
   /** Store the size of the Output enumeration */
   static constexpr unsigned int OutputSize = 0;

@@ -16,8 +16,7 @@ namespace
 {
 template<typename T>
 inline void check_output_enabled(const T &)
-{
-}
+{}
 
 template<typename T, typename EnumT, typename... Args>
 inline void check_output_enabled(const T & s, EnumT o, Args... args)

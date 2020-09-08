@@ -87,14 +87,12 @@ inline std::unique_ptr<internal::ProblemComputationData> ResolutionScheme<Derive
 template<typename Derived>
 inline ResolutionScheme<Derived>::ResolutionScheme(internal::SchemeAbilities abilities, double big)
 : ResolutionSchemeBase(abilities, big)
-{
-}
+{}
 
 template<typename Derived>
 inline LinearResolutionScheme<Derived>::LinearResolutionScheme(internal::SchemeAbilities abilities, double big)
 : ResolutionScheme<Derived>(abilities, big)
-{
-}
+{}
 
 } // namespace abstract
 

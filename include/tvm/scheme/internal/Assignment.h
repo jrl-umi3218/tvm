@@ -48,8 +48,7 @@ public:
 
   /** \private Dummy struct serving as reminder*/
   struct IWontForgetToCallUpdates
-  {
-  };
+  {};
 
   /** Assignment constructor
    * \param source The linear constraints whose matrix and vector(s) will be

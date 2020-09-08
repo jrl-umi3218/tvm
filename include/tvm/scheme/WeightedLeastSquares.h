@@ -54,8 +54,7 @@ private:
   /** Helper struct for isOption .*/
   template<typename T, bool>
   struct isOption_ : std::false_type
-  {
-  };
+  {};
   /** Helper struct specialization for isOption .*/
   template<typename T>
   struct isOption_<T, true>
@@ -78,8 +77,7 @@ public:
   WeightedLeastSquares(const SolverFactory & solverFactory, WeightedLeastSquaresOptions schemeOptions = {})
   : LinearResolutionScheme<WeightedLeastSquares>(abilities_), options_(schemeOptions),
     solverFactory_(solverFactory.clone())
-  {
-  }
+  {}
 
   /** Constructor from a configuration class
    * \tparam SolverOptions Any class representing solver options. The class must have a
@@ -91,8 +89,7 @@ public:
   template<class SolverOptions, typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
   WeightedLeastSquares(const SolverOptions & solverOptions, WeightedLeastSquaresOptions schemeOptions = {})
   : WeightedLeastSquares(typename SolverOptions::Factory(solverOptions), schemeOptions)
-  {
-  }
+  {}
 
   /** A fallback constructor that is enabled when none of the others are.
    * It always fails at compilation time to provide a nice error message.

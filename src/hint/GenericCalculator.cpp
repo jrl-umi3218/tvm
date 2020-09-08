@@ -28,8 +28,7 @@ GenericCalculator::Impl::Impl(const std::vector<LinearConstraintPtr> & cstr,
                               const std::vector<VariablePtr> & x,
                               int rank)
 : SubstitutionCalculatorImpl(cstr, x, rank), qr_(m(), n()), invR1R2_(r(), n() - r()), tmp_(m(), 2 * n())
-{
-}
+{}
 
 void GenericCalculator::Impl::update_()
 {

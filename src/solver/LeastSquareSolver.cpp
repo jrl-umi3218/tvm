@@ -22,8 +22,7 @@ public:
           LeastSquareSolver::AssignmentVector & observed,
           LeastSquareSolver::MapToAssignment & target)
   : observedSize_(observed.size()), observed_(observed), target_(target[cstr.get()])
-  {
-  }
+  {}
   ~AutoMap()
   {
     for(size_t i = observedSize_; i < observed_.size(); ++i)
@@ -42,8 +41,7 @@ namespace tvm::solver::abstract
 LeastSquareSolver::LeastSquareSolver(bool verbose)
 : objSize_(-1), eqSize_(-1), ineqSize_(-1), buildInProgress_(false), subs_(nullptr), verbose_(verbose),
   variables_(nullptr)
-{
-}
+{}
 
 void LeastSquareSolver::startBuild(const VariableVector & x,
                                    int nObj,

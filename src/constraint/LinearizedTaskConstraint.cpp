@@ -63,8 +63,7 @@ LinearizedTaskConstraint::LinearizedTaskConstraint(const Task & task)
 
   switch(td_->order())
   {
-    case task_dynamics::Order::Zero:
-    {
+    case task_dynamics::Order::Zero: {
       for(auto & v : f_->variables())
       {
         if(!f_->linearIn(*v))
@@ -74,15 +73,13 @@ LinearizedTaskConstraint::LinearizedTaskConstraint(const Task & task)
       registerUpdates(Update::UpdateRHS, kin);
     }
     break;
-    case task_dynamics::Order::One:
-    {
+    case task_dynamics::Order::One: {
       for(auto & v : f_->variables())
         addVariable(dot(v), true);
       registerUpdates(Update::UpdateRHS, kin);
     }
     break;
-    case task_dynamics::Order::Two:
-    {
+    case task_dynamics::Order::Two: {
       for(auto & v : f_->variables())
         addVariable(dot(v, 2), true);
       registerUpdates(Update::UpdateRHS, dyn);

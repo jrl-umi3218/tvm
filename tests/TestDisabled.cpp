@@ -5,8 +5,7 @@
 #include <iostream>
 
 struct FailedTest
-{
-};
+{};
 
 struct RegisterDisabledUpdate : public tvm::graph::abstract::Node<RegisterDisabledUpdate>
 {

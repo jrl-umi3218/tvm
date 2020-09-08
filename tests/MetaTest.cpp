@@ -28,22 +28,17 @@ static_assert(!derives_from<int, int>()); // derives_from only work with classes
 
 // Dummy classes for test purposes
 class A
-{
-};
+{};
 template<typename U, typename V>
 class TemplatedClass
-{
-};
+{};
 template<typename U>
 class TemplatedClassD1 : public TemplatedClass<U, int>
-{
-};
+{};
 class TemplatedClassD2 : public TemplatedClass<double, int>
-{
-};
+{};
 class TemplatedClassD3 : public TemplatedClassD1<int>
-{
-};
+{};
 
 // function accepting int and Eigen::MatrixXd
 template<typename T, enable_for_t<T, int, Eigen::MatrixXd> = 0>

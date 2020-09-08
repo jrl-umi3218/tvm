@@ -49,8 +49,7 @@ protected:
 
   SingleSolvingRequirement(const SingleSolvingRequirement<T, !Lightweight> & other)
   : value_(other.value()), default_(other.isDefault())
-  {
-  }
+  {}
 
   SingleSolvingRequirement & operator=(const SingleSolvingRequirement<T, !Lightweight> & other)
   {

@@ -7,8 +7,7 @@ namespace tvm
 
 TaskWithRequirements::TaskWithRequirements(const Task & t, requirements::SolvingRequirements req)
 : task(t), requirements(req)
-{
-}
+{}
 
 TaskWithRequirementsPtr ControlProblem::add(const Task & task, const requirements::SolvingRequirements & req)
 {

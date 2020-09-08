@@ -51,8 +51,7 @@ inline RHS::RHS(double d) : type_(d == 0 ? RHSType::Zero : RHSType::Double), d_(
 
 template<typename Derived>
 inline RHS::RHS(const Eigen::MatrixBase<Derived> & v) : type_(RHSType::Vector), v_(v)
-{
-}
+{}
 
 inline Eigen::VectorXd RHS::toVector(Eigen::DenseIndex n) const
 {

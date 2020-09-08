@@ -18,24 +18,21 @@ Substitution::Substitution(LinearConstraintPtr cstr,
                            int rank,
                            const abstract::SubstitutionCalculator & calc)
 : Substitution(std::vector<LinearConstraintPtr>{cstr}, std::vector<VariablePtr>{x}, rank, calc)
-{
-}
+{}
 
 Substitution::Substitution(const std::vector<LinearConstraintPtr> & cstr,
                            VariablePtr x,
                            int rank,
                            const abstract::SubstitutionCalculator & calc)
 : Substitution(cstr, std::vector<VariablePtr>{x}, rank, calc)
-{
-}
+{}
 
 Substitution::Substitution(LinearConstraintPtr cstr,
                            std::vector<VariablePtr> & x,
                            int rank,
                            const abstract::SubstitutionCalculator & calc)
 : Substitution(std::vector<LinearConstraintPtr>{cstr}, x, rank, calc)
-{
-}
+{}
 
 Substitution::Substitution(const std::vector<LinearConstraintPtr> & cstr,
                            const std::vector<VariablePtr> & x,

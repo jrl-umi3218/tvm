@@ -264,8 +264,7 @@ inline Log::EnumValue::EnumValue(E e) : type(typeid(e)), value(static_cast<int>(
 
 template<typename T>
 inline Log::Pointer::Pointer(T * p) : type(typeid(*p)), value(reinterpret_cast<std::uintptr_t>(p))
-{
-}
+{}
 
 inline Log::Pointer::Pointer(const std::type_index & t, std::uintptr_t v) : type(t), value(v) {}
 

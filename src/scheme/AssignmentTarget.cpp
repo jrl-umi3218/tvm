@@ -15,8 +15,7 @@ namespace internal
 
 AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, constraint::Type ct)
 : AssignmentTarget(range, A, Eigen::Map<Eigen::VectorXd>(nullptr, 0), ct, constraint::RHS::ZERO)
-{
-}
+{}
 
 AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef b, constraint::Type ct, constraint::RHS cr)
 : targetType_(TargetType::Linear), cstrType_(ct), constraintRhs_(cr), range_(range), A_(A), b_(b)
@@ -37,8 +36,7 @@ AssignmentTarget::AssignmentTarget(RangePtr range, MatrixRef A, VectorRef l, Vec
 AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef l, VectorRef u)
 : targetType_(TargetType::Linear), cstrType_(constraint::Type::DOUBLE_SIDED), constraintRhs_(constraint::RHS::AS_GIVEN),
   range_(range), l_(l), u_(u)
-{
-}
+{}
 
 AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef lu, constraint::Type ct)
 : targetType_(TargetType::Linear), cstrType_(ct), range_(range), b_(lu)
@@ -52,8 +50,7 @@ AssignmentTarget::AssignmentTarget(RangePtr range, VectorRef lu, constraint::Typ
 
 AssignmentTarget::AssignmentTarget(MatrixRef Q, VectorRef q, constraint::RHS cr)
 : targetType_(TargetType::Quadratic), constraintRhs_(cr), Q_(Q), q_(q)
-{
-}
+{}
 
 TargetType AssignmentTarget::targetType() const { return targetType_; }
 

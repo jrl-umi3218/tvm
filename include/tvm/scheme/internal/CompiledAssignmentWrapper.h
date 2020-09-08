@@ -155,21 +155,18 @@ inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixTyp
 template<typename MatrixType>
 inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper()
 : ca_(nullptr, nullptr), run_(nullptr), fromd_(nullptr), fromm_(nullptr), to_(nullptr), clone_(nullptr)
-{
-}
+{}
 
 template<typename MatrixType>
 inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(void (*deleter)(void *))
 : ca_(nullptr, deleter), run_(nullptr), fromd_(nullptr), fromm_(nullptr), to_(nullptr), clone_(nullptr)
-{
-}
+{}
 
 template<typename MatrixType>
 inline CompiledAssignmentWrapper<MatrixType>::CompiledAssignmentWrapper(const CompiledAssignmentWrapper & other)
 : ca_(other.clone_(other.ca_.get()), other.ca_.get_deleter()), run_(other.run_), fromd_(other.fromd_),
   fromm_(other.fromm_), to_(other.to_), clone_(other.clone_)
-{
-}
+{}
 
 template<typename MatrixType>
 inline CompiledAssignmentWrapper<MatrixType> & CompiledAssignmentWrapper<MatrixType>::operator=(

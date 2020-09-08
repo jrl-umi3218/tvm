@@ -11,8 +11,7 @@ std::unique_ptr<abstract::LSSolverFactory> DefaultLSSolverFactory::clone() const
 
 DefaultLSSolverFactory::DefaultLSSolverFactory(const DefaultLSSolverOptions & options)
 : LSSolverFactory("default"), options_(options)
-{
-}
+{}
 
 std::unique_ptr<abstract::LeastSquareSolver> DefaultLSSolverFactory::createSolver() const
 {
