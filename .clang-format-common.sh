@@ -2,7 +2,7 @@
 
 # Check for clang-format, prefer 10 if available
 if [[ -x "$(command -v clang-format-10)" ]]; then
-  clang_format=clang-format-6.0
+  clang_format=clang-format-10
 elif [[ -x "$(command -v clang-format)" ]]; then
   clang_format=clang-format
 else
