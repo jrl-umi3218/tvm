@@ -4,7 +4,7 @@
 
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
-#include <eigen-lssol //LSSOL_FP.h>
+#include <eigen-lssol/LSSOL_FP.h>
 #include <eigen-lssol/LSSOL_LS.h>
 
 namespace tvm
