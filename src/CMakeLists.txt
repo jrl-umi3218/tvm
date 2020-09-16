@@ -41,6 +41,7 @@ set(TVM_SOURCES
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
   internal/ObjWithId.cpp
+  internal/RangeCounting.cpp
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
@@ -150,6 +151,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/meta.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
+  ${TVM_INCLUDE_DIR}/internal/RangeCounting.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
   ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h
