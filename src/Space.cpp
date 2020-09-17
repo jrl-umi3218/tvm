@@ -46,7 +46,7 @@ Space::Space(Type type, int size) : type_(type)
   }
 }
 
-std::unique_ptr<Variable> Space::createVariable(const std::string & name) const
+std::unique_ptr<Variable> Space::createVariable(std::string_view name) const
 {
   return std::unique_ptr<Variable>(new Variable(*this, name));
 }

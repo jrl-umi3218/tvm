@@ -68,7 +68,7 @@ public:
   Space(Type type, int size = -1);
 
   /** Factory function to create a variable.*/
-  std::unique_ptr<Variable> createVariable(const std::string & name) const;
+  std::unique_ptr<Variable> createVariable(std::string_view name) const;
 
   /** Size of the space (as a manifold) */
   int size() const;
@@ -88,6 +88,21 @@ public:
   }
 
   bool operator!=(const Space & other) const { return !operator==(other); }
+
+  bool operator<=(const Space & other) const
+  {
+    return this->mSize_ <= other.mSize_ && this->rSize_ <= other.rSize_ && this->tSize_ <= other.tSize_;
+  }
+
+  friend Space operator*(const Space & s1, const Space & s2)
+  {
+    Space prod{s1.mSize_ + s2.mSize_, s1.rSize_ + s2.rSize_, s1.tSize_ + s2.tSize_};
+    if(s1.type_ == Space::Type::Euclidean && s2.type_ == Space::Type::Euclidean)
+      prod.type_ = Space::Type::Euclidean;
+    else
+      prod.type_ = Space::Type::Unspecified;
+    return prod;
+  }
 
 private:
   int mSize_; // size of this space (as a manifold)

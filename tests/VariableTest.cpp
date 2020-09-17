@@ -10,6 +10,32 @@
 
 using namespace tvm;
 
+TEST_CASE("Space product")
+{
+  Space R2(2);
+  Space R3(3);
+  Space SO3(Space::Type::SO3);
+  Space S2(2, 3, 3);
+
+  Space R5 = R2 * R3;
+  FAST_CHECK_EQ(R5.size(), 5);
+  FAST_CHECK_EQ(R5.rSize(), 5);
+  FAST_CHECK_EQ(R5.tSize(), 5);
+  FAST_CHECK_EQ(R5.type(), Space::Type::Euclidean);
+
+  Space SE3 = R3 * SO3;
+  FAST_CHECK_EQ(SE3.size(), 6);
+  FAST_CHECK_EQ(SE3.rSize(), 7);
+  FAST_CHECK_EQ(SE3.tSize(), 6);
+  FAST_CHECK_EQ(SE3.type(), Space::Type::Unspecified);
+
+  Space S = R2 * S2;
+  FAST_CHECK_EQ(S.size(), 4);
+  FAST_CHECK_EQ(S.rSize(), 5);
+  FAST_CHECK_EQ(S.tSize(), 5);
+  FAST_CHECK_EQ(S.type(), Space::Type::Unspecified);
+}
+
 TEST_CASE("Test Variable creation")
 {
   VariablePtr u = Space(3).createVariable("u");
@@ -365,4 +391,53 @@ TEST_CASE("Test derivatives ref counting")
   auto dx = testRefCounting();
   // Checking dx was destroyed.
   FAST_CHECK_UNARY(dx.expired());
+}
+
+TEST_CASE("Subvariable")
+{
+  // Basic creation and derivation
+  VariablePtr v = Space(6, 7, 6).createVariable("v");
+  VariablePtr v2 = v->subvariable(Space(3), "v2", Space(3, 4, 3));
+  FAST_CHECK_EQ(v2->size(), 3);
+  FAST_CHECK_EQ(dot(v2)->size(), 3);
+  FAST_CHECK_EQ(dot(v2, 4)->size(), 3);
+  FAST_CHECK_UNARY(v2->space().isEuclidean());
+  FAST_CHECK_EQ(v2->space().size(), 3);
+  FAST_CHECK_EQ(v2->space().rSize(), 3);
+  FAST_CHECK_EQ(v2->space().tSize(), 3);
+  FAST_CHECK_UNARY(v2->isEuclidean());
+  FAST_CHECK_UNARY(dot(v2)->isEuclidean());
+  FAST_CHECK_EQ(v2->space().type(), Space::Type::Euclidean);
+  v2 << Eigen::VectorXd::Ones(3);
+  FAST_CHECK_UNARY(v->value().isApprox((Eigen::VectorXd(7) << 0, 0, 0, 0, 1, 1, 1).finished()));
+
+  // Subvariable of subvariable
+  VariablePtr v21 = v2->subvariable(Space(2), "v21");
+  FAST_CHECK_EQ(v21->size(), 2);
+  FAST_CHECK_EQ(dot(v21)->size(), 2);
+  FAST_CHECK_EQ(dot(v21, 4)->size(), 2);
+  FAST_CHECK_UNARY(v21->space().isEuclidean());
+  FAST_CHECK_EQ(v21->space().size(), 2);
+  FAST_CHECK_EQ(v21->space().rSize(), 2);
+  FAST_CHECK_EQ(v21->space().tSize(), 2);
+  FAST_CHECK_UNARY(v21->isEuclidean());
+  FAST_CHECK_UNARY(dot(v21)->isEuclidean());
+  FAST_CHECK_EQ(v21->space().type(), Space::Type::Euclidean);
+  v21 << Eigen::VectorXd::Constant(2, 3);
+  FAST_CHECK_UNARY(v->value().isApprox((Eigen::VectorXd(7) << 0, 0, 0, 0, 3, 3, 1).finished()));
+
+  // Subvariable of derivative
+  VariablePtr d2v2 = dot(v, 2)->subvariable(Space(3), "v2", Space(3, 4, 3));
+  FAST_CHECK_EQ(d2v2->size(), 3);
+  FAST_CHECK_EQ(dot(d2v2)->size(), 3);
+  FAST_CHECK_EQ(dot(d2v2, 4)->size(), 3);
+  FAST_CHECK_UNARY(d2v2->space().isEuclidean());
+  FAST_CHECK_EQ(d2v2->space().size(), 3);
+  FAST_CHECK_EQ(d2v2->space().rSize(), 3);
+  FAST_CHECK_EQ(d2v2->space().tSize(), 3);
+  FAST_CHECK_UNARY(d2v2->isEuclidean());
+  FAST_CHECK_UNARY(dot(d2v2)->isEuclidean());
+  FAST_CHECK_EQ(d2v2->space().type(), Space::Type::Euclidean);
+  d2v2 << Eigen::VectorXd::Ones(3);
+  FAST_CHECK_UNARY(dot(v, 2)->value().isApprox((Eigen::VectorXd(6) << 0, 0, 0, 1, 1, 1).finished()));
 }

@@ -42,6 +42,8 @@ public:
    * caracteristics, see \ref duplicate.
    */
   Variable & operator=(const Variable &) = delete;
+  /** Destructor.*/
+  ~Variable();
   /** Create a variable based on the same space, with the same derivative
    * number and value.
    * \param name the name of the new variable. If the default value is kept,
@@ -49,7 +51,7 @@ public:
    * duplicated is not a base variable, the name is given to the base
    * variable.
    */
-  VariablePtr duplicate(const std::string & name = "") const;
+  VariablePtr duplicate(std::string_view name = "") const;
   /** Return the name of the variable*/
   const std::string & name() const;
   /** Return the size of the variable, i.e. the size of the vector needed to
@@ -62,6 +64,11 @@ public:
    * derived from an other).
    */
   const Space & space() const;
+  /** Return the space of the subvariable preceeding this variable w.r.t its
+   * supervariable. E.g if this variable is x, and is a subvariable of X such
+   * that X = (u, x, y), x->spaceShift() corresponds to u->space().
+   */
+  const Space & spaceShift() const;
   /** Check if the variable lives in a Euclidean space.
    * Pay attention that for a variable v, v.isEuclidean() is not necessarily
    * equal to v.space().isEuclidean(): if v is a derivative of a variable linked
@@ -69,7 +76,7 @@ public:
    */
   bool isEuclidean() const;
   /** Return the current value of the variable.*/
-  const Eigen::VectorXd & value() const;
+  VectorConstRef value() const;
   /** Set the value of the variable.*/
   void value(const VectorConstRef & x);
   /** Set the value of the variable to 0*/
@@ -99,6 +106,28 @@ public:
    */
   VariablePtr basePrimitive() const;
 
+  bool isSubvariable() const;
+  VariablePtr superVariable() const;
+
+  /** Create a subvariable
+   *
+   * \param space The space in which the variable (or its base primitive in case
+   * of a derivative) is a point.
+   * \param baseName The name of the variable or its base primitive (if
+   * different).
+   * \param shift The space of the subvariable before this subvariable w.r.t the
+   * current variable.
+   *
+   * For example \c x->subVariable(Space(3), "y", Space(2)) creates a
+   * subvariable y of \c x starting after the two first element (x0, x1) and
+   * containing the three elements (x2,x3,x4).
+   *
+   * \warning Two variables created with the same arguments will be considered
+   * as two different variables. If you want to get the same subvariable, it is
+   * your responsibility to keep a VariablePtr on it.
+   */
+  VariablePtr subvariable(Space space, std::string_view baseName, Space shift = {0}) const;
+
   /** Get the mapping of this variable, within a vector of variables: if all
    * variables values are stacked in one vector v, the returned Range
    * specifies the segment of v corresponding to this variable.
@@ -106,13 +135,12 @@ public:
   Range getMappingIn(const VariableVector & variables) const;
 
   /** Helper to initialize a variable like an Eigen vector.*/
-  Eigen::CommaInitializer<Eigen::VectorXd> operator<<(double d);
+  Eigen::CommaInitializer<VectorRef> operator<<(double d);
 
   /** Helper to initialize a variable like an Eigen vector.*/
   template<typename Derived>
-  Eigen::CommaInitializer<Eigen::VectorXd> operator<<(const Eigen::DenseBase<Derived> & other);
+  Eigen::CommaInitializer<VectorRef> operator<<(const Eigen::DenseBase<Derived> & other);
 
-protected:
 private:
   struct MappingHelper
   {
@@ -121,10 +149,15 @@ private:
   };
 
   /** Constructor for a new variable */
-  Variable(const Space & s, const std::string & name);
+  Variable(const Space & s, std::string_view name);
 
   /** Constructor for the derivative of var */
   Variable(Variable * var);
+
+  /** Constructor for a subvariable of var */
+  Variable(Variable * var, const Space & space, std::string_view name, const Space & shift);
+
+  [[nodiscard]] VariablePtr shared_from_this();
 
   /** Same as primitive<n> but without checking if n is valid.*/
   template<int n>
@@ -133,11 +166,19 @@ private:
   /** Name */
   std::string name_;
 
-  /** Data of the space from which the variable was created */
+  /** Data of the space from which the variable is a point. */
   Space space_;
 
-  /** Value of the variable */
-  Eigen::VectorXd value_;
+  /** For a variable x that is a subvariable of X = (x-, x, x+), specify the
+   * space of x-.
+   */
+  Space shift_;
+
+  /** Buffer for the variable value. */
+  double * memory_;
+
+  /** Value of the variable. */
+  VectorRef value_;
 
   /** Number of derivation since the base primitive. 0 a variable which is
    * not a derivative.
@@ -148,6 +189,11 @@ private:
    * reference to the latter, otherwise it is a nullptr.
    */
   Variable * primitive_;
+
+  /** If the variable is the subvariable of another one, superVariable_ is a
+   * reference to the latter, otherwise it is a nullptr.
+   */
+  Variable * superVariable_;
 
   /** If the variable has a time derivative, keep a pointer on it */
   std::unique_ptr<Variable> derivative_;
@@ -186,25 +232,24 @@ inline VariablePtr Variable::primitiveNoCheck<1>() const
     return primitive_->shared_from_this();
 }
 
-inline Eigen::CommaInitializer<Eigen::VectorXd> Variable::operator<<(double d) { return {value_, d}; }
+inline Eigen::CommaInitializer<VectorRef> Variable::operator<<(double d) { return {value_, d}; }
 
 template<typename Derived>
-inline Eigen::CommaInitializer<Eigen::VectorXd> Variable::operator<<(const Eigen::DenseBase<Derived> & other)
+inline Eigen::CommaInitializer<VectorRef> Variable::operator<<(const Eigen::DenseBase<Derived> & other)
 {
   return {value_, other};
 }
 } // namespace tvm
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
-inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr & v, double d) { return *v.get() << d; }
+inline Eigen::CommaInitializer<tvm::VectorRef> operator<<(tvm::VariablePtr & v, double d) { return *v.get() << d; }
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
-inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr && v, double d) { return *v.get() << d; }
+inline Eigen::CommaInitializer<tvm::VectorRef> operator<<(tvm::VariablePtr && v, double d) { return *v.get() << d; }
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
 template<typename Derived>
-inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr & v,
-                                                           const Eigen::DenseBase<Derived> & other)
+inline Eigen::CommaInitializer<tvm::VectorRef> operator<<(tvm::VariablePtr & v, const Eigen::DenseBase<Derived> & other)
 {
   return *v.get() << other;
 }
