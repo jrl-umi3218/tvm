@@ -6,6 +6,8 @@
 
 #include <tvm/Variable.h> // Range
 
+#include <list>
+
 /** Keep track of the union and (set) subtraction of integer ranges, accounting
  * for the number of times a number was added.
  * For example adding the set {1,2,3,4} (represented by Range(1,4)) and the set
