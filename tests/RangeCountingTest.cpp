@@ -21,14 +21,14 @@ std::vector<int> depth(const std::list<RangeCounting::Limit> & limits)
 {
   int depth = 0;
   std::vector<int> ret;
-  for(auto it=limits.cbegin(); it!=std::prev(limits.cend()); ++it)
+  for(auto it = limits.cbegin(); it != std::prev(limits.cend()); ++it)
   {
     if(it->lower_)
       ++depth;
     else
       --depth;
 
-    for(int i=it->i_; i<std::next(it)->i_; ++i)
+    for(int i = it->i_; i < std::next(it)->i_; ++i)
       ret.push_back(depth);
   }
 
@@ -132,7 +132,7 @@ TEST_CASE("Add/Remove")
   };
 
   // add (3,4,5) -> (3,4,5)
-  add({3,3});
+  add({3, 3});
 
   // remove (3,4,5) -> ()
   remove({3, 3});
@@ -154,7 +154,7 @@ TEST_CASE("Add/Remove")
 
   // remove (5,6,7,8,9) -> (1,2,3,4,5)
   remove({5, 5});
-  
+
   // remove (1,2,3) -> (3,4,5)
   remove({1, 3});
 

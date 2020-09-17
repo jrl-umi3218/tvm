@@ -52,7 +52,8 @@ void RangeCounting::remove(const Range & r)
   int stop = r.start + r.dim;
   if(limits_.empty())
     throw std::runtime_error("Cannot remove interval on empty list");
-  if(r.start < limits_.front().i_ || r.start >= limits_.back().i_ || stop <= limits_.front().i_ || stop > limits_.back().i_)
+  if(r.start < limits_.front().i_ || r.start >= limits_.back().i_ || stop <= limits_.front().i_
+     || stop > limits_.back().i_)
     throw std::runtime_error("The removed interval must be included in the current intervals");
 
   int depth = 0;
