@@ -30,6 +30,8 @@ VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1);
  * A variable can only be constructed from a Space, in which case we say it
  * is a base primitive, or from an other variable, by derivation with the
  * dot() operator.
+ *
+ * A variables can be a subvariable, i.e. a contiguous subpart of an other variable.
  */
 class TVM_DLLAPI Variable : public tvm::internal::ObjWithId, public std::enable_shared_from_this<Variable>
 {
@@ -106,8 +108,32 @@ public:
    */
   VariablePtr basePrimitive() const;
 
+  /** Return whether or not this variable is the subvariable of another variable.*/
   bool isSubvariable() const;
+  /** If this variable is a subvariable, return the variable it is a subvariable
+    * of. Otherwise, return this variable.*/
   VariablePtr superVariable() const;
+  /** Return true if this variable is not the subvariable of any other variable.*/
+  bool isSuperVariable() const;
+  /** Return true if \p v is a subvariable of this variable and this variable is
+    * a supervariable.
+    *
+    * The requirement that this variable is a supervariable makes it different
+    * from Variable::contains. 
+    */
+  bool isSuperVariableOf(const Variable & v) const;
+  /** If this variable is a subvariable, return its range within its supevariable.
+    * If not, simply return [0, size()].*/
+  Range subvariableRange() const;
+  /** Return true if \p v is a sub-part of this variable.
+    *
+    * To the difference of Variable::isSuperVariableOf, it is sufficient that
+    * both this variable and \p v have the same supervariable. This variable does
+    * not need to be a supervariable itself.
+    */
+  bool contains(const Variable & v) const;
+  /** Return this variable and v both contain the same subpart of a variable.*/
+  bool intersects(const Variable & v) const;
 
   /** Create a subvariable
    *
@@ -141,6 +167,9 @@ public:
   template<typename Derived>
   Eigen::CommaInitializer<VectorRef> operator<<(const Eigen::DenseBase<Derived> & other);
 
+  friend bool operator==(const Variable & u, const Variable & v);
+  friend bool operator!=(const Variable & u, const Variable & v);
+
 private:
   struct MappingHelper
   {
@@ -157,6 +186,12 @@ private:
   /** Constructor for a subvariable of var */
   Variable(Variable * var, const Space & space, std::string_view name, const Space & shift);
 
+  /** Overload of enable_shared_from_this::shared_from_this, for technical purpose.
+    * 
+    * \internal This is necessary because all derivative and subvariables are
+    * sharing the same ref counter as the primitive supervariable, while the
+    * default shared_from_this use the variable own (and unused) ref counter.
+    */
   [[nodiscard]] VariablePtr shared_from_this();
 
   /** Same as primitive<n> but without checking if n is valid.*/
@@ -239,6 +274,15 @@ inline Eigen::CommaInitializer<VectorRef> Variable::operator<<(const Eigen::Dens
 {
   return {value_, other};
 }
+
+inline bool operator==(const Variable & u, const Variable & v)
+{
+  return u.value_.data() == v.value_.data() && u.size() == v.size();
+}
+
+inline bool operator!=(const Variable & u, const Variable & v) { return !(u == v); }
+
+
 } // namespace tvm
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/

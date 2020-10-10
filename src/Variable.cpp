@@ -137,6 +137,33 @@ VariablePtr Variable::superVariable() const
     return const_cast<Variable *>(this)->shared_from_this();
 }
 
+bool Variable::isSuperVariable() const { return superVariable_ == nullptr; }
+
+bool Variable::isSuperVariableOf(const Variable & v) const { return v.superVariable_ == this; }
+
+Range Variable::subvariableRange() const
+{
+  if(isSuperVariable())
+    return {0, size()};
+  else
+  {
+    if(derivativeNumber_ == 0)
+      return {shift_.rSize(), size()};
+    else
+      return {shift_.tSize(), size()};
+  }
+}
+
+bool Variable::contains(const Variable & v) const
+{
+  return superVariable() == v.superVariable() && subvariableRange().contains(v.subvariableRange());
+}
+
+bool Variable::intersects(const Variable & v) const
+{
+  return superVariable() == v.superVariable() && subvariableRange().intersects(v.subvariableRange());
+}
+
 VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift) const
 {
   if(!(space * shift <= space_))
