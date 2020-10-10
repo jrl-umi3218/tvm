@@ -20,7 +20,7 @@ namespace tvm
  * given a vector aggregating all variables, which section of this vector
  * would correspond to a given variable.
  * There is two approaches for that: either build a map with
- * computeMappingMap or use the method Variable::getMappingIn. The latter
+ * computeMapping or use the method Variable::getMappingIn. The latter
  * uses a cache in Variable in a way that if one invoke Variable::getMappingIn
  * on any variable contained in a VariableVector, the mapping of all other
  * contained variables will be computed and cached. For repeatedly querying
@@ -75,20 +75,29 @@ public:
   void add(const std::vector<VariablePtr> & variables);
   /** Same as add(VariablePtr), but for adding a vector of variables.*/
   void add(const VariableVector & variables);
-  /** Add a variable to the vector, if not already present and return the index
+  /** Add a variable to the vector, if not already present, and return the index
    * of the variable in the vector whether it was added or not.
    *
    * \param v The variable to be added.
+   * \param containingIndex Specify what to return in case \p v is the subvariable
+   * of an already present variable. If \c false, return -1 in this case. If 
+   * \c true, return the index of the variable containing \p v.
    *
-   * \returns Index of variable \p v in the vector.
+   * \returns Index of variable \p v in the vector. If \p v is a subvariable of an
+   * already present variable, returns -1 or the index of the variable depending
+   * on \p containingIndex.
    */
-  int addAndGetIndex(VariablePtr v);
+  int addAndGetIndex(VariablePtr v, bool containingIndex = false);
 
   /** Remove a variable from the vector, if present.
    *
    * \param v the variable to be removed.
    *
    * \returns True if the variable was removed, false otherwise.
+   *
+   * \warning You can only remove a variable logically equal to one present in
+   * the vector. Trying to remove a subpart of a variable in the vector will not
+   * remove anything, and return \c false.
    */
   bool remove(const Variable & v);
   /** Remove the variable with the given index.

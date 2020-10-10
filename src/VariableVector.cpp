@@ -16,6 +16,18 @@ bool VariableVector::add(VariablePtr v)
   {
     return false;
   }
+  for(const auto & xi : variables_)
+  {
+    if(xi->contains(*v))
+    {
+      return false;
+    }
+    else if(xi->intersects(*v))
+    {
+      throw std::runtime_error("[VariableVector::add] Attempting to add a variable that intersects a variable already "
+                               "present but is not contained by it");
+    }
+  }
   add_(v);
   return true;
 }
@@ -30,10 +42,9 @@ void VariableVector::add(const std::vector<VariablePtr> & variables)
 
 void VariableVector::add(const VariableVector & variables) { add(variables.variables()); }
 
-int VariableVector::addAndGetIndex(VariablePtr v)
+int VariableVector::addAndGetIndex(VariablePtr v, bool containingIndex)
 {
-  auto it =
-      find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == v.get()); });
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(*v) || it->intersects(*v); });
   if(it == variables_.end())
   {
     add_(v);
@@ -41,20 +52,38 @@ int VariableVector::addAndGetIndex(VariablePtr v)
   }
   else
   {
-    return static_cast<int>(it - variables_.begin());
+    if(*(it->get()) == *v)        // it is equal to v
+    {
+      return static_cast<int>(it - variables_.begin());
+    }
+    else if((*it)->contains(*v))  // v is strictly contained in it
+    {
+      if(containingIndex)
+        return static_cast<int>(it - variables_.begin());
+      else
+        return -1;
+    }
+    else                          // v only intersects it
+    {
+      throw std::runtime_error("[VariableVector::add] Attempting to add a variable that intersects a variable already "
+                               "present but is not contained by it");
+    }
   }
 }
 
 bool VariableVector::remove(const Variable & v)
 {
-  if(!contains(v))
+  auto it =
+      std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (*(it.get()) == v); });
+  if(it == variables_.end())
   {
     return false;
   }
-  auto it =
-      std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
-  remove_(it);
-  return true;
+  else
+  {
+    remove_(it);
+    return true;
+  }
 }
 
 void VariableVector::remove(int i)
@@ -138,14 +167,14 @@ std::map<const Variable *, Range> VariableVector::computeMappingMap() const
 
 bool VariableVector::contains(const Variable & v) const
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
   return it != variables_.end();
 }
 
 int VariableVector::indexOf(const Variable & v) const
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
-  if(it == variables_.end())
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
+  if(it == variables_.end() || (*(it->get()) != v))
   {
     return -1;
   }
