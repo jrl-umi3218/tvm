@@ -19,13 +19,31 @@ class TVM_DLLAPI Range
 {
 public:
   Range() : start(0), dim(0) {}
-  Range(int s, int d) : start(s), dim(d) {}
+  Range(int s, int d) : start(s), dim(d) { assert(d >= 0); }
   int start;
   int dim;
+
+  /** First integer not in the range*/
+  int end() const { return start + dim; }
 
   bool operator==(const Range & other) const { return this->dim == other.dim && this->start == other.start; }
 
   bool operator!=(const Range & other) const { return !operator==(other); }
+
+  /** Return true if \p i is contained in the range.*/
+  bool contains(int i) const { return start <= i && i < end(); }
+
+  /** Return true if \p other is contained in the range.
+    *
+    * Empty ranges are considered contained if their start is in the range.
+    */
+  bool contains(const Range & other) const { return this->contains(other.start) && this->end() >= other.end(); }
+
+  bool intersects(const Range & other) const
+  {
+    return this->contains(other.start) || (other.dim > 0 && this->contains(other.end() - 1))
+           || other.contains(this->start) || (this->dim > 0 && other.contains(this->end() - 1));
+  }
 };
 
 } // namespace tvm
