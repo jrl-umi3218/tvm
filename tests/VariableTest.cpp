@@ -2,7 +2,6 @@
 
 #include <tvm/Range.h>
 #include <tvm/Variable.h>
-#include <tvm/VariableVector.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
@@ -174,170 +173,6 @@ TEST_CASE("Test Variable Name")
   FAST_CHECK_EQ(dw3->name(), "d3 w / dt3");
 }
 
-TEST_CASE("Test VariableVector creation")
-{
-  VariablePtr v1 = Space(3).createVariable("v1");
-  VariablePtr v2 = Space(4).createVariable("v2");
-  VariablePtr v3 = Space(2).createVariable("v3");
-  VariablePtr v4 = Space(3).createVariable("v4");
-
-  VariableVector vv1;
-  vv1.add(v2);
-  vv1.add(v3);
-  vv1.add(v1);
-
-  int i1, i2, i3, i4;
-  FAST_CHECK_EQ(vv1.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv1.totalSize(), 9);
-  FAST_CHECK_EQ(vv1[0], v2);
-  FAST_CHECK_EQ(vv1[1], v3);
-  FAST_CHECK_EQ(vv1[2], v1);
-  FAST_CHECK_UNARY(vv1.contains(*v1));
-  FAST_CHECK_UNARY(vv1.contains(*v2));
-  FAST_CHECK_UNARY(vv1.contains(*v3));
-  FAST_CHECK_UNARY(!vv1.contains(*v4));
-  FAST_CHECK_EQ(vv1.indexOf(*v1), 2);
-  FAST_CHECK_EQ(vv1.indexOf(*v2), 0);
-  FAST_CHECK_EQ(vv1.indexOf(*v3), 1);
-  FAST_CHECK_EQ(vv1.indexOf(*v4), -1);
-
-  vv1.remove(*v3);
-  FAST_CHECK_EQ(vv1.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv1.totalSize(), 7);
-  FAST_CHECK_EQ(vv1[0], v2);
-  FAST_CHECK_EQ(vv1[1], v1);
-  FAST_CHECK_UNARY(vv1.contains(*v1));
-  FAST_CHECK_UNARY(vv1.contains(*v2));
-  FAST_CHECK_UNARY(!vv1.contains(*v3));
-  FAST_CHECK_UNARY(!vv1.contains(*v4));
-  FAST_CHECK_EQ(vv1.indexOf(*v1), 1);
-  FAST_CHECK_EQ(vv1.indexOf(*v2), 0);
-  FAST_CHECK_EQ(vv1.indexOf(*v3), -1);
-  FAST_CHECK_EQ(vv1.indexOf(*v4), -1);
-
-  VariableVector vv2({v1, v2, v3});
-  FAST_CHECK_EQ(vv2.numberOfVariables(), 3);
-  FAST_CHECK_EQ(vv2.totalSize(), 9);
-  FAST_CHECK_EQ(vv2[0], v1);
-  FAST_CHECK_EQ(vv2[1], v2);
-  FAST_CHECK_EQ(vv2[2], v3);
-
-  CHECK(vv2.add(v1) == false);
-  CHECK(vv2.remove(*v4) == false);
-
-  std::vector<VariablePtr> vec = {v1, v2};
-  std::vector<VariablePtr> vec2 = {v1, v3, v4};
-  VariableVector vv3(vec);
-  for(const auto & v : vec)
-  {
-    vv3.add(v);
-  }
-  FAST_CHECK_EQ(vv3.numberOfVariables(), 2);
-  FAST_CHECK_EQ(vv3.totalSize(), 7);
-  FAST_CHECK_EQ(vv3[0], v1);
-  FAST_CHECK_EQ(vv3[1], v2);
-  for(const auto & v : vec2)
-  {
-    vv3.add(v);
-  }
-  FAST_CHECK_EQ(vv3.numberOfVariables(), 4);
-  FAST_CHECK_EQ(vv3.totalSize(), 12);
-  FAST_CHECK_EQ(vv3[0], v1);
-  FAST_CHECK_EQ(vv3[1], v2);
-  FAST_CHECK_EQ(vv3[2], v3);
-  FAST_CHECK_EQ(vv3[3], v4);
-  FAST_CHECK_UNARY(vv3.contains(*v1));
-  FAST_CHECK_UNARY(vv3.contains(*v2));
-  FAST_CHECK_UNARY(vv3.contains(*v3));
-  FAST_CHECK_UNARY(vv3.contains(*v4));
-
-  VariableVector vv4(v3, vv3, vec2);
-  FAST_CHECK_EQ(vv4.numberOfVariables(), 4);
-  FAST_CHECK_EQ(vv4.totalSize(), 12);
-  FAST_CHECK_EQ(vv4[0], v3);
-  FAST_CHECK_EQ(vv4[1], v1);
-  FAST_CHECK_EQ(vv4[2], v2);
-  FAST_CHECK_EQ(vv4[3], v4);
-}
-
-TEST_CASE("Test Mapping")
-{
-  VariablePtr v1 = Space(3).createVariable("v1");
-  VariablePtr v2 = Space(4).createVariable("v2");
-  VariablePtr v3 = Space(2).createVariable("v3");
-  VariablePtr v4 = Space(3).createVariable("v4");
-
-  VariableVector vv1;
-  int s = vv1.stamp();
-  vv1.add(v1);
-  vv1.add(v2);
-  vv1.add(v3);
-
-  VariableVector vv2;
-  vv2.add(v3);
-  vv2.add(v2);
-  vv2.add(v1);
-
-  FAST_CHECK_EQ(vv1.stamp(), s + 3);
-  FAST_CHECK_EQ(vv2.stamp(), s + 7);
-
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
-  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{3, 4});
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{7, 2});
-  CHECK_THROWS(v4->getMappingIn(vv1));
-  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{6, 3});
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{2, 4});
-  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{0, 2});
-  CHECK_THROWS(v4->getMappingIn(vv2));
-
-  FAST_CHECK_EQ(vv1.stamp(), s + 3);
-  FAST_CHECK_EQ(vv2.stamp(), s + 7);
-
-  vv1.add(v4);
-  FAST_CHECK_EQ(vv1.stamp(), s + 8);
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
-  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range{3, 4});
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{7, 2});
-  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{9, 3});
-  vv1.remove(*v2);
-  FAST_CHECK_EQ(vv1.stamp(), s + 9);
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range{0, 3});
-  CHECK_THROWS(v2->getMappingIn(vv1));
-  FAST_CHECK_EQ(v3->getMappingIn(vv1), Range{3, 2});
-  FAST_CHECK_EQ(v4->getMappingIn(vv1), Range{5, 3});
-  FAST_CHECK_EQ(v1->getMappingIn(vv2), Range{6, 3});
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range{2, 4});
-  FAST_CHECK_EQ(v3->getMappingIn(vv2), Range{0, 2});
-  CHECK_THROWS(v4->getMappingIn(vv2));
-}
-
-TEST_CASE("Test VariableVector derivation")
-{
-  VariablePtr v1 = Space(3).createVariable("v1");
-  VariablePtr v2 = Space(4).createVariable("v2");
-  VariablePtr v3 = Space(2).createVariable("v3");
-
-  VariableVector vv;
-  vv.add(v1);
-  vv.add(v2);
-  vv.add(v3);
-
-  auto dvv = dot(vv);
-  FAST_CHECK_EQ(dvv[0], dot(v1));
-  FAST_CHECK_EQ(dvv[1], dot(v2));
-  FAST_CHECK_EQ(dvv[2], dot(v3));
-
-  auto dvv3 = dot(vv, 3);
-  FAST_CHECK_EQ(dvv3[0], dot(v1, 3));
-  FAST_CHECK_EQ(dvv3[1], dot(v2, 3));
-  FAST_CHECK_EQ(dvv3[2], dot(v3, 3));
-
-  auto dvv3b = dot(dvv, 2);
-  FAST_CHECK_EQ(dvv3b[0], dot(v1, 3));
-  FAST_CHECK_EQ(dvv3b[1], dot(v2, 3));
-  FAST_CHECK_EQ(dvv3b[2], dot(v3, 3));
-}
-
 TEST_CASE("Test derivative lifetime")
 {
   VariablePtr x = Space(3).createVariable("x");
@@ -440,4 +275,418 @@ TEST_CASE("Subvariable")
   FAST_CHECK_EQ(d2v2->space().type(), Space::Type::Euclidean);
   d2v2 << Eigen::VectorXd::Ones(3);
   FAST_CHECK_UNARY(dot(v, 2)->value().isApprox((Eigen::VectorXd(6) << 0, 0, 0, 1, 1, 1).finished()));
+}
+
+TEST_CASE("Equality")
+{
+  Space S(10);
+  VariablePtr u = S.createVariable("u");
+  VariablePtr v = S.createVariable("v");
+  VariablePtr u1 = u->subvariable(Space(5), "u1", Space(2));
+  VariablePtr u2 = u->subvariable(Space(7), "u2");
+  VariablePtr u3 = u->subvariable(Space(10), "u3");
+  VariablePtr u21 = u2->subvariable(Space(5), "u21", Space(2));
+
+  FAST_CHECK_EQ(*u, *u);
+  FAST_CHECK_NE(*u, *v);
+  FAST_CHECK_NE(*u, *u1);
+  FAST_CHECK_NE(*u, *u2);
+  FAST_CHECK_EQ(*u, *u3);
+  FAST_CHECK_NE(*u, *u21);
+
+  FAST_CHECK_NE(*v, *u);
+  FAST_CHECK_EQ(*v, *v);
+  FAST_CHECK_NE(*v, *u1);
+  FAST_CHECK_NE(*v, *u2);
+  FAST_CHECK_NE(*v, *u3);
+  FAST_CHECK_NE(*v, *u21);
+
+  FAST_CHECK_NE(*u1, *u);
+  FAST_CHECK_NE(*u1, *v);
+  FAST_CHECK_EQ(*u1, *u1);
+  FAST_CHECK_NE(*u1, *u2);
+  FAST_CHECK_NE(*u1, *u3);
+  FAST_CHECK_EQ(*u1, *u21);
+
+  FAST_CHECK_NE(*u2, *u);
+  FAST_CHECK_NE(*u2, *v);
+  FAST_CHECK_NE(*u2, *u1);
+  FAST_CHECK_EQ(*u2, *u2);
+  FAST_CHECK_NE(*u2, *u3);
+  FAST_CHECK_NE(*u2, *u21);
+
+  FAST_CHECK_EQ(*u3, *u);
+  FAST_CHECK_NE(*u3, *v);
+  FAST_CHECK_NE(*u3, *u1);
+  FAST_CHECK_NE(*u3, *u2);
+  FAST_CHECK_EQ(*u3, *u3);
+  FAST_CHECK_NE(*u3, *u21);
+
+  FAST_CHECK_NE(*u21, *u);
+  FAST_CHECK_NE(*u21, *v);
+  FAST_CHECK_EQ(*u21, *u1);
+  FAST_CHECK_NE(*u21, *u2);
+  FAST_CHECK_NE(*u21, *u3);
+  FAST_CHECK_EQ(*u21, *u21);
+}
+
+TEST_CASE("Subvariable contains")
+{
+  VariablePtr u = Space(3).createVariable("u");
+  VariablePtr v = Space(15).createVariable("v");                // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+  VariablePtr v1 = v->subvariable(Space(7), "v1", Space(1));    //   1 2 3 4 5 6 7
+  VariablePtr v2 = v->subvariable(Space(8), "v2", Space(4));    //         4 5 6 7 8 9 10 11
+  VariablePtr v3 = v->subvariable(Space(7), "v3", Space(8));    //                 8 9 10 11 12 13 14
+  VariablePtr v11 = v1->subvariable(Space(4), "v11");           //   1 2 3 4
+  VariablePtr v12 = v1->subvariable(Space(3), "v12", Space(4)); //           5 6 7
+  VariablePtr v21 = v2->subvariable(Space(2), "v21", Space(2)); //             6 7
+  VariablePtr v22 = v2->subvariable(Space(2), "v22", Space(5)); //                   9 10
+  VariablePtr v30 = v3->subvariable(Space(7), "v30");           //                 8 9 10 11 12 13 14
+
+  {
+    FAST_CHECK_UNARY(u->isSuperVariable());
+    FAST_CHECK_UNARY(v->isSuperVariable());
+    FAST_CHECK_UNARY(!v1->isSuperVariable());
+    FAST_CHECK_UNARY(!v2->isSuperVariable());
+    FAST_CHECK_UNARY(!v3->isSuperVariable());
+    FAST_CHECK_UNARY(!v11->isSuperVariable());
+    FAST_CHECK_UNARY(!v12->isSuperVariable());
+    FAST_CHECK_UNARY(!v11->isSuperVariable());
+    FAST_CHECK_UNARY(!v22->isSuperVariable());
+    FAST_CHECK_UNARY(!v30->isSuperVariable());
+  }
+  {
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!u->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(v->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v1->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v2->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v3->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v11->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v12->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v21->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v22->isSuperVariableOf(*v30));
+
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*u));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v1));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v2));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v3));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v11));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v12));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v21));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v22));
+    FAST_CHECK_UNARY(!v30->isSuperVariableOf(*v30));
+  }
+  {
+    FAST_CHECK_UNARY(u->contains(*u));
+    FAST_CHECK_UNARY(!u->contains(*v));
+    FAST_CHECK_UNARY(!u->contains(*v1));
+    FAST_CHECK_UNARY(!u->contains(*v2));
+    FAST_CHECK_UNARY(!u->contains(*v3));
+    FAST_CHECK_UNARY(!u->contains(*v11));
+    FAST_CHECK_UNARY(!u->contains(*v12));
+    FAST_CHECK_UNARY(!u->contains(*v21));
+    FAST_CHECK_UNARY(!u->contains(*v22));
+    FAST_CHECK_UNARY(!u->contains(*v30));
+
+    FAST_CHECK_UNARY(!v->contains(*u));
+    FAST_CHECK_UNARY(v->contains(*v));
+    FAST_CHECK_UNARY(v->contains(*v1));
+    FAST_CHECK_UNARY(v->contains(*v2));
+    FAST_CHECK_UNARY(v->contains(*v3));
+    FAST_CHECK_UNARY(v->contains(*v11));
+    FAST_CHECK_UNARY(v->contains(*v12));
+    FAST_CHECK_UNARY(v->contains(*v21));
+    FAST_CHECK_UNARY(v->contains(*v22));
+    FAST_CHECK_UNARY(v->contains(*v30));
+
+    FAST_CHECK_UNARY(!v1->contains(*u));
+    FAST_CHECK_UNARY(!v1->contains(*v));
+    FAST_CHECK_UNARY(v1->contains(*v1));
+    FAST_CHECK_UNARY(!v1->contains(*v2));
+    FAST_CHECK_UNARY(!v1->contains(*v3));
+    FAST_CHECK_UNARY(v1->contains(*v11));
+    FAST_CHECK_UNARY(v1->contains(*v12));
+    FAST_CHECK_UNARY(v1->contains(*v21));
+    FAST_CHECK_UNARY(!v1->contains(*v22));
+    FAST_CHECK_UNARY(!v1->contains(*v30));
+
+    FAST_CHECK_UNARY(!v2->contains(*u));
+    FAST_CHECK_UNARY(!v2->contains(*v));
+    FAST_CHECK_UNARY(!v2->contains(*v1));
+    FAST_CHECK_UNARY(v2->contains(*v2));
+    FAST_CHECK_UNARY(!v2->contains(*v3));
+    FAST_CHECK_UNARY(!v2->contains(*v11));
+    FAST_CHECK_UNARY(v2->contains(*v12));
+    FAST_CHECK_UNARY(v2->contains(*v21));
+    FAST_CHECK_UNARY(v2->contains(*v22));
+    FAST_CHECK_UNARY(!v2->contains(*v30));
+
+    FAST_CHECK_UNARY(!v3->contains(*u));
+    FAST_CHECK_UNARY(!v3->contains(*v));
+    FAST_CHECK_UNARY(!v3->contains(*v1));
+    FAST_CHECK_UNARY(!v3->contains(*v2));
+    FAST_CHECK_UNARY(v3->contains(*v3));
+    FAST_CHECK_UNARY(!v3->contains(*v11));
+    FAST_CHECK_UNARY(!v3->contains(*v12));
+    FAST_CHECK_UNARY(!v3->contains(*v21));
+    FAST_CHECK_UNARY(v3->contains(*v22));
+    FAST_CHECK_UNARY(v3->contains(*v30));
+
+    FAST_CHECK_UNARY(!v11->contains(*u));
+    FAST_CHECK_UNARY(!v11->contains(*v));
+    FAST_CHECK_UNARY(!v11->contains(*v1));
+    FAST_CHECK_UNARY(!v11->contains(*v2));
+    FAST_CHECK_UNARY(!v11->contains(*v3));
+    FAST_CHECK_UNARY(v11->contains(*v11));
+    FAST_CHECK_UNARY(!v11->contains(*v12));
+    FAST_CHECK_UNARY(!v11->contains(*v21));
+    FAST_CHECK_UNARY(!v11->contains(*v22));
+    FAST_CHECK_UNARY(!v11->contains(*v30));
+
+    FAST_CHECK_UNARY(!v12->contains(*u));
+    FAST_CHECK_UNARY(!v12->contains(*v));
+    FAST_CHECK_UNARY(!v12->contains(*v1));
+    FAST_CHECK_UNARY(!v12->contains(*v2));
+    FAST_CHECK_UNARY(!v12->contains(*v3));
+    FAST_CHECK_UNARY(!v12->contains(*v11));
+    FAST_CHECK_UNARY(v12->contains(*v12));
+    FAST_CHECK_UNARY(v12->contains(*v21));
+    FAST_CHECK_UNARY(!v12->contains(*v22));
+    FAST_CHECK_UNARY(!v12->contains(*v30));
+
+    FAST_CHECK_UNARY(!v21->contains(*u));
+    FAST_CHECK_UNARY(!v21->contains(*v));
+    FAST_CHECK_UNARY(!v21->contains(*v1));
+    FAST_CHECK_UNARY(!v21->contains(*v2));
+    FAST_CHECK_UNARY(!v21->contains(*v3));
+    FAST_CHECK_UNARY(!v21->contains(*v11));
+    FAST_CHECK_UNARY(!v21->contains(*v12));
+    FAST_CHECK_UNARY(v21->contains(*v21));
+    FAST_CHECK_UNARY(!v21->contains(*v22));
+    FAST_CHECK_UNARY(!v21->contains(*v30));
+
+    FAST_CHECK_UNARY(!v22->contains(*u));
+    FAST_CHECK_UNARY(!v22->contains(*v));
+    FAST_CHECK_UNARY(!v22->contains(*v1));
+    FAST_CHECK_UNARY(!v22->contains(*v2));
+    FAST_CHECK_UNARY(!v22->contains(*v3));
+    FAST_CHECK_UNARY(!v22->contains(*v11));
+    FAST_CHECK_UNARY(!v22->contains(*v12));
+    FAST_CHECK_UNARY(!v22->contains(*v21));
+    FAST_CHECK_UNARY(v22->contains(*v22));
+    FAST_CHECK_UNARY(!v22->contains(*v30));
+
+    FAST_CHECK_UNARY(!v30->contains(*u));
+    FAST_CHECK_UNARY(!v30->contains(*v));
+    FAST_CHECK_UNARY(!v30->contains(*v1));
+    FAST_CHECK_UNARY(!v30->contains(*v2));
+    FAST_CHECK_UNARY(v30->contains(*v3));
+    FAST_CHECK_UNARY(!v30->contains(*v11));
+    FAST_CHECK_UNARY(!v30->contains(*v12));
+    FAST_CHECK_UNARY(!v30->contains(*v21));
+    FAST_CHECK_UNARY(v30->contains(*v22));
+    FAST_CHECK_UNARY(v30->contains(*v30));
+  }
+
+  {
+    FAST_CHECK_UNARY(u->intersects(*u));
+    FAST_CHECK_UNARY(!u->intersects(*v));
+    FAST_CHECK_UNARY(!u->intersects(*v1));
+    FAST_CHECK_UNARY(!u->intersects(*v2));
+    FAST_CHECK_UNARY(!u->intersects(*v3));
+    FAST_CHECK_UNARY(!u->intersects(*v11));
+    FAST_CHECK_UNARY(!u->intersects(*v12));
+    FAST_CHECK_UNARY(!u->intersects(*v21));
+    FAST_CHECK_UNARY(!u->intersects(*v22));
+    FAST_CHECK_UNARY(!u->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v->intersects(*u));
+    FAST_CHECK_UNARY(v->intersects(*v));
+    FAST_CHECK_UNARY(v->intersects(*v1));
+    FAST_CHECK_UNARY(v->intersects(*v2));
+    FAST_CHECK_UNARY(v->intersects(*v3));
+    FAST_CHECK_UNARY(v->intersects(*v11));
+    FAST_CHECK_UNARY(v->intersects(*v12));
+    FAST_CHECK_UNARY(v->intersects(*v21));
+    FAST_CHECK_UNARY(v->intersects(*v22));
+    FAST_CHECK_UNARY(v->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v1->intersects(*u));
+    FAST_CHECK_UNARY(v1->intersects(*v));
+    FAST_CHECK_UNARY(v1->intersects(*v1));
+    FAST_CHECK_UNARY(v1->intersects(*v2));
+    FAST_CHECK_UNARY(!v1->intersects(*v3));
+    FAST_CHECK_UNARY(v1->intersects(*v11));
+    FAST_CHECK_UNARY(v1->intersects(*v12));
+    FAST_CHECK_UNARY(v1->intersects(*v21));
+    FAST_CHECK_UNARY(!v1->intersects(*v22));
+    FAST_CHECK_UNARY(!v1->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v2->intersects(*u));
+    FAST_CHECK_UNARY(v2->intersects(*v));
+    FAST_CHECK_UNARY(v2->intersects(*v1));
+    FAST_CHECK_UNARY(v2->intersects(*v2));
+    FAST_CHECK_UNARY(v2->intersects(*v3));
+    FAST_CHECK_UNARY(v2->intersects(*v11));
+    FAST_CHECK_UNARY(v2->intersects(*v12));
+    FAST_CHECK_UNARY(v2->intersects(*v21));
+    FAST_CHECK_UNARY(v2->intersects(*v22));
+    FAST_CHECK_UNARY(v2->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v3->intersects(*u));
+    FAST_CHECK_UNARY(v3->intersects(*v));
+    FAST_CHECK_UNARY(!v3->intersects(*v1));
+    FAST_CHECK_UNARY(v3->intersects(*v2));
+    FAST_CHECK_UNARY(v3->intersects(*v3));
+    FAST_CHECK_UNARY(!v3->intersects(*v11));
+    FAST_CHECK_UNARY(!v3->intersects(*v12));
+    FAST_CHECK_UNARY(!v3->intersects(*v21));
+    FAST_CHECK_UNARY(v3->intersects(*v22));
+    FAST_CHECK_UNARY(v3->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v11->intersects(*u));
+    FAST_CHECK_UNARY(v11->intersects(*v));
+    FAST_CHECK_UNARY(v11->intersects(*v1));
+    FAST_CHECK_UNARY(v11->intersects(*v2));
+    FAST_CHECK_UNARY(!v11->intersects(*v3));
+    FAST_CHECK_UNARY(v11->intersects(*v11));
+    FAST_CHECK_UNARY(!v11->intersects(*v12));
+    FAST_CHECK_UNARY(!v11->intersects(*v21));
+    FAST_CHECK_UNARY(!v11->intersects(*v22));
+    FAST_CHECK_UNARY(!v11->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v12->intersects(*u));
+    FAST_CHECK_UNARY(v12->intersects(*v));
+    FAST_CHECK_UNARY(v12->intersects(*v1));
+    FAST_CHECK_UNARY(v12->intersects(*v2));
+    FAST_CHECK_UNARY(!v12->intersects(*v3));
+    FAST_CHECK_UNARY(!v12->intersects(*v11));
+    FAST_CHECK_UNARY(v12->intersects(*v12));
+    FAST_CHECK_UNARY(v12->intersects(*v21));
+    FAST_CHECK_UNARY(!v12->intersects(*v22));
+    FAST_CHECK_UNARY(!v12->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v21->intersects(*u));
+    FAST_CHECK_UNARY(v21->intersects(*v));
+    FAST_CHECK_UNARY(v21->intersects(*v1));
+    FAST_CHECK_UNARY(v21->intersects(*v2));
+    FAST_CHECK_UNARY(!v21->intersects(*v3));
+    FAST_CHECK_UNARY(!v21->intersects(*v11));
+    FAST_CHECK_UNARY(v21->intersects(*v12));
+    FAST_CHECK_UNARY(v21->intersects(*v21));
+    FAST_CHECK_UNARY(!v21->intersects(*v22));
+    FAST_CHECK_UNARY(!v21->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v22->intersects(*u));
+    FAST_CHECK_UNARY(v22->intersects(*v));
+    FAST_CHECK_UNARY(!v22->intersects(*v1));
+    FAST_CHECK_UNARY(v22->intersects(*v2));
+    FAST_CHECK_UNARY(v22->intersects(*v3));
+    FAST_CHECK_UNARY(!v22->intersects(*v11));
+    FAST_CHECK_UNARY(!v22->intersects(*v12));
+    FAST_CHECK_UNARY(!v22->intersects(*v21));
+    FAST_CHECK_UNARY(v22->intersects(*v22));
+    FAST_CHECK_UNARY(v22->intersects(*v30));
+
+    FAST_CHECK_UNARY(!v30->intersects(*u));
+    FAST_CHECK_UNARY(v30->intersects(*v));
+    FAST_CHECK_UNARY(!v30->intersects(*v1));
+    FAST_CHECK_UNARY(v30->intersects(*v2));
+    FAST_CHECK_UNARY(v30->intersects(*v3));
+    FAST_CHECK_UNARY(!v30->intersects(*v11));
+    FAST_CHECK_UNARY(!v30->intersects(*v12));
+    FAST_CHECK_UNARY(!v30->intersects(*v21));
+    FAST_CHECK_UNARY(v30->intersects(*v22));
+    FAST_CHECK_UNARY(v30->intersects(*v30));
+  }
 }
