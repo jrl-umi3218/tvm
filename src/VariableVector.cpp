@@ -10,6 +10,23 @@ int VariableVector::counter = 0;
 
 VariableVector::VariableVector() : size_(0) { getNewStamp(); }
 
+VariableVector::VariableVector(const VariableVector & other)
+  : VariableVector(other.variables())
+{
+}
+
+VariableVector & VariableVector::operator=(const VariableVector & other)
+{
+  clear();
+  add(other.variables());
+  return *this;
+}
+
+VariableVector::~VariableVector()
+{
+  clear();
+}
+
 bool VariableVector::add(VariablePtr v)
 {
   if(contains(*v.get()))
@@ -97,6 +114,15 @@ void VariableVector::remove(int i)
   remove_(it);
 }
 
+void VariableVector::clear()
+{
+  for (const auto& v: variables_)
+    v->startIn_.erase(id());
+  variables_.clear();
+  size_ = 0;
+  getNewStamp();
+}
+
 int VariableVector::totalSize() const { return size_; }
 
 int VariableVector::numberOfVariables() const { return static_cast<int>(variables_.size()); }
@@ -142,29 +168,6 @@ void VariableVector::setZero()
   }
 }
 
-void VariableVector::computeMapping() const
-{
-  int size = 0;
-  for(const auto & v : variables_)
-  {
-    v->mappingHelper_.start = size;
-    v->mappingHelper_.stamp = stamp_;
-    size += v->size();
-  }
-}
-
-std::map<const Variable *, Range> VariableVector::computeMappingMap() const
-{
-  computeMapping();
-  std::map<const Variable *, Range> m;
-  for(const auto & v : variables_)
-  {
-    m[v.get()] = {v->mappingHelper_.start, v->size()};
-  }
-
-  return m;
-}
-
 bool VariableVector::contains(const Variable & v) const
 {
   auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
@@ -184,18 +187,49 @@ int VariableVector::indexOf(const Variable & v) const
   }
 }
 
+Range VariableVector::getMappingOf(const Variable & v) const
+{
+  for (const auto& xi : variables_)
+  {
+    if (xi->contains(v))
+    {
+      int start = xi->startIn_[id()].start + static_cast<int>(v.value_.data() - xi->value_.data());
+      v.startIn_[id()] = {start, stamp()};
+      return {start, v.size()};
+    }
+  }
+
+  throw std::runtime_error("This variable is not part of the vector of variables.");
+}
+
+std::map<const Variable *, Range> VariableVector::computeMappingMap() const
+{
+  std::map<const Variable *, Range> m;
+  for(const auto & v : variables_)
+  {
+    m[v.get()] = {v->startIn_[id()].start, v->size()};
+  }
+
+  return m;
+}
+
 int VariableVector::stamp() const { return stamp_; }
 
 void VariableVector::add_(VariablePtr v)
 {
   variables_.push_back(v);
+  v->startIn_[id()] = {size_, -1}; // Variables added directly to the vector do no need a stamp
   size_ += v->size();
   getNewStamp();
 }
 
 void VariableVector::remove_(std::vector<VariablePtr>::const_iterator it)
 {
-  size_ -= (*it)->size();
+  int si = (*it)->size();
+  for (auto iti = it+1; iti!=end(); ++iti)
+    (*iti)->startIn_[id()].start -= si;
+  size_ -= si;
+  (*it)->startIn_.erase(id());
   variables_.erase(it);
   getNewStamp();
 }

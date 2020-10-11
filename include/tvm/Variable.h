@@ -233,8 +233,10 @@ private:
   /** If the variable has a time derivative, keep a pointer on it */
   std::unique_ptr<Variable> derivative_;
 
-  /** A helper structure for mapping purpose*/
-  mutable MappingHelper mappingHelper_;
+  /** The starting position of this variable w.r.t. a VariableVector identified
+    * by its id
+    */
+  mutable std::unordered_map<int, MappingHelper> startIn_;
 
   /** friendship declaration */
   friend class Space;

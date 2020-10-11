@@ -146,12 +146,7 @@ Range Variable::subvariableRange() const
   if(isSuperVariable())
     return {0, size()};
   else
-  {
-    if(derivativeNumber_ == 0)
-      return {shift_.rSize(), size()};
-    else
-      return {shift_.tSize(), size()};
-  }
+    return {static_cast<int>(value_.data() - superVariable_->value_.data()), size()};
 }
 
 bool Variable::contains(const Variable & v) const
@@ -183,24 +178,20 @@ VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space 
 
 Range Variable::getMappingIn(const VariableVector & variables) const
 {
-  if(mappingHelper_.stamp == variables.stamp())
-    return {mappingHelper_.start, size()};
-  else
+  auto it = startIn_.find(variables.id());
+  if (it != startIn_.end())
   {
-    if(variables.contains(*this))
-    {
-      variables.computeMapping();
-      return {mappingHelper_.start, size()};
-    }
-    else
-      throw std::runtime_error("This variable is not part of the vector of variables.");
+    if (it->second.stamp == -1 || it->second.stamp == variables.stamp())
+      return {it->second.start, size()};
   }
+  
+  return variables.getMappingOf(*this);
 }
 
 Variable::Variable(const Space & s, std::string_view name)
 : name_(name), space_(s), shift_(0), memory_(new double[s.rSize()]),
   value_(Eigen::Map<Eigen::VectorXd>(memory_, s.rSize())), derivativeNumber_(0), primitive_(nullptr),
-  superVariable_(nullptr), derivative_(nullptr), mappingHelper_()
+  superVariable_(nullptr), derivative_(nullptr), startIn_()
 {
   value_.setZero();
 }
@@ -212,7 +203,7 @@ Variable::Variable(Variable * var)
                                      var->space_.tSize())),
   derivativeNumber_(var->derivativeNumber_ + 1), primitive_(var),
   superVariable_(var->isSubvariable() ? dot(var->superVariable()).get() : nullptr), derivative_(nullptr),
-  mappingHelper_()
+  startIn_()
 {
   std::stringstream ss;
   if(derivativeNumber_ == 1)
@@ -230,7 +221,7 @@ Variable::Variable(Variable * var)
 Variable::Variable(Variable * var, const Space & space, std::string_view name, const Space & shift)
 : name_(name), space_(space), shift_(shift), memory_(nullptr),
   value_(Eigen::Map<Eigen::VectorXd>(var->memory_ + shift.rSize(), space.rSize())), derivativeNumber_(0),
-  primitive_(nullptr), superVariable_(var), derivative_(nullptr), mappingHelper_()
+  primitive_(nullptr), superVariable_(var), derivative_(nullptr), startIn_()
 {}
 
 VariablePtr Variable::shared_from_this()

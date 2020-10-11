@@ -6,6 +6,7 @@
 #include <tvm/defs.h>
 
 #include <tvm/internal/MatrixWithProperties.h>
+#include <tvm/internal/ObjWithId.h>
 
 #include <map>
 #include <memory>
@@ -34,7 +35,7 @@ namespace tvm
  *
  * FIXME would it make sense to derive from std::vector<std::shared_ptr<Variable>> ?
  */
-class TVM_DLLAPI VariableVector
+class TVM_DLLAPI VariableVector: public tvm::internal::ObjWithId
 {
 public:
   /** Construct an empty vector*/
@@ -52,6 +53,13 @@ public:
    */
   template<typename... VarPtr>
   VariableVector(VarPtr &&... variables);
+
+  /** Copy constructor*/
+  VariableVector(const VariableVector & other);
+
+  VariableVector& operator=(const VariableVector & other);
+
+  ~VariableVector();
 
   /** Add a variable to the vector if not already present.
    *
@@ -109,6 +117,9 @@ public:
    */
   void remove(int i);
 
+  /** Clear the vector*/
+  void clear();
+
   /** Sum of the sizes of all the variables.*/
   int totalSize() const;
   /** Number of variables*/
@@ -130,13 +141,7 @@ public:
   void value(const VectorConstRef & val);
   /** Set the value of all variables to 0.*/
   void setZero();
-  /** Compute the mapping for all variables in this vector. The result is
-   * stored in each variable and can be queried by Variable::getMappingIn.
-   */
-  void computeMapping() const;
 
-  /** Compute the mapping for every variabe and return it.*/
-  std::map<const Variable *, Range> computeMappingMap() const;
   /** Check if this vector contains variable \p v or not. */
   bool contains(const Variable & v) const;
 
@@ -144,8 +149,18 @@ public:
    * present.
    */
   int indexOf(const Variable & v) const;
+  
+  /** Return the mapping of \p v in this vector.
+   *
+   * This is meant for when the mapping has not been cached, and will cache it.
+   * You should always prefer the use of Variable::getMappingIn.
+   */
+  Range getMappingOf(const Variable & v) const;
 
-  /** A timestamp, used internally to determine if a mapping needs to be
+  /** Compute the mapping for every variabe and return it.*/
+  std::map<const Variable *, Range> computeMappingMap() const;
+
+  /** A timestamp, used internally to determine if a cached mapping needs to be
    * recomputed or not.
    */
   int stamp() const;
