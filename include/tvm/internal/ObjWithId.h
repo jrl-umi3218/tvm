@@ -17,7 +17,9 @@ class TVM_DLLAPI ObjWithId
 {
 public:
   ObjWithId(const ObjWithId &) = delete;
+  ObjWithId(ObjWithId&& other): id_(other.id_) { other.id_ = -1; }
   ObjWithId & operator=(const ObjWithId &) = delete;
+  ObjWithId & operator=(ObjWithId&& other) {id_ = other.id_; other.id_ = -1; return *this; }
 
   int id() const { return id_; }
 
