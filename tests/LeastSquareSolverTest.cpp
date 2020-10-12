@@ -58,6 +58,26 @@ std::unique_ptr<LinearizedControlProblem> circleIK()
   return lpb;
 }
 
+std::unique_ptr<LinearizedControlProblem> problemWithSubVariables() 
+{ 
+  VariablePtr x = Space(5).createVariable("x");
+  VariablePtr y = Space(3).createVariable("y");
+
+  VariablePtr x1 = x->subvariable(Space(3), "x1");
+  VariablePtr x2 = x->subvariable(Space(3), "x2", Space(2));
+  VariablePtr y1 = y->subvariable(Space(1), "y1");
+
+  Eigen::VectorXd e = Eigen::VectorXd::Ones(5);
+
+  auto lpb = std::make_unique<LinearizedControlProblem>();
+  lpb->add(x1 - y == 0., PriorityLevel(0));
+  lpb->add(e.transpose() * x == 0., PriorityLevel(0));
+  lpb->add(y == 1.,      PriorityLevel(1));
+  lpb->add(-1 <= x2 <= 0);
+  lpb->add(2 <= y1);
+  return lpb;
+}
+
 void testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
                  std::vector<std::shared_ptr<solver::abstract::LSSolverFactory>> configs,
                  double eps)
@@ -77,8 +97,10 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
 
   for(size_t i = 0; i < solutions.size(); ++i)
   {
+    std::cout << solutions[i].transpose() << std::endl;
     for(size_t j = i + 1; j < solutions.size(); ++j)
     {
+      std::cout << solutions[j].transpose() << std::endl;
       FAST_CHECK_UNARY(solutions[i].isApprox(solutions[j], eps));
     }
   }
@@ -87,6 +109,25 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
 TEST_CASE("Simple IK")
 {
   auto lpb = circleIK();
+  std::vector<std::shared_ptr<LSSolverFactory>> configs;
+#ifdef TVM_USE_LSSOL
+  configs.push_back(std::make_shared<LSSOLLSSolverFactory>());
+#endif
+#ifdef TVM_USE_QLD
+  configs.push_back(std::make_shared<QLDLSSolverFactory>());
+  configs.push_back(std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)));
+#endif
+#ifdef TVM_USE_QUADPROG
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
+#endif
+
+  testSolvers(lpb, configs, 1e-6);
+}
+
+TEST_CASE("Problem with subvariables")
+{
+  auto lpb = problemWithSubVariables();
   std::vector<std::shared_ptr<LSSolverFactory>> configs;
 #ifdef TVM_USE_LSSOL
   configs.push_back(std::make_shared<LSSOLLSSolverFactory>());
