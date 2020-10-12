@@ -56,11 +56,6 @@ void LeastSquareSolver::startBuild(const VariableVector & x,
 
   buildInProgress_ = true;
   variables_ = &x;
-  boundsOrder_.clear();
-  for(const auto & xi : variables())
-  {
-    boundsOrder_[xi.get()] = {};
-  }
 
   objectiveToAssignments_.clear();
   equalityConstraintToAssignments_.clear();
@@ -95,9 +90,7 @@ void LeastSquareSolver::addBound(LinearConstraintPtr bound)
   RangePtr range = std::make_shared<Range>(xi->getMappingIn(variables()));
 
   AutoMap autoMap(bound, assignments_, boundToAssignments_);
-  auto & first = boundsOrder_[xi.get()];
-  addBound_(bound, range, first.empty());
-  first.push_back(bound.get());
+  addBound_(bound, range, false);
 }
 
 void LeastSquareSolver::addConstraint(LinearConstraintPtr cstr)
@@ -150,6 +143,7 @@ bool LeastSquareSolver::solve()
     throw std::runtime_error("[LeastSquareSolver]: attempting to solve while in build mode");
   }
 
+  resetBounds_();
   preAssignmentProcess_();
   for(auto & a : assignments_)
     a->assignment.run();
@@ -332,14 +326,6 @@ void LeastSquareSolver::updateWeights(const internal::SolverEvents & se)
 
 bool LeastSquareSolver::updateVariables(const internal::SolverEvents & se)
 {
-  for(const auto & v : se.removedVariables())
-  {
-    boundsOrder_.erase(v.get());
-  }
-  for(const auto & v : se.addedVariables())
-  {
-    boundsOrder_[v.get()] = {};
-  }
   return (!(se.removedVariables().empty() && se.addedVariables().empty())) || se.hasHiddenVariableChange();
 }
 
@@ -376,38 +362,6 @@ LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraint
 
   for(const auto & b : se.removedBounds())
   {
-    Variable * xb = b->variables()[0].get();
-    assert(boundsOrder_.find(xb) != boundsOrder_.end());
-    auto & first = boundsOrder_[xb];
-    if(first[0] == b.get() && variables().contains(*xb))
-    {
-      // We need to remove the bound that appears first, and the associated variable
-      // is still present in the variable vector.
-      if(first.size() == 1)
-      {
-        // There will be no more bounds on xb.
-        auto & boundAssignment = boundToAssignments_[b.get()];
-        assert(boundAssignment.size() == 1);
-        // We retrieve the range on the bounds from the assignment because the variable
-        // mapping may have changed already but the assignment were not.
-        removeBounds_(boundAssignment[0]->assignment.target().range());
-      }
-      else
-      {
-        // We make the next bound constraint as first.
-        auto nextBound = first[1];
-        auto & nextBoundAssignments = boundToAssignments_[nextBound];
-        for(auto & a : nextBoundAssignments)
-          a->assignment = tvm::scheme::internal::Assignment::reprocess(a->assignment, b->variables()[0], true);
-      }
-      first.erase(first.begin());
-    }
-    else
-    {
-      auto it = std::find(first.begin(), first.end(), b.get());
-      first.erase(it);
-    }
-
     const auto & assignments = boundToAssignments_[b.get()];
     for(auto & a : assignments)
       a->markedForRemoval = true;

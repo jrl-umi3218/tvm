@@ -108,6 +108,12 @@ void QLDLeastSquareSolver::setMinimumNorm_()
   c_.setZero();
 }
 
+void QLDLeastSquareSolver::resetBounds_()
+{
+  xl_.setConstant(-big_number_);
+  xu_.setConstant(+big_number_);
+}
+
 void QLDLeastSquareSolver::preAssignmentProcess_() {}
 
 void QLDLeastSquareSolver::postAssignmentProcess_()

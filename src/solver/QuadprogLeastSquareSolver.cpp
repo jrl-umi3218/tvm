@@ -142,6 +142,12 @@ void QuadprogLeastSquareSolver::setMinimumNorm_()
   c_.setZero();
 }
 
+void QuadprogLeastSquareSolver::resetBounds_()
+{
+  xl_.setConstant(-big_number_);
+  xu_.setConstant(+big_number_);
+}
+
 void QuadprogLeastSquareSolver::preAssignmentProcess_()
 {
   // Some variables may be unbounded, which means no assignement will set the bounds to

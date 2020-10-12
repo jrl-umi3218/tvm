@@ -130,6 +130,7 @@ protected:
   virtual void addIneqalityConstraint_(LinearConstraintPtr cstr) = 0;
   virtual void addObjective_(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight = 1) = 0;
   virtual void setMinimumNorm_() = 0;
+  virtual void resetBounds_() = 0;
   virtual void preAssignmentProcess_() {}
   virtual void postAssignmentProcess_() {}
   virtual bool solve_() = 0;
@@ -195,8 +196,6 @@ private:
   bool buildInProgress_;
   bool verbose_;
   VariableVector const * variables_;
-  /** Used to track what is the first bound applied to a given variable, if any. */
-  map<Variable *, std::vector<constraint::abstract::LinearConstraint *>> boundsOrder_;
   /** List of assignments used for assembling the problem data. */
   AssignmentVector assignments_;
   /** Keeping tracks of which assignments are associated to a constraint.

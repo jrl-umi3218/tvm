@@ -48,6 +48,7 @@ protected:
   void addIneqalityConstraint_(LinearConstraintPtr cstr) override;
   void addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight) override;
   void setMinimumNorm_() override;
+  void resetBounds_() override;
   void preAssignmentProcess_() override;
   void postAssignmentProcess_() override;
   bool solve_() override;
