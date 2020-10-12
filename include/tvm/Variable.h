@@ -160,6 +160,14 @@ public:
    */
   Range getMappingIn(const VariableVector & variables) const;
 
+  /** Overload of enable_shared_from_this::shared_from_this, for technical purpose.
+   *
+   * \internal This is necessary because all derivative and subvariables are
+   * sharing the same ref counter as the primitive supervariable, while the
+   * default shared_from_this use the variable own (and unused) ref counter.
+   */
+  [[nodiscard]] VariablePtr shared_from_this();
+
   /** Helper to initialize a variable like an Eigen vector.*/
   Eigen::CommaInitializer<VectorRef> operator<<(double d);
 
@@ -185,14 +193,6 @@ private:
 
   /** Constructor for a subvariable of var */
   Variable(Variable * var, const Space & space, std::string_view name, const Space & shift);
-
-  /** Overload of enable_shared_from_this::shared_from_this, for technical purpose.
-    * 
-    * \internal This is necessary because all derivative and subvariables are
-    * sharing the same ref counter as the primitive supervariable, while the
-    * default shared_from_this use the variable own (and unused) ref counter.
-    */
-  [[nodiscard]] VariablePtr shared_from_this();
 
   /** Same as primitive<n> but without checking if n is valid.*/
   template<int n>
