@@ -119,47 +119,88 @@ TEST_CASE("Add/Remove")
   RangeCounting rc;
   std::unordered_map<int, int> count; // For ground truth
 
-  auto add = [&rc, &count](const Range & r) {
-    rc.add(r);
+  auto add = [&rc, &count](const Range & r, bool change) {
+    bool b = rc.add(r);
+    FAST_CHECK_EQ(b, change);
     addRange(count, r);
     checkCounting(rc, count);
   };
 
-  auto remove = [&rc, &count](const Range & r) {
-    rc.remove(r);
+  auto remove = [&rc, &count](const Range & r, bool change) {
+    bool b = rc.remove(r);
+    FAST_CHECK_EQ(b, change);
     removeRange(count, r);
     checkCounting(rc, count);
   };
 
   // add (3,4,5) -> (3,4,5)
-  add({3, 3});
+  add({3, 3}, true);
 
   // remove (3,4,5) -> ()
-  remove({3, 3});
+  remove({3, 3}, true);
 
-  // add (5,6) -> (3,4,5,6)
-  add({5, 2});
+  // add (5,6) -> (5,6)
+  add({5, 2}, true);
 
-  // add (3,4,5) -> (3,4,5)
-  add({3, 3});
+  // add (3,4,5) -> (3,4,5,6)
+  add({3, 3}, true);
 
   // add (8,9) -> (3,4,5,6,8,9)
-  add({8, 2});
+  add({8, 2}, true);
 
   // remove (4,5,6) -> (3,5,8,9)
-  remove({4, 3});
+  remove({4, 3}, true);
 
   // add (1,2,3,4,5,6,7) -> (1,2,3,4,5,6,7,8,9)
-  add({1, 7});
+  add({1, 7}, true);
 
   // remove (5,6,7,8,9) -> (1,2,3,4,5)
-  remove({5, 5});
+  remove({5, 5}, true);
 
   // remove (1,2,3) -> (3,4,5)
-  remove({1, 3});
+  remove({1, 3}, true);
 
   // remove (3,4,5) -> ()
-  remove({3, 3});
+  remove({3, 3}, true);
+
+  // add (3,4,5) -> (3,4,5), count [1 1 1]
+  add({3, 3}, true);
+
+  // add (5) -> (3,4,5), count [1,1,2]
+  add({5, 1}, false);
+
+  // add (0,1,2) -> (0,1,2,3,4,5), count [1,1,1,1,1,2]
+  add({0, 3}, true);
+
+  // add (1,2,3) -> (0,1,2,3,4,5), count [1,2,2,2,1,2]
+  add({1, 3}, false);
+
+  // remove (4,5) -> (0,1,2,3,5), count [1,2,2,2,,1]
+  remove({4, 2}, true);
+
+  // remove (2,3) -> (0,1,2,3,5), count [1,2,1,1,,1]
+  remove({2, 2}, false);
+
+  // remove (0,1) -> (1,2,3,5), count [1,1,1,,1]
+  remove({0, 2}, true);
+
+  // add (4) -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({4, 1}, true);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({0, 0}, false);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({3, 0}, false);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({6, 0}, false);
+
+  // remove (1) -> (2,3,4,5), count [1,1,1,1]
+  remove({1, 1}, true);
+
+  // remove (5) -> (2,3,4), count [1,1,1]
+  remove({5, 1}, true);
 }
 
 TEST_CASE("Check throws")

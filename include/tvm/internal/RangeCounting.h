@@ -4,7 +4,7 @@
 
 #include <tvm/api.h>
 
-#include <tvm/Variable.h> // Range
+#include <tvm/Range.h>
 
 #include <list>
 
@@ -52,10 +52,14 @@ public:
     }
   };
 
-  /** Add a range to the counting. */
-  void add(const Range & r);
-  /** Remove a range from the counting. */
-  void remove(const Range & r);
+  /** Add a range to the counting. Return true if this changes the outuput of
+   * \c ranges().
+   */
+  bool add(const Range & r);
+  /** Remove a range from the counting. Return true if this changes the outuput
+   * of \c ranges().
+   */
+  bool remove(const Range & r);
 
   /** Get a representation of number appearing as a list of ranges.*/
   const std::vector<Range> & ranges() const;
@@ -63,6 +67,9 @@ public:
   const std::list<Limit> & limits() const;
 
 private:
+  /** Set recompute_ = recompute || change and return chage. */
+  bool recompute(bool change);
+
   std::list<Limit> limits_;              // The representation of the current state.
   mutable bool recompute_ = false;       // Need to recompute intervals_. Used for lazy evaluation.
   mutable std::vector<Range> intervals_; // The range representation of the current state, reevaluated
