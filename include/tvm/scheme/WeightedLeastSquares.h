@@ -43,7 +43,7 @@ private:
     int maxp;
 
   protected:
-    void setVariablesToSolution_(VariableVector & x) override;
+    void setVariablesToSolution_(tvm::internal::VariableCountingVector & x) override;
   };
 
   const static internal::SchemeAbilities abilities_;
