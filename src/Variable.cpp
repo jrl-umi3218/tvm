@@ -179,12 +179,12 @@ VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space 
 Range Variable::getMappingIn(const VariableVector & variables) const
 {
   auto it = startIn_.find(variables.id());
-  if (it != startIn_.end())
+  if(it != startIn_.end())
   {
-    if (it->second.stamp == -1 || it->second.stamp == variables.stamp())
+    if(it->second.stamp == -1 || it->second.stamp == variables.stamp())
       return {it->second.start, size()};
   }
-  
+
   return variables.getMappingOf(*this);
 }
 
@@ -202,8 +202,7 @@ Variable::Variable(Variable * var)
                                                           : memory_,
                                      var->space_.tSize())),
   derivativeNumber_(var->derivativeNumber_ + 1), primitive_(var),
-  superVariable_(var->isSubvariable() ? dot(var->superVariable()).get() : nullptr), derivative_(nullptr),
-  startIn_()
+  superVariable_(var->isSubvariable() ? dot(var->superVariable()).get() : nullptr), derivative_(nullptr), startIn_()
 {
   std::stringstream ss;
   if(derivativeNumber_ == 1)

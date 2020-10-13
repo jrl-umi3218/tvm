@@ -35,7 +35,7 @@ namespace tvm
  *
  * FIXME would it make sense to derive from std::vector<std::shared_ptr<Variable>> ?
  */
-class TVM_DLLAPI VariableVector: public tvm::internal::ObjWithId
+class TVM_DLLAPI VariableVector : public tvm::internal::ObjWithId
 {
 public:
   /** Construct an empty vector*/
@@ -57,7 +57,7 @@ public:
   /** Copy constructor*/
   VariableVector(const VariableVector & other);
 
-  VariableVector& operator=(const VariableVector & other);
+  VariableVector & operator=(const VariableVector & other);
 
   ~VariableVector();
 
@@ -88,7 +88,7 @@ public:
    *
    * \param v The variable to be added.
    * \param containingIndex Specify what to return in case \p v is the subvariable
-   * of an already present variable. If \c false, return -1 in this case. If 
+   * of an already present variable. If \c false, return -1 in this case. If
    * \c true, return the index of the variable containing \p v.
    *
    * \returns Index of variable \p v in the vector. If \p v is a subvariable of an
@@ -149,7 +149,7 @@ public:
    * present.
    */
   int indexOf(const Variable & v) const;
-  
+
   /** Return the mapping of \p v in this vector.
    *
    * This is meant for when the mapping has not been cached, and will cache it.

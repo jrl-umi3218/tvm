@@ -10,10 +10,7 @@ int VariableVector::counter = 0;
 
 VariableVector::VariableVector() : size_(0) { getNewStamp(); }
 
-VariableVector::VariableVector(const VariableVector & other)
-  : VariableVector(other.variables())
-{
-}
+VariableVector::VariableVector(const VariableVector & other) : VariableVector(other.variables()) {}
 
 VariableVector & VariableVector::operator=(const VariableVector & other)
 {
@@ -22,10 +19,7 @@ VariableVector & VariableVector::operator=(const VariableVector & other)
   return *this;
 }
 
-VariableVector::~VariableVector()
-{
-  clear();
-}
+VariableVector::~VariableVector() { clear(); }
 
 bool VariableVector::add(VariablePtr v)
 {
@@ -61,7 +55,8 @@ void VariableVector::add(const VariableVector & variables) { add(variables.varia
 
 int VariableVector::addAndGetIndex(VariablePtr v, bool containingIndex)
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(*v) || it->intersects(*v); });
+  auto it = find_if(variables_.begin(), variables_.end(),
+                    [&v](const VariablePtr & it) { return it->contains(*v) || it->intersects(*v); });
   if(it == variables_.end())
   {
     add_(v);
@@ -69,18 +64,18 @@ int VariableVector::addAndGetIndex(VariablePtr v, bool containingIndex)
   }
   else
   {
-    if(*(it->get()) == *v)        // it is equal to v
+    if(*(it->get()) == *v) // it is equal to v
     {
       return static_cast<int>(it - variables_.begin());
     }
-    else if((*it)->contains(*v))  // v is strictly contained in it
+    else if((*it)->contains(*v)) // v is strictly contained in it
     {
       if(containingIndex)
         return static_cast<int>(it - variables_.begin());
       else
         return -1;
     }
-    else                          // v only intersects it
+    else // v only intersects it
     {
       throw std::runtime_error("[VariableVector::add] Attempting to add a variable that intersects a variable already "
                                "present but is not contained by it");
@@ -116,7 +111,7 @@ void VariableVector::remove(int i)
 
 void VariableVector::clear()
 {
-  for (const auto& v: variables_)
+  for(const auto & v : variables_)
     v->startIn_.erase(id());
   variables_.clear();
   size_ = 0;
@@ -189,9 +184,9 @@ int VariableVector::indexOf(const Variable & v) const
 
 Range VariableVector::getMappingOf(const Variable & v) const
 {
-  for (const auto& xi : variables_)
+  for(const auto & xi : variables_)
   {
-    if (xi->contains(v))
+    if(xi->contains(v))
     {
       int start = xi->startIn_[id()].start + static_cast<int>(v.value_.data() - xi->value_.data());
       v.startIn_[id()] = {start, stamp()};
@@ -226,7 +221,7 @@ void VariableVector::add_(VariablePtr v)
 void VariableVector::remove_(std::vector<VariablePtr>::const_iterator it)
 {
   int si = (*it)->size();
-  for (auto iti = it+1; iti!=end(); ++iti)
+  for(auto iti = it + 1; iti != end(); ++iti)
     (*iti)->startIn_[id()].start -= si;
   size_ -= si;
   (*it)->startIn_.erase(id());

@@ -58,8 +58,8 @@ std::unique_ptr<LinearizedControlProblem> circleIK()
   return lpb;
 }
 
-std::unique_ptr<LinearizedControlProblem> problemWithSubVariables() 
-{ 
+std::unique_ptr<LinearizedControlProblem> problemWithSubVariables()
+{
   VariablePtr x = Space(5).createVariable("x");
   VariablePtr y = Space(3).createVariable("y");
 
@@ -72,7 +72,7 @@ std::unique_ptr<LinearizedControlProblem> problemWithSubVariables()
   auto lpb = std::make_unique<LinearizedControlProblem>();
   lpb->add(x1 - y == 0., PriorityLevel(0));
   lpb->add(e.transpose() * x == 0., PriorityLevel(0));
-  lpb->add(y == 1.,      PriorityLevel(1));
+  lpb->add(y == 1., PriorityLevel(1));
   lpb->add(-1 <= x2 <= 0);
   lpb->add(2 <= y1);
   return lpb;

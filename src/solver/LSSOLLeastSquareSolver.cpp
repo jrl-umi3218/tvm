@@ -110,8 +110,8 @@ void LSSOLLeastSquareSolver::setMinimumNorm_()
   b_.setZero();
 }
 
-void LSSOLLeastSquareSolver::resetBounds_() 
-{ 
+void LSSOLLeastSquareSolver::resetBounds_()
+{
   int n = variables().totalSize();
   l_.head(n).setConstant(-big_number_);
   u_.head(n).setConstant(+big_number_);

@@ -20,7 +20,7 @@ bool RangeCounting::add(const Range & r)
     Limit l = {r.start, true};
     Limit u = {r.end(), false};
     auto it = limits_.cbegin();
-    for(; it != limits_.cend(); ++it) 
+    for(; it != limits_.cend(); ++it)
     {
       if(it->i_ > l.i_ || (it->i_ == l.i_ && !it->lower_))
         break;
@@ -157,10 +157,10 @@ const std::vector<Range> & RangeCounting::ranges() const
 
 const std::list<RangeCounting::Limit> & RangeCounting::limits() const { return limits_; }
 
-bool RangeCounting::recompute(bool change) 
-{ 
+bool RangeCounting::recompute(bool change)
+{
   recompute_ = recompute_ || change;
-  return change; 
+  return change;
 }
 
 } // namespace tvm::internal

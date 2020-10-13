@@ -123,7 +123,7 @@ TEST_CASE("Test VariableVector creation 3")
   VariablePtr u = Space(8).createVariable("u");
   VariablePtr v = Space(4).createVariable("v");
   VariablePtr w = Space(7).createVariable("w");
-  VariablePtr u0 = u->subvariable(Space(8), "u0");            // u0 == u
+  VariablePtr u0 = u->subvariable(Space(8), "u0"); // u0 == u
   VariablePtr u1 = u->subvariable(Space(4), "u1", Space(0));
   VariablePtr u2 = u->subvariable(Space(4), "u2", Space(2));
   VariablePtr u3 = u->subvariable(Space(2), "u3", Space(5));
@@ -143,14 +143,14 @@ TEST_CASE("Test VariableVector creation 3")
   FAST_CHECK_UNARY_FALSE(vv.remove(*u2));
   FAST_CHECK_UNARY_FALSE(vv.remove(*u3));
   FAST_CHECK_UNARY_FALSE(vv.remove(*u4));
-  FAST_CHECK_UNARY(vv.remove(*u0));         // This removes u
+  FAST_CHECK_UNARY(vv.remove(*u0)); // This removes u
   FAST_CHECK_EQ(vv.numberOfVariables(), 2);
   FAST_CHECK_EQ(vv.totalSize(), 11);
 
   FAST_CHECK_UNARY(vv.add(u2));
   CHECK_THROWS(vv.add(u1));
   FAST_CHECK_UNARY_FALSE(vv.add(u4));
-  FAST_CHECK_UNARY(vv.remove(*u4));         //This removes u2
+  FAST_CHECK_UNARY(vv.remove(*u4)); // This removes u2
   FAST_CHECK_UNARY(vv.remove(*w));
   CHECK_NOTHROW(vv.add(u1));
   FAST_CHECK_UNARY(vv.add(w));
@@ -175,17 +175,17 @@ TEST_CASE("addAndGetIndex")
   FAST_CHECK_EQ(vv.addAndGetIndex(u0, true), 0);
   FAST_CHECK_EQ(vv.addAndGetIndex(u1), -1);
   FAST_CHECK_EQ(vv.addAndGetIndex(u2, true), 0);
-  vv.remove(0);   // remove u
+  vv.remove(0); // remove u
   FAST_CHECK_EQ(vv.addAndGetIndex(u2), 1);
   FAST_CHECK_EQ(vv.addAndGetIndex(u4), 1);
   FAST_CHECK_EQ(vv.addAndGetIndex(u4, true), 1);
   CHECK_THROWS(vv.addAndGetIndex(u3));
   CHECK_THROWS(vv.addAndGetIndex(u3, true));
-  FAST_CHECK_UNARY(vv.remove(*u4)); //remove u2 (==u4)
+  FAST_CHECK_UNARY(vv.remove(*u4)); // remove u2 (==u4)
   FAST_CHECK_EQ(vv.addAndGetIndex(u1), 1);
   FAST_CHECK_EQ(vv.addAndGetIndex(w), 2);
   FAST_CHECK_EQ(vv.addAndGetIndex(u3), 3);
-  FAST_CHECK_EQ(vv.numberOfVariables(), 4);   //v u1 w u3
+  FAST_CHECK_EQ(vv.numberOfVariables(), 4); // v u1 w u3
   FAST_CHECK_EQ(vv.totalSize(), 17);
 }
 
@@ -260,7 +260,7 @@ TEST_CASE("Test Mapping 2")
   testMapping(v1, v2, v3, v4);
 }
 
-TEST_CASE("Test Mapping 3") 
+TEST_CASE("Test Mapping 3")
 {
   VariablePtr u = Space(8).createVariable("u");
   VariablePtr v = Space(10).createVariable("v");
@@ -274,42 +274,42 @@ TEST_CASE("Test Mapping 3")
   VariablePtr v11 = v1->subvariable(Space(3), "v11", Space(0));
   VariablePtr v12 = v1->subvariable(Space(3), "v12", Space(4));
 
-  VariableVector vv1(u,v);
-  FAST_CHECK_EQ(u1->getMappingIn(vv1), Range(0,3));
-  FAST_CHECK_EQ(u2->getMappingIn(vv1), Range(3,3));
-  FAST_CHECK_EQ(u3->getMappingIn(vv1), Range(6,2));
-  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range(9,7));
-  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range(13,5));
-  FAST_CHECK_EQ(v11->getMappingIn(vv1), Range(9,3));
-  FAST_CHECK_EQ(v12->getMappingIn(vv1), Range(13,3));
+  VariableVector vv1(u, v);
+  FAST_CHECK_EQ(u1->getMappingIn(vv1), Range(0, 3));
+  FAST_CHECK_EQ(u2->getMappingIn(vv1), Range(3, 3));
+  FAST_CHECK_EQ(u3->getMappingIn(vv1), Range(6, 2));
+  FAST_CHECK_EQ(v1->getMappingIn(vv1), Range(9, 7));
+  FAST_CHECK_EQ(v2->getMappingIn(vv1), Range(13, 5));
+  FAST_CHECK_EQ(v11->getMappingIn(vv1), Range(9, 3));
+  FAST_CHECK_EQ(v12->getMappingIn(vv1), Range(13, 3));
 
-  //size:            2   7  5   3
+  // size:            2   7  5   3
   VariableVector vv2(u3, w, v2, u1);
   CHECK_THROWS(u->getMappingIn(vv2));
   CHECK_THROWS(v->getMappingIn(vv2));
-  FAST_CHECK_EQ(w->getMappingIn(vv2), Range(2,7));
-  FAST_CHECK_EQ(u1->getMappingIn(vv2), Range(14,3));
+  FAST_CHECK_EQ(w->getMappingIn(vv2), Range(2, 7));
+  FAST_CHECK_EQ(u1->getMappingIn(vv2), Range(14, 3));
   CHECK_THROWS(u2->getMappingIn(vv2));
-  FAST_CHECK_EQ(u3->getMappingIn(vv2), Range(0,2));
+  FAST_CHECK_EQ(u3->getMappingIn(vv2), Range(0, 2));
   CHECK_THROWS(v1->getMappingIn(vv2));
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range(9,5));
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range(9, 5));
   CHECK_THROWS(v11->getMappingIn(vv2));
-  FAST_CHECK_EQ(v12->getMappingIn(vv2), Range(9,3));
+  FAST_CHECK_EQ(v12->getMappingIn(vv2), Range(9, 3));
 
   vv2.add(u2);
-  FAST_CHECK_EQ(u2->getMappingIn(vv2), Range(17,3));
+  FAST_CHECK_EQ(u2->getMappingIn(vv2), Range(17, 3));
 
   vv2.remove(1);
   CHECK_THROWS(u->getMappingIn(vv2));
   CHECK_THROWS(v->getMappingIn(vv2));
   CHECK_THROWS(w->getMappingIn(vv2));
-  FAST_CHECK_EQ(u1->getMappingIn(vv2), Range(7,3));
-  FAST_CHECK_EQ(u2->getMappingIn(vv2), Range(10,3));
-  FAST_CHECK_EQ(u3->getMappingIn(vv2), Range(0,2));
+  FAST_CHECK_EQ(u1->getMappingIn(vv2), Range(7, 3));
+  FAST_CHECK_EQ(u2->getMappingIn(vv2), Range(10, 3));
+  FAST_CHECK_EQ(u3->getMappingIn(vv2), Range(0, 2));
   CHECK_THROWS(v1->getMappingIn(vv2));
-  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range(2,5));
+  FAST_CHECK_EQ(v2->getMappingIn(vv2), Range(2, 5));
   CHECK_THROWS(v11->getMappingIn(vv2));
-  FAST_CHECK_EQ(v12->getMappingIn(vv2), Range(2,3));
+  FAST_CHECK_EQ(v12->getMappingIn(vv2), Range(2, 3));
 }
 
 void testDerivation(VariablePtr v1, VariablePtr v2, VariablePtr v3)

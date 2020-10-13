@@ -79,7 +79,7 @@ void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem & pro
       }
     }
 
-    memory->variables();          // update variable vector if needed
+    memory->variables(); // update variable vector if needed
     memory->solver->process(se);
   }
 }
@@ -296,7 +296,10 @@ WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstr
 : LinearizedProblemComputationData(solverId), solver(std::move(solver))
 {}
 
-void WeightedLeastSquares::Memory::setVariablesToSolution_(tvm::internal::VariableCountingVector & x) { x.value(solver->result()); }
+void WeightedLeastSquares::Memory::setVariablesToSolution_(tvm::internal::VariableCountingVector & x)
+{
+  x.value(solver->result());
+}
 
 } // namespace scheme
 

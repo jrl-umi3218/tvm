@@ -81,10 +81,7 @@ private:
 
 inline int ProblemComputationData::solverId() const { return solverId_; }
 
-inline bool ProblemComputationData::addVariable(VariablePtr var)
-{
-  return variables_.add(var);
-}
+inline bool ProblemComputationData::addVariable(VariablePtr var) { return variables_.add(var); }
 
 inline void ProblemComputationData::addVariable(const VariableVector & vars)
 {

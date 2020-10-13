@@ -111,26 +111,26 @@ public:
   /** Return whether or not this variable is the subvariable of another variable.*/
   bool isSubvariable() const;
   /** If this variable is a subvariable, return the variable it is a subvariable
-    * of. Otherwise, return this variable.*/
+   * of. Otherwise, return this variable.*/
   VariablePtr superVariable() const;
   /** Return true if this variable is not the subvariable of any other variable.*/
   bool isSuperVariable() const;
   /** Return true if \p v is a subvariable of this variable and this variable is
-    * a supervariable.
-    *
-    * The requirement that this variable is a supervariable makes it different
-    * from Variable::contains. 
-    */
+   * a supervariable.
+   *
+   * The requirement that this variable is a supervariable makes it different
+   * from Variable::contains.
+   */
   bool isSuperVariableOf(const Variable & v) const;
   /** If this variable is a subvariable, return its range within its supevariable.
-    * If not, simply return [0, size()].*/
+   * If not, simply return [0, size()].*/
   Range subvariableRange() const;
   /** Return true if \p v is a sub-part of this variable.
-    *
-    * To the difference of Variable::isSuperVariableOf, it is sufficient that
-    * both this variable and \p v have the same supervariable. This variable does
-    * not need to be a supervariable itself.
-    */
+   *
+   * To the difference of Variable::isSuperVariableOf, it is sufficient that
+   * both this variable and \p v have the same supervariable. This variable does
+   * not need to be a supervariable itself.
+   */
   bool contains(const Variable & v) const;
   /** Return this variable and v both contain the same subpart of a variable.*/
   bool intersects(const Variable & v) const;
@@ -234,8 +234,8 @@ private:
   std::unique_ptr<Variable> derivative_;
 
   /** The starting position of this variable w.r.t. a VariableVector identified
-    * by its id
-    */
+   * by its id
+   */
   mutable std::unordered_map<int, MappingHelper> startIn_;
 
   /** friendship declaration */
@@ -283,7 +283,6 @@ inline bool operator==(const Variable & u, const Variable & v)
 }
 
 inline bool operator!=(const Variable & u, const Variable & v) { return !(u == v); }
-
 
 } // namespace tvm
 

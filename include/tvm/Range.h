@@ -34,9 +34,9 @@ public:
   bool contains(int i) const { return start <= i && i < end(); }
 
   /** Return true if \p other is contained in the range.
-    *
-    * Empty ranges are considered contained if their start is in the range.
-    */
+   *
+   * Empty ranges are considered contained if their start is in the range.
+   */
   bool contains(const Range & other) const { return this->contains(other.start) && this->end() >= other.end(); }
 
   bool intersects(const Range & other) const
