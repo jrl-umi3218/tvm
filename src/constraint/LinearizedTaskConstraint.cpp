@@ -144,7 +144,7 @@ void LinearizedTaskConstraint::updateU2Kin() { uRef() = td2_->value(); }
 
 void LinearizedTaskConstraint::updateU2Dyn() { uRef() = td2_->value() - f_->normalAcceleration(); }
 
-const tvm::internal::MatrixWithProperties & LinearizedTaskConstraint::jacobian(const Variable & x) const
+tvm::internal::MatrixConstRefWithProperties LinearizedTaskConstraint::jacobian(const Variable & x) const
 {
   switch(td_->order())
   {

@@ -47,7 +47,7 @@ public:
    * See \a value for an explanation of how to specify the values.
    */
   template<typename... Vals>
-  const Eigen::MatrixXd & jacobian(const Variable & x, Vals &&... vals) const;
+  tvm::internal::MatrixConstRefWithProperties jacobian(const Variable & x, Vals &&... vals) const;
 
   /** Get the velocity of the function for given values and velocities of its
    * variables.
@@ -226,7 +226,8 @@ inline const Eigen::VectorXd & UpdatelessFunction::value(Vals &&... vals) const
 }
 
 template<typename... Vals>
-inline const Eigen::MatrixXd & UpdatelessFunction::jacobian(const Variable & x, Vals &&... vals) const
+inline tvm::internal::MatrixConstRefWithProperties UpdatelessFunction::jacobian(const Variable & x,
+                                                                                Vals &&... vals) const
 {
   using Output = tvm::function::abstract::Function::Output;
   if(f_->isOutputEnabled(Output::Jacobian))

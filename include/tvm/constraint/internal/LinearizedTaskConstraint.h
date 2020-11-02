@@ -174,7 +174,7 @@ public:
   void updateU2Dyn();
 
   /** Return the jacobian matrix corresponding to \p x */
-  const tvm::internal::MatrixWithProperties & jacobian(const Variable & x) const override;
+  tvm::internal::MatrixConstRefWithProperties jacobian(const Variable & x) const override;
 
 private:
   FunctionPtr f_;

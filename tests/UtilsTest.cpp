@@ -447,34 +447,34 @@ TEST_CASE("Test graph generation")
   }
 
   // store values
-  auto v1 = f1->value();
-  auto v2 = f2->value();
-  auto v3 = f3->value();
-  auto v4 = f4->value();
-  auto v12 = f12->value();
-  auto v34 = f34->value();
-  auto v = f->value();
-  auto J1 = f1->jacobian(*x);
-  auto J2 = f2->jacobian(*x);
-  auto J3 = f3->jacobian(*x);
-  auto J4 = f4->jacobian(*x);
-  auto J12 = f12->jacobian(*x);
-  auto J34 = f34->jacobian(*x);
-  auto J = f->jacobian(*x);
-  auto dv1 = f1->velocity();
-  auto dv2 = f2->velocity();
-  auto dv3 = f3->velocity();
-  auto dv4 = f4->velocity();
-  auto dv12 = f12->velocity();
-  auto dv34 = f34->velocity();
-  auto dv = f->velocity();
-  auto na1 = f1->normalAcceleration();
-  auto na2 = f2->normalAcceleration();
-  auto na3 = f3->normalAcceleration();
-  auto na4 = f4->normalAcceleration();
-  auto na12 = f12->normalAcceleration();
-  auto na34 = f34->normalAcceleration();
-  auto na = f->normalAcceleration();
+  VectorXd v1 = f1->value();
+  VectorXd v2 = f2->value();
+  VectorXd v3 = f3->value();
+  VectorXd v4 = f4->value();
+  VectorXd v12 = f12->value();
+  VectorXd v34 = f34->value();
+  VectorXd v = f->value();
+  MatrixXd J1 = f1->jacobian(*x);
+  MatrixXd J2 = f2->jacobian(*x);
+  MatrixXd J3 = f3->jacobian(*x);
+  MatrixXd J4 = f4->jacobian(*x);
+  MatrixXd J12 = f12->jacobian(*x);
+  MatrixXd J34 = f34->jacobian(*x);
+  MatrixXd J = f->jacobian(*x);
+  VectorXd dv1 = f1->velocity();
+  VectorXd dv2 = f2->velocity();
+  VectorXd dv3 = f3->velocity();
+  VectorXd dv4 = f4->velocity();
+  VectorXd dv12 = f12->velocity();
+  VectorXd dv34 = f34->velocity();
+  VectorXd dv = f->velocity();
+  VectorXd na1 = f1->normalAcceleration();
+  VectorXd na2 = f2->normalAcceleration();
+  VectorXd na3 = f3->normalAcceleration();
+  VectorXd na4 = f4->normalAcceleration();
+  VectorXd na12 = f12->normalAcceleration();
+  VectorXd na34 = f34->normalAcceleration();
+  VectorXd na = f->normalAcceleration();
 
   // create graphs
   auto Value = function::abstract::Function::Output::Value;
@@ -506,14 +506,14 @@ TEST_CASE("Test graph generation")
   FAST_CHECK_NE(f12->velocity()[0], dv12[0]);
   FAST_CHECK_EQ(f34->velocity()[0], dv34[0]);
   FAST_CHECK_EQ(f->velocity()[0], dv[0]);
-  FAST_CHECK_EQ(f1->jacobian(*x)(0), J1(0));
-  FAST_CHECK_EQ(f2->jacobian(*x)(0), J2(0));
-  FAST_CHECK_NE(f3->jacobian(*x)(0), J3(0));
-  FAST_CHECK_NE(f4->jacobian(*x)(0), J4(0));
-  FAST_CHECK_EQ(f12->jacobian(*x)(0), J12(0));
-  FAST_CHECK_EQ(f34->jacobian(*x)(0),
-                J34(0)); // for the difference of sphere functions, the jacobian is independent of x
-  FAST_CHECK_EQ(f->jacobian(*x)(0), J(0));
+  FAST_CHECK_EQ(f1->jacobian(*x)(0, 0), J1(0, 0));
+  FAST_CHECK_EQ(f2->jacobian(*x)(0, 0), J2(0, 0));
+  FAST_CHECK_NE(f3->jacobian(*x)(0, 0), J3(0, 0));
+  FAST_CHECK_NE(f4->jacobian(*x)(0, 0), J4(0, 0));
+  FAST_CHECK_EQ(f12->jacobian(*x)(0, 0), J12(0, 0));
+  FAST_CHECK_EQ(f34->jacobian(*x)(0, 0),
+                J34(0, 0)); // for the difference of sphere functions, the jacobian is independent of x
+  FAST_CHECK_EQ(f->jacobian(*x)(0, 0), J(0, 0));
   FAST_CHECK_NE(f1->normalAcceleration()[0],
                 na1[0]); // for SphereFunction, the normal acceleration is updated when the velocity is updated
   FAST_CHECK_NE(f2->normalAcceleration()[0],
