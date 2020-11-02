@@ -56,8 +56,18 @@ public:
   ObjectWithProperties() {}
 
   template<typename OtherDerived>
+  ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other)
+  : MatrixType(other), properties_()
+  {}
+
+  template<typename OtherDerived>
   ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other, const MatrixProperties & p)
   : MatrixType(other), properties_(p)
+  {}
+
+  template<typename OtherType>
+  ObjectWithProperties(const ObjectWithProperties<OtherType> & other)
+  : MatrixType(other), properties_(other.properties())
   {}
 
   template<typename OtherDerived>
@@ -114,6 +124,7 @@ inline ObjectWithProperties<MatrixType> & KeepProperties<MatrixType>::operator=(
 
 using MatrixWithProperties = ObjectWithProperties<Eigen::MatrixXd>;
 using VectorWithProperties = ObjectWithProperties<Eigen::VectorXd>;
+using MatrixConstRefWithProperties = ObjectWithProperties<Eigen::Ref<const Eigen::MatrixXd>>;
 
 } // namespace internal
 
