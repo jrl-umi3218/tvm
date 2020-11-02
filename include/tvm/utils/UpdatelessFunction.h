@@ -84,7 +84,7 @@ public:
    * velocities.
    */
   template<typename... Vals>
-  const Eigen::MatrixXd & JDot(const Variable & x, Vals &&... vals) const;
+  tvm::internal::MatrixConstRefWithProperties JDot(const Variable & x, Vals &&... vals) const;
 
 private:
   static Eigen::VectorXd toVec(std::initializer_list<double> val);
@@ -275,7 +275,7 @@ inline const Eigen::VectorXd & UpdatelessFunction::normalAcceleration(Vals &&...
 }
 
 template<typename... Vals>
-inline const Eigen::MatrixXd & UpdatelessFunction::JDot(const Variable & x, Vals &&... vals) const
+inline tvm::internal::MatrixConstRefWithProperties UpdatelessFunction::JDot(const Variable & x, Vals &&... vals) const
 {
   using Output = tvm::function::abstract::Function::Output;
   if(f_->isOutputEnabled(Output::JDot))
