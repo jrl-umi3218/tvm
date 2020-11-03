@@ -365,10 +365,10 @@ struct Test
     MatrixXd f = from;
     MatrixXd t = to;
 
-    Eigen::internal::set_is_malloc_allowed(false);
-    auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst);
+    tvm::utils::override_is_malloc_allowed(true);
+    auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst); 
     ca.run();
-    Eigen::internal::set_is_malloc_allowed(true);
+    tvm::utils::restore_is_malloc_allowed();
     assign(A, W, M, f, t, w, Mult);
 
     return t.isApprox(to);
@@ -402,10 +402,10 @@ struct Test
     Ref<const MatrixXd> r3{Mult};
     Ref<const VectorXd> r4{From};
 
-    Eigen::internal::set_is_malloc_allowed(false);
+    tvm::utils::override_is_malloc_allowed(true);
     auto ca = build<VectorXd, A, W, M, F>(to2, s, v, Mult, custom, From, cst);
     ca.run();
-    Eigen::internal::set_is_malloc_allowed(true);
+    tvm::utils::restore_is_malloc_allowed();
     assign(A, W, M, f, t, w, Mult);
 
     return t.isApprox(to2);
@@ -440,10 +440,10 @@ struct TestNoFrom
 
     MatrixXd t = to;
 
-    Eigen::internal::set_is_malloc_allowed(false);
+    tvm::utils::override_is_malloc_allowed(true);
     auto ca = CompiledAssignmentWrapper<Type>::template make<A, NONE, IDENTITY, ZERO>(to);
     ca.run();
-    Eigen::internal::set_is_malloc_allowed(true);
+    tvm::utils::restore_is_malloc_allowed();
     assign(A, t);
 
     FAST_CHECK_UNARY(t.isApprox(to));

@@ -2,7 +2,8 @@
 
 #pragma once
 
-#define EIGEN_RUNTIME_NO_MALLOC
+#include <tvm/utils/memoryChecks.h>
+
 #include <Eigen/Core>
 
 #include <type_traits>
@@ -187,16 +188,10 @@ public:
   const MatrixType & cache(const T & M)
   {
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
-    {
-      Eigen::internal::set_is_malloc_allowed(true);
-      cache_ = M;
-      return cache_;
-      Eigen::internal::set_is_malloc_allowed(false);
-    }
-    else
+    TVM_ALLOW_EIGEN_MALLOC(cache_ = M);
+#else
+    cache_ = M;
 #endif
-      cache_ = M;
     return cache_;
   }
 
@@ -677,17 +672,10 @@ public:
     // a CustomProduct class to be used instead of a function pointer for
     // MatrixMultBase<Custom>, to get the column size of the product
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
-    {
-      Eigen::internal::set_is_malloc_allowed(true);
-      this->applyMatrixMultCached(this->cache(), this->from());
-      Eigen::internal::set_is_malloc_allowed(false);
-    }
-    else
+    TVM_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
+#else
+    this->applyMatrixMultCached(this->cache(), this->from());
 #endif
-    {
-      this->applyMatrixMultCached(this->cache(), this->from());
-    }
     this->assign(to_, this->applyWeightMult(this->cache()));
   }
 
@@ -695,17 +683,10 @@ public:
   typename std::enable_if<use_product_cache<U, A, W, M, F>::value && use_assign_cache<U, A, W, M, F>::value>::type run()
   {
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
-    {
-      Eigen::internal::set_is_malloc_allowed(true);
-      this->applyMatrixMultCached(this->cache(), this->from());
-      Eigen::internal::set_is_malloc_allowed(false);
-    }
-    else
+    TVM_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
+#else
+    this->applyMatrixMultCached(this->cache(), this->from());
 #endif
-    {
-      this->applyMatrixMultCached(this->cache(), this->from());
-    }
     this->cache() = this->applyWeightMult(this->cache());
     this->assign(to_, this->cache());
   }
