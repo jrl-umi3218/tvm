@@ -64,6 +64,7 @@ set(TVM_SOURCES
 
   utils/UpdatelessFunction.cpp
   utils/checkFunction.cpp
+  utils/memoryChecks.cpp
 )
 
 set(TVM_ROBOT_SOURCES
@@ -202,6 +203,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
+  ${TVM_INCLUDE_DIR}/utils/memoryChecks.h
 )
 
 set(TVM_ROBOT_HEADERS
