@@ -4,7 +4,7 @@
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
 
-#define AUTHORIZE_MALLOC_FOR_CACHE
+#define EIGEN_RUNTIME_NO_MALLOC
 #include <tvm/scheme/internal/CompiledAssignment.h>
 #include <tvm/scheme/internal/CompiledAssignmentWrapper.h>
 
@@ -365,7 +365,7 @@ struct Test
     MatrixXd f = from;
     MatrixXd t = to;
 
-    tvm::utils::override_is_malloc_allowed(true);
+    tvm::utils::override_is_malloc_allowed(false);
     auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst); 
     ca.run();
     tvm::utils::restore_is_malloc_allowed();
@@ -402,7 +402,7 @@ struct Test
     Ref<const MatrixXd> r3{Mult};
     Ref<const VectorXd> r4{From};
 
-    tvm::utils::override_is_malloc_allowed(true);
+    tvm::utils::override_is_malloc_allowed(false);
     auto ca = build<VectorXd, A, W, M, F>(to2, s, v, Mult, custom, From, cst);
     ca.run();
     tvm::utils::restore_is_malloc_allowed();
@@ -440,7 +440,7 @@ struct TestNoFrom
 
     MatrixXd t = to;
 
-    tvm::utils::override_is_malloc_allowed(true);
+    tvm::utils::override_is_malloc_allowed(false);
     auto ca = CompiledAssignmentWrapper<Type>::template make<A, NONE, IDENTITY, ZERO>(to);
     ca.run();
     tvm::utils::restore_is_malloc_allowed();
@@ -528,6 +528,7 @@ TEST_CASE("Test compiled assignments")
 {
   MatrixXd A = MatrixXd::Ones(5, 5);
   MatrixXd B = MatrixXd::Zero(5, 5);
+
   testBatch(A, B);
 
   testBatch(A.block(1, 1, 3, 3), B.topLeftCorner<3, 3>());
