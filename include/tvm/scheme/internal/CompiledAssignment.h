@@ -188,7 +188,7 @@ public:
   const MatrixType & cache(const T & M)
   {
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    TVM_ALLOW_EIGEN_MALLOC(cache_ = M);
+    TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(cache_ = M);
 #else
     cache_ = M;
 #endif
@@ -672,7 +672,7 @@ public:
     // a CustomProduct class to be used instead of a function pointer for
     // MatrixMultBase<Custom>, to get the column size of the product
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    TVM_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
+    TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
 #else
     this->applyMatrixMultCached(this->cache(), this->from());
 #endif
@@ -683,7 +683,7 @@ public:
   typename std::enable_if<use_product_cache<U, A, W, M, F>::value && use_assign_cache<U, A, W, M, F>::value>::type run()
   {
 #ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    TVM_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
+    TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(this->applyMatrixMultCached(this->cache(), this->from()));
 #else
     this->applyMatrixMultCached(this->cache(), this->from());
 #endif
