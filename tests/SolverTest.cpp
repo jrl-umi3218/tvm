@@ -106,7 +106,9 @@ TEST_CASE("Substitution")
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
     scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+    tvm::utils::set_is_malloc_allowed(false);
     solver.solve(lpb);
+    tvm::utils::set_is_malloc_allowed(true);
     ddxs = dot(x, 2)->value();
     ddqs = dot(q, 2)->value();
   }

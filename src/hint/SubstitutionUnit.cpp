@@ -3,6 +3,7 @@
 #include <tvm/Variable.h>
 #include <tvm/hint/internal/GenericCalculator.h>
 #include <tvm/hint/internal/SubstitutionUnit.h>
+#include <tvm/utils/memoryChecks.h>
 
 #include <algorithm>
 #include <set>
@@ -82,8 +83,10 @@ SubstitutionUnit::SubstitutionUnit(const std::vector<Substitution> & substitutio
   extractSubstitutions(substitutionPool, groups, order);
   scanSubstitutions();
   computeDependencies();
+  tvm::utils::override_is_malloc_allowed(true);
   initializeMatrices();
   createFunctions();
+  tvm::utils::restore_is_malloc_allowed();
 }
 
 void SubstitutionUnit::update()
