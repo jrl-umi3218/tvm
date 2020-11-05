@@ -43,6 +43,9 @@ public:
   template<typename Problem>
   std::unique_ptr<internal::ProblemComputationData> createComputationData(const Problem & problem) const;
 
+  template<typename Problem>
+  void updateComputationData(Problem & problem, internal::ProblemComputationData * data) const;
+
   /** Returns a reference to the derived object */
   Derived & derived() { return *static_cast<Derived *>(this); }
   /** Returns a const reference to the derived object */
@@ -69,7 +72,7 @@ inline bool ResolutionScheme<Derived>::solve(Problem & problem) const
 {
   auto data = getComputationData(problem, *this);
   problem.update();
-  derived().updateComputationData_(problem, data);
+  updateComputationData(problem, data);
   bool b = derived().solve_(problem, data);
   data->setVariablesToSolution();
   problem.substitutions().updateVariableValues();
@@ -81,7 +84,19 @@ template<typename Problem>
 inline std::unique_ptr<internal::ProblemComputationData> ResolutionScheme<Derived>::createComputationData(
     const Problem & problem) const
 {
+  tvm::utils::override_is_malloc_allowed(true);
   return derived().createComputationData_(problem);
+  tvm::utils::restore_is_malloc_allowed();
+}
+
+template<typename Derived>
+template<typename Problem>
+void ResolutionScheme<Derived>::updateComputationData(Problem & problem,
+                                                      internal::ProblemComputationData * data) const
+{
+  tvm::utils::override_is_malloc_allowed(true);
+  derived().updateComputationData_(problem, data);
+  tvm::utils::restore_is_malloc_allowed();
 }
 
 template<typename Derived>
