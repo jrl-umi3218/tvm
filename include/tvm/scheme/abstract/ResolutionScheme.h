@@ -6,6 +6,7 @@
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
 #include <tvm/scheme/internal/SchemeAbilities.h>
+#include <tvm/utils/memoryChecks.h>
 
 namespace tvm
 {
@@ -44,7 +45,7 @@ public:
   std::unique_ptr<internal::ProblemComputationData> createComputationData(const Problem & problem) const;
 
   template<typename Problem>
-  void updateComputationData(Problem & problem, internal::ProblemComputationData * data) const;
+  void updateComputationData(const Problem & problem, internal::ProblemComputationData * data) const;
 
   /** Returns a reference to the derived object */
   Derived & derived() { return *static_cast<Derived *>(this); }
@@ -91,7 +92,7 @@ inline std::unique_ptr<internal::ProblemComputationData> ResolutionScheme<Derive
 
 template<typename Derived>
 template<typename Problem>
-void ResolutionScheme<Derived>::updateComputationData(Problem & problem,
+void ResolutionScheme<Derived>::updateComputationData(const Problem & problem,
                                                       internal::ProblemComputationData * data) const
 {
   tvm::utils::override_is_malloc_allowed(true);

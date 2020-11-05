@@ -114,16 +114,16 @@ public:
   WeightedLeastSquares & operator=(WeightedLeastSquares &&) = delete;
 
   /** Private interface for CRTP*/
-  bool solve_(LinearizedControlProblem & problem, internal::ProblemComputationData * data) const;
-  void updateComputationData_(LinearizedControlProblem & problem, internal::ProblemComputationData * data) const;
+  bool solve_(const LinearizedControlProblem & problem, internal::ProblemComputationData * data) const;
+  void updateComputationData_(const LinearizedControlProblem & problem, internal::ProblemComputationData * data) const;
   std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem & problem) const;
 
 protected:
-  void addTask(LinearizedControlProblem & problem,
+  void addTask(const LinearizedControlProblem & problem,
                Memory * memory,
                TaskWithRequirements * task,
                solver::internal::SolverEvents & se) const;
-  void removeTask(LinearizedControlProblem & problem,
+  void removeTask(const LinearizedControlProblem & problem,
                   Memory * memory,
                   TaskWithRequirements * task,
                   solver::internal::SolverEvents & se) const;
