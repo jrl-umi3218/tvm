@@ -366,7 +366,7 @@ struct Test
     MatrixXd t = to;
 
     tvm::utils::override_is_malloc_allowed(false);
-    auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst); 
+    auto ca = build<Type, A, W, M, F>(to, s, v, Mult, custom, from, cst);
     ca.run();
     tvm::utils::restore_is_malloc_allowed();
     assign(A, W, M, f, t, w, Mult);

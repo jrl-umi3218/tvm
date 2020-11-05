@@ -196,8 +196,9 @@ public:
     {
       // For the case where M = matrix * Constant, Eigen create a temporary for constant before evaluating the product
       // We avoid that here, by doing the product by hand.
-      // This could be further optimized by taking into acount the WeightMult at once, and possibly without using a cache.
-      cache_ = M.lhs().rowwise().sum();      // TODO compare to a handmade loop suming the columns
+      // This could be further optimized by taking into acount the WeightMult at once, and possibly without using a
+      // cache.
+      cache_ = M.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns
       cache_ *= M.rhs().functor().m_other;
     }
     else

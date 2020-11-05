@@ -56,8 +56,7 @@ public:
   ObjectWithProperties() {}
 
   template<typename OtherDerived>
-  ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other)
-  : MatrixType(other), properties_()
+  ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other) : MatrixType(other), properties_()
   {}
 
   template<typename OtherDerived>

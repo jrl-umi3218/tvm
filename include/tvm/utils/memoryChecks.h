@@ -58,11 +58,11 @@ inline bool set_is_malloc_allowed(bool allow)
 }
 
 /** Record whether dynamic allocation of memory in Eigen objects is allowed or not and set \p allow instead.
-  * Records are made with a stack. 
-  * 
-  * Any call to this function should be mirrored by a call to restore_is_malloc_allowed().
-  * It is advised to call restore_is_malloc_allowed() in the same scope.
-  */
+ * Records are made with a stack.
+ *
+ * Any call to this function should be mirrored by a call to restore_is_malloc_allowed().
+ * It is advised to call restore_is_malloc_allowed() in the same scope.
+ */
 inline void override_is_malloc_allowed(bool allow)
 {
   check_malloc_coherency();
@@ -79,7 +79,7 @@ inline void restore_is_malloc_allowed()
 }
 #endif
 
-#define TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(x)               \
+#define TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(x)     \
   tvm::utils::override_is_malloc_allowed(true); \
   x;                                            \
   tvm::utils::restore_is_malloc_allowed();

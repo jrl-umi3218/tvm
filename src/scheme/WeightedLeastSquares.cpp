@@ -22,7 +22,8 @@ const internal::SchemeAbilities WeightedLeastSquares::abilities_ = {2,
                                                                     {{0, {true, {VET::L2}}}, {1, {false, {VET::L2}}}},
                                                                     true};
 
-bool WeightedLeastSquares::solve_(const LinearizedControlProblem & problem, internal::ProblemComputationData * data) const
+bool WeightedLeastSquares::solve_(const LinearizedControlProblem & problem,
+                                  internal::ProblemComputationData * data) const
 {
   if(problem.size() > problem.substitutions().substitutions().size())
   {
