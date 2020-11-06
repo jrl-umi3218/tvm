@@ -132,7 +132,6 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
     else
     {
       const auto & sub = xsub[static_cast<size_t>(it - x.begin())];
-      const auto & v = sub->variables();
       const auto & ps = sub->jacobian(*x[0]).properties();
       if(case1)
         return (p * ps).isPositiveDefinite();

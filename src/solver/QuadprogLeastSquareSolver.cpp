@@ -1,7 +1,5 @@
 /* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#pragma once
-
 #include <tvm/solver/QuadprogLeastSquareSolver.h>
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
@@ -15,9 +13,9 @@ namespace solver
 {
 QuadprogLeastSquareSolver::QuadprogLeastSquareSolver(const QuadprogLSSolverOptions & options)
 : LeastSquareSolver(options.verbose().value()), Aineq_(A_.middleRows(0, 0)), bineq_(b_.segment(0, 0)),
-  xl_(b_.segment(0, 0)), xu_(b_.segment(0, 0)), big_number_(options.big_number().value()),
-  cholesky_(options.cholesky().value()), choleskyDamping_(options.choleskyDamping().value()),
-  damping_(options.damping().value()), autoMinNorm_(false)
+  xl_(b_.segment(0, 0)), xu_(b_.segment(0, 0)), autoMinNorm_(false), big_number_(options.big_number().value()),
+  damping_(options.damping().value()), cholesky_(options.cholesky().value()),
+  choleskyDamping_(options.choleskyDamping().value())
 {}
 
 void QuadprogLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds)
@@ -235,12 +233,12 @@ void QuadprogLeastSquareSolver::removeBounds_(const Range & range)
 
 void QuadprogLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(A_, b_);
+  target.changeData(MatrixRef(A_), b_);
 }
 
 void QuadprogLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(Aineq_, bineq_);
+  target.changeData(MatrixRef(Aineq_), bineq_);
 }
 
 void QuadprogLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)

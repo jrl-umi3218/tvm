@@ -25,7 +25,7 @@ const internal::SchemeAbilities WeightedLeastSquares::abilities_ = {2,
 bool WeightedLeastSquares::solve_(const LinearizedControlProblem & problem,
                                   internal::ProblemComputationData * data) const
 {
-  if(problem.size() > problem.substitutions().substitutions().size())
+  if(problem.size() > static_cast<int>(problem.substitutions().substitutions().size()))
   {
     Memory * memory = static_cast<Memory *>(data);
     return memory->solver->solve();
@@ -179,7 +179,6 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
   // assigments for bounds
   for(const auto & b : bounds)
   {
-    const auto & xi = b.constraint->variables()[0];
     int p = b.requirements->priorityLevel().value();
     if(p == 0)
     {

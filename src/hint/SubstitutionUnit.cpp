@@ -314,7 +314,7 @@ void SubstitutionUnit::scanSubstitutions()
       cIsZero_.push_back(false);
     }
     int mi = 0;
-    for(const auto c : s.constraints())
+    for(const auto & c : s.constraints())
     {
       sub2cstr_[i].push_back(constraints_.size());
       constraints_.push_back(c);
@@ -359,7 +359,7 @@ void SubstitutionUnit::initializeMatrices()
   M_.resize(x_.totalSize(), y_.totalSize());
   AsZ_.resize(x_.totalSize(), z_.totalSize());
   u_.resize(x_.totalSize());
-  for(const auto c : calculators_)
+  for(const auto & c : calculators_)
   {
     auto mr = c->m() - c->r();
     StB_.emplace_back(mr, y_.totalSize());
