@@ -187,7 +187,7 @@ void QLDLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTar
 
 void QLDLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(D_, e_);
+  target.changeData(MatrixRef(D_), e_);
 }
 
 void QLDLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)

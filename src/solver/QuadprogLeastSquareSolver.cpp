@@ -248,7 +248,7 @@ void QuadprogLeastSquareSolver::updateBoundTargetData(scheme::internal::Assignme
 
 void QuadprogLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(D_, e_);
+  target.changeData(MatrixRef(D_), e_);
 }
 
 void QuadprogLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)

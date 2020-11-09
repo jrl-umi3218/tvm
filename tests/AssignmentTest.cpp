@@ -500,7 +500,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::EQUAL;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[0]);
   }
   // target Cx=d
@@ -522,7 +522,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::GREATER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[3]);
   }
   // target Cx>=d
@@ -544,7 +544,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::LOWER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[6]);
   }
   // target Cx<=d
@@ -595,7 +595,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::EQUAL;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[0]);
   }
   // target Cx=d
@@ -617,7 +617,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::GREATER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[3]);
   }
   // target Cx>=d
@@ -639,7 +639,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::LOWER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[6]);
   }
   // target Cx<=d
@@ -680,7 +680,7 @@ void checkSimpleBound(BLCPtr c)
   auto dRange = std::make_shared<Range>(0, 1);
 
   // target l<=x<=u
-  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  AssignmentTarget at(dRange, VectorRef(dMem->l), dMem->u);
   checkBoundAssignment(c, at, *dMem);
 }
 
@@ -690,7 +690,7 @@ void checkSimpleBound(BLCPtr c1, BLCPtr c2)
   auto dRange = std::make_shared<Range>(0, 1);
 
   // target l<=x<=u
-  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  AssignmentTarget at(dRange, VectorRef(dMem->l), dMem->u);
   checkBoundAssignment(c1, c2, at, *dMem);
 }
 
