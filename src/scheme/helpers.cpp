@@ -18,7 +18,7 @@ bool isBound(const ConstraintPtr & c)
   const auto & vars = c->variables();
   if(vars.numberOfVariables() == 0)
     return false;
-  const auto & p = c->jacobian(*vars[0]).properties();
+  auto p = c->jacobian(*vars[0]).properties();
   return (c->linearIn(*vars[0]) && vars.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
 }
 
@@ -45,7 +45,7 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
       const auto & v = sub->variables();
       if(v.numberOfVariables() != 1)
         return false;
-      const auto & p = sub->jacobian(*v[0]).properties();
+      auto p = sub->jacobian(*v[0]).properties();
       // There could be 0 variables in sub. In that case we have a trivial
       // constraint that we do not consider as a bound.
       return (p.isDiagonal() && p.isInvertible());
@@ -120,7 +120,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
         assert(false);
     }
 
-    const auto & p = c->jacobian(*c->variables()[0]).properties();
+    auto p = c->jacobian(*c->variables()[0]).properties();
     auto it = std::find(x.begin(), x.end(), c->variables()[0]);
     if(it == x.end())
     {
@@ -132,7 +132,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
     else
     {
       const auto & sub = xsub[static_cast<size_t>(it - x.begin())];
-      const auto & ps = sub->jacobian(*x[0]).properties();
+      auto ps = sub->jacobian(*x[0]).properties();
       if(case1)
         return (p * ps).isPositiveDefinite();
       else
