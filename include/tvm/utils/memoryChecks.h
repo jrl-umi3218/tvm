@@ -15,6 +15,8 @@ inline bool set_is_malloc_allowed(bool b) { return b; }
 inline void override_is_malloc_allowed(bool) {}
 inline void restore_is_malloc_allowed() {}
 #else
+namespace internal
+{
 TVM_DLLAPI bool is_malloc_allowed_();
 TVM_DLLAPI bool set_is_malloc_allowed_(bool allow);
 TVM_DLLAPI void override_is_malloc_allowed_(bool v);
@@ -40,20 +42,21 @@ inline void enforce_malloc_coherency()
   Eigen::internal::set_is_malloc_allowed(is_malloc_allowed_());
 #  endif
 }
+} // namespace internal
 
 /** Return whether dynamic allocation of memory in Eigen objects is allowed or not.*/
 inline bool is_malloc_allowed()
 {
-  check_malloc_coherency();
-  return is_malloc_allowed_();
+  internal::check_malloc_coherency();
+  return internal::is_malloc_allowed_();
 }
 
 /** Set whether dynamic allocation of memory in Eigen objects is allowed or not.*/
 inline bool set_is_malloc_allowed(bool allow)
 {
-  check_malloc_coherency();
-  set_is_malloc_allowed_(allow);
-  enforce_malloc_coherency();
+  internal::check_malloc_coherency();
+  internal::set_is_malloc_allowed_(allow);
+  internal::enforce_malloc_coherency();
   return allow;
 }
 
@@ -65,17 +68,17 @@ inline bool set_is_malloc_allowed(bool allow)
  */
 inline void override_is_malloc_allowed(bool allow)
 {
-  check_malloc_coherency();
-  override_is_malloc_allowed_(allow);
-  enforce_malloc_coherency();
+  internal::check_malloc_coherency();
+  internal::override_is_malloc_allowed_(allow);
+  internal::enforce_malloc_coherency();
 }
 
 /** Restore the latest value recorded by override_is_malloc_allowed that was not already restored.*/
 inline void restore_is_malloc_allowed()
 {
-  check_malloc_coherency();
-  restore_is_malloc_allowed_();
-  enforce_malloc_coherency();
+  internal::check_malloc_coherency();
+  internal::restore_is_malloc_allowed_();
+  internal::enforce_malloc_coherency();
 }
 #endif
 
