@@ -12,9 +12,9 @@ namespace tvm
 namespace solver
 {
 QLDLeastSquareSolver::QLDLeastSquareSolver(const QLDLSSolverOptions & options)
-: LeastSquareSolver(options.verbose().value()), Aineq_(A_.bottomRows(0)), bineq_(b_.tail(0)),
-  big_number_(options.big_number().value()), cholesky_(options.cholesky().value()),
-  choleskyDamping_(options.choleskyDamping().value()), eps_(options.eps().value()), autoMinNorm_(false)
+: LeastSquareSolver(options.verbose().value()), Aineq_(A_.bottomRows(0)), bineq_(b_.tail(0)), autoMinNorm_(false),
+  big_number_(options.big_number().value()), eps_(options.eps().value()), cholesky_(options.cholesky().value()),
+  choleskyDamping_(options.choleskyDamping().value())
 {}
 
 void QLDLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
@@ -178,12 +178,12 @@ void QLDLeastSquareSolver::removeBounds_(const Range & range)
 
 void QLDLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(A_, b_);
+  target.changeData(MatrixRef(A_), b_);
 }
 
 void QLDLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(Aineq_, bineq_);
+  target.changeData(MatrixRef(Aineq_), bineq_);
 }
 
 void QLDLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
@@ -193,7 +193,7 @@ void QLDLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTar
 
 void QLDLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(D_, e_);
+  target.changeData(MatrixRef(D_), e_);
 }
 
 void QLDLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)

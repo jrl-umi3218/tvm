@@ -305,6 +305,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     buildPb(pbGroundTruth, tasks, added);
 
     // Now we solve both problem. Only pb is performing an update
+    tvm::utils::set_is_malloc_allowed(false);
 #if defined(TVM_USE_LSSOL)
     FAST_CHECK_UNARY(solverLssol.solve(pbGroundTruth));
 #elif defined(TVM_USE_QLD)
@@ -326,6 +327,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     FAST_CHECK_UNARY(solverQuadprog.solve(pb));
     checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
+    tvm::utils::set_is_malloc_allowed(true);
   }
 }
 
@@ -410,6 +412,7 @@ void test3Change(const std::bitset<8> & selection)
         buildPb(pbGroundTruth, tasks, added);
 
         // Now we solve both problem. Only pb is performing an update
+        tvm::utils::set_is_malloc_allowed(false);
 #if defined(TVM_USE_LSSOL)
         FAST_CHECK_UNARY(solverLssol.solve(pbGroundTruth));
 #elif defined(TVM_USE_QLD)
@@ -431,6 +434,7 @@ void test3Change(const std::bitset<8> & selection)
         FAST_CHECK_UNARY(solverQuadprog.solve(pb));
         checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
+        tvm::utils::set_is_malloc_allowed(true);
       }
     }
   }

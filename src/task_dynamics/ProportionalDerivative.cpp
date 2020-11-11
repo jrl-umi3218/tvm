@@ -157,7 +157,7 @@ void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd & kp)
   kv_.emplace<2>(2 * dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose());
 }
 
-void ProportionalDerivative::Impl::checkGainSize(double k) const
+void ProportionalDerivative::Impl::checkGainSize(double) const
 {
   // do nothing
 }

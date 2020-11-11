@@ -188,7 +188,7 @@ DiagonalCalculator::Impl::Impl(const std::vector<LinearConstraintPtr> & cstr,
 
 void DiagonalCalculator::Impl::update_()
 {
-  const auto & A = constraints_[0]->jacobian(*variables_[0]);
+  auto A = constraints_[0]->jacobian(*variables_[0]);
   for(size_t i = 0; i < nnz_.size(); ++i)
   {
     inverse_[static_cast<DenseIndex>(i)] = 1. / A(innz_[i], nnz_[i]);

@@ -22,9 +22,10 @@ const internal::SchemeAbilities WeightedLeastSquares::abilities_ = {2,
                                                                     {{0, {true, {VET::L2}}}, {1, {false, {VET::L2}}}},
                                                                     true};
 
-bool WeightedLeastSquares::solve_(LinearizedControlProblem & problem, internal::ProblemComputationData * data) const
+bool WeightedLeastSquares::solve_(const LinearizedControlProblem & problem,
+                                  internal::ProblemComputationData * data) const
 {
-  if(problem.size() > problem.substitutions().substitutions().size())
+  if(problem.size() > static_cast<int>(problem.substitutions().substitutions().size()))
   {
     Memory * memory = static_cast<Memory *>(data);
     return memory->solver->solve();
@@ -36,7 +37,7 @@ bool WeightedLeastSquares::solve_(LinearizedControlProblem & problem, internal::
   }
 }
 
-void WeightedLeastSquares::updateComputationData_(LinearizedControlProblem & problem,
+void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem & problem,
                                                   internal::ProblemComputationData * data) const
 {
   solver::internal::SolverEvents se;
@@ -179,7 +180,6 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
   // assigments for bounds
   for(const auto & b : bounds)
   {
-    const auto & xi = b.constraint->variables()[0];
     int p = b.requirements->priorityLevel().value();
     if(p == 0)
     {
@@ -197,7 +197,7 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
   return memory;
 }
 
-void WeightedLeastSquares::addTask(LinearizedControlProblem & problem,
+void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
                                    Memory * memory,
                                    TaskWithRequirements * task,
                                    solver::internal::SolverEvents & se) const
@@ -244,7 +244,7 @@ void WeightedLeastSquares::addTask(LinearizedControlProblem & problem,
   }
 }
 
-void WeightedLeastSquares::removeTask(LinearizedControlProblem & problem,
+void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
                                       Memory * memory,
                                       TaskWithRequirements * task,
                                       solver::internal::SolverEvents & se) const

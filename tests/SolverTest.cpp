@@ -1,5 +1,7 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#define EIGEN_RUNTIME_NO_MALLOC
+
 #include "SolverTestFunctions.h"
 
 #include <tvm/ControlProblem.h>
@@ -63,7 +65,9 @@ TEST_CASE("Substitution")
     auto t4 = lpb.add(idq == 0., task_dynamics::None(), {requirements::PriorityLevel(1)});
 
     scheme::WeightedLeastSquares solver(solver::DefaultLSSolverFactory{});
+    tvm::utils::set_is_malloc_allowed(false);
     solver.solve(lpb);
+    tvm::utils::set_is_malloc_allowed(true);
     ddx0 = dot(x, 2)->value();
     ddq0 = dot(q, 2)->value();
   }
@@ -102,7 +106,9 @@ TEST_CASE("Substitution")
     lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
 
     scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+    tvm::utils::set_is_malloc_allowed(false);
     solver.solve(lpb);
+    tvm::utils::set_is_malloc_allowed(true);
     ddxs = dot(x, 2)->value();
     ddqs = dot(q, 2)->value();
   }

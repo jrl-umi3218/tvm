@@ -57,7 +57,7 @@ public:
   /** Return the jacobian matrix of this entity corresponding to the variable
    * \p x
    */
-  virtual const MatrixWithProperties & jacobian(const Variable & x) const;
+  virtual MatrixConstRefWithProperties jacobian(const Variable & x) const;
 
   /** Linearity w.r.t \p x*/
   bool linearIn(const Variable & x) const;
@@ -169,7 +169,7 @@ protected:
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }
 
-inline const MatrixWithProperties & FirstOrderProvider::jacobian(const Variable & x) const { return jacobian_.at(&x); }
+inline MatrixConstRefWithProperties FirstOrderProvider::jacobian(const Variable & x) const { return jacobian_.at(&x); }
 
 inline bool FirstOrderProvider::linearIn(const Variable & x) const { return linear_.at(&x); }
 

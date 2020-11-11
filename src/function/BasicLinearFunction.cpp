@@ -33,7 +33,7 @@ BasicLinearFunction::BasicLinearFunction(const std::vector<MatrixConstRef> & A,
     throw std::runtime_error("The number of matrices and variables is incoherent.");
 
   auto v = x.begin();
-  for(const Eigen::MatrixXd & a : A)
+  for(const auto & a : A)
   {
     add(a, *v);
     ++v;

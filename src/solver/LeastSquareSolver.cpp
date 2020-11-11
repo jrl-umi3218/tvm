@@ -39,7 +39,7 @@ private:
 namespace tvm::solver::abstract
 {
 LeastSquareSolver::LeastSquareSolver(bool verbose)
-: objSize_(-1), eqSize_(-1), ineqSize_(-1), buildInProgress_(false), subs_(nullptr), verbose_(verbose),
+: objSize_(-1), eqSize_(-1), ineqSize_(-1), buildInProgress_(false), verbose_(verbose), subs_(nullptr),
   variables_(nullptr)
 {}
 
@@ -232,7 +232,7 @@ void LeastSquareSolver::process(const internal::SolverEvents & se)
   if(impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
     updateTargetRange(
         boundToAssignments_, dummy, [&](const auto & b) { return b.variables()[0]->getMappingIn(variables()); },
-        [](const auto & b) { return 0; });
+        [](const auto &) { return 0; });
 
   if(impact.objectives_)
     updateTargetRange(
@@ -440,7 +440,7 @@ LeastSquareSolver::ImpactFromChanges & LeastSquareSolver::ImpactFromChanges::orA
   return *this;
 }
 
-void LeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
+void LeastSquareSolver::applyImpactLogic(ImpactFromChanges &)
 {
   // do nothing;
 }

@@ -28,7 +28,7 @@ Reference::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &
 
 void Reference::Impl::updateValue() { value_ = ref_->value(); }
 
-void Reference::Impl::ref(const FunctionPtr & r)
+void Reference::Impl::ref(const FunctionPtr &)
 {
   // Changing the reference requires recomputing the computation graph
   // We do not have the proper "event" system to handle that for now
