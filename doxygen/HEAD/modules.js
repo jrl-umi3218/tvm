@@ -1,4 +1,4 @@
 var modules =
 [
-    [ "CheckGroup", "a00378.html", "a00378" ]
+    [ "CheckGroup", "a00381.html", "a00381" ]
 ];

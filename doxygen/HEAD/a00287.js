@@ -1,6 +1,6 @@
 var a00287 =
 [
-    [ "ProportionalDerivative", "a01757.html", "a01757" ],
-    [ "Impl", "a01761.html", "a01761" ],
+    [ "ProportionalDerivative", "a01760.html", "a01760" ],
+    [ "Impl", "a01764.html", "a01764" ],
     [ "PD", "a00287.html#abbc550226fefd54eb4205711373370ee", null ]
 ];

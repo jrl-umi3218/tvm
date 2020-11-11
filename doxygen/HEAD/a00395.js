@@ -1,8 +1,11 @@
 var a00395 =
 [
-    [ "Node", "a01057.html", "a01057" ],
-    [ "Outputs", "a01061.html", "a01061" ],
-    [ "OutputSelector", "a01077.html", "a01077" ],
-    [ "SelectorMembers", "a01069.html", "a01069" ],
-    [ "SelectorMembers< false >", "a01073.html", null ]
+    [ "DataException", "a01012.html", null ],
+    [ "DuplicateVariable", "a01028.html", null ],
+    [ "Exception", "a01008.html", "a01008" ],
+    [ "FunctionException", "a01020.html", null ],
+    [ "NonExistingVariable", "a01032.html", null ],
+    [ "NotImplemented", "a01036.html", null ],
+    [ "UnimplementedOutput", "a01024.html", null ],
+    [ "UnusedOutput", "a01016.html", null ]
 ];

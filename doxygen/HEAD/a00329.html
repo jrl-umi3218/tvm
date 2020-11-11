@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: UpdatelessFunction.h File Reference</title>
+<title>TVM: sch.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,31 +89,38 @@ $(document).ready(function(){initNavTree('a00329.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">UpdatelessFunction.h File Reference</div>  </div>
+<div class="title">sch.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00041.html">tvm/function/abstract/Function.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00065.html">tvm/graph/CallGraph.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00122.html">tvm/internal/meta.h</a>&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;initializer_list&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
+<code>#include &lt;sch/CD/CD_Pair.h&gt;</code><br />
+<code>#include &lt;sch/S_Polyhedron/S_Polyhedron.h&gt;</code><br />
+<code>#include &lt;SpaceVecAlg/SpaceVecAlg&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html">tvm::utils::UpdatelessFunction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class wraps a function to mask the update mechanism to the user, by providing methods as value and jacobian that can be called directly with the values of the variables.  <a href="a01849.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
-<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="memitem:a00383"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html">tvm</a></td></tr>
+<tr class="memdesc:a00383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00401"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00401.html">tvm::utils</a></td></tr>
+<tr class="memitem:a00404"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html">tvm::utils</a></td></tr>
+<tr class="memdesc:a00404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3de0bbbdb09bf2e7b1e540b416b0bffd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html#a3de0bbbdb09bf2e7b1e540b416b0bffd">tvm::utils::transform</a> (sch::S_Object &amp;obj, const sva::PTransformd &amp;t)</td></tr>
+<tr class="memdesc:a3de0bbbdb09bf2e7b1e540b416b0bffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set <code>obj</code> pose to <code>t</code>.  <a href="a00404.html#a3de0bbbdb09bf2e7b1e540b416b0bffd">More...</a><br /></td></tr>
+<tr class="separator:a3de0bbbdb09bf2e7b1e540b416b0bffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50917f119cc052920c809a2c08d6ee82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> std::unique_ptr&lt; sch::S_Polyhedron &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html#a50917f119cc052920c809a2c08d6ee82">tvm::utils::Polyhedron</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a50917f119cc052920c809a2c08d6ee82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads an sch::S_Polyhedron object using <code>filename</code>.  <a href="a00404.html#a50917f119cc052920c809a2c08d6ee82">More...</a><br /></td></tr>
+<tr class="separator:a50917f119cc052920c809a2c08d6ee82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eef10a1512d54024ca7243c99709f29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html#a7eef10a1512d54024ca7243c99709f29">tvm::utils::distance</a> (sch::CD_Pair &amp;pair, Eigen::Vector3d &amp;p1, Eigen::Vector3d &amp;p2)</td></tr>
+<tr class="memdesc:a7eef10a1512d54024ca7243c99709f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute distance between two objects.  <a href="a00404.html#a7eef10a1512d54024ca7243c99709f29">More...</a><br /></td></tr>
+<tr class="separator:a7eef10a1512d54024ca7243c99709f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -121,8 +128,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="a00329.html">UpdatelessFunction.h</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="a00329.html">sch.h</a></li>
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

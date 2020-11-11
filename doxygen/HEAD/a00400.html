@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::internal Namespace Reference</title>
+<title>TVM: tvm::hint Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,320 +89,34 @@ $(document).ready(function(){initNavTree('a00400.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::internal Namespace Reference</div>  </div>
+<div class="title">tvm::hint Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00401"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00401.html">abstract</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00402"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00402.html">internal</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01253.html">always_false</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A sink, whose value is always false.  <a href="a01253.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01208.html">Substitution</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hint for a substitution that could be done by the solver.  <a href="a01208.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01249.html">always_true</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A sink, whose value is always true.  <a href="a01249.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01209.html">CallbackManager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to register and run callbacks, based on <a class="el" href="a01265.html" title="A class for representing a token that can be paired with another one. ">PairElementToken</a> to identify the class who registered the callback and check if it is still alive.  <a href="a01209.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01213.html">FirstOrderProvider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes an entity that can provide a value and its jacobian.  <a href="a01213.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html">IdProvider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A small helper class to provide unique ids.  <a href="a01217.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01245.html">is_base</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An helper struct used by derives_from.  <a href="a01245.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01241.html">KeepProperties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A lightweight proxy for indicating if the assignement of an <a class="el" href="a00412.html">Eigen</a> expression to a MatrixWithProperties should reset the properties (which is the default behavior.  <a href="a01241.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01221.html">MatrixProperties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class describes some mathematical properties of a matrix.  <a href="a01221.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html">ObjectWithProperties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="a00412.html">Eigen</a> object together with <a class="el" href="a01221.html" title="This class describes some mathematical properties of a matrix. ">MatrixProperties</a>.  <a href="a01237.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01257.html">ObjWithId</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class with a unique id.  <a href="a01257.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01265.html">PairElementToken</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for representing a token that can be paired with another one.  <a href="a01265.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html">PairElementTokenHandle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proxy over a <a class="el" href="a01265.html" title="A class for representing a token that can be paired with another one. ">PairElementToken</a> from which can be create a paired token.  <a href="a01261.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a1817451238184d41f13b5502c872ec94"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#a1817451238184d41f13b5502c872ec94">MatrixWithProperties</a> = <a class="el" href="a01237.html">ObjectWithProperties</a>&lt; Eigen::MatrixXd &gt;</td></tr>
-<tr class="separator:a1817451238184d41f13b5502c872ec94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad994ea0e66746f6973730ef9151e2f2c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#ad994ea0e66746f6973730ef9151e2f2c">VectorWithProperties</a> = <a class="el" href="a01237.html">ObjectWithProperties</a>&lt; Eigen::VectorXd &gt;</td></tr>
-<tr class="separator:ad994ea0e66746f6973730ef9151e2f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e4f0cf6093d536532cbd17f1e80f17"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Base&gt; </td></tr>
-<tr class="memitem:a62e4f0cf6093d536532cbd17f1e80f17"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00400.html#a62e4f0cf6093d536532cbd17f1e80f17">enable_for_t</a> = std::enable_if_t&lt;(...||(std::is_same_v&lt; T, Base &gt;||<a class="el" href="a00400.html#a098c8557722d22a773364eb08dcf816c">derives_from</a>&lt; T, Base &gt;())), int &gt;</td></tr>
-<tr class="memdesc:a62e4f0cf6093d536532cbd17f1e80f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to enable a function for a list of types.  <a href="#a62e4f0cf6093d536532cbd17f1e80f17">More...</a><br /></td></tr>
-<tr class="separator:a62e4f0cf6093d536532cbd17f1e80f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88bfde1b5ce2106ebd5f23b4a5cc2fcf"><td class="memTemplParams" colspan="2">template&lt;typename T , template&lt; typename... &gt; class... Base&gt; </td></tr>
-<tr class="memitem:a88bfde1b5ce2106ebd5f23b4a5cc2fcf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00400.html#a88bfde1b5ce2106ebd5f23b4a5cc2fcf">enable_for_templated_t</a> = std::enable_if_t&lt;(...||<a class="el" href="a00400.html#a098c8557722d22a773364eb08dcf816c">derives_from</a>&lt; T, Base &gt;()), int &gt;</td></tr>
-<tr class="memdesc:a88bfde1b5ce2106ebd5f23b4a5cc2fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to enable a function for a list of templated classes.  <a href="#a88bfde1b5ce2106ebd5f23b4a5cc2fcf">More...</a><br /></td></tr>
-<tr class="separator:a88bfde1b5ce2106ebd5f23b4a5cc2fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ada1f1cf36292359f682fd009bd31297e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#ada1f1cf36292359f682fd009bd31297e">operator-</a> (const <a class="el" href="a01221.html">MatrixProperties</a> &amp;)</td></tr>
-<tr class="separator:ada1f1cf36292359f682fd009bd31297e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaa0e0a9c18d8979f5916a706a52b29a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#aaaa0e0a9c18d8979f5916a706a52b29a">operator*</a> (double, const <a class="el" href="a01221.html">MatrixProperties</a> &amp;)</td></tr>
-<tr class="separator:aaaa0e0a9c18d8979f5916a706a52b29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a0788f66237ee3122e00e292d7910ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#a7a0788f66237ee3122e00e292d7910ed">operator+</a> (const <a class="el" href="a01221.html">MatrixProperties</a> &amp;, const <a class="el" href="a01221.html">MatrixProperties</a> &amp;)</td></tr>
-<tr class="separator:a7a0788f66237ee3122e00e292d7910ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad83c728d684bbef16f41e84f2b450bab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#ad83c728d684bbef16f41e84f2b450bab">operator-</a> (const <a class="el" href="a01221.html">MatrixProperties</a> &amp;, const <a class="el" href="a01221.html">MatrixProperties</a> &amp;)</td></tr>
-<tr class="separator:ad83c728d684bbef16f41e84f2b450bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac655e61c13545f2cbd20e62bc16b9a10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00400.html#ac655e61c13545f2cbd20e62bc16b9a10">operator*</a> (const <a class="el" href="a01221.html">MatrixProperties</a> &amp;, const <a class="el" href="a01221.html">MatrixProperties</a> &amp;)</td></tr>
-<tr class="separator:ac655e61c13545f2cbd20e62bc16b9a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a098c8557722d22a773364eb08dcf816c"><td class="memTemplParams" colspan="2">template&lt;typename T , template&lt; typename... &gt; class Base&gt; </td></tr>
-<tr class="memitem:a098c8557722d22a773364eb08dcf816c"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00400.html#a098c8557722d22a773364eb08dcf816c">derives_from</a> ()</td></tr>
-<tr class="memdesc:a098c8557722d22a773364eb08dcf816c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if class  T derives from the templated class  Base.  <a href="#a098c8557722d22a773364eb08dcf816c">More...</a><br /></td></tr>
-<tr class="separator:a098c8557722d22a773364eb08dcf816c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a62e4f0cf6093d536532cbd17f1e80f17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62e4f0cf6093d536532cbd17f1e80f17">&#9670;&nbsp;</a></span>enable_for_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename... Base&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00400.html#a62e4f0cf6093d536532cbd17f1e80f17">tvm::internal::enable_for_t</a> = typedef std::enable_if_t&lt;(... || (std::is_same_v&lt;T, Base&gt; || <a class="el" href="a00400.html#a098c8557722d22a773364eb08dcf816c">derives_from</a>&lt;T, Base&gt;())), int&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Used to enable a function for a list of types. </p>
-<p>To have a function work for T equal or deriving from any B1, B2, ... or Bk where Bi are types. Use as template&lt;typename T, <a class="el" href="a00400.html#a62e4f0cf6093d536532cbd17f1e80f17" title="Used to enable a function for a list of types. ">enable_for_t&lt;T,B1, B2, ..., ..., Bk&gt;</a>=0&gt; </p>
-
-</div>
-</div>
-<a id="a88bfde1b5ce2106ebd5f23b4a5cc2fcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88bfde1b5ce2106ebd5f23b4a5cc2fcf">&#9670;&nbsp;</a></span>enable_for_templated_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , template&lt; typename... &gt; class... Base&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00400.html#a88bfde1b5ce2106ebd5f23b4a5cc2fcf">tvm::internal::enable_for_templated_t</a> = typedef std::enable_if_t&lt;(... || <a class="el" href="a00400.html#a098c8557722d22a773364eb08dcf816c">derives_from</a>&lt;T, Base&gt;()), int&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Used to enable a function for a list of templated classes. </p>
-<p>To have a function work for T equal or deriving from any B1, B2, ... or Bk where Bi are a templated classes. Use as template&lt;typename T, <a class="el" href="a00400.html#a88bfde1b5ce2106ebd5f23b4a5cc2fcf" title="Used to enable a function for a list of templated classes. ">enable_for_templated_t&lt;T,B1, B2, ..., ..., Bk&gt;</a>=0&gt; </p>
-
-</div>
-</div>
-<a id="a1817451238184d41f13b5502c872ec94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1817451238184d41f13b5502c872ec94">&#9670;&nbsp;</a></span>MatrixWithProperties</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00400.html#a1817451238184d41f13b5502c872ec94">tvm::internal::MatrixWithProperties</a> = typedef <a class="el" href="a01237.html">ObjectWithProperties</a>&lt;Eigen::MatrixXd&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad994ea0e66746f6973730ef9151e2f2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad994ea0e66746f6973730ef9151e2f2c">&#9670;&nbsp;</a></span>VectorWithProperties</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00400.html#ad994ea0e66746f6973730ef9151e2f2c">tvm::internal::VectorWithProperties</a> = typedef <a class="el" href="a01237.html">ObjectWithProperties</a>&lt;Eigen::VectorXd&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a098c8557722d22a773364eb08dcf816c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a098c8557722d22a773364eb08dcf816c">&#9670;&nbsp;</a></span>derives_from()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , template&lt; typename... &gt; class Base&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool tvm::internal::derives_from </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if class  T derives from the templated class  Base. </p>
-<p>Check if class  T derives from the non-templated class  Base This returns <em>false</em> if  Base is not a class.</p>
-<p>This relies on <a class="el" href="a01245.html#aef8213d9b6c7677be170e740af8ec4e1" title="Accept any class derived from Base&lt;T...&gt;. ">tvm::internal::is_base::check</a>: if T derives from  Base, the overload returning <em>std::true_type</em> will be selected, otherwise, it will be the one returning <em>std::false_type</em>.</p>
-<p>Adapted from <a href="https://stackoverflow.com/a/5998303/11611648">https://stackoverflow.com/a/5998303/11611648</a> </p>
-
-</div>
-</div>
-<a id="aaaa0e0a9c18d8979f5916a706a52b29a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaa0e0a9c18d8979f5916a706a52b29a">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a> tvm::internal::operator* </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac655e61c13545f2cbd20e62bc16b9a10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac655e61c13545f2cbd20e62bc16b9a10">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a> tvm::internal::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7a0788f66237ee3122e00e292d7910ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a0788f66237ee3122e00e292d7910ed">&#9670;&nbsp;</a></span>operator+()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a> tvm::internal::operator+ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ada1f1cf36292359f682fd009bd31297e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada1f1cf36292359f682fd009bd31297e">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a> tvm::internal::operator- </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad83c728d684bbef16f41e84f2b450bab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad83c728d684bbef16f41e84f2b450bab">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a> <a class="el" href="a01221.html">MatrixProperties</a> tvm::internal::operator- </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01221.html">MatrixProperties</a> &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00400.html">internal</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:45 for TVM by
+    <li class="navelem"><a class="el" href="a00383.html">tvm</a></li><li class="navelem"><a class="el" href="a00400.html">hint</a></li>
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

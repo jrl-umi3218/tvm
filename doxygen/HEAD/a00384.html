@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::function Namespace Reference</title>
+<title>TVM: tvm::constraint Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,9 +90,10 @@ $(document).ready(function(){initNavTree('a00384.html','');});
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::function Namespace Reference</div>  </div>
+<div class="title">tvm::constraint Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
@@ -100,24 +101,115 @@ $(document).ready(function(){initNavTree('a00384.html','');});
 Namespaces</h2></td></tr>
 <tr class="memitem:a00385"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00385.html">abstract</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00386"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00386.html">internal</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01045.html">BasicLinearFunction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The most basic linear function f(x_1, ..., x_k) = sum A_i x_i + b where the matrices are constant.  <a href="a01045.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00976.html">BasicLinearConstraint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The most basic linear constraint where the matrix and the vector(s) are constant.  <a href="a00976.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01049.html">IdentityFunction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">f(x) = x, for a single variable.  <a href="a01049.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab6243a7da877a867f54ff7207959eb7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">Type</a> { <br />
+&#160;&#160;<a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44">Type::EQUAL</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e">Type::GREATER_THAN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146">Type::LOWER_THAN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5">Type::DOUBLE_SIDED</a>
+<br />
+ }<tr class="memdesc:ab6243a7da877a867f54ff7207959eb7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint.  <a href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ab6243a7da877a867f54ff7207959eb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf340c6d4875e2e7502c8a6243ae0551"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551">RHS</a> { <br />
+&#160;&#160;<a class="el" href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c">RHS::ZERO</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6">RHS::AS_GIVEN</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65">RHS::OPPOSITE</a>
+<br />
+ }<tr class="memdesc:adf340c6d4875e2e7502c8a6243ae0551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell how a vector <code>u</code> should be considered as a right hand side of a constraint.  <a href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:adf340c6d4875e2e7502c8a6243ae0551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="adf340c6d4875e2e7502c8a6243ae0551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf340c6d4875e2e7502c8a6243ae0551">&#9670;&nbsp;</a></span>RHS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00384.html#adf340c6d4875e2e7502c8a6243ae0551">tvm::constraint::RHS</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tell how a vector <code>u</code> should be considered as a right hand side of a constraint. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c"></a>ZERO&#160;</td><td class="fielddoc"><p>rhs = 0 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6"></a>AS_GIVEN&#160;</td><td class="fielddoc"><p>rhs = u </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65"></a>OPPOSITE&#160;</td><td class="fielddoc"><p>rhs = -u </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ab6243a7da877a867f54ff7207959eb7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6243a7da877a867f54ff7207959eb7c">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44"></a>EQUAL&#160;</td><td class="fielddoc"><p>f(x) = rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e"></a>GREATER_THAN&#160;</td><td class="fielddoc"><p>f(x) &gt;= rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146"></a>LOWER_THAN&#160;</td><td class="fielddoc"><p>f(x) &lt;= rhs </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5"></a>DOUBLE_SIDED&#160;</td><td class="fielddoc"><p>rhs &lt;= f(x) &lt;= rhs2 </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">function</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
+    <li class="navelem"><a class="el" href="a00383.html">tvm</a></li><li class="navelem"><a class="el" href="a00384.html">constraint</a></li>
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

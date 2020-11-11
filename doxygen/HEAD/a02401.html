@@ -90,51 +90,3550 @@ $(document).ready(function(){initNavTree('a02401.html','');});
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">robot/enums.h File Reference</div>  </div>
+<div class="title">internal/enums.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
-<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="memitem:a00383"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html">tvm</a></td></tr>
+<tr class="memdesc:a00383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00403"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00403.html">tvm::robot</a></td></tr>
+<tr class="memitem:a00404"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html">tvm::utils</a></td></tr>
+<tr class="memdesc:a00404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ae695c229a7d819c057992d913a3ad10f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00403.html#ae695c229a7d819c057992d913a3ad10f">tvm::robot::ContactConstraintType</a> { <br />
-&#160;&#160;<a class="el" href="a00403.html#ae695c229a7d819c057992d913a3ad10fa3b926d163371fd620b09b63219b12f52">tvm::robot::ContactConstraintType::Acceleration</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00403.html#ae695c229a7d819c057992d913a3ad10fa88156d46910a2d733443c339a9231d12">tvm::robot::ContactConstraintType::Velocity</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00403.html#ae695c229a7d819c057992d913a3ad10fa52f5e0bc3859bc5f5e25130b6c7e8881">tvm::robot::ContactConstraintType::Position</a>
-<br />
- }<tr class="memdesc:ae695c229a7d819c057992d913a3ad10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a given contact, specify the type of constraint that is applied:  <a href="a00403.html#ae695c229a7d819c057992d913a3ad10f">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ae695c229a7d819c057992d913a3ad10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac706730af38b72ec80e95eb336cd043"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00403.html#aac706730af38b72ec80e95eb336cd043">tvm::robot::ContactType</a> { <br />
-&#160;&#160;<a class="el" href="a00403.html#aac706730af38b72ec80e95eb336cd043ad2203cb1237cb6460cbad94564e39345">tvm::robot::ContactType::Regular</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00403.html#aac706730af38b72ec80e95eb336cd043a9eb6b78a99cdb6ffd3d40d18621d9f80">tvm::robot::ContactType::Force</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00403.html#aac706730af38b72ec80e95eb336cd043aadf9f772a73f364e4ce6c52b9fae740d">tvm::robot::ContactType::Geometric</a>
-<br />
- }<tr class="memdesc:aac706730af38b72ec80e95eb336cd043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the type of contact:  <a href="a00403.html#aac706730af38b72ec80e95eb336cd043">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:aac706730af38b72ec80e95eb336cd043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a42e55ac921dbfa966333e9039ae7f4ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a42e55ac921dbfa966333e9039ae7f4ec">COUNT_VA_ARGS</a>(...)&#160;&#160;&#160;<a class="el" href="a00404.html#a7204755fdee75112fb07ca90a8e219d6">tvm::utils::count_va_args</a>(&quot;&quot; #__VA_ARGS__)</td></tr>
+<tr class="memdesc:a42e55ac921dbfa966333e9039ae7f4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro call to count_va_args.  <a href="#a42e55ac921dbfa966333e9039ae7f4ec">More...</a><br /></td></tr>
+<tr class="separator:a42e55ac921dbfa966333e9039ae7f4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b9bcd0e7f30adb8ed947d86d4ae11b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a31b9bcd0e7f30adb8ed947d86d4ae11b">PP_NARG</a>(...)&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1b4b6dfcca38ee665c4c88c07d58c4f0">PP_NARG_</a>(__VA_ARGS__, <a class="el" href="a02401.html#a15967218850ac6ac5ffd777368fec7fd">PP_RSEQ_N</a>()))</td></tr>
+<tr class="memdesc:a31b9bcd0e7f30adb8ed947d86d4ae11b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PP_NARG achieves the same as COUNT_VA_ARGS but it does not work with empty arguments.  <a href="#a31b9bcd0e7f30adb8ed947d86d4ae11b">More...</a><br /></td></tr>
+<tr class="separator:a31b9bcd0e7f30adb8ed947d86d4ae11b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b4b6dfcca38ee665c4c88c07d58c4f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a1b4b6dfcca38ee665c4c88c07d58c4f0">PP_NARG_</a>(...)&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a3fc10908dda8e7fbfe28b3dbe385a4c6">PP_ARG_N</a>(__VA_ARGS__))</td></tr>
+<tr class="separator:a1b4b6dfcca38ee665c4c88c07d58c4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc10908dda8e7fbfe28b3dbe385a4c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a3fc10908dda8e7fbfe28b3dbe385a4c6">PP_ARG_N</a>( _1,  _2,  _3,  _4,  _5,  _6,  _7,  _8,  _9,  _10,  _11,  _12,  _13,  _14,  _15,  _16,  _17,  _18,  _19,  _20,  _21,  _22,  _23,  _24,  _25,  _26,  _27,  _28,  _29,  _30,  _31,  _32,  _33,  _34,  _35,  _36,  _37,  _38,  _39,  _40,  _41,  _42,  _43,  _44,  _45,  _46,  _47,  _48,  _49,  _50,  _51,  _52,  _53,  _54,  _55,  _56,  _57,  _58,  _59,  _60,  _61,  _62,  _63,  _64,  N, ...)&#160;&#160;&#160;N</td></tr>
+<tr class="separator:a3fc10908dda8e7fbfe28b3dbe385a4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15967218850ac6ac5ffd777368fec7fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a15967218850ac6ac5ffd777368fec7fd">PP_RSEQ_N</a>()</td></tr>
+<tr class="separator:a15967218850ac6ac5ffd777368fec7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95dae71c903bc1cb49f30dad28ddfed4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>(macro,  data, ...)&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a832c2b017c0034975b09dd73ccc03535">PP_APPLY</a>(<a class="el" href="a02401.html#a7e9a41ea0c9dc23f2ddfb3740c266b7a">PP_CHOOSE_MAP_START</a>, <a class="el" href="a02401.html#a31b9bcd0e7f30adb8ed947d86d4ae11b">PP_NARG</a>(__VA_ARGS__))(macro, data, __VA_ARGS__))</td></tr>
+<tr class="separator:a95dae71c903bc1cb49f30dad28ddfed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e9a41ea0c9dc23f2ddfb3740c266b7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a7e9a41ea0c9dc23f2ddfb3740c266b7a">PP_CHOOSE_MAP_START</a>(count)&#160;&#160;&#160;<a class="el" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>##count</td></tr>
+<tr class="separator:a7e9a41ea0c9dc23f2ddfb3740c266b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832c2b017c0034975b09dd73ccc03535"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a832c2b017c0034975b09dd73ccc03535">PP_APPLY</a>(macro, ...)&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(macro(__VA_ARGS__))</td></tr>
+<tr class="separator:a832c2b017c0034975b09dd73ccc03535"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a46509ef282a6fac75bf0362bce1fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af2a46509ef282a6fac75bf0362bce1fb">PP_MAP1</a>(m,  d,  x)&#160;&#160;&#160;m(d, x)</td></tr>
+<tr class="separator:af2a46509ef282a6fac75bf0362bce1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31cc39eb409cc9eea04646ccc2022039"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a31cc39eb409cc9eea04646ccc2022039">PP_MAP2</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af2a46509ef282a6fac75bf0362bce1fb">PP_MAP1</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a31cc39eb409cc9eea04646ccc2022039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a10288bf134adb5ed662906449a1703"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a6a10288bf134adb5ed662906449a1703">PP_MAP3</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a31cc39eb409cc9eea04646ccc2022039">PP_MAP2</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a6a10288bf134adb5ed662906449a1703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7503bd8f0f947e19bded06890777955"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ad7503bd8f0f947e19bded06890777955">PP_MAP4</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6a10288bf134adb5ed662906449a1703">PP_MAP3</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ad7503bd8f0f947e19bded06890777955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4cc74c52b369954a1d188f22d0f1a32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af4cc74c52b369954a1d188f22d0f1a32">PP_MAP5</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad7503bd8f0f947e19bded06890777955">PP_MAP4</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:af4cc74c52b369954a1d188f22d0f1a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e2501862ffbc4734f7e1d07ed71c4a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a3e2501862ffbc4734f7e1d07ed71c4a5">PP_MAP6</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af4cc74c52b369954a1d188f22d0f1a32">PP_MAP5</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a3e2501862ffbc4734f7e1d07ed71c4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a435ac259c3585ae56b33776f482b01a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a435ac259c3585ae56b33776f482b01a7">PP_MAP7</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a3e2501862ffbc4734f7e1d07ed71c4a5">PP_MAP6</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a435ac259c3585ae56b33776f482b01a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89e485ecfd874861bf55c5aa777c7257"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a89e485ecfd874861bf55c5aa777c7257">PP_MAP8</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a435ac259c3585ae56b33776f482b01a7">PP_MAP7</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a89e485ecfd874861bf55c5aa777c7257"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1298bce1d551ec148fb20c1d56d8b84b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a1298bce1d551ec148fb20c1d56d8b84b">PP_MAP9</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a89e485ecfd874861bf55c5aa777c7257">PP_MAP8</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a1298bce1d551ec148fb20c1d56d8b84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf7fe7e4ea393fa8c64cc4f49c815b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a0bf7fe7e4ea393fa8c64cc4f49c815b2">PP_MAP10</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1298bce1d551ec148fb20c1d56d8b84b">PP_MAP9</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a0bf7fe7e4ea393fa8c64cc4f49c815b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9ae38c0c652191b7fdd11641a14908a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af9ae38c0c652191b7fdd11641a14908a">PP_MAP11</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0bf7fe7e4ea393fa8c64cc4f49c815b2">PP_MAP10</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:af9ae38c0c652191b7fdd11641a14908a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad440c2db0ee0f32ded184916f757d976"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ad440c2db0ee0f32ded184916f757d976">PP_MAP12</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af9ae38c0c652191b7fdd11641a14908a">PP_MAP11</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ad440c2db0ee0f32ded184916f757d976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585ef093245801d0b17ab243ece5f922"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a585ef093245801d0b17ab243ece5f922">PP_MAP13</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad440c2db0ee0f32ded184916f757d976">PP_MAP12</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a585ef093245801d0b17ab243ece5f922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9c3884ccadbbb37d42a621f97fd41c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ab9c3884ccadbbb37d42a621f97fd41c5">PP_MAP14</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a585ef093245801d0b17ab243ece5f922">PP_MAP13</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ab9c3884ccadbbb37d42a621f97fd41c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78c36388492996d3c9407e6448fc805"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ae78c36388492996d3c9407e6448fc805">PP_MAP15</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab9c3884ccadbbb37d42a621f97fd41c5">PP_MAP14</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ae78c36388492996d3c9407e6448fc805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772f3b1ee192ec7ec802dd5138f7b200"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a772f3b1ee192ec7ec802dd5138f7b200">PP_MAP16</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ae78c36388492996d3c9407e6448fc805">PP_MAP15</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a772f3b1ee192ec7ec802dd5138f7b200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29f0d8b481cafb990e3885fe43e29367"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a29f0d8b481cafb990e3885fe43e29367">PP_MAP17</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a772f3b1ee192ec7ec802dd5138f7b200">PP_MAP16</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a29f0d8b481cafb990e3885fe43e29367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abae0b9a7d8a9b43587e036dcb7fac007"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#abae0b9a7d8a9b43587e036dcb7fac007">PP_MAP18</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a29f0d8b481cafb990e3885fe43e29367">PP_MAP17</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:abae0b9a7d8a9b43587e036dcb7fac007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35712e62e13d0ca43e0619b379b789d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a35712e62e13d0ca43e0619b379b789d0">PP_MAP19</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#abae0b9a7d8a9b43587e036dcb7fac007">PP_MAP18</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a35712e62e13d0ca43e0619b379b789d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1bdb9247e99306a15d5290d5f93ae13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ab1bdb9247e99306a15d5290d5f93ae13">PP_MAP20</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a35712e62e13d0ca43e0619b379b789d0">PP_MAP19</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ab1bdb9247e99306a15d5290d5f93ae13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad171c65e2418addc5ccb243c086a45c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ad171c65e2418addc5ccb243c086a45c0">PP_MAP21</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab1bdb9247e99306a15d5290d5f93ae13">PP_MAP20</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ad171c65e2418addc5ccb243c086a45c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac289d146e5af03ea19447a866f662628"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ac289d146e5af03ea19447a866f662628">PP_MAP22</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad171c65e2418addc5ccb243c086a45c0">PP_MAP21</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ac289d146e5af03ea19447a866f662628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fcb65ce8469945337a73177546564b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a0fcb65ce8469945337a73177546564b8">PP_MAP23</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ac289d146e5af03ea19447a866f662628">PP_MAP22</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a0fcb65ce8469945337a73177546564b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053d1d6977845347e59df6663c51c022"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a053d1d6977845347e59df6663c51c022">PP_MAP24</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0fcb65ce8469945337a73177546564b8">PP_MAP23</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a053d1d6977845347e59df6663c51c022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a5e69538e6fe4a8d678027d270ac8ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a0a5e69538e6fe4a8d678027d270ac8ac">PP_MAP25</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a053d1d6977845347e59df6663c51c022">PP_MAP24</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a0a5e69538e6fe4a8d678027d270ac8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c2e560d5cab58c5868af0a4b882733"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a52c2e560d5cab58c5868af0a4b882733">PP_MAP26</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0a5e69538e6fe4a8d678027d270ac8ac">PP_MAP25</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a52c2e560d5cab58c5868af0a4b882733"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea55fec7896a2114962e1f577e419698"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#aea55fec7896a2114962e1f577e419698">PP_MAP27</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a52c2e560d5cab58c5868af0a4b882733">PP_MAP26</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:aea55fec7896a2114962e1f577e419698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d912b3c588a1a4c21c9300d99872a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a14d912b3c588a1a4c21c9300d99872a2">PP_MAP28</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aea55fec7896a2114962e1f577e419698">PP_MAP27</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a14d912b3c588a1a4c21c9300d99872a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de2fbec2f6663d46258cc82170e576c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a6de2fbec2f6663d46258cc82170e576c">PP_MAP29</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a14d912b3c588a1a4c21c9300d99872a2">PP_MAP28</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a6de2fbec2f6663d46258cc82170e576c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cac0378dcacef10a76af224a3bece79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a6cac0378dcacef10a76af224a3bece79">PP_MAP30</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6de2fbec2f6663d46258cc82170e576c">PP_MAP29</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a6cac0378dcacef10a76af224a3bece79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ae08f7f86dddd3ff623fe02c726a0de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a6ae08f7f86dddd3ff623fe02c726a0de">PP_MAP31</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6cac0378dcacef10a76af224a3bece79">PP_MAP30</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a6ae08f7f86dddd3ff623fe02c726a0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64a04f3ad82a8f39072bea670423eaa4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a64a04f3ad82a8f39072bea670423eaa4">PP_MAP32</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6ae08f7f86dddd3ff623fe02c726a0de">PP_MAP31</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a64a04f3ad82a8f39072bea670423eaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3fe54af5f8014486420ff92b04cfac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#aee3fe54af5f8014486420ff92b04cfac">PP_MAP33</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a64a04f3ad82a8f39072bea670423eaa4">PP_MAP32</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:aee3fe54af5f8014486420ff92b04cfac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ebac4a53ebdb19755155c6e3579bd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af8ebac4a53ebdb19755155c6e3579bd7">PP_MAP34</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aee3fe54af5f8014486420ff92b04cfac">PP_MAP33</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:af8ebac4a53ebdb19755155c6e3579bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad404eb06787cc4629e5038660d1d80c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ad404eb06787cc4629e5038660d1d80c7">PP_MAP35</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af8ebac4a53ebdb19755155c6e3579bd7">PP_MAP34</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ad404eb06787cc4629e5038660d1d80c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a825c18b801dd12414f49c5241483c976"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a825c18b801dd12414f49c5241483c976">PP_MAP36</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad404eb06787cc4629e5038660d1d80c7">PP_MAP35</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a825c18b801dd12414f49c5241483c976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3a46ec70ccb0ed401ba4d218c21b15c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ab3a46ec70ccb0ed401ba4d218c21b15c">PP_MAP37</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a825c18b801dd12414f49c5241483c976">PP_MAP36</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ab3a46ec70ccb0ed401ba4d218c21b15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4e88262432f2914b11786103f3f9da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ada4e88262432f2914b11786103f3f9da">PP_MAP38</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab3a46ec70ccb0ed401ba4d218c21b15c">PP_MAP37</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ada4e88262432f2914b11786103f3f9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da46d9f259deb7416061f4efaa6a092"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a1da46d9f259deb7416061f4efaa6a092">PP_MAP39</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ada4e88262432f2914b11786103f3f9da">PP_MAP38</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a1da46d9f259deb7416061f4efaa6a092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c37466d6aa0e7c42047d9f3324f9379"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a7c37466d6aa0e7c42047d9f3324f9379">PP_MAP40</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1da46d9f259deb7416061f4efaa6a092">PP_MAP39</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a7c37466d6aa0e7c42047d9f3324f9379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9636bf1c6be429ee9b324a3cbb52b452"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a9636bf1c6be429ee9b324a3cbb52b452">PP_MAP41</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a7c37466d6aa0e7c42047d9f3324f9379">PP_MAP40</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a9636bf1c6be429ee9b324a3cbb52b452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e6ff4572583b133c5f0ccf64ecf909"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a67e6ff4572583b133c5f0ccf64ecf909">PP_MAP42</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a9636bf1c6be429ee9b324a3cbb52b452">PP_MAP41</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a67e6ff4572583b133c5f0ccf64ecf909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b7d39333f8edb7296ef916749048af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#aa8b7d39333f8edb7296ef916749048af">PP_MAP43</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a67e6ff4572583b133c5f0ccf64ecf909">PP_MAP42</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:aa8b7d39333f8edb7296ef916749048af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad5df3b90b1acd110b71a92a49ce8ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#adad5df3b90b1acd110b71a92a49ce8ad">PP_MAP44</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aa8b7d39333f8edb7296ef916749048af">PP_MAP43</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:adad5df3b90b1acd110b71a92a49ce8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88aca5a7e0920bc55d968966505597a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a88aca5a7e0920bc55d968966505597a7">PP_MAP45</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#adad5df3b90b1acd110b71a92a49ce8ad">PP_MAP44</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a88aca5a7e0920bc55d968966505597a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d7e0c6bead2de7a095d0f712e698ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a62d7e0c6bead2de7a095d0f712e698ef">PP_MAP46</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a88aca5a7e0920bc55d968966505597a7">PP_MAP45</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a62d7e0c6bead2de7a095d0f712e698ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c6ea832351e0252b3cfb6ece19d5947"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a6c6ea832351e0252b3cfb6ece19d5947">PP_MAP47</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a62d7e0c6bead2de7a095d0f712e698ef">PP_MAP46</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a6c6ea832351e0252b3cfb6ece19d5947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db17f4e6826c1fd8b22d2824fffc64b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a2db17f4e6826c1fd8b22d2824fffc64b">PP_MAP48</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6c6ea832351e0252b3cfb6ece19d5947">PP_MAP47</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a2db17f4e6826c1fd8b22d2824fffc64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09dfc8f3e7701b15ad493272e4146135"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a09dfc8f3e7701b15ad493272e4146135">PP_MAP49</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a2db17f4e6826c1fd8b22d2824fffc64b">PP_MAP48</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a09dfc8f3e7701b15ad493272e4146135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa301af16aad1574b3002941ed8051d28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#aa301af16aad1574b3002941ed8051d28">PP_MAP50</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a09dfc8f3e7701b15ad493272e4146135">PP_MAP49</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:aa301af16aad1574b3002941ed8051d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6e5e042efb0efbaf2fc113b927a6461"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ae6e5e042efb0efbaf2fc113b927a6461">PP_MAP51</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aa301af16aad1574b3002941ed8051d28">PP_MAP50</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ae6e5e042efb0efbaf2fc113b927a6461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a795514584f82bf1cffcec806fb6b8021"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a795514584f82bf1cffcec806fb6b8021">PP_MAP52</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ae6e5e042efb0efbaf2fc113b927a6461">PP_MAP51</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a795514584f82bf1cffcec806fb6b8021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2efaa0d467e4ec98f155c76ea59e48f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ab2efaa0d467e4ec98f155c76ea59e48f">PP_MAP53</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a795514584f82bf1cffcec806fb6b8021">PP_MAP52</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ab2efaa0d467e4ec98f155c76ea59e48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbae36743d620e49307251ba108bdbd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#abbae36743d620e49307251ba108bdbd2">PP_MAP54</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab2efaa0d467e4ec98f155c76ea59e48f">PP_MAP53</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:abbae36743d620e49307251ba108bdbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ca39e3cd3754f75e0a8f46bdcf7411e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a0ca39e3cd3754f75e0a8f46bdcf7411e">PP_MAP55</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#abbae36743d620e49307251ba108bdbd2">PP_MAP54</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a0ca39e3cd3754f75e0a8f46bdcf7411e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41ab40c74e1d20e78de6dff0854fd08f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a41ab40c74e1d20e78de6dff0854fd08f">PP_MAP56</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0ca39e3cd3754f75e0a8f46bdcf7411e">PP_MAP55</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a41ab40c74e1d20e78de6dff0854fd08f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee86a3aee45534375598feec407c392"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a7ee86a3aee45534375598feec407c392">PP_MAP57</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a41ab40c74e1d20e78de6dff0854fd08f">PP_MAP56</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a7ee86a3aee45534375598feec407c392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697442be689cd077b015d9274ce5c3ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a697442be689cd077b015d9274ce5c3ca">PP_MAP58</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a7ee86a3aee45534375598feec407c392">PP_MAP57</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a697442be689cd077b015d9274ce5c3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674296ef79536f4cad058348e702f585"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a674296ef79536f4cad058348e702f585">PP_MAP59</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a697442be689cd077b015d9274ce5c3ca">PP_MAP58</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a674296ef79536f4cad058348e702f585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c85f4373c68c5c47752d1de0bdd4ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a66c85f4373c68c5c47752d1de0bdd4ac">PP_MAP60</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a674296ef79536f4cad058348e702f585">PP_MAP59</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a66c85f4373c68c5c47752d1de0bdd4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5cac4f7228d2529543a5439f7fe6a9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af5cac4f7228d2529543a5439f7fe6a9d">PP_MAP61</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a66c85f4373c68c5c47752d1de0bdd4ac">PP_MAP60</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:af5cac4f7228d2529543a5439f7fe6a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac00d2cdd23628f425b5c2898aacf241d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#ac00d2cdd23628f425b5c2898aacf241d">PP_MAP62</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af5cac4f7228d2529543a5439f7fe6a9d">PP_MAP61</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:ac00d2cdd23628f425b5c2898aacf241d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e7ebb6a71e43710a94b2a327d77d2d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a2e7ebb6a71e43710a94b2a327d77d2d9">PP_MAP63</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ac00d2cdd23628f425b5c2898aacf241d">PP_MAP62</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:a2e7ebb6a71e43710a94b2a327d77d2d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af066f04727c0c4bace1196bcd3c6a980"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#af066f04727c0c4bace1196bcd3c6a980">PP_MAP64</a>(m,  d,  x, ...)&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a2e7ebb6a71e43710a94b2a327d77d2d9">PP_MAP63</a>(m, d, __VA_ARGS__))</td></tr>
+<tr class="separator:af066f04727c0c4bace1196bcd3c6a980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b400c69266f278085ba434add0f311"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(x)&#160;&#160;&#160;x</td></tr>
+<tr class="separator:a97b400c69266f278085ba434add0f311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2caeefa544c00de073a68f8d5c1f9518"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a2caeefa544c00de073a68f8d5c1f9518">ENUM_NAME</a>(EnumT,  name)&#160;&#160;&#160;v == EnumT##_::name ? #name:</td></tr>
+<tr class="separator:a2caeefa544c00de073a68f8d5c1f9518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a184c7a633f4f4773d807f79cedd2ff70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a184c7a633f4f4773d807f79cedd2ff70">DECLARE_ENUM</a>(EnumName,  Enum0, ...)&#160;&#160;&#160;enum class EnumName##_{Enum0 = EnumName##Parent::EnumName##Size, ##__VA_ARGS__};</td></tr>
+<tr class="separator:a184c7a633f4f4773d807f79cedd2ff70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83597c635f5e312c8880f9f21b0c3684"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a83597c635f5e312c8880f9f21b0c3684">DECLARE_STRUCT</a>(EnumT,  name)&#160;&#160;&#160;constexpr static EnumT##_ name = EnumT##_::name;</td></tr>
+<tr class="separator:a83597c635f5e312c8880f9f21b0c3684"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e618badaabfada105c5793e503de60a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a8e618badaabfada105c5793e503de60a">EXTEND_ENUM</a>(EnumName,  SelfT, ...)</td></tr>
+<tr class="separator:a8e618badaabfada105c5793e503de60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fd1ffb3b0815406c40239704fe50030"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a2fd1ffb3b0815406c40239704fe50030">DISABLE_SIGNALS</a>(EnumName, ...)</td></tr>
+<tr class="separator:a2fd1ffb3b0815406c40239704fe50030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207c0a2eb1af39acd963fad06c4f538e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a207c0a2eb1af39acd963fad06c4f538e">DISABLE_SIGNALS_BODY</a>(EnumT,  name)&#160;&#160;&#160;static_cast&lt;int&gt;(v) == static_cast&lt;int&gt;(name) ? false:</td></tr>
+<tr class="separator:a207c0a2eb1af39acd963fad06c4f538e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a708b683b217e060036f76a97022789ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02401.html#a708b683b217e060036f76a97022789ef">CLEAR_DISABLED_SIGNALS</a>(EnumName)</td></tr>
+<tr class="separator:a708b683b217e060036f76a97022789ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7204755fdee75112fb07ca90a8e219d6"><td class="memTemplParams" colspan="2">template&lt;unsigned int N&gt; </td></tr>
+<tr class="memitem:a7204755fdee75112fb07ca90a8e219d6"><td class="memTemplItemLeft" align="right" valign="top">constexpr unsigned int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a7204755fdee75112fb07ca90a8e219d6">tvm::utils::count_va_args</a> (const char(&amp;s)[N], unsigned int i=0, unsigned int ret=0)</td></tr>
+<tr class="memdesc:a7204755fdee75112fb07ca90a8e219d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constexpr function to compute the size of <b>VA_ARGS</b> in a macro.  <a href="a00404.html#a7204755fdee75112fb07ca90a8e219d6">More...</a><br /></td></tr>
+<tr class="separator:a7204755fdee75112fb07ca90a8e219d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a708b683b217e060036f76a97022789ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a708b683b217e060036f76a97022789ef">&#9670;&nbsp;</a></span>CLEAR_DISABLED_SIGNALS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLEAR_DISABLED_SIGNALS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumName</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">bool</span> is##EnumName##StaticallyEnabled(<span class="keywordtype">int</span>)<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; } \</div><div class="line">  template&lt;typename EnumT&gt;                                                  \</div><div class="line">  static constexpr <span class="keywordtype">bool</span> EnumName##StaticallyEnabled(EnumT)                  \</div><div class="line">  {                                                                         \</div><div class="line">    return <span class="keyword">true</span>;                                                            \</div><div class="line">  }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a42e55ac921dbfa966333e9039ae7f4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e55ac921dbfa966333e9039ae7f4ec">&#9670;&nbsp;</a></span>COUNT_VA_ARGS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COUNT_VA_ARGS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a00404.html#a7204755fdee75112fb07ca90a8e219d6">tvm::utils::count_va_args</a>(&quot;&quot; #__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Macro call to count_va_args. </p>
+
+</div>
+</div>
+<a id="a184c7a633f4f4773d807f79cedd2ff70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a184c7a633f4f4773d807f79cedd2ff70">&#9670;&nbsp;</a></span>DECLARE_ENUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DECLARE_ENUM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Enum0, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;enum class EnumName##_{Enum0 = EnumName##Parent::EnumName##Size, ##__VA_ARGS__};</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83597c635f5e312c8880f9f21b0c3684"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83597c635f5e312c8880f9f21b0c3684">&#9670;&nbsp;</a></span>DECLARE_STRUCT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DECLARE_STRUCT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumT, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;constexpr static EnumT##_ name = EnumT##_::name;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fd1ffb3b0815406c40239704fe50030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fd1ffb3b0815406c40239704fe50030">&#9670;&nbsp;</a></span>DISABLE_SIGNALS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DISABLE_SIGNALS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">bool</span> is##EnumName##StaticallyEnabled(<span class="keywordtype">int</span> v) <span class="keyword">const</span> <span class="keyword">override</span>                \</div><div class="line">  {                                                                         \</div><div class="line">    return <a class="code" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="code" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>(<a class="code" href="a02401.html#a207c0a2eb1af39acd963fad06c4f538e">DISABLE_SIGNALS_BODY</a>, EnumName, __VA_ARGS__)) <span class="keyword">true</span>; \</div><div class="line">  }                                                                         \</div><div class="line">  template&lt;typename EnumT&gt;                                                  \</div><div class="line">  static constexpr <span class="keywordtype">bool</span> EnumName##StaticallyEnabled(EnumT v)                \</div><div class="line">  {                                                                         \</div><div class="line">    return <a class="code" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="code" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>(<a class="code" href="a02401.html#a207c0a2eb1af39acd963fad06c4f538e">DISABLE_SIGNALS_BODY</a>, EnumName, __VA_ARGS__)) <span class="keyword">true</span>; \</div><div class="line">  }</div><div class="ttc" id="a02401_html_a97b400c69266f278085ba434add0f311"><div class="ttname"><a href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a></div><div class="ttdeci">#define PP_ID(x)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:133</div></div>
+<div class="ttc" id="a02401_html_a95dae71c903bc1cb49f30dad28ddfed4"><div class="ttname"><a href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a></div><div class="ttdeci">#define PP_MAP(macro, data,...)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:62</div></div>
+<div class="ttc" id="a02401_html_a207c0a2eb1af39acd963fad06c4f538e"><div class="ttname"><a href="a02401.html#a207c0a2eb1af39acd963fad06c4f538e">DISABLE_SIGNALS_BODY</a></div><div class="ttdeci">#define DISABLE_SIGNALS_BODY(EnumT, name)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:169</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a207c0a2eb1af39acd963fad06c4f538e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a207c0a2eb1af39acd963fad06c4f538e">&#9670;&nbsp;</a></span>DISABLE_SIGNALS_BODY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DISABLE_SIGNALS_BODY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumT, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;static_cast&lt;int&gt;(v) == static_cast&lt;int&gt;(name) ? false:</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2caeefa544c00de073a68f8d5c1f9518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2caeefa544c00de073a68f8d5c1f9518">&#9670;&nbsp;</a></span>ENUM_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENUM_NAME</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumT, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;v == EnumT##_::name ? #name:</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e618badaabfada105c5793e503de60a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e618badaabfada105c5793e503de60a">&#9670;&nbsp;</a></span>EXTEND_ENUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXTEND_ENUM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EnumName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">SelfT, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">using</span> EnumName##Parent = SelfT::EnumName##Base;                                                                      \</div><div class="line">  PP_ID(<a class="code" href="a02401.html#a184c7a633f4f4773d807f79cedd2ff70">DECLARE_ENUM</a>(EnumName, __VA_ARGS__))                                                                           \</div><div class="line">  struct EnumName : <span class="keyword">public</span> EnumName##Parent::EnumName                                                                  \</div><div class="line">  {                                                                                                                    \</div><div class="line">    PP_ID(<a class="code" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>(<a class="code" href="a02401.html#a83597c635f5e312c8880f9f21b0c3684">DECLARE_STRUCT</a>, EnumName, __VA_ARGS__))                                                               \</div><div class="line">  };                                                                                                                   \</div><div class="line">  static constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> EnumName##Size = EnumName##Parent::EnumName##Size + <a class="code" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="code" href="a02401.html#a42e55ac921dbfa966333e9039ae7f4ec">COUNT_VA_ARGS</a>(__VA_ARGS__)); \</div><div class="line">  using EnumName##Parent::EnumName##Name;                                                                              \</div><div class="line">  static constexpr <span class="keyword">const</span> <span class="keywordtype">char</span> * EnumName##Name(EnumName##_ v)                                                          \</div><div class="line">  {                                                                                                                    \</div><div class="line">    return <a class="code" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="code" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>(<a class="code" href="a02401.html#a2caeefa544c00de073a68f8d5c1f9518">ENUM_NAME</a>, EnumName, __VA_ARGS__)) <span class="stringliteral">&quot;INVALID&quot;</span>;                                                  \</div><div class="line">  }                                                                                                                    \</div><div class="line">  using EnumName##Base = SelfT;                                                                                        \</div><div class="line">  static constexpr <span class="keyword">auto</span> EnumName##BaseName = #SelfT;</div><div class="ttc" id="a02401_html_a83597c635f5e312c8880f9f21b0c3684"><div class="ttname"><a href="a02401.html#a83597c635f5e312c8880f9f21b0c3684">DECLARE_STRUCT</a></div><div class="ttdeci">#define DECLARE_STRUCT(EnumT, name)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:140</div></div>
+<div class="ttc" id="a02401_html_a184c7a633f4f4773d807f79cedd2ff70"><div class="ttname"><a href="a02401.html#a184c7a633f4f4773d807f79cedd2ff70">DECLARE_ENUM</a></div><div class="ttdeci">#define DECLARE_ENUM(EnumName, Enum0,...)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:137</div></div>
+<div class="ttc" id="a02401_html_a42e55ac921dbfa966333e9039ae7f4ec"><div class="ttname"><a href="a02401.html#a42e55ac921dbfa966333e9039ae7f4ec">COUNT_VA_ARGS</a></div><div class="ttdeci">#define COUNT_VA_ARGS(...)</div><div class="ttdoc">Macro call to count_va_args. </div><div class="ttdef"><b>Definition:</b> internal/enums.h:31</div></div>
+<div class="ttc" id="a02401_html_a2caeefa544c00de073a68f8d5c1f9518"><div class="ttname"><a href="a02401.html#a2caeefa544c00de073a68f8d5c1f9518">ENUM_NAME</a></div><div class="ttdeci">#define ENUM_NAME(EnumT, name)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:135</div></div>
+<div class="ttc" id="a02401_html_a97b400c69266f278085ba434add0f311"><div class="ttname"><a href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a></div><div class="ttdeci">#define PP_ID(x)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:133</div></div>
+<div class="ttc" id="a02401_html_a95dae71c903bc1cb49f30dad28ddfed4"><div class="ttname"><a href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a></div><div class="ttdeci">#define PP_MAP(macro, data,...)</div><div class="ttdef"><b>Definition:</b> internal/enums.h:62</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a832c2b017c0034975b09dd73ccc03535"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832c2b017c0034975b09dd73ccc03535">&#9670;&nbsp;</a></span>PP_APPLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_APPLY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">macro, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(macro(__VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3fc10908dda8e7fbfe28b3dbe385a4c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fc10908dda8e7fbfe28b3dbe385a4c6">&#9670;&nbsp;</a></span>PP_ARG_N</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_ARG_N</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_3, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_4, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_5, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_6, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_7, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_8, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_9, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_10, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_11, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_12, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_13, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_14, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_15, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_16, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_17, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_18, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_19, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_20, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_21, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_22, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_23, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_24, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_25, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_26, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_27, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_28, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_29, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_30, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_31, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_32, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_33, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_34, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_35, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_36, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_37, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_38, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_39, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_40, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_41, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_42, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_43, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_44, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_45, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_46, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_47, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_48, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_49, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_50, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_51, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_52, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_53, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_54, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_55, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_56, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_57, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_58, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_59, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_60, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_61, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_62, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_63, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_64, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;N</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e9a41ea0c9dc23f2ddfb3740c266b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e9a41ea0c9dc23f2ddfb3740c266b7a">&#9670;&nbsp;</a></span>PP_CHOOSE_MAP_START</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_CHOOSE_MAP_START</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">count</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a02401.html#a95dae71c903bc1cb49f30dad28ddfed4">PP_MAP</a>##count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97b400c69266f278085ba434add0f311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b400c69266f278085ba434add0f311">&#9670;&nbsp;</a></span>PP_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_ID</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95dae71c903bc1cb49f30dad28ddfed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95dae71c903bc1cb49f30dad28ddfed4">&#9670;&nbsp;</a></span>PP_MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">macro, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">data, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a832c2b017c0034975b09dd73ccc03535">PP_APPLY</a>(<a class="el" href="a02401.html#a7e9a41ea0c9dc23f2ddfb3740c266b7a">PP_CHOOSE_MAP_START</a>, <a class="el" href="a02401.html#a31b9bcd0e7f30adb8ed947d86d4ae11b">PP_NARG</a>(__VA_ARGS__))(macro, data, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2a46509ef282a6fac75bf0362bce1fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2a46509ef282a6fac75bf0362bce1fb">&#9670;&nbsp;</a></span>PP_MAP1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bf7fe7e4ea393fa8c64cc4f49c815b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf7fe7e4ea393fa8c64cc4f49c815b2">&#9670;&nbsp;</a></span>PP_MAP10</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP10</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1298bce1d551ec148fb20c1d56d8b84b">PP_MAP9</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af9ae38c0c652191b7fdd11641a14908a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9ae38c0c652191b7fdd11641a14908a">&#9670;&nbsp;</a></span>PP_MAP11</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP11</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0bf7fe7e4ea393fa8c64cc4f49c815b2">PP_MAP10</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad440c2db0ee0f32ded184916f757d976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad440c2db0ee0f32ded184916f757d976">&#9670;&nbsp;</a></span>PP_MAP12</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP12</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af9ae38c0c652191b7fdd11641a14908a">PP_MAP11</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a585ef093245801d0b17ab243ece5f922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a585ef093245801d0b17ab243ece5f922">&#9670;&nbsp;</a></span>PP_MAP13</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP13</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad440c2db0ee0f32ded184916f757d976">PP_MAP12</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9c3884ccadbbb37d42a621f97fd41c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9c3884ccadbbb37d42a621f97fd41c5">&#9670;&nbsp;</a></span>PP_MAP14</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP14</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a585ef093245801d0b17ab243ece5f922">PP_MAP13</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae78c36388492996d3c9407e6448fc805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78c36388492996d3c9407e6448fc805">&#9670;&nbsp;</a></span>PP_MAP15</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP15</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab9c3884ccadbbb37d42a621f97fd41c5">PP_MAP14</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a772f3b1ee192ec7ec802dd5138f7b200"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a772f3b1ee192ec7ec802dd5138f7b200">&#9670;&nbsp;</a></span>PP_MAP16</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP16</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ae78c36388492996d3c9407e6448fc805">PP_MAP15</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29f0d8b481cafb990e3885fe43e29367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29f0d8b481cafb990e3885fe43e29367">&#9670;&nbsp;</a></span>PP_MAP17</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP17</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a772f3b1ee192ec7ec802dd5138f7b200">PP_MAP16</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abae0b9a7d8a9b43587e036dcb7fac007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae0b9a7d8a9b43587e036dcb7fac007">&#9670;&nbsp;</a></span>PP_MAP18</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP18</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a29f0d8b481cafb990e3885fe43e29367">PP_MAP17</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a35712e62e13d0ca43e0619b379b789d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35712e62e13d0ca43e0619b379b789d0">&#9670;&nbsp;</a></span>PP_MAP19</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP19</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#abae0b9a7d8a9b43587e036dcb7fac007">PP_MAP18</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31cc39eb409cc9eea04646ccc2022039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31cc39eb409cc9eea04646ccc2022039">&#9670;&nbsp;</a></span>PP_MAP2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af2a46509ef282a6fac75bf0362bce1fb">PP_MAP1</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1bdb9247e99306a15d5290d5f93ae13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1bdb9247e99306a15d5290d5f93ae13">&#9670;&nbsp;</a></span>PP_MAP20</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP20</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a35712e62e13d0ca43e0619b379b789d0">PP_MAP19</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad171c65e2418addc5ccb243c086a45c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad171c65e2418addc5ccb243c086a45c0">&#9670;&nbsp;</a></span>PP_MAP21</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP21</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab1bdb9247e99306a15d5290d5f93ae13">PP_MAP20</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac289d146e5af03ea19447a866f662628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac289d146e5af03ea19447a866f662628">&#9670;&nbsp;</a></span>PP_MAP22</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP22</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad171c65e2418addc5ccb243c086a45c0">PP_MAP21</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0fcb65ce8469945337a73177546564b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fcb65ce8469945337a73177546564b8">&#9670;&nbsp;</a></span>PP_MAP23</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP23</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ac289d146e5af03ea19447a866f662628">PP_MAP22</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a053d1d6977845347e59df6663c51c022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053d1d6977845347e59df6663c51c022">&#9670;&nbsp;</a></span>PP_MAP24</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP24</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0fcb65ce8469945337a73177546564b8">PP_MAP23</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a5e69538e6fe4a8d678027d270ac8ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a5e69538e6fe4a8d678027d270ac8ac">&#9670;&nbsp;</a></span>PP_MAP25</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP25</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a053d1d6977845347e59df6663c51c022">PP_MAP24</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52c2e560d5cab58c5868af0a4b882733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c2e560d5cab58c5868af0a4b882733">&#9670;&nbsp;</a></span>PP_MAP26</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP26</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0a5e69538e6fe4a8d678027d270ac8ac">PP_MAP25</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea55fec7896a2114962e1f577e419698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea55fec7896a2114962e1f577e419698">&#9670;&nbsp;</a></span>PP_MAP27</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP27</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a52c2e560d5cab58c5868af0a4b882733">PP_MAP26</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14d912b3c588a1a4c21c9300d99872a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14d912b3c588a1a4c21c9300d99872a2">&#9670;&nbsp;</a></span>PP_MAP28</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP28</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aea55fec7896a2114962e1f577e419698">PP_MAP27</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6de2fbec2f6663d46258cc82170e576c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6de2fbec2f6663d46258cc82170e576c">&#9670;&nbsp;</a></span>PP_MAP29</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP29</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a14d912b3c588a1a4c21c9300d99872a2">PP_MAP28</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6a10288bf134adb5ed662906449a1703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a10288bf134adb5ed662906449a1703">&#9670;&nbsp;</a></span>PP_MAP3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP3</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a31cc39eb409cc9eea04646ccc2022039">PP_MAP2</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cac0378dcacef10a76af224a3bece79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cac0378dcacef10a76af224a3bece79">&#9670;&nbsp;</a></span>PP_MAP30</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP30</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6de2fbec2f6663d46258cc82170e576c">PP_MAP29</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ae08f7f86dddd3ff623fe02c726a0de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ae08f7f86dddd3ff623fe02c726a0de">&#9670;&nbsp;</a></span>PP_MAP31</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP31</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6cac0378dcacef10a76af224a3bece79">PP_MAP30</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64a04f3ad82a8f39072bea670423eaa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64a04f3ad82a8f39072bea670423eaa4">&#9670;&nbsp;</a></span>PP_MAP32</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP32</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6ae08f7f86dddd3ff623fe02c726a0de">PP_MAP31</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee3fe54af5f8014486420ff92b04cfac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee3fe54af5f8014486420ff92b04cfac">&#9670;&nbsp;</a></span>PP_MAP33</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP33</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a64a04f3ad82a8f39072bea670423eaa4">PP_MAP32</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8ebac4a53ebdb19755155c6e3579bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ebac4a53ebdb19755155c6e3579bd7">&#9670;&nbsp;</a></span>PP_MAP34</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP34</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aee3fe54af5f8014486420ff92b04cfac">PP_MAP33</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad404eb06787cc4629e5038660d1d80c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad404eb06787cc4629e5038660d1d80c7">&#9670;&nbsp;</a></span>PP_MAP35</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP35</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af8ebac4a53ebdb19755155c6e3579bd7">PP_MAP34</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a825c18b801dd12414f49c5241483c976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a825c18b801dd12414f49c5241483c976">&#9670;&nbsp;</a></span>PP_MAP36</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP36</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad404eb06787cc4629e5038660d1d80c7">PP_MAP35</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3a46ec70ccb0ed401ba4d218c21b15c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a46ec70ccb0ed401ba4d218c21b15c">&#9670;&nbsp;</a></span>PP_MAP37</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP37</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a825c18b801dd12414f49c5241483c976">PP_MAP36</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada4e88262432f2914b11786103f3f9da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4e88262432f2914b11786103f3f9da">&#9670;&nbsp;</a></span>PP_MAP38</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP38</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab3a46ec70ccb0ed401ba4d218c21b15c">PP_MAP37</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1da46d9f259deb7416061f4efaa6a092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da46d9f259deb7416061f4efaa6a092">&#9670;&nbsp;</a></span>PP_MAP39</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP39</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ada4e88262432f2914b11786103f3f9da">PP_MAP38</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7503bd8f0f947e19bded06890777955"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7503bd8f0f947e19bded06890777955">&#9670;&nbsp;</a></span>PP_MAP4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP4</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6a10288bf134adb5ed662906449a1703">PP_MAP3</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c37466d6aa0e7c42047d9f3324f9379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c37466d6aa0e7c42047d9f3324f9379">&#9670;&nbsp;</a></span>PP_MAP40</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP40</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1da46d9f259deb7416061f4efaa6a092">PP_MAP39</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9636bf1c6be429ee9b324a3cbb52b452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9636bf1c6be429ee9b324a3cbb52b452">&#9670;&nbsp;</a></span>PP_MAP41</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP41</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a7c37466d6aa0e7c42047d9f3324f9379">PP_MAP40</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67e6ff4572583b133c5f0ccf64ecf909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e6ff4572583b133c5f0ccf64ecf909">&#9670;&nbsp;</a></span>PP_MAP42</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP42</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a9636bf1c6be429ee9b324a3cbb52b452">PP_MAP41</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8b7d39333f8edb7296ef916749048af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b7d39333f8edb7296ef916749048af">&#9670;&nbsp;</a></span>PP_MAP43</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP43</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a67e6ff4572583b133c5f0ccf64ecf909">PP_MAP42</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adad5df3b90b1acd110b71a92a49ce8ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adad5df3b90b1acd110b71a92a49ce8ad">&#9670;&nbsp;</a></span>PP_MAP44</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP44</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aa8b7d39333f8edb7296ef916749048af">PP_MAP43</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88aca5a7e0920bc55d968966505597a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88aca5a7e0920bc55d968966505597a7">&#9670;&nbsp;</a></span>PP_MAP45</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP45</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#adad5df3b90b1acd110b71a92a49ce8ad">PP_MAP44</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62d7e0c6bead2de7a095d0f712e698ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d7e0c6bead2de7a095d0f712e698ef">&#9670;&nbsp;</a></span>PP_MAP46</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP46</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a88aca5a7e0920bc55d968966505597a7">PP_MAP45</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c6ea832351e0252b3cfb6ece19d5947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c6ea832351e0252b3cfb6ece19d5947">&#9670;&nbsp;</a></span>PP_MAP47</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP47</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a62d7e0c6bead2de7a095d0f712e698ef">PP_MAP46</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2db17f4e6826c1fd8b22d2824fffc64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db17f4e6826c1fd8b22d2824fffc64b">&#9670;&nbsp;</a></span>PP_MAP48</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP48</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a6c6ea832351e0252b3cfb6ece19d5947">PP_MAP47</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09dfc8f3e7701b15ad493272e4146135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09dfc8f3e7701b15ad493272e4146135">&#9670;&nbsp;</a></span>PP_MAP49</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP49</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a2db17f4e6826c1fd8b22d2824fffc64b">PP_MAP48</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4cc74c52b369954a1d188f22d0f1a32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4cc74c52b369954a1d188f22d0f1a32">&#9670;&nbsp;</a></span>PP_MAP5</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP5</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ad7503bd8f0f947e19bded06890777955">PP_MAP4</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa301af16aad1574b3002941ed8051d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa301af16aad1574b3002941ed8051d28">&#9670;&nbsp;</a></span>PP_MAP50</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP50</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a09dfc8f3e7701b15ad493272e4146135">PP_MAP49</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6e5e042efb0efbaf2fc113b927a6461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6e5e042efb0efbaf2fc113b927a6461">&#9670;&nbsp;</a></span>PP_MAP51</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP51</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#aa301af16aad1574b3002941ed8051d28">PP_MAP50</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a795514584f82bf1cffcec806fb6b8021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a795514584f82bf1cffcec806fb6b8021">&#9670;&nbsp;</a></span>PP_MAP52</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP52</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ae6e5e042efb0efbaf2fc113b927a6461">PP_MAP51</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2efaa0d467e4ec98f155c76ea59e48f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2efaa0d467e4ec98f155c76ea59e48f">&#9670;&nbsp;</a></span>PP_MAP53</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP53</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a795514584f82bf1cffcec806fb6b8021">PP_MAP52</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbae36743d620e49307251ba108bdbd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbae36743d620e49307251ba108bdbd2">&#9670;&nbsp;</a></span>PP_MAP54</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP54</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ab2efaa0d467e4ec98f155c76ea59e48f">PP_MAP53</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ca39e3cd3754f75e0a8f46bdcf7411e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ca39e3cd3754f75e0a8f46bdcf7411e">&#9670;&nbsp;</a></span>PP_MAP55</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP55</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#abbae36743d620e49307251ba108bdbd2">PP_MAP54</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41ab40c74e1d20e78de6dff0854fd08f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ab40c74e1d20e78de6dff0854fd08f">&#9670;&nbsp;</a></span>PP_MAP56</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP56</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a0ca39e3cd3754f75e0a8f46bdcf7411e">PP_MAP55</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ee86a3aee45534375598feec407c392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee86a3aee45534375598feec407c392">&#9670;&nbsp;</a></span>PP_MAP57</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP57</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a41ab40c74e1d20e78de6dff0854fd08f">PP_MAP56</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a697442be689cd077b015d9274ce5c3ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a697442be689cd077b015d9274ce5c3ca">&#9670;&nbsp;</a></span>PP_MAP58</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP58</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a7ee86a3aee45534375598feec407c392">PP_MAP57</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a674296ef79536f4cad058348e702f585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a674296ef79536f4cad058348e702f585">&#9670;&nbsp;</a></span>PP_MAP59</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP59</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a697442be689cd077b015d9274ce5c3ca">PP_MAP58</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e2501862ffbc4734f7e1d07ed71c4a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e2501862ffbc4734f7e1d07ed71c4a5">&#9670;&nbsp;</a></span>PP_MAP6</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP6</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af4cc74c52b369954a1d188f22d0f1a32">PP_MAP5</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66c85f4373c68c5c47752d1de0bdd4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c85f4373c68c5c47752d1de0bdd4ac">&#9670;&nbsp;</a></span>PP_MAP60</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP60</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a674296ef79536f4cad058348e702f585">PP_MAP59</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5cac4f7228d2529543a5439f7fe6a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5cac4f7228d2529543a5439f7fe6a9d">&#9670;&nbsp;</a></span>PP_MAP61</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP61</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a66c85f4373c68c5c47752d1de0bdd4ac">PP_MAP60</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac00d2cdd23628f425b5c2898aacf241d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac00d2cdd23628f425b5c2898aacf241d">&#9670;&nbsp;</a></span>PP_MAP62</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP62</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#af5cac4f7228d2529543a5439f7fe6a9d">PP_MAP61</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e7ebb6a71e43710a94b2a327d77d2d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e7ebb6a71e43710a94b2a327d77d2d9">&#9670;&nbsp;</a></span>PP_MAP63</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP63</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#ac00d2cdd23628f425b5c2898aacf241d">PP_MAP62</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af066f04727c0c4bace1196bcd3c6a980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af066f04727c0c4bace1196bcd3c6a980">&#9670;&nbsp;</a></span>PP_MAP64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP64</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a2e7ebb6a71e43710a94b2a327d77d2d9">PP_MAP63</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a435ac259c3585ae56b33776f482b01a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a435ac259c3585ae56b33776f482b01a7">&#9670;&nbsp;</a></span>PP_MAP7</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP7</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a3e2501862ffbc4734f7e1d07ed71c4a5">PP_MAP6</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89e485ecfd874861bf55c5aa777c7257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89e485ecfd874861bf55c5aa777c7257">&#9670;&nbsp;</a></span>PP_MAP8</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP8</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a435ac259c3585ae56b33776f482b01a7">PP_MAP7</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1298bce1d551ec148fb20c1d56d8b84b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1298bce1d551ec148fb20c1d56d8b84b">&#9670;&nbsp;</a></span>PP_MAP9</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_MAP9</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;m(d, x) <a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a89e485ecfd874861bf55c5aa777c7257">PP_MAP8</a>(m, d, __VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31b9bcd0e7f30adb8ed947d86d4ae11b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b9bcd0e7f30adb8ed947d86d4ae11b">&#9670;&nbsp;</a></span>PP_NARG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_NARG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a1b4b6dfcca38ee665c4c88c07d58c4f0">PP_NARG_</a>(__VA_ARGS__, <a class="el" href="a02401.html#a15967218850ac6ac5ffd777368fec7fd">PP_RSEQ_N</a>()))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PP_NARG achieves the same as COUNT_VA_ARGS but it does not work with empty arguments. </p>
+<p>However, it performs text substitution which we will need where it is used </p>
+
+</div>
+</div>
+<a id="a1b4b6dfcca38ee665c4c88c07d58c4f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b4b6dfcca38ee665c4c88c07d58c4f0">&#9670;&nbsp;</a></span>PP_NARG_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_NARG_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a02401.html#a97b400c69266f278085ba434add0f311">PP_ID</a>(<a class="el" href="a02401.html#a3fc10908dda8e7fbfe28b3dbe385a4c6">PP_ARG_N</a>(__VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15967218850ac6ac5ffd777368fec7fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15967218850ac6ac5ffd777368fec7fd">&#9670;&nbsp;</a></span>PP_RSEQ_N</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PP_RSEQ_N</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">64,63,62,61,60,                \</div><div class="line">  59,58,57,56,55,54,53,52,51,50, \</div><div class="line">  49,48,47,46,45,44,43,42,41,40, \</div><div class="line">  39,38,37,36,35,34,33,32,31,30, \</div><div class="line">  29,28,27,26,25,24,23,22,21,20, \</div><div class="line">  19,18,17,16,15,14,13,12,11,10, \</div><div class="line">  9,8,7,6,5,4,3,2,1,0</div></div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_d042aebbf1171e016bcc9e6a6ed11000.html">robot</a></li><li class="navelem"><a class="el" href="a02401.html">enums.h</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_020a04e36825fdb5d137e6f4f382bacd.html">internal</a></li><li class="navelem"><a class="el" href="a02401.html">enums.h</a></li>
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

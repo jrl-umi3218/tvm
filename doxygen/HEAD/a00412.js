@@ -1,4 +1,5 @@
 var a00412 =
 [
-    [ "internal", "a00413.html", "a00413" ]
+    [ "LeastSquareSolver", "a01632.html", "a01632" ],
+    [ "LSSolverFactory", "a01644.html", "a01644" ]
 ];

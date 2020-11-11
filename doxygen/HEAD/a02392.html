@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: enums.h File Reference</title>
+<title>TVM: How to create a new task dynamics</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,55 +88,62 @@ $(document).ready(function(){initNavTree('a02392.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">constraint/enums.h File Reference</div>  </div>
+<div class="title">How to create a new task dynamics </div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00380"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00380.html">tvm</a></td></tr>
-<tr class="memdesc:a00380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00381"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00381.html">tvm::constraint</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ab6243a7da877a867f54ff7207959eb7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00381.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> { <br />
-&#160;&#160;<a class="el" href="a00381.html#ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44">tvm::constraint::Type::EQUAL</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00381.html#ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e">tvm::constraint::Type::GREATER_THAN</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00381.html#ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146">tvm::constraint::Type::LOWER_THAN</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00381.html#ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5">tvm::constraint::Type::DOUBLE_SIDED</a>
-<br />
- }<tr class="memdesc:ab6243a7da877a867f54ff7207959eb7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint.  <a href="a00381.html#ab6243a7da877a867f54ff7207959eb7c">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ab6243a7da877a867f54ff7207959eb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf340c6d4875e2e7502c8a6243ae0551"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00381.html#adf340c6d4875e2e7502c8a6243ae0551">tvm::constraint::RHS</a> { <br />
-&#160;&#160;<a class="el" href="a00381.html#adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c">tvm::constraint::RHS::ZERO</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00381.html#adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6">tvm::constraint::RHS::AS_GIVEN</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00381.html#adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65">tvm::constraint::RHS::OPPOSITE</a>
-<br />
- }<tr class="memdesc:adf340c6d4875e2e7502c8a6243ae0551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell how a vector <code>u</code> should be considered as a right hand side of a constraint.  <a href="a00381.html#adf340c6d4875e2e7502c8a6243ae0551">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:adf340c6d4875e2e7502c8a6243ae0551"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+<div class="textblock"><h1>Preliminaries </h1>
+<p>Given a task \( f \circ rhs \) where \( f \) is a function, \( \circ \) is one of the following operators: \( \leq, = , \geq \) and \( rhs \) is vector, we define the task error function \( e = f - rhs \). <br />
+ The goal of a task dynamics is to specify the desired value of one time derivative of \( e \), such that the value of \( f \) stays in a region that fulfills the task or converge to it.</p>
+<p>In this example we will see how to implement the task dynamics</p>
+<p>\( \dot{e}^* = -k_p(e) e \qquad (1) \)</p>
+<p>that is a proportional-like dynamics with an adaptive gain, where</p>
+<p>\( k_p(e) = a \exp(-b \left\|e\right\|) + c \qquad (2) \)</p>
+<p>To keep it simple \( a \), \( b \), \( c \) and thus \( k_p \) will be scalars.</p>
+<p>This task dynamics computes a desired first-order time derivative of the error function \( e \). We say its order is one.</p>
+<h1>Implementation outline </h1>
+<p>From the user point of view, a task dynamics can be just specified by its type and parameters (e.g. adaptive proportional with gain <code>a</code>, <code>b</code> and <code>c</code> in this example). This can be done independently of the task \( f \circ rhs \) with which it will be used. From the computational point of view, the task dynamics needs to be instantiated as a node of the computation graph taking the value and possibly the derivatives of \(f \) as an input. This step can only be done if the task is known.</p>
+<p>At the code level, this duality of viewpoints translates into the implementation of two classes:</p><ol type="1">
+<li>A user-dedicated class, deriving from <a class="el" href="a01712.html" title="This is a base class to describe how a task is to be regulated, i.e. ">tvm::task_dynamics::abstract::TaskDynamics</a> that acts as a lightweight description of the task and a factory for</li>
+<li>A computation-related class, deriving from <a class="el" href="a01716.html" title="Base class for the implementation of a task dynamics. ">tvm::task_dynamics::abstract::TaskDynamicsImpl</a> that implements a node of the computation graph.</li>
+</ol>
+<p>We will call AdaptiveProportional the user-dedicated class. It simply needs to store <code>a</code>, <code>b</code> and <code>c</code>, and is required to override the two following methods </p><div class="fragment"><div class="line"><a class="code" href="a00390.html#a2104706f158c0b024e10716d3c176cad">Order</a> order_() const</div><div class="line"><a class="code" href="a00382.html">std</a>::unique_ptr&lt;TaskDynamicsImpl&gt; impl_(<a class="code" href="a00383.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, constraint::<a class="code" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">Type</a> t, const <a class="code" href="a00415.html">Eigen</a>::VectorXd&amp; rhs) const</div></div><!-- fragment --><p> The first one has to return the task dynamics order (one, in our case), the second creates an instance of the computation-related class.</p>
+<p>The second class could be implemented separately of the first but the convention taken in TVM is to make it a subclass of the first, with the name <code>Impl</code>. A few other classes rely on this convention such as <a class="el" href="a01720.html" title="Given a task dynamics value , compute the new value , , such that  where  and  are given bounds...">tvm::task_dynamics::Clamped</a>, that would not be compatible with our example if we didn't do so. This second class overrides the method </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> updateValue()</div></div><!-- fragment --><p> which implements the computation of the desired error derivative, i.e. the formula (1) and (2) for our example. For that it will need to store store <code>a</code>, <code>b</code> and <code>c</code> as well.</p>
+<h1>Implementation details </h1>
+<p>As a direct transcription of the outline above, our <code>AdaptiveProportional</code> has the following declaration (assuming the proper namespaces): </p><pre><div class="fragment"><div class="line"><span class="keyword">class </span>AdaptiveProportional : <span class="keyword">public</span> abstract::TaskDynamics</div><div class="line">{</div><div class="line">  <span class="keyword">public</span>:</div><div class="line">    <span class="keyword">class </span>Impl : <span class="keyword">public</span> task_dynamics::abstract::TaskDynamicsImpl { ... };</div><div class="line"></div><div class="line">    AdaptiveProportional(<span class="keywordtype">double</span> a, <span class="keywordtype">double</span> b, <span class="keywordtype">double</span> c);</div><div class="line"></div><div class="line">  <span class="keyword">protected</span>:</div><div class="line">    <a class="code" href="a00390.html#a2104706f158c0b024e10716d3c176cad">task_dynamics::Order</a> order_() <span class="keyword">const override</span>;</div><div class="line">    std::unique_ptr&lt;task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(<a class="code" href="a00383.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="code" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd&amp; rhs) <span class="keyword">const override</span>;</div><div class="line"></div><div class="line">     <a class="code" href="a00266.html#abb698affbe75e6eb09581fed3cb1ad62">TASK_DYNAMICS_DERIVED_FACTORY</a>(a_, b_, c_)</div><div class="line"></div><div class="line">  <span class="keyword">private</span>:</div><div class="line">    <span class="keywordtype">double</span> a_, b_, c_;</div><div class="line">};</div></div><!-- fragment --></pre><p> (The impl class is described below)</p>
+<p>The implementation is straightforward:</p><ul>
+<li>the contructor trivially assigns <code>a</code>, <code>b</code> and <code>c</code> to the relevant fields <pre><div class="fragment"><div class="line">AdaptiveProportional::AdaptiveProportional(<span class="keywordtype">double</span> a, <span class="keywordtype">double</span> b, <span class="keywordtype">double</span> c)</div><div class="line"> : a_(a), b_(b), c_(c)</div><div class="line">{</div><div class="line">}</div></div><!-- fragment --></pre></li>
+<li><code>order_()</code> simply returns <a class="el" href="a00390.html#a2104706f158c0b024e10716d3c176cada06c2cea18679d64399783748fa367bdd">tvm::task_dynamics::Order::One</a>.</li>
+<li><code>impl_</code> is given the description of the task \( f \circ rhs \) through parameters <code>f</code>, <code>t</code> and <code>rhs</code>. From these and fields <code>a_</code>, <code>b_</code>, <code>c_</code>, it constructs a std::unique_ptr on <code>AdaptiveProportional::Impl:</code> <pre><div class="fragment"><div class="line">std::unique_ptr&lt;task_dynamics::abstract::TaskDynamicsImpl&gt; AdaptiveProportional::impl_(<a class="code" href="a00383.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="code" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd&amp; rhs)<span class="keyword"> const</span></div><div class="line"><span class="keyword"></span>{</div><div class="line">  <span class="keywordflow">return</span> std::make_unique&lt;Impl&gt;(f, t, rhs, a_, b_, c_);</div><div class="line">}</div></div><!-- fragment --></pre></li>
+<li><code><a class="el" href="a00266.html#abb698affbe75e6eb09581fed3cb1ad62" title="This macro can be used to define the derived factory required in TaskDynamics implementation, Args are the arguments required by the derived class, the macro arguments are members of the class passed to the derived constructor. ">TASK_DYNAMICS_DERIVED_FACTORY(a_, b_, c_)</a></code> is required to enable the use of our new task dynamic in a composable task dynamic (for example, to create a <code>Clamped&lt;AdaptiveProportional&gt;</code> dynamic). The arguments provided to the macro are the arguments that are required by <code>AdaptiveProportional::Impl</code> </li>
+</ul>
+<p>The <code>Impl</code> class is declared as </p><pre><div class="fragment"><div class="line"><span class="keyword">class </span>Impl : <span class="keyword">public</span> task_dynamics::abstract::TaskDynamicsImpl</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  Impl(<a class="code" href="a00383.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="code" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd &amp; rhs, <span class="keywordtype">double</span> a, <span class="keywordtype">double</span> b, <span class="keywordtype">double</span> c);</div><div class="line">  <span class="keywordtype">void</span> updateValue() <span class="keyword">override</span>;</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">  <span class="keywordtype">double</span> a_, b_, c_;</div><div class="line">};</div></div><!-- fragment --></pre><p>Once again, the constructor is straightforward. The main attention point is that it needs to call the constructor of TaskDynamicsImpl to pass it not only the parameters <code>f</code>, <code>t</code> and <code>rhs</code>, but also the order of the task dynamics. </p><pre><div class="fragment"><div class="line">AdaptiveProportional::Impl::Impl(<a class="code" href="a00383.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="code" href="a00384.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd&amp; rhs, <span class="keywordtype">double</span> a, <span class="keywordtype">double</span> b, <span class="keywordtype">double</span> c)</div><div class="line">  : TaskDynamicsImpl(task_dynamics::<a class="code" href="a00390.html#a2104706f158c0b024e10716d3c176cad">Order</a>::<a class="code" href="a00390.html#a2104706f158c0b024e10716d3c176cada06c2cea18679d64399783748fa367bdd">One</a>, f,t,rhs), a_(a), b_(b), c_(c)</div><div class="line">{</div><div class="line">}</div></div><!-- fragment --></pre><p>The <code>updateValue()</code> method is the heart of the implementation. It will be called by the computation graph to update the value of the TaskDynamicsImpl instance (accessible through the <code>value()</code> method). Within methods of <code>Impl</code>, we have access to the task parameters through the <code>function()</code>, <code>type()</code> and <code>rhs()</code> methods. Furthermore, we have access to the <code>value_</code> member, which is where to put the output of our computations. <br />
+ The implementation is as follows </p><pre><div class="fragment"><div class="line"><span class="keywordtype">void</span> AdaptiveProportional::Impl::updateValue()</div><div class="line">{</div><div class="line">  value_ = <span class="keyword">function</span>().value() - rhs();</div><div class="line">  <span class="keywordtype">double</span> kp = a_ * exp(-b_ * value_.norm()) + c_;</div><div class="line">  value_ *= -kp;</div><div class="line">}</div></div><!-- fragment --></pre><p> The first line stores (temporarily) the value of the error function \( e \) in <code>value_</code>. The second line computes the adaptive gain according to (2). The last line computes the desired error velocity as in (1) and store it in <code>value_</code>, as required.</p>
+<h1>To go further </h1>
+<h2>On this example </h2>
+<p>The above implementation is a minimal working example, and could be improved or extended in several ways:</p><ul>
+<li>Checking the validity of the input parameters <code>a_</code>, <code>b_</code>, <code>c_</code> in the constructor of <code>Impl</code>. These parameters should be non-negative. It would be even be better to check the validity <em>also</em> in the constructor of <code>AdaptiveProportional</code>, to report errors as early as possible, and at a place that will be more user-friendly.</li>
+<li>Adding getter and setters for the parameters (with the required checks).</li>
+<li>Having <code>a</code> and <code>c</code> be possibly diagonal matrices (represented by a vector) or full matrices. This would require additionnal checks on the vector/matrix sizes with respect to the size of \( f \).</li>
+</ul>
+<h2>General notes </h2>
+<p>Here are some points to keep in minds when implementing new task dynamics:</p><ul>
+<li>By default the computation of the task dynamics value only relies on the value of \( f \) (and its velocity for second-order task dynamics). The constructor of <code>TaskDynamicsImpl</code> ensures that the computation graph is properly designed for this case. If your task dynamics depends on other computations, e.g. if your computation relies also on a function \( g \), you need to declare the computation dependencies in the constructor of <code>Impl</code>. The constructor of <a class="el" href="a01716.html" title="Base class for the implementation of a task dynamics. ">tvm::task_dynamics::abstract::TaskDynamicsImpl</a> offers a good example of how to do so.</li>
+<li>Composable task dynamic, i.e. a task dynamic that encapsulate another task dynamic, are not covered by this document but the gist of the implementation is similar. The <code>Clamped</code> task dynamic is a reasonably simple example of such a dynamic.</li>
+</ul>
+<h2>Example files </h2>
+<ul>
+<li><a href="https://github.com/jrl-umi3218/tvm/blob/master/examples/TaskDynamicsExample.cpp">example/TaskDynamicsExample.cpp</a></li>
+<li><a href="https://github.com/jrl-umi3218/tvm/blob/master/include/tvm/task_dynamics/Clamped.h">Clamped composable task dynamic</a> </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_8aade20741a7f4a13662c9851e607ed3.html">constraint</a></li><li class="navelem"><a class="el" href="a02392.html">enums.h</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
+    <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

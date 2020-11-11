@@ -1,6 +1,6 @@
 var a00384 =
 [
     [ "abstract", "a00385.html", "a00385" ],
-    [ "BasicLinearFunction", "a01045.html", "a01045" ],
-    [ "IdentityFunction", "a01049.html", "a01049" ]
+    [ "internal", "a00386.html", "a00386" ],
+    [ "BasicLinearConstraint", "a00976.html", "a00976" ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: TVM concepts</title>
+<title>TVM: A least-squares problem example</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,50 +89,45 @@ $(document).ready(function(){initNavTree('a02390.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">TVM concepts </div>  </div>
+<div class="title">A least-squares problem example </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1>Space </h1>
-<p>In TVM, a space is an Euclidean vector space \( \mathbb{R}^n \) of given size \( n \), or a non-Euclidean smooh manifold. Spaces are represented by the <a class="el" href="a01701.html" title="Description of a variable space, and factory for Variable. ">tvm::Space</a> class.</p>
-<h1>Variable </h1>
-<p>A variable in TVM is meant to have the same meaning as with mathematical notations: a point of a space whose value is unknown or varying with the problem to solve.</p>
-<p>Variables in TVM are represented by the <a class="el" href="a01853.html" title="Representation of a Variable, i.e. ">tvm::Variable</a> class, and usually used through a <code>std::shared_ptr</code> with the alias <a class="el" href="a00380.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a>.</p>
-<p>Since variables are points of spaces, <a class="el" href="a01853.html" title="Representation of a Variable, i.e. ">tvm::Variable</a> can not be created directely, but need to be constructed from a <a class="el" href="a01701.html" title="Description of a variable space, and factory for Variable. ">tvm::Space</a>.</p>
-<p>From a variable, one can create its time derivative with <a class="el" href="a00380.html#a87d6cb6ff8019ac998b40578d2a27438" title="Get the ndiff-th time derivative of a variable. ">tvm::dot</a>.</p>
-<p>Variables can also be grouped in <a class="el" href="a01861.html" title="A vector of variables, with some useful manipulation/analysis functions. ">tvm::VariableVector</a>.</p>
-<h1>Function </h1>
-<p>A TVM function (<a class="el" href="a01037.html" title="Base class defining the classical outputs for a function. ">tvm::function::abstract::Function</a>) is an object representing a mathematical function \( f: S_1 \times \ldots \times S_k \rightarrow \mathbb{R}^m\), where the \(S_i\) are spaces as above. Note that the image space is always an Euclidean space.</p>
-<p>For given variables values, it can compute the value of the function, and some of its derivatives (with respect to time or its variables).</p>
-<p>An example on how to write new functions is given <a class="el" href="a02386.html">here</a></p>
-<h1>Task dynamics </h1>
-<p>Given an error function \( e \), a task dynamics \( g \) gives the desired behavior of this error as a specification of its \(k\)-th time derivative, <em>i.e</em>. \( \frac{d^k e}{dt^k}^* = g(t,e,\dot{e}, \ldots, \frac{d^{k-1} e}{dt^{k-1}}) \). This is implemented through the <a class="el" href="a01709.html" title="This is a base class to describe how a task is to be regulated, i.e. ">tvm::task_dynamics::abstract::TaskDynamics</a> class.</p>
-<p>An example on how to write new task dynamics is given <a class="el" href="a02389.html">here</a></p>
-<h1>Task </h1>
-<p>A task is formally a triplet (error function, operator, task dynamics), where operator is a comparison to 0 (&lt;=, == or &gt;=). It is represented by the <a class="el" href="a01705.html" title="A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=...">tvm::Task</a> class.</p>
-<p>TVM offers the possibility to write the two first elements with syntax like <code> f == b </code> or <code> f &gt;= b </code>, where <code>f</code> a function and <code>b</code> a <code>double</code> or <code>VectorXd</code>, which is converted to <code> e == 0. </code> or <code> e &gt;= 0. </code> with \( e = f-b \). It is also possible to write <code> l &lt;= f &lt;= u </code>, which will be interpreted as parts of two tasks.</p>
-<h1>Constraint </h1>
-<p>A constraint is a triplet (function, operator, rhs) or (function, rhs1, rhs2).<br />
- The first case covers the form \( f == rhs \), \( f \geq rhs \) and \( f \leq rhs \), the second is for \( rhs1 \leq f \leq rhs2 \). It is implemented by the <a class="el" href="a00965.html" title="Base class for representing a constraint. ">tvm::constraint::abstract::Constraint</a> class.</p>
-<p>There is no concept of objective in TVM: objectives are constraints with the lower level of priority whose violation, by default, needs to be minimized in the least-square sense.</p>
-<h1>Solving requirements </h1>
-<p>Solving requirements are specifications on how a task or constraint must be solved, especially in relations with other constraints or tasks, when not all are feasible. There are for now 4 types of requirements:</p><ul>
-<li><code>ViolationEvaluation</code> specifies how the constraint violation must be considered for minimization. Currently, there are only one type fully implemented: the L2 norm of the violation.</li>
-<li><code>Priority</code> specifies the priority of a constraint in the sense of a stack of tasks</li>
-<li><code>Weight</code> allows to indicate the relative importance of tasks at the same level of priority, by multiplying their violation by a scalar</li>
-<li><code>AnistropicWeight</code> has the same purpose as <code>Weight</code> but each dimension of the violation is multiplied by a different weight.</li>
+<div class="textblock"><h1>Preliminaries </h1>
+<p>This example assumes that the concepts presented in <a class="el" href="a02391.html">How to write a problem</a> are somewhat known, in that we will not describe all the details like the creation of space and variables. It aims at showing a simpler case where one want to directly write a constrained linear least-squares problem, without relying on task dynamics and automatic linearization. It showcases the use of <a class="el" href="a01804.html" title="A class representing an affine expression  where  is a matrix expression,  is a Variable and  is a ve...">tvm::utils::AffineExpr</a>, which offers a symbolic-like way of writing linear expressions.</p>
+<div class="image">
+<object type="image/svg+xml" data="staticForceEquilibrium.svg">staticForceEquilibrium.svg</object>
+</div>
+<p>In this example we consider a simplified 3-limbs robot whose mass \( m \) is concentrated at its Center of Mass (CoM). The kinematics of the limbs is abstracted, and the robot is in ponctual contact with its environment at each end of its limbs (see figure). At each contact point \( p_i \), the contact force is \( f_i \) and the contact normal is \( n_i \).</p>
+<p>We would like to find the position \( c \) of the CoM and a set of forces such that the robot is in static equilibrium. The forces should be as close as possible to desired forces \( f_i^{des} \), and because this does not completely specify the position of the CoM, we will also require the CoM to be close to the contacts.</p>
+<p>This can be written as a linear least-squares problem:</p>
+<p>\( \begin{align} \min_{f_i, c}. &amp;\ \frac{1}{2} \sum_i \left\| f_i - f_i^{des} \right\|^2 + \frac{w}{2} \sum_i \left\| c - p_i \right\|^2\\ \mbox{s.t.} &amp;\ \sum_i R_i f_i + m g = 0 \\ &amp;\ \sum_i \widehat{p_i} R_i f_i + m \widehat{g} c = 0\\ &amp;\ C f_i \geq 0,\ i=1..3 \\ \end{align} \)</p>
+<p>where \( w \) is a weight and \( R_i \) is a rotation matrix such that \( R_i z = n_i\) (with \( z \) the vertical unit vector), i.e. a rotation matrix between the world frame and a contact frame. \( \widehat{x} \) is the skew-symmetric matrix such that for any \( u \), \( \widehat{x} u = x \times u \) (cross product). \( C \) is a matrix expressing the linearized Coulomb friction cone (see e.g. <a href="https://scaron.info/teaching/friction-cones.html">here</a>). The two equality constraints are the Newton-Euler equations where the moments are taken at the origin of the world frames. The forces \( f_i \) are expressed in the local contact frame and brought back in the world frame through the \( R_i \).</p>
+<p>Note that</p>
+<p>\( \frac{1}{2} \sum_i \left\| f_i - f_i^{des} \right\|^2 + \frac{w}{2} \sum_i \left\| c - p_i \right\|^2 = \frac{1}{2}\left\| \begin{bmatrix} f_1 - f_1^{des} \\ f_2 - f_2^{des} \\ \vdots \\ c - p_1 \\ c - p_2 \\ \vdots \end{bmatrix} \right\|^2_W \) where \( W \) is a diagonal matrix with <code>1</code> and <code>w</code> on the diagonal.</p>
+<h1>Implementation outline </h1>
+<p>Our main function will be <code>leastSquares3points</code>, and consist of 3 main steps</p><ol type="1">
+<li>Declaration of the problem data and variables</li>
+<li>Writing of the problem</li>
+<li>Solving of the problem</li>
+</ol>
+<p>We will use three helper functions</p><ul>
+<li><code>Matrix3d rotationFromZ(Vector3d v)</code>, which creates a rotation matrix <code>R</code> such that <code> R*Vector3d::UnitZ() == v </code></li>
+<li><code>Matrix3d hat(const Vector3d&amp; v)</code>, which returns the skew- symmetric matrix \( \widehat{v} \) as described above</li>
+<li><code>MatrixXd discretizedFrictionCone(double mu)</code>, which creates the matrix \( C \) for a four-sided linearized cone with friction coefficient <code>mu</code>.</li>
 </ul>
-<h1>Hint </h1>
-<p>A hint is clue given to a resolution scheme about a way to solve the problem. The only hint implemented for now is about substitution: telling that using some constraints allow to presolve for somes variables, which can be removed from the problem by substitution.</p>
-<h1>Control problem </h1>
-<p>A control problem, implemented by <a class="el" href="a00989.html">tvm::ControlProblem</a> is collection of (tasks, requirements) pairs and hints.</p>
-<p>A linearized control problem, implemented by <a class="el" href="a01273.html">tvm::LinearizedControlProblem</a> is a control problem where functions have been linearized around a point. Tasks are turned into constraints.<br />
- For example the task \( (e(x), =, \dot{e}^* = - k_p e) \) is turned into the constraint \( (\frac{\partial e}{\partial x} \dot{x}, =, - k_p e) \).</p>
-<p>An example on the writing of a problem and its resolution is presented <a class="el" href="a02388.html">here</a></p>
-<h1>Resolution scheme </h1>
-<p>A resolution scheme is an algorithm in charge of solving a problem. It can do so by one or several call(s) to one or several <em>solver(s)</em>. Before solving, the scheme is in charge of arranging the data of the problems into inputs for the solver(s), according to the solving requirements.</p>
-<h1>Computation graph </h1>
-<p>Under the hood TVM is building a sequence of the computations to be executed each time we want to solve a given problem. This sequence is such that each required computation is done exactly once, and that computations are done in the correct order. The sequence is derived form a graph of computations that specify how computations depend on one another.</p>
-<p>Computation nodes, such as functions, describe the way they internally work by the mean of <em>inputs</em>, <em>updates</em> and <em>outputs</em>, and which update computation is called on which inputs to produce a given output. Inputs and outputs get connected during the problem creation, leading to the computation graph. </p>
+<p>We won't details these methods further.</p>
+<h1>Implementation details </h1>
+<p>Given a 3-dimensionnal space <code>Space S(3)</code>, we create the following data for the first contact point:  <div class="fragment"><div class="line">  <span class="comment">// Data for first contact point</span></div><div class="line">  Vector3d p1(-1, -1, 0);                  <span class="comment">// Contact point position</span></div><div class="line">  Vector3d n1(1, 1, 1);                    <span class="comment">// Normal vector to contact surface</span></div><div class="line">  MatrixXd R1 = rotationFromZ(n1);         <span class="comment">// Rotation between world frame and a local contact frame</span></div><div class="line">  Vector3d f1des = Vector3d::Zero();       <span class="comment">// Desired force for f1</span></div><div class="line">  <a class="code" href="a00383.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> f1 = S.createVariable(<span class="stringliteral">&quot;f1&quot;</span>); <span class="comment">// Variable creation</span></div></div><!-- fragment --> Here we chose to set the desired force to 0, which will have the effect of trying to minimize the force.</p>
+<p>The same is done for the second and third contact points.</p>
+<p>Next, we create the data about the weight and CoM: <div class="fragment"><div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> m = 1;                    <span class="comment">// Mass</span></div><div class="line">  <span class="keyword">const</span> Vector3d g(0, 0, -9.81);         <span class="comment">// Gravity vector</span></div><div class="line">  <a class="code" href="a00383.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> c = S.createVariable(<span class="stringliteral">&quot;c&quot;</span>); <span class="comment">// Center of mass variable</span></div></div><!-- fragment --> and define a matrix for the friction cone (we use the same 0.6 friction coefficient for all contacts): <div class="fragment"><div class="line">  MatrixXd C = discretizedFrictionCone(0.6); <span class="comment">// Matrix of a discretized cone with friction coefficient 0.6</span></div></div><!-- fragment --></p>
+<p><a class="el" href="a01276.html">tvm::LinearizedControlProblem</a> can be used to write linear least-squares problem, with a method <code>add</code> that forgoes the need for task dynamics. After creating an instance <code>pb</code>, we can populate it.</p>
+<p>First we add the Newton-Euler equations as constraints (priority level 0): <div class="fragment"><div class="line">  pb.add(R1 * f1 + R2 * f2 + R3 * f3 + m * g == 0., <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(0)); <span class="comment">// Newton equation</span></div><div class="line">  pb.add(hat(p1) * R1 * f1 + hat(p2) * R2 * f2 + hat(p3) * R3 * f3 + m * hat(g) * c == 0.,</div><div class="line">         <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(0));               <span class="comment">// Euler equation</span></div></div><!-- fragment --> Since these are linear expression, we can write them directly. TVM is providing, with the implicit use of the <a class="el" href="a01804.html" title="A class representing an affine expression  where  is a matrix expression,  is a Variable and  is a ve...">tvm::utils::AffineExpr</a> class and operator overload, a way to write such expressions in a symbolic-like way.</p>
+<p>Then the friction constraints can be added in the same way <div class="fragment"><div class="line">  pb.add(C * f1 &gt;= 0., <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(0)); <span class="comment">// Friction cone constraints</span></div><div class="line">  pb.add(C * f2 &gt;= 0., <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(0));</div><div class="line">  pb.add(C * f3 &gt;= 0., <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(0));</div></div><!-- fragment --></p>
+<p>Finally the objectives are added (priority level 1): <div class="fragment"><div class="line">  pb.add(f1 == f1des, <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1)); <span class="comment">// Desired forces</span></div><div class="line">  pb.add(f2 == f2des, <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1));</div><div class="line">  pb.add(f3 == f3des, <a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1));</div><div class="line">  pb.add(c == p1, {<a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1), <a class="code" href="a00389.html#ad596b52ac03ded388e26964e3e995866">Weight</a>(1e-4)}); <span class="comment">// Desired CoM position</span></div><div class="line">  pb.add(c == p2, {<a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1), <a class="code" href="a00389.html#ad596b52ac03ded388e26964e3e995866">Weight</a>(1e-4)});</div><div class="line">  pb.add(c == p3, {<a class="code" href="a00389.html#aa5d3c61ef15897a9eee0c742a80fbee3">PriorityLevel</a>(1), <a class="code" href="a00389.html#ad596b52ac03ded388e26964e3e995866">Weight</a>(1e-4)});</div></div><!-- fragment --> We use the weight \( w = 10^{-4} \).</p>
+<p>Note that, by default, constraints at any level are to be solved in the least- square sense, so that \( f_i = f_i^{des} \) becomes \( \left\| f_i - f_i^{des} \right\| \).</p>
+<p>The last thing to do is to chose a resolution scheme and solve the problem: <div class="fragment"><div class="line">  <span class="comment">// Creating the resolution scheme</span></div><div class="line">  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(<span class="keyword">true</span>));</div><div class="line"></div><div class="line">  <span class="comment">// And solving the problem</span></div><div class="line">  <span class="keywordtype">bool</span> found = solver.solve(pb);</div></div><!-- fragment --></p>
+<h2>Example file </h2>
+<p><a href="https://github.com/jrl-umi3218/tvm/blob/master/examples/LeastSquaresExample.cpp">example/LeastSquaresExample.cpp</a> </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
@@ -140,7 +135,7 @@ $(document).ready(function(){initNavTree('a02390.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">The TVM library</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:44 for TVM by
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

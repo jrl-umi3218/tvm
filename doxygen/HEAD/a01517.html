@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt; Class Template Reference</title>
+<title>TVM: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01517.html','');});
+$(document).ready(function(){initNavTree('a01520.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,151 +88,24 @@ $(document).ready(function(){initNavTree('a01517.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01514.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization for DIAGONAL.  
- <a href="a01517.html#details">More...</a></p>
-
-<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a66ab1fef180694583047fb6ec2a1e4da"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a66ab1fef180694583047fb6ec2a1e4da"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01517.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a> = decltype(std::declval&lt; Eigen::Ref&lt; const Eigen::VectorXd &gt; &gt;().asDiagonal() *std::declval&lt; T &gt;())</td></tr>
-<tr class="separator:a66ab1fef180694583047fb6ec2a1e4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a28a052651f644dc37d6e1fee5981892c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01517.html#a28a052651f644dc37d6e1fee5981892c">WeightMultBase</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;d)</td></tr>
-<tr class="separator:a28a052651f644dc37d6e1fee5981892c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01517.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01517.html#a28b2bfc2edfa94ffd7f8aec926d2c2a5">applyWeightMult</a> (const T &amp;M)</td></tr>
-<tr class="separator:a28b2bfc2edfa94ffd7f8aec926d2c2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16f0e14eaf568b558f40c99b55270813"><td class="memItemLeft" align="right" valign="top">decltype(double() *std::declval&lt; Eigen::Ref&lt; const Eigen::VectorXd &gt;&gt;())&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01517.html#a16f0e14eaf568b558f40c99b55270813">applyWeightMult</a> (const double &amp;d)</td></tr>
-<tr class="memdesc:a16f0e14eaf568b558f40c99b55270813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagonal * constant vector case.  <a href="#a16f0e14eaf568b558f40c99b55270813">More...</a><br /></td></tr>
-<tr class="separator:a16f0e14eaf568b558f40c99b55270813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-class tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</h3>
-
-<p>Specialization for DIAGONAL. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a66ab1fef180694583047fb6ec2a1e4da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66ab1fef180694583047fb6ec2a1e4da">&#9670;&nbsp;</a></span>ReturnType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::<a class="el" href="a01517.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a> =  decltype(std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt; &gt;().asDiagonal() * std::declval&lt;T&gt;())</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a28a052651f644dc37d6e1fee5981892c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28a052651f644dc37d6e1fee5981892c">&#9670;&nbsp;</a></span>WeightMultBase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::<a class="el" href="a01501.html">WeightMultBase</a> </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a28b2bfc2edfa94ffd7f8aec926d2c2a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28b2bfc2edfa94ffd7f8aec926d2c2a5">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01517.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a>&lt;T&gt; <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::applyWeightMult </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>M</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a16f0e14eaf568b558f40c99b55270813"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16f0e14eaf568b558f40c99b55270813">&#9670;&nbsp;</a></span>applyWeightMult() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">decltype(double() * std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt;&gt;()) <a class="el" href="a01501.html">tvm::scheme::internal::WeightMultBase</a>&lt; <a class="el" href="a00407.html#a2b54e954c3d23656d60f46fef6c8b728a54b75b1f94c035631788609cea47acf9">DIAGONAL</a> &gt;::applyWeightMult </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Diagonal * constant vector case. </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01520.html">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01520.html#a28b2bfc2edfa94ffd7f8aec926d2c2a5">applyWeightMult</a>(const T &amp;M)</td><td class="entry"><a class="el" href="a01520.html">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01520.html#a16f0e14eaf568b558f40c99b55270813">applyWeightMult</a>(const double &amp;d)</td><td class="entry"><a class="el" href="a01520.html">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01520.html#a66ab1fef180694583047fb6ec2a1e4da">ReturnType</a> typedef</td><td class="entry"><a class="el" href="a01520.html">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01520.html#a28a052651f644dc37d6e1fee5981892c">WeightMultBase</a>(const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;d)</td><td class="entry"><a class="el" href="a01520.html">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00380.html">tvm</a></li><li class="navelem"><a class="el" href="a00405.html">scheme</a></li><li class="navelem"><a class="el" href="a00407.html">internal</a></li><li class="navelem"><a class="el" href="a01517.html">WeightMultBase&lt; DIAGONAL &gt;</a></li>
-    <li class="footer">Generated on Tue Sep 8 2020 07:51:45 for TVM by
+    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

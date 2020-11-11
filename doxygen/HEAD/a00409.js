@@ -1,5 +1,5 @@
 var a00409 =
 [
-    [ "LeastSquareSolver", "a01629.html", "a01629" ],
-    [ "LSSolverFactory", "a01641.html", "a01641" ]
+    [ "LinearResolutionScheme", "a01396.html", "a01396" ],
+    [ "ResolutionScheme", "a01392.html", "a01392" ]
 ];
