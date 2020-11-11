@@ -517,7 +517,7 @@ public:
     {
       // For the case where M = matrix * Constant, Eigen create a temporary to store  Vector:Constant before evaluating
       // the product. We avoid that here, by doing the product by hand. This could be further optimized by taking into
-      // acount the WeightMult at once, and possibly without using a cache. 
+      // acount the WeightMult at once, and possibly without using a cache.
       // The product A * v where v = c * 1 with c a scalar and 1 the vector of ones is equal to c * A * 1. We have that
       // A * 1 is the sum of column of A, what we leverage in the following computations:
       cache = p.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns

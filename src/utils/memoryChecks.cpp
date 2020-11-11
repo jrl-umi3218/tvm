@@ -45,4 +45,4 @@ void restore_is_malloc_allowed_()
 #endif
 }
 
-} // namespace tvm::utils
+} // namespace tvm::utils::internal
