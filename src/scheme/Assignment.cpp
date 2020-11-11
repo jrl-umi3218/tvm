@@ -416,7 +416,7 @@ void Assignment::processRequirements()
 
 void Assignment::addMatrixAssignment(Variable & x, MatrixFunction M, const Range & range, bool flip)
 {
-  const MatrixConstRef & from = source_->jacobian(x);
+  MatrixConstRef from = source_->jacobian(x);
   const MatrixRef & to = (target_.*M)(range.start, range.dim);
   auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);
 
@@ -429,12 +429,12 @@ void Assignment::addMatrixSubstitutionAssignments(const VariableVector & variabl
                                                   const function::BasicLinearFunction & sub,
                                                   bool flip)
 {
-  const auto & J = source_->jacobian(x);
+  auto J = source_->jacobian(x);
   for(const auto & xi : sub.variables())
   {
     Range range = xi->getMappingIn(variables);
     const MatrixRef & to = (target_.*M)(range.start, range.dim);
-    const auto & Ai = sub.jacobian(*xi);
+    auto Ai = sub.jacobian(*xi);
     CompiledAssignmentWrapper<Eigen::MatrixXd> w;
     if(J.properties().isIdentity())
     {
@@ -483,7 +483,7 @@ void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFun
 
     const VectorRef & to = (target_.*v)();
     const VectorConstRef & from = sub.b();
-    const auto & A = source_->jacobian(x);
+    auto A = source_->jacobian(x);
 
     CompiledAssignmentWrapper<Eigen::VectorXd> w;
     if(A.properties().isIdentity())
@@ -600,7 +600,7 @@ void Assignment::addAssignments(const VariableVector & variables,
 
 void Assignment::addBound(const VariablePtr & variable, RHSFunction f, bool first)
 {
-  const auto & J = source_->jacobian(*variable);
+  auto J = source_->jacobian(*variable);
   bool gt = target_.constraintType() == Type::GREATER_THAN;
   VectorFunction v;
 

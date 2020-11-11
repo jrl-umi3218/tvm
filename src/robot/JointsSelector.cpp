@@ -128,7 +128,7 @@ void JointsSelector::updateJacobian()
   }
   if(activeIndex_.size())
   {
-    const auto & jacIn = f_->jacobian(*robot_->qJoints());
+    auto jacIn = f_->jacobian(*robot_->qJoints());
     for(const auto & p : activeIndex_)
     {
       jacobian_[robot_->qJoints().get()].middleCols(p.first, p.second) =

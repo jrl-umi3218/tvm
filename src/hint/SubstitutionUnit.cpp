@@ -141,7 +141,7 @@ void SubstitutionUnit::update()
       for(auto l : CXdependencies_[i])
       {
         auto rx = x_[l]->getMappingIn(x_);
-        const auto & A = c->jacobian(*x_[l]);
+        auto A = c->jacobian(*x_[l]);
         // B_{ij} += A_{il}*M_{lj} for each y_j on which x_l depends.
         for(auto j : XYdependencies_[l])
         {

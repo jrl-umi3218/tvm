@@ -20,7 +20,7 @@ inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, bool f
 template<typename L, typename U, typename TL, typename TU>
 inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, TL tl, TU tu, bool first)
 {
-  const auto & J = source_->jacobian(*variable);
+  auto J = source_->jacobian(*variable);
   if(J.properties().isIdentity())
   {
     if(first)

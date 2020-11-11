@@ -64,7 +64,7 @@ void CoMInConvexFunction::updateVelocity()
 void CoMInConvexFunction::updateJacobian()
 {
   Eigen::DenseIndex i = 0;
-  const Eigen::MatrixXd & jac = jac_.jacobian(robot_->mb(), robot_->mbc());
+  auto jac = jac_.jacobian(robot_->mb(), robot_->mbc());
   const auto & qFF = robot_->qFreeFlyer();
   int qFFSize = qFF->space().tSize();
   const auto & qJoints = robot_->qJoints();
