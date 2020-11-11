@@ -64,6 +64,7 @@ set(TVM_SOURCES
 
   utils/UpdatelessFunction.cpp
   utils/checkFunction.cpp
+  utils/memoryChecks.cpp
 )
 
 set(TVM_ROBOT_SOURCES
@@ -202,6 +203,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
+  ${TVM_INCLUDE_DIR}/utils/memoryChecks.h
 )
 
 set(TVM_ROBOT_HEADERS
@@ -270,7 +272,7 @@ if(TVM_WITH_ROBOT)
   target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core)
 endif()
 target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
-set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS")
+set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS -DEIGEN_RUNTIME_NO_MALLOC")
 set_target_properties(TVM PROPERTIES SOVERSION 0 VERSION 0.8.0)
 target_compile_features(TVM PUBLIC cxx_std_17)
 target_compile_definitions(TVM PUBLIC ${SOLVER_FLAGS})

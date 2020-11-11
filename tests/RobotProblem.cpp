@@ -243,6 +243,7 @@ TEST_CASE("Test a problem with a robot")
   RobotPublisher epub("/control/env_1/");
   std::cout << "Will run solver for " << iter << " iterations" << std::endl;
   size_t i = 0;
+  tvm::utils::set_is_malloc_allowed(false);
   for(i = 0; i < iter; ++i)
   {
     bool b = solver.solve(lpb);
@@ -265,6 +266,7 @@ TEST_CASE("Test a problem with a robot")
       CHECK(com_in_fn->value()(i) > 0);
     }
   }
+  tvm::utils::set_is_malloc_allowed(true);
   CHECK(i == iter);
   auto lastQ = jvrc->qJoints()->value();
   for(int i = 0; i < lastQ.size(); ++i)

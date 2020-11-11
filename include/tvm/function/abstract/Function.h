@@ -53,7 +53,7 @@ public:
    */
   virtual const Eigen::VectorXd & velocity() const;
   virtual const Eigen::VectorXd & normalAcceleration() const;
-  virtual const Eigen::MatrixXd & JDot(const Variable & x) const;
+  virtual tvm::internal::MatrixConstRefWithProperties JDot(const Variable & x) const;
 
 protected:
   /** Constructor for a function with value in \f$ \mathbb{R}^m \f$.
@@ -93,7 +93,7 @@ inline const Eigen::VectorXd & Function::velocity() const { return velocity_; }
 
 inline const Eigen::VectorXd & Function::normalAcceleration() const { return normalAcceleration_; }
 
-inline const Eigen::MatrixXd & Function::JDot(const Variable & x) const { return JDot_.at(&x); }
+inline tvm::internal::MatrixConstRefWithProperties Function::JDot(const Variable & x) const { return JDot_.at(&x); }
 
 } // namespace abstract
 

@@ -77,7 +77,7 @@ protected:
   bool constant() const;
 
   /** Return the matrix A*/
-  const Eigen::MatrixXd & A() const;
+  MatrixConstRef A() const;
 
   /** Return true if there is only one variable and one constraint*/
   bool isSimple() const;

@@ -189,7 +189,7 @@ void SubstitutionCalculatorImpl::constant(bool c) { constant_ = c; }
 
 bool SubstitutionCalculatorImpl::constant() const { return constant_; }
 
-const Eigen::MatrixXd & SubstitutionCalculatorImpl::A() const
+MatrixConstRef SubstitutionCalculatorImpl::A() const
 {
   if(isSimple())
   {

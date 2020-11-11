@@ -107,7 +107,7 @@ void CollisionFunction::updateJacobian()
     {
       auto & o = col.objects_[j];
       const auto & r = col.ch_[j]->frame().robot();
-      const Eigen::MatrixXd & jac = o.jac_.jacobian(r.mb(), r.mbc());
+      auto jac = o.jac_.jacobian(r.mb(), r.mbc());
       distJac_.block(0, 0, 1, o.jac_.dof()).noalias() =
           (sign * col.normVecDist_).transpose() * jac.block(3, 0, 3, o.jac_.dof());
       o.jac_.fullJacobian(r.mb(), distJac_.block(0, 0, 1, o.jac_.dof()), fullJac_);

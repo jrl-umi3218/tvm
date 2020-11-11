@@ -178,7 +178,7 @@ void LSSOLLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentT
 
 void LSSOLLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
 {
-  target.changeData(A_, b_);
+  target.changeData(MatrixRef(A_), b_);
 }
 
 void LSSOLLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)

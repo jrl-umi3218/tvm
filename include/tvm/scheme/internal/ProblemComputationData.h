@@ -85,7 +85,7 @@ inline int ProblemComputationData::solverId() const { return solverId_; }
 inline bool ProblemComputationData::addVariable(VariablePtr var)
 {
   assert(x_.numberOfVariables() == varCount_.size());
-  int i = x_.addAndGetIndex(var);
+  size_t i = static_cast<size_t>(x_.addAndGetIndex(var));
   if(i >= varCount_.size())
   {
     varCount_.push_back(1);

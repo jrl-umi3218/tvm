@@ -500,7 +500,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::EQUAL;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[0]);
   }
   // target Cx=d
@@ -522,7 +522,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::GREATER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[3]);
   }
   // target Cx>=d
@@ -544,7 +544,7 @@ void checkSimple(BLCPtr c, std::vector<bool> throws)
   {
     auto t = Type::LOWER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkAssignment(c, at, *sMem, t, r, throws[6]);
   }
   // target Cx<=d
@@ -595,7 +595,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::EQUAL;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[0]);
   }
   // target Cx=d
@@ -617,7 +617,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::GREATER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[3]);
   }
   // target Cx>=d
@@ -639,7 +639,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   {
     auto t = Type::LOWER_THAN;
     auto r = RHS::ZERO;
-    AssignmentTarget at(sRange, sMem->A, t);
+    AssignmentTarget at(sRange, MatrixRef(sMem->A), t);
     checkSubstitutionAssignment(c, subs, at, *sMem, t, r, throws[6]);
   }
   // target Cx<=d
@@ -680,7 +680,7 @@ void checkSimpleBound(BLCPtr c)
   auto dRange = std::make_shared<Range>(0, 1);
 
   // target l<=x<=u
-  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  AssignmentTarget at(dRange, VectorRef(dMem->l), dMem->u);
   checkBoundAssignment(c, at, *dMem);
 }
 
@@ -690,7 +690,7 @@ void checkSimpleBound(BLCPtr c1, BLCPtr c2)
   auto dRange = std::make_shared<Range>(0, 1);
 
   // target l<=x<=u
-  AssignmentTarget at(dRange, dMem->l, dMem->u);
+  AssignmentTarget at(dRange, VectorRef(dMem->l), dMem->u);
   checkBoundAssignment(c1, c2, at, *dMem);
 }
 
@@ -981,7 +981,7 @@ TEST_CASE("Test assigments")
     a.run();
 
     {
-      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
@@ -1002,7 +1002,7 @@ TEST_CASE("Test assigments")
     a.run();
 
     {
-      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
@@ -1019,7 +1019,7 @@ TEST_CASE("Test assigments")
     a.onUpdatedTarget();
     a.run();
     {
-      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem2->A.block(range->start, 3, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem2->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
@@ -1039,7 +1039,7 @@ TEST_CASE("Test assigments")
     a.run();
 
     {
-      const auto & cstr_A = cstr.l_leq_Ax_leq_u->jacobian(*cstr.l_leq_Ax_leq_u->variables()[0]);
+      auto cstr_A = cstr.l_leq_Ax_leq_u->jacobian(*cstr.l_leq_Ax_leq_u->variables()[0]);
       const auto & cstr_l = cstr.l_leq_Ax_leq_u->l();
       const auto & cstr_u = cstr.l_leq_Ax_leq_u->u();
       for(size_t i = 0; i < 3; ++i)
@@ -1096,7 +1096,7 @@ TEST_CASE("Change weights")
       FAST_CHECK_UNARY_FALSE(a.changeVectorWeightIsAllowed());
       a.run();
 
-      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
@@ -1123,7 +1123,7 @@ TEST_CASE("Change weights")
       FAST_CHECK_UNARY(a.changeVectorWeightIsAllowed());
       a.run();
 
-      const auto & cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
+      auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
       FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), w0.cwiseSqrt().asDiagonal() * cstr_A);
       FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * (-cstr_l));

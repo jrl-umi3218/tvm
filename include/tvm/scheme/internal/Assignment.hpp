@@ -7,7 +7,6 @@ namespace tvm::scheme::internal
 template<typename L, typename U>
 inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, bool first)
 {
-  const auto & J = source_->jacobian(*variable);
   if(substitutedVariables_.contains(*variable))
   {
     addBounds(variable, l, u, VectorRef(data_->tmp1_), VectorRef(data_->tmp2_), first);
@@ -21,7 +20,7 @@ inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, bool f
 template<typename L, typename U, typename TL, typename TU>
 inline void Assignment::addBounds(const VariablePtr & variable, L l, U u, TL tl, TU tu, bool first)
 {
-  const auto & J = source_->jacobian(*variable);
+  auto J = source_->jacobian(*variable);
   if(J.properties().isIdentity())
   {
     if(first)

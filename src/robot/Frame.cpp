@@ -58,7 +58,7 @@ void Frame::updatePosition()
 void Frame::updateJacobian()
 {
   assert(jacobian_.rows() == 6 && jacobian_.cols() == robot_->mb().nrDof());
-  const auto & partialJac = jac_.jacobian(robot_->mb(), robot_->mbc());
+  auto partialJac = jac_.jacobian(robot_->mb(), robot_->mbc());
   jacTmp_ = partialJac;
   Eigen::Matrix3d h = -hat(robot_->mbc().bodyPosW[bodyId_].rotation().transpose() * X_b_f_.translation());
   jacTmp_.block(3, 0, 3, jac_.dof()).noalias() += h * partialJac.block(3, 0, 3, jac_.dof());

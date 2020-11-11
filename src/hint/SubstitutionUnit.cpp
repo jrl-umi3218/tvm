@@ -3,6 +3,7 @@
 #include <tvm/Variable.h>
 #include <tvm/hint/internal/GenericCalculator.h>
 #include <tvm/hint/internal/SubstitutionUnit.h>
+#include <tvm/utils/memoryChecks.h>
 
 #include <algorithm>
 #include <set>
@@ -82,8 +83,10 @@ SubstitutionUnit::SubstitutionUnit(const std::vector<Substitution> & substitutio
   extractSubstitutions(substitutionPool, groups, order);
   scanSubstitutions();
   computeDependencies();
+  tvm::utils::override_is_malloc_allowed(true);
   initializeMatrices();
   createFunctions();
+  tvm::utils::restore_is_malloc_allowed();
 }
 
 void SubstitutionUnit::update()
@@ -138,7 +141,7 @@ void SubstitutionUnit::update()
       for(auto l : CXdependencies_[i])
       {
         auto rx = x_[l]->getMappingIn(x_);
-        const auto & A = c->jacobian(*x_[l]);
+        auto A = c->jacobian(*x_[l]);
         // B_{ij} += A_{il}*M_{lj} for each y_j on which x_l depends.
         for(auto j : XYdependencies_[l])
         {
@@ -311,7 +314,7 @@ void SubstitutionUnit::scanSubstitutions()
       cIsZero_.push_back(false);
     }
     int mi = 0;
-    for(const auto c : s.constraints())
+    for(const auto & c : s.constraints())
     {
       sub2cstr_[i].push_back(constraints_.size());
       constraints_.push_back(c);
@@ -356,7 +359,7 @@ void SubstitutionUnit::initializeMatrices()
   M_.resize(x_.totalSize(), y_.totalSize());
   AsZ_.resize(x_.totalSize(), z_.totalSize());
   u_.resize(x_.totalSize());
-  for(const auto c : calculators_)
+  for(const auto & c : calculators_)
   {
     auto mr = c->m() - c->r();
     StB_.emplace_back(mr, y_.totalSize());

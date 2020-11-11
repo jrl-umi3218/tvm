@@ -2,7 +2,8 @@
 
 #pragma once
 
-#define EIGEN_RUNTIME_NO_MALLOC
+#include <tvm/utils/memoryChecks.h>
+
 #include <Eigen/Core>
 
 #include <type_traits>
@@ -171,6 +172,8 @@ template<typename MatrixType, bool Cache>
 class CachedResult
 {
 public:
+  CachedResult(const Eigen::Ref<MatrixType> &) {}
+
   template<typename T>
   const T & cache(const T & M)
   {
@@ -183,20 +186,26 @@ template<typename MatrixType>
 class CachedResult<MatrixType, true>
 {
 public:
+  CachedResult(const Eigen::Ref<MatrixType> & to) { TVM_TEMPORARY_ALLOW_EIGEN_MALLOC(cache_.resizeLike(to)); }
+
   template<typename T>
   const MatrixType & cache(const T & M)
   {
-#ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
+    using ConstType = decltype(std::declval<Eigen::Ref<const Eigen::MatrixXd>>() * Eigen::VectorXd::Constant(1, 1));
+    if constexpr(std::is_same_v<const T, ConstType>)
     {
-      Eigen::internal::set_is_malloc_allowed(true);
-      cache_ = M;
-      return cache_;
-      Eigen::internal::set_is_malloc_allowed(false);
+      // For the case where M = matrix * Constant, Eigen create a temporary to store  Vector:Constant before evaluating
+      // the product. We avoid that here, by doing the product by hand. This could be further optimized by taking into
+      // acount the WeightMult at once, and possibly without using a cache.
+      // The product A * v where v = c * 1 with c a scalar and 1 the vector of ones is equal to c * A * 1. We have that
+      // A * 1 is the sum of column of A, what we leverage in the following computations:
+      cache_ = M.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns
+      cache_ *= M.rhs().functor().m_other;
     }
     else
-#endif
-      cache_ = M;
+    {
+      cache_.noalias() = M;
+    }
     return cache_;
   }
 
@@ -502,7 +511,22 @@ public:
   template<typename T>
   void applyMatrixMultCached(MatrixType & cache, const T & M)
   {
-    cache.noalias() = applyMatrixMult(M);
+    const auto p = applyMatrixMult(M);
+    using ConstType = decltype(std::declval<Eigen::Ref<const Eigen::MatrixXd>>() * Eigen::VectorXd::Constant(1, 1));
+    if constexpr(std::is_same_v<decltype(p), ConstType>)
+    {
+      // For the case where M = matrix * Constant, Eigen create a temporary to store  Vector:Constant before evaluating
+      // the product. We avoid that here, by doing the product by hand. This could be further optimized by taking into
+      // acount the WeightMult at once, and possibly without using a cache.
+      // The product A * v where v = c * 1 with c a scalar and 1 the vector of ones is equal to c * A * 1. We have that
+      // A * 1 is the sum of column of A, what we leverage in the following computations:
+      cache = p.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns
+      cache *= p.rhs().functor().m_other;
+    }
+    else
+    {
+      cache.noalias() = p;
+    }
   }
 
 private:
@@ -632,6 +656,9 @@ class CompiledAssignment : public CachedResult<MatrixType,
                            public SourceBase<MatrixType, F>
 {
 private:
+  using CBase =
+      CachedResult<MatrixType,
+                   use_assign_cache<MatrixType, A, W, M, F>::value || use_product_cache<MatrixType, A, W, M, F>::value>;
   using WBase = WeightMultBase<W>;
   using MBase = MatrixMultBase<MatrixType, M>;
   using SBase = SourceBase<MatrixType, F>;
@@ -653,7 +680,7 @@ private:
    */
   template<typename... Args>
   CompiledAssignment(const Eigen::Ref<MatrixType> & to, Args &&... args)
-  : WBase(WParse::get(std::forward<Args>(args)...)), MBase(MParse::get(std::forward<Args>(args)...)),
+  : CBase(to), WBase(WParse::get(std::forward<Args>(args)...)), MBase(MParse::get(std::forward<Args>(args)...)),
     SBase(SParse::get(std::forward<Args>(args)...)), to_(to)
   {
     static_assert(!(isMatrix<MatrixType>::value && F == CONSTANT), "Constant source is only for vectors.");
@@ -672,40 +699,14 @@ public:
   template<typename U = MatrixType>
   typename std::enable_if<use_product_cache<U, A, W, M, F>::value && !use_assign_cache<U, A, W, M, F>::value>::type run()
   {
-    // FIXME have rather a resize method called in the constructor (and whenever
-    // one of the argument in the product is changed). This would require
-    // a CustomProduct class to be used instead of a function pointer for
-    // MatrixMultBase<Custom>, to get the column size of the product
-#ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
-    {
-      Eigen::internal::set_is_malloc_allowed(true);
-      this->applyMatrixMultCached(this->cache(), this->from());
-      Eigen::internal::set_is_malloc_allowed(false);
-    }
-    else
-#endif
-    {
-      this->applyMatrixMultCached(this->cache(), this->from());
-    }
+    this->applyMatrixMultCached(this->cache(), this->from());
     this->assign(to_, this->applyWeightMult(this->cache()));
   }
 
   template<typename U = MatrixType>
   typename std::enable_if<use_product_cache<U, A, W, M, F>::value && use_assign_cache<U, A, W, M, F>::value>::type run()
   {
-#ifdef AUTHORIZE_MALLOC_FOR_CACHE
-    if(!Eigen::internal::is_malloc_allowed())
-    {
-      Eigen::internal::set_is_malloc_allowed(true);
-      this->applyMatrixMultCached(this->cache(), this->from());
-      Eigen::internal::set_is_malloc_allowed(false);
-    }
-    else
-#endif
-    {
-      this->applyMatrixMultCached(this->cache(), this->from());
-    }
+    this->applyMatrixMultCached(this->cache(), this->from());
     this->cache() = this->applyWeightMult(this->cache());
     this->assign(to_, this->cache());
   }
