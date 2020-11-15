@@ -39,10 +39,21 @@ public:
    */
   bool contains(const Range & other) const { return this->contains(other.start) && this->end() >= other.end(); }
 
+  /** Return true if both range intersects. */
   bool intersects(const Range & other) const
   {
     return this->contains(other.start) || (other.dim > 0 && this->contains(other.end() - 1))
            || other.contains(this->start) || (this->dim > 0 && other.contains(this->end() - 1));
+  }
+
+  /** Return the range of other within this Range.
+   *
+   * e.g Range(3,8).relativeRange(5,2) returns Range(2,2)
+   */
+  Range relativeRange(const Range & other) const
+  {
+    assert(this->contains(other));
+    return {other.start - this->start, other.dim};
   }
 };
 

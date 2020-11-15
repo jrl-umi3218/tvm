@@ -206,6 +206,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
+  ${TVM_INCLUDE_DIR}/utils/internal/MapWithVariableAsKey.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
   ${TVM_INCLUDE_DIR}/utils/memoryChecks.h
 )
