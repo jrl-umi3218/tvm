@@ -206,7 +206,7 @@ bool TVM_DLLAPI checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
 
 bool TVM_DLLAPI checkFunction(FunctionPtr f, CheckOptions opt)
 {
-  // Call the functions in order: checkVelocity will only be called if checkj\Jacobian
+  // Call the functions in order: checkVelocity will only be called if checkJacobian
   // passes, which is good as checkVelocity relies on having correct jacobian matrices.
   // Likewise checkNormalAcceleration relies on having correct jacobian matrices and
   // velocities.
