@@ -8,7 +8,7 @@
 #include <tvm/VariableVector.h>
 #include <tvm/graph/abstract/Node.h>
 #include <tvm/internal/MatrixWithProperties.h>
-#include <tvm/utils/internal/map.h>
+#include <tvm/utils/internal/MapWithVariableAsKey.h>
 
 #include <Eigen/Core>
 
@@ -16,10 +16,7 @@
 #include <map>
 #include <vector>
 
-namespace tvm
-{
-
-namespace internal
+namespace tvm::internal
 {
 
 /** Describes an entity that can provide a value and its jacobian
@@ -75,6 +72,35 @@ public:
   const VariableVector & variables() const;
 
 protected:
+  struct slice_linear
+  {
+    using Type = bool;
+    using ConstType = bool;
+    static bool get(bool & b, const Range &) { return b; }
+    static bool get(const bool & b, const Range &) { return b; }
+  };
+
+  struct slice_matrix
+  {
+    using Type = tvm::internal::ObjectWithProperties<MatrixRef>;
+    using ConstType = MatrixConstRefWithProperties;
+    static MatrixProperties slice(const MatrixProperties & p)
+    {
+      if(p.isZero())
+        return {MatrixProperties::ZERO, MatrixProperties::Constness(p.isConstant())};
+      else
+        return {MatrixProperties::Constness(p.isConstant())};
+    }
+    static Type get(MatrixWithProperties & M, const Range & r)
+    {
+      return {M.middleCols(r.start, r.dim), slice(M.properties())};
+    }
+    static ConstType get(const MatrixWithProperties & M, const Range & r)
+    {
+      return {M.middleCols(r.start, r.dim), slice(M.properties())};
+    }
+  };
+
   /** Constructor for a function/constraint with value in \f$ \mathbb{R}^m \f$.
    *
    * \param m the size of the function/constraint image space, i.e. the row
@@ -156,7 +182,7 @@ protected:
 
   // cache
   Eigen::VectorXd value_;
-  utils::internal::map<Variable const *, MatrixWithProperties> jacobian_;
+  utils::internal::MapWithVariableAsKey<MatrixWithProperties, slice_matrix> jacobian_;
 
 protected:
   /** Resize the function */
@@ -164,14 +190,20 @@ protected:
 
   Space imageSpace_; // output space
   VariableVector variables_;
-  utils::internal::map<Variable const *, bool> linear_;
+  utils::internal::MapWithVariableAsKey<bool, slice_linear> linear_;
 };
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }
 
-inline MatrixConstRefWithProperties FirstOrderProvider::jacobian(const Variable & x) const { return jacobian_.at(&x); }
+inline MatrixConstRefWithProperties FirstOrderProvider::jacobian(const Variable & x) const
+{
+  return jacobian_.at(&x, {});
+}
 
-inline bool FirstOrderProvider::linearIn(const Variable & x) const { return linear_.at(&x); }
+inline bool FirstOrderProvider::linearIn(const Variable & x) const
+{
+  return linear_.at(&x, {});
+}
 
 inline const Space & FirstOrderProvider::imageSpace() const { return imageSpace_; }
 
@@ -182,6 +214,4 @@ inline int FirstOrderProvider::tSize() const { return imageSpace_.tSize(); }
 
 inline const VariableVector & FirstOrderProvider::variables() const { return variables_; }
 
-} // namespace internal
-
-} // namespace tvm
+} // namespace tvm::internal
