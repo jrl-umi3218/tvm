@@ -73,7 +73,7 @@ void BasicLinearFunction::A(const MatrixConstRef & A, const tvm::internal::Matri
     throw std::runtime_error("You can use this method only for constraints with one variable.");
 }
 
-void BasicLinearFunction::b(const VectorConstRef & b, const internal::MatrixProperties & p)
+void BasicLinearFunction::b(const VectorConstRef & b, const tvm::internal::MatrixProperties & p)
 {
   if(b.size() == size())
   {

@@ -150,3 +150,54 @@ TEST_CASE("Test integration with ProtoTask")
   auto p15 = (A * x + b <= 0);
   auto p16 = (0 <= A * x + b);
 }
+
+TEST_CASE("Affine expression with subvariables")
+{
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr y = Space(8).createVariable("y");
+
+  VariablePtr x1 = x->subvariable(3, "x1", 0);
+  VariablePtr x2 = x->subvariable(2, "x2", 3);
+  VariablePtr x3 = x->subvariable(3, "x3", 5);
+  VariablePtr y1 = y->subvariable(5, "y1", 0);
+  VariablePtr y2 = y->subvariable(2, "y2", 3);
+  VariablePtr y3 = y->subvariable(5, "y3", 3);
+
+  MatrixXd A = MatrixXd::Random(3, 8);
+  MatrixXd B = MatrixXd::Random(3, 8);
+  MatrixXd A1 = MatrixXd::Random(3, 3);
+  MatrixXd A2 = MatrixXd::Random(3, 2);
+  MatrixXd A3 = MatrixXd::Random(3, 3);
+  MatrixXd B1 = MatrixXd::Random(3, 5);
+  MatrixXd B2 = MatrixXd::Random(3, 2);
+  MatrixXd B3 = MatrixXd::Random(3, 5);
+
+  VectorXd u = VectorXd::Random(8);
+  VectorXd v = VectorXd::Random(8);
+
+  BasicLinearFunction f1(A1 * x1 + A2 * x2 + A3 * x3);
+  MatrixXd M1(3, 8);
+  M1 << A1, A2, A3;
+  FAST_CHECK_EQ(f1.variables().numberOfVariables(), 1);
+  FAST_CHECK_EQ(*f1.variables()[0], *x);
+  FAST_CHECK_UNARY(M1.isApprox(f1.jacobian(*x)));
+  FAST_CHECK_UNARY(A1.isApprox(f1.jacobian(*x1)));
+  FAST_CHECK_UNARY(A2.isApprox(f1.jacobian(*x2)));
+  FAST_CHECK_UNARY(A3.isApprox(f1.jacobian(*x3)));
+
+  BasicLinearFunction f2(B1 * y1 - B3 * y3);
+  MatrixXd M2 = MatrixXd::Zero(3, 8);
+  M2.leftCols(5) = B1;
+  M2.rightCols(5) -= B3;
+  FAST_CHECK_EQ(f2.variables().numberOfVariables(), 1);
+  FAST_CHECK_EQ(*f2.variables()[0], *y);
+  FAST_CHECK_UNARY(M2.isApprox(f2.jacobian(*y)));
+
+  BasicLinearFunction f3(A3 * x3 + B3 * y3 + A1 * x1 + B2 * y2);
+  MatrixXd M3 = B3;
+  M3.leftCols(2) += B2;
+  FAST_CHECK_EQ(f3.variables().numberOfVariables(), 3);
+  FAST_CHECK_UNARY(A1.isApprox(f3.jacobian(*x1)));
+  FAST_CHECK_UNARY(A3.isApprox(f3.jacobian(*x3)));
+  FAST_CHECK_UNARY(M3.isApprox(f3.jacobian(*y3)));
+}

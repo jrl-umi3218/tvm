@@ -4,6 +4,7 @@
 
 #include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/internal/MatrixProperties.h>
+#include <tvm/internal/VariableCountingVector.h>
 #include <tvm/utils/AffineExpr.h>
 
 #include <utility>
@@ -59,12 +60,11 @@ public:
   /** Set the matrix \p A corresponding to variable \p x and optionally the
    * properties \p p of \p A.*/
   virtual void A(const MatrixConstRef & A,
-                 const Variable & x,
-                 const internal::MatrixProperties & p = internal::MatrixProperties());
+                 const Variable & x, const tvm::internal::MatrixProperties & p = {});
   /** Shortcut for when there is a single variable.*/
-  virtual void A(const MatrixConstRef & A, const internal::MatrixProperties & p = internal::MatrixProperties());
+  virtual void A(const MatrixConstRef & A, const tvm::internal::MatrixProperties & p = {});
   /** Set the constant term \p b, and optionally its properties \p p.*/
-  virtual void b(const VectorConstRef & b, const internal::MatrixProperties & p = internal::MatrixProperties());
+  virtual void b(const VectorConstRef & b, const tvm::internal::MatrixProperties & p = {});
 
   using LinearFunction::b;
 
@@ -73,11 +73,20 @@ private:
   void add(const Eigen::MatrixBase<Derived> & A, VariablePtr x);
 
   template<typename Tuple, size_t... Indices>
-  void add(const Tuple & tuple, std::index_sequence<Indices...>);
+  void add(Tuple && tuple, std::index_sequence<Indices...>);
 
   template<typename Derived>
   void add(const utils::LinearExpr<Derived> & lin);
 };
+
+namespace internal
+{
+template<typename Tuple, size_t... Indices>
+void addVar(tvm::internal::VariableCountingVector& v, Tuple&& tuple, std::index_sequence<Indices...>)
+{
+  (v.add(std::get<Indices>(std::forward<Tuple>(tuple)).variable()), ...);
+}
+}
 
 template<typename Derived>
 BasicLinearFunction::BasicLinearFunction(const utils::LinearExpr<Derived> & lin)
@@ -93,7 +102,23 @@ template<typename CstDerived, typename... Derived>
 BasicLinearFunction::BasicLinearFunction(const utils::AffineExpr<CstDerived, Derived...> & aff)
 : LinearFunction(static_cast<int>(std::get<0>(aff.linear()).matrix().rows()))
 {
-  add(aff.linear(), std::make_index_sequence<sizeof...(Derived)>{});
+  using Indices = std::make_index_sequence<sizeof...(Derived)>;
+  tvm::internal::VariableCountingVector v;
+  internal::addVar(v, aff.linear(), Indices{});
+  const auto & vars = v.variables();
+  const auto & simple = v.simple();
+  for (int i = 0; i < vars.numberOfVariables(); ++i) {
+    if(!simple[i])
+    {
+      addVariable(vars[i], true);
+    }
+  }
+  for(auto & J : jacobian_)
+  {
+    J.second.setZero();
+    J.second.properties({tvm::internal::MatrixProperties::Constness(true)});
+  }
+  add(aff.linear(), Indices{});
   if constexpr(std::is_same_v<CstDerived, utils::internal::NoConstant>)
   {
     this->b(Eigen::VectorXd::Zero(size()),
@@ -118,7 +143,7 @@ inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived> & A, Varia
 
   if(variables().contains(*x))
   {
-    jacobian_.at(x.get()).noalias() += A;
+    jacobian_.at(x.get(), tvm::utils::internal::with_sub{}) += A;
   }
   else
   {
@@ -129,14 +154,9 @@ inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived> & A, Varia
 }
 
 template<typename Tuple, size_t... Indices>
-inline void BasicLinearFunction::add(const Tuple & tuple, std::index_sequence<Indices...>)
+inline void BasicLinearFunction::add(Tuple && tuple, std::index_sequence<Indices...>)
 {
-  // trick to call add on each element indexed by Indices:
-  // - ( add(std::get<I>(tuple)), 42 ) for any integer I returns 42 (second element of (X, 42),
-  //   X is evaluated but is then ignored).
-  // - We create an initializer_list by pack expansion where each expanded element is a pair as
-  //   above. This evaluates add(std::get<I>(tuple)) for each I in Indices in turn.
-  auto l = {(add(std::get<Indices>(tuple)), 42)...};
+  (add(std::get<Indices>(std::forward<Tuple>(tuple))), ...);
 }
 
 template<typename Derived>
