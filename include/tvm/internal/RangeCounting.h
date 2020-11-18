@@ -61,6 +61,8 @@ public:
    */
   bool remove(const Range & r);
 
+  bool empty() const { return limits_.size() == 0; }
+
   /** Get a representation of number appearing as a list of ranges.*/
   const std::vector<Range> & ranges() const;
   /** Get the underlying representation as a list of limits.*/

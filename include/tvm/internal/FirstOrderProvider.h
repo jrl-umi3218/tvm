@@ -197,12 +197,12 @@ inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_
 
 inline MatrixConstRefWithProperties FirstOrderProvider::jacobian(const Variable & x) const
 {
-  return jacobian_.at(&x, {});
+  return jacobian_.at(&x, tvm::utils::internal::with_sub{});
 }
 
 inline bool FirstOrderProvider::linearIn(const Variable & x) const
 {
-  return linear_.at(&x, {});
+  return linear_.at(&x, tvm::utils::internal::with_sub{});
 }
 
 inline const Space & FirstOrderProvider::imageSpace() const { return imageSpace_; }
