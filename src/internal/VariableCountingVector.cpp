@@ -11,7 +11,10 @@ namespace tvm::internal
 bool VariableCountingVector::add(VariablePtr v)
 {
   VariablePtr s = v->superVariable();
-  bool change = count_[s.get()].add(v->subvariableRange());
+  auto & counterPair = count_.insert({s.get(), {RangeCounting{}, 0}}).first->second;
+  bool change = counterPair.first.add(v->subvariableRange());
+  if(change)
+    ++counterPair.second;
   upToDate_ = upToDate_ && !change;
   return change;
 }
@@ -25,7 +28,21 @@ void VariableCountingVector::add(const VariableVector & v)
 bool VariableCountingVector::remove(const Variable & v)
 {
   VariablePtr s = v.superVariable();
-  bool change = count_.at(s.get()).remove(v.subvariableRange());
+  auto & counterPair = count_.at(s.get());
+  bool change = counterPair.first.remove(v.subvariableRange());
+  if(change)
+  {
+    if(counterPair.first.empty())
+    {
+      counterPair.second = 0;
+    }
+    else
+    {
+      // Removals that incur a change are penalized so that simple() will be false 
+      // for the corresponding variable
+      counterPair.second += 10;
+    }
+  }
   upToDate_ = upToDate_ && !change;
   return change;
 }
@@ -36,16 +53,38 @@ void VariableCountingVector::remove(const VariableVector & v)
     remove(*x);
 }
 
-void VariableCountingVector::value(const VectorConstRef & val) { variables_.value(val); }
+void VariableCountingVector::clear()
+{
+  upToDate_ = false;
+  count_.clear();
+}
+
+void VariableCountingVector::value(const VectorConstRef & val)
+{
+  assert(upToDate_);
+  variables_.value(val);
+}
 
 const VariableVector & VariableCountingVector::variables() const
+{
+  update();
+  return variables_;
+}
+
+const std::vector<bool> VariableCountingVector::simple() const
+{
+  update();
+  return simple_;
+}
+void VariableCountingVector::update() const
 {
   if(!upToDate_)
   {
     variables_.clear();
+    simple_.clear();
     for(const auto & p : count_)
     {
-      auto ranges = p.second.ranges();
+      auto ranges = p.second.first.ranges();
       if(ranges.size() == 0)
       {
         continue;
@@ -53,10 +92,12 @@ const VariableVector & VariableCountingVector::variables() const
       else
       {
         auto v = p.first;
+        bool simple = p.second.second == ranges.size();
         if(ranges.size() == 1 && ranges[0].dim == v->size())
         {
           assert(ranges[0].start == 0);
           variables_.add(v->shared_from_this());
+          simple_.push_back(simple);
         }
         else
         {
@@ -70,12 +111,12 @@ const VariableVector & VariableCountingVector::variables() const
             // If this was really necessary to derive the vector, one could keep track of all the
             // space dimensions with several RangeCounting (one per dimension).
             variables_.add(v->subvariable(Space(r.dim), ss.str(), Space(r.start)));
+            simple_.push_back(simple);
           }
         }
       }
     }
     upToDate_ = true;
   }
-  return variables_;
 }
 } // namespace tvm::internal

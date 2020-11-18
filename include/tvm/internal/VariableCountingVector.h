@@ -1,5 +1,7 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#pragma once
+
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
@@ -25,6 +27,8 @@ public:
   bool remove(const Variable & v);
   void remove(const VariableVector & v);
 
+  void clear();
+
   void value(const VectorConstRef & val);
 
   /** Return the vector of variables resulting from the different add and remove.
@@ -36,9 +40,23 @@ public:
    */
   const VariableVector & variables() const;
 
+  /** Return a vector mirroring variables() where simple()[i] is \a true when
+   * variables()[i] appears because of a single initial add (even if the same
+   * variable was subsequently added/removed several times after or subvariables
+   * of it were added/removed).
+   * 
+   * This is conservative in the sense that some combinations of add/remove that
+   * would end up with a variable abiding the above criterion could be flagged as
+   * \a false. When using only add, this is exact, though.
+   */
+  const std::vector<bool> simple() const;
+
 private:
-  tvm::utils::internal::map<Variable *, tvm::internal::RangeCounting> count_;
+  void update() const;
+
+  tvm::utils::internal::map<Variable *, std::pair<tvm::internal::RangeCounting, size_t>> count_;
   mutable bool upToDate_ = false;
   mutable VariableVector variables_;
+  mutable std::vector<bool> simple_;
 };
 } // namespace tvm::internal

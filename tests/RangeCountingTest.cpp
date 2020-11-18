@@ -1,6 +1,9 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#include <tvm/Variable.h>
+
 #include <tvm/internal/RangeCounting.h>
+#include <tvm/internal/VariableCountingVector.h>
 
 #include <algorithm>
 #include <map>
@@ -133,31 +136,31 @@ TEST_CASE("Add/Remove")
     checkCounting(rc, count);
   };
 
-  // add (3,4,5) -> (3,4,5)
+  // add (3,4,5) -> (3,4,5), count [1, 1, 1]
   add({3, 3}, true);
 
   // remove (3,4,5) -> ()
   remove({3, 3}, true);
 
-  // add (5,6) -> (5,6)
+  // add (5,6) -> (5,6), count [1, 1]
   add({5, 2}, true);
 
-  // add (3,4,5) -> (3,4,5,6)
+  // add (3,4,5) -> (3,4,5,6), count [1, 1, 2, 1]
   add({3, 3}, true);
 
-  // add (8,9) -> (3,4,5,6,8,9)
+  // add (8,9) -> (3,4,5,6,8,9), count [1, 1, 2, 1,, 1, 1]
   add({8, 2}, true);
 
-  // remove (4,5,6) -> (3,5,8,9)
+  // remove (4,5,6) -> (3,5,8,9), count [1,, 1,,, 1, 1]
   remove({4, 3}, true);
 
-  // add (1,2,3,4,5,6,7) -> (1,2,3,4,5,6,7,8,9)
+  // add (1,2,3,4,5,6,7) -> (1,2,3,4,5,6,7,8,9), count [1, 1, 2, 1, 2, 1, 1, 1, 1]
   add({1, 7}, true);
 
-  // remove (5,6,7,8,9) -> (1,2,3,4,5)
+  // remove (5,6,7,8,9) -> (1,2,3,4,5), count [1, 1, 2, 1, 1]
   remove({5, 5}, true);
 
-  // remove (1,2,3) -> (3,4,5)
+  // remove (1,2,3) -> (3,4,5), count [1, 1, 1]
   remove({1, 3}, true);
 
   // remove (3,4,5) -> ()
@@ -235,4 +238,110 @@ TEST_CASE("Check throws")
     rc.add({5, 3});
     CHECK_THROWS(rc.remove({2, 5})); // {2,3,4,5,6} not included in {1,2,3,5,6,7}
   }
+}
+
+TEST_CASE("VariableCountingVector")
+{
+  VariableCountingVector vc;
+
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr y = Space(8).createVariable("y");
+  VariablePtr z = Space(8).createVariable("z");
+
+  VariablePtr x0 = x->subvariable(6, "x0", 0);
+  VariablePtr x1 = x->subvariable(4, "x1", 0);
+  VariablePtr x2 = x->subvariable(4, "x2", 2);
+  VariablePtr x3 = x->subvariable(4, "x3", 4);
+  VariablePtr x4 = x->subvariable(3, "x4", 0);
+  VariablePtr x5 = x->subvariable(2, "x5", 3);
+  VariablePtr x6 = x->subvariable(3, "x6", 5);
+
+  vc.add(x);
+  vc.add(y);
+  vc.add(z);
+  auto v = vc.variables();
+  auto s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 3);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x);
+  FAST_CHECK_EQ(*v[1], *y);
+  FAST_CHECK_EQ(*v[2], *z);
+  FAST_CHECK_UNARY(s[0]);
+  FAST_CHECK_UNARY(s[1]);
+  FAST_CHECK_UNARY(s[2]);
+
+  vc.clear();
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 0);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+
+  vc.add(y);
+  vc.add(x0);
+  vc.add(x1);
+  vc.add(z);
+  vc.add(x2);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 3);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x0); // internal sorting is based on ObjectId, which is based on creation order.
+  FAST_CHECK_EQ(*v[1], *y);
+  FAST_CHECK_EQ(*v[2], *z);
+  FAST_CHECK_UNARY(s[0]);
+  FAST_CHECK_UNARY(s[1]);
+  FAST_CHECK_UNARY(s[2]);
+
+  vc.remove(y);
+  vc.remove(x1);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 2);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x0);
+  FAST_CHECK_EQ(*v[1], *z);
+  FAST_CHECK_UNARY(s[0]);
+  FAST_CHECK_UNARY(s[1]);
+
+  vc.remove(x0);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 2);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x2);
+  FAST_CHECK_EQ(*v[1], *z);
+  // This is one of the case where a succession of add/remove leads to a situation where it's difficult
+  // to ensure that the variable is simple, and the simple() method is conservative.
+  // If a smarter method is implemented, it is fine to change this test.
+  FAST_CHECK_UNARY_FALSE(s[0]);
+  FAST_CHECK_UNARY(s[1]);
+  vc.clear();
+
+  vc.add(x6);
+  vc.add(x4);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 2);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x4); // The order here is due to internals and not mandatory
+  FAST_CHECK_EQ(*v[1], *x6);
+  FAST_CHECK_UNARY(s[0]);
+  FAST_CHECK_UNARY(s[1]);
+
+  vc.add(x5);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 1);
+  FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_EQ(*v[0], *x);
+  FAST_CHECK_UNARY_FALSE(s[0]);
+
+  vc.remove(x);
+  vc.add(x0);
+  vc.add(x1);
+  v = vc.variables();
+  s = vc.simple();
+  FAST_CHECK_EQ(v.numberOfVariables(), 1);
+  FAST_CHECK_EQ(*v[0], *x0);
+  FAST_CHECK_UNARY(s[0]);
 }
