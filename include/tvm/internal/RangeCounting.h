@@ -8,6 +8,8 @@
 
 #include <list>
 
+namespace tvm::internal
+{
 /** Keep track of the union and (set) subtraction of integer ranges, accounting
  * for the number of times a number was added.
  * For example adding the set {1,2,3,4} (represented by Range(1,4)) and the set
@@ -30,8 +32,6 @@
  * numbers from 10 don't appear. The resulting range representation is
  * { Range(1,7), Range(9,1) }.
  */
-namespace tvm::internal
-{
 class TVM_DLLAPI RangeCounting
 {
 public:
@@ -53,11 +53,11 @@ public:
   };
 
   /** Add a range to the counting. Return true if this changes the outuput of
-   * \c ranges().
+   * \c ranges(false) (it always changes the output of \c range(true) ).
    */
   bool add(const Range & r);
   /** Remove a range from the counting. Return true if this changes the outuput
-   * of \c ranges().
+   * of \c ranges() (it always changes the output of \c range(true) ).
    */
   bool remove(const Range & r);
 
@@ -69,7 +69,7 @@ public:
   const std::list<Limit> & limits() const;
 
 private:
-  /** Set recompute_ = recompute || change and return chage. */
+  /** Set recompute_ = recompute || change and return change. */
   bool recompute(bool change);
 
   std::list<Limit> limits_;              // The representation of the current state.

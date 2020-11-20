@@ -169,6 +169,12 @@ bool VariableVector::contains(const Variable & v) const
   return it != variables_.end();
 }
 
+bool VariableVector::intersects(const Variable & v) const
+{
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->intersects(v); });
+  return it != variables_.end();
+}
+
 int VariableVector::indexOf(const Variable & v) const
 {
   auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });

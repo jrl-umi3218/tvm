@@ -145,6 +145,9 @@ public:
   /** Check if this vector contains variable \p v or not. */
   bool contains(const Variable & v) const;
 
+  /** Check if any variable of this vector intersects with \p v*/
+  bool intersects(const Variable & v) const;
+
   /** Find the index of variable \p v in the vector. Returns -1 if \p v is not
    * present.
    */

@@ -356,3 +356,55 @@ TEST_CASE("Test derivation 2")
 
   testDerivation(v1, v2, v3);
 }
+
+void checkContainsAndIntersects(const VariableVector & v, VariablePtr x, bool c, bool i)
+{
+  FAST_CHECK_EQ(v.contains(*x), c);
+  FAST_CHECK_EQ(v.intersects(*x), i);
+}
+
+TEST_CASE("Contains and intersects")
+{
+  VariablePtr u = Space(8).createVariable("u");
+  VariablePtr v = Space(4).createVariable("v");
+  VariablePtr w = Space(7).createVariable("w");
+  VariablePtr u0 = u->subvariable(Space(8), "u0"); // u0 == u
+  VariablePtr u1 = u->subvariable(Space(4), "u1", Space(0));
+  VariablePtr u2 = u->subvariable(Space(4), "u2", Space(2));
+  VariablePtr u3 = u->subvariable(Space(2), "u3", Space(5));
+  VariablePtr u4 = u->subvariable(Space(2), "u4", Space(2));
+
+  VariableVector vv;
+  checkContainsAndIntersects(vv, u, false, false);
+  checkContainsAndIntersects(vv, v, false, false);
+  checkContainsAndIntersects(vv, w, false, false);
+  checkContainsAndIntersects(vv, u0, false, false);
+  checkContainsAndIntersects(vv, u1, false, false);
+  checkContainsAndIntersects(vv, u2, false, false);
+  checkContainsAndIntersects(vv, u3, false, false);
+  checkContainsAndIntersects(vv, u4, false, false);
+
+  vv.add(u);
+  vv.add(v);
+  checkContainsAndIntersects(vv, u, true, true);
+  checkContainsAndIntersects(vv, v, true, true);
+  checkContainsAndIntersects(vv, w, false, false);
+  checkContainsAndIntersects(vv, u0, true, true);
+  checkContainsAndIntersects(vv, u1, true, true);
+  checkContainsAndIntersects(vv, u2, true, true);
+  checkContainsAndIntersects(vv, u3, true, true);
+  checkContainsAndIntersects(vv, u4, true, true);
+  vv.clear();
+
+  vv.add(u1);
+  vv.add(v);
+  checkContainsAndIntersects(vv, u, false, true);
+  checkContainsAndIntersects(vv, v, true, true);
+  checkContainsAndIntersects(vv, w, false, false);
+  checkContainsAndIntersects(vv, u0, false, true);
+  checkContainsAndIntersects(vv, u1, true, true);
+  checkContainsAndIntersects(vv, u2, false, true);
+  checkContainsAndIntersects(vv, u3, false, false);
+  checkContainsAndIntersects(vv, u4, true, true);
+  vv.clear();
+}
