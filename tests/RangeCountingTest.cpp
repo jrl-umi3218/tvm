@@ -26,10 +26,7 @@ std::vector<int> depth(const std::list<RangeCounting::Limit> & limits)
   std::vector<int> ret;
   for(auto it = limits.cbegin(); it != std::prev(limits.cend()); ++it)
   {
-    if(it->lower_)
-      ++depth;
-    else
-      --depth;
+    depth -= it->type_;
 
     for(int i = it->i_; i < std::next(it)->i_; ++i)
       ret.push_back(depth);
@@ -73,11 +70,25 @@ bool isPositive(const std::unordered_map<int, int> & count, int i)
   return (it != count.end()) && (it->second > 0);
 }
 
+// Check if count[i] != count[j]
+bool haveDifferentCount(const std::unordered_map<int, int> & count, int i, int j)
+{
+  auto it1 = count.find(i);
+  auto it2 = count.find(j);
+  return (it1 == count.end() || it2 == count.end() || it1->second != it2->second);
+}
+
+bool hasCutAt(const RangeCounting & rc, int val)
+{
+  const auto & l = rc.limits();
+  return l.end() != std::find(l.begin(), l.end(), RangeCounting::Limit(val, RangeCounting::Limit::Cut));
+}
+
 // Check that the RangeCounting is coherent with a manual, non-optimized count (where
 // count[i] indicates the number of times i was added).
-void checkCounting(const RangeCounting & rc, const std::unordered_map<int, int> & count)
+void checkCounting(const RangeCounting & rc, const std::unordered_map<int, int> & count, bool withSplit = false)
 {
-  const auto & ranges = rc.ranges();
+  const auto & ranges = rc.ranges(withSplit);
   if(ranges.size() == 0)
   {
     for(auto p : count)
@@ -86,17 +97,35 @@ void checkCounting(const RangeCounting & rc, const std::unordered_map<int, int> 
   else
   {
     // Check that ranges are correct
-    for(const auto & r : ranges)
+    if(withSplit)
     {
-      // The element before the range has a count of 0
-      FAST_CHECK_UNARY(isZeroOrAbsent(count, r.start - 1));
-      // Each element in the range has a positive count
-      for(int i = r.start; i < r.start + r.dim; ++i)
+      for(const auto & r : ranges)
       {
-        FAST_CHECK_UNARY(isPositive(count, i));
+        // The element before the range has a different count
+        FAST_CHECK_UNARY(haveDifferentCount(count, r.start - 1, r.start) || hasCutAt(rc, r.start));
+        // Each element in the range has a positive count
+        for(int i = r.start; i < r.start + r.dim; ++i)
+        {
+          FAST_CHECK_UNARY(isPositive(count, i));
+        }
+        // The element after the range has a different count
+        FAST_CHECK_UNARY(haveDifferentCount(count, r.end() - 1, r.end()) || hasCutAt(rc, r.end()));
       }
-      // The element after the range has a count of 0
-      FAST_CHECK_UNARY(isZeroOrAbsent(count, r.start + r.dim));
+    }
+    else
+    {
+      for(const auto & r : ranges)
+      {
+        // The element before the range has a count of 0
+        FAST_CHECK_UNARY(isZeroOrAbsent(count, r.start - 1));
+        // Each element in the range has a positive count
+        for(int i = r.start; i < r.start + r.dim; ++i)
+        {
+          FAST_CHECK_UNARY(isPositive(count, i));
+        }
+        // The element after the range has a count of 0
+        FAST_CHECK_UNARY(isZeroOrAbsent(count, r.end()));
+      }
     }
 
     // Check that limits is coherent with the count
@@ -238,6 +267,95 @@ TEST_CASE("Check throws")
     rc.add({5, 3});
     CHECK_THROWS(rc.remove({2, 5})); // {2,3,4,5,6} not included in {1,2,3,5,6,7}
   }
+}
+
+TEST_CASE("Add/Remove Split")
+{
+  RangeCounting rc;
+  std::unordered_map<int, int> count; // For ground truth
+
+  auto add = [&rc, &count](const Range & r, int nbRange) {
+    bool b = rc.add(r);
+    addRange(count, r);
+    checkCounting(rc, count, true);
+    FAST_CHECK_EQ(rc.ranges(true).size(), nbRange);
+  };
+
+  auto remove = [&rc, &count](const Range & r, int nbRange) {
+    bool b = rc.remove(r);
+    removeRange(count, r);
+    checkCounting(rc, count, true);
+    FAST_CHECK_EQ(rc.ranges(true).size(), nbRange);
+  };
+
+  // add (3,4,5) -> (3,4,5), count [1, 1, 1]
+  add({3, 3}, 1);
+
+  // remove (3,4,5) -> ()
+  remove({3, 3}, 0);
+
+  // add (5,6) -> (5,6), count [1, 1]
+  add({5, 2}, 1);
+
+  // add (3,4,5) -> (3,4,5,6), count [1, 1 | 2 | 1]
+  add({3, 3}, 3);
+
+  // add (8,9) -> (3,4,5,6,8,9), count [1, 1 | 2 | 1 |, | 1, 1]
+  add({8, 2}, 4);
+
+  // remove (4,5,6) -> (3,5,8,9), count [1 |, | 1 |,, | 1, 1]
+  remove({4, 3}, 3);
+
+  // add (1,2,3,4,5,6,7) -> (1,2,3,4,5,6,7,8,9), count [1, 1 | 2 | 1 | 2 | 1, 1 | 1, 1]
+  add({1, 7}, 6);
+
+  // remove (5,6,7,8,9) -> (1,2,3,4,5), count [1, 1 | 2 | 1 | 1]
+  remove({5, 5}, 4);
+
+  // remove (1,2,3) -> (3,4,5), count [1 | 1 | 1]
+  remove({1, 3}, 3);
+
+  // remove (3,4,5) -> ()
+  remove({3, 3}, 0);
+
+  // add (3,4,5) -> (3,4,5), count [1 1 1]
+  add({3, 3}, 1);
+
+  // add (5) -> (3,4,5), count [1, 1 | 2]
+  add({5, 1}, 2);
+
+  // add (0,1,2) -> (0,1,2,3,4,5), count [1,1,1 | 1,1 | 2]
+  add({0, 3}, 3);
+
+  // add (1,2,3) -> (0,1,2,3,4,5), count [1 | 2,2 | 2 | 1 | 2]
+  add({1, 3}, 5);
+
+  // remove (4,5) -> (0,1,2,3,5), count [1 | 2,2 | 2||1]
+  remove({4, 2}, 4);
+
+  // remove (2,3) -> (0,1,2,3,5), count [1 | 2 | 1 | 1 || 1]
+  remove({2, 2}, 5);
+
+  // remove (0,1) -> (1,2,3,5), count [1 | 1 | 1 || 1]
+  remove({0, 2}, 4);
+
+  // add (4) -> (1,2,3,4,5), count [1 | 1 | 1 | 1 | 1]
+  add({4, 1}, 5);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({0, 0}, 5);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({3, 0}, 5);
+
+  // add () -> (1,2,3,4,5), count [1,1,1,1,1]
+  add({6, 0}, 5);
+
+  // remove (1) -> (2,3,4,5), count [1,1,1,1]
+  remove({1, 1}, 4);
+
+  // remove (5) -> (2,3,4), count [1,1,1]
+  remove({5, 1}, 3);
 }
 
 TEST_CASE("VariableCountingVector")

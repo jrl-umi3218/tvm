@@ -38,16 +38,27 @@ public:
   /** The lower (included) or upper (excluded) limit of a range*/
   struct Limit
   {
-    Limit(int i, bool lower) : i_(i), lower_(lower) {}
+    enum Type
+    {
+      Lower = -1,
+      Cut = 0,
+      Upper = 1
+    };
+
+    Limit(int i, Type type) : i_(i), type_(type) {}
 
     int i_;      // Value of the limit
-    bool lower_; // Whether it is a lower or upper limit
+    Type type_;  // The type of the limit
 
-    bool operator<(const Limit & other) const { return i_ < other.i_ || (i_ == other.i_ && lower_ && !other.lower_); }
+    bool operator==(const Limit & other) const { return (i_ == other.i_ && type_ == other.type_); }
+    bool operator<(const Limit & other) const { return i_ < other.i_ || (i_ == other.i_ && type_ < other.type_); }
+    bool operator<=(const Limit & other) const { return i_ < other.i_ || (i_ == other.i_ && type_ <= other.type_); }
+    bool operator>(const Limit & other) const { return i_ > other.i_ || (i_ == other.i_ && type_ > other.type_); }
+    bool operator>=(const Limit & other) const { return i_ > other.i_ || (i_ == other.i_ && type_ >= other.type_); }
 
     friend std::ostream & operator<<(std::ostream & os, const Limit & lim)
     {
-      os << "(" << lim.i_ << ", " << (lim.lower_ ? "+" : "-") << ")";
+      os << "(" << lim.i_ << ", " << ((lim.type_ == Lower) ? "+" : ((lim.type_ == Cut) ? "|" : "-")) << ")";
       return os;
     }
   };
@@ -63,17 +74,47 @@ public:
 
   bool empty() const { return limits_.size() == 0; }
 
-  /** Get a representation of number appearing as a list of ranges.*/
-  const std::vector<Range> & ranges() const;
+  /** Get a representation of number appearing as a list of ranges.
+    * 
+    * \param splitOnDepthDiff If true, ranges are split on count differences and
+    * on Limit::Cut (i.e. two ranges touching but not overlapping will be returned
+    * separatly, not meerged).
+    */
+  const std::vector<Range> & ranges(bool splitOncountDiff = false) const;
   /** Get the underlying representation as a list of limits.*/
   const std::list<Limit> & limits() const;
 
 private:
+  using It = std::list<Limit>::iterator;
+
+  /** Forward to first element in limits_ that would come after \p val.
+   * Returns \c true if depth went to 0 in the process
+   */
+  bool moveToFirstAfter(const Limit & val, It & it, int & depth, int depthCut = 0) const;
+
+  /** Insert \p val before \p it and perform reductions if necessary to enforce
+    * the constraints on limits_. Upon return \p it point to the first element after
+    * the one that was inserted, or the one that was changed.
+    */
+  void insert(const Limit & val, It & it, int & depth);
+
   /** Set recompute_ = recompute || change and return change. */
   bool recompute(bool change);
 
+  bool isValid() const;
+
+  /** The representation of the current state.
+   *
+   * The elements are ordered by increasing lexicographic order on (Limit::i, Limit::type).
+   * The following constraints are enforced:
+   *  - there can't be two consecutive elements with equal Limit::i and type Limit::Cut
+   *    (when the situation arises, this elements are merged).
+   *  - for a same Limit::i, there can't be a succession of types Lower, Cut, Upper. Those
+   *    are reduced to a single Cut.
+   */
   std::list<Limit> limits_;              // The representation of the current state.
-  mutable bool recompute_ = false;       // Need to recompute intervals_. Used for lazy evaluation.
+  mutable bool recompute_ = false;       // Need to recompute intervals_ without split. Used for lazy evaluation.
+  mutable bool recomputeSplit_ = false;  // Need to recompute intervals_ with split. Used for lazy evaluation.
   mutable std::vector<Range> intervals_; // The range representation of the current state, reevaluated
                                          // if necessary when accessed (lazy evaluation).
 };
