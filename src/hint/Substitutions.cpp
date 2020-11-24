@@ -14,14 +14,14 @@ namespace hint
 
 namespace internal
 {
-/** Return true if \p s is using variables substituted by \p t.*/
+/** Return true if \p s is using (part of) variables substituted by \p t.*/
 bool dependsOn(const Substitution & s, const Substitution & t)
 {
   for(const auto & x : t.variables())
   {
     for(const auto & c : s.constraints())
     {
-      if(c->variables().contains(*x))
+      if(c->variables().intersects(*x))
       {
         return true;
       }
