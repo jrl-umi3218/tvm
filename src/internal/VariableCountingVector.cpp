@@ -38,7 +38,7 @@ bool VariableCountingVector::remove(const Variable & v)
     }
     else
     {
-      // Removals that incur a change are penalized so that simple() will be false 
+      // Removals that incur a change are penalized so that simple() will be false
       // for the corresponding variable
       counterPair.second += 10;
     }

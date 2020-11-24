@@ -70,8 +70,7 @@ public:
   {}
 
   template<typename OtherType>
-  ObjectWithProperties(ObjectWithProperties<OtherType> & other)
-  : MatrixType(other), properties_(other.properties())
+  ObjectWithProperties(ObjectWithProperties<OtherType> & other) : MatrixType(other), properties_(other.properties())
   {}
 
   template<typename OtherDerived>

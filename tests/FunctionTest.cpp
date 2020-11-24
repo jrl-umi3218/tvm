@@ -32,9 +32,9 @@ TEST_CASE("Test subvariable jacobians")
 
   tvm::utils::set_is_malloc_allowed(false);
   FAST_CHECK_UNARY(f.jacobian(*x).isApprox(A));
-  FAST_CHECK_UNARY(f.jacobian(*x1).isApprox(A.middleCols(1,3)));
+  FAST_CHECK_UNARY(f.jacobian(*x1).isApprox(A.middleCols(1, 3)));
   FAST_CHECK_UNARY(f.jacobian(*y1).isApprox(B));
-  FAST_CHECK_UNARY(f.jacobian(*y2).isApprox(B.middleCols(1,3)));
+  FAST_CHECK_UNARY(f.jacobian(*y2).isApprox(B.middleCols(1, 3)));
   CHECK_THROWS(f.jacobian(*y));
   CHECK_THROWS(f.jacobian(*w));
   tvm::utils::set_is_malloc_allowed(true);

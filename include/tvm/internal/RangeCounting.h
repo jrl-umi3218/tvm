@@ -47,8 +47,8 @@ public:
 
     Limit(int i, Type type) : i_(i), type_(type) {}
 
-    int i_;      // Value of the limit
-    Type type_;  // The type of the limit
+    int i_;     // Value of the limit
+    Type type_; // The type of the limit
 
     bool operator==(const Limit & other) const { return (i_ == other.i_ && type_ == other.type_); }
     bool operator<(const Limit & other) const { return i_ < other.i_ || (i_ == other.i_ && type_ < other.type_); }
@@ -75,11 +75,11 @@ public:
   bool empty() const { return limits_.size() == 0; }
 
   /** Get a representation of number appearing as a list of ranges.
-    * 
-    * \param splitOnDepthDiff If true, ranges are split on count differences and
-    * on Limit::Cut (i.e. two ranges touching but not overlapping will be returned
-    * separatly, not meerged).
-    */
+   *
+   * \param splitOnDepthDiff If true, ranges are split on count differences and
+   * on Limit::Cut (i.e. two ranges touching but not overlapping will be returned
+   * separatly, not meerged).
+   */
   const std::vector<Range> & ranges(bool splitOncountDiff = false) const;
   /** Get the underlying representation as a list of limits.*/
   const std::list<Limit> & limits() const;
@@ -93,9 +93,9 @@ private:
   bool moveToFirstAfter(const Limit & val, It & it, int & depth, int depthCut = 0) const;
 
   /** Insert \p val before \p it and perform reductions if necessary to enforce
-    * the constraints on limits_. Upon return \p it point to the first element after
-    * the one that was inserted, or the one that was changed.
-    */
+   * the constraints on limits_. Upon return \p it point to the first element after
+   * the one that was inserted, or the one that was changed.
+   */
   void insert(const Limit & val, It & it, int & depth);
 
   /** Set recompute_ = recompute || change and return change. */

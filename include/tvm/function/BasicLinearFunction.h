@@ -59,8 +59,7 @@ public:
 
   /** Set the matrix \p A corresponding to variable \p x and optionally the
    * properties \p p of \p A.*/
-  virtual void A(const MatrixConstRef & A,
-                 const Variable & x, const tvm::internal::MatrixProperties & p = {});
+  virtual void A(const MatrixConstRef & A, const Variable & x, const tvm::internal::MatrixProperties & p = {});
   /** Shortcut for when there is a single variable.*/
   virtual void A(const MatrixConstRef & A, const tvm::internal::MatrixProperties & p = {});
   /** Set the constant term \p b, and optionally its properties \p p.*/
@@ -82,11 +81,11 @@ private:
 namespace internal
 {
 template<typename Tuple, size_t... Indices>
-void addVar(tvm::internal::VariableCountingVector& v, Tuple&& tuple, std::index_sequence<Indices...>)
+void addVar(tvm::internal::VariableCountingVector & v, Tuple && tuple, std::index_sequence<Indices...>)
 {
   (v.add(std::get<Indices>(std::forward<Tuple>(tuple)).variable()), ...);
 }
-}
+} // namespace internal
 
 template<typename Derived>
 BasicLinearFunction::BasicLinearFunction(const utils::LinearExpr<Derived> & lin)
@@ -107,7 +106,8 @@ BasicLinearFunction::BasicLinearFunction(const utils::AffineExpr<CstDerived, Der
   internal::addVar(v, aff.linear(), Indices{});
   const auto & vars = v.variables();
   const auto & simple = v.simple();
-  for (int i = 0; i < vars.numberOfVariables(); ++i) {
+  for(int i = 0; i < vars.numberOfVariables(); ++i)
+  {
     if(!simple[i])
     {
       addVariable(vars[i], true);

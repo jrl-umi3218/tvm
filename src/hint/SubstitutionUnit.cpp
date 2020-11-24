@@ -67,8 +67,7 @@ Substitution group(const std::vector<Substitution> & substitutionPool, const std
     rank += std::min(ranki, s.m());
   }
 
-  return Substitution(std::vector<LinearConstraintPtr>(subs.begin(), subs.end()),
-                      vars.variables().variables(), rank);
+  return Substitution(std::vector<LinearConstraintPtr>(subs.begin(), subs.end()), vars.variables().variables(), rank);
 }
 } // namespace
 

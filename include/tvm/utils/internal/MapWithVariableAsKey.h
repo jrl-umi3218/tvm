@@ -17,7 +17,7 @@ struct slice_traits
 {};
 
 /** A map with Variables as key, that can handle the notion of subvariables.*/
-template<typename T, typename Slicer = slice_traits<T> >
+template<typename T, typename Slicer = slice_traits<T>>
 class MapWithVariableAsKey : public tvm::utils::internal::map<const Variable * const, T>
 {
 public:
@@ -27,7 +27,6 @@ public:
   typename Slicer::Type at(const typename Base::key_type & key, with_sub);
   typename Slicer::ConstType at(const typename Base::key_type & key, with_sub) const;
 };
-
 
 template<typename T, typename Slicer>
 inline typename Slicer::Type MapWithVariableAsKey<T, Slicer>::at(const typename Base::key_type & key, with_sub)

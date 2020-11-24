@@ -50,7 +50,7 @@ public:
         assert(partition_[ip_ - 1]->subvariableRange().end() == var_[iv_]->subvariableRange().end()
                && "End of variable in partition is not the same as the end of variable in the reference vector.");
         ++iv_;
-        if(iv_ == static_cast<int>(var_.end()-var_.begin()))
+        if(iv_ == static_cast<int>(var_.end() - var_.begin()))
         {
           // return end
           ip_ = partition_.numberOfVariables();

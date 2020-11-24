@@ -21,14 +21,14 @@ class TVM_DLLAPI VariableCountingVector
 {
 public:
   /** \param split If true, variable parts who do not appears with the same count
-  * or were not added at the same time are separated.
-  * For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will
-  * yield a single variable (x) when split = false but two variables (x[0:3], 
-  * x[4:7]) otherwise.
-  * Adding x[0:4] then x[3:7] will also yield a single variable if split = false
-  * but 3 variables (x[0:2], x[3:4] and x[5:7]) otherwise.
-  */
-  VariableCountingVector(bool split = false) : split_(split){}
+   * or were not added at the same time are separated.
+   * For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will
+   * yield a single variable (x) when split = false but two variables (x[0:3],
+   * x[4:7]) otherwise.
+   * Adding x[0:4] then x[3:7] will also yield a single variable if split = false
+   * but 3 variables (x[0:2], x[3:4] and x[5:7]) otherwise.
+   */
+  VariableCountingVector(bool split = false) : split_(split) {}
   /** Add a variable. Return \c true if this changes the vector.*/
   bool add(VariablePtr v);
   void add(const VariableVector & v);
@@ -53,11 +53,11 @@ public:
    * variables()[i] appears because of a single initial add (even if the same
    * variable was subsequently added/removed several times after or subvariables
    * of it were added/removed).
-   * 
+   *
    * This is conservative in the sense that some combinations of add/remove that
    * would end up with a variable abiding the above criterion could be flagged as
    * \a false. When using only add, this is exact, though.
-   * 
+   *
    * \note Only for VariableCountingVector with split = false
    */
   const std::vector<bool> simple() const;

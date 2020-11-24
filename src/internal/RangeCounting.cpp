@@ -32,8 +32,8 @@ bool RangeCounting::add(const Range & r)
     insert(l, it, depth);
     if(depth == 1)
       change = true;
-    
-    change = moveToFirstAfter(Limit(r.end(),Limit::Cut), it, depth, 1) || change;
+
+    change = moveToFirstAfter(Limit(r.end(), Limit::Cut), it, depth, 1) || change;
     insert(u, it, depth);
     return recompute(change);
   }
@@ -60,7 +60,7 @@ bool RangeCounting::remove(const Range & r)
   if(depth == 0)
     throw std::runtime_error("Trying to remove from a non-existing interval");
   bool change = (depth == 1);
-  auto it1 = it; //We don't insert the value yet, to keep a valid state in case a exception is thrown
+  auto it1 = it; // We don't insert the value yet, to keep a valid state in case a exception is thrown
   int depth1 = depth;
   change = moveToFirstAfter(u, it, depth, 1) || change;
   insert(l, it1, depth1);
@@ -68,7 +68,7 @@ bool RangeCounting::remove(const Range & r)
   insert(u, it, depth);
   depth = 0;
   it = limits_.begin();
-  while(it!=limits_.end()) //ideally from it1 to it, but the second insert can invalidate it1
+  while(it != limits_.end()) // ideally from it1 to it, but the second insert can invalidate it1
   {
     depth -= it->type_;
     if(depth == 0 && it->type_ == Limit::Cut)
@@ -82,7 +82,7 @@ bool RangeCounting::remove(const Range & r)
 
 const std::vector<Range> & RangeCounting::ranges(bool splitOncountDiff) const
 {
-  if(recompute_ || recomputeSplit_ )
+  if(recompute_ || recomputeSplit_)
   {
     intervals_.clear();
     int depth = 0;
@@ -96,7 +96,7 @@ const std::vector<Range> & RangeCounting::ranges(bool splitOncountDiff) const
     {
       auto next = [&depth, this](auto & it) {
         const Limit & v = *it;
-        while(it!=limits_.end() && *it == v)
+        while(it != limits_.end() && *it == v)
         {
           depth -= it->type_;
           ++it;
@@ -178,7 +178,7 @@ void RangeCounting::insert(const Limit & val, It & it, int & depth)
         }
         else
         {
-          // insertion of (i,+) before (i,|) 
+          // insertion of (i,+) before (i,|)
           limits_.insert(it, val);
           ++depth;
         }
@@ -234,7 +234,7 @@ void RangeCounting::insert(const Limit & val, It & it, int & depth)
           limits_.erase(p);
         else
           p->type_ = Limit::Cut;
-          --depth;
+        --depth;
       }
     }
     else

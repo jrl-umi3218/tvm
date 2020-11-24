@@ -90,11 +90,11 @@ void Substitution::check() const
   {
     for(size_t j = i + 1; j < x_.size(); ++j)
     {
-      if (x_[i]->intersects(*x_[j]))
+      if(x_[i]->intersects(*x_[j]))
       {
         std::stringstream ss;
         ss << "The variable " << x_[i]->name() << " and " << x_[j]->name()
-          << " are intersecting. This is not possible for variable being substituted.";
+           << " are intersecting. This is not possible for variable being substituted.";
         throw std::runtime_error(ss.str());
       }
     }
