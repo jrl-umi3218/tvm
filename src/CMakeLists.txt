@@ -155,6 +155,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
   ${TVM_INCLUDE_DIR}/internal/RangeCounting.h
   ${TVM_INCLUDE_DIR}/internal/VariableCountingVector.h
+  ${TVM_INCLUDE_DIR}/internal/VariableVectorPartition.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
   ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h

@@ -62,6 +62,8 @@ public:
    */
   const std::vector<bool> simple() const;
 
+  bool split() const { return split_; }
+
 private:
   void update() const;
 

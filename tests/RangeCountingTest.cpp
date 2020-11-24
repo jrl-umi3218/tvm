@@ -4,6 +4,7 @@
 
 #include <tvm/internal/RangeCounting.h>
 #include <tvm/internal/VariableCountingVector.h>
+#include <tvm/internal/VariableVectorPartition.h>
 
 #include <algorithm>
 #include <map>
@@ -464,7 +465,6 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_UNARY(s[0]);
 }
 
-
 TEST_CASE("VariableCountingVector split")
 {
   VariableCountingVector vc(true);
@@ -498,7 +498,8 @@ TEST_CASE("VariableCountingVector split")
   vc.add(x2);
   v = vc.variables();
   FAST_CHECK_EQ(v.numberOfVariables(), 5);
-  FAST_CHECK_EQ(v[0]->subvariableRange(), Range(0, 2)); // internal sorting is based on ObjectId, which is based on creation order.
+  FAST_CHECK_EQ(v[0]->subvariableRange(),
+                Range(0, 2)); // internal sorting is based on ObjectId, which is based on creation order.
   FAST_CHECK_EQ(v[1]->subvariableRange(), Range(2, 2));
   FAST_CHECK_EQ(v[2]->subvariableRange(), Range(4, 2));
   FAST_CHECK_EQ(*v[3], *y);
@@ -522,4 +523,44 @@ TEST_CASE("VariableCountingVector split")
   FAST_CHECK_EQ(*v[1], *x3);
 
   CHECK_THROWS(vc.simple());
+}
+
+TEST_CASE("VariableVectorPartition")
+{
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr y = Space(8).createVariable("y");
+  VariablePtr z = Space(8).createVariable("z");
+
+  VariablePtr x0 = x->subvariable(3, "x0", 0);
+  VariablePtr x1 = x->subvariable(2, "x1", 3);
+  VariablePtr x2 = x->subvariable(3, "x2", 5);
+  VariablePtr y0 = y->subvariable(5, "y0", 0);
+  VariablePtr y1 = y->subvariable(5, "y1", 3);
+  VariablePtr z0 = z->subvariable(5, "z0", 0);
+  VariablePtr z1 = z->subvariable(5, "z1", 3);
+
+  internal::VariableCountingVector partition(true);
+  partition.add(x0);
+  partition.add(x1);
+  partition.add(x2);
+  partition.add(y0);
+  partition.add(y1);
+  partition.add(z0);
+  partition.add(z1);
+
+  VariableVector var(z1, x1, y);
+  std::vector<VariablePtr> u;
+
+  for(const auto & v : internal::VariableVectorPartition(var, partition))
+  {
+    u.push_back(v);
+  }
+
+  FAST_CHECK_EQ(u.size(), 6);
+  FAST_CHECK_EQ(*u[0], *z->subvariable(2, "", 3));
+  FAST_CHECK_EQ(*u[1], *z->subvariable(3, "", 5));
+  FAST_CHECK_EQ(*u[2], *x1);
+  FAST_CHECK_EQ(*u[3], *y->subvariable(3, "", 0));
+  FAST_CHECK_EQ(*u[4], *y->subvariable(2, "", 3));
+  FAST_CHECK_EQ(*u[5], *y->subvariable(3, "", 5));
 }
