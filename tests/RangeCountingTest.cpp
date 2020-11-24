@@ -463,3 +463,63 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_EQ(*v[0], *x0);
   FAST_CHECK_UNARY(s[0]);
 }
+
+
+TEST_CASE("VariableCountingVector split")
+{
+  VariableCountingVector vc(true);
+
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr y = Space(8).createVariable("y");
+  VariablePtr z = Space(8).createVariable("z");
+
+  VariablePtr x0 = x->subvariable(6, "x0", 0);
+  VariablePtr x1 = x->subvariable(4, "x1", 0);
+  VariablePtr x2 = x->subvariable(4, "x2", 2);
+  VariablePtr x3 = x->subvariable(4, "x3", 4);
+
+  vc.add(x);
+  vc.add(y);
+  vc.add(z);
+  auto v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 3);
+  FAST_CHECK_EQ(*v[0], *x);
+  FAST_CHECK_EQ(*v[1], *y);
+  FAST_CHECK_EQ(*v[2], *z);
+
+  vc.clear();
+  v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 0);
+
+  vc.add(y);
+  vc.add(x0);
+  vc.add(x1);
+  vc.add(z);
+  vc.add(x2);
+  v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 5);
+  FAST_CHECK_EQ(v[0]->subvariableRange(), Range(0, 2)); // internal sorting is based on ObjectId, which is based on creation order.
+  FAST_CHECK_EQ(v[1]->subvariableRange(), Range(2, 2));
+  FAST_CHECK_EQ(v[2]->subvariableRange(), Range(4, 2));
+  FAST_CHECK_EQ(*v[3], *y);
+  FAST_CHECK_EQ(*v[4], *z);
+
+  vc.remove(x0);
+  vc.remove(y);
+  v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 4);
+  FAST_CHECK_EQ(v[0]->subvariableRange(), Range(0, 2));
+  FAST_CHECK_EQ(v[1]->subvariableRange(), Range(2, 2));
+  FAST_CHECK_EQ(v[2]->subvariableRange(), Range(4, 2));
+  FAST_CHECK_EQ(*v[3], *z);
+  vc.clear();
+
+  vc.add(x1);
+  vc.add(x3);
+  v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 2);
+  FAST_CHECK_EQ(*v[0], *x1); // The order here is due to internals and not mandatory
+  FAST_CHECK_EQ(*v[1], *x3);
+
+  CHECK_THROWS(vc.simple());
+}

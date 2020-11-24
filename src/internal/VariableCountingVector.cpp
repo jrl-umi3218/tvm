@@ -73,6 +73,8 @@ const VariableVector & VariableCountingVector::variables() const
 
 const std::vector<bool> VariableCountingVector::simple() const
 {
+  if(split_)
+    throw std::runtime_error("[VariableCountingVector::simple] Only meaningful for split = false.");
   update();
   return simple_;
 }
@@ -84,7 +86,7 @@ void VariableCountingVector::update() const
     simple_.clear();
     for(const auto & p : count_)
     {
-      auto ranges = p.second.first.ranges();
+      auto ranges = p.second.first.ranges(split_);
       if(ranges.size() == 0)
       {
         continue;
