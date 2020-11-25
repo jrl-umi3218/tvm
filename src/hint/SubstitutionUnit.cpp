@@ -334,18 +334,21 @@ void SubstitutionUnit::scanSubstitutions()
       mi += c->size();
       for(const auto & v : tvm::internal::VariableVectorPartition(c->variables(), partition))
       {
+        auto comp = [&v](const auto & it) { return v.get() == it.get(); };
         // Is v a variable to be substituted? It is ok to test only with an
         // incomplete vars_, as the susbtitution are supposed to be given in
         // a correct order.
-        auto it = std::find(x_.variables().begin(), x_.variables().end(), v);
+        auto it = std::find_if(x_.variables().begin(), x_.variables().end(), comp);
         if(it == x_.variables().end())
         {
           // v is an y variable.
           y_.add(v);
-          auto ity = std::find(y_.variables().begin(), y_.variables().end(), v);
+          auto ity = std::find_if(y_.variables().begin(), y_.variables().end(), comp);
           constraintsY_.back().push_back(static_cast<int>(ity - y_.variables().begin()));
         }
-        else if(std::find(s.variables().begin(), s.variables().end(), v) == s.variables().end())
+        else if(std::find_if(s.variables().begin(), s.variables().end(),
+                             [&v](const auto & it) { return it->contains(*v); })
+                == s.variables().end())
         {
           // v is an x variable that is not substituted by s
           CXdependencies_.back().push_back(static_cast<int>(it - x_.variables().begin()));
