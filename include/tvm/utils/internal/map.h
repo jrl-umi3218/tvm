@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <map>
+#include <unordered_map>
 
 namespace tvm::utils::internal
 {

@@ -199,7 +199,7 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   for(auto & c : cstr)
   {
     m0 += c->size();
-    for(auto & vi : tvm::internal::VariableVectorPartition(c->variables(), partition))
+    for(const auto & vi : tvm::internal::VariableVectorPartition(c->variables(), partition))
     {
       if(!x.contains(*vi))
       {
