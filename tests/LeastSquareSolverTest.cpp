@@ -5,6 +5,7 @@
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/Variable.h>
 #include <tvm/function/IdentityFunction.h>
+#include <tvm/hint/internal/DiagonalCalculator.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #ifdef TVM_USE_LSSOL
 #  include <tvm/solver/LSSOLLeastSquareSolver.h>
@@ -78,9 +79,38 @@ std::unique_ptr<LinearizedControlProblem> problemWithSubVariables()
   return lpb;
 }
 
-void testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
-                 std::vector<std::shared_ptr<solver::abstract::LSSolverFactory>> configs,
-                 double eps)
+std::unique_ptr<LinearizedControlProblem> problemWithSubVariablesAndSubstitution()
+{
+  VariablePtr q = Space(20).createVariable("q");
+  VariablePtr q1 = q->subvariable(6, "q1", 0); // q1 includes q2
+  VariablePtr q2 = q->subvariable(1, "q2", 5);
+  VariablePtr q3 = q->subvariable(4, "q3", 6);
+  VariablePtr q4 = q->subvariable(6, "q4", 10); // q4 includes q5
+  VariablePtr q5 = q->subvariable(1, "q5", 15);
+  VariablePtr q6 = q->subvariable(4, "q6", 16);
+
+  VectorXd m(4);
+  m << 1, -1, 1, -1;
+
+  auto lpb = std::make_unique<LinearizedControlProblem>();
+  auto s1 = lpb->add(q3 - m * q2 == 0.);
+  auto s2 = lpb->add(q6 - m * q5 == 0.);
+  lpb->add(q1 + q4 == 2.);
+  lpb->add(q1 - q4 == 0., PriorityLevel(1));
+  // This might be a bit surprising, but, because {q2, q3} and {q5, q6} are merged in the constraints,
+  // the properties of the matrices in front of q3 and q6 are not kept and the correct calculator
+  // cannot be deduced automatically.
+  lpb->add(
+      hint::Substitution(lpb->constraint(s1.get()), q3, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
+  lpb->add(
+      hint::Substitution(lpb->constraint(s2.get()), q6, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
+
+  return lpb;
+}
+
+VectorXd testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
+                     std::vector<std::shared_ptr<solver::abstract::LSSolverFactory>> configs,
+                     double eps)
 {
   VariableVector variables = lpb->variables();
   std::vector<VectorXd> solutions;
@@ -104,6 +134,8 @@ void testSolvers(const std::unique_ptr<LinearizedControlProblem> & lpb,
       FAST_CHECK_UNARY(solutions[i].isApprox(solutions[j], eps));
     }
   }
+
+  return solutions.front();
 }
 
 TEST_CASE("Simple IK")
@@ -142,4 +174,30 @@ TEST_CASE("Problem with subvariables")
 #endif
 
   testSolvers(lpb, configs, 1e-6);
+}
+
+TEST_CASE("Problem with subvariables and substitutions")
+{
+  auto lpb = problemWithSubVariablesAndSubstitution();
+  std::vector<std::shared_ptr<LSSolverFactory>> configs;
+#ifdef TVM_USE_LSSOL
+  configs.push_back(std::make_shared<LSSOLLSSolverFactory>());
+#endif
+#ifdef TVM_USE_QLD
+  configs.push_back(std::make_shared<QLDLSSolverFactory>());
+  configs.push_back(std::make_shared<QLDLSSolverFactory>(QLDLSSolverOptions().cholesky(true)));
+#endif
+#ifdef TVM_USE_QUADPROG
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
+  configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
+#endif
+
+  VectorXd x0(20);
+  x0 << 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1;
+  VectorXd x = testSolvers(lpb, configs, 1e-6);
+  FAST_CHECK_UNARY(x.isApprox(x0));
+  FAST_CHECK_EQ(typeid(*lpb->substitutions().substitutions()[0].calculator()).hash_code(),
+                typeid(tvm::hint::internal::DiagonalCalculator::Impl).hash_code());
+  FAST_CHECK_EQ(typeid(*lpb->substitutions().substitutions()[1].calculator()).hash_code(),
+                typeid(tvm::hint::internal::DiagonalCalculator::Impl).hash_code());
 }

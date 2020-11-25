@@ -7,10 +7,43 @@
 
 namespace tvm::internal
 {
+/** An helper class to iterate over a container of VariablePtr where the variables
+ * are split according to a given partition.
+ *
+ * For example, let's consider x, y, z, 3 variables with size 8 and x1, x2, x3
+ * (resp. y1, y2, y3 and z1, z2, z3) such that x = [x1,x2,x3] (same for y and z).
+ * If u is a subvariable of x such that u = x2, v = y and w is a subvariable of z
+ * such that w = [z2, z3], then iterating over VariableVectorPartition({w,u,v},
+ * {x1, x2, x3, x=y1, y2, y3, z1, z2, z3}) will yield the sequence
+ * {z2, z3, x2, y1, y2, y3}.
+ *
+ *       <- u->      <------- v------->      <---- w---->
+ * <-x1-><-x2-><-x3-><-y1-><-y2-><-y3-><-z1-><-z2-><-z3->
+ *
+ * The partition and container need to be compatible, i.e. any variable of the
+ * container can be written as a union of variables in the partition.
+ * This requirement is not fully checked.
+ *
+ * \tparam VarVector A container of VariablePtr with begin(), end() and forward iterator.
+ *
+ * \internal The partition relies on a VariableCountingVector which ensures that
+ * consecutive subvariables in a variable are consecutive in the
+ * VariableCountingVector::variables.
+ * The VariableCountingVector needs to have the split option on, so that the
+ * required compatibility is not with the variables added to it, but with what is
+ * returned by VariableCountingVector::variables.
+ */
 template<class VarVector>
 class VariableVectorPartition
 {
 public:
+  /**
+   * \param v The variable container we want to iterate over.
+   * \param partition The way to split the variables. Need to have the split option on.
+   * The default use should be to put all relevant variables in \p partition,
+   * including all the variables in v, to make sure the partition is granularity
+   * is small enough and compatible with v.
+   */
   VariableVectorPartition(const VarVector & v, const VariableCountingVector & partition)
   : var_(v), partition_(partition.variables())
   {

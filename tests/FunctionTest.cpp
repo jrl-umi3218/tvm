@@ -4,7 +4,7 @@
 #include <tvm/function/BasicLinearFunction.h>
 #include <tvm/utils/memoryChecks.h>
 
-#include <eigen/Core>
+#include <Eigen/Core>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS

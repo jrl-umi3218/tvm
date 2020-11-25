@@ -548,19 +548,28 @@ TEST_CASE("VariableVectorPartition")
   partition.add(z0);
   partition.add(z1);
 
+  // partition
+  // <--x0--><--x1--><--x2--><---y0--->      <---z0--->
+  //                               <---y1--->      <---z1--->
+  // resulting in:
+  // <--x0--><--x1--><--x2--><-ya-><yb><-yc-><-za-><zb><-zc->
+
   VariableVector var(z1, x1, y);
   std::vector<VariablePtr> u;
 
+  //         <--x1-->        <------y ------>      <---z1--->
+  // <--x0--><--x1--><--x2--><-ya-><yb><-yc-><-za-><zb><-zc->
+  // {z1, x1, y} = {zb, zc, x1, ya, yb, yc}
   for(const auto & v : internal::VariableVectorPartition(var, partition))
   {
     u.push_back(v);
   }
 
   FAST_CHECK_EQ(u.size(), 6);
-  FAST_CHECK_EQ(*u[0], *z->subvariable(2, "", 3));
-  FAST_CHECK_EQ(*u[1], *z->subvariable(3, "", 5));
+  FAST_CHECK_EQ(*u[0], *z->subvariable(2, "zb", 3));
+  FAST_CHECK_EQ(*u[1], *z->subvariable(3, "zc", 5));
   FAST_CHECK_EQ(*u[2], *x1);
-  FAST_CHECK_EQ(*u[3], *y->subvariable(3, "", 0));
-  FAST_CHECK_EQ(*u[4], *y->subvariable(2, "", 3));
-  FAST_CHECK_EQ(*u[5], *y->subvariable(3, "", 5));
+  FAST_CHECK_EQ(*u[3], *y->subvariable(3, "ya", 0));
+  FAST_CHECK_EQ(*u[4], *y->subvariable(2, "yb", 3));
+  FAST_CHECK_EQ(*u[5], *y->subvariable(3, "yc", 5));
 }

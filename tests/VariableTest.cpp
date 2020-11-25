@@ -246,6 +246,12 @@ TEST_CASE("Subvariable")
   v2 << Eigen::VectorXd::Ones(3);
   FAST_CHECK_UNARY(v->value().isApprox((Eigen::VectorXd(7) << 0, 0, 0, 0, 1, 1, 1).finished()));
 
+  // Duplicate
+  VariablePtr w2 = v2->duplicate();
+  FAST_CHECK_NE(*v2, *w2);
+  FAST_CHECK_EQ(w2->size(), 3);
+  FAST_CHECK_EQ(dot(w2)->size(), 3);
+
   // Subvariable of subvariable
   VariablePtr v21 = v2->subvariable(Space(2), "v21");
   FAST_CHECK_EQ(v21->size(), 2);
