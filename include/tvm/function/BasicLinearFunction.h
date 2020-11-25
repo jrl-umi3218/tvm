@@ -147,9 +147,29 @@ inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived> & A, Varia
   }
   else
   {
+    using Shape = tvm::internal::MatrixProperties::Shape;
     addVariable(x, true);
     jacobian_.at(x.get()) = A;
-    jacobian_.at(x.get()).properties({tvm::internal::MatrixProperties::Constness(true)});
+    Shape shape = Shape::GENERAL;
+    // TODO: generalize test to matrices with fixed size, to triangular matrices
+    // and to richer diagonal case
+    if constexpr(std::is_same_v<Derived, std::remove_const_t<tvm::utils::internal::IdentityType>>)
+    {
+      shape = Shape::IDENTITY;
+    }
+    if constexpr(std::is_same_v<Derived, std::remove_const_t<tvm::utils::internal::MinusIdentityType>>)
+    {
+      shape = Shape::MINUS_IDENTITY;
+    }
+    if constexpr(std::is_same_v<Derived, std::remove_const_t<tvm::utils::internal::MultIdentityType>>)
+    {
+      shape = Shape::MULTIPLE_OF_IDENTITY;
+    }
+    if constexpr(std::is_same_v<Derived, std::remove_const_t<decltype(Eigen::VectorXd(1).asDiagonal())>>)
+    {
+      shape = Shape::DIAGONAL;
+    }
+    jacobian_.at(x.get()).properties({tvm::internal::MatrixProperties::Constness(true), shape});
   }
 }
 

@@ -201,3 +201,24 @@ TEST_CASE("Affine expression with subvariables")
   FAST_CHECK_UNARY(A3.isApprox(f3.jacobian(*x3)));
   FAST_CHECK_UNARY(M3.isApprox(f3.jacobian(*y3)));
 }
+
+TEST_CASE("Detecting matrices properties")
+{
+  VariablePtr u = Space(2).createVariable("u");
+  VariablePtr v = Space(2).createVariable("v");
+  VariablePtr w = Space(2).createVariable("w");
+  VariablePtr x = Space(2).createVariable("x");
+  VariablePtr y = Space(2).createVariable("y");
+  VariablePtr z = Space(2).createVariable("z");
+
+  MatrixXd M(2, 2);
+  VectorXd d(2);
+
+  // The following line does not work because d.asDiagonal()*var is not recognized as a LinearExpr
+  // BasicLinearFunction f(u - v + 2*w + d.asDiagonal()*x -d.asDiagonal()*y + M*z);
+  BasicLinearFunction f(u - v + 2 * w + M * z);
+  FAST_CHECK_UNARY(f.jacobian(*u).properties().isIdentity());
+  FAST_CHECK_UNARY(f.jacobian(*v).properties().isMinusIdentity());
+  FAST_CHECK_UNARY(f.jacobian(*w).properties().isMultipleOfIdentity());
+  FAST_CHECK_EQ(f.jacobian(*z).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+}
