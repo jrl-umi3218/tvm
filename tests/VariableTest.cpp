@@ -268,7 +268,7 @@ TEST_CASE("Subvariable")
   FAST_CHECK_UNARY(v->value().isApprox((Eigen::VectorXd(7) << 0, 0, 0, 0, 3, 3, 1).finished()));
 
   // Subvariable of derivative
-  VariablePtr d2v2 = dot(v, 2)->subvariable(Space(3), "v2", Space(3, 4, 3));
+  VariablePtr d2v2 = dot(v, 2)->subvariable(Space(3), "d2v2", Space(3, 4, 3));
   FAST_CHECK_EQ(d2v2->size(), 3);
   FAST_CHECK_EQ(dot(d2v2)->size(), 3);
   FAST_CHECK_EQ(dot(d2v2, 4)->size(), 3);
@@ -334,6 +334,23 @@ TEST_CASE("Equality")
   FAST_CHECK_NE(*u21, *u2);
   FAST_CHECK_NE(*u21, *u3);
   FAST_CHECK_EQ(*u21, *u21);
+}
+
+TEST_CASE("Derivative equality")
+{
+  VariablePtr u = Space(10).createVariable("u");
+  VariablePtr u1 = u->subvariable(Space(5), "u1", Space(2));
+  VariablePtr du1a = dot(u1);
+  VariablePtr du1b = dot(u)->subvariable(Space(5), "du1b", Space(2));
+
+  FAST_CHECK_EQ(*du1a, *du1b);
+
+  VariablePtr v = Space(6, 7, 6).createVariable("v");
+  VariablePtr v2 = v->subvariable(Space(3), "v2", Space(3, 4, 3));
+  VariablePtr d2v2a = dot(v2, 2);
+  VariablePtr d2v2b = dot(v, 2)->subvariable(Space(3), "d2v2b", Space(3, 4, 3));
+
+  FAST_CHECK_EQ(*d2v2a, *d2v2b);
 }
 
 TEST_CASE("Subvariable contains")

@@ -148,10 +148,6 @@ public:
    * For example \c x->subVariable(Space(3), "y", Space(2)) creates a
    * subvariable y of \c x starting after the two first element (x0, x1) and
    * containing the three elements (x2,x3,x4).
-   *
-   * \warning Two variables created with the same arguments will be considered
-   * as two different variables. If you want to get the same subvariable, it is
-   * your responsibility to keep a VariablePtr on it.
    */
   VariablePtr subvariable(Space space, std::string_view baseName, Space shift = {0}) const;
 

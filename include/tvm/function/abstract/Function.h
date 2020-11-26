@@ -60,14 +60,8 @@ protected:
   {
     using Type = MatrixRef;
     using ConstType = MatrixConstRef;
-    static Type get(Eigen::MatrixXd & M, const Range & r)
-    {
-      return M.middleCols(r.start, r.dim);
-    }
-    static ConstType get(const Eigen::MatrixXd & M, const Range & r)
-    {
-      return M.middleCols(r.start, r.dim);
-    }
+    static Type get(Eigen::MatrixXd & M, const Range & r) { return M.middleCols(r.start, r.dim); }
+    static ConstType get(const Eigen::MatrixXd & M, const Range & r) { return M.middleCols(r.start, r.dim); }
   };
   /** Constructor for a function with value in \f$ \mathbb{R}^m \f$.
    *
