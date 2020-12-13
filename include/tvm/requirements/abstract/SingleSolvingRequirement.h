@@ -19,7 +19,7 @@ namespace abstract
  * interacts with other constraints in term of hierarchical and weighted
  * priorities.
  *
- * This is a base class for the sole purpose of conveniency.
+ * This is a base class for the sole purpose of convenience.
  */
 template<typename T, bool Lightweight = true>
 class SingleSolvingRequirement : public std::conditional_t<Lightweight, std::monostate, internal::CallbackManager>

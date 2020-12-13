@@ -63,11 +63,11 @@ public:
     }
   };
 
-  /** Add a range to the counting. Return true if this changes the outuput of
+  /** Add a range to the counting. Return true if this changes the output of
    * \c ranges(false) (it always changes the output of \c range(true) ).
    */
   bool add(const Range & r);
-  /** Remove a range from the counting. Return true if this changes the outuput
+  /** Remove a range from the counting. Return true if this changes the output
    * of \c ranges() (it always changes the output of \c range(true) ).
    */
   bool remove(const Range & r);
@@ -78,7 +78,7 @@ public:
    *
    * \param splitOnDepthDiff If true, ranges are split on count differences and
    * on Limit::Cut (i.e. two ranges touching but not overlapping will be returned
-   * separatly, not meerged).
+   * separately, not merged).
    */
   const std::vector<Range> & ranges(bool splitOncountDiff = false) const;
   /** Get the underlying representation as a list of limits.*/

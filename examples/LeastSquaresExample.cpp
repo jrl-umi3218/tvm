@@ -38,7 +38,7 @@ Matrix3d rotationFromZ(Vector3d v)
   return R;
 }
 
-// Returns the antisymmetric matrix S such that for a fector x, S*x = v.cross(x)
+// Returns the antisymmetric matrix S such that for a vector x, S*x = v.cross(x)
 Matrix3d hat(const Vector3d & v)
 {
   Matrix3d S;

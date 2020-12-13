@@ -15,7 +15,7 @@ namespace internal
 template<typename MatrixType>
 class ObjectWithProperties;
 
-/** A lightweight proxy for indicating if the assignement of an Eigen
+/** A lightweight proxy for indicating if the assignment of an Eigen
  * expression to a MatrixWithProperties should reset the properties (which is
  * the default behavior.
  *
@@ -77,7 +77,7 @@ public:
   ObjectWithProperties & operator=(const Eigen::MatrixBase<OtherDerived> & other)
   {
     assert(this->rows() == other.rows() && this->cols() == other.cols()
-           && "It is not allowed to assign an expression with a different size. Please explicitely resize the matrix "
+           && "It is not allowed to assign an expression with a different size. Please explicitly resize the matrix "
               "before.");
     this->MatrixType::operator=(other);
     properties_ = MatrixProperties();
@@ -88,7 +88,7 @@ public:
   ObjectWithProperties & assignKeepProperties(const Eigen::MatrixBase<OtherDerived> & other)
   {
     assert(this->rows() == other.rows() && this->cols() == other.cols()
-           && "It is not allowed to assign an expression with a different size. Please explicitely resize the matrix "
+           && "It is not allowed to assign an expression with a different size. Please explicitly resize the matrix "
               "before.");
     this->MatrixType::operator=(other);
     return *this;
@@ -97,7 +97,7 @@ public:
   const MatrixProperties & properties() const { return properties_; }
   void properties(const MatrixProperties & p) { properties_ = p; }
 
-  /** Create a proxy to specify wether an assignement should preserve the
+  /** Create a proxy to specify whether an assignment should preserve the
    * properties of the matrix.
    *
    * \param keep true it the properties should be left untouched, false

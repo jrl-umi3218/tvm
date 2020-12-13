@@ -51,14 +51,14 @@ public:
       return mpark::get<T>(kp_);
     }
     /** Get the current gain (non-const version).
-     * \warning No check is made if you change the gain. It is your responsability
+     * \warning No check is made if you change the gain. It is your responsibility
      * to ensure that its values and its \a size are correct.
      */
     Gain & gain();
     /** Get the current gain cast as \p T (non-const version).
      * \tparam T Type of the gain.
      * \throw Throws if \p T has not the type corresponding to the gain actually used.
-     * \warning No check is made if you change the gain. It is your responsability
+     * \warning No check is made if you change the gain. It is your responsibility
      * to ensure that its values and its \a size are correct.
      */
     template<typename T>

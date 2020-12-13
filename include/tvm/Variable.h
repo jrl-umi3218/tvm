@@ -33,16 +33,23 @@ VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1);
  * dot() operator.
  *
  * A variables can be a subvariable, i.e. a contiguous subpart of an other variable.
+ * 
+ * \internal A note on memory management for variables: Variable instances can
+ * only be created through factory function returning shared_ptr (unique_ptr for
+ * initial variables created from Space). Derived variables and subvariables
+ * share the same reference counter, through the aliasing mechanism of shared_ptr.
+ * This ensure that the lifetime of a variable, and in particular the original
+ * variable always exceed that of a variable constructed from it.
  */
 class TVM_DLLAPI Variable : public tvm::internal::ObjWithId, public std::enable_shared_from_this<Variable>
 {
 public:
   /** Copying variables is illicit. To get a different variable with the same
-   * caracteristics, see \ref duplicate.
+   * characteristics, see \ref duplicate.
    */
   Variable(const Variable &) = delete;
   /** Copying variables is illicit. To get a different variable with the same
-   * caracteristics, see \ref duplicate.
+   * characteristics, see \ref duplicate.
    */
   Variable & operator=(const Variable &) = delete;
   /** Destructor.*/
@@ -50,7 +57,7 @@ public:
   /** Create a variable based on the same space, with the same derivative
    * number and value.
    * \param name the name of the new variable. If the default value is kept,
-   * a ' will be appened to the current name. If the variable being
+   * a ' will be appended to the current name. If the variable being
    * duplicated is not a base variable, the name is given to the base
    * variable.
    */
@@ -67,7 +74,7 @@ public:
    * derived from an other).
    */
   const Space & space() const;
-  /** Return the space of the subvariable preceeding this variable w.r.t its
+  /** Return the space of the subvariable preceding this variable w.r.t its
    * supervariable. E.g if this variable is x, and is a subvariable of X such
    * that X = (u, x, y), x->spaceShift() corresponds to u->space().
    */

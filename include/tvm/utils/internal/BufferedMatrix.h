@@ -34,7 +34,7 @@ public:
   Eigen::Map<Eigen::MatrixXd, Eigen::Aligned> get();
 
   /** Resize the matrix. If the buffer is not big enough, reallocate memory
-   * to twice the neede size.
+   * to twice the needed size.
    */
   void resize(Eigen::DenseIndex m, Eigen::DenseIndex n);
 

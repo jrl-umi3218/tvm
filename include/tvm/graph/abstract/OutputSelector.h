@@ -60,7 +60,7 @@ constexpr bool is_output_selector()
 /** This class adds to its template argument the capability to enable or
  * disable some of its outputs.
  *
- * We use here a bit of template metaprogramming to take care of the
+ * We use here a bit of template meta-programming to take care of the
  * following problem:
  * imagine we have the following inheritance structure
  * class A

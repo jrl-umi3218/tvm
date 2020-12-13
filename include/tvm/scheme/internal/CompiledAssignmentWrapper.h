@@ -39,18 +39,18 @@ public:
 
   /** Run the assignment*/
   void run();
-  /** Change the source (for assignement built with Source == CONSTANT)
+  /** Change the source (for assignment built with Source == CONSTANT)
    * \throw std::runtime_error if used for Source != CONSTANT
    */
   void from(double);
-  /** Change the source (for assignement built with Source != CONSTANT)
+  /** Change the source (for assignment built with Source != CONSTANT)
    * \throw std::runtime_error if used for Source == CONSTANT
    */
   void from(const Eigen::Ref<const MatrixType> & from);
   /** Change the destination of the assignment*/
   void to(const Eigen::Ref<MatrixType> &);
 
-  /** Create an assignement and its wrapper.
+  /** Create an assignment and its wrapper.
    * \param args to [, from] [, weight] [, multiplier] where
    * - \p to is the destination matrix or vector
    * - \p from is the source (nothing for F = ZERO, a double for F = CONSTANT,

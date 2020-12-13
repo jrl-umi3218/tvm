@@ -28,7 +28,7 @@ namespace abstract
  *         xl <= x <= xu
  *
  * where l or u might be set to -inf or +inf, and the explicit bounds are
- * optionnal.
+ * optional.
  *
  * When deriving this class, also remember to derive the factory class
  * LSSolverFactory as well.
@@ -101,7 +101,7 @@ public:
 
   /** Update the data according to the events
    *
-   * \internal Assumes the vector of variables and substitions are the same as
+   * \internal Assumes the vector of variables and substitutions are the same as
    * when the problem was built.
    */
   void process(const internal::SolverEvents & se);

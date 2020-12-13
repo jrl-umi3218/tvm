@@ -148,7 +148,7 @@ void QuadprogLeastSquareSolver::resetBounds_()
 
 void QuadprogLeastSquareSolver::preAssignmentProcess_()
 {
-  // Some variables may be unbounded, which means no assignement will set the bounds to
+  // Some variables may be unbounded, which means no assignment will set the bounds to
   // the correct value. Since the signs on xl will be flipped later, we need to reset this
   // correct value.
   xl_.setConstant(-big_number_);

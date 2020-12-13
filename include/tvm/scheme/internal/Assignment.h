@@ -70,7 +70,7 @@ public:
              double scalarizationWeight = 1);
 
   /** Version for bounds
-   * \param first wether this is the first assignement of bounds for this
+   * \param first whether this is the first assignment of bounds for this
    * variable (first assignment just copy vectors while the following ones
    * need to perform min/max operations).
    */
@@ -126,13 +126,13 @@ private:
   /** Build internal data from the requirements*/
   void processRequirements();
 
-  /** Creates a matrix assigment from the jacobian of \p source_ corresponding
+  /** Creates a matrix assignment from the jacobian of \p source_ corresponding
    * to variable \p x to the block of matrix described by \p M and \p range.
    * \p flip indicates a sign change if \p true.
    */
   void addMatrixAssignment(Variable & x, MatrixFunction M, const Range & range, bool flip);
 
-  /** Creates the assignements due to susbtituing the variable \p x by the
+  /** Creates the assignments due to substituting the variable \p x by the
    * linear expression given by \p sub. The target is given by \p M.
    * \p flip indicates a sign change if \p true.
    */
@@ -142,18 +142,18 @@ private:
                                         const function::BasicLinearFunction & sub,
                                         bool flip);
 
-  /** Creates and assigment between the vector given by \p f and the one given
+  /** Creates and assignment between the vector given by \p f and the one given
    * by \p v, taking care of the RHS conventions for the source and the
-   * target. The assignement type is given by the template parameter \p A.
+   * target. The assignment type is given by the template parameter \p A.
    * \p flip indicates a sign change if \p true.
    */
   template<AssignType A = AssignType::COPY, typename From, typename To>
   void addVectorAssignment(const From & f, To v, bool flip, bool useFRHS = true, bool useTRHS = true);
 
-  /** Creates and assigment between the vector given by \p f and the one given
+  /** Creates and assignment between the vector given by \p f and the one given
    * by \p v, taking care of the RHS conventions for the source and the
    * target. The source is premultiplied by the inverse of the diagonal matrix
-   * \p D. The assignement type is given by the template parameter \p A.
+   * \p D. The assignment type is given by the template parameter \p A.
    * \p flip indicates a sign change if \p true.
    */
   template<AssignType A = AssignType::COPY, typename From, typename To>
@@ -164,7 +164,7 @@ private:
                            bool useFRHS = true,
                            bool useTRHS = true);
 
-  /** Creates the assignements due to the substitution of variable \p x by the
+  /** Creates the assignments due to the substitution of variable \p x by the
    * linear expression \p sub. The target is given by \p v.
    */
   void addVectorSubstitutionAssignments(const function::BasicLinearFunction & sub,
@@ -172,15 +172,15 @@ private:
                                         Variable & x,
                                         bool flip);
 
-  /** Create a vector assignement where the source is a constant. The target
-   * is given by \p v and the type of assignement by \p A.
+  /** Create a vector assignment where the source is a constant. The target
+   * is given by \p v and the type of assignment by \p A.
    */
   template<AssignType A = AssignType::COPY, typename To>
   void addVectorAssignment(double d, To v, bool flip = false, bool useFRHS = true, bool useTRHS = true);
 
-  /** Create a vector assignement where the source is a constant that is
+  /** Create a vector assignment where the source is a constant that is
    * premultiplied by the inverse of a diagonal matrix \p D.
-   * The target is given by \p v and the type of assignement by \p A.
+   * The target is given by \p v and the type of assignment by \p A.
    */
   template<AssignType A = AssignType::COPY, typename To>
   void addVectorAssignment(double d,
@@ -190,7 +190,7 @@ private:
                            bool useFRHS = true,
                            bool useTRHS = true);
 
-  /** Creates an assignement setting to zero the matrix block given by \p M
+  /** Creates an assignment setting to zero the matrix block given by \p M
    * and \p range. The variable \p x is simply stored in the corresponding
    * \p MatrixAssignment.
    */
@@ -213,9 +213,9 @@ private:
                       RHSFunction f2,
                       VectorFunction v2);
 
-  /** Creates all the matrix assignements between the source and the target,
-   * as well as the vector assignements described by \p f1 and \p v1 and
-   * optionnally by \p f2 and \p v2 if those are not \p nullptr.
+  /** Creates all the matrix assignments between the source and the target,
+   * as well as the vector assignments described by \p f1 and \p v1 and
+   * optionally by \p f2 and \p v2 if those are not \p nullptr.
    * This method is called after the constraint::Type conventions of the
    * source and the target have been processed (resulting in the choice of
    * \p M, \p f1, \p v1, \p f2, \p v2 and \p flip). It handles internally the
@@ -244,7 +244,7 @@ private:
   template<typename T, AssignType A, typename U>
   CompiledAssignmentWrapper<T> createAssignment(const U & from, const Eigen::Ref<T> & to, bool flip = false);
 
-  /** Create the compiled substitution assignement to = Mult * from (vector
+  /** Create the compiled substitution assignment to = Mult * from (vector
    * case) or to = from * mult (matrix case) taking into account the
    * requirements and \p flip
    */
@@ -264,13 +264,13 @@ private:
   SolvingRequirementsPtr requirements_;
   /** Indicates if the requirements use a default weight AND the scalarizationWeight is 1.*/
   bool useDefaultScalarWeight_;
-  /** Indicates if the requirements use a defautl anisotropic weight.*/
+  /** Indicates if the requirements use a default anisotropic weight.*/
   bool useDefaultAnisotropicWeight_;
-  /** All the assignements that are setting the initial values of the targeted blocks*/
+  /** All the assignments that are setting the initial values of the targeted blocks*/
   std::vector<MatrixAssignment> matrixAssignments_;
-  /** All assignments due to substitutions. We separe them from matrixAssignments_
-   * because these assignements add to existing values, and we need to be sure
-   * that the assignements in matrixAssignments_ have been carried out before.
+  /** All assignments due to substitutions. We separate them from matrixAssignments_
+   * because these assignments add to existing values, and we need to be sure
+   * that the assignments in matrixAssignments_ have been carried out before.
    */
   std::vector<MatrixAssignment> matrixSubstitutionAssignments_;
   /** All the initial rhs assignments*/
@@ -284,7 +284,7 @@ private:
   VariableVector substitutedVariables_;
   std::vector<std::shared_ptr<function::BasicLinearFunction>> variableSubstitutions_;
 
-  /** Helper structure grouping data whose adress should remain constant through
+  /** Helper structure grouping data whose address should remain constant through
    * a move
    */
   struct ReferenceableData
@@ -295,7 +295,7 @@ private:
     Eigen::VectorXd anisotropicWeight_;
     Eigen::VectorXd minusAnisotropicWeight_;
 
-    /** Temporary vectors for bound assignements*/
+    /** Temporary vectors for bound assignments*/
     Eigen::VectorXd tmp1_;
     Eigen::VectorXd tmp2_;
     Eigen::VectorXd tmp3_;

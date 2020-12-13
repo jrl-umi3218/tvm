@@ -14,7 +14,7 @@ using Shape = MatrixProperties::Shape;
 
 namespace
 {
-/** Partial comparison between positiveness caracteristics.
+/** Partial comparison between positiveness characteristics.
  * We have the following implications (from left to right)
  *
  *      psd
@@ -36,7 +36,7 @@ namespace
  *  - i   = indefinite
  *  - na  = non available
  *
- * For a and b two positiveness caracteristics, a > b if a implies b.
+ * For a and b two positiveness characteristics, a > b if a implies b.
  * If a and b are unrelated (e.g. pd and nsd), an error is thrown.
  */
 bool greaterThan(Positiveness a, Positiveness b)

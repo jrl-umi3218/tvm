@@ -119,7 +119,7 @@ void LSSOLLeastSquareSolver::resetBounds_()
 
 void LSSOLLeastSquareSolver::preAssignmentProcess_()
 {
-  // LSSOL is overwritting A during the resolution.
+  // LSSOL is overwriting A during the resolution.
   // We need to make sure that A is clean before assignments are carried out.
   if(!autoMinNorm_)
     A_.setZero();

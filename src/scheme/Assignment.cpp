@@ -155,7 +155,7 @@ void Assignment::checkTarget()
   }
   if((source_->rhs() != RHS::ZERO || hasNonZero) && target_.constraintRhs() == RHS::ZERO)
     throw std::runtime_error("Incompatible conventions: source with rhs other than ZERO "
-                             "(or when using susbtitutions with non-zero vector term) "
+                             "(or when using substitutions with non-zero vector term) "
                              "cannot be assigned to target with rhs ZERO.");
 
   // check the sizes
@@ -546,7 +546,7 @@ void Assignment::addAssignments(const VariableVector & variables,
                                 VectorFunction v2,
                                 bool flip)
 {
-  const auto & xs = substitutedVariables_; // susbstituted variables
+  const auto & xs = substitutedVariables_; // substituted variables
   const auto & xc = source_->variables();  // variables of the source constraint
 
   addVectorAssignment(f1, v1, flip);
@@ -562,7 +562,7 @@ void Assignment::addAssignments(const VariableVector & variables,
   for(const auto & x : xc)
   {
     int i = xs.indexOf(*x);
-    if(i >= 0) // x needs to be subsituted
+    if(i >= 0) // x needs to be substituted
     {
       substitutedInto.add(variableSubstitutions_[static_cast<int>(i)]->variables());
     }
@@ -582,7 +582,7 @@ void Assignment::addAssignments(const VariableVector & variables,
   for(const auto & x : xc)
   {
     int i = xs.indexOf(*x);
-    if(i >= 0) // x needs to be subsituted
+    if(i >= 0) // x needs to be substituted
     {
       const auto & sub = *variableSubstitutions_[static_cast<int>(i)];
       addMatrixSubstitutionAssignments(variables, *x, M, sub, flip);
@@ -611,7 +611,7 @@ void Assignment::addBound(const VariablePtr & variable, RHSFunction f, bool firs
 
   if(substitutedVariables_.contains(*variable))
   {
-    throw std::runtime_error("Subsitution is not yet implemented for bounds");
+    throw std::runtime_error("Substitution is not yet implemented for bounds");
   }
   else
   {

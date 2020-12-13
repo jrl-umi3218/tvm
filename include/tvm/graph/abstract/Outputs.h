@@ -23,8 +23,8 @@ namespace abstract
  * Output.
  *
  * An extension mechanism is used to allow extending existing outputs
- * entitites. Note that this prevent multiple-inheritance for Outputs objects
- * (i.e. a new Ouputs must follow a direct inheritance line).
+ * entities. Note that this prevent multiple-inheritance for Outputs objects
+ * (i.e. a new Outputs must follow a direct inheritance line).
  *
  */
 class TVM_DLLAPI Outputs
@@ -68,7 +68,7 @@ public:
     return isOutputEnabled(i);
   }
 
-  /** Same as above, but taking int, for conveniency*/
+  /** Same as above, but taking int, for convenience*/
   bool isOutputEnabled(int i) const { return isOutputStaticallyEnabled(i) && isOutputCustomEnabled(i); }
 
   /** Check if a given output is enabled at the class level (run-time).

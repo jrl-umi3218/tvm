@@ -60,7 +60,7 @@ class TVM_DLLAPI SchemeAbilities
 public:
   /** \param numberOfLevels The number of levels that the scheme can handle.
    * Use \c NoLimit to indicate an unlimited number of levels.
-   * \param abilies The association of a level number and the LevelAbilities
+   * \param abilities The association of a level number and the LevelAbilities
    * of that level. Use \c GeneralLevel to specify all levels that do not
    * appear explicitly in the map.
    * \param scalarization Specify is this scheme can use weights to approximate

@@ -297,7 +297,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
       added[i] = true;
     }
 
-    // Create a gound truth problem
+    // Create a ground truth problem
     LinearizedControlProblem pbGroundTruth;
     buildPb(pbGroundTruth, tasks, added);
 
@@ -404,7 +404,7 @@ void test3Change(const std::bitset<8> & selection)
           added[k] = true;
         }
 
-        // Create a gound truth problem
+        // Create a ground truth problem
         LinearizedControlProblem pbGroundTruth;
         buildPb(pbGroundTruth, tasks, added);
 

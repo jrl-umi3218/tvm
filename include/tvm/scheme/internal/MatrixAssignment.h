@@ -31,7 +31,7 @@ public:
 
   /** Effectively update the output matrix of the underlying compiled assignment. */
   void updateTarget(const AssignmentTarget & target);
-  /** Update the the column mapping of this assignment, based on the new variable
+  /** Update the column mapping of this assignment, based on the new variable
    * layout specified by \p newVar.
    * If \c updateMatrixTarget is \c true, the output matrix is effectively
    * updated (if not, only \c colRange is changed, but the change is not

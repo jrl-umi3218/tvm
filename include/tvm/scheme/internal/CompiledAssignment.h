@@ -147,7 +147,7 @@ template<typename T>
 class hasNoArgCtor : public decltype(hasNoArgCtor_<T>(0))
 {};
 
-/** Given a list of types, count how many of then havec a constructor
+/** Given a list of types, count how many of then have a constructor
  * accepting NoArg
  */
 template<typename T, typename... Args>
@@ -157,7 +157,7 @@ public:
   static constexpr int count = ArgCount<Args...>::count + (hasNoArgCtor<T>::value ? 0 : 1);
 };
 
-/** End of reccursion for ArgCount*/
+/** End of recursion for ArgCount*/
 template<typename T>
 class ArgCount<T>
 {
@@ -196,10 +196,10 @@ public:
     {
       // For the case where M = matrix * Constant, Eigen create a temporary to store  Vector:Constant before evaluating
       // the product. We avoid that here, by doing the product by hand. This could be further optimized by taking into
-      // acount the WeightMult at once, and possibly without using a cache.
+      // account the WeightMult at once, and possibly without using a cache.
       // The product A * v where v = c * 1 with c a scalar and 1 the vector of ones is equal to c * A * 1. We have that
       // A * 1 is the sum of column of A, what we leverage in the following computations:
-      cache_ = M.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns
+      cache_ = M.lhs().rowwise().sum(); // TODO compare to a handmade loop summing the columns
       cache_ *= M.rhs().functor().m_other;
     }
     else
@@ -386,7 +386,7 @@ public:
     return -M;
   }
 
-  /** We need this specialization because, odly, -(A*B) relies on a temporary evaluation while (-A)*B does not*/
+  /** We need this specialization because, oddly, -(A*B) relies on a temporary evaluation while (-A)*B does not*/
 #if EIGEN_VERSION_AT_LEAST(3, 2, 90)
   template<typename Lhs, typename Rhs, int Option>
   decltype(-(std::declval<Lhs>().lazyProduct(std::declval<Rhs>()))) applyWeightMult(
@@ -517,10 +517,10 @@ public:
     {
       // For the case where M = matrix * Constant, Eigen create a temporary to store  Vector:Constant before evaluating
       // the product. We avoid that here, by doing the product by hand. This could be further optimized by taking into
-      // acount the WeightMult at once, and possibly without using a cache.
+      // account the WeightMult at once, and possibly without using a cache.
       // The product A * v where v = c * 1 with c a scalar and 1 the vector of ones is equal to c * A * 1. We have that
       // A * 1 is the sum of column of A, what we leverage in the following computations:
-      cache = p.lhs().rowwise().sum(); // TODO compare to a handmade loop suming the columns
+      cache = p.lhs().rowwise().sum(); // TODO compare to a handmade loop summing the columns
       cache *= p.rhs().functor().m_other;
     }
     else
@@ -625,7 +625,7 @@ template<typename MatrixType>
 class SourceBase<MatrixType, ZERO>
 {};
 
-/** The main class. Its run method perfoms the assignment t = op(t, w*M*f)
+/** The main class. Its run method performs the assignment t = op(t, w*M*f)
  * (if f is a vector) or t = op(t, w*f*M) (if f is a matrix)
  * where
  *  - t is the target matrix/vector
@@ -719,7 +719,7 @@ public:
   }
 
 private:
-  /** Warning: it is the user responsability to ensure that the matrix/vector
+  /** Warning: it is the user responsibility to ensure that the matrix/vector
    * pointed to by from_, to_ and, if applicable, M_ stay alive.*/
   Eigen::Ref<MatrixType> to_;
 

@@ -73,7 +73,7 @@ private:
     /** Unify the tree \p node1 is in with the tree \p node2 is in.
      * This is done by having the root of one of the trees point at the root of
      * the other.
-     * Chosing wich root points to which is done based on the rank of both roots,
+     * Choosing which root points to which is done based on the rank of both roots,
      * where the rank is a heuristic number approximating the tree depth. The
      * root with the smallest rank point to the other, in which case the rank of
      * the other remain unchanged. If both roots have the same rank, the second
@@ -140,7 +140,7 @@ private:
                  DisjointSet & components) const;
 
   std::vector<uint8_t> roots_;                // roots_[i] is true iff the i-th node has no incoming edges
-  std::vector<std::vector<size_t>> children_; // children_[i] lists all the childs of node i
+  std::vector<std::vector<size_t>> children_; // children_[i] lists all the children of node i
   std::set<std::pair<size_t, size_t>> edges_; // a list of edges (from, to)
 };
 } // namespace tvm::graph::internal

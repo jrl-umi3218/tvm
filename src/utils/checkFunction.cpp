@@ -35,7 +35,7 @@ bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
       // For now, we only accept Euclidean variables. This could be extended to generic
       // manifolds if we get the information on how to make finite differences on the
       // non-Euclidean variables (i.e. if we get a retraction).
-      // Note to developpers: ffd with manifolds can be found in PostureGenerator and
+      // Note to developers: ffd with manifolds can be found in PostureGenerator and
       // externally-provided retraction are used in GeometricFramework
       throw std::runtime_error("This function is implemented for Euclidean variables only.");
     }

@@ -20,7 +20,7 @@ namespace internal
 /** Linearized friction cone generator.
  *
  * Compute the vectors that linearize the friction cone using the
- * generatrix.
+ * generators.
  */
 class TVM_DLLAPI FrictionCone
 {

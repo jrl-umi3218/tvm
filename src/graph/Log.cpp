@@ -56,7 +56,7 @@ std::string removeNamespace(const std::string & name)
   return res;
 }
 
-/** Demangle the typeid name*/
+/** De-mangle the typeid name*/
 std::string demangle(const std::string & name, bool removeNamespace_ = false)
 {
 #if defined(_MSC_VER)
@@ -113,7 +113,7 @@ std::string demangle(const std::string & name, bool removeNamespace_ = false)
 }
 
 /** Return a clean name from typeid by demangling it, replacing spaces and
- * optionaly replacing colons.
+ * optional replacing colons.
  */
 std::string clean(const std::string & name, bool replaceColons_ = true)
 {
@@ -235,7 +235,7 @@ const Log::Output & findOutput(const std::set<Log::Output> & s, const Log::Direc
   throw std::runtime_error("Output not found");
 }
 
-// find the output corresponding to an intput
+// find the output corresponding to an input
 const Log::Output & findOutput(const std::vector<Log::Output> & v, const Log::Input & i)
 {
   for(const auto & o : v)
@@ -278,7 +278,7 @@ std::string Log::generateDot(const Pointer & p) const
       outputs.insert(o);
     }
   }
-  // Ouputs may not be refered by an update, but by the input of another node
+  // Outputs may not be referred by an update, but by the input of another node
   for(const auto & i : inputs_)
   {
     if(i.source == p)
@@ -392,7 +392,7 @@ std::string Log::generateDot(const Pointer & p) const
 std::string Log::generateDot(const CallGraph * const g) const
 {
   std::vector<Output> outputs = outputs_;
-  // Adding outputs refered only as source
+  // Adding outputs referred only as source
   for(const auto & i : inputs_)
   {
     outputs.push_back({i.id, i.name, i.source});
@@ -509,7 +509,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
   for(const auto & i : inputs_)
   {
     inputs[i.source.value].insert(i);
-    // Ouputs may not be refered by an update, but by the input of another node
+    // Outputs may not be referred by an update, but by the input of another node
     auto p = outputs[i.source.value].insert({i.id, i.name, i.source});
     isAlsoInput[*p.first] = true;
   }

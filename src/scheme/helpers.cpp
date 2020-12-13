@@ -36,7 +36,7 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
     auto it = std::find(x.begin(), x.end(), c->variables()[0]);
     if(it == x.end())
     {
-      // There is no susbtitution, this is a bound
+      // There is no substitution, this is a bound
       return true;
     }
     else
@@ -92,7 +92,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
     // 2: possible if diagonal matrix is negative definite or both the
     // the constraint matrix and the matrix is in the substitutions are
     // positive definite.
-    // We do not consider the case where both matrices are undefinite but
+    // We do not consider the case where both matrices are indefinite but
     // their product would be positive or negative definite.
 
     bool case1 = false;

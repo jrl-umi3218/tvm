@@ -15,12 +15,12 @@
  * > examples. The first version can only be instantiated if the type of U::Type
  * > can be used unambiguously. This type can be used only if there is exactly
  * > one instance of Type in Derived, i.e. there is no Type in T. If T has a
- * > member type Type, it is garanteed to be different than Fallback::Type,
+ * > member type Type, it is guaranteed to be different than Fallback::Type,
  * > since the latter is a unique type, hence creating the ambiguity. This leads
  * > to the second version of test being instantiated in case the substitution
  * > fails, meaning that T has indeed a member type Type.
  *
- * To avoid the code from failling if Type is not a class, we add an additional
+ * To avoid the code from failing if Type is not a class, we add an additional
  * step, were T is kept as is if it is a class and replace by an empty \a Dummy
  * class otherwise.
  */

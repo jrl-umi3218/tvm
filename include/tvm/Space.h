@@ -32,7 +32,7 @@ namespace tvm
 class TVM_DLLAPI Space
 {
 public:
-  /** Predifined space types.*/
+  /** Predefined space types.*/
   enum class Type
   {
     Euclidean,  /** Euclidean space \f$ \mathbb{R}^n \f$.*/

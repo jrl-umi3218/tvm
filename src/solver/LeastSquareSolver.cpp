@@ -368,7 +368,7 @@ LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraint
     boundToAssignments_.erase(b.get());
   }
 
-  // clear assignements
+  // clear assignments
   auto it =
       std::remove_if(assignments_.begin(), assignments_.end(), [](const auto & it) { return it->markedForRemoval; });
   assignments_.erase(it, assignments_.end());

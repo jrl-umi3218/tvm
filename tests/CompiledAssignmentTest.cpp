@@ -152,7 +152,7 @@ void assign(AssignType A, Ref<MatrixXd> to)
     to.array() = to.array().max(0);
 }
 
-// an exemple of free fonction. Here, we reverse the columns of in
+// an example of free function. Here, we reverse the columns of in
 void freePostMult(Ref<MatrixXd> out, const Ref<const MatrixXd> & in)
 {
   DenseIndex ci = 0;
@@ -300,7 +300,7 @@ struct SArg<ZERO, MatrixType>
 
 /** This function build a CompiledAssignementWrapper by picking the correct arguments
  * to pass to the constructor. The main work is to create a tuple containing
- * exactly the arguments needed byt the constructor.
+ * exactly the arguments needed by the constructor.
  */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
 CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to,

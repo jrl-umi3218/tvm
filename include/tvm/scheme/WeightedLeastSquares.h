@@ -81,7 +81,7 @@ public:
 
   /** Constructor from a configuration class
    * \tparam SolverOptions Any class representing solver options. The class must have a
-   *    member type \a Factory refering to a class C deriving from LSSolverFactory
+   *    member type \a Factory referring to a class C deriving from LSSolverFactory
    *    and such that C can be constructed from SolverOptions.
    * \param solverOptions A set of options for the solver to be used by the resolution scheme.
    * \\param schemeOptions Options for the scheme. See tvm::Scheme::WeightedLeastSquaresOptions.

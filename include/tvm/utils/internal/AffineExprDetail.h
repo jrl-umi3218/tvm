@@ -55,7 +55,7 @@ inline NoConstant operator*(const MultType & /*m*/, const NoConstant &)
 /** Shortcut to an internal Eigen type to store expressions or matrices.
  *
  * When keeping internally a reference to an Eigen object, we need to have different behaviors
- * depending on wether the object has a large memory and should not be copied or is a
+ * depending on whether the object has a large memory and should not be copied or is a
  * lightweight proxy.
  * For matrix, we need to keep a const ref, while for matrix expression  we need to take a copy
  * of the expression.This is exactly the purpose of ref_selector, that is used to this effect

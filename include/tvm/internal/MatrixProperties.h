@@ -93,11 +93,11 @@ public:
    *
    * Here are some examples:
    * - a multiple-of-identity matrix can only be said to be symmetric and
-   * undefinite. If the user specifies it is positive-semidefinite, this
-   * will be recorded. If additionnally it is specified to be invertible, it
+   * indefinite. If the user specifies it is positive-semidefinite, this
+   * will be recorded. If additionally it is specified to be invertible, it
    * will be deduced that the matrix is positive definite.
-   * - if a minus-identity matrix is said to be non-zero undefinite, this
-   * caracteristic will be discarded as it can be automatically deduced that
+   * - if a minus-identity matrix is said to be non-zero indefinite, this
+   * characteristic will be discarded as it can be automatically deduced that
    * the matrix is negative definite. If it is said to be positive definite,
    * non constant or non invertible, an assertion will be fire as this
    * contradicts what can be deduced.
@@ -134,7 +134,7 @@ private:
   /** This macro adds a member of type T named \a member to a struct, and
    * a method \a processArgs to process it when it appears in a list of
    * arguments.
-   * processArgs return a pair of boolean that is the memberwise "or" of
+   * processArgs return a pair of boolean that is the member-wise "or" of
    * another pair it gets by recursive call and {b1, b2}
    */
 #define ADD_ARGUMENT(T, member, b1, b2)                                         \

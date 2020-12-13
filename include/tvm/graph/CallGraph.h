@@ -35,7 +35,7 @@ public:
   void clear();
 
 protected:
-  /** A call is formed by the combination of a Node and and id */
+  /** A call is formed by the combination of a Node and id */
   struct Call
   {
     internal::AbstractNode * node;

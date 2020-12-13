@@ -117,7 +117,7 @@ protected:
 
   /** Resize all cache members corresponding to active outputs.
    *
-   * This can be overriden in case you do not need all of the default
+   * This can be overridden in case you do not need all of the default
    * mechanism (typically if you will not use part of the cache).
    * If you override to perform additional operations, do not forget to
    * call this base version in the derived classes.
@@ -152,12 +152,12 @@ protected:
    */
   void addVariable(const VariableVector & v, bool linear);
 
-  /** To be overriden by derived classes that need to react to
+  /** To be overridden by derived classes that need to react to
    * the addition of a variable. Called at the end of addVariable();
    */
   virtual void addVariable_(VariablePtr);
 
-  /** To be overriden by derived classes that need to react to
+  /** To be overridden by derived classes that need to react to
    * the removal of a variable. Called at the end of removeVariable();
    */
   virtual void removeVariable_(VariablePtr);

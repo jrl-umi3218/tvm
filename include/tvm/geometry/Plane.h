@@ -22,7 +22,7 @@ namespace geometry
  * derivatives. (i.e. normal.dot(point) = -offset)
  *
  * This object does not update any of these quantities (exception: when point
- * is changed, offset is changed accordingly), this reponsability belongs to
+ * is changed, offset is changed accordingly), this responsibility belongs to
  * the Plane provider. In other words, this is *not* a plane integrator.
  *
  * Outputs:

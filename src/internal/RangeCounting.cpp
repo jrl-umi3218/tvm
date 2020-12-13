@@ -152,7 +152,7 @@ bool RangeCounting::moveToFirstAfter(const Limit & val, It & it, int & depth, in
   {
     depth -= it->type_;
     if(depth < depthCut)
-      throw std::runtime_error("Too many upper limis. Are you trying to remove values that are not present?");
+      throw std::runtime_error("Too many upper limits. Are you trying to remove values that are not present?");
     if(depth == depthCut)
       hit = true;
     ++it;

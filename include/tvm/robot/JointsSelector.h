@@ -13,7 +13,7 @@ namespace tvm
 namespace robot
 {
 
-/** This class implements joints' selection on a given fucntion */
+/** This class implements joints' selection on a given function */
 class TVM_DLLAPI JointsSelector : public function::abstract::Function
 {
 public:

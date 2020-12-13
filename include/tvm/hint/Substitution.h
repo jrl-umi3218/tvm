@@ -67,7 +67,7 @@ public:
    * \param cstr The constraint used for the substitution.
    * \param x The set variables to substitute.
    * \param rank the rank of the matrices multiplying \p x obtained by
-   * concatening the matrices in front of each \p xi. By default it is
+   * concatenating the matrices in front of each \p xi. By default it is
    * the row size of this matrix.
    * \param calc A class that performs matrix operations related to the
    * substitution \sa tvm::hint::abstract::SubstitutionCalculator,
@@ -84,7 +84,7 @@ public:
   /** Constructor for a set of constraints and a set of variables
    * \param cstr The set of constraints used for the substitution.
    * \param x The set variables to substitute.
-   * \param rank the rank of the matrix multiplying \p x, i.e the agreggation
+   * \param rank the rank of the matrix multiplying \p x, i.e the aggregation
    * of all the matrices in front of the \p xi in all the constraints. By
    * default, it is the row size of this matrix.
    * \param calc A class that performs matrix operations related to the
@@ -108,7 +108,7 @@ public:
   const std::vector<LinearConstraintPtr> & constraints() const;
   /** The set of variables to substitute*/
   const std::vector<VariablePtr> & variables() const;
-  /** Return \p true is this subsitution is based on a single constraint and
+  /** Return \p true is this substitution is based on a single constraint and
    * a single variable.
    */
   bool isSimple() const;

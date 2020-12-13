@@ -33,7 +33,7 @@ public:
 
 private:
   /** internal we use weak_ptr here to avoid creating cyclic dependencies when a class
-   * inheriting from both EventSource and DataSource refers to and is refered by a
+   * inheriting from both EventSource and DataSource refers to and is referred by a
    * class inheriting from DataNode and EventListener.
    */
   std::map<Type, std::vector<std::weak_ptr<Listener>>> registrations_;

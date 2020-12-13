@@ -69,11 +69,11 @@ protected:
                              const std::vector<VariablePtr> & x,
                              int rank);
 
-  /** Specify wheter A is constant (in which case only the first update will
+  /** Specify whether A is constant (in which case only the first update will
    * actually perform computations.
    */
   void constant(bool c);
-  /** Return wheter A is constant*/
+  /** Return whether A is constant*/
   bool constant() const;
 
   /** Return the matrix A*/

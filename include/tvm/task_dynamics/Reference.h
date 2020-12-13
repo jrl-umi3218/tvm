@@ -52,7 +52,7 @@ private:
 
 /** Compute dot{e}* = ref (kinematic order).
  *
- * This is a simple conveniency shortcut for a Reference instance with order Order::One
+ * This is a simple convenience shortcut for a Reference instance with order Order::One
  */
 class TVM_DLLAPI ReferenceVelocity : public Reference
 {
@@ -62,7 +62,7 @@ public:
 
 /** Compute ddot{e}* = ref (dynamic order).
  *
- * This is a simple conveniency shortcut for a Reference instance with order Order::Two
+ * This is a simple convenience shortcut for a Reference instance with order Order::Two
  */
 class TVM_DLLAPI ReferenceAcceleration : public Reference
 {

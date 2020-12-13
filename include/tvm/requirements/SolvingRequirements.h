@@ -19,13 +19,13 @@ namespace requirements
  * part or all of the following: priority level, (global) weight,
  * different weights for each dimension, type of norm to consider (and
  * maybe more in the future). The method through which tasks are added
- * need then to be able to accomodate these specifications.
+ * need then to be able to accommodate these specifications.
  *
  * The classes in this file are meant to fulfill the following points:
  *
  *  - having strongly typed notions of weight, priority, ...
  *
- *  - leting the user specify only part of those notions and rely on
+ *  - letting the user specify only part of those notions and rely on
  *  default value for the others.
  *
  *  - allowing to use any order to give the arguments

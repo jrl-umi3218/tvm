@@ -35,7 +35,7 @@ Substitution group(const std::vector<Substitution> & substitutionPool, const std
   // Determine the rank.
   // We make two suppositions:
   // - the substitutions are independent
-  // - if x1,...,xk are the variables susbtituted by a substitution, and
+  // - if x1,...,xk are the variables substituted by a substitution, and
   //   xk+1,... are the variables substituted by other substitutions, the
   //   matrices in front of xk+1,... are independent of the matrix in front
   //   of x1,...,xk.
@@ -336,7 +336,7 @@ void SubstitutionUnit::scanSubstitutions()
       {
         auto comp = [&v](const auto & it) { return v.get() == it.get(); };
         // Is v a variable to be substituted? It is ok to test only with an
-        // incomplete vars_, as the susbtitution are supposed to be given in
+        // incomplete vars_, as the substitution are supposed to be given in
         // a correct order.
         auto it = std::find_if(x_.variables().begin(), x_.variables().end(), comp);
         if(it == x_.variables().end())

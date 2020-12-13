@@ -159,7 +159,7 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
 
   memory->maxp = maxp;
 
-  // assigments for general constraints
+  // assignments for general constraints
   for(const auto & c : constr)
   {
     int p = c.requirements->priorityLevel().value();
@@ -177,7 +177,7 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
   if(autoMinNorm)
     solver.setMinimumNorm();
 
-  // assigments for bounds
+  // assignments for bounds
   for(const auto & b : bounds)
   {
     int p = b.requirements->priorityLevel().value();
@@ -238,7 +238,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
     }
     else
     {
-      // We dont adapt maxp, meaning that a constraint with priority level p>max_p will get a weight<1
+      // We don't adapt maxp, meaning that a constraint with priority level p>max_p will get a weight<1
       se.addObjective({c.constraint, c.requirements, std::pow(*options_.scalarizationWeight(), memory->maxp - p)});
     }
   }

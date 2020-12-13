@@ -169,11 +169,11 @@ MatrixXd randM(int m, int n, int r = 0)
     return MatrixXd::Random(m, r) * MatrixXd::Random(r, n);
 }
 
-/** check wether the systems given by cstr and by subs are equivalent.
+/** check whether the systems given by cstr and by subs are equivalent.
  * The system are supposed to be feasible.
  * From cstr, we deduce a system A [x;y] = b (1)
  * From subs, we deduce C [y;z] = d and x = E y + F z + g (2)
- * We check that any solution of (1) is a solution of (2) by writting a
+ * We check that any solution of (1) is a solution of (2) by writing a
  * solution of (1) [x;y] = pinv(A)*b + Na u with Na a base of the nullspace of
  * A and u a vector. For size(u) different value of u, we the rewrite (2) as a
  * system of z only, and verify we can find a solution.

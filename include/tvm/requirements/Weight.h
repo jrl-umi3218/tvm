@@ -11,7 +11,7 @@ namespace requirements
 {
 
 /** This class represents the scalar weight alpha of a constraint,
- * within its priority level. It is meant to ajust the influence of
+ * within its priority level. It is meant to adjust the influence of
  * several constraints at the same level.
  *
  * Given a scalar weight \p alpha, and a constraint violation measurement

@@ -43,7 +43,7 @@ public:
   template<typename... Vals>
   const Eigen::VectorXd & value(Vals &&... vals) const;
 
-  /** Get the jacbian matrix with respect to x, for the given variable values.
+  /** Get the jacobian matrix with respect to x, for the given variable values.
    * See \a value for an explanation of how to specify the values.
    */
   template<typename... Vals>
@@ -339,7 +339,7 @@ inline void UpdatelessFunction::parseValues_(T) const
 {
   static_assert(
       ::tvm::internal::always_false<T>::value,
-      "Incorrect number of argument. You likely did not observe the alternance between variables and values.");
+      "Incorrect number of argument. You likely did not observe the alternation between variables and values.");
 }
 
 template<typename... Vals>
@@ -440,7 +440,7 @@ template<typename T>
 inline void UpdatelessFunction::parseValuesAndVelocities_(T) const
 {
   static_assert(::tvm::internal::always_false<T>::value, "Incorrect number of argument. You likely did not observe the "
-                                                         "alternance between variables, values and velocities.");
+                                                         "alternation between variables, values and velocities.");
 }
 
 template<typename T>
@@ -454,7 +454,7 @@ template<typename T, typename U>
 inline void UpdatelessFunction::parseValuesAndVelocities_(T, U) const
 {
   static_assert(::tvm::internal::always_false<T>::value, "Incorrect number of argument. You likely did not observe the "
-                                                         "alternance between variables, values and velocities.");
+                                                         "alternation between variables, values and velocities.");
 }
 
 } // namespace utils

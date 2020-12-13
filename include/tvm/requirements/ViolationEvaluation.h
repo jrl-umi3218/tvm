@@ -12,7 +12,7 @@ namespace tvm
 namespace requirements
 {
 
-/** Given a constraint, let the vector v(x) be its componentwise
+/** Given a constraint, let the vector v(x) be its component-wise
  * violation.
  *
  * For example, for the constraint c(x) = 0, we simply have v(x) = c(x),
