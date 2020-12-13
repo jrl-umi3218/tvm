@@ -56,8 +56,10 @@ public:
 
   /** Copy constructor*/
   VariableVector(const VariableVector & other);
+  VariableVector(VariableVector &&) = default;
 
   VariableVector & operator=(const VariableVector & other);
+  VariableVector & operator=(VariableVector &&) = default;
 
   ~VariableVector();
 
@@ -75,7 +77,7 @@ public:
    *
    * \returns True if the variable was added, false otherwise
    *
-   * \internal This version is meant to disembiguate between add(VariablePtr v)
+   * \internal This version is meant to disambiguate between add(VariablePtr v)
    * and add(const VariableVector& variables) when passing a std::unique_ptr<Variable>.
    */
   bool add(std::unique_ptr<Variable> v);
@@ -124,7 +126,7 @@ public:
   int totalSize() const;
   /** Number of variables*/
   int numberOfVariables() const;
-  /** Elementwise access*/
+  /** Element-wise access*/
   const VariablePtr operator[](int i) const;
   /** whole vector access*/
   const std::vector<VariablePtr> & variables() const;
@@ -160,7 +162,7 @@ public:
    */
   Range getMappingOf(const Variable & v) const;
 
-  /** Compute the mapping for every variabe and return it.*/
+  /** Compute the mapping for every variable and return it.*/
   std::map<const Variable *, Range> computeMappingMap() const;
 
   /** A timestamp, used internally to determine if a cached mapping needs to be
