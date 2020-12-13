@@ -42,8 +42,7 @@ public:
   /** Return true if both range intersects. */
   bool intersects(const Range & other) const
   {
-    return this->contains(other.start) || (other.dim > 0 && this->contains(other.end() - 1))
-           || other.contains(this->start) || (this->dim > 0 && other.contains(this->end() - 1));
+    return this->contains(other.start) || other.contains(this->start);
   }
 
   /** Return the range of other within this Range.
