@@ -17,20 +17,20 @@ struct slice_traits
 {};
 
 /** A map with Variables as key, that can handle the notion of subvariables.
-  *
-  * \tparam T type of the object stored by the map
-  * \tparam Slicer Given a pair (x,t) in the map with x a variable and t a stored
-  * object, this helper structure role is to specify how to take the part of t
-  * corresponding to a subvariable y of x, where the relation between y and x is
-  * given as a tvm::Range. We call this part a \a slice.
-  * This structure must provide the following definitions:
-  *  - \c Type, the type of a non-constant slice
-  *  - \c ConstType, the type of a constant slice
-  *  - \code static Type get(T & t, const Range & r) \endcode, a function to get
-  * the slice of \p t corresponding to \p r (non-const case)
-  *  - \code static ConstType get(const T & t, const Range & r)\endcode, same
-  * function for the constant case.
-  */
+ *
+ * \tparam T type of the object stored by the map
+ * \tparam Slicer Given a pair (x,t) in the map with x a variable and t a stored
+ * object, this helper structure role is to specify how to take the part of t
+ * corresponding to a subvariable y of x, where the relation between y and x is
+ * given as a tvm::Range. We call this part a \a slice.
+ * This structure must provide the following definitions:
+ *  - \c Type, the type of a non-constant slice
+ *  - \c ConstType, the type of a constant slice
+ *  - \code static Type get(T & t, const Range & r) \endcode, a function to get
+ * the slice of \p t corresponding to \p r (non-const case)
+ *  - \code static ConstType get(const T & t, const Range & r)\endcode, same
+ * function for the constant case.
+ */
 template<typename T, typename Slicer = slice_traits<T>>
 class MapWithVariableAsKey : public tvm::utils::internal::map<const Variable * const, T>
 {

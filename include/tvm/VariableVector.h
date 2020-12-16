@@ -68,7 +68,7 @@ public:
    * \param v The variable to be added.
    *
    * \returns True if the variable was added, false otherwise.
-   * 
+   *
    * \Note If the variable is only partially present (i.e. it intersects a
    * a variable in the vector but is not contained by it), this function will
    * throw.

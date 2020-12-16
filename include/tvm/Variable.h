@@ -33,7 +33,7 @@ VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1);
  * dot() operator.
  *
  * A variables can be a subvariable, i.e. a contiguous subpart of an other variable.
- * 
+ *
  * \internal A note on memory management for variables: Variable instances can
  * only be created through factory function returning shared_ptr (unique_ptr for
  * initial variables created from Space). Derived variables and subvariables

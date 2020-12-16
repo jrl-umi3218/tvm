@@ -40,10 +40,7 @@ public:
   bool contains(const Range & other) const { return this->contains(other.start) && this->end() >= other.end(); }
 
   /** Return true if both range intersects. */
-  bool intersects(const Range & other) const
-  {
-    return this->contains(other.start) || other.contains(this->start);
-  }
+  bool intersects(const Range & other) const { return this->contains(other.start) || other.contains(this->start); }
 
   /** Return the range of other within this Range.
    *
