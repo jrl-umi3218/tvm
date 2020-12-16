@@ -203,17 +203,6 @@ Range VariableVector::getMappingOf(const Variable & v) const
   throw std::runtime_error("This variable is not part of the vector of variables.");
 }
 
-std::map<const Variable *, Range> VariableVector::computeMappingMap() const
-{
-  std::map<const Variable *, Range> m;
-  for(const auto & v : variables_)
-  {
-    m[v.get()] = {v->startIn_[id()].start, v->size()};
-  }
-
-  return m;
-}
-
 int VariableVector::stamp() const { return stamp_; }
 
 void VariableVector::add_(VariablePtr v)

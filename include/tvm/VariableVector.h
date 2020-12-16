@@ -68,6 +68,12 @@ public:
    * \param v The variable to be added.
    *
    * \returns True if the variable was added, false otherwise.
+   * 
+   * \Note If the variable is only partially present (i.e. it intersects a
+   * a variable in the vector but is not contained by it), this function will
+   * throw.
+   * If you need to handle such a case, you should look at
+   * tvm::internal::VariableCountingVector.
    */
   bool add(VariablePtr v);
   /** Add a variable to the vector. This version is mostly to be used directly
@@ -161,9 +167,6 @@ public:
    * You should always prefer the use of Variable::getMappingIn.
    */
   Range getMappingOf(const Variable & v) const;
-
-  /** Compute the mapping for every variable and return it.*/
-  std::map<const Variable *, Range> computeMappingMap() const;
 
   /** A timestamp, used internally to determine if a cached mapping needs to be
    * recomputed or not.
