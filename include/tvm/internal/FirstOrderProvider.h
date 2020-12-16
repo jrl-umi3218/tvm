@@ -82,7 +82,7 @@ protected:
 
   struct slice_matrix
   {
-    using Type = tvm::internal::ObjectWithProperties<MatrixRef>;
+    using Type = tvm::internal::ObjectWithProperties<MatrixRef, true>;
     using ConstType = MatrixConstRefWithProperties;
     static MatrixProperties slice(const MatrixProperties & p)
     {
@@ -93,7 +93,7 @@ protected:
     }
     static Type get(MatrixWithProperties & M, const Range & r)
     {
-      return {M.middleCols(r.start, r.dim), slice(M.properties())};
+      return {M.middleCols(r.start, r.dim), M.properties()};
     }
     static ConstType get(const MatrixWithProperties & M, const Range & r)
     {

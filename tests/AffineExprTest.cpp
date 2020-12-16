@@ -221,4 +221,20 @@ TEST_CASE("Detecting matrices properties")
   FAST_CHECK_UNARY(f.jacobian(*v).properties().isMinusIdentity());
   FAST_CHECK_UNARY(f.jacobian(*w).properties().isMultipleOfIdentity());
   FAST_CHECK_EQ(f.jacobian(*z).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+
+  // With subvariables
+  VariablePtr u1 = u->subvariable(1, "u1", 1);
+  VariablePtr v1 = v->subvariable(1, "v1", 1);
+  VectorXd e = VectorXd::Ones(2);
+
+  // When a subvariable is added to the variable, the existing properties are overwritten.
+  BasicLinearFunction g(u - v - e * u1 + e * v1);
+  FAST_CHECK_EQ(g.jacobian(*u).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*u).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*u1).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*u1).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*v).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*v).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*v1).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*v1).properties().isConstant());
 }

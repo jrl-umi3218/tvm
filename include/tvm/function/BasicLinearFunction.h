@@ -143,7 +143,9 @@ inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived> & A, Varia
 
   if(variables().contains(*x))
   {
-    jacobian_.at(x.get(), tvm::utils::internal::with_sub{}) += A;
+    auto J = jacobian_.at(x.get(), tvm::utils::internal::with_sub{});
+    J += A; // this erase the properties of J;
+    J.properties({tvm::internal::MatrixProperties::Constness(true)}); // We restore only this one
   }
   else
   {
