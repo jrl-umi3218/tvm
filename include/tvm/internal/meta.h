@@ -107,6 +107,10 @@ using enable_for_t = std::enable_if_t<(... || (std::is_same_v<T, Base> || derive
 template<typename T, template<typename...> class... Base>
 using enable_for_templated_t = std::enable_if_t<(... || derives_from<T, Base>()), int>;
 
+/** Used to disable a function for a list of templated classes. */
+template<typename T, template<typename...> class... Base>
+using disable_for_templated_t = std::enable_if_t<!(... || derives_from<T, Base>()), int>;
+
 /** A sink, whose value is always true. */
 template<typename T>
 class always_true : public std::true_type
@@ -116,5 +120,14 @@ class always_true : public std::true_type
 template<typename T>
 class always_false : public std::false_type
 {};
+
+/** Conditionally add \c const to T.*/
+template<typename T, bool c>
+using const_if = std::conditional<c, const T, T>;
+
+/** C++14-style helper*/
+template<typename T, bool c>
+using const_if_t = typename const_if<T, c>::type;
+
 } // namespace internal
 } // namespace tvm

@@ -90,3 +90,10 @@ class B
 static_assert(!has_member_type_Foo<int>::value);
 static_assert(!has_member_type_Foo<A>::value);
 static_assert(has_member_type_Foo<B>::value);
+
+//------------------------- const_if ------------------------\\
+
+static_assert(std::is_same_v<const_if_t<int, false>, int>);
+static_assert(std::is_same_v<const_if_t<int, true>, const int>);
+static_assert(std::is_same_v<const_if_t<A, false>, A>);
+static_assert(std::is_same_v<const_if_t<A, true>, const A>);

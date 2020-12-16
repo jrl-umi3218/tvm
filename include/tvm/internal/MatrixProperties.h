@@ -106,6 +106,12 @@ public:
   MatrixProperties();
   template<typename... Args>
   MatrixProperties(Args &&... args);
+  MatrixProperties(const MatrixProperties &);
+  MatrixProperties(MatrixProperties &);
+  MatrixProperties(MatrixProperties &&) = default;
+
+  MatrixProperties & operator=(const MatrixProperties &) = default;
+  MatrixProperties & operator=(MatrixProperties &&) = default;
 
   Shape shape() const;
   Positiveness positiveness() const;
@@ -194,6 +200,15 @@ inline MatrixProperties::MatrixProperties(Args &&... args)
   auto p = a.processArgs(args...);
   build(a, p);
 }
+
+inline MatrixProperties::MatrixProperties(const MatrixProperties & other)
+: constant_(other.constant_), invertible_(other.invertible_), shape_(other.shape_), symmetric_(other.symmetric_),
+  positiveness_(other.positiveness_)
+{}
+
+inline MatrixProperties::MatrixProperties(MatrixProperties & other)
+: MatrixProperties(const_cast<const MatrixProperties &>(other))
+{}
 
 inline MatrixProperties::Shape MatrixProperties::shape() const { return shape_; }
 

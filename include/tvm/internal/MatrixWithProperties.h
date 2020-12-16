@@ -3,6 +3,7 @@
 #pragma once
 
 #include <tvm/internal/MatrixProperties.h>
+#include <tvm/internal/meta.h>
 
 #include <Eigen/Core>
 
@@ -12,7 +13,7 @@ namespace tvm
 namespace internal
 {
 // forward declaration
-template<typename MatrixType>
+template<typename MatrixType, bool refOnProperties>
 class ObjectWithProperties;
 
 /** A lightweight proxy for indicating if the assignment of an Eigen
@@ -21,7 +22,7 @@ class ObjectWithProperties;
  *
  * \internal FIXME? Have a version which is compatible with Eigen::NoAlias (if needed).
  */
-template<typename MatrixType>
+template<typename MatrixType, bool refOnProperties = false>
 class KeepProperties
 {
 public:
@@ -31,23 +32,24 @@ public:
    * \param keep Specifies if the properties should be kept (\p true) or not
    * (\p false)
    */
-  KeepProperties(ObjectWithProperties<MatrixType> & M, bool keep) : M_(M), keep_(keep) {}
+  KeepProperties(ObjectWithProperties<MatrixType, refOnProperties> & M, bool keep) : M_(M), keep_(keep) {}
 
   /** The assignment operator for Eigen's expression*/
   template<typename OtherDerived>
-  ObjectWithProperties<MatrixType> & operator=(const Eigen::MatrixBase<OtherDerived> & other);
+  ObjectWithProperties<MatrixType, refOnProperties> & operator=(const Eigen::MatrixBase<OtherDerived> & other);
 
   /** We delete this operator so that it cannot be used for the classical copy
    * operator of MatrixWithProperties. */
-  ObjectWithProperties<MatrixType> & operator=(const ObjectWithProperties<MatrixType> &) = delete;
+  template<bool b>
+  ObjectWithProperties<MatrixType, refOnProperties> & operator=(const ObjectWithProperties<MatrixType, b> &) = delete;
 
 private:
-  ObjectWithProperties<MatrixType> & M_;
+  ObjectWithProperties<MatrixType, refOnProperties> & M_;
   const bool keep_;
 };
 
 /** An Eigen object together with MatrixProperties. */
-template<typename MatrixType>
+template<typename MatrixType, bool refOnProperties = false>
 class ObjectWithProperties : public MatrixType
 {
 public:
@@ -60,7 +62,8 @@ public:
   {}
 
   template<typename OtherDerived>
-  ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other, const MatrixProperties & p)
+  ObjectWithProperties(const Eigen::MatrixBase<OtherDerived> & other,
+                       tvm::internal::const_if_t<MatrixProperties, !refOnProperties> & p)
   : MatrixType(other), properties_(p)
   {}
 
@@ -85,6 +88,36 @@ public:
   }
 
   template<typename OtherDerived>
+  ObjectWithProperties & operator+=(const Eigen::MatrixBase<OtherDerived> & other)
+  {
+    assert(this->rows() == other.rows() && this->cols() == other.cols() && "Matrices must have the same size");
+    this->MatrixType::operator+=(other);
+    properties_ = MatrixProperties();
+    return *this;
+  }
+
+  template<typename OtherDerived>
+  ObjectWithProperties & operator-=(const Eigen::MatrixBase<OtherDerived> & other)
+  {
+    assert(this->rows() == other.rows() && this->cols() == other.cols() && "Matrices must have the same size");
+    this->MatrixType::operator-=(other);
+    properties_ = MatrixProperties();
+    return *this;
+  }
+
+  template<typename T, disable_for_templated_t<T, Eigen::MatrixBase> = 0>
+  ObjectWithProperties & operator+=(const T & other) = delete;
+
+  template<typename T, disable_for_templated_t<T, Eigen::MatrixBase> = 0>
+  ObjectWithProperties & operator-=(const T & other) = delete;
+
+  template<typename T>
+  ObjectWithProperties & operator*=(const T & other) = delete;
+
+  template<typename T>
+  ObjectWithProperties & operator/=(const T & other) = delete;
+
+  template<typename OtherDerived>
   ObjectWithProperties & assignKeepProperties(const Eigen::MatrixBase<OtherDerived> & other)
   {
     assert(this->rows() == other.rows() && this->cols() == other.cols()
@@ -95,6 +128,7 @@ public:
   }
 
   const MatrixProperties & properties() const { return properties_; }
+  MatrixProperties & properties() { return properties_; }
   void properties(const MatrixProperties & p) { properties_ = p; }
 
   /** Create a proxy to specify whether an assignment should preserve the
@@ -103,15 +137,15 @@ public:
    * \param keep true it the properties should be left untouched, false
    * otherwise.
    */
-  KeepProperties<MatrixType> keepProperties(bool keep) { return {*this, keep}; }
+  KeepProperties<MatrixType, refOnProperties> keepProperties(bool keep) { return {*this, keep}; }
 
 private:
-  MatrixProperties properties_;
+  std::conditional_t<refOnProperties, std::add_lvalue_reference_t<MatrixProperties>, MatrixProperties> properties_;
 };
 
-template<typename MatrixType>
+template<typename MatrixType, bool refOnProperties>
 template<typename OtherDerived>
-inline ObjectWithProperties<MatrixType> & KeepProperties<MatrixType>::operator=(
+inline ObjectWithProperties<MatrixType, refOnProperties> & KeepProperties<MatrixType, refOnProperties>::operator=(
     const Eigen::MatrixBase<OtherDerived> & other)
 {
   if(keep_)
