@@ -105,12 +105,14 @@ BasicLinearFunction::BasicLinearFunction(const utils::AffineExpr<CstDerived, Der
   tvm::internal::VariableCountingVector v;
   internal::addVar(v, aff.linear(), Indices{});
   const auto & vars = v.variables();
-  const auto & simple = v.simple();
+  const auto & simple = v.simple(); // simple[i]==true means vars[i] that appears in v based on a single first add to v
   for(int i = 0; i < vars.numberOfVariables(); ++i)
   {
-    if(!simple[i])
+    if(!simple[i]) // if vars[i] is the results of adding several potentially overlapping variables to v...
     {
-      addVariable(vars[i], true);
+      addVariable(vars[i], true); // ... we add the variable now and initialize its jacobian to 0 below.
+                                  // This will force using += to fill the part of the jacobian corresponding to
+                                  // a subvariable in method add. Simple variables will be added directly in add.
     }
   }
   for(auto & J : jacobian_)
