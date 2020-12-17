@@ -258,25 +258,34 @@ bool RangeCounting::isValid() const
     return true;
   else if(limits_.size() == 1)
     return false;
-  if(limits_.size() == 2)
-    return *limits_.begin() < *std::next(limits_.begin());
 
   auto it1 = limits_.begin(), it2 = std::next(it1);
-  if(*it1 > *it2 || (*it1 == *it2 && it1->type_ == Limit::Cut))
+  if(it1->type_ != Limit::Lower)  // rule (5)
+    return false;
+  if(limits_.size() == 2)
+    return *it1 < *it2 && it2->type_==Limit::Upper; // rule (5)
+
+  if(*it1 > *it2 || (*it1 == *it2 && it1->type_ == Limit::Cut)) // rules (1) and (2) 
+    return false;
+  if(it1->i_ == it2->i_ && it1->type_ == Limit::Lower && it2->type_ == Limit::Upper) // rule (3)
     return false;
   for(auto it3 = std::next(it2); it3 != limits_.end(); ++it1, ++it2, ++it3)
   {
-    if(*it2 > *it3 || (*it2 == *it3 && it2->type_ == Limit::Cut))
+    if(*it2 > *it3 || (*it2 == *it3 && it2->type_ == Limit::Cut)) // rules (1) and (2) 
+      return false;
+    if(it2->i_ == it3->i_ && it2->type_ == Limit::Lower && it3->type_ == Limit::Upper) // rule (3)
       return false;
     if(it1->i_ == it2->i_ && it1->i_ == it3->i_ && it1->type_ == Limit::Lower && it2->type_ == Limit::Cut
-       && it3->type_ == Limit::Upper)
+       && it3->type_ == Limit::Upper) // rule (4)
       return false;
   }
+  if(it2->type_ != Limit::Upper) // rule (5)
+    return false;
 
   int depth = 0;
   for(auto it = limits_.begin(); it != limits_.end(); ++it)
   {
-    if(it->type_ == Limit::Cut && depth == 0)
+    if(it->type_ == Limit::Cut && depth == 0) // rule (6)
       return false;
     depth -= it->type_;
   }

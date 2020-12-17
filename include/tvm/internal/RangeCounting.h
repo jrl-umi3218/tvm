@@ -31,6 +31,18 @@ namespace tvm::internal
  * appears once, 6 appears twice, 7 and 8 don't appear, 9 appears once and all
  * numbers from 10 don't appear. The resulting range representation is
  * { Range(1,7), Range(9,1) }.
+ * Compared to the above link, we add also the notion of cut (denoted by | ),
+ * that is useful to keep track of the fact that two ranges were stitched
+ * together. For example adding {1,2} (Range(1,2)) and {3,4} (Range(3,2))
+ * results in {1,2,3,4} (Range(1,4)), but is represented internally by
+ * {(1,+), (3,|), (5,-)}.
+ * The following rules are enforced for the internal representation:
+ *  (1) limits appears in lexicographic order with + < | < -
+ *  (2) (i,|) can only appear once for a given i
+ *  (3) the sequence (i,+), (i,-) is replaced by (i,|)
+ *  (4) the sequence (i,+), (i,|), (i,-) is replaced by (i,|)
+ *  (5) the representation starts with (i,+) and finish with (j,-) i<j
+ *  (6) cuts can't appear at depth 0
  */
 class TVM_DLLAPI RangeCounting
 {
