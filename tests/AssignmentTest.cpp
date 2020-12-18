@@ -431,7 +431,7 @@ void checkAssignment(BLCPtr c, const AssignmentTarget & at, Memory & mem, Type t
   mem.randomize();
   if(throws)
   {
-    CHECK_THROWS(Assignment a(c, req, at, vars));
+    CHECK_THROWS(Assignment(c, req, at, vars));
   }
   else
   {
@@ -455,7 +455,7 @@ void checkSubstitutionAssignment(BLCPtr c,
   mem.randomize();
   if(throws)
   {
-    CHECK_THROWS(Assignment a(c, req, at, vars, &s));
+    CHECK_THROWS(Assignment(c, req, at, vars, &s));
   }
   else
   {

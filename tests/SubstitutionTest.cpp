@@ -422,16 +422,16 @@ TEST_CASE("Substitution construction")
     VectorXd b = VectorXd::Random(5);
 
     auto c = std::shared_ptr<BLC>(new BLC(A, x, b, constraint::Type::LOWER_THAN));
-    CHECK_THROWS(Substitution s(c, x));
+    CHECK_THROWS(Substitution(c, x));
 
     VariablePtr y = Space(3).createVariable("y");
-    CHECK_THROWS(Substitution s(c, y));
+    CHECK_THROWS(Substitution(c, y));
 
     auto c2 = std::shared_ptr<BLC>(new BLC(3, y, eq));
-    CHECK_THROWS(Substitution s({c, c2}, x));
+    CHECK_THROWS(Substitution({c, c2}, x));
 
     auto c3 = std::shared_ptr<BLC>(new BLC(5, y, eq));
-    CHECK_THROWS(Substitution s(c3, y));
+    CHECK_THROWS(Substitution(c3, y));
   }
 }
 
