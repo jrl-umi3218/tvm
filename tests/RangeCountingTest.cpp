@@ -276,14 +276,14 @@ TEST_CASE("Add/Remove Split")
   std::unordered_map<int, int> count; // For ground truth
 
   auto add = [&rc, &count](const Range & r, int nbRange) {
-    bool b = rc.add(r);
+    [[maybe_unused]] bool b = rc.add(r);
     addRange(count, r);
     checkCounting(rc, count, true);
     FAST_CHECK_EQ(rc.ranges(true).size(), nbRange);
   };
 
   auto remove = [&rc, &count](const Range & r, int nbRange) {
-    bool b = rc.remove(r);
+    [[maybe_unused]] bool b = rc.remove(r);
     removeRange(count, r);
     checkCounting(rc, count, true);
     FAST_CHECK_EQ(rc.ranges(true).size(), nbRange);

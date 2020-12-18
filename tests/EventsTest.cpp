@@ -171,7 +171,7 @@ void buildPb(LinearizedControlProblem & pb,
              const std::array<TaskWithRequirementsPtr, N> & tasks,
              const std::bitset<N> & selection)
 {
-  for(int i = 0; i < N; ++i)
+  for(std::size_t i = 0; i < N; ++i)
   {
     if(selection[i])
       pb.add(tasks[i]);
@@ -187,7 +187,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
                    const VectorXd s)
 {
   Vector2d eps = Vector2d::Constant(1e-6);
-  for(int j = 0; j < (3 * N) / 4; ++j) // all constraints
+  for(std::size_t j = 0; j < (3 * N) / 4; ++j) // all constraints
   {
     if(added[j])
     {
@@ -216,7 +216,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
       }
     }
   }
-  for(int j = (3 * N) / 4; j < N; ++j) // objectives
+  for(std::size_t j = (3 * N) / 4; j < N; ++j) // objectives
   {
     if(added[j])
     {

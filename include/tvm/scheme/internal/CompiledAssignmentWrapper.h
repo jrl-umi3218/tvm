@@ -143,9 +143,16 @@ inline CompiledAssignmentWrapper<MatrixType> CompiledAssignmentWrapper<MatrixTyp
   using CA = CompiledAssignment<MatrixType, A, W, M, F>;
   CompiledAssignmentWrapper<MatrixType> w(sdelete<CA>);
   w.run_ = srun<CA>;
-  w.fromd_ = F == CONSTANT ? reinterpret_cast<void (*)(void *, const double &)>(&sfrom<CA>) : nullptr;
-  w.fromm_ =
-      F != CONSTANT ? reinterpret_cast<void (*)(void *, const Eigen::Ref<const MatrixType> &)>(&sfrom<CA>) : nullptr;
+  if constexpr(F == CONSTANT)
+  {
+    w.fromd_ = &sfrom<CA>;
+    w.fromm_ = nullptr;
+  }
+  else
+  {
+    w.fromd_ = nullptr;
+    w.fromm_ = &sfrom<CA>;
+  }
   w.to_ = sto<CA>;
   w.clone_ = sclone<CA>;
   w.ca_.reset(new CA(std::forward<Args>(args)...));

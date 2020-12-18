@@ -12,7 +12,7 @@ using namespace tvm::internal;
 
 TEST_CASE("Lifetime 1")
 {
-  std::unique_ptr<PairElementToken>(t3);
+  std::unique_ptr<PairElementToken> t3;
   {
     PairElementToken t1;
     {

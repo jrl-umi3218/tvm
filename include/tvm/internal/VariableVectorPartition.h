@@ -53,7 +53,7 @@ public:
   class iterator
   {
   public:
-    iterator(const VarVector & var, const VariableVector & p, int iv) : var_(var), partition_(p), iv_(iv), ip_(0)
+    iterator(const VarVector & var, const VariableVector & p, int iv) : ip_(0), iv_(iv), var_(var), partition_(p)
     {
       if(iv == p.numberOfVariables()) // end
       {

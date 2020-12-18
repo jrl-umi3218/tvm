@@ -110,7 +110,7 @@ bool check(BLCPtr c, const VectorXd & x)
         rhs = &BasicLinearConstraint::u;
         break;
       default:
-        break;
+        return false;
     }
     switch(c->rhs())
     {
