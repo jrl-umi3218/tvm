@@ -288,6 +288,13 @@ if(GENERATE_COVERAGE)
   set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
 endif()
 
+if(TVM_TREAT_WARNINGS_AS_ERRORS)
+  if(WIN32)
+    target_compile_options(TVM PUBLIC $<BUILD_INTERFACE:/WX>)
+  else()
+    target_compile_options(TVM PUBLIC $<BUILD_INTERFACE:-Werror>)
+  endif()
+endif()
 
 install(TARGETS TVM
   EXPORT "${TARGETS_EXPORT_NAME}"
