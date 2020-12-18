@@ -46,7 +46,8 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
       const auto & v = sub->variables();
       if(v.numberOfVariables() != 1)
         return false;
-      const auto & p = sub->jacobian(*v[0]).properties();
+      const auto & jac = sub->jacobian(*v[0]);
+      const auto & p = jac.properties();
       // There could be 0 variables in sub. In that case we have a trivial
       // constraint that we do not consider as a bound.
       return (p.isDiagonal() && p.isInvertible());
