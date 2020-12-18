@@ -107,6 +107,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
           case1 = false;
         else
           return false;
+        break;
       case Type::LOWER_THAN:
         if(c->type() == Type::GREATER_THAN)
           case1 = false;
@@ -114,6 +115,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
           case1 = true;
         else
           return false;
+        break;
       case Type::DOUBLE_SIDED:
         return true;
       default:
