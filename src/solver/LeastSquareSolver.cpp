@@ -218,24 +218,26 @@ void LeastSquareSolver::process(const internal::SolverEvents & se)
     objSize_ = 0;
 
   if(impact.equalityConstraints_)
-    updateTargetRange(equalityConstraintToAssignments_, eqSize_,
-                      [&](const auto & c) { return nextEqualityConstraintRange_(c); },
-                      [&](const auto & c) { return constraintSize(c); });
+    updateTargetRange(
+        equalityConstraintToAssignments_, eqSize_, [&](const auto & c) { return nextEqualityConstraintRange_(c); },
+        [&](const auto & c) { return constraintSize(c); });
 
   if(impact.inequalityConstraints_)
-    updateTargetRange(inequalityConstraintToAssignments_, ineqSize_,
-                      [&](const auto & c) { return nextInequalityConstraintRange_(c); },
-                      [&](const auto & c) { return constraintSize(c); });
+    updateTargetRange(
+        inequalityConstraintToAssignments_, ineqSize_,
+        [&](const auto & c) { return nextInequalityConstraintRange_(c); },
+        [&](const auto & c) { return constraintSize(c); });
 
   int dummy;
   if(impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
-    updateTargetRange(boundToAssignments_, dummy,
-                      [&](const auto & b) { return b.variables()[0]->getMappingIn(variables()); },
-                      [](const auto &) { return 0; });
+    updateTargetRange(
+        boundToAssignments_, dummy, [&](const auto & b) { return b.variables()[0]->getMappingIn(variables()); },
+        [](const auto &) { return 0; });
 
   if(impact.objectives_)
-    updateTargetRange(objectiveToAssignments_, objSize_, [&](const auto & c) { return nextObjectiveRange_(c); },
-                      [&](const auto & c) { return c.size(); });
+    updateTargetRange(
+        objectiveToAssignments_, objSize_, [&](const auto & c) { return nextObjectiveRange_(c); },
+        [&](const auto & c) { return c.size(); });
 
   // Update the matrices and vectors of the target when needed
   auto updateTargetData = [](const auto & map, auto updateFn) {
