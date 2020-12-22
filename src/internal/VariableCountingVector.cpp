@@ -71,7 +71,7 @@ const VariableVector & VariableCountingVector::variables() const
   return variables_;
 }
 
-const std::vector<bool> VariableCountingVector::simple() const
+const std::vector<uint8_t> VariableCountingVector::simple() const
 {
   if(split_)
     throw std::runtime_error("[VariableCountingVector::simple] Only meaningful for split = false.");

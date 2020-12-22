@@ -16,7 +16,7 @@ namespace tvm::internal
  * time a (part of) variable was added and removed.
  * This is in particular useful for computing the variables of a problem, where
  * different part of a same variables can be added by different functions.
- * 
+ *
  * This class is used in places where one must deduce a VariableVector from the
  * union of several variables or collections of variables with no constraints on
  * how these variables relate to one another (in particular intersecting
@@ -68,7 +68,7 @@ public:
    *
    * \note Only for VariableCountingVector with split = false
    */
-  const std::vector<bool> simple() const;
+  const std::vector<uint8_t> simple() const;
 
   bool split() const { return split_; }
 
@@ -79,6 +79,6 @@ private:
   bool split_;
   mutable bool upToDate_ = false;
   mutable VariableVector variables_;
-  mutable std::vector<bool> simple_;
+  mutable std::vector<uint8_t> simple_;
 };
 } // namespace tvm::internal
