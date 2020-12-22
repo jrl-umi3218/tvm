@@ -21,14 +21,14 @@ namespace tvm::internal
  *
  *       <- u->      <------- v------->      <---- w---->
  * <-x1-><-x2-><-x3-><-y1-><-y2-><-y3-><-z1-><-z2-><-z3->
- * 
+ *
  * This is particularly useful when \a p is the result of the union of several
  * collections of variables with intersecting subvariables, leading to a
  * partition of the union with finer grain that any of the original collections.
  * Then we can iterate over any of these collections using this class and get
- * variables that will be either fully contained by or disjoint from any 
+ * variables that will be either fully contained by or disjoint from any
  * variable of any collection.
- * As a very simplistic example, let's have x = [x1,x2,x3] and u and v two 
+ * As a very simplistic example, let's have x = [x1,x2,x3] and u and v two
  * subvariables of x such that u=[x1,x2] and v=[x2,x3]. Let c1 be a collection
  * containing u and c2 a collection containing v, and p the VariableCountingVector
  * obtained by adding u and v. p is equivalent to [x1,x2,x3]

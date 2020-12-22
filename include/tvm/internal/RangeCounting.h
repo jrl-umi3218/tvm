@@ -17,7 +17,7 @@ namespace tvm::internal
  * internally, it is known that 3 and 4 appeared twice so that removing {2,3,4}
  * (Range(2,3)) will result in a set {1,3,4,5,6}, i.e. the ranges Range(1,1) and
  * Range(3,4).
- * 
+ *
  * This class is mostly meant as a utility for tvm::interal::VariableCountingVector.
  * The idea is that tvm::VariableVector is not keeping track of how many time a
  * part of a variable has been added or removed, and has limitations when it

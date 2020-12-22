@@ -121,7 +121,7 @@ const std::vector<Range> & RangeCounting::ranges(bool splitOncountDiff) const
         intervals_.emplace_back(s->i_, it->i_ - s->i_);
       else
         assert((s->type_ == Limit::Lower && it->type_ == Limit::Cut)
-                || (s->type_ == Limit::Cut && it->type_ == Limit::Upper));
+               || (s->type_ == Limit::Cut && it->type_ == Limit::Upper));
       s = it;
       next(it);
       if(depth == 0 && it != limits_.end())
