@@ -17,6 +17,13 @@ namespace tvm::internal
  * internally, it is known that 3 and 4 appeared twice so that removing {2,3,4}
  * (Range(2,3)) will result in a set {1,3,4,5,6}, i.e. the ranges Range(1,1) and
  * Range(3,4).
+ * 
+ * This class is mostly meant as a utility for tvm::interal::VariableCountingVector.
+ * The idea is that tvm::VariableVector is not keeping track of how many time a
+ * part of a variable has been added or removed, and has limitations when it
+ * comes to adding or removing subvariable. This class can be used on the ranges
+ * of subvariables within their supervariable to keep track of the parts present
+ * after all the add and remove.
  *
  *
  * Internally, the ranges are represented by their limits, following the idea in
@@ -99,8 +106,8 @@ public:
 private:
   using It = std::list<Limit>::iterator;
 
-  /** Forward to first element in limits_ that would come after \p val.
-   * Returns \c true if depth went to 0 in the process
+  /** Forward \p it to first element in limits_ that would come after \p val.
+   * Returns \c true if depth went down to \p depthCut in the process
    */
   bool moveToFirstAfter(const Limit & val, It & it, int & depth, int depthCut = 0) const;
 

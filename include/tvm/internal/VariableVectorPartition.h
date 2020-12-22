@@ -7,18 +7,35 @@
 
 namespace tvm::internal
 {
-/** An helper class to iterate over a container of VariablePtr where the variables
- * are split according to a given partition.
+/** An helper class to iterate over a container of VariablePtr \a c where the
+ * variables are split according to a given partition \a p expressed as a
+ * VariableCountingVector. The iteration is made over \a c, but the iterator
+ * points to (sub)variables in \a p.
  *
  * For example, let's consider x, y, z, 3 variables with size 8 and x1, x2, x3
  * (resp. y1, y2, y3 and z1, z2, z3) such that x = [x1,x2,x3] (same for y and z).
  * If u is a subvariable of x such that u = x2, v = y and w is a subvariable of z
  * such that w = [z2, z3], then iterating over VariableVectorPartition({w,u,v},
- * {x1, x2, x3, x=y1, y2, y3, z1, z2, z3}) will yield the sequence
+ * {x1, x2, x3, y1, y2, y3, z1, z2, z3}) will yield the sequence
  * {z2, z3, x2, y1, y2, y3}.
  *
  *       <- u->      <------- v------->      <---- w---->
  * <-x1-><-x2-><-x3-><-y1-><-y2-><-y3-><-z1-><-z2-><-z3->
+ * 
+ * This is particularly useful when \a p is the result of the union of several
+ * collections of variables with intersecting subvariables, leading to a
+ * partition of the union with finer grain that any of the original collections.
+ * Then we can iterate over any of these collections using this class and get
+ * variables that will be either fully contained by or disjoint from any 
+ * variable of any collection.
+ * As a very simplistic example, let's have x = [x1,x2,x3] and u and v two 
+ * subvariables of x such that u=[x1,x2] and v=[x2,x3]. Let c1 be a collection
+ * containing u and c2 a collection containing v, and p the VariableCountingVector
+ * obtained by adding u and v. p is equivalent to [x1,x2,x3]
+ * Iterating over c1 with respect to p yields x1 then x2. Each of this variable
+ * is clearly either in or out of c2, and we can rely on that to perform
+ * computations. Likewise, iterating on c2 yields x2 then x3, which can be
+ * compared to c1.
  *
  * The partition and container need to be compatible, i.e. any variable of the
  * container can be written as a union of variables in the partition.
