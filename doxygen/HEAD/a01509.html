@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01512.html','');});
+$(document).ready(function(){initNavTree('a01509.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -89,24 +89,36 @@ $(document).ready(function(){initNavTree('a01512.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt; Member List</div>  </div>
+<div class="title">tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01512.html#a59fbf619dc2ec6e609c112a64c6654f6">applyWeightMult</a>(const double &amp;M)</td><td class="entry"><a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01512.html#ae18c584564e72b55bfc9591e2ab69460">applyWeightMult</a>(const Eigen::MatrixBase&lt; Derived &gt; &amp;M)</td><td class="entry"><a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01512.html#a6d3721f7e08686a1098278195ac476d8">applyWeightMult</a>(const Eigen::ProductBase&lt; Derived, Lhs, Rhs &gt; &amp;P)</td><td class="entry"><a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01512.html#ac05711e0edddb973ae052849e6c71f69">useArg</a></td><td class="entry"><a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01512.html#a8657bd4ce3719517c7fa58e7d1944cd4">WeightMultBase</a>(NoArg)</td><td class="entry"><a class="el" href="a01512.html">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Specialization for GENERAL*CONSTANT.  
+ <a href="a01509.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01509.png" usemap="#tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map" alt=""/>
+  <map id="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map" name="tvm::scheme::internal::use_5Fassign_5Fcache_3C_20MatrixType_2C_20A_2C_20W_2C_20GENERAL_2C_20CONSTANT_20_3E_map">
+</map>
+ </div></div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType, AssignType A, WeightMult W&gt;<br />
+class tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</h3>
+
+<p>Specialization for GENERAL*CONSTANT. </p>
+<p>This should not be necessary, but the product needs a temporary. Maybe it's not the case anymore with <a class="el" href="a00428.html">Eigen</a> 3.3. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01509.html">use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

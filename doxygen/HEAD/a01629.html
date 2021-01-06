@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::VectorSubstitutionAssignement Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01632.html','');});
+$(document).ready(function(){initNavTree('a01629.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,70 +88,142 @@ $(document).ready(function(){initNavTree('a01632.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01626.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::abstract::LeastSquareSolver Member List</div>  </div>
+<div class="title">tvm::scheme::internal::VectorSubstitutionAssignement Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#acfc6a2abfa644473d566aae238eac5ba">addAssignement</a>(Args &amp;&amp;... args)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a498946e0c632ebd39ab03f61e552c6e7">addBound</a>(LinearConstraintPtr bound)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#af856b350aface97620be43d34f9d19a6">addBound_</a>(LinearConstraintPtr bound, RangePtr range, bool first)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a5337ac438bec063f42603ee7d242a93e">addConstraint</a>(LinearConstraintPtr cstr)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a60fcdf249fe024639e292ee10bdcd489">addEqualityConstraint_</a>(LinearConstraintPtr cstr)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a572230e38a5269d985a55a3618b2135a">addIneqalityConstraint_</a>(LinearConstraintPtr cstr)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a79a538ae98946c3d09416244400fadf3">addObjective</a>(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight=1)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a01d7fea7e60c4e0dcc6a73ce3a75519e">addObjective_</a>(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight=1)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ae752878b997f2e0e9c728488f8c6273c">applyImpactLogic</a>(ImpactFromChanges &amp;impact)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a1432605f0a89dd1ef93bf945bbec6e05">AssignmentPtrVector</a> typedef</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a41ba6b20730e71f82c36c6a047d64e3f">AssignmentVector</a> typedef</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a35464000f3bdc2233baae56324bb2d33">constraintSize</a>(const constraint::abstract::LinearConstraint &amp;c) const</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ad7414899385906729feedcd6c2cf20b9">eqSize_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#ac656025fb6da6de520001c78d6d1d4ec">finalizeBuild</a>()</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a97323b60663d92a9de70df4965429fdd">handleDoubleSidedConstraint_</a>() const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#ac97c443065a0e3d1a833af35fcff2c16">ineqSize_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ad6511a50e125da09c826b3590996e8fb">initializeBuild_</a>(int nObj, int nEq, int nIneq, bool useBounds)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a6510ed405995eccc7b8b95eab6950606">LeastSquareSolver</a>(bool verbose=false)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a0f0e2bcf5b50e3c559687bc77c15b7db">LeastSquareSolver</a>(const LeastSquareSolver &amp;)=delete</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a70271b0bd50e96801e3e1bb96c46f33b">map</a> typedef</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a8ae8c7341a90c4341c8573fef74ab2d6">MapToAssignment</a> typedef</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#af93ab7797fc1992046da3b518c21a4b4">nEq_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a81606cc07b91b939364838cd4f3e4261">nextEqualityConstraintRange_</a>(const constraint::abstract::LinearConstraint &amp;cstr) const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a301838e519ea75dc3b26473ceb0e657a">nextInequalityConstraintRange_</a>(const constraint::abstract::LinearConstraint &amp;cstr) const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a6d97591ace3dbd032b11661301b2b305">nextObjectiveRange_</a>(const constraint::abstract::LinearConstraint &amp;cstr) const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a4249508200e811ddcf52a909c3496de9">nIneq_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a3428deace130d2078b8c470acee81a53">nObj_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a247f51743146f9bcba380e65b405c672">objSize_</a></td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a54a2223ecdba20e93b409b545129007e">operator=</a>(const LeastSquareSolver &amp;)=delete</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#af03aba3b20ea70b9984ecc59b57316e1">postAssignmentProcess_</a>()</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a19f0461f07bbe91d72f32e0a7c2057d9">preAssignmentProcess_</a>()</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#ac9dd179e0e5ba0e03c12c9a17e973c70">printDiagnostic_</a>() const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ab0461b8b275ece5ce0a9f5913a987284">printProblemData_</a>() const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#af1e8548d1d2da954bb44df2d687179a0">process</a>(const internal::SolverEvents &amp;se)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#aa1f1a8d48736589a5d8e10440c73b4ee">removeBounds_</a>(const Range &amp;range)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#af92b266ae49851ce741b25fcd3549446">resize_</a>(int nObj, int nEq, int nIneq, bool useBounds)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ae518e78de20d887d8f76469a4b8e124f">result</a>() const</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a8b5703ef1e13c55b8acda6e854356e27">result_</a>() const =0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a5e6d6bb8f6c74b8680a2d4a8cf801b68">setMinimumNorm</a>()</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a781e05b42b55803c23ba222b5d897bff">setMinimumNorm_</a>()=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ac9c495839db315c52ec06f6568814901">solve</a>()</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#abf5eca61b379efa6074bd4912015c207">solve_</a>()=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#acab0b1da4af455451960f9044baae2ae">startBuild</a>(const VariableVector &amp;x, int nObj, int nEq, int nIneq, bool useBounds=true, const hint::internal::Substitutions *const subs=nullptr)</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#adf23f08e8f6a9d94a0f80c32333f3a54">substitutions</a>() const</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a7dd4b1aefe3b595519b727b5146ac4b4">updateBoundTargetData</a>(scheme::internal::AssignmentTarget &amp;target)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#ad3681a594fc9b0c21d021ffaa430bea8">updateEqualityTargetData</a>(scheme::internal::AssignmentTarget &amp;target)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a9b082772eae74ffa3d2732ffc5b2b137">updateInequalityTargetData</a>(scheme::internal::AssignmentTarget &amp;target)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a77c4d12c13a3ca416052e60e6a318eb4">updateObjectiveTargetData</a>(scheme::internal::AssignmentTarget &amp;target)=0</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a375e66619ca804359483acd385563fa7">variables</a>() const</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01632.html#a1c97dfc4a522e819e945706999716d96">~LeastSquareSolver</a>()=default</td><td class="entry"><a class="el" href="a01632.html">tvm::solver::abstract::LeastSquareSolver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>A structure grouping a vector assignment and its target, for the case of substitutions.  
+ <a href="a01629.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/MatrixAssignment.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::scheme::internal::VectorSubstitutionAssignement:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01629.png" usemap="#tvm::scheme::internal::VectorSubstitutionAssignement_map" alt=""/>
+  <map id="tvm::scheme::internal::VectorSubstitutionAssignement_map" name="tvm::scheme::internal::VectorSubstitutionAssignement_map">
+<area href="a01633.html" title="A structure grouping a vector assignment and some of the elements that defined it. " alt="tvm::scheme::internal::VectorAssignment" shape="rect" coords="0,56,307,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a1f30d0bcaac125b3de3bcc778969555f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">VectorFunction</a> = <a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">VectorRef</a>(AssignmentTarget::*)() const</td></tr>
+<tr class="memdesc:a1f30d0bcaac125b3de3bcc778969555f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer type to a method of AssignementTarget returning a vector segment.  <a href="#a1f30d0bcaac125b3de3bcc778969555f">More...</a><br /></td></tr>
+<tr class="separator:a1f30d0bcaac125b3de3bcc778969555f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5965dce87e5e2f766c7494f7ac384f84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01629.html#a5965dce87e5e2f766c7494f7ac384f84">VectorSubstitutionAssignement</a> (const <a class="el" href="a01617.html">CompiledAssignmentWrapper</a>&lt; Eigen::VectorXd &gt; &amp;a, <a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">VectorFunction</a> getTarget)</td></tr>
+<tr class="separator:a5965dce87e5e2f766c7494f7ac384f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a40c55c5d611825b8643e2615a2831970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01617.html">CompiledAssignmentWrapper</a>&lt; Eigen::VectorXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01629.html#a40c55c5d611825b8643e2615a2831970">assignment</a></td></tr>
+<tr class="separator:a40c55c5d611825b8643e2615a2831970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89ec7327f3807c669f98ead31f1b4f42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">VectorFunction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01629.html#a89ec7327f3807c669f98ead31f1b4f42">getTargetVector</a></td></tr>
+<tr class="separator:a89ec7327f3807c669f98ead31f1b4f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A structure grouping a vector assignment and its target, for the case of substitutions. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a1f30d0bcaac125b3de3bcc778969555f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f30d0bcaac125b3de3bcc778969555f">&#9670;&nbsp;</a></span>VectorFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">tvm::scheme::internal::VectorSubstitutionAssignement::VectorFunction</a> =  <a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">VectorRef</a> (AssignmentTarget::*)() const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer type to a method of AssignementTarget returning a vector segment. </p>
+<p>It is used to make a selection between b(), bFirstHalf(), bSecondHalf(), l() and u(). </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5965dce87e5e2f766c7494f7ac384f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5965dce87e5e2f766c7494f7ac384f84">&#9670;&nbsp;</a></span>VectorSubstitutionAssignement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::scheme::internal::VectorSubstitutionAssignement::VectorSubstitutionAssignement </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01617.html">CompiledAssignmentWrapper</a>&lt; Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">VectorFunction</a>&#160;</td>
+          <td class="paramname"><em>getTarget</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a40c55c5d611825b8643e2615a2831970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c55c5d611825b8643e2615a2831970">&#9670;&nbsp;</a></span>assignment</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01617.html">CompiledAssignmentWrapper</a>&lt;Eigen::VectorXd&gt; tvm::scheme::internal::VectorSubstitutionAssignement::assignment</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89ec7327f3807c669f98ead31f1b4f42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ec7327f3807c669f98ead31f1b4f42">&#9670;&nbsp;</a></span>getTargetVector</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01629.html#a1f30d0bcaac125b3de3bcc778969555f">VectorFunction</a> tvm::scheme::internal::VectorSubstitutionAssignement::getTargetVector</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01629.html">VectorSubstitutionAssignement</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

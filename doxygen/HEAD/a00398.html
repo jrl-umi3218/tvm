@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::graph::abstract Namespace Reference</title>
+<title>TVM: tvm::constraint::internal Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,183 +89,29 @@ $(document).ready(function(){initNavTree('a00398.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::abstract Namespace Reference</div>  </div>
+<div class="title">tvm::constraint::internal Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01060.html">Node</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01060.html" title="Node is the concrete base for AbstractNode. ">Node</a> is the concrete base for AbstractNode.  <a href="a01060.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00993.html">LinearizedTaskConstraint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a task \((e, op, rhs, e^*)\), this class derives the constraint \(d^k e/dt^k\ op\ e^*(e,de/dt,...de^{k-1}/dt^{k-1}, rhs [,g])\), where e is an error function, op is ==, &gt;= or &lt;= and \(e^*\) is a desired error dynamics.  <a href="a00993.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01064.html">Outputs</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> simply describe a list of <a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> in a strongly typed enum named <a class="el" href="a01068.html" title="Base class for Output. ">Output</a>.  <a href="a01064.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00997.html">RHSVectors</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class manages the vectors <code>l</code>, <code>u</code> and <code>e</code> that appear in the various types of constraints.  <a href="a00997.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">OutputSelector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class adds to its template argument the capability to enable or disable some of its outputs.  <a href="a01080.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01072.html">SelectorMembers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure holding the members used in <a class="el" href="a01080.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> if add = true, and nothing otherwise.  <a href="a01072.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html">SelectorMembers&lt; false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a6b3bd5aff8d785eeafb26ab8a893b216"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT &gt; </td></tr>
-<tr class="memitem:a6b3bd5aff8d785eeafb26ab8a893b216"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00398.html#a6b3bd5aff8d785eeafb26ab8a893b216">is_valid_output</a> (EnumT v)</td></tr>
-<tr class="memdesc:a6b3bd5aff8d785eeafb26ab8a893b216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a value of EnumT is a valid output for <a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> type T.  <a href="#a6b3bd5aff8d785eeafb26ab8a893b216">More...</a><br /></td></tr>
-<tr class="separator:a6b3bd5aff8d785eeafb26ab8a893b216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf4f7a51f1e999cfabd85a2a9f331d33"><td class="memTemplParams" colspan="2">template&lt;typename T , typename EnumT , typename... Args&gt; </td></tr>
-<tr class="memitem:adf4f7a51f1e999cfabd85a2a9f331d33"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00398.html#adf4f7a51f1e999cfabd85a2a9f331d33">is_valid_output</a> (EnumT v, Args... args)</td></tr>
-<tr class="memdesc:adf4f7a51f1e999cfabd85a2a9f331d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if all values of a given set are valid outputs for <a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> type T.  <a href="#adf4f7a51f1e999cfabd85a2a9f331d33">More...</a><br /></td></tr>
-<tr class="separator:adf4f7a51f1e999cfabd85a2a9f331d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f4088ba048638fb2c5c5885448e5e3"><td class="memTemplParams" colspan="2">template&lt;typename T , typename Base &gt; </td></tr>
-<tr class="memitem:a46f4088ba048638fb2c5c5885448e5e3"><td class="memTemplItemLeft" align="right" valign="top">std::true_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00398.html#a46f4088ba048638fb2c5c5885448e5e3">is_output_selector_impl</a> (<a class="el" href="a01080.html">OutputSelector</a>&lt; T, Base &gt; const volatile &amp;)</td></tr>
-<tr class="memdesc:a46f4088ba048638fb2c5c5885448e5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">detail functions, see is_output_selector  <a href="#a46f4088ba048638fb2c5c5885448e5e3">More...</a><br /></td></tr>
-<tr class="separator:a46f4088ba048638fb2c5c5885448e5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdeb4b0245c4c6615bd00957796638f"><td class="memItemLeft" align="right" valign="top">std::false_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00398.html#a2cdeb4b0245c4c6615bd00957796638f">is_output_selector_impl</a> (...)</td></tr>
-<tr class="memdesc:a2cdeb4b0245c4c6615bd00957796638f"><td class="mdescLeft">&#160;</td><td class="mdescRight">detail functions, see is_output_selector  <a href="#a2cdeb4b0245c4c6615bd00957796638f">More...</a><br /></td></tr>
-<tr class="separator:a2cdeb4b0245c4c6615bd00957796638f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e8b6c4226d0ec33703ccac682cef0ac"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2e8b6c4226d0ec33703ccac682cef0ac"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00398.html#a2e8b6c4226d0ec33703ccac682cef0ac">is_output_selector</a> ()</td></tr>
-<tr class="memdesc:a2e8b6c4226d0ec33703ccac682cef0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check at compile-time if T derives from <a class="el" href="a01080.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a>.  <a href="#a2e8b6c4226d0ec33703ccac682cef0ac">More...</a><br /></td></tr>
-<tr class="separator:a2e8b6c4226d0ec33703ccac682cef0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a2e8b6c4226d0ec33703ccac682cef0ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e8b6c4226d0ec33703ccac682cef0ac">&#9670;&nbsp;</a></span>is_output_selector()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool tvm::graph::abstract::is_output_selector </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check at compile-time if T derives from <a class="el" href="a01080.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a>. </p>
-<p>We cannot use std::is_base_of because <a class="el" href="a01080.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> is a template class. Instead, we rely on the declaration (only) of the two overloads of is_output_selector_impl. If (and only if) T derives from <a class="el" href="a01080.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> the overload returning std::true_type will be selected, and thus the following function returns true. </p>
-
-<p class="reference">References <a class="el" href="a00398.html#a46f4088ba048638fb2c5c5885448e5e3">is_output_selector_impl()</a>.</p>
-
-</div>
-</div>
-<a id="a46f4088ba048638fb2c5c5885448e5e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46f4088ba048638fb2c5c5885448e5e3">&#9670;&nbsp;</a></span>is_output_selector_impl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename Base &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::true_type tvm::graph::abstract::is_output_selector_impl </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01080.html">OutputSelector</a>&lt; T, Base &gt; const volatile &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>detail functions, see is_output_selector </p>
-
-<p class="reference">Referenced by <a class="el" href="a00398.html#a2e8b6c4226d0ec33703ccac682cef0ac">is_output_selector()</a>.</p>
-
-</div>
-</div>
-<a id="a2cdeb4b0245c4c6615bd00957796638f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cdeb4b0245c4c6615bd00957796638f">&#9670;&nbsp;</a></span>is_output_selector_impl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::false_type tvm::graph::abstract::is_output_selector_impl </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>detail functions, see is_output_selector </p>
-
-</div>
-</div>
-<a id="a6b3bd5aff8d785eeafb26ab8a893b216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b3bd5aff8d785eeafb26ab8a893b216">&#9670;&nbsp;</a></span>is_valid_output() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename EnumT &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool tvm::graph::abstract::is_valid_output </td>
-          <td>(</td>
-          <td class="paramtype">EnumT&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if a value of EnumT is a valid output for <a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> type T. </p>
-
-</div>
-</div>
-<a id="adf4f7a51f1e999cfabd85a2a9f331d33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf4f7a51f1e999cfabd85a2a9f331d33">&#9670;&nbsp;</a></span>is_valid_output() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename EnumT , typename... Args&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool tvm::graph::abstract::is_valid_output </td>
-          <td>(</td>
-          <td class="paramtype">EnumT&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if all values of a given set are valid outputs for <a class="el" href="a01064.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> type T. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00383.html">tvm</a></li><li class="navelem"><a class="el" href="a00397.html">graph</a></li><li class="navelem"><a class="el" href="a00398.html">abstract</a></li>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00396.html">constraint</a></li><li class="navelem"><a class="el" href="a00398.html">internal</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

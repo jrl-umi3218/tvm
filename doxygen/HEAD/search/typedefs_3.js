@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['enable_5ffor_5ft',['enable_for_t',['../a00403.html#a62e4f0cf6093d536532cbd17f1e80f17',1,'tvm::internal']]],
-  ['enable_5ffor_5ftemplated_5ft',['enable_for_templated_t',['../a00403.html#a88bfde1b5ce2106ebd5f23b4a5cc2fcf',1,'tvm::internal']]]
+  ['disable_5ffor_5ftemplated_5ft',['disable_for_templated_t',['../a00416.html#a6256bccb93c86146149afb564d69adef',1,'tvm::internal']]]
 ];

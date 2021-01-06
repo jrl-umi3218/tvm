@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: TaskDynamicsImpl.h File Reference</title>
+<title>TVM: Space.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,31 +92,26 @@ $(document).ready(function(){initNavTree('a00269.html','');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">TaskDynamicsImpl.h File Reference</div>  </div>
+<div class="title">Space.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02395.html">tvm/constraint/enums.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00056.html">tvm/graph/abstract/Node.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02407.html">tvm/task_dynamics/enums.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
 <code>#include &lt;Eigen/Core&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;typeinfo&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01716.html">tvm::task_dynamics::abstract::TaskDynamicsImpl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for the implementation of a task dynamics.  <a href="a01716.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html">tvm::Space</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of a variable space, and factory for <a class="el" href="a01909.html" title="Representation of a Variable, i.e. ">Variable</a>.  <a href="a01749.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00383"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html">tvm</a></td></tr>
-<tr class="memdesc:a00383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00390"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00390.html">tvm::task_dynamics</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00391"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00391.html">tvm::task_dynamics::abstract</a></td></tr>
+<tr class="memitem:a00395"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html">tvm</a></td></tr>
+<tr class="memdesc:a00395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -125,8 +120,8 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_0150579c97399d4d7ca78a757bad7845.html">task_dynamics</a></li><li class="navelem"><a class="el" href="dir_ff52d1014f3c86f7680f449f83cac727.html">abstract</a></li><li class="navelem"><a class="el" href="a00269.html">TaskDynamicsImpl.h</a></li>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="a00269.html">Space.h</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

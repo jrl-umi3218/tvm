@@ -1,7 +1,7 @@
 var a00059 =
 [
-    [ "Outputs", "a01064.html", "a01064" ],
-    [ "Output", "a01068.html", null ],
+    [ "Outputs", "a01081.html", "a01081" ],
+    [ "Output", "a01085.html", null ],
     [ "CLEAR_DISABLED_OUTPUTS", "a00059.html#a4527a4c660f2fbb809b36aeaea2c5a25", null ],
     [ "DISABLE_OUTPUTS", "a00059.html#af3c088e8f82f2660e01a45bb8eb92ebf", null ],
     [ "SET_OUTPUTS", "a00059.html#ac1f4fe6f3e3eb0d483f2189be741a7a5", null ],

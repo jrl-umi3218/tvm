@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['enumvalue',['EnumValue',['../a01128.html',1,'tvm::graph::internal::Log']]],
-  ['exception',['Exception',['../a01008.html',1,'tvm::exception']]]
+  ['enumvalue',['EnumValue',['../a01145.html',1,'tvm::graph::internal::Log']]],
+  ['exception',['Exception',['../a01021.html',1,'tvm::exception']]]
 ];

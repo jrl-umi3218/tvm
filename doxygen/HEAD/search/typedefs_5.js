@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['gain',['Gain',['../a01752.html#ab07b19a8764c8f30db69656dcbc9e9f5',1,'tvm::task_dynamics::Proportional::Gain()'],['../a01760.html#a7f25d6570ea1203bcb84da3b62b101b8',1,'tvm::task_dynamics::ProportionalDerivative::Gain()']]],
-  ['getfeedforwardt',['getFeedForwardT',['../a01736.html#aa4f7695fb7b4573e47c94c977f12f8cb',1,'tvm::task_dynamics::FeedForward']]]
+  ['factory',['Factory',['../a01693.html#afcb331752f62889cafb9d7dc8a249163',1,'tvm::solver::DefaultLSSolverOptions::Factory()'],['../a01713.html#aa4aace23ce6579fd4320181195b38d18',1,'tvm::solver::LSSOLLSSolverOptions::Factory()'],['../a01725.html#a2b97c5ac51268424cd983302b43b6b10',1,'tvm::solver::QLDLSSolverOptions::Factory()'],['../a01737.html#a193c5e72d6d0e377e13da0c8240dd3ad',1,'tvm::solver::QuadprogLSSolverOptions::Factory()']]],
+  ['feedforwardp',['FeedForwardP',['../a00402.html#abefacce58ac7386489ddd237a5fb0ecb',1,'tvm::task_dynamics']]],
+  ['feedforwardpd',['FeedForwardPD',['../a00402.html#aef391d4ea376d9ddb35b3bcace52d51e',1,'tvm::task_dynamics']]],
+  ['frameptr',['FramePtr',['../a00419.html#a281a5946e79d354cb9a72ac5fbd693a7',1,'tvm::robot']]],
+  ['functionptr',['FunctionPtr',['../a00395.html#a42313833bbb66bf5318f67e0dca5936a',1,'tvm']]]
 ];

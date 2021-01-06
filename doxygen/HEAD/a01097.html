@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01100.html','');});
+$(document).ready(function(){initNavTree('a01097.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,62 +88,393 @@ $(document).ready(function(){initNavTree('a01100.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a01094.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::AbstractNode Member List</div>  </div>
+<div class="title">tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a108c6844c30222ef383caeb922ad4f45">addInput</a>(std::shared_ptr&lt; T &gt; source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aa2b8b8c51b3939d134157f5fcdcae3b8">addInput</a>(T &amp;source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#acc492564f93a7d94c99ac42cf26e5afe">directDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#ae18f52958730844f8f29f727ca89e112">getInput</a>(const std::shared_ptr&lt; T &gt; &amp;source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#af9ba8826223fd52b49fea487fcd61cce">inputDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">internalDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a23a32e4238b7900d0f3b7787bfa6232b">is_node_</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#afc310e1cf7c222ce1c71ad5cc51c6db5">isOutputCustomEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a0f1f636c33817fa12f4162f692cb381b">isOutputEnabled</a>(EnumT e) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a9906689532225c28da9490e2b8eb0ced">isOutputEnabled</a>(int i) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a6aba2d7e20119b41b6895f5406795a3b">isOutputStaticallyEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a211ec74b66961ad450511ccf07a8082c">isUpdateCustomEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a6bbb3a8c43895a4f8d270100aedcb82c">isUpdateEnabled</a>(EnumT e) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#ab5c43e0a081f5622ded1ff5693f4ab6d">isUpdateStaticallyEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a> enum name</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a28091daa5c502e591f5ccb07f6d7915f">OutputBase</a> typedef</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a79f6e3d77cf784915bdbfb69b5789992">OutputBaseName</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a8a47ad0e14298cd09d74f81987b70394">outputDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a24af6171e8e80e31c2d41b3d1272a9a8">OutputName</a>(Output_)</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a0f92178ca250dd757ab141a92b41c03a">OutputParent</a> typedef</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a1bb139d1761eac8f2b56635c8a684b18">OutputSize</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#ad0772c09826310a52fb60d12333ed8e1">OutputStaticallyEnabled</a>(EnumT)</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a214beacc3a0d88b8d225a4828a21582d">removeInput</a>(T *source, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#abf498e455f48dd03f1957c12fcc5aa4f">tvm::graph::abstract::Node</a> class</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#ad30a0da6c3cc968e6b25d709ddab5e76">tvm::graph::CallGraph</a> class</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#aa33b9554a9a9f835cda51e12ddc101bc">update</a>(int i)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a790faeb964ed1317fc122684e9894efa">Update_</a> enum name</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#ac7bda88cc7186ef0bd06b1a98526808a">UpdateBase</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a64eefa91bdf144b3781ec662f6321847">UpdateBaseName</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#afd08cb36177f92f4a3fb16402e93b39f">UpdateName</a>(Update_)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a9ec81271334fed0d3e4f084eb25978bf">UpdateParent</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#af7ba858636a9f50637e861a35ed91b6c">updates_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a9ba18bfdd20b769be09129d996847830">UpdateSize</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a635fb252e53f6d8cd758f1b5b8510592">UpdateStaticallyEnabled</a>(EnumT)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a30cd15a0a35da061802335616544e195">~AbstractNode</a>()=default</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#aee57010cd59189302e03828097aad3a3">~Inputs</a>()=default</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a3c7c267d448dea54dfc3e6ab64e07f60">~Outputs</a>()=default</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>This class adds to its template argument the capability to enable or disable some of its outputs.  
+ <a href="a01097.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/abstract/OutputSelector.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01097.png" usemap="#tvm::graph::abstract::OutputSelector_3C_20OutputProvider_2C_20Base_20_3E_map" alt=""/>
+  <map id="tvm::graph::abstract::OutputSelector_3C_20OutputProvider_2C_20Base_20_3E_map" name="tvm::graph::abstract::OutputSelector_3C_20OutputProvider_2C_20Base_20_3E_map">
+<area href="a01089.html" alt="tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;" shape="rect" coords="415,0,820,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a56304a7795c79d5fbb55d8e1b34689cd"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a56304a7795c79d5fbb55d8e1b34689cd"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01097.html#a56304a7795c79d5fbb55d8e1b34689cd">OutputSelector</a> (Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a56304a7795c79d5fbb55d8e1b34689cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a56304a7795c79d5fbb55d8e1b34689cd">More...</a><br /></td></tr>
+<tr class="separator:a56304a7795c79d5fbb55d8e1b34689cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a708907741c7ed1e5bbdc0c8b18ab0f3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html#a708907741c7ed1e5bbdc0c8b18ab0f3d">lock</a> ()</td></tr>
+<tr class="memdesc:a708907741c7ed1e5bbdc0c8b18ab0f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock the outputs, preventing them to be enabled or disabled.  <a href="#a708907741c7ed1e5bbdc0c8b18ab0f3d">More...</a><br /></td></tr>
+<tr class="separator:a708907741c7ed1e5bbdc0c8b18ab0f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e59e5e0041a4a04b2d4c574f5357c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html#a20e59e5e0041a4a04b2d4c574f5357c5">unlock</a> ()</td></tr>
+<tr class="memdesc:a20e59e5e0041a4a04b2d4c574f5357c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlock the outputs, allowing them to be enabled or disabled.  <a href="#a20e59e5e0041a4a04b2d4c574f5357c5">More...</a><br /></td></tr>
+<tr class="separator:a20e59e5e0041a4a04b2d4c574f5357c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acecd5431d8669020975745445eda213e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html#acecd5431d8669020975745445eda213e">isLocked</a> () const</td></tr>
+<tr class="memdesc:acecd5431d8669020975745445eda213e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the outputs are locked.  <a href="#acecd5431d8669020975745445eda213e">More...</a><br /></td></tr>
+<tr class="separator:acecd5431d8669020975745445eda213e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a766fd1ed72d2502853d44ee247c28b7b"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:a766fd1ed72d2502853d44ee247c28b7b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01097.html#a766fd1ed72d2502853d44ee247c28b7b">disableOutput</a> (EnumT e)</td></tr>
+<tr class="memdesc:a766fd1ed72d2502853d44ee247c28b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable an output.  <a href="#a766fd1ed72d2502853d44ee247c28b7b">More...</a><br /></td></tr>
+<tr class="separator:a766fd1ed72d2502853d44ee247c28b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0704ea411dc055f5bf90032253c6da8"><td class="memTemplParams" colspan="2">template&lt;typename EnumT , typename... Args&gt; </td></tr>
+<tr class="memitem:ae0704ea411dc055f5bf90032253c6da8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01097.html#ae0704ea411dc055f5bf90032253c6da8">disableOutput</a> (EnumT e, Args... args)</td></tr>
+<tr class="memdesc:ae0704ea411dc055f5bf90032253c6da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-argument version of disableOutput.  <a href="#ae0704ea411dc055f5bf90032253c6da8">More...</a><br /></td></tr>
+<tr class="separator:ae0704ea411dc055f5bf90032253c6da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c44ef0be45d2fbe9a0eb262ec9fd62"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:ac4c44ef0be45d2fbe9a0eb262ec9fd62"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01097.html#ac4c44ef0be45d2fbe9a0eb262ec9fd62">enableOutput</a> (EnumT e)</td></tr>
+<tr class="memdesc:ac4c44ef0be45d2fbe9a0eb262ec9fd62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable an output.  <a href="#ac4c44ef0be45d2fbe9a0eb262ec9fd62">More...</a><br /></td></tr>
+<tr class="separator:ac4c44ef0be45d2fbe9a0eb262ec9fd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a266f1200688fa5c050a74d7ab545d42c"><td class="memTemplParams" colspan="2">template&lt;typename EnumT , typename... Args&gt; </td></tr>
+<tr class="memitem:a266f1200688fa5c050a74d7ab545d42c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01097.html#a266f1200688fa5c050a74d7ab545d42c">enableOutput</a> (EnumT e, Args... args)</td></tr>
+<tr class="memdesc:a266f1200688fa5c050a74d7ab545d42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-argument version of enableOutput.  <a href="#a266f1200688fa5c050a74d7ab545d42c">More...</a><br /></td></tr>
+<tr class="separator:a266f1200688fa5c050a74d7ab545d42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9055289bba2c2a08cbde4cd4825cb77f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html#a9055289bba2c2a08cbde4cd4825cb77f">isOutputCustomEnabled</a> (int e) const override</td></tr>
+<tr class="memdesc:a9055289bba2c2a08cbde4cd4825cb77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override the method of <a class="el" href="a01081.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> to get the desired enable/disable behavior.  <a href="#a9055289bba2c2a08cbde4cd4825cb77f">More...</a><br /></td></tr>
+<tr class="separator:a9055289bba2c2a08cbde4cd4825cb77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_a01089"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01089')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01089.html">tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;</a></td></tr>
+<tr class="memitem:afb9aaff5b2ec6d854da3c825e1896198 inherit pro_attribs_a01089"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01089.html#afb9aaff5b2ec6d854da3c825e1896198">dynamicallyEnabled_</a></td></tr>
+<tr class="memdesc:afb9aaff5b2ec6d854da3c825e1896198 inherit pro_attribs_a01089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to store and test whether an output is dynamically enabled or not.  <a href="a01089.html#afb9aaff5b2ec6d854da3c825e1896198">More...</a><br /></td></tr>
+<tr class="separator:afb9aaff5b2ec6d854da3c825e1896198 inherit pro_attribs_a01089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c9eb868c9839d51c75cc7206c94edcb inherit pro_attribs_a01089"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01089.html#a0c9eb868c9839d51c75cc7206c94edcb">locked_</a></td></tr>
+<tr class="memdesc:a0c9eb868c9839d51c75cc7206c94edcb inherit pro_attribs_a01089"><td class="mdescLeft">&#160;</td><td class="mdescRight">track if the enabling/disabling of outputs is locked or not  <a href="a01089.html#a0c9eb868c9839d51c75cc7206c94edcb">More...</a><br /></td></tr>
+<tr class="separator:a0c9eb868c9839d51c75cc7206c94edcb inherit pro_attribs_a01089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename OutputProvider, typename Base = OutputProvider&gt;<br />
+class tvm::graph::abstract::OutputSelector&lt; OutputProvider, Base &gt;</h3>
+
+<p>This class adds to its template argument the capability to enable or disable some of its outputs. </p>
+<p>We use here a bit of template meta-programming to take care of the following problem: imagine we have the following inheritance structure class A class B : public <a class="el" href="a01097.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> class C : public B class D : public OutputSelector&lt;C&gt; We want D to hold a single vector of bool for tracking enabled outputs and a single bool for lock. In our example, this means that <a class="el" href="a01097.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> holds the data, and OutputSelector&lt;C&gt; reuse the same data. We implement this by checking if the template parameter is a derived class of <a class="el" href="a01097.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a>. If it is not (case of A in our example) we make <a class="el" href="a01097.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> inherit from SelectorMembers&lt;true&gt; so that it inherits the data. If it is (case of C), we make <a class="el" href="a01097.html" title="This class adds to its template argument the capability to enable or disable some of its outputs...">OutputSelector</a> inherit from <a class="el" href="a01093.html">SelectorMembers&lt;false&gt;</a> so that no data is added. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a56304a7795c79d5fbb55d8e1b34689cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56304a7795c79d5fbb55d8e1b34689cd">&#9670;&nbsp;</a></span>OutputSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::<a class="el" href="a01097.html">OutputSelector</a> </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<p>Simply forward the arguments for constructing OutputProvider </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a766fd1ed72d2502853d44ee247c28b7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a766fd1ed72d2502853d44ee247c28b7b">&#9670;&nbsp;</a></span>disableOutput() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<div class="memtemplate">
+template&lt;typename EnumT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::disableOutput </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disable an output. </p>
+<p>The enum must refer to an existing output. </p>
+
+</div>
+</div>
+<a id="ae0704ea411dc055f5bf90032253c6da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0704ea411dc055f5bf90032253c6da8">&#9670;&nbsp;</a></span>disableOutput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<div class="memtemplate">
+template&lt;typename EnumT , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::disableOutput </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multi-argument version of disableOutput. </p>
+
+</div>
+</div>
+<a id="ac4c44ef0be45d2fbe9a0eb262ec9fd62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c44ef0be45d2fbe9a0eb262ec9fd62">&#9670;&nbsp;</a></span>enableOutput() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<div class="memtemplate">
+template&lt;typename EnumT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::enableOutput </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable an output. </p>
+<p>The enum must refer to an existing output. </p>
+
+</div>
+</div>
+<a id="a266f1200688fa5c050a74d7ab545d42c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a266f1200688fa5c050a74d7ab545d42c">&#9670;&nbsp;</a></span>enableOutput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<div class="memtemplate">
+template&lt;typename EnumT , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::enableOutput </td>
+          <td>(</td>
+          <td class="paramtype">EnumT&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multi-argument version of enableOutput. </p>
+
+</div>
+</div>
+<a id="acecd5431d8669020975745445eda213e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acecd5431d8669020975745445eda213e">&#9670;&nbsp;</a></span>isLocked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::isLocked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the outputs are locked. </p>
+
+</div>
+</div>
+<a id="a9055289bba2c2a08cbde4cd4825cb77f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9055289bba2c2a08cbde4cd4825cb77f">&#9670;&nbsp;</a></span>isOutputCustomEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::isOutputCustomEnabled </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Override the method of <a class="el" href="a01081.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> to get the desired enable/disable behavior. </p>
+
+</div>
+</div>
+<a id="a708907741c7ed1e5bbdc0c8b18ab0f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a708907741c7ed1e5bbdc0c8b18ab0f3d">&#9670;&nbsp;</a></span>lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::lock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lock the outputs, preventing them to be enabled or disabled. </p>
+
+</div>
+</div>
+<a id="a20e59e5e0041a4a04b2d4c574f5357c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e59e5e0041a4a04b2d4c574f5357c5">&#9670;&nbsp;</a></span>unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename OutputProvider, typename Base = OutputProvider&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01097.html">tvm::graph::abstract::OutputSelector</a>&lt; OutputProvider, Base &gt;::unlock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unlock the outputs, allowing them to be enabled or disabled. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a00411.html">abstract</a></li><li class="navelem"><a class="el" href="a01097.html">OutputSelector</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

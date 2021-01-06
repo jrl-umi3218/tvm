@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::Clock Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a00980.html','');});
+$(document).ready(function(){initNavTree('a00977.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,132 +88,352 @@ $(document).ready(function(){initNavTree('a00980.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a00974.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::constraint::internal::LinearizedTaskConstraint Member List</div>  </div>
+<div class="title">tvm::Clock Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01060.html#ae92f7743eb69a459cecb3be61f1b6e47">addDirectDependency</a>(EnumO o, std::shared_ptr&lt; S &gt; source, EnumI i)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01060.html#ad0c8e10dbd78025cd1b67873368b5a57">addDirectDependency</a>(EnumO o, S &amp;source, EnumI i)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a108c6844c30222ef383caeb922ad4f45">addInput</a>(std::shared_ptr&lt; T &gt; source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aa2b8b8c51b3939d134157f5fcdcae3b8">addInput</a>(T &amp;source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01060.html#aa9fcb7da2d0ca3fb4544e2002ad9085d">addInputDependency</a>(EnumU u, std::shared_ptr&lt; S &gt; source, EnumO i, Args... args)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01060.html#a0142d0f2ffc6001be51a75ba5b2519f2">addInputDependency</a>(EnumU u, S &amp;source, EnumO i, Args... args)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01060.html#aae1fb781215cdc67d7aab925ca578580">addInternalDependency</a>(EnumU1 uDependent, EnumU2 u)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01060.html#aab69441987f72e1a7f748e7680040b53">addOutputDependency</a>(EnumO o, EnumU u)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01060.html#a4ec29838fb05b1d999e255848608f42c">addOutputDependency</a>(std::initializer_list&lt; EnumO &gt; os, EnumU u)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a716434d1c4ee931e2a7d1162934aad3c">addVariable</a>(VariablePtr v, bool linear)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a33a39675dbad5d874eb7c951142b936f">addVariable</a>(const VariableVector &amp;v, bool linear)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#aa6e7c997a0e76aaa5c2cd7842e0aeea0">addVariable_</a>(VariablePtr)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#ae91170f5a174f0dae09962d2e40c4a76">Constraint</a>(Type ct, RHS cr, int m=0)</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#acc492564f93a7d94c99ac42cf26e5afe">directDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#a766fd1ed72d2502853d44ee247c28b7b">disableOutput</a>(EnumT e)</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01080.html#ae0704ea411dc055f5bf90032253c6da8">disableOutput</a>(EnumT e, Args... args)</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01072.html#afb9aaff5b2ec6d854da3c825e1896198">dynamicallyEnabled_</a></td><td class="entry"><a class="el" href="a01072.html">tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; tvm::internal::FirstOrderProvider &gt;()&gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00968.html#aa8b6163dcf9198ed46f2b2ac3a880860">e</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#ac4c44ef0be45d2fbe9a0eb262ec9fd62">enableOutput</a>(EnumT e)</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01080.html#a266f1200688fa5c050a74d7ab545d42c">enableOutput</a>(EnumT e, Args... args)</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#a42ebefedc37512daf3dc6d8a5d297fd1">eRef</a>()</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#af9184d29af7563cd7c0a2dc88a55a1cf">FirstOrderProvider</a>(int m)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a924e364ff31bcd7d315b8cdea26bbd1b">FirstOrderProvider</a>(Space image)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#ae18f52958730844f8f29f727ca89e112">getInput</a>(const std::shared_ptr&lt; T &gt; &amp;source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01260.html#ab153084b455818dae756548bc210ba49">id</a>() const</td><td class="entry"><a class="el" href="a01260.html">tvm::internal::ObjWithId</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#af5eadb4206e9b45ab7cbea26ca3a189f">imageSpace</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#ad026691e0b6d793385fc139ab565e88d">imageSpace_</a></td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a11b35a84d53fa223e34497bbad7d4eef">input_dependency_t</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#af9ba8826223fd52b49fea487fcd61cce">inputDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#ae862f5c5b2e0ce6a49c1c65ddf0ae057">internalDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a23a32e4238b7900d0f3b7787bfa6232b">is_node_</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00968.html#a38f762bb92a31f2e6508474dea5cd9ba">isEquality</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#acecd5431d8669020975745445eda213e">isLocked</a>() const</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01080.html#a9055289bba2c2a08cbde4cd4825cb77f">isOutputCustomEnabled</a>(int e) const override</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a0f1f636c33817fa12f4162f692cb381b">isOutputEnabled</a>(EnumT e) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a9906689532225c28da9490e2b8eb0ced">isOutputEnabled</a>(int i) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a6aba2d7e20119b41b6895f5406795a3b">isOutputStaticallyEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a211ec74b66961ad450511ccf07a8082c">isUpdateCustomEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a6bbb3a8c43895a4f8d270100aedcb82c">isUpdateEnabled</a>(EnumT e) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#ab5c43e0a081f5622ded1ff5693f4ab6d">isUpdateStaticallyEnabled</a>(int) const</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#a24af7b859e67eca18bb7cfa33e00880b">jacobian</a>(const Variable &amp;x) const override</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#af40a5e91f6c4d9fb1e49920b8914f7fc">jacobian_</a></td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#a151c48af8f32a3f2609a79a1c469edff">l</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a14e39dfa2178e0b1821dc21b9157e5a0">linear_</a></td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00972.html#ab419bee158cb0cc4fc0204952de09d55">LinearConstraint</a>(Type ct, RHS cr, int m)</td><td class="entry"><a class="el" href="a00972.html">tvm::constraint::abstract::LinearConstraint</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#ae2fff79056fb0ffb39cd1c2dd8a40d40">linearIn</a>(const Variable &amp;x) const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#a4b0903cc8e0051a82649b2f8289cea17">LinearizedTaskConstraint</a>(const Task &amp;task)</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00980.html#ac61b8c5c69c76ecc169a0c7e97a5a3c2">LinearizedTaskConstraint</a>(const utils::ProtoTask&lt; T &gt; &amp;pt, const task_dynamics::abstract::TaskDynamics &amp;td)</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#a708907741c7ed1e5bbdc0c8b18ab0f3d">lock</a>()</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01072.html#a0c9eb868c9839d51c75cc7206c94edcb">locked_</a></td><td class="entry"><a class="el" href="a01072.html">tvm::graph::abstract::SelectorMembers&lt;!is_output_selector&lt; tvm::internal::FirstOrderProvider &gt;()&gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#a25fcd7be6b5ab2066bec85ff5f05ff01">lRef</a>()</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01260.html#a56106dc0b038e076a2c8420368615efd">ObjWithId</a>(const ObjWithId &amp;)=delete</td><td class="entry"><a class="el" href="a01260.html">tvm::internal::ObjWithId</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01260.html#a28e6fb5a7fdf04111cdd47209e825f9a">ObjWithId</a>()</td><td class="entry"><a class="el" href="a01260.html">tvm::internal::ObjWithId</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01260.html#a2c7051ea19885a16a459149fe36dd555">operator=</a>(const ObjWithId &amp;)=delete</td><td class="entry"><a class="el" href="a01260.html">tvm::internal::ObjWithId</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a> enum name</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a28091daa5c502e591f5ccb07f6d7915f">OutputBase</a> typedef</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a79f6e3d77cf784915bdbfb69b5789992">OutputBaseName</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a8a47ad0e14298cd09d74f81987b70394">outputDependencies_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#a24af6171e8e80e31c2d41b3d1272a9a8">OutputName</a>(Output_)</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a0f92178ca250dd757ab141a92b41c03a">OutputParent</a> typedef</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#a56304a7795c79d5fbb55d8e1b34689cd">OutputSelector</a>(Args &amp;&amp;... args)</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a1bb139d1761eac8f2b56635c8a684b18">OutputSize</a></td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01064.html#ad0772c09826310a52fb60d12333ed8e1">OutputStaticallyEnabled</a>(EnumT)</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01060.html#a7eff30b19d5b72072d070323f93a4bb3">registerUpdates</a>(EnumT u, void(U::*fn)(), Args... args)</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01060.html#a13fc273cdc8b130963e377ca2ebc23ec">registerUpdates</a>(EnumT u, void(U::*fn)())</td><td class="entry"><a class="el" href="a01060.html">tvm::graph::abstract::Node&lt; FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a214beacc3a0d88b8d225a4828a21582d">removeInput</a>(T *source, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#ad93dd11e673afbeeb1341cd0f8ff8185">removeVariable</a>(VariablePtr v)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#ae5a18d1da20d3e9b84865395ce40905e">removeVariable_</a>(VariablePtr)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a35119ecabc945e5e1ff564444e521f4d">resize</a>(int m)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#abf34b9407c03d930db09d00627ee56b9">resizeCache</a>() override</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a21c39c1f5bddd2cc1b887c8583dbdbd8">resizeJacobianCache</a>()</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a2c932494358cf977821643564785eb95">resizeValueCache</a>()</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00968.html#ad27f2b705f739082c7bb0550c7d44782">rhs</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a2f897d0aef9869861cf0f861cc2a1b84">rSize</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a1fa00e06c0c1ec2686d5996c8ea75d85">size</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a62a1a4e361dcf63bd1aa07f9ef594e3e">splitJacobian</a>(const MatrixConstRef &amp;J, const std::vector&lt; VariablePtr &gt; &amp;vars, bool keepProperties=false)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#aee12b48a2160311b069018e5d5e68cae">splitJacobian</a>(const MatrixConstRef &amp;J, const VariableVector &amp;vars, bool keepProperties=false)</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a66843a84a3b39fa1a99dbc5de2676107">tSize</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#ac91b160bf58ef01fa51259eef8b2af9f">type</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00968.html#acab41d41c879f4153faaf1fda1940c3b">u</a>() const</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01080.html#a20e59e5e0041a4a04b2d4c574f5357c5">unlock</a>()</td><td class="entry"><a class="el" href="a01080.html">tvm::graph::abstract::OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#aa33b9554a9a9f835cda51e12ddc101bc">update</a>(int i)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a790faeb964ed1317fc122684e9894efa">Update_</a> enum name</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#ac7bda88cc7186ef0bd06b1a98526808a">UpdateBase</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a64eefa91bdf144b3781ec662f6321847">UpdateBaseName</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00980.html#a5cff0e1ce9b297aedee86930cdd6c1ba">updateEDyn</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#a7329c828984a9fa2b4152b079e9a2546">updateEKin</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00980.html#a3c2b7efb6f73b771d189073505f18009">updateLDyn</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#ab3f4d6d2aecd68f596bb4c4fe975cc2f">updateLKin</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#afd08cb36177f92f4a3fb16402e93b39f">UpdateName</a>(Update_)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a9ec81271334fed0d3e4f084eb25978bf">UpdateParent</a> typedef</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#af7ba858636a9f50637e861a35ed91b6c">updates_</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01100.html#a9ba18bfdd20b769be09129d996847830">UpdateSize</a></td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a635fb252e53f6d8cd758f1b5b8510592">UpdateStaticallyEnabled</a>(EnumT)</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#a2765d2ec2842c5c9af49fb42eca14fd8">updateU2Dyn</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00980.html#af333a6b75d65e4f94f4a032a8ec8b77f">updateU2Kin</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00980.html#a9e01dd04b8ff33f0aa6ee1915b49fdef">updateUDyn</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00980.html#ab9ca82e201a6fc4f5c92700bd8e12449">updateUKin</a>()</td><td class="entry"><a class="el" href="a00980.html">tvm::constraint::internal::LinearizedTaskConstraint</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00972.html#a00b01e37208c2f1492a22fb608779da6">updateValue</a>()</td><td class="entry"><a class="el" href="a00972.html">tvm::constraint::abstract::LinearConstraint</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00968.html#a14ad5dfbb5fd38da8c4be5b978f7e96c">uRef</a>()</td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a9037013380af4e4df35867e98b990605">value</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a9c4ade899e4a0e07f716ea6d275d8f2e">value_</a></td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01216.html#a655953a67eeab73a1bba388716144e9f">variables</a>() const</td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01216.html#a229c83683265d3b88b8c4305a5f05544">variables_</a></td><td class="entry"><a class="el" href="a01216.html">tvm::internal::FirstOrderProvider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00968.html#a27389009ccd343a2efcae4368edc894a">vectors_</a></td><td class="entry"><a class="el" href="a00968.html">tvm::constraint::abstract::Constraint</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01100.html#a30cd15a0a35da061802335616544e195">~AbstractNode</a>()=default</td><td class="entry"><a class="el" href="a01100.html">tvm::graph::internal::AbstractNode</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#aee57010cd59189302e03828097aad3a3">~Inputs</a>()=default</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01064.html#a3c7c267d448dea54dfc3e6ab64e07f60">~Outputs</a>()=default</td><td class="entry"><a class="el" href="a01064.html">tvm::graph::abstract::Outputs</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Represent a clock for the <a class="el" href="a01005.html">ControlProblem</a>.  
+ <a href="a00977.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/Clock.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::Clock:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a00977.png" usemap="#tvm::Clock_map" alt=""/>
+  <map id="tvm::Clock_map" name="tvm::Clock_map">
+<area href="a01081.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. " alt="tvm::graph::abstract::Outputs" shape="rect" coords="0,0,170,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a194ce7ea14c33cf236559234a3c5ce11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a194ce7ea14c33cf236559234a3c5ce11">Clock</a> (double <a class="el" href="a00977.html#a76a9b9fe23b44288975f389ca2d5b991">dt</a>)</td></tr>
+<tr class="memdesc:a194ce7ea14c33cf236559234a3c5ce11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a194ce7ea14c33cf236559234a3c5ce11">More...</a><br /></td></tr>
+<tr class="separator:a194ce7ea14c33cf236559234a3c5ce11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad19e6eca17c557b70d3d9b2c37e9a9b9"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#ad19e6eca17c557b70d3d9b2c37e9a9b9">ticks</a> () const</td></tr>
+<tr class="memdesc:ad19e6eca17c557b70d3d9b2c37e9a9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of ticks elapsed since the start of the problem.  <a href="#ad19e6eca17c557b70d3d9b2c37e9a9b9">More...</a><br /></td></tr>
+<tr class="separator:ad19e6eca17c557b70d3d9b2c37e9a9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a9b9fe23b44288975f389ca2d5b991"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a76a9b9fe23b44288975f389ca2d5b991">dt</a> () const</td></tr>
+<tr class="memdesc:a76a9b9fe23b44288975f389ca2d5b991"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestep of the problem.  <a href="#a76a9b9fe23b44288975f389ca2d5b991">More...</a><br /></td></tr>
+<tr class="separator:a76a9b9fe23b44288975f389ca2d5b991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7">advance</a> ()</td></tr>
+<tr class="memdesc:a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance the clock by one tick.  <a href="#a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7">More...</a><br /></td></tr>
+<tr class="separator:a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01081"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01081')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01081.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01081"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a3c7c267d448dea54dfc3e6ab64e07f60">~Outputs</a> ()=default</td></tr>
+<tr class="separator:a3c7c267d448dea54dfc3e6ab64e07f60 inherit pub_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01081"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01081"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01081.html#a0f1f636c33817fa12f4162f692cb381b">isOutputEnabled</a> (EnumT e) const</td></tr>
+<tr class="memdesc:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled, be it at the class (static) or instance (dynamic) level).  <a href="a01081.html#a0f1f636c33817fa12f4162f692cb381b">More...</a><br /></td></tr>
+<tr class="separator:a0f1f636c33817fa12f4162f692cb381b inherit pub_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01081"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a9906689532225c28da9490e2b8eb0ced">isOutputEnabled</a> (int i) const</td></tr>
+<tr class="memdesc:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as above, but taking int, for convenience.  <a href="a01081.html#a9906689532225c28da9490e2b8eb0ced">More...</a><br /></td></tr>
+<tr class="separator:a9906689532225c28da9490e2b8eb0ced inherit pub_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01081"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a6aba2d7e20119b41b6895f5406795a3b">isOutputStaticallyEnabled</a> (int) const</td></tr>
+<tr class="memdesc:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (run-time).  <a href="a01081.html#a6aba2d7e20119b41b6895f5406795a3b">More...</a><br /></td></tr>
+<tr class="separator:a6aba2d7e20119b41b6895f5406795a3b inherit pub_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01081"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#afc310e1cf7c222ce1c71ad5cc51c6db5">isOutputCustomEnabled</a> (int) const</td></tr>
+<tr class="memdesc:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if an output is enabled given a custom criterion.  <a href="a01081.html#afc310e1cf7c222ce1c71ad5cc51c6db5">More...</a><br /></td></tr>
+<tr class="separator:afc310e1cf7c222ce1c71ad5cc51c6db5 inherit pub_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a329c2aec12c5e8a1e4c503595039e12a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a329c2aec12c5e8a1e4c503595039e12a">Clock</a> (const <a class="el" href="a00977.html">Clock</a> &amp;)=default</td></tr>
+<tr class="separator:a329c2aec12c5e8a1e4c503595039e12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59eb68285e021fabd3c739ed0918155d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00977.html">Clock</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a59eb68285e021fabd3c739ed0918155d">operator=</a> (const <a class="el" href="a00977.html">Clock</a> &amp;)=default</td></tr>
+<tr class="separator:a59eb68285e021fabd3c739ed0918155d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf908fe2aa1a9d8beaf5bc3f78ab06f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#aaf908fe2aa1a9d8beaf5bc3f78ab06f8">Clock</a> (<a class="el" href="a00977.html">Clock</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:aaf908fe2aa1a9d8beaf5bc3f78ab06f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05585bd84ffff0c0fb1fb8d60fc4bb90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00977.html">Clock</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a05585bd84ffff0c0fb1fb8d60fc4bb90">operator=</a> (<a class="el" href="a00977.html">Clock</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:a05585bd84ffff0c0fb1fb8d60fc4bb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a456b206388ee0b1f6a64b83a34ee8c99"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00977.html#a456b206388ee0b1f6a64b83a34ee8c99">ControlProblem</a></td></tr>
+<tr class="separator:a456b206388ee0b1f6a64b83a34ee8c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_a01081"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a01081')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="a01081.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01081"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a> <tr class="memdesc:a7426f1ecfb4746a92196ee6ec31dddeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="a01085.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01081.html#a7426f1ecfb4746a92196ee6ec31dddeb">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a7426f1ecfb4746a92196ee6ec31dddeb inherit pub_types_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01081"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a0f92178ca250dd757ab141a92b41c03a">OutputParent</a> = <a class="el" href="a01081.html">Outputs</a></td></tr>
+<tr class="memdesc:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information regarding the class inheritance diagram.  <a href="a01081.html#a0f92178ca250dd757ab141a92b41c03a">More...</a><br /></td></tr>
+<tr class="separator:a0f92178ca250dd757ab141a92b41c03a inherit pub_types_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01081"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a28091daa5c502e591f5ccb07f6d7915f">OutputBase</a> = <a class="el" href="a01081.html">Outputs</a></td></tr>
+<tr class="memdesc:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information used during inheritance to retrieve the base-class output size.  <a href="a01081.html#a28091daa5c502e591f5ccb07f6d7915f">More...</a><br /></td></tr>
+<tr class="separator:a28091daa5c502e591f5ccb07f6d7915f inherit pub_types_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_a01081"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a01081')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="a01081.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01081"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a24af6171e8e80e31c2d41b3d1272a9a8">OutputName</a> (<a class="el" href="a01081.html#a7426f1ecfb4746a92196ee6ec31dddeb">Output_</a>)</td></tr>
+<tr class="memdesc:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a given output.  <a href="a01081.html#a24af6171e8e80e31c2d41b3d1272a9a8">More...</a><br /></td></tr>
+<tr class="separator:a24af6171e8e80e31c2d41b3d1272a9a8 inherit pub_static_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01081"><td class="memTemplParams" colspan="2">template&lt;typename EnumT &gt; </td></tr>
+<tr class="memitem:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01081"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01081.html#ad0772c09826310a52fb60d12333ed8e1">OutputStaticallyEnabled</a> (EnumT)</td></tr>
+<tr class="memdesc:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given output is enabled at the class level (compile-time)  <a href="a01081.html#ad0772c09826310a52fb60d12333ed8e1">More...</a><br /></td></tr>
+<tr class="separator:ad0772c09826310a52fb60d12333ed8e1 inherit pub_static_methods_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_a01081"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_a01081')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="a01081.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01081"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a1bb139d1761eac8f2b56635c8a684b18">OutputSize</a> = 0</td></tr>
+<tr class="memdesc:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the size of the <a class="el" href="a01085.html" title="Base class for Output. ">Output</a> enumeration.  <a href="a01081.html#a1bb139d1761eac8f2b56635c8a684b18">More...</a><br /></td></tr>
+<tr class="separator:a1bb139d1761eac8f2b56635c8a684b18 inherit pub_static_attribs_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01081"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a79f6e3d77cf784915bdbfb69b5789992">OutputBaseName</a> = &quot;Outputs&quot;</td></tr>
+<tr class="memdesc:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta-information holding the name of the class to which the <a class="el" href="a01085.html" title="Base class for Output. ">Output</a> enum belong.  <a href="a01081.html#a79f6e3d77cf784915bdbfb69b5789992">More...</a><br /></td></tr>
+<tr class="separator:a79f6e3d77cf784915bdbfb69b5789992 inherit pub_static_attribs_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a01081"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a01081')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="a01081.html">tvm::graph::abstract::Outputs</a></td></tr>
+<tr class="memitem:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01081"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a23a32e4238b7900d0f3b7787bfa6232b">is_node_</a> = false</td></tr>
+<tr class="memdesc:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to avoid a dynamic cast when working on <a class="el" href="a01081.html" title="Outputs simply describe a list of Outputs in a strongly typed enum named Output. ">Outputs</a> that may be tvm::data::Node.  <a href="a01081.html#a23a32e4238b7900d0f3b7787bfa6232b">More...</a><br /></td></tr>
+<tr class="separator:a23a32e4238b7900d0f3b7787bfa6232b inherit pro_attribs_a01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represent a clock for the <a class="el" href="a01005.html">ControlProblem</a>. </p>
+<p>The current iteration of the problem can be accessed by time-dependent data to trigger computations</p>
+<p>Outputs:</p>
+<ul>
+<li>Time is moved along as the iterations go on </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a194ce7ea14c33cf236559234a3c5ce11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194ce7ea14c33cf236559234a3c5ce11">&#9670;&nbsp;</a></span>Clock() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::Clock::Clock </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Timestep of the <a class="el" href="a01005.html">ControlProblem</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a329c2aec12c5e8a1e4c503595039e12a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329c2aec12c5e8a1e4c503595039e12a">&#9670;&nbsp;</a></span>Clock() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::Clock::Clock </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00977.html">Clock</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf908fe2aa1a9d8beaf5bc3f78ab06f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf908fe2aa1a9d8beaf5bc3f78ab06f8">&#9670;&nbsp;</a></span>Clock() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::Clock::Clock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00977.html">Clock</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7068fb0ae67e5d6c9e1b6ffe1f9ce6a7">&#9670;&nbsp;</a></span>advance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::Clock::advance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advance the clock by one tick. </p>
+
+</div>
+</div>
+<a id="a76a9b9fe23b44288975f389ca2d5b991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a9b9fe23b44288975f389ca2d5b991">&#9670;&nbsp;</a></span>dt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::Clock::dt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the timestep of the problem. </p>
+
+</div>
+</div>
+<a id="a59eb68285e021fabd3c739ed0918155d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59eb68285e021fabd3c739ed0918155d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00977.html">Clock</a>&amp; tvm::Clock::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00977.html">Clock</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05585bd84ffff0c0fb1fb8d60fc4bb90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05585bd84ffff0c0fb1fb8d60fc4bb90">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00977.html">Clock</a>&amp; tvm::Clock::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00977.html">Clock</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad19e6eca17c557b70d3d9b2c37e9a9b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad19e6eca17c557b70d3d9b2c37e9a9b9">&#9670;&nbsp;</a></span>ticks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t tvm::Clock::ticks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of ticks elapsed since the start of the problem. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a456b206388ee0b1f6a64b83a34ee8c99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a456b206388ee0b1f6a64b83a34ee8c99">&#9670;&nbsp;</a></span>ControlProblem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01005.html">ControlProblem</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00977.html">Clock</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -1,6 +1,11 @@
 var a00407 =
 [
-    [ "DynamicFunction", "a01356.html", "a01356" ],
-    [ "FrictionCone", "a01364.html", "a01364" ],
-    [ "GeometricContactFunction", "a01368.html", "a01368" ]
+    [ "DataException", "a01025.html", null ],
+    [ "DuplicateVariable", "a01041.html", null ],
+    [ "Exception", "a01021.html", "a01021" ],
+    [ "FunctionException", "a01033.html", null ],
+    [ "NonExistingVariable", "a01045.html", null ],
+    [ "NotImplemented", "a01049.html", null ],
+    [ "UnimplementedOutput", "a01037.html", null ],
+    [ "UnusedOutput", "a01029.html", null ]
 ];

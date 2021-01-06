@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::task_dynamics::VelocityDamper::AnisotropicConfig Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01840.html','');});
+$(document).ready(function(){initNavTree('a01837.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,26 +88,184 @@ $(document).ready(function(){initNavTree('a01840.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01834.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::internal::RHS Member List</div>  </div>
+<div class="title">tvm::task_dynamics::VelocityDamper::AnisotropicConfig Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01840.html">tvm::utils::internal::RHS</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01840.html#a78efc92c28c7276d73d64e8f65468823">d_</a></td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01840.html#a057a959f6439cae968f0b45a1fb59d6f">RHS</a>(double d)</td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01840.html#a2967e9355eed07d152608ee2ee71b142">RHS</a>(const Eigen::MatrixBase&lt; Derived &gt; &amp;v)</td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01840.html#a9136abba7f04fa204feec7e590bf665f">toVector</a>(Eigen::DenseIndex n) const</td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01840.html#aae64a2bdbfd69ec4dbec7d18755c818b">type_</a></td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01840.html#a1bca6d304fa98feac4dcc4bdae33354f">v_</a></td><td class="entry"><a class="el" href="a01840.html">tvm::utils::internal::RHS</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A structure grouping the parameters for an anisotropic velocity damper.  
+ <a href="a01837.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/task_dynamics/VelocityDamper.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:afc7ecaa852a20424f3c041d1a4b1c242"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#afc7ecaa852a20424f3c041d1a4b1c242">AnisotropicConfig</a> (const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;di, const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;ds, const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;xsi, const std::optional&lt; <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;xsiOff=std::nullopt)</td></tr>
+<tr class="separator:afc7ecaa852a20424f3c041d1a4b1c242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5567236c24c9cd91c68a7bd5f493b8cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#a5567236c24c9cd91c68a7bd5f493b8cc">AnisotropicConfig</a> (const <a class="el" href="a01833.html">Config</a> &amp;config)</td></tr>
+<tr class="memdesc:a5567236c24c9cd91c68a7bd5f493b8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct from a non-anisotropic configuration.  <a href="#a5567236c24c9cd91c68a7bd5f493b8cc">More...</a><br /></td></tr>
+<tr class="separator:a5567236c24c9cd91c68a7bd5f493b8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6c0b8e74ea1724f4e1c295462d4bcf44"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#a6c0b8e74ea1724f4e1c295462d4bcf44">di_</a></td></tr>
+<tr class="separator:a6c0b8e74ea1724f4e1c295462d4bcf44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7550ce203f5bcfacad6843bf9c2781b5"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#a7550ce203f5bcfacad6843bf9c2781b5">ds_</a></td></tr>
+<tr class="separator:a7550ce203f5bcfacad6843bf9c2781b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41f03ac5682ff5e07c28f81c98404012"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#a41f03ac5682ff5e07c28f81c98404012">xsi_</a></td></tr>
+<tr class="separator:a41f03ac5682ff5e07c28f81c98404012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae94f23415291566e03f10004d4b89162"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01837.html#ae94f23415291566e03f10004d4b89162">xsiOff_</a></td></tr>
+<tr class="separator:ae94f23415291566e03f10004d4b89162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A structure grouping the parameters for an anisotropic velocity damper. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01829.html" title="A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tourn...">VelocityDamper</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="afc7ecaa852a20424f3c041d1a4b1c242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc7ecaa852a20424f3c041d1a4b1c242">&#9670;&nbsp;</a></span>AnisotropicConfig() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::AnisotropicConfig::AnisotropicConfig </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>di</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>ds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>xsi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>xsiOff</em> = <code>std::nullopt</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">di</td><td>interaction distance \(d_i\). We need \( d_i &gt; d_s \). </td></tr>
+    <tr><td class="paramname">ds</td><td>safety distance \(d_s\). </td></tr>
+    <tr><td class="paramname">xsi</td><td>damping parameter \(\xi \). If xsi = 0, the value will be computed automatically, otherwise, we need \(\xi &gt; 0\). In automatic mode, the value is recomputed each time the error value is at a distance to its bound lower or equal to <code></code>  with the formula \( \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k + \xi_{\mathrm{off}} \). </td></tr>
+    <tr><td class="paramname">xsiOff</td><td>offset \( \xi_{\mathrm{off}} \) used in the automatic computation of \(\xi\). Used only in the case xsi=0.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>All parameters must be of the same size </p>
+
+</div>
+</div>
+<a id="a5567236c24c9cd91c68a7bd5f493b8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5567236c24c9cd91c68a7bd5f493b8cc">&#9670;&nbsp;</a></span>AnisotropicConfig() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::task_dynamics::VelocityDamper::AnisotropicConfig::AnisotropicConfig </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01833.html">Config</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct from a non-anisotropic configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Configuration to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6c0b8e74ea1724f4e1c295462d4bcf44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0b8e74ea1724f4e1c295462d4bcf44">&#9670;&nbsp;</a></span>di_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::task_dynamics::VelocityDamper::AnisotropicConfig::di_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7550ce203f5bcfacad6843bf9c2781b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7550ce203f5bcfacad6843bf9c2781b5">&#9670;&nbsp;</a></span>ds_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::task_dynamics::VelocityDamper::AnisotropicConfig::ds_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41f03ac5682ff5e07c28f81c98404012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41f03ac5682ff5e07c28f81c98404012">&#9670;&nbsp;</a></span>xsi_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::task_dynamics::VelocityDamper::AnisotropicConfig::xsi_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae94f23415291566e03f10004d4b89162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94f23415291566e03f10004d4b89162">&#9670;&nbsp;</a></span>xsiOff_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tvm::task_dynamics::VelocityDamper::AnisotropicConfig::xsiOff_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00402.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01829.html">VelocityDamper</a></li><li class="navelem"><a class="el" href="a01837.html">AnisotropicConfig</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::LinearConstraintWithRequirements Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01320.html','');});
+$(document).ready(function(){initNavTree('a01317.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,28 +88,76 @@ $(document).ready(function(){initNavTree('a01320.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01314.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::robot::CollisionFunction::CollisionData Member List</div>  </div>
+<div class="title">tvm::LinearConstraintWithRequirements Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01320.html#a1e741fcefd17e1d6a79d329253988681">ch_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01320.html#a9268cd7f248c1f8d0c8017b29affb0a2">CollisionData</a>()</td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01320.html#a5c2d9261d2ea76934f006a6ca8b57523">CollisionData</a>(CollisionFunction &amp;fn, ConvexHullPtr ch1, ConvexHullPtr ch2)</td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01320.html#a2e8b91445cf9b2d4216c587184f65e94">normVecDist_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01320.html#a349abcf4d20a7749499c1373c05ba19f">objects_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01320.html#ac6604996fc085ac9dc1bb2e64b506900">pair_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01320.html#a8fcaf4938f07d72b549ea5de236b269c">prevNormVecDist_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01320.html#a1bbf6824eafa6b1c2f9cebb012e3b830">speedVec_</a></td><td class="entry"><a class="el" href="a01320.html">tvm::robot::CollisionFunction::CollisionData</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;tvm/LinearizedControlProblem.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a957f4ea43f845ec06c3fe6f281fb1318"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01317.html#a957f4ea43f845ec06c3fe6f281fb1318">constraint</a></td></tr>
+<tr class="separator:a957f4ea43f845ec06c3fe6f281fb1318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ed4b445a07c6ba7fac2def826db329"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01317.html#aa1ed4b445a07c6ba7fac2def826db329">requirements</a></td></tr>
+<tr class="separator:aa1ed4b445a07c6ba7fac2def826db329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c6d466ff0c8b852865a5a47936129e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01317.html#a51c6d466ff0c8b852865a5a47936129e">bound</a></td></tr>
+<tr class="separator:a51c6d466ff0c8b852865a5a47936129e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a51c6d466ff0c8b852865a5a47936129e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c6d466ff0c8b852865a5a47936129e">&#9670;&nbsp;</a></span>bound</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::LinearConstraintWithRequirements::bound</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a957f4ea43f845ec06c3fe6f281fb1318"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a957f4ea43f845ec06c3fe6f281fb1318">&#9670;&nbsp;</a></span>constraint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00395.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> tvm::LinearConstraintWithRequirements::constraint</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa1ed4b445a07c6ba7fac2def826db329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ed4b445a07c6ba7fac2def826db329">&#9670;&nbsp;</a></span>requirements</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00395.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a> tvm::LinearConstraintWithRequirements::requirements</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a01317.html">LinearConstraintWithRequirements</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

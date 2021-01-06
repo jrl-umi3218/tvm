@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: AffineExprOperators.h File Reference</title>
+<title>TVM: checkFunction.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,113 +89,36 @@ $(document).ready(function(){initNavTree('a00308.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">AffineExprOperators.h File Reference</div>  </div>
+<div class="title">checkFunction.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00296.html">tvm/utils/AffineExpr.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00002.html">tvm/api.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00029.html">tvm/defs.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html">tvm::utils::CheckOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A small structure to specify options for the checks in <a class="el" href="a00393.html">CheckGroup</a>.  <a href="a01857.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00383"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html">tvm</a></td></tr>
-<tr class="memdesc:a00383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="memitem:a00395"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html">tvm</a></td></tr>
+<tr class="memdesc:a00395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00404"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html">tvm::utils</a></td></tr>
-<tr class="memdesc:a00404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="memitem:a00417"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00417.html">tvm::utils</a></td></tr>
+<tr class="memdesc:a00417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3cdde69915328393a888c9062f24d7cd"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
-<tr class="memitem:a3cdde69915328393a888c9062f24d7cd"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a3cdde69915328393a888c9062f24d7cd">tvm::utils::operator-</a> (const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt; &amp;lin)</td></tr>
-<tr class="memdesc:a3cdde69915328393a888c9062f24d7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lin = -Lin.  <a href="a00404.html#a3cdde69915328393a888c9062f24d7cd">More...</a><br /></td></tr>
-<tr class="separator:a3cdde69915328393a888c9062f24d7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7dbf421bc45d00359a50b250ff0e9d5"><td class="memTemplParams" colspan="2">template&lt;typename CstDerived , typename... Derived&gt; </td></tr>
-<tr class="memitem:aa7dbf421bc45d00359a50b250ff0e9d5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#aa7dbf421bc45d00359a50b250ff0e9d5">tvm::utils::operator-</a> (const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived... &gt; &amp;aff)</td></tr>
-<tr class="memdesc:aa7dbf421bc45d00359a50b250ff0e9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = -Aff.  <a href="a00404.html#aa7dbf421bc45d00359a50b250ff0e9d5">More...</a><br /></td></tr>
-<tr class="separator:aa7dbf421bc45d00359a50b250ff0e9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7793f96378dc79eab2695c67494b143"><td class="memTemplParams" colspan="2">template&lt;typename MultDerived , typename CstDerived , typename... Derived&gt; </td></tr>
-<tr class="memitem:af7793f96378dc79eab2695c67494b143"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#af7793f96378dc79eab2695c67494b143">tvm::utils::operator*</a> (const MultDerived &amp;m, const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived... &gt; &amp;aff)</td></tr>
-<tr class="memdesc:af7793f96378dc79eab2695c67494b143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = m*Aff, where <code>m</code> is any type accepted by <a class="el" href="a00415.html">Eigen</a> for pre-multiplication (in particular scalar or matrix expression).  <a href="a00404.html#af7793f96378dc79eab2695c67494b143">More...</a><br /></td></tr>
-<tr class="separator:af7793f96378dc79eab2695c67494b143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac264bd8dc4ebddfb87acafbe7e8f4bf3"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename CstDerived &gt; </td></tr>
-<tr class="memitem:ac264bd8dc4ebddfb87acafbe7e8f4bf3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#ac264bd8dc4ebddfb87acafbe7e8f4bf3">tvm::utils::operator+</a> (const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt; &amp;lin, const Eigen::MatrixBase&lt; CstDerived &gt; &amp;cst)</td></tr>
-<tr class="memdesc:ac264bd8dc4ebddfb87acafbe7e8f4bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Lin + b.  <a href="a00404.html#ac264bd8dc4ebddfb87acafbe7e8f4bf3">More...</a><br /></td></tr>
-<tr class="separator:ac264bd8dc4ebddfb87acafbe7e8f4bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d8c5e4d1ad1590d9b306a58ae47ec2b"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename CstDerived &gt; </td></tr>
-<tr class="memitem:a9d8c5e4d1ad1590d9b306a58ae47ec2b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a9d8c5e4d1ad1590d9b306a58ae47ec2b">tvm::utils::operator+</a> (const Eigen::MatrixBase&lt; CstDerived &gt; &amp;cst, const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt; &amp;lin)</td></tr>
-<tr class="memdesc:a9d8c5e4d1ad1590d9b306a58ae47ec2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = b + Lin.  <a href="a00404.html#a9d8c5e4d1ad1590d9b306a58ae47ec2b">More...</a><br /></td></tr>
-<tr class="separator:a9d8c5e4d1ad1590d9b306a58ae47ec2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13c4782f9ba59e1f075de1618a925053"><td class="memTemplParams" colspan="2">template&lt;typename LhsDerived , typename RhsDerived &gt; </td></tr>
-<tr class="memitem:a13c4782f9ba59e1f075de1618a925053"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; <a class="el" href="a01816.html">tvm::utils::internal::NoConstant</a>, LhsDerived, RhsDerived &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a13c4782f9ba59e1f075de1618a925053">tvm::utils::operator+</a> (const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; LhsDerived &gt; &amp;lhs, const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; RhsDerived &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:a13c4782f9ba59e1f075de1618a925053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Lin + Lin.  <a href="a00404.html#a13c4782f9ba59e1f075de1618a925053">More...</a><br /></td></tr>
-<tr class="separator:a13c4782f9ba59e1f075de1618a925053"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a083caf4687183af1d9a906e7466956f2"><td class="memTemplParams" colspan="2">template&lt;typename RhsDerived , typename CstDerived , typename... LhsDerived&gt; </td></tr>
-<tr class="memitem:a083caf4687183af1d9a906e7466956f2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, LhsDerived..., RhsDerived &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a083caf4687183af1d9a906e7466956f2">tvm::utils::operator+</a> (const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, LhsDerived... &gt; &amp;lhs, const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; RhsDerived &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:a083caf4687183af1d9a906e7466956f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Aff + Lin.  <a href="a00404.html#a083caf4687183af1d9a906e7466956f2">More...</a><br /></td></tr>
-<tr class="separator:a083caf4687183af1d9a906e7466956f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e7802dfd7f099b812212d4ef6e3962"><td class="memTemplParams" colspan="2">template&lt;typename LhsDerived , typename CstDerived , typename... RhsDerived&gt; </td></tr>
-<tr class="memitem:af5e7802dfd7f099b812212d4ef6e3962"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, LhsDerived, RhsDerived... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#af5e7802dfd7f099b812212d4ef6e3962">tvm::utils::operator+</a> (const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; LhsDerived &gt; &amp;lhs, const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, RhsDerived... &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:af5e7802dfd7f099b812212d4ef6e3962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Lin + Aff.  <a href="a00404.html#af5e7802dfd7f099b812212d4ef6e3962">More...</a><br /></td></tr>
-<tr class="separator:af5e7802dfd7f099b812212d4ef6e3962"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc5fd31d42639a483c599c87db2cea46"><td class="memTemplParams" colspan="2">template&lt;typename RhsDerived , typename CstDerived , typename... LhsDerived&gt; </td></tr>
-<tr class="memitem:afc5fd31d42639a483c599c87db2cea46"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; <a class="el" href="a00414.html#a9405c2755b4621868748e6ef57646a15">tvm::utils::internal::AddConstantsRetType</a>&lt; CstDerived, RhsDerived &gt;, LhsDerived... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#afc5fd31d42639a483c599c87db2cea46">tvm::utils::operator+</a> (const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, LhsDerived... &gt; &amp;lhs, const Eigen::MatrixBase&lt; RhsDerived &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:afc5fd31d42639a483c599c87db2cea46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Aff + b.  <a href="a00404.html#afc5fd31d42639a483c599c87db2cea46">More...</a><br /></td></tr>
-<tr class="separator:afc5fd31d42639a483c599c87db2cea46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83c605bf346d7252ee8de2d284685a15"><td class="memTemplParams" colspan="2">template&lt;typename LhsDerived , typename CstDerived , typename... RhsDerived&gt; </td></tr>
-<tr class="memitem:a83c605bf346d7252ee8de2d284685a15"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; <a class="el" href="a00414.html#a9405c2755b4621868748e6ef57646a15">tvm::utils::internal::AddConstantsRetType</a>&lt; LhsDerived, CstDerived &gt;, RhsDerived... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a83c605bf346d7252ee8de2d284685a15">tvm::utils::operator+</a> (const Eigen::MatrixBase&lt; LhsDerived &gt; &amp;lhs, const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, RhsDerived... &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:a83c605bf346d7252ee8de2d284685a15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = b + Aff.  <a href="a00404.html#a83c605bf346d7252ee8de2d284685a15">More...</a><br /></td></tr>
-<tr class="separator:a83c605bf346d7252ee8de2d284685a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f63668f0e36554ed075301d5022d3ce"><td class="memTemplParams" colspan="2">template&lt;typename LCstDerived , typename RCstDerived , typename... LhsDerived, typename... RhsDerived&gt; </td></tr>
-<tr class="memitem:a2f63668f0e36554ed075301d5022d3ce"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; <a class="el" href="a00414.html#a9405c2755b4621868748e6ef57646a15">tvm::utils::internal::AddConstantsRetType</a>&lt; LCstDerived, RCstDerived &gt;, LhsDerived..., RhsDerived... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a2f63668f0e36554ed075301d5022d3ce">tvm::utils::operator+</a> (const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; LCstDerived, LhsDerived... &gt; &amp;lhs, const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; RCstDerived, RhsDerived... &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:a2f63668f0e36554ed075301d5022d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Aff + Aff.  <a href="a00404.html#a2f63668f0e36554ed075301d5022d3ce">More...</a><br /></td></tr>
-<tr class="separator:a2f63668f0e36554ed075301d5022d3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41553ea968b600c4399caa109bca5fd9"><td class="memTemplParams" colspan="2">template&lt;typename MultType , typename Derived &gt; </td></tr>
-<tr class="memitem:a41553ea968b600c4399caa109bca5fd9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a41553ea968b600c4399caa109bca5fd9">tvm::utils::operator*</a> (const MultType &amp;m, const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt; &amp;lin)</td></tr>
-<tr class="memdesc:a41553ea968b600c4399caa109bca5fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lin = m * Lin.  <a href="a00404.html#a41553ea968b600c4399caa109bca5fd9">More...</a><br /></td></tr>
-<tr class="separator:a41553ea968b600c4399caa109bca5fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a3a0beff3febe8fdf989cbbc1dbd603"><td class="memTemplParams" colspan="2">template&lt;typename Derived , typename SubType , typename tvm::internal::enable_for_templated_t&lt; SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a2a3a0beff3febe8fdf989cbbc1dbd603"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#a2a3a0beff3febe8fdf989cbbc1dbd603">tvm::utils::operator-</a> (const <a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt; &amp;lin, const SubType &amp;rhs)</td></tr>
-<tr class="memdesc:a2a3a0beff3febe8fdf989cbbc1dbd603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Lin - a.  <a href="a00404.html#a2a3a0beff3febe8fdf989cbbc1dbd603">More...</a><br /></td></tr>
-<tr class="separator:a2a3a0beff3febe8fdf989cbbc1dbd603"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0af960f7e734e957a808404a4755a8a"><td class="memTemplParams" colspan="2">template&lt;typename CstDerived , typename SubType , typename... Derived, typename tvm::internal::enable_for_templated_t&lt; SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:ac0af960f7e734e957a808404a4755a8a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00404.html#ac0af960f7e734e957a808404a4755a8a">tvm::utils::operator-</a> (const <a class="el" href="a01804.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived... &gt; &amp;aff, const SubType &amp;rhs)</td></tr>
-<tr class="memdesc:ac0af960f7e734e957a808404a4755a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = Aff - a.  <a href="a00404.html#ac0af960f7e734e957a808404a4755a8a">More...</a><br /></td></tr>
-<tr class="separator:ac0af960f7e734e957a808404a4755a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7cc76834903afa6ef272c4935ee2837"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
-<tr class="memitem:ad7cc76834903afa6ef272c4935ee2837"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#ad7cc76834903afa6ef272c4935ee2837">tvm::operator*</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;matrix, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:ad7cc76834903afa6ef272c4935ee2837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lin = M * x.  <a href="a00383.html#ad7cc76834903afa6ef272c4935ee2837">More...</a><br /></td></tr>
-<tr class="separator:ad7cc76834903afa6ef272c4935ee2837"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd7ff9789bcf46ce107800db44a92281"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; <a class="el" href="a00414.html#a3285e6576eeb8aea8ef9aad32633b961">tvm::utils::internal::MinusIdentityType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#acd7ff9789bcf46ce107800db44a92281">tvm::operator-</a> (const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:acd7ff9789bcf46ce107800db44a92281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lin = -var.  <a href="a00383.html#acd7ff9789bcf46ce107800db44a92281">More...</a><br /></td></tr>
-<tr class="separator:acd7ff9789bcf46ce107800db44a92281"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f87789a1545f7072d62b29577bcd884"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01800.html">tvm::utils::LinearExpr</a>&lt; <a class="el" href="a00414.html#a972d81ac8de59a505156ca04e184f2ec">tvm::utils::internal::MultIdentityType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#a8f87789a1545f7072d62b29577bcd884">tvm::operator*</a> (double s, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:a8f87789a1545f7072d62b29577bcd884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lin = scalar * var.  <a href="a00383.html#a8f87789a1545f7072d62b29577bcd884">More...</a><br /></td></tr>
-<tr class="separator:a8f87789a1545f7072d62b29577bcd884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1e2b4572cd9f6ec303e172db9f16499"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#af1e2b4572cd9f6ec303e172db9f16499">tvm::operator+</a> (const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;u, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:af1e2b4572cd9f6ec303e172db9f16499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = var + var.  <a href="a00383.html#af1e2b4572cd9f6ec303e172db9f16499">More...</a><br /></td></tr>
-<tr class="separator:af1e2b4572cd9f6ec303e172db9f16499"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4559794ded869fd19fcedccbf6a16a5"><td class="memTemplParams" colspan="2">template&lt;typename AddType , typename tvm::internal::enable_for_templated_t&lt; AddType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:ae4559794ded869fd19fcedccbf6a16a5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#ae4559794ded869fd19fcedccbf6a16a5">tvm::operator+</a> (const AddType &amp;a, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:ae4559794ded869fd19fcedccbf6a16a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = a + var.  <a href="a00383.html#ae4559794ded869fd19fcedccbf6a16a5">More...</a><br /></td></tr>
-<tr class="separator:ae4559794ded869fd19fcedccbf6a16a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e377f89ef6354c21a59dcd711178409"><td class="memTemplParams" colspan="2">template&lt;typename AddType , typename tvm::internal::enable_for_templated_t&lt; AddType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a0e377f89ef6354c21a59dcd711178409"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#a0e377f89ef6354c21a59dcd711178409">tvm::operator+</a> (const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v, const AddType &amp;a)</td></tr>
-<tr class="memdesc:a0e377f89ef6354c21a59dcd711178409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = var + a.  <a href="a00383.html#a0e377f89ef6354c21a59dcd711178409">More...</a><br /></td></tr>
-<tr class="separator:a0e377f89ef6354c21a59dcd711178409"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cb244525d8de41c8c92a4dbe755c7a0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#a6cb244525d8de41c8c92a4dbe755c7a0">tvm::operator-</a> (const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;u, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:a6cb244525d8de41c8c92a4dbe755c7a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = var - var.  <a href="a00383.html#a6cb244525d8de41c8c92a4dbe755c7a0">More...</a><br /></td></tr>
-<tr class="separator:a6cb244525d8de41c8c92a4dbe755c7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac07d466392acf028d8ac758a87250192"><td class="memTemplParams" colspan="2">template&lt;typename SubType , typename tvm::internal::enable_for_templated_t&lt; SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:ac07d466392acf028d8ac758a87250192"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#ac07d466392acf028d8ac758a87250192">tvm::operator-</a> (const SubType &amp;a, const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
-<tr class="memdesc:ac07d466392acf028d8ac758a87250192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = vec - var.  <a href="a00383.html#ac07d466392acf028d8ac758a87250192">More...</a><br /></td></tr>
-<tr class="separator:ac07d466392acf028d8ac758a87250192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memTemplParams" colspan="2">template&lt;typename SubType , typename tvm::internal::enable_for_templated_t&lt; SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
-<tr class="memitem:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#ad4cd68900b5ad86ffc5d47983bf1ed1f">tvm::operator-</a> (const <a class="el" href="a00383.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v, const SubType &amp;a)</td></tr>
-<tr class="memdesc:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aff = var - vec.  <a href="a00383.html#ad4cd68900b5ad86ffc5d47983bf1ed1f">More...</a><br /></td></tr>
-<tr class="separator:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8bb02aa8295218894c58053afefb1098"><td class="memItemLeft" align="right" valign="top">bool <a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#ga8bb02aa8295218894c58053afefb1098">tvm::utils::checkJacobian</a> (FunctionPtr f, CheckOptions opt=CheckOptions())</td></tr>
+<tr class="memdesc:ga8bb02aa8295218894c58053afefb1098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the jacobian matrices of function <em>f</em> by forward finite differences.  <a href="a00393.html#ga8bb02aa8295218894c58053afefb1098">More...</a><br /></td></tr>
+<tr class="separator:ga8bb02aa8295218894c58053afefb1098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -203,8 +126,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="dir_0237412ea2d876d633a9fb0edc0cbd10.html">internal</a></li><li class="navelem"><a class="el" href="a00308.html">AffineExprOperators.h</a></li>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_02c2fac6d932f25932ff780d6d7745ad.html">utils</a></li><li class="navelem"><a class="el" href="a00308.html">checkFunction.h</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

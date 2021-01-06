@@ -1,4 +1,6 @@
 var a00413 =
 [
-    [ "SolverEvents", "a01656.html", "a01656" ]
+    [ "abstract", "a00414.html", "a00414" ],
+    [ "internal", "a00415.html", "a00415" ],
+    [ "Substitution", "a01225.html", "a01225" ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01784.html','');});
+$(document).ready(function(){initNavTree('a01781.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,31 +88,293 @@ $(document).ready(function(){initNavTree('a01784.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a01778.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::task_dynamics::VelocityDamper Member List</div>  </div>
+<div class="title">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01712.html#a213c35ee9a1eaa3f5c47fd2a54d1e64e">impl</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const</td><td class="entry"><a class="el" href="a01712.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01784.html#a588e6cbd4fff5de6e5c021184b2fbb48">impl_</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const override</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01784.html#adfdd2313d0000fdedfa770d88cb8e9d0">impl_</a>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs, Args &amp;&amp;... args) const</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01712.html#adde099a2989ba116db9c6a3ff41b895f">order</a>() const</td><td class="entry"><a class="el" href="a01712.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01784.html#a6cb34573a9cce06b9407331472c9b0ff">order_</a>() const override</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01784.html#ae15e7f1b8b9ce3374fa40dee84e83da9">VelocityDamper</a>(const Config &amp;config, double big=constant::big_number)</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01784.html#ad04070d2efacde00713659e190d6539e">VelocityDamper</a>(const AnisotropicConfig &amp;config, double big=constant::big_number)</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01784.html#a04482c838c55d714c8177d617f00be4b">VelocityDamper</a>(double dt, const Config &amp;config, double big=constant::big_number)</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01784.html#a00a13d5ce4c903788b60da51ab416565">VelocityDamper</a>(double dt, const AnisotropicConfig &amp;config, double big=constant::big_number)</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01712.html#ad3ac366f863378eb52e6fe07d767eedb">~TaskDynamics</a>()=default</td><td class="entry"><a class="el" href="a01712.html">tvm::task_dynamics::abstract::TaskDynamics</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01784.html#a325110a772ec18ce66cc2d8a2db2b379">~VelocityDamper</a>() override=default</td><td class="entry"><a class="el" href="a01784.html">tvm::task_dynamics::VelocityDamper</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_ff^{(k)*} = e^{(k)*} - ff \), \( ff \) is data provided by another TVM node of the same size.  
+ <a href="a01781.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/task_dynamics/FeedForward.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01781.png" usemap="#tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E_map" alt=""/>
+  <map id="tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E_map" name="tvm::task_5Fdynamics::FeedForward_3C_20TD_2C_20TDImpl_20_3E_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01785.html">Impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aa4f7695fb7b4573e47c94c977f12f8cb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#aa4f7695fb7b4573e47c94c977f12f8cb">getFeedForwardT</a> = std::function&lt; const Eigen::VectorXd &amp;()&gt;</td></tr>
+<tr class="separator:aa4f7695fb7b4573e47c94c977f12f8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6559e381789b3a15e16c77f7fecc7af4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#a6559e381789b3a15e16c77f7fecc7af4">addProviderDependencyT</a> = std::function&lt; void(<a class="el" href="a01785.html">Impl</a> &amp;)&gt;</td></tr>
+<tr class="separator:a6559e381789b3a15e16c77f7fecc7af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae5d30f49f50e6f11fa021d28ae7885d4"><td class="memTemplParams" colspan="2">template&lt;class FFProvider , class FFSignal , typename... Args&gt; </td></tr>
+<tr class="memitem:ae5d30f49f50e6f11fa021d28ae7885d4"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01781.html#ae5d30f49f50e6f11fa021d28ae7885d4">FeedForward</a> (std::shared_ptr&lt; FFProvider &gt; provider, const Eigen::VectorXd &amp;(FFProvider::*method)() const, FFSignal signal, Args &amp;&amp;... args)</td></tr>
+<tr class="separator:ae5d30f49f50e6f11fa021d28ae7885d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f4bba041002d7a1509cc721d42a704"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#a16f4bba041002d7a1509cc721d42a704">~FeedForward</a> () override=default</td></tr>
+<tr class="separator:a16f4bba041002d7a1509cc721d42a704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:abda16526050397d7ef14bc4a8371a942"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01761.html">abstract::TaskDynamicsImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#abda16526050397d7ef14bc4a8371a942">impl_</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const Eigen::VectorXd &amp;rhs) const override</td></tr>
+<tr class="separator:abda16526050397d7ef14bc4a8371a942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a6fdf46188bbae8c4829713a99318636f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01781.html#aa4f7695fb7b4573e47c94c977f12f8cb">getFeedForwardT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#a6fdf46188bbae8c4829713a99318636f">feedForward_</a></td></tr>
+<tr class="separator:a6fdf46188bbae8c4829713a99318636f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366d738cb0a5b82dfa14403686041e49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01781.html#a6559e381789b3a15e16c77f7fecc7af4">addProviderDependencyT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01781.html#a366d738cb0a5b82dfa14403686041e49">addProviderDependency_</a></td></tr>
+<tr class="separator:a366d738cb0a5b82dfa14403686041e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class TD, class TDImpl = typename TD::Impl&gt;<br />
+class tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;</h3>
+
+<p>Given a task dynamics value \( e^{(k)*} \), compute the new value \( e_ff^{(k)*} = e^{(k)*} - ff \), \( ff \) is data provided by another TVM node of the same size. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a6559e381789b3a15e16c77f7fecc7af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6559e381789b3a15e16c77f7fecc7af4">&#9670;&nbsp;</a></span>addProviderDependencyT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01781.html#a6559e381789b3a15e16c77f7fecc7af4">addProviderDependencyT</a> =  std::function&lt;void(<a class="el" href="a01785.html">Impl</a> &amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa4f7695fb7b4573e47c94c977f12f8cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4f7695fb7b4573e47c94c977f12f8cb">&#9670;&nbsp;</a></span>getFeedForwardT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01781.html#aa4f7695fb7b4573e47c94c977f12f8cb">getFeedForwardT</a> =  std::function&lt;const Eigen::VectorXd &amp;()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae5d30f49f50e6f11fa021d28ae7885d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5d30f49f50e6f11fa021d28ae7885d4">&#9670;&nbsp;</a></span>FeedForward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<div class="memtemplate">
+template&lt;class FFProvider , class FFSignal , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::<a class="el" href="a01781.html">FeedForward</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; FFProvider &gt;&#160;</td>
+          <td class="paramname"><em>provider</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;(FFProvider::*)() const&#160;</td>
+          <td class="paramname"><em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FFSignal&#160;</td>
+          <td class="paramname"><em>signal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a01781.html#a366d738cb0a5b82dfa14403686041e49">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::addProviderDependency_</a>, <a class="el" href="a01781.html#a6fdf46188bbae8c4829713a99318636f">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::feedForward_</a>, and <a class="el" href="a01781.html#a16f4bba041002d7a1509cc721d42a704">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::~FeedForward()</a>.</p>
+
+</div>
+</div>
+<a id="a16f4bba041002d7a1509cc721d42a704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16f4bba041002d7a1509cc721d42a704">&#9670;&nbsp;</a></span>~FeedForward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::~<a class="el" href="a01781.html">FeedForward</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01781.html#ae5d30f49f50e6f11fa021d28ae7885d4">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::FeedForward()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abda16526050397d7ef14bc4a8371a942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda16526050397d7ef14bc4a8371a942">&#9670;&nbsp;</a></span>impl_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01761.html">abstract::TaskDynamicsImpl</a>&gt; <a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::impl_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a01781.html#a366d738cb0a5b82dfa14403686041e49">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::addProviderDependency_</a>, and <a class="el" href="a00275.html#a78f5f030eca0b25436ca268039666277">COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a366d738cb0a5b82dfa14403686041e49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a366d738cb0a5b82dfa14403686041e49">&#9670;&nbsp;</a></span>addProviderDependency_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01781.html#a6559e381789b3a15e16c77f7fecc7af4">addProviderDependencyT</a> <a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::addProviderDependency_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01781.html#ae5d30f49f50e6f11fa021d28ae7885d4">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::FeedForward()</a>, and <a class="el" href="a01781.html#abda16526050397d7ef14bc4a8371a942">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::impl_()</a>.</p>
+
+</div>
+</div>
+<a id="a6fdf46188bbae8c4829713a99318636f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fdf46188bbae8c4829713a99318636f">&#9670;&nbsp;</a></span>feedForward_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TD , class TDImpl  = typename TD::Impl&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01781.html#aa4f7695fb7b4573e47c94c977f12f8cb">getFeedForwardT</a> <a class="el" href="a01781.html">tvm::task_dynamics::FeedForward</a>&lt; TD, TDImpl &gt;::feedForward_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01781.html#ae5d30f49f50e6f11fa021d28ae7885d4">tvm::task_dynamics::FeedForward&lt; TD, TDImpl &gt;::FeedForward()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00402.html">task_dynamics</a></li><li class="navelem"><a class="el" href="a01781.html">FeedForward</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

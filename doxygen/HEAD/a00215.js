@@ -1,9 +1,8 @@
 var a00215 =
 [
-    [ "canBeUsedAsBound", "a00215.html#a16bd7d36099635cbe690239eb478f444", null ],
-    [ "canBeUsedAsBound", "a00215.html#ab88f192fa87a659f163f477ab3d3709f", null ],
-    [ "getComputationData", "a00215.html#a76cdca50f833f679b0c9c38f9d5aaf9f", null ],
-    [ "isBound", "a00215.html#a553d86328eb4c4d9e39d73b777004fa0", null ],
-    [ "isBound", "a00215.html#a0074f66a98a9b56746d3692c15c38076", null ],
-    [ "isBound", "a00215.html#a5f5ff77617e1734ebeab2f9624e60494", null ]
+    [ "AssignmentTarget", "a01457.html", "a01457" ],
+    [ "TargetType", "a00215.html#abe11da65d6ccf4412671e16317eb1f3b", [
+      [ "Linear", "a00215.html#abe11da65d6ccf4412671e16317eb1f3ba32a843da6ea40ab3b17a3421ccdf671b", null ],
+      [ "Quadratic", "a00215.html#abe11da65d6ccf4412671e16317eb1f3ba8b2972385ed28d0e199ae2985d6fea4c", null ]
+    ] ]
 ];

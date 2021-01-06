@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::solver::abstract::LeastSquareSolver::MarkedAssignment Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01688.html','');});
+$(document).ready(function(){initNavTree('a01685.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,25 +88,96 @@ $(document).ready(function(){initNavTree('a01688.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01682.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::QLDLSSolverFactory Member List</div>  </div>
+<div class="title">tvm::solver::abstract::LeastSquareSolver::MarkedAssignment Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01688.html">tvm::solver::QLDLSSolverFactory</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01688.html#a54daecdbd121b208dad45d5c838865ab">clone</a>() const override</td><td class="entry"><a class="el" href="a01688.html">tvm::solver::QLDLSSolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01688.html#afaf1697b4e884815baa656f5a3e0e4d0">createSolver</a>() const override</td><td class="entry"><a class="el" href="a01688.html">tvm::solver::QLDLSSolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01644.html#a16f20ada8e2be7db1dfe20d6d19d27a2">LSSolverFactory</a>(const std::string &amp;solverName)</td><td class="entry"><a class="el" href="a01644.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01688.html#ac0e503764cb83c5e285d14a3437c675b">QLDLSSolverFactory</a>(const QLDLSSolverOptions &amp;options={})</td><td class="entry"><a class="el" href="a01688.html">tvm::solver::QLDLSSolverFactory</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01644.html#aa7253c409c8125f7806cac17adffb8b5">~LSSolverFactory</a>()=default</td><td class="entry"><a class="el" href="a01644.html">tvm::solver::abstract::LSSolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;tvm/solver/abstract/LeastSquareSolver.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01685.html#ad77852e7bd7c600a48125d0fb3ddcaa2">MarkedAssignment</a> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a2a520b4d1b68cf8142e5ef7e5b3794f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01445.html">scheme::internal::Assignment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a2a520b4d1b68cf8142e5ef7e5b3794f2">assignment</a></td></tr>
+<tr class="separator:a2a520b4d1b68cf8142e5ef7e5b3794f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0341e83419b89abcb675e56cf7b9c76"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#ad0341e83419b89abcb675e56cf7b9c76">markedForRemoval</a></td></tr>
+<tr class="separator:ad0341e83419b89abcb675e56cf7b9c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad77852e7bd7c600a48125d0fb3ddcaa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad77852e7bd7c600a48125d0fb3ddcaa2">&#9670;&nbsp;</a></span>MarkedAssignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::MarkedAssignment </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2a520b4d1b68cf8142e5ef7e5b3794f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a520b4d1b68cf8142e5ef7e5b3794f2">&#9670;&nbsp;</a></span>assignment</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01445.html">scheme::internal::Assignment</a> tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::assignment</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0341e83419b89abcb675e56cf7b9c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0341e83419b89abcb675e56cf7b9c76">&#9670;&nbsp;</a></span>markedForRemoval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::markedForRemoval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00424.html">solver</a></li><li class="navelem"><a class="el" href="a00425.html">abstract</a></li><li class="navelem"><a class="el" href="a01677.html">LeastSquareSolver</a></li><li class="navelem"><a class="el" href="a01685.html">MarkedAssignment</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

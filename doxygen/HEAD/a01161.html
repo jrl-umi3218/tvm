@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::internal::Log::Input Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01164.html','');});
+$(document).ready(function(){initNavTree('a01161.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,33 +88,162 @@ $(document).ready(function(){initNavTree('a01164.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01158.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Logger Member List</div>  </div>
+<div class="title">tvm::graph::internal::Log::Input Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01164.html">tvm::graph::internal::Logger</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#aedefca285a6f19617292c4f2372a5852">addDirectDependency</a>(U *node, EnumO o, S *source, EnumI i)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#aacb1106daf43100ddd139cb690359fef">addGraphOutput</a>(CallGraph *g, Inputs *node)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#a5d1845206da4abbf6b4d6ae9863e0915">addInput</a>(Inputs *node, S *source, EnumO i)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#a7839f87a2b90316995ecab90b6ac70f7">addInputDependency</a>(U *node, EnumU u, S *source, EnumO i)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#abf7ca127b7d13c5a2aa4130caf83d0db">addInternalDependency</a>(U *node, EnumU1 uDependent, EnumU2 u)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#a0956c344448da3457dc6b3d241297850">addOutputDependency</a>(U *node, EnumO o, EnumU u)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#a2bb07bc3e52cbcfba7511d41630e9638">disable</a>()</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#a1ae82103028ce8eb3ab7216d56f99724">enable</a>()</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#a6e4c749af0d1b14cb19f0e822bb4f0a0">log</a>() const</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#a2cc181c60124a1d9d60b3ddd9e8b7b6f">logCall</a>(U *node, void(U::*fn)())</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#a6d18c4d67dcbfc474c12a6600c7d2199">logger</a>()</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01164.html#a45e47a539aaebf9745f3cfa726b7d877">registerType</a>(U *node)</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01164.html#a2526684e619e81f6be23498f8dc37652">registerUpdate</a>(U *node, EnumT u, void(U::*fn)())</td><td class="entry"><a class="el" href="a01164.html">tvm::graph::internal::Logger</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Description of an input.  
+ <a href="a01161.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5de0f643eed6c526cdd0ccbd753fe8c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a5de0f643eed6c526cdd0ccbd753fe8c0">operator&lt;</a> (const <a class="el" href="a01161.html">Input</a> &amp;other) const</td></tr>
+<tr class="separator:a5de0f643eed6c526cdd0ccbd753fe8c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4893cc1681a6d42bcb64597920da07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a6a4893cc1681a6d42bcb64597920da07">operator==</a> (const <a class="el" href="a01161.html">Input</a> &amp;other) const</td></tr>
+<tr class="separator:a6a4893cc1681a6d42bcb64597920da07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a826f6863c4336e5f74f82b16177626ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01145.html">EnumValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a826f6863c4336e5f74f82b16177626ba">id</a></td></tr>
+<tr class="separator:a826f6863c4336e5f74f82b16177626ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a440b74e37ed387a629d31eec2ca86b2c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a440b74e37ed387a629d31eec2ca86b2c">name</a></td></tr>
+<tr class="separator:a440b74e37ed387a629d31eec2ca86b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e163c6903a4356e4ad0622e06b2eae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01149.html">Pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a5e163c6903a4356e4ad0622e06b2eae7">source</a></td></tr>
+<tr class="separator:a5e163c6903a4356e4ad0622e06b2eae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050da3276f11065b65b36031a1b0412e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01149.html">Pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html#a050da3276f11065b65b36031a1b0412e">owner</a></td></tr>
+<tr class="separator:a050da3276f11065b65b36031a1b0412e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Description of an input. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5de0f643eed6c526cdd0ccbd753fe8c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de0f643eed6c526cdd0ccbd753fe8c0">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::Input::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01161.html">Input</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00412.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
+
+</div>
+</div>
+<a id="a6a4893cc1681a6d42bcb64597920da07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4893cc1681a6d42bcb64597920da07">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::Input::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01161.html">Input</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00412.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a826f6863c4336e5f74f82b16177626ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a826f6863c4336e5f74f82b16177626ba">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01145.html">EnumValue</a> tvm::graph::internal::Log::Input::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a440b74e37ed387a629d31eec2ca86b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a440b74e37ed387a629d31eec2ca86b2c">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tvm::graph::internal::Log::Input::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a050da3276f11065b65b36031a1b0412e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a050da3276f11065b65b36031a1b0412e">&#9670;&nbsp;</a></span>owner</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01149.html">Pointer</a> tvm::graph::internal::Log::Input::owner</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e163c6903a4356e4ad0622e06b2eae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e163c6903a4356e4ad0622e06b2eae7">&#9670;&nbsp;</a></span>source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01149.html">Pointer</a> tvm::graph::internal::Log::Input::source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a00412.html">internal</a></li><li class="navelem"><a class="el" href="a01141.html">Log</a></li><li class="navelem"><a class="el" href="a01161.html">Input</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

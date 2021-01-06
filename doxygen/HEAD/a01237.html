@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::internal::FirstOrderProvider::slice_linear Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01240.html','');});
+$(document).ready(function(){initNavTree('a01237.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,29 +88,141 @@ $(document).ready(function(){initNavTree('a01240.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01234.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::internal::ObjectWithProperties&lt; MatrixType &gt; Member List</div>  </div>
+<div class="title">tvm::internal::FirstOrderProvider::slice_linear Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01240.html#a4f2abffcce0224a9221278dfde10a909">assignKeepProperties</a>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01240.html#a85dd27100ca7c433b7ce60e0281074d0">keepProperties</a>(bool keep)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01240.html#a0fae047f1fbc44c9f258474be34a08eb">ObjectWithProperties</a>()</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01240.html#a8b6601ad497f442c55ecca18b7a2f10c">ObjectWithProperties</a>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01240.html#a10bf9c00cabc3b99acaca4b974055769">ObjectWithProperties</a>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other, const MatrixProperties &amp;p)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01240.html#a4098ce8f031df26663d856cdba243496">ObjectWithProperties</a>(const ObjectWithProperties&lt; OtherType &gt; &amp;other)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01240.html#a3bffde23ae5cd83bbde8f4fb2687a18d">operator=</a>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01240.html#a139b3f8ae5d4bdfa9c46ef76b76dcbec">properties</a>() const</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01240.html#a9c63448b13cca6824a9bbd4b7908394b">properties</a>(const MatrixProperties &amp;p)</td><td class="entry"><a class="el" href="a01240.html">tvm::internal::ObjectWithProperties&lt; MatrixType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;tvm/internal/FirstOrderProvider.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a992de3e6007e59ef80c880c2415a0c66"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html#a992de3e6007e59ef80c880c2415a0c66">Type</a> = bool</td></tr>
+<tr class="separator:a992de3e6007e59ef80c880c2415a0c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa24604b2c7c70f8378db146ba1ba5d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html#a7fa24604b2c7c70f8378db146ba1ba5d">ConstType</a> = bool</td></tr>
+<tr class="separator:a7fa24604b2c7c70f8378db146ba1ba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4a15e5509439a07f5bacce80aaf09a11"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html#a4a15e5509439a07f5bacce80aaf09a11">get</a> (bool &amp;b, const <a class="el" href="a01325.html">Range</a> &amp;)</td></tr>
+<tr class="separator:a4a15e5509439a07f5bacce80aaf09a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4c143492a2c839b7ccce0220daa1051"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html#ab4c143492a2c839b7ccce0220daa1051">get</a> (const bool &amp;b, const <a class="el" href="a01325.html">Range</a> &amp;)</td></tr>
+<tr class="separator:ab4c143492a2c839b7ccce0220daa1051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a7fa24604b2c7c70f8378db146ba1ba5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fa24604b2c7c70f8378db146ba1ba5d">&#9670;&nbsp;</a></span>ConstType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01237.html#a7fa24604b2c7c70f8378db146ba1ba5d">tvm::internal::FirstOrderProvider::slice_linear::ConstType</a> =  bool</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a992de3e6007e59ef80c880c2415a0c66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a992de3e6007e59ef80c880c2415a0c66">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01237.html#a992de3e6007e59ef80c880c2415a0c66">tvm::internal::FirstOrderProvider::slice_linear::Type</a> =  bool</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4a15e5509439a07f5bacce80aaf09a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a15e5509439a07f5bacce80aaf09a11">&#9670;&nbsp;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool tvm::internal::FirstOrderProvider::slice_linear::get </td>
+          <td>(</td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01325.html">Range</a> &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4c143492a2c839b7ccce0220daa1051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4c143492a2c839b7ccce0220daa1051">&#9670;&nbsp;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool tvm::internal::FirstOrderProvider::slice_linear::get </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01325.html">Range</a> &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00416.html">internal</a></li><li class="navelem"><a class="el" href="a01233.html">FirstOrderProvider</a></li><li class="navelem"><a class="el" href="a01237.html">slice_linear</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

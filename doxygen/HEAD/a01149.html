@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::internal::Log::Pointer Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01152.html','');});
+$(document).ready(function(){initNavTree('a01149.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,25 +88,206 @@ $(document).ready(function(){initNavTree('a01152.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01146.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Log::OutputDependency Member List</div>  </div>
+<div class="title">tvm::graph::internal::Log::Pointer Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01152.html#af503b0dc02469115a0b2a80744e9e366">operator&lt;</a>(const OutputDependency &amp;other) const</td><td class="entry"><a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01152.html#abe8dbfc9d736c036bcfb5086d26c5897">operator==</a>(const OutputDependency &amp;other) const</td><td class="entry"><a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01152.html#aa5541db04c709f773c629d8b68c9c631">output</a></td><td class="entry"><a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01152.html#a98ab4a5ae11f4b4d9bcc6fbbc6bce54c">owner</a></td><td class="entry"><a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01152.html#a3e9d5698c091406516a9b016f25bded6">update</a></td><td class="entry"><a class="el" href="a01152.html">tvm::graph::internal::Log::OutputDependency</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A type-independent representation of a pointer as a pair (type, address).  
+ <a href="a01149.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01149.html#ae6fd2b3fe5f45fb6435d8aa8c74318cf">Pointer</a> (T *p)</td></tr>
+<tr class="memdesc:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build from an pointer.  <a href="#ae6fd2b3fe5f45fb6435d8aa8c74318cf">More...</a><br /></td></tr>
+<tr class="separator:ae6fd2b3fe5f45fb6435d8aa8c74318cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7242d4c45dc0664bb07de1ccb11413"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html#a9d7242d4c45dc0664bb07de1ccb11413">Pointer</a> (const std::type_index &amp;t, std::uintptr_t v)</td></tr>
+<tr class="memdesc:a9d7242d4c45dc0664bb07de1ccb11413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build from a pair (type, address).  <a href="#a9d7242d4c45dc0664bb07de1ccb11413">More...</a><br /></td></tr>
+<tr class="separator:a9d7242d4c45dc0664bb07de1ccb11413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e059086cba9bbe42aa76555e5d91d26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html#a5e059086cba9bbe42aa76555e5d91d26">operator&lt;</a> (const <a class="el" href="a01149.html">Pointer</a> &amp;other) const</td></tr>
+<tr class="separator:a5e059086cba9bbe42aa76555e5d91d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad32392904aa55c7d3aa094bade598718"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html#ad32392904aa55c7d3aa094bade598718">operator==</a> (const <a class="el" href="a01149.html">Pointer</a> &amp;other) const</td></tr>
+<tr class="separator:ad32392904aa55c7d3aa094bade598718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a47ca500da504fbe40e1f7f467cd7fdd0"><td class="memItemLeft" align="right" valign="top">std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html#a47ca500da504fbe40e1f7f467cd7fdd0">type</a></td></tr>
+<tr class="separator:a47ca500da504fbe40e1f7f467cd7fdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b840f84e5951f2952959179d6c41a8"><td class="memItemLeft" align="right" valign="top">std::uintptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html#af4b840f84e5951f2952959179d6c41a8">value</a></td></tr>
+<tr class="separator:af4b840f84e5951f2952959179d6c41a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A type-independent representation of a pointer as a pair (type, address). </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae6fd2b3fe5f45fb6435d8aa8c74318cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6fd2b3fe5f45fb6435d8aa8c74318cf">&#9670;&nbsp;</a></span>Pointer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::graph::internal::Log::Pointer::Pointer </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build from an pointer. </p>
+
+</div>
+</div>
+<a id="a9d7242d4c45dc0664bb07de1ccb11413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d7242d4c45dc0664bb07de1ccb11413">&#9670;&nbsp;</a></span>Pointer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::graph::internal::Log::Pointer::Pointer </td>
+          <td>(</td>
+          <td class="paramtype">const std::type_index &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uintptr_t&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build from a pair (type, address). </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5e059086cba9bbe42aa76555e5d91d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e059086cba9bbe42aa76555e5d91d26">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::Pointer::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01149.html">Pointer</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00412.html#aad9e7110f7a2fd2790b9af19849fd846">tvm::graph::internal::lexLess()</a>.</p>
+
+</div>
+</div>
+<a id="ad32392904aa55c7d3aa094bade598718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32392904aa55c7d3aa094bade598718">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::graph::internal::Log::Pointer::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01149.html">Pointer</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00412.html#aec241ce2358d14a409f0e578430f068f">tvm::graph::internal::eq()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a47ca500da504fbe40e1f7f467cd7fdd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ca500da504fbe40e1f7f467cd7fdd0">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::type_index tvm::graph::internal::Log::Pointer::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4b840f84e5951f2952959179d6c41a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b840f84e5951f2952959179d6c41a8">&#9670;&nbsp;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uintptr_t tvm::graph::internal::Log::Pointer::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a00412.html">internal</a></li><li class="navelem"><a class="el" href="a01141.html">Log</a></li><li class="navelem"><a class="el" href="a01149.html">Pointer</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

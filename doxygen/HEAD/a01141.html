@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::internal::Log Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01144.html','');});
+$(document).ready(function(){initNavTree('a01141.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,26 +88,300 @@ $(document).ready(function(){initNavTree('a01144.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01138.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Log::Input Member List</div>  </div>
+<div class="title">tvm::graph::internal::Log Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01144.html#a826f6863c4336e5f74f82b16177626ba">id</a></td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01144.html#a440b74e37ed387a629d31eec2ca86b2c">name</a></td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01144.html#a5de0f643eed6c526cdd0ccbd753fe8c0">operator&lt;</a>(const Input &amp;other) const</td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01144.html#a6a4893cc1681a6d42bcb64597920da07">operator==</a>(const Input &amp;other) const</td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01144.html#a050da3276f11065b65b36031a1b0412e">owner</a></td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01144.html#a5e163c6903a4356e4ad0622e06b2eae7">source</a></td><td class="entry"><a class="el" href="a01144.html">tvm::graph::internal::Log::Input</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A data structure, used by <a class="el" href="a01181.html">Logger</a> to log the inputs, outputs, updates and dependencies that are declared at runtime.  
+ <a href="a01141.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/internal/Log.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01177.html">DirectDependency</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an input-&gt;output dependency.  <a href="a01177.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01145.html">EnumValue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A non-enum representation of enum, as a pair (type of enum, value).  <a href="a01145.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html">Input</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an input.  <a href="a01161.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html">InputDependency</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an input-&gt;update dependency.  <a href="a01165.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01173.html">InternalDependency</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an update-&gt;update dependency.  <a href="a01173.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01157.html">Output</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an output.  <a href="a01157.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01169.html">OutputDependency</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an update-&gt;output dependency.  <a href="a01169.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html">Pointer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type-independent representation of a pointer as a pair (type, address).  <a href="a01149.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html">Update</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description of an update.  <a href="a01153.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:afa58ae774bf3dc101dfe11817819dcb7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#afa58ae774bf3dc101dfe11817819dcb7">generateDot</a> (const <a class="el" href="a01149.html">Pointer</a> &amp;p) const</td></tr>
+<tr class="memdesc:afa58ae774bf3dc101dfe11817819dcb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a dot representation for node corresponding to p.  <a href="#afa58ae774bf3dc101dfe11817819dcb7">More...</a><br /></td></tr>
+<tr class="separator:afa58ae774bf3dc101dfe11817819dcb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47952edabe6dcfa9a4e7b77fc8810a9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#ae47952edabe6dcfa9a4e7b77fc8810a9">generateDot</a> (const <a class="el" href="a01101.html">CallGraph</a> *const g) const</td></tr>
+<tr class="memdesc:ae47952edabe6dcfa9a4e7b77fc8810a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the specified <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>.  <a href="#ae47952edabe6dcfa9a4e7b77fc8810a9">More...</a><br /></td></tr>
+<tr class="separator:ae47952edabe6dcfa9a4e7b77fc8810a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4660dc9818036aa8b03a1b0ecf0273"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a3d4660dc9818036aa8b03a1b0ecf0273">generateDot</a> (const std::vector&lt; <a class="el" href="a01157.html">Log::Output</a> &gt; &amp;outHighlight={}, const std::vector&lt; <a class="el" href="a01153.html">Log::Update</a> &gt; &amp;upHighlight={}) const</td></tr>
+<tr class="memdesc:a3d4660dc9818036aa8b03a1b0ecf0273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the whole graph, highlighting the elements specified by oUtHighlight and upHightlight.  <a href="#a3d4660dc9818036aa8b03a1b0ecf0273">More...</a><br /></td></tr>
+<tr class="separator:a3d4660dc9818036aa8b03a1b0ecf0273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a76e88b35cc20acfe8936ee07d7850ba5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01153.html">Update</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a76e88b35cc20acfe8936ee07d7850ba5">updates_</a></td></tr>
+<tr class="separator:a76e88b35cc20acfe8936ee07d7850ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53ee810b02617e81464bf517e4a36943"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01161.html">Input</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a53ee810b02617e81464bf517e4a36943">inputs_</a></td></tr>
+<tr class="separator:a53ee810b02617e81464bf517e4a36943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50fdeb8e7fb893356111f1e6b5be81fe"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01157.html">Output</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a50fdeb8e7fb893356111f1e6b5be81fe">outputs_</a></td></tr>
+<tr class="separator:a50fdeb8e7fb893356111f1e6b5be81fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab083bed92aac2f4225efded5c6b54435"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01165.html">InputDependency</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#ab083bed92aac2f4225efded5c6b54435">inputDependencies_</a></td></tr>
+<tr class="separator:ab083bed92aac2f4225efded5c6b54435"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9f96228d1f42d8b62091f95aa841a4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01169.html">OutputDependency</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a1a9f96228d1f42d8b62091f95aa841a4">outputDependencies_</a></td></tr>
+<tr class="separator:a1a9f96228d1f42d8b62091f95aa841a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18cbb0adfb134159d41e42bdbbef5a52"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01173.html">InternalDependency</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#a18cbb0adfb134159d41e42bdbbef5a52">internalDependencies_</a></td></tr>
+<tr class="separator:a18cbb0adfb134159d41e42bdbbef5a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5608f30f410ccea972d6c6adc959ad"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01177.html">DirectDependency</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#aec5608f30f410ccea972d6c6adc959ad">directDependencies_</a></td></tr>
+<tr class="separator:aec5608f30f410ccea972d6c6adc959ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ca990b217de49a45ffeae370861d37"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="a01149.html">Pointer</a>, std::vector&lt; <a class="el" href="a01149.html">Pointer</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#ab0ca990b217de49a45ffeae370861d37">graphOutputs_</a></td></tr>
+<tr class="memdesc:ab0ca990b217de49a45ffeae370861d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each elements of the map is the list of inputs of a <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>, as added in <a class="el" href="a01101.html#a0bcce269baa11efdb3caf2f379d1b795" title="Add a given Inputs object to the graph. ">CallGraph.add</a>.  <a href="#ab0ca990b217de49a45ffeae370861d37">More...</a><br /></td></tr>
+<tr class="separator:ab0ca990b217de49a45ffeae370861d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa117708bb8db03e970d2cfae9d25573"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::uintptr_t, std::vector&lt; std::type_index &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html#afa117708bb8db03e970d2cfae9d25573">types_</a></td></tr>
+<tr class="memdesc:afa117708bb8db03e970d2cfae9d25573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a data address to all the type info associated with this address.  <a href="#afa117708bb8db03e970d2cfae9d25573">More...</a><br /></td></tr>
+<tr class="separator:afa117708bb8db03e970d2cfae9d25573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A data structure, used by <a class="el" href="a01181.html">Logger</a> to log the inputs, outputs, updates and dependencies that are declared at runtime. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afa58ae774bf3dc101dfe11817819dcb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa58ae774bf3dc101dfe11817819dcb7">&#9670;&nbsp;</a></span>generateDot() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tvm::graph::internal::Log::generateDot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01149.html">Pointer</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a dot representation for node corresponding to p. </p>
+
+</div>
+</div>
+<a id="ae47952edabe6dcfa9a4e7b77fc8810a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae47952edabe6dcfa9a4e7b77fc8810a9">&#9670;&nbsp;</a></span>generateDot() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tvm::graph::internal::Log::generateDot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01101.html">CallGraph</a> *const&#160;</td>
+          <td class="paramname"><em>g</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate the specified <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>. </p>
+
+</div>
+</div>
+<a id="a3d4660dc9818036aa8b03a1b0ecf0273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4660dc9818036aa8b03a1b0ecf0273">&#9670;&nbsp;</a></span>generateDot() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tvm::graph::internal::Log::generateDot </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a01157.html">Log::Output</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>outHighlight</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a01153.html">Log::Update</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>upHighlight</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate the whole graph, highlighting the elements specified by oUtHighlight and upHightlight. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aec5608f30f410ccea972d6c6adc959ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5608f30f410ccea972d6c6adc959ad">&#9670;&nbsp;</a></span>directDependencies_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01177.html">DirectDependency</a>&gt; tvm::graph::internal::Log::directDependencies_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab0ca990b217de49a45ffeae370861d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0ca990b217de49a45ffeae370861d37">&#9670;&nbsp;</a></span>graphOutputs_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="a01149.html">Pointer</a>, std::vector&lt;<a class="el" href="a01149.html">Pointer</a>&gt; &gt; tvm::graph::internal::Log::graphOutputs_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Each elements of the map is the list of inputs of a <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>, as added in <a class="el" href="a01101.html#a0bcce269baa11efdb3caf2f379d1b795" title="Add a given Inputs object to the graph. ">CallGraph.add</a>. </p>
+
+</div>
+</div>
+<a id="ab083bed92aac2f4225efded5c6b54435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab083bed92aac2f4225efded5c6b54435">&#9670;&nbsp;</a></span>inputDependencies_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01165.html">InputDependency</a>&gt; tvm::graph::internal::Log::inputDependencies_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53ee810b02617e81464bf517e4a36943"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ee810b02617e81464bf517e4a36943">&#9670;&nbsp;</a></span>inputs_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01161.html">Input</a>&gt; tvm::graph::internal::Log::inputs_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18cbb0adfb134159d41e42bdbbef5a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18cbb0adfb134159d41e42bdbbef5a52">&#9670;&nbsp;</a></span>internalDependencies_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01173.html">InternalDependency</a>&gt; tvm::graph::internal::Log::internalDependencies_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a9f96228d1f42d8b62091f95aa841a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a9f96228d1f42d8b62091f95aa841a4">&#9670;&nbsp;</a></span>outputDependencies_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01169.html">OutputDependency</a>&gt; tvm::graph::internal::Log::outputDependencies_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50fdeb8e7fb893356111f1e6b5be81fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50fdeb8e7fb893356111f1e6b5be81fe">&#9670;&nbsp;</a></span>outputs_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01157.html">Output</a>&gt; tvm::graph::internal::Log::outputs_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa117708bb8db03e970d2cfae9d25573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa117708bb8db03e970d2cfae9d25573">&#9670;&nbsp;</a></span>types_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::uintptr_t, std::vector&lt;std::type_index&gt; &gt; tvm::graph::internal::Log::types_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maps a data address to all the type info associated with this address. </p>
+<p>For a given address, each type appears only once, and types are sorted in their order of appearance in the logging process. We assume that the last one to appear is the most derived in the inheritance hierarchy.</p>
+<p>FIXME: can we find a more robust way to determine the real type of a data? </p>
+
+</div>
+</div>
+<a id="a76e88b35cc20acfe8936ee07d7850ba5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e88b35cc20acfe8936ee07d7850ba5">&#9670;&nbsp;</a></span>updates_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01153.html">Update</a>&gt; tvm::graph::internal::Log::updates_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a00412.html">internal</a></li><li class="navelem"><a class="el" href="a01141.html">Log</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

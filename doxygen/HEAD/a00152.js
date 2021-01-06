@@ -1,5 +1,5 @@
 var a00152 =
 [
-    [ "WeightBase", "a01312.html", "a01312" ],
-    [ "Weight", "a00152.html#ad596b52ac03ded388e26964e3e995866", null ]
+    [ "PriorityLevelBase", "a01337.html", "a01337" ],
+    [ "PriorityLevel", "a00152.html#aa5d3c61ef15897a9eee0c742a80fbee3", null ]
 ];

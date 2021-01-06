@@ -1,297 +1,310 @@
 var files =
 [
     [ "AbstractNode.h", "a00068.html", "a00068" ],
-    [ "AffineExpr.h", "a00296.html", "a00296" ],
-    [ "AffineExprDetail.h", "a00305.html", "a00305" ],
-    [ "AffineExprOperators.h", "a00308.html", "a00308" ],
-    [ "AnisotropicWeight.h", "a00140.html", "a00140" ],
+    [ "AffineExpr.h", "a00305.html", "a00305" ],
+    [ "AffineExprDetail.h", "a00314.html", "a00314" ],
+    [ "AffineExprOperators.h", "a00317.html", "a00317" ],
+    [ "AnisotropicWeight.h", "a00149.html", "a00149" ],
     [ "api.h", "a00002.html", "a00002" ],
-    [ "Assignment.h", "a00203.html", [
-      [ "Assignment", "a01400.html", "a01400" ]
+    [ "Assignment.h", "a00212.html", [
+      [ "Assignment", "a01445.html", "a01445" ]
     ] ],
-    [ "AssignmentTarget.h", "a00206.html", "a00206" ],
+    [ "AssignmentTarget.h", "a00215.html", "a00215" ],
     [ "AutoCalculator.h", "a00089.html", [
-      [ "AutoCalculator", "a01180.html", "a01180" ]
+      [ "AutoCalculator", "a01197.html", "a01197" ]
     ] ],
     [ "BasicLinearConstraint.h", "a00014.html", [
-      [ "BasicLinearConstraint", "a00976.html", "a00976" ]
+      [ "BasicLinearConstraint", "a00989.html", "a00989" ]
     ] ],
-    [ "BasicLinearFunction.h", "a00047.html", [
-      [ "BasicLinearFunction", "a01048.html", "a01048" ]
-    ] ],
-    [ "BufferedMatrix.h", "a00311.html", [
-      [ "BufferedMatrix", "a01832.html", "a01832" ]
+    [ "BasicLinearFunction.h", "a00047.html", "a00047" ],
+    [ "BufferedMatrix.h", "a00320.html", [
+      [ "BufferedMatrix", "a01877.html", "a01877" ]
     ] ],
     [ "CallbackManager.h", "a00107.html", [
-      [ "CallbackManager", "a01212.html", "a01212" ]
+      [ "CallbackManager", "a01229.html", "a01229" ]
     ] ],
     [ "CallGraph.h", "a00065.html", [
-      [ "CallGraph", "a01084.html", "a01084" ],
-      [ "Call", "a01088.html", "a01088" ],
-      [ "CompareCall", "a01092.html", "a01092" ],
-      [ "Plan", "a01096.html", "a01096" ]
+      [ "CallGraph", "a01101.html", "a01101" ],
+      [ "Call", "a01105.html", "a01105" ],
+      [ "CompareCall", "a01109.html", "a01109" ],
+      [ "Plan", "a01113.html", "a01113" ]
     ] ],
-    [ "checkFunction.h", "a00299.html", "a00299" ],
-    [ "Clamped.h", "a00272.html", [
-      [ "Clamped", "a01720.html", "a01720" ],
-      [ "Impl", "a01724.html", "a01724" ]
+    [ "checkFunction.h", "a00308.html", "a00308" ],
+    [ "Clamped.h", "a00281.html", [
+      [ "Clamped", "a01765.html", "a01765" ],
+      [ "Impl", "a01769.html", "a01769" ]
     ] ],
     [ "Clock.h", "a00005.html", [
-      [ "Clock", "a00964.html", "a00964" ]
+      [ "Clock", "a00977.html", "a00977" ]
     ] ],
-    [ "CollisionFunction.h", "a00155.html", [
-      [ "CollisionFunction", "a01316.html", "a01316" ],
-      [ "CollisionData", "a01320.html", "a01320" ],
-      [ "ObjectData", "a01324.html", "a01324" ]
+    [ "CollisionFunction.h", "a00164.html", [
+      [ "CollisionFunction", "a01361.html", "a01361" ],
+      [ "CollisionData", "a01365.html", "a01365" ],
+      [ "ObjectData", "a01369.html", "a01369" ]
     ] ],
-    [ "CoMFunction.h", "a00158.html", [
-      [ "CoMFunction", "a01328.html", "a01328" ]
+    [ "CoMFunction.h", "a00167.html", [
+      [ "CoMFunction", "a01373.html", "a01373" ]
     ] ],
-    [ "CoMInConvexFunction.h", "a00161.html", [
-      [ "CoMInConvexFunction", "a01332.html", "a01332" ]
+    [ "CoMInConvexFunction.h", "a00170.html", [
+      [ "CoMInConvexFunction", "a01377.html", "a01377" ]
     ] ],
-    [ "CompiledAssignment.h", "a00209.html", "a00209" ],
-    [ "CompiledAssignmentWrapper.h", "a00212.html", [
-      [ "CompiledAssignmentWrapper", "a01572.html", "a01572" ]
+    [ "CompiledAssignment.h", "a00218.html", "a00218" ],
+    [ "CompiledAssignmentWrapper.h", "a00221.html", [
+      [ "CompiledAssignmentWrapper", "a01617.html", "a01617" ]
     ] ],
-    [ "Constant.h", "a00275.html", [
-      [ "Constant", "a01728.html", "a01728" ],
-      [ "Impl", "a01732.html", "a01732" ]
+    [ "Constant.h", "a00284.html", [
+      [ "Constant", "a01773.html", "a01773" ],
+      [ "Impl", "a01777.html", "a01777" ]
     ] ],
     [ "Constraint.h", "a00008.html", [
-      [ "Constraint", "a00968.html", "a00968" ]
+      [ "Constraint", "a00981.html", "a00981" ]
     ] ],
-    [ "Contact.h", "a00164.html", "a00164" ],
+    [ "Contact.h", "a00173.html", "a00173" ],
     [ "ControlProblem.h", "a00026.html", "a00026" ],
-    [ "ConvexHull.h", "a00167.html", "a00167" ],
-    [ "defaultLeastSquareSolver.h", "a00242.html", [
-      [ "DefaultLSSolverOptions", "a01648.html", "a01648" ],
-      [ "DefaultLSSolverFactory", "a01652.html", "a01652" ]
+    [ "ConvexHull.h", "a00176.html", "a00176" ],
+    [ "defaultLeastSquareSolver.h", "a00251.html", [
+      [ "DefaultLSSolverOptions", "a01693.html", "a01693" ],
+      [ "DefaultLSSolverFactory", "a01697.html", "a01697" ]
     ] ],
     [ "defs.h", "a00029.html", "a00029" ],
     [ "DependencyGraph.h", "a00071.html", [
-      [ "DependencyGraph", "a01108.html", "a01108" ]
+      [ "DependencyGraph", "a01125.html", "a01125" ]
     ] ],
     [ "DiagonalCalculator.h", "a00092.html", [
-      [ "DiagonalCalculator", "a01184.html", "a01184" ],
-      [ "Impl", "a01188.html", "a01188" ]
+      [ "DiagonalCalculator", "a01201.html", "a01201" ],
+      [ "Impl", "a01205.html", "a01205" ]
     ] ],
-    [ "DynamicFunction.h", "a00173.html", [
-      [ "DynamicFunction", "a01356.html", "a01356" ],
-      [ "ForceContact", "a01360.html", "a01360" ]
+    [ "DynamicFunction.h", "a00182.html", [
+      [ "DynamicFunction", "a01401.html", "a01401" ],
+      [ "ForceContact", "a01405.html", "a01405" ]
     ] ],
-    [ "constraint/enums.h", "a02395.html", "a02395" ],
-    [ "event/enums.h", "a02398.html", "a02398" ],
-    [ "internal/enums.h", "a02401.html", "a02401" ],
-    [ "robot/enums.h", "a02404.html", "a02404" ],
-    [ "task_dynamics/enums.h", "a02407.html", "a02407" ],
+    [ "constraint/enums.h", "a02456.html", "a02456" ],
+    [ "event/enums.h", "a02459.html", "a02459" ],
+    [ "internal/enums.h", "a02462.html", "a02462" ],
+    [ "robot/enums.h", "a02465.html", "a02465" ],
+    [ "task_dynamics/enums.h", "a02468.html", "a02468" ],
     [ "exceptions.h", "a00038.html", [
-      [ "Exception", "a01008.html", "a01008" ],
-      [ "DataException", "a01012.html", null ],
-      [ "UnusedOutput", "a01016.html", null ],
-      [ "FunctionException", "a01020.html", null ],
-      [ "UnimplementedOutput", "a01024.html", null ],
-      [ "DuplicateVariable", "a01028.html", null ],
-      [ "NonExistingVariable", "a01032.html", null ],
-      [ "NotImplemented", "a01036.html", null ]
+      [ "Exception", "a01021.html", "a01021" ],
+      [ "DataException", "a01025.html", null ],
+      [ "UnusedOutput", "a01029.html", null ],
+      [ "FunctionException", "a01033.html", null ],
+      [ "UnimplementedOutput", "a01037.html", null ],
+      [ "DuplicateVariable", "a01041.html", null ],
+      [ "NonExistingVariable", "a01045.html", null ],
+      [ "NotImplemented", "a01049.html", null ]
     ] ],
-    [ "FeedForward.h", "a00278.html", "a00278" ],
+    [ "FeedForward.h", "a00287.html", "a00287" ],
     [ "FirstOrderProvider.h", "a00110.html", [
-      [ "FirstOrderProvider", "a01216.html", "a01216" ]
+      [ "FirstOrderProvider", "a01233.html", "a01233" ],
+      [ "slice_linear", "a01237.html", "a01237" ],
+      [ "slice_matrix", "a01241.html", "a01241" ]
     ] ],
-    [ "Frame.h", "a00170.html", "a00170" ],
-    [ "FrictionCone.h", "a00176.html", [
-      [ "FrictionCone", "a01364.html", "a01364" ]
+    [ "Frame.h", "a00179.html", "a00179" ],
+    [ "FrictionCone.h", "a00185.html", [
+      [ "FrictionCone", "a01409.html", "a01409" ]
     ] ],
     [ "Function.h", "a00041.html", [
-      [ "Function", "a01040.html", "a01040" ]
+      [ "Function", "a01053.html", "a01053" ],
+      [ "slice_jdot", "a01057.html", "a01057" ]
     ] ],
     [ "GenericCalculator.h", "a00095.html", [
-      [ "GenericCalculator", "a01192.html", "a01192" ],
-      [ "Impl", "a01196.html", "a01196" ]
+      [ "GenericCalculator", "a01209.html", "a01209" ],
+      [ "Impl", "a01213.html", "a01213" ]
     ] ],
-    [ "GeometricContactFunction.h", "a00179.html", [
-      [ "GeometricContactFunction", "a01368.html", "a01368" ]
+    [ "GeometricContactFunction.h", "a00188.html", [
+      [ "GeometricContactFunction", "a01413.html", "a01413" ]
     ] ],
-    [ "graph.h", "a00302.html", "a00302" ],
-    [ "graphDetails.h", "a00314.html", "a00314" ],
-    [ "helpers.h", "a00215.html", "a00215" ],
+    [ "graph.h", "a00311.html", "a00311" ],
+    [ "graphDetails.h", "a00323.html", "a00323" ],
+    [ "helpers.h", "a00224.html", "a00224" ],
     [ "IdentityFunction.h", "a00050.html", [
-      [ "IdentityFunction", "a01052.html", "a01052" ]
+      [ "IdentityFunction", "a01069.html", "a01069" ]
     ] ],
     [ "IdProvider.h", "a00113.html", [
-      [ "IdProvider", "a01220.html", "a01220" ]
+      [ "IdProvider", "a01245.html", "a01245" ]
     ] ],
     [ "Inputs.h", "a00074.html", [
-      [ "Inputs", "a01116.html", "a01116" ],
-      [ "Iterator", "a01120.html", "a01120" ]
+      [ "Inputs", "a01133.html", "a01133" ],
+      [ "Iterator", "a01137.html", "a01137" ]
     ] ],
-    [ "JointsSelector.h", "a00182.html", [
-      [ "JointsSelector", "a01372.html", "a01372" ]
+    [ "JointsSelector.h", "a00191.html", [
+      [ "JointsSelector", "a01417.html", "a01417" ]
     ] ],
-    [ "LeastSquareSolver.h", "a00239.html", [
-      [ "LeastSquareSolver", "a01632.html", "a01632" ],
-      [ "ImpactFromChanges", "a01636.html", "a01636" ],
-      [ "MarkedAssignment", "a01640.html", "a01640" ],
-      [ "LSSolverFactory", "a01644.html", "a01644" ]
+    [ "LeastSquareSolver.h", "a00248.html", [
+      [ "LeastSquareSolver", "a01677.html", "a01677" ],
+      [ "ImpactFromChanges", "a01681.html", "a01681" ],
+      [ "MarkedAssignment", "a01685.html", "a01685" ],
+      [ "LSSolverFactory", "a01689.html", "a01689" ]
     ] ],
     [ "LinearConstraint.h", "a00011.html", [
-      [ "LinearConstraint", "a00972.html", "a00972" ]
+      [ "LinearConstraint", "a00985.html", "a00985" ]
     ] ],
     [ "LinearFunction.h", "a00044.html", [
-      [ "LinearFunction", "a01044.html", "a01044" ]
+      [ "LinearFunction", "a01061.html", "a01061" ]
     ] ],
-    [ "LinearizedControlProblem.h", "a00131.html", [
-      [ "LinearConstraintWithRequirements", "a01272.html", "a01272" ],
-      [ "LinearizedControlProblem", "a01276.html", "a01276" ]
+    [ "LinearizedControlProblem.h", "a00140.html", [
+      [ "LinearConstraintWithRequirements", "a01317.html", "a01317" ],
+      [ "LinearizedControlProblem", "a01321.html", "a01321" ]
     ] ],
-    [ "LinearizedProblemComputationData.h", "a00218.html", [
-      [ "LinearizedProblemComputationData", "a01576.html", "a01576" ]
+    [ "LinearizedProblemComputationData.h", "a00227.html", [
+      [ "LinearizedProblemComputationData", "a01621.html", "a01621" ]
     ] ],
     [ "LinearizedTaskConstraint.h", "a00020.html", [
-      [ "LinearizedTaskConstraint", "a00980.html", "a00980" ]
+      [ "LinearizedTaskConstraint", "a00993.html", "a00993" ]
     ] ],
     [ "Listener.h", "a00032.html", [
-      [ "Listener", "a01000.html", "a01000" ]
+      [ "Listener", "a01013.html", "a01013" ]
     ] ],
     [ "Log.h", "a00077.html", "a00077" ],
     [ "Logger.h", "a00080.html", "a00080" ],
-    [ "LSSOLLeastSquareSolver.h", "a00251.html", [
-      [ "LSSOLLSSolverOptions", "a01668.html", "a01668" ],
-      [ "LSSOLLeastSquareSolver", "a01672.html", "a01672" ],
-      [ "LSSOLLSSolverFactory", "a01676.html", "a01676" ]
+    [ "LSSOLLeastSquareSolver.h", "a00260.html", [
+      [ "LSSOLLSSolverOptions", "a01713.html", "a01713" ],
+      [ "LSSOLLeastSquareSolver", "a01717.html", "a01717" ],
+      [ "LSSOLLSSolverFactory", "a01721.html", "a01721" ]
     ] ],
-    [ "map.h", "a00317.html", "a00317" ],
-    [ "MatrixAssignment.h", "a00221.html", [
-      [ "MatrixAssignment", "a01580.html", "a01580" ],
-      [ "VectorSubstitutionAssignement", "a01584.html", "a01584" ],
-      [ "VectorAssignment", "a01588.html", "a01588" ]
+    [ "map.h", "a00326.html", "a00326" ],
+    [ "MapWithVariableAsKey.h", "a00329.html", null ],
+    [ "MatrixAssignment.h", "a00230.html", [
+      [ "MatrixAssignment", "a01625.html", "a01625" ],
+      [ "VectorSubstitutionAssignement", "a01629.html", "a01629" ],
+      [ "VectorAssignment", "a01633.html", "a01633" ]
     ] ],
     [ "MatrixProperties.h", "a00116.html", "a00116" ],
     [ "MatrixWithProperties.h", "a00119.html", "a00119" ],
-    [ "memoryChecks.h", "a00323.html", "a00323" ],
+    [ "memoryChecks.h", "a00335.html", "a00335" ],
     [ "meta.h", "a00122.html", "a00122" ],
     [ "Node.h", "a00056.html", [
-      [ "Node", "a01060.html", "a01060" ]
+      [ "Node", "a01077.html", "a01077" ]
     ] ],
-    [ "None.h", "a00281.html", [
-      [ "None", "a01744.html", "a01744" ],
-      [ "Impl", "a01748.html", "a01748" ]
+    [ "None.h", "a00290.html", [
+      [ "None", "a01789.html", "a01789" ],
+      [ "Impl", "a01793.html", "a01793" ]
     ] ],
     [ "ObjWithId.h", "a00125.html", [
-      [ "ObjWithId", "a01260.html", "a01260" ]
+      [ "ObjWithId", "a01285.html", "a01285" ]
     ] ],
-    [ "Option.h", "a00245.html", "a00245" ],
-    [ "OrientationFunction.h", "a00185.html", [
-      [ "OrientationFunction", "a01376.html", "a01376" ]
+    [ "Option.h", "a00254.html", "a00254" ],
+    [ "OrientationFunction.h", "a00194.html", [
+      [ "OrientationFunction", "a01421.html", "a01421" ]
     ] ],
     [ "Outputs.h", "a00059.html", "a00059" ],
     [ "OutputSelector.h", "a00062.html", "a00062" ],
     [ "PairElementToken.h", "a00128.html", [
-      [ "PairElementTokenHandle", "a01264.html", "a01264" ],
-      [ "PairElementToken", "a01268.html", "a01268" ]
+      [ "PairElementTokenHandle", "a01289.html", "a01289" ],
+      [ "PairElementToken", "a01293.html", "a01293" ]
     ] ],
     [ "Plane.h", "a00053.html", "a00053" ],
-    [ "PositionFunction.h", "a00188.html", [
-      [ "PositionFunction", "a01380.html", "a01380" ]
+    [ "PositionFunction.h", "a00197.html", [
+      [ "PositionFunction", "a01425.html", "a01425" ]
     ] ],
-    [ "PostureFunction.h", "a00191.html", [
-      [ "PostureFunction", "a01384.html", "a01384" ]
+    [ "PostureFunction.h", "a00200.html", [
+      [ "PostureFunction", "a01429.html", "a01429" ]
     ] ],
-    [ "PriorityLevel.h", "a00143.html", "a00143" ],
-    [ "ProblemComputationData.h", "a00224.html", [
-      [ "ProblemComputationData", "a01592.html", "a01592" ]
+    [ "PriorityLevel.h", "a00152.html", "a00152" ],
+    [ "ProblemComputationData.h", "a00233.html", [
+      [ "ProblemComputationData", "a01637.html", "a01637" ]
     ] ],
-    [ "ProblemDefinitionEvent.h", "a00227.html", [
-      [ "ProblemDefinitionEvent", "a01596.html", "a01596" ]
+    [ "ProblemDefinitionEvent.h", "a00236.html", [
+      [ "ProblemDefinitionEvent", "a01641.html", "a01641" ]
     ] ],
-    [ "Proportional.h", "a00284.html", "a00284" ],
-    [ "ProportionalDerivative.h", "a00287.html", "a00287" ],
-    [ "ProtoTask.h", "a00326.html", "a00326" ],
-    [ "ProtoTaskDetails.h", "a00320.html", "a00320" ],
-    [ "QLDLeastSquareSolver.h", "a00254.html", [
-      [ "QLDLSSolverOptions", "a01680.html", "a01680" ],
-      [ "QLDLeastSquareSolver", "a01684.html", "a01684" ],
-      [ "QLDLSSolverFactory", "a01688.html", "a01688" ]
+    [ "Proportional.h", "a00293.html", "a00293" ],
+    [ "ProportionalDerivative.h", "a00296.html", "a00296" ],
+    [ "ProtoTask.h", "a00338.html", "a00338" ],
+    [ "ProtoTaskDetails.h", "a00332.html", "a00332" ],
+    [ "QLDLeastSquareSolver.h", "a00263.html", [
+      [ "QLDLSSolverOptions", "a01725.html", "a01725" ],
+      [ "QLDLeastSquareSolver", "a01729.html", "a01729" ],
+      [ "QLDLSSolverFactory", "a01733.html", "a01733" ]
     ] ],
-    [ "QuadprogLeastSquareSolver.h", "a00257.html", [
-      [ "QuadprogLSSolverOptions", "a01692.html", "a01692" ],
-      [ "QuadprogLeastSquareSolver", "a01696.html", "a01696" ],
-      [ "QuadprogLSSolverFactory", "a01700.html", "a01700" ]
+    [ "QuadprogLeastSquareSolver.h", "a00266.html", [
+      [ "QuadprogLSSolverOptions", "a01737.html", "a01737" ],
+      [ "QuadprogLeastSquareSolver", "a01741.html", "a01741" ],
+      [ "QuadprogLSSolverFactory", "a01745.html", "a01745" ]
     ] ],
-    [ "Range.h", "a00134.html", [
-      [ "Range", "a01280.html", "a01280" ]
+    [ "Range.h", "a00143.html", [
+      [ "Range", "a01325.html", "a01325" ]
     ] ],
-    [ "Reference.h", "a00290.html", [
-      [ "Reference", "a01768.html", "a01768" ],
-      [ "Impl", "a01772.html", "a01772" ],
-      [ "ReferenceVelocity", "a01776.html", "a01776" ],
-      [ "ReferenceAcceleration", "a01780.html", "a01780" ]
+    [ "RangeCounting.h", "a00131.html", [
+      [ "RangeCounting", "a01297.html", "a01297" ],
+      [ "Limit", "a01301.html", "a01301" ]
     ] ],
-    [ "ResolutionScheme.h", "a00200.html", [
-      [ "ResolutionScheme", "a01392.html", "a01392" ],
-      [ "LinearResolutionScheme", "a01396.html", "a01396" ]
+    [ "Reference.h", "a00299.html", [
+      [ "Reference", "a01813.html", "a01813" ],
+      [ "Impl", "a01817.html", "a01817" ],
+      [ "ReferenceVelocity", "a01821.html", "a01821" ],
+      [ "ReferenceAcceleration", "a01825.html", "a01825" ]
     ] ],
-    [ "ResolutionSchemeBase.h", "a00230.html", "a00230" ],
+    [ "ResolutionScheme.h", "a00209.html", [
+      [ "ResolutionScheme", "a01437.html", "a01437" ],
+      [ "LinearResolutionScheme", "a01441.html", "a01441" ]
+    ] ],
+    [ "ResolutionSchemeBase.h", "a00239.html", "a00239" ],
     [ "RHSVectors.h", "a00023.html", [
-      [ "RHSVectors", "a00984.html", "a00984" ]
+      [ "RHSVectors", "a00997.html", "a00997" ]
     ] ],
-    [ "Robot.h", "a00197.html", [
-      [ "Robot", "a01388.html", "a01388" ]
+    [ "Robot.h", "a00206.html", [
+      [ "Robot", "a01433.html", "a01433" ]
     ] ],
-    [ "sch.h", "a00329.html", "a00329" ],
-    [ "SchemeAbilities.h", "a00233.html", "a00233" ],
-    [ "SingleSolvingRequirement.h", "a00137.html", "a00137" ],
-    [ "SolverEvents.h", "a00248.html", [
-      [ "SolverEvents", "a01656.html", "a01656" ],
-      [ "WeightEvent", "a01660.html", "a01660" ],
-      [ "Objective", "a01664.html", "a01664" ]
+    [ "sch.h", "a00341.html", "a00341" ],
+    [ "SchemeAbilities.h", "a00242.html", "a00242" ],
+    [ "SingleSolvingRequirement.h", "a00146.html", "a00146" ],
+    [ "SolverEvents.h", "a00257.html", [
+      [ "SolverEvents", "a01701.html", "a01701" ],
+      [ "WeightEvent", "a01705.html", "a01705" ],
+      [ "Objective", "a01709.html", "a01709" ]
     ] ],
-    [ "SolvingRequirements.h", "a00146.html", "a00146" ],
+    [ "SolvingRequirements.h", "a00155.html", "a00155" ],
     [ "Source.h", "a00035.html", [
-      [ "Source", "a01004.html", "a01004" ]
+      [ "Source", "a01017.html", "a01017" ]
     ] ],
-    [ "Space.h", "a00260.html", [
-      [ "Space", "a01704.html", "a01704" ]
+    [ "Space.h", "a00269.html", [
+      [ "Space", "a01749.html", "a01749" ]
     ] ],
     [ "Substitution.h", "a00104.html", [
-      [ "Substitution", "a01208.html", "a01208" ]
+      [ "Substitution", "a01225.html", "a01225" ]
     ] ],
     [ "SubstitutionCalculator.h", "a00083.html", [
-      [ "SubstitutionCalculator", "a01168.html", "a01168" ]
+      [ "SubstitutionCalculator", "a01185.html", "a01185" ]
     ] ],
     [ "SubstitutionCalculatorImpl.h", "a00086.html", [
-      [ "SubstitutionCalculatorImpl", "a01172.html", "a01172" ]
+      [ "SubstitutionCalculatorImpl", "a01189.html", "a01189" ]
     ] ],
     [ "Substitutions.h", "a00098.html", [
-      [ "Substitutions", "a01200.html", "a01200" ]
+      [ "Substitutions", "a01217.html", "a01217" ]
     ] ],
     [ "SubstitutionUnit.h", "a00101.html", [
-      [ "SubstitutionUnit", "a01204.html", "a01204" ]
+      [ "SubstitutionUnit", "a01221.html", "a01221" ]
     ] ],
-    [ "Task.h", "a00263.html", [
-      [ "Task", "a01708.html", "a01708" ]
+    [ "Task.h", "a00272.html", [
+      [ "Task", "a01753.html", "a01753" ]
     ] ],
-    [ "TaskDynamics.h", "a00266.html", "a00266" ],
-    [ "TaskDynamicsImpl.h", "a00269.html", [
-      [ "TaskDynamicsImpl", "a01716.html", "a01716" ]
+    [ "TaskDynamics.h", "a00275.html", "a00275" ],
+    [ "TaskDynamicsImpl.h", "a00278.html", [
+      [ "TaskDynamicsImpl", "a01761.html", "a01761" ]
     ] ],
-    [ "UpdatelessFunction.h", "a00332.html", [
-      [ "UpdatelessFunction", "a01852.html", "a01852" ]
+    [ "UpdatelessFunction.h", "a00344.html", [
+      [ "UpdatelessFunction", "a01905.html", "a01905" ]
     ] ],
-    [ "utils.h", "a00194.html", "a00194" ],
-    [ "Variable.h", "a00335.html", "a00335" ],
-    [ "VariableVector.h", "a00338.html", "a00338" ],
-    [ "VelocityDamper.h", "a00293.html", [
-      [ "VelocityDamper", "a01784.html", "a01784" ],
-      [ "Config", "a01788.html", "a01788" ],
-      [ "AnisotropicConfig", "a01792.html", "a01792" ],
-      [ "Impl", "a01796.html", "a01796" ]
+    [ "utils.h", "a00203.html", "a00203" ],
+    [ "Variable.h", "a00347.html", "a00347" ],
+    [ "VariableCountingVector.h", "a00134.html", [
+      [ "VariableCountingVector", "a01305.html", "a01305" ]
     ] ],
-    [ "ViolationEvaluation.h", "a00149.html", "a00149" ],
-    [ "Weight.h", "a00152.html", "a00152" ],
-    [ "WeightedLeastSquares.h", "a00236.html", [
-      [ "WeightedLeastSquaresOptions", "a01612.html", null ],
-      [ "WeightedLeastSquares", "a01616.html", "a01616" ]
+    [ "VariableVector.h", "a00350.html", "a00350" ],
+    [ "VariableVectorPartition.h", "a00137.html", [
+      [ "VariableVectorPartition", "a01309.html", "a01309" ],
+      [ "iterator", "a01313.html", "a01313" ]
+    ] ],
+    [ "VelocityDamper.h", "a00302.html", [
+      [ "VelocityDamper", "a01829.html", "a01829" ],
+      [ "Config", "a01833.html", "a01833" ],
+      [ "AnisotropicConfig", "a01837.html", "a01837" ],
+      [ "Impl", "a01841.html", "a01841" ]
+    ] ],
+    [ "ViolationEvaluation.h", "a00158.html", "a00158" ],
+    [ "Weight.h", "a00161.html", "a00161" ],
+    [ "WeightedLeastSquares.h", "a00245.html", [
+      [ "WeightedLeastSquaresOptions", "a01657.html", null ],
+      [ "WeightedLeastSquares", "a01661.html", "a01661" ]
     ] ]
 ];

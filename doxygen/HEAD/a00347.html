@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: FunctionWritingExample.dox File Reference</title>
+<title>TVM: Variable.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,18 +88,224 @@ $(document).ready(function(){initNavTree('a00347.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">FunctionWritingExample.dox File Reference</div>  </div>
+<div class="title">Variable.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="a00143.html">tvm/Range.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00269.html">tvm/Space.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00125.html">tvm/internal/ObjWithId.h</a>&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01909.html">tvm::Variable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of a <a class="el" href="a01909.html" title="Representation of a Variable, i.e. ">Variable</a>, i.e.  <a href="a01909.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00395"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html">tvm</a></td></tr>
+<tr class="memdesc:a00395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a87d6cb6ff8019ac998b40578d2a27438"><td class="memItemLeft" align="right" valign="top">VariablePtr <a class="el" href="a00002.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html#a87d6cb6ff8019ac998b40578d2a27438">tvm::dot</a> (VariablePtr var, int ndiff=1)</td></tr>
+<tr class="memdesc:a87d6cb6ff8019ac998b40578d2a27438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ndiff-th time derivative of a variable.  <a href="a00395.html#a87d6cb6ff8019ac998b40578d2a27438">More...</a><br /></td></tr>
+<tr class="separator:a87d6cb6ff8019ac998b40578d2a27438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a751b8be6c8ab35c0f7bc264e6ecaa54c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html#a751b8be6c8ab35c0f7bc264e6ecaa54c">tvm::operator==</a> (const Variable &amp;u, const Variable &amp;v)</td></tr>
+<tr class="separator:a751b8be6c8ab35c0f7bc264e6ecaa54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d874dff64932dd17c549e38f9f99bf2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html#a1d874dff64932dd17c549e38f9f99bf2">tvm::operator!=</a> (const Variable &amp;u, const Variable &amp;v)</td></tr>
+<tr class="separator:a1d874dff64932dd17c549e38f9f99bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2df4e48a487596a4f82e1d49faa10b"><td class="memItemLeft" align="right" valign="top">Eigen::CommaInitializer&lt; <a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00347.html#a0a2df4e48a487596a4f82e1d49faa10b">operator&lt;&lt;</a> (<a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v, double d)</td></tr>
+<tr class="memdesc:a0a2df4e48a487596a4f82e1d49faa10b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list.  <a href="#a0a2df4e48a487596a4f82e1d49faa10b">More...</a><br /></td></tr>
+<tr class="separator:a0a2df4e48a487596a4f82e1d49faa10b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7dc812690b9047ac89555c20a0872f0"><td class="memItemLeft" align="right" valign="top">Eigen::CommaInitializer&lt; <a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00347.html#ab7dc812690b9047ac89555c20a0872f0">operator&lt;&lt;</a> (<a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&amp;v, double d)</td></tr>
+<tr class="memdesc:ab7dc812690b9047ac89555c20a0872f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list.  <a href="#ab7dc812690b9047ac89555c20a0872f0">More...</a><br /></td></tr>
+<tr class="separator:ab7dc812690b9047ac89555c20a0872f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a505cd69372fa8a4400b858528766780e"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:a505cd69372fa8a4400b858528766780e"><td class="memTemplItemLeft" align="right" valign="top">Eigen::CommaInitializer&lt; <a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00347.html#a505cd69372fa8a4400b858528766780e">operator&lt;&lt;</a> (<a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v, const Eigen::DenseBase&lt; Derived &gt; &amp;other)</td></tr>
+<tr class="memdesc:a505cd69372fa8a4400b858528766780e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list.  <a href="#a505cd69372fa8a4400b858528766780e">More...</a><br /></td></tr>
+<tr class="separator:a505cd69372fa8a4400b858528766780e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad211caf9c37299acce708ff4cbd1e847"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:ad211caf9c37299acce708ff4cbd1e847"><td class="memTemplItemLeft" align="right" valign="top">Eigen::CommaInitializer&lt; Eigen::VectorXd &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00347.html#ad211caf9c37299acce708ff4cbd1e847">operator&lt;&lt;</a> (<a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&amp;v, const Eigen::DenseBase&lt; Derived &gt; &amp;other)</td></tr>
+<tr class="memdesc:ad211caf9c37299acce708ff4cbd1e847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list.  <a href="#ad211caf9c37299acce708ff4cbd1e847">More...</a><br /></td></tr>
+<tr class="separator:ad211caf9c37299acce708ff4cbd1e847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a505cd69372fa8a4400b858528766780e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505cd69372fa8a4400b858528766780e">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::CommaInitializer&lt;<a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a>&gt; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::DenseBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list. </p>
+
+</div>
+</div>
+<a id="ab7dc812690b9047ac89555c20a0872f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7dc812690b9047ac89555c20a0872f0">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::CommaInitializer&lt;<a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a>&gt; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list. </p>
+
+</div>
+</div>
+<a id="a0a2df4e48a487596a4f82e1d49faa10b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2df4e48a487596a4f82e1d49faa10b">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::CommaInitializer&lt;<a class="el" href="a00395.html#a5ba6fca76794c352cd250591dab8309e">tvm::VectorRef</a>&gt; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list. </p>
+
+</div>
+</div>
+<a id="ad211caf9c37299acce708ff4cbd1e847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad211caf9c37299acce708ff4cbd1e847">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::CommaInitializer&lt;Eigen::VectorXd&gt; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::DenseBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to initialize a variable like an <a class="el" href="a00428.html">Eigen</a> vector, with a coma separated list. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00347.html">FunctionWritingExample.dox</a></li>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="a00347.html">Variable.h</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

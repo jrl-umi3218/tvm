@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['solvingrequirementsptr',['SolvingRequirementsPtr',['../a00383.html#afbe973f3a51c3fe6b5557b8e4e51fc73',1,'tvm']]],
-  ['sourcetype',['SourceType',['../a01544.html#abdba30070c33b048825cd51e6aee6a6c',1,'tvm::scheme::internal::SourceBase::SourceType()'],['../a01556.html#a41d9fdcdd54d8b9d3cdb8185b14bc70b',1,'tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, ZERO &gt;::SourceType()'],['../a01560.html#afae28ff68888e81280517ad18ced9b29',1,'tvm::scheme::internal::CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt;::SourceType()'],['../a01564.html#a9518daddba36379921d52b70c6f2fdab',1,'tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt;::SourceType()'],['../a01568.html#a7ae8467c5d26061844ea3164ae2f91f0',1,'tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MAX, W, M, ZERO &gt;::SourceType()']]],
-  ['store_5ft',['store_t',['../a01116.html#ac6e7f546232c0333a259b677cfd3446f',1,'tvm::graph::internal::Inputs']]]
+  ['rangeptr',['RangePtr',['../a00395.html#a9d1e2ac6e0fb302696dd5ac857aea214',1,'tvm']]],
+  ['refselector_5ft',['RefSelector_t',['../a00427.html#aa05965cff82275d2b7213670c1b63ff4',1,'tvm::utils::internal']]],
+  ['returntype',['ReturnType',['../a01565.html#a66ab1fef180694583047fb6ec2a1e4da',1,'tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;']]],
+  ['rhsfunction',['RHSFunction',['../a01445.html#abb7a598cb8d4c7ed873c50f07ca1bd91',1,'tvm::scheme::internal::Assignment::RHSFunction()'],['../a01633.html#a750ae252ac6a2fe9e53ca2a3098df38d',1,'tvm::scheme::internal::VectorAssignment::RHSFunction()']]],
+  ['robotptr',['RobotPtr',['../a00395.html#a003ca276319664eb1bd64c0b25b99509',1,'tvm']]]
 ];

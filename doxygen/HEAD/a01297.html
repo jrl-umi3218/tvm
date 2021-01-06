@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::internal::RangeCounting Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01300.html','');});
+$(document).ready(function(){initNavTree('a01297.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,21 +88,169 @@ $(document).ready(function(){initNavTree('a01300.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01294.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::requirements::SolvingRequirements Member List</div>  </div>
+<div class="title">tvm::internal::RangeCounting Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01300.html">tvm::requirements::SolvingRequirements</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01296.html#abfe7d7f5a1b2112ef96501717d274440">SolvingRequirementsBase</a>(const Args &amp;... args)</td><td class="entry"><a class="el" href="a01296.html">tvm::requirements::SolvingRequirementsBase&lt; true &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Keep track of the union and (set) subtraction of integer ranges, accounting for the number of times a number was added.  
+ <a href="a01297.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/internal/RangeCounting.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01301.html">Limit</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The lower (included) or upper (excluded) limit of a range.  <a href="a01301.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a06a6885e4aa3f80584eb0e5001bfc068"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01297.html#a06a6885e4aa3f80584eb0e5001bfc068">add</a> (const <a class="el" href="a01325.html">Range</a> &amp;r)</td></tr>
+<tr class="memdesc:a06a6885e4aa3f80584eb0e5001bfc068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a range to the counting.  <a href="#a06a6885e4aa3f80584eb0e5001bfc068">More...</a><br /></td></tr>
+<tr class="separator:a06a6885e4aa3f80584eb0e5001bfc068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d848e40a72c09d639fe31343196d29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01297.html#a05d848e40a72c09d639fe31343196d29">remove</a> (const <a class="el" href="a01325.html">Range</a> &amp;r)</td></tr>
+<tr class="memdesc:a05d848e40a72c09d639fe31343196d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a range from the counting.  <a href="#a05d848e40a72c09d639fe31343196d29">More...</a><br /></td></tr>
+<tr class="separator:a05d848e40a72c09d639fe31343196d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4f2ae8e723757a980b02f223f527fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01297.html#a2e4f2ae8e723757a980b02f223f527fd">empty</a> () const</td></tr>
+<tr class="separator:a2e4f2ae8e723757a980b02f223f527fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae978b641e3bbae6db61c9833bad26740"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a01325.html">Range</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01297.html#ae978b641e3bbae6db61c9833bad26740">ranges</a> (bool splitOncountDiff=false) const</td></tr>
+<tr class="memdesc:ae978b641e3bbae6db61c9833bad26740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a representation of number appearing as a list of ranges.  <a href="#ae978b641e3bbae6db61c9833bad26740">More...</a><br /></td></tr>
+<tr class="separator:ae978b641e3bbae6db61c9833bad26740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38699fdf2fb4141560f3fab8ecbfa126"><td class="memItemLeft" align="right" valign="top">const std::list&lt; <a class="el" href="a01301.html">Limit</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01297.html#a38699fdf2fb4141560f3fab8ecbfa126">limits</a> () const</td></tr>
+<tr class="memdesc:a38699fdf2fb4141560f3fab8ecbfa126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the underlying representation as a list of limits.  <a href="#a38699fdf2fb4141560f3fab8ecbfa126">More...</a><br /></td></tr>
+<tr class="separator:a38699fdf2fb4141560f3fab8ecbfa126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Keep track of the union and (set) subtraction of integer ranges, accounting for the number of times a number was added. </p>
+<p>For example adding the set {1,2,3,4} (represented by Range(1,4)) and the set {3,4,5,6} (Range(3,4)) will result in a single range, Range(1,6). But internally, it is known that 3 and 4 appeared twice so that removing {2,3,4} (Range(2,3)) will result in a set {1,3,4,5,6}, i.e. the ranges Range(1,1) and Range(3,4).</p>
+<p>This class is mostly meant as a utility for tvm::interal::VariableCountingVector. The idea is that <a class="el" href="a01917.html" title="A vector of variables, with some useful manipulation/analysis functions. ">tvm::VariableVector</a> is not keeping track of how many time a part of a variable has been added or removed, and has limitations when it comes to adding or removing subvariable. This class can be used on the ranges of subvariables within their supervariable to keep track of the parts present after all the add and remove.</p>
+<p>Internally, the ranges are represented by their limits, following the idea in <a href="https://stackoverflow.com/a/32869470/11611648,">https://stackoverflow.com/a/32869470/11611648,</a> e.g. Range(1,4) = {1,2,3,4} is represented by {(1,+), (5,-)} where the lower limit (opening, denoted by +) is included and the upper limit (closing, denoted by -) is excluded. A list of such limits is kept as a representation of the current state. The number of appearances of an integer is encoded by the number of + and - appearing to reach that number from the start of this list. For example, if the list is {(1,+), (3,+), (5,-), (6,+), (7,-), (7,-), (9,+), (10,-)}, all number up to 0 don't appear, 1 and appear once, 3 and 4 appear twice, 5 appears once, 6 appears twice, 7 and 8 don't appear, 9 appears once and all numbers from 10 don't appear. The resulting range representation is { Range(1,7), Range(9,1) }. Compared to the above link, we add also the notion of cut (denoted by | ), that is useful to keep track of the fact that two ranges were stitched together. For example adding {1,2} (Range(1,2)) and {3,4} (Range(3,2)) results in {1,2,3,4} (Range(1,4)), but is represented internally by {(1,+), (3,|), (5,-)}. The following rules are enforced for the internal representation: (1) limits appears in lexicographic order with + &lt; | &lt; - (2) (i,|) can only appear once for a given i (3) the sequence (i,+), (i,-) is replaced by (i,|) (4) the sequence (i,+), (i,|), (i,-) is replaced by (i,|) (5) the representation starts with (i,+) and finish with (j,-) i&lt;j (6) cuts can't appear at depth 0 </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a06a6885e4aa3f80584eb0e5001bfc068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a6885e4aa3f80584eb0e5001bfc068">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::internal::RangeCounting::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01325.html">Range</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a range to the counting. </p>
+<p>Return true if this changes the output of <code>ranges(false)</code> (it always changes the output of <code>range(true)</code> ). </p>
+
+</div>
+</div>
+<a id="a2e4f2ae8e723757a980b02f223f527fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e4f2ae8e723757a980b02f223f527fd">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::internal::RangeCounting::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38699fdf2fb4141560f3fab8ecbfa126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38699fdf2fb4141560f3fab8ecbfa126">&#9670;&nbsp;</a></span>limits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::list&lt;<a class="el" href="a01301.html">Limit</a>&gt;&amp; tvm::internal::RangeCounting::limits </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the underlying representation as a list of limits. </p>
+
+</div>
+</div>
+<a id="ae978b641e3bbae6db61c9833bad26740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae978b641e3bbae6db61c9833bad26740">&#9670;&nbsp;</a></span>ranges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;<a class="el" href="a01325.html">Range</a>&gt;&amp; tvm::internal::RangeCounting::ranges </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>splitOncountDiff</em> = <code>false</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a representation of number appearing as a list of ranges. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">splitOnDepthDiff</td><td>If true, ranges are split on count differences and on <a class="el" href="a01301.html#a761935003df9659f922daccaa678b314af8dbc722a45a44b77f130f48efd0a440">Limit::Cut</a> (i.e. two ranges touching but not overlapping will be returned separately, not merged). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05d848e40a72c09d639fe31343196d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d848e40a72c09d639fe31343196d29">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::internal::RangeCounting::remove </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01325.html">Range</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a range from the counting. </p>
+<p>Return true if this changes the output of <code><a class="el" href="a01297.html#ae978b641e3bbae6db61c9833bad26740" title="Get a representation of number appearing as a list of ranges. ">ranges()</a></code> (it always changes the output of <code>range(true)</code> ). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00416.html">internal</a></li><li class="navelem"><a class="el" href="a01297.html">RangeCounting</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

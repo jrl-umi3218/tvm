@@ -1,13 +1,10 @@
 var searchData=
 [
-  ['map',['map',['../a01632.html#a70271b0bd50e96801e3e1bb96c46f33b',1,'tvm::solver::abstract::LeastSquareSolver::map()'],['../a00414.html#a8596d3c79dcf5226377c8fab231f0fff',1,'tvm::utils::internal::map()']]],
-  ['maptoassignment',['MapToAssignment',['../a01632.html#a8ae8c7341a90c4341c8573fef74ab2d6',1,'tvm::solver::abstract::LeastSquareSolver']]],
-  ['matrixconstref',['MatrixConstRef',['../a00383.html#af4fdc88306faf6e863cff28f44459ec8',1,'tvm']]],
-  ['matrixconstrefwithproperties',['MatrixConstRefWithProperties',['../a00403.html#a651f5a84e5de36ae617ffde39b0c8c09',1,'tvm::internal']]],
-  ['matrixfunction',['MatrixFunction',['../a01400.html#af30e3ee1a7e47a8a2228d16bdb488596',1,'tvm::scheme::internal::Assignment::MatrixFunction()'],['../a01580.html#a54ee5fc7b46e52ea105fe301d3bc66dc',1,'tvm::scheme::internal::MatrixAssignment::MatrixFunction()']]],
-  ['matrixptr',['MatrixPtr',['../a00383.html#ad6c7343a28855adb26af330abcba056a',1,'tvm']]],
-  ['matrixref',['MatrixRef',['../a00383.html#adcb821eec4218eb93e3faf0d8a751171',1,'tvm']]],
-  ['matrixwithproperties',['MatrixWithProperties',['../a00403.html#a1817451238184d41f13b5502c872ec94',1,'tvm::internal']]],
-  ['minusidentitytype',['MinusIdentityType',['../a00414.html#a3285e6576eeb8aea8ef9aad32633b961',1,'tvm::utils::internal']]],
-  ['multidentitytype',['MultIdentityType',['../a00414.html#a972d81ac8de59a505156ca04e184f2ec',1,'tvm::utils::internal']]]
+  ['linearconstraintptr',['LinearConstraintPtr',['../a00395.html#a9684bcd58c05ed2e7f81eae1633c7082',1,'tvm']]],
+  ['linearfunctionptr',['LinearFunctionPtr',['../a00395.html#a043e85123594d7cb4514d783f25a6dba',1,'tvm']]],
+  ['linearprototask',['LinearProtoTask',['../a00417.html#a509f413d9278f8193b7bafd5b026b0bc',1,'tvm::utils']]],
+  ['linearprototaskds',['LinearProtoTaskDS',['../a00417.html#a835bafc1b1123b69bf974a9bb59d8a80',1,'tvm::utils']]],
+  ['linearprototaskeq',['LinearProtoTaskEQ',['../a00417.html#a67d50eddd53504a0b86fa2bfe7c6c36e',1,'tvm::utils']]],
+  ['linearprototaskgt',['LinearProtoTaskGT',['../a00417.html#ada1513adbbfbaf283d6495fad4728758',1,'tvm::utils']]],
+  ['linearprototasklt',['LinearProtoTaskLT',['../a00417.html#ad9cfc9fd2ff34269264b54eb97d96eb2',1,'tvm::utils']]]
 ];

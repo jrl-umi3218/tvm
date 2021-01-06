@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::graph::CallGraph::Plan Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01116.html','');});
+$(document).ready(function(){initNavTree('a01113.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,30 +88,108 @@ $(document).ready(function(){initNavTree('a01116.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01110.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::graph::internal::Inputs Member List</div>  </div>
+<div class="title">tvm::graph::CallGraph::Plan Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01116.html">tvm::graph::internal::Inputs</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a108c6844c30222ef383caeb922ad4f45">addInput</a>(std::shared_ptr&lt; T &gt; source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aa2b8b8c51b3939d134157f5fcdcae3b8">addInput</a>(T &amp;source, EnumI i, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#aa460986cd8bbf0060ed476a8625aeac0">getInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ae18f52958730844f8f29f727ca89e112">getInput</a>(const std::shared_ptr&lt; T &gt; &amp;source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a5f83c4f362fa09c25249bec6f6ad7c4f">inputs_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ad60a58128da7e4cdafba2e4ae358a23b">removeInput</a>(T *source)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#a214beacc3a0d88b8d225a4828a21582d">removeInput</a>(T *source, Args... args)</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#ac6e7f546232c0333a259b677cfd3446f">store_t</a> typedef</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01116.html#ad30a0da6c3cc968e6b25d709ddab5e76">tvm::graph::CallGraph</a> class</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01116.html#aee57010cd59189302e03828097aad3a3">~Inputs</a>()=default</td><td class="entry"><a class="el" href="a01116.html">tvm::graph::internal::Inputs</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>An execution plan built from the graph.  
+ <a href="a01113.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/graph/CallGraph.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac6830efb1d692d3094a7129f1c93a866"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01113.html#ac6830efb1d692d3094a7129f1c93a866">build</a> (const <a class="el" href="a01101.html">CallGraph</a> &amp;graph)</td></tr>
+<tr class="memdesc:ac6830efb1d692d3094a7129f1c93a866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the plan from the <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>.  <a href="#ac6830efb1d692d3094a7129f1c93a866">More...</a><br /></td></tr>
+<tr class="separator:ac6830efb1d692d3094a7129f1c93a866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01178b52a508fe369caefa3e95e29fe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01113.html#a01178b52a508fe369caefa3e95e29fe0">clear</a> ()</td></tr>
+<tr class="memdesc:a01178b52a508fe369caefa3e95e29fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the plan.  <a href="#a01178b52a508fe369caefa3e95e29fe0">More...</a><br /></td></tr>
+<tr class="separator:a01178b52a508fe369caefa3e95e29fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8fe0adb65059f464a60409f68b22b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01113.html#acc8fe0adb65059f464a60409f68b22b1">execute</a> () const</td></tr>
+<tr class="memdesc:acc8fe0adb65059f464a60409f68b22b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the plan.  <a href="#acc8fe0adb65059f464a60409f68b22b1">More...</a><br /></td></tr>
+<tr class="separator:acc8fe0adb65059f464a60409f68b22b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An execution plan built from the graph. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6830efb1d692d3094a7129f1c93a866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6830efb1d692d3094a7129f1c93a866">&#9670;&nbsp;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::CallGraph::Plan::build </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01101.html">CallGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Build the plan from the <a class="el" href="a01101.html" title="A Direct Acyclic Graph representing the dependencies between update calls where an edge (from...">CallGraph</a>. </p>
+
+</div>
+</div>
+<a id="a01178b52a508fe369caefa3e95e29fe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01178b52a508fe369caefa3e95e29fe0">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::CallGraph::Plan::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear the plan. </p>
+
+</div>
+</div>
+<a id="acc8fe0adb65059f464a60409f68b22b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc8fe0adb65059f464a60409f68b22b1">&#9670;&nbsp;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::CallGraph::Plan::execute </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the plan. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:54 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a01101.html">CallGraph</a></li><li class="navelem"><a class="el" href="a01113.html">Plan</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:01 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

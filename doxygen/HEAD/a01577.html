@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01580.html','');});
+$(document).ready(function(){initNavTree('a01577.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,27 +88,286 @@ $(document).ready(function(){initNavTree('a01580.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01574.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::MatrixAssignment Member List</div>  </div>
+<div class="title">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01580.html#abe7fae691803266061a0b185dadf389a">assignment</a></td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01580.html#a6e4933b7fffdf347c6d1b1c58650e43d">colRange</a></td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01580.html#a6e2524b0f5bc6c853929b8c78365bfd1">getTargetMatrix</a></td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01580.html#a54ee5fc7b46e52ea105fe301d3bc66dc">MatrixFunction</a> typedef</td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01580.html#aff108b411ad8aef4835460aa7eb13ed8">updateMapping</a>(const VariableVector &amp;newVar, const AssignmentTarget &amp;target, bool updateMatrixTarget)</td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01580.html#a54a600c0c1605a73ab444a951d27fd13">updateTarget</a>(const AssignmentTarget &amp;target)</td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01580.html#a89519195707032c6d20573c20f9ef5df">x</a></td><td class="entry"><a class="el" href="a01580.html">tvm::scheme::internal::MatrixAssignment</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Partial specialization for GENERAL.  
+ <a href="a01577.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ad87df146ac441d31f9885476aab073b0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad87df146ac441d31f9885476aab073b0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#ad87df146ac441d31f9885476aab073b0">PreType</a> = decltype(std::declval&lt; Eigen::Ref&lt; const Eigen::MatrixXd &gt; &gt;() *std::declval&lt; T &gt;())</td></tr>
+<tr class="memdesc:ad87df146ac441d31f9885476aab073b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of Matrix*T.  <a href="#ad87df146ac441d31f9885476aab073b0">More...</a><br /></td></tr>
+<tr class="separator:ad87df146ac441d31f9885476aab073b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad505f6aee876bc71fadeffc24c64315e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad505f6aee876bc71fadeffc24c64315e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#ad505f6aee876bc71fadeffc24c64315e">PostType</a> = decltype(std::declval&lt; T &gt;() *std::declval&lt; Eigen::Ref&lt; const Eigen::MatrixXd &gt; &gt;())</td></tr>
+<tr class="memdesc:ad505f6aee876bc71fadeffc24c64315e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of T*Matrix.  <a href="#ad505f6aee876bc71fadeffc24c64315e">More...</a><br /></td></tr>
+<tr class="separator:ad505f6aee876bc71fadeffc24c64315e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f5c41d9b5cc13bb43c20ef78a701a66"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#a8f5c41d9b5cc13bb43c20ef78a701a66">ConstType</a> = decltype(std::declval&lt; Eigen::Ref&lt; const Eigen::MatrixXd &gt; &gt;() *Eigen::VectorXd::Constant(1, 1))</td></tr>
+<tr class="memdesc:a8f5c41d9b5cc13bb43c20ef78a701a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of Matrix * ConstantVector.  <a href="#a8f5c41d9b5cc13bb43c20ef78a701a66">More...</a><br /></td></tr>
+<tr class="separator:a8f5c41d9b5cc13bb43c20ef78a701a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abdd0beb3c2bb24191c72018922745da6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html#abdd0beb3c2bb24191c72018922745da6">MatrixMultBase</a> (const Eigen::Ref&lt; const Eigen::MatrixXd &gt; &amp;M)</td></tr>
+<tr class="separator:abdd0beb3c2bb24191c72018922745da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f7fd52985cf857b5a9b482007f32f0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa9f7fd52985cf857b5a9b482007f32f0"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; <a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; MatrixType &gt;::value, <a class="el" href="a01577.html#ad87df146ac441d31f9885476aab073b0">PreType</a>&lt; T &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#aa9f7fd52985cf857b5a9b482007f32f0">applyMatrixMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:aa9f7fd52985cf857b5a9b482007f32f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13931a03addf934ba95e48f6cc73ea1d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a13931a03addf934ba95e48f6cc73ea1d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!<a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; MatrixType &gt;::value, <a class="el" href="a01577.html#ad505f6aee876bc71fadeffc24c64315e">PostType</a>&lt; T &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#a13931a03addf934ba95e48f6cc73ea1d">applyMatrixMult</a> (const T &amp;M)</td></tr>
+<tr class="separator:a13931a03addf934ba95e48f6cc73ea1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadd50be0859c22263cb10590f4c850c1"><td class="memTemplParams" colspan="2">template&lt;typename U  = MatrixType&gt; </td></tr>
+<tr class="memitem:aadd50be0859c22263cb10590f4c850c1"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; <a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt; U &gt;::value, <a class="el" href="a01577.html#a8f5c41d9b5cc13bb43c20ef78a701a66">ConstType</a> &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#aadd50be0859c22263cb10590f4c850c1">applyMatrixMult</a> (const double &amp;d)</td></tr>
+<tr class="separator:aadd50be0859c22263cb10590f4c850c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2b54dec91b9db12f82f3a7ec8c9c51f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac2b54dec91b9db12f82f3a7ec8c9c51f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01577.html#ac2b54dec91b9db12f82f3a7ec8c9c51f">applyMatrixMultCached</a> (MatrixType &amp;cache, const T &amp;M)</td></tr>
+<tr class="memdesc:ac2b54dec91b9db12f82f3a7ec8c9c51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached version of applyMatrixMult.  <a href="#ac2b54dec91b9db12f82f3a7ec8c9c51f">More...</a><br /></td></tr>
+<tr class="separator:ac2b54dec91b9db12f82f3a7ec8c9c51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename MatrixType&gt;<br />
+class tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</h3>
+
+<p>Partial specialization for GENERAL. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a8f5c41d9b5cc13bb43c20ef78a701a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f5c41d9b5cc13bb43c20ef78a701a66">&#9670;&nbsp;</a></span>ConstType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::<a class="el" href="a01577.html#a8f5c41d9b5cc13bb43c20ef78a701a66">ConstType</a> =  decltype(std::declval&lt;Eigen::Ref&lt;const Eigen::MatrixXd&gt; &gt;() * Eigen::VectorXd::Constant(1, 1))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of Matrix * ConstantVector. </p>
+
+</div>
+</div>
+<a id="ad505f6aee876bc71fadeffc24c64315e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad505f6aee876bc71fadeffc24c64315e">&#9670;&nbsp;</a></span>PostType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::<a class="el" href="a01577.html#ad505f6aee876bc71fadeffc24c64315e">PostType</a> =  decltype(std::declval&lt;T&gt;() * std::declval&lt;Eigen::Ref&lt;const Eigen::MatrixXd&gt; &gt;())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of T*Matrix. </p>
+
+</div>
+</div>
+<a id="ad87df146ac441d31f9885476aab073b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87df146ac441d31f9885476aab073b0">&#9670;&nbsp;</a></span>PreType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::<a class="el" href="a01577.html#ad87df146ac441d31f9885476aab073b0">PreType</a> =  decltype(std::declval&lt;Eigen::Ref&lt;const Eigen::MatrixXd&gt; &gt;() * std::declval&lt;T&gt;())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return type of Matrix*T. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abdd0beb3c2bb24191c72018922745da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd0beb3c2bb24191c72018922745da6">&#9670;&nbsp;</a></span>MatrixMultBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::<a class="el" href="a01569.html">MatrixMultBase</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::MatrixXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa9f7fd52985cf857b5a9b482007f32f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9f7fd52985cf857b5a9b482007f32f0">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;<a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;MatrixType&gt;::value, <a class="el" href="a01577.html#ad87df146ac441d31f9885476aab073b0">PreType</a>&lt;T&gt; &gt;::type <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13931a03addf934ba95e48f6cc73ea1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13931a03addf934ba95e48f6cc73ea1d">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;!<a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;MatrixType&gt;::value, <a class="el" href="a01577.html#ad505f6aee876bc71fadeffc24c64315e">PostType</a>&lt;T&gt; &gt;::type <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadd50be0859c22263cb10590f4c850c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadd50be0859c22263cb10590f4c850c1">&#9670;&nbsp;</a></span>applyMatrixMult() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename U  = MatrixType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;<a class="el" href="a00423.html#a004afcb1d38a4be484e715ebb9936fe2">isVector</a>&lt;U&gt;::value, <a class="el" href="a01577.html#a8f5c41d9b5cc13bb43c20ef78a701a66">ConstType</a>&gt;::type <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::applyMatrixMult </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2b54dec91b9db12f82f3a7ec8c9c51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2b54dec91b9db12f82f3a7ec8c9c51f">&#9670;&nbsp;</a></span>applyMatrixMultCached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MatrixType &gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a01569.html">tvm::scheme::internal::MatrixMultBase</a>&lt; MatrixType, <a class="el" href="a00423.html#accdeba42434e6c326e35e438acca74fda8816dee447b86ccf9bec4d5111b38a2b">GENERAL</a> &gt;::applyMatrixMultCached </td>
+          <td>(</td>
+          <td class="paramtype">MatrixType &amp;&#160;</td>
+          <td class="paramname"><em>cache</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>M</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cached version of applyMatrixMult. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01577.html">MatrixMultBase&lt; MatrixType, GENERAL &gt;</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

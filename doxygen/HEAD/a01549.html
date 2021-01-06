@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: Member List</title>
+<title>TVM: tvm::scheme::internal::WeightMultBase&lt; W &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a01552.html','');});
+$(document).ready(function(){initNavTree('a01549.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -89,30 +89,36 @@ $(document).ready(function(){initNavTree('a01552.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt; Member List</div>  </div>
+<div class="title">tvm::scheme::internal::WeightMultBase&lt; W &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01444.html#aeb6348426970a32cb1d8a1f166bfbb5b">cache</a>(const T &amp;M)</td><td class="entry"><a class="el" href="a01444.html">tvm::scheme::internal::CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, F &gt;::value||use_product_cache&lt; MatrixType, A, W, M, F &gt;::value &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01444.html#af42f61ef45a93c3f4ef5b3bb1ad5a6d9">CachedResult</a>(const Eigen::Ref&lt; MatrixType &gt; &amp;)</td><td class="entry"><a class="el" href="a01444.html">tvm::scheme::internal::CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, F &gt;::value||use_product_cache&lt; MatrixType, A, W, M, F &gt;::value &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01552.html#aea3144f72908072b25ad07815140e73d">CompiledAssignmentWrapper</a> class</td><td class="entry"><a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01544.html#a2629254e33031a6a56112e1208b96a31">from</a>() const</td><td class="entry"><a class="el" href="a01544.html">tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01544.html#a967d6c3947961a3085876ea0463b7a04">from</a>(const SourceType &amp;from)</td><td class="entry"><a class="el" href="a01544.html">tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01552.html#a9c767e2235c05bca118c2b9cf8c13b18">run</a>()</td><td class="entry"><a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01552.html#a88fee49bd30a0a7010d29e0e6252a91f">run</a>()</td><td class="entry"><a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01552.html#ad74d110b8f778449e9594b20f28eb9b7">run</a>()</td><td class="entry"><a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01544.html#a554b96ce4db16ccaf30195c866ea1dc2">SourceBase</a>(const SourceType &amp;from)</td><td class="entry"><a class="el" href="a01544.html">tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01544.html#abdba30070c33b048825cd51e6aee6a6c">SourceType</a> typedef</td><td class="entry"><a class="el" href="a01544.html">tvm::scheme::internal::SourceBase&lt; MatrixType, F &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01552.html#ac656f6fa2fc6c6f72df7ba4aa956e85f">to</a>(const Eigen::Ref&lt; MatrixType &gt; &amp;to)</td><td class="entry"><a class="el" href="a01552.html">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Base class for the multiplication by a scalar.  
+ <a href="a01549.html#details">More...</a></p>
+
+<p><code>#include &lt;tvm/scheme/internal/CompiledAssignment.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::scheme::internal::WeightMultBase&lt; W &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01549.png" usemap="#tvm::scheme::internal::WeightMultBase_3C_20W_20_3E_map" alt=""/>
+  <map id="tvm::scheme::internal::WeightMultBase_3C_20W_20_3E_map" name="tvm::scheme::internal::WeightMultBase_3C_20W_20_3E_map">
+<area href="a01597.html" title="The main class. " alt="tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, F &gt;" shape="rect" coords="0,56,412,80"/>
+</map>
+ </div></div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;WeightMult W&gt;<br />
+class tvm::scheme::internal::WeightMultBase&lt; W &gt;</h3>
+
+<p>Base class for the multiplication by a scalar. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Nov 11 2020 08:46:55 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01549.html">WeightMultBase</a></li>
+    <li class="footer">Generated on Wed Jan 6 2021 01:58:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
