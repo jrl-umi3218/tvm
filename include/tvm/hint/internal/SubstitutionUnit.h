@@ -31,7 +31,7 @@ public:
   /** Build a SubstitutionUnit containing the substitutions from
    * \p substitutionPool with indices in \p groups[i] for each \p i in
    * \p order.
-   * Substitutions in a same groups[i] are merged as a single subsitution.
+   * Substitutions in a same groups[i] are merged as a single substitution.
    */
   SubstitutionUnit(const std::vector<Substitution> & substitutionPool,
                    const std::vector<std::vector<size_t>> & groups,
@@ -66,7 +66,7 @@ private:
    * from \p substitutions_.
    */
   void scanSubstitutions();
-  /** Compute the dependencies between the constraints, variables and susbsitutions.*/
+  /** Compute the dependencies between the constraints, variables and substitutions.*/
   void computeDependencies();
   /** Resize the matrices and initialize to zero some parts that will be used*/
   void initializeMatrices();
@@ -85,7 +85,7 @@ private:
   VariableVector x_;
   /** The non-substituted variables*/
   VariableVector y_;
-  /** The additionnal nullspace variables*/
+  /** The additional nullspace variables*/
   VariableVector z_;
   /** Imagining all the constraints of all the substitutions stacked, the i-th
    * elements gives the rows corresponding to substitutions_[i].
@@ -127,7 +127,7 @@ private:
   /** substitutions_[i] depends on z_[SZdependencies_[i][j]].*/
   std::vector<std::vector<int>> SZdependencies_;
 
-  /** The substituted variables as linear functions of the non-sustituted ones.*/
+  /** The substituted variables as linear functions of the non-substituted ones.*/
   std::vector<std::shared_ptr<function::BasicLinearFunction>> varSubstitutions_;
   /** The remaining constraints on the non-substituted variables.*/
   std::vector<std::shared_ptr<constraint::BasicLinearConstraint>> remaining_;

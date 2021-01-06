@@ -35,7 +35,7 @@ bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
       // For now, we only accept Euclidean variables. This could be extended to generic
       // manifolds if we get the information on how to make finite differences on the
       // non-Euclidean variables (i.e. if we get a retraction).
-      // Note to developpers: ffd with manifolds can be found in PostureGenerator and
+      // Note to developers: ffd with manifolds can be found in PostureGenerator and
       // externally-provided retraction are used in GeometricFramework
       throw std::runtime_error("This function is implemented for Euclidean variables only.");
     }
@@ -206,7 +206,7 @@ bool TVM_DLLAPI checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
 
 bool TVM_DLLAPI checkFunction(FunctionPtr f, CheckOptions opt)
 {
-  // Call the functions in order: checkVelocity will only be called if checkj\Jacobian
+  // Call the functions in order: checkVelocity will only be called if checkJacobian
   // passes, which is good as checkVelocity relies on having correct jacobian matrices.
   // Likewise checkNormalAcceleration relies on having correct jacobian matrices and
   // velocities.

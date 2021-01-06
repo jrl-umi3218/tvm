@@ -6,6 +6,7 @@
 #include <tvm/defs.h>
 
 #include <tvm/VariableVector.h>
+#include <tvm/internal/VariableCountingVector.h>
 #include <tvm/scheme/internal/ProblemDefinitionEvent.h>
 
 #include <queue>
@@ -66,12 +67,10 @@ protected:
   ProblemComputationData() = delete;
 
   /** Need to put in x the solution of the computation. */
-  virtual void setVariablesToSolution_(VariableVector & x) = 0;
+  virtual void setVariablesToSolution_(tvm::internal::VariableCountingVector & x) = 0;
 
   /** The problem variable*/
-  VariableVector x_;
-  /** Count on the number of time a variable was added to x_.*/
-  std::vector<int> varCount_;
+  tvm::internal::VariableCountingVector variables_;
 
   /** Problem definition events*/
   std::queue<ProblemDefinitionEvent> events_;
@@ -82,21 +81,7 @@ private:
 
 inline int ProblemComputationData::solverId() const { return solverId_; }
 
-inline bool ProblemComputationData::addVariable(VariablePtr var)
-{
-  assert(x_.numberOfVariables() == varCount_.size());
-  size_t i = static_cast<size_t>(x_.addAndGetIndex(var));
-  if(i >= varCount_.size())
-  {
-    varCount_.push_back(1);
-    return true;
-  }
-  else
-  {
-    ++varCount_[i];
-    return false;
-  }
-}
+inline bool ProblemComputationData::addVariable(VariablePtr var) { return variables_.add(var); }
 
 inline void ProblemComputationData::addVariable(const VariableVector & vars)
 {
@@ -104,23 +89,7 @@ inline void ProblemComputationData::addVariable(const VariableVector & vars)
     addVariable(v);
 }
 
-inline bool ProblemComputationData::removeVariable(Variable * v)
-{
-  int i = x_.indexOf(*v);
-  assert(i >= 0 && i < static_cast<int>(varCount_.size()));
-
-  --varCount_[i];
-  if(varCount_[i] == 0)
-  {
-    x_.remove(i);
-    varCount_.erase(varCount_.begin() + i);
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
+inline bool ProblemComputationData::removeVariable(Variable * v) { return variables_.remove(*v); }
 
 inline void ProblemComputationData::removeVariable(const VariableVector & vars)
 {
@@ -128,9 +97,9 @@ inline void ProblemComputationData::removeVariable(const VariableVector & vars)
     removeVariable(v.get());
 }
 
-inline const VariableVector & ProblemComputationData::variables() const { return x_; }
+inline const VariableVector & ProblemComputationData::variables() const { return variables_.variables(); }
 
-inline void ProblemComputationData::setVariablesToSolution() { setVariablesToSolution_(x_); }
+inline void ProblemComputationData::setVariablesToSolution() { setVariablesToSolution_(variables_); }
 
 inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e) { events_.push(e); }
 

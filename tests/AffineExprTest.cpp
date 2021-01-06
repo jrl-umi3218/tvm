@@ -150,3 +150,91 @@ TEST_CASE("Test integration with ProtoTask")
   auto p15 = (A * x + b <= 0);
   auto p16 = (0 <= A * x + b);
 }
+
+TEST_CASE("Affine expression with subvariables")
+{
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr y = Space(8).createVariable("y");
+
+  VariablePtr x1 = x->subvariable(3, "x1", 0);
+  VariablePtr x2 = x->subvariable(2, "x2", 3);
+  VariablePtr x3 = x->subvariable(3, "x3", 5);
+  VariablePtr y1 = y->subvariable(5, "y1", 0);
+  VariablePtr y2 = y->subvariable(2, "y2", 3);
+  VariablePtr y3 = y->subvariable(5, "y3", 3);
+
+  MatrixXd A = MatrixXd::Random(3, 8);
+  MatrixXd B = MatrixXd::Random(3, 8);
+  MatrixXd A1 = MatrixXd::Random(3, 3);
+  MatrixXd A2 = MatrixXd::Random(3, 2);
+  MatrixXd A3 = MatrixXd::Random(3, 3);
+  MatrixXd B1 = MatrixXd::Random(3, 5);
+  MatrixXd B2 = MatrixXd::Random(3, 2);
+  MatrixXd B3 = MatrixXd::Random(3, 5);
+
+  VectorXd u = VectorXd::Random(8);
+  VectorXd v = VectorXd::Random(8);
+
+  BasicLinearFunction f1(A1 * x1 + A2 * x2 + A3 * x3);
+  MatrixXd M1(3, 8);
+  M1 << A1, A2, A3;
+  FAST_CHECK_EQ(f1.variables().numberOfVariables(), 1);
+  FAST_CHECK_EQ(*f1.variables()[0], *x);
+  FAST_CHECK_UNARY(M1.isApprox(f1.jacobian(*x)));
+  FAST_CHECK_UNARY(A1.isApprox(f1.jacobian(*x1)));
+  FAST_CHECK_UNARY(A2.isApprox(f1.jacobian(*x2)));
+  FAST_CHECK_UNARY(A3.isApprox(f1.jacobian(*x3)));
+
+  BasicLinearFunction f2(B1 * y1 - B3 * y3);
+  MatrixXd M2 = MatrixXd::Zero(3, 8);
+  M2.leftCols(5) = B1;
+  M2.rightCols(5) -= B3;
+  FAST_CHECK_EQ(f2.variables().numberOfVariables(), 1);
+  FAST_CHECK_EQ(*f2.variables()[0], *y);
+  FAST_CHECK_UNARY(M2.isApprox(f2.jacobian(*y)));
+
+  BasicLinearFunction f3(A3 * x3 + B3 * y3 + A1 * x1 + B2 * y2);
+  MatrixXd M3 = B3;
+  M3.leftCols(2) += B2;
+  FAST_CHECK_EQ(f3.variables().numberOfVariables(), 3);
+  FAST_CHECK_UNARY(A1.isApprox(f3.jacobian(*x1)));
+  FAST_CHECK_UNARY(A3.isApprox(f3.jacobian(*x3)));
+  FAST_CHECK_UNARY(M3.isApprox(f3.jacobian(*y3)));
+}
+
+TEST_CASE("Detecting matrices properties")
+{
+  VariablePtr u = Space(2).createVariable("u");
+  VariablePtr v = Space(2).createVariable("v");
+  VariablePtr w = Space(2).createVariable("w");
+  VariablePtr x = Space(2).createVariable("x");
+  VariablePtr y = Space(2).createVariable("y");
+  VariablePtr z = Space(2).createVariable("z");
+
+  MatrixXd M(2, 2);
+  VectorXd d(2);
+
+  // The following line does not work because d.asDiagonal()*var is not recognized as a LinearExpr
+  // BasicLinearFunction f(u - v + 2*w + d.asDiagonal()*x -d.asDiagonal()*y + M*z);
+  BasicLinearFunction f(u - v + 2 * w + M * z);
+  FAST_CHECK_UNARY(f.jacobian(*u).properties().isIdentity());
+  FAST_CHECK_UNARY(f.jacobian(*v).properties().isMinusIdentity());
+  FAST_CHECK_UNARY(f.jacobian(*w).properties().isMultipleOfIdentity());
+  FAST_CHECK_EQ(f.jacobian(*z).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+
+  // With subvariables
+  VariablePtr u1 = u->subvariable(1, "u1", 1);
+  VariablePtr v1 = v->subvariable(1, "v1", 1);
+  VectorXd e = VectorXd::Ones(2);
+
+  // When a subvariable is added to the variable, the existing properties are overwritten.
+  BasicLinearFunction g(u - v - e * u1 + e * v1);
+  FAST_CHECK_EQ(g.jacobian(*u).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*u).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*u1).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*u1).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*v).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*v).properties().isConstant());
+  FAST_CHECK_EQ(g.jacobian(*v1).properties().shape(), tvm::internal::MatrixProperties::GENERAL);
+  FAST_CHECK_UNARY(g.jacobian(*v1).properties().isConstant());
+}

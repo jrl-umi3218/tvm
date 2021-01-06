@@ -6,6 +6,7 @@
 #include <tvm/defs.h>
 
 #include <tvm/internal/MatrixWithProperties.h>
+#include <tvm/internal/ObjWithId.h>
 
 #include <map>
 #include <memory>
@@ -20,7 +21,7 @@ namespace tvm
  * given a vector aggregating all variables, which section of this vector
  * would correspond to a given variable.
  * There is two approaches for that: either build a map with
- * computeMappingMap or use the method Variable::getMappingIn. The latter
+ * computeMapping or use the method Variable::getMappingIn. The latter
  * uses a cache in Variable in a way that if one invoke Variable::getMappingIn
  * on any variable contained in a VariableVector, the mapping of all other
  * contained variables will be computed and cached. For repeatedly querying
@@ -34,7 +35,7 @@ namespace tvm
  *
  * FIXME would it make sense to derive from std::vector<std::shared_ptr<Variable>> ?
  */
-class TVM_DLLAPI VariableVector
+class TVM_DLLAPI VariableVector : public tvm::internal::ObjWithId
 {
 public:
   /** Construct an empty vector*/
@@ -53,11 +54,26 @@ public:
   template<typename... VarPtr>
   VariableVector(VarPtr &&... variables);
 
+  /** Copy constructor*/
+  VariableVector(const VariableVector & other);
+  VariableVector(VariableVector &&) = default;
+
+  VariableVector & operator=(const VariableVector & other);
+  VariableVector & operator=(VariableVector &&) = default;
+
+  ~VariableVector();
+
   /** Add a variable to the vector if not already present.
    *
    * \param v The variable to be added.
    *
    * \returns True if the variable was added, false otherwise.
+   *
+   * \Note If the variable is only partially present (i.e. it intersects a
+   * a variable in the vector but is not contained by it), this function will
+   * throw.
+   * If you need to handle such a case, you should look at
+   * tvm::internal::VariableCountingVector.
    */
   bool add(VariablePtr v);
   /** Add a variable to the vector. This version is mostly to be used directly
@@ -67,7 +83,7 @@ public:
    *
    * \returns True if the variable was added, false otherwise
    *
-   * \internal This version is meant to disembiguate between add(VariablePtr v)
+   * \internal This version is meant to disambiguate between add(VariablePtr v)
    * and add(const VariableVector& variables) when passing a std::unique_ptr<Variable>.
    */
   bool add(std::unique_ptr<Variable> v);
@@ -75,20 +91,29 @@ public:
   void add(const std::vector<VariablePtr> & variables);
   /** Same as add(VariablePtr), but for adding a vector of variables.*/
   void add(const VariableVector & variables);
-  /** Add a variable to the vector, if not already present and return the index
+  /** Add a variable to the vector, if not already present, and return the index
    * of the variable in the vector whether it was added or not.
    *
    * \param v The variable to be added.
+   * \param containingIndex Specify what to return in case \p v is the subvariable
+   * of an already present variable. If \c false, return -1 in this case. If
+   * \c true, return the index of the variable containing \p v.
    *
-   * \returns Index of variable \p v in the vector.
+   * \returns Index of variable \p v in the vector. If \p v is a subvariable of an
+   * already present variable, returns -1 or the index of the variable depending
+   * on \p containingIndex.
    */
-  int addAndGetIndex(VariablePtr v);
+  int addAndGetIndex(VariablePtr v, bool containingIndex = false);
 
   /** Remove a variable from the vector, if present.
    *
    * \param v the variable to be removed.
    *
    * \returns True if the variable was removed, false otherwise.
+   *
+   * \warning You can only remove a variable logically equal to one present in
+   * the vector. Trying to remove a subpart of a variable in the vector will not
+   * remove anything, and return \c false.
    */
   bool remove(const Variable & v);
   /** Remove the variable with the given index.
@@ -100,11 +125,14 @@ public:
    */
   void remove(int i);
 
+  /** Clear the vector*/
+  void clear();
+
   /** Sum of the sizes of all the variables.*/
   int totalSize() const;
   /** Number of variables*/
   int numberOfVariables() const;
-  /** Elementwise access*/
+  /** Element-wise access*/
   const VariablePtr operator[](int i) const;
   /** whole vector access*/
   const std::vector<VariablePtr> & variables() const;
@@ -121,22 +149,26 @@ public:
   void value(const VectorConstRef & val);
   /** Set the value of all variables to 0.*/
   void setZero();
-  /** Compute the mapping for all variables in this vector. The result is
-   * stored in each variable and can be queried by Variable::getMappingIn.
-   */
-  void computeMapping() const;
 
-  /** Compute the mapping for every variabe and return it.*/
-  std::map<const Variable *, Range> computeMappingMap() const;
   /** Check if this vector contains variable \p v or not. */
   bool contains(const Variable & v) const;
+
+  /** Check if any variable of this vector intersects with \p v*/
+  bool intersects(const Variable & v) const;
 
   /** Find the index of variable \p v in the vector. Returns -1 if \p v is not
    * present.
    */
   int indexOf(const Variable & v) const;
 
-  /** A timestamp, used internally to determine if a mapping needs to be
+  /** Return the mapping of \p v in this vector.
+   *
+   * This is meant for when the mapping has not been cached, and will cache it.
+   * You should always prefer the use of Variable::getMappingIn.
+   */
+  Range getMappingOf(const Variable & v) const;
+
+  /** A timestamp, used internally to determine if a cached mapping needs to be
    * recomputed or not.
    */
   int stamp() const;

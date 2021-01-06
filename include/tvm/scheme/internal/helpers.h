@@ -52,7 +52,7 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c);
  * \param c the constraint
  * \param subs the set of substitutions
  * We have a bound if c is a bound and the variable is not substituted or it
- * is by an expression with a single varaible and an invertible, diagonal
+ * is by an expression with a single variable and an invertible, diagonal
  * jacobian.
  */
 bool TVM_DLLAPI isBound(const ConstraintPtr & c, const hint::internal::Substitutions & subs);
@@ -62,7 +62,7 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c, const hint::internal::Substitut
  * \param x the set of variables being substituted
  * \param xsub the set of substitution functions corresponding to those variables.
  * We have a bound if c is a bound and the variable is not substituted or it
- * is by an expression with a single varaible and an invertible, diagonal
+ * is by an expression with a single variable and an invertible, diagonal
  * jacobian.
  */
 bool TVM_DLLAPI isBound(const ConstraintPtr & c,
@@ -76,7 +76,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
                                  const hint::internal::Substitutions & subs,
                                  constraint::Type targetConvention);
 
-/** Version with separated susbtituted variables and substitution functions.*/
+/** Version with separated substituted variables and substitution functions.*/
 bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
                                  const std::vector<VariablePtr> & x,
                                  const std::vector<std::shared_ptr<function::BasicLinearFunction>> & xsub,

@@ -211,7 +211,7 @@ public:
   /** Generate the specified CallGraph. */
   std::string generateDot(const CallGraph * const g) const;
 
-  /** Generate the whole graph, highlighting the eleements specified by
+  /** Generate the whole graph, highlighting the elements specified by
    * oUtHighlight and upHightlight.
    */
   std::string generateDot(const std::vector<Log::Output> & outHighlight = {},

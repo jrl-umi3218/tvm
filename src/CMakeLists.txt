@@ -41,6 +41,8 @@ set(TVM_SOURCES
   internal/FirstOrderProvider.cpp
   internal/MatrixProperties.cpp
   internal/ObjWithId.cpp
+  internal/RangeCounting.cpp
+  internal/VariableCountingVector.cpp
 
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
@@ -151,6 +153,9 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/meta.h
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
+  ${TVM_INCLUDE_DIR}/internal/RangeCounting.h
+  ${TVM_INCLUDE_DIR}/internal/VariableCountingVector.h
+  ${TVM_INCLUDE_DIR}/internal/VariableVectorPartition.h
 
   ${TVM_INCLUDE_DIR}/requirements/abstract/SingleSolvingRequirement.h
   ${TVM_INCLUDE_DIR}/requirements/AnisotropicWeight.h
@@ -202,6 +207,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/utils/internal/BufferedMatrix.h
   ${TVM_INCLUDE_DIR}/utils/internal/graphDetails.h
   ${TVM_INCLUDE_DIR}/utils/internal/map.h
+  ${TVM_INCLUDE_DIR}/utils/internal/MapWithVariableAsKey.h
   ${TVM_INCLUDE_DIR}/utils/internal/ProtoTaskDetails.h
   ${TVM_INCLUDE_DIR}/utils/memoryChecks.h
 )
@@ -282,6 +288,13 @@ if(GENERATE_COVERAGE)
   set_target_properties(TVM PROPERTIES LINK_FLAGS "--coverage")
 endif()
 
+if(TVM_TREAT_WARNINGS_AS_ERRORS)
+  if(WIN32)
+    target_compile_options(TVM PUBLIC $<BUILD_INTERFACE:/WX>)
+  else()
+    target_compile_options(TVM PUBLIC $<BUILD_INTERFACE:-Werror>)
+  endif()
+endif()
 
 install(TARGETS TVM
   EXPORT "${TARGETS_EXPORT_NAME}"

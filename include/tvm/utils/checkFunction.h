@@ -45,7 +45,7 @@ bool TVM_DLLAPI checkVelocity(FunctionPtr f, CheckOptions opt = CheckOptions());
  */
 bool TVM_DLLAPI checkNormalAcceleration(FunctionPtr f, CheckOptions opt = CheckOptions());
 
-/** Check the jacobian matrics, velocity and normal acceleration of the
+/** Check the jacobian matrices, velocity and normal acceleration of the
  * function \a f
  */
 bool TVM_DLLAPI checkFunction(FunctionPtr f, CheckOptions opt = CheckOptions());

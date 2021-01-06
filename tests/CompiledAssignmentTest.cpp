@@ -152,7 +152,7 @@ void assign(AssignType A, Ref<MatrixXd> to)
     to.array() = to.array().max(0);
 }
 
-// an exemple of free fonction. Here, we reverse the columns of in
+// an example of free function. Here, we reverse the columns of in
 void freePostMult(Ref<MatrixXd> out, const Ref<const MatrixXd> & in)
 {
   DenseIndex ci = 0;
@@ -192,7 +192,7 @@ template<typename MatrixType,
          typename Tuple,
          bool Done,
          int Total,
-         int... N>
+         size_t... N>
 struct call_impl
 {
   static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
@@ -202,7 +202,7 @@ struct call_impl
   }
 };
 
-template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple, int Total, int... N>
+template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F, typename Tuple, int Total, size_t... N>
 struct call_impl<MatrixType, A, W, M, F, Tuple, true, Total, N...>
 {
   static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
@@ -300,7 +300,7 @@ struct SArg<ZERO, MatrixType>
 
 /** This function build a CompiledAssignementWrapper by picking the correct arguments
  * to pass to the constructor. The main work is to create a tuple containing
- * exactly the arguments needed byt the constructor.
+ * exactly the arguments needed by the constructor.
  */
 template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F>
 CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to,
@@ -313,7 +313,6 @@ CompiledAssignmentWrapper<MatrixType> build(Ref<MatrixType> to,
 {
   auto args = std::tuple_cat(std::make_tuple(to), SArg<F, MatrixType>::get(from, constant), WArg<W>::get(s, w),
                              MArg<M, MatrixType>::get(Mult, f));
-  using ReturnType = CompiledAssignment<MatrixType, A, W, M, F>;
   return call<MatrixType, A, W, M, F>(args);
 }
 

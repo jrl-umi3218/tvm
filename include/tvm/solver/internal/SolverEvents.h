@@ -9,7 +9,7 @@
 
 namespace tvm::solver::internal
 {
-/** An agregation of all the events to be handled by a solver*/
+/** An aggregation of all the events to be handled by a solver*/
 class SolverEvents
 {
 public:

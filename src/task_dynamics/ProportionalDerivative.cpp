@@ -50,7 +50,7 @@ ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp)
 {
   Eigen::RealSchur<Eigen::MatrixXd> dec(kp);
   assert(dec.matrixT().isDiagonal(1e-8) && "kp is not symmetric.");
-  assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is undefinite.");
+  assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is indefinite.");
   kv_.emplace<2>(2 * dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose());
 }
 
@@ -153,7 +153,7 @@ void ProportionalDerivative::Impl::gains(const Eigen::MatrixXd & kp)
   checkGainSize(kp);
   Eigen::RealSchur<Eigen::MatrixXd> dec(kp);
   assert(dec.matrixT().isDiagonal(1e-8) && "kp is not symmetric.");
-  assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is undefinite.");
+  assert((dec.matrixT().diagonal().array() >= 0).all() && "kp is indefinite.");
   kv_.emplace<2>(2 * dec.matrixU() * dec.matrixT().diagonal().asDiagonal() * dec.matrixU().transpose());
 }
 

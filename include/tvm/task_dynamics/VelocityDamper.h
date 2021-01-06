@@ -151,7 +151,7 @@ public:
     std::vector<bool> active_;
   };
 
-  /** \bried Velocity damper for first order dynamics.
+  /** \brief Velocity damper for first order dynamics.
    *
    * \param config configuration of the damper. \sa VelocityDamperConfig
    *
@@ -165,7 +165,7 @@ public:
    */
   VelocityDamper(const Config & config, double big = constant::big_number);
 
-  /** \bried Velocity damper for first order dynamics.
+  /** \brief Velocity damper for first order dynamics.
    *
    * \param config configuration of the damper. \sa VelocityDamperAnisotropicConfig
    *

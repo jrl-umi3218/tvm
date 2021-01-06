@@ -86,6 +86,20 @@ void Substitution::check() const
     }
   }
 
+  for(size_t i = 0; i < x_.size() - 1; ++i)
+  {
+    for(size_t j = i + 1; j < x_.size(); ++j)
+    {
+      if(x_[i]->intersects(*x_[j]))
+      {
+        std::stringstream ss;
+        ss << "The variable " << x_[i]->name() << " and " << x_[j]->name()
+           << " are intersecting. This is not possible for variable being substituted.";
+        throw std::runtime_error(ss.str());
+      }
+    }
+  }
+
   std::vector<bool> varIsInOneConstr(x_.size(), false);
   std::vector<bool> constrHasOneVar(constraints_.size(), false);
 
@@ -107,7 +121,7 @@ void Substitution::check() const
     if(!varIsInOneConstr[j])
     {
       std::stringstream ss;
-      ss << "The variable " << x_[j]
+      ss << "The variable " << x_[j]->name()
          << " cannot be used for substitution: it does not appear in any of the given constraints.";
       throw std::runtime_error(ss.str());
     }

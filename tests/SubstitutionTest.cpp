@@ -9,6 +9,7 @@
 #include <tvm/hint/internal/GenericCalculator.h>
 #include <tvm/hint/internal/Substitutions.h>
 #include <tvm/internal/MatrixProperties.h>
+#include <tvm/internal/VariableVectorPartition.h>
 
 #include <Eigen/SVD>
 
@@ -168,14 +169,14 @@ MatrixXd randM(int m, int n, int r = 0)
     return MatrixXd::Random(m, r) * MatrixXd::Random(r, n);
 }
 
-/** check wether the systems given by cstr and by subs are equivalent.
+/** check whether the systems given by cstr and by subs are equivalent.
  * The system are supposed to be feasible.
  * From cstr, we deduce a system A [x;y] = b (1)
  * From subs, we deduce C [y;z] = d and x = E y + F z + g (2)
- * We check that any solution of (1) is a solution of (2) by writting a
+ * We check that any solution of (1) is a solution of (2) by writing a
  * solution of (1) [x;y] = pinv(A)*b + Na u with Na a base of the nullspace of
  * A and u a vector. For size(u) different value of u, we the rewrite (2) as a
- * system of z only, and verfy we can find a solution.
+ * system of z only, and verify we can find a solution.
  * To check that any solution of (2) yield a solution of (1), we first solve
  * C [y;z] = d to get [y;z] = pinv(C)*d + Nc v. Then for size(v) value of v, we
  * compute x from x = E y + F z + g, and check that [x;y] is a solution of (1).
@@ -188,11 +189,17 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
   VariableVector x(subs.variables());
   VariableVector y;
   VariableVector z(subs.additionalVariables());
+  tvm::internal::VariableCountingVector partition(true);
+  partition.add(x);
+  for(const auto & c : cstr)
+  {
+    partition.add(c->variables());
+  }
   int m0 = 0;
   for(auto & c : cstr)
   {
     m0 += c->size();
-    for(auto & vi : c->variables())
+    for(const auto & vi : tvm::internal::VariableVectorPartition(c->variables(), partition))
     {
       if(!x.contains(*vi))
       {
@@ -415,16 +422,16 @@ TEST_CASE("Substitution construction")
     VectorXd b = VectorXd::Random(5);
 
     auto c = std::shared_ptr<BLC>(new BLC(A, x, b, constraint::Type::LOWER_THAN));
-    CHECK_THROWS(Substitution s(c, x));
+    CHECK_THROWS(Substitution(c, x));
 
     VariablePtr y = Space(3).createVariable("y");
-    CHECK_THROWS(Substitution s(c, y));
+    CHECK_THROWS(Substitution(c, y));
 
     auto c2 = std::shared_ptr<BLC>(new BLC(3, y, eq));
-    CHECK_THROWS(Substitution s({c, c2}, x));
+    CHECK_THROWS(Substitution({c, c2}, x));
 
     auto c3 = std::shared_ptr<BLC>(new BLC(5, y, eq));
-    CHECK_THROWS(Substitution s(c3, y));
+    CHECK_THROWS(Substitution(c3, y));
   }
 }
 
@@ -855,4 +862,49 @@ TEST_CASE("Random substitutions")
   {
     randomSubstitutions();
   }
+}
+
+TEST_CASE("Substitution with subvariables")
+{
+  VariablePtr x = Space(8).createVariable("x");
+  VariablePtr x1 = x->subvariable(3, "x1", 0);
+  VariablePtr x2 = x->subvariable(5, "x2", 3);
+
+  MatrixXd M = randM(8, 8);
+  VectorXd r = VectorXd::Random(8);
+
+  auto A1 = M.topRows(5);
+  auto A2 = M.bottomRows(3);
+  auto b1 = r.head(5);
+  auto b2 = r.tail(3);
+
+  using BLC = constraint::BasicLinearConstraint;
+  auto eq = constraint::Type::EQUAL;
+  VectorXd x0 = M.colPivHouseholderQr().solve(r);
+
+  auto c = std::shared_ptr<BLC>(new BLC(A1, x, b1, eq));
+  Substitution s(c, x2);
+  Substitutions subs;
+  subs.add(s);
+  subs.finalize();
+  FAST_CHECK_EQ(subs.variables().size(), 1);
+  FAST_CHECK_EQ(*subs.variables().front(), *x2);
+  FAST_CHECK_EQ(subs.additionalVariables().size(), 0);
+  FAST_CHECK_EQ(subs.otherVariables().size(), 1);
+  FAST_CHECK_EQ(*subs.otherVariables().front(), *x1);
+  FAST_CHECK_EQ(subs.additionalConstraints().size(), 0);
+  FAST_CHECK_EQ(subs.variableSubstitutions().size(), 1);
+
+  auto f = subs.variableSubstitutions().front();
+  FAST_CHECK_EQ(f->variables().numberOfVariables(), 1);
+  FAST_CHECK_EQ(*f->variables()[0], *x1);
+  subs.updateSubstitutions();
+
+  MatrixXd C = A2.leftCols(3) + A2.rightCols(5) * f->jacobian(*x1);
+  VectorXd d = b2 - A2.rightCols(5) * f->b();
+  VectorXd y = C.colPivHouseholderQr().solve(d);
+  x1 << y;
+
+  subs.updateVariableValues();
+  FAST_CHECK_UNARY(x->value().isApprox(x0));
 }

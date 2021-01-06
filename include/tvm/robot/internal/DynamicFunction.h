@@ -59,11 +59,11 @@ public:
    *
    * \param contact Contact that will be added
    *
-   * \param linearize If true, linearize the friction cone using generatrices
+   * \param linearize If true, linearize the friction cone using generators
    *
    * \param mu Friction coefficient
    *
-   * \param nrGen Number of generatrices for the cone (only applicable when
+   * \param nrGen Number of generators for the cone (only applicable when
    * linearize is true)
    *
    * Returns true if a contact has been added */

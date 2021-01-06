@@ -13,7 +13,7 @@
 using namespace tvm::internal;
 using namespace tvm::utils;
 
-//---------------------- derives_from ------------------------\\
+/*---------------------- derives_from ------------------------*/
 
 static_assert(derives_from<Eigen::MatrixXd, Eigen::MatrixBase>());
 static_assert(!derives_from<double, Eigen::MatrixBase>());
@@ -24,7 +24,7 @@ static_assert(!derives_from<Eigen::MatrixXd, AffineExpr>());
 static_assert(derives_from<Eigen::MatrixXd, Eigen::MatrixXd>());
 static_assert(!derives_from<int, int>()); // derives_from only work with classes
 
-//---------- enable_for_t and enable_for_templated_t ---------\\
+/*---------- enable_for_t and enable_for_templated_t ---------*/
 
 // Dummy classes for test purposes
 class A
@@ -72,14 +72,14 @@ static_assert(decltype(testTemplate(TemplatedClassD1<int>()))::value);
 static_assert(decltype(testTemplate(TemplatedClassD2()))::value);
 static_assert(decltype(testTemplate(TemplatedClassD3()))::value);
 
-//---------------- always_true, always_false -----------------\\
+/*---------------- always_true, always_false -----------------*/
 
 static_assert(always_true<int>::value);
 static_assert(always_true<A>::value);
 static_assert(!always_false<int>::value);
 static_assert(!always_false<A>::value);
 
-//------------------ has_member_type_XXX ---------------------\\
+/*------------------ has_member_type_XXX ---------------------*/
 
 TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Foo)
 
@@ -90,3 +90,10 @@ class B
 static_assert(!has_member_type_Foo<int>::value);
 static_assert(!has_member_type_Foo<A>::value);
 static_assert(has_member_type_Foo<B>::value);
+
+/*------------------------- const_if ------------------------*/
+
+static_assert(std::is_same_v<const_if_t<int, false>, int>);
+static_assert(std::is_same_v<const_if_t<int, true>, const int>);
+static_assert(std::is_same_v<const_if_t<A, false>, A>);
+static_assert(std::is_same_v<const_if_t<A, true>, const A>);

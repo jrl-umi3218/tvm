@@ -147,7 +147,7 @@ public:
   /** Access the inertia matrix */
   inline const Eigen::MatrixXd & H() const { return fd_.H(); }
   /** Access the non-linear effect vector */
-  /** Access the non-linear effect vector (coriolis, gravity, external force).*/
+  /** Access the non-linear effect vector (Coriolis, gravity, external force).*/
   inline const Eigen::VectorXd & C() const { return fd_.C(); }
 
   /** Access the CoM position */

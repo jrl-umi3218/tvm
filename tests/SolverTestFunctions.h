@@ -62,7 +62,7 @@ private:
   tvm::FunctionPtr g_;
 };
 
-/** A brken f(x) = (x-x0)^2 - r^2
+/** A broken f(x) = (x-x0)^2 - r^2
  *
  */
 class BrokenSphereFunction : public tvm::graph::abstract::OutputSelector<tvm::function::abstract::Function>

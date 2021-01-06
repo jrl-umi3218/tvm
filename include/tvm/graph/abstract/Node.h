@@ -19,7 +19,7 @@ namespace abstract
  *
  * It represents an entity that uses input signals to compute output
  * signals using update functions and the dependencies between these
- * quantitites.
+ * quantities.
  *
  */
 template<typename T>

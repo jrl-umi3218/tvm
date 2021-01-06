@@ -229,7 +229,7 @@ TEST_CASE("DotProduct")
 class DummyFunction : public function::IdentityFunction
 {
 public:
-  DISABLE_OUTPUTS(Output::Velocity);
+  DISABLE_OUTPUTS(Output::Velocity)
 
   DummyFunction(VariablePtr x) : IdentityFunction(x) {}
 };

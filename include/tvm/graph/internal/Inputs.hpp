@@ -124,7 +124,7 @@ template<typename T>
 inline Inputs::Iterator Inputs::getInput(T * source)
 {
   static_assert(std::is_base_of<abstract::Outputs, T>::value,
-                "Inputs cannot store outputs that do not derived from Ouputs.");
+                "Inputs cannot store outputs that do not derived from Outputs.");
   // FIXME Use something more clever or a better data structure to search for inputs
   return {std::find_if(inputs_.begin(), inputs_.end(),
                        [&source](const typename inputs_t::value_type & p) { return p.first == source; }),

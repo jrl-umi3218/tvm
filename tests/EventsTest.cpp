@@ -19,9 +19,6 @@
 #include <array>
 #include <bitset>
 
-using namespace tvm;
-using namespace Eigen;
-
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 #include "doctest/doctest.h"
@@ -174,7 +171,7 @@ void buildPb(LinearizedControlProblem & pb,
              const std::array<TaskWithRequirementsPtr, N> & tasks,
              const std::bitset<N> & selection)
 {
-  for(int i = 0; i < N; ++i)
+  for(std::size_t i = 0; i < N; ++i)
   {
     if(selection[i])
       pb.add(tasks[i]);
@@ -190,7 +187,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
                    const VectorXd s)
 {
   Vector2d eps = Vector2d::Constant(1e-6);
-  for(int j = 0; j < (3 * N) / 4; ++j) // all constraints
+  for(std::size_t j = 0; j < (3 * N) / 4; ++j) // all constraints
   {
     if(added[j])
     {
@@ -219,7 +216,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
       }
     }
   }
-  for(int j = (3 * N) / 4; j < N; ++j) // objectives
+  for(std::size_t j = (3 * N) / 4; j < N; ++j) // objectives
   {
     if(added[j])
     {
@@ -300,7 +297,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
       added[i] = true;
     }
 
-    // Create a gound truth problem
+    // Create a ground truth problem
     LinearizedControlProblem pbGroundTruth;
     buildPb(pbGroundTruth, tasks, added);
 
@@ -407,7 +404,7 @@ void test3Change(const std::bitset<8> & selection)
           added[k] = true;
         }
 
-        // Create a gound truth problem
+        // Create a ground truth problem
         LinearizedControlProblem pbGroundTruth;
         buildPb(pbGroundTruth, tasks, added);
 

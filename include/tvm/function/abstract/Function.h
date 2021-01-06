@@ -53,9 +53,16 @@ public:
    */
   virtual const Eigen::VectorXd & velocity() const;
   virtual const Eigen::VectorXd & normalAcceleration() const;
-  virtual tvm::internal::MatrixConstRefWithProperties JDot(const Variable & x) const;
+  virtual MatrixConstRef JDot(const Variable & x) const;
 
 protected:
+  struct slice_jdot
+  {
+    using Type = MatrixRef;
+    using ConstType = MatrixConstRef;
+    static Type get(Eigen::MatrixXd & M, const Range & r) { return M.middleCols(r.start, r.dim); }
+    static ConstType get(const Eigen::MatrixXd & M, const Range & r) { return M.middleCols(r.start, r.dim); }
+  };
   /** Constructor for a function with value in \f$ \mathbb{R}^m \f$.
    *
    * \param m the size of the function/constraint image space, i.e. the row
@@ -82,7 +89,7 @@ protected:
   // cache
   Eigen::VectorXd velocity_;
   Eigen::VectorXd normalAcceleration_;
-  utils::internal::map<Variable const *, Eigen::MatrixXd> JDot_;
+  utils::internal::MapWithVariableAsKey<Eigen::MatrixXd, slice_jdot> JDot_;
 
 private:
   // we retain the variables' derivatives shared_ptr to ensure the reference is never lost
@@ -93,7 +100,10 @@ inline const Eigen::VectorXd & Function::velocity() const { return velocity_; }
 
 inline const Eigen::VectorXd & Function::normalAcceleration() const { return normalAcceleration_; }
 
-inline tvm::internal::MatrixConstRefWithProperties Function::JDot(const Variable & x) const { return JDot_.at(&x); }
+inline MatrixConstRef Function::JDot(const Variable & x) const
+{
+  return JDot_.at(&x, tvm::utils::internal::with_sub{});
+}
 
 } // namespace abstract
 

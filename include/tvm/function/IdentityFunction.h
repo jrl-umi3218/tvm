@@ -22,14 +22,14 @@ protected:
   void updateVelocity_() override;
 
 private:
-  /** Overriden function that always throws.*/
+  /** Overridden function that always throws.*/
   void A(const MatrixConstRef & A,
          const Variable & x,
          const tvm::internal::MatrixProperties & p = tvm::internal::MatrixProperties()) override;
-  /** Overriden function that always throws.*/
+  /** Overridden function that always throws.*/
   void A(const MatrixConstRef & A,
          const tvm::internal::MatrixProperties & p = tvm::internal::MatrixProperties()) override;
-  /** Overriden function that always throws.*/
+  /** Overridden function that always throws.*/
   void b(const VectorConstRef & b, const tvm::internal::MatrixProperties &) override;
 };
 

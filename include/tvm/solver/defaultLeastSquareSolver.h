@@ -3,7 +3,7 @@
 #pragma once
 
 /** Since all solver might not be available depending on the option compilations,
- * this header offers conveniencies to include and use a default solver.
+ * this header offers conveniences to include and use a default solver.
  * The first solver found in this (ordered) list is taken as default:
  * LSSOL, QLD, Quadprog
  */

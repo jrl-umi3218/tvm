@@ -39,7 +39,15 @@ VariablePtr dot(VariablePtr var, int ndiff)
   }
 }
 
-VariablePtr Variable::duplicate(const std::string & n) const
+Variable::~Variable()
+{
+  if(!isSubvariable())
+  {
+    delete[] memory_;
+  }
+}
+
+VariablePtr Variable::duplicate(std::string_view n) const
 {
   VariablePtr newPrimitive;
   if(n.empty())
@@ -69,9 +77,11 @@ int Variable::size() const { return static_cast<int>(value_.size()); }
 
 const Space & Variable::space() const { return space_; }
 
+const Space & Variable::spaceShift() const { return shift_; }
+
 bool Variable::isEuclidean() const { return space_.isEuclidean() || !isBasePrimitive(); }
 
-const Eigen::VectorXd & Variable::value() const { return value_; }
+VectorConstRef Variable::value() const { return value_; }
 
 void Variable::value(const VectorConstRef & x)
 {
@@ -104,7 +114,7 @@ VariablePtr Variable::basePrimitive() const
     // while it does not seem ideal to cast the constness away, it is coherent
     // with the general case: from a const derived variable, we can get a non
     // const primitive. This is equivalent to have primitive_ be a shared_ptr
-    // to this in the case of a base primitive, what we can obviously not do.
+    // to this in the case of a base primitive, what we cannot obviously do.
     return const_cast<Variable *>(this)->shared_from_this();
   }
   else
@@ -117,32 +127,82 @@ VariablePtr Variable::basePrimitive() const
   }
 }
 
-Range Variable::getMappingIn(const VariableVector & variables) const
+bool Variable::isSubvariable() const { return superVariable_ != nullptr; }
+
+VariablePtr Variable::superVariable() const
 {
-  if(mappingHelper_.stamp == variables.stamp())
-    return {mappingHelper_.start, size()};
+  if(superVariable_)
+    return superVariable_->shared_from_this();
+  else
+    return const_cast<Variable *>(this)->shared_from_this();
+}
+
+bool Variable::isSuperVariable() const { return superVariable_ == nullptr; }
+
+bool Variable::isSuperVariableOf(const Variable & v) const { return v.superVariable_ == this; }
+
+Range Variable::subvariableRange() const
+{
+  if(isSuperVariable())
+    return {0, size()};
+  else
+    return {static_cast<int>(value_.data() - superVariable_->value_.data()), size()};
+}
+
+bool Variable::contains(const Variable & v) const
+{
+  return superVariable() == v.superVariable() && subvariableRange().contains(v.subvariableRange());
+}
+
+bool Variable::intersects(const Variable & v) const
+{
+  return superVariable() == v.superVariable() && subvariableRange().intersects(v.subvariableRange());
+}
+
+VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift) const
+{
+  if(!(space * shift <= space_))
+    throw std::runtime_error("[Variable::subvariable] Invalid space and shift dimension");
+
+  VariablePtr base = superVariable();
+  if(isBasePrimitive())
+  {
+    return VariablePtr(base, new Variable(base.get(), space, baseName, shift_ * shift));
+  }
   else
   {
-    if(variables.contains(*this))
-    {
-      variables.computeMapping();
-      return {mappingHelper_.start, size()};
-    }
-    else
-      throw std::runtime_error("This variable is not part of the vector of variables.");
+    VariablePtr bp = base->basePrimitive();
+    return dot(VariablePtr(bp, new Variable(bp.get(), space, baseName, shift_ * shift)), derivativeNumber_);
   }
 }
 
-Variable::Variable(const Space & s, const std::string & name)
-: name_(name), space_(s), value_(s.rSize()), derivativeNumber_(0), primitive_(nullptr), derivative_(nullptr),
-  mappingHelper_()
+Range Variable::getMappingIn(const VariableVector & variables) const
+{
+  auto it = startIn_.find(variables.id());
+  if(it != startIn_.end())
+  {
+    if(it->second.stamp == -1 || it->second.stamp == variables.stamp())
+      return {it->second.start, size()};
+  }
+
+  return variables.getMappingOf(*this);
+}
+
+Variable::Variable(const Space & s, std::string_view name)
+: name_(name), space_(s), shift_(0), memory_(new double[s.rSize()]),
+  value_(Eigen::Map<Eigen::VectorXd>(memory_, s.rSize())), derivativeNumber_(0), primitive_(nullptr),
+  superVariable_(nullptr), derivative_(nullptr), startIn_()
 {
   value_.setZero();
 }
 
 Variable::Variable(Variable * var)
-: space_(var->space_), value_(var->space_.tSize()), derivativeNumber_(var->derivativeNumber_ + 1), primitive_(var),
-  derivative_(nullptr), mappingHelper_()
+: space_(var->space_), shift_(var->shift_), memory_(var->isSubvariable() ? nullptr : new double[var->space_.tSize()]),
+  value_(Eigen::Map<Eigen::VectorXd>(var->isSubvariable() ? dot(var->superVariable())->memory_ + var->shift_.tSize()
+                                                          : memory_,
+                                     var->space_.tSize())),
+  derivativeNumber_(var->derivativeNumber_ + 1), primitive_(var),
+  superVariable_(var->isSubvariable() ? dot(var->superVariable()).get() : nullptr), derivative_(nullptr), startIn_()
 {
   std::stringstream ss;
   if(derivativeNumber_ == 1)
@@ -155,6 +215,30 @@ Variable::Variable(Variable * var)
   }
   name_ = ss.str();
   value_.setZero();
+}
+
+Variable::Variable(Variable * var, const Space & space, std::string_view name, const Space & shift)
+: name_(name), space_(space), shift_(shift), memory_(nullptr),
+  value_(Eigen::Map<Eigen::VectorXd>(var->memory_ + shift.rSize(), space.rSize())), derivativeNumber_(0),
+  primitive_(nullptr), superVariable_(var), derivative_(nullptr), startIn_()
+{}
+
+VariablePtr Variable::shared_from_this()
+{
+  if(isBasePrimitive())
+  {
+    if(isSubvariable())
+      return {superVariable_->shared_from_this(), this};
+    else
+      return std::enable_shared_from_this<Variable>::shared_from_this();
+  }
+  else
+  {
+    if(isSubvariable())
+      return {superVariable_->basePrimitive()->shared_from_this(), this};
+    else
+      return {basePrimitive()->shared_from_this(), this};
+  }
 }
 
 } // namespace tvm

@@ -25,7 +25,8 @@ std::unique_ptr<abstract::SubstitutionCalculatorImpl> AutoCalculator::impl_(
   }
   else
   {
-    auto p = cstr[0]->jacobian(*x[0]).properties();
+    const auto & jac = cstr[0]->jacobian(*x[0]);
+    const auto & p = jac.properties();
     if(p.isDiagonal() && p.isInvertible())
     {
       return DiagonalCalculator().impl(cstr, x, rank);

@@ -110,7 +110,7 @@ bool check(BLCPtr c, const VectorXd & x)
         rhs = &BasicLinearConstraint::u;
         break;
       default:
-        break;
+        return false;
     }
     switch(c->rhs())
     {
@@ -431,7 +431,7 @@ void checkAssignment(BLCPtr c, const AssignmentTarget & at, Memory & mem, Type t
   mem.randomize();
   if(throws)
   {
-    CHECK_THROWS(Assignment a(c, req, at, vars));
+    CHECK_THROWS(Assignment(c, req, at, vars));
   }
   else
   {
@@ -455,7 +455,7 @@ void checkSubstitutionAssignment(BLCPtr c,
   mem.randomize();
   if(throws)
   {
-    CHECK_THROWS(Assignment a(c, req, at, vars, &s));
+    CHECK_THROWS(Assignment(c, req, at, vars, &s));
   }
   else
   {
@@ -483,8 +483,8 @@ void checkBoundAssignment(BLCPtr c1, BLCPtr c2, const AssignmentTarget & at, Mem
   checkSimple(c1, c2, mem);
 }
 
-/** Check the assignement of a constraint \p c to a target
- * \p throws is a vector of 11 bool indicating if the assignement construction is
+/** Check the assignment of a constraint \p c to a target
+ * \p throws is a vector of 11 bool indicating if the assignment construction is
  * expected to throw. The order of the targets conventions are:
  * Cx=0, Cx=d, Cx=-d, Cx>=0, Cx>=d, Cx>=-d, Cx<=0, Cx<=d, Cx<=-d, l<=Cx<=u, -l<=Cx<=-u
  */
@@ -673,7 +673,7 @@ void checkSimple(BLCPtr c, const Substitution & sub, std::vector<bool> throws)
   }
 }
 
-/** Check the assignement of a bound \p c to a target */
+/** Check the assignment of a bound \p c to a target */
 void checkSimpleBound(BLCPtr c)
 {
   auto dMem = std::make_shared<Memory>(1, 1);
@@ -857,7 +857,7 @@ TEST_CASE("Test simple assignment")
   }
 }
 
-TEST_CASE("Test assignements with substitution")
+TEST_CASE("Test assignments with substitution")
 {
   auto p0 = buildSimpleSubstitution(RHS::ZERO);
   auto p1 = buildSimpleSubstitution(RHS::AS_GIVEN);
@@ -966,7 +966,7 @@ TEST_CASE("Test assignements with substitution")
   }
 }
 
-TEST_CASE("Test assigments")
+TEST_CASE("Test assignments")
 {
   Constraints cstr = buildConstraints(3, 7);
 

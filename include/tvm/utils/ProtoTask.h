@@ -16,11 +16,11 @@ namespace utils
 template<constraint::Type T, typename FunT>
 class ProtoTaskCommon;
 
-/** A utiliy class to represent the "constraint" part of a Task, for general functions*/
+/** A utility class to represent the "constraint" part of a Task, for general functions*/
 template<constraint::Type T>
 using ProtoTask = ProtoTaskCommon<T, FunctionPtr>;
 
-/** A utiliy class to represent the "constraint" part of a Task, specialized for linear functions*/
+/** A utility class to represent the "constraint" part of a Task, specialized for linear functions*/
 template<constraint::Type T>
 using LinearProtoTask = ProtoTaskCommon<T, LinearFunctionPtr>;
 
@@ -108,13 +108,13 @@ using ProtoTaskDSRet = ProtoChoice<T, tvm::utils::ProtoTaskDS, tvm::utils::Linea
 
 } // namespace tvm
 
-/** Conveniency operators to form a ProtoTask or LinearProtoTask f op rhs
+/** Convenience operators to form a ProtoTask or LinearProtoTask f op rhs
  * (or l <= f <= u)
  *
  * \param f the function to form the task
  * \param rhs a double or a Eigen::Vector with the same size as the function.
- * Note that for a double you need to explicitely write a double (e.g 0.,
- * not 0), otherwise the compiler won't be able to decide wich overload to
+ * Note that for a double you need to explicitly write a double (e.g 0.,
+ * not 0), otherwise the compiler won't be able to decide which overload to
  * pick between this and shared_ptr operator.
  */
 /**@{*/
@@ -140,12 +140,12 @@ inline tvm::utils::LinearProtoTaskDS operator<=(const tvm::utils::LinearProtoTas
 /**@}*/
 
 #define TVM_ID(x) std::make_shared<tvm::function::IdentityFunction>(x)
-/** Conveniency operators to form a LinearProtoTask x op rhs (or l <= x <= u)
+/** Convenience operators to form a LinearProtoTask x op rhs (or l <= x <= u)
  *
  * \param x the variable used in the task
  * \param rhs a double or a Eigen::Vector with the same size as the function.
- * Note that for a double you need to explicitely write a double (e.g 0.,
- * not 0), otherwise the compiler won't be able to decide wich overload to
+ * Note that for a double you need to explicitly write a double (e.g 0.,
+ * not 0), otherwise the compiler won't be able to decide which overload to
  * pick between this and shared_ptr operator.
  */
 /**@{*/
@@ -162,14 +162,14 @@ inline tvm::utils::LinearProtoTaskGT operator<=(const tvm::utils::internal::RHS&
 
 #define TVM_LIN(x) std::make_shared<tvm::function::BasicLinearFunction>(x)
 
-/** Conveniency operators to form a LinearProtoTask expr op rhs (or l <= expr <= u)
+/** Convenience operators to form a LinearProtoTask expr op rhs (or l <= expr <= u)
  * where expr is a linear expression of the form matrixExpr * VariablePtr or an
  * affine expression as a sum of linear expressions and vectorExpr.
  *
  * \param lin the linear expression to form the task
  * \param aff the affine expression to form the task
  * \param rhs a double or a Eigen::Vector with the same size as the function.
- * Note that for a double you don't need to explicitely write a double (e.g 0.)
+ * Note that for a double you don't need to explicitly write a double (e.g 0.)
  * to the contrary of the operators working with shared_ptr on Function.
  */
 ///@{

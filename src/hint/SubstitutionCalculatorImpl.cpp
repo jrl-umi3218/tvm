@@ -7,8 +7,8 @@
 
 namespace
 {
-// return true if the buffers for M1 and M2 are disjoint
-bool noAliasing(const tvm::MatrixConstRef & M1, const tvm::MatrixConstRef & M2)
+// return true if the buffers for M1 and M2 are disjoint (used in assert code only)
+[[maybe_unused]] bool noAliasing(const tvm::MatrixConstRef & M1, const tvm::MatrixConstRef & M2)
 {
   return M1.data() >= M2.data() + M2.size() || M2.data() >= M1.data() + M1.size();
 }

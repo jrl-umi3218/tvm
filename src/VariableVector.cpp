@@ -10,11 +10,34 @@ int VariableVector::counter = 0;
 
 VariableVector::VariableVector() : size_(0) { getNewStamp(); }
 
+VariableVector::VariableVector(const VariableVector & other) : VariableVector(other.variables()) {}
+
+VariableVector & VariableVector::operator=(const VariableVector & other)
+{
+  clear();
+  add(other.variables());
+  return *this;
+}
+
+VariableVector::~VariableVector() { clear(); }
+
 bool VariableVector::add(VariablePtr v)
 {
   if(contains(*v.get()))
   {
     return false;
+  }
+  for(const auto & xi : variables_)
+  {
+    if(xi->contains(*v))
+    {
+      return false;
+    }
+    else if(xi->intersects(*v))
+    {
+      throw std::runtime_error("[VariableVector::add] Attempting to add a variable that intersects a variable already "
+                               "present but is not contained by it");
+    }
   }
   add_(v);
   return true;
@@ -30,10 +53,10 @@ void VariableVector::add(const std::vector<VariablePtr> & variables)
 
 void VariableVector::add(const VariableVector & variables) { add(variables.variables()); }
 
-int VariableVector::addAndGetIndex(VariablePtr v)
+int VariableVector::addAndGetIndex(VariablePtr v, bool containingIndex)
 {
-  auto it =
-      find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == v.get()); });
+  auto it = find_if(variables_.begin(), variables_.end(),
+                    [&v](const VariablePtr & it) { return it->contains(*v) || it->intersects(*v); });
   if(it == variables_.end())
   {
     add_(v);
@@ -41,20 +64,38 @@ int VariableVector::addAndGetIndex(VariablePtr v)
   }
   else
   {
-    return static_cast<int>(it - variables_.begin());
+    if(*(it->get()) == *v) // it is equal to v
+    {
+      return static_cast<int>(it - variables_.begin());
+    }
+    else if((*it)->contains(*v)) // v is strictly contained in it
+    {
+      if(containingIndex)
+        return static_cast<int>(it - variables_.begin());
+      else
+        return -1;
+    }
+    else // v only intersects it
+    {
+      throw std::runtime_error("[VariableVector::add] Attempting to add a variable that intersects a variable already "
+                               "present but is not contained by it");
+    }
   }
 }
 
 bool VariableVector::remove(const Variable & v)
 {
-  if(!contains(v))
+  auto it =
+      std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (*(it.get()) == v); });
+  if(it == variables_.end())
   {
     return false;
   }
-  auto it =
-      std::find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
-  remove_(it);
-  return true;
+  else
+  {
+    remove_(it);
+    return true;
+  }
 }
 
 void VariableVector::remove(int i)
@@ -66,6 +107,15 @@ void VariableVector::remove(int i)
 
   auto it = variables_.begin() + i;
   remove_(it);
+}
+
+void VariableVector::clear()
+{
+  for(const auto & v : variables_)
+    v->startIn_.erase(id());
+  variables_.clear();
+  size_ = 0;
+  getNewStamp();
 }
 
 int VariableVector::totalSize() const { return size_; }
@@ -113,39 +163,22 @@ void VariableVector::setZero()
   }
 }
 
-void VariableVector::computeMapping() const
-{
-  int size = 0;
-  for(const auto & v : variables_)
-  {
-    v->mappingHelper_.start = size;
-    v->mappingHelper_.stamp = stamp_;
-    size += v->size();
-  }
-}
-
-std::map<const Variable *, Range> VariableVector::computeMappingMap() const
-{
-  computeMapping();
-  std::map<const Variable *, Range> m;
-  for(const auto & v : variables_)
-  {
-    m[v.get()] = {v->mappingHelper_.start, v->size()};
-  }
-
-  return m;
-}
-
 bool VariableVector::contains(const Variable & v) const
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
+  return it != variables_.end();
+}
+
+bool VariableVector::intersects(const Variable & v) const
+{
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->intersects(v); });
   return it != variables_.end();
 }
 
 int VariableVector::indexOf(const Variable & v) const
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return (it.get() == &v); });
-  if(it == variables_.end())
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
+  if(it == variables_.end() || (*(it->get()) != v))
   {
     return -1;
   }
@@ -155,18 +188,38 @@ int VariableVector::indexOf(const Variable & v) const
   }
 }
 
+Range VariableVector::getMappingOf(const Variable & v) const
+{
+  for(const auto & xi : variables_)
+  {
+    if(xi->contains(v))
+    {
+      int start = xi->startIn_[id()].start + static_cast<int>(v.value_.data() - xi->value_.data());
+      v.startIn_[id()] = {start, stamp()};
+      return {start, v.size()};
+    }
+  }
+
+  throw std::runtime_error("This variable is not part of the vector of variables.");
+}
+
 int VariableVector::stamp() const { return stamp_; }
 
 void VariableVector::add_(VariablePtr v)
 {
   variables_.push_back(v);
+  v->startIn_[id()] = {size_, -1}; // Variables added directly to the vector do no need a stamp
   size_ += v->size();
   getNewStamp();
 }
 
 void VariableVector::remove_(std::vector<VariablePtr>::const_iterator it)
 {
-  size_ -= (*it)->size();
+  int si = (*it)->size();
+  for(auto iti = it + 1; iti != end(); ++iti)
+    (*iti)->startIn_[id()].start -= si;
+  size_ -= si;
+  (*it)->startIn_.erase(id());
   variables_.erase(it);
   getNewStamp();
 }

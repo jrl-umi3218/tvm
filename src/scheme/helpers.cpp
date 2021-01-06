@@ -18,7 +18,8 @@ bool isBound(const ConstraintPtr & c)
   const auto & vars = c->variables();
   if(vars.numberOfVariables() == 0)
     return false;
-  auto p = c->jacobian(*vars[0]).properties();
+  const auto & jac = c->jacobian(*vars[0]);
+  const auto & p = jac.properties();
   return (c->linearIn(*vars[0]) && vars.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
 }
 
@@ -36,7 +37,7 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
     auto it = std::find(x.begin(), x.end(), c->variables()[0]);
     if(it == x.end())
     {
-      // There is no susbtitution, this is a bound
+      // There is no substitution, this is a bound
       return true;
     }
     else
@@ -45,7 +46,8 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
       const auto & v = sub->variables();
       if(v.numberOfVariables() != 1)
         return false;
-      auto p = sub->jacobian(*v[0]).properties();
+      const auto & jac = sub->jacobian(*v[0]);
+      const auto & p = jac.properties();
       // There could be 0 variables in sub. In that case we have a trivial
       // constraint that we do not consider as a bound.
       return (p.isDiagonal() && p.isInvertible());
@@ -92,7 +94,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
     // 2: possible if diagonal matrix is negative definite or both the
     // the constraint matrix and the matrix is in the substitutions are
     // positive definite.
-    // We do not consider the case where both matrices are undefinite but
+    // We do not consider the case where both matrices are indefinite but
     // their product would be positive or negative definite.
 
     bool case1 = false;
@@ -107,6 +109,7 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
           case1 = false;
         else
           return false;
+        break;
       case Type::LOWER_THAN:
         if(c->type() == Type::GREATER_THAN)
           case1 = false;
@@ -114,13 +117,14 @@ bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
           case1 = true;
         else
           return false;
+        break;
       case Type::DOUBLE_SIDED:
         return true;
       default:
         assert(false);
     }
 
-    auto p = c->jacobian(*c->variables()[0]).properties();
+    const auto & p = c->jacobian(*c->variables()[0]).properties();
     auto it = std::find(x.begin(), x.end(), c->variables()[0]);
     if(it == x.end())
     {

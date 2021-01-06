@@ -854,9 +854,9 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p52.isLowerTriangular());
   FAST_CHECK_UNARY(p52.isUpperTriangular());
 
-  CHECK_THROWS_AS(MatrixProperties p53(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE),
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE),
                   std::runtime_error);
-  CHECK_THROWS_AS(MatrixProperties p54(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE),
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::IDENTITY, MatrixProperties::NEGATIVE_DEFINITE),
                   std::runtime_error);
 
   MatrixProperties p55(MatrixProperties::IDENTITY, MatrixProperties::INDEFINITE);
@@ -901,9 +901,9 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p56.isLowerTriangular());
   FAST_CHECK_UNARY(p56.isUpperTriangular());
 
-  CHECK_THROWS_AS(MatrixProperties p61(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE),
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_SEMIDEFINITE),
                   std::runtime_error);
-  CHECK_THROWS_AS(MatrixProperties p62(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE),
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::MINUS_IDENTITY, MatrixProperties::POSITIVE_DEFINITE),
                   std::runtime_error);
 
   MatrixProperties p63(MatrixProperties::MINUS_IDENTITY, MatrixProperties::NEGATIVE_SEMIDEFINITE);
@@ -1011,8 +1011,7 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p71.isLowerTriangular());
   FAST_CHECK_UNARY(p71.isUpperTriangular());
 
-  CHECK_THROWS_AS(MatrixProperties p72(MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE),
-                  std::runtime_error);
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::ZERO, MatrixProperties::POSITIVE_DEFINITE), std::runtime_error);
 
   MatrixProperties p73(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_SEMIDEFINITE);
   FAST_CHECK_EQ(p73.shape(), MatrixProperties::ZERO);
@@ -1035,8 +1034,7 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p73.isLowerTriangular());
   FAST_CHECK_UNARY(p73.isUpperTriangular());
 
-  CHECK_THROWS_AS(MatrixProperties p74(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE),
-                  std::runtime_error);
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::ZERO, MatrixProperties::NEGATIVE_DEFINITE), std::runtime_error);
 
   MatrixProperties p75(MatrixProperties::ZERO, MatrixProperties::INDEFINITE);
   FAST_CHECK_EQ(p75.shape(), MatrixProperties::ZERO);
@@ -1059,8 +1057,7 @@ TEST_CASE("Test properties deductions")
   FAST_CHECK_UNARY(p75.isLowerTriangular());
   FAST_CHECK_UNARY(p75.isUpperTriangular());
 
-  CHECK_THROWS_AS(MatrixProperties p76(MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE),
-                  std::runtime_error);
+  CHECK_THROWS_AS(MatrixProperties(MatrixProperties::ZERO, MatrixProperties::NON_ZERO_INDEFINITE), std::runtime_error);
 }
 
 #define buildAndCheck(shouldThrow, ...)                                 \
@@ -1519,10 +1516,10 @@ TEST_CASE("Test argument order and repetition")
   MatrixProperties::Constness c;
   MatrixProperties::Invertibility i;
 
-  buildAndCheck(false, s);
-  buildAndCheck(false, s);
-  buildAndCheck(false, c);
-  buildAndCheck(false, i);
+  CHECK_NOTHROW([[maybe_unused]] MatrixProperties prop = s);
+  CHECK_NOTHROW([[maybe_unused]] MatrixProperties prop = p);
+  CHECK_NOTHROW([[maybe_unused]] MatrixProperties prop = c);
+  CHECK_NOTHROW([[maybe_unused]] MatrixProperties prop = i);
 
   buildAndCheck(false, s, p);
   buildAndCheck(false, s, c);

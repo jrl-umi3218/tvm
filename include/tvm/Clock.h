@@ -15,7 +15,7 @@ class ControlProblem;
 
 /** Represent a clock for the ControlProblem
  *
- * The current iteration of the problem can be accessed by time-dependant
+ * The current iteration of the problem can be accessed by time-dependent
  * data to trigger computations
  *
  * Outputs:

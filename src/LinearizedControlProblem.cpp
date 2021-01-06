@@ -73,11 +73,11 @@ const hint::internal::Substitutions & LinearizedControlProblem::substitutions() 
 
 VariableVector LinearizedControlProblem::variables() const
 {
-  VariableVector variables;
+  tvm::internal::VariableCountingVector variables;
   for(auto c : constraints_)
     variables.add(c.second.constraint->variables());
 
-  return variables;
+  return variables.variables();
 }
 
 std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constraints() const

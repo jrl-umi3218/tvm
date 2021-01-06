@@ -46,7 +46,7 @@ public:
   void updateSubstitutions();
 
   /** Update the value of the substituted variables according to the values of
-   * the non-substitued ones.*/
+   * the non-substituted ones.*/
   void updateVariableValues() const;
 
   /** All variables x in the substitutions*/
@@ -92,7 +92,7 @@ private:
    */
   std::vector<VariablePtr> otherVariables_;
 
-  /** The additionnal constraints to add to the problem*/
+  /** The additional constraints to add to the problem*/
   std::vector<std::shared_ptr<constraint::BasicLinearConstraint>> additionalConstraints_;
 
   friend class SubstitutionTest;

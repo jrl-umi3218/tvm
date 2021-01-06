@@ -3,6 +3,8 @@
 #include <tvm/Variable.h>
 #include <tvm/hint/internal/GenericCalculator.h>
 #include <tvm/hint/internal/SubstitutionUnit.h>
+#include <tvm/internal/VariableCountingVector.h>
+#include <tvm/internal/VariableVectorPartition.h>
 #include <tvm/utils/memoryChecks.h>
 
 #include <algorithm>
@@ -19,7 +21,7 @@ using namespace tvm::hint;
 Substitution group(const std::vector<Substitution> & substitutionPool, const std::vector<size_t> & group)
 {
   std::set<LinearConstraintPtr> subs;
-  std::set<VariablePtr> vars;
+  tvm::internal::VariableCountingVector vars(true);
 
   for(auto i : group)
   {
@@ -27,13 +29,13 @@ Substitution group(const std::vector<Substitution> & substitutionPool, const std
     subs.insert(c.begin(), c.end());
 
     const auto & v = substitutionPool[i].variables();
-    vars.insert(v.begin(), v.end());
+    vars.add(v);
   }
 
-  // determine the rank.
+  // Determine the rank.
   // We make two suppositions:
   // - the substitutions are independent
-  // - if x1,...,xk are the variables susbtituted by a substitution, and
+  // - if x1,...,xk are the variables substituted by a substitution, and
   //   xk+1,... are the variables substituted by other substitutions, the
   //   matrices in front of xk+1,... are independent of the matrix in front
   //   of x1,...,xk.
@@ -46,7 +48,7 @@ Substitution group(const std::vector<Substitution> & substitutionPool, const std
     const auto & v = s.variables();
     int ranki = s.rank(); // this is the declared rank of the matrix in front
                           // of x1,...,xk
-    for(const auto & xi : vars)
+    for(const auto & xi : vars.variables())
     {
       int mi = 0;
       // xi is one of the substituted variables. If it is not one
@@ -65,8 +67,7 @@ Substitution group(const std::vector<Substitution> & substitutionPool, const std
     rank += std::min(ranki, s.m());
   }
 
-  return Substitution(std::vector<LinearConstraintPtr>(subs.begin(), subs.end()),
-                      std::vector<VariablePtr>(vars.begin(), vars.end()), rank);
+  return Substitution(std::vector<LinearConstraintPtr>(subs.begin(), subs.end()), vars.variables().variables(), rank);
 }
 } // namespace
 
@@ -279,6 +280,7 @@ void SubstitutionUnit::extractSubstitutions(const std::vector<Substitution> & su
     assert(groups[i].size() > 0);
     if(groups[i].size() == 1)
     {
+      // Merging this case with the general case might allow for Substitution object with intersecting variable
       substitutions_.push_back(substitutionPool[groups[i].front()]);
     }
     else
@@ -292,6 +294,15 @@ void SubstitutionUnit::scanSubstitutions()
 {
   m_ = 0;
   int n = 0;
+  tvm::internal::VariableCountingVector partition(true);
+  for(size_t i = 0; i < substitutions_.size(); ++i)
+  {
+    const auto & s = substitutions_[i];
+    partition.add(s.variables());
+    for(const auto & c : s.constraints())
+      partition.add(c->variables());
+  }
+
   for(size_t i = 0; i < substitutions_.size(); ++i)
   {
     const auto & s = substitutions_[i];
@@ -302,7 +313,7 @@ void SubstitutionUnit::scanSubstitutions()
     SZdependencies_.push_back({});
     uIsZero_.push_back(false);
     int ni = 0;
-    for(const auto & v : s.variables())
+    for(const auto & v : tvm::internal::VariableVectorPartition(s.variables(), partition))
     {
       sub2x_[i].push_back(x_.variables().size());
       x2sub_.push_back(i);
@@ -321,20 +332,23 @@ void SubstitutionUnit::scanSubstitutions()
       constraintsY_.push_back({});
       CXdependencies_.push_back({});
       mi += c->size();
-      for(const auto & v : c->variables())
+      for(const auto & v : tvm::internal::VariableVectorPartition(c->variables(), partition))
       {
+        auto comp = [&v](const auto & it) { return v.get() == it.get(); };
         // Is v a variable to be substituted? It is ok to test only with an
-        // incomplete vars_, as the susbtitution are supposed to be given in
+        // incomplete vars_, as the substitution are supposed to be given in
         // a correct order.
-        auto it = std::find(x_.variables().begin(), x_.variables().end(), v);
+        auto it = std::find_if(x_.variables().begin(), x_.variables().end(), comp);
         if(it == x_.variables().end())
         {
           // v is an y variable.
           y_.add(v);
-          auto ity = std::find(y_.variables().begin(), y_.variables().end(), v);
+          auto ity = std::find_if(y_.variables().begin(), y_.variables().end(), comp);
           constraintsY_.back().push_back(static_cast<int>(ity - y_.variables().begin()));
         }
-        else if(std::find(s.variables().begin(), s.variables().end(), v) == s.variables().end())
+        else if(std::find_if(s.variables().begin(), s.variables().end(),
+                             [&v](const auto & it) { return it->contains(*v); })
+                == s.variables().end())
         {
           // v is an x variable that is not substituted by s
           CXdependencies_.back().push_back(static_cast<int>(it - x_.variables().begin()));

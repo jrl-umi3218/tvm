@@ -480,7 +480,6 @@ TEST_CASE("Test graph generation")
   auto Value = function::abstract::Function::Output::Value;
   auto Jacobian = function::abstract::Function::Output::Jacobian;
   auto Velocity = function::abstract::Function::Output::Velocity;
-  auto NormaAcceleration = function::abstract::Function::Output::NormalAcceleration;
   auto g = utils::generateUpdateGraph(f12, Velocity, f34, Value, Jacobian, f, Value);
 
   // change variable values

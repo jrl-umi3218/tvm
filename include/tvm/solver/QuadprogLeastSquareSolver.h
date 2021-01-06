@@ -42,6 +42,7 @@ protected:
   void addIneqalityConstraint_(LinearConstraintPtr cstr) override;
   void addObjective_(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight) override;
   void setMinimumNorm_() override;
+  void resetBounds_() override;
   void preAssignmentProcess_() override;
   void postAssignmentProcess_() override;
   bool solve_() override;
@@ -75,7 +76,7 @@ private:
   MatrixXdRows Aineq_; // part of A_ corresponding to inequality constraints
   VectorXdSeg bineq_;  // part of b_ corresponding to inequality constraints
   VectorXdSeg xl_;     // part of b_ corresponding to lower bound constraints
-  VectorXdSeg xu_;     // part of b_ corresponding to uppor bound constraints
+  VectorXdSeg xu_;     // part of b_ corresponding to upper bound constraints
 
   Eigen::QuadProgDense qpd_;
   Eigen::HouseholderQR<Eigen::MatrixXd> qr_; // TODO add option for ColPiv variant
