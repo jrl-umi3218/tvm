@@ -7,3 +7,6 @@
 [submodule "3rd-party/benchmark"]
 	path = 3rd-party/benchmark
 	url = https://github.com/google/benchmark
+[submodule "3rd-party/doxygen-awesome-css"]
+	path = 3rd-party/doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
