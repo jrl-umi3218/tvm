@@ -3,6 +3,10 @@ div.fragment {
   padding: 0pt;
 }
 
+#nav-tree .arrow {
+    opacity: 1;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --warning-color: #510a02;
