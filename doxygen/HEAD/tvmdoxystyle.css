@@ -1,15 +1,23 @@
-code {
-  max-width:100%;
-  border-collapse: collapse;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #cccccc;
-  font-size: 1em;
-  font-family: monospace;
-  background-color: #F8F8FF;
-}
-
 div.fragment {
   display:table;
   padding: 0pt;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --warning-color: #510a02;
+        --warning-color-dark: #b61825;
+        --warning-color-darker: #f5b1aa;
+        --note-color: rgb(129, 89, 61);
+        --note-color-dark: rgb(255, 106, 0);
+        --note-color-darker: #fff6df;
+    }
+
+    .image {
+        background-color: dimgrey
+    }
+
+    dl.note code, dl.note div.fragment {
+        background-color: dimgray;
+    }
 }
