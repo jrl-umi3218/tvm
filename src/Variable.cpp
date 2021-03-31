@@ -139,7 +139,7 @@ VariablePtr Variable::superVariable() const
 
 bool Variable::isSuperVariable() const { return superVariable_ == nullptr; }
 
-bool Variable::isSuperVariableOf(const Variable & v) const { return v.superVariable_ == this; }
+bool Variable::isSuperVariableOf(const Variable & v) const { return v.superVariable_.get() == this; }
 
 Range Variable::subvariableRange() const
 {
@@ -167,12 +167,12 @@ VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space 
   VariablePtr base = superVariable();
   if(isBasePrimitive())
   {
-    return VariablePtr(base, new Variable(base.get(), space, baseName, shift_ * shift));
+    return std::make_shared<Variable>(make_shared_token{}, base, space, baseName, shift_ * shift);
   }
   else
   {
     VariablePtr bp = base->basePrimitive();
-    return dot(VariablePtr(bp, new Variable(bp.get(), space, baseName, shift_ * shift)), derivativeNumber_);
+    return dot(std::make_shared<Variable>(make_shared_token{}, bp, space, baseName, shift_ * shift), derivativeNumber_);
   }
 }
 
@@ -202,7 +202,7 @@ Variable::Variable(Variable * var)
                                                           : memory_,
                                      var->space_.tSize())),
   derivativeNumber_(var->derivativeNumber_ + 1), primitive_(var),
-  superVariable_(var->isSubvariable() ? dot(var->superVariable()).get() : nullptr), derivative_(nullptr), startIn_()
+  superVariable_(var->isSubvariable() ? dot(var->superVariable()) : nullptr), derivative_(nullptr), startIn_()
 {
   std::stringstream ss;
   if(derivativeNumber_ == 1)
@@ -217,7 +217,7 @@ Variable::Variable(Variable * var)
   value_.setZero();
 }
 
-Variable::Variable(Variable * var, const Space & space, std::string_view name, const Space & shift)
+Variable::Variable(make_shared_token, VariablePtr var, const Space & space, std::string_view name, const Space & shift)
 : name_(name), space_(space), shift_(shift), memory_(nullptr),
   value_(Eigen::Map<Eigen::VectorXd>(var->memory_ + shift.rSize(), space.rSize())), derivativeNumber_(0),
   primitive_(nullptr), superVariable_(var), derivative_(nullptr), startIn_()

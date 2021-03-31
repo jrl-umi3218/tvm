@@ -43,6 +43,10 @@ VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1);
  */
 class TVM_DLLAPI Variable : public tvm::internal::ObjWithId, public std::enable_shared_from_this<Variable>
 {
+private:
+  struct make_shared_token
+  {};
+
 public:
   /** Copying variables is illicit. To get a different variable with the same
    * characteristics, see \ref duplicate.
@@ -182,6 +186,9 @@ public:
   friend bool operator==(const Variable & u, const Variable & v);
   friend bool operator!=(const Variable & u, const Variable & v);
 
+  /** Constructor for a subvariable of var */
+  Variable(make_shared_token, VariablePtr var, const Space & space, std::string_view name, const Space & shift);
+
 private:
   struct MappingHelper
   {
@@ -194,9 +201,6 @@ private:
 
   /** Constructor for the derivative of var */
   Variable(Variable * var);
-
-  /** Constructor for a subvariable of var */
-  Variable(Variable * var, const Space & space, std::string_view name, const Space & shift);
 
   /** Same as primitive<n> but without checking if n is valid.*/
   template<int n>
@@ -232,7 +236,7 @@ private:
   /** If the variable is the subvariable of another one, superVariable_ is a
    * reference to the latter, otherwise it is a nullptr.
    */
-  Variable * superVariable_;
+  VariablePtr superVariable_;
 
   /** If the variable has a time derivative, keep a pointer on it */
   std::unique_ptr<Variable> derivative_;
