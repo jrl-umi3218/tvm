@@ -72,7 +72,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a02465.html','');});
+$(document).ready(function(){initNavTree('a02460.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('a02465.html','');});
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">robot/enums.h File Reference</div>  </div>
+<div class="title">constraint/enums.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
@@ -103,31 +103,33 @@ Namespaces</h2></td></tr>
 <tr class="memitem:a00395"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00395.html">tvm</a></td></tr>
 <tr class="memdesc:a00395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00419"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00419.html">tvm::robot</a></td></tr>
+<tr class="memitem:a00396"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00396.html">tvm::constraint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ae695c229a7d819c057992d913a3ad10f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00419.html#ae695c229a7d819c057992d913a3ad10f">tvm::robot::ContactConstraintType</a> { <br />
-&#160;&#160;<a class="el" href="a00419.html#ae695c229a7d819c057992d913a3ad10fa3b926d163371fd620b09b63219b12f52">tvm::robot::ContactConstraintType::Acceleration</a>, 
+<tr class="memitem:ab6243a7da877a867f54ff7207959eb7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> { <br />
+&#160;&#160;<a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44">tvm::constraint::Type::EQUAL</a>, 
 <br />
-&#160;&#160;<a class="el" href="a00419.html#ae695c229a7d819c057992d913a3ad10fa88156d46910a2d733443c339a9231d12">tvm::robot::ContactConstraintType::Velocity</a>, 
+&#160;&#160;<a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7ca1625ef4fe09f68fa20d3ff6e02cd5c8e">tvm::constraint::Type::GREATER_THAN</a>, 
 <br />
-&#160;&#160;<a class="el" href="a00419.html#ae695c229a7d819c057992d913a3ad10fa52f5e0bc3859bc5f5e25130b6c7e8881">tvm::robot::ContactConstraintType::Position</a>
+&#160;&#160;<a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7ca8d8dbd4894bf4197b12b8dc764133146">tvm::constraint::Type::LOWER_THAN</a>, 
 <br />
- }<tr class="memdesc:ae695c229a7d819c057992d913a3ad10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a given contact, specify the type of constraint that is applied:  <a href="a00419.html#ae695c229a7d819c057992d913a3ad10f">More...</a><br /></td></tr>
+&#160;&#160;<a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7ca5985013177a5f88f804ff2af491c65a5">tvm::constraint::Type::DOUBLE_SIDED</a>
+<br />
+ }<tr class="memdesc:ab6243a7da877a867f54ff7207959eb7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a function f(x), and a right hand side rhs (and rhs2), gives the type of the constraint.  <a href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:ae695c229a7d819c057992d913a3ad10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac706730af38b72ec80e95eb336cd043"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00419.html#aac706730af38b72ec80e95eb336cd043">tvm::robot::ContactType</a> { <br />
-&#160;&#160;<a class="el" href="a00419.html#aac706730af38b72ec80e95eb336cd043ad2203cb1237cb6460cbad94564e39345">tvm::robot::ContactType::Regular</a>, 
+<tr class="separator:ab6243a7da877a867f54ff7207959eb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf340c6d4875e2e7502c8a6243ae0551"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00396.html#adf340c6d4875e2e7502c8a6243ae0551">tvm::constraint::RHS</a> { <br />
+&#160;&#160;<a class="el" href="a00396.html#adf340c6d4875e2e7502c8a6243ae0551a529e9e0beb5f85d1f132917c1a09860c">tvm::constraint::RHS::ZERO</a>, 
 <br />
-&#160;&#160;<a class="el" href="a00419.html#aac706730af38b72ec80e95eb336cd043a9eb6b78a99cdb6ffd3d40d18621d9f80">tvm::robot::ContactType::Force</a>, 
+&#160;&#160;<a class="el" href="a00396.html#adf340c6d4875e2e7502c8a6243ae0551a23381f2ccff0bd927c14dd312c5d4ce6">tvm::constraint::RHS::AS_GIVEN</a>, 
 <br />
-&#160;&#160;<a class="el" href="a00419.html#aac706730af38b72ec80e95eb336cd043aadf9f772a73f364e4ce6c52b9fae740d">tvm::robot::ContactType::Geometric</a>
+&#160;&#160;<a class="el" href="a00396.html#adf340c6d4875e2e7502c8a6243ae0551ab4e725f1a00e995987cc42b9f076da65">tvm::constraint::RHS::OPPOSITE</a>
 <br />
- }<tr class="memdesc:aac706730af38b72ec80e95eb336cd043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the type of contact:  <a href="a00419.html#aac706730af38b72ec80e95eb336cd043">More...</a><br /></td></tr>
+ }<tr class="memdesc:adf340c6d4875e2e7502c8a6243ae0551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell how a vector <code>u</code> should be considered as a right hand side of a constraint.  <a href="a00396.html#adf340c6d4875e2e7502c8a6243ae0551">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:aac706730af38b72ec80e95eb336cd043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:adf340c6d4875e2e7502c8a6243ae0551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -135,8 +137,8 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_d042aebbf1171e016bcc9e6a6ed11000.html">robot</a></li><li class="navelem"><a class="el" href="a02465.html">enums.h</a></li>
-    <li class="footer">Generated on Mon Mar 22 2021 07:55:52 for TVM by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c7d8e826c599ba55146c099a14beb5.html">tvm</a></li><li class="navelem"><a class="el" href="dir_8aade20741a7f4a13662c9851e607ed3.html">constraint</a></li><li class="navelem"><a class="el" href="a02460.html">enums.h</a></li>
+    <li class="footer">Generated on Wed Mar 31 2021 09:19:31 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

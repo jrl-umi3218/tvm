@@ -2,7 +2,7 @@ var searchData=
 [
   ['unimplementedoutput',['UnimplementedOutput',['../a01037.html',1,'tvm::exception']]],
   ['unusedoutput',['UnusedOutput',['../a01029.html',1,'tvm::exception']]],
-  ['update',['Update',['../a01153.html',1,'tvm::graph::internal::Log::Update'],['../a01121.html',1,'tvm::graph::internal::AbstractNode::Update']]],
+  ['update',['Update',['../a01121.html',1,'tvm::graph::internal::AbstractNode::Update'],['../a01153.html',1,'tvm::graph::internal::Log::Update']]],
   ['updatelessfunction',['UpdatelessFunction',['../a01905.html',1,'tvm::utils']]],
   ['updater',['Updater',['../a01009.html',1,'tvm::ControlProblem']]],
   ['use_5fassign_5fcache',['use_assign_cache',['../a01497.html',1,'tvm::scheme::internal']]],

@@ -18,7 +18,7 @@ var searchData=
   ['getfeedforwardt',['getFeedForwardT',['../a01781.html#aa4f7695fb7b4573e47c94c977f12f8cb',1,'tvm::task_dynamics::FeedForward']]],
   ['getinput',['getInput',['../a01133.html#aa460986cd8bbf0060ed476a8625aeac0',1,'tvm::graph::internal::Inputs::getInput(T *source)'],['../a01133.html#ae18f52958730844f8f29f727ca89e112',1,'tvm::graph::internal::Inputs::getInput(const std::shared_ptr&lt; T &gt; &amp;source)']]],
   ['getmappingin',['getMappingIn',['../a01909.html#adb7f9239f61416b9c1a57e9f806782b6',1,'tvm::Variable']]],
-  ['getmappingof',['getMappingOf',['../a01917.html#a2c015cef9a80aaa5bf4118ef92ff8cb9',1,'tvm::VariableVector']]],
+  ['getmappingof',['getMappingOf',['../a01921.html#a2c015cef9a80aaa5bf4118ef92ff8cb9',1,'tvm::VariableVector']]],
   ['getpointervalue',['getPointerValue',['../a00412.html#aa595f4e0beceebe4489e216d83a7c096',1,'tvm::graph::internal']]],
   ['getsourcevector',['getSourceVector',['../a01633.html#abe3e3b813dedd5ce0efd777a4d68c4c8',1,'tvm::scheme::internal::VectorAssignment']]],
   ['gettargetmatrix',['getTargetMatrix',['../a01625.html#a6e2524b0f5bc6c853929b8c78365bfd1',1,'tvm::scheme::internal::MatrixAssignment']]],

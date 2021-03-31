@@ -207,7 +207,7 @@ var hierarchy =
       ] ],
       [ "tvm::TaskWithRequirements", "a01001.html", null ],
       [ "tvm::Variable", "a01909.html", null ],
-      [ "tvm::VariableVector", "a01917.html", null ]
+      [ "tvm::VariableVector", "a01921.html", null ]
     ] ],
     [ "tvm::graph::abstract::Outputs::Output", "a01085.html", null ],
     [ "tvm::graph::internal::Log::Output", "a01157.html", null ],
@@ -308,8 +308,8 @@ var hierarchy =
     [ "type", null, [
       [ "tvm::scheme::internal::ParseArg< N >", "a01473.html", null ]
     ] ],
-    [ "tvm::graph::internal::Log::Update", "a01153.html", null ],
     [ "tvm::graph::internal::AbstractNode::Update", "a01121.html", null ],
+    [ "tvm::graph::internal::Log::Update", "a01153.html", null ],
     [ "tvm::utils::UpdatelessFunction", "a01905.html", null ],
     [ "tvm::ControlProblem::Updater", "a01009.html", null ],
     [ "tvm::internal::VariableCountingVector", "a01305.html", null ],

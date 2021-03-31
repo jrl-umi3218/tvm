@@ -2,6 +2,7 @@ var a01909 =
 [
     [ "Variable", "a01909.html#a58b844ffbc99f8676db998dc8ae60454", null ],
     [ "~Variable", "a01909.html#ab17bd0253eb830cf1bdab1546704b208", null ],
+    [ "Variable", "a01909.html#ae05112e0eafe62ad3162fe0d513afe81", null ],
     [ "basePrimitive", "a01909.html#a32145d6eab57cab0abc6cf6e911a726f", null ],
     [ "contains", "a01909.html#a033e727f7d37d5cc89853e721e002aaa", null ],
     [ "derivativeNumber", "a01909.html#a2b1c9b0dae4d31528a76ab96634cdc32", null ],

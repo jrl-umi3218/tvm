@@ -25,5 +25,5 @@ var a00395 =
     [ "Task", "a01753.html", "a01753" ],
     [ "TaskWithRequirements", "a01001.html", "a01001" ],
     [ "Variable", "a01909.html", "a01909" ],
-    [ "VariableVector", "a01917.html", "a01917" ]
+    [ "VariableVector", "a01921.html", "a01921" ]
 ];

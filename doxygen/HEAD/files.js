@@ -78,11 +78,11 @@ var files =
       [ "DynamicFunction", "a01401.html", "a01401" ],
       [ "ForceContact", "a01405.html", "a01405" ]
     ] ],
-    [ "constraint/enums.h", "a02456.html", "a02456" ],
-    [ "event/enums.h", "a02459.html", "a02459" ],
-    [ "internal/enums.h", "a02462.html", "a02462" ],
-    [ "robot/enums.h", "a02465.html", "a02465" ],
-    [ "task_dynamics/enums.h", "a02468.html", "a02468" ],
+    [ "constraint/enums.h", "a02460.html", "a02460" ],
+    [ "event/enums.h", "a02463.html", "a02463" ],
+    [ "internal/enums.h", "a02466.html", "a02466" ],
+    [ "robot/enums.h", "a02469.html", "a02469" ],
+    [ "task_dynamics/enums.h", "a02472.html", "a02472" ],
     [ "exceptions.h", "a00038.html", [
       [ "Exception", "a01021.html", "a01021" ],
       [ "DataException", "a01025.html", null ],
