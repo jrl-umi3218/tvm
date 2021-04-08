@@ -113,6 +113,17 @@ TEST_CASE("Simple add/Remove constraint")
   pb.add(t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3)));
+
+  t1->requirements.weight() = 3;
+  pb.remove(t1.get());
+  pb.add(t1);
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.4, 0)));
+
+  t1->requirements.weight() = 100.0;
+  pb.remove(t1.get());
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2)));
 }
 
 TEST_CASE("Add/Remove variables from problem")

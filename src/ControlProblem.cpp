@@ -28,8 +28,11 @@ void ControlProblem::add(TaskWithRequirementsPtr tr)
 void ControlProblem::remove(TaskWithRequirements * tr)
 {
   auto it = std::find_if(tr_.begin(), tr_.end(), [tr](const TaskWithRequirementsPtr & p) { return p.get() == tr; });
-  if(it != tr_.end())
-    tr_.erase(it);
+  if(it == tr_.end())
+  {
+    return;
+  }
+  tr_.erase(it);
   notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
   callbackTokens_.erase(tr);
   finalized_ = false;
