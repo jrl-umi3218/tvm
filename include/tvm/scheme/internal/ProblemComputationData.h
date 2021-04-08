@@ -72,8 +72,16 @@ protected:
   /** The problem variable*/
   tvm::internal::VariableCountingVector variables_;
 
+  class EventQueue : public std::queue<ProblemDefinitionEvent>
+  {
+  public:
+    using std::queue<ProblemDefinitionEvent>::queue;
+
+    using std::queue<ProblemDefinitionEvent>::c;
+  };
+
   /** Problem definition events*/
-  std::queue<ProblemDefinitionEvent> events_;
+  EventQueue events_;
 
 private:
   int solverId_;
@@ -101,7 +109,24 @@ inline const VariableVector & ProblemComputationData::variables() const { return
 
 inline void ProblemComputationData::setVariablesToSolution() { setVariablesToSolution_(variables_); }
 
-inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e) { events_.push(e); }
+inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e)
+{
+  if(e.type() == ProblemDefinitionEvent::Type::TaskRemoval)
+  {
+    for(auto it = events_.c.begin(); it != events_.c.end();)
+    {
+      if(it->emitter() == e.emitter())
+      {
+        it = events_.c.erase(it);
+      }
+      else
+      {
+        ++it;
+      }
+    }
+  }
+  events_.push(e);
+}
 
 [[nodiscard]] inline ProblemDefinitionEvent ProblemComputationData::popEvent()
 {
