@@ -21,9 +21,9 @@ var a00395 =
     [ "LinearizedControlProblem", "a01321.html", "a01321" ],
     [ "Range", "a01325.html", "a01325" ],
     [ "Robot", "a01433.html", "a01433" ],
-    [ "Space", "a01749.html", "a01749" ],
-    [ "Task", "a01753.html", "a01753" ],
+    [ "Space", "a01753.html", "a01753" ],
+    [ "Task", "a01757.html", "a01757" ],
     [ "TaskWithRequirements", "a01001.html", "a01001" ],
-    [ "Variable", "a01909.html", "a01909" ],
-    [ "VariableVector", "a01921.html", "a01921" ]
+    [ "Variable", "a01913.html", "a01913" ],
+    [ "VariableVector", "a01925.html", "a01925" ]
 ];

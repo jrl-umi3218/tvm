@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::solver::abstract::LeastSquareSolver::MarkedAssignment Struct Reference</title>
+<title>TVM: tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,10 +92,11 @@ $(document).ready(function(){initNavTree('a01685.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01682.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::abstract::LeastSquareSolver::MarkedAssignment Struct Reference</div>  </div>
+<div class="title">tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -103,40 +104,126 @@ $(document).ready(function(){initNavTree('a01685.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01685.html#ad77852e7bd7c600a48125d0fb3ddcaa2">MarkedAssignment</a> (Args &amp;&amp;... args)</td></tr>
-<tr class="separator:ad77852e7bd7c600a48125d0fb3ddcaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2fb7e4ccbb459c3c2cdfcfb9142d54a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01685.html">ImpactFromChanges</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#ab2fb7e4ccbb459c3c2cdfcfb9142d54a">operator||</a> (bool b)</td></tr>
+<tr class="separator:ab2fb7e4ccbb459c3c2cdfcfb9142d54a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75252ee4607036559402f3cc7eeb48f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01685.html">ImpactFromChanges</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a75252ee4607036559402f3cc7eeb48f7">operator||</a> (const <a class="el" href="a01685.html">ImpactFromChanges</a> &amp;other)</td></tr>
+<tr class="separator:a75252ee4607036559402f3cc7eeb48f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053b8a4a7e6f18ba1d2329ce5d650c7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01685.html">ImpactFromChanges</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a053b8a4a7e6f18ba1d2329ce5d650c7c">orAssign</a> (const <a class="el" href="a01685.html">ImpactFromChanges</a> &amp;other)</td></tr>
+<tr class="memdesc:a053b8a4a7e6f18ba1d2329ce5d650c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">this = this || other  <a href="#a053b8a4a7e6f18ba1d2329ce5d650c7c">More...</a><br /></td></tr>
+<tr class="separator:a053b8a4a7e6f18ba1d2329ce5d650c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a12ad208f22af1da894a656b7bf94b01c"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:a12ad208f22af1da894a656b7bf94b01c"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01685.html#a12ad208f22af1da894a656b7bf94b01c">willReallocate</a> (const Eigen::DenseBase&lt; Derived &gt; &amp;M, int rows, int cols=1)</td></tr>
+<tr class="separator:a12ad208f22af1da894a656b7bf94b01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a2a520b4d1b68cf8142e5ef7e5b3794f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01445.html">scheme::internal::Assignment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a2a520b4d1b68cf8142e5ef7e5b3794f2">assignment</a></td></tr>
-<tr class="separator:a2a520b4d1b68cf8142e5ef7e5b3794f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0341e83419b89abcb675e56cf7b9c76"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#ad0341e83419b89abcb675e56cf7b9c76">markedForRemoval</a></td></tr>
-<tr class="separator:ad0341e83419b89abcb675e56cf7b9c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a94108fc4e0d53af762ec9b75f4948b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a9a94108fc4e0d53af762ec9b75f4948b">equalityConstraints_</a> = false</td></tr>
+<tr class="separator:a9a94108fc4e0d53af762ec9b75f4948b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f3c75779099768081083dc08c33192f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a2f3c75779099768081083dc08c33192f">inequalityConstraints_</a> = false</td></tr>
+<tr class="separator:a2f3c75779099768081083dc08c33192f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ab679502f702510300ad5c9c53d7eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#ac4ab679502f702510300ad5c9c53d7eb">bounds_</a> = false</td></tr>
+<tr class="separator:ac4ab679502f702510300ad5c9c53d7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f0648779602e4039ebe96bfa4436ab0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html#a2f0648779602e4039ebe96bfa4436ab0">objectives_</a> = false</td></tr>
+<tr class="separator:a2f0648779602e4039ebe96bfa4436ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad77852e7bd7c600a48125d0fb3ddcaa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad77852e7bd7c600a48125d0fb3ddcaa2">&#9670;&nbsp;</a></span>MarkedAssignment()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab2fb7e4ccbb459c3c2cdfcfb9142d54a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2fb7e4ccbb459c3c2cdfcfb9142d54a">&#9670;&nbsp;</a></span>operator||() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01685.html">ImpactFromChanges</a> tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::operator|| </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75252ee4607036559402f3cc7eeb48f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75252ee4607036559402f3cc7eeb48f7">&#9670;&nbsp;</a></span>operator||() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01685.html">ImpactFromChanges</a> tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01685.html">ImpactFromChanges</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a053b8a4a7e6f18ba1d2329ce5d650c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053b8a4a7e6f18ba1d2329ce5d650c7c">&#9670;&nbsp;</a></span>orAssign()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01685.html">ImpactFromChanges</a>&amp; tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::orAssign </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01685.html">ImpactFromChanges</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>this = this || other </p>
+
+</div>
+</div>
+<a id="a12ad208f22af1da894a656b7bf94b01c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12ad208f22af1da894a656b7bf94b01c">&#9670;&nbsp;</a></span>willReallocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename... Args&gt; </div>
+template&lt;typename Derived &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::MarkedAssignment </td>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::willReallocate </td>
           <td>(</td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
+          <td class="paramtype">const Eigen::DenseBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>M</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cols</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -144,28 +231,56 @@ template&lt;typename... Args&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2a520b4d1b68cf8142e5ef7e5b3794f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a520b4d1b68cf8142e5ef7e5b3794f2">&#9670;&nbsp;</a></span>assignment</h2>
+<a id="ac4ab679502f702510300ad5c9c53d7eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ab679502f702510300ad5c9c53d7eb">&#9670;&nbsp;</a></span>bounds_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01445.html">scheme::internal::Assignment</a> tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::assignment</td>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::bounds_ = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad0341e83419b89abcb675e56cf7b9c76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0341e83419b89abcb675e56cf7b9c76">&#9670;&nbsp;</a></span>markedForRemoval</h2>
+<a id="a9a94108fc4e0d53af762ec9b75f4948b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a94108fc4e0d53af762ec9b75f4948b">&#9670;&nbsp;</a></span>equalityConstraints_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::MarkedAssignment::markedForRemoval</td>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::equalityConstraints_ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f3c75779099768081083dc08c33192f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3c75779099768081083dc08c33192f">&#9670;&nbsp;</a></span>inequalityConstraints_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::inequalityConstraints_ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f0648779602e4039ebe96bfa4436ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f0648779602e4039ebe96bfa4436ab0">&#9670;&nbsp;</a></span>objectives_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::objectives_ = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -178,8 +293,8 @@ template&lt;typename... Args&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00424.html">solver</a></li><li class="navelem"><a class="el" href="a00425.html">abstract</a></li><li class="navelem"><a class="el" href="a01677.html">LeastSquareSolver</a></li><li class="navelem"><a class="el" href="a01685.html">MarkedAssignment</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00424.html">solver</a></li><li class="navelem"><a class="el" href="a00425.html">abstract</a></li><li class="navelem"><a class="el" href="a01681.html">LeastSquareSolver</a></li><li class="navelem"><a class="el" href="a01685.html">ImpactFromChanges</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

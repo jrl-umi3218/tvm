@@ -1,5 +1,8 @@
 var a01649 =
 [
-    [ "LevelAbilities", "a01649.html#a29f0dfcc1af655aa62ae69ed34e9a6f1", null ],
-    [ "check", "a01649.html#ae3b43c15c05a456e1f57cc53ad9c573b", null ]
+    [ "ResolutionSchemeBase", "a01649.html#aefb80f832f4441e510feb64dbcf56ffd", null ],
+    [ "big_number", "a01649.html#a69ceec7e83fd0d65311b7dded6e38671", null ],
+    [ "big_number", "a01649.html#ad90acf5e20b8b1c9759a6491b7b83ff6", null ],
+    [ "abilities_", "a01649.html#adcf8dff7e4b436825a1502a60b616cdc", null ],
+    [ "big_number_", "a01649.html#ae80cba12e377a8574bbff19a005b94a7", null ]
 ];

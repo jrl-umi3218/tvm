@@ -1,8 +1,12 @@
 var a01645 =
 [
-    [ "ResolutionSchemeBase", "a01645.html#aefb80f832f4441e510feb64dbcf56ffd", null ],
-    [ "big_number", "a01645.html#a69ceec7e83fd0d65311b7dded6e38671", null ],
-    [ "big_number", "a01645.html#ad90acf5e20b8b1c9759a6491b7b83ff6", null ],
-    [ "abilities_", "a01645.html#adcf8dff7e4b436825a1502a60b616cdc", null ],
-    [ "big_number_", "a01645.html#ae80cba12e377a8574bbff19a005b94a7", null ]
+    [ "Type", "a01645.html#add21aabf2172548b0cef1edf725bebb7", [
+      [ "WeightChange", "a01645.html#add21aabf2172548b0cef1edf725bebb7a41924119a07fa5aa148829f2c240a2af", null ],
+      [ "AnisotropicWeightChange", "a01645.html#add21aabf2172548b0cef1edf725bebb7a5a108faae93ccced54796866ca9741cc", null ],
+      [ "TaskAddition", "a01645.html#add21aabf2172548b0cef1edf725bebb7aa6799a77cc26fcb05546d9840af38e35", null ],
+      [ "TaskRemoval", "a01645.html#add21aabf2172548b0cef1edf725bebb7afa2e45ca12d0da1e2ac88433424d2760", null ]
+    ] ],
+    [ "ProblemDefinitionEvent", "a01645.html#a95c0bc43978937032b99abbaece32f9b", null ],
+    [ "emitter", "a01645.html#a37da7bd34e5cd5779dfbac43502e9359", null ],
+    [ "type", "a01645.html#ad6d62ed5e9d52e29029417570cdc3481", null ]
 ];

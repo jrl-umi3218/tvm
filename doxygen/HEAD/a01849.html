@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::utils::AffineExpr&lt; CstDerived, Derived &gt; Class Template Reference</title>
+<title>TVM: tvm::utils::LinearExpr&lt; Derived &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,112 +91,74 @@ $(document).ready(function(){initNavTree('a01849.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01846.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::AffineExpr&lt; CstDerived, Derived &gt; Class Template Reference</div>  </div>
+<div class="title">tvm::utils::LinearExpr&lt; Derived &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A class representing an affine expression \( A_1 x_1 + A_2 x_2 + \ldots + A_k x_k + b \) where \( A_i \) is a matrix expression, \( x_i \) is a <a class="el" href="a01909.html" title="Representation of a Variable, i.e. ">Variable</a> and \( b \) is a vector expression.  
+<p>A class representing an expression A * x with A a matrix expression and x a variable.  
  <a href="a01849.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/utils/AffineExpr.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad304f33ae6978599a7dc604986c84b08"><td class="memTemplParams" colspan="2">template&lt;class T  = CstDerived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:ad304f33ae6978599a7dc604986c84b08"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#ad304f33ae6978599a7dc604986c84b08">AffineExpr</a> (const <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt; &amp;... <a class="el" href="a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287">linear</a>)</td></tr>
-<tr class="memdesc:ad304f33ae6978599a7dc604986c84b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construction from a sequence of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived == NoConstant (absent constant part).  <a href="#ad304f33ae6978599a7dc604986c84b08">More...</a><br /></td></tr>
-<tr class="separator:ad304f33ae6978599a7dc604986c84b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100f729ca296ded77ceaa2e93740a3c0"><td class="memTemplParams" colspan="2">template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a100f729ca296ded77ceaa2e93740a3c0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#a100f729ca296ded77ceaa2e93740a3c0">AffineExpr</a> (const Eigen::MatrixBase&lt; CstDerived &gt; &amp;<a class="el" href="a01849.html#a5095307086839de4af4f11a12bf65c59">constant</a>, const <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt; &amp;... <a class="el" href="a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287">linear</a>)</td></tr>
-<tr class="memdesc:a100f729ca296ded77ceaa2e93740a3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construction from a sequence of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived != NoConstant (existing constant part).  <a href="#a100f729ca296ded77ceaa2e93740a3c0">More...</a><br /></td></tr>
-<tr class="separator:a100f729ca296ded77ceaa2e93740a3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f13ce4a543aa7e79404acb7d3d2dd83"><td class="memTemplParams" colspan="2">template&lt;class T  = CstDerived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a8f13ce4a543aa7e79404acb7d3d2dd83"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#a8f13ce4a543aa7e79404acb7d3d2dd83">AffineExpr</a> (const <a class="el" href="a01861.html">internal::NoConstant</a> &amp;<a class="el" href="a01849.html#a5095307086839de4af4f11a12bf65c59">constant</a>, const std::tuple&lt; <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt;... &gt; &amp;<a class="el" href="a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287">linear</a>)</td></tr>
-<tr class="memdesc:a8f13ce4a543aa7e79404acb7d3d2dd83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construction from a tuple of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived == NoConstant (absent constant part).  <a href="#a8f13ce4a543aa7e79404acb7d3d2dd83">More...</a><br /></td></tr>
-<tr class="separator:a8f13ce4a543aa7e79404acb7d3d2dd83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bd9ac10136b4ae56e141162b9a77e8e"><td class="memTemplParams" colspan="2">template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a0bd9ac10136b4ae56e141162b9a77e8e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#a0bd9ac10136b4ae56e141162b9a77e8e">AffineExpr</a> (const Eigen::MatrixBase&lt; CstDerived &gt; &amp;<a class="el" href="a01849.html#a5095307086839de4af4f11a12bf65c59">constant</a>, const std::tuple&lt; <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt;... &gt; &amp;<a class="el" href="a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287">linear</a>)</td></tr>
-<tr class="memdesc:a0bd9ac10136b4ae56e141162b9a77e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construction from a tuple of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived != NoConstant (existing constant part).  <a href="#a0bd9ac10136b4ae56e141162b9a77e8e">More...</a><br /></td></tr>
-<tr class="separator:a0bd9ac10136b4ae56e141162b9a77e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1c6f6cf9c118af260ddafedc3d8e287"><td class="memItemLeft" align="right" valign="top">const std::tuple&lt; <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt;... &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287">linear</a> () const</td></tr>
-<tr class="separator:ad1c6f6cf9c118af260ddafedc3d8e287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5095307086839de4af4f11a12bf65c59"><td class="memItemLeft" align="right" valign="top">const CstDerived &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html#a5095307086839de4af4f11a12bf65c59">constant</a> () const</td></tr>
-<tr class="separator:a5095307086839de4af4f11a12bf65c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html#ace550799fdb22b967ce5f5bddd0aa4a0">LinearExpr</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;<a class="el" href="a01849.html#abda44d8407e3f1fabf7f43616e621ea0">matrix</a>, const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;v)</td></tr>
+<tr class="memdesc:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">General constructor.  <a href="#ace550799fdb22b967ce5f5bddd0aa4a0">More...</a><br /></td></tr>
+<tr class="separator:ace550799fdb22b967ce5f5bddd0aa4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::IdentityType &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a> (const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
+<tr class="memdesc:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for Identity linear expression.  <a href="#aa8b13db5c36b8e2d4a55544a74687e5f">More...</a><br /></td></tr>
+<tr class="separator:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa715dc995e4c492fb70b7046afbe7e74"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MultIdentityType &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:aa715dc995e4c492fb70b7046afbe7e74"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#aa715dc995e4c492fb70b7046afbe7e74">LinearExpr</a> (double a, const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
+<tr class="memdesc:aa715dc995e4c492fb70b7046afbe7e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a*v where a is a scalar.  <a href="#aa715dc995e4c492fb70b7046afbe7e74">More...</a><br /></td></tr>
+<tr class="separator:aa715dc995e4c492fb70b7046afbe7e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplParams" colspan="2">template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MinusIdentityType &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f">LinearExpr</a> (const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v)</td></tr>
+<tr class="memdesc:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for -v.  <a href="#aa8b13db5c36b8e2d4a55544a74687e5f">More...</a><br /></td></tr>
+<tr class="separator:aa8b13db5c36b8e2d4a55544a74687e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abda44d8407e3f1fabf7f43616e621ea0"><td class="memItemLeft" align="right" valign="top">const Derived &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html#abda44d8407e3f1fabf7f43616e621ea0">matrix</a> () const</td></tr>
+<tr class="separator:abda44d8407e3f1fabf7f43616e621ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab518500d32934cbf912c9f50c7fbcd19"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01849.html#ab518500d32934cbf912c9f50c7fbcd19">variable</a> () const</td></tr>
+<tr class="separator:ab518500d32934cbf912c9f50c7fbcd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename CstDerived, typename... Derived&gt;<br />
-class tvm::utils::AffineExpr&lt; CstDerived, Derived &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Derived&gt;<br />
+class tvm::utils::LinearExpr&lt; Derived &gt;</h3>
 
-<p>A class representing an affine expression \( A_1 x_1 + A_2 x_2 + \ldots + A_k x_k + b \) where \( A_i \) is a matrix expression, \( x_i \) is a <a class="el" href="a01909.html" title="Representation of a Variable, i.e. ">Variable</a> and \( b \) is a vector expression. </p>
-<p>The class is essentially a list of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a> in the form of a std:::tuple, and a vector expression.</p>
+<p>A class representing an expression A * x with A a matrix expression and x a variable. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">CstDerived</td><td>The type of the constant part. Possibly NoConstant, otherwise an <a class="el" href="a00428.html">Eigen</a> expression type with the characteristics of a vector. </td></tr>
-    <tr><td class="paramname">Derived</td><td>The list of matrix expression types corresponding to each Ai </td></tr>
+    <tr><td class="paramname">Derived</td><td>The type of the matrix expression. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad304f33ae6978599a7dc604986c84b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad304f33ae6978599a7dc604986c84b08">&#9670;&nbsp;</a></span>AffineExpr() <span class="overload">[1/4]</span></h2>
+<a id="ace550799fdb22b967ce5f5bddd0aa4a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace550799fdb22b967ce5f5bddd0aa4a0">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
-<div class="memtemplate">
-template&lt;class T  = CstDerived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </div>
+template&lt;typename Derived&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::<a class="el" href="a01849.html">AffineExpr</a> </td>
+          <td class="memname"><a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01849.html">LinearExpr</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt; &amp;...&#160;</td>
-          <td class="paramname"><em>linear</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construction from a sequence of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived == NoConstant (absent constant part). </p>
-
-</div>
-</div>
-<a id="a100f729ca296ded77ceaa2e93740a3c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a100f729ca296ded77ceaa2e93740a3c0">&#9670;&nbsp;</a></span>AffineExpr() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
-<div class="memtemplate">
-template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::<a class="el" href="a01849.html">AffineExpr</a> </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; CstDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>constant</em>, </td>
+          <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt; &amp;...&#160;</td>
-          <td class="paramname"><em>linear</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -211,34 +173,66 @@ template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&
 </table>
 </div><div class="memdoc">
 
-<p>Construction from a sequence of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived != NoConstant (existing constant part). </p>
+<p>General constructor. </p>
 
 </div>
 </div>
-<a id="a8f13ce4a543aa7e79404acb7d3d2dd83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f13ce4a543aa7e79404acb7d3d2dd83">&#9670;&nbsp;</a></span>AffineExpr() <span class="overload">[3/4]</span></h2>
+<a id="aa8b13db5c36b8e2d4a55544a74687e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b13db5c36b8e2d4a55544a74687e5f">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
+template&lt;typename Derived&gt; </div>
 <div class="memtemplate">
-template&lt;class T  = CstDerived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </div>
+template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::IdentityType &gt;, int &gt;  = 0&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::<a class="el" href="a01849.html">AffineExpr</a> </td>
+          <td class="memname"><a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01849.html">LinearExpr</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01861.html">internal::NoConstant</a> &amp;&#160;</td>
-          <td class="paramname"><em>constant</em>, </td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for Identity linear expression. </p>
+
+</div>
+</div>
+<a id="aa715dc995e4c492fb70b7046afbe7e74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa715dc995e4c492fb70b7046afbe7e74">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived&gt; </div>
+<div class="memtemplate">
+template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MultIdentityType &gt;, int &gt;  = 0&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01849.html">LinearExpr</a> </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::tuple&lt; <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt;... &gt; &amp;&#160;</td>
-          <td class="paramname"><em>linear</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -253,39 +247,29 @@ template&lt;class T  = CstDerived, typename std::enable_if_t&lt; std::is_same_v&
 </table>
 </div><div class="memdoc">
 
-<p>Construction from a tuple of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived == NoConstant (absent constant part). </p>
+<p>Constructor for a*v where a is a scalar. </p>
 
 </div>
 </div>
-<a id="a0bd9ac10136b4ae56e141162b9a77e8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bd9ac10136b4ae56e141162b9a77e8e">&#9670;&nbsp;</a></span>AffineExpr() <span class="overload">[4/4]</span></h2>
+<a id="aa8b13db5c36b8e2d4a55544a74687e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b13db5c36b8e2d4a55544a74687e5f">&#9670;&nbsp;</a></span>LinearExpr() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
+template&lt;typename Derived&gt; </div>
 <div class="memtemplate">
-template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&lt; T, internal::NoConstant &gt;, int &gt;  = 0&gt; </div>
+template&lt;class T  = Derived, typename std::enable_if_t&lt; std::is_same_v&lt; T, internal::MinusIdentityType &gt;, int &gt;  = 0&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::<a class="el" href="a01849.html">AffineExpr</a> </td>
+          <td class="memname"><a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::<a class="el" href="a01849.html">LinearExpr</a> </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; CstDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>constant</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::tuple&lt; <a class="el" href="a01845.html">LinearExpr</a>&lt; Derived &gt;... &gt; &amp;&#160;</td>
-          <td class="paramname"><em>linear</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -295,24 +279,24 @@ template&lt;class T  = CstDerived, typename std::enable_if_t&lt;!std::is_same_v&
 </table>
 </div><div class="memdoc">
 
-<p>Construction from a tuple of <a class="el" href="a01845.html" title="A class representing an expression A * x with A a matrix expression and x a variable. ">LinearExpr</a>, in the case of CstDerived != NoConstant (existing constant part). </p>
+<p>Constructor for -v. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5095307086839de4af4f11a12bf65c59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5095307086839de4af4f11a12bf65c59">&#9670;&nbsp;</a></span>constant()</h2>
+<a id="abda44d8407e3f1fabf7f43616e621ea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda44d8407e3f1fabf7f43616e621ea0">&#9670;&nbsp;</a></span>matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
+template&lt;typename Derived&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const CstDerived&amp; <a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::constant </td>
+          <td class="memname">const Derived&amp; <a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::matrix </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -325,23 +309,23 @@ template&lt;typename CstDerived, typename... Derived&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a01065.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00417.html#af7793f96378dc79eab2695c67494b143">tvm::utils::operator*()</a>, <a class="el" href="a00417.html#a083caf4687183af1d9a906e7466956f2">tvm::utils::operator+()</a>, and <a class="el" href="a00417.html#aa7dbf421bc45d00359a50b250ff0e9d5">tvm::utils::operator-()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01065.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00417.html#a41553ea968b600c4399caa109bca5fd9">tvm::utils::operator*()</a>, and <a class="el" href="a00417.html#a3cdde69915328393a888c9062f24d7cd">tvm::utils::operator-()</a>.</p>
 
 </div>
 </div>
-<a id="ad1c6f6cf9c118af260ddafedc3d8e287"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1c6f6cf9c118af260ddafedc3d8e287">&#9670;&nbsp;</a></span>linear()</h2>
+<a id="ab518500d32934cbf912c9f50c7fbcd19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab518500d32934cbf912c9f50c7fbcd19">&#9670;&nbsp;</a></span>variable()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename CstDerived, typename... Derived&gt; </div>
+template&lt;typename Derived&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::tuple&lt;<a class="el" href="a01845.html">LinearExpr</a>&lt;Derived&gt;...&gt;&amp; <a class="el" href="a01849.html">tvm::utils::AffineExpr</a>&lt; CstDerived, Derived &gt;::linear </td>
+          <td class="memname">const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a>&amp; <a class="el" href="a01849.html">tvm::utils::LinearExpr</a>&lt; Derived &gt;::variable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -354,7 +338,7 @@ template&lt;typename CstDerived, typename... Derived&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a01065.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00417.html#af7793f96378dc79eab2695c67494b143">tvm::utils::operator*()</a>, <a class="el" href="a00417.html#a083caf4687183af1d9a906e7466956f2">tvm::utils::operator+()</a>, and <a class="el" href="a00417.html#aa7dbf421bc45d00359a50b250ff0e9d5">tvm::utils::operator-()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01065.html#a80dfccbf9fa012e8b6062045f18f9b39">tvm::function::BasicLinearFunction::BasicLinearFunction()</a>, <a class="el" href="a00417.html#a41553ea968b600c4399caa109bca5fd9">tvm::utils::operator*()</a>, and <a class="el" href="a00417.html#a3cdde69915328393a888c9062f24d7cd">tvm::utils::operator-()</a>.</p>
 
 </div>
 </div>
@@ -364,8 +348,8 @@ template&lt;typename CstDerived, typename... Derived&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00417.html">utils</a></li><li class="navelem"><a class="el" href="a01849.html">AffineExpr</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00417.html">utils</a></li><li class="navelem"><a class="el" href="a01849.html">LinearExpr</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

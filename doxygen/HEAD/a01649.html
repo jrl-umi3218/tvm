@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::scheme::internal::LevelAbilities Class Reference</title>
+<title>TVM: tvm::scheme::internal::ResolutionSchemeBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,46 +92,91 @@ $(document).ready(function(){initNavTree('a01649.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01646.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::scheme::internal::LevelAbilities Class Reference</div>  </div>
+<div class="title">tvm::scheme::internal::ResolutionSchemeBase Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A class to describe what type of constraint and solving requirements a level of a resolution scheme can handle.  
+<p>Base class for solving a <a class="el" href="a01005.html">ControlProblem</a>.  
  <a href="a01649.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/scheme/internal/SchemeAbilities.h&gt;</code></p>
+<p><code>#include &lt;tvm/scheme/internal/ResolutionSchemeBase.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for tvm::scheme::internal::ResolutionSchemeBase:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a01649.png" usemap="#tvm::scheme::internal::ResolutionSchemeBase_map" alt=""/>
+  <map id="tvm::scheme::internal::ResolutionSchemeBase_map" name="tvm::scheme::internal::ResolutionSchemeBase_map">
+<area href="a01285.html" title="A class with a unique id. " alt="tvm::internal::ObjWithId" shape="rect" coords="219,0,647,24"/>
+<area href="a01437.html" alt="tvm::scheme::abstract::ResolutionScheme&lt; WeightedLeastSquares &gt;" shape="rect" coords="0,112,428,136"/>
+<area href="a01437.html" title="Resolution schemes may be defined only for a particular type of problems. " alt="tvm::scheme::abstract::ResolutionScheme&lt; Derived &gt;" shape="rect" coords="438,112,866,136"/>
+<area href="a01441.html" alt="tvm::scheme::abstract::LinearResolutionScheme&lt; WeightedLeastSquares &gt;" shape="rect" coords="0,168,428,192"/>
+<area href="a01441.html" title="Base class for scheme solving linear problems For now, it is there only for allowing to differentiate..." alt="tvm::scheme::abstract::LinearResolutionScheme&lt; Derived &gt;" shape="rect" coords="438,168,866,192"/>
+<area href="a01665.html" title="This class implements the classic weighted least square scheme. " alt="tvm::scheme::WeightedLeastSquares" shape="rect" coords="0,224,428,248"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a29f0dfcc1af655aa62ae69ed34e9a6f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#a29f0dfcc1af655aa62ae69ed34e9a6f1">LevelAbilities</a> (bool inequality, const std::vector&lt; <a class="el" href="a00401.html#aa4adc5cf6ecbfb56b852b529f1e29198">requirements::ViolationEvaluationType</a> &gt; &amp;types)</td></tr>
-<tr class="separator:a29f0dfcc1af655aa62ae69ed34e9a6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3b43c15c05a456e1f57cc53ad9c573b"><td class="memTemplParams" colspan="2">template&lt;class RequirementsPtr &gt; </td></tr>
-<tr class="memitem:ae3b43c15c05a456e1f57cc53ad9c573b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01649.html#ae3b43c15c05a456e1f57cc53ad9c573b">check</a> (const <a class="el" href="a00395.html#a6b21f7495f7ef45e0ef41efdbb08d150">ConstraintPtr</a> &amp;c, const RequirementsPtr &amp;req, bool emitWarnings=true) const</td></tr>
-<tr class="memdesc:ae3b43c15c05a456e1f57cc53ad9c573b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check that the given constraint <code>and</code> requirements  can be handled by this level.  <a href="#ae3b43c15c05a456e1f57cc53ad9c573b">More...</a><br /></td></tr>
-<tr class="separator:ae3b43c15c05a456e1f57cc53ad9c573b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69ceec7e83fd0d65311b7dded6e38671"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#a69ceec7e83fd0d65311b7dded6e38671">big_number</a> () const</td></tr>
+<tr class="separator:a69ceec7e83fd0d65311b7dded6e38671"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad90acf5e20b8b1c9759a6491b7b83ff6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#ad90acf5e20b8b1c9759a6491b7b83ff6">big_number</a> (double big)</td></tr>
+<tr class="separator:ad90acf5e20b8b1c9759a6491b7b83ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01285"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01285')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="a01285.html">tvm::internal::ObjWithId</a></td></tr>
+<tr class="memitem:a56106dc0b038e076a2c8420368615efd inherit pub_methods_a01285"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#a56106dc0b038e076a2c8420368615efd">ObjWithId</a> (const <a class="el" href="a01285.html">ObjWithId</a> &amp;)=delete</td></tr>
+<tr class="separator:a56106dc0b038e076a2c8420368615efd inherit pub_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4d6213d5cae2c256a2c4533e35fc722 inherit pub_methods_a01285"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#af4d6213d5cae2c256a2c4533e35fc722">ObjWithId</a> (<a class="el" href="a01285.html">ObjWithId</a> &amp;&amp;other)</td></tr>
+<tr class="separator:af4d6213d5cae2c256a2c4533e35fc722 inherit pub_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c7051ea19885a16a459149fe36dd555 inherit pub_methods_a01285"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01285.html">ObjWithId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#a2c7051ea19885a16a459149fe36dd555">operator=</a> (const <a class="el" href="a01285.html">ObjWithId</a> &amp;)=delete</td></tr>
+<tr class="separator:a2c7051ea19885a16a459149fe36dd555 inherit pub_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d59ef2cc878342461631b428ce8f5b inherit pub_methods_a01285"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01285.html">ObjWithId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#a24d59ef2cc878342461631b428ce8f5b">operator=</a> (<a class="el" href="a01285.html">ObjWithId</a> &amp;&amp;other)</td></tr>
+<tr class="separator:a24d59ef2cc878342461631b428ce8f5b inherit pub_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab153084b455818dae756548bc210ba49 inherit pub_methods_a01285"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#ab153084b455818dae756548bc210ba49">id</a> () const</td></tr>
+<tr class="separator:ab153084b455818dae756548bc210ba49 inherit pub_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aefb80f832f4441e510feb64dbcf56ffd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#aefb80f832f4441e510feb64dbcf56ffd">ResolutionSchemeBase</a> (<a class="el" href="a01657.html">SchemeAbilities</a> abilities, double big=<a class="el" href="a00404.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a>)</td></tr>
+<tr class="memdesc:aefb80f832f4441e510feb64dbcf56ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, meant only for derived classes.  <a href="#aefb80f832f4441e510feb64dbcf56ffd">More...</a><br /></td></tr>
+<tr class="separator:aefb80f832f4441e510feb64dbcf56ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_a01285"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01285')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01285.html">tvm::internal::ObjWithId</a></td></tr>
+<tr class="memitem:a28e6fb5a7fdf04111cdd47209e825f9a inherit pro_methods_a01285"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html#a28e6fb5a7fdf04111cdd47209e825f9a">ObjWithId</a> ()</td></tr>
+<tr class="separator:a28e6fb5a7fdf04111cdd47209e825f9a inherit pro_methods_a01285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:adcf8dff7e4b436825a1502a60b616cdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01657.html">SchemeAbilities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#adcf8dff7e4b436825a1502a60b616cdc">abilities_</a></td></tr>
+<tr class="separator:adcf8dff7e4b436825a1502a60b616cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae80cba12e377a8574bbff19a005b94a7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#ae80cba12e377a8574bbff19a005b94a7">big_number_</a></td></tr>
+<tr class="memdesc:ae80cba12e377a8574bbff19a005b94a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A number to use for infinite bounds.  <a href="#ae80cba12e377a8574bbff19a005b94a7">More...</a><br /></td></tr>
+<tr class="separator:ae80cba12e377a8574bbff19a005b94a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class to describe what type of constraint and solving requirements a level of a resolution scheme can handle. </p>
+<div class="textblock"><p>Base class for solving a <a class="el" href="a01005.html">ControlProblem</a>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a29f0dfcc1af655aa62ae69ed34e9a6f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29f0dfcc1af655aa62ae69ed34e9a6f1">&#9670;&nbsp;</a></span>LevelAbilities()</h2>
+<a id="aefb80f832f4441e510feb64dbcf56ffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefb80f832f4441e510feb64dbcf56ffd">&#9670;&nbsp;</a></span>ResolutionSchemeBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::scheme::internal::LevelAbilities::LevelAbilities </td>
+          <td class="memname">tvm::scheme::internal::ResolutionSchemeBase::ResolutionSchemeBase </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>inequality</em>, </td>
+          <td class="paramtype"><a class="el" href="a01657.html">SchemeAbilities</a>&#160;</td>
+          <td class="paramname"><em>abilities</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a00401.html#aa4adc5cf6ecbfb56b852b529f1e29198">requirements::ViolationEvaluationType</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>types</em>&#160;</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em> = <code><a class="el" href="a00404.html#aeb21de4788bbb96c1453de69db21a668">constant::big_number</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -139,11 +184,18 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Constructor, meant only for derived classes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">inequality</td><td>True if the level is able to handle inequality constraints. </td></tr>
-    <tr><td class="paramname">types</td><td>The types of violation evaluation that can be handled at this level. </td></tr>
+    <tr><td class="paramname">abilities</td><td>The set of abilities for this scheme. </td></tr>
+    <tr><td class="paramname">big</td><td>A big number use to represent infinity, in particular when specifying non-existing bounds (e.g. x &lt;= Inf is given as x &lt;= big). </td></tr>
   </table>
   </dd>
 </dl>
@@ -151,57 +203,85 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae3b43c15c05a456e1f57cc53ad9c573b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3b43c15c05a456e1f57cc53ad9c573b">&#9670;&nbsp;</a></span>check()</h2>
+<a id="a69ceec7e83fd0d65311b7dded6e38671"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69ceec7e83fd0d65311b7dded6e38671">&#9670;&nbsp;</a></span>big_number() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class RequirementsPtr &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::scheme::internal::ResolutionSchemeBase::big_number </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad90acf5e20b8b1c9759a6491b7b83ff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad90acf5e20b8b1c9759a6491b7b83ff6">&#9670;&nbsp;</a></span>big_number() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::scheme::internal::ResolutionSchemeBase::big_number </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>big</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adcf8dff7e4b436825a1502a60b616cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf8dff7e4b436825a1502a60b616cdc">&#9670;&nbsp;</a></span>abilities_</h2>
+
+<div class="memitem">
+<div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void tvm::scheme::internal::LevelAbilities::check </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00395.html#a6b21f7495f7ef45e0ef41efdbb08d150">ConstraintPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const RequirementsPtr &amp;&#160;</td>
-          <td class="paramname"><em>req</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>emitWarnings</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="memname"><a class="el" href="a01657.html">SchemeAbilities</a> tvm::scheme::internal::ResolutionSchemeBase::abilities_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Check that the given constraint <code>and</code> requirements  can be handled by this level. </p>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the level cannot handled them. </td></tr>
-  </table>
-  </dd>
-</dl>
+</div>
+</div>
+<a id="ae80cba12e377a8574bbff19a005b94a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae80cba12e377a8574bbff19a005b94a7">&#9670;&nbsp;</a></span>big_number_</h2>
 
-<p class="reference">References <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7ca969f331a87d8c958473c32b4d0e61a44">tvm::constraint::EQUAL</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::scheme::internal::ResolutionSchemeBase::big_number_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A number to use for infinite bounds. </p>
 
 </div>
 </div>
@@ -211,8 +291,8 @@ template&lt;class RequirementsPtr &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01649.html">LevelAbilities</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01649.html">ResolutionSchemeBase</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

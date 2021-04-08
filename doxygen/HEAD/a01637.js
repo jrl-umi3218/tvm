@@ -1,5 +1,6 @@
 var a01637 =
 [
+    [ "EventQueue", "a01641.html", null ],
     [ "~ProblemComputationData", "a01637.html#ae25cf5d3b44a97562d04ce2945404509", null ],
     [ "ProblemComputationData", "a01637.html#ab5ba42c5270fb93ffddaee562c02cc73", null ],
     [ "ProblemComputationData", "a01637.html#a72b037eaff3c68715bad7d22eeff6a2d", null ],
@@ -14,6 +15,6 @@ var a01637 =
     [ "setVariablesToSolution_", "a01637.html#acfb260399593d48a9a869598ec56c0b7", null ],
     [ "solverId", "a01637.html#ae81e44f0373c64c02ab4aa0bb4e7bd61", null ],
     [ "variables", "a01637.html#a58cbf3db7ca4b701751e3737ae2348f3", null ],
-    [ "events_", "a01637.html#afae2058692ecd15d9583e4eab0786886", null ],
+    [ "events_", "a01637.html#a191b615ea63c9509cccb7205dc8760d1", null ],
     [ "variables_", "a01637.html#a399ab7e86277ee9e42c72c1874a9708e", null ]
 ];

@@ -1,4 +1,4 @@
 var a01865 =
 [
-    [ "type", "a01865.html#a81f162d9b69e6f335fbcdd643ea2d693", null ]
+    [ "operator-", "a01865.html#abb0569c302241503cc6a12fa3af0619a", null ]
 ];

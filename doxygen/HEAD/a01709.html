@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::solver::internal::SolverEvents::Objective Struct Reference</title>
+<title>TVM: tvm::solver::internal::SolverEvents::WeightEvent Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('a01709.html','');});
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01706.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::solver::internal::SolverEvents::Objective Struct Reference</div>  </div>
+<div class="title">tvm::solver::internal::SolverEvents::WeightEvent Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -102,52 +102,52 @@ $(document).ready(function(){initNavTree('a01709.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4d99a16aa16bb58a429e84358e799f6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#a4d99a16aa16bb58a429e84358e799f6f">c</a></td></tr>
-<tr class="separator:a4d99a16aa16bb58a429e84358e799f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5b58c4a7b957f782d2e0747c96ed62b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#ab5b58c4a7b957f782d2e0747c96ed62b">req</a></td></tr>
-<tr class="separator:ab5b58c4a7b957f782d2e0747c96ed62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56a0ba1707d78f2b178ca8ecca142eeb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#a56a0ba1707d78f2b178ca8ecca142eeb">scalarizationWeight</a></td></tr>
-<tr class="separator:a56a0ba1707d78f2b178ca8ecca142eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa746bcf655bf27b8022db4c3adb7f703"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00985.html">constraint::abstract::LinearConstraint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#aa746bcf655bf27b8022db4c3adb7f703">c</a></td></tr>
+<tr class="separator:aa746bcf655bf27b8022db4c3adb7f703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d337cc35a91b59052b754a3a61c743f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#a9d337cc35a91b59052b754a3a61c743f">scalar</a></td></tr>
+<tr class="separator:a9d337cc35a91b59052b754a3a61c743f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5403ed8197e8a1d0ef1798b3f1cfe0b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01709.html#a5403ed8197e8a1d0ef1798b3f1cfe0b0">vector</a></td></tr>
+<tr class="separator:a5403ed8197e8a1d0ef1798b3f1cfe0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4d99a16aa16bb58a429e84358e799f6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d99a16aa16bb58a429e84358e799f6f">&#9670;&nbsp;</a></span>c</h2>
+<a id="aa746bcf655bf27b8022db4c3adb7f703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa746bcf655bf27b8022db4c3adb7f703">&#9670;&nbsp;</a></span>c</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00395.html#a9684bcd58c05ed2e7f81eae1633c7082">LinearConstraintPtr</a> tvm::solver::internal::SolverEvents::Objective::c</td>
+          <td class="memname"><a class="el" href="a00985.html">constraint::abstract::LinearConstraint</a>* tvm::solver::internal::SolverEvents::WeightEvent::c</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a01701.html#ac7fc4de9e7d545f5e73336c33be9c93b">tvm::solver::internal::SolverEvents::addObjective()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a01705.html#ab9fe5e94c5d81fa757b14dfc3b73118f">tvm::solver::internal::SolverEvents::addScalarWeightEvent()</a>, <a class="el" href="a01705.html#a8d29eece355057c2e248a1a4484b4754">tvm::solver::internal::SolverEvents::addVectorWeightEvent()</a>, <a class="el" href="a01705.html#ad8e432fd7ee351459106898724e08e8d">tvm::solver::internal::SolverEvents::hasHiddenVariableChange()</a>, and <a class="el" href="a01705.html#abe74240ebda8f703f6c8a41d605e3fc1">tvm::solver::internal::SolverEvents::removeVariable()</a>.</p>
 
 </div>
 </div>
-<a id="ab5b58c4a7b957f782d2e0747c96ed62b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5b58c4a7b957f782d2e0747c96ed62b">&#9670;&nbsp;</a></span>req</h2>
+<a id="a9d337cc35a91b59052b754a3a61c743f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d337cc35a91b59052b754a3a61c743f">&#9670;&nbsp;</a></span>scalar</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00395.html#afbe973f3a51c3fe6b5557b8e4e51fc73">SolvingRequirementsPtr</a> tvm::solver::internal::SolverEvents::Objective::req</td>
+          <td class="memname">bool tvm::solver::internal::SolverEvents::WeightEvent::scalar</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a56a0ba1707d78f2b178ca8ecca142eeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56a0ba1707d78f2b178ca8ecca142eeb">&#9670;&nbsp;</a></span>scalarizationWeight</h2>
+<a id="a5403ed8197e8a1d0ef1798b3f1cfe0b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5403ed8197e8a1d0ef1798b3f1cfe0b0">&#9670;&nbsp;</a></span>vector</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double tvm::solver::internal::SolverEvents::Objective::scalarizationWeight</td>
+          <td class="memname">bool tvm::solver::internal::SolverEvents::WeightEvent::vector</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -160,8 +160,8 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00424.html">solver</a></li><li class="navelem"><a class="el" href="a00426.html">internal</a></li><li class="navelem"><a class="el" href="a01701.html">SolverEvents</a></li><li class="navelem"><a class="el" href="a01709.html">Objective</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00424.html">solver</a></li><li class="navelem"><a class="el" href="a00426.html">internal</a></li><li class="navelem"><a class="el" href="a01705.html">SolverEvents</a></li><li class="navelem"><a class="el" href="a01709.html">WeightEvent</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

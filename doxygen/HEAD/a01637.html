@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('a01637.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -114,6 +115,11 @@ Inheritance diagram for tvm::scheme::internal::ProblemComputationData:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01641.html">EventQueue</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae25cf5d3b44a97562d04ce2945404509"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#ae25cf5d3b44a97562d04ce2945404509">~ProblemComputationData</a> ()=default</td></tr>
@@ -123,25 +129,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abf75a479cead58d41aef3a0a98302621"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#abf75a479cead58d41aef3a0a98302621">addVariable</a> (<a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> var)</td></tr>
 <tr class="memdesc:abf75a479cead58d41aef3a0a98302621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a variable if not already present.  <a href="#abf75a479cead58d41aef3a0a98302621">More...</a><br /></td></tr>
 <tr class="separator:abf75a479cead58d41aef3a0a98302621"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f77e4f6bbc76a6df63d5f420c3765d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a7f77e4f6bbc76a6df63d5f420c3765d5">addVariable</a> (const <a class="el" href="a01921.html">VariableVector</a> &amp;vars)</td></tr>
+<tr class="memitem:a7f77e4f6bbc76a6df63d5f420c3765d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a7f77e4f6bbc76a6df63d5f420c3765d5">addVariable</a> (const <a class="el" href="a01925.html">VariableVector</a> &amp;vars)</td></tr>
 <tr class="memdesc:a7f77e4f6bbc76a6df63d5f420c3765d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a set of variables, calling <a class="el" href="a01637.html#abf75a479cead58d41aef3a0a98302621" title="Add a variable if not already present. ">addVariable(VariablePtr var)</a> on each variable.  <a href="#a7f77e4f6bbc76a6df63d5f420c3765d5">More...</a><br /></td></tr>
 <tr class="separator:a7f77e4f6bbc76a6df63d5f420c3765d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6988dcd8a4950424b27e8905326f54ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a6988dcd8a4950424b27e8905326f54ee">removeVariable</a> (<a class="el" href="a01909.html">Variable</a> *v)</td></tr>
+<tr class="memitem:a6988dcd8a4950424b27e8905326f54ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a6988dcd8a4950424b27e8905326f54ee">removeVariable</a> (<a class="el" href="a01913.html">Variable</a> *v)</td></tr>
 <tr class="memdesc:a6988dcd8a4950424b27e8905326f54ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effectively remove a variable if as many calls were made to this method as to addVariable, for the given variable.  <a href="#a6988dcd8a4950424b27e8905326f54ee">More...</a><br /></td></tr>
 <tr class="separator:a6988dcd8a4950424b27e8905326f54ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14ebde29b15f2b4ca8f8bcf176d246ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a14ebde29b15f2b4ca8f8bcf176d246ad">removeVariable</a> (const <a class="el" href="a01921.html">VariableVector</a> &amp;vars)</td></tr>
+<tr class="memitem:a14ebde29b15f2b4ca8f8bcf176d246ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a14ebde29b15f2b4ca8f8bcf176d246ad">removeVariable</a> (const <a class="el" href="a01925.html">VariableVector</a> &amp;vars)</td></tr>
 <tr class="memdesc:a14ebde29b15f2b4ca8f8bcf176d246ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a set of variables, calling <a class="el" href="a01637.html#a6988dcd8a4950424b27e8905326f54ee" title="Effectively remove a variable if as many calls were made to this method as to addVariable, for the given variable. ">removeVariable(Variable* v)</a> on each variable.  <a href="#a14ebde29b15f2b4ca8f8bcf176d246ad">More...</a><br /></td></tr>
 <tr class="separator:a14ebde29b15f2b4ca8f8bcf176d246ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58cbf3db7ca4b701751e3737ae2348f3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01921.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a58cbf3db7ca4b701751e3737ae2348f3">variables</a> () const</td></tr>
+<tr class="memitem:a58cbf3db7ca4b701751e3737ae2348f3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01925.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a58cbf3db7ca4b701751e3737ae2348f3">variables</a> () const</td></tr>
 <tr class="memdesc:a58cbf3db7ca4b701751e3737ae2348f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the variables of the problem.  <a href="#a58cbf3db7ca4b701751e3737ae2348f3">More...</a><br /></td></tr>
 <tr class="separator:a58cbf3db7ca4b701751e3737ae2348f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a12195f4bfcdce9297da51364f50892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a7a12195f4bfcdce9297da51364f50892">setVariablesToSolution</a> ()</td></tr>
 <tr class="memdesc:a7a12195f4bfcdce9297da51364f50892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the variables to that of the solution.  <a href="#a7a12195f4bfcdce9297da51364f50892">More...</a><br /></td></tr>
 <tr class="separator:a7a12195f4bfcdce9297da51364f50892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13844b89e570800dbc657bd8ce2505b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a13844b89e570800dbc657bd8ce2505b9">addEvent</a> (const <a class="el" href="a01641.html">ProblemDefinitionEvent</a> &amp;e)</td></tr>
+<tr class="memitem:a13844b89e570800dbc657bd8ce2505b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a13844b89e570800dbc657bd8ce2505b9">addEvent</a> (const <a class="el" href="a01645.html">ProblemDefinitionEvent</a> &amp;e)</td></tr>
 <tr class="memdesc:a13844b89e570800dbc657bd8ce2505b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding an event changing the problem definition, that needs to be handled by the resolution scheme.  <a href="#a13844b89e570800dbc657bd8ce2505b9">More...</a><br /></td></tr>
 <tr class="separator:a13844b89e570800dbc657bd8ce2505b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f64bb80e0b42dafa4fc6e5a022f34a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01641.html">ProblemDefinitionEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a4f64bb80e0b42dafa4fc6e5a022f34a7">popEvent</a> ()</td></tr>
+<tr class="memitem:a4f64bb80e0b42dafa4fc6e5a022f34a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01645.html">ProblemDefinitionEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a4f64bb80e0b42dafa4fc6e5a022f34a7">popEvent</a> ()</td></tr>
 <tr class="memdesc:a4f64bb80e0b42dafa4fc6e5a022f34a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read and remove the first event in the queue.  <a href="#a4f64bb80e0b42dafa4fc6e5a022f34a7">More...</a><br /></td></tr>
 <tr class="separator:a4f64bb80e0b42dafa4fc6e5a022f34a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba12e428a82870bfd1922c1a51fd8313"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#aba12e428a82870bfd1922c1a51fd8313">hasEvents</a> () const</td></tr>
@@ -163,9 +169,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a399ab7e86277ee9e42c72c1874a9708e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01305.html">tvm::internal::VariableCountingVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a399ab7e86277ee9e42c72c1874a9708e">variables_</a></td></tr>
 <tr class="memdesc:a399ab7e86277ee9e42c72c1874a9708e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The problem variable.  <a href="#a399ab7e86277ee9e42c72c1874a9708e">More...</a><br /></td></tr>
 <tr class="separator:a399ab7e86277ee9e42c72c1874a9708e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae2058692ecd15d9583e4eab0786886"><td class="memItemLeft" align="right" valign="top">std::queue&lt; <a class="el" href="a01641.html">ProblemDefinitionEvent</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#afae2058692ecd15d9583e4eab0786886">events_</a></td></tr>
-<tr class="memdesc:afae2058692ecd15d9583e4eab0786886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Problem definition events.  <a href="#afae2058692ecd15d9583e4eab0786886">More...</a><br /></td></tr>
-<tr class="separator:afae2058692ecd15d9583e4eab0786886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191b615ea63c9509cccb7205dc8760d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01641.html">EventQueue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a191b615ea63c9509cccb7205dc8760d1">events_</a></td></tr>
+<tr class="memdesc:a191b615ea63c9509cccb7205dc8760d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Problem definition events.  <a href="#a191b615ea63c9509cccb7205dc8760d1">More...</a><br /></td></tr>
+<tr class="separator:a191b615ea63c9509cccb7205dc8760d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class to be derived by each resolution scheme to hold all of the temporary memories and states related to the resolution of a problem. </p>
@@ -260,7 +266,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void tvm::scheme::internal::ProblemComputationData::addEvent </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01641.html">ProblemDefinitionEvent</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01645.html">ProblemDefinitionEvent</a> &amp;&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
           <td></td>
         </tr>
@@ -274,6 +280,8 @@ Protected Attributes</h2></td></tr>
 
 <p>Adding an event changing the problem definition, that needs to be handled by the resolution scheme. </p>
 <p>Events are stored in a queue (FIFO). </p>
+
+<p class="reference">References <a class="el" href="a01645.html#a37da7bd34e5cd5779dfbac43502e9359">tvm::scheme::internal::ProblemDefinitionEvent::emitter()</a>, <a class="el" href="a01645.html#add21aabf2172548b0cef1edf725bebb7afa2e45ca12d0da1e2ac88433424d2760">tvm::scheme::internal::ProblemDefinitionEvent::TaskRemoval</a>, and <a class="el" href="a01645.html#ad6d62ed5e9d52e29029417570cdc3481">tvm::scheme::internal::ProblemDefinitionEvent::type()</a>.</p>
 
 </div>
 </div>
@@ -318,7 +326,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void tvm::scheme::internal::ProblemComputationData::addVariable </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01921.html">VariableVector</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01925.html">VariableVector</a> &amp;&#160;</td>
           <td class="paramname"><em>vars</em></td><td>)</td>
           <td></td>
         </tr>
@@ -332,7 +340,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Add a set of variables, calling <a class="el" href="a01637.html#abf75a479cead58d41aef3a0a98302621" title="Add a variable if not already present. ">addVariable(VariablePtr var)</a> on each variable. </p>
 
-<p class="reference">References <a class="el" href="a01921.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
+<p class="reference">References <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
 
 </div>
 </div>
@@ -373,7 +381,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01641.html">ProblemDefinitionEvent</a> tvm::scheme::internal::ProblemComputationData::popEvent </td>
+          <td class="memname"><a class="el" href="a01645.html">ProblemDefinitionEvent</a> tvm::scheme::internal::ProblemComputationData::popEvent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -403,7 +411,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool tvm::scheme::internal::ProblemComputationData::removeVariable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01909.html">Variable</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="a01913.html">Variable</a> *&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td></td>
         </tr>
@@ -432,7 +440,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void tvm::scheme::internal::ProblemComputationData::removeVariable </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01921.html">VariableVector</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01925.html">VariableVector</a> &amp;&#160;</td>
           <td class="paramname"><em>vars</em></td><td>)</td>
           <td></td>
         </tr>
@@ -446,7 +454,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Remove a set of variables, calling <a class="el" href="a01637.html#a6988dcd8a4950424b27e8905326f54ee" title="Effectively remove a variable if as many calls were made to this method as to addVariable, for the given variable. ">removeVariable(Variable* v)</a> on each variable. </p>
 
-<p class="reference">References <a class="el" href="a01921.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
+<p class="reference">References <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
 
 </div>
 </div>
@@ -540,7 +548,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01921.html">VariableVector</a> &amp; tvm::scheme::internal::ProblemComputationData::variables </td>
+          <td class="memname">const <a class="el" href="a01925.html">VariableVector</a> &amp; tvm::scheme::internal::ProblemComputationData::variables </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -555,13 +563,13 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the variables of the problem. </p>
 
-<p class="reference">References <a class="el" href="a01921.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
+<p class="reference">References <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="afae2058692ecd15d9583e4eab0786886"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae2058692ecd15d9583e4eab0786886">&#9670;&nbsp;</a></span>events_</h2>
+<a id="a191b615ea63c9509cccb7205dc8760d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191b615ea63c9509cccb7205dc8760d1">&#9670;&nbsp;</a></span>events_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,7 +578,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::queue&lt;<a class="el" href="a01641.html">ProblemDefinitionEvent</a>&gt; tvm::scheme::internal::ProblemComputationData::events_</td>
+          <td class="memname"><a class="el" href="a01641.html">EventQueue</a> tvm::scheme::internal::ProblemComputationData::events_</td>
         </tr>
       </table>
   </td>
@@ -615,7 +623,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01637.html">ProblemComputationData</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

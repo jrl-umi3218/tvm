@@ -1,9 +1,7 @@
 var a01845 =
 [
-    [ "LinearExpr", "a01845.html#ace550799fdb22b967ce5f5bddd0aa4a0", null ],
-    [ "LinearExpr", "a01845.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
-    [ "LinearExpr", "a01845.html#aa715dc995e4c492fb70b7046afbe7e74", null ],
-    [ "LinearExpr", "a01845.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
-    [ "matrix", "a01845.html#abda44d8407e3f1fabf7f43616e621ea0", null ],
-    [ "variable", "a01845.html#ab518500d32934cbf912c9f50c7fbcd19", null ]
+    [ "Impl", "a01845.html#af02938e9bfcf89cc90bb166d786138d8", null ],
+    [ "Impl", "a01845.html#a57374af379369e0ff5f562fa5e935217", null ],
+    [ "~Impl", "a01845.html#a4429b22709a482bbe0a066730dd40cfa", null ],
+    [ "updateValue", "a01845.html#ae272496d38514a15ce562192ef0c8908", null ]
 ];

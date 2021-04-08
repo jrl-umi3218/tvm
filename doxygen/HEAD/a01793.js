@@ -1,6 +1,7 @@
 var a01793 =
 [
-    [ "Impl", "a01793.html#a903671e84fe25a01b02a450efda1fd7d", null ],
-    [ "~Impl", "a01793.html#a54b20321af8f8152c64ef3ef642901f4", null ],
-    [ "updateValue", "a01793.html#a61a2b600ab7ec3bcded0d8bc3819afb4", null ]
+    [ "Impl", "a01797.html", "a01797" ],
+    [ "~None", "a01793.html#ad28aecabc3a07ed2c37d89f1a10f5c5a", null ],
+    [ "impl_", "a01793.html#aeb7ea66d0e8f31d758b7161c533fd2b5", null ],
+    [ "order_", "a01793.html#ab6cacaa6764c52f9ffb67001d3ebc848", null ]
 ];

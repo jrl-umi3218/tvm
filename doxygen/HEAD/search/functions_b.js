@@ -1,14 +1,14 @@
 var searchData=
 [
   ['l',['l',['../a00981.html#a151c48af8f32a3f2609a79a1c469edff',1,'tvm::constraint::abstract::Constraint::l()'],['../a00989.html#aa55f4910c66047a76bb1ea8663876c2f',1,'tvm::constraint::BasicLinearConstraint::l()'],['../a00997.html#a4a7dfedce2b0af796effbd0a0002bc4d',1,'tvm::constraint::internal::RHSVectors::l()'],['../a00997.html#a5887986365d5d9cbf60940fa5f685faf',1,'tvm::constraint::internal::RHSVectors::l() const'],['../a01457.html#af7128a1d85203b0790887d391103cf7e',1,'tvm::scheme::internal::AssignmentTarget::l()']]],
-  ['leastsquaresolver',['LeastSquareSolver',['../a01677.html#a6510ed405995eccc7b8b95eab6950606',1,'tvm::solver::abstract::LeastSquareSolver::LeastSquareSolver(bool verbose=false)'],['../a01677.html#a0f0e2bcf5b50e3c559687bc77c15b7db',1,'tvm::solver::abstract::LeastSquareSolver::LeastSquareSolver(const LeastSquareSolver &amp;)=delete']]],
-  ['levelabilities',['LevelAbilities',['../a01649.html#a29f0dfcc1af655aa62ae69ed34e9a6f1',1,'tvm::scheme::internal::LevelAbilities']]],
+  ['leastsquaresolver',['LeastSquareSolver',['../a01681.html#a6510ed405995eccc7b8b95eab6950606',1,'tvm::solver::abstract::LeastSquareSolver::LeastSquareSolver(bool verbose=false)'],['../a01681.html#a0f0e2bcf5b50e3c559687bc77c15b7db',1,'tvm::solver::abstract::LeastSquareSolver::LeastSquareSolver(const LeastSquareSolver &amp;)=delete']]],
+  ['levelabilities',['LevelAbilities',['../a01653.html#a29f0dfcc1af655aa62ae69ed34e9a6f1',1,'tvm::scheme::internal::LevelAbilities']]],
   ['lexless',['lexLess',['../a00412.html#aad9e7110f7a2fd2790b9af19849fd846',1,'tvm::graph::internal::lexLess(const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member, Args &amp;&amp;... args)'],['../a00412.html#a8dec35c5717c5e0acf167b1b03617cd7',1,'tvm::graph::internal::lexLess(const ObjType &amp;l, const ObjType &amp;r, MemberType ObjType::*member)']]],
   ['limit',['Limit',['../a01301.html#a9c8ae487a7486a5dfa1df409445aaff3',1,'tvm::internal::RangeCounting::Limit']]],
   ['limits',['limits',['../a01297.html#a38699fdf2fb4141560f3fab8ecbfa126',1,'tvm::internal::RangeCounting']]],
-  ['linear',['linear',['../a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287',1,'tvm::utils::AffineExpr']]],
+  ['linear',['linear',['../a01853.html#ad1c6f6cf9c118af260ddafedc3d8e287',1,'tvm::utils::AffineExpr']]],
   ['linearconstraint',['LinearConstraint',['../a00985.html#ab419bee158cb0cc4fc0204952de09d55',1,'tvm::constraint::abstract::LinearConstraint']]],
-  ['linearexpr',['LinearExpr',['../a01845.html#ace550799fdb22b967ce5f5bddd0aa4a0',1,'tvm::utils::LinearExpr::LinearExpr(const Eigen::MatrixBase&lt; Derived &gt; &amp;matrix, const VariablePtr &amp;v)'],['../a01845.html#aa8b13db5c36b8e2d4a55544a74687e5f',1,'tvm::utils::LinearExpr::LinearExpr(const tvm::VariablePtr &amp;v)'],['../a01845.html#aa715dc995e4c492fb70b7046afbe7e74',1,'tvm::utils::LinearExpr::LinearExpr(double a, const tvm::VariablePtr &amp;v)'],['../a01845.html#aa8b13db5c36b8e2d4a55544a74687e5f',1,'tvm::utils::LinearExpr::LinearExpr(const tvm::VariablePtr &amp;v)']]],
+  ['linearexpr',['LinearExpr',['../a01849.html#ace550799fdb22b967ce5f5bddd0aa4a0',1,'tvm::utils::LinearExpr::LinearExpr(const Eigen::MatrixBase&lt; Derived &gt; &amp;matrix, const VariablePtr &amp;v)'],['../a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f',1,'tvm::utils::LinearExpr::LinearExpr(const tvm::VariablePtr &amp;v)'],['../a01849.html#aa715dc995e4c492fb70b7046afbe7e74',1,'tvm::utils::LinearExpr::LinearExpr(double a, const tvm::VariablePtr &amp;v)'],['../a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f',1,'tvm::utils::LinearExpr::LinearExpr(const tvm::VariablePtr &amp;v)']]],
   ['linearfunction',['LinearFunction',['../a01061.html#a7522b48375815feb50fc738cb1f3198e',1,'tvm::function::abstract::LinearFunction']]],
   ['linearin',['linearIn',['../a01233.html#ae2fff79056fb0ffb39cd1c2dd8a40d40',1,'tvm::internal::FirstOrderProvider']]],
   ['linearizedcontrolproblem',['LinearizedControlProblem',['../a01321.html#a185f50144ac73b3714a8aa791d138542',1,'tvm::LinearizedControlProblem::LinearizedControlProblem()'],['../a01321.html#ac6fa8721c64bbe7815f8ce56ff2be8fd',1,'tvm::LinearizedControlProblem::LinearizedControlProblem(const ControlProblem &amp;pb)']]],
@@ -21,9 +21,9 @@ var searchData=
   ['logger',['logger',['../a01181.html#a6d18c4d67dcbfc474c12a6600c7d2199',1,'tvm::graph::internal::Logger']]],
   ['lqbound',['lQBound',['../a01433.html#a056dd0be4b10ef2a35760100a2ee7f7e',1,'tvm::Robot::lQBound() const'],['../a01433.html#a09a42da48cebaa8e51794e3af6b9d2a8',1,'tvm::Robot::lQBound()']]],
   ['lref',['lRef',['../a00981.html#a25fcd7be6b5ab2066bec85ff5f05ff01',1,'tvm::constraint::abstract::Constraint']]],
-  ['lssolleastsquaresolver',['LSSOLLeastSquareSolver',['../a01717.html#abd73c4a6890bbf7a6f12c9c221f7d421',1,'tvm::solver::LSSOLLeastSquareSolver']]],
-  ['lssollssolverfactory',['LSSOLLSSolverFactory',['../a01721.html#a4161a1c6228053efd1f61b5dab901a1e',1,'tvm::solver::LSSOLLSSolverFactory']]],
-  ['lssolverfactory',['LSSolverFactory',['../a01689.html#a16f20ada8e2be7db1dfe20d6d19d27a2',1,'tvm::solver::abstract::LSSolverFactory']]],
+  ['lssolleastsquaresolver',['LSSOLLeastSquareSolver',['../a01721.html#abd73c4a6890bbf7a6f12c9c221f7d421',1,'tvm::solver::LSSOLLeastSquareSolver']]],
+  ['lssollssolverfactory',['LSSOLLSSolverFactory',['../a01725.html#a4161a1c6228053efd1f61b5dab901a1e',1,'tvm::solver::LSSOLLSSolverFactory']]],
+  ['lssolverfactory',['LSSolverFactory',['../a01693.html#a16f20ada8e2be7db1dfe20d6d19d27a2',1,'tvm::solver::abstract::LSSolverFactory']]],
   ['ltaubound',['lTauBound',['../a01433.html#ad8ff2cdee502fa8b34b14b94fc2f31e3',1,'tvm::Robot::lTauBound() const'],['../a01433.html#a386b08dd3bf3d9fe319061b15f3794af',1,'tvm::Robot::lTauBound()']]],
   ['lvelbound',['lVelBound',['../a01433.html#a3c0015be7272306da0f69861e959acf4',1,'tvm::Robot::lVelBound() const'],['../a01433.html#a1879757837b6f71adb2639f8525a4189',1,'tvm::Robot::lVelBound()']]]
 ];

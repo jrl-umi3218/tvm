@@ -1,10 +1,11 @@
 var a01769 =
 [
-    [ "Impl", "a01769.html#acdd69bf914b9c06060d90a5bf1495696", null ],
-    [ "~Impl", "a01769.html#a239fe1e7a808267521ece371db52eb17", null ],
-    [ "max", "a01769.html#a8708682a999b633a08f2b921758430b6", null ],
-    [ "max", "a01769.html#afc0b959f36bd440f8245ec46ef3f7dee", null ],
-    [ "min", "a01769.html#a279d5efaba7b100b4f13192f656b0e0b", null ],
-    [ "min", "a01769.html#ac2ca601afac3bc73047231fd9fc20cd2", null ],
-    [ "updateValue", "a01769.html#ad058380bb126854206d9abbf06e3d3a3", null ]
+    [ "Impl", "a01773.html", "a01773" ],
+    [ "Bounds", "a01769.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1", null ],
+    [ "Clamped", "a01769.html#ac7f67c11e585b23f97870950cb8d457f", null ],
+    [ "Clamped", "a01769.html#a93cc96ce10ad556b41d5b8d8a48d3147", null ],
+    [ "Clamped", "a01769.html#a4d3b11d54a29a1a7050e67e0d3a8b46e", null ],
+    [ "Clamped", "a01769.html#afb7d7588dbb6529b3051c926d26077da", null ],
+    [ "~Clamped", "a01769.html#a21d2e10eb13358ced2f2926ce534b6e3", null ],
+    [ "impl_", "a01769.html#af6bfa86084554c96555a11e7a163f611", null ]
 ];

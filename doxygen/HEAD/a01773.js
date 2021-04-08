@@ -1,8 +1,10 @@
 var a01773 =
 [
-    [ "Impl", "a01777.html", "a01777" ],
-    [ "Constant", "a01773.html#a53f705baef4755d4548a66690e1c902f", null ],
-    [ "~Constant", "a01773.html#a7da33fd93805eabe8d9f6ff1013943dd", null ],
-    [ "impl_", "a01773.html#ace88a7cc059f3f4b2db1bff45b4d3e4b", null ],
-    [ "order_", "a01773.html#a606c4cf535640483d61fdf5f676710d3", null ]
+    [ "Impl", "a01773.html#acdd69bf914b9c06060d90a5bf1495696", null ],
+    [ "~Impl", "a01773.html#a239fe1e7a808267521ece371db52eb17", null ],
+    [ "max", "a01773.html#a8708682a999b633a08f2b921758430b6", null ],
+    [ "max", "a01773.html#afc0b959f36bd440f8245ec46ef3f7dee", null ],
+    [ "min", "a01773.html#a279d5efaba7b100b4f13192f656b0e0b", null ],
+    [ "min", "a01773.html#ac2ca601afac3bc73047231fd9fc20cd2", null ],
+    [ "updateValue", "a01773.html#ad058380bb126854206d9abbf06e3d3a3", null ]
 ];

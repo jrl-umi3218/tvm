@@ -18,7 +18,7 @@ var files =
     ] ],
     [ "BasicLinearFunction.h", "a00047.html", "a00047" ],
     [ "BufferedMatrix.h", "a00320.html", [
-      [ "BufferedMatrix", "a01877.html", "a01877" ]
+      [ "BufferedMatrix", "a01881.html", "a01881" ]
     ] ],
     [ "CallbackManager.h", "a00107.html", [
       [ "CallbackManager", "a01229.html", "a01229" ]
@@ -31,8 +31,8 @@ var files =
     ] ],
     [ "checkFunction.h", "a00308.html", "a00308" ],
     [ "Clamped.h", "a00281.html", [
-      [ "Clamped", "a01765.html", "a01765" ],
-      [ "Impl", "a01769.html", "a01769" ]
+      [ "Clamped", "a01769.html", "a01769" ],
+      [ "Impl", "a01773.html", "a01773" ]
     ] ],
     [ "Clock.h", "a00005.html", [
       [ "Clock", "a00977.html", "a00977" ]
@@ -53,8 +53,8 @@ var files =
       [ "CompiledAssignmentWrapper", "a01617.html", "a01617" ]
     ] ],
     [ "Constant.h", "a00284.html", [
-      [ "Constant", "a01773.html", "a01773" ],
-      [ "Impl", "a01777.html", "a01777" ]
+      [ "Constant", "a01777.html", "a01777" ],
+      [ "Impl", "a01781.html", "a01781" ]
     ] ],
     [ "Constraint.h", "a00008.html", [
       [ "Constraint", "a00981.html", "a00981" ]
@@ -63,8 +63,8 @@ var files =
     [ "ControlProblem.h", "a00026.html", "a00026" ],
     [ "ConvexHull.h", "a00176.html", "a00176" ],
     [ "defaultLeastSquareSolver.h", "a00251.html", [
-      [ "DefaultLSSolverOptions", "a01693.html", "a01693" ],
-      [ "DefaultLSSolverFactory", "a01697.html", "a01697" ]
+      [ "DefaultLSSolverOptions", "a01697.html", "a01697" ],
+      [ "DefaultLSSolverFactory", "a01701.html", "a01701" ]
     ] ],
     [ "defs.h", "a00029.html", "a00029" ],
     [ "DependencyGraph.h", "a00071.html", [
@@ -78,11 +78,11 @@ var files =
       [ "DynamicFunction", "a01401.html", "a01401" ],
       [ "ForceContact", "a01405.html", "a01405" ]
     ] ],
-    [ "constraint/enums.h", "a02460.html", "a02460" ],
-    [ "event/enums.h", "a02463.html", "a02463" ],
-    [ "internal/enums.h", "a02466.html", "a02466" ],
-    [ "robot/enums.h", "a02469.html", "a02469" ],
-    [ "task_dynamics/enums.h", "a02472.html", "a02472" ],
+    [ "constraint/enums.h", "a02464.html", "a02464" ],
+    [ "event/enums.h", "a02467.html", "a02467" ],
+    [ "internal/enums.h", "a02470.html", "a02470" ],
+    [ "robot/enums.h", "a02473.html", "a02473" ],
+    [ "task_dynamics/enums.h", "a02476.html", "a02476" ],
     [ "exceptions.h", "a00038.html", [
       [ "Exception", "a01021.html", "a01021" ],
       [ "DataException", "a01025.html", null ],
@@ -131,10 +131,10 @@ var files =
       [ "JointsSelector", "a01417.html", "a01417" ]
     ] ],
     [ "LeastSquareSolver.h", "a00248.html", [
-      [ "LeastSquareSolver", "a01677.html", "a01677" ],
-      [ "ImpactFromChanges", "a01681.html", "a01681" ],
-      [ "MarkedAssignment", "a01685.html", "a01685" ],
-      [ "LSSolverFactory", "a01689.html", "a01689" ]
+      [ "LeastSquareSolver", "a01681.html", "a01681" ],
+      [ "ImpactFromChanges", "a01685.html", "a01685" ],
+      [ "MarkedAssignment", "a01689.html", "a01689" ],
+      [ "LSSolverFactory", "a01693.html", "a01693" ]
     ] ],
     [ "LinearConstraint.h", "a00011.html", [
       [ "LinearConstraint", "a00985.html", "a00985" ]
@@ -158,9 +158,9 @@ var files =
     [ "Log.h", "a00077.html", "a00077" ],
     [ "Logger.h", "a00080.html", "a00080" ],
     [ "LSSOLLeastSquareSolver.h", "a00260.html", [
-      [ "LSSOLLSSolverOptions", "a01713.html", "a01713" ],
-      [ "LSSOLLeastSquareSolver", "a01717.html", "a01717" ],
-      [ "LSSOLLSSolverFactory", "a01721.html", "a01721" ]
+      [ "LSSOLLSSolverOptions", "a01717.html", "a01717" ],
+      [ "LSSOLLeastSquareSolver", "a01721.html", "a01721" ],
+      [ "LSSOLLSSolverFactory", "a01725.html", "a01725" ]
     ] ],
     [ "map.h", "a00326.html", "a00326" ],
     [ "MapWithVariableAsKey.h", "a00329.html", null ],
@@ -177,8 +177,8 @@ var files =
       [ "Node", "a01077.html", "a01077" ]
     ] ],
     [ "None.h", "a00290.html", [
-      [ "None", "a01789.html", "a01789" ],
-      [ "Impl", "a01793.html", "a01793" ]
+      [ "None", "a01793.html", "a01793" ],
+      [ "Impl", "a01797.html", "a01797" ]
     ] ],
     [ "ObjWithId.h", "a00125.html", [
       [ "ObjWithId", "a01285.html", "a01285" ]
@@ -202,24 +202,25 @@ var files =
     ] ],
     [ "PriorityLevel.h", "a00152.html", "a00152" ],
     [ "ProblemComputationData.h", "a00233.html", [
-      [ "ProblemComputationData", "a01637.html", "a01637" ]
+      [ "ProblemComputationData", "a01637.html", "a01637" ],
+      [ "EventQueue", "a01641.html", null ]
     ] ],
     [ "ProblemDefinitionEvent.h", "a00236.html", [
-      [ "ProblemDefinitionEvent", "a01641.html", "a01641" ]
+      [ "ProblemDefinitionEvent", "a01645.html", "a01645" ]
     ] ],
     [ "Proportional.h", "a00293.html", "a00293" ],
     [ "ProportionalDerivative.h", "a00296.html", "a00296" ],
     [ "ProtoTask.h", "a00338.html", "a00338" ],
     [ "ProtoTaskDetails.h", "a00332.html", "a00332" ],
     [ "QLDLeastSquareSolver.h", "a00263.html", [
-      [ "QLDLSSolverOptions", "a01725.html", "a01725" ],
-      [ "QLDLeastSquareSolver", "a01729.html", "a01729" ],
-      [ "QLDLSSolverFactory", "a01733.html", "a01733" ]
+      [ "QLDLSSolverOptions", "a01729.html", "a01729" ],
+      [ "QLDLeastSquareSolver", "a01733.html", "a01733" ],
+      [ "QLDLSSolverFactory", "a01737.html", "a01737" ]
     ] ],
     [ "QuadprogLeastSquareSolver.h", "a00266.html", [
-      [ "QuadprogLSSolverOptions", "a01737.html", "a01737" ],
-      [ "QuadprogLeastSquareSolver", "a01741.html", "a01741" ],
-      [ "QuadprogLSSolverFactory", "a01745.html", "a01745" ]
+      [ "QuadprogLSSolverOptions", "a01741.html", "a01741" ],
+      [ "QuadprogLeastSquareSolver", "a01745.html", "a01745" ],
+      [ "QuadprogLSSolverFactory", "a01749.html", "a01749" ]
     ] ],
     [ "Range.h", "a00143.html", [
       [ "Range", "a01325.html", "a01325" ]
@@ -229,10 +230,10 @@ var files =
       [ "Limit", "a01301.html", "a01301" ]
     ] ],
     [ "Reference.h", "a00299.html", [
-      [ "Reference", "a01813.html", "a01813" ],
-      [ "Impl", "a01817.html", "a01817" ],
-      [ "ReferenceVelocity", "a01821.html", "a01821" ],
-      [ "ReferenceAcceleration", "a01825.html", "a01825" ]
+      [ "Reference", "a01817.html", "a01817" ],
+      [ "Impl", "a01821.html", "a01821" ],
+      [ "ReferenceVelocity", "a01825.html", "a01825" ],
+      [ "ReferenceAcceleration", "a01829.html", "a01829" ]
     ] ],
     [ "ResolutionScheme.h", "a00209.html", [
       [ "ResolutionScheme", "a01437.html", "a01437" ],
@@ -249,16 +250,16 @@ var files =
     [ "SchemeAbilities.h", "a00242.html", "a00242" ],
     [ "SingleSolvingRequirement.h", "a00146.html", "a00146" ],
     [ "SolverEvents.h", "a00257.html", [
-      [ "SolverEvents", "a01701.html", "a01701" ],
-      [ "WeightEvent", "a01705.html", "a01705" ],
-      [ "Objective", "a01709.html", "a01709" ]
+      [ "SolverEvents", "a01705.html", "a01705" ],
+      [ "WeightEvent", "a01709.html", "a01709" ],
+      [ "Objective", "a01713.html", "a01713" ]
     ] ],
     [ "SolvingRequirements.h", "a00155.html", "a00155" ],
     [ "Source.h", "a00035.html", [
       [ "Source", "a01017.html", "a01017" ]
     ] ],
     [ "Space.h", "a00269.html", [
-      [ "Space", "a01749.html", "a01749" ]
+      [ "Space", "a01753.html", "a01753" ]
     ] ],
     [ "Substitution.h", "a00104.html", [
       [ "Substitution", "a01225.html", "a01225" ]
@@ -276,14 +277,14 @@ var files =
       [ "SubstitutionUnit", "a01221.html", "a01221" ]
     ] ],
     [ "Task.h", "a00272.html", [
-      [ "Task", "a01753.html", "a01753" ]
+      [ "Task", "a01757.html", "a01757" ]
     ] ],
     [ "TaskDynamics.h", "a00275.html", "a00275" ],
     [ "TaskDynamicsImpl.h", "a00278.html", [
-      [ "TaskDynamicsImpl", "a01761.html", "a01761" ]
+      [ "TaskDynamicsImpl", "a01765.html", "a01765" ]
     ] ],
     [ "UpdatelessFunction.h", "a00344.html", [
-      [ "UpdatelessFunction", "a01905.html", "a01905" ]
+      [ "UpdatelessFunction", "a01909.html", "a01909" ]
     ] ],
     [ "utils.h", "a00203.html", "a00203" ],
     [ "Variable.h", "a00347.html", "a00347" ],
@@ -296,15 +297,15 @@ var files =
       [ "iterator", "a01313.html", "a01313" ]
     ] ],
     [ "VelocityDamper.h", "a00302.html", [
-      [ "VelocityDamper", "a01829.html", "a01829" ],
-      [ "Config", "a01833.html", "a01833" ],
-      [ "AnisotropicConfig", "a01837.html", "a01837" ],
-      [ "Impl", "a01841.html", "a01841" ]
+      [ "VelocityDamper", "a01833.html", "a01833" ],
+      [ "Config", "a01837.html", "a01837" ],
+      [ "AnisotropicConfig", "a01841.html", "a01841" ],
+      [ "Impl", "a01845.html", "a01845" ]
     ] ],
     [ "ViolationEvaluation.h", "a00158.html", "a00158" ],
     [ "Weight.h", "a00161.html", "a00161" ],
     [ "WeightedLeastSquares.h", "a00245.html", [
-      [ "WeightedLeastSquaresOptions", "a01657.html", null ],
-      [ "WeightedLeastSquares", "a01661.html", "a01661" ]
+      [ "WeightedLeastSquaresOptions", "a01661.html", null ],
+      [ "WeightedLeastSquares", "a01665.html", "a01665" ]
     ] ]
 ];

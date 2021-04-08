@@ -1,6 +1,6 @@
 var a01709 =
 [
-    [ "c", "a01709.html#a4d99a16aa16bb58a429e84358e799f6f", null ],
-    [ "req", "a01709.html#ab5b58c4a7b957f782d2e0747c96ed62b", null ],
-    [ "scalarizationWeight", "a01709.html#a56a0ba1707d78f2b178ca8ecca142eeb", null ]
+    [ "c", "a01709.html#aa746bcf655bf27b8022db4c3adb7f703", null ],
+    [ "scalar", "a01709.html#a9d337cc35a91b59052b754a3a61c743f", null ],
+    [ "vector", "a01709.html#a5403ed8197e8a1d0ef1798b3f1cfe0b0", null ]
 ];

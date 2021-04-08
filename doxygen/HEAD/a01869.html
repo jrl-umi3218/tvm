@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::utils::internal::RefSelector&lt; NoConstant &gt; Struct Template Reference</title>
+<title>TVM: tvm::utils::internal::RefSelector&lt; Derived &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -94,26 +94,37 @@ $(document).ready(function(){initNavTree('a01869.html','');});
 <a href="#pub-types">Public Types</a> &#124;
 <a href="a01866.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::utils::internal::RefSelector&lt; NoConstant &gt; Struct Template Reference</div>  </div>
+<div class="title">tvm::utils::internal::RefSelector&lt; Derived &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Shortcut to an internal <a class="el" href="a00428.html">Eigen</a> type to store expressions or matrices.  
+ <a href="a01869.html#details">More...</a></p>
 
 <p><code>#include &lt;tvm/utils/internal/AffineExprDetail.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aaddf7b73ef3be6c348b9c3f85fb5772c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01869.html#aaddf7b73ef3be6c348b9c3f85fb5772c">type</a> = <a class="el" href="a01861.html">NoConstant</a></td></tr>
-<tr class="separator:aaddf7b73ef3be6c348b9c3f85fb5772c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f162d9b69e6f335fbcdd643ea2d693"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01869.html#a81f162d9b69e6f335fbcdd643ea2d693">type</a> = typename Eigen::internal::ref_selector&lt; Derived &gt;::<a class="el" href="a01869.html#a81f162d9b69e6f335fbcdd643ea2d693">type</a></td></tr>
+<tr class="separator:a81f162d9b69e6f335fbcdd643ea2d693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aaddf7b73ef3be6c348b9c3f85fb5772c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaddf7b73ef3be6c348b9c3f85fb5772c">&#9670;&nbsp;</a></span>type</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Derived&gt;<br />
+struct tvm::utils::internal::RefSelector&lt; Derived &gt;</h3>
+
+<p>Shortcut to an internal <a class="el" href="a00428.html">Eigen</a> type to store expressions or matrices. </p>
+<p>When keeping internally a reference to an <a class="el" href="a00428.html">Eigen</a> object, we need to have different behaviors depending on whether the object has a large memory and should not be copied or is a lightweight proxy. For matrix, we need to keep a const ref, while for matrix expression we need to take a copy of the expression.This is exactly the purpose of ref_selector, that is used to this effect in e.g.CWiseBinaryOp. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a81f162d9b69e6f335fbcdd643ea2d693"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81f162d9b69e6f335fbcdd643ea2d693">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01865.html">tvm::utils::internal::RefSelector</a>&lt; <a class="el" href="a01861.html">NoConstant</a> &gt;::<a class="el" href="a01869.html#aaddf7b73ef3be6c348b9c3f85fb5772c">type</a> =  <a class="el" href="a01861.html">NoConstant</a></td>
+          <td class="memname">using <a class="el" href="a01869.html">tvm::utils::internal::RefSelector</a>&lt; Derived &gt;::<a class="el" href="a01869.html#a81f162d9b69e6f335fbcdd643ea2d693">type</a> =  typename Eigen::internal::ref_selector&lt;Derived&gt;::<a class="el" href="a01869.html#a81f162d9b69e6f335fbcdd643ea2d693">type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -126,8 +137,8 @@ Public Types</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00417.html">utils</a></li><li class="navelem"><a class="el" href="a00427.html">internal</a></li><li class="navelem"><a class="el" href="a01869.html">RefSelector&lt; NoConstant &gt;</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:32 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00417.html">utils</a></li><li class="navelem"><a class="el" href="a00427.html">internal</a></li><li class="navelem"><a class="el" href="a01869.html">RefSelector</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:51 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

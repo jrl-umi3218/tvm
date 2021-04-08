@@ -1,25 +1,6 @@
 var a01701 =
 [
-    [ "Objective", "a01709.html", "a01709" ],
-    [ "WeightEvent", "a01705.html", "a01705" ],
-    [ "addBound", "a01701.html#abc3af813e2308dd5b8e5dae497995ff2", null ],
-    [ "addConstraint", "a01701.html#a0eeeda67cb3988895b1d1bff7584d5e2", null ],
-    [ "addedBounds", "a01701.html#a6522d4bff7403da66f9bad91ad79232e", null ],
-    [ "addedConstraints", "a01701.html#a1cef7000a1d598a23ca5c56f5166a555", null ],
-    [ "addedObjectives", "a01701.html#aac07895a10463ecb5a9d413a6ff27b09", null ],
-    [ "addedVariables", "a01701.html#a0364e97819353160d63fb35d64390b3e", null ],
-    [ "addObjective", "a01701.html#ac7fc4de9e7d545f5e73336c33be9c93b", null ],
-    [ "addScalarWeigthEvent", "a01701.html#a4ab08f8b57a797dd77b160d1fd340687", null ],
-    [ "addVariable", "a01701.html#aa1db2eaba5d43a8bc0670a94b2e4427a", null ],
-    [ "addVectorWeigthEvent", "a01701.html#a46fdcfbc0ac02cabb58122be56582223", null ],
-    [ "hasHiddenVariableChange", "a01701.html#ad8e432fd7ee351459106898724e08e8d", null ],
-    [ "removeBound", "a01701.html#a0c6c0dc2fbd0087d80bff0eae0da50ef", null ],
-    [ "removeConstraint", "a01701.html#ad4a351607ee297e8626bbfc541442125", null ],
-    [ "removedBounds", "a01701.html#addd1711d5520a3e7f1027d4f09b17f0b", null ],
-    [ "removedConstraints", "a01701.html#a7edfcd4d7c0a21b672e00f06cfd52835", null ],
-    [ "removedObjectives", "a01701.html#a6a825636e6ac52d179febdd55c06d5e8", null ],
-    [ "removedVariables", "a01701.html#ae21255df0fdf524072fe7096d5e23ff0", null ],
-    [ "removeObjective", "a01701.html#acde374b0bbb74d5a0f49552d6d7e0ae3", null ],
-    [ "removeVariable", "a01701.html#abe74240ebda8f703f6c8a41d605e3fc1", null ],
-    [ "weightEvents", "a01701.html#a1a1e1d4aef695aadf636dee1c8601f50", null ]
+    [ "DefaultLSSolverFactory", "a01701.html#ad05494972228006357ddd76340ab77e4", null ],
+    [ "clone", "a01701.html#ab33fd56442afba241f7883b94e5ce85d", null ],
+    [ "createSolver", "a01701.html#a1a9473e53a4278e3429b44cae1c5fb13", null ]
 ];

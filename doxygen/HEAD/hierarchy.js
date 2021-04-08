@@ -1,7 +1,7 @@
 var hierarchy =
 [
-    [ "tvm::utils::AffineExpr< CstDerived, Derived >", "a01849.html", null ],
-    [ "tvm::task_dynamics::VelocityDamper::AnisotropicConfig", "a01837.html", null ],
+    [ "tvm::utils::AffineExpr< CstDerived, Derived >", "a01853.html", null ],
+    [ "tvm::task_dynamics::VelocityDamper::AnisotropicConfig", "a01841.html", null ],
     [ "tvm::scheme::internal::ArgCount< T, Args >", "a01481.html", null ],
     [ "tvm::scheme::internal::ArgCount< T >", "a01485.html", null ],
     [ "tvm::scheme::internal::AssignBase< A >", "a01525.html", [
@@ -14,7 +14,7 @@ var hierarchy =
     [ "tvm::scheme::internal::AssignBase< SUB >", "a01537.html", null ],
     [ "tvm::scheme::internal::Assignment", "a01445.html", null ],
     [ "tvm::scheme::internal::AssignmentTarget", "a01457.html", null ],
-    [ "tvm::utils::internal::BufferedMatrix", "a01877.html", null ],
+    [ "tvm::utils::internal::BufferedMatrix", "a01881.html", null ],
     [ "tvm::scheme::internal::CachedResult< MatrixType, Cache >", "a01489.html", null ],
     [ "tvm::scheme::internal::CachedResult< MatrixType, true >", "a01493.html", null ],
     [ "tvm::scheme::internal::CachedResult< MatrixType, use_assign_cache< MatrixType, A, W, M, F >::value||use_product_cache< MatrixType, A, W, M, F >::value >", "a01489.html", [
@@ -23,7 +23,7 @@ var hierarchy =
     [ "tvm::graph::CallGraph::Call", "a01105.html", null ],
     [ "tvm::internal::CallbackManager", "a01229.html", null ],
     [ "tvm::graph::CallGraph", "a01101.html", null ],
-    [ "tvm::utils::CheckOptions", "a01857.html", null ],
+    [ "tvm::utils::CheckOptions", "a01861.html", null ],
     [ "tvm::robot::CollisionFunction::CollisionData", "a01365.html", null ],
     [ "tvm::graph::CallGraph::CompareCall", "a01109.html", null ],
     [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, ZERO >", "a01601.html", null ],
@@ -48,7 +48,7 @@ var hierarchy =
       ] ],
       [ "tvm::requirements::abstract::SingleSolvingRequirement< T, Lightweight >", "a01329.html", null ]
     ] ],
-    [ "tvm::task_dynamics::VelocityDamper::Config", "a01833.html", null ],
+    [ "tvm::task_dynamics::VelocityDamper::Config", "a01837.html", null ],
     [ "tvm::internal::MatrixProperties::Constness", "a01253.html", null ],
     [ "tvm::ControlProblem", "a01005.html", [
       [ "tvm::LinearizedControlProblem", "a01321.html", null ]
@@ -56,11 +56,11 @@ var hierarchy =
     [ "decltypehasNoArgCtor_", null, [
       [ "tvm::scheme::internal::hasNoArgCtor< T >", "a01477.html", null ]
     ] ],
-    [ "tvm::solver::DefaultLSSolverOptions", "a01693.html", null ],
+    [ "tvm::solver::DefaultLSSolverOptions", "a01697.html", null ],
     [ "tvm::graph::internal::DependencyGraph", "a01125.html", null ],
     [ "tvm::graph::internal::Log::DirectDependency", "a01177.html", null ],
     [ "enable_shared_from_this", null, [
-      [ "tvm::Variable", "a01909.html", null ]
+      [ "tvm::Variable", "a01913.html", null ]
     ] ],
     [ "tvm::graph::internal::Log::EnumValue", "a01145.html", null ],
     [ "std::exception", null, [
@@ -83,12 +83,12 @@ var hierarchy =
     ] ],
     [ "tvm::robot::internal::DynamicFunction::ForceContact", "a01405.html", null ],
     [ "tvm::robot::internal::FrictionCone", "a01409.html", null ],
-    [ "tvm::utils::internal::HashId< ObjWithId >", "a01889.html", null ],
+    [ "tvm::utils::internal::HashId< ObjWithId >", "a01893.html", null ],
     [ "tvm::robot::Contact::Id", "a01385.html", null ],
-    [ "tvm::utils::internal::IdEqual< ObjWithId >", "a01885.html", null ],
-    [ "tvm::utils::internal::IdLess< ObjWithId >", "a01881.html", null ],
+    [ "tvm::utils::internal::IdEqual< ObjWithId >", "a01889.html", null ],
+    [ "tvm::utils::internal::IdLess< ObjWithId >", "a01885.html", null ],
     [ "tvm::internal::IdProvider", "a01245.html", null ],
-    [ "tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges", "a01681.html", null ],
+    [ "tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges", "a01685.html", null ],
     [ "tvm::graph::internal::Log::Input", "a01161.html", null ],
     [ "tvm::graph::internal::Log::InputDependency", "a01165.html", null ],
     [ "tvm::graph::internal::Inputs", "a01133.html", [
@@ -137,13 +137,13 @@ var hierarchy =
           [ "tvm::Robot", "a01433.html", null ]
         ] ],
         [ "tvm::graph::abstract::Node< TaskDynamicsImpl >", "a01077.html", [
-          [ "tvm::task_dynamics::abstract::TaskDynamicsImpl", "a01761.html", [
-            [ "tvm::task_dynamics::Constant::Impl", "a01777.html", null ],
-            [ "tvm::task_dynamics::None::Impl", "a01793.html", null ],
-            [ "tvm::task_dynamics::Proportional::Impl", "a01801.html", null ],
-            [ "tvm::task_dynamics::ProportionalDerivative::Impl", "a01809.html", null ],
-            [ "tvm::task_dynamics::Reference::Impl", "a01817.html", null ],
-            [ "tvm::task_dynamics::VelocityDamper::Impl", "a01841.html", null ]
+          [ "tvm::task_dynamics::abstract::TaskDynamicsImpl", "a01765.html", [
+            [ "tvm::task_dynamics::Constant::Impl", "a01781.html", null ],
+            [ "tvm::task_dynamics::None::Impl", "a01797.html", null ],
+            [ "tvm::task_dynamics::Proportional::Impl", "a01805.html", null ],
+            [ "tvm::task_dynamics::ProportionalDerivative::Impl", "a01813.html", null ],
+            [ "tvm::task_dynamics::Reference::Impl", "a01821.html", null ],
+            [ "tvm::task_dynamics::VelocityDamper::Impl", "a01845.html", null ]
           ] ]
         ] ],
         [ "tvm::graph::abstract::Node< T >", "a01077.html", null ]
@@ -157,26 +157,26 @@ var hierarchy =
     ] ],
     [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "a01313.html", null ],
     [ "tvm::internal::KeepProperties< MatrixType, refOnProperties >", "a01269.html", null ],
-    [ "tvm::solver::abstract::LeastSquareSolver", "a01677.html", [
-      [ "tvm::solver::LSSOLLeastSquareSolver", "a01717.html", null ],
-      [ "tvm::solver::QLDLeastSquareSolver", "a01729.html", null ],
-      [ "tvm::solver::QuadprogLeastSquareSolver", "a01741.html", null ]
+    [ "tvm::solver::abstract::LeastSquareSolver", "a01681.html", [
+      [ "tvm::solver::LSSOLLeastSquareSolver", "a01721.html", null ],
+      [ "tvm::solver::QLDLeastSquareSolver", "a01733.html", null ],
+      [ "tvm::solver::QuadprogLeastSquareSolver", "a01745.html", null ]
     ] ],
-    [ "tvm::scheme::internal::LevelAbilities", "a01649.html", null ],
+    [ "tvm::scheme::internal::LevelAbilities", "a01653.html", null ],
     [ "tvm::internal::RangeCounting::Limit", "a01301.html", null ],
     [ "tvm::LinearConstraintWithRequirements", "a01317.html", null ],
-    [ "tvm::utils::LinearExpr< Derived >", "a01845.html", null ],
+    [ "tvm::utils::LinearExpr< Derived >", "a01849.html", null ],
     [ "tvm::event::Listener", "a01013.html", null ],
     [ "tvm::graph::internal::Log", "a01141.html", null ],
     [ "tvm::graph::internal::Logger", "a01181.html", null ],
-    [ "tvm::solver::LSSOLLSSolverOptions", "a01713.html", null ],
-    [ "tvm::solver::abstract::LSSolverFactory", "a01689.html", [
-      [ "tvm::solver::DefaultLSSolverFactory", "a01697.html", null ],
-      [ "tvm::solver::LSSOLLSSolverFactory", "a01721.html", null ],
-      [ "tvm::solver::QLDLSSolverFactory", "a01733.html", null ],
-      [ "tvm::solver::QuadprogLSSolverFactory", "a01745.html", null ]
+    [ "tvm::solver::LSSOLLSSolverOptions", "a01717.html", null ],
+    [ "tvm::solver::abstract::LSSolverFactory", "a01693.html", [
+      [ "tvm::solver::DefaultLSSolverFactory", "a01701.html", null ],
+      [ "tvm::solver::LSSOLLSSolverFactory", "a01725.html", null ],
+      [ "tvm::solver::QLDLSSolverFactory", "a01737.html", null ],
+      [ "tvm::solver::QuadprogLSSolverFactory", "a01749.html", null ]
     ] ],
-    [ "tvm::solver::abstract::LeastSquareSolver::MarkedAssignment", "a01685.html", null ],
+    [ "tvm::solver::abstract::LeastSquareSolver::MarkedAssignment", "a01689.html", null ],
     [ "tvm::scheme::internal::MatrixAssignment", "a01625.html", null ],
     [ "tvm::scheme::internal::MatrixMultBase< MatrixType, M >", "a01569.html", [
       [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, F >", "a01597.html", null ]
@@ -190,15 +190,15 @@ var hierarchy =
       [ "tvm::internal::ObjectWithProperties< MatrixType, refOnProperties >", "a01265.html", null ]
     ] ],
     [ "tvm::scheme::internal::NoArg", "a01461.html", null ],
-    [ "tvm::utils::internal::NoConstant", "a01861.html", null ],
+    [ "tvm::utils::internal::NoConstant", "a01865.html", null ],
     [ "tvm::robot::CollisionFunction::CollisionData::ObjectData", "a01369.html", null ],
-    [ "tvm::solver::internal::SolverEvents::Objective", "a01709.html", null ],
+    [ "tvm::solver::internal::SolverEvents::Objective", "a01713.html", null ],
     [ "tvm::internal::ObjWithId", "a01285.html", [
       [ "tvm::constraint::abstract::Constraint", "a00981.html", null ],
-      [ "tvm::scheme::internal::ResolutionSchemeBase", "a01645.html", [
+      [ "tvm::scheme::internal::ResolutionSchemeBase", "a01649.html", [
         [ "tvm::scheme::abstract::ResolutionScheme< WeightedLeastSquares >", "a01437.html", [
           [ "tvm::scheme::abstract::LinearResolutionScheme< WeightedLeastSquares >", "a01441.html", [
-            [ "tvm::scheme::WeightedLeastSquares", "a01661.html", null ]
+            [ "tvm::scheme::WeightedLeastSquares", "a01665.html", null ]
           ] ]
         ] ],
         [ "tvm::scheme::abstract::ResolutionScheme< Derived >", "a01437.html", [
@@ -206,8 +206,8 @@ var hierarchy =
         ] ]
       ] ],
       [ "tvm::TaskWithRequirements", "a01001.html", null ],
-      [ "tvm::Variable", "a01909.html", null ],
-      [ "tvm::VariableVector", "a01921.html", null ]
+      [ "tvm::Variable", "a01913.html", null ],
+      [ "tvm::VariableVector", "a01925.html", null ]
     ] ],
     [ "tvm::graph::abstract::Outputs::Output", "a01085.html", null ],
     [ "tvm::graph::internal::Log::Output", "a01157.html", null ],
@@ -225,18 +225,21 @@ var hierarchy =
     [ "tvm::scheme::internal::ProblemComputationData", "a01637.html", [
       [ "tvm::scheme::internal::LinearizedProblemComputationData", "a01621.html", null ]
     ] ],
-    [ "tvm::scheme::internal::ProblemDefinitionEvent", "a01641.html", null ],
-    [ "tvm::utils::ProtoTaskCommon< T, FunT >", "a01897.html", null ],
-    [ "tvm::utils::ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "a01901.html", null ],
-    [ "tvm::solver::QLDLSSolverOptions", "a01725.html", null ],
-    [ "tvm::solver::QuadprogLSSolverOptions", "a01737.html", null ],
+    [ "tvm::scheme::internal::ProblemDefinitionEvent", "a01645.html", null ],
+    [ "tvm::utils::ProtoTaskCommon< T, FunT >", "a01901.html", null ],
+    [ "tvm::utils::ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "a01905.html", null ],
+    [ "tvm::solver::QLDLSSolverOptions", "a01729.html", null ],
+    [ "tvm::solver::QuadprogLSSolverOptions", "a01741.html", null ],
+    [ "std::queue< T >", null, [
+      [ "tvm::scheme::internal::ProblemComputationData::EventQueue", "a01641.html", null ]
+    ] ],
     [ "tvm::Range", "a01325.html", null ],
     [ "tvm::internal::RangeCounting", "a01297.html", null ],
-    [ "tvm::utils::internal::RefSelector< Derived >", "a01865.html", null ],
-    [ "tvm::utils::internal::RefSelector< NoConstant >", "a01869.html", null ],
-    [ "tvm::utils::internal::RHS", "a01893.html", null ],
+    [ "tvm::utils::internal::RefSelector< Derived >", "a01869.html", null ],
+    [ "tvm::utils::internal::RefSelector< NoConstant >", "a01873.html", null ],
+    [ "tvm::utils::internal::RHS", "a01897.html", null ],
     [ "tvm::constraint::internal::RHSVectors", "a00997.html", null ],
-    [ "tvm::scheme::internal::SchemeAbilities", "a01653.html", null ],
+    [ "tvm::scheme::internal::SchemeAbilities", "a01657.html", null ],
     [ "tvm::graph::abstract::SelectorMembers< add >", "a01089.html", null ],
     [ "tvm::graph::abstract::SelectorMembers< false >", "a01093.html", null ],
     [ "tvm::graph::abstract::SelectorMembers<!is_output_selector< Base >()>", "a01089.html", [
@@ -248,7 +251,7 @@ var hierarchy =
     [ "tvm::function::abstract::Function::slice_jdot", "a01057.html", null ],
     [ "tvm::internal::FirstOrderProvider::slice_linear", "a01237.html", null ],
     [ "tvm::internal::FirstOrderProvider::slice_matrix", "a01241.html", null ],
-    [ "tvm::solver::internal::SolverEvents", "a01701.html", null ],
+    [ "tvm::solver::internal::SolverEvents", "a01705.html", null ],
     [ "tvm::requirements::SolvingRequirementsBase< Lightweight >", "a01341.html", null ],
     [ "tvm::requirements::SolvingRequirementsBase< false >", "a01341.html", [
       [ "tvm::requirements::SolvingRequirementsWithCallbacks", "a01349.html", null ]
@@ -261,7 +264,7 @@ var hierarchy =
       [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, F >", "a01597.html", null ]
     ] ],
     [ "tvm::scheme::internal::SourceBase< MatrixType, ZERO >", "a01593.html", null ],
-    [ "tvm::Space", "a01749.html", null ],
+    [ "tvm::Space", "a01753.html", null ],
     [ "tvm::hint::Substitution", "a01225.html", null ],
     [ "tvm::hint::abstract::SubstitutionCalculator", "a01185.html", [
       [ "tvm::hint::internal::AutoCalculator", "a01197.html", null ],
@@ -274,28 +277,28 @@ var hierarchy =
     ] ],
     [ "tvm::hint::internal::Substitutions", "a01217.html", null ],
     [ "tvm::hint::internal::SubstitutionUnit", "a01221.html", null ],
-    [ "tvm::Task", "a01753.html", null ],
-    [ "tvm::task_dynamics::abstract::TaskDynamics", "a01757.html", [
-      [ "tvm::task_dynamics::Constant", "a01773.html", null ],
-      [ "tvm::task_dynamics::None", "a01789.html", null ],
-      [ "tvm::task_dynamics::Proportional", "a01797.html", null ],
-      [ "tvm::task_dynamics::ProportionalDerivative", "a01805.html", null ],
-      [ "tvm::task_dynamics::Reference", "a01813.html", [
-        [ "tvm::task_dynamics::ReferenceAcceleration", "a01825.html", null ],
-        [ "tvm::task_dynamics::ReferenceVelocity", "a01821.html", null ]
+    [ "tvm::Task", "a01757.html", null ],
+    [ "tvm::task_dynamics::abstract::TaskDynamics", "a01761.html", [
+      [ "tvm::task_dynamics::Constant", "a01777.html", null ],
+      [ "tvm::task_dynamics::None", "a01793.html", null ],
+      [ "tvm::task_dynamics::Proportional", "a01801.html", null ],
+      [ "tvm::task_dynamics::ProportionalDerivative", "a01809.html", null ],
+      [ "tvm::task_dynamics::Reference", "a01817.html", [
+        [ "tvm::task_dynamics::ReferenceAcceleration", "a01829.html", null ],
+        [ "tvm::task_dynamics::ReferenceVelocity", "a01825.html", null ]
       ] ],
-      [ "tvm::task_dynamics::VelocityDamper", "a01829.html", null ]
+      [ "tvm::task_dynamics::VelocityDamper", "a01833.html", null ]
     ] ],
     [ "TD", null, [
-      [ "tvm::task_dynamics::Clamped< TD, TDImpl >", "a01765.html", null ],
-      [ "tvm::task_dynamics::FeedForward< TD, TDImpl >", "a01781.html", null ]
+      [ "tvm::task_dynamics::Clamped< TD, TDImpl >", "a01769.html", null ],
+      [ "tvm::task_dynamics::FeedForward< TD, TDImpl >", "a01785.html", null ]
     ] ],
     [ "TDImpl", null, [
-      [ "tvm::task_dynamics::Clamped< TD, TDImpl >::Impl", "a01769.html", null ],
-      [ "tvm::task_dynamics::FeedForward< TD, TDImpl >::Impl", "a01785.html", null ]
+      [ "tvm::task_dynamics::Clamped< TD, TDImpl >::Impl", "a01773.html", null ],
+      [ "tvm::task_dynamics::FeedForward< TD, TDImpl >::Impl", "a01789.html", null ]
     ] ],
     [ "traits", null, [
-      [ "Eigen::internal::traits< tvm::utils::internal::NoConstant >", "a01873.html", null ]
+      [ "Eigen::internal::traits< tvm::utils::internal::NoConstant >", "a01877.html", null ]
     ] ],
     [ "true_type", null, [
       [ "tvm::internal::always_true< T >", "a01277.html", null ],
@@ -310,7 +313,7 @@ var hierarchy =
     ] ],
     [ "tvm::graph::internal::AbstractNode::Update", "a01121.html", null ],
     [ "tvm::graph::internal::Log::Update", "a01153.html", null ],
-    [ "tvm::utils::UpdatelessFunction", "a01905.html", null ],
+    [ "tvm::utils::UpdatelessFunction", "a01909.html", null ],
     [ "tvm::ControlProblem::Updater", "a01009.html", null ],
     [ "tvm::internal::VariableCountingVector", "a01305.html", null ],
     [ "tvm::internal::VariableVectorPartition< VarVector >", "a01309.html", null ],
@@ -318,8 +321,8 @@ var hierarchy =
       [ "tvm::scheme::internal::VectorAssignment", "a01633.html", null ]
     ] ],
     [ "tvm::robot::Contact::View", "a01389.html", null ],
-    [ "tvm::scheme::WeightedLeastSquaresOptions", "a01657.html", null ],
-    [ "tvm::solver::internal::SolverEvents::WeightEvent", "a01705.html", null ],
+    [ "tvm::scheme::WeightedLeastSquaresOptions", "a01661.html", null ],
+    [ "tvm::solver::internal::SolverEvents::WeightEvent", "a01709.html", null ],
     [ "tvm::scheme::internal::WeightMultBase< W >", "a01549.html", [
       [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, F >", "a01597.html", null ]
     ] ],

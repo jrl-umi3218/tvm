@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TVM: tvm::Task Class Reference</title>
+<title>TVM: tvm::Space Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,79 +91,170 @@ $(document).ready(function(){initNavTree('a01753.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01750.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tvm::Task Class Reference</div>  </div>
+<div class="title">tvm::Space Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=.  
+<p>Description of a variable space, and factory for <a class="el" href="a01913.html" title="Representation of a Variable, i.e. ">Variable</a>.  
  <a href="a01753.html#details">More...</a></p>
 
-<p><code>#include &lt;tvm/Task.h&gt;</code></p>
+<p><code>#include &lt;tvm/Space.h&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afed52b615be4ddd3ef124f791460f7e0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> { <br />
+&#160;&#160;<a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0a3e43207685247008d9e1ae53ecf8cab3">Type::Euclidean</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0a954c8ed8efbceb3a1b9495e4a1acf3a0">Type::SO3</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0af011f2d250cf1ccf9b7f39e9f2ff3c2b">Type::SE3</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0a6fcdc090caeade09d0efd6253932b6f5">Type::Unspecified</a>
+<br />
+ }<tr class="memdesc:afed52b615be4ddd3ef124f791460f7e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predefined space types.  <a href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afed52b615be4ddd3ef124f791460f7e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a62319f0d77dd668d37986a84f28ffeb9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a62319f0d77dd668d37986a84f28ffeb9">Task</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td)</td></tr>
-<tr class="separator:a62319f0d77dd668d37986a84f28ffeb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c205c3debdc1bf7fffe4b71953c6d08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a3c205c3debdc1bf7fffe4b71953c6d08">Task</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, double rhs)</td></tr>
-<tr class="separator:a3c205c3debdc1bf7fffe4b71953c6d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69fcbaeb6cef4b2a65717af4c0af7cd5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a69fcbaeb6cef4b2a65717af4c0af7cd5">Task</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const Eigen::VectorXd &amp;rhs)</td></tr>
-<tr class="separator:a69fcbaeb6cef4b2a65717af4c0af7cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8020daba7b34a8e826f7e3e661c04e87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a8020daba7b34a8e826f7e3e661c04e87">Task</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, double l, double u)</td></tr>
-<tr class="separator:a8020daba7b34a8e826f7e3e661c04e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a910fe671a0e840f90d6c3b6e8d402c34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a910fe671a0e840f90d6c3b6e8d402c34">Task</a> (<a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f, <a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> t, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td, const Eigen::VectorXd &amp;l, const Eigen::VectorXd &amp;u)</td></tr>
-<tr class="separator:a910fe671a0e840f90d6c3b6e8d402c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7c25b8714773214ce2c405e80a7064"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ada7c25b8714773214ce2c405e80a7064">Task</a> (<a class="el" href="a00417.html#a446f70a3cebac171df63b889fbdfec35">utils::ProtoTaskEQ</a> proto, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td)</td></tr>
-<tr class="separator:ada7c25b8714773214ce2c405e80a7064"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b8e26f3aa8f1e62cf31acf538010ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ad2b8e26f3aa8f1e62cf31acf538010ae">Task</a> (<a class="el" href="a00417.html#a37297a4563c741c267339e340d5fa5ce">utils::ProtoTaskLT</a> proto, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td)</td></tr>
-<tr class="separator:ad2b8e26f3aa8f1e62cf31acf538010ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38e938cb5f5d346cd0da5401a8214fe8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a38e938cb5f5d346cd0da5401a8214fe8">Task</a> (<a class="el" href="a00417.html#aafeba3b8e2ee8ea6967317533f102941">utils::ProtoTaskGT</a> proto, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td)</td></tr>
-<tr class="separator:a38e938cb5f5d346cd0da5401a8214fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab978abb00483e251f7c35d222e50e516"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ab978abb00483e251f7c35d222e50e516">Task</a> (<a class="el" href="a00417.html#a8bb2ad8c3268c4f7459045e8ab119c8d">utils::ProtoTaskDS</a> proto, const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;td)</td></tr>
-<tr class="separator:ab978abb00483e251f7c35d222e50e516"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88d092ffae84f63dcb65019a62b7c0c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a88d092ffae84f63dcb65019a62b7c0c7">function</a> () const</td></tr>
-<tr class="separator:a88d092ffae84f63dcb65019a62b7c0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95b2ba80c52242d5a8f0a7cc8495c794"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a95b2ba80c52242d5a8f0a7cc8495c794">type</a> () const</td></tr>
-<tr class="separator:a95b2ba80c52242d5a8f0a7cc8495c794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5bd7229d55aa88ae87cf3ddf6d8df0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#a05be029537364f847283eb3bbf4fee7f">TaskDynamicsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ac5bd7229d55aa88ae87cf3ddf6d8df0a">taskDynamics</a> () const</td></tr>
-<tr class="separator:ac5bd7229d55aa88ae87cf3ddf6d8df0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22c2be49eecf48cc5c43f38fcc2c5e7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00395.html#a05be029537364f847283eb3bbf4fee7f">TaskDynamicsPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a22c2be49eecf48cc5c43f38fcc2c5e7a">secondBoundTaskDynamics</a> () const</td></tr>
-<tr class="separator:a22c2be49eecf48cc5c43f38fcc2c5e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2837efa975d36ef1a15ef02ce5d95db"><td class="memTemplParams" colspan="2">template&lt;typename T , typename TDImpl  = typename T::Impl&gt; </td></tr>
-<tr class="memitem:af2837efa975d36ef1a15ef02ce5d95db"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; TDImpl &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01753.html#af2837efa975d36ef1a15ef02ce5d95db">taskDynamics</a> () const</td></tr>
-<tr class="separator:af2837efa975d36ef1a15ef02ce5d95db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4446ffa8e8973d4dde244bc14ebd8f63"><td class="memTemplParams" colspan="2">template&lt;typename T , typename TDImpl  = typename T::Impl&gt; </td></tr>
-<tr class="memitem:a4446ffa8e8973d4dde244bc14ebd8f63"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; TDImpl &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01753.html#a4446ffa8e8973d4dde244bc14ebd8f63">secondBoundTaskDynamics</a> () const</td></tr>
-<tr class="separator:a4446ffa8e8973d4dde244bc14ebd8f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4b192406e699cc657b0a34d5f236ba4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ac4b192406e699cc657b0a34d5f236ba4">Space</a> (int <a class="el" href="a01753.html#a52d03cec25b4951255300be1925049f9">size</a>)</td></tr>
+<tr class="memdesc:ac4b192406e699cc657b0a34d5f236ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for an Euclidean space.  <a href="#ac4b192406e699cc657b0a34d5f236ba4">More...</a><br /></td></tr>
+<tr class="separator:ac4b192406e699cc657b0a34d5f236ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff75186b5b439819ec201be5c5f4b39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a9ff75186b5b439819ec201be5c5f4b39">Space</a> (int <a class="el" href="a01753.html#a52d03cec25b4951255300be1925049f9">size</a>, int representationSize)</td></tr>
+<tr class="memdesc:a9ff75186b5b439819ec201be5c5f4b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a manifold with tsize = size.  <a href="#a9ff75186b5b439819ec201be5c5f4b39">More...</a><br /></td></tr>
+<tr class="separator:a9ff75186b5b439819ec201be5c5f4b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ad058c2c07a10b72a539e829fa4b50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a99ad058c2c07a10b72a539e829fa4b50">Space</a> (int <a class="el" href="a01753.html#a52d03cec25b4951255300be1925049f9">size</a>, int representationSize, int tangentRepresentationSize)</td></tr>
+<tr class="memdesc:a99ad058c2c07a10b72a539e829fa4b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a manifold where tsize != size.  <a href="#a99ad058c2c07a10b72a539e829fa4b50">More...</a><br /></td></tr>
+<tr class="separator:a99ad058c2c07a10b72a539e829fa4b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af455f0e3a88391cb32a97ccc67d4d12a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#af455f0e3a88391cb32a97ccc67d4d12a">Space</a> (<a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> <a class="el" href="a01753.html#ab9ac5699b5f3c5e65f85f4edd0125095">type</a>, int <a class="el" href="a01753.html#a52d03cec25b4951255300be1925049f9">size</a>=-1)</td></tr>
+<tr class="memdesc:af455f0e3a88391cb32a97ccc67d4d12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a given space type.  <a href="#af455f0e3a88391cb32a97ccc67d4d12a">More...</a><br /></td></tr>
+<tr class="separator:af455f0e3a88391cb32a97ccc67d4d12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a905e8309e1556002e6abc8ebaac21efa"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01913.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a905e8309e1556002e6abc8ebaac21efa">createVariable</a> (std::string_view name) const</td></tr>
+<tr class="memdesc:a905e8309e1556002e6abc8ebaac21efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function to create a variable.  <a href="#a905e8309e1556002e6abc8ebaac21efa">More...</a><br /></td></tr>
+<tr class="separator:a905e8309e1556002e6abc8ebaac21efa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d03cec25b4951255300be1925049f9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a52d03cec25b4951255300be1925049f9">size</a> () const</td></tr>
+<tr class="memdesc:a52d03cec25b4951255300be1925049f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the space (as a manifold)  <a href="#a52d03cec25b4951255300be1925049f9">More...</a><br /></td></tr>
+<tr class="separator:a52d03cec25b4951255300be1925049f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5889d55dbe021af7edcc4d728e9c35e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ac5889d55dbe021af7edcc4d728e9c35e">rSize</a> () const</td></tr>
+<tr class="memdesc:ac5889d55dbe021af7edcc4d728e9c35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the vector needed to represent a variable in this space.  <a href="#ac5889d55dbe021af7edcc4d728e9c35e">More...</a><br /></td></tr>
+<tr class="separator:ac5889d55dbe021af7edcc4d728e9c35e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad182eecc9fce96331b8038a9bc8a0626"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ad182eecc9fce96331b8038a9bc8a0626">tSize</a> () const</td></tr>
+<tr class="memdesc:ad182eecc9fce96331b8038a9bc8a0626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the vector needed to represent a derivative in this space.  <a href="#ad182eecc9fce96331b8038a9bc8a0626">More...</a><br /></td></tr>
+<tr class="separator:ad182eecc9fce96331b8038a9bc8a0626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ab9ac5699b5f3c5e65f85f4edd0125095">type</a> () const</td></tr>
+<tr class="memdesc:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the space.  <a href="#ab9ac5699b5f3c5e65f85f4edd0125095">More...</a><br /></td></tr>
+<tr class="separator:ab9ac5699b5f3c5e65f85f4edd0125095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af45239f58ccd885d0a939084b125c979"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#af45239f58ccd885d0a939084b125c979">isEuclidean</a> () const</td></tr>
+<tr class="memdesc:af45239f58ccd885d0a939084b125c979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this is an Euclidean space.  <a href="#af45239f58ccd885d0a939084b125c979">More...</a><br /></td></tr>
+<tr class="separator:af45239f58ccd885d0a939084b125c979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee25e1bfd33fac77fd95b79bbfc761b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#aee25e1bfd33fac77fd95b79bbfc761b6">operator==</a> (const <a class="el" href="a01753.html">Space</a> &amp;other) const</td></tr>
+<tr class="separator:aee25e1bfd33fac77fd95b79bbfc761b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acddae3eb32a5bda913b0b9804e474e2b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#acddae3eb32a5bda913b0b9804e474e2b">operator!=</a> (const <a class="el" href="a01753.html">Space</a> &amp;other) const</td></tr>
+<tr class="separator:acddae3eb32a5bda913b0b9804e474e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c6cdd556df10445d387f51545c4a36"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a32c6cdd556df10445d387f51545c4a36">operator&lt;=</a> (const <a class="el" href="a01753.html">Space</a> &amp;other) const</td></tr>
+<tr class="separator:a32c6cdd556df10445d387f51545c4a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:af45d032816d72887192bb810684cc99f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01753.html">Space</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#af45d032816d72887192bb810684cc99f">operator*</a> (const <a class="el" href="a01753.html">Space</a> &amp;s1, const <a class="el" href="a01753.html">Space</a> &amp;s2)</td></tr>
+<tr class="separator:af45d032816d72887192bb810684cc99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A task is a triplet (Function, operator, TaskDynamics) where operator is ==, &gt;= or &lt;=. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a62319f0d77dd668d37986a84f28ffeb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62319f0d77dd668d37986a84f28ffeb9">&#9670;&nbsp;</a></span>Task() <span class="overload">[1/9]</span></h2>
+<div class="textblock"><p>Description of a variable space, and factory for <a class="el" href="a01913.html" title="Representation of a Variable, i.e. ">Variable</a>. </p>
+<p>The space can have up to 3 different sizes, although Euclidean spaces will have only one :</p><ul>
+<li>the size of the space as a manifold,</li>
+<li>the size of the vector needed to represent one variable (point) in this space (representation space, rsize),</li>
+<li>the size of the vector needed to represent a derivative (velocity, acceleration, ...) of this variable (tangent space, tsize).</li>
+</ul>
+<p>Here are a few examples:</p><ul>
+<li>R^n has a size, rsize and tsize of n,</li>
+<li>SO(3), the 3d rotation space, when represented by quaternions, has a size of 3, a rsize of 4 and a tsize of 3,</li>
+<li>S(2), the sphere in dimension 3 has a size of 2, and rsize and tsize of 3. </li>
+</ul>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="afed52b615be4ddd3ef124f791460f7e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed52b615be4ddd3ef124f791460f7e0">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">tvm::Space::Type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Predefined space types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a3e43207685247008d9e1ae53ecf8cab3"></a>Euclidean&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a954c8ed8efbceb3a1b9495e4a1acf3a0"></a>SO3&#160;</td><td class="fielddoc"><p>Euclidean space \( \mathbb{R}^n \). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0af011f2d250cf1ccf9b7f39e9f2ff3c2b"></a>SE3&#160;</td><td class="fielddoc"><p><a class="el" href="a01753.html" title="Description of a variable space, and factory for Variable. ">Space</a> of 3d rotations, represented by unit quaternions. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afed52b615be4ddd3ef124f791460f7e0a6fcdc090caeade09d0efd6253932b6f5"></a>Unspecified&#160;</td><td class="fielddoc"><p><a class="el" href="a01753.html" title="Description of a variable space, and factory for Variable. ">Space</a> of 3d transformation, represented by a quaternion and a 3d-vector. </p>
+<p>Non-euclidean space of unknown type. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac4b192406e699cc657b0a34d5f236ba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4b192406e699cc657b0a34d5f236ba4">&#9670;&nbsp;</a></span>Space() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::Task::Task </td>
+          <td class="memname">tvm::Space::Space </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor for an Euclidean space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>size of the space </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9ff75186b5b439819ec201be5c5f4b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ff75186b5b439819ec201be5c5f4b39">&#9670;&nbsp;</a></span>Space() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tvm::Space::Space </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>representationSize</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -173,37 +264,40 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructor for a manifold with tsize = size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>size of the space </td></tr>
+    <tr><td class="paramname">representationSize</td><td>size of the vector needed to represent a variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a3c205c3debdc1bf7fffe4b71953c6d08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c205c3debdc1bf7fffe4b71953c6d08">&#9670;&nbsp;</a></span>Task() <span class="overload">[2/9]</span></h2>
+<a id="a99ad058c2c07a10b72a539e829fa4b50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ad058c2c07a10b72a539e829fa4b50">&#9670;&nbsp;</a></span>Space() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::Task::Task </td>
+          <td class="memname">tvm::Space::Space </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>representationSize</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tangentRepresentationSize</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -213,37 +307,35 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructor for a manifold where tsize != size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>size of the space </td></tr>
+    <tr><td class="paramname">representationSize</td><td>size of the vector needed to represent a variable </td></tr>
+    <tr><td class="paramname">tangentRepresentationSize</td><td>size of the vector needed to represent a derivative </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a69fcbaeb6cef4b2a65717af4c0af7cd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69fcbaeb6cef4b2a65717af4c0af7cd5">&#9670;&nbsp;</a></span>Task() <span class="overload">[3/9]</span></h2>
+<a id="af455f0e3a88391cb32a97ccc67d4d12a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af455f0e3a88391cb32a97ccc67d4d12a">&#9670;&nbsp;</a></span>Space() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tvm::Task::Task </td>
+          <td class="memname">tvm::Space::Space </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
+          <td class="paramtype"><a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -253,221 +345,46 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a8020daba7b34a8e826f7e3e661c04e87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8020daba7b34a8e826f7e3e661c04e87">&#9670;&nbsp;</a></span>Task() <span class="overload">[4/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>u</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a910fe671a0e840f90d6c3b6e8d402c34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a910fe671a0e840f90d6c3b6e8d402c34">&#9670;&nbsp;</a></span>Task() <span class="overload">[5/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>u</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ada7c25b8714773214ce2c405e80a7064"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada7c25b8714773214ce2c405e80a7064">&#9670;&nbsp;</a></span>Task() <span class="overload">[6/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00417.html#a446f70a3cebac171df63b889fbdfec35">utils::ProtoTaskEQ</a>&#160;</td>
-          <td class="paramname"><em>proto</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad2b8e26f3aa8f1e62cf31acf538010ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2b8e26f3aa8f1e62cf31acf538010ae">&#9670;&nbsp;</a></span>Task() <span class="overload">[7/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00417.html#a37297a4563c741c267339e340d5fa5ce">utils::ProtoTaskLT</a>&#160;</td>
-          <td class="paramname"><em>proto</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a38e938cb5f5d346cd0da5401a8214fe8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38e938cb5f5d346cd0da5401a8214fe8">&#9670;&nbsp;</a></span>Task() <span class="overload">[8/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00417.html#aafeba3b8e2ee8ea6967317533f102941">utils::ProtoTaskGT</a>&#160;</td>
-          <td class="paramname"><em>proto</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab978abb00483e251f7c35d222e50e516"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab978abb00483e251f7c35d222e50e516">&#9670;&nbsp;</a></span>Task() <span class="overload">[9/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tvm::Task::Task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00417.html#a8bb2ad8c3268c4f7459045e8ab119c8d">utils::ProtoTaskDS</a>&#160;</td>
-          <td class="paramname"><em>proto</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01757.html">task_dynamics::abstract::TaskDynamics</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Constructor for a given space type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>type of space </td></tr>
+    <tr><td class="paramname">size</td><td>size of the space. Only for space types whose size is not fixed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a88d092ffae84f63dcb65019a62b7c0c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88d092ffae84f63dcb65019a62b7c0c7">&#9670;&nbsp;</a></span>function()</h2>
+<a id="a905e8309e1556002e6abc8ebaac21efa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905e8309e1556002e6abc8ebaac21efa">&#9670;&nbsp;</a></span>createVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00395.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> tvm::Task::function </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01913.html">Variable</a>&gt; tvm::Space::createVariable </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Factory function to create a variable. </p>
+
+</div>
+</div>
+<a id="af45239f58ccd885d0a939084b125c979"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af45239f58ccd885d0a939084b125c979">&#9670;&nbsp;</a></span>isEuclidean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::Space::isEuclidean </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -475,16 +392,98 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Check if this is an Euclidean space. </p>
+
 </div>
 </div>
-<a id="a22c2be49eecf48cc5c43f38fcc2c5e7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22c2be49eecf48cc5c43f38fcc2c5e7a">&#9670;&nbsp;</a></span>secondBoundTaskDynamics() <span class="overload">[1/2]</span></h2>
+<a id="acddae3eb32a5bda913b0b9804e474e2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acddae3eb32a5bda913b0b9804e474e2b">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::Space::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01753.html">Space</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">References <a class="el" href="a00395.html#a751b8be6c8ab35c0f7bc264e6ecaa54c">tvm::operator==()</a>.</p>
+
+</div>
+</div>
+<a id="a32c6cdd556df10445d387f51545c4a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32c6cdd556df10445d387f51545c4a36">&#9670;&nbsp;</a></span>operator<=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::Space::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01753.html">Space</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee25e1bfd33fac77fd95b79bbfc761b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee25e1bfd33fac77fd95b79bbfc761b6">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::Space::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01753.html">Space</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5889d55dbe021af7edcc4d728e9c35e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5889d55dbe021af7edcc4d728e9c35e">&#9670;&nbsp;</a></span>rSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00395.html#a05be029537364f847283eb3bbf4fee7f">TaskDynamicsPtr</a> tvm::Task::secondBoundTaskDynamics </td>
+          <td class="memname">int tvm::Space::rSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -492,18 +491,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Size of the vector needed to represent a variable in this space. </p>
+
 </div>
 </div>
-<a id="a4446ffa8e8973d4dde244bc14ebd8f63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4446ffa8e8973d4dde244bc14ebd8f63">&#9670;&nbsp;</a></span>secondBoundTaskDynamics() <span class="overload">[2/2]</span></h2>
+<a id="a52d03cec25b4951255300be1925049f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d03cec25b4951255300be1925049f9">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename TDImpl &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt; TDImpl &gt; tvm::Task::secondBoundTaskDynamics </td>
+          <td class="memname">int tvm::Space::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -511,16 +510,18 @@ template&lt;typename T , typename TDImpl &gt; </div>
       </table>
 </div><div class="memdoc">
 
+<p>Size of the space (as a manifold) </p>
+
 </div>
 </div>
-<a id="ac5bd7229d55aa88ae87cf3ddf6d8df0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5bd7229d55aa88ae87cf3ddf6d8df0a">&#9670;&nbsp;</a></span>taskDynamics() <span class="overload">[1/2]</span></h2>
+<a id="ad182eecc9fce96331b8038a9bc8a0626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad182eecc9fce96331b8038a9bc8a0626">&#9670;&nbsp;</a></span>tSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00395.html#a05be029537364f847283eb3bbf4fee7f">TaskDynamicsPtr</a> tvm::Task::taskDynamics </td>
+          <td class="memname">int tvm::Space::tSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -528,18 +529,18 @@ template&lt;typename T , typename TDImpl &gt; </div>
       </table>
 </div><div class="memdoc">
 
+<p>Size of the vector needed to represent a derivative in this space. </p>
+
 </div>
 </div>
-<a id="af2837efa975d36ef1a15ef02ce5d95db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2837efa975d36ef1a15ef02ce5d95db">&#9670;&nbsp;</a></span>taskDynamics() <span class="overload">[2/2]</span></h2>
+<a id="ab9ac5699b5f3c5e65f85f4edd0125095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9ac5699b5f3c5e65f85f4edd0125095">&#9670;&nbsp;</a></span>type()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename TDImpl &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt; TDImpl &gt; tvm::Task::taskDynamics </td>
+          <td class="memname"><a class="el" href="a01753.html#afed52b615be4ddd3ef124f791460f7e0">Type</a> tvm::Space::type </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -547,21 +548,43 @@ template&lt;typename T , typename TDImpl &gt; </div>
       </table>
 </div><div class="memdoc">
 
+<p>Type of the space. </p>
+
 </div>
 </div>
-<a id="a95b2ba80c52242d5a8f0a7cc8495c794"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95b2ba80c52242d5a8f0a7cc8495c794">&#9670;&nbsp;</a></span>type()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="af45d032816d72887192bb810684cc99f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af45d032816d72887192bb810684cc99f">&#9670;&nbsp;</a></span>operator*</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00396.html#ab6243a7da877a867f54ff7207959eb7c">constraint::Type</a> tvm::Task::type </td>
+          <td class="memname"><a class="el" href="a01753.html">Space</a> operator* </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="a01753.html">Space</a> &amp;&#160;</td>
+          <td class="paramname"><em>s1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01753.html">Space</a> &amp;&#160;</td>
+          <td class="paramname"><em>s2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -572,8 +595,8 @@ template&lt;typename T , typename TDImpl &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a01753.html">Task</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 09:19:31 for TVM by
+    <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a01753.html">Space</a></li>
+    <li class="footer">Generated on Thu Apr 8 2021 05:18:50 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

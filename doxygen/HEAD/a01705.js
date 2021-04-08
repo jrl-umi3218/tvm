@@ -1,6 +1,25 @@
 var a01705 =
 [
-    [ "c", "a01705.html#aa746bcf655bf27b8022db4c3adb7f703", null ],
-    [ "scalar", "a01705.html#a9d337cc35a91b59052b754a3a61c743f", null ],
-    [ "vector", "a01705.html#a5403ed8197e8a1d0ef1798b3f1cfe0b0", null ]
+    [ "Objective", "a01713.html", "a01713" ],
+    [ "WeightEvent", "a01709.html", "a01709" ],
+    [ "addBound", "a01705.html#abc3af813e2308dd5b8e5dae497995ff2", null ],
+    [ "addConstraint", "a01705.html#a0eeeda67cb3988895b1d1bff7584d5e2", null ],
+    [ "addedBounds", "a01705.html#a6522d4bff7403da66f9bad91ad79232e", null ],
+    [ "addedConstraints", "a01705.html#a1cef7000a1d598a23ca5c56f5166a555", null ],
+    [ "addedObjectives", "a01705.html#aac07895a10463ecb5a9d413a6ff27b09", null ],
+    [ "addedVariables", "a01705.html#a0364e97819353160d63fb35d64390b3e", null ],
+    [ "addObjective", "a01705.html#ac7fc4de9e7d545f5e73336c33be9c93b", null ],
+    [ "addScalarWeightEvent", "a01705.html#ab9fe5e94c5d81fa757b14dfc3b73118f", null ],
+    [ "addVariable", "a01705.html#aa1db2eaba5d43a8bc0670a94b2e4427a", null ],
+    [ "addVectorWeightEvent", "a01705.html#a8d29eece355057c2e248a1a4484b4754", null ],
+    [ "hasHiddenVariableChange", "a01705.html#ad8e432fd7ee351459106898724e08e8d", null ],
+    [ "removeBound", "a01705.html#a0c6c0dc2fbd0087d80bff0eae0da50ef", null ],
+    [ "removeConstraint", "a01705.html#ad4a351607ee297e8626bbfc541442125", null ],
+    [ "removedBounds", "a01705.html#addd1711d5520a3e7f1027d4f09b17f0b", null ],
+    [ "removedConstraints", "a01705.html#a7edfcd4d7c0a21b672e00f06cfd52835", null ],
+    [ "removedObjectives", "a01705.html#a6a825636e6ac52d179febdd55c06d5e8", null ],
+    [ "removedVariables", "a01705.html#ae21255df0fdf524072fe7096d5e23ff0", null ],
+    [ "removeObjective", "a01705.html#acde374b0bbb74d5a0f49552d6d7e0ae3", null ],
+    [ "removeVariable", "a01705.html#abe74240ebda8f703f6c8a41d605e3fc1", null ],
+    [ "weightEvents", "a01705.html#a1a1e1d4aef695aadf636dee1c8601f50", null ]
 ];

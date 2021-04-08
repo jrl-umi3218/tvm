@@ -1,9 +1,9 @@
 var a01849 =
 [
-    [ "AffineExpr", "a01849.html#ad304f33ae6978599a7dc604986c84b08", null ],
-    [ "AffineExpr", "a01849.html#a100f729ca296ded77ceaa2e93740a3c0", null ],
-    [ "AffineExpr", "a01849.html#a8f13ce4a543aa7e79404acb7d3d2dd83", null ],
-    [ "AffineExpr", "a01849.html#a0bd9ac10136b4ae56e141162b9a77e8e", null ],
-    [ "constant", "a01849.html#a5095307086839de4af4f11a12bf65c59", null ],
-    [ "linear", "a01849.html#ad1c6f6cf9c118af260ddafedc3d8e287", null ]
+    [ "LinearExpr", "a01849.html#ace550799fdb22b967ce5f5bddd0aa4a0", null ],
+    [ "LinearExpr", "a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
+    [ "LinearExpr", "a01849.html#aa715dc995e4c492fb70b7046afbe7e74", null ],
+    [ "LinearExpr", "a01849.html#aa8b13db5c36b8e2d4a55544a74687e5f", null ],
+    [ "matrix", "a01849.html#abda44d8407e3f1fabf7f43616e621ea0", null ],
+    [ "variable", "a01849.html#ab518500d32934cbf912c9f50c7fbcd19", null ]
 ];
