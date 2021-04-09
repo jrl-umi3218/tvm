@@ -60,9 +60,11 @@ void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
 void LinearizedControlProblem::remove(TaskWithRequirements * tr)
 {
   ControlProblem::remove(tr);
-  // if the above line did not throw, tr exists in the problem and in constraints_
   auto it = constraints_.find(tr);
-  assert(it != constraints_.end());
+  if(it == constraints_.end())
+  {
+    return;
+  }
   updater_.removeInput(it->second.constraint.get());
   constraints_.erase(it);
 }
