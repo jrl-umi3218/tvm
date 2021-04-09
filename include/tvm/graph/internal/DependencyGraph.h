@@ -20,6 +20,8 @@ class TVM_DLLAPI DependencyGraph
 public:
   /** Create a node and return its id.*/
   size_t addNode();
+  /** Remove a node and all its associated edges */
+  void removeNode(size_t id);
   /** Add an edge from node with id \p from to node with id \p to.
    * Return \p true if this indeed creates a new edge, \p false if this
    * edge was already present.

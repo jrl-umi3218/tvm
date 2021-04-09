@@ -151,6 +151,47 @@ TEST_CASE("Add/Remove variables from problem")
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
 }
 
+TEST_CASE("Add/Remove constraint with substitutions")
+{
+  Space R2(2);
+  VariablePtr x = R2.createVariable("x");
+  Space R3(3);
+  VariablePtr y = R3.createVariable("y");
+
+  VariablePtr y_xy = y->subvariable(R2, "y_xy");
+
+  LinearizedControlProblem pb;
+
+  auto t1 = pb.add(x - y_xy == 0., {PriorityLevel(1)});
+  auto t2 = pb.add(y == Vector3d(1, 2, 3), {PriorityLevel(1)});
+
+  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
+  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+
+  pb.remove(t1.get());
+  FAST_CHECK_UNARY(!pb.variables().contains(*x));
+  FAST_CHECK_UNARY(pb.variables().contains(*y));
+  solver.solve(pb);
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+
+  pb.add(t1);
+  pb.add(hint::Substitution(pb.constraint(t1.get()), x));
+  solver.solve(pb);
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
+  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+
+  pb.remove(t1.get());
+  FAST_CHECK_UNARY(!pb.variables().contains(*x));
+  FAST_CHECK_UNARY(pb.variables().contains(*y));
+  solver.solve(pb);
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+}
+
 // Skip if more than one type of constraints/objective is added more than once
 bool skip(const std::bitset<12> & a)
 {

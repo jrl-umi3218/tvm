@@ -26,6 +26,9 @@ public:
   /** Add substitution \p s*/
   void add(const Substitution & s);
 
+  /** Remove all substitutions associated to the given \p cstr */
+  bool remove(LinearConstraintPtr cstr);
+
   /** Get the vector of all substitutions, as added.
    * Note that it is not necessarily the vector of substitutions actually
    * used, as it might be needed to group substitutions (when a group of

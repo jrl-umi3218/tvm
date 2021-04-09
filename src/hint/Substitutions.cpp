@@ -15,7 +15,7 @@ namespace hint
 namespace internal
 {
 /** Return true if \p s is using (part of) variables substituted by \p t.*/
-bool dependsOn(const Substitution & s, const Substitution & t)
+static bool dependsOn(const Substitution & s, const Substitution & t)
 {
   for(const auto & x : t.variables())
   {
@@ -47,6 +47,26 @@ void tvm::hint::internal::Substitutions::add(const Substitution & s)
       dependencies_.addEdge(i, j);
     }
   }
+}
+
+bool tvm::hint::internal::Substitutions::remove(LinearConstraintPtr cstr)
+{
+  bool changed = false;
+  for(size_t i = 0; i < substitutions_.size();)
+  {
+    const auto & s = substitutions_[i];
+    const auto & cs = s.constraints();
+    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == cstr.get(); });
+    if(it == cs.end())
+    {
+      ++i;
+      continue;
+    }
+    changed = true;
+    dependencies_.removeNode(i);
+    substitutions_.erase(substitutions_.begin() + i);
+  }
+  return changed;
 }
 
 const std::vector<Substitution> & Substitutions::substitutions() const { return substitutions_; }

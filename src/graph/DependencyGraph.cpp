@@ -82,6 +82,56 @@ size_t DependencyGraph::addNode()
   return roots_.size() - 1;
 }
 
+void DependencyGraph::removeNode(size_t id)
+{
+  using Edge = std::pair<size_t, size_t>;
+  assert(id < roots_.size());
+  // Remove all edges from/to {id}
+  for(auto it = edges_.begin(); it != edges_.end();)
+  {
+    const Edge & e = *it;
+    if(e.first == id || e.second == id)
+    {
+      it = edges_.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+  // We check if the children of {id} can be promoted to roots_
+  // i.e. if they have no more edges pointing to them
+  for(auto c : children_[id])
+  {
+    if(std::find_if(edges_.begin(), edges_.end(), [&](const Edge & e) { return e.second == c; }) == edges_.end())
+    {
+      roots_[c] = true;
+    }
+  }
+  for(size_t i = 0; i < roots_.size(); ++i)
+  {
+    if(i == id)
+    {
+      continue;
+    }
+    // Do two things at once:
+    // 1. Decrement the edge id for every edge which is above id
+    // 2. Remove all edges matching the removed edge
+    children_[i].erase(std::remove_if(children_[i].begin(), children_[i].end(),
+                                      [&](size_t & j) {
+                                        if(j > id)
+                                        {
+                                          j -= 1;
+                                          return false;
+                                        }
+                                        return j == id;
+                                      }),
+                       children_[i].end());
+  }
+  roots_.erase(roots_.begin() + id);
+  children_.erase(children_.begin() + id);
+}
+
 bool DependencyGraph::addEdge(size_t from, size_t to)
 {
   assert(from < roots_.size());
