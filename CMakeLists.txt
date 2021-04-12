@@ -62,7 +62,7 @@ if(TVM_WITH_LSSOL)
 endif()
 
 ###################
-# - eigen-qld - #
+#  - eigen-qld -  #
 ###################
 option(TVM_WITH_QLD "Build with QLD support" ON)
 if(TVM_WITH_QLD)
@@ -73,13 +73,24 @@ if(TVM_WITH_QLD)
 endif()
 
 ###################
-# - eigen-qld - #
+#  - eigen-qld -  #
 ###################
 option(TVM_WITH_QUADPROG "Build with Quadprog support" OFF)
 if(TVM_WITH_QUADPROG)
   add_project_dependency(eigen-quadprog REQUIRED)
   list(APPEND SOLVER_FLAGS "-DTVM_USE_QUADPROG")
   list(APPEND SOLVER_LIBS eigen-quadprog::eigen-quadprog)
+  set(USING_SOLVER TRUE)
+endif()
+
+###################
+#    - jrl-qp -   #
+###################
+option(TVM_WITH_JRLQP "Build with Quadprog support" OFF)
+if(TVM_WITH_JRLQP)
+  add_project_dependency(jrl-qp REQUIRED)
+  list(APPEND SOLVER_FLAGS "-DTVM_USE_JRLQP")
+  list(APPEND SOLVER_LIBS jrl-qp::jrl-qp)
   set(USING_SOLVER TRUE)
 endif()
 
