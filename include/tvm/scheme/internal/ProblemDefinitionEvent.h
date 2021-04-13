@@ -29,7 +29,7 @@ public:
   };
 
   template<Type t>
-  using EmitterType = std::conditional_t<t<=Type::TaskRemoval, TaskWithRequirements, hint::Substitution>;
+  using EmitterType = std::conditional_t<t <= Type::TaskRemoval, TaskWithRequirements, hint::Substitution>;
 
   ProblemDefinitionEvent(Type type, const TaskWithRequirements & emitter)
   : type_(type), emitter_(static_cast<void const *>(&emitter))

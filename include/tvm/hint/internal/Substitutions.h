@@ -41,7 +41,7 @@ public:
 
   /** Compute all the data needed for the substitutions.
    * Needs to be called after all the call to \p add or \p remove, and before
-   * the calls to \p variables, \p variableSubstitutions and 
+   * the calls to \p variables, \p variableSubstitutions and
    * \p additionalConstraints.
    */
   void finalize();

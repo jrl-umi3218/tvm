@@ -100,10 +100,8 @@ std::unique_ptr<LinearizedControlProblem> problemWithSubVariablesAndSubstitution
   // This might be a bit surprising, but, because {q2, q3} and {q5, q6} are merged in the constraints,
   // the properties of the matrices in front of q3 and q6 are not kept and the correct calculator
   // cannot be deduced automatically.
-  lpb->add(
-      hint::Substitution(lpb->constraint(*s1), q3, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
-  lpb->add(
-      hint::Substitution(lpb->constraint(*s2), q6, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
+  lpb->add(hint::Substitution(lpb->constraint(*s1), q3, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
+  lpb->add(hint::Substitution(lpb->constraint(*s2), q6, constant::fullRank, tvm::hint::internal::DiagonalCalculator{}));
 
   return lpb;
 }

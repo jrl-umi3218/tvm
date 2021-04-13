@@ -43,7 +43,7 @@ public:
   void add(const hint::Substitution & s);
   void remove(const hint::Substitution & s);
   const hint::internal::Substitutions & substitutions() const;
-  void removeSubstitutionFor(const constraint::abstract::LinearConstraint& cstr);
+  void removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr);
 
   /** Access to the variables
    *
@@ -85,7 +85,8 @@ public:
       const TaskWithRequirements & t) const;
 
   /** Return the map task -> constraint*/
-  const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & constraintMap() const;
+  const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & constraintMap()
+      const;
 
 protected:
   /** Compute all quantities necessary for solving the problem.*/

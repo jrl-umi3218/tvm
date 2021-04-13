@@ -20,8 +20,7 @@ void ControlProblem::add(TaskWithRequirementsPtr tr)
 {
   tr_.push_back(tr);
   addCallBackToTask(tr);
-  notify(
-      scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
+  notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
   finalized_ = false;
 }
 

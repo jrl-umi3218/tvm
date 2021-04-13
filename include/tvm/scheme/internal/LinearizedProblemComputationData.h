@@ -32,7 +32,8 @@ public:
   void removeConstraint(const TaskWithRequirements & tr) { task2Constraint_.erase(&tr); }
 
   /** Add a mapping task -> constraint.*/
-  void addConstraints(const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & map)
+  void addConstraints(
+      const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & map)
   {
     task2Constraint_.insert(map.begin(), map.end());
   }

@@ -45,8 +45,7 @@ void Substitutions::add(const Substitution & s)
 
 void Substitutions::remove(const Substitution & s)
 {
-  auto it =
-      std::find_if(substitutions_.begin(), substitutions_.end(), [&](const auto & e) { return &e == &s; });
+  auto it = std::find_if(substitutions_.begin(), substitutions_.end(), [&](const auto & e) { return &e == &s; });
   if(it == substitutions_.end())
     throw std::runtime_error("[Substitutions::remove] Substitution s is not part of the substitutions.");
 
