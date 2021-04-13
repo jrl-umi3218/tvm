@@ -41,7 +41,9 @@ public:
   void remove(const TaskWithRequirements & tr);
 
   void add(const hint::Substitution & s);
+  void remove(const hint::Substitution & s);
   const hint::internal::Substitutions & substitutions() const;
+  void removeSubstitutionFor(const constraint::abstract::LinearConstraint& cstr);
 
   /** Access to the variables
    *
@@ -56,7 +58,7 @@ public:
    *
    * \param t TaskWithRequirements object as return by add.
    */
-  LinearConstraintPtr constraint(const TaskWithRequirements &) const;
+  LinearConstraintPtr constraint(const TaskWithRequirements & t) const;
 
   /** Access to the linear constraint corresponding to the task \p t
    *
@@ -64,13 +66,13 @@ public:
    *
    * \return A shared_ptr that can be null if \p t is not in the problem.
    */
-  LinearConstraintPtr constraintNoThrow(const TaskWithRequirements &) const;
+  LinearConstraintPtr constraintNoThrow(const TaskWithRequirements & t) const;
 
   /** Access to the linear constraint and requirements corresponding to the task \p t
    *
    * \param t TaskWithRequirements object as return by add.
    */
-  const LinearConstraintWithRequirements & constraintWithRequirements(const TaskWithRequirements &) const;
+  const LinearConstraintWithRequirements & constraintWithRequirements(const TaskWithRequirements & t) const;
 
   /** Access to the linear constraint and requirements corresponding to the task \p t
    *
@@ -80,7 +82,7 @@ public:
    * if \p t is in the problem.
    */
   std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintWithRequirementsNoThrow(
-      const TaskWithRequirements &) const;
+      const TaskWithRequirements & t) const;
 
   /** Return the map task -> constraint*/
   const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & constraintMap() const;

@@ -59,6 +59,8 @@ void ControlProblem::finalize()
   }
 }
 
+void ControlProblem::needFinalize() { finalized_ = false; }
+
 void ControlProblem::notify(const scheme::internal::ProblemDefinitionEvent & e)
 {
   for(auto & c : computationData_)

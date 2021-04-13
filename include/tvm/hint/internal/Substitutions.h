@@ -23,11 +23,11 @@ namespace internal
 class TVM_DLLAPI Substitutions
 {
 public:
-  /** Add substitution \p s*/
+  /** Add substitution \p s.*/
   void add(const Substitution & s);
 
-  /** Remove all substitutions associated to the given \p cstr */
-  bool remove(LinearConstraintPtr cstr);
+  /** Remove a substitution \p s. */
+  void remove(const Substitution & s);
 
   /** Get the vector of all substitutions, as added.
    * Note that it is not necessarily the vector of substitutions actually
@@ -40,8 +40,9 @@ public:
   bool uses(LinearConstraintPtr c) const;
 
   /** Compute all the data needed for the substitutions.
-   * Needs to be called after all the call to \p add, and before the calls to
-   * \p variables, \p variableSubstitutions and \p additionalConstraints.
+   * Needs to be called after all the call to \p add or \p remove, and before
+   * the calls to \p variables, \p variableSubstitutions and 
+   * \p additionalConstraints.
    */
   void finalize();
 

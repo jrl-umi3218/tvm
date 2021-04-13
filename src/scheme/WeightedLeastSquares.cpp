@@ -42,47 +42,64 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
 {
   using EventType = ProblemDefinitionEvent::Type;
   solver::internal::SolverEvents se;
+  bool fullRebuild = false;
 
   if(data->hasEvents())
   {
     Memory * memory = static_cast<Memory *>(data);
 
-    while(memory->hasEvents())
+    // If some events require to rebuild the data, we skip all other events.
+    for(const auto & e : memory->events())
     {
-      auto e = memory->popEvent();
-      switch(e.type())
+      if(e.type() == EventType::SubstitutionAddition || e.type() == EventType::SubstitutionRemoval)
       {
-        case EventType::WeightChange: {
-          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
-          if(c.requirements->priorityLevel().value() == 0)
-            throw std::runtime_error(
-                "[WeightedLeastSquares::updateComputationData_] "
-                "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-          se.addScalarWeightEvent(c.constraint.get());
-        }
+        fullRebuild = true;
         break;
-        case EventType::AnisotropicWeightChange: {
-          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
-          if(c.requirements->priorityLevel().value() == 0)
-            throw std::runtime_error(
-                "[WeightedLeastSquares::updateComputationData_] "
-                "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-          se.addVectorWeightEvent(c.constraint.get());
-        }
-        break;
-        case EventType::TaskAddition:
-          addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
-          break;
-        case EventType::TaskRemoval:
-          removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
-          break;
-        default:
-          throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
       }
     }
+    if(fullRebuild)
+    {
+      resetComputationData(problem, memory);
+    }
+    else
+    {
+      while(memory->hasEvents())
+      {
+        auto e = memory->popEvent();
+        switch(e.type())
+        {
+          case EventType::WeightChange: {
+            const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
+            if(c.requirements->priorityLevel().value() == 0)
+              throw std::runtime_error(
+                  "[WeightedLeastSquares::updateComputationData_] "
+                  "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+            se.addScalarWeightEvent(c.constraint.get());
+          }
+          break;
+          case EventType::AnisotropicWeightChange: {
+            const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
+            if(c.requirements->priorityLevel().value() == 0)
+              throw std::runtime_error(
+                  "[WeightedLeastSquares::updateComputationData_] "
+                  "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+            se.addVectorWeightEvent(c.constraint.get());
+          }
+          break;
+          case EventType::TaskAddition:
+            addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
+            break;
+          case EventType::TaskRemoval:
+            removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
+            break;
+          default:
+            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
+        }
+      }
 
-    memory->variables(); // update variable vector if needed
-    memory->solver->process(se);
+      memory->variables(); // update variable vector if needed
+      memory->solver->process(se);
+    }
   }
 }
 
@@ -90,6 +107,19 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
     const LinearizedControlProblem & problem) const
 {
   auto memory = std::unique_ptr<Memory>(new Memory(id(), solverFactory_->createSolver()));
+  processProblem(problem, memory.get());
+
+  return memory;
+}
+
+void WeightedLeastSquares::resetComputationData(const LinearizedControlProblem & problem, Memory * memory) const
+{
+  memory->reset(solverFactory_->createSolver());
+  processProblem(problem, memory);
+}
+
+void WeightedLeastSquares::processProblem(const LinearizedControlProblem & problem, Memory * memory) const
+{
   auto & solver = *memory->solver;
 
   const auto & constraints = problem.constraints();
@@ -194,8 +224,6 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
   }
 
   solver.finalizeBuild();
-
-  return memory;
 }
 
 void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
@@ -296,6 +324,12 @@ void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
 WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
 : LinearizedProblemComputationData(solverId), solver(std::move(solver))
 {}
+
+void WeightedLeastSquares::Memory::reset(std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
+{
+  this->solver = std::move(solver);
+  maxp = 0;
+}
 
 void WeightedLeastSquares::Memory::setVariablesToSolution_(tvm::internal::VariableCountingVector & x)
 {

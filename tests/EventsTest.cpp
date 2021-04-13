@@ -172,20 +172,20 @@ TEST_CASE("Add/Remove constraint with substitutions")
   FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
 
-  pb.remove(t1.get());
+  pb.remove(*t1);
   FAST_CHECK_UNARY(!pb.variables().contains(*x));
   FAST_CHECK_UNARY(pb.variables().contains(*y));
   solver.solve(pb);
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
 
   pb.add(t1);
-  pb.add(hint::Substitution(pb.constraint(t1.get()), x));
+  pb.add(hint::Substitution(pb.constraint(*t1), x));
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
   FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
 
-  pb.remove(t1.get());
+  pb.remove(*t1);
   FAST_CHECK_UNARY(!pb.variables().contains(*x));
   FAST_CHECK_UNARY(pb.variables().contains(*y));
   solver.solve(pb);

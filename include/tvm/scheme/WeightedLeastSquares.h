@@ -38,9 +38,11 @@ private:
   {
     Memory(int solverId, std::unique_ptr<solver::abstract::LeastSquareSolver> solver);
 
+    void reset(std::unique_ptr<solver::abstract::LeastSquareSolver> solver);
+
     std::unique_ptr<solver::abstract::LeastSquareSolver> solver;
 
-    int maxp;
+    int maxp = 0;
 
   protected:
     void setVariablesToSolution_(tvm::internal::VariableCountingVector & x) override;
@@ -119,6 +121,9 @@ public:
   std::unique_ptr<Memory> createComputationData_(const LinearizedControlProblem & problem) const;
 
 protected:
+  void resetComputationData(const LinearizedControlProblem & problem, Memory * memory) const;
+  void processProblem(const LinearizedControlProblem & problem, Memory * memory) const;
+
   void addTask(const LinearizedControlProblem & problem,
                Memory * memory,
                const TaskWithRequirements & task,

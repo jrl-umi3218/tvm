@@ -65,7 +65,7 @@ void LinearizedControlProblem::remove(const TaskWithRequirements & tr)
   {
     return;
   }
-  substitutions_.remove(it->second.constraint);
+  removeSubstitutionFor(*it->second.constraint);
   updater_.removeInput(it->second.constraint.get());
   constraints_.erase(it);
 }
@@ -74,9 +74,41 @@ void LinearizedControlProblem::add(const hint::Substitution & s)
 {
   substitutions_.add(s);
   notify({scheme::internal::ProblemDefinitionEvent::Type::SubstitutionAddition, &s});
+  needFinalize();
+}
+
+void LinearizedControlProblem::remove(const hint::Substitution & s)
+{
+  substitutions_.remove(s);
+  notify({scheme::internal::ProblemDefinitionEvent::Type::SubstitutionRemoval, &s});
+  needFinalize();
 }
 
 const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const { return substitutions_; }
+
+void LinearizedControlProblem::removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr)
+{
+  for(const auto & s : substitutions_.substitutions())
+  {
+    const auto & cs = s.constraints();
+    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == &cstr; });
+    if(it != cs.end())
+    {
+      if(s.isSimple())
+      {
+        remove(s);
+      }
+      else
+      {
+        throw std::runtime_error(
+            "[LinearizedControlProblem::removeSubstitutionFor] This constraint is part of a non-simple substitution. "
+            "Please remove the substitution or rearrange the substitution by hand as it is not possible to decide "
+            "which variables should still be substituted after removing the constraint.");
+      }
+      break;
+    }
+  }
+}
 
 VariableVector LinearizedControlProblem::variables() const
 {

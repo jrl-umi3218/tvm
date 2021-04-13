@@ -94,6 +94,7 @@ protected:
   virtual void update_() {}
   virtual void finalize_() {}
 
+  void needFinalize();
   void notify(const scheme::internal::ProblemDefinitionEvent & e);
 
   Updater updater_;

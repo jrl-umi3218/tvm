@@ -1,4 +1,4 @@
-/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+/** Copyright 2017-2021 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/Variable.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
@@ -6,13 +6,7 @@
 
 #include <algorithm>
 
-namespace tvm
-{
-
-namespace hint
-{
-
-namespace internal
+namespace tvm::hint::internal
 {
 /** Return true if \p s is using (part of) variables substituted by \p t.*/
 static bool dependsOn(const Substitution & s, const Substitution & t)
@@ -30,7 +24,7 @@ static bool dependsOn(const Substitution & s, const Substitution & t)
   return false;
 }
 
-void tvm::hint::internal::Substitutions::add(const Substitution & s)
+void Substitutions::add(const Substitution & s)
 {
   auto i = dependencies_.addNode();
   assert(i == substitutions_.size());
@@ -49,24 +43,15 @@ void tvm::hint::internal::Substitutions::add(const Substitution & s)
   }
 }
 
-bool tvm::hint::internal::Substitutions::remove(LinearConstraintPtr cstr)
+void Substitutions::remove(const Substitution & s)
 {
-  bool changed = false;
-  for(size_t i = 0; i < substitutions_.size();)
-  {
-    const auto & s = substitutions_[i];
-    const auto & cs = s.constraints();
-    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == cstr.get(); });
-    if(it == cs.end())
-    {
-      ++i;
-      continue;
-    }
-    changed = true;
-    dependencies_.removeNode(i);
-    substitutions_.erase(substitutions_.begin() + i);
-  }
-  return changed;
+  auto it =
+      std::find_if(substitutions_.begin(), substitutions_.end(), [&](const auto & e) { return &e == &s; });
+  if(it == substitutions_.end())
+    throw std::runtime_error("[Substitutions::remove] Substitution s is not part of the substitutions.");
+
+  dependencies_.removeNode(it - substitutions_.begin());
+  substitutions_.erase(it);
 }
 
 const std::vector<Substitution> & Substitutions::substitutions() const { return substitutions_; }
@@ -189,8 +174,4 @@ VariableVector Substitutions::substitute(const VariablePtr & x) const
   }
 }
 
-} // namespace internal
-
-} // namespace hint
-
-} // namespace tvm
+} // namespace tvm::hint::internal
