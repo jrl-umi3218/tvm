@@ -22,32 +22,32 @@ public:
   /** Add a constraint \c c and the task \c tr it is derived from so as to keep
    * the mapping \c tr -> \c c
    */
-  void addConstraint(TaskWithRequirements * tr, const LinearConstraintWithRequirements & c)
+  void addConstraint(const TaskWithRequirements & tr, const LinearConstraintWithRequirements & c)
   {
-    assert(task2Constraint_.find(tr) == task2Constraint_.end());
-    task2Constraint_[tr] = c;
+    assert(task2Constraint_.find(&tr) == task2Constraint_.end());
+    task2Constraint_[&tr] = c;
   }
 
   /** Remove constraint corresponding to task \p tr.*/
-  void removeConstraint(TaskWithRequirements * tr) { task2Constraint_.erase(tr); }
+  void removeConstraint(const TaskWithRequirements & tr) { task2Constraint_.erase(&tr); }
 
   /** Add a mapping task -> constraint.*/
-  void addConstraints(const tvm::utils::internal::map<TaskWithRequirements *, LinearConstraintWithRequirements> & map)
+  void addConstraints(const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & map)
   {
     task2Constraint_.insert(map.begin(), map.end());
   }
 
   /** Access the constraint corresponding to \p tr.*/
-  const LinearConstraintWithRequirements & constraint(TaskWithRequirements * tr) const
+  const LinearConstraintWithRequirements & constraint(const TaskWithRequirements & tr) const
   {
-    return task2Constraint_.at(tr);
+    return task2Constraint_.at(&tr);
   }
 
   /** Access the constraint corresponding to \p tr, and return it as a std::optional.*/
   std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintNoThrow(
-      TaskWithRequirements * tr) const
+      const TaskWithRequirements & tr) const
   {
-    auto it = task2Constraint_.find(tr);
+    auto it = task2Constraint_.find(&tr);
     if(it != task2Constraint_.end())
       return it->second;
     else
@@ -59,6 +59,6 @@ protected:
   LinearizedProblemComputationData(int solverId) : ProblemComputationData(solverId) {}
 
 private:
-  tvm::utils::internal::map<TaskWithRequirements *, LinearConstraintWithRequirements> task2Constraint_;
+  tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> task2Constraint_;
 };
 } // namespace tvm::scheme::internal

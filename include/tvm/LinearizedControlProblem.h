@@ -38,7 +38,7 @@ public:
   template<constraint::Type T>
   TaskWithRequirementsPtr add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements & req = {});
   void add(TaskWithRequirementsPtr tr);
-  void remove(TaskWithRequirements * tr);
+  void remove(const TaskWithRequirements & tr);
 
   void add(const hint::Substitution & s);
   const hint::internal::Substitutions & substitutions() const;
@@ -56,7 +56,7 @@ public:
    *
    * \param t TaskWithRequirements object as return by add.
    */
-  LinearConstraintPtr constraint(TaskWithRequirements * t) const;
+  LinearConstraintPtr constraint(const TaskWithRequirements &) const;
 
   /** Access to the linear constraint corresponding to the task \p t
    *
@@ -64,13 +64,13 @@ public:
    *
    * \return A shared_ptr that can be null if \p t is not in the problem.
    */
-  LinearConstraintPtr constraintNoThrow(TaskWithRequirements * t) const;
+  LinearConstraintPtr constraintNoThrow(const TaskWithRequirements &) const;
 
   /** Access to the linear constraint and requirements corresponding to the task \p t
    *
    * \param t TaskWithRequirements object as return by add.
    */
-  const LinearConstraintWithRequirements & constraintWithRequirements(TaskWithRequirements * t) const;
+  const LinearConstraintWithRequirements & constraintWithRequirements(const TaskWithRequirements &) const;
 
   /** Access to the linear constraint and requirements corresponding to the task \p t
    *
@@ -80,10 +80,10 @@ public:
    * if \p t is in the problem.
    */
   std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintWithRequirementsNoThrow(
-      TaskWithRequirements * t) const;
+      const TaskWithRequirements &) const;
 
   /** Return the map task -> constraint*/
-  const tvm::utils::internal::map<TaskWithRequirements *, LinearConstraintWithRequirements> & constraintMap() const;
+  const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & constraintMap() const;
 
 protected:
   /** Compute all quantities necessary for solving the problem.*/
@@ -93,7 +93,7 @@ protected:
   void finalize_() override;
 
 private:
-  utils::internal::map<TaskWithRequirements *, LinearConstraintWithRequirements> constraints_;
+  utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> constraints_;
   hint::internal::Substitutions substitutions_;
 };
 

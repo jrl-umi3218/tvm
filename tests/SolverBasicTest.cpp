@@ -178,7 +178,7 @@ void minimalKinSub()
   auto t3 = lpb.add(-b <= q <= b, task_dynamics::VelocityDamper({1, 0.01, 0, 0.1}), {PriorityLevel(0)});
   auto t4 = lpb.add(dot(q) == 0., {PriorityLevel(1), AnisotropicWeight(Vector3d(10, 2, 1))});
 
-  lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x)));
+  lpb.add(hint::Substitution(lpb.constraint(*t2), dot(x)));
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions().verbose(true));
   for(int i = 0; i < 1; ++i)

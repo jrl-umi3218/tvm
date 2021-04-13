@@ -401,7 +401,7 @@ static void BM_TVM(benchmark::State & state)
 
   tvm::LinearizedControlProblem lpb(pb);
 
-  lpb.add(tvm::hint::Substitution(lpb.constraint(dyn_task.get()), jvrc->tau()));
+  lpb.add(tvm::hint::Substitution(lpb.constraint(*dyn_task), jvrc->tau()));
 
   tvm::scheme::WeightedLeastSquares solver(tvm::solver::DefaultLSSolverFactory{});
 

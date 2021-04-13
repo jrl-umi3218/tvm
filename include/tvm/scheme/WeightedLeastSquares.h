@@ -121,11 +121,11 @@ public:
 protected:
   void addTask(const LinearizedControlProblem & problem,
                Memory * memory,
-               TaskWithRequirements * task,
+               const TaskWithRequirements & task,
                solver::internal::SolverEvents & se) const;
   void removeTask(const LinearizedControlProblem & problem,
                   Memory * memory,
-                  TaskWithRequirements * task,
+                  const TaskWithRequirements & task,
                   solver::internal::SolverEvents & se) const;
 
   WeightedLeastSquaresOptions options_;

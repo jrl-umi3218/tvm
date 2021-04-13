@@ -94,7 +94,7 @@ TEST_CASE("Simple add/Remove constraint")
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
 
-  pb.remove(t1.get());
+  pb.remove(*t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 3)));
 
@@ -106,7 +106,7 @@ TEST_CASE("Simple add/Remove constraint")
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3)));
 
-  pb.remove(t1.get());
+  pb.remove(*t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2)));
 
@@ -115,13 +115,13 @@ TEST_CASE("Simple add/Remove constraint")
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3)));
 
   t1->requirements.weight() = 3;
-  pb.remove(t1.get());
+  pb.remove(*t1);
   pb.add(t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.4, 0)));
 
   t1->requirements.weight() = 100.0;
-  pb.remove(t1.get());
+  pb.remove(*t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2)));
 }
@@ -146,7 +146,7 @@ TEST_CASE("Add/Remove variables from problem")
   FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 0)));
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
 
-  pb.remove(t1.get());
+  pb.remove(*t1);
   solver.solve(pb);
   FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
 }
@@ -290,7 +290,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     LinearizedControlProblem pb;
     buildPb(pb, tasks, added);
     if(withSubstitution)
-      pb.add(hint::Substitution(pb.constraint(tasks[0].get()), x));
+      pb.add(hint::Substitution(pb.constraint(*tasks[0]), x));
 
     // We solve pb for the current list of tasks
     IF_USE_LSSOL(solverLssol.solve(pb));
@@ -299,7 +299,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
 
     if(added[i])
     {
-      pb.remove(tasks[i].get());
+      pb.remove(*tasks[i]);
       added[i] = false;
     }
     else
@@ -384,7 +384,7 @@ void test3Change(const std::bitset<8> & selection)
 
         if(added[i])
         {
-          pb.remove(tasks[i].get());
+          pb.remove(*tasks[i]);
           added[i] = false;
         }
         else
@@ -395,7 +395,7 @@ void test3Change(const std::bitset<8> & selection)
 
         if(added[j])
         {
-          pb.remove(tasks[j].get());
+          pb.remove(*tasks[j]);
           added[j] = false;
         }
         else
@@ -406,7 +406,7 @@ void test3Change(const std::bitset<8> & selection)
 
         if(added[k])
         {
-          pb.remove(tasks[k].get());
+          pb.remove(*tasks[k]);
           added[k] = false;
         }
         else

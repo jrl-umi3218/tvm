@@ -40,6 +40,7 @@ bool WeightedLeastSquares::solve_(const LinearizedControlProblem & problem,
 void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem & problem,
                                                   internal::ProblemComputationData * data) const
 {
+  using EventType = ProblemDefinitionEvent::Type;
   solver::internal::SolverEvents se;
 
   if(data->hasEvents())
@@ -51,8 +52,8 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
       auto e = memory->popEvent();
       switch(e.type())
       {
-        case ProblemDefinitionEvent::Type::WeightChange: {
-          const auto & c = problem.constraintWithRequirements(e.emitter());
+        case EventType::WeightChange: {
+          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
           if(c.requirements->priorityLevel().value() == 0)
             throw std::runtime_error(
                 "[WeightedLeastSquares::updateComputationData_] "
@@ -60,8 +61,8 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
           se.addScalarWeightEvent(c.constraint.get());
         }
         break;
-        case ProblemDefinitionEvent::Type::AnisotropicWeightChange: {
-          const auto & c = problem.constraintWithRequirements(e.emitter());
+        case EventType::AnisotropicWeightChange: {
+          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
           if(c.requirements->priorityLevel().value() == 0)
             throw std::runtime_error(
                 "[WeightedLeastSquares::updateComputationData_] "
@@ -69,11 +70,11 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
           se.addVectorWeightEvent(c.constraint.get());
         }
         break;
-        case ProblemDefinitionEvent::Type::TaskAddition:
-          addTask(problem, memory, e.emitter(), se);
+        case EventType::TaskAddition:
+          addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
           break;
-        case ProblemDefinitionEvent::Type::TaskRemoval:
-          removeTask(problem, memory, e.emitter(), se);
+        case EventType::TaskRemoval:
+          removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
           break;
         default:
           throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
@@ -199,7 +200,7 @@ std::unique_ptr<WeightedLeastSquares::Memory> WeightedLeastSquares::createComput
 
 void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
                                    Memory * memory,
-                                   TaskWithRequirements * task,
+                                   const TaskWithRequirements & task,
                                    solver::internal::SolverEvents & se) const
 {
   // We add a task that is not in the computation data. We get the constraint from problem.
@@ -225,7 +226,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
     }
   }
 
-  int p = task->requirements.priorityLevel().value();
+  int p = task.requirements.priorityLevel().value();
   if((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
   {
     se.addBound(c.constraint);
@@ -246,7 +247,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
 
 void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
                                       Memory * memory,
-                                      TaskWithRequirements * task,
+                                      const TaskWithRequirements & task,
                                       solver::internal::SolverEvents & se) const
 {
   // We need to remove the constraint that was last added for the task.
@@ -273,7 +274,7 @@ void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
     }
   }
 
-  int p = task->requirements.priorityLevel().value();
+  int p = task.requirements.priorityLevel().value();
   if((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
   {
     se.removeBound(c.constraint);
