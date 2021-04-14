@@ -109,6 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9f62bebef62a6ecfb7f831b32be68fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html#ab9f62bebef62a6ecfb7f831b32be68fb">add</a> (const <a class="el" href="a01225.html">Substitution</a> &amp;s)</td></tr>
 <tr class="memdesc:ab9f62bebef62a6ecfb7f831b32be68fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add substitution <code>s</code>.  <a href="#ab9f62bebef62a6ecfb7f831b32be68fb">More...</a><br /></td></tr>
 <tr class="separator:ab9f62bebef62a6ecfb7f831b32be68fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab248abc1e6041667a90319cbec78d80b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html#ab248abc1e6041667a90319cbec78d80b">remove</a> (const <a class="el" href="a01225.html">Substitution</a> &amp;s)</td></tr>
+<tr class="memdesc:ab248abc1e6041667a90319cbec78d80b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a substitution <code>s</code>.  <a href="#ab248abc1e6041667a90319cbec78d80b">More...</a><br /></td></tr>
+<tr class="separator:ab248abc1e6041667a90319cbec78d80b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad02bc0e7015af0667337d2eca808e502"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a01225.html">Substitution</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html#ad02bc0e7015af0667337d2eca808e502">substitutions</a> () const</td></tr>
 <tr class="memdesc:ad02bc0e7015af0667337d2eca808e502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the vector of all substitutions, as added.  <a href="#ad02bc0e7015af0667337d2eca808e502">More...</a><br /></td></tr>
 <tr class="separator:ad02bc0e7015af0667337d2eca808e502"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +145,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abce057acc7ae8f623343806ef23e9cf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01925.html">VariableVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html#abce057acc7ae8f623343806ef23e9cf7">substitute</a> (const <a class="el" href="a00395.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> &amp;x) const</td></tr>
 <tr class="memdesc:abce057acc7ae8f623343806ef23e9cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">If <code>x</code> is one of the substituted variables, returns the variables it is replaced by.  <a href="#abce057acc7ae8f623343806ef23e9cf7">More...</a><br /></td></tr>
 <tr class="separator:abce057acc7ae8f623343806ef23e9cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3f0bfa4811a31a9498dc4a64f2db996"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01225.html">Substitution</a> const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html#af3f0bfa4811a31a9498dc4a64f2db996">getSubstitutionFor</a> (const <a class="el" href="a00985.html">constraint::abstract::LinearConstraint</a> &amp;cstr)</td></tr>
+<tr class="memdesc:af3f0bfa4811a31a9498dc4a64f2db996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the substitution using the constraint.  <a href="#af3f0bfa4811a31a9498dc4a64f2db996">More...</a><br /></td></tr>
+<tr class="separator:af3f0bfa4811a31a9498dc4a64f2db996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -225,7 +231,27 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compute all the data needed for the substitutions. </p>
-<p>Needs to be called after all the call to <code>add</code>, and before the calls to <code>variables</code>, <code>variableSubstitutions</code> and <code>additionalConstraints</code>. </p>
+<p>Needs to be called after all the call to <code>add</code> or <code>remove</code>, and before the calls to <code>variables</code>, <code>variableSubstitutions</code> and <code>additionalConstraints</code>. </p>
+
+</div>
+</div>
+<a id="af3f0bfa4811a31a9498dc4a64f2db996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3f0bfa4811a31a9498dc4a64f2db996">&#9670;&nbsp;</a></span>getSubstitutionFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01225.html">Substitution</a> const* tvm::hint::internal::Substitutions::getSubstitutionFor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00985.html">constraint::abstract::LinearConstraint</a> &amp;&#160;</td>
+          <td class="paramname"><em>cstr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the substitution using the constraint. </p>
 
 </div>
 </div>
@@ -245,6 +271,26 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The variables y. </p>
+
+</div>
+</div>
+<a id="ab248abc1e6041667a90319cbec78d80b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab248abc1e6041667a90319cbec78d80b">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::hint::internal::Substitutions::remove </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01225.html">Substitution</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a substitution <code>s</code>. </p>
 
 </div>
 </div>
@@ -415,7 +461,7 @@ Friends</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00413.html">hint</a></li><li class="navelem"><a class="el" href="a00415.html">internal</a></li><li class="navelem"><a class="el" href="a01217.html">Substitutions</a></li>
-    <li class="footer">Generated on Fri Apr 9 2021 07:25:34 for TVM by
+    <li class="footer">Generated on Wed Apr 14 2021 04:23:29 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

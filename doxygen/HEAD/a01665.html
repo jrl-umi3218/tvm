@@ -185,10 +185,14 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a705f3ac05a843f55e445be023472a9f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#a705f3ac05a843f55e445be023472a9f9">addTask</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory, <a class="el" href="a01001.html">TaskWithRequirements</a> *task, <a class="el" href="a01705.html">solver::internal::SolverEvents</a> &amp;se) const</td></tr>
-<tr class="separator:a705f3ac05a843f55e445be023472a9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fe92df477feb6ca6052a46b9a682519"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#a7fe92df477feb6ca6052a46b9a682519">removeTask</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory, <a class="el" href="a01001.html">TaskWithRequirements</a> *task, <a class="el" href="a01705.html">solver::internal::SolverEvents</a> &amp;se) const</td></tr>
-<tr class="separator:a7fe92df477feb6ca6052a46b9a682519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7276a314f2f64bbe0d46f6c4cdb76db8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#a7276a314f2f64bbe0d46f6c4cdb76db8">resetComputationData</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory) const</td></tr>
+<tr class="separator:a7276a314f2f64bbe0d46f6c4cdb76db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f128c8087617c66bbad887b7f24f84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#a24f128c8087617c66bbad887b7f24f84">processProblem</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory) const</td></tr>
+<tr class="separator:a24f128c8087617c66bbad887b7f24f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca584fc28813ea2d98995ab692f91424"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#aca584fc28813ea2d98995ab692f91424">addTask</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory, const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;task, <a class="el" href="a01705.html">solver::internal::SolverEvents</a> &amp;se) const</td></tr>
+<tr class="separator:aca584fc28813ea2d98995ab692f91424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a151f03149e71926c856026e8a3c76288"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html#a151f03149e71926c856026e8a3c76288">removeTask</a> (const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;problem, Memory *memory, const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;task, <a class="el" href="a01705.html">solver::internal::SolverEvents</a> &amp;se) const</td></tr>
+<tr class="separator:a151f03149e71926c856026e8a3c76288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_a01441"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a01441')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="a01441.html">tvm::scheme::abstract::LinearResolutionScheme&lt; WeightedLeastSquares &gt;</a></td></tr>
 <tr class="memitem:a019151cc7533d74bc20dbaa49940e7d2 inherit pro_methods_a01441"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01441.html#a019151cc7533d74bc20dbaa49940e7d2">LinearResolutionScheme</a> (<a class="el" href="a01657.html">internal::SchemeAbilities</a> abilities, double big=constant::big_number)</td></tr>
 <tr class="separator:a019151cc7533d74bc20dbaa49940e7d2 inherit pro_methods_a01441"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -434,8 +438,8 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a705f3ac05a843f55e445be023472a9f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a705f3ac05a843f55e445be023472a9f9">&#9670;&nbsp;</a></span>addTask()</h2>
+<a id="aca584fc28813ea2d98995ab692f91424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca584fc28813ea2d98995ab692f91424">&#9670;&nbsp;</a></span>addTask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,7 +462,7 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01001.html">TaskWithRequirements</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;&#160;</td>
           <td class="paramname"><em>task</em>, </td>
         </tr>
         <tr>
@@ -552,8 +556,44 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
 
 </div>
 </div>
-<a id="a7fe92df477feb6ca6052a46b9a682519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fe92df477feb6ca6052a46b9a682519">&#9670;&nbsp;</a></span>removeTask()</h2>
+<a id="a24f128c8087617c66bbad887b7f24f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f128c8087617c66bbad887b7f24f84">&#9670;&nbsp;</a></span>processProblem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::scheme::WeightedLeastSquares::processProblem </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;&#160;</td>
+          <td class="paramname"><em>problem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Memory *&#160;</td>
+          <td class="paramname"><em>memory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a151f03149e71926c856026e8a3c76288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a151f03149e71926c856026e8a3c76288">&#9670;&nbsp;</a></span>removeTask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -576,7 +616,7 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01001.html">TaskWithRequirements</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;&#160;</td>
           <td class="paramname"><em>task</em>, </td>
         </tr>
         <tr>
@@ -584,6 +624,42 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
           <td></td>
           <td class="paramtype"><a class="el" href="a01705.html">solver::internal::SolverEvents</a> &amp;&#160;</td>
           <td class="paramname"><em>se</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7276a314f2f64bbe0d46f6c4cdb76db8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7276a314f2f64bbe0d46f6c4cdb76db8">&#9670;&nbsp;</a></span>resetComputationData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::scheme::WeightedLeastSquares::resetComputationData </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01321.html">LinearizedControlProblem</a> &amp;&#160;</td>
+          <td class="paramname"><em>problem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Memory *&#160;</td>
+          <td class="paramname"><em>memory</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -712,7 +788,7 @@ template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a01665.html">WeightedLeastSquares</a></li>
-    <li class="footer">Generated on Fri Apr 9 2021 07:25:34 for TVM by
+    <li class="footer">Generated on Wed Apr 14 2021 04:23:29 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

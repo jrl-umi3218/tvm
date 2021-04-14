@@ -153,6 +153,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aba12e428a82870bfd1922c1a51fd8313"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#aba12e428a82870bfd1922c1a51fd8313">hasEvents</a> () const</td></tr>
 <tr class="memdesc:aba12e428a82870bfd1922c1a51fd8313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the queue not empty?  <a href="#aba12e428a82870bfd1922c1a51fd8313">More...</a><br /></td></tr>
 <tr class="separator:aba12e428a82870bfd1922c1a51fd8313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a183f49691dc62d0cc8d20d522d098d2b"><td class="memItemLeft" align="right" valign="top">const EventQueue::container_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a183f49691dc62d0cc8d20d522d098d2b">events</a> () const</td></tr>
+<tr class="memdesc:a183f49691dc62d0cc8d20d522d098d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of events.  <a href="#a183f49691dc62d0cc8d20d522d098d2b">More...</a><br /></td></tr>
+<tr class="separator:a183f49691dc62d0cc8d20d522d098d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d1be816d64b02cfbff91676f2a42b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a82d1be816d64b02cfbff91676f2a42b1">clearEvents</a> ()</td></tr>
+<tr class="memdesc:a82d1be816d64b02cfbff91676f2a42b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the list of events.  <a href="#a82d1be816d64b02cfbff91676f2a42b1">More...</a><br /></td></tr>
+<tr class="separator:a82d1be816d64b02cfbff91676f2a42b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d38ae0ccf39f2b84b2862a39cf073d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html#a6d38ae0ccf39f2b84b2862a39cf073d3">clearVariables</a> ()</td></tr>
+<tr class="memdesc:a6d38ae0ccf39f2b84b2862a39cf073d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the variable vector.  <a href="#a6d38ae0ccf39f2b84b2862a39cf073d3">More...</a><br /></td></tr>
+<tr class="separator:a6d38ae0ccf39f2b84b2862a39cf073d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -281,7 +290,7 @@ Protected Attributes</h2></td></tr>
 <p>Adding an event changing the problem definition, that needs to be handled by the resolution scheme. </p>
 <p>Events are stored in a queue (FIFO). </p>
 
-<p class="reference">References <a class="el" href="a01645.html#a37da7bd34e5cd5779dfbac43502e9359">tvm::scheme::internal::ProblemDefinitionEvent::emitter()</a>, <a class="el" href="a01645.html#add21aabf2172548b0cef1edf725bebb7afa2e45ca12d0da1e2ac88433424d2760">tvm::scheme::internal::ProblemDefinitionEvent::TaskRemoval</a>, and <a class="el" href="a01645.html#ad6d62ed5e9d52e29029417570cdc3481">tvm::scheme::internal::ProblemDefinitionEvent::type()</a>.</p>
+<p class="reference">References <a class="el" href="a01645.html#a978138aed89e626b3daa9199ffda7b72">tvm::scheme::internal::ProblemDefinitionEvent::emitter()</a>, <a class="el" href="a01645.html#add21aabf2172548b0cef1edf725bebb7afa2e45ca12d0da1e2ac88433424d2760">tvm::scheme::internal::ProblemDefinitionEvent::TaskRemoval</a>, and <a class="el" href="a01645.html#ad6d62ed5e9d52e29029417570cdc3481">tvm::scheme::internal::ProblemDefinitionEvent::type()</a>.</p>
 
 </div>
 </div>
@@ -341,6 +350,91 @@ Protected Attributes</h2></td></tr>
 <p>Add a set of variables, calling <a class="el" href="a01637.html#abf75a479cead58d41aef3a0a98302621" title="Add a variable if not already present. ">addVariable(VariablePtr var)</a> on each variable. </p>
 
 <p class="reference">References <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be">tvm::VariableVector::variables()</a>.</p>
+
+</div>
+</div>
+<a id="a82d1be816d64b02cfbff91676f2a42b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d1be816d64b02cfbff91676f2a42b1">&#9670;&nbsp;</a></span>clearEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::scheme::internal::ProblemComputationData::clearEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear the list of events. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01621.html#ab965dd40eb9eb4e54590173df0ab7df9">tvm::scheme::internal::LinearizedProblemComputationData::reset()</a>.</p>
+
+</div>
+</div>
+<a id="a6d38ae0ccf39f2b84b2862a39cf073d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d38ae0ccf39f2b84b2862a39cf073d3">&#9670;&nbsp;</a></span>clearVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::scheme::internal::ProblemComputationData::clearVariables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear the variable vector. </p>
+
+<p class="reference">Referenced by <a class="el" href="a01621.html#ab965dd40eb9eb4e54590173df0ab7df9">tvm::scheme::internal::LinearizedProblemComputationData::reset()</a>.</p>
+
+</div>
+</div>
+<a id="a183f49691dc62d0cc8d20d522d098d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a183f49691dc62d0cc8d20d522d098d2b">&#9670;&nbsp;</a></span>events()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const ProblemComputationData::EventQueue::container_type &amp; tvm::scheme::internal::ProblemComputationData::events </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List of events. </p>
 
 </div>
 </div>
@@ -623,7 +717,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00421.html">scheme</a></li><li class="navelem"><a class="el" href="a00423.html">internal</a></li><li class="navelem"><a class="el" href="a01637.html">ProblemComputationData</a></li>
-    <li class="footer">Generated on Fri Apr 9 2021 07:25:34 for TVM by
+    <li class="footer">Generated on Wed Apr 14 2021 04:23:29 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

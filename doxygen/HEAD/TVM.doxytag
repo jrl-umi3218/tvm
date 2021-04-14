@@ -2731,6 +2731,7 @@
     <filename>a00236</filename>
     <class kind="class">tvm::scheme::internal::ProblemDefinitionEvent</class>
     <namespace>tvm</namespace>
+    <namespace>tvm::hint</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
@@ -6441,8 +6442,8 @@
       <type>void</type>
       <name>remove</name>
       <anchorfile>a01005.html</anchorfile>
-      <anchor>a5093af14ef4e96ee685094e3fb19b80e</anchor>
-      <arglist>(TaskWithRequirements *tr)</arglist>
+      <anchor>ab7d14c977e16f47dd95723f7a00b9860</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr)</arglist>
     </member>
     <member kind="function">
       <type>const std::vector&lt; TaskWithRequirementsPtr &gt; &amp;</type>
@@ -6485,6 +6486,20 @@
       <anchorfile>a01005.html</anchorfile>
       <anchor>a204e58c08ba50b7dca7bb8c70369096e</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>needFinalize</name>
+      <anchorfile>a01005.html</anchorfile>
+      <anchor>abc3c08ab93cdab5cf6f1ba6878d8a78d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a01005.html</anchorfile>
+      <anchor>a30659a234e8cf5b06920551d01549859</anchor>
+      <arglist>(const scheme::internal::ProblemDefinitionEvent &amp;e)</arglist>
     </member>
     <member kind="variable" protection="protected">
       <type>Updater</type>
@@ -6599,6 +6614,13 @@
       <anchorfile>a01125.html</anchorfile>
       <anchor>aee290367d6bb4a7a65d8c18bf9951504</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>removeNode</name>
+      <anchorfile>a01125.html</anchorfile>
+      <anchor>ae3755ce96c84bf38e377c2b58dba061f</anchor>
+      <arglist>(size_t id)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -9389,8 +9411,8 @@
       <type>void</type>
       <name>remove</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>ade5c2dbb9049e1f470b952b38e66b580</anchor>
-      <arglist>(TaskWithRequirements *tr)</arglist>
+      <anchor>aa46c478513eeb9124fdc9ac5b18fae6e</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -9400,11 +9422,25 @@
       <arglist>(const hint::Substitution &amp;s)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>remove</name>
+      <anchorfile>a01321.html</anchorfile>
+      <anchor>a6bed35993e789baec7e43d496f63296a</anchor>
+      <arglist>(const hint::Substitution &amp;s)</arglist>
+    </member>
+    <member kind="function">
       <type>const hint::internal::Substitutions &amp;</type>
       <name>substitutions</name>
       <anchorfile>a01321.html</anchorfile>
       <anchor>a3c72fec3889c47156712d2525d3af078</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>removeSubstitutionFor</name>
+      <anchorfile>a01321.html</anchorfile>
+      <anchor>a0be218bfefb4b81d111a65985bee48b3</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;cstr)</arglist>
     </member>
     <member kind="function">
       <type>VariableVector</type>
@@ -9424,35 +9460,35 @@
       <type>LinearConstraintPtr</type>
       <name>constraint</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>a34dd0b835d4e281927f4122660aba19f</anchor>
-      <arglist>(TaskWithRequirements *t) const</arglist>
+      <anchor>af0ceb9d1d8a20b80293e3fc6db0eafff</anchor>
+      <arglist>(const TaskWithRequirements &amp;t) const</arglist>
     </member>
     <member kind="function">
       <type>LinearConstraintPtr</type>
       <name>constraintNoThrow</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>a02d0c2c507986cd8a72cede923135c3d</anchor>
-      <arglist>(TaskWithRequirements *t) const</arglist>
+      <anchor>a92ad1014a92811ae2be612c07df369ef</anchor>
+      <arglist>(const TaskWithRequirements &amp;t) const</arglist>
     </member>
     <member kind="function">
       <type>const LinearConstraintWithRequirements &amp;</type>
       <name>constraintWithRequirements</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>a8b3ed75a6adbb11e00913caf0c5a011a</anchor>
-      <arglist>(TaskWithRequirements *t) const</arglist>
+      <anchor>ae7e3cb3cf531cecfd26b55cf28163c0c</anchor>
+      <arglist>(const TaskWithRequirements &amp;t) const</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; std::reference_wrapper&lt; const LinearConstraintWithRequirements &gt; &gt;</type>
       <name>constraintWithRequirementsNoThrow</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>a96a3317934f9bb6e77d4c58e88f4feb3</anchor>
-      <arglist>(TaskWithRequirements *t) const</arglist>
+      <anchor>a2f0a00951e77fb1ce12f549ace0912d5</anchor>
+      <arglist>(const TaskWithRequirements &amp;t) const</arglist>
     </member>
     <member kind="function">
-      <type>const tvm::utils::internal::map&lt; TaskWithRequirements *, LinearConstraintWithRequirements &gt; &amp;</type>
+      <type>const tvm::utils::internal::map&lt; TaskWithRequirements const *, LinearConstraintWithRequirements &gt; &amp;</type>
       <name>constraintMap</name>
       <anchorfile>a01321.html</anchorfile>
-      <anchor>acc8a78e27f70c2a0ecec4645ef45f9b2</anchor>
+      <anchor>ad50d2dd419e911b413dd69e53b9403bb</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function" protection="protected">
@@ -9478,36 +9514,36 @@
       <type>void</type>
       <name>addConstraint</name>
       <anchorfile>a01621.html</anchorfile>
-      <anchor>a5e403306f412046e73b997b46cf49e31</anchor>
-      <arglist>(TaskWithRequirements *tr, const LinearConstraintWithRequirements &amp;c)</arglist>
+      <anchor>a978d2fc8694d34dd4c7e26eb03d33278</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr, const LinearConstraintWithRequirements &amp;c)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>removeConstraint</name>
       <anchorfile>a01621.html</anchorfile>
-      <anchor>aecea646b8b6646d3ccaa481cc60d5ec1</anchor>
-      <arglist>(TaskWithRequirements *tr)</arglist>
+      <anchor>ac3546c7aa07c2954f6d7de8899a58980</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>addConstraints</name>
       <anchorfile>a01621.html</anchorfile>
-      <anchor>a3d5e5b32aa0f33492800b53180bc64ff</anchor>
-      <arglist>(const tvm::utils::internal::map&lt; TaskWithRequirements *, LinearConstraintWithRequirements &gt; &amp;map)</arglist>
+      <anchor>a065e13c579df6fd3207d35e625e636a4</anchor>
+      <arglist>(const tvm::utils::internal::map&lt; TaskWithRequirements const *, LinearConstraintWithRequirements &gt; &amp;map)</arglist>
     </member>
     <member kind="function">
       <type>const LinearConstraintWithRequirements &amp;</type>
       <name>constraint</name>
       <anchorfile>a01621.html</anchorfile>
-      <anchor>adbf0a2526e897df51b2430ee2cab4e9f</anchor>
-      <arglist>(TaskWithRequirements *tr) const</arglist>
+      <anchor>a34a00d345e046ce7069b5354f80800cb</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr) const</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; std::reference_wrapper&lt; const LinearConstraintWithRequirements &gt; &gt;</type>
       <name>constraintNoThrow</name>
       <anchorfile>a01621.html</anchorfile>
-      <anchor>a73947ebe2d7e550e1bb4d24eb17b944e</anchor>
-      <arglist>(TaskWithRequirements *tr) const</arglist>
+      <anchor>a819af22869173d17f75ba25755bf3843</anchor>
+      <arglist>(const TaskWithRequirements &amp;tr) const</arglist>
     </member>
     <member kind="function" protection="protected">
       <type></type>
@@ -9515,6 +9551,13 @@
       <anchorfile>a01621.html</anchorfile>
       <anchor>acad6ec7f38a755cc1e80520c30c393fc</anchor>
       <arglist>(int solverId)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>a01621.html</anchorfile>
+      <anchor>ab965dd40eb9eb4e54590173df0ab7df9</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -12541,6 +12584,27 @@
       <anchor>aba12e428a82870bfd1922c1a51fd8313</anchor>
       <arglist>() const</arglist>
     </member>
+    <member kind="function">
+      <type>const EventQueue::container_type &amp;</type>
+      <name>events</name>
+      <anchorfile>a01637.html</anchorfile>
+      <anchor>a183f49691dc62d0cc8d20d522d098d2b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clearEvents</name>
+      <anchorfile>a01637.html</anchorfile>
+      <anchor>a82d1be816d64b02cfbff91676f2a42b1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clearVariables</name>
+      <anchorfile>a01637.html</anchorfile>
+      <anchor>a6d38ae0ccf39f2b84b2862a39cf073d3</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function" protection="protected">
       <type></type>
       <name>ProblemComputationData</name>
@@ -12590,13 +12654,57 @@
       <enumvalue file="a01645.html" anchor="add21aabf2172548b0cef1edf725bebb7a5a108faae93ccced54796866ca9741cc">AnisotropicWeightChange</enumvalue>
       <enumvalue file="a01645.html" anchor="add21aabf2172548b0cef1edf725bebb7aa6799a77cc26fcb05546d9840af38e35">TaskAddition</enumvalue>
       <enumvalue file="a01645.html" anchor="add21aabf2172548b0cef1edf725bebb7afa2e45ca12d0da1e2ac88433424d2760">TaskRemoval</enumvalue>
+      <enumvalue file="a01645.html" anchor="add21aabf2172548b0cef1edf725bebb7a7dde3cd2718e7b1d0adadda134a5b9f5">SubstitutionAddition</enumvalue>
+      <enumvalue file="a01645.html" anchor="add21aabf2172548b0cef1edf725bebb7a4eaa9c1433c7da4185ca6b72c4adae52">SubstitutionRemoval</enumvalue>
+    </member>
+    <member kind="typedef">
+      <type>std::conditional_t&lt; t&lt;=Type::TaskRemoval, TaskWithRequirements, hint::Substitution &gt;</type>
+      <name>EmitterType</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>ab1604e629d8af0df4bd67c2b90c21206</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>ProblemDefinitionEvent</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a95c0bc43978937032b99abbaece32f9b</anchor>
-      <arglist>(Type type, TaskWithRequirements *emitter)</arglist>
+      <anchor>a08aaf1bf79c32c717d81c2d640ace3f0</anchor>
+      <arglist>(Type type, const TaskWithRequirements &amp;emitter)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProblemDefinitionEvent</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>aad4ad9e3c84e43353e07aa048e878fe5</anchor>
+      <arglist>(Type type, hint::Substitution const *emitter)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProblemDefinitionEvent</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>a2509e9576cf2b4d17f606721fa793edf</anchor>
+      <arglist>(const ProblemDefinitionEvent &amp;)=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProblemDefinitionEvent</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>ae84855532fa01c31797bc87941469df9</anchor>
+      <arglist>(ProblemDefinitionEvent &amp;&amp;)=default</arglist>
+    </member>
+    <member kind="function">
+      <type>ProblemDefinitionEvent &amp;</type>
+      <name>operator=</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>ab105b8db59ef26acaa2a67e3d7019dd3</anchor>
+      <arglist>(const ProblemDefinitionEvent &amp;)=default</arglist>
+    </member>
+    <member kind="function">
+      <type>ProblemDefinitionEvent &amp;</type>
+      <name>operator=</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>aec15688b9be5bab333cd84b3f43e6d81</anchor>
+      <arglist>(ProblemDefinitionEvent &amp;&amp;)=default</arglist>
     </member>
     <member kind="function">
       <type>Type</type>
@@ -12606,10 +12714,17 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>TaskWithRequirements *</type>
+      <type>void const  *const</type>
       <name>emitter</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a37da7bd34e5cd5779dfbac43502e9359</anchor>
+      <anchor>a978138aed89e626b3daa9199ffda7b72</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const auto &amp;</type>
+      <name>typedEmitter</name>
+      <anchorfile>a01645.html</anchorfile>
+      <anchor>ad953071f63fb01c7d7df39f330fd984a</anchor>
       <arglist>() const</arglist>
     </member>
   </compound>
@@ -15251,6 +15366,13 @@
       <arglist>(const Substitution &amp;s)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>remove</name>
+      <anchorfile>a01217.html</anchorfile>
+      <anchor>ab248abc1e6041667a90319cbec78d80b</anchor>
+      <arglist>(const Substitution &amp;s)</arglist>
+    </member>
+    <member kind="function">
       <type>const std::vector&lt; Substitution &gt; &amp;</type>
       <name>substitutions</name>
       <anchorfile>a01217.html</anchorfile>
@@ -15326,6 +15448,13 @@
       <anchorfile>a01217.html</anchorfile>
       <anchor>abce057acc7ae8f623343806ef23e9cf7</anchor>
       <arglist>(const VariablePtr &amp;x) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Substitution const  *</type>
+      <name>getSubstitutionFor</name>
+      <anchorfile>a01217.html</anchorfile>
+      <anchor>af3f0bfa4811a31a9498dc4a64f2db996</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;cstr)</arglist>
     </member>
     <member kind="friend" protection="private">
       <type>friend class</type>
@@ -16685,17 +16814,31 @@
     </member>
     <member kind="function" protection="protected">
       <type>void</type>
+      <name>resetComputationData</name>
+      <anchorfile>a01665.html</anchorfile>
+      <anchor>a7276a314f2f64bbe0d46f6c4cdb76db8</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>processProblem</name>
+      <anchorfile>a01665.html</anchorfile>
+      <anchor>a24f128c8087617c66bbad887b7f24f84</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
       <name>addTask</name>
       <anchorfile>a01665.html</anchorfile>
-      <anchor>a705f3ac05a843f55e445be023472a9f9</anchor>
-      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, TaskWithRequirements *task, solver::internal::SolverEvents &amp;se) const</arglist>
+      <anchor>aca584fc28813ea2d98995ab692f91424</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, const TaskWithRequirements &amp;task, solver::internal::SolverEvents &amp;se) const</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>void</type>
       <name>removeTask</name>
       <anchorfile>a01665.html</anchorfile>
-      <anchor>a7fe92df477feb6ca6052a46b9a682519</anchor>
-      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, TaskWithRequirements *task, solver::internal::SolverEvents &amp;se) const</arglist>
+      <anchor>a151f03149e71926c856026e8a3c76288</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, const TaskWithRequirements &amp;task, solver::internal::SolverEvents &amp;se) const</arglist>
     </member>
     <member kind="variable" protection="protected">
       <type>WeightedLeastSquaresOptions</type>

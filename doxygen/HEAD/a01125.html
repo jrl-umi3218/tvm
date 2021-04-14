@@ -109,6 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aee290367d6bb4a7a65d8c18bf9951504"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#aee290367d6bb4a7a65d8c18bf9951504">addNode</a> ()</td></tr>
 <tr class="memdesc:aee290367d6bb4a7a65d8c18bf9951504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a node and return its id.  <a href="#aee290367d6bb4a7a65d8c18bf9951504">More...</a><br /></td></tr>
 <tr class="separator:aee290367d6bb4a7a65d8c18bf9951504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3755ce96c84bf38e377c2b58dba061f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#ae3755ce96c84bf38e377c2b58dba061f">removeNode</a> (size_t id)</td></tr>
+<tr class="memdesc:ae3755ce96c84bf38e377c2b58dba061f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node and all its associated edges.  <a href="#ae3755ce96c84bf38e377c2b58dba061f">More...</a><br /></td></tr>
+<tr class="separator:ae3755ce96c84bf38e377c2b58dba061f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae26dad1f527f3e404eb4677c15f91bd8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html#ae26dad1f527f3e404eb4677c15f91bd8">addEdge</a> (size_t from, size_t to)</td></tr>
 <tr class="memdesc:ae26dad1f527f3e404eb4677c15f91bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an edge from node with id <code>from</code> to node with id <code>to</code>.  <a href="#ae26dad1f527f3e404eb4677c15f91bd8">More...</a><br /></td></tr>
 <tr class="separator:ae26dad1f527f3e404eb4677c15f91bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,6 +285,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae3755ce96c84bf38e377c2b58dba061f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3755ce96c84bf38e377c2b58dba061f">&#9670;&nbsp;</a></span>removeNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::graph::internal::DependencyGraph::removeNode </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a node and all its associated edges. </p>
+
+</div>
+</div>
 <a id="ae4ab069840fa478652656d43672a2a7b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae4ab069840fa478652656d43672a2a7b">&#9670;&nbsp;</a></span>size()</h2>
 
@@ -308,7 +331,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a00410.html">graph</a></li><li class="navelem"><a class="el" href="a00412.html">internal</a></li><li class="navelem"><a class="el" href="a01125.html">DependencyGraph</a></li>
-    <li class="footer">Generated on Fri Apr 9 2021 07:25:34 for TVM by
+    <li class="footer">Generated on Wed Apr 14 2021 04:23:29 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

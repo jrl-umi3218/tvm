@@ -5,6 +5,7 @@ var searchData=
   ['na',['NA',['../a01249.html#a9205f791aecea843ac98ffa6995691acaf15ed658ed1f197afbd6a6c77ed9661a',1,'tvm::internal::MatrixProperties']]],
   ['name',['name',['../a01153.html#ac1edefa4d7fc51c35243eb50d318331e',1,'tvm::graph::internal::Log::Update::name()'],['../a01157.html#a3cc6a42382f567b7b491904b7fd8a14b',1,'tvm::graph::internal::Log::Output::name()'],['../a01161.html#a440b74e37ed387a629d31eec2ca86b2c',1,'tvm::graph::internal::Log::Input::name()'],['../a01397.html#accce1b0aeee4a0493a6025e760b74467',1,'tvm::robot::Frame::name()'],['../a01433.html#ae626a4c93e130c8f728a88c9784b3ed9',1,'tvm::Robot::name()'],['../a01913.html#aa93593f8090b22789e65e9d75c96a56c',1,'tvm::Variable::name()']]],
   ['nearestpoint_5f',['nearestPoint_',['../a01369.html#a76a1aebaef648808cef92eb00922eb01',1,'tvm::robot::CollisionFunction::CollisionData::ObjectData']]],
+  ['needfinalize',['needFinalize',['../a01005.html#abc3c08ab93cdab5cf6f1ba6878d8a78d',1,'tvm::ControlProblem']]],
   ['negative_5fdefinite',['NEGATIVE_DEFINITE',['../a01249.html#a9205f791aecea843ac98ffa6995691acaf1a0ade46356456857234d89b5a803d1',1,'tvm::internal::MatrixProperties']]],
   ['negative_5fsemidefinite',['NEGATIVE_SEMIDEFINITE',['../a01249.html#a9205f791aecea843ac98ffa6995691aca871dc3ffd0222b4679aa5a42ced5944d',1,'tvm::internal::MatrixProperties']]],
   ['neq_5f',['nEq_',['../a01681.html#af93ab7797fc1992046da3b518c21a4b4',1,'tvm::solver::abstract::LeastSquareSolver']]],
@@ -36,7 +37,7 @@ var searchData=
   ['normaldot',['normalDot',['../a01073.html#ad738b3a103c3ce0188dfcd15f84b7bab',1,'tvm::geometry::Plane']]],
   ['normaldotdot',['normalDotDot',['../a01073.html#a8038ea0966c53871016e4e38176f1265',1,'tvm::geometry::Plane']]],
   ['normvecdist_5f',['normVecDist_',['../a01365.html#a2e8b91445cf9b2d4216c587184f65e94',1,'tvm::robot::CollisionFunction::CollisionData']]],
-  ['notify',['notify',['../a01017.html#a18ebdae0bde7db6a3ad883a5d60ec843',1,'tvm::event::Source']]],
+  ['notify',['notify',['../a01005.html#a30659a234e8cf5b06920551d01549859',1,'tvm::ControlProblem::notify()'],['../a01017.html#a18ebdae0bde7db6a3ad883a5d60ec843',1,'tvm::event::Source::notify()']]],
   ['notimplemented',['NotImplemented',['../a01049.html',1,'tvm::exception']]],
   ['numberofvariables',['numberOfVariables',['../a01925.html#ac7641ac8683bb7d30cf945f8548bca58',1,'tvm::VariableVector']]]
 ];

@@ -21,6 +21,7 @@ var searchData=
   ['getmappingof',['getMappingOf',['../a01925.html#a2c015cef9a80aaa5bf4118ef92ff8cb9',1,'tvm::VariableVector']]],
   ['getpointervalue',['getPointerValue',['../a00412.html#aa595f4e0beceebe4489e216d83a7c096',1,'tvm::graph::internal']]],
   ['getsourcevector',['getSourceVector',['../a01633.html#abe3e3b813dedd5ce0efd777a4d68c4c8',1,'tvm::scheme::internal::VectorAssignment']]],
+  ['getsubstitutionfor',['getSubstitutionFor',['../a01217.html#af3f0bfa4811a31a9498dc4a64f2db996',1,'tvm::hint::internal::Substitutions']]],
   ['gettargetmatrix',['getTargetMatrix',['../a01625.html#a6e2524b0f5bc6c853929b8c78365bfd1',1,'tvm::scheme::internal::MatrixAssignment']]],
   ['gettargetvector',['getTargetVector',['../a01629.html#a89ec7327f3807c669f98ead31f1b4f42',1,'tvm::scheme::internal::VectorSubstitutionAssignement']]],
   ['graph_2eh',['graph.h',['../a00311.html',1,'']]],

@@ -139,8 +139,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6a238c66cab8b9103dd501b4c3e60244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ace9b41936e3bd34e2a939a43871e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#a8ace9b41936e3bd34e2a939a43871e3f">add</a> (<a class="el" href="a00395.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> tr)</td></tr>
 <tr class="separator:a8ace9b41936e3bd34e2a939a43871e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5093af14ef4e96ee685094e3fb19b80e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#a5093af14ef4e96ee685094e3fb19b80e">remove</a> (<a class="el" href="a01001.html">TaskWithRequirements</a> *tr)</td></tr>
-<tr class="separator:a5093af14ef4e96ee685094e3fb19b80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d14c977e16f47dd95723f7a00b9860"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#ab7d14c977e16f47dd95723f7a00b9860">remove</a> (const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;tr)</td></tr>
+<tr class="separator:ab7d14c977e16f47dd95723f7a00b9860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3a606e35f53e2dd15dbf848c0b4195e"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00395.html#a46e0b62fd9477cadab32a4e39d360a9f">TaskWithRequirementsPtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#ac3a606e35f53e2dd15dbf848c0b4195e">tasks</a> () const</td></tr>
 <tr class="separator:ac3a606e35f53e2dd15dbf848c0b4195e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab227fcc80d495c4d90375954227c4474"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#ab227fcc80d495c4d90375954227c4474">size</a> () const</td></tr>
@@ -159,6 +159,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a9b8e6ce5aa3451a567c0b0c3707c92ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a204e58c08ba50b7dca7bb8c70369096e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#a204e58c08ba50b7dca7bb8c70369096e">finalize_</a> ()</td></tr>
 <tr class="separator:a204e58c08ba50b7dca7bb8c70369096e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc3c08ab93cdab5cf6f1ba6878d8a78d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#abc3c08ab93cdab5cf6f1ba6878d8a78d">needFinalize</a> ()</td></tr>
+<tr class="separator:abc3c08ab93cdab5cf6f1ba6878d8a78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30659a234e8cf5b06920551d01549859"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01005.html#a30659a234e8cf5b06920551d01549859">notify</a> (const <a class="el" href="a01645.html">scheme::internal::ProblemDefinitionEvent</a> &amp;e)</td></tr>
+<tr class="separator:a30659a234e8cf5b06920551d01549859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -420,6 +424,57 @@ template&lt;constraint::Type T&gt; </div>
 
 </div>
 </div>
+<a id="abc3c08ab93cdab5cf6f1ba6878d8a78d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3c08ab93cdab5cf6f1ba6878d8a78d">&#9670;&nbsp;</a></span>needFinalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::ControlProblem::needFinalize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30659a234e8cf5b06920551d01549859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30659a234e8cf5b06920551d01549859">&#9670;&nbsp;</a></span>notify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::ControlProblem::notify </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01645.html">scheme::internal::ProblemDefinitionEvent</a> &amp;&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a105f49549e8d86ca3323546032bff1a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a105f49549e8d86ca3323546032bff1a5">&#9670;&nbsp;</a></span>operator=()</h2>
 
@@ -446,8 +501,8 @@ template&lt;constraint::Type T&gt; </div>
 
 </div>
 </div>
-<a id="a5093af14ef4e96ee685094e3fb19b80e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5093af14ef4e96ee685094e3fb19b80e">&#9670;&nbsp;</a></span>remove()</h2>
+<a id="ab7d14c977e16f47dd95723f7a00b9860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d14c977e16f47dd95723f7a00b9860">&#9670;&nbsp;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -455,7 +510,7 @@ template&lt;constraint::Type T&gt; </div>
         <tr>
           <td class="memname">void tvm::ControlProblem::remove </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01001.html">TaskWithRequirements</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01001.html">TaskWithRequirements</a> &amp;&#160;</td>
           <td class="paramname"><em>tr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -637,7 +692,7 @@ template&lt;typename Problem , typename Scheme &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a01005.html">ControlProblem</a></li>
-    <li class="footer">Generated on Fri Apr 9 2021 07:25:34 for TVM by
+    <li class="footer">Generated on Wed Apr 14 2021 04:23:28 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
