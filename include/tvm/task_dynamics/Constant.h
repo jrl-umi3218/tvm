@@ -33,7 +33,7 @@ protected:
                                                     const Eigen::VectorXd & rhs) const override;
   Order order_() const override;
 
-  TASK_DYNAMICS_DERIVED_FACTORY()
+  TASK_DYNAMICS_DERIVED_FACTORY_Z()
 };
 
 } // namespace task_dynamics
