@@ -49,7 +49,7 @@ public:
    *
    * \note These are all the variables irrespective of any substitutions as
    * substitutions are hints for the solver.
-   * 
+   *
    * \note The result is not cached, i.e. it is recomputed at each call.
    */
   VariableVector variables() const;
