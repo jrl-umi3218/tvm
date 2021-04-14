@@ -45,8 +45,11 @@ public:
   const hint::internal::Substitutions & substitutions() const;
   void removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr);
 
-  /** Access to the variables
+  /** Access to the variables of the problem.
    *
+   * \note These are all the variables irrespective of any substitutions as
+   * substitutions are hints for the solver.
+   * 
    * \note The result is not cached, i.e. it is recomputed at each call.
    */
   VariableVector variables() const;

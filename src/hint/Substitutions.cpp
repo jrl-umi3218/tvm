@@ -47,7 +47,7 @@ void Substitutions::remove(const Substitution & s)
 {
   auto it = std::find_if(substitutions_.begin(), substitutions_.end(), [&](const auto & e) { return &e == &s; });
   if(it == substitutions_.end())
-    throw std::runtime_error("[Substitutions::remove] Substitution s is not part of the substitutions.");
+    return;
 
   dependencies_.removeNode(it - substitutions_.begin());
   substitutions_.erase(it);
@@ -171,6 +171,20 @@ VariableVector Substitutions::substitute(const VariablePtr & x) const
     const auto & f = varSubstitutions_[static_cast<size_t>(it - variables_.begin())];
     return f->variables();
   }
+}
+
+Substitution const * Substitutions::getSubstitutionFor(const constraint::abstract::LinearConstraint & cstr)
+{
+  for(const auto & s : substitutions_)
+  {
+    const auto & cs = s.constraints();
+    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == &cstr; });
+    if(it != cs.end())
+    {
+      return &s;
+    }
+  }
+  return nullptr;
 }
 
 } // namespace tvm::hint::internal

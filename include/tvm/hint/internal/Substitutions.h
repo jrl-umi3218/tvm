@@ -68,6 +68,9 @@ public:
    */
   VariableVector substitute(const VariablePtr & x) const;
 
+  /** Get the substitution using the constraint*/
+  Substitution const * getSubstitutionFor(const constraint::abstract::LinearConstraint & cstr);
+
 private:
   /** The substitutions, as added to the objects*/
   std::vector<Substitution> substitutions_;

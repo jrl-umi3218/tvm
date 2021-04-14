@@ -88,24 +88,19 @@ const hint::internal::Substitutions & LinearizedControlProblem::substitutions() 
 
 void LinearizedControlProblem::removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr)
 {
-  for(const auto & s : substitutions_.substitutions())
+  auto s = substitutions_.getSubstitutionFor(cstr);
+  if(s)
   {
-    const auto & cs = s.constraints();
-    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == &cstr; });
-    if(it != cs.end())
+    if(s->isSimple())
     {
-      if(s.isSimple())
-      {
-        remove(s);
-      }
-      else
-      {
-        throw std::runtime_error(
-            "[LinearizedControlProblem::removeSubstitutionFor] This constraint is part of a non-simple substitution. "
-            "Please remove the substitution or rearrange the substitution by hand as it is not possible to decide "
-            "which variables should still be substituted after removing the constraint.");
-      }
-      break;
+      remove(*s);
+    }
+    else
+    {
+      throw std::runtime_error(
+          "[LinearizedControlProblem::removeSubstitutionFor] This constraint is part of a non-simple substitution. "
+          "Please remove the substitution or rearrange the substitution by hand as it is not possible to decide "
+          "which variables should still be substituted after removing the constraint.");
     }
   }
 }
