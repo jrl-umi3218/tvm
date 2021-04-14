@@ -87,23 +87,24 @@ void DependencyGraph::removeNode(size_t id)
   using Edge = std::pair<size_t, size_t>;
   assert(id < roots_.size());
   // Remove all edges from/to {id}
-  for(auto it = edges_.begin(); it != edges_.end();)
+  std::set<Edge> newEdges;
+  for(const Edge & e : edges_)
   {
-    const Edge & e = *it;
     if(e.first == id || e.second == id)
     {
-      it = edges_.erase(it);
+      continue; // Edge will not be kept
     }
-    else
-    {
-      ++it;
-    }
+    // Keep the edge, but adjust the id of its vertices if necessary.
+    newEdges.insert({(e.first > id) ? e.first - 1 : e.first, (e.second > id) ? e.second - 1 : e.second});
   }
+  edges_.swap(newEdges);
   // We check if the children of {id} can be promoted to roots_
   // i.e. if they have no more edges pointing to them
   for(auto c : children_[id])
   {
-    if(std::find_if(edges_.begin(), edges_.end(), [&](const Edge & e) { return e.second == c; }) == edges_.end())
+    if(std::find_if(edges_.begin(), edges_.end(),
+                    [&](const Edge & e) { return c > id ? (e.second + 1 == c) : (e.second == c); })
+       == edges_.end())
     {
       roots_[c] = true;
     }
