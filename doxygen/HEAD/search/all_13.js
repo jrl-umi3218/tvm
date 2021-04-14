@@ -26,6 +26,7 @@ var searchData=
   ['task_2eh',['Task.h',['../a00272.html',1,'']]],
   ['task_5fdynamics',['task_dynamics',['../a00402.html',1,'tvm']]],
   ['task_5fdynamics_5fderived_5ffactory',['TASK_DYNAMICS_DERIVED_FACTORY',['../a00275.html#abb698affbe75e6eb09581fed3cb1ad62',1,'TaskDynamics.h']]],
+  ['task_5fdynamics_5fderived_5ffactory_5fz',['TASK_DYNAMICS_DERIVED_FACTORY_Z',['../a00275.html#a34c656b2d609b637c50b06996e220763',1,'TaskDynamics.h']]],
   ['taskaddition',['TaskAddition',['../a01645.html#add21aabf2172548b0cef1edf725bebb7aa6799a77cc26fcb05546d9840af38e35',1,'tvm::scheme::internal::ProblemDefinitionEvent']]],
   ['taskdynamics',['TaskDynamics',['../a01761.html',1,'tvm::task_dynamics::abstract::TaskDynamics'],['../a01757.html#ac5bd7229d55aa88ae87cf3ddf6d8df0a',1,'tvm::Task::taskDynamics() const'],['../a01757.html#af2837efa975d36ef1a15ef02ce5d95db',1,'tvm::Task::taskDynamics() const']]],
   ['taskdynamics_2eh',['TaskDynamics.h',['../a00275.html',1,'']]],

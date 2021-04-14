@@ -3627,6 +3627,13 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>TASK_DYNAMICS_DERIVED_FACTORY_Z</name>
+      <anchorfile>a00275.html</anchorfile>
+      <anchor>a34c656b2d609b637c50b06996e220763</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY</name>
       <anchorfile>a00275.html</anchorfile>
       <anchor>a78f5f030eca0b25436ca268039666277</anchor>
