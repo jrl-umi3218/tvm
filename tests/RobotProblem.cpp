@@ -231,7 +231,7 @@ TEST_CASE("Test a problem with a robot")
 
   tvm::LinearizedControlProblem lpb(pb);
 
-  lpb.add(tvm::hint::Substitution(lpb.constraint(tdyn.get()), jvrc->tau()));
+  lpb.add(tvm::hint::Substitution(lpb.constraint(*tdyn), jvrc->tau()));
 
   tvm::scheme::WeightedLeastSquares solver(tvm::solver::DefaultLSSolverOptions{});
 

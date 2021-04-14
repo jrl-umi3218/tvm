@@ -1,4 +1,4 @@
-/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+/** Copyright 2017-2021 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/Variable.h>
 #include <tvm/constraint/abstract/LinearConstraint.h>
@@ -6,16 +6,10 @@
 
 #include <algorithm>
 
-namespace tvm
-{
-
-namespace hint
-{
-
-namespace internal
+namespace tvm::hint::internal
 {
 /** Return true if \p s is using (part of) variables substituted by \p t.*/
-bool dependsOn(const Substitution & s, const Substitution & t)
+static bool dependsOn(const Substitution & s, const Substitution & t)
 {
   for(const auto & x : t.variables())
   {
@@ -30,7 +24,7 @@ bool dependsOn(const Substitution & s, const Substitution & t)
   return false;
 }
 
-void tvm::hint::internal::Substitutions::add(const Substitution & s)
+void Substitutions::add(const Substitution & s)
 {
   auto i = dependencies_.addNode();
   assert(i == substitutions_.size());
@@ -47,6 +41,16 @@ void tvm::hint::internal::Substitutions::add(const Substitution & s)
       dependencies_.addEdge(i, j);
     }
   }
+}
+
+void Substitutions::remove(const Substitution & s)
+{
+  auto it = std::find_if(substitutions_.begin(), substitutions_.end(), [&](const auto & e) { return &e == &s; });
+  if(it == substitutions_.end())
+    return;
+
+  dependencies_.removeNode(it - substitutions_.begin());
+  substitutions_.erase(it);
 }
 
 const std::vector<Substitution> & Substitutions::substitutions() const { return substitutions_; }
@@ -169,8 +173,18 @@ VariableVector Substitutions::substitute(const VariablePtr & x) const
   }
 }
 
-} // namespace internal
+Substitution const * Substitutions::getSubstitutionFor(const constraint::abstract::LinearConstraint & cstr)
+{
+  for(const auto & s : substitutions_)
+  {
+    const auto & cs = s.constraints();
+    auto it = std::find_if(cs.begin(), cs.end(), [&](const auto & c) { return c.get() == &cstr; });
+    if(it != cs.end())
+    {
+      return &s;
+    }
+  }
+  return nullptr;
+}
 
-} // namespace hint
-
-} // namespace tvm
+} // namespace tvm::hint::internal

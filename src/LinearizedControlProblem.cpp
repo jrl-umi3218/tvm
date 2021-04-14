@@ -57,21 +57,53 @@ void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
   }
 }
 
-void LinearizedControlProblem::remove(TaskWithRequirements * tr)
+void LinearizedControlProblem::remove(const TaskWithRequirements & tr)
 {
   ControlProblem::remove(tr);
-  auto it = constraints_.find(tr);
+  auto it = constraints_.find(&tr);
   if(it == constraints_.end())
   {
     return;
   }
+  removeSubstitutionFor(*it->second.constraint);
   updater_.removeInput(it->second.constraint.get());
   constraints_.erase(it);
 }
 
-void LinearizedControlProblem::add(const hint::Substitution & s) { substitutions_.add(s); }
+void LinearizedControlProblem::add(const hint::Substitution & s)
+{
+  substitutions_.add(s);
+  notify({scheme::internal::ProblemDefinitionEvent::Type::SubstitutionAddition, &s});
+  needFinalize();
+}
+
+void LinearizedControlProblem::remove(const hint::Substitution & s)
+{
+  substitutions_.remove(s);
+  notify({scheme::internal::ProblemDefinitionEvent::Type::SubstitutionRemoval, &s});
+  needFinalize();
+}
 
 const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const { return substitutions_; }
+
+void LinearizedControlProblem::removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr)
+{
+  auto s = substitutions_.getSubstitutionFor(cstr);
+  if(s)
+  {
+    if(s->isSimple())
+    {
+      remove(*s);
+    }
+    else
+    {
+      throw std::runtime_error(
+          "[LinearizedControlProblem::removeSubstitutionFor] This constraint is part of a non-simple substitution. "
+          "Please remove the substitution or rearrange the substitution by hand as it is not possible to decide "
+          "which variables should still be substituted after removing the constraint.");
+    }
+  }
+}
 
 VariableVector LinearizedControlProblem::variables() const
 {
@@ -92,14 +124,14 @@ std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constrai
   return constraints;
 }
 
-LinearConstraintPtr LinearizedControlProblem::constraint(TaskWithRequirements * t) const
+LinearConstraintPtr LinearizedControlProblem::constraint(const TaskWithRequirements & t) const
 {
-  return constraints_.at(t).constraint;
+  return constraints_.at(&t).constraint;
 }
 
-LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(TaskWithRequirements * t) const
+LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(const TaskWithRequirements & t) const
 {
-  auto it = constraints_.find(t);
+  auto it = constraints_.find(&t);
   if(it != constraints_.end())
     return it->second.constraint;
   else
@@ -107,22 +139,22 @@ LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(TaskWithRequirem
 }
 
 const LinearConstraintWithRequirements & LinearizedControlProblem::constraintWithRequirements(
-    TaskWithRequirements * t) const
+    const TaskWithRequirements & t) const
 {
-  return constraints_.at(t);
+  return constraints_.at(&t);
 }
 
 std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>>
-    LinearizedControlProblem::constraintWithRequirementsNoThrow(TaskWithRequirements * t) const
+    LinearizedControlProblem::constraintWithRequirementsNoThrow(const TaskWithRequirements & t) const
 {
-  auto it = constraints_.find(t);
+  auto it = constraints_.find(&t);
   if(it != constraints_.end())
     return it->second;
   else
     return {};
 }
 
-const tvm::utils::internal::map<TaskWithRequirements *, LinearConstraintWithRequirements> &
+const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> &
     LinearizedControlProblem::constraintMap() const
 {
   return constraints_;

@@ -103,7 +103,7 @@ TEST_CASE("Substitution")
         lpb.add(-b <= q <= b, task_dynamics::VelocityDamper(dt, {1., 0.01, 0, 1}), {requirements::PriorityLevel(0)});
     auto t4 = lpb.add(idq == 0., task_dynamics::None(), {requirements::PriorityLevel(1)});
 
-    lpb.add(hint::Substitution(lpb.constraint(t2.get()), dot(x, 2)));
+    lpb.add(hint::Substitution(lpb.constraint(*t2), dot(x, 2)));
 
     scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
     tvm::utils::set_is_malloc_allowed(false);
