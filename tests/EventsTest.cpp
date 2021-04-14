@@ -153,43 +153,165 @@ TEST_CASE("Add/Remove variables from problem")
 
 TEST_CASE("Add/Remove constraint with substitutions")
 {
-  Space R2(2);
-  VariablePtr x = R2.createVariable("x");
-  Space R3(3);
-  VariablePtr y = R3.createVariable("y");
+  SUBCASE("Simple substitution")
+  {
+    Space R2(2);
+    VariablePtr x = R2.createVariable("x");
+    Space R3(3);
+    VariablePtr y = R3.createVariable("y");
 
-  VariablePtr y_xy = y->subvariable(R2, "y_xy");
+    VariablePtr y_xy = y->subvariable(R2, "y_xy");
 
-  LinearizedControlProblem pb;
+    LinearizedControlProblem pb;
 
-  auto t1 = pb.add(x - y_xy == 0., {PriorityLevel(1)});
-  auto t2 = pb.add(y == Vector3d(1, 2, 3), {PriorityLevel(1)});
+    auto t1 = pb.add(x - y_xy == 0., {PriorityLevel(1)});
+    auto t2 = pb.add(y == Vector3d(1, 2, 3), {PriorityLevel(1)});
 
-  scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+    scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
 
-  solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    solver.solve(pb);
+    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
+    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
 
-  pb.remove(*t1);
-  FAST_CHECK_UNARY(!pb.variables().contains(*x));
-  FAST_CHECK_UNARY(pb.variables().contains(*y));
-  solver.solve(pb);
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    const auto & varInUse = scheme::internal::getComputationData(pb, solver)->variables();
+    pb.remove(*t1);
+    FAST_CHECK_UNARY_FALSE(pb.variables().contains(*x));
+    FAST_CHECK_UNARY(pb.variables().contains(*y));
+    FAST_CHECK_UNARY(varInUse.contains(*x)); // Computation data were not updated yet
+    FAST_CHECK_UNARY(varInUse.contains(*y));
+    solver.solve(pb);
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
+    FAST_CHECK_UNARY(varInUse.contains(*y));
 
-  pb.add(t1);
-  pb.add(hint::Substitution(pb.constraint(*t1), x));
-  solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    pb.add(t1);
+    pb.add(hint::Substitution(pb.constraint(*t1), x));
+    solver.solve(pb);
+    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
+    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
+    FAST_CHECK_UNARY(varInUse.contains(*y));
 
-  pb.remove(*t1);
-  FAST_CHECK_UNARY(!pb.variables().contains(*x));
-  FAST_CHECK_UNARY(pb.variables().contains(*y));
-  solver.solve(pb);
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    pb.remove(*t1);
+    FAST_CHECK_UNARY_FALSE(pb.variables().contains(*x));
+    FAST_CHECK_UNARY(pb.variables().contains(*y));
+    solver.solve(pb);
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
+    FAST_CHECK_UNARY(varInUse.contains(*y));
+  }
+
+  SUBCASE("Multiple substitutions")
+  {
+    Space R(1);
+    VariablePtr x = R.createVariable("x");
+    VariablePtr y = R.createVariable("y");
+    VariablePtr z = R.createVariable("z");
+    VariablePtr w = R.createVariable("w");
+
+    LinearizedControlProblem pb;
+
+    auto t1 = pb.add(x + y == 0.);
+    auto t2 = pb.add(y + z == 0.);
+    auto t3 = pb.add(z + w == 0.);
+    auto t4 = pb.add(w == 1.);
+
+    scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+
+    auto check = [&](bool bx, bool by, bool bz) {
+      const auto & varInUse = scheme::internal::getComputationData(pb, solver)->variables();
+      FAST_CHECK_EQ(varInUse.contains(*x), bx);
+      FAST_CHECK_EQ(varInUse.contains(*y), by);
+      FAST_CHECK_EQ(varInUse.contains(*z), bz);
+      FAST_CHECK_UNARY(varInUse.contains(*w));
+      FAST_CHECK_EQ(x->value()[0], doctest::Approx(-1));
+      FAST_CHECK_EQ(y->value()[0], doctest::Approx(+1));
+      FAST_CHECK_EQ(z->value()[0], doctest::Approx(-1));
+      FAST_CHECK_EQ(w->value()[0], doctest::Approx(+1));
+    };
+    solver.solve(pb);
+    check(true, true, true);
+
+    // adding all 3 substitutions
+    pb.add(hint::Substitution(pb.constraint(*t1), x));
+    pb.add(hint::Substitution(pb.constraint(*t2), y));
+    pb.add(hint::Substitution(pb.constraint(*t3), z));
+    solver.solve(pb);
+    check(false, false, false);
+
+    // removing middle one (which is in the middle of the substitution dependency graph)
+    pb.removeSubstitutionFor(*pb.constraint(*t2));
+    solver.solve(pb);
+    check(false, true, false);
+
+    // adding and removing different substitutions between solves
+    pb.add(hint::Substitution(pb.constraint(*t2), y));
+    pb.removeSubstitutionFor(*pb.constraint(*t1));
+    solver.solve(pb);
+    check(true, false, false);
+
+    // adding and removing the same substitution
+    pb.add(hint::Substitution(pb.constraint(*t1), x));
+    pb.removeSubstitutionFor(*pb.constraint(*t1));
+    solver.solve(pb);
+    check(true, false, false);
+
+    // removing and adding the same substitution
+    pb.removeSubstitutionFor(*pb.constraint(*t2));
+    pb.add(hint::Substitution(pb.constraint(*t2), y));
+    solver.solve(pb);
+    check(true, false, false);
+
+    // removing several substitution (including one not present)
+    pb.removeSubstitutionFor(*pb.constraint(*t1));
+    pb.removeSubstitutionFor(*pb.constraint(*t2));
+    pb.removeSubstitutionFor(*pb.constraint(*t3));
+    solver.solve(pb);
+    check(true, true, true);
+  }
+
+  SUBCASE("Complex substitution")
+  {
+    Space R(1);
+    VariablePtr x = R.createVariable("x");
+    VariablePtr y = R.createVariable("y");
+    VariablePtr z = R.createVariable("z");
+    VariablePtr w = R.createVariable("w");
+
+    LinearizedControlProblem pb;
+
+    auto t1 = pb.add(x + y + z + w == 0.);
+    auto t2 = pb.add(x - y - z + w == 0.);
+    auto t3 = pb.add(x + z + w == 1.);
+    auto t4 = pb.add(y + z + w == -1.);
+
+    scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
+
+    auto check = [&](bool bx, bool bz) {
+      const auto & varInUse = scheme::internal::getComputationData(pb, solver)->variables();
+      FAST_CHECK_EQ(varInUse.contains(*x), bx);
+      FAST_CHECK_UNARY(varInUse.contains(*y));
+      FAST_CHECK_EQ(varInUse.contains(*z), bz);
+      FAST_CHECK_UNARY(varInUse.contains(*w));
+      FAST_CHECK_EQ(x->value()[0], doctest::Approx(+1));
+      FAST_CHECK_EQ(y->value()[0], doctest::Approx(-1));
+      FAST_CHECK_EQ(z->value()[0], doctest::Approx(+1));
+      FAST_CHECK_EQ(w->value()[0], doctest::Approx(-1));
+    };
+    solver.solve(pb);
+    check(true, true);
+
+    pb.add(hint::Substitution({pb.constraint(*t1), pb.constraint(*t2)}, {x, z}));
+    solver.solve(pb);
+    check(false, false);
+
+    CHECK_THROWS(pb.removeSubstitutionFor(*pb.constraint(*t1)));
+    CHECK_NOTHROW(pb.remove(pb.substitutions().substitutions()[0]));
+    solver.solve(pb);
+    check(true, true);
+  }
 }
 
 // Skip if more than one type of constraints/objective is added more than once
