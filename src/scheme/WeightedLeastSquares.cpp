@@ -42,7 +42,6 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
 {
   using EventType = ProblemDefinitionEvent::Type;
   solver::internal::SolverEvents se;
-  bool fullRebuild = false;
 
   if(data->hasEvents())
   {
@@ -53,53 +52,46 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
     {
       if(e.type() == EventType::SubstitutionAddition || e.type() == EventType::SubstitutionRemoval)
       {
-        fullRebuild = true;
-        break;
+        resetComputationData(problem, memory);
+        return;
       }
     }
-    if(fullRebuild)
+    while(memory->hasEvents())
     {
-      resetComputationData(problem, memory);
-    }
-    else
-    {
-      while(memory->hasEvents())
+      auto e = memory->popEvent();
+      switch(e.type())
       {
-        auto e = memory->popEvent();
-        switch(e.type())
-        {
-          case EventType::WeightChange: {
-            const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
-            if(c.requirements->priorityLevel().value() == 0)
-              throw std::runtime_error(
-                  "[WeightedLeastSquares::updateComputationData_] "
-                  "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-            se.addScalarWeightEvent(c.constraint.get());
-          }
-          break;
-          case EventType::AnisotropicWeightChange: {
-            const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
-            if(c.requirements->priorityLevel().value() == 0)
-              throw std::runtime_error(
-                  "[WeightedLeastSquares::updateComputationData_] "
-                  "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-            se.addVectorWeightEvent(c.constraint.get());
-          }
-          break;
-          case EventType::TaskAddition:
-            addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
-            break;
-          case EventType::TaskRemoval:
-            removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
-            break;
-          default:
-            throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
+        case EventType::WeightChange: {
+          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
+          if(c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error(
+                "[WeightedLeastSquares::updateComputationData_] "
+                "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addScalarWeightEvent(c.constraint.get());
         }
+        break;
+        case EventType::AnisotropicWeightChange: {
+          const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
+          if(c.requirements->priorityLevel().value() == 0)
+            throw std::runtime_error(
+                "[WeightedLeastSquares::updateComputationData_] "
+                "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
+          se.addVectorWeightEvent(c.constraint.get());
+        }
+        break;
+        case EventType::TaskAddition:
+          addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
+          break;
+        case EventType::TaskRemoval:
+          removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
+          break;
+        default:
+          throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
       }
-
-      memory->variables(); // update variable vector if needed
-      memory->solver->process(se);
     }
+
+    memory->variables(); // update variable vector if needed
+    memory->solver->process(se);
   }
 }
 
@@ -327,6 +319,7 @@ WeightedLeastSquares::Memory::Memory(int solverId, std::unique_ptr<solver::abstr
 
 void WeightedLeastSquares::Memory::reset(std::unique_ptr<solver::abstract::LeastSquareSolver> solver)
 {
+  LinearizedProblemComputationData::reset();
   this->solver = std::move(solver);
   maxp = 0;
 }

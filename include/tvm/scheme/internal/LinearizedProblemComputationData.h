@@ -59,6 +59,13 @@ protected:
   /** Constructor, using the id of the solver.*/
   LinearizedProblemComputationData(int solverId) : ProblemComputationData(solverId) {}
 
+  void reset()
+  {
+    task2Constraint_.clear();
+    clearEvents();
+    clearVariables();
+  }
+
 private:
   tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> task2Constraint_;
 };

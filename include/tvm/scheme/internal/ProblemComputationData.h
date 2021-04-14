@@ -71,6 +71,10 @@ public:
   bool hasEvents() const;
   /** List of events.*/
   const EventQueue::container_type & events() const;
+  /** Clear the list of events.*/
+  void clearEvents();
+  /** Clear the variable vector.*/
+  void clearVariables();
 
 protected:
   ProblemComputationData(int solverId);
@@ -144,6 +148,10 @@ inline const ProblemComputationData::EventQueue::container_type & ProblemComputa
 {
   return events_.c;
 }
+
+inline void ProblemComputationData::clearEvents() { events_ = {}; }
+
+inline void ProblemComputationData::clearVariables() { variables_.clear(); }
 
 inline ProblemComputationData::ProblemComputationData(int solverId) : solverId_(solverId) {}
 } // namespace tvm::scheme::internal
