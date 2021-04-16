@@ -16,6 +16,9 @@
 #ifdef TVM_USE_QUADPROG
 #  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
+#ifdef TVM_USE_JRLQP
+#  include <tvm/solver/JRL-QPLeastSquareSolver.h>
+#endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
@@ -151,6 +154,9 @@ TEST_CASE("Simple IK")
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
 #endif
+#ifdef TVM_USE_JRLQP
+  configs.push_back(std::make_shared<JRLQPLSSolverFactory>());
+#endif
 
   testSolvers(lpb, configs, 1e-6);
 }
@@ -170,6 +176,9 @@ TEST_CASE("Problem with subvariables")
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
 #endif
+#ifdef TVM_USE_JRLQP
+  configs.push_back(std::make_shared<JRLQPLSSolverFactory>());
+#endif
 
   testSolvers(lpb, configs, 1e-6);
 }
@@ -188,6 +197,9 @@ TEST_CASE("Problem with subvariables and substitutions")
 #ifdef TVM_USE_QUADPROG
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
+#endif
+#ifdef TVM_USE_JRLQP
+  configs.push_back(std::make_shared<JRLQPLSSolverFactory>());
 #endif
 
   VectorXd x0(20);

@@ -63,7 +63,8 @@ std::vector<tvm::geometry::PlanePtr> makeCube(const Eigen::Vector3d & origin, do
           std::make_shared<tvm::geometry::Plane>(Eigen::Vector3d{0, 0, -1}, origin + Eigen::Vector3d{0, 0, size})};
 }
 
-#if defined(TVM_USE_LSSOL) || defined(TVM_USE_QLD) // Quadprog is having trouble, seemingly with the bounds on f
+#if defined(TVM_USE_LSSOL) || defined(TVM_USE_QLD) \
+    || defined(TVM_USE_JRLQP) // Quadprog is having trouble, seemingly with the bounds on f
 TEST_CASE("Test a problem with a robot")
 {
 #  if NDEBUG

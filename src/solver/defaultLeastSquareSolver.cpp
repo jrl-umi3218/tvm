@@ -26,6 +26,11 @@ std::unique_ptr<abstract::LeastSquareSolver> DefaultLSSolverFactory::createSolve
 #    ifdef TVM_USE_QUADPROG
   using SolverType = QuadprogLeastSquareSolver;
   using SolverOption = QuadprogLSSolverOptions;
+#    else
+#      ifdef TVM_USE_JRLQP
+  using SolverType = JRLQPLeastSquareSolver;
+  using SolverOption = JRLQPLSSolverOptions;
+#      endif
 #    endif
 #  endif
 #endif

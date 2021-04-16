@@ -76,6 +76,7 @@ JRLQPLeastSquareSolver::ImpactFromChanges JRLQPLeastSquareSolver::resize_(int nO
   a_.resize(n);
   impact.equalityConstraints_ = ImpactFromChanges::willReallocate(C_, nCstr, n);
   C_.resize(nCstr, n);
+  Ct_.resize(n, nCstr);
   C_.setZero();
   bl_ = Eigen::VectorXd::Constant(nCstr, -big_number_);
   bu_ = Eigen::VectorXd::Constant(nCstr, +big_number_);
@@ -147,18 +148,22 @@ void JRLQPLeastSquareSolver::postAssignmentProcess_()
   }
   else
   {
-    // c = D^T e
-    a_.noalias() = D_.topRows(nObj_).transpose() * e_;
+    // a = D^T e
+    a_.noalias() = D_.transpose() * e_;
 
     // Q = D^T D
     Q_.noalias() = D_.transpose() * D_; // TODO check if this can be optimized: JRLQP need only half the matrix.
     Q_.diagonal().array() += damping_;
   }
+
+  // Transpose C as constraints in GoldfarbIdnaniSolver are of he form l<=C^T x<=u
+  // TODO: change when assignment will be available for transposed target
+  Ct_ = C_.transpose();
 }
 
 bool JRLQPLeastSquareSolver::solve_()
 {
-  status_ = gi_.solve(Q_, a_, C_, bl_, bu_, xl_, xu_);
+  status_ = gi_.solve(Q_, a_, Ct_, bl_, bu_, xl_, xu_);
   xStar_ = gi_.solution();
   return status_ == jrl::qp::TerminationStatus::SUCCESS;
 }

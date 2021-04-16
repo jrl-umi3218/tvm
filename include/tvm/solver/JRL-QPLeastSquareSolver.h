@@ -49,7 +49,7 @@ protected:
   void postAssignmentProcess_() override;
   bool solve_() override;
   virtual const Eigen::VectorXd & result_() const override;
-  bool handleDoubleSidedConstraint_() const override { return false; }
+  bool handleDoubleSidedConstraint_() const override { return true; }
   Range nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const override;
   Range nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const override;
   Range nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const override;
@@ -70,6 +70,7 @@ private:
   Eigen::MatrixXd Q_;
   Eigen::VectorXd a_;
   Eigen::MatrixXd C_;
+  Eigen::MatrixXd Ct_;
   Eigen::VectorXd bl_;
   Eigen::VectorXd bu_;
   Eigen::VectorXd xl_;
