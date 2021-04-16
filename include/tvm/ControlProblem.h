@@ -57,7 +57,7 @@ public:
   template<constraint::Type T>
   TaskWithRequirementsPtr add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements & req = {});
   void add(TaskWithRequirementsPtr tr);
-  void remove(TaskWithRequirements * tr);
+  void remove(const TaskWithRequirements & tr);
   const std::vector<TaskWithRequirementsPtr> & tasks() const;
 
   /** Number of tasks in the problem.*/
@@ -94,10 +94,12 @@ protected:
   virtual void update_() {}
   virtual void finalize_() {}
 
+  void needFinalize();
+  void notify(const scheme::internal::ProblemDefinitionEvent & e);
+
   Updater updater_;
 
 private:
-  void notify(const scheme::internal::ProblemDefinitionEvent & e);
   void addCallBackToTask(TaskWithRequirementsPtr tr);
 
   // Note: we want to keep the tasks in the order they were introduced, mostly
@@ -108,7 +110,7 @@ private:
   std::vector<TaskWithRequirementsPtr> tr_;
 
   // Tokens to identify and keep callbacks alive
-  tvm::utils::internal::map<TaskWithRequirements *, std::vector<internal::PairElementToken>> callbackTokens_;
+  tvm::utils::internal::map<TaskWithRequirements const *, std::vector<internal::PairElementToken>> callbackTokens_;
 
   // Computation data for the resolution schemes
   std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;

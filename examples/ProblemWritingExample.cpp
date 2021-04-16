@@ -95,7 +95,7 @@ VectorXd IKSubstitutionExample()
   auto t4 = pb.add(dot(q) == 0., {PriorityLevel(1), AnisotropicWeight(Vector3d(10, 2, 1))});
 
   LinearizedControlProblem lpb(pb);
-  lpb.add(hint::Substitution(lpb.constraint(t1.get()), dot(x)));
+  lpb.add(hint::Substitution(lpb.constraint(*t1), dot(x)));
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
   int i = 0;

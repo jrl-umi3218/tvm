@@ -26,6 +26,14 @@ namespace tvm::scheme::internal
 class TVM_DLLAPI ProblemComputationData
 {
 public:
+  class EventQueue : public std::queue<ProblemDefinitionEvent>
+  {
+  public:
+    using std::queue<ProblemDefinitionEvent>::queue;
+
+    using std::queue<ProblemDefinitionEvent>::c;
+  };
+
   virtual ~ProblemComputationData() = default;
 
   int solverId() const;
@@ -61,6 +69,12 @@ public:
   ProblemDefinitionEvent popEvent();
   /** Is the queue not empty?*/
   bool hasEvents() const;
+  /** List of events.*/
+  const EventQueue::container_type & events() const;
+  /** Clear the list of events.*/
+  void clearEvents();
+  /** Clear the variable vector.*/
+  void clearVariables();
 
 protected:
   ProblemComputationData(int solverId);
@@ -73,7 +87,7 @@ protected:
   tvm::internal::VariableCountingVector variables_;
 
   /** Problem definition events*/
-  std::queue<ProblemDefinitionEvent> events_;
+  EventQueue events_;
 
 private:
   int solverId_;
@@ -101,7 +115,24 @@ inline const VariableVector & ProblemComputationData::variables() const { return
 
 inline void ProblemComputationData::setVariablesToSolution() { setVariablesToSolution_(variables_); }
 
-inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e) { events_.push(e); }
+inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e)
+{
+  if(e.type() == ProblemDefinitionEvent::Type::TaskRemoval)
+  {
+    for(auto it = events_.c.begin(); it != events_.c.end();)
+    {
+      if(it->emitter() == e.emitter())
+      {
+        it = events_.c.erase(it);
+      }
+      else
+      {
+        ++it;
+      }
+    }
+  }
+  events_.push(e);
+}
 
 [[nodiscard]] inline ProblemDefinitionEvent ProblemComputationData::popEvent()
 {
@@ -112,6 +143,15 @@ inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e) {
 }
 
 inline bool ProblemComputationData::hasEvents() const { return !events_.empty(); }
+
+inline const ProblemComputationData::EventQueue::container_type & ProblemComputationData::events() const
+{
+  return events_.c;
+}
+
+inline void ProblemComputationData::clearEvents() { events_ = {}; }
+
+inline void ProblemComputationData::clearVariables() { variables_.clear(); }
 
 inline ProblemComputationData::ProblemComputationData(int solverId) : solverId_(solverId) {}
 } // namespace tvm::scheme::internal

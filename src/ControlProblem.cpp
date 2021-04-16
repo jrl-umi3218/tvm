@@ -20,18 +20,20 @@ void ControlProblem::add(TaskWithRequirementsPtr tr)
 {
   tr_.push_back(tr);
   addCallBackToTask(tr);
-  notify(
-      scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, tr.get()));
+  notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
   finalized_ = false;
 }
 
-void ControlProblem::remove(TaskWithRequirements * tr)
+void ControlProblem::remove(const TaskWithRequirements & tr)
 {
-  auto it = std::find_if(tr_.begin(), tr_.end(), [tr](const TaskWithRequirementsPtr & p) { return p.get() == tr; });
-  if(it != tr_.end())
-    tr_.erase(it);
+  auto it = std::find_if(tr_.begin(), tr_.end(), [&tr](const TaskWithRequirementsPtr & p) { return p.get() == &tr; });
+  if(it == tr_.end())
+  {
+    return;
+  }
+  tr_.erase(it);
   notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
-  callbackTokens_.erase(tr);
+  callbackTokens_.erase(&tr);
   finalized_ = false;
 }
 
@@ -56,6 +58,8 @@ void ControlProblem::finalize()
   }
 }
 
+void ControlProblem::needFinalize() { finalized_ = false; }
+
 void ControlProblem::notify(const scheme::internal::ProblemDefinitionEvent & e)
 {
   for(auto & c : computationData_)
@@ -70,10 +74,10 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
   std::vector<internal::PairElementToken> tokens;
   TaskWithRequirements * t = tr.get();
 
-  auto l1 = [this, t]() { this->notify({EventType::WeightChange, t}); };
+  auto l1 = [this, t]() { this->notify({EventType::WeightChange, *t}); };
   tokens.emplace_back(tr->requirements.weight().registerCallback(l1));
 
-  auto l2 = [this, t]() { this->notify({EventType::AnisotropicWeightChange, t}); };
+  auto l2 = [this, t]() { this->notify({EventType::AnisotropicWeightChange, *t}); };
   tokens.emplace_back(tr->requirements.anisotropicWeight().registerCallback(l2));
 
   callbackTokens_[t] = std::move(tokens);

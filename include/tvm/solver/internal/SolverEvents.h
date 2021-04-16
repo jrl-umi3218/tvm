@@ -27,8 +27,8 @@ public:
     double scalarizationWeight;
   };
 
-  void addScalarWeigthEvent(constraint::abstract::LinearConstraint * c);
-  void addVectorWeigthEvent(constraint::abstract::LinearConstraint * c);
+  void addScalarWeightEvent(constraint::abstract::LinearConstraint * c);
+  void addVectorWeightEvent(constraint::abstract::LinearConstraint * c);
 
   void addConstraint(LinearConstraintPtr c);
   void removeConstraint(LinearConstraintPtr c);
@@ -80,7 +80,7 @@ private:
   bool hiddenVariableChange_;
 };
 
-inline void SolverEvents::addScalarWeigthEvent(constraint::abstract::LinearConstraint * c)
+inline void SolverEvents::addScalarWeightEvent(constraint::abstract::LinearConstraint * c)
 {
   for(auto & e : weightEvents_)
   {
@@ -94,7 +94,7 @@ inline void SolverEvents::addScalarWeigthEvent(constraint::abstract::LinearConst
   weightEvents_.push_back({c, true, false});
 }
 
-inline void SolverEvents::addVectorWeigthEvent(constraint::abstract::LinearConstraint * c)
+inline void SolverEvents::addVectorWeightEvent(constraint::abstract::LinearConstraint * c)
 {
   for(auto & e : weightEvents_)
   {

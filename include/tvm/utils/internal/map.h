@@ -13,7 +13,10 @@ class IdLess
 {
 public:
   using T = typename std::decay<typename std::remove_pointer<ObjWithId>::type>::type;
-  constexpr bool operator()(const T * const lhs, const T * const rhs) const { return lhs->id() < rhs->id(); }
+  constexpr bool operator()(const T * const lhs, const T * const rhs) const
+  {
+    return lhs && rhs && lhs->id() < rhs->id();
+  }
   constexpr bool operator()(const T & lhs, const T & rhs) const { return lhs.id() < rhs.id(); }
 };
 
@@ -22,7 +25,10 @@ class IdEqual
 {
 public:
   using T = typename std::decay<typename std::remove_pointer<ObjWithId>::type>::type;
-  constexpr bool operator()(const T * const lhs, const T * const rhs) const { return lhs->id() == rhs->id(); }
+  constexpr bool operator()(const T * const lhs, const T * const rhs) const
+  {
+    return lhs && rhs && lhs->id() == rhs->id();
+  }
   constexpr bool operator()(const T & lhs, const T & rhs) const { return lhs.id() == rhs.id(); }
 };
 
@@ -31,7 +37,7 @@ class HashId
 {
 public:
   using T = typename std::decay<typename std::remove_pointer<ObjWithId>::type>::type;
-  std::size_t operator()(const T * key) const { return std::hash<int>()(key->id()); }
+  std::size_t operator()(const T * key) const { return key ? std::hash<int>()(key->id()) : std::hash<int>()(-1); }
   std::size_t operator()(const T & key) const { return std::hash<int>()(key.id()); }
 };
 
