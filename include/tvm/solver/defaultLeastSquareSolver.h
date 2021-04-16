@@ -17,7 +17,7 @@
 #      include <tvm/solver/QuadprogLeastSquareSolver.h>
 #    else
 #      ifdef TVM_USE_JRLQP
-#        include <tvm/solver/JRL-QPLeastSquareSolver.h>
+#        include <tvm/solver/JRLQPLeastSquareSolver.h>
 #       else
 #        error "You should at least have one solver. If not, there is a problem with the CMakeLists.txt"
 #      endif

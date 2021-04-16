@@ -17,7 +17,7 @@
 #  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
 #ifdef TVM_USE_JRLQP
-#  include <tvm/solver/JRL-QPLeastSquareSolver.h>
+#  include <tvm/solver/JRLQPLeastSquareSolver.h>
 #endif
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/Proportional.h>
