@@ -39,7 +39,6 @@ public:
 
 private:
   std::optional<std::ostream *> logStream_;
-
 };
 
 /** An encapsulation of jrl-qp's GoldfarbIdnaniSolver solver, to solve linear
