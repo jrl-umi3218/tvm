@@ -1,45 +1,12 @@
 /* Copyright 2017-2021 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#include <tvm/solver/JRL-QPLeastSquareSolver.h>
+#include <tvm/solver/JRLQPLeastSquareSolver.h>
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
 
-#include <iostream>
+#include <jrl-qp/utils/enumsIO.h>
 
-namespace
-{
-// TODO: should it be moved to jrl-qp ?
-std::ostream & operator<<(std::ostream & os, jrl::qp::TerminationStatus s)
-{
-  switch(s)
-  {
-    case jrl::qp::TerminationStatus::SUCCESS:
-      os << "success";
-      return os;
-    case jrl::qp::TerminationStatus::INCONSISTENT_INPUT:
-      os << "inconsistent inputs";
-      return os;
-    case jrl::qp::TerminationStatus::NON_POS_HESSIAN:
-      os << "non positive hessian matrix";
-      return os;
-    case jrl::qp::TerminationStatus::INFEASIBLE:
-      os << "infeasible";
-      return os;
-    case jrl::qp::TerminationStatus::MAX_ITER_REACHED:
-      os << "maximum iteration reached";
-      return os;
-    case jrl::qp::TerminationStatus::LINEAR_DEPENDENCY_DETECTED:
-      os << "linear dependency detected";
-      return os;
-    case jrl::qp::TerminationStatus::OVERCONSTRAINED_PROBLEM:
-      os << "overconstrained problem";
-      return os;
-    default:
-      os << "unknown failure (" << static_cast<int>(s) << ")";
-      return os;
-  }
-}
-} // namespace
+#include <iostream>
 
 namespace tvm
 {
@@ -48,9 +15,14 @@ namespace solver
 {
 JRLQPLeastSquareSolver::JRLQPLeastSquareSolver(const JRLQPLSSolverOptions & options)
 : LeastSquareSolver(options.verbose().value()), status_(jrl::qp::TerminationStatus::UNKNOWN), autoMinNorm_(false),
-  big_number_(options.big_number().value()),
-  damping_(options.damping().value())
-{}
+  big_number_(options.big_number().value()), damping_(options.damping().value())
+{
+  TVM_PROCESS_OPTION(maxIter, options_);
+  TVM_PROCESS_OPTION(warmStart, options_);
+  TVM_PROCESS_OPTION(logFlags, options_);
+  if(options.logStream())
+    options_.logStream(*options.logStream().value());
+}
 
 void JRLQPLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds)
 {
@@ -59,10 +31,7 @@ void JRLQPLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool
   autoMinNorm_ = false;
 }
 
-JRLQPLeastSquareSolver::ImpactFromChanges JRLQPLeastSquareSolver::resize_(int nObj,
-                                                                                int nEq,
-                                                                                int nIneq,
-                                                                                bool useBounds)
+JRLQPLeastSquareSolver::ImpactFromChanges JRLQPLeastSquareSolver::resize_(int nObj, int nEq, int nIneq, bool useBounds)
 {
   int n = variables().totalSize();
   int nCstr = nEq + nIneq;
@@ -85,7 +54,7 @@ JRLQPLeastSquareSolver::ImpactFromChanges JRLQPLeastSquareSolver::resize_(int nO
   xl_ = Eigen::VectorXd::Constant(n, -big_number_);
   xu_ = Eigen::VectorXd::Constant(n, +big_number_);
   xStar_.resize(n);
- 
+
   gi_.resize(n, nCstr, useBounds);
 
   impact.inequalityConstraints_ = impact.equalityConstraints_;
@@ -113,8 +82,8 @@ void JRLQPLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr)
 }
 
 void JRLQPLeastSquareSolver::addObjective_(LinearConstraintPtr cstr,
-                                              SolvingRequirementsPtr req,
-                                              double additionalWeight)
+                                           SolvingRequirementsPtr req,
+                                           double additionalWeight)
 {
   RangePtr r = std::make_shared<Range>(nextObjectiveRange_(*cstr));
   scheme::internal::AssignmentTarget target(r, D_, e_, constraint::Type::EQUAL, constraint::RHS::OPPOSITE);
@@ -134,10 +103,7 @@ void JRLQPLeastSquareSolver::resetBounds_()
   xu_.setConstant(+big_number_);
 }
 
-void JRLQPLeastSquareSolver::preAssignmentProcess_()
-{
-  D_.setZero();
-}
+void JRLQPLeastSquareSolver::preAssignmentProcess_() { D_.setZero(); }
 
 void JRLQPLeastSquareSolver::postAssignmentProcess_()
 {
@@ -168,18 +134,14 @@ bool JRLQPLeastSquareSolver::solve_()
   return status_ == jrl::qp::TerminationStatus::SUCCESS;
 }
 
-const Eigen::VectorXd & JRLQPLeastSquareSolver::result_() const
-{
-  return xStar_;
-}
+const Eigen::VectorXd & JRLQPLeastSquareSolver::result_() const { return xStar_; }
 
 Range JRLQPLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
 {
   return {eqSize_ + ineqSize_, cstr.size()};
 }
 
-Range JRLQPLeastSquareSolver::nextInequalityConstraintRange_(
-    const constraint::abstract::LinearConstraint & cstr) const
+Range JRLQPLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
 {
   return {eqSize_ + ineqSize_, constraintSize(cstr)};
 }

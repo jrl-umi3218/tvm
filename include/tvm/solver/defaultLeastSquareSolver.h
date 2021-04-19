@@ -18,7 +18,7 @@
 #    else
 #      ifdef TVM_USE_JRLQP
 #        include <tvm/solver/JRLQPLeastSquareSolver.h>
-#       else
+#      else
 #        error "You should at least have one solver. If not, there is a problem with the CMakeLists.txt"
 #      endif
 #    endif

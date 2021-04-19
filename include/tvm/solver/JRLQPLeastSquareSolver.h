@@ -8,6 +8,8 @@
 
 #include <jrl-qp/GoldfarbIdnaniSolver.h>
 
+#include <iosfwd>
+
 namespace tvm
 {
 
@@ -19,13 +21,25 @@ class JRLQPLSSolverFactory;
 class TVM_DLLAPI JRLQPLSSolverOptions
 {
   TVM_ADD_NON_DEFAULT_OPTION(big_number, constant::big_number)
-  TVM_ADD_NON_DEFAULT_OPTION(cholesky, false)
-  TVM_ADD_NON_DEFAULT_OPTION(choleskyDamping, 1e-6)
   TVM_ADD_NON_DEFAULT_OPTION(damping, 1e-12)
   TVM_ADD_NON_DEFAULT_OPTION(verbose, false)
+  TVM_ADD_DEFAULT_OPTION(maxIter, int)
+  TVM_ADD_DEFAULT_OPTION(warmStart, bool)
+  TVM_ADD_DEFAULT_OPTION(logFlags, std::uint32_t)
 
 public:
   using Factory = JRLQPLSSolverFactory;
+
+  auto & logStream() const { return logStream_; }
+  JRLQPLSSolverOptions & logStream(std::ostream & os)
+  {
+    logStream_ = &os;
+    return *this;
+  }
+
+private:
+  std::optional<std::ostream *> logStream_;
+
 };
 
 /** An encapsulation of jrl-qp's GoldfarbIdnaniSolver solver, to solve linear
@@ -76,7 +90,7 @@ private:
   Eigen::VectorXd xl_;
   Eigen::VectorXd xu_;
 
-  Eigen::VectorXd xStar_; //solution
+  Eigen::VectorXd xStar_; // solution
   jrl::qp::TerminationStatus status_;
 
   jrl::qp::GoldfarbIdnaniSolver gi_;
@@ -85,7 +99,8 @@ private:
 
   // options
   double big_number_;
-  double damping_;         // value added to the diagonal of Q for regularization
+  double damping_; // value added to the diagonal of Q for regularization
+  jrl::qp::SolverOptions options_;
 };
 
 /** A factory class to create JRLQPLeastSquareSolver instances with a given

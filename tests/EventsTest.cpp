@@ -15,6 +15,9 @@
 #ifdef TVM_USE_QUADPROG
 #  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
+#ifdef TVM_USE_JRLQP
+#  include <tvm/solver/JRLQPLeastSquareSolver.h>
+#endif
 
 #include <array>
 #include <bitset>
@@ -52,8 +55,8 @@
 #  define IF_USE_JRLQP(x) x
 #else
 #  define IF_USE_JRLQP(x) \
-    do                       \
-    {                        \
+    do                    \
+    {                     \
     } while(0)
 #endif
 
