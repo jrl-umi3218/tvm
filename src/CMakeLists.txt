@@ -250,6 +250,10 @@ if(TVM_WITH_QUADPROG)
   list(APPEND TVM_SOURCES solver/QuadprogLeastSquareSolver.cpp)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
 endif()
+if(TVM_WITH_JRLQP)
+  list(APPEND TVM_SOURCES solver/JRLQPLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/JRLQPLeastSquareSolver.h)
+endif()
 
 #Helper functions to assign files to groups in IDE, mimicking the organization of files on disk
 #Adapted from https://stackoverflow.com/a/31423421

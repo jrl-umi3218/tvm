@@ -5,7 +5,7 @@
 /** Since all solver might not be available depending on the option compilations,
  * this header offers conveniences to include and use a default solver.
  * The first solver found in this (ordered) list is taken as default:
- * LSSOL, QLD, Quadprog
+ * LSSOL, QLD, Quadprog, JRLQP
  */
 #ifdef TVM_USE_LSSOL
 #  include <tvm/solver/LSSOLLeastSquareSolver.h>
@@ -16,7 +16,11 @@
 #    ifdef TVM_USE_QUADPROG
 #      include <tvm/solver/QuadprogLeastSquareSolver.h>
 #    else
-#      error "You should at least have one solver. If not, there is a problem with the CMakeLists.txt"
+#      ifdef TVM_USE_JRLQP
+#        include <tvm/solver/JRLQPLeastSquareSolver.h>
+#      else
+#        error "You should at least have one solver. If not, there is a problem with the CMakeLists.txt"
+#      endif
 #    endif
 #  endif
 #endif

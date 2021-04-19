@@ -16,7 +16,7 @@ public:                                                                    \
   }
 
 /** Adding an option \a optionName of type \a type with no default value.
- * (The default value of the underlying solver will be used.
+ * The default value of the underlying solver will be used.
  */
 #define TVM_ADD_DEFAULT_OPTION(optionName, type) \
 private:                                         \

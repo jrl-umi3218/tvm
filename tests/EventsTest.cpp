@@ -15,6 +15,9 @@
 #ifdef TVM_USE_QUADPROG
 #  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
+#ifdef TVM_USE_JRLQP
+#  include <tvm/solver/JRLQPLeastSquareSolver.h>
+#endif
 
 #include <array>
 #include <bitset>
@@ -45,6 +48,15 @@
 #  define IF_USE_QUADPROG(x) \
     do                       \
     {                        \
+    } while(0)
+#endif
+
+#ifdef TVM_USE_JRLQP
+#  define IF_USE_JRLQP(x) x
+#else
+#  define IF_USE_JRLQP(x) \
+    do                    \
+    {                     \
     } while(0)
 #endif
 
@@ -92,38 +104,38 @@ TEST_CASE("Simple add/Remove constraint")
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
 
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1), 1e-10));
 
   pb.remove(*t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 3)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 3), 1e-10));
 
   pb.add(t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 1), 1e-10));
 
   pb.add(x == 0., {PriorityLevel(1)});
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3), 1e-10));
 
   pb.remove(*t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2), 1e-10));
 
   pb.add(t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 2. / 3), 1e-10));
 
   t1->requirements.weight() = 3;
   pb.remove(*t1);
   pb.add(t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.4, 0)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(-0.4, 0), 1e-10));
 
   t1->requirements.weight() = 100.0;
   pb.remove(*t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1. / 2, 3. / 2), 1e-10));
 }
 
 TEST_CASE("Add/Remove variables from problem")
@@ -139,16 +151,16 @@ TEST_CASE("Add/Remove variables from problem")
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
 
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 0)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 0), 1e-10));
 
   auto t2 = pb.add(y == 0., {PriorityLevel(1)});
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 0)));
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(0, 0), 1e-10));
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0), 1e-10));
 
   pb.remove(*t1);
   solver.solve(pb);
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0)));
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(0, 0, 0), 1e-10));
 }
 
 TEST_CASE("Add/Remove constraint with substitutions")
@@ -170,9 +182,9 @@ TEST_CASE("Add/Remove constraint with substitutions")
     scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
 
     solver.solve(pb);
-    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
-    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
-    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2), 1e-10));
+    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2), 1e-10));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3), 1e-10));
 
     const auto & varInUse = scheme::internal::getComputationData(pb, solver)->variables();
     pb.remove(*t1);
@@ -181,16 +193,16 @@ TEST_CASE("Add/Remove constraint with substitutions")
     FAST_CHECK_UNARY(varInUse.contains(*x)); // Computation data were not updated yet
     FAST_CHECK_UNARY(varInUse.contains(*y));
     solver.solve(pb);
-    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3), 1e-10));
     FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
     FAST_CHECK_UNARY(varInUse.contains(*y));
 
     pb.add(t1);
     pb.add(hint::Substitution(pb.constraint(*t1), x));
     solver.solve(pb);
-    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
-    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
-    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2), 1e-10));
+    FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2), 1e-10));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3), 1e-10));
     FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
     FAST_CHECK_UNARY(varInUse.contains(*y));
 
@@ -198,7 +210,7 @@ TEST_CASE("Add/Remove constraint with substitutions")
     FAST_CHECK_UNARY_FALSE(pb.variables().contains(*x));
     FAST_CHECK_UNARY(pb.variables().contains(*y));
     solver.solve(pb);
-    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+    FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3), 1e-10));
     FAST_CHECK_UNARY_FALSE(varInUse.contains(*x));
     FAST_CHECK_UNARY(varInUse.contains(*y));
   }
@@ -438,6 +450,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
   IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
   IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
   IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+  IF_USE_JRLQP(scheme::WeightedLeastSquares solverJrlqp(solver::JRLQPLSSolverOptions{}));
 
   int start = withSubstitution ? 1 : 0;
   int stop = withSubstitution ? 11 : 12;
@@ -459,6 +472,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     IF_USE_LSSOL(solverLssol.solve(pb));
     IF_USE_QLD(solverQLD.solve(pb));
     IF_USE_QUADPROG(solverQuadprog.solve(pb));
+    IF_USE_JRLQP(solverJrlqp.solve(pb));
 
     if(added[i])
     {
@@ -483,6 +497,8 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
 #elif defined(TVM_USE_QUADPROG)
     FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#elif defined(TVM_USE_JRLQP)
+    FAST_CHECK_UNARY(solverJrlqp.solve(pbGroundTruth));
 #endif
     VectorXd s0 = pbGroundTruth.variables().value();
 
@@ -496,6 +512,10 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
 #endif
 #ifdef TVM_USE_QUADPROG
     FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+    checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
+#endif
+#ifdef TVM_USE_JRLQP
+    FAST_CHECK_UNARY(solverJrlqp.solve(pb));
     checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
     tvm::utils::set_is_malloc_allowed(true);
@@ -529,6 +549,7 @@ void test3Change(const std::bitset<8> & selection)
   IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
   IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
   IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+  IF_USE_JRLQP(scheme::WeightedLeastSquares solverJrlqp(solver::JRLQPLSSolverOptions{}));
 
   for(int i = 0; i < 8; ++i)
   {
@@ -544,6 +565,7 @@ void test3Change(const std::bitset<8> & selection)
         IF_USE_LSSOL(solverLssol.solve(pb));
         IF_USE_QLD(solverQLD.solve(pb));
         IF_USE_QUADPROG(solverQuadprog.solve(pb));
+        IF_USE_JRLQP(solverJrlqp.solve(pb));
 
         if(added[i])
         {
@@ -590,6 +612,8 @@ void test3Change(const std::bitset<8> & selection)
         FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
 #elif defined(TVM_USE_QUADPROG)
         FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#elif defined(TVM_USE_JRLQP)
+        FAST_CHECK_UNARY(solverJrlqp.solve(pbGroundTruth));
 #endif
         VectorXd s0 = pbGroundTruth.variables().value();
 
@@ -603,6 +627,10 @@ void test3Change(const std::bitset<8> & selection)
 #endif
 #ifdef TVM_USE_QUADPROG
         FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+        checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
+#endif
+#ifdef TVM_USE_JRLQP
+        FAST_CHECK_UNARY(solverJrlqp.solve(pb));
         checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
         tvm::utils::set_is_malloc_allowed(true);
