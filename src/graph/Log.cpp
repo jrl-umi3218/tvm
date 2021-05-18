@@ -264,6 +264,51 @@ std::ostream & operator<<(std::ostream & os, const std::type_index & t)
   return os;
 }
 
+std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::subGraph(const CallGraph * const g) const
+{
+  auto it = graphOutputs_.find(g);
+  if(it != graphOutputs_.end())
+  {
+    std::vector<Output> outputs = outputs_;
+    // Adding outputs referred only as source
+    for(const auto & i : inputs_)
+    {
+      outputs.push_back({i.id, i.name, i.source});
+    }
+
+    // first we retrieve the outputs of the call graph
+    std::vector<Output> startingPoints;
+    for(const auto & p : it->second)
+    {
+      for(const auto & i : inputs_)
+      {
+        if(i.owner == p)
+        {
+          startingPoints.push_back(findOutput(outputs, i));
+        }
+      }
+    }
+    return followUpDependency(outputs, startingPoints);
+  }
+  else
+  {
+    return {{}, {}};
+  }
+}
+
+std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::subGraph(const Output out) const
+{
+  std::vector<Output> outputs = outputs_;
+  // Adding outputs referred only as source
+  for(const auto & i : inputs_)
+  {
+    outputs.push_back({i.id, i.name, i.source});
+  }
+
+  std::vector<Output> startingPoints = {out};
+  return followUpDependency(outputs, startingPoints);
+}
+
 std::string Log::generateDot(const Pointer & p) const
 {
   std::set<Output> outputs;
@@ -391,92 +436,9 @@ std::string Log::generateDot(const Pointer & p) const
 
 std::string Log::generateDot(const CallGraph * const g) const
 {
-  std::vector<Output> outputs = outputs_;
-  // Adding outputs referred only as source
-  for(const auto & i : inputs_)
+  const auto & [outputsInGraph, updatesInGraph] = subGraph(g);
+  if(!outputsInGraph.empty() || !updatesInGraph.empty())
   {
-    outputs.push_back({i.id, i.name, i.source});
-  }
-
-  auto it = graphOutputs_.find(g);
-  if(it != graphOutputs_.end())
-  {
-    // We want to populate the following vectors with the updates and outputs in the call graph
-    std::vector<Output> outputsInGraph;
-    std::vector<Update> updatesInGraph;
-
-    std::map<Output, bool> processedOutputs;
-    std::map<Update, bool> processedUpdates;
-    std::vector<Output> outputStack;
-    std::vector<Update> updateStack;
-
-    // first we retrieve the outputs of the call graph
-    for(const auto & p : it->second)
-    {
-      for(const auto & i : inputs_)
-      {
-        if(i.owner == p)
-        {
-          outputStack.push_back(findOutput(outputs, i));
-        }
-      }
-    }
-
-    // now we follow the dependency backward
-    while(!outputStack.empty() || !updateStack.empty())
-    {
-      if(!outputStack.empty())
-      {
-        auto o = outputStack.back();
-        outputStack.pop_back();
-        if(!processedOutputs[o])
-        {
-          outputsInGraph.push_back(o);
-          for(const auto & d : outputDependencies_)
-          {
-            if(d.owner == o.owner && d.output == o.id)
-            {
-              updateStack.push_back(findUpdate(updates_, d));
-            }
-          }
-          for(const auto & d : directDependencies_)
-          {
-            if(d.owner == o.owner && d.output == o.id)
-            {
-              auto i = findInput(inputs_, d);
-              outputStack.push_back(findOutput(outputs, i));
-            }
-          }
-          processedOutputs[o] = true;
-        }
-      }
-
-      if(!updateStack.empty())
-      {
-        auto u = updateStack.back();
-        updateStack.pop_back();
-        if(!processedUpdates[u])
-        {
-          updatesInGraph.push_back(u);
-          for(const auto & d : inputDependencies_)
-          {
-            if(d.owner == u.owner && d.update == u.id)
-            {
-              auto i = findInput(inputs_, d);
-              outputStack.push_back(findOutput(outputs, i));
-            }
-          }
-          for(const auto & d : internalDependencies_)
-          {
-            if(d.owner == u.owner && d.to == u.id)
-            {
-              updateStack.push_back(findFromUpdate(updates_, d));
-            }
-          }
-          processedUpdates[u] = true;
-        }
-      }
-    }
     return generateDot(outputsInGraph, updatesInGraph);
   }
   else
@@ -640,6 +602,77 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
 
   dot << "}";
   return dot.str();
+}
+
+std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::followUpDependency(
+    const std::vector<Output> & allOutputs,
+    const std::vector<Output> & startingPoints) const
+{
+  // We want to populate the following vectors with the updates and outputs linked to startingPoints
+  std::vector<Output> outputsInGraph;
+  std::vector<Update> updatesInGraph;
+
+  std::map<Output, bool> processedOutputs;
+  std::map<Update, bool> processedUpdates;
+  std::vector<Output> outputStack = startingPoints;
+  std::vector<Update> updateStack;
+
+  // we follow the dependency backward
+  while(!outputStack.empty() || !updateStack.empty())
+  {
+    if(!outputStack.empty())
+    {
+      auto o = outputStack.back();
+      outputStack.pop_back();
+      if(!processedOutputs[o])
+      {
+        outputsInGraph.push_back(o);
+        for(const auto & d : outputDependencies_)
+        {
+          if(d.owner == o.owner && d.output == o.id)
+          {
+            updateStack.push_back(findUpdate(updates_, d));
+          }
+        }
+        for(const auto & d : directDependencies_)
+        {
+          if(d.owner == o.owner && d.output == o.id)
+          {
+            auto i = findInput(inputs_, d);
+            outputStack.push_back(findOutput(allOutputs, i));
+          }
+        }
+        processedOutputs[o] = true;
+      }
+    }
+
+    if(!updateStack.empty())
+    {
+      auto u = updateStack.back();
+      updateStack.pop_back();
+      if(!processedUpdates[u])
+      {
+        updatesInGraph.push_back(u);
+        for(const auto & d : inputDependencies_)
+        {
+          if(d.owner == u.owner && d.update == u.id)
+          {
+            auto i = findInput(inputs_, d);
+            outputStack.push_back(findOutput(allOutputs, i));
+          }
+        }
+        for(const auto & d : internalDependencies_)
+        {
+          if(d.owner == u.owner && d.to == u.id)
+          {
+            updateStack.push_back(findFromUpdate(updates_, d));
+          }
+        }
+        processedUpdates[u] = true;
+      }
+    }
+  }
+  return {outputsInGraph, updatesInGraph};
 }
 
 std::string Log::nodeName(const Log::Output & output) const

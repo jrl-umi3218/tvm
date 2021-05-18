@@ -205,6 +205,12 @@ public:
     }
   };
 
+  /** Build the list of updates and outputs used in the CallGraph \p g*/
+  std::pair<std::vector<Log::Output>, std::vector<Log::Update>> subGraph(const CallGraph * const g) const;
+
+  /** Build the list of updates and outputs used from \p out*/
+  std::pair<std::vector<Log::Output>, std::vector<Log::Update>> subGraph(const Output out) const;
+
   /** Generate a dot representation for node corresponding to p.*/
   std::string generateDot(const Pointer & p) const;
 
@@ -242,6 +248,10 @@ public:
   std::map<std::uintptr_t, std::vector<std::type_index>> types_;
 
 private:
+  std::pair<std::vector<Log::Output>, std::vector<Log::Update>> followUpDependency(
+      const std::vector<Output> & allOutputs,
+      const std::vector<Output> & startingPoints) const;
+
   /** Generate a (unique) name for the given output, based on its name, and
    * the class and memory address of its owner.
    */
