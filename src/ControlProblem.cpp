@@ -58,6 +58,8 @@ void ControlProblem::finalize()
   }
 }
 
+const graph::CallGraph & ControlProblem::updateGraph() const { return updater_.updateGraph(); }
+
 void ControlProblem::needFinalize() { finalized_ = false; }
 
 void ControlProblem::notify(const scheme::internal::ProblemDefinitionEvent & e)
@@ -97,5 +99,7 @@ void ControlProblem::Updater::refresh()
 }
 
 void ControlProblem::Updater::run() { updateGraph_.execute(); }
+
+const graph::CallGraph & ControlProblem::Updater::updateGraph() const { return updateGraph_; }
 
 } // namespace tvm

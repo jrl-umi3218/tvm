@@ -69,6 +69,9 @@ public:
   /** Finalize the data of the solver*/
   void finalize();
 
+  /** Access to update graph, for diagnostic purpose.*/
+  const graph::CallGraph & updateGraph() const;
+
 protected:
   class Updater
   {
@@ -84,6 +87,8 @@ protected:
     void refresh();
     /** Execute the call graph.*/
     void run();
+
+    const graph::CallGraph & updateGraph() const;
 
   private:
     bool upToDate_;
