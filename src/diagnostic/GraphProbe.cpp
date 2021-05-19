@@ -1,7 +1,5 @@
 /** Copyright 2017-2021 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#pragma once
-
 #include <tvm/diagnostic/GraphProbe.h>
 
 #include <iomanip>
@@ -39,7 +37,7 @@ Eigen::MatrixXd transposeIfVector(const Eigen::MatrixXd & M)
     return M.transpose();
   else
     return M;
-};
+}
 
 // find the input corresponding to the direct dependency
 template<typename InputContainer>
@@ -81,19 +79,6 @@ const GraphProbe::Update & findUpdate(const UpdateContainer & s, const Log::Outp
     }
   }
   throw std::runtime_error("Update not found");
-}
-
-// find the output corresponding to the output dependency
-const Log::Output & findOutput(const std::set<Log::Output> & s, const Log::DirectDependency & d)
-{
-  for(const auto & o : s)
-  {
-    if(o.owner == d.owner && o.id == d.output)
-    {
-      return o;
-    }
-  }
-  throw std::runtime_error("Output not found");
 }
 
 // find the output corresponding to an input

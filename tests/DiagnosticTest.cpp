@@ -1,7 +1,5 @@
 /** Copyright 2017-2021 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#pragma once
-
 #include "SolverTestFunctions.h"
 
 #include <tvm/ControlProblem.h>
