@@ -67,10 +67,18 @@ public:
    * if the method is inherited from a base class, otherwise the method will be registered
    * for this base class.
    */
+#ifndef _MSC_VER
   template<typename T, typename U, typename EnumOutput, typename Base = T>
+#else
+  template<typename T, typename U, typename EnumOutput>
+#endif
   void registerAccessor(
       EnumOutput o,
+#ifndef _MSC_VER
       const U & (Base::*fn)() const,
+#else
+      const U & (T::*fn)() const,
+#endif
       std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register a method \p fn taking a variable to retrieve the value associated to \p o
@@ -79,10 +87,18 @@ public:
    * if the method is inherited from a base class, otherwise the method will be registered
    * for this base class.
    */
+#ifndef _MSC_VER
   template<typename T, typename U, typename EnumOutput, typename Base = T>
+#else
+  template<typename T, typename U, typename EnumOutput>
+#endif
   void registerAccessor(
       EnumOutput o,
+#ifndef _MSC_VER
       U (Base::*fn)(const Variable &) const,
+#else
+      U (T::*fn)(const Variable &) const,
+#endif
       std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register all methods associated to outputs inherited from tvm::function::abstract::Function */
@@ -179,9 +195,17 @@ private:
       varDepOutputAccessor_;
 };
 
+#ifndef _MSC_VER
 template<typename T, typename U, typename EnumOutput, typename Base>
+#else
+template<typename T, typename U, typename EnumOutput>
+#endif
 inline void GraphProbe::registerAccessor(EnumOutput o,
+#ifndef _MSC_VER
                                          const U & (Base::*fn)() const,
+#else
+                                         const U & (T::*fn)() const,
+#endif
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
   static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
@@ -189,9 +213,17 @@ inline void GraphProbe::registerAccessor(EnumOutput o,
   outputAccessor_[k] = [fn, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*fn)()); };
 }
 
+#ifndef _MSC_VER
 template<typename T, typename U, typename EnumOutput, typename Base>
+#else
+template<typename T, typename U, typename EnumOutput>
+#endif
 inline void GraphProbe::registerAccessor(EnumOutput o,
+#ifndef _MSC_VER
                                          U (Base::*fn)(const Variable &) const,
+#else
+                                         U (T::*fn)(const Variable &) const,
+#endif
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
   static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
