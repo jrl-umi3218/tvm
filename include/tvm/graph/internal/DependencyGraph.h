@@ -4,6 +4,7 @@
 
 #include <tvm/api.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <set>
 #include <stack>
