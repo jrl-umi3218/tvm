@@ -41,6 +41,7 @@ struct PairHasher
 
 namespace std
 {
+#ifdef WIN32
 /**  Specialization of std::hash for std::size_t */
 template<>
 struct hash<std::size_t>
@@ -48,6 +49,7 @@ struct hash<std::size_t>
   // identity function for this type
   std::size_t operator()(const std::size_t & i) const noexcept { return i; }
 };
+#endif
 
 /**  Specialization of std::hash for tvm::graph::internal::Log::EnumValue */
 template<>

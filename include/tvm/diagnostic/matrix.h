@@ -19,7 +19,7 @@ inline bool isInMatrix(typename MatrixOrMapType::Scalar const * ptr, MatrixOrMap
 {
   if constexpr(MatrixOrMapType::IsRowMajor)
   {
-    static_assert(internal::always_false<MatrixOrMapType>::value, "Only implemented for column-major matrices");
+    static_assert(::tvm::internal::always_false<MatrixOrMapType>::value, "Only implemented for column-major matrices");
   }
   else
   {
