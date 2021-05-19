@@ -9,7 +9,7 @@
 #include <tvm/diagnostic/matrix.h>
 #include <tvm/graph/CallGraph.h>
 
-#include <tvm/3rd-party/mpark/variant.hpp>
+#include <mpark/variant.hpp>
 
 #include <Eigen/Core>
 
