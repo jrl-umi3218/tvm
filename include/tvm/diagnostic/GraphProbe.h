@@ -67,10 +67,10 @@ public:
    * if the method is inherited from a base class, otherwise the method will be registered
    * for this base class.
    */
-  template<typename T, typename U, typename EnumOutput>
+  template<typename T, typename U, typename EnumOutput, typename Base = T>
   void registerAccessor(
       EnumOutput o,
-      const U & (T::*fn)() const,
+      const U & (Base::*fn)() const,
       std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register a method \p fn taking a variable to retrieve the value associated to \p o
@@ -79,10 +79,10 @@ public:
    * if the method is inherited from a base class, otherwise the method will be registered
    * for this base class.
    */
-  template<typename T, typename U, typename EnumOutput>
+  template<typename T, typename U, typename EnumOutput, typename Base = T>
   void registerAccessor(
       EnumOutput o,
-      U (T::*fn)(const Variable &) const,
+      U (Base::*fn)(const Variable &) const,
       std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register all methods associated to outputs inherited from tvm::function::abstract::Function */
@@ -179,20 +179,22 @@ private:
       varDepOutputAccessor_;
 };
 
-template<typename T, typename U, typename EnumOutput>
+template<typename T, typename U, typename EnumOutput, typename Base>
 inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         const U & (T::*fn)() const,
+                                         const U & (Base::*fn)() const,
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
+  static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
   outputAccessor_[k] = [fn, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*fn)()); };
 }
 
-template<typename T, typename U, typename EnumOutput>
+template<typename T, typename U, typename EnumOutput, typename Base>
 inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         U (T::*fn)(const Variable &) const,
+                                         U (Base::*fn)(const Variable &) const,
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
+  static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
   varDepOutputAccessor_[k] = [fn, convert](uintptr_t t) {
     std::vector<VarMatrixPair> ret;
@@ -226,7 +228,7 @@ inline void GraphProbe::registerTVMConstraint()
 template<typename T>
 inline void GraphProbe::registerTVMTaskDynamics()
 {
-  registerAccessor<T::Impl>(T::Impl::Output::Value, &T::Impl::value);
+  registerAccessor<typename T::Impl>(T::Impl::Output::Value, &T::Impl::value);
 }
 } // namespace tvm::diagnostic
 
