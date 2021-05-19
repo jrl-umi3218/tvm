@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include <tvm/Variable.h>
 #include <tvm/api.h>
 
+#include <tvm/Variable.h>
 #include <tvm/diagnostic/internal/probe.h>
+#include <tvm/diagnostic/matrix.h>
 #include <tvm/graph/CallGraph.h>
 
 #include <tvm/3rd-party/mpark/variant.hpp>
@@ -20,6 +21,15 @@
 
 namespace tvm::diagnostic
 {
+/** A class to explore the value computed in a call graph.
+ *
+ * Because the tvm nodes only declare the dependencies between inputs, updates and outputs, but not
+ * the way to retrieve an output, it is necessary to register first the method used to access each
+ * output of interest. This is done atomically with the methods \c GraphNode::registerAccessor, or
+ * at higher level with the methods \c GraphNode::registerTVMFunction, \c GraphNode::registerTVMConstraint
+ * and \c GraphNode::registerTVMTaskDynamics. Access methods for base tvm classes are automatically
+ * registered in the constructor.
+ */
 class TVM_DLLAPI GraphProbe
 {
 public:
@@ -38,7 +48,18 @@ public:
     Node(const Node &) = delete;
   };
 
-  GraphProbe(const graph::internal::Log & log);
+  /** Factory returning a function checking if a matrix M has elements whose absolute value is
+   * between \p rmin and \p rmax.
+   */
+  static constexpr auto inRange = [](double rmin, double rmax) {
+    return [rmin, rmax](const Eigen::MatrixXd & M) { return hasElemInRange(M, rmin, rmax); };
+  };
+
+  /** Function checking if \p contains NaN. */
+  static constexpr auto hasNan = [](const Eigen::MatrixXd & M) { return M.hasNaN(); };
+
+  /** Constructor */
+  GraphProbe(const graph::internal::Log & log = tvm::graph::internal::Logger::logger().log());
 
   /** Register a method \p fn with no argument to retrieve the value associated to \p o
    *
@@ -47,7 +68,10 @@ public:
    * for this base class.
    */
   template<typename T, typename U, typename EnumOutput>
-  void registerAccessor(EnumOutput o, const U & (T::*fn)() const);
+  void registerAccessor(
+      EnumOutput o,
+      const U & (T::*fn)() const,
+      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register a method \p fn taking a variable to retrieve the value associated to \p o
    *
@@ -56,7 +80,10 @@ public:
    * for this base class.
    */
   template<typename T, typename U, typename EnumOutput>
-  void registerAccessor(EnumOutput o, U (T::*fn)(const Variable &) const);
+  void registerAccessor(
+      EnumOutput o,
+      U (T::*fn)(const Variable &) const,
+      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
 
   /** Register all methods associated to outputs inherited from tvm::function::abstract::Function */
   template<typename T>
@@ -86,40 +113,63 @@ public:
    */
   std::vector<OutputVal> listOutputVal(const Output & o, bool verbose = false) const;
 
-  /** Follow up backward the computation graph starting at node \p o, and triming out branches where the
+  /** Follow up backward the computation graph starting at node \p o, and trimming out branches where the
    * value of an output does not pass the test given by \p select.
    */
   std::unique_ptr<Node> followUp(
       const Output & o,
       std::function<bool(const Eigen::MatrixXd &)> select = [](const Eigen::MatrixXd &) { return true; }) const;
 
+  /** Follow up backward the computation graph starting at the inputs of \p g, and trimming out 
+   * branches where the value of an output does not pass the test given by \p select.
+   */
   std::vector<std::unique_ptr<Node>> followUp(
       const graph::CallGraph * const g,
       std::function<bool(const Eigen::MatrixXd &)> select = [](const Eigen::MatrixXd &) { return true; }) const;
 
-  /** Print in \p os the tree starting at root \p Node*/
-  void print(std::ostream& os, const std::unique_ptr<Node> & node) const;
+  /** Print in \p os the tree starting at \p root.*/
+  void print(std::ostream & os, const std::unique_ptr<Node> & root) const;
+  /** Print in \p os the trees starting each at an element of \p root.*/
+  void print(std::ostream & os, const std::vector<std::unique_ptr<Node>> & roots) const;
 
 private:
+  /** Helper class used in followUp*/
   struct Processed
   {
+    Processed() = default;
+    Processed(const graph::internal::Log & log);
+
     std::map<Output, bool> outputs;
     std::map<Update, bool> updates;
     std::vector<Output> allOutputs;
   };
 
+  /** Get the most derived type corresponding to pointer \p p.
+   *
+   * (This is based on the assumption that the log add the most derived type last)
+   */
   const std::type_index & getPromotedType(const graph::internal::Log::Pointer & p) const;
 
+  /** Add the value(s) corresponding to \p o to \p ov.*/
   bool addOutputVal(std::vector<OutputVal> & ov, const Output & o) const;
+  /** Return the value(s) corresponding to \p o*/
+  std::vector<OutputVal> outputVal(const Output & o) const;
+  /** Subfunction for listOutputVal.*/
   std::vector<OutputVal> listOutputVal(const std::vector<graph::internal::Log::Output> & o, bool verbose) const;
+  /** Subfunction for followUp*/
   std::unique_ptr<Node> followUp(const Output & o,
                                  std::function<bool(const Eigen::MatrixXd &)> select,
                                  Processed & processed) const;
+  /** Subfunction for followUp*/
   std::unique_ptr<Node> followUp(const Update & u,
                                  std::function<bool(const Eigen::MatrixXd &)> select,
                                  Processed & processed) const;
 
+  /** Subfunction for print*/
   void print(std::ostream & os, const std::unique_ptr<Node> & node, int depth) const;
+
+  /** Register the usual tvm class. */
+  void registerDefault();
 
   using OutputKey = std::pair<std::size_t, graph::internal::Log::EnumValue>;
   using VarMatrixPair = std::pair<VariablePtr, Eigen::MatrixXd>;
@@ -130,21 +180,25 @@ private:
 };
 
 template<typename T, typename U, typename EnumOutput>
-inline void GraphProbe::registerAccessor(EnumOutput o, const U & (T::*fn)() const)
+inline void GraphProbe::registerAccessor(EnumOutput o,
+                                         const U & (T::*fn)() const,
+                                         std::function<Eigen::MatrixXd(const U &)> convert)
 {
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
-  outputAccessor_[k] = [fn](uintptr_t t) { return (reinterpret_cast<T *>(t)->*fn)(); };
+  outputAccessor_[k] = [fn, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*fn)()); };
 }
 
 template<typename T, typename U, typename EnumOutput>
-inline void GraphProbe::registerAccessor(EnumOutput o, U (T::*fn)(const Variable &) const)
+inline void GraphProbe::registerAccessor(EnumOutput o,
+                                         U (T::*fn)(const Variable &) const,
+                                         std::function<Eigen::MatrixXd(const U &)> convert)
 {
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
-  varDepOutputAccessor_[k] = [fn](uintptr_t t) {
+  varDepOutputAccessor_[k] = [fn, convert](uintptr_t t) {
     std::vector<VarMatrixPair> ret;
     T * ptr = reinterpret_cast<T *>(t);
     for(const auto & v : ptr->variables())
-      ret.emplace_back(v, (ptr->*fn)(*v));
+      ret.emplace_back(v, convert((ptr->*fn)(*v)));
     return ret;
   };
 }
@@ -172,7 +226,7 @@ inline void GraphProbe::registerTVMConstraint()
 template<typename T>
 inline void GraphProbe::registerTVMTaskDynamics()
 {
-  registerAccessor<T>(T::Output::Value, &T::value);
+  registerAccessor<T::Impl>(T::Impl::Output::Value, &T::Impl::value);
 }
 } // namespace tvm::diagnostic
 

@@ -16,15 +16,23 @@ using namespace tvm::graph::internal;
 
 std::string indent(int val) { return std::string(val, ' '); }
 
-bool none(const std::vector<GraphProbe::OutputVal> & outputVal, std::function<bool(const Eigen::MatrixXd &)> select)
+// shared code for any and none (see below)
+template<bool b>
+bool check(const std::vector<GraphProbe::OutputVal> & outputVal,
+                std::function<bool(const Eigen::MatrixXd &)> select)
 {
   for(const auto & v : outputVal)
   {
     if(select(std::get<Eigen::MatrixXd>(v)))
-      return false;
+      return b;
   }
-  return true;
+  return !b;
 }
+
+// any(outputVal, select) returns true if any value v in outputVal is such that select(v) is true, and false otherwise 
+constexpr auto any = check<true>;
+// none(outputVal, select) returns true if no value v in outputVal is such that select(v) is true, and false otherwise
+constexpr auto none = check<false>;
 
 Eigen::MatrixXd transposeIfVector(const Eigen::MatrixXd & M)
 {
@@ -120,7 +128,7 @@ const Log::Update & findFromUpdate(const UpdateContainer & s, const Log::Interna
 
 namespace tvm::diagnostic
 {
-GraphProbe::GraphProbe(const graph::internal::Log & log) : log_(log) {}
+GraphProbe::GraphProbe(const graph::internal::Log & log) : log_(log) { registerDefault(); }
 
 std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const graph::CallGraph * const g, bool verbose) const
 {
@@ -135,18 +143,66 @@ std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const GraphProbe::O
 std::unique_ptr<GraphProbe::Node> GraphProbe::followUp(const Output & o,
                                                        std::function<bool(const Eigen::MatrixXd &)> select) const
 {
-  Processed processed;
-
-  // Adding outputs referred only as source
-  for(const auto & i : log_.inputs_)
-  {
-    processed.allOutputs.push_back({i.id, i.name, i.source});
-  }
-
+  Processed processed(log_);
   return followUp(o, select, processed);
 }
 
+
+std::vector<std::unique_ptr<GraphProbe::Node>> GraphProbe::followUp(
+    const graph::CallGraph * const g,
+    std::function<bool(const Eigen::MatrixXd &)> select) const
+{
+  std::vector<std::unique_ptr<Node>> ret;
+  Processed processed(log_);
+
+  // First we retrieve the outputs of the call graph
+  auto it = log_.graphOutputs_.find(g);
+  if(it == log_.graphOutputs_.end())
+    throw std::runtime_error("[GraphProbe::followUp]: graph not in log.");
+
+  std::vector<Output> startingPoints;
+  for(const auto & p : it->second)
+  {
+    for(const auto & i : log_.inputs_)
+    {
+      if(i.owner == p)
+      {
+        startingPoints.push_back(findOutput(processed.allOutputs, i));
+      }
+    }
+  }
+
+  // Now we process these outputs
+  for(const auto & o : startingPoints)
+  {
+    processed.outputs.clear();
+    processed.updates.clear();
+    if(any(outputVal(o), select))
+      ret.emplace_back(followUp(o, select, processed));
+  }
+
+  return ret;
+}
+
 void GraphProbe::print(std::ostream & os, const std::unique_ptr<Node> & node) const { print(os, node, 0); }
+
+void GraphProbe::print(std::ostream & os, const std::vector<std::unique_ptr<Node>> & roots) const
+{
+  for(const auto & r : roots)
+  {
+    print(os, r);
+    os << "\n";
+  }
+}
+
+
+GraphProbe::Processed::Processed(const graph::internal::Log & log)
+{
+  allOutputs = log.outputs_;
+  // Adding outputs referred only as source
+  for(const auto & i : log.inputs_)
+    allOutputs.push_back({i.id, i.name, i.source});
+}
 
 const std::type_index & GraphProbe::getPromotedType(const graph::internal::Log::Pointer & p) const
 {
@@ -159,9 +215,21 @@ const std::type_index & GraphProbe::getPromotedType(const graph::internal::Log::
 
 bool GraphProbe::addOutputVal(std::vector<OutputVal> & ov, const Output & o) const
 {
-  if(auto it = outputAccessor_.find({o.owner.type.hash_code(), o.id}); it != outputAccessor_.end())
+  if(auto it = outputAccessor_.find({getPromotedType(o.owner).hash_code(), o.id}); it != outputAccessor_.end())
   {
     ov.push_back({o, nullptr, it->second(o.owner.value)});
+    return true;
+  }
+  else if(auto it = outputAccessor_.find({o.owner.type.hash_code(), o.id}); it != outputAccessor_.end())
+  {
+    ov.push_back({o, nullptr, it->second(o.owner.value)});
+    return true;
+  }
+  else if(auto it = varDepOutputAccessor_.find({getPromotedType(o.owner).hash_code(), o.id}); it != varDepOutputAccessor_.end())
+  {
+    const auto & varMatPair = it->second(o.owner.value);
+    for(const auto & p : varMatPair)
+      ov.push_back({o, p.first, p.second});
     return true;
   }
   else if(auto it = varDepOutputAccessor_.find({o.owner.type.hash_code(), o.id}); it != varDepOutputAccessor_.end())
@@ -175,6 +243,14 @@ bool GraphProbe::addOutputVal(std::vector<OutputVal> & ov, const Output & o) con
     return false;
 }
 
+std::vector<GraphProbe::OutputVal> GraphProbe::outputVal(const Output & o) const
+{
+  std::vector<OutputVal> ret;
+  addOutputVal(ret, o);
+  return ret;
+}
+
+
 std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const std::vector<graph::internal::Log::Output> & outputs,
                                                              bool verbose) const
 {
@@ -185,7 +261,11 @@ std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const std::vector<g
     bool b = addOutputVal(ret, o);
     if(!b && verbose)
     {
-      std::cout << "No function to retrieve output" << o.name << " for " << o.owner.type.name() << "\n";
+      std::cout << "No function to retrieve output" << o.name << " for " << getPromotedType(o.owner).name();
+      if(o.owner.type != getPromotedType(o.owner))
+        std::cout << " (or" << o.owner.type.name() << ")\n" << std::endl;
+      else
+        std::cout << "\n";
     }
   }
   return ret;
@@ -195,10 +275,18 @@ std::unique_ptr<GraphProbe::Node> GraphProbe::followUp(const Output & o,
                                                        Processed & processed) const
 {
   auto node = std::make_unique<Node>(o);
-  std::vector<OutputVal> val;
-  addOutputVal(val, o);
 
-  if(processed.outputs[o] || none(val, select))
+  auto vals = outputVal(o);
+  if(vals.empty())
+  {
+    std::cout << "No function to retrieve output" << o.name << " for " << getPromotedType(o.owner).name();
+    if(o.owner.type != getPromotedType(o.owner))
+      std::cout << " (or" << o.owner.type.name() << ")\n" << std::endl;
+    else
+      std::cout << "\n";
+    std::cout << "Stopping search for this node.\n";
+  }
+  if(processed.outputs[o] || none(vals, select))
     return node;
 
   processed.outputs[o] = true;
@@ -258,9 +346,7 @@ void GraphProbe::print(std::ostream & os, const std::unique_ptr<Node> & node, in
        << o.owner.value
        << std::dec << ")]\n";
 
-    std::vector<OutputVal> vals;
-    addOutputVal(vals, o);
-    for(const auto & v : vals)
+    for(const auto & v : outputVal(o))
     {
       const auto & M = std::get<Eigen::MatrixXd>(v);
       const auto & var = std::get<VariablePtr>(v);
@@ -313,4 +399,42 @@ std::ostream & operator<<(std::ostream & os, const std::vector<tvm::diagnostic::
     }
   }
   return os;
+}
+
+#include <tvm/constraint/BasicLinearConstraint.h>
+#include <tvm/constraint/internal/LinearizedTaskConstraint.h>
+#include <tvm/function/BasicLinearFunction.h>
+#include <tvm/function/IdentityFunction.h>
+#include <tvm/task_dynamics/Constant.h>
+#include <tvm/task_dynamics/None.h>
+#include <tvm/task_dynamics/Proportional.h>
+#include <tvm/task_dynamics/ProportionalDerivative.h>
+#include <tvm/task_dynamics/Reference.h>
+#include <tvm/task_dynamics/VelocityDamper.h>
+
+namespace tvm::diagnostic
+{
+void GraphProbe::registerDefault()
+{
+  registerTVMConstraint<constraint::abstract::Constraint>();
+  registerTVMConstraint<constraint::abstract::LinearConstraint>();
+  registerTVMConstraint<constraint::internal::LinearizedTaskConstraint> ();
+  registerTVMConstraint<constraint::BasicLinearConstraint>();
+
+  registerTVMFunction<function::abstract::Function>();
+  registerTVMFunction<function::abstract::LinearFunction>();
+  registerAccessor<function::abstract::LinearFunction>(function::abstract::LinearFunction::Output::B,
+                                                       &function::abstract::LinearFunction::b);
+  registerTVMFunction<function::BasicLinearFunction>();
+  registerTVMFunction<function::IdentityFunction>();
+  
+  registerTVMTaskDynamics<task_dynamics::Constant>();
+  registerTVMTaskDynamics<task_dynamics::None>();
+  registerTVMTaskDynamics<task_dynamics::Proportional>();
+  registerTVMTaskDynamics<task_dynamics::ProportionalDerivative>();
+  registerTVMTaskDynamics<task_dynamics::Reference>();
+  registerTVMTaskDynamics<task_dynamics::VelocityDamper>();
+  registerAccessor<task_dynamics::abstract::TaskDynamicsImpl>(
+      task_dynamics::abstract::TaskDynamicsImpl::Output::Value, &task_dynamics::abstract::TaskDynamicsImpl::value);
+}
 }
