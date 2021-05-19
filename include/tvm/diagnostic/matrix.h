@@ -44,8 +44,8 @@ inline bool isInMatrix(typename MatrixOrMapType::Scalar const * ptr, MatrixOrMap
  *
  * \tparam MatrixOrMapType An Eigen type with a \c data method
  */
-template<typename Derived, typename MatrixOrMapType>
-inline bool isInMatrix(const Eigen::DenseCoeffsBase<Derived> & A, Eigen::Index i, Eigen::Index j, MatrixOrMapType & M)
+template<typename MatrixT, typename MatrixOrMapType>
+inline bool isInMatrix(const MatrixT & A, Eigen::Index i, Eigen::Index j, MatrixOrMapType & M)
 {
   return isInMatrix(&A.coeff(i, j), M);
 }
