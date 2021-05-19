@@ -120,7 +120,7 @@ public:
       const Output & o,
       std::function<bool(const Eigen::MatrixXd &)> select = [](const Eigen::MatrixXd &) { return true; }) const;
 
-  /** Follow up backward the computation graph starting at the inputs of \p g, and trimming out 
+  /** Follow up backward the computation graph starting at the inputs of \p g, and trimming out
    * branches where the value of an output does not pass the test given by \p select.
    */
   std::vector<std::unique_ptr<Node>> followUp(

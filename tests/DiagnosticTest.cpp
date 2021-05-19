@@ -2,17 +2,15 @@
 
 #pragma once
 
-
-
 #include "SolverTestFunctions.h"
 
 #include <tvm/ControlProblem.h>
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/Variable.h>
 #include <tvm/constraint/abstract/Constraint.h>
+#include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/diagnostic/GraphProbe.h>
 #include <tvm/diagnostic/matrix.h>
-#include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
@@ -108,7 +106,7 @@ TEST_CASE("GraphProbe")
     FAST_CHECK_EQ(std::get<GraphProbe::Output>(sphereValue).name, "Value");
     FAST_CHECK_EQ(std::get<GraphProbe::Output>(sphereValue).owner.type, typeid(SphereFunction));
     FAST_CHECK_EQ(std::get<VariablePtr>(sphereValue), nullptr);
-    FAST_CHECK_EQ(std::get<MatrixXd>(sphereValue)(0,0), -0.5);
+    FAST_CHECK_EQ(std::get<MatrixXd>(sphereValue)(0, 0), -0.5);
   }
 
   {
