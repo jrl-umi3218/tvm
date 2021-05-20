@@ -34,6 +34,16 @@ struct PairHasher
     return hash;
   }
 };
+
+/** An helper function to remove a noexcept from the signature of a method.
+ * 
+ * Useful for the registration of methods in GraphProbe::registerAccessor
+ */
+template<typename T, typename U, typename... Args>
+auto remove_noexcept(U (T::*fn)(Args...) const noexcept)
+{
+  return static_cast<U (T::*)(Args...) const>(fn);
+}
 } // namespace tvm::diagnostic::internal
 
 // Specialization
