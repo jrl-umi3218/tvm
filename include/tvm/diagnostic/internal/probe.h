@@ -36,7 +36,7 @@ struct PairHasher
 };
 
 /** An helper function to remove a noexcept from the signature of a method.
- * 
+ *
  * Useful for the registration of methods in GraphProbe::registerAccessor
  */
 template<typename T, typename U, typename... Args>
