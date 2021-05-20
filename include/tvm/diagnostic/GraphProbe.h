@@ -208,7 +208,9 @@ inline void GraphProbe::registerAccessor(EnumOutput o,
 #endif
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
+#ifndef _MSC_VER
   static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
+#endif
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
   outputAccessor_[k] = [fn, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*fn)()); };
 }
@@ -226,7 +228,9 @@ inline void GraphProbe::registerAccessor(EnumOutput o,
 #endif
                                          std::function<Eigen::MatrixXd(const U &)> convert)
 {
+#ifndef _MSC_VER
   static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
+#endif
   OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
   varDepOutputAccessor_[k] = [fn, convert](uintptr_t t) {
     std::vector<VarMatrixPair> ret;
