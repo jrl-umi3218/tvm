@@ -46,7 +46,7 @@ public:
 
   void clear();
 
-  void value(const VectorConstRef & val);
+  void set(const VectorConstRef & val);
 
   /** Return the vector of variables resulting from the different add and remove.
    *

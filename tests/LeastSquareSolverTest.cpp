@@ -39,7 +39,7 @@ std::unique_ptr<LinearizedControlProblem> circleIK()
 
   Space s2(3);
   VariablePtr q = s2.createVariable("q");
-  q->value(Vector3d(0.4, -0.6, -0.1));
+  q->set(Vector3d(0.4, -0.6, -0.1));
 
   auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));

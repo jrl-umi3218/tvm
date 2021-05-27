@@ -346,8 +346,8 @@ void checkEquivalence(const std::vector<std::shared_ptr<constraint::BasicLinearC
     // one solution to the additional constraints
     VectorXd yz = sol1 + Nc * VectorXd::Random(Nc.cols());
     // split it over y and z
-    y.value(yz.head(y.totalSize()));
-    z.value(yz.tail(z.totalSize()));
+    y.set(yz.head(y.totalSize()));
+    z.set(yz.tail(z.totalSize()));
     // compute the corresponding x
     subs.updateVariableValues();
     // compute the residual for the current x and y

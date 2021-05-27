@@ -326,7 +326,7 @@ void WeightedLeastSquares::Memory::reset(std::unique_ptr<solver::abstract::Least
 
 void WeightedLeastSquares::Memory::setVariablesToSolution_(tvm::internal::VariableCountingVector & x)
 {
-  x.value(solver->result());
+  x.set(solver->result());
 }
 
 } // namespace scheme

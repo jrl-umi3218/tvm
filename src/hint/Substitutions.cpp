@@ -138,7 +138,7 @@ void Substitutions::updateVariableValues() const
   for(size_t i = 0; i < variables_.size(); ++i)
   {
     varSubstitutions_[i]->updateValue();
-    variables_[i]->value(varSubstitutions_[i]->value());
+    variables_[i]->set(varSubstitutions_[i]->value());
   }
 }
 

@@ -86,7 +86,7 @@ void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val, bool valu
   {
     if(val.size() == x[i]->size())
     {
-      x[i]->value(val);
+      x[i]->set(val);
     }
     else
     {
@@ -101,7 +101,7 @@ void UpdatelessFunction::assign(size_t i, const Eigen::VectorXd & val, bool valu
     auto dxi = dot(x[i]);
     if(val.size() == dxi->size())
     {
-      dxi->value(val);
+      dxi->set(val);
     }
     else
     {
@@ -130,7 +130,7 @@ void UpdatelessFunction::assign(Variable & x, const Eigen::VectorXd & val, bool 
     {
       if(val.size() == x.size())
       {
-        x.value(val);
+        x.set(val);
       }
       else
       {
@@ -145,7 +145,7 @@ void UpdatelessFunction::assign(Variable & x, const Eigen::VectorXd & val, bool 
       auto dxi = dot(*it);
       if(val.size() == dxi->size())
       {
-        dxi->value(val);
+        dxi->set(val);
       }
       else
       {
@@ -181,7 +181,7 @@ void UpdatelessFunction::assign(const Eigen::VectorXd & val) const
   for(size_t i = 0; i < x.size(); ++i)
   {
     auto ni = x[i]->size();
-    x[i]->value(val.segment(s, ni));
+    x[i]->set(val.segment(s, ni));
     s += ni;
   }
 }
@@ -214,8 +214,8 @@ void UpdatelessFunction::assign(const Eigen::VectorXd & val, const Eigen::Vector
   {
     auto spi = x[i]->size();
     auto sdi = dx_[i]->size();
-    x[i]->value(val.segment(sp, spi));
-    dx_[i]->value(vel.segment(sd, sdi));
+    x[i]->set(val.segment(sp, spi));
+    dx_[i]->set(vel.segment(sd, sdi));
     sp += spi;
     sd += sdi;
   }
