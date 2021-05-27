@@ -13,7 +13,7 @@ var a01645 =
     [ "ProblemDefinitionEvent", "a01645.html#aad4ad9e3c84e43353e07aa048e878fe5", null ],
     [ "ProblemDefinitionEvent", "a01645.html#a2509e9576cf2b4d17f606721fa793edf", null ],
     [ "ProblemDefinitionEvent", "a01645.html#ae84855532fa01c31797bc87941469df9", null ],
-    [ "emitter", "a01645.html#a978138aed89e626b3daa9199ffda7b72", null ],
+    [ "emitter", "a01645.html#ab552480335416d7c539769d3c00f16a0", null ],
     [ "operator=", "a01645.html#ab105b8db59ef26acaa2a67e3d7019dd3", null ],
     [ "operator=", "a01645.html#aec15688b9be5bab333cd84b3f43e6d81", null ],
     [ "type", "a01645.html#ad6d62ed5e9d52e29029417570cdc3481", null ],

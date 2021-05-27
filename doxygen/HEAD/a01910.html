@@ -124,28 +124,31 @@ $(document).ready(function(){initNavTree('a01913.html','');});
   <tr class="even"><td class="entry"><a class="el" href="a01285.html#a24d59ef2cc878342461631b428ce8f5b">tvm::internal::ObjWithId::operator=</a>(ObjWithId &amp;&amp;other)</td><td class="entry"><a class="el" href="a01285.html">tvm::internal::ObjWithId</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="a01913.html#ac3b0c4360a86024cb2318288e909e6e3">operator==</a>(const Variable &amp;u, const Variable &amp;v)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="a01913.html#a967aec1cb0f0579fffba55f63217e243">primitive</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#ab49df7f5f9c8495c55108334a5c5d1ed">setZero</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a676401a4627657c6ad1c182c5901cd47">shared_from_this</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#a4c7ab047ba8057c7c5564ae500080b2f">size</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a29f59329447fd1d5c817cbb913f7d433">space</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#a2129e6c0ac73536a2ac4f681dae16947">Space</a> class</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a5ca5b5393cda0336e3e612b8483b6f48">spaceShift</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#a3406e62e71db89c619dce7694fc73976">subvariable</a>(Space space, std::string_view baseName, Space shift={0}) const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a6d9167a14ecb5b4b633d9bb469895737">subvariableRange</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#a4c3910d2f3013804cbad7387c4bbb0ae">superVariable</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a4c7b7a8edb5921d0025d210cd9852c99">value</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#ac1968c745417aac31937e82953399929">value</a>(const VectorConstRef &amp;x)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a58b844ffbc99f8676db998dc8ae60454">Variable</a>(const Variable &amp;)=delete</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#ae05112e0eafe62ad3162fe0d513afe81">Variable</a>(make_shared_token, VariablePtr var, const Space &amp;space, std::string_view name, const Space &amp;shift)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a5194610bec6d9569d17cd7696700e4c8">VariableVector</a> class</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01913.html#ab17bd0253eb830cf1bdab1546704b208">~Variable</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a4709d0cb985382bebbf0f5c5c36ffe01">set</a>(const VectorConstRef &amp;x)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#acb3b0b3078b02684cc2e473d673fff7e">set</a>(Eigen::DenseIndex idx, double value)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#af1b7bbacc6c01ad37107d7708c48a82e">set</a>(Eigen::DenseIndex idx, Eigen::DenseIndex length, const VectorConstRef &amp;value)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#ab49df7f5f9c8495c55108334a5c5d1ed">setZero</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a676401a4627657c6ad1c182c5901cd47">shared_from_this</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a4c7ab047ba8057c7c5564ae500080b2f">size</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a29f59329447fd1d5c817cbb913f7d433">space</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a2129e6c0ac73536a2ac4f681dae16947">Space</a> class</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a5ca5b5393cda0336e3e612b8483b6f48">spaceShift</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a3406e62e71db89c619dce7694fc73976">subvariable</a>(Space space, std::string_view baseName, Space shift={0}) const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a6d9167a14ecb5b4b633d9bb469895737">subvariableRange</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a4c3910d2f3013804cbad7387c4bbb0ae">superVariable</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a4c7b7a8edb5921d0025d210cd9852c99">value</a>() const</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#a674397535f986eaff3ba5cf7d4e15089">value</a>(const VectorConstRef &amp;x)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a58b844ffbc99f8676db998dc8ae60454">Variable</a>(const Variable &amp;)=delete</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#ae05112e0eafe62ad3162fe0d513afe81">Variable</a>(make_shared_token, VariablePtr var, const Space &amp;space, std::string_view name, const Space &amp;shift)</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01913.html#a5194610bec6d9569d17cd7696700e4c8">VariableVector</a> class</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01913.html#ab17bd0253eb830cf1bdab1546704b208">~Variable</a>()</td><td class="entry"><a class="el" href="a01913.html">tvm::Variable</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 10:20:49 for TVM by
+    <li class="footer">Generated on Thu May 27 2021 07:19:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

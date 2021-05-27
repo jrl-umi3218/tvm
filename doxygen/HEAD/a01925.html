@@ -171,9 +171,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7ae6099e8837dcc0887f86fc6edf709c"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a7ae6099e8837dcc0887f86fc6edf709c">value</a> () const</td></tr>
 <tr class="memdesc:a7ae6099e8837dcc0887f86fc6edf709c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the concatenation of all variables' value, in the order of the variables as given by <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be" title="whole vector access ">variables()</a>.  <a href="#a7ae6099e8837dcc0887f86fc6edf709c">More...</a><br /></td></tr>
 <tr class="separator:a7ae6099e8837dcc0887f86fc6edf709c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee7fe9b8f76f97b61371a26ab8961ba7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#aee7fe9b8f76f97b61371a26ab8961ba7">value</a> (const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;val)</td></tr>
-<tr class="memdesc:aee7fe9b8f76f97b61371a26ab8961ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of all variables from a concatenated vector.  <a href="#aee7fe9b8f76f97b61371a26ab8961ba7">More...</a><br /></td></tr>
-<tr class="separator:aee7fe9b8f76f97b61371a26ab8961ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dce9d3ecbc727d9ad1d115351ee79bf"><td class="memItemLeft" align="right" valign="top">TVM_DEPRECATED void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a2dce9d3ecbc727d9ad1d115351ee79bf">value</a> (const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;x)</td></tr>
+<tr class="memdesc:a2dce9d3ecbc727d9ad1d115351ee79bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">(DEPRECATED) Set the value of all variables from a concatenated vector  <a href="#a2dce9d3ecbc727d9ad1d115351ee79bf">More...</a><br /></td></tr>
+<tr class="separator:a2dce9d3ecbc727d9ad1d115351ee79bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a307dd37a1d66bc2872916522292da062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a307dd37a1d66bc2872916522292da062">set</a> (const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;val)</td></tr>
+<tr class="memdesc:a307dd37a1d66bc2872916522292da062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of all variables from a concatenated vector.  <a href="#a307dd37a1d66bc2872916522292da062">More...</a><br /></td></tr>
+<tr class="separator:a307dd37a1d66bc2872916522292da062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a076be618f15dad6689058a00aa7dc848"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a076be618f15dad6689058a00aa7dc848">setZero</a> ()</td></tr>
 <tr class="memdesc:a076be618f15dad6689058a00aa7dc848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of all variables to 0.  <a href="#a076be618f15dad6689058a00aa7dc848">More...</a><br /></td></tr>
 <tr class="separator:a076be618f15dad6689058a00aa7dc848"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -787,6 +790,32 @@ template&lt;typename... VarPtr&gt; </div>
 
 </div>
 </div>
+<a id="a307dd37a1d66bc2872916522292da062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307dd37a1d66bc2872916522292da062">&#9670;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tvm::VariableVector::set </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value of all variables from a concatenated vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>The concatenated value of all the variables, in the order of the variables as given by <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be" title="whole vector access ">variables()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a076be618f15dad6689058a00aa7dc848"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a076be618f15dad6689058a00aa7dc848">&#9670;&nbsp;</a></span>setZero()</h2>
 
@@ -863,23 +892,31 @@ template&lt;typename... VarPtr&gt; </div>
 
 </div>
 </div>
-<a id="aee7fe9b8f76f97b61371a26ab8961ba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee7fe9b8f76f97b61371a26ab8961ba7">&#9670;&nbsp;</a></span>value() <span class="overload">[2/2]</span></h2>
+<a id="a2dce9d3ecbc727d9ad1d115351ee79bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dce9d3ecbc727d9ad1d115351ee79bf">&#9670;&nbsp;</a></span>value() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void tvm::VariableVector::value </td>
+          <td class="memname">TVM_DEPRECATED void tvm::VariableVector::value </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="a00395.html#a7afafb1e1034729b83e6d3676108f7af">VectorConstRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Set the value of all variables from a concatenated vector. </p>
+<p>(DEPRECATED) Set the value of all variables from a concatenated vector </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">val</td><td>The concatenated value of all the variables, in the order of the variables as given by <a class="el" href="a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be" title="whole vector access ">variables()</a>. </td></tr>
@@ -917,7 +954,7 @@ template&lt;typename... VarPtr&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00395.html">tvm</a></li><li class="navelem"><a class="el" href="a01925.html">VariableVector</a></li>
-    <li class="footer">Generated on Wed Apr 14 2021 10:20:49 for TVM by
+    <li class="footer">Generated on Thu May 27 2021 07:19:02 for TVM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

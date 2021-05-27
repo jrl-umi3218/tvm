@@ -23,10 +23,11 @@ var a01925 =
     [ "operator[]", "a01925.html#ac3e2b1b24d8aa8c58fc6bd7af2ca814a", null ],
     [ "remove", "a01925.html#ad4ef94b8bffc61864f8766a58d229b74", null ],
     [ "remove", "a01925.html#a6969dbf88fac8f9706c26aab53f021e2", null ],
+    [ "set", "a01925.html#a307dd37a1d66bc2872916522292da062", null ],
     [ "setZero", "a01925.html#a076be618f15dad6689058a00aa7dc848", null ],
     [ "stamp", "a01925.html#a32c2b375a43814b0c29a61dcdb1ab8bc", null ],
     [ "totalSize", "a01925.html#a322465ca225be0540dde0a2730afb8fa", null ],
     [ "value", "a01925.html#a7ae6099e8837dcc0887f86fc6edf709c", null ],
-    [ "value", "a01925.html#aee7fe9b8f76f97b61371a26ab8961ba7", null ],
+    [ "value", "a01925.html#a2dce9d3ecbc727d9ad1d115351ee79bf", null ],
     [ "variables", "a01925.html#a1803f1e6f2cddd3d1a881bd669ef11be", null ]
 ];

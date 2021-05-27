@@ -12721,10 +12721,10 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>void const  *const</type>
+      <type>void const  *</type>
       <name>emitter</name>
       <anchorfile>a01645.html</anchorfile>
-      <anchor>a978138aed89e626b3daa9199ffda7b72</anchor>
+      <anchor>ab552480335416d7c539769d3c00f16a0</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -16046,11 +16046,32 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>TVM_DEPRECATED void</type>
       <name>value</name>
       <anchorfile>a01913.html</anchorfile>
-      <anchor>ac1968c745417aac31937e82953399929</anchor>
+      <anchor>a674397535f986eaff3ba5cf7d4e15089</anchor>
       <arglist>(const VectorConstRef &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set</name>
+      <anchorfile>a01913.html</anchorfile>
+      <anchor>a4709d0cb985382bebbf0f5c5c36ffe01</anchor>
+      <arglist>(const VectorConstRef &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set</name>
+      <anchorfile>a01913.html</anchorfile>
+      <anchor>acb3b0b3078b02684cc2e473d673fff7e</anchor>
+      <arglist>(Eigen::DenseIndex idx, double value)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set</name>
+      <anchorfile>a01913.html</anchorfile>
+      <anchor>af1b7bbacc6c01ad37107d7708c48a82e</anchor>
+      <arglist>(Eigen::DenseIndex idx, Eigen::DenseIndex length, const VectorConstRef &amp;value)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -16275,9 +16296,9 @@
     </member>
     <member kind="function">
       <type>void</type>
-      <name>value</name>
+      <name>set</name>
       <anchorfile>a01305.html</anchorfile>
-      <anchor>a3d1cbb37a3fe32239dbe087195ca7716</anchor>
+      <anchor>ac83c44c2bb031560be2d8c4cc291e091</anchor>
       <arglist>(const VectorConstRef &amp;val)</arglist>
     </member>
     <member kind="function">
@@ -16447,10 +16468,17 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>TVM_DEPRECATED void</type>
       <name>value</name>
       <anchorfile>a01925.html</anchorfile>
-      <anchor>aee7fe9b8f76f97b61371a26ab8961ba7</anchor>
+      <anchor>a2dce9d3ecbc727d9ad1d115351ee79bf</anchor>
+      <arglist>(const VectorConstRef &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set</name>
+      <anchorfile>a01925.html</anchorfile>
+      <anchor>a307dd37a1d66bc2872916522292da062</anchor>
       <arglist>(const VectorConstRef &amp;val)</arglist>
     </member>
     <member kind="function">
