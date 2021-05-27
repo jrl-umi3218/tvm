@@ -35,15 +35,15 @@ void solverTest01()
   Space s1(2);
   VariablePtr x = s1.createVariable("x");
   VariablePtr dx = dot(x);
-  x->value(Vector2d(0.5, 0.5));
-  dx->value(Vector2d::Zero());
+  x->set(Vector2d(0.5, 0.5));
+  dx->set(Vector2d::Zero());
 
   int dim = 3;
   Space s2(dim);
   VariablePtr q = s2.createVariable("q");
   VariablePtr dq = dot(q);
-  q->value(Vector3d(0.4, -0.6, 0.9));
-  dq->value(Vector3d::Zero());
+  q->set(Vector3d(0.4, -0.6, 0.9));
+  dq->set(Vector3d::Zero());
 
   auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
@@ -100,7 +100,7 @@ void minimalKin()
 
   Space s2(3);
   VariablePtr q = s2.createVariable("q");
-  q->value(Vector3d(0.4, -0.6, -0.1));
+  q->set(Vector3d(0.4, -0.6, -0.1));
 
   auto sf = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
@@ -142,8 +142,8 @@ void minimalKin()
 #endif
 
     double dt = 0.01;
-    x->value(x->value() + dot(x, 1)->value() * dt);
-    q->value(q->value() + dot(q, 1)->value() * dt);
+    x->set(x->value() + dot(x, 1)->value() * dt);
+    q->set(q->value() + dot(q, 1)->value() * dt);
     if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;
@@ -162,7 +162,7 @@ void minimalKinSub()
 
   Space s2(3);
   VariablePtr q = s2.createVariable("q");
-  q->value(Vector3d(0.4, -0.6, -0.1));
+  q->set(Vector3d(0.4, -0.6, -0.1));
 
   auto sf = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
@@ -186,8 +186,8 @@ void minimalKinSub()
     solver.solve(lpb);
 
     double dt = 0.01;
-    x->value(x->value() + dot(x, 1)->value() * dt);
-    q->value(q->value() + dot(q, 1)->value() * dt);
+    x->set(x->value() + dot(x, 1)->value() * dt);
+    q->set(q->value() + dot(q, 1)->value() * dt);
     if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;
@@ -209,8 +209,8 @@ void minimalDyn()
   Space s2(3);
   VariablePtr q = s2.createVariable("q");
   VariablePtr dq = dot(q);
-  q->value(Vector3d(0.4, -0.6, -0.1));
-  dq->value(Vector3d::Zero());
+  q->set(Vector3d(0.4, -0.6, -0.1));
+  dq->set(Vector3d::Zero());
 
   auto sf = make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
   auto rf = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1));
@@ -234,8 +234,8 @@ void minimalDyn()
     solver.solve(lpb);
 
     double dt = 0.01;
-    x->value(x->value() + dx->value() * dt + 0.5 * dot(x, 2)->value() * dt * dt);
-    q->value(q->value() + dq->value() * dt + 0.5 * dot(q, 2)->value() * dt * dt);
+    x->set(x->value() + dx->value() * dt + 0.5 * dot(x, 2)->value() * dt * dt);
+    q->set(q->value() + dq->value() * dt + 0.5 * dot(q, 2)->value() * dt * dt);
     if(i % 10 == 0)
     {
       std::cout << "it = " << i << std::endl;

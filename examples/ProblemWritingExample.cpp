@@ -32,7 +32,7 @@ VectorXd IKExample()
   // Creating variable q in R^3 and initialize it to [0.4, -0.6, -0.1]
   Space R3(3);
   VariablePtr q = R3.createVariable("q");
-  q->value(Vector3d(0.4, -0.6, -0.1));
+  q->set(Vector3d(0.4, -0.6, -0.1));
 
   // Creating the functions
   auto g = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1)); // g(q)
@@ -60,8 +60,8 @@ VectorXd IKExample()
   do
   {
     solver.solve(lpb);
-    x->value(x->value() + dot(x)->value() * dt);
-    q->value(q->value() + dot(q)->value() * dt);
+    x->set(x->value() + dot(x)->value() * dt);
+    q->set(q->value() + dot(q)->value() * dt);
     ++i;
   } while((dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8) && i < maxIt);
 
@@ -79,7 +79,7 @@ VectorXd IKSubstitutionExample()
 
   Space R3(3);
   VariablePtr q = R3.createVariable("q");
-  q->value(Vector3d(0.4, -0.6, -0.1));
+  q->set(Vector3d(0.4, -0.6, -0.1));
 
   auto g = make_shared<Simple2dRobotEE>(q, Vector2d(-3, 0), Vector3d(1, 1, 1)); // g(q)
   auto idx = make_shared<function::IdentityFunction>(x);                        // I x
@@ -102,8 +102,8 @@ VectorXd IKSubstitutionExample()
   do
   {
     solver.solve(lpb);
-    x->value(x->value() + dot(x)->value() * dt);
-    q->value(q->value() + dot(q)->value() * dt);
+    x->set(x->value() + dot(x)->value() * dt);
+    q->set(q->value() + dot(q)->value() * dt);
     ++i;
   } while((dot(q)->value().norm() > 1e-8 || dot(x)->value().norm() > 1e-8) && i < maxIt);
 

@@ -143,14 +143,14 @@ const Eigen::VectorXd & VariableVector::value() const
   return value_;
 }
 
-void VariableVector::value(const VectorConstRef & val)
+void VariableVector::set(const VectorConstRef & val)
 {
   assert(val.size() == totalSize());
   int n = 0;
   for(const auto & v : variables_)
   {
     int s = v->size();
-    v->value(val.segment(n, s));
+    v->set(val.segment(n, s));
     n += s;
   }
 }

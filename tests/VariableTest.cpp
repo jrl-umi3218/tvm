@@ -85,10 +85,10 @@ TEST_CASE("Test Variable value")
   {
     VariablePtr v = Space(3).createVariable("v");
     Eigen::Vector3d val = Eigen::Vector3d::Random();
-    v->value(val);
+    v->set(val);
 
     FAST_CHECK_UNARY(v->value().isApprox(val));
-    CHECK_THROWS(v->value(Eigen::VectorXd(5)));
+    CHECK_THROWS(v->set(Eigen::VectorXd(5)));
   }
   {
     VariablePtr v = Space(3).createVariable("v");
@@ -114,6 +114,19 @@ TEST_CASE("Test Variable value")
     val << 1, 2, 3, 4, 5;
     v << val.tail(2), 6;
     FAST_CHECK_UNARY(v->value().isApprox(Eigen::Vector3d(4, 5, 6)));
+  }
+  {
+    VariablePtr v = Space(4).createVariable("v");
+    v->setZero();
+    FAST_CHECK_UNARY(v->value().isZero());
+    v->set(0, 1.0);
+    FAST_CHECK_UNARY(v->value()(0) == 1.0);
+    CHECK_THROWS(v->set(10, 1.0));
+    Eigen::Vector3d rnd = Eigen::Vector3d::Random();
+    v->set(1, 3, rnd);
+    FAST_CHECK_UNARY(v->value().segment(1, 3).isApprox(rnd));
+    CHECK_THROWS(v->set(3, 3, rnd));
+    CHECK_THROWS(v->set(1, 2, rnd));
   }
 }
 
@@ -177,7 +190,7 @@ TEST_CASE("Test derivative lifetime")
 {
   VariablePtr x = Space(3).createVariable("x");
   {
-    dot(x)->value(Eigen::Vector3d(3, 1, 4));
+    dot(x)->set(Eigen::Vector3d(3, 1, 4));
   }
   FAST_CHECK_EQ(dot(x)->value()[0], 3);
   FAST_CHECK_EQ(dot(x)->value()[1], 1);

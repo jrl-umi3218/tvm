@@ -17,8 +17,8 @@ TEST_CASE("Test constraint")
   tvm::VariablePtr x1 = tvm::Space(5).createVariable("x1");
   tvm::VariablePtr x2 = tvm::Space(2).createVariable("x2");
 
-  x1->value(Eigen::VectorXd::Random(5));
-  x2->value(Eigen::VectorXd::Random(2));
+  x1->set(Eigen::VectorXd::Random(5));
+  x2->set(Eigen::VectorXd::Random(2));
 
   // A1x >= 0
   tvm::constraint::BasicLinearConstraint C1(A1, x1, tvm::constraint::Type::GREATER_THAN);

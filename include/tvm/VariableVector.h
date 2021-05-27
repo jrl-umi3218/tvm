@@ -8,6 +8,8 @@
 #include <tvm/internal/MatrixWithProperties.h>
 #include <tvm/internal/ObjWithId.h>
 
+#include <tvm/deprecated.hh>
+
 #include <map>
 #include <memory>
 #include <set>
@@ -141,12 +143,18 @@ public:
    * variables as given by variables().
    */
   const Eigen::VectorXd & value() const;
+  /** (DEPRECATED) Set the value of all variables from a concatenated vector
+   *
+   * \param val The concatenated value of all the variables, in the order of
+   * the variables as given by variables().
+   */
+  TVM_DEPRECATED inline void value(const VectorConstRef & x) { set(x); }
   /** Set the value of all variables from a concatenated vector
    *
    * \param val The concatenated value of all the variables, in the order of
    * the variables as given by variables().
    */
-  void value(const VectorConstRef & val);
+  void set(const VectorConstRef & val);
   /** Set the value of all variables to 0.*/
   void setZero();
 

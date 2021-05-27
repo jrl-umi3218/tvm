@@ -59,10 +59,10 @@ void VariableCountingVector::clear()
   count_.clear();
 }
 
-void VariableCountingVector::value(const VectorConstRef & val)
+void VariableCountingVector::set(const VectorConstRef & val)
 {
   assert(upToDate_);
-  variables_.value(val);
+  variables_.set(val);
 }
 
 const VariableVector & VariableCountingVector::variables() const

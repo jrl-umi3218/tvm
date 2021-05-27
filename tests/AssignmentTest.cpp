@@ -81,7 +81,7 @@ struct Memory
 bool check(BLCPtr c, const VectorXd & x)
 {
   const double eps = 1e-12;
-  const_cast<VariableVector &>(c->variables()).value(x);
+  const_cast<VariableVector &>(c->variables()).set(x);
   c->updateValue();
   auto v = c->value();
   if(c->type() == Type::DOUBLE_SIDED)

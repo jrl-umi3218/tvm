@@ -49,7 +49,7 @@ public:
   ProblemDefinitionEvent & operator=(ProblemDefinitionEvent &&) = default;
 
   Type type() const { return type_; }
-  void const * const emitter() const { return emitter_; }
+  void const * emitter() const { return emitter_; }
   template<Type t>
   const auto & typedEmitter() const
   {
