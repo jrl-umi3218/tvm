@@ -74,6 +74,7 @@ jobs:
         github: |
           - path: jrl-umi3218/SpaceVecAlg
           - path: jrl-umi3218/sch-core
+            options: -DCMAKE_CXX_STANDARD=11
           - path: jrl-umi3218/RBDyn
           - path: jrl-umi3218/Tasks
           - path: jrl-umi3218/mc_rtc_data
