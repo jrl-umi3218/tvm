@@ -61,12 +61,12 @@ VariablePtr Variable::duplicate(std::string_view n) const
   if(derivativeNumber_)
   {
     auto r = dot(newPrimitive, derivativeNumber_);
-    r->value(value_);
+    r->set(value_);
     return r;
   }
   else
   {
-    newPrimitive->value(value_);
+    newPrimitive->set(value_);
     return newPrimitive;
   }
 }
@@ -83,12 +83,36 @@ bool Variable::isEuclidean() const { return space_.isEuclidean() || !isBasePrimi
 
 VectorConstRef Variable::value() const { return value_; }
 
-void Variable::value(const VectorConstRef & x)
+void Variable::set(const VectorConstRef & x)
 {
   if(x.size() == size())
     value_ = x;
   else
     throw std::runtime_error("x has not the correct size.");
+}
+
+void Variable::set(Eigen::DenseIndex idx, double value)
+{
+  if(idx >= 0 && idx < size())
+  {
+    value_(idx) = value;
+  }
+  else
+  {
+    throw std::runtime_error("Variable assignment out of bounds");
+  }
+}
+
+void Variable::set(Eigen::DenseIndex idx, Eigen::DenseIndex length, const VectorConstRef & value)
+{
+  if(idx >= 0 && idx + length <= size() && value.size() == length)
+  {
+    value_.segment(idx, length) = value;
+  }
+  else
+  {
+    throw std::runtime_error("Variable segment assignment out of bounds");
+  }
 }
 
 void Variable::setZero() { value_.setZero(); }

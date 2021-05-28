@@ -38,13 +38,13 @@ TEST_CASE("Substitution")
   {
     VariablePtr x = s1.createVariable("x");
     VariablePtr dx = dot(x);
-    x->value(Vector2d(0.5, 0.5));
-    dx->value(Vector2d::Zero());
+    x->set(Vector2d(0.5, 0.5));
+    dx->set(Vector2d::Zero());
 
     VariablePtr q = s2.createVariable("q");
     VariablePtr dq = dot(q);
-    q->value(Vector3d(0.4, -0.6, 0.9));
-    dq->value(Vector3d::Zero());
+    q->set(Vector3d(0.4, -0.6, 0.9));
+    dq->set(Vector3d::Zero());
 
     auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
     auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));
@@ -77,13 +77,13 @@ TEST_CASE("Substitution")
   {
     VariablePtr x = s1.createVariable("x");
     VariablePtr dx = dot(x);
-    x->value(Vector2d(0.5, 0.5));
-    dx->value(Vector2d::Zero());
+    x->set(Vector2d(0.5, 0.5));
+    dx->set(Vector2d::Zero());
 
     VariablePtr q = s2.createVariable("q");
     VariablePtr dq = dot(q);
-    q->value(Vector3d(0.4, -0.6, 0.9));
-    dq->value(Vector3d::Zero());
+    q->set(Vector3d(0.4, -0.6, 0.9));
+    dq->set(Vector3d::Zero());
 
     auto sf = std::make_shared<SphereFunction>(x, Vector2d(0, 0), 1);
     auto rf = std::make_shared<Simple2dRobotEE>(q, Vector2d(2, 0), Vector3d(1, 1, 1));

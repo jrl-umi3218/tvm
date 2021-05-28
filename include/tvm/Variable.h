@@ -7,6 +7,8 @@
 
 #include <tvm/internal/ObjWithId.h>
 
+#include <tvm/deprecated.hh>
+
 #include <Eigen/Core>
 
 #include <memory>
@@ -91,8 +93,14 @@ public:
   bool isEuclidean() const;
   /** Return the current value of the variable.*/
   VectorConstRef value() const;
+  /** (DEPRECATED) Set the value of the variable.*/
+  TVM_DEPRECATED inline void value(const VectorConstRef & x) { set(x); }
   /** Set the value of the variable.*/
-  void value(const VectorConstRef & x);
+  void set(const VectorConstRef & x);
+  /** Set the value at \p idx to \p value */
+  void set(Eigen::DenseIndex idx, double value);
+  /** Set the value of a block of length \p length starting at \p idx to the value in \p value */
+  void set(Eigen::DenseIndex idx, Eigen::DenseIndex length, const VectorConstRef & value);
   /** Set the value of the variable to 0*/
   void setZero();
   /** If this variable is a base primitive (i.e. built from a space), return 0.

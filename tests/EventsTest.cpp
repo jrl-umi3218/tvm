@@ -367,7 +367,7 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
     {
       auto t = tasks[j]->task;
       auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-      pb.variables().value(s);
+      pb.variables().set(s);
       f->updateValue();
       Vector2d v = f->value() - tasks[j]->task.template taskDynamics<task_dynamics::None>()->value();
       switch(t.type())
@@ -396,10 +396,10 @@ void checkSolution(const std::array<TaskWithRequirementsPtr, N> & tasks,
     {
       auto t = tasks[j]->task;
       auto f = std::static_pointer_cast<tvm::function::abstract::LinearFunction>(t.function());
-      pb0.variables().value(s0);
+      pb0.variables().set(s0);
       f->updateValue();
       Vector2d obj0 = f->value();
-      pb.variables().value(s);
+      pb.variables().set(s);
       f->updateValue();
       Vector2d obj = f->value();
       FAST_CHECK_UNARY((obj0 - obj).isZero(5e-5));
