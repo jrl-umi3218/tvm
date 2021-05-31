@@ -57,6 +57,7 @@ bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
 
   bool b = true;
   int i = 0;
+  double norm2 = 0;
   for(const auto & xi : x)
   {
     for(int j = 0; j < xi->size(); ++j)
@@ -64,7 +65,19 @@ bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
       v[i] += h;
       const VectorXd & f = uf.value(v);
       J.col(i) = (f - f0) / h;
-      if(!J.col(i).isApprox(J0.col(i), opt.prec))
+      norm2 = std::max(norm2, std::min(J.col(i).cwiseAbs2().sum(), J0.col(i).cwiseAbs2().sum()));
+      v[i] -= h;
+      ++i;
+    }
+  }
+  // To compare the two matrices column by column, we run a variant of isApprox, where the scale
+  // is given by the two matrices rather than just the two columns.
+  i = 0;
+  for(const auto & xi : x)
+  {
+    for(int j = 0; j < xi->size(); ++j)
+    {
+      if((J.col(i) - J0.col(i)).cwiseAbs2().sum() > opt.prec * opt.prec * norm2)
       {
         b = false;
         if(opt.verbose)
@@ -73,8 +86,6 @@ bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
                     << ") of the total jacobian) is not equivalent to the result of the ffd." << std::endl;
         }
       }
-      v[i] -= h;
-      ++i;
     }
   }
 
