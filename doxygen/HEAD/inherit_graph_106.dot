@@ -1,0 +1,17 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node256 [label="tvm::scheme::internal\l::AssignBase\< A \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1AssignBase.html"];
+  Node256 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="tvm::scheme::internal\l::CompiledAssignment\l\< MatrixType, A, W, M, F \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1CompiledAssignment.html"];
+  Node245 [label="tvm::scheme::internal\l::CachedResult\< MatrixType,\l use_assign_cache\< MatrixType,\l A, W, M, F \>::value\|\|use_product\l_cache\< MatrixType, A, W, M, F \>::value \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1CachedResult.html"];
+  Node245 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node160 [label="tvm::scheme::internal\l::MatrixMultBase\< MatrixType, M \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1MatrixMultBase.html"];
+  Node160 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 [label="tvm::scheme::internal\l::SourceBase\< MatrixType, F \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1SourceBase.html"];
+  Node56 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::scheme::internal\l::WeightMultBase\< W \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1WeightMultBase.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

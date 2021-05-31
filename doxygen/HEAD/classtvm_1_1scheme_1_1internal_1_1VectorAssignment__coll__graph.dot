@@ -1,0 +1,10 @@
+digraph "tvm::scheme::internal::VectorAssignment"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node2 [label="tvm::scheme::internal\l::VectorAssignment",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="tvm::scheme::internal\l::VectorSubstitutionAssignement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1VectorSubstitutionAssignement.html"];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" assignment" ,fontname="Helvetica"];
+  Node4 [label="tvm::scheme::internal\l::CompiledAssignmentWrapper\l\< Eigen::VectorXd \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html"];
+}

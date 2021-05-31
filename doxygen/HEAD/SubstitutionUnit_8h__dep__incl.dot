@@ -1,0 +1,27 @@
+digraph "include/tvm/hint/internal/SubstitutionUnit.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node62 [label="include/tvm/hint/internal\l/SubstitutionUnit.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node62 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node63 [label="include/tvm/hint/internal\l/Substitutions.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Substitutions_8h.html"];
+  Node63 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node64 [label="include/tvm/LinearizedControl\lProblem.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedControlProblem_8h.html"];
+  Node64 -> Node65 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node65 [label="include/tvm/scheme\l/internal/LinearizedProblem\lComputationData.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedProblemComputationData_8h.html"];
+  Node65 -> Node66 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node66 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
+  Node63 -> Node67 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 [label="include/tvm/scheme\l/internal/Assignment.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Assignment_8h.html"];
+  Node67 -> Node66 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 -> Node68 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node68 [label="include/tvm/solver\l/abstract/LeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LeastSquareSolver_8h.html"];
+  Node68 -> Node66 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node68 -> Node69 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node69 [label="include/tvm/solver\l/LSSOLLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LSSOLLeastSquareSolver_8h.html"];
+  Node68 -> Node70 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node70 [label="include/tvm/solver\l/QLDLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QLDLeastSquareSolver_8h.html"];
+  Node68 -> Node71 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node71 [label="include/tvm/solver\l/QuadprogLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QuadprogLeastSquareSolver_8h.html"];
+  Node63 -> Node68 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

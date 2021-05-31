@@ -1,0 +1,11 @@
+digraph "include/tvm/geometry" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_b4c7d8e826c599ba55146c099a14beb5 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="tvm" fontname="Helvetica", fontsize="10", URL="dir_b4c7d8e826c599ba55146c099a14beb5.html"]
+  dir_3b8bd83221002fa77b114cd1fe45d7df [shape=box, label="geometry", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_3b8bd83221002fa77b114cd1fe45d7df.html"];
+  }
+  dir_df8c49de760ace615969b0dd6b4dc6c3 [shape=box label="graph" fillcolor="white" style="filled" color="red" URL="dir_df8c49de760ace615969b0dd6b4dc6c3.html"];
+  dir_3b8bd83221002fa77b114cd1fe45d7df->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000012_000013.html"];
+}

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['qldleastsquaresolver',['QLDLeastSquareSolver',['../a01733.html',1,'tvm::solver']]],
-  ['qldlssolverfactory',['QLDLSSolverFactory',['../a01737.html',1,'tvm::solver']]],
-  ['qldlssolveroptions',['QLDLSSolverOptions',['../a01729.html',1,'tvm::solver']]],
-  ['quadprogleastsquaresolver',['QuadprogLeastSquareSolver',['../a01745.html',1,'tvm::solver']]],
-  ['quadproglssolverfactory',['QuadprogLSSolverFactory',['../a01749.html',1,'tvm::solver']]],
-  ['quadproglssolveroptions',['QuadprogLSSolverOptions',['../a01741.html',1,'tvm::solver']]]
+  ['qldleastsquaresolver',['QLDLeastSquareSolver',['../classtvm_1_1solver_1_1QLDLeastSquareSolver.html',1,'tvm::solver']]],
+  ['qldlssolverfactory',['QLDLSSolverFactory',['../classtvm_1_1solver_1_1QLDLSSolverFactory.html',1,'tvm::solver']]],
+  ['qldlssolveroptions',['QLDLSSolverOptions',['../classtvm_1_1solver_1_1QLDLSSolverOptions.html',1,'tvm::solver']]],
+  ['quadprogleastsquaresolver',['QuadprogLeastSquareSolver',['../classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html',1,'tvm::solver']]],
+  ['quadproglssolverfactory',['QuadprogLSSolverFactory',['../classtvm_1_1solver_1_1QuadprogLSSolverFactory.html',1,'tvm::solver']]],
+  ['quadproglssolveroptions',['QuadprogLSSolverOptions',['../classtvm_1_1solver_1_1QuadprogLSSolverOptions.html',1,'tvm::solver']]]
 ];

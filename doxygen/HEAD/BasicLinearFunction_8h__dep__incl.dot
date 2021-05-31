@@ -1,0 +1,44 @@
+digraph "include/tvm/function/BasicLinearFunction.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node48 [label="include/tvm/function\l/BasicLinearFunction.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node48 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node49 [label="include/tvm/function\l/IdentityFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$IdentityFunction_8h.html"];
+  Node49 -> Node50 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node50 [label="include/tvm/utils/internal\l/ProtoTaskDetails.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ProtoTaskDetails_8h.html"];
+  Node50 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node51 [label="include/tvm/utils/ProtoTask.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ProtoTask_8h.html"];
+  Node51 -> Node52 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node52 [label="include/tvm/Task.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Task_8h.html"];
+  Node52 -> Node53 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node53 [label="include/tvm/constraint\l/internal/LinearizedTaskConstraint.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedTaskConstraint_8h.html"];
+  Node52 -> Node54 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node54 [label="include/tvm/ControlProblem.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ControlProblem_8h.html"];
+  Node54 -> Node55 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node55 [label="include/tvm/LinearizedControl\lProblem.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedControlProblem_8h.html"];
+  Node55 -> Node56 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 [label="include/tvm/scheme\l/internal/LinearizedProblem\lComputationData.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedProblemComputationData_8h.html"];
+  Node56 -> Node57 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node57 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
+  Node51 -> Node53 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node51 -> Node54 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node48 -> Node58 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node58 [label="include/tvm/hint/internal\l/SubstitutionUnit.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$SubstitutionUnit_8h.html"];
+  Node58 -> Node59 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node59 [label="include/tvm/hint/internal\l/Substitutions.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Substitutions_8h.html"];
+  Node59 -> Node55 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node59 -> Node60 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node60 [label="include/tvm/scheme\l/internal/Assignment.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Assignment_8h.html"];
+  Node60 -> Node57 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node60 -> Node61 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node61 [label="include/tvm/solver\l/abstract/LeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LeastSquareSolver_8h.html"];
+  Node61 -> Node57 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node61 -> Node62 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node62 [label="include/tvm/solver\l/LSSOLLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LSSOLLeastSquareSolver_8h.html"];
+  Node61 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node63 [label="include/tvm/solver\l/QLDLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QLDLeastSquareSolver_8h.html"];
+  Node61 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node64 [label="include/tvm/solver\l/QuadprogLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QuadprogLeastSquareSolver_8h.html"];
+  Node59 -> Node61 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
