@@ -1,5 +1,11 @@
 The TVM Library
 =============
+
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith)](https://cloudsmith.com)
+[![CI](https://github.com/jrl-umi3218/TVM/workflows/CI%20of%20TVM/badge.svg?branch=master)](https://github.com/jrl-umi3218/TVM/actions?query=workflow%3A%22CI+of+TVM%22)
+[![Documentation](https://img.shields.io/badge/doxygen-online-brightgreen?logo=read-the-docs&style=flat)](http://jrl-umi3218.github.io/tvm/doxygen/HEAD/index.html)
+
 TVM is a library meant for writing and solving linear control problems for robots.
 At its heart lies an optimization framework with several helpful features (such as variable management and handling of convention differences in the way of writing constraint), on top of which robotic functionalities are (optionally) added.
 The library strives to separate the way a problem is written from the way it is solved. This allows to write problems in a way mirroring closely their natural mathematical formulations. The work of correctly assembling the corresponding matrices and vectors to be passed to a numerical solver is done automatically with little to no overhead over a painful and error-prone manual implementation.
@@ -29,7 +35,7 @@ TVM has typically three types of users:
 Installation
 -------------
 
-## Ubuntu LTS (16.04, 18.04, 20.04)
+## Ubuntu LTS (18.04, 20.04)
 
 You must first setup our package mirror:
 
