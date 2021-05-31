@@ -1,0 +1,5 @@
+tvm (0.8.0-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Pierre Gergondet <pierre.gergondet+ppa@gmail.com>  Mon, 31 May 2021 11:21:57 +0800
