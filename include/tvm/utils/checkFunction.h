@@ -5,26 +5,55 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
+#include <optional>
+#include <vector>
+
 namespace tvm
 {
 
 namespace utils
 {
+
 /** A small structure to specify options for the checks in \ref checkGroup.
+ *
  *  - \a step is the increment that will be taken for finite difference schemes
- *  - \a prec is the precision with which the equality of two vectors is tested.
- *    It corresponds to the \a prec parameter of Eigen's \a isApprox method.
+ *  - \a prec is the precision with which the equality of two vectors is
+ *  tested. It corresponds to the \a prec parameter of Eigen's \a isApprox
+ *  method.
  *  - if \a verbose is true, the functions will display some indications when a
- *    mismatch is detected.
+ *  mismatch is detected.
+ *  - if \a samples is > 0 then the check will generate \a samples random
+ *  configurations
+ *  - if \a configs are provided then these specific configurations are also
+ *  tested, see \ref CheckOptions::CheckConfiguration
  */
+
 class CheckOptions
 {
 public:
+  /** A specific configuration to check
+   * - \a value will be stored in the function's variable value
+   * - \a velocity will be stored in the function's variable's derivative value
+   * - \a acceleration will be stored in the function's variable's derivative's
+   *   derivative value
+   * - \a samples if any of value/velocity/acceleration is null then \a samples
+   *   random configuration are generated for those (if it makes sense for this test)
+   */
+  struct CheckConfiguration
+  {
+    std::optional<Eigen::VectorXd> value = std::nullopt;
+    std::optional<Eigen::VectorXd> velocity = std::nullopt;
+    std::optional<Eigen::VectorXd> acceleration = std::nullopt;
+    size_t samples = 1;
+  };
+
   CheckOptions() : step(1e-7), prec(1e-6), verbose(true) {}
   CheckOptions(double s, double p, bool v) : step(s), prec(p), verbose(v) {}
   double step;
   double prec;
   bool verbose;
+  size_t samples = 1;
+  std::vector<CheckConfiguration> configs = {};
 };
 
 /** \defgroup checkGroup */
