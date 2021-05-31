@@ -18,7 +18,7 @@ Section: libdevel
 Architecture: any
 Depends: cmake,
          libeigen-quadprog-dev,
-         libeigen-qld-dev
+         libeigen-qld-dev,
          libtvm (= ${binary:Version}),
          ${misc:Depends}
 Suggests: libtvm-doc
