@@ -23,7 +23,7 @@ namespace utils
  *  - if \a verbose is true, the functions will display some indications when a
  *  mismatch is detected.
  *  - if \a samples is > 0 then the check will generate \a samples random
- *  configurations
+ *  configurations, defaults to 1 if \a configs is empty, 0 otherwise
  *  - if \a configs are provided then these specific configurations are also
  *  tested, see \ref CheckOptions::CheckConfiguration
  */
@@ -57,7 +57,7 @@ public:
   double step;
   double prec;
   bool verbose;
-  size_t samples = 1;
+  size_t samples = 0;
   std::vector<CheckConfiguration> configs = {};
 };
 

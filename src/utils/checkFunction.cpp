@@ -18,6 +18,14 @@ namespace utils
 namespace
 {
 
+inline void defaultOptions(CheckOptions & opt)
+{
+  if(opt.configs.size() == 0 && opt.samples == 0)
+  {
+    opt.samples = 1;
+  }
+}
+
 inline bool checkSize(const char * prefix, const char * type, const Eigen::VectorXd & ref, const Eigen::VectorXd & v)
 {
   if(v.size() != ref.size())
@@ -201,6 +209,7 @@ bool checkJacobian(FunctionPtr f, CheckOptions opt)
     throw std::runtime_error("The function must provide its value and jacobian for this test.");
   }
 
+  defaultOptions(opt);
   UpdatelessFunction uf(f);
   return checkJacobian(uf, opt);
 }
@@ -321,6 +330,7 @@ bool checkVelocity(FunctionPtr f, CheckOptions opt)
     throw std::runtime_error("The function must provide its velocity and jacobian for this test.");
   }
 
+  defaultOptions(opt);
   UpdatelessFunction uf(f);
   return checkVelocity(uf, opt);
 }
@@ -469,6 +479,7 @@ bool checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
     throw std::runtime_error("The function must provide its normal acceleration, velocity and jacobian for this test.");
   }
 
+  defaultOptions(opt);
   UpdatelessFunction uf(f);
   return checkNormalAcceleration(uf, opt);
 }
@@ -482,6 +493,7 @@ bool checkFunction(FunctionPtr f, CheckOptions opt)
     throw std::runtime_error(
         "The function must provide its normal acceleration, velocity, value and jacobian for this test.");
   }
+  defaultOptions(opt);
   UpdatelessFunction uf(f);
   // Call the functions in order: checkVelocity will only be called if checkJacobian
   // passes, which is good as checkVelocity relies on having correct jacobian matrices.
