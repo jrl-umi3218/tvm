@@ -37,7 +37,12 @@ public:
    * - \a acceleration will be stored in the function's variable's derivative's
    *   derivative value
    * - \a samples if any of value/velocity/acceleration is null then \a samples
-   *   random configuration are generated for those (if it makes sense for this test)
+   *   random configuration are generated for those (if it makes sense for this
+   *   test)
+   *
+   * The order of values in the given vectors corresponds to the order given by
+   * the VariableVector of the function being tested
+   *
    */
   struct CheckConfiguration
   {
