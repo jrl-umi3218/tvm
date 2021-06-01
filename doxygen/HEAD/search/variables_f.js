@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['samples',['samples',['../group__checkGroup.html#ga26589c78488130e9985c73d9799ab55c',1,'tvm::utils::CheckOptions::CheckConfiguration::samples()'],['../group__checkGroup.html#ga9f65dd5efb47f82ba31e416806aab071',1,'tvm::utils::CheckOptions::samples()']]],
   ['scalar',['scalar',['../structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html#a9d337cc35a91b59052b754a3a61c743f',1,'tvm::solver::internal::SolverEvents::WeightEvent']]],
   ['scalarizationweight',['scalarizationWeight',['../structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a56a0ba1707d78f2b178ca8ecca142eeb',1,'tvm::solver::internal::SolverEvents::Objective']]],
   ['solverfactory_5f',['solverFactory_',['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#a785aed54ed1aef40a4a06adf25e93c3f',1,'tvm::scheme::WeightedLeastSquares']]],

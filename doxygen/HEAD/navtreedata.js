@@ -21,7 +21,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
@@ -49,9 +49,9 @@ var NAVTREEINDEX =
 "classtvm_1_1robot_1_1internal_1_1DynamicFunction.html#a4bee1d74b99cdde1d7bffe77e42140a5",
 "classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html",
 "classtvm_1_1task__dynamics_1_1Constant.html#a7da33fd93805eabe8d9f6ff1013943dd",
-"dir_2c65b15ce7a83c40acda25185dc2a52e.html",
-"namespacetvm_1_1constant_1_1internal.html",
-"utils_8h.html#aa0c50be7a7db4b673268d061999e284f"
+"dir_2692b72ddc0701b0608665f2dcf95618.html",
+"memoryChecks_8h.html#a2a2cd6614f0b2c2aa9e102e64e2b9cc7",
+"structtvm_1_1robot_1_1internal_1_1DynamicFunction_1_1ForceContact.html#a9d449844262792a48d252ffddf23b0b9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

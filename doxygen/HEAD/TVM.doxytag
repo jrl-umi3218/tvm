@@ -2744,6 +2744,7 @@
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::utils::CheckOptions</class>
+    <class kind="struct">tvm::utils::CheckOptions::CheckConfiguration</class>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
     <member kind="function">
@@ -5085,9 +5086,42 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>tvm::utils::CheckOptions::CheckConfiguration</name>
+    <filename>structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>value</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>gaace06f3a98e0605370a5f3c17c6d6bd6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>velocity</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga4601c164cd094d339bcdf42426cbdc9f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>acceleration</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>gaaf651546efca10205eac60bfde48e8e9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>size_t</type>
+      <name>samples</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga26589c78488130e9985c73d9799ab55c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>tvm::utils::CheckOptions</name>
     <filename>classtvm_1_1utils_1_1CheckOptions.html</filename>
+    <class kind="struct">tvm::utils::CheckOptions::CheckConfiguration</class>
     <member kind="function">
       <type></type>
       <name>CheckOptions</name>
@@ -5121,6 +5155,20 @@
       <name>verbose</name>
       <anchorfile>group__checkGroup.html</anchorfile>
       <anchor>gac9f0d3eb926695e51e82f2e61b71a1ae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>size_t</type>
+      <name>samples</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga9f65dd5efb47f82ba31e416806aab071</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; CheckConfiguration &gt;</type>
+      <name>configs</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga2920f041ad3baa276182ec9f33ad65ce</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -15820,6 +15868,20 @@
       <arglist>(FunctionPtr f)</arglist>
     </member>
     <member kind="function">
+      <type>const VariableVector &amp;</type>
+      <name>variables</name>
+      <anchorfile>classtvm_1_1utils_1_1UpdatelessFunction.html</anchorfile>
+      <anchor>a66b1edb4359a445406495688568a1347</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const FunctionPtr &amp;</type>
+      <name>function</name>
+      <anchorfile>classtvm_1_1utils_1_1UpdatelessFunction.html</anchorfile>
+      <anchor>a1be5875afbb36333c5270fb858920982</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>value</name>
       <anchorfile>classtvm_1_1utils_1_1UpdatelessFunction.html</anchorfile>
@@ -18631,6 +18693,7 @@
     <name>checkGroup</name>
     <title>CheckGroup</title>
     <filename>group__checkGroup.html</filename>
+    <class kind="struct">tvm::utils::CheckOptions::CheckConfiguration</class>
     <member kind="function">
       <type></type>
       <name>CheckOptions</name>
@@ -18653,6 +18716,34 @@
       <arglist>(FunctionPtr f, CheckOptions opt=CheckOptions())</arglist>
     </member>
     <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>value</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>gaace06f3a98e0605370a5f3c17c6d6bd6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>velocity</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga4601c164cd094d339bcdf42426cbdc9f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Eigen::VectorXd &gt;</type>
+      <name>acceleration</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>gaaf651546efca10205eac60bfde48e8e9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>size_t</type>
+      <name>samples</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga26589c78488130e9985c73d9799ab55c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>double</type>
       <name>step</name>
       <anchorfile>group__checkGroup.html</anchorfile>
@@ -18671,6 +18762,20 @@
       <name>verbose</name>
       <anchorfile>group__checkGroup.html</anchorfile>
       <anchor>gac9f0d3eb926695e51e82f2e61b71a1ae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>size_t</type>
+      <name>samples</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga9f65dd5efb47f82ba31e416806aab071</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; CheckConfiguration &gt;</type>
+      <name>configs</name>
+      <anchorfile>group__checkGroup.html</anchorfile>
+      <anchor>ga2920f041ad3baa276182ec9f33ad65ce</anchor>
       <arglist></arglist>
     </member>
   </compound>

@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classtvm_1_1utils_1_1CheckOptions.html
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classtvm_1_1utils_1_1CheckOptions-members.html">List of all members</a>  </div>
@@ -101,6 +102,11 @@ $(document).ready(function(){initNavTree('classtvm_1_1utils_1_1CheckOptions.html
 
 <p><code>#include &lt;<a class="el" href="checkFunction_8h_source.html">tvm/utils/checkFunction.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html">CheckConfiguration</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ga9532f9c87cd5f5ab6d259b151babe59f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__checkGroup.html#ga9532f9c87cd5f5ab6d259b151babe59f">CheckOptions</a> ()</td></tr>
@@ -116,12 +122,19 @@ Public Attributes</h2></td></tr>
 <tr class="separator:gabde61e89043748a2665960d90f42a693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac9f0d3eb926695e51e82f2e61b71a1ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__checkGroup.html#gac9f0d3eb926695e51e82f2e61b71a1ae">verbose</a></td></tr>
 <tr class="separator:gac9f0d3eb926695e51e82f2e61b71a1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f65dd5efb47f82ba31e416806aab071"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__checkGroup.html#ga9f65dd5efb47f82ba31e416806aab071">samples</a> = 0</td></tr>
+<tr class="separator:ga9f65dd5efb47f82ba31e416806aab071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2920f041ad3baa276182ec9f33ad65ce"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html">CheckConfiguration</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__checkGroup.html#ga2920f041ad3baa276182ec9f33ad65ce">configs</a> = {}</td></tr>
+<tr class="separator:ga2920f041ad3baa276182ec9f33ad65ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A small structure to specify options for the checks in <a class="el" href="group__checkGroup.html">CheckGroup</a>.</p><ul>
+<div class="textblock"><p>A small structure to specify options for the checks in <a class="el" href="group__checkGroup.html">CheckGroup</a>.</p>
+<ul>
 <li><em>step</em> is the increment that will be taken for finite difference schemes</li>
 <li><em>prec</em> is the precision with which the equality of two vectors is tested. It corresponds to the <em>prec</em> parameter of <a class="el" href="namespaceEigen.html">Eigen</a>'s <em>isApprox</em> method.</li>
-<li>if <em>verbose</em> is true, the functions will display some indications when a mismatch is detected. </li>
+<li>if <em>verbose</em> is true, the functions will display some indications when a mismatch is detected.</li>
+<li>if <em>samples</em> is &gt; 0 then the check will generate <em>samples</em> random configurations, defaults to 1 if <em>configs</em> is empty, 0 otherwise</li>
+<li>if <em>configs</em> are provided then these specific configurations are also tested, see <a class="el" href="structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html">CheckOptions::CheckConfiguration</a> </li>
 </ul>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/tvm/utils/<a class="el" href="checkFunction_8h_source.html">checkFunction.h</a></li>

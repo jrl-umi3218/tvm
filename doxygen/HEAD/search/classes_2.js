@@ -6,6 +6,7 @@ var searchData=
   ['call',['Call',['../structtvm_1_1graph_1_1CallGraph_1_1Call.html',1,'tvm::graph::CallGraph']]],
   ['callbackmanager',['CallbackManager',['../classtvm_1_1internal_1_1CallbackManager.html',1,'tvm::internal']]],
   ['callgraph',['CallGraph',['../classtvm_1_1graph_1_1CallGraph.html',1,'tvm::graph']]],
+  ['checkconfiguration',['CheckConfiguration',['../structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html',1,'tvm::utils::CheckOptions']]],
   ['checkoptions',['CheckOptions',['../classtvm_1_1utils_1_1CheckOptions.html',1,'tvm::utils']]],
   ['clamped',['Clamped',['../classtvm_1_1task__dynamics_1_1Clamped.html',1,'tvm::task_dynamics']]],
   ['clock',['Clock',['../classtvm_1_1Clock.html',1,'tvm']]],

@@ -23,6 +23,7 @@ var hierarchy =
     [ "tvm::graph::CallGraph::Call", "structtvm_1_1graph_1_1CallGraph_1_1Call.html", null ],
     [ "tvm::internal::CallbackManager", "classtvm_1_1internal_1_1CallbackManager.html", null ],
     [ "tvm::graph::CallGraph", "classtvm_1_1graph_1_1CallGraph.html", null ],
+    [ "tvm::utils::CheckOptions::CheckConfiguration", "structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html", null ],
     [ "tvm::utils::CheckOptions", "classtvm_1_1utils_1_1CheckOptions.html", null ],
     [ "tvm::robot::CollisionFunction::CollisionData", "structtvm_1_1robot_1_1CollisionFunction_1_1CollisionData.html", null ],
     [ "tvm::graph::CallGraph::CompareCall", "structtvm_1_1graph_1_1CallGraph_1_1CompareCall.html", null ],

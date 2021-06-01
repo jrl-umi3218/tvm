@@ -104,6 +104,10 @@ $(document).ready(function(){initNavTree('classtvm_1_1utils_1_1UpdatelessFunctio
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3f84076a07f0d6c75d4efa6b2a75e0c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a3f84076a07f0d6c75d4efa6b2a75e0c5">UpdatelessFunction</a> (<a class="el" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> f)</td></tr>
 <tr class="separator:a3f84076a07f0d6c75d4efa6b2a75e0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b1edb4359a445406495688568a1347"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classtvm_1_1VariableVector.html">VariableVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a66b1edb4359a445406495688568a1347">variables</a> () const noexcept</td></tr>
+<tr class="separator:a66b1edb4359a445406495688568a1347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be5875afbb36333c5270fb858920982"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a1be5875afbb36333c5270fb858920982">function</a> () const noexcept</td></tr>
+<tr class="separator:a1be5875afbb36333c5270fb858920982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44f1b92210fd9ca27e1ff2f7f750d68b"><td class="memTemplParams" colspan="2">template&lt;typename... Vals&gt; </td></tr>
 <tr class="memitem:a44f1b92210fd9ca27e1ff2f7f750d68b"><td class="memTemplItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a44f1b92210fd9ca27e1ff2f7f750d68b">value</a> (Vals &amp;&amp;... vals) const</td></tr>
 <tr class="separator:a44f1b92210fd9ca27e1ff2f7f750d68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,6 +147,32 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1be5875afbb36333c5270fb858920982"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be5875afbb36333c5270fb858920982">&#9670;&nbsp;</a></span>function()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a>&amp; tvm::utils::UpdatelessFunction::function </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the function associated to this function </p>
+
+</div>
+</div>
 <a id="a9851ba1f047b0e0b92ccd1b7ec7a7975"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9851ba1f047b0e0b92ccd1b7ec7a7975">&#9670;&nbsp;</a></span>jacobian()</h2>
 
@@ -276,10 +306,36 @@ template&lt;typename... Vals&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Get the value of the function for given values of its variables. <a class="el" href="classtvm_1_1Variable.html">Variable</a> values can be given as VectorXd, or as std::initializer_list. There are three possible syntaxes:</p><ul>
-<li>value(val1, val2, ..., valn) where val1, ..., valn are the values of the n variables of the function, in the order they are stored in the function (i.e. the order of the vector returned by variables() )</li>
+<li>value(val1, val2, ..., valn) where val1, ..., valn are the values of the n variables of the function, in the order they are stored in the function (i.e. the order of the vector returned by <a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a66b1edb4359a445406495688568a1347">variables()</a> )</li>
 <li>value(xi1, vali1, xi2, vali2, ...) where one alternates a reference to one variable and its value. The number of variables in this case need not be n (unspecified variables will keep their previous value), and if a variable is given multiple times, only the last value will be used</li>
 <li>value(val) where val is a concatenated value for all variables in the order they are stored in the function. </li>
 </ul>
+
+</div>
+</div>
+<a id="a66b1edb4359a445406495688568a1347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66b1edb4359a445406495688568a1347">&#9670;&nbsp;</a></span>variables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classtvm_1_1VariableVector.html">VariableVector</a>&amp; tvm::utils::UpdatelessFunction::variables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the variables in this function </p>
 
 </div>
 </div>
@@ -309,7 +365,7 @@ template&lt;typename... Vals&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Get the velocity of the function for given values and velocities of its variables. The values and velocities can be given as VectorXd, or as std::initializer_list. There are three possible syntaxes:</p><ul>
-<li>velocity(val1, vel1, val2, vel2, ..., valn, veln) where val1, ..., valn are the values of the n variables of the function, in the order they are stored in the function (i.e. the order of the vector returned by variables()) and vel1, ... veln are the corresponding velocities.</li>
+<li>velocity(val1, vel1, val2, vel2, ..., valn, veln) where val1, ..., valn are the values of the n variables of the function, in the order they are stored in the function (i.e. the order of the vector returned by <a class="el" href="classtvm_1_1utils_1_1UpdatelessFunction.html#a66b1edb4359a445406495688568a1347">variables()</a>) and vel1, ... veln are the corresponding velocities.</li>
 <li>velocity(xi1, vali1, veli1, xi2, vali2, veli2, ...) where one alternates a reference to one variable and its value and velocity. The number of variables in this case need not be n (unspecified variables will keep their previous value), and if a variable is given multiple times, only the last value will be used</li>
 <li>velocity(val, vel) where val and vel are the concatenated values and velocities for all variables in the order they are stored in the function. </li>
 </ul>
