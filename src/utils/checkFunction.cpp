@@ -193,7 +193,7 @@ bool checkJacobian(const UpdatelessFunction & uf, const CheckOptions & opt)
 
 } // namespace
 
-bool TVM_DLLAPI checkJacobian(FunctionPtr f, CheckOptions opt)
+bool checkJacobian(FunctionPtr f, CheckOptions opt)
 {
   using Output = tvm::function::abstract::Function::Output;
   if(!(f->isOutputEnabled(Output::Value) && f->isOutputEnabled(Output::Jacobian)))
@@ -313,7 +313,7 @@ bool checkVelocity(const UpdatelessFunction & uf, const CheckOptions & opt)
 
 } // namespace
 
-bool TVM_DLLAPI checkVelocity(FunctionPtr f, CheckOptions opt)
+bool checkVelocity(FunctionPtr f, CheckOptions opt)
 {
   using Output = tvm::function::abstract::Function::Output;
   if(!(f->isOutputEnabled(Output::Velocity) && f->isOutputEnabled(Output::Jacobian)))
@@ -460,7 +460,7 @@ bool checkNormalAcceleration(const UpdatelessFunction & uf, const CheckOptions &
 
 } // namespace
 
-bool TVM_DLLAPI checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
+bool checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
 {
   using Output = tvm::function::abstract::Function::Output;
   if(!(f->isOutputEnabled(Output::NormalAcceleration) && f->isOutputEnabled(Output::Velocity)
@@ -473,7 +473,7 @@ bool TVM_DLLAPI checkNormalAcceleration(FunctionPtr f, CheckOptions opt)
   return checkNormalAcceleration(uf, opt);
 }
 
-bool TVM_DLLAPI checkFunction(FunctionPtr f, CheckOptions opt)
+bool checkFunction(FunctionPtr f, CheckOptions opt)
 {
   using Output = tvm::function::abstract::Function::Output;
   if(!(f->isOutputEnabled(Output::NormalAcceleration) && f->isOutputEnabled(Output::Velocity)
