@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Disable assert() checking from upstream project, for best performance
+# https://lists.debian.org/debian-med/2018/04/msg00132.html
+export DEB_CFLAGS_MAINT_APPEND=-DNDEBUG
+export DEB_CXXFLAGS_MAINT_APPEND=-DNDEBUG
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=OFF

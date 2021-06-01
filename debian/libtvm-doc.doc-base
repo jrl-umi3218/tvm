@@ -1,0 +1,8 @@
+Document: libtvm-api-documentation
+Title: API documentation for TVM
+Author: TVM authors
+Section: Programming/C++
+
+Format: HTML
+Index: /usr/share/doc/TVM/doxygen-html/index.html
+Files: /usr/share/doc/TVM/doxygen-html/*.html

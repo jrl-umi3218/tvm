@@ -21,6 +21,12 @@
 
 #include <iostream>
 
+#ifdef __i386__
+#  define APPROX_I386(x) doctest::Approx(x)
+#else
+#  define APPROX_I386(x) x
+#endif
+
 using namespace Eigen;
 using namespace tvm;
 
@@ -690,6 +696,6 @@ TEST_CASE("Test Clamped<FeedForward<PD>>")
   kv = 0.3;
   static_cast<task_dynamics::FeedForwardPD::Impl *>(tdi.get())->gains(kp, kv);
   gl->execute();
-  FAST_CHECK_EQ(tdi->value()[0], std::min(max, std::max(-max, -kp * (36 - rhs[0]) - kv * 16 + 10.0)));
+  FAST_CHECK_EQ(tdi->value()[0], APPROX_I386(std::min(max, std::max(-max, -kp * (36 - rhs[0]) - kv * 16 + 10.0))));
   FAST_CHECK_UNARY_FALSE(tdi->value()[0] == -max); // not clamped anymore
 }

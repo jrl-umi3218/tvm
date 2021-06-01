@@ -1,0 +1,4 @@
+usr/include/tvm/*
+usr/lib/*/pkgconfig/*
+usr/lib/*/cmake/TVM/*.cmake
+usr/lib/*/libTVM.so

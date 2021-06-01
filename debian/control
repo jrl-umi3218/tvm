@@ -1,0 +1,54 @@
+Source: tvm
+Priority: optional
+Maintainer: Pierre Gergondet <pierre.gergondet+ppa@gmail.com>
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/jrl-umi3218/tvm
+Vcs-Git: https://github.com/jrl-umi3218/tvm
+Vcs-Browser: https://github.com/jrl-umi3218/tvm
+Build-Depends: debhelper (>= 9),
+               cmake,
+               doxygen,
+               graphviz,
+               libeigen-quadprog-dev,
+               libeigen-qld-dev
+
+Package: libtvm-dev
+Section: libdevel
+Architecture: any
+Depends: cmake,
+         libeigen-quadprog-dev,
+         libeigen-qld-dev,
+         libtvm (= ${binary:Version}),
+         ${misc:Depends}
+Suggests: libtvm-doc
+Description: TVM - Development files
+ TVM is a library meant for writing and solving linear control problems for
+ robots.
+ .
+ This package contains development files (headers and shared library
+ symbolic link).
+
+Package: libtvm
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: TVM - Libraries
+ TVM is a library meant for writing and solving linear control problems for
+ robots.
+ .
+ This package contains the essential files for a working system (shared
+ libraries)
+
+Package: libtvm-doc
+Section: doc
+Architecture: any
+Depends: ${misc:Depends}
+Multi-Arch: foreign
+Suggests: libtvm-dev
+Description: TVM - API documentation
+ TVM is a library meant for writing and solving linear control problems for
+ robots.
+ .
+ This package provides the complete API documentation in HTML format.

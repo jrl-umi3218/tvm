@@ -19,6 +19,44 @@
 #include <Eigen/Core>
 #include <Eigen/QR>
 
+#ifdef __i386__
+template<typename Derived>
+struct EigenApprox
+{
+  EigenApprox(const Eigen::EigenBase<Derived> & value) : value_(value) {}
+
+  template<typename Other>
+  bool operator==(const Eigen::EigenBase<Other> & other) const
+  {
+    return other.derived().isApprox(value_.derived());
+  }
+
+  const Eigen::EigenBase<Derived> & value_;
+};
+
+template<typename LHS, typename RHS>
+bool operator==(const Eigen::EigenBase<LHS> & lhs, const EigenApprox<RHS> & rhs)
+{
+  return rhs == lhs;
+}
+
+template<typename Derived>
+std::ostream & operator<<(std::ostream & os, const EigenApprox<Derived> & v)
+{
+  return os << v.value_.derived();
+}
+
+template<typename Derived>
+auto makeApprox(const Eigen::EigenBase<Derived> & value)
+{
+  return EigenApprox<Derived>(value);
+}
+
+#  define APPROX_I386(x) makeApprox(x)
+#else
+#  define APPROX_I386(x) x
+#endif
+
 // FIXME see src/Assignment.cpp
 static const double large = tvm::constant::big_number;
 
@@ -983,8 +1021,8 @@ TEST_CASE("Test assignments")
     {
       auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(sqrt(2) * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(2) * cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
 
@@ -1004,8 +1042,8 @@ TEST_CASE("Test assignments")
     {
       auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(sqrt(2) * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(2) * cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
 
@@ -1021,8 +1059,8 @@ TEST_CASE("Test assignments")
     {
       auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem2->A.block(range->start, 3, 3, 7), sqrt(2) * cstr_A);
-      FAST_CHECK_EQ(mem2->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem2->A.block(range->start, 3, 3, 7), APPROX_I386(sqrt(2) * cstr_A));
+      FAST_CHECK_EQ(mem2->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(2) * cstr_l));
       FAST_CHECK_EQ(mem2->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
     }
   }
@@ -1044,8 +1082,8 @@ TEST_CASE("Test assignments")
       const auto & cstr_u = cstr.l_leq_Ax_leq_u->u();
       for(size_t i = 0; i < 3; ++i)
       {
-        FAST_CHECK_EQ(mem->A.row(i), sqrt(aW(i)) * cstr_A.row(i));
-        FAST_CHECK_EQ(mem->A.row(i + 3), -sqrt(aW(i)) * cstr_A.row(i));
+        FAST_CHECK_EQ(mem->A.row(i), APPROX_I386(sqrt(aW(i)) * cstr_A.row(i)));
+        FAST_CHECK_EQ(mem->A.row(i + 3), APPROX_I386(-sqrt(aW(i)) * cstr_A.row(i)));
         FAST_CHECK_EQ(mem->b(i), sqrt(aW(i)) * cstr_u(i));
         FAST_CHECK_EQ(mem->b(i + 3), -sqrt(aW(i)) * cstr_l(i));
       }
@@ -1098,16 +1136,16 @@ TEST_CASE("Change weights")
 
       auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(sqrt(2) * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(2) * cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
 
       req->weight() = 3;
       CHECK_NOTHROW(a.onUpdateWeights());
       a.run();
 
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(3) * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(3) * cstr_l);
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(sqrt(3) * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(3) * cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(3) * VectorXd(3).setConstant(large));
 
       req->anisotropicWeight() = VectorXd(3).setConstant(2);
@@ -1125,16 +1163,17 @@ TEST_CASE("Change weights")
 
       auto cstr_A = cstr.Ax_geq_minus_b->jacobian(*cstr.Ax_geq_minus_b->variables()[0]);
       const auto & cstr_l = cstr.Ax_geq_minus_b->l();
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), w0.cwiseSqrt().asDiagonal() * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * (-cstr_l));
-      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), w0.cwiseSqrt().asDiagonal() * VectorXd(3).setConstant(large));
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(w0.cwiseSqrt().asDiagonal() * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(w0.cwiseSqrt().asDiagonal() * (-cstr_l)));
+      FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1),
+                    APPROX_I386(w0.cwiseSqrt().asDiagonal() * VectorXd(3).setConstant(large)));
 
       req->anisotropicWeight() = VectorXd(3).setConstant(2);
       CHECK_NOTHROW(a.onUpdateWeights());
       a.run();
 
-      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), sqrt(2) * cstr_A);
-      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), -sqrt(2) * cstr_l);
+      FAST_CHECK_EQ(mem->A.block(range->start, 0, 3, 7), APPROX_I386(sqrt(2) * cstr_A));
+      FAST_CHECK_EQ(mem->l.block(range->start, 0, 3, 1), APPROX_I386(-sqrt(2) * cstr_l));
       FAST_CHECK_EQ(mem->u.block(range->start, 0, 3, 1), sqrt(2) * VectorXd(3).setConstant(large));
 
       req->anisotropicWeight() = VectorXd(4).setOnes();
