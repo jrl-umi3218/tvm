@@ -26,6 +26,7 @@ var searchData=
   ['iseuclidean',['isEuclidean',['../classtvm_1_1Space.html#af45239f58ccd885d0a939084b125c979',1,'tvm::Space::isEuclidean()'],['../classtvm_1_1Variable.html#a9bceb0c13a4b1806460f43b3f3456480',1,'tvm::Variable::isEuclidean()']]],
   ['isidentity',['isIdentity',['../classtvm_1_1internal_1_1MatrixProperties.html#a96d2e034bb439d66705cb82d68199a20',1,'tvm::internal::MatrixProperties']]],
   ['isindefinite',['isIndefinite',['../classtvm_1_1internal_1_1MatrixProperties.html#a7cf05e03d8f9779b5cfa8b2ab3548edd',1,'tvm::internal::MatrixProperties']]],
+  ['isinmatrix',['isInMatrix',['../namespacetvm_1_1diagnostic.html#a2a21ee3aa1ec263172fa59bd0d4bd160',1,'tvm::diagnostic::isInMatrix(typename MatrixOrMapType::Scalar const *ptr, MatrixOrMapType &amp;M)'],['../namespacetvm_1_1diagnostic.html#a26408a038a2ffc9587058dd145c37632',1,'tvm::diagnostic::isInMatrix(const MatrixT &amp;A, Eigen::Index i, Eigen::Index j, MatrixOrMapType &amp;M)']]],
   ['isinvertible',['isInvertible',['../classtvm_1_1internal_1_1MatrixProperties.html#a8099f8d53c491281637faad3f7ef6795',1,'tvm::internal::MatrixProperties']]],
   ['islocked',['isLocked',['../classtvm_1_1graph_1_1abstract_1_1OutputSelector.html#acecd5431d8669020975745445eda213e',1,'tvm::graph::abstract::OutputSelector']]],
   ['islowertriangular',['isLowerTriangular',['../classtvm_1_1internal_1_1MatrixProperties.html#ae51aa149324ab219be20ef8693587f6d',1,'tvm::internal::MatrixProperties']]],

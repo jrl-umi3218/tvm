@@ -9,8 +9,8 @@ digraph "include/tvm/utils/internal" {
   dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [shape=box label="function" fillcolor="white" style="filled" color="red" URL="dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2.html"];
   dir_df8c49de760ace615969b0dd6b4dc6c3 [shape=box label="graph" fillcolor="white" style="filled" color="red" URL="dir_df8c49de760ace615969b0dd6b4dc6c3.html"];
   dir_8aade20741a7f4a13662c9851e607ed3 [shape=box label="constraint" fillcolor="white" style="filled" color="red" URL="dir_8aade20741a7f4a13662c9851e607ed3.html"];
-  dir_8aade20741a7f4a13662c9851e607ed3->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000002_000013.html"];
-  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000030_000010.html"];
-  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="2", labeldistance=1.5 headhref="dir_000030_000013.html"];
-  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_8aade20741a7f4a13662c9851e607ed3 [headlabel="1", labeldistance=1.5 headhref="dir_000030_000002.html"];
+  dir_8aade20741a7f4a13662c9851e607ed3->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000002_000015.html"];
+  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000032_000012.html"];
+  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="2", labeldistance=1.5 headhref="dir_000032_000015.html"];
+  dir_0237412ea2d876d633a9fb0edc0cbd10->dir_8aade20741a7f4a13662c9851e607ed3 [headlabel="1", labeldistance=1.5 headhref="dir_000032_000002.html"];
 }

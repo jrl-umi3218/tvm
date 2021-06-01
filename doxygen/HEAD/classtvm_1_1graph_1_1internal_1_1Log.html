@@ -125,12 +125,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a68708640c286dd324f189893de85f9f5"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Log::Output</a> &gt;, std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html">Log::Update</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#a68708640c286dd324f189893de85f9f5">subGraph</a> (const <a class="el" href="classtvm_1_1graph_1_1CallGraph.html">CallGraph</a> *const g) const</td></tr>
+<tr class="separator:a68708640c286dd324f189893de85f9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207b79845bb49642e43da6690ab7213c"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Log::Output</a> &gt;, std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html">Log::Update</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#a207b79845bb49642e43da6690ab7213c">subGraph</a> (const <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Output</a> out) const</td></tr>
+<tr class="separator:a207b79845bb49642e43da6690ab7213c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa58ae774bf3dc101dfe11817819dcb7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#afa58ae774bf3dc101dfe11817819dcb7">generateDot</a> (const <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html">Pointer</a> &amp;p) const</td></tr>
 <tr class="separator:afa58ae774bf3dc101dfe11817819dcb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae47952edabe6dcfa9a4e7b77fc8810a9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#ae47952edabe6dcfa9a4e7b77fc8810a9">generateDot</a> (const <a class="el" href="classtvm_1_1graph_1_1CallGraph.html">CallGraph</a> *const g) const</td></tr>
 <tr class="separator:ae47952edabe6dcfa9a4e7b77fc8810a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d4660dc9818036aa8b03a1b0ecf0273"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#a3d4660dc9818036aa8b03a1b0ecf0273">generateDot</a> (const std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Log::Output</a> &gt; &amp;outHighlight={}, const std::vector&lt; <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html">Log::Update</a> &gt; &amp;upHighlight={}) const</td></tr>
 <tr class="separator:a3d4660dc9818036aa8b03a1b0ecf0273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a059c0b5a55397275226b2cce06bc525a"><td class="memItemLeft" align="right" valign="top">const std::type_index &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1graph_1_1internal_1_1Log.html#a059c0b5a55397275226b2cce06bc525a">getPromotedType</a> (const <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html">Pointer</a> &amp;p) const</td></tr>
+<tr class="separator:a059c0b5a55397275226b2cce06bc525a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -220,6 +226,64 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Generate the whole graph, highlighting the elements specified by oUtHighlight and upHightlight. </p>
+
+</div>
+</div>
+<a id="a059c0b5a55397275226b2cce06bc525a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a059c0b5a55397275226b2cce06bc525a">&#9670;&nbsp;</a></span>getPromotedType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::type_index&amp; tvm::graph::internal::Log::getPromotedType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html">Pointer</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the most derived type corresponding to pointer <code>p</code>.</p>
+<p>(This is based on the assumption that the log add the most derived type last) </p>
+
+</div>
+</div>
+<a id="a68708640c286dd324f189893de85f9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68708640c286dd324f189893de85f9f5">&#9670;&nbsp;</a></span>subGraph() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;std::vector&lt;<a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Log::Output</a>&gt;, std::vector&lt;<a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html">Log::Update</a>&gt; &gt; tvm::graph::internal::Log::subGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtvm_1_1graph_1_1CallGraph.html">CallGraph</a> *const&#160;</td>
+          <td class="paramname"><em>g</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Build the list of updates and outputs used in the <a class="el" href="classtvm_1_1graph_1_1CallGraph.html">CallGraph</a> <code>g</code> </p>
+
+</div>
+</div>
+<a id="a207b79845bb49642e43da6690ab7213c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a207b79845bb49642e43da6690ab7213c">&#9670;&nbsp;</a></span>subGraph() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;std::vector&lt;<a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Log::Output</a>&gt;, std::vector&lt;<a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html">Log::Update</a>&gt; &gt; tvm::graph::internal::Log::subGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html">Output</a>&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Build the list of updates and outputs used from <code>out</code> </p>
 
 </div>
 </div>

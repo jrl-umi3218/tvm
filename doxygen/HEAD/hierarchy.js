@@ -23,6 +23,7 @@ var hierarchy =
     [ "tvm::graph::CallGraph::Call", "structtvm_1_1graph_1_1CallGraph_1_1Call.html", null ],
     [ "tvm::internal::CallbackManager", "classtvm_1_1internal_1_1CallbackManager.html", null ],
     [ "tvm::graph::CallGraph", "classtvm_1_1graph_1_1CallGraph.html", null ],
+    [ "tvm::diagnostic::internal::CheckAccessor< T, MethodT >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor.html", null ],
     [ "tvm::utils::CheckOptions::CheckConfiguration", "structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html", null ],
     [ "tvm::utils::CheckOptions", "classtvm_1_1utils_1_1CheckOptions.html", null ],
     [ "tvm::robot::CollisionFunction::CollisionData", "structtvm_1_1robot_1_1CollisionFunction_1_1CollisionData.html", null ],
@@ -84,6 +85,8 @@ var hierarchy =
     ] ],
     [ "tvm::robot::internal::DynamicFunction::ForceContact", "structtvm_1_1robot_1_1internal_1_1DynamicFunction_1_1ForceContact.html", null ],
     [ "tvm::robot::internal::FrictionCone", "classtvm_1_1robot_1_1internal_1_1FrictionCone.html", null ],
+    [ "tvm::diagnostic::GraphProbe", "classtvm_1_1diagnostic_1_1GraphProbe.html", null ],
+    [ "std::hash< tvm::graph::internal::Log::EnumValue >", "structstd_1_1hash_3_01tvm_1_1graph_1_1internal_1_1Log_1_1EnumValue_01_4.html", null ],
     [ "tvm::utils::internal::HashId< ObjWithId >", "classtvm_1_1utils_1_1internal_1_1HashId.html", null ],
     [ "tvm::robot::Contact::Id", "structtvm_1_1robot_1_1Contact_1_1Id.html", null ],
     [ "tvm::utils::internal::IdEqual< ObjWithId >", "classtvm_1_1utils_1_1internal_1_1IdEqual.html", null ],
@@ -210,8 +213,8 @@ var hierarchy =
       [ "tvm::Variable", "classtvm_1_1Variable.html", null ],
       [ "tvm::VariableVector", "classtvm_1_1VariableVector.html", null ]
     ] ],
-    [ "tvm::graph::internal::Log::Output", "structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html", null ],
     [ "tvm::graph::abstract::Outputs::Output", "structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html", null ],
+    [ "tvm::graph::internal::Log::Output", "structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html", null ],
     [ "tvm::graph::internal::Log::OutputDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1OutputDependency.html", null ],
     [ "tvm::graph::abstract::Outputs", "classtvm_1_1graph_1_1abstract_1_1Outputs.html", [
       [ "tvm::Clock", "classtvm_1_1Clock.html", null ],
@@ -219,10 +222,12 @@ var hierarchy =
     ] ],
     [ "tvm::internal::PairElementToken", "classtvm_1_1internal_1_1PairElementToken.html", null ],
     [ "tvm::internal::PairElementTokenHandle", "classtvm_1_1internal_1_1PairElementTokenHandle.html", null ],
+    [ "tvm::diagnostic::internal::PairHasher", "structtvm_1_1diagnostic_1_1internal_1_1PairHasher.html", null ],
     [ "tvm::scheme::internal::ParseArg_< N >", "classtvm_1_1scheme_1_1internal_1_1ParseArg__.html", null ],
     [ "tvm::scheme::internal::ParseNoArg_", "classtvm_1_1scheme_1_1internal_1_1ParseNoArg__.html", null ],
     [ "tvm::graph::CallGraph::Plan", "structtvm_1_1graph_1_1CallGraph_1_1Plan.html", null ],
     [ "tvm::graph::internal::Log::Pointer", "structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html", null ],
+    [ "tvm::diagnostic::GraphProbe::ProbeNode", "structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html", null ],
     [ "tvm::scheme::internal::ProblemComputationData", "classtvm_1_1scheme_1_1internal_1_1ProblemComputationData.html", [
       [ "tvm::scheme::internal::LinearizedProblemComputationData", "classtvm_1_1scheme_1_1internal_1_1LinearizedProblemComputationData.html", null ]
     ] ],
@@ -312,10 +317,24 @@ var hierarchy =
     [ "type", null, [
       [ "tvm::scheme::internal::ParseArg< N >", "classtvm_1_1scheme_1_1internal_1_1ParseArg.html", null ]
     ] ],
-    [ "tvm::graph::internal::AbstractNode::Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
     [ "tvm::graph::internal::Log::Update", "structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html", null ],
+    [ "tvm::graph::internal::AbstractNode::Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
     [ "tvm::utils::UpdatelessFunction", "classtvm_1_1utils_1_1UpdatelessFunction.html", null ],
     [ "tvm::ControlProblem::Updater", "classtvm_1_1ControlProblem_1_1Updater.html", null ],
+    [ "tvm::diagnostic::internal::ValidVariableAccessor< T >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html", null ],
+    [ "tvm::diagnostic::internal::ValidVariableAccessor< U >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html", [
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(Base::*)(const Variable &) const >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07const_01Variable_01_6_08_01const_01_4.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(Base::*)(const Variable &) const noexcept >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07const_01Varif0a155793d16033877664835fa9e3cbd.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(T::*)(const Variable &) const >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07const_01Variable_01_6_08_01const_01_4.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(T::*)(const Variable &) const noexcept >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07const_01Variabl2a541c54562a79dbeb2738e95c2038e0.html", null ]
+    ] ],
+    [ "tvm::diagnostic::internal::ValidVoidAccessor< T >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html", null ],
+    [ "tvm::diagnostic::internal::ValidVoidAccessor< U >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html", [
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(Base::*)() const >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07_08_01const_01_4.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(Base::*)() const noexcept >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07_08_01const_01noexcept_01_4.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(T::*)() const >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07_08_01const_01_4.html", null ],
+      [ "tvm::diagnostic::internal::CheckAccessor< T, U(T::*)() const noexcept >", "structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07_08_01const_01noexcept_01_4.html", null ]
+    ] ],
     [ "tvm::internal::VariableCountingVector", "classtvm_1_1internal_1_1VariableCountingVector.html", null ],
     [ "tvm::internal::VariableVectorPartition< VarVector >", "classtvm_1_1internal_1_1VariableVectorPartition.html", null ],
     [ "tvm::scheme::internal::VectorSubstitutionAssignement", "classtvm_1_1scheme_1_1internal_1_1VectorSubstitutionAssignement.html", [

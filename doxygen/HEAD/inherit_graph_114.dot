@@ -3,5 +3,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::solver::internal\l::SolverEvents::Objective",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html"];
+  Node0 [label="tvm::scheme::internal\l::WeightMultBase\< SCALAR \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01SCALAR_01_4.html"];
 }

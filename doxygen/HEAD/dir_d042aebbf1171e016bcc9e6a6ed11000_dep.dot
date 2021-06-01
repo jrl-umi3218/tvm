@@ -12,6 +12,6 @@ digraph "include/tvm/robot" {
   }
   dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [shape=box label="function" fillcolor="white" style="filled" color="red" URL="dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2.html"];
   dir_3b8bd83221002fa77b114cd1fe45d7df [shape=box label="geometry" URL="dir_3b8bd83221002fa77b114cd1fe45d7df.html"];
-  dir_32720b4c66db4709ceedb8a9ccec312a->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000021_000010.html"];
-  dir_d042aebbf1171e016bcc9e6a6ed11000->dir_3b8bd83221002fa77b114cd1fe45d7df [headlabel="1", labeldistance=1.5 headhref="dir_000006_000012.html"];
+  dir_32720b4c66db4709ceedb8a9ccec312a->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000023_000012.html"];
+  dir_d042aebbf1171e016bcc9e6a6ed11000->dir_3b8bd83221002fa77b114cd1fe45d7df [headlabel="1", labeldistance=1.5 headhref="dir_000006_000014.html"];
 }

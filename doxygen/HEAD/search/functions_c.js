@@ -3,6 +3,7 @@ var searchData=
   ['m',['m',['../classtvm_1_1hint_1_1abstract_1_1SubstitutionCalculatorImpl.html#aac6e6321e067d84ce8c2960b254aefa7',1,'tvm::hint::abstract::SubstitutionCalculatorImpl::m()'],['../classtvm_1_1hint_1_1Substitution.html#a881f8ab3e4ee31f531957520187f0ee5',1,'tvm::hint::Substitution::m()']]],
   ['make',['make',['../classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html#aba509cdb750e9d58b01c0449a82705a4',1,'tvm::scheme::internal::CompiledAssignmentWrapper::make(Args &amp;&amp;... args)'],['../classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html#a7c1cc0cf3d294b88f8d26508997b7d7d',1,'tvm::scheme::internal::CompiledAssignmentWrapper::make(Args &amp;&amp;... args)']]],
   ['make_5faffineexpr',['make_AffineExpr',['../namespacetvm_1_1utils.html#a5aaf37f87c2b6c95abbfec5abd1c5607',1,'tvm::utils']]],
+  ['makeconvert',['MakeConvert',['../namespacetvm_1_1diagnostic_1_1internal.html#a4bc0d8ee1de11d7de43e241b78359d38',1,'tvm::diagnostic::internal']]],
   ['makeid',['makeId',['../classtvm_1_1internal_1_1IdProvider.html#afef7eeb3484bc88502adc1f55702469a',1,'tvm::internal::IdProvider']]],
   ['makepair',['makePair',['../classtvm_1_1robot_1_1ConvexHull.html#aa157d2d5d638dd854a74e38d547b9422',1,'tvm::robot::ConvexHull']]],
   ['markedassignment',['MarkedAssignment',['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html#ad77852e7bd7c600a48125d0fb3ddcaa2',1,'tvm::solver::abstract::LeastSquareSolver::MarkedAssignment']]],

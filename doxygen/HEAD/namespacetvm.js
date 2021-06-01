@@ -2,6 +2,7 @@ var namespacetvm =
 [
     [ "constant", "namespacetvm_1_1constant.html", null ],
     [ "constraint", "namespacetvm_1_1constraint.html", "namespacetvm_1_1constraint" ],
+    [ "diagnostic", "namespacetvm_1_1diagnostic.html", "namespacetvm_1_1diagnostic" ],
     [ "event", "namespacetvm_1_1event.html", "namespacetvm_1_1event" ],
     [ "exception", "namespacetvm_1_1exception.html", "namespacetvm_1_1exception" ],
     [ "function", "namespacetvm_1_1function.html", "namespacetvm_1_1function" ],

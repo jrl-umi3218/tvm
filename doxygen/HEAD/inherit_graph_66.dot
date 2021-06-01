@@ -3,5 +3,23 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::robot::internal\l::FrictionCone",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1robot_1_1internal_1_1FrictionCone.html"];
+  Node238 [label="conditional_t",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node238 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::requirements::\labstract::SingleSolvingRequirement\l\< double, Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="tvm::requirements::\lWeightBase\< Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1WeightBase.html"];
+  Node238 -> Node241 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node241 [label="tvm::requirements::\labstract::SingleSolvingRequirement\l\< Eigen::VectorXd, Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html"];
+  Node241 -> Node242 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node242 [label="tvm::requirements::\lAnisotropicWeightBase\l\< Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1AnisotropicWeightBase.html"];
+  Node238 -> Node243 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node243 [label="tvm::requirements::\labstract::SingleSolvingRequirement\l\< int, Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html"];
+  Node243 -> Node244 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node244 [label="tvm::requirements::\lPriorityLevelBase\< Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1PriorityLevelBase.html"];
+  Node238 -> Node245 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node245 [label="tvm::requirements::\labstract::SingleSolvingRequirement\l\< ViolationEvaluationType, Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html"];
+  Node245 -> Node246 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node246 [label="tvm::requirements::\lViolationEvaluationBase\l\< Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1ViolationEvaluationBase.html"];
+  Node238 -> Node247 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node247 [label="tvm::requirements::\labstract::SingleSolvingRequirement\l\< T, Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html"];
 }

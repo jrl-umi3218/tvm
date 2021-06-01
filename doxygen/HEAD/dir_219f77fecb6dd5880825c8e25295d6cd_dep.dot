@@ -7,5 +7,5 @@ digraph "include/tvm/requirements/abstract" {
   dir_219f77fecb6dd5880825c8e25295d6cd [shape=box, label="abstract", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_219f77fecb6dd5880825c8e25295d6cd.html"];
   }
   dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
-  dir_219f77fecb6dd5880825c8e25295d6cd->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000020_000005.html"];
+  dir_219f77fecb6dd5880825c8e25295d6cd->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000022_000005.html"];
 }

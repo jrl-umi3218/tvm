@@ -12,6 +12,8 @@ var searchData=
   ['getmappingin',['getMappingIn',['../classtvm_1_1Variable.html#adb7f9239f61416b9c1a57e9f806782b6',1,'tvm::Variable']]],
   ['getmappingof',['getMappingOf',['../classtvm_1_1VariableVector.html#a2c015cef9a80aaa5bf4118ef92ff8cb9',1,'tvm::VariableVector']]],
   ['getpointervalue',['getPointerValue',['../namespacetvm_1_1graph_1_1internal.html#aa595f4e0beceebe4489e216d83a7c096',1,'tvm::graph::internal']]],
+  ['getpromotedtype',['getPromotedType',['../classtvm_1_1graph_1_1internal_1_1Log.html#a059c0b5a55397275226b2cce06bc525a',1,'tvm::graph::internal::Log']]],
   ['getsubstitutionfor',['getSubstitutionFor',['../classtvm_1_1hint_1_1internal_1_1Substitutions.html#af3f0bfa4811a31a9498dc4a64f2db996',1,'tvm::hint::internal::Substitutions']]],
+  ['graphprobe',['GraphProbe',['../classtvm_1_1diagnostic_1_1GraphProbe.html#add810a7d49fc14795a0fe5cc6f665b70',1,'tvm::diagnostic::GraphProbe']]],
   ['groupedorder',['groupedOrder',['../classtvm_1_1graph_1_1internal_1_1DependencyGraph.html#a22302100a7d8d4c1b0a8182e7da566f9',1,'tvm::graph::internal::DependencyGraph']]]
 ];

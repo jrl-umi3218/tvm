@@ -979,6 +979,112 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>GraphProbe.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/</path>
+    <filename>GraphProbe_8h</filename>
+    <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
+    <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
+    <includes id="probe_8h" name="probe.h" local="no" imported="no">tvm/diagnostic/internal/probe.h</includes>
+    <includes id="traits_8h" name="traits.h" local="no" imported="no">tvm/diagnostic/internal/traits.h</includes>
+    <includes id="matrix_8h" name="matrix.h" local="no" imported="no">tvm/diagnostic/matrix.h</includes>
+    <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
+    <includes id="MatrixWithProperties_8h" name="MatrixWithProperties.h" local="no" imported="no">tvm/internal/MatrixWithProperties.h</includes>
+    <class kind="class">tvm::diagnostic::GraphProbe</class>
+    <class kind="struct">tvm::diagnostic::GraphProbe::ProbeNode</class>
+    <namespace>tvm::diagnostic</namespace>
+    <member kind="function">
+      <type>TVM_DLLAPI std::ostream &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>GraphProbe_8h.html</anchorfile>
+      <anchor>acc443f1272f62dc788e4ca7e2b395777</anchor>
+      <arglist>(std::ostream &amp;os, const std::vector&lt; tvm::diagnostic::GraphProbe::OutputVal &gt; &amp;vals)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>details.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
+    <filename>details_8h</filename>
+    <namespace>tvm::diagnostic</namespace>
+    <namespace>tvm::diagnostic::internal</namespace>
+    <member kind="function">
+      <type>void</type>
+      <name>registerDefault</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>aa2624c019128aac31c7d68965d39cc97</anchor>
+      <arglist>(GraphProbe &amp;gp)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>probe.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
+    <filename>probe_8h</filename>
+    <includes id="Log_8h" name="Log.h" local="no" imported="no">tvm/graph/internal/Log.h</includes>
+    <class kind="struct">tvm::diagnostic::internal::PairHasher</class>
+    <class kind="struct">std::hash&lt; tvm::graph::internal::Log::EnumValue &gt;</class>
+    <namespace>tvm::diagnostic::internal</namespace>
+    <namespace>std</namespace>
+    <member kind="function">
+      <type>void</type>
+      <name>hash_combine</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>af12848a2dbbab069a3afcf07ad0b5f95</anchor>
+      <arglist>(std::size_t &amp;seed, const T &amp;v) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>traits.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
+    <filename>traits_8h</filename>
+    <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVariableAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</class>
+    <namespace>tvm::diagnostic::internal</namespace>
+    <member kind="function">
+      <type>std::function&lt; Eigen::MatrixXd(const ArgT &amp;)&gt;</type>
+      <name>MakeConvert</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>a4bc0d8ee1de11d7de43e241b78359d38</anchor>
+      <arglist>(ConvertT &amp;&amp;convertIn)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>matrix.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/</path>
+    <filename>matrix_8h</filename>
+    <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
+    <namespace>tvm::diagnostic</namespace>
+    <member kind="function">
+      <type>bool</type>
+      <name>isInMatrix</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a2a21ee3aa1ec263172fa59bd0d4bd160</anchor>
+      <arglist>(typename MatrixOrMapType::Scalar const *ptr, MatrixOrMapType &amp;M)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isInMatrix</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a26408a038a2ffc9587058dd145c37632</anchor>
+      <arglist>(const MatrixT &amp;A, Eigen::Index i, Eigen::Index j, MatrixOrMapType &amp;M)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasElemAbsInRange</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a6bc3dc6b84828a42cd9f1dc98775636f</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; Derived &gt; &amp;A, typename Derived::Scalar emin, typename Derived::Scalar emax)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>Listener.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/event/</path>
     <filename>Listener_8h</filename>
@@ -5087,6 +5193,86 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVoidAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor.html</anchorfile>
+      <anchor>a5457fd8b22c2e299f4b1d102839e9667</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVariableAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor.html</anchorfile>
+      <anchor>a4d6b9bf4fd2559f23c655bf9fbbe9837</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07_08_01const_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVoidAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const noexcept &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07_08_01const_01noexcept_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVoidAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07const_01Variable_01_6_08_01const_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVariableAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07Base_1_1_5_08_07const_01Varif0a155793d16033877664835fa9e3cbd.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVariableAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07_08_01const_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVoidAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const noexcept &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07_08_01const_01noexcept_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVoidAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07const_01Variable_01_6_08_01const_01_4.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVariableAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const noexcept &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1CheckAccessor_3_01T_00_01U_07T_1_1_5_08_07const_01Variabl2a541c54562a79dbeb2738e95c2038e0.html</filename>
+    <templarg></templarg>
+    <templarg></templarg>
+    <base>ValidVariableAccessor&lt; U &gt;</base>
+  </compound>
+  <compound kind="struct">
     <name>tvm::utils::CheckOptions::CheckConfiguration</name>
     <filename>structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html</filename>
     <member kind="variable">
@@ -6500,6 +6686,13 @@
       <anchor>a60d19087a0579c9ab14b775c67957aed</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function">
+      <type>const graph::CallGraph &amp;</type>
+      <name>updateGraph</name>
+      <anchorfile>classtvm_1_1ControlProblem.html</anchorfile>
+      <anchor>a9b106d32b0a79c8c37a04216511538c1</anchor>
+      <arglist>() const</arglist>
+    </member>
     <member kind="function" protection="protected" virtualness="virtual">
       <type>virtual void</type>
       <name>update_</name>
@@ -7496,6 +7689,134 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>tvm::diagnostic::GraphProbe</name>
+    <filename>classtvm_1_1diagnostic_1_1GraphProbe.html</filename>
+    <class kind="struct">tvm::diagnostic::GraphProbe::ProbeNode</class>
+    <member kind="typedef">
+      <type>graph::internal::Log::Output</type>
+      <name>Output</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a5ada2dd903344cd77c129a1a93a2572b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>graph::internal::Log::Update</type>
+      <name>Update</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>aca1506862bf5686328cb11d8b161574f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::tuple&lt; Output, VariablePtr, Eigen::MatrixXd &gt;</type>
+      <name>OutputVal</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a68697730bf451a45d1655c7467bfaad6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>GraphProbe</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>add810a7d49fc14795a0fe5cc6f665b70</anchor>
+      <arglist>(const graph::internal::Log &amp;log=tvm::graph::internal::Logger::logger().log())</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerAccessor</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a3540c5942f5227533ee85e44e42273b8</anchor>
+      <arglist>(EnumOutput o, MethodT method, ConvertT convert=std::nullopt)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerTVMFunction</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a1f90bd4f2106ad7ebbd1ac6c8b1e5abf</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerTVMConstraint</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a142285352d3869b7f76a1f6796669cd4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerTVMTaskDynamics</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a3f9ae08bbd48ab9ad9f52c3687631a22</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; OutputVal &gt;</type>
+      <name>listOutputVal</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a050297da6a86f70b0221da554cae7b46</anchor>
+      <arglist>(const graph::CallGraph *const g, bool verbose=false) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; OutputVal &gt;</type>
+      <name>listOutputVal</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a566494aeae79482d00c60d10ed31fc1a</anchor>
+      <arglist>(const Output &amp;o, bool verbose=false) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; ProbeNode &gt;</type>
+      <name>followUp</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a581399d73e52c97de1bd505f9ced99d0</anchor>
+      <arglist>(const Output &amp;o, const std::function&lt; bool(const Eigen::MatrixXd &amp;)&gt; &amp;select=[](const Eigen::MatrixXd &amp;) { return true;}) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::unique_ptr&lt; ProbeNode &gt; &gt;</type>
+      <name>followUp</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>ac29a143ac0662ceaea1336bfbca8a23e</anchor>
+      <arglist>(const graph::CallGraph *const g, const std::function&lt; bool(const Eigen::MatrixXd &amp;)&gt; &amp;select=[](const Eigen::MatrixXd &amp;) { return true;}) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>print</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a11cd63affa1b99e0e93ee28a88828c2c</anchor>
+      <arglist>(std::ostream &amp;os, const std::unique_ptr&lt; ProbeNode &gt; &amp;root) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>print</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a3026de38c57669c10390785c00cb5ebc</anchor>
+      <arglist>(std::ostream &amp;os, const std::vector&lt; std::unique_ptr&lt; ProbeNode &gt;&gt; &amp;roots) const</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr auto</type>
+      <name>absInRange</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a364d4912cdacd202d4e7a0c43e9cedd8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr auto</type>
+      <name>hasNan</name>
+      <anchorfile>classtvm_1_1diagnostic_1_1GraphProbe.html</anchorfile>
+      <anchor>a7800e5b2c6152f94de5a5a2d965b03f5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>std::hash&lt; tvm::graph::internal::Log::EnumValue &gt;</name>
+    <filename>structstd_1_1hash_3_01tvm_1_1graph_1_1internal_1_1Log_1_1EnumValue_01_4.html</filename>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>operator()</name>
+      <anchorfile>structstd_1_1hash_3_01tvm_1_1graph_1_1internal_1_1Log_1_1EnumValue_01_4.html</anchorfile>
+      <anchor>a8dde494f1b01882e28e2396cd423dbef</anchor>
+      <arglist>(const tvm::graph::internal::Log::EnumValue &amp;e) const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>tvm::utils::internal::HashId</name>
     <filename>classtvm_1_1utils_1_1internal_1_1HashId.html</filename>
     <templarg></templarg>
@@ -7726,6 +8047,72 @@
       <anchorfile>structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
       <anchor>a2f0648779602e4039ebe96bfa4436ab0</anchor>
       <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::hint::internal::DiagonalCalculator::Impl</name>
+    <filename>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</filename>
+    <base>tvm::hint::abstract::SubstitutionCalculatorImpl</base>
+    <member kind="function">
+      <type></type>
+      <name>Impl</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
+      <anchor>a9e761fcbdc84880bb08c3e45e92eaa2c</anchor>
+      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank, Eigen::DenseIndex first, Eigen::DenseIndex size)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Impl</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
+      <anchor>a9f3f8608cbea14c86602f98e725fa9ca</anchor>
+      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank, const std::vector&lt; Eigen::DenseIndex &gt; &amp;nnzRows, const std::vector&lt; Eigen::DenseIndex &gt; &amp;zeroRows)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>update_</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
+      <anchor>a689eb31e7153ede2fc05484c2fd5f012</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>premultiplyByASharpAndSTranspose_</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
+      <anchor>ad3bd65db2d6831b7d639aa68642699ce</anchor>
+      <arglist>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const override</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>postMultiplyByN_</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
+      <anchor>aa30bc070d8fedaef48715d5e660ec6f5</anchor>
+      <arglist>(MatrixRef out, const MatrixConstRef &amp;in, bool add) const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::hint::internal::GenericCalculator::Impl</name>
+    <filename>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</filename>
+    <base>tvm::hint::abstract::SubstitutionCalculatorImpl</base>
+    <member kind="function">
+      <type></type>
+      <name>Impl</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
+      <anchor>a3cd21968118b01a88ffde9c47578afca</anchor>
+      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>update_</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
+      <anchor>ac8ce133376562bce551228c399299e54</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>premultiplyByASharpAndSTranspose_</name>
+      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
+      <anchor>ae0bbb153203ece7dd40889e9c3d363ae</anchor>
+      <arglist>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const override</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -8249,72 +8636,6 @@
       <arglist>() override=default</arglist>
     </member>
   </compound>
-  <compound kind="class">
-    <name>tvm::hint::internal::DiagonalCalculator::Impl</name>
-    <filename>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</filename>
-    <base>tvm::hint::abstract::SubstitutionCalculatorImpl</base>
-    <member kind="function">
-      <type></type>
-      <name>Impl</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
-      <anchor>a9e761fcbdc84880bb08c3e45e92eaa2c</anchor>
-      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank, Eigen::DenseIndex first, Eigen::DenseIndex size)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>Impl</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
-      <anchor>a9f3f8608cbea14c86602f98e725fa9ca</anchor>
-      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank, const std::vector&lt; Eigen::DenseIndex &gt; &amp;nnzRows, const std::vector&lt; Eigen::DenseIndex &gt; &amp;zeroRows)</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
-      <name>update_</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
-      <anchor>a689eb31e7153ede2fc05484c2fd5f012</anchor>
-      <arglist>() override</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
-      <name>premultiplyByASharpAndSTranspose_</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
-      <anchor>ad3bd65db2d6831b7d639aa68642699ce</anchor>
-      <arglist>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const override</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
-      <name>postMultiplyByN_</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1DiagonalCalculator_1_1Impl.html</anchorfile>
-      <anchor>aa30bc070d8fedaef48715d5e660ec6f5</anchor>
-      <arglist>(MatrixRef out, const MatrixConstRef &amp;in, bool add) const override</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>tvm::hint::internal::GenericCalculator::Impl</name>
-    <filename>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</filename>
-    <base>tvm::hint::abstract::SubstitutionCalculatorImpl</base>
-    <member kind="function">
-      <type></type>
-      <name>Impl</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
-      <anchor>a3cd21968118b01a88ffde9c47578afca</anchor>
-      <arglist>(const std::vector&lt; LinearConstraintPtr &gt; &amp;cstr, const std::vector&lt; VariablePtr &gt; &amp;x, int rank)</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
-      <name>update_</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
-      <anchor>ac8ce133376562bce551228c399299e54</anchor>
-      <arglist>() override</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
-      <name>premultiplyByASharpAndSTranspose_</name>
-      <anchorfile>classtvm_1_1hint_1_1internal_1_1GenericCalculator_1_1Impl.html</anchorfile>
-      <anchor>ae0bbb153203ece7dd40889e9c3d363ae</anchor>
-      <arglist>(MatrixRef outA, MatrixRef outS, const MatrixConstRef &amp;in, bool minus) const override</arglist>
-    </member>
-  </compound>
   <compound kind="struct">
     <name>tvm::graph::internal::Log::Input</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Input.html</filename>
@@ -8558,24 +8879,6 @@
       <arglist>(...)</arglist>
     </member>
   </compound>
-  <compound kind="struct">
-    <name>tvm::graph::internal::Inputs::Iterator</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Iterator</name>
-      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
-      <anchor>ae0575801e2a31a008828efc9071e9ee7</anchor>
-      <arglist>(inputs_t::iterator it, inputs_t::iterator end)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>operator bool</name>
-      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
-      <anchor>a103f60c2e1bd1b54ca3cc8e7cd0cfc91</anchor>
-      <arglist>()</arglist>
-    </member>
-  </compound>
   <compound kind="class">
     <name>tvm::internal::VariableVectorPartition::iterator</name>
     <filename>classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html</filename>
@@ -8612,6 +8915,24 @@
       <name>operator*</name>
       <anchorfile>classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html</anchorfile>
       <anchor>accd710a180ed73b36e0c8c94f29d2541</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::graph::internal::Inputs::Iterator</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Iterator</name>
+      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
+      <anchor>ae0575801e2a31a008828efc9071e9ee7</anchor>
+      <arglist>(inputs_t::iterator it, inputs_t::iterator end)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>operator bool</name>
+      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
+      <anchor>a103f60c2e1bd1b54ca3cc8e7cd0cfc91</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -9732,6 +10053,20 @@
     <class kind="struct">tvm::graph::internal::Log::Pointer</class>
     <class kind="struct">tvm::graph::internal::Log::Update</class>
     <member kind="function">
+      <type>std::pair&lt; std::vector&lt; Log::Output &gt;, std::vector&lt; Log::Update &gt; &gt;</type>
+      <name>subGraph</name>
+      <anchorfile>classtvm_1_1graph_1_1internal_1_1Log.html</anchorfile>
+      <anchor>a68708640c286dd324f189893de85f9f5</anchor>
+      <arglist>(const CallGraph *const g) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::pair&lt; std::vector&lt; Log::Output &gt;, std::vector&lt; Log::Update &gt; &gt;</type>
+      <name>subGraph</name>
+      <anchorfile>classtvm_1_1graph_1_1internal_1_1Log.html</anchorfile>
+      <anchor>a207b79845bb49642e43da6690ab7213c</anchor>
+      <arglist>(const Output out) const</arglist>
+    </member>
+    <member kind="function">
       <type>std::string</type>
       <name>generateDot</name>
       <anchorfile>classtvm_1_1graph_1_1internal_1_1Log.html</anchorfile>
@@ -9751,6 +10086,13 @@
       <anchorfile>classtvm_1_1graph_1_1internal_1_1Log.html</anchorfile>
       <anchor>a3d4660dc9818036aa8b03a1b0ecf0273</anchor>
       <arglist>(const std::vector&lt; Log::Output &gt; &amp;outHighlight={}, const std::vector&lt; Log::Update &gt; &amp;upHighlight={}) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::type_index &amp;</type>
+      <name>getPromotedType</name>
+      <anchorfile>classtvm_1_1graph_1_1internal_1_1Log.html</anchorfile>
+      <anchor>a059c0b5a55397275226b2cce06bc525a</anchor>
+      <arglist>(const Pointer &amp;p) const</arglist>
     </member>
     <member kind="variable">
       <type>std::vector&lt; Update &gt;</type>
@@ -11694,6 +12036,10 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>tvm::graph::abstract::Outputs::Output</name>
+    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
+  </compound>
+  <compound kind="struct">
     <name>tvm::graph::internal::Log::Output</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html</filename>
     <member kind="function">
@@ -11731,10 +12077,6 @@
       <anchor>a7d6a30adbe700862b885726b8afa51d8</anchor>
       <arglist></arglist>
     </member>
-  </compound>
-  <compound kind="struct">
-    <name>tvm::graph::abstract::Outputs::Output</name>
-    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
   </compound>
   <compound kind="struct">
     <name>tvm::graph::internal::Log::OutputDependency</name>
@@ -12158,6 +12500,17 @@
       <arglist>() const</arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::PairHasher</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1PairHasher.html</filename>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>operator()</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1PairHasher.html</anchorfile>
+      <anchor>af5a28a09b302d601c74b8386697973e2</anchor>
+      <arglist>(const std::pair&lt; T, U &gt; &amp;p) const noexcept</arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>tvm::scheme::internal::ParseArg</name>
     <filename>classtvm_1_1scheme_1_1internal_1_1ParseArg.html</filename>
@@ -12528,6 +12881,52 @@
       <anchorfile>classtvm_1_1requirements_1_1PriorityLevelBase.html</anchorfile>
       <anchor>ac8281f8eaa2f4ffb1c365646fc10b370</anchor>
       <arglist>(int p)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::GraphProbe::ProbeNode</name>
+    <filename>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ProbeNode</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>ab04adffbe41e8980c6d4edcc0bc9c21a</anchor>
+      <arglist>(const Output &amp;o)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProbeNode</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>af33c668c1dd4a6b27dc1d0cede6651a6</anchor>
+      <arglist>(const Update &amp;u)</arglist>
+    </member>
+    <member kind="function">
+      <type>ProbeNode &amp;</type>
+      <name>operator=</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>aeeba5b5091097a4dfc99eefc0790b20a</anchor>
+      <arglist>(const ProbeNode &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProbeNode</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>a8ed2acde709e8a21496e1ad7aa23eceb</anchor>
+      <arglist>(const ProbeNode &amp;)=delete</arglist>
+    </member>
+    <member kind="variable">
+      <type>mpark::variant&lt; Output, Update &gt;</type>
+      <name>val</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>a181544de2a2c0a326299d4540d4fef4e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::unique_ptr&lt; ProbeNode &gt; &gt;</type>
+      <name>children</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1GraphProbe_1_1ProbeNode.html</anchorfile>
+      <anchor>a8d2cbd476f520a06a635d942675afa9b</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -15808,10 +16207,6 @@
     <base>tvm::exception::DataException</base>
   </compound>
   <compound kind="struct">
-    <name>tvm::graph::internal::AbstractNode::Update</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
-  </compound>
-  <compound kind="struct">
     <name>tvm::graph::internal::Log::Update</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html</filename>
     <member kind="function">
@@ -15856,6 +16251,10 @@
       <anchor>a9538295d7f3d19392fbacb07629cb067</anchor>
       <arglist></arglist>
     </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::graph::internal::AbstractNode::Update</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
   </compound>
   <compound kind="class">
     <name>tvm::utils::UpdatelessFunction</name>
@@ -15955,6 +16354,13 @@
       <anchor>ae9fe82e2ce3846995fa6c56a61c245b6</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function">
+      <type>const graph::CallGraph &amp;</type>
+      <name>updateGraph</name>
+      <anchorfile>classtvm_1_1ControlProblem_1_1Updater.html</anchorfile>
+      <anchor>a870b6f2b0bca71e5af30864ae234cb10</anchor>
+      <arglist>() const</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::scheme::internal::use_assign_cache</name>
@@ -16004,6 +16410,108 @@
     <filename>classtvm_1_1scheme_1_1internal_1_1use__product__cache_3_01MatrixType_00_01A_00_01DIAGONAL_00_01GENERAL_00_01EXTERNAL_01_4.html</filename>
     <templarg></templarg>
     <templarg>A</templarg>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::ValidVariableAccessor</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</filename>
+    <templarg>T</templarg>
+    <member kind="typedef">
+      <type>T</type>
+      <name>ReturnT</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a8ec1ebc73fc19bb6e06a4c1a701f5a1b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVoidAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a3b7e14d1b2f7c047515292d4650e01c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVariableAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a6f4fbbe80140af8908249a9eec8c56cc</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ValidVariableAccessor&lt; U &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</filename>
+    <member kind="typedef">
+      <type>U</type>
+      <name>ReturnT</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a8ec1ebc73fc19bb6e06a4c1a701f5a1b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVoidAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a3b7e14d1b2f7c047515292d4650e01c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVariableAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</anchorfile>
+      <anchor>a6f4fbbe80140af8908249a9eec8c56cc</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::diagnostic::internal::ValidVoidAccessor</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</filename>
+    <templarg>T</templarg>
+    <member kind="typedef">
+      <type>T</type>
+      <name>ReturnT</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a0f56131c9cc5572f21d8895340985b41</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVoidAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a257f61ae7ebc1b8c8c79190449194c12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVariableAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a127f27610aa4fc90e3b387a619e7452c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ValidVoidAccessor&lt; U &gt;</name>
+    <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</filename>
+    <member kind="typedef">
+      <type>U</type>
+      <name>ReturnT</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a0f56131c9cc5572f21d8895340985b41</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVoidAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a257f61ae7ebc1b8c8c79190449194c12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr bool</type>
+      <name>isVariableAccessor</name>
+      <anchorfile>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</anchorfile>
+      <anchor>a127f27610aa4fc90e3b387a619e7452c</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::Variable</name>
@@ -17083,10 +17591,16 @@
     <class kind="struct">Eigen::internal::traits&lt; tvm::utils::internal::NoConstant &gt;</class>
   </compound>
   <compound kind="namespace">
+    <name>std</name>
+    <filename>namespacestd.html</filename>
+    <class kind="struct">std::hash&lt; tvm::graph::internal::Log::EnumValue &gt;</class>
+  </compound>
+  <compound kind="namespace">
     <name>tvm</name>
     <filename>namespacetvm.html</filename>
     <namespace>tvm::constant</namespace>
     <namespace>tvm::constraint</namespace>
+    <namespace>tvm::diagnostic</namespace>
     <namespace>tvm::event</namespace>
     <namespace>tvm::exception</namespace>
     <namespace>tvm::function</namespace>
@@ -17398,6 +17912,70 @@
     <filename>namespacetvm_1_1constraint_1_1internal.html</filename>
     <class kind="class">tvm::constraint::internal::LinearizedTaskConstraint</class>
     <class kind="class">tvm::constraint::internal::RHSVectors</class>
+  </compound>
+  <compound kind="namespace">
+    <name>tvm::diagnostic</name>
+    <filename>namespacetvm_1_1diagnostic.html</filename>
+    <namespace>tvm::diagnostic::internal</namespace>
+    <class kind="class">tvm::diagnostic::GraphProbe</class>
+    <member kind="function">
+      <type>bool</type>
+      <name>isInMatrix</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a2a21ee3aa1ec263172fa59bd0d4bd160</anchor>
+      <arglist>(typename MatrixOrMapType::Scalar const *ptr, MatrixOrMapType &amp;M)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isInMatrix</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a26408a038a2ffc9587058dd145c37632</anchor>
+      <arglist>(const MatrixT &amp;A, Eigen::Index i, Eigen::Index j, MatrixOrMapType &amp;M)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasElemAbsInRange</name>
+      <anchorfile>namespacetvm_1_1diagnostic.html</anchorfile>
+      <anchor>a6bc3dc6b84828a42cd9f1dc98775636f</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; Derived &gt; &amp;A, typename Derived::Scalar emin, typename Derived::Scalar emax)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>tvm::diagnostic::internal</name>
+    <filename>namespacetvm_1_1diagnostic_1_1internal.html</filename>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::PairHasher</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVariableAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
+    <member kind="function">
+      <type>void</type>
+      <name>registerDefault</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>aa2624c019128aac31c7d68965d39cc97</anchor>
+      <arglist>(GraphProbe &amp;gp)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>hash_combine</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>af12848a2dbbab069a3afcf07ad0b5f95</anchor>
+      <arglist>(std::size_t &amp;seed, const T &amp;v) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::function&lt; Eigen::MatrixXd(const ArgT &amp;)&gt;</type>
+      <name>MakeConvert</name>
+      <anchorfile>namespacetvm_1_1diagnostic_1_1internal.html</anchorfile>
+      <anchor>a4bc0d8ee1de11d7de43e241b78359d38</anchor>
+      <arglist>(ConvertT &amp;&amp;convertIn)</arglist>
+    </member>
   </compound>
   <compound kind="namespace">
     <name>tvm::event</name>

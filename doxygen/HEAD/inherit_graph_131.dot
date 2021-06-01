@@ -3,5 +3,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::utils::internal\l::IdEqual\< ObjWithId \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1utils_1_1internal_1_1IdEqual.html"];
+  Node43 [label="TD",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node43 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::task_dynamics\l::Clamped\< TD, TDImpl \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1task__dynamics_1_1Clamped.html"];
+  Node43 -> Node45 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node45 [label="tvm::task_dynamics\l::FeedForward\< TD, TDImpl \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1task__dynamics_1_1FeedForward.html"];
 }

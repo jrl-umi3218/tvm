@@ -55,11 +55,7 @@ digraph "include/tvm/internal/MatrixWithProperties.h"
   Node31 -> Node32 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node32 [label="include/tvm/utils/internal\l/ProtoTaskDetails.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ProtoTaskDetails_8h.html"];
   Node32 -> Node33 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node33 [label="include/tvm/utils/ProtoTask.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ProtoTask_8h.html"];
-  Node33 -> Node34 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node34 [label="include/tvm/Task.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Task_8h.html"];
-  Node34 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node34 -> Node26 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node33 [label="include/tvm/utils/ProtoTask.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$ProtoTask_8h.html"];
   Node33 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node33 -> Node26 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node30 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -138,4 +134,6 @@ digraph "include/tvm/internal/MatrixWithProperties.h"
   Node59 [label="include/tvm/robot/utils.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8h.html"];
   Node8 -> Node27 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node60 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node60 [label="include/tvm/diagnostic\l/GraphProbe.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$GraphProbe_8h.html"];
 }

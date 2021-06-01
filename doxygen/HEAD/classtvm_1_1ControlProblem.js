@@ -18,6 +18,7 @@ var classtvm_1_1ControlProblem =
     [ "tasks", "classtvm_1_1ControlProblem.html#ac3a606e35f53e2dd15dbf848c0b4195e", null ],
     [ "update", "classtvm_1_1ControlProblem.html#a59f2080238e33168e7fda68523dbe70d", null ],
     [ "update_", "classtvm_1_1ControlProblem.html#a9b8e6ce5aa3451a567c0b0c3707c92ae", null ],
+    [ "updateGraph", "classtvm_1_1ControlProblem.html#a9b106d32b0a79c8c37a04216511538c1", null ],
     [ "LinearizedControlProblem", "classtvm_1_1ControlProblem.html#a92ba89182ead5aecaab77b0762a34986", null ],
     [ "scheme::internal::getComputationData", "classtvm_1_1ControlProblem.html#ab8ff59c7a8a8ff07f65f3da3a38ca00c", null ],
     [ "updater_", "classtvm_1_1ControlProblem.html#afe5807c324c53675cb853e76159fe621", null ]

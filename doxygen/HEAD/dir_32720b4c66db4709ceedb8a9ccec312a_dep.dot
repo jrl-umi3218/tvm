@@ -7,5 +7,5 @@ digraph "include/tvm/robot/internal" {
   dir_32720b4c66db4709ceedb8a9ccec312a [shape=box, label="internal", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_32720b4c66db4709ceedb8a9ccec312a.html"];
   }
   dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [shape=box label="function" fillcolor="white" style="filled" color="red" URL="dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2.html"];
-  dir_32720b4c66db4709ceedb8a9ccec312a->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000021_000010.html"];
+  dir_32720b4c66db4709ceedb8a9ccec312a->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000023_000012.html"];
 }

@@ -78,8 +78,6 @@ digraph "include/tvm/graph/abstract/Outputs.h"
   Node37 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node36 -> Node40 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node40 [label="include/tvm/utils/internal\l/ProtoTaskDetails.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$ProtoTaskDetails_8h.html"];
-  Node36 -> Node43 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node43 [label="include/tvm/robot/Collision\lFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CollisionFunction_8h.html"];
   Node36 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node36 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node36 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -120,11 +118,13 @@ digraph "include/tvm/graph/abstract/Outputs.h"
   Node62 [label="include/tvm/graph/CallGraph.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CallGraph_8h.html"];
   Node62 -> Node30 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node62 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node63 [label="include/tvm/utils/graph.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graph_8h.html"];
+  Node63 [label="include/tvm/diagnostic\l/GraphProbe.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$GraphProbe_8h.html"];
   Node62 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node64 [label="include/tvm/utils/internal\l/graphDetails.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphDetails_8h.html"];
-  Node64 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node64 [label="include/tvm/utils/graph.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graph_8h.html"];
+  Node62 -> Node65 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node65 [label="include/tvm/utils/internal\l/graphDetails.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphDetails_8h.html"];
+  Node65 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node62 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node32 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node32 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node65 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

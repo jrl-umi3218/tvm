@@ -3,9 +3,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node262 [label="Base",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node262 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="tvm::graph::abstract\l::OutputSelector\< OutputProvider,\l Base \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1abstract_1_1OutputSelector.html"];
-  Node0 [label="tvm::graph::abstract\l::SelectorMembers\<!is\l_output_selector\< Base \>()\>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html"];
-  Node0 -> Node1 [dir="back",color="darkgreen",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::diagnostic::internal\l::ValidVoidAccessor\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html"];
 }
