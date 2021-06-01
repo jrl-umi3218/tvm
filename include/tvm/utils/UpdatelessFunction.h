@@ -26,6 +26,12 @@ public:
   /** Constructor with the function to be wrapped. */
   UpdatelessFunction(FunctionPtr f);
 
+  /** Get the variables in this function */
+  inline const VariableVector & variables() const noexcept { return f_->variables(); }
+
+  /** Get the function associated to this function */
+  inline const FunctionPtr & function() const noexcept { return f_; }
+
   /** Get the value of the function for given values of its variables.
    * Variable values can be given as VectorXd, or as std::initializer_list.
    * There are three possible syntaxes:
