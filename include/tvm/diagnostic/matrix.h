@@ -52,9 +52,9 @@ inline bool isInMatrix(const MatrixT & A, Eigen::Index i, Eigen::Index j, Matrix
 
 /** Check if any element \a e of \p A is such that \c emin<=abs(e)<=emax.*/
 template<typename Derived>
-inline bool hasElemInRange(const Eigen::MatrixBase<Derived> & A,
-                           typename Derived::Scalar emin,
-                           typename Derived::Scalar emax)
+inline bool hasElemAbsInRange(const Eigen::MatrixBase<Derived> & A,
+                              typename Derived::Scalar emin,
+                              typename Derived::Scalar emax)
 {
   return (A.array().abs() >= emin && A.array().abs() <= emax).any();
 }

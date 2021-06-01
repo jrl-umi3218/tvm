@@ -10,7 +10,7 @@ namespace tvm::diagnostic::internal
 {
 /** Combine the hash value of \p v with the value \p seed
  *
- * Taken from https://stackoverflow.com/a/23860042
+ * Taken from boost.
  */
 template<typename T>
 inline void hash_combine(std::size_t & seed, const T & v) noexcept
@@ -51,7 +51,7 @@ auto remove_noexcept(U (T::*fn)(Args...) const noexcept)
 
 namespace std
 {
-#ifdef WIN32
+#ifdef _MSC_VER
 /**  Specialization of std::hash for std::size_t */
 template<>
 struct hash<std::size_t>

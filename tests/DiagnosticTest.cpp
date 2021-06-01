@@ -118,7 +118,7 @@ TEST_CASE("GraphProbe")
   }
 
   {
-    auto t = gp.followUp(&lpb.updateGraph(), diagnostic::GraphProbe::inRange(2, 3));
+    auto t = gp.followUp(&lpb.updateGraph(), diagnostic::GraphProbe::absInRange(2, 3));
     FAST_CHECK_EQ(t.size(), 1);
     const auto & jac = mpark::get<GraphProbe::Output>(t.front()->val);
     FAST_CHECK_EQ(jac.name, "Jacobian");

@@ -37,25 +37,30 @@ public:
   using Update = graph::internal::Log::Update;
   using OutputVal = std::tuple<Output, VariablePtr, Eigen::MatrixXd>;
 
-  struct TVM_DLLAPI Node
+  struct TVM_DLLAPI ProbeNode
   {
-    Node(const Output & o) : val(o) {}
-    Node(const Update & u) : val(u) {}
+    ProbeNode(const Output & o) : val(o) {}
+    ProbeNode(const Update & u) : val(u) {}
     mpark::variant<Output, Update> val;
-    std::vector<std::unique_ptr<Node>> children;
+    std::vector<std::unique_ptr<ProbeNode>> children;
 
-    Node & operator=(const Node &) = delete;
-    Node(const Node &) = delete;
+    ProbeNode & operator=(const ProbeNode &) = delete;
+    ProbeNode(const ProbeNode &) = delete;
   };
 
   /** Factory returning a function checking if a matrix M has elements whose absolute value is
    * between \p rmin and \p rmax.
+   *
+   * This function can be used as a select function in \c GraphProbe::followUp.
    */
-  static constexpr auto inRange = [](double rmin, double rmax) {
-    return [rmin, rmax](const Eigen::MatrixXd & M) { return hasElemInRange(M, rmin, rmax); };
+  static constexpr auto absInRange = [](double rmin, double rmax) {
+    return [rmin, rmax](const Eigen::MatrixXd & M) { return hasElemAbsInRange(M, rmin, rmax); };
   };
 
-  /** Function checking if \p contains NaN. */
+  /** Function checking if \p M contains NaN.
+   *
+   * This function can be used as a select function in \c GraphProbe::followUp.
+   */
   static constexpr auto hasNan = [](const Eigen::MatrixXd & M) { return M.hasNaN(); };
 
   /** Constructor */
@@ -132,21 +137,21 @@ public:
   /** Follow up backward the computation graph starting at node \p o, and trimming out branches where the
    * value of an output does not pass the test given by \p select.
    */
-  std::unique_ptr<Node> followUp(
+  std::unique_ptr<ProbeNode> followUp(
       const Output & o,
-      std::function<bool(const Eigen::MatrixXd &)> select = [](const Eigen::MatrixXd &) { return true; }) const;
+      const std::function<bool(const Eigen::MatrixXd &)> & select = [](const Eigen::MatrixXd &) { return true; }) const;
 
   /** Follow up backward the computation graph starting at the inputs of \p g, and trimming out
    * branches where the value of an output does not pass the test given by \p select.
    */
-  std::vector<std::unique_ptr<Node>> followUp(
+  std::vector<std::unique_ptr<ProbeNode>> followUp(
       const graph::CallGraph * const g,
-      std::function<bool(const Eigen::MatrixXd &)> select = [](const Eigen::MatrixXd &) { return true; }) const;
+      const std::function<bool(const Eigen::MatrixXd &)> & select = [](const Eigen::MatrixXd &) { return true; }) const;
 
   /** Print in \p os the tree starting at \p root.*/
-  void print(std::ostream & os, const std::unique_ptr<Node> & root) const;
+  void print(std::ostream & os, const std::unique_ptr<ProbeNode> & root) const;
   /** Print in \p os the trees starting each at an element of \p root.*/
-  void print(std::ostream & os, const std::vector<std::unique_ptr<Node>> & roots) const;
+  void print(std::ostream & os, const std::vector<std::unique_ptr<ProbeNode>> & roots) const;
 
 private:
   /** Helper class used in followUp*/
@@ -160,12 +165,6 @@ private:
     std::vector<Output> allOutputs;
   };
 
-  /** Get the most derived type corresponding to pointer \p p.
-   *
-   * (This is based on the assumption that the log add the most derived type last)
-   */
-  const std::type_index & getPromotedType(const graph::internal::Log::Pointer & p) const;
-
   /** Add the value(s) corresponding to \p o to \p ov.*/
   bool addOutputVal(std::vector<OutputVal> & ov, const Output & o) const;
   /** Return the value(s) corresponding to \p o*/
@@ -173,19 +172,16 @@ private:
   /** Subfunction for listOutputVal.*/
   std::vector<OutputVal> listOutputVal(const std::vector<graph::internal::Log::Output> & o, bool verbose) const;
   /** Subfunction for followUp*/
-  std::unique_ptr<Node> followUp(const Output & o,
-                                 std::function<bool(const Eigen::MatrixXd &)> select,
-                                 Processed & processed) const;
+  std::unique_ptr<ProbeNode> followUp(const Output & o,
+                                      const std::function<bool(const Eigen::MatrixXd &)> & select,
+                                      Processed & processed) const;
   /** Subfunction for followUp*/
-  std::unique_ptr<Node> followUp(const Update & u,
-                                 std::function<bool(const Eigen::MatrixXd &)> select,
-                                 Processed & processed) const;
+  std::unique_ptr<ProbeNode> followUp(const Update & u,
+                                      const std::function<bool(const Eigen::MatrixXd &)> & select,
+                                      Processed & processed) const;
 
   /** Subfunction for print*/
-  void print(std::ostream & os, const std::unique_ptr<Node> & node, int depth) const;
-
-  /** Register the usual tvm class. */
-  void registerDefault();
+  void print(std::ostream & os, const std::unique_ptr<ProbeNode> & node, int depth) const;
 
   using OutputKey = std::pair<std::size_t, graph::internal::Log::EnumValue>;
   using VarMatrixPair = std::pair<VariablePtr, Eigen::MatrixXd>;

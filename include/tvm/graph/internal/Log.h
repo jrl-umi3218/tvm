@@ -223,6 +223,12 @@ public:
   std::string generateDot(const std::vector<Log::Output> & outHighlight = {},
                           const std::vector<Log::Update> & upHighlight = {}) const;
 
+  /** Get the most derived type corresponding to pointer \p p.
+   *
+   * (This is based on the assumption that the log add the most derived type last)
+   */
+  const std::type_index & getPromotedType(const Pointer & p) const;
+
   // raw logs
   std::vector<Update> updates_;
   std::vector<Input> inputs_;

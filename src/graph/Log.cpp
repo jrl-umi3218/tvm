@@ -267,33 +267,31 @@ std::ostream & operator<<(std::ostream & os, const std::type_index & t)
 std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::subGraph(const CallGraph * const g) const
 {
   auto it = graphOutputs_.find(g);
-  if(it != graphOutputs_.end())
-  {
-    std::vector<Output> outputs = outputs_;
-    // Adding outputs referred only as source
-    for(const auto & i : inputs_)
-    {
-      outputs.push_back({i.id, i.name, i.source});
-    }
-
-    // first we retrieve the outputs of the call graph
-    std::vector<Output> startingPoints;
-    for(const auto & p : it->second)
-    {
-      for(const auto & i : inputs_)
-      {
-        if(i.owner == p)
-        {
-          startingPoints.push_back(findOutput(outputs, i));
-        }
-      }
-    }
-    return followUpDependency(outputs, startingPoints);
-  }
-  else
+  if(it == graphOutputs_.end())
   {
     return {{}, {}};
   }
+
+  std::vector<Output> outputs = outputs_;
+  // Adding outputs referred only as source
+  for(const auto & i : inputs_)
+  {
+    outputs.push_back({i.id, i.name, i.source});
+  }
+
+  // first we retrieve the outputs of the call graph
+  std::vector<Output> startingPoints;
+  for(const auto & p : it->second)
+  {
+    for(const auto & i : inputs_)
+    {
+      if(i.owner == p)
+      {
+        startingPoints.push_back(findOutput(outputs, i));
+      }
+    }
+  }
+  return followUpDependency(outputs, startingPoints);
 }
 
 std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::subGraph(const Output out) const
@@ -602,6 +600,15 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
 
   dot << "}";
   return dot.str();
+}
+
+const std::type_index & Log::getPromotedType(const Pointer & p) const
+{
+  auto it = types_.find(p.value);
+  if(it != types_.end())
+    return it->second.back();
+  else
+    return p.type;
 }
 
 std::pair<std::vector<Log::Output>, std::vector<Log::Update>> Log::followUpDependency(

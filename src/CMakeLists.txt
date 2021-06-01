@@ -13,6 +13,7 @@ set(TVM_SOURCES
   constraint/LinearizedTaskConstraint.cpp
   constraint/RHSVectors.cpp
   
+  diagnostic/details.cpp
   diagnostic/GraphProbe.cpp
 
   event/Listener.cpp
