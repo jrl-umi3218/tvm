@@ -12,7 +12,7 @@ set(TVM_SOURCES
   constraint/LinearConstraint.cpp
   constraint/LinearizedTaskConstraint.cpp
   constraint/RHSVectors.cpp
-  
+
   diagnostic/details.cpp
   diagnostic/GraphProbe.cpp
 
@@ -116,6 +116,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/diagnostic/matrix.h
   ${TVM_INCLUDE_DIR}/diagnostic/GraphProbe.h
   ${TVM_INCLUDE_DIR}/diagnostic/internal/probe.h
+  ${TVM_INCLUDE_DIR}/diagnostic/internal/traits.h
 
   ${TVM_INCLUDE_DIR}/event/enums.h
   ${TVM_INCLUDE_DIR}/event/Listener.h

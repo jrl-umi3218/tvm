@@ -6,8 +6,10 @@
 
 #include <tvm/Variable.h>
 #include <tvm/diagnostic/internal/probe.h>
+#include <tvm/diagnostic/internal/traits.h>
 #include <tvm/diagnostic/matrix.h>
 #include <tvm/graph/CallGraph.h>
+#include <tvm/internal/MatrixWithProperties.h>
 
 #include <mpark/variant.hpp>
 
@@ -66,45 +68,16 @@ public:
   /** Constructor */
   GraphProbe(const graph::internal::Log & log = tvm::graph::internal::Logger::logger().log());
 
-  /** Register a method \p fn with no argument to retrieve the value associated to \p o
+  /** Register a method \p fn to retrieve the value associated to \p o
+   *
+   * The method either takes a variable or does not
    *
    * \tparam T type of the node to which the method is attached. It must be given explicitly
    * if the method is inherited from a base class, otherwise the method will be registered
    * for this base class.
    */
-#ifndef _MSC_VER
-  template<typename T, typename U, typename EnumOutput, typename Base = T>
-  void registerAccessor(
-      EnumOutput o,
-      const U & (Base::*fn)() const,
-      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
-#else
-  template<typename T, typename U, typename EnumOutput>
-  void registerAccessor(
-      EnumOutput o,
-      const U & (T::*fn)() const,
-      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
-#endif
-
-  /** Register a method \p fn taking a variable to retrieve the value associated to \p o
-   *
-   * \tparam T type of the node to which the method is attached. It must be given explicitly
-   * if the method is inherited from a base class, otherwise the method will be registered
-   * for this base class.
-   */
-#ifndef _MSC_VER
-  template<typename T, typename U, typename EnumOutput, typename Base = T>
-  void registerAccessor(
-      EnumOutput o,
-      U (Base::*fn)(const Variable &) const,
-      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
-#else
-  template<typename T, typename U, typename EnumOutput>
-  void registerAccessor(
-      EnumOutput o,
-      U (T::*fn)(const Variable &) const,
-      std::function<Eigen::MatrixXd(const U &)> convert = [](const U & u) { return u; });
-#endif
+  template<typename T, typename MethodT, typename EnumOutput, typename ConvertT = std::nullopt_t>
+  void registerAccessor(EnumOutput o, MethodT method, ConvertT convert = std::nullopt);
 
   /** Register all methods associated to outputs inherited from tvm::function::abstract::Function */
   template<typename T>
@@ -191,74 +164,66 @@ private:
       varDepOutputAccessor_;
 };
 
-#ifndef _MSC_VER
-template<typename T, typename U, typename EnumOutput, typename Base>
-inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         const U & (Base::*fn)() const,
-                                         std::function<Eigen::MatrixXd(const U &)> convert)
-#else
-template<typename T, typename U, typename EnumOutput>
-inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         const U & (T::*fn)() const,
-                                         std::function<Eigen::MatrixXd(const U &)> convert)
-#endif
+template<typename T, typename MethodT, typename EnumOutput, typename ConvertT>
+inline void GraphProbe::registerAccessor(EnumOutput o, MethodT method, ConvertT convertIn)
 {
-#ifndef _MSC_VER
-  static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
-#endif
-  OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
-  outputAccessor_[k] = [fn, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*fn)()); };
-}
-
-#ifndef _MSC_VER
-template<typename T, typename U, typename EnumOutput, typename Base>
-inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         U (Base::*fn)(const Variable &) const,
-                                         std::function<Eigen::MatrixXd(const U &)> convert)
-#else
-template<typename T, typename U, typename EnumOutput>
-inline void GraphProbe::registerAccessor(EnumOutput o,
-                                         U (T::*fn)(const Variable &) const,
-                                         std::function<Eigen::MatrixXd(const U &)> convert)
-#endif
-{
-#ifndef _MSC_VER
-  static_assert(std::is_base_of_v<Base, T>, "Must be called with a method related to T");
-#endif
-  OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
-  varDepOutputAccessor_[k] = [fn, convert](uintptr_t t) {
-    std::vector<VarMatrixPair> ret;
-    T * ptr = reinterpret_cast<T *>(t);
-    for(const auto & v : ptr->variables())
-      ret.emplace_back(v, convert((ptr->*fn)(*v)));
-    return ret;
-  };
+  using CheckAccessor = internal::CheckAccessor<T, MethodT>;
+  if constexpr(CheckAccessor::isVoidAccessor)
+  {
+    using ReturnT = typename CheckAccessor::ReturnT;
+    auto convert = internal::MakeConvert<ReturnT>(std::move(convertIn));
+    OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
+    outputAccessor_[k] = [method, convert](uintptr_t t) { return convert((reinterpret_cast<T *>(t)->*method)()); };
+  }
+  else if constexpr(CheckAccessor::isVariableAccessor)
+  {
+    using ReturnT = typename CheckAccessor::ReturnT;
+    auto convert = internal::MakeConvert<ReturnT>(std::move(convertIn));
+    OutputKey k{std::type_index(typeid(T)).hash_code(), tvm::graph::internal::Log::EnumValue(o)};
+    varDepOutputAccessor_[k] = [method, convert](uintptr_t t) {
+      std::vector<VarMatrixPair> ret;
+      T * ptr = reinterpret_cast<T *>(t);
+      for(const auto & v : ptr->variables())
+        ret.emplace_back(v, convert((ptr->*method)(*v)));
+      return ret;
+    };
+  }
+  else
+  {
+    static_assert(!std::is_same_v<T, T>, "Provided method does not have a valid signature");
+  }
 }
 
 template<typename T>
 inline void GraphProbe::registerTVMFunction()
 {
-  registerAccessor<T>(T::Output::Value, &T::value);
-  registerAccessor<T>(T::Output::Velocity, &T::velocity);
-  registerAccessor<T>(T::Output::Jacobian, &T::jacobian);
-  registerAccessor<T>(T::Output::NormalAcceleration, &T::normalAcceleration);
-  registerAccessor<T>(T::Output::JDot, &T::JDot);
+  using GetVectorT = const Eigen::VectorXd & (T::*)() const;
+  using GetJacobianT = tvm::internal::MatrixConstRefWithProperties (T::*)(const Variable &) const;
+  using GetJDotT = MatrixConstRef (T::*)(const Variable &) const;
+  registerAccessor<T>(T::Output::Value, static_cast<GetVectorT>(&T::value));
+  registerAccessor<T>(T::Output::Velocity, static_cast<GetVectorT>(&T::velocity));
+  registerAccessor<T>(T::Output::Jacobian, static_cast<GetJacobianT>(&T::jacobian));
+  registerAccessor<T>(T::Output::NormalAcceleration, static_cast<GetVectorT>(&T::normalAcceleration));
+  registerAccessor<T>(T::Output::JDot, static_cast<GetJDotT>(&T::JDot));
 }
 
 template<typename T>
 inline void GraphProbe::registerTVMConstraint()
 {
-  registerAccessor<T>(T::Output::Value, &T::value);
-  registerAccessor<T>(T::Output::Jacobian, &T::jacobian);
-  registerAccessor<T>(T::Output::L, &T::l);
-  registerAccessor<T>(T::Output::U, &T::u);
-  registerAccessor<T>(T::Output::E, &T::e);
+  using GetVectorT = const Eigen::VectorXd & (T::*)() const;
+  using GetJacobianT = tvm::internal::MatrixConstRefWithProperties (T::*)(const Variable &) const;
+  registerAccessor<T>(T::Output::Value, static_cast<GetVectorT>(&T::value));
+  registerAccessor<T>(T::Output::Jacobian, static_cast<GetJacobianT>(&T::jacobian));
+  registerAccessor<T>(T::Output::L, static_cast<GetVectorT>(&T::l));
+  registerAccessor<T>(T::Output::U, static_cast<GetVectorT>(&T::u));
+  registerAccessor<T>(T::Output::E, static_cast<GetVectorT>(&T::e));
 }
 
 template<typename T>
 inline void GraphProbe::registerTVMTaskDynamics()
 {
-  registerAccessor<typename T::Impl>(T::Impl::Output::Value, &T::Impl::value);
+  using GetVectorT = const Eigen::VectorXd & (T::Impl::*)() const;
+  registerAccessor<typename T::Impl>(T::Impl::Output::Value, static_cast<GetVectorT>(&T::Impl::value));
 }
 } // namespace tvm::diagnostic
 
