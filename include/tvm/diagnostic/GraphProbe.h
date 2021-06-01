@@ -18,6 +18,7 @@
 #include <iosfwd>
 #include <map>
 #include <memory>
+#include <optional>
 #include <tuple>
 #include <vector>
 
