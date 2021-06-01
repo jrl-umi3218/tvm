@@ -282,7 +282,7 @@ bool checkVelocity(const UpdatelessFunction & uf, const CheckOptions & opt)
       if(getValue(c) && getVelocity(c))
       {
         total_fixed++;
-        failed_fixed += checkVelocity(uf, opt, val, vel);
+        failed_fixed += !checkVelocity(uf, opt, val, vel);
       }
     }
     else
@@ -292,7 +292,7 @@ bool checkVelocity(const UpdatelessFunction & uf, const CheckOptions & opt)
         if(getValue(c) && getVelocity(c))
         {
           total_fixed++;
-          failed_fixed += checkVelocity(uf, opt, val, vel);
+          failed_fixed += !checkVelocity(uf, opt, val, vel);
         }
       }
     }
