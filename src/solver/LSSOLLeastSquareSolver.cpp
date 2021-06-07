@@ -1,7 +1,5 @@
 /* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
-#pragma once
-
 #include <tvm/solver/LSSOLLeastSquareSolver.h>
 
 #include <tvm/scheme/internal/AssignmentTarget.h>
@@ -14,8 +12,8 @@ namespace tvm
 namespace solver
 {
 LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(const LSSOLLSSolverOptions & options)
-: LeastSquareSolver(options.verbose().value()), cl_(l_.tail(0)), cu_(u_.tail(0)),
-  big_number_(options.big_number().value()), autoMinNorm_(false)
+: LeastSquareSolver(options.verbose().value()), cl_(l_.tail(0)), cu_(u_.tail(0)), autoMinNorm_(false),
+  big_number_(options.big_number().value())
 {
   TVM_PROCESS_OPTION(crashTol, ls_)
   TVM_PROCESS_OPTION(feasibilityMaxIter, ls_)
