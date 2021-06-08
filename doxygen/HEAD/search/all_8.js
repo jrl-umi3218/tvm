@@ -51,6 +51,7 @@ var searchData=
   ['isdefault',['isDefault',['../classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html#a1f68f343f338d7379954b34af515f074',1,'tvm::requirements::abstract::SingleSolvingRequirement']]],
   ['isderivativeof',['isDerivativeOf',['../classtvm_1_1Variable.html#acc0ec7bb22230c44d8552f8fcdc3758f',1,'tvm::Variable']]],
   ['isdiagonal',['isDiagonal',['../classtvm_1_1internal_1_1MatrixProperties.html#a0cb61b181f7270aef8e31dcf39455b7e',1,'tvm::internal::MatrixProperties']]],
+  ['isdisjointunion',['isDisjointUnion',['../classtvm_1_1internal_1_1VariableCountingVector.html#ac6576124081b83e0b66be33926cbee7e',1,'tvm::internal::VariableCountingVector']]],
   ['isequality',['isEquality',['../classtvm_1_1constraint_1_1abstract_1_1Constraint.html#a38f762bb92a31f2e6508474dea5cd9ba',1,'tvm::constraint::abstract::Constraint']]],
   ['iseuclidean',['isEuclidean',['../classtvm_1_1Space.html#af45239f58ccd885d0a939084b125c979',1,'tvm::Space::isEuclidean()'],['../classtvm_1_1Variable.html#a9bceb0c13a4b1806460f43b3f3456480',1,'tvm::Variable::isEuclidean()']]],
   ['isidentity',['isIdentity',['../classtvm_1_1internal_1_1MatrixProperties.html#a96d2e034bb439d66705cb82d68199a20',1,'tvm::internal::MatrixProperties']]],

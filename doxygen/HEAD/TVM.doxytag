@@ -14018,6 +14018,13 @@
       <anchor>a38699fdf2fb4141560f3fab8ecbfa126</anchor>
       <arglist>() const</arglist>
     </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maxCount</name>
+      <anchorfile>classtvm_1_1internal_1_1RangeCounting.html</anchorfile>
+      <anchor>a3dcf5c16cfd4fba8c0228b4ce3c5fcb3</anchor>
+      <arglist>() const</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::task_dynamics::Reference</name>
@@ -16863,6 +16870,13 @@
       <anchorfile>classtvm_1_1internal_1_1VariableCountingVector.html</anchorfile>
       <anchor>a29d745d3c4328b6e9f2ba857cb3fd3b9</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isDisjointUnion</name>
+      <anchorfile>classtvm_1_1internal_1_1VariableCountingVector.html</anchorfile>
+      <anchor>ac6576124081b83e0b66be33926cbee7e</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="class">

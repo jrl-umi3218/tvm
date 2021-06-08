@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html#a5e059086cba9bbe42aa76555e5d91d26":[3,0,2,7,1,3,7,2],
+"structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html#a9d7242d4c45dc0664bb07de1ccb11413":[3,0,2,7,1,3,7,1],
 "structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html#ad32392904aa55c7d3aa094bade598718":[3,0,2,7,1,3,7,3],
 "structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html#ae6fd2b3fe5f45fb6435d8aa8c74318cf":[3,0,2,7,1,3,7,0],
 "structtvm_1_1graph_1_1internal_1_1Log_1_1Pointer.html#af4b840f84e5951f2952959179d6c41a8":[3,0,2,7,1,3,7,5],

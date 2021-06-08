@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"classtvm_1_1solver_1_1internal_1_1SolverEvents.html#ac7fc4de9e7d545f5e73336c33be9c93b":[3,0,2,13,1,0,8],
+"classtvm_1_1solver_1_1internal_1_1SolverEvents.html#acde374b0bbb74d5a0f49552d6d7e0ae3":[3,0,2,13,1,0,19],
 "classtvm_1_1solver_1_1internal_1_1SolverEvents.html#ad4a351607ee297e8626bbfc541442125":[3,0,2,13,1,0,14],
 "classtvm_1_1solver_1_1internal_1_1SolverEvents.html#ad8e432fd7ee351459106898724e08e8d":[3,0,2,13,1,0,12],
 "classtvm_1_1solver_1_1internal_1_1SolverEvents.html#addd1711d5520a3e7f1027d4f09b17f0b":[3,0,2,13,1,0,15],
@@ -180,8 +182,8 @@ var NAVTREEINDEX7 =
 "classtvm_1_1utils_1_1CheckOptions.html":[3,0,2,15,2],
 "classtvm_1_1utils_1_1LinearExpr.html":[3,0,2,15,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa715dc995e4c492fb70b7046afbe7e74":[3,0,2,15,3,2],
-"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,1],
+"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#ab518500d32934cbf912c9f50c7fbcd19":[3,0,2,15,3,5],
 "classtvm_1_1utils_1_1LinearExpr.html#abda44d8407e3f1fabf7f43616e621ea0":[3,0,2,15,3,4],
 "classtvm_1_1utils_1_1LinearExpr.html#ace550799fdb22b967ce5f5bddd0aa4a0":[3,0,2,15,3,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "defaultLeastSquareSolver_8h_source.html":[4,0,0,0,12,2],
 "defs_8h.html":[4,0,0,0,18],
 "defs_8h.html#a003ca276319664eb1bd64c0b25b99509":[4,0,0,0,18,9],
-"defs_8h.html#a024f10de786d6592dbd271d3df847835":[4,0,0,0,18,12],
-"defs_8h.html#a043e85123594d7cb4514d783f25a6dba":[4,0,0,0,18,4],
-"defs_8h.html#a0476308bca1ade43f6571f7d36d65f67":[4,0,0,0,18,0]
+"defs_8h.html#a024f10de786d6592dbd271d3df847835":[4,0,0,0,18,12]
 };

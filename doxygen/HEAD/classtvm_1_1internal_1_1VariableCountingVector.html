@@ -122,6 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab631c02115d1ad70597f32f878d47579"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29d745d3c4328b6e9f2ba857cb3fd3b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1internal_1_1VariableCountingVector.html#a29d745d3c4328b6e9f2ba857cb3fd3b9">split</a> () const</td></tr>
 <tr class="separator:a29d745d3c4328b6e9f2ba857cb3fd3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6576124081b83e0b66be33926cbee7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1internal_1_1VariableCountingVector.html#ac6576124081b83e0b66be33926cbee7e">isDisjointUnion</a> ()</td></tr>
+<tr class="separator:ac6576124081b83e0b66be33926cbee7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class adds a counting logic over a <a class="el" href="classtvm_1_1VariableVector.html">VariableVector</a>, that allows to add and remove subvariables without constraints, and tracks exactly how many time a (part of) variable was added and removed. This is in particular useful for computing the variables of a problem, where different part of a same variables can be added by different functions.</p>
@@ -214,6 +216,24 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6576124081b83e0b66be33926cbee7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6576124081b83e0b66be33926cbee7e">&#9670;&nbsp;</a></span>isDisjointUnion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tvm::internal::VariableCountingVector::isDisjointUnion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check that none of the added variables intersect. </p>
 
 </div>
 </div>

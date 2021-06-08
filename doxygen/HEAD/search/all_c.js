@@ -34,6 +34,7 @@ var searchData=
   ['matrixwithproperties',['MatrixWithProperties',['../namespacetvm_1_1internal.html#a1817451238184d41f13b5502c872ec94',1,'tvm::internal']]],
   ['matrixwithproperties_2eh',['MatrixWithProperties.h',['../MatrixWithProperties_8h.html',1,'']]],
   ['max',['max',['../classtvm_1_1task__dynamics_1_1Clamped_1_1Impl.html#a8708682a999b633a08f2b921758430b6',1,'tvm::task_dynamics::Clamped::Impl::max() const'],['../classtvm_1_1task__dynamics_1_1Clamped_1_1Impl.html#afc0b959f36bd440f8245ec46ef3f7dee',1,'tvm::task_dynamics::Clamped::Impl::max()'],['../namespacetvm_1_1scheme_1_1internal.html#a6e11ce78bce8f4d8e54c5fb61aa23578a190a2f70edc18fc77838e54c617ce79e',1,'tvm::scheme::internal::MAX()']]],
+  ['maxcount',['maxCount',['../classtvm_1_1internal_1_1RangeCounting.html#a3dcf5c16cfd4fba8c0228b4ce3c5fcb3',1,'tvm::internal::RangeCounting']]],
   ['mb',['mb',['../classtvm_1_1Robot.html#ac372f0bcefd2263fd2bb2bf13a4559b7',1,'tvm::Robot::mb() const'],['../classtvm_1_1Robot.html#a00ac99ab0d7a0bdbf79b8e6d5b281a07',1,'tvm::Robot::mb()']]],
   ['mbc',['mbc',['../classtvm_1_1Robot.html#acfe90640af7ddc39c9f2cfd0ff5b1b4b',1,'tvm::Robot::mbc() const'],['../classtvm_1_1Robot.html#a44ed6ad1537057db552f8dd9f2a85ef7',1,'tvm::Robot::mbc()']]],
   ['memorychecks_2eh',['memoryChecks.h',['../memoryChecks_8h.html',1,'']]],

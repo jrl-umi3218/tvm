@@ -4,6 +4,7 @@ var classtvm_1_1internal_1_1VariableCountingVector =
     [ "add", "classtvm_1_1internal_1_1VariableCountingVector.html#a817cb4e4d46b23d79a5ac44f4e9b2321", null ],
     [ "add", "classtvm_1_1internal_1_1VariableCountingVector.html#a45edd73ba57db11080c528fe0175c67e", null ],
     [ "clear", "classtvm_1_1internal_1_1VariableCountingVector.html#ab5a4ff296fbf9613f47659fc8f691da6", null ],
+    [ "isDisjointUnion", "classtvm_1_1internal_1_1VariableCountingVector.html#ac6576124081b83e0b66be33926cbee7e", null ],
     [ "remove", "classtvm_1_1internal_1_1VariableCountingVector.html#a40c7771969d599e0b5dce5429a51204c", null ],
     [ "remove", "classtvm_1_1internal_1_1VariableCountingVector.html#af588b6fc3d239dc8e84af5624ea5f550", null ],
     [ "set", "classtvm_1_1internal_1_1VariableCountingVector.html#ac83c44c2bb031560be2d8c4cc291e091", null ],
