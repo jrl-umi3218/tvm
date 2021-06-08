@@ -72,6 +72,9 @@ public:
 
   bool split() const { return split_; }
 
+  /** Check that none of the added variables intersect.*/
+  bool isDisjointUnion();
+
 private:
   void update() const;
 

@@ -152,88 +152,90 @@ TEST_CASE("Add/Remove")
   RangeCounting rc;
   std::unordered_map<int, int> count; // For ground truth
 
-  auto add = [&rc, &count](const Range & r, bool change) {
+  auto add = [&rc, &count](const Range & r, bool change, int maxCount) {
     bool b = rc.add(r);
     FAST_CHECK_EQ(b, change);
+    FAST_CHECK_EQ(rc.maxCount(), maxCount);
     addRange(count, r);
     checkCounting(rc, count);
   };
 
-  auto remove = [&rc, &count](const Range & r, bool change) {
+  auto remove = [&rc, &count](const Range & r, bool change, int maxCount) {
     bool b = rc.remove(r);
     FAST_CHECK_EQ(b, change);
+    FAST_CHECK_EQ(rc.maxCount(), maxCount);
     removeRange(count, r);
     checkCounting(rc, count);
   };
 
   // add (3,4,5) -> (3,4,5), count [1, 1, 1]
-  add({3, 3}, true);
+  add({3, 3}, true, 1);
 
   // remove (3,4,5) -> ()
-  remove({3, 3}, true);
+  remove({3, 3}, true, 0);
 
   // add (5,6) -> (5,6), count [1, 1]
-  add({5, 2}, true);
+  add({5, 2}, true, 1);
 
   // add (3,4,5) -> (3,4,5,6), count [1, 1, 2, 1]
-  add({3, 3}, true);
+  add({3, 3}, true, 2);
 
   // add (8,9) -> (3,4,5,6,8,9), count [1, 1, 2, 1,, 1, 1]
-  add({8, 2}, true);
+  add({8, 2}, true, 2);
 
   // remove (4,5,6) -> (3,5,8,9), count [1,, 1,,, 1, 1]
-  remove({4, 3}, true);
+  remove({4, 3}, true, 1);
 
   // add (1,2,3,4,5,6,7) -> (1,2,3,4,5,6,7,8,9), count [1, 1, 2, 1, 2, 1, 1, 1, 1]
-  add({1, 7}, true);
+  add({1, 7}, true, 2);
 
   // remove (5,6,7,8,9) -> (1,2,3,4,5), count [1, 1, 2, 1, 1]
-  remove({5, 5}, true);
+  remove({5, 5}, true, 2);
 
   // remove (1,2,3) -> (3,4,5), count [1, 1, 1]
-  remove({1, 3}, true);
+  remove({1, 3}, true, 1);
 
   // remove (3,4,5) -> ()
-  remove({3, 3}, true);
+  remove({3, 3}, true, 0);
 
   // add (3,4,5) -> (3,4,5), count [1 1 1]
-  add({3, 3}, true);
+  add({3, 3}, true, 1);
 
   // add (5) -> (3,4,5), count [1,1,2]
-  add({5, 1}, false);
+  add({5, 1}, false, 2);
 
   // add (0,1,2) -> (0,1,2,3,4,5), count [1,1,1,1,1,2]
-  add({0, 3}, true);
+  add({0, 3}, true, 2);
 
   // add (1,2,3) -> (0,1,2,3,4,5), count [1,2,2,2,1,2]
-  add({1, 3}, false);
+  add({1, 3}, false, 2);
 
   // remove (4,5) -> (0,1,2,3,5), count [1,2,2,2,,1]
-  remove({4, 2}, true);
+  remove({4, 2}, true, 2);
 
   // remove (2,3) -> (0,1,2,3,5), count [1,2,1,1,,1]
-  remove({2, 2}, false);
+  remove({2, 2}, false, 2);
 
   // remove (0,1) -> (1,2,3,5), count [1,1,1,,1]
-  remove({0, 2}, true);
+  remove({0, 2}, true, 1);
 
   // add (4) -> (1,2,3,4,5), count [1,1,1,1,1]
-  add({4, 1}, true);
+  add({4, 1}, true, 1);
 
   // add () -> (1,2,3,4,5), count [1,1,1,1,1]
-  add({0, 0}, false);
+  add({0, 0}, false, 1);
 
   // add () -> (1,2,3,4,5), count [1,1,1,1,1]
-  add({3, 0}, false);
+  add({3, 0}, false, 1);
 
   // add () -> (1,2,3,4,5), count [1,1,1,1,1]
-  add({6, 0}, false);
+  add({6, 0}, false, 1);
 
   // remove (1) -> (2,3,4,5), count [1,1,1,1]
-  remove({1, 1}, true);
+  remove({1, 1}, true, 1);
 
   // remove (5) -> (2,3,4), count [1,1,1]
-  remove({5, 1}, true);
+  remove({5, 1}, true, 1);
 }
 
 TEST_CASE("Check throws")
@@ -388,12 +390,14 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_UNARY(s[0]);
   FAST_CHECK_UNARY(s[1]);
   FAST_CHECK_UNARY(s[2]);
+  FAST_CHECK_UNARY(vc.isDisjointUnion());
 
   vc.clear();
   v = vc.variables();
   s = vc.simple();
   FAST_CHECK_EQ(v.numberOfVariables(), 0);
   FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
+  FAST_CHECK_UNARY(vc.isDisjointUnion());
 
   vc.add(y);
   vc.add(x0);
@@ -410,6 +414,7 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_UNARY(s[0]);
   FAST_CHECK_UNARY(s[1]);
   FAST_CHECK_UNARY(s[2]);
+  FAST_CHECK_UNARY_FALSE(vc.isDisjointUnion());
 
   vc.remove(y);
   vc.remove(x1);
@@ -421,6 +426,7 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_EQ(*v[1], *z);
   FAST_CHECK_UNARY(s[0]);
   FAST_CHECK_UNARY(s[1]);
+  FAST_CHECK_UNARY_FALSE(vc.isDisjointUnion());
 
   vc.remove(x0);
   v = vc.variables();
@@ -434,6 +440,7 @@ TEST_CASE("VariableCountingVector")
   // If a smarter method is implemented, it is fine to change this test.
   FAST_CHECK_UNARY_FALSE(s[0]);
   FAST_CHECK_UNARY(s[1]);
+  FAST_CHECK_UNARY(vc.isDisjointUnion());
   vc.clear();
 
   vc.add(x6);
@@ -446,6 +453,7 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_EQ(*v[1], *x6);
   FAST_CHECK_UNARY(s[0]);
   FAST_CHECK_UNARY(s[1]);
+  FAST_CHECK_UNARY(vc.isDisjointUnion());
 
   vc.add(x5);
   v = vc.variables();
@@ -454,6 +462,7 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_EQ(v.numberOfVariables(), vc.simple().size());
   FAST_CHECK_EQ(*v[0], *x);
   FAST_CHECK_UNARY_FALSE(s[0]);
+  FAST_CHECK_UNARY(vc.isDisjointUnion());
 
   vc.remove(x);
   vc.add(x0);
@@ -463,6 +472,7 @@ TEST_CASE("VariableCountingVector")
   FAST_CHECK_EQ(v.numberOfVariables(), 1);
   FAST_CHECK_EQ(*v[0], *x0);
   FAST_CHECK_UNARY(s[0]);
+  FAST_CHECK_UNARY_FALSE(vc.isDisjointUnion());
 }
 
 TEST_CASE("VariableCountingVector split")

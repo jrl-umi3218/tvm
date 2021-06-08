@@ -103,6 +103,9 @@ public:
   /** Get the underlying representation as a list of limits.*/
   const std::list<Limit> & limits() const;
 
+  /** Maximum number of appearances of a number.*/
+  int maxCount() const;
+
 private:
   using It = std::list<Limit>::iterator;
 

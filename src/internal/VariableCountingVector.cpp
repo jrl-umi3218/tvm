@@ -78,6 +78,17 @@ const std::vector<uint8_t> VariableCountingVector::simple() const
   update();
   return simple_;
 }
+
+bool VariableCountingVector::isDisjointUnion()
+{
+  for(const auto & p : count_)
+  {
+    if(p.second.first.maxCount() > 1)
+      return false;
+  }
+  return true;
+}
+
 void VariableCountingVector::update() const
 {
   if(!upToDate_)

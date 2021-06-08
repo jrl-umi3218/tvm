@@ -154,6 +154,19 @@ const std::vector<Range> & RangeCounting::ranges(bool splitOncountDiff) const
 
 const std::list<RangeCounting::Limit> & RangeCounting::limits() const { return limits_; }
 
+int RangeCounting::maxCount() const
+{
+  int depth = 0;
+  int maxDepth = 0;
+  for(const auto & l : limits_)
+  {
+    depth -= l.type_;
+    if(depth > maxDepth)
+      maxDepth = depth;
+  }
+  return maxDepth;
+}
+
 bool RangeCounting::moveToFirstAfter(const Limit & val, It & it, int & depth, int depthCut) const
 {
   bool hit = false;
