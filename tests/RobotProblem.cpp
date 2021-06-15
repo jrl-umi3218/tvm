@@ -20,8 +20,7 @@
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
-#include <tvm/solver/QuadprogLeastSquareSolver.h>
-#include <tvm/solver/defaultLeastSquareSolver.h>
+#include <tvm/supported_solvers.h>
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>

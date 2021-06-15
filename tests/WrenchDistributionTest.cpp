@@ -17,9 +17,8 @@
 #include <tvm/hint/Substitution.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/solver/defaultLeastSquareSolver.h>
-#ifdef TVM_USE_LSSOL
-#  include <tvm/solver/LSSOLLeastSquareSolver.h>
-#endif
+#include <tvm/supported_solvers.h>
+
 #include <tvm/task_dynamics/None.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/VelocityDamper.h>

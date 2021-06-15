@@ -259,6 +259,10 @@ if(TVM_WITH_QUADPROG)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
 endif()
 
+set(TVM_INCLUDE_BINARY_DIR "${PROJECT_BINARY_DIR}/include/")
+configure_file("${PROJECT_SOURCE_DIR}/include/tvm/supported_solvers.in.h" "${TVM_INCLUDE_BINARY_DIR}/tvm/supported_solvers.h")
+list(APPEND TVM_HEADERS "${TVM_INCLUDE_BINARY_DIR}/tvm/supported_solvers.h")
+
 #Helper functions to assign files to groups in IDE, mimicking the organization of files on disk
 #Adapted from https://stackoverflow.com/a/31423421
 function(assign_source_group folder)
@@ -285,11 +289,10 @@ target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
 if(TVM_WITH_ROBOT)
   target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers sch-core::sch-core)
 endif()
-target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include> $<INSTALL_INTERFACE:include>)
+target_include_directories(TVM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<BUILD_INTERFACE:${TVM_INCLUDE_BINARY_DIR}> $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS "-DTVM_EXPORTS -DEIGEN_RUNTIME_NO_MALLOC")
 set_target_properties(TVM PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR} VERSION ${PROJECT_VERSION})
 target_compile_features(TVM PUBLIC cxx_std_17)
-target_compile_definitions(TVM PUBLIC ${SOLVER_FLAGS})
 
 if(GENERATE_COVERAGE)
   target_compile_options(TVM PRIVATE "--coverage")

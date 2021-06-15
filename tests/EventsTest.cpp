@@ -5,16 +5,7 @@
 #include <tvm/Variable.h>
 #include <tvm/function/abstract/LinearFunction.h>
 #include <tvm/scheme/WeightedLeastSquares.h>
-#include <tvm/solver/defaultLeastSquareSolver.h>
-#ifdef TVM_USE_LSSOL
-#  include <tvm/solver/LSSOLLeastSquareSolver.h>
-#endif
-#ifdef TVM_USE_QLD
-#  include <tvm/solver/QLDLeastSquareSolver.h>
-#endif
-#ifdef TVM_USE_QUADPROG
-#  include <tvm/solver/QuadprogLeastSquareSolver.h>
-#endif
+#include <tvm/supported_solvers.h>
 
 #include <array>
 #include <bitset>
