@@ -11,4 +11,4 @@ else
 fi
 
 # Find all source files in the project minus those that are auto-generated or we do not maintain
-src_files=`find examples include src tests -name '*.cpp' -or -name '*.h' -or -name '*.hpp'|grep -Ev "tests/doctest/doctest.h"`
+src_files=`find examples include src tests -name '*.cpp' -or -name '*.h' -or -name '*.hpp'|grep -Ev "tests/doctest/doctest.h"|grep -Ev "include/tvm/supported_solvers.in.h"`

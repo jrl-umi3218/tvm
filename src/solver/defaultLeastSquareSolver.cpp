@@ -2,6 +2,8 @@
 
 #include <tvm/solver/defaultLeastSquareSolver.h>
 
+#include <tvm/supported_solvers.h>
+
 namespace tvm::solver
 {
 std::unique_ptr<abstract::LSSolverFactory> DefaultLSSolverFactory::clone() const

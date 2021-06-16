@@ -7,19 +7,7 @@
  * The first solver found in this (ordered) list is taken as default:
  * LSSOL, QLD, Quadprog
  */
-#ifdef TVM_USE_LSSOL
-#  include <tvm/solver/LSSOLLeastSquareSolver.h>
-#else
-#  ifdef TVM_USE_QLD
-#    include <tvm/solver/QLDLeastSquareSolver.h>
-#  else
-#    ifdef TVM_USE_QUADPROG
-#      include <tvm/solver/QuadprogLeastSquareSolver.h>
-#    else
-#      error "You should at least have one solver. If not, there is a problem with the CMakeLists.txt"
-#    endif
-#  endif
-#endif
+#include <tvm/solver/abstract/LeastSquareSolver.h>
 
 namespace tvm::solver
 {
