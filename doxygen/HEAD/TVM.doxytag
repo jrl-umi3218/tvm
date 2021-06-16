@@ -2551,6 +2551,7 @@
     <name>defaultLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
     <filename>defaultLeastSquareSolver_8h</filename>
+    <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::DefaultLSSolverOptions</class>
     <class kind="class">tvm::solver::DefaultLSSolverFactory</class>
     <namespace>tvm::solver</namespace>
@@ -2647,6 +2648,12 @@
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::Space</class>
     <namespace>tvm</namespace>
+  </compound>
+  <compound kind="file">
+    <name>supported_solvers.in.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/</path>
+    <filename>supported__solvers_8in_8h</filename>
+    <includes id="defaultLeastSquareSolver_8h" name="defaultLeastSquareSolver.h" local="no" imported="no">tvm/solver/defaultLeastSquareSolver.h</includes>
   </compound>
   <compound kind="file">
     <name>Task.h</name>

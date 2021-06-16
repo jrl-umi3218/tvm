@@ -96,6 +96,8 @@ var NAVTREEINDEX10 =
 "structtvm_1_1utils_1_1internal_1_1RefSelector.html#a81f162d9b69e6f335fbcdd643ea2d693":[3,0,2,15,0,5,0],
 "structtvm_1_1utils_1_1internal_1_1RefSelector_3_01NoConstant_01_4.html":[3,0,2,15,0,6],
 "structtvm_1_1utils_1_1internal_1_1RefSelector_3_01NoConstant_01_4.html#aaddf7b73ef3be6c348b9c3f85fb5772c":[3,0,2,15,0,6,0],
+"supported__solvers_8in_8h.html":[4,0,0,0,23],
+"supported__solvers_8in_8h_source.html":[4,0,0,0,23],
 "taskDynamicsExample.html":[0,3],
 "task__dynamics_2enums_8h.html":[4,0,0,0,13,3],
 "task__dynamics_2enums_8h.html#a2104706f158c0b024e10716d3c176cad":[4,0,0,0,13,3,0],

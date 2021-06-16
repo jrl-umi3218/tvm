@@ -20,9 +20,13 @@ digraph "include/tvm/requirements/AnisotropicWeight.h"
   Node18 [label="include/tvm/solver\l/abstract/LeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LeastSquareSolver_8h.html"];
   Node18 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node18 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node19 [label="include/tvm/solver\l/LSSOLLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LSSOLLeastSquareSolver_8h.html"];
-  Node18 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node20 [label="include/tvm/solver\l/QLDLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QLDLeastSquareSolver_8h.html"];
+  Node19 [label="include/tvm/solver\l/defaultLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$defaultLeastSquareSolver_8h.html"];
+  Node19 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="include/tvm/supported\l_solvers.in.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$supported__solvers_8in_8h.html"];
   Node18 -> Node21 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node21 [label="include/tvm/solver\l/QuadprogLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QuadprogLeastSquareSolver_8h.html"];
+  Node21 [label="include/tvm/solver\l/LSSOLLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LSSOLLeastSquareSolver_8h.html"];
+  Node18 -> Node22 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="include/tvm/solver\l/QLDLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QLDLeastSquareSolver_8h.html"];
+  Node18 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="include/tvm/solver\l/QuadprogLeastSquareSolver.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$QuadprogLeastSquareSolver_8h.html"];
 }

@@ -95,5 +95,6 @@ var searchData=
   ['substitutionunit_2eh',['SubstitutionUnit.h',['../SubstitutionUnit_8h.html',1,'']]],
   ['subvariable',['subvariable',['../classtvm_1_1Variable.html#a3406e62e71db89c619dce7694fc73976',1,'tvm::Variable']]],
   ['subvariablerange',['subvariableRange',['../classtvm_1_1Variable.html#a6d9167a14ecb5b4b633d9bb469895737',1,'tvm::Variable']]],
-  ['supervariable',['superVariable',['../classtvm_1_1Variable.html#a4c3910d2f3013804cbad7387c4bbb0ae',1,'tvm::Variable']]]
+  ['supervariable',['superVariable',['../classtvm_1_1Variable.html#a4c3910d2f3013804cbad7387c4bbb0ae',1,'tvm::Variable']]],
+  ['supported_5fsolvers_2ein_2eh',['supported_solvers.in.h',['../supported__solvers_8in_8h.html',1,'']]]
 ];

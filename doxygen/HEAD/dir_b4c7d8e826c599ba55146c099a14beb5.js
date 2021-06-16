@@ -34,6 +34,7 @@ var dir_b4c7d8e826c599ba55146c099a14beb5 =
     [ "Space.h", "Space_8h.html", [
       [ "Space", "classtvm_1_1Space.html", "classtvm_1_1Space" ]
     ] ],
+    [ "supported_solvers.in.h", "supported__solvers_8in_8h.html", null ],
     [ "Task.h", "Task_8h.html", [
       [ "Task", "classtvm_1_1Task.html", "classtvm_1_1Task" ]
     ] ],

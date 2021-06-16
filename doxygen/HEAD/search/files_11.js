@@ -11,5 +11,6 @@ var searchData=
   ['substitutioncalculator_2eh',['SubstitutionCalculator.h',['../SubstitutionCalculator_8h.html',1,'']]],
   ['substitutioncalculatorimpl_2eh',['SubstitutionCalculatorImpl.h',['../SubstitutionCalculatorImpl_8h.html',1,'']]],
   ['substitutions_2eh',['Substitutions.h',['../Substitutions_8h.html',1,'']]],
-  ['substitutionunit_2eh',['SubstitutionUnit.h',['../SubstitutionUnit_8h.html',1,'']]]
+  ['substitutionunit_2eh',['SubstitutionUnit.h',['../SubstitutionUnit_8h.html',1,'']]],
+  ['supported_5fsolvers_2ein_2eh',['supported_solvers.in.h',['../supported__solvers_8in_8h.html',1,'']]]
 ];
