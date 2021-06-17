@@ -23,7 +23,7 @@ VariableVector::~VariableVector() { clear(); }
 
 bool VariableVector::add(VariablePtr v)
 {
-  if(contains(*v.get()))
+  if((v->size() == 0) || contains(*v.get()))
   {
     return false;
   }
