@@ -581,6 +581,8 @@ void Assignment::addAssignments(const VariableVector & variables,
   // need to carry out a substitution
   for(const auto & x : xc)
   {
+    if(x->size() == 0)
+      continue;
     int i = xs.indexOf(*x);
     if(i >= 0) // x needs to be substituted
     {
