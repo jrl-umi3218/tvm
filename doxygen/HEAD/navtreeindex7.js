@@ -182,8 +182,8 @@ var NAVTREEINDEX7 =
 "classtvm_1_1utils_1_1CheckOptions.html":[3,0,2,15,2],
 "classtvm_1_1utils_1_1LinearExpr.html":[3,0,2,15,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa715dc995e4c492fb70b7046afbe7e74":[3,0,2,15,3,2],
-"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,1],
+"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#ab518500d32934cbf912c9f50c7fbcd19":[3,0,2,15,3,5],
 "classtvm_1_1utils_1_1LinearExpr.html#abda44d8407e3f1fabf7f43616e621ea0":[3,0,2,15,3,4],
 "classtvm_1_1utils_1_1LinearExpr.html#ace550799fdb22b967ce5f5bddd0aa4a0":[3,0,2,15,3,0],
@@ -208,9 +208,10 @@ var NAVTREEINDEX7 =
 "classtvm_1_1utils_1_1UpdatelessFunction.html#a9851ba1f047b0e0b92ccd1b7ec7a7975":[3,0,2,15,6,2],
 "classtvm_1_1utils_1_1UpdatelessFunction.html#af4c6de7ea42256202f079afce81b2ba1":[3,0,2,15,6,7],
 "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html":[3,0,2,15,0,0],
+"classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a4e9e6a6bc62b29d9e08a2777f311cb64":[3,0,2,15,0,0,3],
 "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a78344857c727193490f2fb241153ec46":[3,0,2,15,0,0,2],
 "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a8c6c66d3c899f41387e25fa62e437d08":[3,0,2,15,0,0,1],
-"classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a8f55fa782901353fb36f4dba7fc1ed60":[3,0,2,15,0,0,3],
+"classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a8f55fa782901353fb36f4dba7fc1ed60":[3,0,2,15,0,0,4],
 "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6":[3,0,2,15,0,0,0],
 "classtvm_1_1utils_1_1internal_1_1HashId.html":[3,0,2,15,0,1],
 "classtvm_1_1utils_1_1internal_1_1HashId.html#a3ce896ef78ab87ab6d43755e4216f0df":[3,0,2,15,0,1,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "defaultLeastSquareSolver_8h.html":[4,0,0,0,12,2],
 "defaultLeastSquareSolver_8h_source.html":[4,0,0,0,12,2],
 "defs_8h.html":[4,0,0,0,18],
-"defs_8h.html#a003ca276319664eb1bd64c0b25b99509":[4,0,0,0,18,9],
-"defs_8h.html#a024f10de786d6592dbd271d3df847835":[4,0,0,0,18,12]
+"defs_8h.html#a003ca276319664eb1bd64c0b25b99509":[4,0,0,0,18,9]
 };

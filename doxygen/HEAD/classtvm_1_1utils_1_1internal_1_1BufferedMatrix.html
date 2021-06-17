@@ -110,6 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a78344857c727193490f2fb241153ec46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a8f55fa782901353fb36f4dba7fc1ed60">resize</a> (Eigen::DenseIndex m, Eigen::DenseIndex n)</td></tr>
 <tr class="separator:a8f55fa782901353fb36f4dba7fc1ed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e9e6a6bc62b29d9e08a2777f311cb64"><td class="memTemplParams" colspan="2">template&lt;typename Derived &gt; </td></tr>
+<tr class="memitem:a4e9e6a6bc62b29d9e08a2777f311cb64"><td class="memTemplItemLeft" align="right" valign="top">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#a4e9e6a6bc62b29d9e08a2777f311cb64">operator=</a> (const Eigen::EigenBase&lt; Derived &gt; &amp;xpr)</td></tr>
+<tr class="separator:a4e9e6a6bc62b29d9e08a2777f311cb64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class provides a matrix with resizable buffer, so that allocations are made only if there is not enough space. </p>
@@ -201,6 +204,34 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Get a map to the matrix. The matrix has the size specified at construction or during the last resize. </p>
+
+</div>
+</div>
+<a id="a4e9e6a6bc62b29d9e08a2777f311cb64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9e6a6bc62b29d9e08a2777f311cb64">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt; &amp; tvm::utils::internal::BufferedMatrix::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::EigenBase&lt; Derived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>xpr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

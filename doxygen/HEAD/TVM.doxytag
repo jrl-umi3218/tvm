@@ -4944,6 +4944,13 @@
       <anchor>a8f55fa782901353fb36f4dba7fc1ed60</anchor>
       <arglist>(Eigen::DenseIndex m, Eigen::DenseIndex n)</arglist>
     </member>
+    <member kind="function">
+      <type>Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt; &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html</anchorfile>
+      <anchor>a4e9e6a6bc62b29d9e08a2777f311cb64</anchor>
+      <arglist>(const Eigen::EigenBase&lt; Derived &gt; &amp;xpr)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::scheme::internal::CachedResult</name>
