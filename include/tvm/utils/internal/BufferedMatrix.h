@@ -38,6 +38,9 @@ public:
    */
   void resize(Eigen::DenseIndex m, Eigen::DenseIndex n);
 
+  template<typename Derived>
+  Eigen::Map<Eigen::MatrixXd, Eigen::Aligned> & operator=(const Eigen::EigenBase<Derived> & xpr);
+
 private:
   Eigen::DenseIndex m_;    /** Row size of the matrix*/
   Eigen::DenseIndex n_;    /** Column size of the matrix*/
@@ -64,6 +67,13 @@ inline void BufferedMatrix::resize(Eigen::DenseIndex m, Eigen::DenseIndex n)
   }
   m_ = m;
   n_ = n;
+}
+
+template<typename Derived>
+inline Eigen::Map<Eigen::MatrixXd, Eigen::Aligned> & BufferedMatrix::operator=(const Eigen::EigenBase<Derived> & xpr)
+{
+  resize(xpr.rows(), xpr.cols());
+  return get() = xpr;
 }
 
 } // namespace internal
