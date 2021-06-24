@@ -12,3 +12,4 @@ HTML_EXTRA_STYLESHEET  = "@PROJECT_SOURCE_DIR@/3rd-party/doxygen-awesome-css/dox
 HTML_COLORSTYLE_HUE    = 209
 HTML_COLORSTYLE_SAT    = 255
 HTML_COLORSTYLE_GAMMA  = 113
+MATHJAX_RELPATH        = "https://cdn.jsdelivr.net/npm/mathjax@2"
