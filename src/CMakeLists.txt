@@ -60,6 +60,7 @@ set(TVM_SOURCES
 
   task_dynamics/Constant.cpp
   task_dynamics/None.cpp
+  task_dynamics/OneStepToZero.cpp
   task_dynamics/Proportional.cpp
   task_dynamics/ProportionalDerivative.cpp
   task_dynamics/Reference.cpp
@@ -200,6 +201,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/task_dynamics/enums.h
   ${TVM_INCLUDE_DIR}/task_dynamics/FeedForward.h
   ${TVM_INCLUDE_DIR}/task_dynamics/None.h
+  ${TVM_INCLUDE_DIR}/task_dynamics/OneStepToZero.h
   ${TVM_INCLUDE_DIR}/task_dynamics/ProportionalDerivative.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Proportional.h
   ${TVM_INCLUDE_DIR}/task_dynamics/Reference.h
