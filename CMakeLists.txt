@@ -64,9 +64,9 @@ else()
   set(TVM_USE_LSSOL "")
 endif()
 
-###################
+#################
 # - eigen-qld - #
-###################
+#################
 option(TVM_WITH_QLD "Build with QLD support" ON)
 if(TVM_WITH_QLD)
   add_project_dependency(eigen-qld REQUIRED)
@@ -77,9 +77,9 @@ else()
   set(TVM_USE_QLD "")
 endif()
 
-###################
-# - eigen-qld - #
-###################
+######################
+# - eigen-quadprog - #
+######################
 option(TVM_WITH_QUADPROG "Build with Quadprog support" OFF)
 if(TVM_WITH_QUADPROG)
   add_project_dependency(eigen-quadprog REQUIRED)
@@ -88,6 +88,19 @@ if(TVM_WITH_QUADPROG)
   set(USING_SOLVER TRUE)
 else()
   set(TVM_USE_QUADPROG "")
+endif()
+
+#############
+# - LexLS - #
+#############
+option(TVM_WITH_LEXLS "Build with LEXLS support" OFF)
+if(TVM_WITH_LEXLS)
+  add_project_dependency(lexls REQUIRED)
+  set(TVM_USE_LEXLS "#define TVM_USE_LEXLS")
+  list(APPEND SOLVER_LIBS lexls::lexls)
+  set(USING_SOLVER TRUE)
+else()
+  set(TVM_USE_LEXLS "")
 endif()
 
 

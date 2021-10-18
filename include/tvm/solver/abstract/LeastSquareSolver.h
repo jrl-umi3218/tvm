@@ -121,6 +121,8 @@ protected:
     ImpactFromChanges operator||(const ImpactFromChanges & other);
     /** this = this || other*/
     ImpactFromChanges & orAssign(const ImpactFromChanges & other);
+
+    bool any() const { return equalityConstraints_ || inequalityConstraints_ || bounds_ || objectives_; }
   };
 
   virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
