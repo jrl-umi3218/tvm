@@ -9,7 +9,7 @@
 namespace tvm
 {
 
-VariablePtr dot(VariablePtr var, int ndiff)
+VariablePtr dot(VariablePtr var, int ndiff, bool autoName)
 {
   assert(ndiff > 0 && "you cannot derive less than 1 time.");
   int i;
@@ -32,7 +32,7 @@ VariablePtr dot(VariablePtr var, int ndiff)
     for(; i < ndiff; ++i)
     {
       auto primitive = derivative;
-      primitive->derivative_.reset(new Variable(derivative));
+      primitive->derivative_.reset(new Variable(derivative, autoName));
       derivative = primitive->derivative_.get();
     }
     return {var, derivative};
@@ -200,6 +200,26 @@ VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space 
   }
 }
 
+VariablePtr Variable::subvariable(Space space, Space shift) const
+{
+  if(!(space * shift <= space_))
+    throw std::runtime_error("[Variable::subvariable] Invalid space and shift dimension");
+
+  VariablePtr base = superVariable();
+  if(isBasePrimitive())
+  {
+    int start = shift_.rSize() + shift.rSize();
+    std::stringstream ss;
+    ss << base->name() << "[" << start << ":" << start + space.rSize() - 1 << "]";
+    return std::make_shared<Variable>(make_shared_token{}, base, space, ss.str(), shift_ * shift);
+  }
+  else
+  {
+    VariablePtr bp = base->basePrimitive();
+    return dot(std::make_shared<Variable>(make_shared_token{}, bp, space, "", shift_ * shift), derivativeNumber_, true);
+  }
+}
+
 Range Variable::getMappingIn(const VariableVector & variables) const
 {
   auto it = startIn_.find(variables.id());
@@ -220,7 +240,7 @@ Variable::Variable(const Space & s, std::string_view name)
   value_.setZero();
 }
 
-Variable::Variable(Variable * var)
+Variable::Variable(Variable * var, bool autoName)
 : space_(var->space_), shift_(var->shift_), memory_(var->isSubvariable() ? nullptr : new double[var->space_.tSize()]),
   value_(Eigen::Map<Eigen::VectorXd>(var->isSubvariable() ? dot(var->superVariable())->memory_ + var->shift_.tSize()
                                                           : memory_,
@@ -231,11 +251,19 @@ Variable::Variable(Variable * var)
   std::stringstream ss;
   if(derivativeNumber_ == 1)
   {
-    ss << "d " << basePrimitive()->name_ << " / dt";
+    if(autoName)
+      ss << "d " << basePrimitive()->superVariable()->name_ << " / dt"
+         << "[" << shift_.tSize() << ":" << shift_.tSize() + size() - 1 << "]";
+    else
+      ss << "d " << basePrimitive()->name_ << " / dt";
   }
   else
   {
-    ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    if(autoName)
+      ss << "d" << derivativeNumber_ << " " << basePrimitive()->superVariable()->name_ << " / dt" << derivativeNumber_
+         << "[" << shift_.tSize() << ":" << shift_.tSize() + size() - 1 << "]";
+    else
+      ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
   }
   name_ = ss.str();
   value_.setZero();

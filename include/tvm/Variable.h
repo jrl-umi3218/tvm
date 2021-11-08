@@ -25,8 +25,10 @@ class VariableVector;
  *
  * \param var the variable to be derived
  * \param ndiff the order of the derivation
+ * \param autoName base the name on that of the supervariable of the primitive
+ * (if the variable was not already created with another name before).
  */
-VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1);
+VariablePtr TVM_DLLAPI dot(VariablePtr var, int ndiff = 1, bool autoName = false);
 
 /** Representation of a Variable, i.e. a point in a space.
  *
@@ -170,6 +172,18 @@ public:
    */
   VariablePtr subvariable(Space space, std::string_view baseName, Space shift = {0}) const;
 
+  /** Create a subvariable
+   *
+   * \param space The space in which the variable (or its base primitive in case
+   * of a derivative) is a point.
+   * \param shift The space of the subvariable before this subvariable w.r.t the
+   * current variable.
+   *
+   * Name is automatically generated as x[start:end] (or dk x/ dtk [start:end])
+   * for a k-th derivative.
+   */
+  VariablePtr subvariable(Space space, Space shift = {0}) const;
+
   /** Get the mapping of this variable, within a vector of variables: if all
    * variables values are stacked in one vector v, the returned Range
    * specifies the segment of v corresponding to this variable.
@@ -207,8 +221,11 @@ private:
   /** Constructor for a new variable */
   Variable(const Space & s, std::string_view name);
 
-  /** Constructor for the derivative of var */
-  Variable(Variable * var);
+  /** Constructor for the derivative of var
+   * \param autoName base the name on that of the supervariable of the primitive
+   * (if the variable was not already created with another name before).
+   */
+  Variable(Variable * var, bool autoName);
 
   /** Same as primitive<n> but without checking if n is valid.*/
   template<int n>
@@ -256,7 +273,7 @@ private:
 
   /** friendship declaration */
   friend class Space;
-  friend VariablePtr TVM_DLLAPI dot(VariablePtr, int);
+  friend VariablePtr TVM_DLLAPI dot(VariablePtr, int, bool);
   friend class VariableVector;
 };
 

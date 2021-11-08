@@ -170,7 +170,7 @@ TEST_CASE("Test Variable Derivatives")
 
 TEST_CASE("Test Variable Name")
 {
-  VariablePtr v = Space(3).createVariable("v");
+  VariablePtr v = Space(7).createVariable("v");
   FAST_CHECK_EQ(v->name(), "v");
   auto dv = dot(v);
   FAST_CHECK_EQ(dv->name(), "d v / dt");
@@ -184,6 +184,40 @@ TEST_CASE("Test Variable Name")
   FAST_CHECK_EQ(du3->name(), "d3 v' / dt3");
   auto dw3 = dv3->duplicate("w");
   FAST_CHECK_EQ(dw3->name(), "d3 w / dt3");
+
+  {
+    auto sv = v->subvariable(3, 2);
+    FAST_CHECK_EQ(sv->name(), "v[2:4]");
+  }
+  {
+    auto sv = v->subvariable(3, 2);
+    auto sdv2a = dot(sv, 2);
+    FAST_CHECK_EQ(sdv2a->name(), "d2 v[2:4] / dt2");
+  }
+  {
+    auto sv = v->subvariable(3, 2);
+    auto sdv2b = dot(sv, 2, true);
+    FAST_CHECK_EQ(sdv2b->name(), "d2 v / dt2[2:4]");
+  }
+  {
+    auto sv = v->subvariable(3, 2);
+    auto sdv3 = dv3->subvariable(2, 3);
+    FAST_CHECK_EQ(sdv3->name(), "d3 v / dt3[3:4]");
+  }
+  {
+    auto sdv = dv->subvariable(3, "v1", 3);
+    FAST_CHECK_EQ(sdv->name(), "d v1 / dt");
+  }
+  {
+    auto sdv = dv->subvariable(3, "v1", 3);
+    auto sddv1a = dot(sdv);
+    FAST_CHECK_EQ(sddv1a->name(), "d2 v1 / dt2");
+  }
+  {
+    auto sdv = dv->subvariable(3, "v1", 3);
+    auto sddv1b = dot(sdv, 1, true);
+    FAST_CHECK_EQ(sddv1b->name(), "d2 v / dt2[3:5]");
+  }
 }
 
 TEST_CASE("Test derivative lifetime")
