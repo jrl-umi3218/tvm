@@ -233,7 +233,12 @@ Variable::Variable(Variable * var, bool autoName)
 VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift, bool autoName) const
 {
   if(!(space * shift <= space_))
-    throw std::runtime_error("[Variable::subvariable] Invalid space and shift dimension");
+  {
+    std::stringstream ss;
+    ss << "[Variable::subvariable] Invalid space and shift dimension. Space of variable is " << space_.sizeAsString()
+       << ", whereas subvariable space is " << space.sizeAsString() << " with shift " << shift.sizeAsString();
+    throw std::runtime_error(ss.str());
+  }
 
   VariablePtr base = superVariable()->basePrimitive();
   VariablePtr sub;

@@ -80,6 +80,8 @@ public:
   Type type() const;
   /** Check if this is an Euclidean space.*/
   bool isEuclidean() const;
+  /** Return size triplet as string*/
+  std::string sizeAsString() const;
 
   bool operator==(const Space & other) const
   {
