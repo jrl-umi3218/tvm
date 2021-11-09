@@ -165,12 +165,13 @@ public:
    * different).
    * \param shift The space of the subvariable before this subvariable w.r.t the
    * current variable.
-   *
    * For example \c x->subVariable(Space(3), "y", Space(2)) creates a
    * subvariable y of \c x starting after the two first element (x0, x1) and
    * containing the three elements (x2,x3,x4).
+   * This shift is with respect to the space of the supervariable. This is
+   * important if it is not Euclidean.
    */
-  VariablePtr subvariable(Space space, std::string_view baseName, Space shift = {0}) const;
+  [[nodiscard]] VariablePtr subvariable(Space space, std::string_view baseName, Space shift = {0}) const;
 
   /** Create a subvariable
    *
@@ -178,11 +179,16 @@ public:
    * of a derivative) is a point.
    * \param shift The space of the subvariable before this subvariable w.r.t the
    * current variable.
+   * For example \c x->subVariable(Space(3), "y", Space(2)) creates a
+   * subvariable y of \c x starting after the two first element (x0, x1) and
+   * containing the three elements (x2,x3,x4).
+   * This shift is with respect to the space of the supervariable. This is
+   * important if it is not Euclidean.
    *
    * Name is automatically generated as x[start:end] (or dk x/ dtk [start:end])
    * for a k-th derivative.
    */
-  VariablePtr subvariable(Space space, Space shift = {0}) const;
+  [[nodiscard]] VariablePtr subvariable(Space space, Space shift = {0}) const;
 
   /** Get the mapping of this variable, within a vector of variables: if all
    * variables values are stacked in one vector v, the returned Range
@@ -226,6 +232,11 @@ private:
    * (if the variable was not already created with another name before).
    */
   Variable(Variable * var, bool autoName);
+
+  /** Subfunction for the two public overloads. The goal of these overload is to
+   * because autoName = true makes the method effectively ignore baseName.
+   */
+  [[nodiscard]] VariablePtr subvariable(Space space, std::string_view baseName, Space shift, bool autoName) const;
 
   /** Same as primitive<n> but without checking if n is valid.*/
   template<int n>
