@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"classtvm_1_1function_1_1abstract_1_1LinearFunction.html#ace72da7b9d2d371d302e21ba67aa7b3f":[3,0,2,5,0,1,1],
+"classtvm_1_1function_1_1abstract_1_1LinearFunction.html#adb9573940118706e4996f68e2b52650e":[3,0,2,5,0,1,6],
 "classtvm_1_1function_1_1abstract_1_1LinearFunction.html#ae8c94139576d1c0d4228c371978a0ac7":[3,0,2,5,0,1,5],
 "classtvm_1_1function_1_1abstract_1_1LinearFunction.html#af8fc32187dbf0cf844c16fb819b16c69":[3,0,2,5,0,1,3],
 "classtvm_1_1geometry_1_1Plane.html":[3,0,2,6,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "classtvm_1_1internal_1_1FirstOrderProvider.html#aee12b48a2160311b069018e5d5e68cae":[3,0,2,9,3,19],
 "classtvm_1_1internal_1_1FirstOrderProvider.html#af5eadb4206e9b45ab7cbea26ca3a189f":[3,0,2,9,3,7],
 "classtvm_1_1internal_1_1FirstOrderProvider.html#af9184d29af7563cd7c0a2dc88a55a1cf":[3,0,2,9,3,2],
-"classtvm_1_1internal_1_1IdProvider.html":[3,0,2,9,4],
-"classtvm_1_1internal_1_1IdProvider.html#afef7eeb3484bc88502adc1f55702469a":[3,0,2,9,4,0],
-"classtvm_1_1internal_1_1KeepProperties.html":[3,0,2,9,6]
+"classtvm_1_1internal_1_1IdProvider.html":[3,0,2,9,4]
 };

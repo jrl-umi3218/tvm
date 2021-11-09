@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('concepts.html','');});
 <p>A variable in TVM is meant to have the same meaning as with mathematical notations: a point of a space whose value is unknown or varying with the problem to solve.</p>
 <p>Variables in TVM are represented by the <a class="el" href="classtvm_1_1Variable.html">tvm::Variable</a> class, and usually used through a <code>std::shared_ptr</code> with the alias <a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a>.</p>
 <p>Since variables are points of spaces, <a class="el" href="classtvm_1_1Variable.html">tvm::Variable</a> can not be created directely, but need to be constructed from a <a class="el" href="classtvm_1_1Space.html">tvm::Space</a>.</p>
-<p>From a variable, one can create its time derivative with <a class="el" href="namespacetvm.html#a87d6cb6ff8019ac998b40578d2a27438">tvm::dot</a>.</p>
+<p>From a variable, one can create its time derivative with <a class="el" href="namespacetvm.html#ab9c41b94c9193c6a5201468e368b838c">tvm::dot</a>.</p>
 <p>Variables can also be grouped in <a class="el" href="classtvm_1_1VariableVector.html">tvm::VariableVector</a>.</p>
 <h1>Function </h1>
 <p>A TVM function (<a class="el" href="classtvm_1_1function_1_1abstract_1_1Function.html">tvm::function::abstract::Function</a>) is an object representing a mathematical function \( f: S_1 \times \ldots \times S_k \rightarrow \mathbb{R}^m\), where the \(S_i\) are spaces as above. Note that the image space is always an Euclidean space.</p>

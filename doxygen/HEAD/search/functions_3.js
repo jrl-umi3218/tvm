@@ -8,7 +8,7 @@ var searchData=
   ['disable',['disable',['../classtvm_1_1graph_1_1internal_1_1Logger.html#a2bb07bc3e52cbcfba7511d41630e9638',1,'tvm::graph::internal::Logger']]],
   ['disableoutput',['disableOutput',['../classtvm_1_1graph_1_1abstract_1_1OutputSelector.html#a766fd1ed72d2502853d44ee247c28b7b',1,'tvm::graph::abstract::OutputSelector::disableOutput(EnumT e)'],['../classtvm_1_1graph_1_1abstract_1_1OutputSelector.html#ae0704ea411dc055f5bf90032253c6da8',1,'tvm::graph::abstract::OutputSelector::disableOutput(EnumT e, Args... args)']]],
   ['distance',['distance',['../namespacetvm_1_1utils.html#a7eef10a1512d54024ca7243c99709f29',1,'tvm::utils']]],
-  ['dot',['dot',['../namespacetvm.html#a87d6cb6ff8019ac998b40578d2a27438',1,'tvm::dot(VariablePtr var, int ndiff=1)'],['../namespacetvm.html#a42c2dc1b096188c0810cc2c3fbe10e6c',1,'tvm::dot(const VariableVector &amp;vars, int ndiff=1)']]],
+  ['dot',['dot',['../namespacetvm.html#ab9c41b94c9193c6a5201468e368b838c',1,'tvm::dot(VariablePtr var, int ndiff=1, bool autoName=false)'],['../namespacetvm.html#a42c2dc1b096188c0810cc2c3fbe10e6c',1,'tvm::dot(const VariableVector &amp;vars, int ndiff=1)']]],
   ['dt',['dt',['../classtvm_1_1Clock.html#a76a9b9fe23b44288975f389ca2d5b991',1,'tvm::Clock']]],
   ['duplicate',['duplicate',['../classtvm_1_1Variable.html#af4e96ba2669021d14ee30cb6475816bf',1,'tvm::Variable']]],
   ['dynamicfunction',['DynamicFunction',['../classtvm_1_1robot_1_1internal_1_1DynamicFunction.html#a30534f8a2683a7889eb145bf300127a2',1,'tvm::robot::internal::DynamicFunction']]]

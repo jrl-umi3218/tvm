@@ -222,8 +222,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memTemplParams" colspan="2">template&lt;typename SubType , typename tvm::internal::enable_for_templated_t&lt; SubType, Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr &gt;  = 0&gt; </td></tr>
 <tr class="memitem:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetvm.html#ad4cd68900b5ad86ffc5d47983bf1ed1f">operator-</a> (const <a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a> &amp;v, const SubType &amp;a)</td></tr>
 <tr class="separator:ad4cd68900b5ad86ffc5d47983bf1ed1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87d6cb6ff8019ac998b40578d2a27438"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> <a class="el" href="api_8h.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetvm.html#a87d6cb6ff8019ac998b40578d2a27438">dot</a> (<a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> var, int ndiff=1)</td></tr>
-<tr class="separator:a87d6cb6ff8019ac998b40578d2a27438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9c41b94c9193c6a5201468e368b838c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> <a class="el" href="api_8h.html#ab3999ac9b308cc961c731e6f9c1e96c0">TVM_DLLAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetvm.html#ab9c41b94c9193c6a5201468e368b838c">dot</a> (<a class="el" href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">VariablePtr</a> var, int ndiff=1, bool autoName=false)</td></tr>
+<tr class="separator:ab9c41b94c9193c6a5201468e368b838c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a751b8be6c8ab35c0f7bc264e6ecaa54c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetvm.html#a751b8be6c8ab35c0f7bc264e6ecaa54c">operator==</a> (const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;u, const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;v)</td></tr>
 <tr class="separator:a751b8be6c8ab35c0f7bc264e6ecaa54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d874dff64932dd17c549e38f9f99bf2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetvm.html#a1d874dff64932dd17c549e38f9f99bf2">operator!=</a> (const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;u, const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;v)</td></tr>
@@ -473,8 +473,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a87d6cb6ff8019ac998b40578d2a27438"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87d6cb6ff8019ac998b40578d2a27438">&#9670;&nbsp;</a></span>dot() <span class="overload">[1/2]</span></h2>
+<a id="ab9c41b94c9193c6a5201468e368b838c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9c41b94c9193c6a5201468e368b838c">&#9670;&nbsp;</a></span>dot() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -489,7 +489,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ndiff</em> = <code>1</code>&#160;</td>
+          <td class="paramname"><em>ndiff</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>autoName</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -503,6 +509,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">var</td><td>the variable to be derived </td></tr>
     <tr><td class="paramname">ndiff</td><td>the order of the derivation </td></tr>
+    <tr><td class="paramname">autoName</td><td>base the name on that of the supervariable of the primitive (if the variable was not already created with another name before). </td></tr>
   </table>
   </dd>
 </dl>

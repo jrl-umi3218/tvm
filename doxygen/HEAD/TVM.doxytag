@@ -3875,8 +3875,8 @@
       <type>VariablePtr TVM_DLLAPI</type>
       <name>dot</name>
       <anchorfile>namespacetvm.html</anchorfile>
-      <anchor>a87d6cb6ff8019ac998b40578d2a27438</anchor>
-      <arglist>(VariablePtr var, int ndiff=1)</arglist>
+      <anchor>ab9c41b94c9193c6a5201468e368b838c</anchor>
+      <arglist>(VariablePtr var, int ndiff=1, bool autoName=false)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -15510,6 +15510,13 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>std::string</type>
+      <name>sizeAsString</name>
+      <anchorfile>classtvm_1_1Space.html</anchorfile>
+      <anchor>ad00b2044e4c960149e12212b843b61d3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>bool</type>
       <name>operator==</name>
       <anchorfile>classtvm_1_1Space.html</anchorfile>
@@ -16742,6 +16749,13 @@
       <arglist>(Space space, std::string_view baseName, Space shift={0}) const</arglist>
     </member>
     <member kind="function">
+      <type>VariablePtr</type>
+      <name>subvariable</name>
+      <anchorfile>classtvm_1_1Variable.html</anchorfile>
+      <anchor>a315a5d02b672dc3c8693bf6c1e42fe6c</anchor>
+      <arglist>(Space space, Space shift={0}) const</arglist>
+    </member>
+    <member kind="function">
       <type>Range</type>
       <name>getMappingIn</name>
       <anchorfile>classtvm_1_1Variable.html</anchorfile>
@@ -16808,8 +16822,8 @@
       <type>friend VariablePtr TVM_DLLAPI</type>
       <name>dot</name>
       <anchorfile>classtvm_1_1Variable.html</anchorfile>
-      <anchor>a3b297819c93f2c7b3030e54cd28307da</anchor>
-      <arglist>(VariablePtr, int)</arglist>
+      <anchor>a9bd03c33a6ee4f165238bd63199645c4</anchor>
+      <arglist>(VariablePtr, int, bool)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -17839,8 +17853,8 @@
       <type>VariablePtr TVM_DLLAPI</type>
       <name>dot</name>
       <anchorfile>namespacetvm.html</anchorfile>
-      <anchor>a87d6cb6ff8019ac998b40578d2a27438</anchor>
-      <arglist>(VariablePtr var, int ndiff=1)</arglist>
+      <anchor>ab9c41b94c9193c6a5201468e368b838c</anchor>
+      <arglist>(VariablePtr var, int ndiff=1, bool autoName=false)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>

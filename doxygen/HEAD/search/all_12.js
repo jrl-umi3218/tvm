@@ -40,6 +40,7 @@ var searchData=
   ['singlesolvingrequirement_3c_20int_2c_20lightweight_20_3e',['SingleSolvingRequirement&lt; int, Lightweight &gt;',['../classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html',1,'tvm::requirements::abstract']]],
   ['singlesolvingrequirement_3c_20violationevaluationtype_2c_20lightweight_20_3e',['SingleSolvingRequirement&lt; ViolationEvaluationType, Lightweight &gt;',['../classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html',1,'tvm::requirements::abstract']]],
   ['size',['size',['../classtvm_1_1ControlProblem.html#ab227fcc80d495c4d90375954227c4474',1,'tvm::ControlProblem::size()'],['../classtvm_1_1graph_1_1internal_1_1DependencyGraph.html#ae4ab069840fa478652656d43672a2a7b',1,'tvm::graph::internal::DependencyGraph::size()'],['../classtvm_1_1internal_1_1FirstOrderProvider.html#a1fa00e06c0c1ec2686d5996c8ea75d85',1,'tvm::internal::FirstOrderProvider::size()'],['../classtvm_1_1scheme_1_1internal_1_1AssignmentTarget.html#a3ad1fba67064934fb6e2c1fd7b708af3',1,'tvm::scheme::internal::AssignmentTarget::size()'],['../classtvm_1_1Space.html#a52d03cec25b4951255300be1925049f9',1,'tvm::Space::size()'],['../classtvm_1_1Variable.html#a4c7ab047ba8057c7c5564ae500080b2f',1,'tvm::Variable::size()']]],
+  ['sizeasstring',['sizeAsString',['../classtvm_1_1Space.html#ad00b2044e4c960149e12212b843b61d3',1,'tvm::Space']]],
   ['slice',['slice',['../structtvm_1_1internal_1_1FirstOrderProvider_1_1slice__matrix.html#a0fb4dd0ce74a607898d41ed5a24658a1',1,'tvm::internal::FirstOrderProvider::slice_matrix']]],
   ['slice_5fjdot',['slice_jdot',['../structtvm_1_1function_1_1abstract_1_1Function_1_1slice__jdot.html',1,'tvm::function::abstract::Function']]],
   ['slice_5flinear',['slice_linear',['../structtvm_1_1internal_1_1FirstOrderProvider_1_1slice__linear.html',1,'tvm::internal::FirstOrderProvider']]],
@@ -93,7 +94,7 @@ var searchData=
   ['substitutiontest',['SubstitutionTest',['../classtvm_1_1hint_1_1internal_1_1Substitutions.html#a4160bc50624e625eaf71df39627374ba',1,'tvm::hint::internal::Substitutions']]],
   ['substitutionunit',['SubstitutionUnit',['../classtvm_1_1hint_1_1internal_1_1SubstitutionUnit.html',1,'tvm::hint::internal::SubstitutionUnit'],['../classtvm_1_1hint_1_1internal_1_1SubstitutionUnit.html#ae3b3f4e26825b2cd0aa2af959a75ba89',1,'tvm::hint::internal::SubstitutionUnit::SubstitutionUnit()']]],
   ['substitutionunit_2eh',['SubstitutionUnit.h',['../SubstitutionUnit_8h.html',1,'']]],
-  ['subvariable',['subvariable',['../classtvm_1_1Variable.html#a3406e62e71db89c619dce7694fc73976',1,'tvm::Variable']]],
+  ['subvariable',['subvariable',['../classtvm_1_1Variable.html#a3406e62e71db89c619dce7694fc73976',1,'tvm::Variable::subvariable(Space space, std::string_view baseName, Space shift={0}) const'],['../classtvm_1_1Variable.html#a315a5d02b672dc3c8693bf6c1e42fe6c',1,'tvm::Variable::subvariable(Space space, Space shift={0}) const']]],
   ['subvariablerange',['subvariableRange',['../classtvm_1_1Variable.html#a6d9167a14ecb5b4b633d9bb469895737',1,'tvm::Variable']]],
   ['supervariable',['superVariable',['../classtvm_1_1Variable.html#a4c3910d2f3013804cbad7387c4bbb0ae',1,'tvm::Variable']]],
   ['supported_5fsolvers_2ein_2eh',['supported_solvers.in.h',['../supported__solvers_8in_8h.html',1,'']]]

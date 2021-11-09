@@ -17,6 +17,7 @@ var classtvm_1_1Space =
     [ "operator==", "classtvm_1_1Space.html#aee25e1bfd33fac77fd95b79bbfc761b6", null ],
     [ "rSize", "classtvm_1_1Space.html#ac5889d55dbe021af7edcc4d728e9c35e", null ],
     [ "size", "classtvm_1_1Space.html#a52d03cec25b4951255300be1925049f9", null ],
+    [ "sizeAsString", "classtvm_1_1Space.html#ad00b2044e4c960149e12212b843b61d3", null ],
     [ "tSize", "classtvm_1_1Space.html#ad182eecc9fce96331b8038a9bc8a0626", null ],
     [ "type", "classtvm_1_1Space.html#ab9ac5699b5f3c5e65f85f4edd0125095", null ],
     [ "operator*", "classtvm_1_1Space.html#af45d032816d72887192bb810684cc99f", null ]
