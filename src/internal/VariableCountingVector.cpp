@@ -116,14 +116,12 @@ void VariableCountingVector::update() const
         {
           for(const auto & r : ranges)
           {
-            std::stringstream ss;
-            ss << v->name() << "[" << r.start << ":" << r.end() - 1 << "]";
             // The following line make the assumption that all variables can be treated as euclidean:
             // the dimension and the shift of the subvariable are defined with simple spaces.
             // This is fine if the VariableVector is not differentiated afterwards.
             // If this was really necessary to derive the vector, one could keep track of all the
             // space dimensions with several RangeCounting (one per dimension).
-            variables_.add(v->subvariable(Space(r.dim), ss.str(), Space(r.start)));
+            variables_.add(v->subvariable(Space(r.dim), Space(r.start)));
             simple_.push_back(simple);
           }
         }

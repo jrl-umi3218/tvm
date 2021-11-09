@@ -61,4 +61,11 @@ Space::Type Space::type() const { return type_; }
 
 bool Space::isEuclidean() const { return type_ == Type::Euclidean; }
 
+std::string Space::sizeAsString() const
+{
+  std::stringstream ss;
+  ss << "(" << mSize_ << ", " << rSize_ << ", " << tSize_ << ")";
+  return ss.str();
+}
+
 } // namespace tvm

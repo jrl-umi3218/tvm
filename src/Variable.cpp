@@ -9,7 +9,7 @@
 namespace tvm
 {
 
-VariablePtr dot(VariablePtr var, int ndiff)
+VariablePtr dot(VariablePtr var, int ndiff, bool autoName)
 {
   assert(ndiff > 0 && "you cannot derive less than 1 time.");
   int i;
@@ -32,7 +32,7 @@ VariablePtr dot(VariablePtr var, int ndiff)
     for(; i < ndiff; ++i)
     {
       auto primitive = derivative;
-      primitive->derivative_.reset(new Variable(derivative));
+      primitive->derivative_.reset(new Variable(derivative, autoName));
       derivative = primitive->derivative_.get();
     }
     return {var, derivative};
@@ -185,20 +185,10 @@ bool Variable::intersects(const Variable & v) const
 
 VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift) const
 {
-  if(!(space * shift <= space_))
-    throw std::runtime_error("[Variable::subvariable] Invalid space and shift dimension");
-
-  VariablePtr base = superVariable();
-  if(isBasePrimitive())
-  {
-    return std::make_shared<Variable>(make_shared_token{}, base, space, baseName, shift_ * shift);
-  }
-  else
-  {
-    VariablePtr bp = base->basePrimitive();
-    return dot(std::make_shared<Variable>(make_shared_token{}, bp, space, baseName, shift_ * shift), derivativeNumber_);
-  }
+  return subvariable(space, baseName, shift, false);
 }
+
+VariablePtr Variable::subvariable(Space space, Space shift) const { return subvariable(space, "", shift, true); }
 
 Range Variable::getMappingIn(const VariableVector & variables) const
 {
@@ -220,7 +210,7 @@ Variable::Variable(const Space & s, std::string_view name)
   value_.setZero();
 }
 
-Variable::Variable(Variable * var)
+Variable::Variable(Variable * var, bool autoName)
 : space_(var->space_), shift_(var->shift_), memory_(var->isSubvariable() ? nullptr : new double[var->space_.tSize()]),
   value_(Eigen::Map<Eigen::VectorXd>(var->isSubvariable() ? dot(var->superVariable())->memory_ + var->shift_.tSize()
                                                           : memory_,
@@ -229,16 +219,46 @@ Variable::Variable(Variable * var)
   superVariable_(var->isSubvariable() ? dot(var->superVariable()) : nullptr), derivative_(nullptr), startIn_()
 {
   std::stringstream ss;
-  if(derivativeNumber_ == 1)
+  auto dNumber = derivativeNumber_ == 1 ? "" : std::to_string(derivativeNumber_);
+  auto baseName = autoName ? basePrimitive()->superVariable()->name_ : basePrimitive()->name_;
+  ss << "d" << dNumber << " " << baseName << " / dt" << dNumber;
+  if(autoName)
   {
-    ss << "d " << basePrimitive()->name_ << " / dt";
-  }
-  else
-  {
-    ss << "d" << derivativeNumber_ << " " << basePrimitive()->name_ << " / dt" << derivativeNumber_;
+    ss << "[" << shift_.tSize() << ":" << shift_.tSize() + size() - 1 << "]";
   }
   name_ = ss.str();
   value_.setZero();
+}
+
+VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift, bool autoName) const
+{
+  if(!(space * shift <= space_))
+  {
+    std::stringstream ss;
+    ss << "[Variable::subvariable] Invalid space and shift dimension. Space of variable is " << space_.sizeAsString()
+       << ", whereas subvariable space is " << space.sizeAsString() << " with shift " << shift.sizeAsString();
+    throw std::runtime_error(ss.str());
+  }
+
+  VariablePtr base = superVariable()->basePrimitive();
+  VariablePtr sub;
+
+  // Create a subvariable of the supervariable base primitive
+  if(autoName)
+  {
+    int start = base->spaceShift().rSize() + shift.rSize();
+    std::stringstream ss;
+    ss << base->name() << "[" << start << ":" << start + space.rSize() - 1 << "]";
+    sub = std::make_shared<Variable>(make_shared_token{}, base, space, ss.str(), shift_ * shift);
+  }
+  else
+    sub = std::make_shared<Variable>(make_shared_token{}, base, space, baseName, shift_ * shift);
+
+  // Derive if necessary
+  if(isBasePrimitive())
+    return sub;
+  else
+    return dot(sub, derivativeNumber_, autoName);
 }
 
 Variable::Variable(make_shared_token, VariablePtr var, const Space & space, std::string_view name, const Space & shift)
