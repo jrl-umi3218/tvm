@@ -13,9 +13,9 @@ namespace tvm
 namespace solver
 {
 LexLSLeastSquareSolver::LexLSLeastSquareSolver(const LexLSLSSolverOptions & options)
-: LeastSquareSolver(options.verbose().value()), data0_(1,1), data1_(1,1), data2_(1,1), A1_(data1_.leftCols(0)), l1_(data1_.col(0)), u1_(data1_.col(0)),
-  A2_(data2_.leftCols(0)), l2_(data2_.col(0)), u2_(data2_.col(0)), xl_(data0_.col(0)), xu_(data0_.col(0)),
-  solver_(), autoMinNorm_(false), big_number_(options.big_number().value())
+: LeastSquareSolver(options.verbose().value()), data0_(1, 1), data1_(1, 1), data2_(1, 1), A1_(data1_.leftCols(0)),
+  l1_(data1_.col(0)), u1_(data1_.col(0)), A2_(data2_.leftCols(0)), l2_(data2_.col(0)), u2_(data2_.col(0)),
+  xl_(data0_.col(0)), xu_(data0_.col(0)), solver_(), autoMinNorm_(false), big_number_(options.big_number().value())
 {
   LexLS::ParametersLexLSI param;
   TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param)
@@ -70,7 +70,8 @@ LexLSLeastSquareSolver::ImpactFromChanges LexLSLeastSquareSolver::resize_(int nO
   impact.inequalityConstraints_ = impact.equalityConstraints_;
   if(impact.any())
   {
-    LexLS::Index objDim[3] = {n, nCstr, nObj};
+    LexLS::Index objDim[3] = {static_cast<LexLS::Index>(n), static_cast<LexLS::Index>(nCstr),
+                              static_cast<LexLS::Index>(nObj)};
     LexLS::ObjectiveType objType[3] = {LexLS::ObjectiveType::SIMPLE_BOUNDS_OBJECTIVE,
                                        LexLS::ObjectiveType::GENERAL_OBJECTIVE,
                                        LexLS::ObjectiveType::GENERAL_OBJECTIVE};
@@ -131,13 +132,16 @@ void LexLSLeastSquareSolver::resetBounds_()
 
 void LexLSLeastSquareSolver::preAssignmentProcess_() {}
 
-void LexLSLeastSquareSolver::postAssignmentProcess_() {}
-
-bool LexLSLeastSquareSolver::solve_()
+void LexLSLeastSquareSolver::postAssignmentProcess_()
 {
+  solver_.reset();
   solver_.setData(0, varIndex_.data(), data0_);
   solver_.setData(1, data1_);
   solver_.setData(2, data2_);
+}
+
+bool LexLSLeastSquareSolver::solve_()
+{
   auto status = solver_.solve();
 
   return status == LexLS::TerminationStatus::PROBLEM_SOLVED
