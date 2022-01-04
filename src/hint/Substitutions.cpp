@@ -160,7 +160,7 @@ const std::vector<VariablePtr> & Substitutions::otherVariables() const { return 
 
 VariableVector Substitutions::substitute(const VariablePtr & x) const
 {
-  auto it = std::find(variables_.begin(), variables_.end(), x);
+  auto it = std::find_if(variables_.begin(), variables_.end(), [&x](const VariablePtr & v) { return v->intersects(*x); });
   if(it == variables_.end()) // no substitution of var
   {
     VariableVector v({x});
@@ -169,7 +169,24 @@ VariableVector Substitutions::substitute(const VariablePtr & x) const
   else // substitution of var
   {
     const auto & f = varSubstitutions_[static_cast<size_t>(it - variables_.begin())];
-    return f->variables();
+    if(*x == **it) // substitution by a full variable
+    {
+      return f->variables();
+    }
+    else if(x->contains(**it)) // part of x should be substituted
+    {
+      tvm::internal::VariableCountingVector vcv;
+      vcv.add(x);
+      vcv.remove(*it);
+      vcv.add(f->variables());
+      return vcv.variables();
+    }
+    else
+    {
+      throw std::runtime_error("[Substitutions::substitute] Variable " + x->name()
+                               + " intersect but is not contained by a variable being substituted (" + (*it)->name()
+                               + "). Variables in the subsitution do not a fine enough level of granularity.");
+    }
   }
 }
 

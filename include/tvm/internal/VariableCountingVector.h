@@ -6,6 +6,7 @@
 #include <tvm/defs.h>
 
 #include <tvm/VariableVector.h>
+#include <tvm/Space.h>
 #include <tvm/internal/RangeCounting.h>
 #include <tvm/utils/internal/map.h>
 
@@ -76,9 +77,21 @@ public:
   bool isDisjointUnion();
 
 private:
+  struct SpaceRangeCounting
+  {
+    tvm::internal::RangeCounting mSize_;
+    tvm::internal::RangeCounting rSize_;
+    tvm::internal::RangeCounting tSize_;
+
+    bool add(const Space & start, const Space & dim);
+    bool remove(const Space & start, const Space & dim);
+    bool empty() const { return mSize_.empty(); }
+    int maxCount() const { return mSize_.maxCount(); }
+  };
+
   void update() const;
 
-  tvm::utils::internal::map<Variable *, std::pair<tvm::internal::RangeCounting, size_t>> count_;
+  tvm::utils::internal::map<Variable *, std::pair<SpaceRangeCounting, size_t>> count_;
   bool split_;
   mutable bool upToDate_ = false;
   mutable VariableVector variables_;
