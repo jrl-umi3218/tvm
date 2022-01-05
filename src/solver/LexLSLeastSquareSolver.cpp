@@ -15,10 +15,32 @@ namespace solver
 LexLSLeastSquareSolver::LexLSLeastSquareSolver(const LexLSLSSolverOptions & options)
 : LeastSquareSolver(options.verbose().value()), data0_(1, 1), data1_(1, 1), data2_(1, 1), A1_(data1_.leftCols(0)),
   l1_(data1_.col(0)), u1_(data1_.col(0)), A2_(data2_.leftCols(0)), l2_(data2_.col(0)), u2_(data2_.col(0)),
-  xl_(data0_.col(0)), xu_(data0_.col(0)), solver_(), autoMinNorm_(false), big_number_(options.big_number().value())
+  xl_(data0_.col(0)), xu_(data0_.col(0)), warmStart_(options.warmStart().value()), solver_(), autoMinNorm_(false),
+  big_number_(options.big_number().value())
 {
   LexLS::ParametersLexLSI param;
-  TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param)
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(tol_linear_dependence, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(tol_wrong_sign_lambda, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(tol_correct_sign_lambda, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(tol_feasibility, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(regularization_type, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_CG_iterations, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(variable_regularization_factor, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(cycling_handling_enabled, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(cycling_max_counter, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(cycling_relax_step, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(output_file_name, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(modify_x_guess_enabled, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(modify_type_active_enabled, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(modify_type_inactive_enabled, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(set_min_init_ctr_violation, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(use_phase1_v0, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(log_working_set_enabled, param);
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS(deactivate_first_wrong_sign, param);
+
+  solver_.setParameters(param);
 }
 
 void LexLSLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)
@@ -66,6 +88,7 @@ LexLSLeastSquareSolver::ImpactFromChanges LexLSLeastSquareSolver::resize_(int nO
   new(&xu_) MatrixXdCol(data0_.col(1));
   xl_.setConstant(-big_number_);
   xu_.setConstant(+big_number_);
+  x0_ = Eigen::VectorXd::Zero(n);
 
   impact.inequalityConstraints_ = impact.equalityConstraints_;
   if(impact.any())
@@ -138,11 +161,35 @@ void LexLSLeastSquareSolver::postAssignmentProcess_()
   solver_.setData(0, varIndex_.data(), data0_);
   solver_.setData(1, data1_);
   solver_.setData(2, data2_);
+
+  if(warmStart_)
+  {
+    auto warmStart = [&](int level, const std::vector<LexLS::ConstraintActivationType> & act) {
+      for(size_t i = 0; i < act.size(); ++i)
+      {
+        auto a = act[i];
+        if(a == LexLS::CTR_ACTIVE_LB || a == LexLS::CTR_ACTIVE_UB)
+          solver_.activate(static_cast<LexLS::Index>(level), static_cast<LexLS::Index>(i), a);
+      }
+    };
+    warmStart(0, act0_);
+    warmStart(1, act1_);
+    solver_.set_x0(x0_);
+  }
 }
 
 bool LexLSLeastSquareSolver::solve_()
 {
   auto status = solver_.solve();
+
+  if(warmStart_)
+  {
+    act0_.clear();
+    act1_.clear();
+    solver_.getActiveCtr(0, act0_);
+    solver_.getActiveCtr(1, act1_);
+    x0_ = solver_.get_x();
+  }
 
   return status == LexLS::TerminationStatus::PROBLEM_SOLVED
          || status == LexLS::TerminationStatus::PROBLEM_SOLVED_CYCLING_HANDLING;

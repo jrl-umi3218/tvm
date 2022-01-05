@@ -39,6 +39,7 @@ class TVM_DLLAPI LexLSLSSolverOptions
 
   TVM_ADD_NON_DEFAULT_OPTION(big_number, constant::big_number)
   TVM_ADD_NON_DEFAULT_OPTION(verbose, false)
+  TVM_ADD_NON_DEFAULT_OPTION(warmStart, false)
 
 public:
   using Factory = LexLSLSSolverFactory;
@@ -97,6 +98,11 @@ private:
   MatrixXdCol u2_;
 
   std::vector<LexLS::Index> varIndex_;
+
+  bool warmStart_;
+  Eigen::VectorXd x0_;
+  std::vector<LexLS::ConstraintActivationType> act0_;
+  std::vector<LexLS::ConstraintActivationType> act1_;
 
   LexLS::internal::LexLSI solver_;
 
