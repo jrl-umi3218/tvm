@@ -56,6 +56,7 @@ set(TVM_SOURCES
   scheme/WeightedLeastSquares.cpp
 
   solver/defaultLeastSquareSolver.cpp
+  solver/HierarchicalLeastSquareSolver.cpp
   solver/LeastSquareSolver.cpp
 
   task_dynamics/Constant.cpp
@@ -188,6 +189,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
+  ${TVM_INCLUDE_DIR}/solver/abstract/HierarchicalLeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/internal/Option.h
   ${TVM_INCLUDE_DIR}/solver/internal/SolverEvents.h
@@ -259,7 +261,9 @@ if(TVM_WITH_QUADPROG)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
 endif()
 if(TVM_WITH_LEXLS)
+  list(APPEND TVM_SOURCES solver/LexLSHierarchicalLeastSquareSolver.cpp)
   list(APPEND TVM_SOURCES solver/LexLSLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSHierarchicalLeastSquareSolver.h)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSLeastSquareSolver.h)
 endif()
 
