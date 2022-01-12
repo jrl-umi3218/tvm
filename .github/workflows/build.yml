@@ -56,6 +56,7 @@ jobs:
           - path: jrl-umi3218/eigen-qld
           - path: jrl-umi3218/eigen-quadprog
           - path: jrl-umi3218/lexls
+            options: -DINSTALL_PDF_DOCUMENTATION:BOOL=OFF -DINSTALL_HTML_DOCUMENTATION:BOOL=OFF
     - name: Install Tasks
       uses: jrl-umi3218/github-actions/install-dependencies@master
       with:
