@@ -1,4 +1,4 @@
-/* Copyright 2021 CNRS-AIST JRL and CNRS-UM LIRMM */
+/* Copyright 2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
@@ -11,9 +11,9 @@ namespace tvm
 
 namespace solver
 {
-class LexLSLSSolverFactory;
+class LexLSHLSSolverFactory;
 
-/** A set of options for LexLSHierarchicalHierarchicalLeastSquareSolver */
+/** A set of options for LexLSHierarchicalLeastSquareSolver */
 class TVM_DLLAPI LexLSHLSSolverOptions
 {
 
@@ -40,9 +40,13 @@ class TVM_DLLAPI LexLSHLSSolverOptions
   TVM_ADD_NON_DEFAULT_OPTION(big_number, constant::big_number)
   TVM_ADD_NON_DEFAULT_OPTION(verbose, false)
   TVM_ADD_NON_DEFAULT_OPTION(warmStart, false)
+  /** If \a true, the first level will be considered as feasible, and bounds at this level will be
+   * handled separately (and more efficiently).
+   */
+  TVM_ADD_NON_DEFAULT_OPTION(feasibleFirstLevel, false)
 
 public:
-  using Factory = LexLSLSSolverFactory;
+  using Factory = LexLSHLSSolverFactory;
 };
 
 /** An encapsulation of the LexLS solver, to solve linear least-squares problems. */
@@ -78,17 +82,14 @@ protected:
   void printDiagnostic_() const override;
 
 private:
-  using MatrixXdCol = decltype(Eigen::MatrixXd().col(0));
-  using MatrixXdBlock = decltype(Eigen::MatrixXd().leftCols(0));
-
   Eigen::MatrixXd boundData_;
   std::vector<Eigen::MatrixXd> data_;
 
-  MatrixXdCol xl_;
-  MatrixXdCol xu_;
-  std::vector<MatrixXdBlock> A_;
-  std::vector<MatrixXdCol> l_;
-  std::vector<MatrixXdCol> u_;
+  VectorRef xl_;
+  VectorRef xu_;
+  std::vector<MatrixRef> A_;
+  std::vector<VectorRef> l_;
+  std::vector<VectorRef> u_;
 
   std::vector<LexLS::Index> varIndex_;
 
@@ -100,6 +101,7 @@ private:
 
   bool autoMinNorm_;
   double big_number_;
+  bool feasibleFirstLevel_;
 };
 
 /** A factory class to create LexLSHierarchicalLeastSquareSolver instances with a given

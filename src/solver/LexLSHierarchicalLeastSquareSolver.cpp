@@ -1,4 +1,4 @@
-/* Copyright 2021 CNRS-AIST JRL and CNRS-UM LIRMM */
+/* Copyright 2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/solver/LexLSHierarchicalLeastSquareSolver.h>
 
@@ -15,7 +15,8 @@ namespace solver
 LexLSHierarchicalLeastSquareSolver::LexLSHierarchicalLeastSquareSolver(const LexLSHLSSolverOptions & options)
 : HierarchicalLeastSquareSolver(options.verbose().value()), boundData_(1, 1), data_(), A_(), l_(), u_(),
   xl_(boundData_.col(0)), xu_(boundData_.col(0)), warmStart_(options.warmStart().value()), solver_(),
-  autoMinNorm_(false), big_number_(options.big_number().value())
+  autoMinNorm_(false), big_number_(options.big_number().value()),
+  feasibleFirstLevel_(options.feasibleFirstLevel().value())
 {
   LexLS::ParametersLexLSI param;
   TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param);
@@ -72,21 +73,42 @@ LexLSHierarchicalLeastSquareSolver::ImpactFromChanges LexLSHierarchicalLeastSqua
     u_.emplace_back(dummy.col(0));
   }
 
-  impact.bounds_ = ImpactFromChanges::willReallocate(boundData_, n, 2);
-  boundData_.resize(n, 2);
-  new(&xl_) MatrixXdCol(boundData_.col(0));
-  new(&xu_) MatrixXdCol(boundData_.col(1));
-  xl_.setConstant(-big_number_);
-  xu_.setConstant(+big_number_);
+  if(useBounds && feasibleFirstLevel_)
+  {
+    impact.bounds_ = ImpactFromChanges::willReallocate(boundData_, n, 2);
+    boundData_.resize(n, 2);
+    new(&xl_) VectorRef(boundData_.col(0));
+    new(&xu_) VectorRef(boundData_.col(1));
+    xl_.setConstant(-big_number_);
+    xu_.setConstant(+big_number_);
+  }
+
   x0_ = Eigen::VectorXd::Zero(n);
+
   for(int i = 0; i < nLvl; ++i)
   {
     nCstr[i] = nEq[i] + nIneq[i];
-    impact.equalityConstraints_[i] = ImpactFromChanges::willReallocate(data_[i], nCstr[i], n + 2);
-    data_[i].resize(nCstr[i], n + 2);
-    new(&A_[i]) MatrixXdBlock(data_[i].leftCols(n));
-    new(&l_[i]) MatrixXdCol(data_[i].col(n));
-    new(&u_[i]) MatrixXdCol(data_[i].col(n + 1));
+    if(i == 0 && useBounds && !feasibleFirstLevel_)
+    {
+      impact.equalityConstraints_[i] = ImpactFromChanges::willReallocate(data_[i], nCstr[i] + n, n + 2);
+      data_[i].resize(nCstr[i] + n, n + 2);
+      new(&xl_) VectorRef(data_[i].col(n).head(n));
+      new(&xu_) VectorRef(data_[i].col(n + 1).head(n));
+      data_[i].topLeftCorner(n, n).setIdentity();
+      xl_.setConstant(-big_number_);
+      xu_.setConstant(+big_number_);
+      new(&A_[i]) MatrixRef(data_[i].leftCols(n).bottomRows(nCstr[i]));
+      new(&l_[i]) VectorRef(data_[i].col(n).tail(nCstr[i]));
+      new(&u_[i]) VectorRef(data_[i].col(n + 1).tail(nCstr[i]));
+    }
+    else
+    {
+      impact.equalityConstraints_[i] = ImpactFromChanges::willReallocate(data_[i], nCstr[i], n + 2);
+      data_[i].resize(nCstr[i], n + 2);
+      new(&A_[i]) MatrixRef(data_[i].leftCols(n));
+      new(&l_[i]) VectorRef(data_[i].col(n));
+      new(&u_[i]) VectorRef(data_[i].col(n + 1));
+    }
     A_[i].setZero();
     l_[i].setConstant(-big_number_);
     u_[i].setConstant(+big_number_);
@@ -98,7 +120,7 @@ LexLSHierarchicalLeastSquareSolver::ImpactFromChanges LexLSHierarchicalLeastSqua
   {
     std::vector<LexLS::Index> objDim;
     std::vector<LexLS::ObjectiveType> objType;
-    if(useBounds)
+    if(useBounds && feasibleFirstLevel_)
     {
       objDim.push_back(n);
       objType.push_back(LexLS::ObjectiveType::SIMPLE_BOUNDS_OBJECTIVE);
@@ -169,10 +191,14 @@ void LexLSHierarchicalLeastSquareSolver::preAssignmentProcess_() {}
 void LexLSHierarchicalLeastSquareSolver::postAssignmentProcess_()
 {
   solver_.reset();
-  if(useBounds_)
+  int i0 = 0;
+  if(useBounds_ && feasibleFirstLevel_)
+  {
     solver_.setData(0, varIndex_.data(), boundData_);
+    ++i0;
+  }
   for(size_t i = 0; i < data_.size(); ++i)
-    solver_.setData(static_cast<LexLS::Index>(i), data_[i]);
+    solver_.setData(static_cast<LexLS::Index>(i + i0), data_[i]);
 
   if(warmStart_)
   {
