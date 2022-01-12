@@ -10,7 +10,7 @@
 #include <tvm/scheme/HierarchicalLeastSquares.h>
 #include <tvm/task_dynamics/None.h>
 
-#include <eigen/SVD>
+#include <Eigen/SVD>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_SUPER_FAST_ASSERTS
