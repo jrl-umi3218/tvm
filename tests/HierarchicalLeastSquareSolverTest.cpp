@@ -1,9 +1,14 @@
+/* Copyright 2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 //#if TVM_WITH_LEXLS
 #include <tvm/solver/LexLSHierarchicalLeastSquareSolver.h>
 //#endif
 
+#include <tvm/LinearizedControlProblem.h>
 #include <tvm/Variable.h>
 #include <tvm/constraint/BasicLinearConstraint.h>
+#include <tvm/function/IdentityFunction.h>
+#include <tvm/scheme/HierarchicalLeastSquares.h>
+#include <tvm/task_dynamics/None.h>
 
 #include <eigen/SVD>
 
@@ -13,6 +18,7 @@
 
 using namespace tvm;
 using namespace tvm::constraint;
+using namespace tvm::requirements;
 using namespace tvm::solver;
 using namespace Eigen;
 
@@ -106,4 +112,41 @@ TEST_CASE("LexLSHierarchicalLeastSquareSolver min norm")
   VectorXd x0 = dx0 + dx1 + dx2;
 
   FAST_CHECK_UNARY(x0.isApprox(solver.result(), 1e-10));
+}
+
+TEST_CASE("HierarchicalLeastSquares")
+{
+  VariablePtr x = Space(6).createVariable("x");
+  MatrixXd A0(3, 6), A1(3, 6), A2(3, 6);
+  VectorXd b0(3), b1(3), b2(3);
+  // rank(A0)=2
+  A0 = MatrixXd::Random(3, 2) * MatrixXd::Random(2, 6);
+  // rank(A1) = 3 but rank(A1 projected on the nullspace of A0) = 2
+  A1 << MatrixXd::Random(1, 3) * A0, MatrixXd::Random(2, 6);
+  A1 = MatrixXd::Random(3, 3) * A1;
+  A2.setRandom();
+  b0.setRandom();
+  b1.setRandom();
+  b2.setRandom();
+
+  LinearizedControlProblem pb;
+  pb.add(A0 * x - b0 == 0., {PriorityLevel(0)});
+  pb.add(A1 * x - b1 == 0., {PriorityLevel(1)});
+  pb.add(A2 * x - b2 == 0., {PriorityLevel(2)});
+
+  scheme::HierarchicalLeastSquares solver(LexLSHLSSolverOptions{});
+
+  solver.solve(pb);
+
+  // Compute the solution by hand
+  MatrixXd P0 = MatrixXd::Identity(6, 6) - pinv(A0) * A0;
+  MatrixXd A01(6, 6);
+  A01 << A0, A1;
+  MatrixXd P1 = MatrixXd::Identity(6, 6) - pinv(A01) * A01;
+  VectorXd dx0 = pinv(A0) * b0;
+  VectorXd dx1 = pinv(A1 * P0) * (b1 - A1 * dx0);
+  VectorXd dx2 = pinv(A2 * P1) * (b2 - A2 * (dx0 + dx1));
+  VectorXd x0 = dx0 + dx1 + dx2;
+
+  FAST_CHECK_UNARY(x0.isApprox(x->value(), 1e-10));
 }
