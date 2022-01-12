@@ -67,7 +67,7 @@ TEST_CASE("LexLSHierarchicalLeastSquareSolver")
   VectorXd dx2 = pinv(A2 * P1) * (b2 - A2 * (dx0 + dx1));
   VectorXd x0 = dx0 + dx1 + dx2;
 
-  FAST_CHECK_UNARY(x0.isApprox(solver.result(), 1e-10)); 
+  FAST_CHECK_UNARY(x0.isApprox(solver.result(), 1e-10));
 }
 
 TEST_CASE("LexLSHierarchicalLeastSquareSolver min norm")
@@ -90,7 +90,7 @@ TEST_CASE("LexLSHierarchicalLeastSquareSolver min norm")
   solver.startBuild(vars, {3, 3, 6}, {0, 0, 0}, false);
   solver.addConstraint(0, c0);
   solver.addConstraint(1, c1);
-  solver.setMinimumNorm();  // Equivalent to A2 = I and b2 = 0
+  solver.setMinimumNorm(); // Equivalent to A2 = I and b2 = 0
   solver.finalizeBuild();
 
   solver.solve();

@@ -42,8 +42,8 @@
 #  define IF_USE_LEXLS(x) x
 #else
 #  define IF_USE_LEXLS(x) \
-    do                       \
-    {                        \
+    do                    \
+    {                     \
     } while(0)
 #endif
 

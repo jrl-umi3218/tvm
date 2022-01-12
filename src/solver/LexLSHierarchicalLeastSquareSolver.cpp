@@ -13,11 +13,9 @@ namespace tvm
 namespace solver
 {
 LexLSHierarchicalLeastSquareSolver::LexLSHierarchicalLeastSquareSolver(const LexLSHLSSolverOptions & options)
-: HierarchicalLeastSquareSolver(options.verbose().value()), boundData_(1,1), data_(), A_(),
-  l_(), u_(),
+: HierarchicalLeastSquareSolver(options.verbose().value()), boundData_(1, 1), data_(), A_(), l_(), u_(),
   xl_(boundData_.col(0)), xu_(boundData_.col(0)), warmStart_(options.warmStart().value()), solver_(),
-  autoMinNorm_(false),
-  big_number_(options.big_number().value())
+  autoMinNorm_(false), big_number_(options.big_number().value())
 {
   LexLS::ParametersLexLSI param;
   TVM_PROCESS_OPTION_PUBLIC_ACCESS(max_number_of_factorizations, param);
@@ -205,7 +203,9 @@ bool LexLSHierarchicalLeastSquareSolver::solve_()
 
 const Eigen::VectorXd & LexLSHierarchicalLeastSquareSolver::result_() const { return solver_.get_x(); }
 
-Range LexLSHierarchicalLeastSquareSolver::nextEqualityConstraintRange_(int lvl, const constraint::abstract::LinearConstraint & cstr) const
+Range LexLSHierarchicalLeastSquareSolver::nextEqualityConstraintRange_(
+    int lvl,
+    const constraint::abstract::LinearConstraint & cstr) const
 {
   assert(eqSize_[lvl] + ineqSize_[lvl] + cstr.size() <= nEq_[lvl] + nIneq_[lvl]
          && "Not enough rows were allocated to add this constraints at this level.");

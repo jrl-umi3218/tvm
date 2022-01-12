@@ -124,9 +124,7 @@ protected:
     }
   };
 
-  virtual void initializeBuild_(const std::vector<int> & nEq,
-                                const std::vector<int> & nIneq,
-                                bool useBounds) = 0;
+  virtual void initializeBuild_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
   virtual ImpactFromChanges resize_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
   virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
   virtual void addEqualityConstraint_(int lvl, LinearConstraintPtr cstr) = 0;

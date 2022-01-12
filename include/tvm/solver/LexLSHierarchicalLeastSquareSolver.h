@@ -88,7 +88,7 @@ private:
   MatrixXdCol xu_;
   std::vector<MatrixXdBlock> A_;
   std::vector<MatrixXdCol> l_;
-  std::vector<MatrixXdCol> u_; 
+  std::vector<MatrixXdCol> u_;
 
   std::vector<LexLS::Index> varIndex_;
 
