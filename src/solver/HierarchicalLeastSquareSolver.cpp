@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+/* Copyright 2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #include <tvm/VariableVector.h>
 #include <tvm/solver/abstract/HierarchicalLeastSquareSolver.h>

@@ -129,10 +129,12 @@ if(NOT USING_SOLVER)
   message( FATAL_ERROR "You need to select at least one solver" )
 endif()
 
-# For MSVC, set local environment variable to enable finding the built dll
-# of the main library when launching ctest with RUN_TESTS
 if(MSVC)
+  # For MSVC, set local environment variable to enable finding the built dll
+  # of the main library when launching ctest with RUN_TESTS
   set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
+  #increases that address capacity to avoid some link errors
+  add_definitions(/bigobj)
 endif(MSVC)
 
 # Grouping projects in solution folders

@@ -50,6 +50,7 @@ set(TVM_SOURCES
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
+  scheme/HierarchicalLeastSquares.cpp
   scheme/MatrixAssignment.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
@@ -187,6 +188,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemDefinitionEvent.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
+  ${TVM_INCLUDE_DIR}/scheme/HierarchicalLeastSquares.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
   ${TVM_INCLUDE_DIR}/solver/abstract/HierarchicalLeastSquareSolver.h
