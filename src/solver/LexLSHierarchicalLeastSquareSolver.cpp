@@ -63,7 +63,7 @@ LexLSHierarchicalLeastSquareSolver::ImpactFromChanges LexLSHierarchicalLeastSqua
   ImpactFromChanges impact(nLvl);
   std::vector<int> nCstr(nLvl);
 
-  //TODO: create data for new level, before resizing and referencing
+  // Create data for the new levels, before resizing and referencing
   impact.newLevels_ = nLvl - data_.size();
   Eigen::MatrixXd dummy(1, 1);
   for(size_t i = data_.size(); i < nLvl; ++i)
@@ -152,6 +152,7 @@ void LexLSHierarchicalLeastSquareSolver::addIneqalityConstraint_(int lvl, Linear
 
 void LexLSHierarchicalLeastSquareSolver::setMinimumNorm_()
 {
+  // TODO: this could be handled by the option regularization_type of lexlsi
   autoMinNorm_ = true;
   A_.back().setIdentity();
   l_.back().setZero();

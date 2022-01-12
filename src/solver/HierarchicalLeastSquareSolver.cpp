@@ -121,6 +121,7 @@ void HierarchicalLeastSquareSolver::setMinimumNorm()
         "[HierarchicalLeastSquareSolver]: attempting to add an objective without calling startBuild first");
   }
   setMinimumNorm_();
+  eqSize_.back() = variables_->totalSize();
 }
 
 bool HierarchicalLeastSquareSolver::solve()
