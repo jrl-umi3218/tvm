@@ -144,6 +144,7 @@ var hierarchy =
           [ "tvm::task_dynamics::abstract::TaskDynamicsImpl", "classtvm_1_1task__dynamics_1_1abstract_1_1TaskDynamicsImpl.html", [
             [ "tvm::task_dynamics::Constant::Impl", "classtvm_1_1task__dynamics_1_1Constant_1_1Impl.html", null ],
             [ "tvm::task_dynamics::None::Impl", "classtvm_1_1task__dynamics_1_1None_1_1Impl.html", null ],
+            [ "tvm::task_dynamics::OneStepToZero::Impl", "classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html", null ],
             [ "tvm::task_dynamics::Proportional::Impl", "classtvm_1_1task__dynamics_1_1Proportional_1_1Impl.html", null ],
             [ "tvm::task_dynamics::ProportionalDerivative::Impl", "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html", null ],
             [ "tvm::task_dynamics::Reference::Impl", "classtvm_1_1task__dynamics_1_1Reference_1_1Impl.html", null ],
@@ -213,8 +214,8 @@ var hierarchy =
       [ "tvm::Variable", "classtvm_1_1Variable.html", null ],
       [ "tvm::VariableVector", "classtvm_1_1VariableVector.html", null ]
     ] ],
-    [ "tvm::graph::abstract::Outputs::Output", "structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html", null ],
     [ "tvm::graph::internal::Log::Output", "structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html", null ],
+    [ "tvm::graph::abstract::Outputs::Output", "structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html", null ],
     [ "tvm::graph::internal::Log::OutputDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1OutputDependency.html", null ],
     [ "tvm::graph::abstract::Outputs", "classtvm_1_1graph_1_1abstract_1_1Outputs.html", [
       [ "tvm::Clock", "classtvm_1_1Clock.html", null ],
@@ -287,6 +288,7 @@ var hierarchy =
     [ "tvm::task_dynamics::abstract::TaskDynamics", "classtvm_1_1task__dynamics_1_1abstract_1_1TaskDynamics.html", [
       [ "tvm::task_dynamics::Constant", "classtvm_1_1task__dynamics_1_1Constant.html", null ],
       [ "tvm::task_dynamics::None", "classtvm_1_1task__dynamics_1_1None.html", null ],
+      [ "tvm::task_dynamics::OneStepToZero", "classtvm_1_1task__dynamics_1_1OneStepToZero.html", null ],
       [ "tvm::task_dynamics::Proportional", "classtvm_1_1task__dynamics_1_1Proportional.html", null ],
       [ "tvm::task_dynamics::ProportionalDerivative", "classtvm_1_1task__dynamics_1_1ProportionalDerivative.html", null ],
       [ "tvm::task_dynamics::Reference", "classtvm_1_1task__dynamics_1_1Reference.html", [
@@ -317,8 +319,8 @@ var hierarchy =
     [ "type", null, [
       [ "tvm::scheme::internal::ParseArg< N >", "classtvm_1_1scheme_1_1internal_1_1ParseArg.html", null ]
     ] ],
-    [ "tvm::graph::internal::Log::Update", "structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html", null ],
     [ "tvm::graph::internal::AbstractNode::Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
+    [ "tvm::graph::internal::Log::Update", "structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html", null ],
     [ "tvm::utils::UpdatelessFunction", "classtvm_1_1utils_1_1UpdatelessFunction.html", null ],
     [ "tvm::ControlProblem::Updater", "classtvm_1_1ControlProblem_1_1Updater.html", null ],
     [ "tvm::diagnostic::internal::ValidVariableAccessor< T >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html", null ],

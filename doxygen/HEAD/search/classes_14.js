@@ -2,7 +2,7 @@ var searchData=
 [
   ['unimplementedoutput',['UnimplementedOutput',['../classtvm_1_1exception_1_1UnimplementedOutput.html',1,'tvm::exception']]],
   ['unusedoutput',['UnusedOutput',['../classtvm_1_1exception_1_1UnusedOutput.html',1,'tvm::exception']]],
-  ['update',['Update',['../structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html',1,'tvm::graph::internal::Log::Update'],['../structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html',1,'tvm::graph::internal::AbstractNode::Update']]],
+  ['update',['Update',['../structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html',1,'tvm::graph::internal::AbstractNode::Update'],['../structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html',1,'tvm::graph::internal::Log::Update']]],
   ['updatelessfunction',['UpdatelessFunction',['../classtvm_1_1utils_1_1UpdatelessFunction.html',1,'tvm::utils']]],
   ['updater',['Updater',['../classtvm_1_1ControlProblem_1_1Updater.html',1,'tvm::ControlProblem']]],
   ['use_5fassign_5fcache',['use_assign_cache',['../classtvm_1_1scheme_1_1internal_1_1use__assign__cache.html',1,'tvm::scheme::internal']]],

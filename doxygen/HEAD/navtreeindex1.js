@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"Proportional_8h_source.html":[4,0,0,0,13,7],
+"ProtoTaskDetails_8h.html":[4,0,0,0,14,0,6],
 "ProtoTaskDetails_8h.html#abc830f391523910ef34e4594c2f98f54":[4,0,0,0,14,0,6,1],
 "ProtoTaskDetails_8h.html#abc830f391523910ef34e4594c2f98f54a57dea6f5039281b7fee517fc43bf3110":[4,0,0,0,14,0,6,1,2],
 "ProtoTaskDetails_8h.html#abc830f391523910ef34e4594c2f98f54ad7ed4ee1df437474d005188535f74875":[4,0,0,0,14,0,6,1,0],
@@ -60,8 +62,8 @@ var NAVTREEINDEX1 =
 "RangeCounting_8h_source.html":[4,0,0,0,8,9],
 "Range_8h.html":[4,0,0,0,20],
 "Range_8h_source.html":[4,0,0,0,20],
-"Reference_8h.html":[4,0,0,0,13,8],
-"Reference_8h_source.html":[4,0,0,0,13,8],
+"Reference_8h.html":[4,0,0,0,13,9],
+"Reference_8h_source.html":[4,0,0,0,13,9],
 "ResolutionSchemeBase_8h.html":[4,0,0,0,11,1,9],
 "ResolutionSchemeBase_8h.html#a485e7c18a3dae699ac797fc8c381de7f":[4,0,0,0,11,1,9,1],
 "ResolutionSchemeBase_8h_source.html":[4,0,0,0,11,1,9],
@@ -122,8 +124,8 @@ var NAVTREEINDEX1 =
 "Variable_8h.html#ab9c41b94c9193c6a5201468e368b838c":[4,0,0,0,25,1],
 "Variable_8h.html#ad211caf9c37299acce708ff4cbd1e847":[4,0,0,0,25,6],
 "Variable_8h_source.html":[4,0,0,0,25],
-"VelocityDamper_8h.html":[4,0,0,0,13,9],
-"VelocityDamper_8h_source.html":[4,0,0,0,13,9],
+"VelocityDamper_8h.html":[4,0,0,0,13,10],
+"VelocityDamper_8h_source.html":[4,0,0,0,13,10],
 "ViolationEvaluation_8h.html":[4,0,0,0,9,4],
 "ViolationEvaluation_8h.html#a34fbea9cdc1068d953d49a7a2642b60e":[4,0,0,0,9,4,1],
 "ViolationEvaluation_8h.html#aa4adc5cf6ecbfb56b852b529f1e29198":[4,0,0,0,9,4,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "classtvm_1_1Robot.html#a7d0328f7cdacdbc5dbb66e05c0a922bf":[3,0,2,21,29],
 "classtvm_1_1Robot.html#a8b65ccdf6d05c34cc24f405b6ed5b99f":[3,0,2,21,26],
 "classtvm_1_1Robot.html#a9c77f287a481ed47eee0fa85dd75abfb":[3,0,2,21,18],
-"classtvm_1_1Robot.html#aac36ab193f2d533130dc33daa816d35b":[3,0,2,21,11],
-"classtvm_1_1Robot.html#ab1e9a931383d7d9c6f3ab89800102c69":[3,0,2,21,19],
-"classtvm_1_1Robot.html#ac372f0bcefd2263fd2bb2bf13a4559b7":[3,0,2,21,12]
+"classtvm_1_1Robot.html#aac36ab193f2d533130dc33daa816d35b":[3,0,2,21,11]
 };

@@ -2772,6 +2772,16 @@
     <namespace>tvm::task_dynamics</namespace>
   </compound>
   <compound kind="file">
+    <name>OneStepToZero.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
+    <filename>OneStepToZero_8h</filename>
+    <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
+    <class kind="class">tvm::task_dynamics::OneStepToZero</class>
+    <class kind="class">tvm::task_dynamics::OneStepToZero::Impl</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::task_dynamics</namespace>
+  </compound>
+  <compound kind="file">
     <name>Proportional.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
     <filename>Proportional_8h</filename>
@@ -8267,6 +8277,32 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>tvm::task_dynamics::OneStepToZero::Impl</name>
+    <filename>classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html</filename>
+    <base>tvm::task_dynamics::abstract::TaskDynamicsImpl</base>
+    <member kind="function">
+      <type></type>
+      <name>Impl</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html</anchorfile>
+      <anchor>a206d00bce8f2861a573f1f4e8ec07647</anchor>
+      <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs, Order d, double dt)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>updateValue</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html</anchorfile>
+      <anchor>a4324c4f0f57cb7713502313d375a2b4b</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~Impl</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html</anchorfile>
+      <anchor>acaaff038b93dbae3af003b4ddf721200</anchor>
+      <arglist>() override=default</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>tvm::task_dynamics::Proportional::Impl</name>
     <filename>classtvm_1_1task__dynamics_1_1Proportional_1_1Impl.html</filename>
     <base>tvm::task_dynamics::abstract::TaskDynamicsImpl</base>
@@ -11975,6 +12011,40 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>tvm::task_dynamics::OneStepToZero</name>
+    <filename>classtvm_1_1task__dynamics_1_1OneStepToZero.html</filename>
+    <base>tvm::task_dynamics::abstract::TaskDynamics</base>
+    <class kind="class">tvm::task_dynamics::OneStepToZero::Impl</class>
+    <member kind="function">
+      <type></type>
+      <name>OneStepToZero</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero.html</anchorfile>
+      <anchor>aaec57e08856476ee5abdcd653b92429a</anchor>
+      <arglist>(Order d, double dt)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>checkParam</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero.html</anchorfile>
+      <anchor>a70f45a02083cae552e9c9b566ab96787</anchor>
+      <arglist>(Order d, double dt)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>std::unique_ptr&lt; abstract::TaskDynamicsImpl &gt;</type>
+      <name>impl_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero.html</anchorfile>
+      <anchor>a4ea8bcf0b1086b23ec5927eff2547627</anchor>
+      <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Order</type>
+      <name>order_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1OneStepToZero.html</anchorfile>
+      <anchor>a425cc309bc03f7b8ca65883ce55a47ce</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>tvm::robot::OrientationFunction</name>
     <filename>classtvm_1_1robot_1_1OrientationFunction.html</filename>
     <base>tvm::function::abstract::Function</base>
@@ -12050,10 +12120,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>tvm::graph::abstract::Outputs::Output</name>
-    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
-  </compound>
-  <compound kind="struct">
     <name>tvm::graph::internal::Log::Output</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html</filename>
     <member kind="function">
@@ -12091,6 +12157,10 @@
       <anchor>a7d6a30adbe700862b885726b8afa51d8</anchor>
       <arglist></arglist>
     </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::graph::abstract::Outputs::Output</name>
+    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
   </compound>
   <compound kind="struct">
     <name>tvm::graph::internal::Log::OutputDependency</name>
@@ -16235,6 +16305,10 @@
     <base>tvm::exception::DataException</base>
   </compound>
   <compound kind="struct">
+    <name>tvm::graph::internal::AbstractNode::Update</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
+  </compound>
+  <compound kind="struct">
     <name>tvm::graph::internal::Log::Update</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html</filename>
     <member kind="function">
@@ -16279,10 +16353,6 @@
       <anchor>a9538295d7f3d19392fbacb07629cb067</anchor>
       <arglist></arglist>
     </member>
-  </compound>
-  <compound kind="struct">
-    <name>tvm::graph::internal::AbstractNode::Update</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
   </compound>
   <compound kind="class">
     <name>tvm::utils::UpdatelessFunction</name>
@@ -18791,6 +18861,7 @@
     <class kind="class">tvm::task_dynamics::Constant</class>
     <class kind="class">tvm::task_dynamics::FeedForward</class>
     <class kind="class">tvm::task_dynamics::None</class>
+    <class kind="class">tvm::task_dynamics::OneStepToZero</class>
     <class kind="class">tvm::task_dynamics::Proportional</class>
     <class kind="class">tvm::task_dynamics::ProportionalDerivative</class>
     <class kind="class">tvm::task_dynamics::Reference</class>

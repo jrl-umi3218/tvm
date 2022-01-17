@@ -35,8 +35,10 @@ digraph "include/tvm/task_dynamics/enums.h"
   Node15 [label="include/tvm/task_dynamics\l/ProportionalDerivative.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ProportionalDerivative_8h.html"];
   Node15 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node16 [label="include/tvm/task_dynamics\l/Reference.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Reference_8h.html"];
+  Node16 [label="include/tvm/task_dynamics\l/OneStepToZero.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$OneStepToZero_8h.html"];
   Node3 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node17 [label="include/tvm/task_dynamics\l/VelocityDamper.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VelocityDamper_8h.html"];
+  Node17 [label="include/tvm/task_dynamics\l/Reference.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Reference_8h.html"];
+  Node3 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="include/tvm/task_dynamics\l/VelocityDamper.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VelocityDamper_8h.html"];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

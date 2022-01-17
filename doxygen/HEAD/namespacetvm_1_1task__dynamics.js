@@ -5,6 +5,7 @@ var namespacetvm_1_1task__dynamics =
     [ "Constant", "classtvm_1_1task__dynamics_1_1Constant.html", "classtvm_1_1task__dynamics_1_1Constant" ],
     [ "FeedForward", "classtvm_1_1task__dynamics_1_1FeedForward.html", "classtvm_1_1task__dynamics_1_1FeedForward" ],
     [ "None", "classtvm_1_1task__dynamics_1_1None.html", "classtvm_1_1task__dynamics_1_1None" ],
+    [ "OneStepToZero", "classtvm_1_1task__dynamics_1_1OneStepToZero.html", "classtvm_1_1task__dynamics_1_1OneStepToZero" ],
     [ "Proportional", "classtvm_1_1task__dynamics_1_1Proportional.html", "classtvm_1_1task__dynamics_1_1Proportional" ],
     [ "ProportionalDerivative", "classtvm_1_1task__dynamics_1_1ProportionalDerivative.html", "classtvm_1_1task__dynamics_1_1ProportionalDerivative" ],
     [ "Reference", "classtvm_1_1task__dynamics_1_1Reference.html", "classtvm_1_1task__dynamics_1_1Reference" ],

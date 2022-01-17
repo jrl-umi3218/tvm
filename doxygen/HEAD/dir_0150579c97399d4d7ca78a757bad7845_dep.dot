@@ -17,5 +17,5 @@ digraph "include/tvm/task_dynamics" {
   dir_ff52d1014f3c86f7680f449f83cac727->dir_8aade20741a7f4a13662c9851e607ed3 [headlabel="1", labeldistance=1.5 headhref="dir_000030_000002.html"];
   dir_8aade20741a7f4a13662c9851e607ed3->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000002_000015.html"];
   dir_0150579c97399d4d7ca78a757bad7845->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="1", labeldistance=1.5 headhref="dir_000007_000012.html"];
-  dir_0150579c97399d4d7ca78a757bad7845->dir_ff52d1014f3c86f7680f449f83cac727 [headlabel="7", labeldistance=1.5 headhref="dir_000007_000030.html"];
+  dir_0150579c97399d4d7ca78a757bad7845->dir_ff52d1014f3c86f7680f449f83cac727 [headlabel="8", labeldistance=1.5 headhref="dir_000007_000030.html"];
 }

@@ -15,6 +15,10 @@ var dir_0150579c97399d4d7ca78a757bad7845 =
       [ "None", "classtvm_1_1task__dynamics_1_1None.html", "classtvm_1_1task__dynamics_1_1None" ],
       [ "Impl", "classtvm_1_1task__dynamics_1_1None_1_1Impl.html", "classtvm_1_1task__dynamics_1_1None_1_1Impl" ]
     ] ],
+    [ "OneStepToZero.h", "OneStepToZero_8h.html", [
+      [ "OneStepToZero", "classtvm_1_1task__dynamics_1_1OneStepToZero.html", "classtvm_1_1task__dynamics_1_1OneStepToZero" ],
+      [ "Impl", "classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl.html", "classtvm_1_1task__dynamics_1_1OneStepToZero_1_1Impl" ]
+    ] ],
     [ "Proportional.h", "Proportional_8h.html", "Proportional_8h" ],
     [ "ProportionalDerivative.h", "ProportionalDerivative_8h.html", "ProportionalDerivative_8h" ],
     [ "Reference.h", "Reference_8h.html", [
