@@ -94,21 +94,23 @@ void HierarchicalLeastSquareSolver::addBound(LinearConstraintPtr bound)
   addBound_(bound, range, false);
 }
 
-void HierarchicalLeastSquareSolver::addConstraint(int lvl, LinearConstraintPtr cstr)
+void HierarchicalLeastSquareSolver::addConstraint(LinearConstraintPtr cstr, SolvingRequirementsPtr req)
 {
+  int lvl = req->priorityLevel().value();
+
   assert(buildInProgress_ && "Attempting to add a constraint without calling startBuild first");
   assert(lvl >= 0 && lvl < nEq_.size());
 
   if(cstr->isEquality())
   {
     AutoMap autoMap(cstr, assignments_, equalityConstraintToAssignments_[lvl]);
-    addEqualityConstraint_(lvl, cstr);
+    addEqualityConstraint_(cstr, req);
     eqSize_[lvl] += constraintSize(*cstr);
   }
   else
   {
     AutoMap autoMap(cstr, assignments_, inequalityConstraintToAssignments_[lvl]);
-    addIneqalityConstraint_(lvl, cstr);
+    addIneqalityConstraint_(cstr, req);
     ineqSize_[lvl] += constraintSize(*cstr);
   }
 }

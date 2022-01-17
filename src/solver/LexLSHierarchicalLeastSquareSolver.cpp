@@ -100,6 +100,7 @@ LexLSHierarchicalLeastSquareSolver::ImpactFromChanges LexLSHierarchicalLeastSqua
       new(&A_[i]) MatrixRef(data_[i].leftCols(n).bottomRows(nCstr[i]));
       new(&l_[i]) VectorRef(data_[i].col(n).tail(nCstr[i]));
       new(&u_[i]) VectorRef(data_[i].col(n + 1).tail(nCstr[i]));
+      nCstr[i] += n;
     }
     else
     {
@@ -156,18 +157,20 @@ void LexLSHierarchicalLeastSquareSolver::addBound_(LinearConstraintPtr bound, Ra
   addAssignement(bound, target, bound->variables()[0], first);
 }
 
-void LexLSHierarchicalLeastSquareSolver::addEqualityConstraint_(int lvl, LinearConstraintPtr cstr)
+void LexLSHierarchicalLeastSquareSolver::addEqualityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req)
 {
+  int lvl = req->priorityLevel().value();
   RangePtr r = std::make_shared<Range>(nextEqualityConstraintRange_(lvl, *cstr));
   scheme::internal::AssignmentTarget target(r, A_[lvl], l_[lvl], u_[lvl], constraint::RHS::AS_GIVEN);
-  addAssignement(cstr, nullptr, target, variables(), substitutions());
+  addAssignement(cstr, req, target, variables(), substitutions());
 }
 
-void LexLSHierarchicalLeastSquareSolver::addIneqalityConstraint_(int lvl, LinearConstraintPtr cstr)
+void LexLSHierarchicalLeastSquareSolver::addIneqalityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req)
 {
+  int lvl = req->priorityLevel().value();
   RangePtr r = std::make_shared<Range>(nextInequalityConstraintRange_(lvl, *cstr));
   scheme::internal::AssignmentTarget target(r, A_[lvl], l_[lvl], u_[lvl], constraint::RHS::AS_GIVEN);
-  addAssignement(cstr, nullptr, target, variables(), substitutions());
+  addAssignement(cstr, req, target, variables(), substitutions());
 }
 
 void LexLSHierarchicalLeastSquareSolver::setMinimumNorm_()

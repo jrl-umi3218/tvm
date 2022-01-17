@@ -65,7 +65,7 @@ public:
   void addBound(LinearConstraintPtr bound);
 
   /** Add a constraint to the solver. */
-  void addConstraint(int lvl, LinearConstraintPtr cstr);
+  void addConstraint(LinearConstraintPtr cstr, SolvingRequirementsPtr req);
 
   /** Set x = 0 as the last priority level of the problem.
    *
@@ -127,8 +127,8 @@ protected:
   virtual void initializeBuild_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
   virtual ImpactFromChanges resize_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
   virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
-  virtual void addEqualityConstraint_(int lvl, LinearConstraintPtr cstr) = 0;
-  virtual void addIneqalityConstraint_(int lvl, LinearConstraintPtr cstr) = 0;
+  virtual void addEqualityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) = 0;
+  virtual void addIneqalityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) = 0;
   virtual void setMinimumNorm_() = 0;
   virtual void resetBounds_() = 0;
   virtual void preAssignmentProcess_() {}

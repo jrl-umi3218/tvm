@@ -59,8 +59,8 @@ protected:
   void initializeBuild_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) override;
   ImpactFromChanges resize_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) override;
   void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) override;
-  void addEqualityConstraint_(int lvl, LinearConstraintPtr cstr) override;
-  void addIneqalityConstraint_(int lvl, LinearConstraintPtr cstr) override;
+  void addEqualityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) override;
+  void addIneqalityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) override;
   void setMinimumNorm_() override;
   void resetBounds_() override;
   void preAssignmentProcess_() override;

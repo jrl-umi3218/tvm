@@ -179,8 +179,7 @@ void HierarchicalLeastSquares::processProblem(const LinearizedControlProblem & p
   // assignments for general constraints
   for(const auto & c : constr)
   {
-    int p = c.requirements->priorityLevel().value();
-    solver.addConstraint(p, c.constraint);
+    solver.addConstraint(c.constraint, c.requirements);
   }
 
   if(options_.autoDamping().value())
@@ -189,7 +188,6 @@ void HierarchicalLeastSquares::processProblem(const LinearizedControlProblem & p
   // assignments for bounds
   for(const auto & b : bounds)
   {
-    int p = b.requirements->priorityLevel().value();
     solver.addBound(b.constraint);
   }
 
