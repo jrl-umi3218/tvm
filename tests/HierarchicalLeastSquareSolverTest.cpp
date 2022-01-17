@@ -167,7 +167,7 @@ TEST_CASE("HierarchicalLeastSquares")
 
     LinearizedControlProblem pb;
     pb.add(-1. <= x <= 1., {PriorityLevel(0)});
-    pb.add( 2. <= x <= 3., {PriorityLevel(1)});
+    pb.add(2. <= x <= 3., {PriorityLevel(1)});
     pb.add(-1. <= y <= 1., {PriorityLevel(2)});
     pb.add(x + y <= 0., {PriorityLevel(4)});
 
