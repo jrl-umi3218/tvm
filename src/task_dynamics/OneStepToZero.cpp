@@ -6,6 +6,8 @@
 
 #include <tvm/function/abstract/Function.h>
 
+#include <sstream>
+
 namespace tvm
 {
 
@@ -19,10 +21,19 @@ void OneStepToZero::checkParam(Order d, double dt)
                              "0, maybe task_dynamics::None would fit you need.");
 
   if(d > Order::Two)
-    throw std::runtime_error("[task_dynamics::OneStepToZero] Implementation only accepts order up to 2.");
+  {
+    std::stringstream ss;
+    ss << "[task_dynamics::OneStepToZero] Implementation only accepts order up to 2 (input was" << static_cast<int>(d)
+       << ").";
+    throw std::runtime_error(ss.str());
+  }
 
   if(dt <= 0)
-    throw std::runtime_error("[task_dynamics::OneStepToZero] dt needs to be positive");
+  {
+    std::stringstream ss;
+    ss << "[task_dynamics::OneStepToZero] dt needs to be positive (input was" << dt << ").";
+    throw std::runtime_error(ss.str());
+  }
 }
 
 OneStepToZero::OneStepToZero(Order d, double dt) : d_(d), dt_(dt) { checkParam(d, dt); }
