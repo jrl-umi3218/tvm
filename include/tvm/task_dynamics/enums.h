@@ -12,7 +12,7 @@ namespace task_dynamics
 
 enum class Order
 {
-  Zero,
+  Zero = 0,
   One,
   Two
 };

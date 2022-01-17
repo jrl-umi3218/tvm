@@ -13,11 +13,14 @@
 #include <tvm/task_dynamics/Constant.h>
 #include <tvm/task_dynamics/FeedForward.h>
 #include <tvm/task_dynamics/None.h>
+#include <tvm/task_dynamics/OneStepToZero.h>
 #include <tvm/task_dynamics/Proportional.h>
 #include <tvm/task_dynamics/ProportionalDerivative.h>
 #include <tvm/task_dynamics/Reference.h>
 #include <tvm/task_dynamics/VelocityDamper.h>
 #include <tvm/utils/graph.h>
+
+#include <Eigen/QR>
 
 #include <iostream>
 
@@ -698,4 +701,48 @@ TEST_CASE("Test Clamped<FeedForward<PD>>")
   gl->execute();
   FAST_CHECK_EQ(tdi->value()[0], APPROX_I386(std::min(max, std::max(-max, -kp * (36 - rhs[0]) - kv * 16 + 10.0))));
   FAST_CHECK_UNARY_FALSE(tdi->value()[0] == -max); // not clamped anymore
+}
+
+TEST_CASE("OneStepToZero")
+{
+  double dt = 0.1;
+  VariablePtr x = Space(3).createVariable("x");
+  VariablePtr dx = dot(x);
+  x << 1, 2, 3;
+  dx << 1, 1, 1;
+
+  MatrixXd A = MatrixXd::Random(2, 3);
+  VectorXd b = VectorXd::Random(2);
+  auto f = std::make_shared<function::BasicLinearFunction>(A, x, b);
+
+  {
+    task_dynamics::OneStepToZero td(task_dynamics::Order::One, dt);
+    TaskDynamicsPtr tdi = td.impl(f, constraint::Type::EQUAL, Vector2d::Zero());
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdi, Value);
+
+    gl->execute();
+
+    Vector2d v = tdi->value();
+    Vector3d d1x = A.colPivHouseholderQr().solve(v);
+    Vector3d x1 = x->value() + dt * d1x;
+
+    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::One);
+    FAST_CHECK_UNARY((A * x1 + b).isZero(1e-8));
+  }
+  {
+    task_dynamics::OneStepToZero td(task_dynamics::Order::Two, dt);
+    TaskDynamicsPtr tdi = td.impl(f, constraint::Type::EQUAL, Vector2d::Zero());
+    auto Value = task_dynamics::abstract::TaskDynamicsImpl::Output::Value;
+    auto gl = utils::generateUpdateGraph(tdi, Value);
+
+    gl->execute();
+
+    Vector2d v = tdi->value();
+    Vector3d d2x = A.colPivHouseholderQr().solve(v);
+    Vector3d x1 = x->value() + dt * dx->value() + dt * dt / 2 * d2x;
+
+    FAST_CHECK_EQ(tdi->order(), task_dynamics::Order::Two);
+    FAST_CHECK_UNARY((A * x1 + b).isZero(1e-8));
+  }
 }
