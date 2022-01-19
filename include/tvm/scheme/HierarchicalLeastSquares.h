@@ -2,14 +2,11 @@
 
 #pragma once
 
-#include <tvm/internal/meta.h>
+#include <tvm/internal/traits.h>
 #include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/LinearizedProblemComputationData.h>
 #include <tvm/solver/abstract/HierarchicalLeastSquareSolver.h>
-
-// Creating a class tvm::internal::has_member_type_Factory<T>
-TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Factory)
 
 namespace tvm
 {
@@ -25,7 +22,7 @@ class TVM_DLLAPI HierarchicalLeastSquaresOptions
   TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
 };
 
-/** This class implements the classic weighted least square scheme. */
+/** This class implements the hierarchical least square scheme. */
 class TVM_DLLAPI HierarchicalLeastSquares : public abstract::LinearResolutionScheme<HierarchicalLeastSquares>
 {
 private:
@@ -43,7 +40,7 @@ private:
 
   const static internal::SchemeAbilities abilities_;
 
-  /** Check if T derives from LSSolverFactory. */
+  /** Check if T derives from HLSSolverFactory. */
   template<typename T>
   using isFactory = std::is_base_of<solver::abstract::HLSSolverFactory, T>;
   /** Helper struct for isOption .*/
@@ -56,7 +53,7 @@ private:
   {
     static const bool value = isFactory<typename T::Factory>::value;
   };
-  /** Check if T has a member T::Factory and if so if T::Factory derives from LSSolverFactory.*/
+  /** Check if T has a member T::Factory and if so if T::Factory derives from HLSSolverFactory.*/
   template<typename T>
   using isOption = isOption_<T, tvm::internal::has_member_type_Factory<T>::value>;
 

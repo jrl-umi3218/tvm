@@ -164,6 +164,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
   ${TVM_INCLUDE_DIR}/internal/RangeCounting.h
+  ${TVM_INCLUDE_DIR}/internal/traits.h
   ${TVM_INCLUDE_DIR}/internal/VariableCountingVector.h
   ${TVM_INCLUDE_DIR}/internal/VariableVectorPartition.h
 

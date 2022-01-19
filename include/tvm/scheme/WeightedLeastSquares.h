@@ -1,15 +1,12 @@
-/** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
+/** Copyright 2017-2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
-#include <tvm/internal/meta.h>
+#include <tvm/internal/traits.h>
 #include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/Assignment.h>
 #include <tvm/scheme/internal/LinearizedProblemComputationData.h>
 #include <tvm/solver/abstract/LeastSquareSolver.h>
-
-// Creating a class tvm::internal::has_member_type_Factory<T>
-TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Factory)
 
 namespace tvm
 {
