@@ -1,13 +1,14 @@
 /* Copyright 2022 CNRS-AIST JRL and CNRS-UM LIRMM */
-//#if TVM_WITH_LEXLS
-#include <tvm/solver/LexLSHierarchicalLeastSquareSolver.h>
-//#endif
+#if TVM_WITH_LEXLS
+#  include <tvm/solver/LexLSHierarchicalLeastSquareSolver.h>
+#endif
 
 #include <tvm/LinearizedControlProblem.h>
 #include <tvm/Variable.h>
 #include <tvm/constraint/BasicLinearConstraint.h>
 #include <tvm/function/IdentityFunction.h>
 #include <tvm/scheme/HierarchicalLeastSquares.h>
+#include <tvm/scheme/WeightedLeastSquares.h>
 #include <tvm/task_dynamics/None.h>
 
 #include <Eigen/SVD>
@@ -31,6 +32,7 @@ MatrixXd pinv(const MatrixConstRef & M, double eps = 1e-10)
          * svd.matrixU().leftCols(r).transpose();
 }
 
+#if TVM_WITH_LEXLS
 TEST_CASE("LexLSHierarchicalLeastSquareSolver")
 {
   VariablePtr x = Space(6).createVariable("x");
@@ -178,3 +180,4 @@ TEST_CASE("HierarchicalLeastSquares")
     FAST_CHECK_EQ(y->value()[0], doctest::Approx(-1).epsilon(1e-10));
   }
 }
+#endif
