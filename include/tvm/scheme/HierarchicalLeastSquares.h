@@ -43,26 +43,17 @@ private:
   /** Check if T derives from HLSSolverFactory. */
   template<typename T>
   using isFactory = std::is_base_of<solver::abstract::HLSSolverFactory, T>;
-  /** Helper struct for isOption .*/
-  template<typename T, bool>
-  struct isOption_ : std::false_type
-  {};
-  /** Helper struct specialization for isOption .*/
-  template<typename T>
-  struct isOption_<T, true>
-  {
-    static const bool value = isFactory<typename T::Factory>::value;
-  };
   /** Check if T has a member T::Factory and if so if T::Factory derives from HLSSolverFactory.*/
   template<typename T>
-  using isOption = isOption_<T, tvm::internal::has_member_type_Factory<T>::value>;
+  using isHLSSolverFactoryOption =
+      std::conjunction<tvm::internal::has_member_type_Factory<T>, isFactory<typename T::Factory>>;
 
 public:
   using ComputationDataType = Memory;
 
   /** Constructor from a HLSSolverFactory
    * \tparam SolverFactory Any class deriving from HLSSolverFactory.
-   * \param solverFactory A configuration for the solver to be used by the resolution scheme.
+   * \param solverFactory A factory for the solver that should be used in the resolution scheme.
    * \param schemeOptions Options for the schemes. See tvm::scheme::HierarchicalLeastSquaresOptions.
    */
   template<class SolverFactory, typename std::enable_if<isFactory<SolverFactory>::value, int>::type = 0>
@@ -78,7 +69,7 @@ public:
    * \param solverOptions A set of options for the solver to be used by the resolution scheme.
    * \param schemeOptions Options for the scheme. See tvm::Scheme::HierarchicalLeastSquaresOptions.
    */
-  template<class SolverOptions, typename std::enable_if<isOption<SolverOptions>::value, int>::type = 0>
+  template<class SolverOptions, typename std::enable_if<isHLSSolverFactoryOption<SolverOptions>::value, int>::type = 0>
   HierarchicalLeastSquares(const SolverOptions & solverOptions, HierarchicalLeastSquaresOptions schemeOptions = {})
   : HierarchicalLeastSquares(typename SolverOptions::Factory(solverOptions), schemeOptions)
   {}
@@ -86,7 +77,8 @@ public:
   /** A fallback constructor that is enabled when none of the others are.
    * It always fails at compilation time to provide a nice error message.
    */
-  template<typename T, typename std::enable_if<!isFactory<T>::value && !isOption<T>::value, int>::type = 0>
+  template<typename T,
+           typename std::enable_if<!isFactory<T>::value && !isHLSSolverFactoryOption<T>::value, int>::type = 0>
   HierarchicalLeastSquares(const T &, HierarchicalLeastSquaresOptions = {})
   : LinearResolutionScheme<HierarchicalLeastSquares>(abilities_)
   {
