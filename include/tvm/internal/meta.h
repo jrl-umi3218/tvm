@@ -4,51 +4,24 @@
 
 #include <type_traits>
 
-/** For a name \a XXX, this creates a templated class has_member_type_XXX in the
- * namespace tvm::internal such that has_member_type_XXX<T>::value is true if
- * t::XXX is a valid expression and refers to a type, and false otherwise.
- *
- * Adapted from https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Member_Detector
- * (section Detecting member types):
- *
- * > An overload set of two test functions is then created, just like the other
- * > examples. The first version can only be instantiated if the type of U::Type
- * > can be used unambiguously. This type can be used only if there is exactly
- * > one instance of Type in Derived, i.e. there is no Type in T. If T has a
- * > member type Type, it is guaranteed to be different than Fallback::Type,
- * > since the latter is a unique type, hence creating the ambiguity. This leads
- * > to the second version of test being instantiated in case the substitution
- * > fails, meaning that T has indeed a member type Type.
- *
- * To avoid the code from failing if Type is not a class, we add an additional
- * step, were T is kept as is if it is a class and replace by an empty \a Dummy
- * class otherwise.
+/** For a name \a XXX, this creates a templated struct has_public_member_type_XXX in the
+ * namespace tvm::internal such that has_public_member_type_XXX<T>::value is true if
+ * T::XXX is a public, valid expression and refers to a type, and false otherwise.
  */
-#define TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Type)                                       \
-  namespace tvm::internal                                                                \
-  {                                                                                      \
-  template<typename T>                                                                   \
-  class has_member_type_##Type                                                           \
-  {                                                                                      \
-  private:                                                                               \
-    struct Dummy                                                                         \
-    {};                                                                                  \
-    struct Fallback                                                                      \
-    {                                                                                    \
-      struct Type                                                                        \
-      {};                                                                                \
-    };                                                                                   \
-    struct Derived : std::conditional<std::is_class<T>::value, T, Dummy>::type, Fallback \
-    {};                                                                                  \
-                                                                                         \
-    template<class U>                                                                    \
-    static std::false_type test(typename U::Type *);                                     \
-    template<typename U>                                                                 \
-    static std::true_type test(U *);                                                     \
-                                                                                         \
-  public:                                                                                \
-    static constexpr bool value = decltype(test<Derived>(nullptr))::value;               \
-  };                                                                                     \
+#define TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Type)                                            \
+  namespace tvm::internal                                                                     \
+  {                                                                                           \
+  struct has_type_##Type##_helper                                                             \
+  {                                                                                           \
+    template<typename T>                                                                      \
+    std::false_type has(...);                                                                 \
+                                                                                              \
+    template<typename T>                                                                      \
+    std::true_type has(typename T::Type *);                                                   \
+  };                                                                                          \
+                                                                                              \
+  template<typename T>                                                                        \
+  using has_public_member_type_##Type = decltype(has_type_##Type##_helper{}.has<T>(nullptr)); \
   }
 
 namespace tvm

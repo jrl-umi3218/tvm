@@ -85,11 +85,12 @@ TVM_CREATE_HAS_MEMBER_TYPE_TRAIT_FOR(Foo)
 
 class B
 {
+public:
   using Foo = int;
 };
-static_assert(!has_member_type_Foo<int>::value);
-static_assert(!has_member_type_Foo<A>::value);
-static_assert(has_member_type_Foo<B>::value);
+static_assert(!has_public_member_type_Foo<int>::value);
+static_assert(!has_public_member_type_Foo<A>::value);
+static_assert(has_public_member_type_Foo<B>::value);
 
 /*------------------------- const_if ------------------------*/
 

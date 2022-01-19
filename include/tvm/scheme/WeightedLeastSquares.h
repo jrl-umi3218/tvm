@@ -53,7 +53,7 @@ private:
   /** Check if T has a member T::Factory and if so if T::Factory derives from HLSSolverFactory.*/
   template<typename T>
   using isLSSolverFactoryOption =
-      std::conjunction<tvm::internal::has_member_type_Factory<T>, isFactory<typename T::Factory>>;
+      std::conjunction<tvm::internal::has_public_member_type_Factory<T>, isFactory<typename T::Factory>>;
 
 public:
   using ComputationDataType = Memory;
