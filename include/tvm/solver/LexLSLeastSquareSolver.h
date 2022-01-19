@@ -1,42 +1,19 @@
-/* Copyright 2021 CNRS-AIST JRL and CNRS-UM LIRMM */
+/* Copyright 2021-2022 CNRS-AIST JRL and CNRS-UM LIRMM */
 
 #pragma once
 
+#include <tvm/solver/LexLSSolverOptions.h>
 #include <tvm/solver/abstract/LeastSquareSolver.h>
 
 #include <lexls/lexlsi.h>
 
-namespace tvm
-{
-
-namespace solver
+namespace tvm::solver
 {
 class LexLSLSSolverFactory;
 
 /** A set of options for LexLSLeastSquareSolver */
-class TVM_DLLAPI LexLSLSSolverOptions
+class TVM_DLLAPI LexLSLSSolverOptions : public LexLSSolverOptions
 {
-
-  TVM_ADD_DEFAULT_OPTION(max_number_of_factorizations, LexLS::Index);
-  TVM_ADD_DEFAULT_OPTION(tol_linear_dependence, LexLS::RealScalar);
-  TVM_ADD_DEFAULT_OPTION(tol_wrong_sign_lambda, LexLS::RealScalar);
-  TVM_ADD_DEFAULT_OPTION(tol_correct_sign_lambda, LexLS::RealScalar);
-  TVM_ADD_DEFAULT_OPTION(tol_feasibility, LexLS::RealScalar);
-  TVM_ADD_DEFAULT_OPTION(regularization_type, LexLS::RegularizationType);
-  TVM_ADD_DEFAULT_OPTION(max_number_of_CG_iterations, LexLS::Index);
-  TVM_ADD_DEFAULT_OPTION(variable_regularization_factor, LexLS::RealScalar);
-  TVM_ADD_NON_DEFAULT_OPTION(cycling_handling_enabled, true);
-  TVM_ADD_DEFAULT_OPTION(cycling_max_counter, LexLS::Index);
-  TVM_ADD_DEFAULT_OPTION(cycling_relax_step, LexLS::RealScalar);
-  TVM_ADD_DEFAULT_OPTION(output_file_name, std::string);
-  TVM_ADD_DEFAULT_OPTION(modify_x_guess_enabled, bool);
-  TVM_ADD_DEFAULT_OPTION(modify_type_active_enabled, bool);
-  TVM_ADD_DEFAULT_OPTION(modify_type_inactive_enabled, bool);
-  TVM_ADD_DEFAULT_OPTION(set_min_init_ctr_violation, bool);
-  TVM_ADD_DEFAULT_OPTION(use_phase1_v0, bool);
-  TVM_ADD_DEFAULT_OPTION(log_working_set_enabled, bool);
-  TVM_ADD_DEFAULT_OPTION(deactivate_first_wrong_sign, bool);
-
   TVM_ADD_NON_DEFAULT_OPTION(big_number, constant::big_number)
   TVM_ADD_NON_DEFAULT_OPTION(verbose, false)
   TVM_ADD_NON_DEFAULT_OPTION(warmStart, false)
@@ -126,6 +103,4 @@ private:
   LexLSLSSolverOptions options_;
 };
 
-} // namespace solver
-
-} // namespace tvm
+} // namespace tvm::solver
