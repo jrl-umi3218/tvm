@@ -106,8 +106,12 @@ LexLSLeastSquareSolver::ImpactFromChanges LexLSLeastSquareSolver::resize_(int nO
     std::iota(varIndex_.begin(), varIndex_.end(), 0);
   }
 
+  // Clear the active set
+  act0_.clear();
+  act1_.clear();
+
   return impact;
-} // namespace solver
+}
 
 void LexLSLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
 {

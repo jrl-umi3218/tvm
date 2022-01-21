@@ -148,8 +148,11 @@ LexLSHierarchicalLeastSquareSolver::ImpactFromChanges LexLSHierarchicalLeastSqua
     u_.back().setZero();
   }
 
+  // clear the active set
+  act_.clear();
+
   return impact;
-} // namespace solver
+}
 
 void LexLSHierarchicalLeastSquareSolver::addBound_(LinearConstraintPtr bound, RangePtr range, bool first)
 {
