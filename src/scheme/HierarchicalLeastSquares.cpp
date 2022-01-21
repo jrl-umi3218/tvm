@@ -47,7 +47,7 @@ void HierarchicalLeastSquares::updateComputationData_(const LinearizedControlPro
   {
     return;
   }
-  
+
   Memory * memory = static_cast<Memory *>(data);
 
   // If some events require to rebuild the data, we skip all other events.
@@ -87,7 +87,6 @@ void HierarchicalLeastSquares::updateComputationData_(const LinearizedControlPro
 
   memory->variables(); // update variable vector if needed
   memory->solver->process(se);
-  
 }
 
 std::unique_ptr<HierarchicalLeastSquares::Memory> HierarchicalLeastSquares::createComputationData_(
