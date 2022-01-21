@@ -69,7 +69,8 @@ public:
 
   /** Set x = 0 as the last priority level of the problem.
    *
-   * \warning This will overwrite any other constraint at this level.
+   * \warning This will overwrite any other constraint at this level. You should dedicated the last
+   * level to this, possibly by adding one more level.
    */
   void setMinimumNorm();
 

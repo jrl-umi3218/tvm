@@ -175,7 +175,7 @@ void LexLSHierarchicalLeastSquareSolver::addIneqalityConstraint_(LinearConstrain
 
 void LexLSHierarchicalLeastSquareSolver::setMinimumNorm_()
 {
-  // TODO: this could be handled by the option regularization_type of lexlsi
+  // TODO: this could maybe be handled at lexlsi level
   autoMinNorm_ = true;
   A_.back().setIdentity();
   l_.back().setZero();

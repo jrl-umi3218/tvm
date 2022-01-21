@@ -16,8 +16,7 @@ namespace scheme
 /** A set of options for HierarchicalLeastSquares. */
 class TVM_DLLAPI HierarchicalLeastSquaresOptions
 {
-  /** If \a true, a damping task is added when no constraint with level >=1 has been
-   * given.
+  /** If \a true, a damping task is added after the last level
    */
   TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
 };
