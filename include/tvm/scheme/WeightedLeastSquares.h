@@ -50,10 +50,16 @@ private:
   /** Check if T derives from LSSolverFactory. */
   template<typename T>
   using isFactory = std::is_base_of<solver::abstract::LSSolverFactory, T>;
+  /** Helper structure to delay the evaluation of isFactory<T::Factory>::value*/
+  template<typename T>
+  struct FactoryMemberIsFactory
+  {
+    static constexpr bool value = isFactory<typename T::Factory>::value;
+  };
   /** Check if T has a member T::Factory and if so if T::Factory derives from HLSSolverFactory.*/
   template<typename T>
   using isLSSolverFactoryOption =
-      std::conjunction<tvm::internal::has_public_member_type_Factory<T>, isFactory<typename T::Factory>>;
+      std::conjunction<tvm::internal::has_public_member_type_Factory<T>, FactoryMemberIsFactory<T>>;
 
 public:
   using ComputationDataType = Memory;
