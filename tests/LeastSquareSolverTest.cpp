@@ -143,6 +143,9 @@ TEST_CASE("Simple IK")
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
 #endif
+#ifdef TVM_USE_LEXLS
+  configs.push_back(std::make_shared<LexLSLSSolverFactory>());
+#endif
 
   testSolvers(lpb, configs, 1e-6);
 }
@@ -162,6 +165,9 @@ TEST_CASE("Problem with subvariables")
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
 #endif
+#ifdef TVM_USE_LEXLS
+  configs.push_back(std::make_shared<LexLSLSSolverFactory>());
+#endif
 
   testSolvers(lpb, configs, 1e-6);
 }
@@ -180,6 +186,9 @@ TEST_CASE("Problem with subvariables and substitutions")
 #ifdef TVM_USE_QUADPROG
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>());
   configs.push_back(std::make_shared<QuadprogLSSolverFactory>(QuadprogLSSolverOptions().cholesky(true)));
+#endif
+#ifdef TVM_USE_LEXLS
+  configs.push_back(std::make_shared<LexLSLSSolverFactory>());
 #endif
 
   VectorXd x0(20);

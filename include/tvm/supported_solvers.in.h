@@ -26,4 +26,9 @@
 #  include <tvm/solver/QuadprogLeastSquareSolver.h>
 #endif
 
+@TVM_USE_LEXLS@
+#ifdef TVM_USE_LEXLS
+#  include <tvm/solver/LexLSLeastSquareSolver.h>
+#endif
+
 #include <tvm/solver/defaultLeastSquareSolver.h>

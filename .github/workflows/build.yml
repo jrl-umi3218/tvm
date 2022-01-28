@@ -55,6 +55,8 @@ jobs:
         github: |
           - path: jrl-umi3218/eigen-qld
           - path: jrl-umi3218/eigen-quadprog
+          - path: jrl-umi3218/lexls
+            options: -DINSTALL_PDF_DOCUMENTATION:BOOL=OFF -DINSTALL_HTML_DOCUMENTATION:BOOL=OFF
     - name: Install Tasks
       uses: jrl-umi3218/github-actions/install-dependencies@master
       with:
@@ -84,7 +86,7 @@ jobs:
       with:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
-        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }} -DTVM_THOROUGH_TESTING:BOOL=${{(github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/master')) || startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/tags/')}}
+        options: -DTVM_WITH_QLD:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_LEXLS:BOOL=ON -DTVM_WITH_ROBOT:BOOL=${{ matrix.with-robot }} -DTVM_THOROUGH_TESTING:BOOL=${{(github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/master')) || startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/tags/')}}
     - name: Check TVM usage
       shell: bash
       run: |

@@ -50,12 +50,14 @@ set(TVM_SOURCES
   scheme/Assignment.cpp
   scheme/AssignmentTarget.cpp
   scheme/helpers.cpp
+  scheme/HierarchicalLeastSquares.cpp
   scheme/MatrixAssignment.cpp
   scheme/ResolutionScheme.cpp
   scheme/SchemeAbilities.cpp
   scheme/WeightedLeastSquares.cpp
 
   solver/defaultLeastSquareSolver.cpp
+  solver/HierarchicalLeastSquareSolver.cpp
   solver/LeastSquareSolver.cpp
 
   task_dynamics/Constant.cpp
@@ -163,6 +165,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/internal/ObjWithId.h
   ${TVM_INCLUDE_DIR}/internal/PairElementToken.h
   ${TVM_INCLUDE_DIR}/internal/RangeCounting.h
+  ${TVM_INCLUDE_DIR}/internal/traits.h
   ${TVM_INCLUDE_DIR}/internal/VariableCountingVector.h
   ${TVM_INCLUDE_DIR}/internal/VariableVectorPartition.h
 
@@ -187,8 +190,10 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/scheme/internal/ProblemDefinitionEvent.h
   ${TVM_INCLUDE_DIR}/scheme/internal/ResolutionSchemeBase.h
   ${TVM_INCLUDE_DIR}/scheme/internal/SchemeAbilities.h
+  ${TVM_INCLUDE_DIR}/scheme/HierarchicalLeastSquares.h
   ${TVM_INCLUDE_DIR}/scheme/WeightedLeastSquares.h
 
+  ${TVM_INCLUDE_DIR}/solver/abstract/HierarchicalLeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/abstract/LeastSquareSolver.h
   ${TVM_INCLUDE_DIR}/solver/internal/Option.h
   ${TVM_INCLUDE_DIR}/solver/internal/SolverEvents.h
@@ -259,6 +264,12 @@ endif()
 if(TVM_WITH_QUADPROG)
   list(APPEND TVM_SOURCES solver/QuadprogLeastSquareSolver.cpp)
   list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
+endif()
+if(TVM_WITH_LEXLS)
+  list(APPEND TVM_SOURCES solver/LexLSHierarchicalLeastSquareSolver.cpp)
+  list(APPEND TVM_SOURCES solver/LexLSLeastSquareSolver.cpp)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSHierarchicalLeastSquareSolver.h)
+  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSLeastSquareSolver.h)
 endif()
 
 set(TVM_INCLUDE_BINARY_DIR "${PROJECT_BINARY_DIR}/include/")

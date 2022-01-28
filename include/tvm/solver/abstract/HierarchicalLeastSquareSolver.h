@@ -19,69 +19,58 @@ namespace solver
 
 namespace abstract
 {
-/** Base class for a (constrained) least-square solver.
+/** Base class for a hierarchical least-square solver.
  *
  * The problem to be solved has the general form
- * min. ||Ax-b||^2
- * s.t.      C_e x = d
- *      l <= C_i x <= u
- *         xl <= x <= xu
+ * lex.min. (||v_1||^2, ||w_1||^2, ...., ||v_p||^2, ||w_p||^2)
+ * s.t.        A_i x + v_i = b_i   i= 1..p
+ *      l_i <= C_i x + w_i <= u_i   i= 1..p
  *
- * where l or u might be set to -inf or +inf, and the explicit bounds are
- * optional.
+ * where l_i or u_i might be set to -inf or +inf.
  *
  * When deriving this class, also remember to derive the factory class
- * LSSolverFactory as well.
+ * HLSSolverFactory as well.
  */
-class TVM_DLLAPI LeastSquareSolver
+class TVM_DLLAPI HierarchicalLeastSquareSolver
 {
 public:
-  LeastSquareSolver(bool verbose = false);
-  LeastSquareSolver(const LeastSquareSolver &) = delete;
-  LeastSquareSolver & operator=(const LeastSquareSolver &) = delete;
-  virtual ~LeastSquareSolver() = default;
+  HierarchicalLeastSquareSolver(bool verbose = false);
+  HierarchicalLeastSquareSolver(const HierarchicalLeastSquareSolver &) = delete;
+  HierarchicalLeastSquareSolver & operator=(const HierarchicalLeastSquareSolver &) = delete;
+  virtual ~HierarchicalLeastSquareSolver() = default;
   /** Open a build sequence for a problem on the current variables (set
    * through the inherited ProblemComputationData::addVariable) with the
    * specified dimensions, allocating the memory needed.
    *
    * \param x The variables of the problem. The object need to be valid until ::finalizeBuild is called.
-   * \param nObj Row size of A.
-   * \param nEq Row size of C_e.
-   * \param nIneq Row size of C_i.
-   * \param useBounds Presence of explicit bounds in the problem.
+   * \param nEq For each priority level, the row size of A_i.
+   * \param nIneq For each priority level the row size of C_i.
+   * \param useBounds Presence of explicit bounds as the first priority level in the problem.
    * \param subs Possible substitutions used for solving.
    *
-   * Once a build is started, objective, constraints and bounds can be added
-   * through ::addObjective, ::addConstraint and ::addBound, until
-   * ::finalizeBuild is called.
+   * Once a build is started, constraints and bounds can be added
+   * through ::addConstraint and ::addBound, until ::finalizeBuild is called.
    */
   void startBuild(const VariableVector & x,
-                  int nObj,
-                  int nEq,
-                  int nIneq,
-                  bool useBounds = true,
+                  const std::vector<int> & nEq,
+                  const std::vector<int> & nIneq,
+                  bool useBounds,
                   const hint::internal::Substitutions * const subs = nullptr);
   /** Finalize the build.*/
   void finalizeBuild();
 
-  /** Add a bound constraint to the solver. If multiple bounds appears on the
+  /** Add a bound constraint to the solver at the top priority level. If multiple bounds appears on the
    * same variable, their intersection is taken.
    */
   void addBound(LinearConstraintPtr bound);
 
   /** Add a constraint to the solver. */
-  void addConstraint(LinearConstraintPtr cstr);
+  void addConstraint(LinearConstraintPtr cstr, SolvingRequirementsPtr req);
 
-  /** Add an objective to the solver with given requirements
-   * \param obj The linear expression added in least-square form
-   * \param req The solving requirements. Only the weight-related requirements
-   *   will be taken into account
-   * \param additionalWeight An additional factor that will multiply the other weights.
-   */
-  void addObjective(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight = 1);
-
-  /** Set ||x||^2 as the least square objective of the problem.
-   * \warning this replace previously added objectives.
+  /** Set x = 0 as the last priority level of the problem.
+   *
+   * \warning This will overwrite any other constraint at this level. You should dedicated the last
+   * level to this, possibly by adding one more level.
    */
   void setMinimumNorm();
 
@@ -106,13 +95,19 @@ public:
    */
   void process(const internal::SolverEvents & se);
 
+  /** Number of priority levels*/
+  int numberOfLevels() const { return useBounds_ ? static_cast<int>(nEq_.size()) + 1 : static_cast<int>(nEq_.size()); }
+
 protected:
   struct ImpactFromChanges
   {
-    bool equalityConstraints_ = false;
-    bool inequalityConstraints_ = false;
+    ImpactFromChanges(int nLvl);
+    ImpactFromChanges(const std::vector<bool> & eq, std::vector<bool> & ineq, bool bounds);
+
+    std::vector<bool> equalityConstraints_;
+    std::vector<bool> inequalityConstraints_;
     bool bounds_ = false;
-    bool objectives_ = false;
+    int newLevels_ = 0;
 
     template<typename Derived>
     static bool willReallocate(const Eigen::DenseBase<Derived> & M, int rows, int cols = 1);
@@ -122,15 +117,19 @@ protected:
     /** this = this || other*/
     ImpactFromChanges & orAssign(const ImpactFromChanges & other);
 
-    bool any() const { return equalityConstraints_ || inequalityConstraints_ || bounds_ || objectives_; }
+    bool any() const
+    {
+      return std::any_of(equalityConstraints_.begin(), equalityConstraints_.end(), [](bool b) { return b; })
+             || std::any_of(inequalityConstraints_.begin(), inequalityConstraints_.end(), [](bool b) { return b; })
+             || bounds_;
+    }
   };
 
-  virtual void initializeBuild_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
-  virtual ImpactFromChanges resize_(int nObj, int nEq, int nIneq, bool useBounds) = 0;
+  virtual void initializeBuild_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
+  virtual ImpactFromChanges resize_(const std::vector<int> & nEq, const std::vector<int> & nIneq, bool useBounds) = 0;
   virtual void addBound_(LinearConstraintPtr bound, RangePtr range, bool first) = 0;
-  virtual void addEqualityConstraint_(LinearConstraintPtr cstr) = 0;
-  virtual void addIneqalityConstraint_(LinearConstraintPtr cstr) = 0;
-  virtual void addObjective_(LinearConstraintPtr obj, SolvingRequirementsPtr req, double additionalWeight = 1) = 0;
+  virtual void addEqualityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) = 0;
+  virtual void addIneqalityConstraint_(LinearConstraintPtr cstr, SolvingRequirementsPtr req) = 0;
   virtual void setMinimumNorm_() = 0;
   virtual void resetBounds_() = 0;
   virtual void preAssignmentProcess_() {}
@@ -138,17 +137,15 @@ protected:
   virtual bool solve_() = 0;
   virtual const Eigen::VectorXd & result_() const = 0;
   virtual bool handleDoubleSidedConstraint_() const = 0;
-  virtual Range nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const = 0;
-  virtual Range nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const = 0;
-  virtual Range nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const = 0;
+  virtual Range nextEqualityConstraintRange_(int lvl, const constraint::abstract::LinearConstraint & cstr) const = 0;
+  virtual Range nextInequalityConstraintRange_(int lvl, const constraint::abstract::LinearConstraint & cstr) const = 0;
   /** Remove the bounds on variable at given range from the data passed to the
    * solver (e.g. set the bounds to -/+Inf).
    */
   virtual void removeBounds_(const Range & range) = 0;
-  virtual void updateEqualityTargetData(scheme::internal::AssignmentTarget & target) = 0;
-  virtual void updateInequalityTargetData(scheme::internal::AssignmentTarget & target) = 0;
+  virtual void updateEqualityTargetData(int lvl, scheme::internal::AssignmentTarget & target) = 0;
+  virtual void updateInequalityTargetData(int lvl, scheme::internal::AssignmentTarget & target) = 0;
   virtual void updateBoundTargetData(scheme::internal::AssignmentTarget & target) = 0;
-  virtual void updateObjectiveTargetData(scheme::internal::AssignmentTarget & target) = 0;
 
   /** If for a derived class, the change on a category implies the change on
    * others, \p impact is changed accordingly.
@@ -187,12 +184,11 @@ public:
   using MapToAssignment = map<constraint::abstract::LinearConstraint *, AssignmentPtrVector>;
 
 protected:
-  int nEq_;
-  int nIneq_;
-  int nObj_;
-  int objSize_;
-  int eqSize_;
-  int ineqSize_;
+  bool useBounds_ = false;
+  std::vector<int> nEq_;
+  std::vector<int> nIneq_;
+  std::vector<int> eqSize_;
+  std::vector<int> ineqSize_;
 
 private:
   bool buildInProgress_;
@@ -204,43 +200,42 @@ private:
    * \todo most of the times, there will be a single assignment per constraint.
    * This would be a good place to use small vector-like container.
    */
-  MapToAssignment objectiveToAssignments_;
-  MapToAssignment equalityConstraintToAssignments_;
-  MapToAssignment inequalityConstraintToAssignments_;
+  std::vector<MapToAssignment> equalityConstraintToAssignments_;
+  std::vector<MapToAssignment> inequalityConstraintToAssignments_;
   MapToAssignment boundToAssignments_;
   const hint::internal::Substitutions * subs_;
 };
 
-/** A base class for LeastSquareSolver factory.
+/** A base class for HierarchicalLeastSquareSolver factory.
  *
  * The goal of this class is to be passed to a resolution scheme to specify
  * its underlying solver.
  */
-class TVM_DLLAPI LSSolverFactory
+class TVM_DLLAPI HLSSolverFactory
 {
 protected:
-  LSSolverFactory(const std::string & solverName) : solverName_(solverName) {}
+  HLSSolverFactory(const std::string & solverName) : solverName_(solverName) {}
 
 public:
-  virtual ~LSSolverFactory() = default;
+  virtual ~HLSSolverFactory() = default;
 
-  virtual std::unique_ptr<LSSolverFactory> clone() const = 0;
-  virtual std::unique_ptr<LeastSquareSolver> createSolver() const = 0;
+  virtual std::unique_ptr<HLSSolverFactory> clone() const = 0;
+  virtual std::unique_ptr<HierarchicalLeastSquareSolver> createSolver() const = 0;
 
 private:
   std::string solverName_;
 };
 
 template<typename... Args>
-inline void LeastSquareSolver::addAssignement(Args &&... args)
+inline void HierarchicalLeastSquareSolver::addAssignement(Args &&... args)
 {
   assignments_.emplace_back(new MarkedAssignment(std::forward<Args>(args)...));
 }
 
 template<typename Derived>
-inline bool LeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived> & M,
-                                                                 int rows,
-                                                                 int cols)
+inline bool HierarchicalLeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived> & M,
+                                                                             int rows,
+                                                                             int cols)
 {
   return M.rows() * M.cols() != rows * cols;
 }

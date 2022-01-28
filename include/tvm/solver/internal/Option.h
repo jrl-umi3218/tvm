@@ -16,7 +16,7 @@ public:                                                                    \
   }
 
 /** Adding an option \a optionName of type \a type with no default value.
- * (The default value of the underlying solver will be used.
+ * The default value of the underlying solver will be used.
  */
 #define TVM_ADD_DEFAULT_OPTION(optionName, type) \
 private:                                         \
@@ -42,3 +42,14 @@ private:                                                              \
 
 /** Specialized version of TVM_PROCESS_OPTION_2 where \a setterName = \a optionName. */
 #define TVM_PROCESS_OPTION(optionName, target) TVM_PROCESS_OPTION_2(optionName, target, optionName)
+
+/** Process \a optionName: if \a optionName has a non-default value, set
+ * \a target.fieldName to set that value.
+ */
+#define TVM_PROCESS_OPTION_PUBLIC_ACCESS_2(optionName, target, fieldName) \
+  if(options.optionName())                                                \
+    target.fieldName = options.optionName().value();
+
+/** Specialized version of TVM_PROCESS_OPTION_PUBLIC_ACCESS_2 where \a fieldName = \a optionName. */
+#define TVM_PROCESS_OPTION_PUBLIC_ACCESS(optionName, target) \
+  TVM_PROCESS_OPTION_PUBLIC_ACCESS_2(optionName, target, optionName)

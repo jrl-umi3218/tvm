@@ -38,6 +38,14 @@
     {                        \
     } while(0)
 #endif
+#ifdef TVM_USE_LEXLS
+#  define IF_USE_LEXLS(x) x
+#else
+#  define IF_USE_LEXLS(x) \
+    do                    \
+    {                     \
+    } while(0)
+#endif
 
 using namespace Eigen;
 using namespace tvm;
@@ -429,6 +437,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
   IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
   IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
   IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+  IF_USE_LEXLS(scheme::WeightedLeastSquares solverLexLS(solver::LexLSLSSolverOptions{}));
 
   int start = withSubstitution ? 1 : 0;
   int stop = withSubstitution ? 11 : 12;
@@ -450,6 +459,7 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     IF_USE_LSSOL(solverLssol.solve(pb));
     IF_USE_QLD(solverQLD.solve(pb));
     IF_USE_QUADPROG(solverQuadprog.solve(pb));
+    IF_USE_LEXLS(solverLexLS.solve(pb));
 
     if(added[i])
     {
@@ -474,6 +484,8 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
     FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
 #elif defined(TVM_USE_QUADPROG)
     FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#elif defined(TVM_USE_LEXLS)
+    FAST_CHECK_UNARY(solverLexLS.solve(pbGroundTruth));
 #endif
     VectorXd s0 = pbGroundTruth.variables().value();
 
@@ -487,6 +499,10 @@ void test1Change(const std::bitset<12> & selection, bool withSubstitution = fals
 #endif
 #ifdef TVM_USE_QUADPROG
     FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+    checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
+#endif
+#ifdef TVM_USE_LEXLS
+    FAST_CHECK_UNARY(solverLexLS.solve(pb));
     checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
     tvm::utils::set_is_malloc_allowed(true);
@@ -520,6 +536,7 @@ void test3Change(const std::bitset<8> & selection)
   IF_USE_LSSOL(scheme::WeightedLeastSquares solverLssol(solver::LSSOLLSSolverOptions{}));
   IF_USE_QLD(scheme::WeightedLeastSquares solverQLD(solver::QLDLSSolverOptions().cholesky(true)));
   IF_USE_QUADPROG(scheme::WeightedLeastSquares solverQuadprog(solver::QuadprogLSSolverOptions().cholesky(true)));
+  IF_USE_LEXLS(scheme::WeightedLeastSquares solverLexLS(solver::LexLSLSSolverOptions{}));
 
   for(int i = 0; i < 8; ++i)
   {
@@ -535,6 +552,7 @@ void test3Change(const std::bitset<8> & selection)
         IF_USE_LSSOL(solverLssol.solve(pb));
         IF_USE_QLD(solverQLD.solve(pb));
         IF_USE_QUADPROG(solverQuadprog.solve(pb));
+        IF_USE_LEXLS(solverLexLS.solve(pb));
 
         if(added[i])
         {
@@ -581,6 +599,8 @@ void test3Change(const std::bitset<8> & selection)
         FAST_CHECK_UNARY(solverQLD.solve(pbGroundTruth));
 #elif defined(TVM_USE_QUADPROG)
         FAST_CHECK_UNARY(solverQuadprog.solve(pbGroundTruth));
+#elif defined(TVM_USE_LEXLS)
+        FAST_CHECK_UNARY(solverLexLS.solve(pbGroundTruth));
 #endif
         VectorXd s0 = pbGroundTruth.variables().value();
 
@@ -594,6 +614,10 @@ void test3Change(const std::bitset<8> & selection)
 #endif
 #ifdef TVM_USE_QUADPROG
         FAST_CHECK_UNARY(solverQuadprog.solve(pb));
+        checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
+#endif
+#ifdef TVM_USE_LEXLS
+        FAST_CHECK_UNARY(solverLexLS.solve(pb));
         checkSolution(tasks, added, pbGroundTruth, s0, pb, pb.variables().value());
 #endif
         tvm::utils::set_is_malloc_allowed(true);
