@@ -8,6 +8,7 @@ var searchData=
   ['refselector',['RefSelector',['../structtvm_1_1utils_1_1internal_1_1RefSelector.html',1,'tvm::utils::internal']]],
   ['refselector_3c_20noconstant_20_3e',['RefSelector&lt; NoConstant &gt;',['../structtvm_1_1utils_1_1internal_1_1RefSelector_3_01NoConstant_01_4.html',1,'tvm::utils::internal']]],
   ['resolutionscheme',['ResolutionScheme',['../classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html',1,'tvm::scheme::abstract']]],
+  ['resolutionscheme_3c_20hierarchicalleastsquares_20_3e',['ResolutionScheme&lt; HierarchicalLeastSquares &gt;',['../classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html',1,'tvm::scheme::abstract']]],
   ['resolutionscheme_3c_20weightedleastsquares_20_3e',['ResolutionScheme&lt; WeightedLeastSquares &gt;',['../classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html',1,'tvm::scheme::abstract']]],
   ['resolutionschemebase',['ResolutionSchemeBase',['../classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html',1,'tvm::scheme::internal']]],
   ['rhs',['RHS',['../classtvm_1_1utils_1_1internal_1_1RHS.html',1,'tvm::utils::internal']]],

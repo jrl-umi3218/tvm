@@ -127,6 +127,10 @@ Macros</h2></td></tr>
 <tr class="separator:a27d52adabb184fba0791fad905ee41c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b4eafd3422ad825ba00a34eca3ad296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Option_8h.html#a0b4eafd3422ad825ba00a34eca3ad296">TVM_PROCESS_OPTION</a>(optionName,  target)&#160;&#160;&#160;<a class="el" href="Option_8h.html#a27d52adabb184fba0791fad905ee41c2">TVM_PROCESS_OPTION_2</a>(optionName, target, optionName)</td></tr>
 <tr class="separator:a0b4eafd3422ad825ba00a34eca3ad296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58dd460103d9a7f3867e8505a6b1917"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Option_8h.html#ad58dd460103d9a7f3867e8505a6b1917">TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</a>(optionName,  target,  fieldName)</td></tr>
+<tr class="separator:ad58dd460103d9a7f3867e8505a6b1917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded05003930d9e942500b48660e1c71d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Option_8h.html#aded05003930d9e942500b48660e1c71d">TVM_PROCESS_OPTION_PUBLIC_ACCESS</a>(optionName,  target)&#160;&#160;&#160;<a class="el" href="Option_8h.html#ad58dd460103d9a7f3867e8505a6b1917">TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</a>(optionName, target, optionName)</td></tr>
+<tr class="separator:aded05003930d9e942500b48660e1c71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a4ffff88740d63b9201263c15b56eb9c4"></a>
@@ -154,7 +158,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>:                                         \</div><div class="line">  using optionName##_t = type;                   \</div><div class="line">  std::optional&lt;type&gt; optionName##_;             \</div><div class="line">  TVM_ADD_OPTION_GET_SET(optionName, type)</div></div><!-- fragment --><p>Adding an option <em>optionName</em> of type <em>type</em> with no default value. (The default value of the underlying solver will be used. </p>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">private</span>:                                         \</div><div class="line">  using optionName##_t = type;                   \</div><div class="line">  std::optional&lt;type&gt; optionName##_;             \</div><div class="line">  TVM_ADD_OPTION_GET_SET(optionName, type)</div></div><!-- fragment --><p>Adding an option <em>optionName</em> of type <em>type</em> with no default value. The default value of the underlying solver will be used. </p>
 
 </div>
 </div>
@@ -277,6 +281,70 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span>(options.optionName())                                   \</div><div class="line">    target.setterName(options.optionName().value());</div></div><!-- fragment --><p>Process <em>optionName:</em> if <em>optionName</em> has a non-default value, use <em>target.setterName</em> to set that value for <em>target</em>. </p>
+
+</div>
+</div>
+<a id="aded05003930d9e942500b48660e1c71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aded05003930d9e942500b48660e1c71d">&#9670;&nbsp;</a></span>TVM_PROCESS_OPTION_PUBLIC_ACCESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TVM_PROCESS_OPTION_PUBLIC_ACCESS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">optionName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">target&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="Option_8h.html#ad58dd460103d9a7f3867e8505a6b1917">TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</a>(optionName, target, optionName)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Specialized version of TVM_PROCESS_OPTION_PUBLIC_ACCESS_2 where <em>fieldName</em> = <em>optionName</em>. </p>
+
+</div>
+</div>
+<a id="ad58dd460103d9a7f3867e8505a6b1917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58dd460103d9a7f3867e8505a6b1917">&#9670;&nbsp;</a></span>TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">optionName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">target, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">fieldName&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span>(options.optionName())                                                \</div><div class="line">    target.fieldName = options.optionName().value();</div></div><!-- fragment --><p>Process <em>optionName:</em> if <em>optionName</em> has a non-default value, set <em>target.fieldName</em> to set that value. </p>
 
 </div>
 </div>

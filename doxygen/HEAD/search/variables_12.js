@@ -8,5 +8,6 @@ var searchData=
   ['updates_5f',['updates_',['../classtvm_1_1graph_1_1internal_1_1AbstractNode.html#af7ba858636a9f50637e861a35ed91b6c',1,'tvm::graph::internal::AbstractNode::updates_()'],['../classtvm_1_1graph_1_1internal_1_1Log.html#a76e88b35cc20acfe8936ee07d7850ba5',1,'tvm::graph::internal::Log::updates_()']]],
   ['updatesize',['UpdateSize',['../classtvm_1_1graph_1_1internal_1_1AbstractNode.html#a9ba18bfdd20b769be09129d996847830',1,'tvm::graph::internal::AbstractNode']]],
   ['usearg',['useArg',['../classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01NONE_01_4.html#ab536968036aab3572b9686d0ab33ab06',1,'tvm::scheme::internal::WeightMultBase&lt; NONE &gt;::useArg()'],['../classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01MINUS_01_4.html#ac05711e0edddb973ae052849e6c71f69',1,'tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;::useArg()']]],
+  ['usebounds_5f',['useBounds_',['../classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html#a3dc5eb06e8721d76a077ed82f8e4607b',1,'tvm::solver::abstract::HierarchicalLeastSquareSolver']]],
   ['usesource',['useSource',['../classtvm_1_1scheme_1_1internal_1_1VectorAssignment.html#a5828faaab68d443f951e1e5be45e7f53',1,'tvm::scheme::internal::VectorAssignment']]]
 ];

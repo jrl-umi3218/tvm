@@ -3,7 +3,7 @@ var searchData=
   ['objectives_5f',['objectives_',['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html#a2f0648779602e4039ebe96bfa4436ab0',1,'tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges']]],
   ['objects_5f',['objects_',['../structtvm_1_1robot_1_1CollisionFunction_1_1CollisionData.html#a349abcf4d20a7749499c1373c05ba19f',1,'tvm::robot::CollisionFunction::CollisionData']]],
   ['objsize_5f',['objSize_',['../classtvm_1_1solver_1_1abstract_1_1LeastSquareSolver.html#a247f51743146f9bcba380e65b405c672',1,'tvm::solver::abstract::LeastSquareSolver']]],
-  ['options_5f',['options_',['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#ac3da728a6159c2658e0b559bc13467a9',1,'tvm::scheme::WeightedLeastSquares']]],
+  ['options_5f',['options_',['../classtvm_1_1scheme_1_1HierarchicalLeastSquares.html#af5d5753e798219dbddce803c7b5c651d',1,'tvm::scheme::HierarchicalLeastSquares::options_()'],['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#ac3da728a6159c2658e0b559bc13467a9',1,'tvm::scheme::WeightedLeastSquares::options_()']]],
   ['ori_5f',['ori_',['../classtvm_1_1robot_1_1OrientationFunction.html#a1c727c316ef27d6709e6d2e7c0a7e8db',1,'tvm::robot::OrientationFunction']]],
   ['output',['output',['../structtvm_1_1graph_1_1internal_1_1Log_1_1OutputDependency.html#aa5541db04c709f773c629d8b68c9c631',1,'tvm::graph::internal::Log::OutputDependency::output()'],['../structtvm_1_1graph_1_1internal_1_1Log_1_1DirectDependency.html#aba7253e68965d78ff53008bd9cc24d37',1,'tvm::graph::internal::Log::DirectDependency::output()']]],
   ['outputbasename',['OutputBaseName',['../classtvm_1_1graph_1_1abstract_1_1Outputs.html#a79f6e3d77cf784915bdbfb69b5789992',1,'tvm::graph::abstract::Outputs']]],

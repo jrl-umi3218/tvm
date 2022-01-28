@@ -73,7 +73,7 @@ digraph "include/tvm/diagnostic/GraphProbe.h"
   Node25 [label="typeinfo",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
   Node20 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node0 -> Node26 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node26 [label="tvm/diagnostic/internal\l/traits.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$traits_8h.html"];
+  Node26 [label="tvm/diagnostic/internal\l/traits.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$diagnostic_2internal_2traits_8h.html"];
   Node26 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node0 -> Node27 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node27 [label="tvm/diagnostic/matrix.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html"];

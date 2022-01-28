@@ -88,10 +88,18 @@ var hierarchy =
     [ "tvm::diagnostic::GraphProbe", "classtvm_1_1diagnostic_1_1GraphProbe.html", null ],
     [ "std::hash< tvm::graph::internal::Log::EnumValue >", "structstd_1_1hash_3_01tvm_1_1graph_1_1internal_1_1Log_1_1EnumValue_01_4.html", null ],
     [ "tvm::utils::internal::HashId< ObjWithId >", "classtvm_1_1utils_1_1internal_1_1HashId.html", null ],
+    [ "tvm::solver::abstract::HierarchicalLeastSquareSolver", "classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html", [
+      [ "tvm::solver::LexLSHierarchicalLeastSquareSolver", "classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html", null ]
+    ] ],
+    [ "tvm::scheme::HierarchicalLeastSquaresOptions", "classtvm_1_1scheme_1_1HierarchicalLeastSquaresOptions.html", null ],
+    [ "tvm::solver::abstract::HLSSolverFactory", "classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html", [
+      [ "tvm::solver::LexLSHLSSolverFactory", "classtvm_1_1solver_1_1LexLSHLSSolverFactory.html", null ]
+    ] ],
     [ "tvm::robot::Contact::Id", "structtvm_1_1robot_1_1Contact_1_1Id.html", null ],
     [ "tvm::utils::internal::IdEqual< ObjWithId >", "classtvm_1_1utils_1_1internal_1_1IdEqual.html", null ],
     [ "tvm::utils::internal::IdLess< ObjWithId >", "classtvm_1_1utils_1_1internal_1_1IdLess.html", null ],
     [ "tvm::internal::IdProvider", "classtvm_1_1internal_1_1IdProvider.html", null ],
+    [ "tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges", "structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html", null ],
     [ "tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges", "structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html", null ],
     [ "tvm::graph::internal::Log::Input", "structtvm_1_1graph_1_1internal_1_1Log_1_1Input.html", null ],
     [ "tvm::graph::internal::Log::InputDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1InputDependency.html", null ],
@@ -163,11 +171,16 @@ var hierarchy =
     [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html", null ],
     [ "tvm::internal::KeepProperties< MatrixType, refOnProperties >", "classtvm_1_1internal_1_1KeepProperties.html", null ],
     [ "tvm::solver::abstract::LeastSquareSolver", "classtvm_1_1solver_1_1abstract_1_1LeastSquareSolver.html", [
+      [ "tvm::solver::LexLSLeastSquareSolver", "classtvm_1_1solver_1_1LexLSLeastSquareSolver.html", null ],
       [ "tvm::solver::LSSOLLeastSquareSolver", "classtvm_1_1solver_1_1LSSOLLeastSquareSolver.html", null ],
       [ "tvm::solver::QLDLeastSquareSolver", "classtvm_1_1solver_1_1QLDLeastSquareSolver.html", null ],
       [ "tvm::solver::QuadprogLeastSquareSolver", "classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html", null ]
     ] ],
     [ "tvm::scheme::internal::LevelAbilities", "classtvm_1_1scheme_1_1internal_1_1LevelAbilities.html", null ],
+    [ "tvm::solver::LexLSSolverOptions", "classtvm_1_1solver_1_1LexLSSolverOptions.html", [
+      [ "tvm::solver::LexLSHLSSolverOptions", "classtvm_1_1solver_1_1LexLSHLSSolverOptions.html", null ],
+      [ "tvm::solver::LexLSLSSolverOptions", "classtvm_1_1solver_1_1LexLSLSSolverOptions.html", null ]
+    ] ],
     [ "tvm::internal::RangeCounting::Limit", "structtvm_1_1internal_1_1RangeCounting_1_1Limit.html", null ],
     [ "tvm::LinearConstraintWithRequirements", "classtvm_1_1LinearConstraintWithRequirements.html", null ],
     [ "tvm::utils::LinearExpr< Derived >", "classtvm_1_1utils_1_1LinearExpr.html", null ],
@@ -177,10 +190,12 @@ var hierarchy =
     [ "tvm::solver::LSSOLLSSolverOptions", "classtvm_1_1solver_1_1LSSOLLSSolverOptions.html", null ],
     [ "tvm::solver::abstract::LSSolverFactory", "classtvm_1_1solver_1_1abstract_1_1LSSolverFactory.html", [
       [ "tvm::solver::DefaultLSSolverFactory", "classtvm_1_1solver_1_1DefaultLSSolverFactory.html", null ],
+      [ "tvm::solver::LexLSLSSolverFactory", "classtvm_1_1solver_1_1LexLSLSSolverFactory.html", null ],
       [ "tvm::solver::LSSOLLSSolverFactory", "classtvm_1_1solver_1_1LSSOLLSSolverFactory.html", null ],
       [ "tvm::solver::QLDLSSolverFactory", "classtvm_1_1solver_1_1QLDLSSolverFactory.html", null ],
       [ "tvm::solver::QuadprogLSSolverFactory", "classtvm_1_1solver_1_1QuadprogLSSolverFactory.html", null ]
     ] ],
+    [ "tvm::solver::abstract::HierarchicalLeastSquareSolver::MarkedAssignment", "structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1MarkedAssignment.html", null ],
     [ "tvm::solver::abstract::LeastSquareSolver::MarkedAssignment", "structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html", null ],
     [ "tvm::scheme::internal::MatrixAssignment", "classtvm_1_1scheme_1_1internal_1_1MatrixAssignment.html", null ],
     [ "tvm::scheme::internal::MatrixMultBase< MatrixType, M >", "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase.html", [
@@ -201,6 +216,11 @@ var hierarchy =
     [ "tvm::internal::ObjWithId", "classtvm_1_1internal_1_1ObjWithId.html", [
       [ "tvm::constraint::abstract::Constraint", "classtvm_1_1constraint_1_1abstract_1_1Constraint.html", null ],
       [ "tvm::scheme::internal::ResolutionSchemeBase", "classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html", [
+        [ "tvm::scheme::abstract::ResolutionScheme< HierarchicalLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html", [
+          [ "tvm::scheme::abstract::LinearResolutionScheme< HierarchicalLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html", [
+            [ "tvm::scheme::HierarchicalLeastSquares", "classtvm_1_1scheme_1_1HierarchicalLeastSquares.html", null ]
+          ] ]
+        ] ],
         [ "tvm::scheme::abstract::ResolutionScheme< WeightedLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html", [
           [ "tvm::scheme::abstract::LinearResolutionScheme< WeightedLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html", [
             [ "tvm::scheme::WeightedLeastSquares", "classtvm_1_1scheme_1_1WeightedLeastSquares.html", null ]
@@ -214,8 +234,8 @@ var hierarchy =
       [ "tvm::Variable", "classtvm_1_1Variable.html", null ],
       [ "tvm::VariableVector", "classtvm_1_1VariableVector.html", null ]
     ] ],
-    [ "tvm::graph::internal::Log::Output", "structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html", null ],
     [ "tvm::graph::abstract::Outputs::Output", "structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html", null ],
+    [ "tvm::graph::internal::Log::Output", "structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html", null ],
     [ "tvm::graph::internal::Log::OutputDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1OutputDependency.html", null ],
     [ "tvm::graph::abstract::Outputs", "classtvm_1_1graph_1_1abstract_1_1Outputs.html", [
       [ "tvm::Clock", "classtvm_1_1Clock.html", null ],

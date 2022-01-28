@@ -128,10 +128,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a41beb897e6977b937a451406d4c277f0"><td class="memTemplParams" colspan="2">template&lt;class SolverFactory , typename std::enable_if&lt; isFactory&lt; SolverFactory &gt;::value, int &gt;::type  = 0&gt; </td></tr>
 <tr class="memitem:a41beb897e6977b937a451406d4c277f0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquares.html#a41beb897e6977b937a451406d4c277f0">WeightedLeastSquares</a> (const SolverFactory &amp;solverFactory, <a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquaresOptions.html">WeightedLeastSquaresOptions</a> schemeOptions={})</td></tr>
 <tr class="separator:a41beb897e6977b937a451406d4c277f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a205528dc20af248bfe4a9ba9240461f4"><td class="memTemplParams" colspan="2">template&lt;class SolverOptions , typename std::enable_if&lt; isOption&lt; SolverOptions &gt;::value, int &gt;::type  = 0&gt; </td></tr>
+<tr class="memitem:a205528dc20af248bfe4a9ba9240461f4"><td class="memTemplParams" colspan="2">template&lt;class SolverOptions , typename std::enable_if&lt; isLSSolverFactoryOption&lt; SolverOptions &gt;::value, int &gt;::type  = 0&gt; </td></tr>
 <tr class="memitem:a205528dc20af248bfe4a9ba9240461f4"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquares.html#a205528dc20af248bfe4a9ba9240461f4">WeightedLeastSquares</a> (const SolverOptions &amp;solverOptions, <a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquaresOptions.html">WeightedLeastSquaresOptions</a> schemeOptions={})</td></tr>
 <tr class="separator:a205528dc20af248bfe4a9ba9240461f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49576bc7b7c161c147368409d9a2ce51"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value &amp;&amp;!isOption&lt; T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
+<tr class="memitem:a49576bc7b7c161c147368409d9a2ce51"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value &amp;&amp;!isLSSolverFactoryOption&lt; T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
 <tr class="memitem:a49576bc7b7c161c147368409d9a2ce51"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquares.html#a49576bc7b7c161c147368409d9a2ce51">WeightedLeastSquares</a> (const T &amp;, <a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquaresOptions.html">WeightedLeastSquaresOptions</a>={})</td></tr>
 <tr class="separator:a49576bc7b7c161c147368409d9a2ce51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb2556b1f9e36a5da4571bf1fc0f0790"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquares.html#afb2556b1f9e36a5da4571bf1fc0f0790">WeightedLeastSquares</a> (const <a class="el" href="classtvm_1_1scheme_1_1WeightedLeastSquares.html">WeightedLeastSquares</a> &amp;)=delete</td></tr>
@@ -272,7 +272,7 @@ template&lt;class SolverFactory , typename std::enable_if&lt; isFactory&lt; Solv
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">solverFactory</td><td>A configuration for the solver to be used by the resolution scheme. </td></tr>
+    <tr><td class="paramname">solverFactory</td><td>A factory for the solver that should be used in the resolution scheme. </td></tr>
     <tr><td class="paramname">schemeOptions</td><td>Options for the schemes. See tvm::Scheme::WeightedLeastSquaresOptions. </td></tr>
   </table>
   </dd>
@@ -286,7 +286,7 @@ template&lt;class SolverFactory , typename std::enable_if&lt; isFactory&lt; Solv
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SolverOptions , typename std::enable_if&lt; isOption&lt; SolverOptions &gt;::value, int &gt;::type  = 0&gt; </div>
+template&lt;class SolverOptions , typename std::enable_if&lt; isLSSolverFactoryOption&lt; SolverOptions &gt;::value, int &gt;::type  = 0&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -323,7 +323,8 @@ template&lt;class SolverOptions , typename std::enable_if&lt; isOption&lt; Solve
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">solverOptions</td><td>A set of options for the solver to be used by the resolution scheme. \param schemeOptions Options for the scheme. See tvm::Scheme::WeightedLeastSquaresOptions. </td></tr>
+    <tr><td class="paramname">solverOptions</td><td>A set of options for the solver to be used by the resolution scheme. </td></tr>
+    <tr><td class="paramname">schemeOptions</td><td>Options for the scheme. See tvm::Scheme::WeightedLeastSquaresOptions. </td></tr>
   </table>
   </dd>
 </dl>
@@ -336,7 +337,7 @@ template&lt;class SolverOptions , typename std::enable_if&lt; isOption&lt; Solve
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value &amp;&amp;!isOption&lt; T &gt;::value, int &gt;::type  = 0&gt; </div>
+template&lt;typename T , typename std::enable_if&lt;!isFactory&lt; T &gt;::value &amp;&amp;!isLSSolverFactoryOption&lt; T &gt;::value, int &gt;::type  = 0&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

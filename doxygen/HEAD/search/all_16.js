@@ -16,5 +16,5 @@ var searchData=
   ['weightmultbase_3c_20none_20_3e',['WeightMultBase&lt; NONE &gt;',['../classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01NONE_01_4.html',1,'tvm::scheme::internal']]],
   ['weightmultbase_3c_20scalar_20_3e',['WeightMultBase&lt; SCALAR &gt;',['../classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01SCALAR_01_4.html',1,'tvm::scheme::internal']]],
   ['what',['what',['../classtvm_1_1exception_1_1Exception.html#ab4925492b25d5ddd16ce511eb966555d',1,'tvm::exception::Exception']]],
-  ['willreallocate',['willReallocate',['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html#a12ad208f22af1da894a656b7bf94b01c',1,'tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges']]]
+  ['willreallocate',['willReallocate',['../structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html#ae728c919303212d9307453bd29941e74',1,'tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges::willReallocate()'],['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html#a12ad208f22af1da894a656b7bf94b01c',1,'tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::willReallocate()']]]
 ];

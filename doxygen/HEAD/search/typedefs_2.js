@@ -2,7 +2,7 @@ var searchData=
 [
   ['callback',['Callback',['../classtvm_1_1internal_1_1CallbackManager.html#a9bd8e31ab050ef14d91329de6aaf7e91',1,'tvm::internal::CallbackManager']]],
   ['clockptr',['ClockPtr',['../namespacetvm.html#a0476308bca1ade43f6571f7d36d65f67',1,'tvm']]],
-  ['computationdatatype',['ComputationDataType',['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#a032bd2f6f711f812ee060a82896377a5',1,'tvm::scheme::WeightedLeastSquares']]],
+  ['computationdatatype',['ComputationDataType',['../classtvm_1_1scheme_1_1HierarchicalLeastSquares.html#a3f76ef07a71500ba2c4b1f0d7a6cbfdb',1,'tvm::scheme::HierarchicalLeastSquares::ComputationDataType()'],['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#a032bd2f6f711f812ee060a82896377a5',1,'tvm::scheme::WeightedLeastSquares::ComputationDataType()']]],
   ['const_5fif',['const_if',['../namespacetvm_1_1internal.html#ab907fabba6bd185ccf298e84772b5578',1,'tvm::internal']]],
   ['const_5fif_5ft',['const_if_t',['../namespacetvm_1_1internal.html#ab8937eb64e589293d91a7e24fc7e4a15',1,'tvm::internal']]],
   ['constraintptr',['ConstraintPtr',['../namespacetvm.html#a6b21f7495f7ef45e0ef41efdbb08d150',1,'tvm']]],

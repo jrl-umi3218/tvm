@@ -26,6 +26,7 @@ var dir_020a04e36825fdb5d137e6f4f382bacd =
       [ "RangeCounting", "classtvm_1_1internal_1_1RangeCounting.html", "classtvm_1_1internal_1_1RangeCounting" ],
       [ "Limit", "structtvm_1_1internal_1_1RangeCounting_1_1Limit.html", "structtvm_1_1internal_1_1RangeCounting_1_1Limit" ]
     ] ],
+    [ "traits.h", "internal_2traits_8h.html", null ],
     [ "VariableCountingVector.h", "VariableCountingVector_8h.html", [
       [ "VariableCountingVector", "classtvm_1_1internal_1_1VariableCountingVector.html", "classtvm_1_1internal_1_1VariableCountingVector" ]
     ] ],

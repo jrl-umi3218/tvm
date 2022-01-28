@@ -16,7 +16,7 @@ var searchData=
   ['bodytransform',['bodyTransform',['../classtvm_1_1Robot.html#ae737814e27817c0336446e3a5951c7c0',1,'tvm::Robot']]],
   ['bound',['bound',['../classtvm_1_1LinearConstraintWithRequirements.html#a51c6d466ff0c8b852865a5a47936129e',1,'tvm::LinearConstraintWithRequirements']]],
   ['bounds',['Bounds',['../classtvm_1_1task__dynamics_1_1Clamped.html#a21bf20e2ae9a17c7cd24c51d6ff7ead1',1,'tvm::task_dynamics::Clamped']]],
-  ['bounds_5f',['bounds_',['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html#ac4ab679502f702510300ad5c9c53d7eb',1,'tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges']]],
+  ['bounds_5f',['bounds_',['../structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html#a7f6f18bf046c9397cb9fa2d95c121392',1,'tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges::bounds_()'],['../structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html#ac4ab679502f702510300ad5c9c53d7eb',1,'tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges::bounds_()']]],
   ['bsecondhalf',['bSecondHalf',['../classtvm_1_1scheme_1_1internal_1_1AssignmentTarget.html#aa8d7bc9e10c92b4668e77c56b3a38dbb',1,'tvm::scheme::internal::AssignmentTarget']]],
   ['bufferedmatrix',['BufferedMatrix',['../classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html',1,'tvm::utils::internal::BufferedMatrix'],['../classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html#ac06ee8e6913eff18a8f3e9d2c2a3c6b6',1,'tvm::utils::internal::BufferedMatrix::BufferedMatrix()']]],
   ['bufferedmatrix_2eh',['BufferedMatrix.h',['../BufferedMatrix_8h.html',1,'']]],

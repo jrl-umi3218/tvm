@@ -12,10 +12,13 @@ digraph "include/tvm/scheme/internal/ProblemDefinitionEvent.h"
   Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node6 [label="include/tvm/scheme\l/internal/LinearizedProblem\lComputationData.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedProblemComputationData_8h.html"];
   Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
-  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node8 [label="include/tvm/scheme\l/abstract/ResolutionScheme.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ResolutionScheme_8h.html"];
-  Node8 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="include/tvm/scheme\l/HierarchicalLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$HierarchicalLeastSquares_8h.html"];
+  Node6 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
+  Node3 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="include/tvm/scheme\l/abstract/ResolutionScheme.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ResolutionScheme_8h.html"];
+  Node9 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

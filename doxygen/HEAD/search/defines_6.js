@@ -16,5 +16,7 @@ var searchData=
   ['tvm_5flocal',['TVM_LOCAL',['../api_8h.html#af82e6f32ddf1967b2d154a840d269498',1,'api.h']]],
   ['tvm_5fprocess_5foption',['TVM_PROCESS_OPTION',['../Option_8h.html#a0b4eafd3422ad825ba00a34eca3ad296',1,'Option.h']]],
   ['tvm_5fprocess_5foption_5f2',['TVM_PROCESS_OPTION_2',['../Option_8h.html#a27d52adabb184fba0791fad905ee41c2',1,'Option.h']]],
+  ['tvm_5fprocess_5foption_5fpublic_5faccess',['TVM_PROCESS_OPTION_PUBLIC_ACCESS',['../Option_8h.html#aded05003930d9e942500b48660e1c71d',1,'Option.h']]],
+  ['tvm_5fprocess_5foption_5fpublic_5faccess_5f2',['TVM_PROCESS_OPTION_PUBLIC_ACCESS_2',['../Option_8h.html#ad58dd460103d9a7f3867e8505a6b1917',1,'Option.h']]],
   ['tvm_5ftemporary_5fallow_5feigen_5fmalloc',['TVM_TEMPORARY_ALLOW_EIGEN_MALLOC',['../memoryChecks_8h.html#afabcf835af2c3bfd4202eb61befca055',1,'memoryChecks.h']]]
 ];

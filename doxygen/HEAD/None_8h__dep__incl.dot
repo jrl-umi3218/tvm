@@ -10,5 +10,7 @@ digraph "include/tvm/task_dynamics/None.h"
   Node27 -> Node28 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node28 [label="include/tvm/scheme\l/internal/LinearizedProblem\lComputationData.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LinearizedProblemComputationData_8h.html"];
   Node28 -> Node29 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node29 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
+  Node29 [label="include/tvm/scheme\l/HierarchicalLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$HierarchicalLeastSquares_8h.html"];
+  Node28 -> Node30 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node30 [label="include/tvm/scheme\l/WeightedLeastSquares.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$WeightedLeastSquares_8h.html"];
 }

@@ -985,7 +985,7 @@
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="probe_8h" name="probe.h" local="no" imported="no">tvm/diagnostic/internal/probe.h</includes>
-    <includes id="traits_8h" name="traits.h" local="no" imported="no">tvm/diagnostic/internal/traits.h</includes>
+    <includes id="diagnostic_2internal_2traits_8h" name="traits.h" local="no" imported="no">tvm/diagnostic/internal/traits.h</includes>
     <includes id="matrix_8h" name="matrix.h" local="no" imported="no">tvm/diagnostic/matrix.h</includes>
     <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
     <includes id="MatrixWithProperties_8h" name="MatrixWithProperties.h" local="no" imported="no">tvm/internal/MatrixWithProperties.h</includes>
@@ -1034,7 +1034,7 @@
   <compound kind="file">
     <name>traits.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
-    <filename>traits_8h</filename>
+    <filename>diagnostic_2internal_2traits_8h</filename>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor</class>
     <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
@@ -1055,6 +1055,12 @@
       <anchor>a4bc0d8ee1de11d7de43e241b78359d38</anchor>
       <arglist>(ConvertT &amp;&amp;convertIn)</arglist>
     </member>
+  </compound>
+  <compound kind="file">
+    <name>traits.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
+    <filename>internal_2traits_8h</filename>
+    <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
   </compound>
   <compound kind="file">
     <name>matrix.h</name>
@@ -2111,6 +2117,20 @@
     <namespace>tvm::scheme::abstract</namespace>
   </compound>
   <compound kind="file">
+    <name>HierarchicalLeastSquares.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/scheme/</path>
+    <filename>HierarchicalLeastSquares_8h</filename>
+    <includes id="internal_2traits_8h" name="traits.h" local="no" imported="no">tvm/internal/traits.h</includes>
+    <includes id="ResolutionScheme_8h" name="ResolutionScheme.h" local="no" imported="no">tvm/scheme/abstract/ResolutionScheme.h</includes>
+    <includes id="Assignment_8h" name="Assignment.h" local="no" imported="no">tvm/scheme/internal/Assignment.h</includes>
+    <includes id="LinearizedProblemComputationData_8h" name="LinearizedProblemComputationData.h" local="no" imported="no">tvm/scheme/internal/LinearizedProblemComputationData.h</includes>
+    <includes id="HierarchicalLeastSquareSolver_8h" name="HierarchicalLeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/HierarchicalLeastSquareSolver.h</includes>
+    <class kind="class">tvm::scheme::HierarchicalLeastSquaresOptions</class>
+    <class kind="class">tvm::scheme::HierarchicalLeastSquares</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::scheme</namespace>
+  </compound>
+  <compound kind="file">
     <name>Assignment.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
     <filename>Assignment_8h</filename>
@@ -2518,7 +2538,7 @@
     <name>WeightedLeastSquares.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/</path>
     <filename>WeightedLeastSquares_8h</filename>
-    <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
+    <includes id="internal_2traits_8h" name="traits.h" local="no" imported="no">tvm/internal/traits.h</includes>
     <includes id="ResolutionScheme_8h" name="ResolutionScheme.h" local="no" imported="no">tvm/scheme/abstract/ResolutionScheme.h</includes>
     <includes id="Assignment_8h" name="Assignment.h" local="no" imported="no">tvm/scheme/internal/Assignment.h</includes>
     <includes id="LinearizedProblemComputationData_8h" name="LinearizedProblemComputationData.h" local="no" imported="no">tvm/scheme/internal/LinearizedProblemComputationData.h</includes>
@@ -2527,6 +2547,25 @@
     <class kind="class">tvm::scheme::WeightedLeastSquares</class>
     <namespace>tvm</namespace>
     <namespace>tvm::scheme</namespace>
+  </compound>
+  <compound kind="file">
+    <name>HierarchicalLeastSquareSolver.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/solver/abstract/</path>
+    <filename>HierarchicalLeastSquareSolver_8h</filename>
+    <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
+    <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
+    <includes id="Substitutions_8h" name="Substitutions.h" local="no" imported="no">tvm/hint/internal/Substitutions.h</includes>
+    <includes id="Assignment_8h" name="Assignment.h" local="no" imported="no">tvm/scheme/internal/Assignment.h</includes>
+    <includes id="Option_8h" name="Option.h" local="no" imported="no">tvm/solver/internal/Option.h</includes>
+    <includes id="SolverEvents_8h" name="SolverEvents.h" local="no" imported="no">tvm/solver/internal/SolverEvents.h</includes>
+    <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
+    <class kind="class">tvm::solver::abstract::HierarchicalLeastSquareSolver</class>
+    <class kind="struct">tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges</class>
+    <class kind="struct">tvm::solver::abstract::HierarchicalLeastSquareSolver::MarkedAssignment</class>
+    <class kind="class">tvm::solver::abstract::HLSSolverFactory</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::solver</namespace>
+    <namespace>tvm::solver::abstract</namespace>
   </compound>
   <compound kind="file">
     <name>LeastSquareSolver.h</name>
@@ -2595,6 +2634,20 @@
       <anchor>a0b4eafd3422ad825ba00a34eca3ad296</anchor>
       <arglist>(optionName, target)</arglist>
     </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>TVM_PROCESS_OPTION_PUBLIC_ACCESS_2</name>
+      <anchorfile>Option_8h.html</anchorfile>
+      <anchor>ad58dd460103d9a7f3867e8505a6b1917</anchor>
+      <arglist>(optionName, target, fieldName)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>TVM_PROCESS_OPTION_PUBLIC_ACCESS</name>
+      <anchorfile>Option_8h.html</anchorfile>
+      <anchor>aded05003930d9e942500b48660e1c71d</anchor>
+      <arglist>(optionName, target)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>SolverEvents.h</name>
@@ -2606,6 +2659,36 @@
     <class kind="struct">tvm::solver::internal::SolverEvents::WeightEvent</class>
     <class kind="struct">tvm::solver::internal::SolverEvents::Objective</class>
     <namespace>tvm::solver::internal</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LexLSHierarchicalLeastSquareSolver.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
+    <filename>LexLSHierarchicalLeastSquareSolver_8h</filename>
+    <includes id="LexLSSolverOptions_8h" name="LexLSSolverOptions.h" local="no" imported="no">tvm/solver/LexLSSolverOptions.h</includes>
+    <includes id="HierarchicalLeastSquareSolver_8h" name="HierarchicalLeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/HierarchicalLeastSquareSolver.h</includes>
+    <class kind="class">tvm::solver::LexLSHLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSHierarchicalLeastSquareSolver</class>
+    <class kind="class">tvm::solver::LexLSHLSSolverFactory</class>
+    <namespace>tvm::solver</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LexLSLeastSquareSolver.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
+    <filename>LexLSLeastSquareSolver_8h</filename>
+    <includes id="LexLSSolverOptions_8h" name="LexLSSolverOptions.h" local="no" imported="no">tvm/solver/LexLSSolverOptions.h</includes>
+    <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
+    <class kind="class">tvm::solver::LexLSLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSLeastSquareSolver</class>
+    <class kind="class">tvm::solver::LexLSLSSolverFactory</class>
+    <namespace>tvm::solver</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LexLSSolverOptions.h</name>
+    <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
+    <filename>LexLSSolverOptions_8h</filename>
+    <includes id="Option_8h" name="Option.h" local="no" imported="no">tvm/solver/internal/Option.h</includes>
+    <class kind="class">tvm::solver::LexLSSolverOptions</class>
+    <namespace>tvm::solver</namespace>
   </compound>
   <compound kind="file">
     <name>LSSOLLeastSquareSolver.h</name>
@@ -7871,6 +7954,501 @@
     <filename>classtvm_1_1scheme_1_1internal_1_1hasNoArgCtor.html</filename>
     <templarg></templarg>
   </compound>
+  <compound kind="class">
+    <name>tvm::scheme::HierarchicalLeastSquares</name>
+    <filename>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</filename>
+    <base>LinearResolutionScheme&lt; HierarchicalLeastSquares &gt;</base>
+    <member kind="typedef">
+      <type>Memory</type>
+      <name>ComputationDataType</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a3f76ef07a71500ba2c4b1f0d7a6cbfdb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquares</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>ab1d52cd14040b70d5b4d70292b80368b</anchor>
+      <arglist>(const SolverFactory &amp;solverFactory, HierarchicalLeastSquaresOptions schemeOptions={})</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquares</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>aa59860ac34b79f9ce2944471dd975b7d</anchor>
+      <arglist>(const SolverOptions &amp;solverOptions, HierarchicalLeastSquaresOptions schemeOptions={})</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquares</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a147b5bd6e51dfa758a72772bdd2e5f8d</anchor>
+      <arglist>(const T &amp;, HierarchicalLeastSquaresOptions={})</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquares</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a8ce4fe07128fd7958bbabd8cd849c34f</anchor>
+      <arglist>(const HierarchicalLeastSquares &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquares</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a571d390a4f25872e66d22e13d96dc774</anchor>
+      <arglist>(HierarchicalLeastSquares &amp;&amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>HierarchicalLeastSquares &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a1102a8e2ec446ac6ec636a60187ab827</anchor>
+      <arglist>(const HierarchicalLeastSquares &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>HierarchicalLeastSquares &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a5411ff0b9137e492051504ff45ea1120</anchor>
+      <arglist>(HierarchicalLeastSquares &amp;&amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>solve_</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a6733291da287f6bc98f595e0424e07ea</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, internal::ProblemComputationData *data) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>updateComputationData_</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a11585113ed8df1aa0e817d7733185899</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, internal::ProblemComputationData *data) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; Memory &gt;</type>
+      <name>createComputationData_</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a7006cf5e02cd7e9b8ee41483adb06fe0</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>resetComputationData</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a13f5c03acbfa09bc475e759375d985c3</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>processProblem</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>acfadb3f033724580b404002c469b66c3</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addTask</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a0ed313491106dced8b8079ff010dfee3</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, const TaskWithRequirements &amp;task, solver::internal::SolverEvents &amp;se) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>removeTask</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>a9e4e951a95f42aec32c6620fd9fcbefb</anchor>
+      <arglist>(const LinearizedControlProblem &amp;problem, Memory *memory, const TaskWithRequirements &amp;task, solver::internal::SolverEvents &amp;se) const</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>HierarchicalLeastSquaresOptions</type>
+      <name>options_</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>af5d5753e798219dbddce803c7b5c651d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::unique_ptr&lt; solver::abstract::HLSSolverFactory &gt;</type>
+      <name>solverFactory_</name>
+      <anchorfile>classtvm_1_1scheme_1_1HierarchicalLeastSquares.html</anchorfile>
+      <anchor>aa74637e8c61edfdafff04d3806b2a582</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::abstract::HierarchicalLeastSquareSolver</name>
+    <filename>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</filename>
+    <class kind="struct">tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges</class>
+    <class kind="struct">tvm::solver::abstract::HierarchicalLeastSquareSolver::MarkedAssignment</class>
+    <member kind="typedef">
+      <type>utils::internal::map&lt; K, T &gt;</type>
+      <name>map</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ada77055604de2c6a311c167b2a9e6d4c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::vector&lt; std::unique_ptr&lt; MarkedAssignment &gt; &gt;</type>
+      <name>AssignmentVector</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a636c59f8ff6d5f483fc677d5e91afca7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::vector&lt; MarkedAssignment * &gt;</type>
+      <name>AssignmentPtrVector</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a2b2d87605f3c2e0ced55f6df80d90ef2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>map&lt; constraint::abstract::LinearConstraint *, AssignmentPtrVector &gt;</type>
+      <name>MapToAssignment</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ab7242c453a14625ed761dee611d51638</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquareSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a5f2a81bf3135b8d99aedf9890a331ec2</anchor>
+      <arglist>(bool verbose=false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>HierarchicalLeastSquareSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ac71fff448ec07a5f4b04917e533f9260</anchor>
+      <arglist>(const HierarchicalLeastSquareSolver &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>HierarchicalLeastSquareSolver &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a286ceb4beb8c3698e53a1c92fd0c32b7</anchor>
+      <arglist>(const HierarchicalLeastSquareSolver &amp;)=delete</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~HierarchicalLeastSquareSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a405e808ae38b96bcb7e823b5da3c9692</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>startBuild</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a661814cb81955b0cb5f2fdf91aafb0cc</anchor>
+      <arglist>(const VariableVector &amp;x, const std::vector&lt; int &gt; &amp;nEq, const std::vector&lt; int &gt; &amp;nIneq, bool useBounds, const hint::internal::Substitutions *const subs=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>finalizeBuild</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>aec1e615d4ba6e990137274fb6f4ddd1e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addBound</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a1dd2d828066963a672d2bab6268c04ef</anchor>
+      <arglist>(LinearConstraintPtr bound)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addConstraint</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a878b6bbcf2ef814808c0b7cfdb941ce7</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimumNorm</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a708d256edc2d3a9bfef48c230bee4a43</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>solve</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a0aae5bf176e5751c4d514240d1466d24</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const Eigen::VectorXd &amp;</type>
+      <name>result</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a9a14bd9b13d961923b69bdcee6adbbff</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>constraintSize</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a8f60bca8fb553702622e44f4709d4f5c</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;c) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>process</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a1339763f0ed415e7c36e2e5d243b0142</anchor>
+      <arglist>(const internal::SolverEvents &amp;se)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>numberOfLevels</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a627ba7f5bc711c98d2f7c1d301d97ff7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>initializeBuild_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a5788ece1d81c671134d2febffe23fdb1</anchor>
+      <arglist>(const std::vector&lt; int &gt; &amp;nEq, const std::vector&lt; int &gt; &amp;nIneq, bool useBounds)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual ImpactFromChanges</type>
+      <name>resize_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a267f9a0750d30b7be4aca5c02b2edbd1</anchor>
+      <arglist>(const std::vector&lt; int &gt; &amp;nEq, const std::vector&lt; int &gt; &amp;nIneq, bool useBounds)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>addBound_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a41795ee274f99d340a03025bb5a569e2</anchor>
+      <arglist>(LinearConstraintPtr bound, RangePtr range, bool first)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>addEqualityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a0d9fce5d445cede5f94bf67c00a69d67</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>addIneqalityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a240d0c166e6227717d8618ab3150082a</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>setMinimumNorm_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a233703963995076efa09e620ccf37f1e</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>resetBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a70e6e6d0fd1c6f930798bbae143aa595</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>preAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>aaf6982432b0d8b99f5c5fffd456945a6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>postAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a6aaa7a6182e18a9e5e8a057a07d90549</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual bool</type>
+      <name>solve_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a356b30c953364366052d44b85fde491d</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual const Eigen::VectorXd &amp;</type>
+      <name>result_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a918a785b496c839021b058c2d66db8d7</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual bool</type>
+      <name>handleDoubleSidedConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a6c5cada49ec90d89fa95ced5389054e1</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual Range</type>
+      <name>nextEqualityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a6913603d6a56af2c655adfd671d4a576</anchor>
+      <arglist>(int lvl, const constraint::abstract::LinearConstraint &amp;cstr) const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual Range</type>
+      <name>nextInequalityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>aa104ef5033e89942ec3f0d3452bd2135</anchor>
+      <arglist>(int lvl, const constraint::abstract::LinearConstraint &amp;cstr) const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>removeBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ab55a90090de79f2cc1c935ad3e555b5f</anchor>
+      <arglist>(const Range &amp;range)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>updateEqualityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a195fef98cd6a3bf9d73d64199af0f3e7</anchor>
+      <arglist>(int lvl, scheme::internal::AssignmentTarget &amp;target)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>updateInequalityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>acf28913a263ecb785ffec9568ba02727</anchor>
+      <arglist>(int lvl, scheme::internal::AssignmentTarget &amp;target)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>updateBoundTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a3cd097e70ff6fc7f88c801da33b9f373</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>applyImpactLogic</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>aa922f98d818a25df22d2411a98c74075</anchor>
+      <arglist>(ImpactFromChanges &amp;impact)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>printProblemData_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a613d8b6792a095797ac42dbd895aa72e</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>printDiagnostic_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a4eccf0267aa53eccabd021b5e2e70d8b</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const VariableVector &amp;</type>
+      <name>variables</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ae6a26cfb1c02084d27ec363dc453ff3a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const hint::internal::Substitutions *</type>
+      <name>substitutions</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a3c39c02addf023d73f1b44d26766a2a0</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addAssignement</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ad5db3319acfd782aaefd85be9b6bf229</anchor>
+      <arglist>(Args &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>bool</type>
+      <name>useBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a3dc5eb06e8721d76a077ed82f8e4607b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::vector&lt; int &gt;</type>
+      <name>nEq_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>af9957e5baf1b55147d8b78752b439d9a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::vector&lt; int &gt;</type>
+      <name>nIneq_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a37b59de411091377fd89dbc31090f113</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::vector&lt; int &gt;</type>
+      <name>eqSize_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a39b9284de108add7fc79ef29e7254660</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::vector&lt; int &gt;</type>
+      <name>ineqSize_</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a9c5724c2eae021d98e4a8fb33ff3b74c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::scheme::HierarchicalLeastSquaresOptions</name>
+    <filename>classtvm_1_1scheme_1_1HierarchicalLeastSquaresOptions.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::abstract::HLSSolverFactory</name>
+    <filename>classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html</filename>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~HLSSolverFactory</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html</anchorfile>
+      <anchor>a4f8b3e40c50ab6c577ed67e0e7a757f0</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual std::unique_ptr&lt; HLSSolverFactory &gt;</type>
+      <name>clone</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html</anchorfile>
+      <anchor>a1cd49575b7cb0f2ace9334d96957ccba</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual std::unique_ptr&lt; HierarchicalLeastSquareSolver &gt;</type>
+      <name>createSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html</anchorfile>
+      <anchor>ae3225e0388f2e03f6354b7c40ad410c9</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type></type>
+      <name>HLSSolverFactory</name>
+      <anchorfile>classtvm_1_1solver_1_1abstract_1_1HLSSolverFactory.html</anchorfile>
+      <anchor>a66fe086f4d098fab809123c11bc7c0ca</anchor>
+      <arglist>(const std::string &amp;solverName)</arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>tvm::robot::Contact::Id</name>
     <filename>structtvm_1_1robot_1_1Contact_1_1Id.html</filename>
@@ -8014,6 +8592,87 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>tvm::solver::abstract::HierarchicalLeastSquareSolver::ImpactFromChanges</name>
+    <filename>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImpactFromChanges</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>a740f06665bb717259fb14f907faab0f8</anchor>
+      <arglist>(int nLvl)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImpactFromChanges</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>a41b686305bb7dca2c9fcdece5cc3abdd</anchor>
+      <arglist>(const std::vector&lt; bool &gt; &amp;eq, std::vector&lt; bool &gt; &amp;ineq, bool bounds)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImpactFromChanges</type>
+      <name>operator||</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>ab89ad8bc322dea75b7638b870dd83093</anchor>
+      <arglist>(bool b)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImpactFromChanges</type>
+      <name>operator||</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>ab6688db11881d3209a00ae2e6b5efbc9</anchor>
+      <arglist>(const ImpactFromChanges &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImpactFromChanges &amp;</type>
+      <name>orAssign</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>a06a824bac1482fd1c6e73dea7c5e429e</anchor>
+      <arglist>(const ImpactFromChanges &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>any</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>a2152a7cb7a1c3132f2257b771d89a26e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>willReallocate</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>ae728c919303212d9307453bd29941e74</anchor>
+      <arglist>(const Eigen::DenseBase&lt; Derived &gt; &amp;M, int rows, int cols=1)</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; bool &gt;</type>
+      <name>equalityConstraints_</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>ae20f7566437bcca4d21f79727a699aaf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; bool &gt;</type>
+      <name>inequalityConstraints_</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>abeff61d94bde45e80cde8efec6881377</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>bounds_</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>a7f6f18bf046c9397cb9fa2d95c121392</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>newLevels_</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>aa943f7ec4c7ed7fb3856799384ff50e5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>tvm::solver::abstract::LeastSquareSolver::ImpactFromChanges</name>
     <filename>structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html</filename>
     <member kind="function">
@@ -8036,6 +8695,13 @@
       <anchorfile>structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
       <anchor>a053b8a4a7e6f18ba1d2329ce5d650c7c</anchor>
       <arglist>(const ImpactFromChanges &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>any</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1ImpactFromChanges.html</anchorfile>
+      <anchor>ab883eb21004006b03c04faff651b7207</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static bool</type>
@@ -9483,6 +10149,425 @@
       <arglist>(const ConstraintPtr &amp;c, const RequirementsPtr &amp;req, bool emitWarnings=true) const</arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSHierarchicalLeastSquareSolver</name>
+    <filename>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</filename>
+    <base>tvm::solver::abstract::HierarchicalLeastSquareSolver</base>
+    <member kind="function">
+      <type></type>
+      <name>LexLSHierarchicalLeastSquareSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a78f8098b3f341f169ba239e7ef5ae10c</anchor>
+      <arglist>(const LexLSHLSSolverOptions &amp;options={})</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>initializeBuild_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>acf6bf3b04c83ffda85c07c9d1d5d2b29</anchor>
+      <arglist>(const std::vector&lt; int &gt; &amp;nEq, const std::vector&lt; int &gt; &amp;nIneq, bool useBounds) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>ImpactFromChanges</type>
+      <name>resize_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ae7c0d7e4c4fb13ac8e3811c8439aec7c</anchor>
+      <arglist>(const std::vector&lt; int &gt; &amp;nEq, const std::vector&lt; int &gt; &amp;nIneq, bool useBounds) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addBound_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ad0a60f3e5b94f50def84b4b869c0e594</anchor>
+      <arglist>(LinearConstraintPtr bound, RangePtr range, bool first) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addEqualityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>aae45d1e39bb1105dd3876c6670e59e54</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addIneqalityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a02b9baea8e303b5f9d9917244c28f791</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>setMinimumNorm_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a9fede9dc254d87b4e65687e0b96f8023</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>resetBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a6b352db1f026590a968e17a295bfb9d0</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>preAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a97a9dc8d469be61c04ba611c109eb2d6</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>postAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a212c604eaf9af19bab0567a95e7e54b5</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>solve_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a5c0fc822970eed574cd0789bdcb53428</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const Eigen::VectorXd &amp;</type>
+      <name>result_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a0a80b4aed71421331b2c63621ea72777</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>handleDoubleSidedConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a3f6897684694f570ac7d0c6a1514dd80</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Range</type>
+      <name>nextEqualityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a4b50ee697c943d32ed990968ac66e787</anchor>
+      <arglist>(int lvl, const constraint::abstract::LinearConstraint &amp;cstr) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Range</type>
+      <name>nextInequalityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a06cf0ff8902cbe8b0cb14f6ac0fce7a8</anchor>
+      <arglist>(int lvl, const constraint::abstract::LinearConstraint &amp;cstr) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>removeBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a9f7235b1d255627ac26f778beebb6fd3</anchor>
+      <arglist>(const Range &amp;range) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateEqualityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>ac0fbffe86009a9c6e60cfae2397e8a27</anchor>
+      <arglist>(int lvl, scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateInequalityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a413238e9d617cfd18c7dceb09fad0253</anchor>
+      <arglist>(int lvl, scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateBoundTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>afbca861fa56a7019d533555c1509b80a</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>applyImpactLogic</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a930844c83a2afe53afcd1c28d0e77f50</anchor>
+      <arglist>(ImpactFromChanges &amp;impact)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>printProblemData_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a44c8e6a0c88de56a668f1e1540536da8</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>printDiagnostic_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHierarchicalLeastSquareSolver.html</anchorfile>
+      <anchor>a4f9aca6ed934a298506ec6ed4c49ec94</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSHLSSolverFactory</name>
+    <filename>classtvm_1_1solver_1_1LexLSHLSSolverFactory.html</filename>
+    <base>tvm::solver::abstract::HLSSolverFactory</base>
+    <member kind="function">
+      <type></type>
+      <name>LexLSHLSSolverFactory</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHLSSolverFactory.html</anchorfile>
+      <anchor>a3f0de6856b84a19f3d39255a0105da4a</anchor>
+      <arglist>(const LexLSHLSSolverOptions &amp;options={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; abstract::HLSSolverFactory &gt;</type>
+      <name>clone</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHLSSolverFactory.html</anchorfile>
+      <anchor>a6bc133129585143d70bfbc7529231766</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; abstract::HierarchicalLeastSquareSolver &gt;</type>
+      <name>createSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHLSSolverFactory.html</anchorfile>
+      <anchor>a652fdac6fbf6d668155519a7876f2a83</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSHLSSolverOptions</name>
+    <filename>classtvm_1_1solver_1_1LexLSHLSSolverOptions.html</filename>
+    <base>tvm::solver::LexLSSolverOptions</base>
+    <member kind="typedef">
+      <type>LexLSHLSSolverFactory</type>
+      <name>Factory</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSHLSSolverOptions.html</anchorfile>
+      <anchor>a591b925da2b1a829c1290e0703c3bcdd</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSLeastSquareSolver</name>
+    <filename>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</filename>
+    <base>tvm::solver::abstract::LeastSquareSolver</base>
+    <member kind="function">
+      <type></type>
+      <name>LexLSLeastSquareSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a62fe73cf4b5f241d2d65935ee7098c1c</anchor>
+      <arglist>(const LexLSLSSolverOptions &amp;options={})</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>initializeBuild_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a01340db3e64b7fa0a8b6cbd2cf251981</anchor>
+      <arglist>(int nObj, int nEq, int nIneq, bool useBounds) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>ImpactFromChanges</type>
+      <name>resize_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>af444b348d2b675602923e5726345e114</anchor>
+      <arglist>(int nObj, int nEq, int nIneq, bool useBounds) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addBound_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>afbc748f22fa19dc396851a5cd9ea6a3a</anchor>
+      <arglist>(LinearConstraintPtr bound, RangePtr range, bool first) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addEqualityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>aec354747bbef70cc617a271de8cf0059</anchor>
+      <arglist>(LinearConstraintPtr cstr) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addIneqalityConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>abf59ea2cdbec87f21d5afa3acf2b8108</anchor>
+      <arglist>(LinearConstraintPtr cstr) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>addObjective_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a76e1eb1e097e304c68a4e46ba84879cd</anchor>
+      <arglist>(LinearConstraintPtr cstr, SolvingRequirementsPtr req, double additionalWeight) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>setMinimumNorm_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a0c3394defd1a43252c754373897522c6</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>resetBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a0542e721d890c93538eba9ce9ebd943a</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>preAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a1b6e22450fa91c704ea435781107fb4d</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>postAssignmentProcess_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a78ed9f3861189b0174baec2d0639f25e</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>solve_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>af904c9b6e41f3f89789354f00432d90f</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const Eigen::VectorXd &amp;</type>
+      <name>result_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>ad6ce6b0d22e251ac2c2de4158942ebee</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>handleDoubleSidedConstraint_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a179504de349081ad7452c3d0dc269f12</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Range</type>
+      <name>nextEqualityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>aaed138480fdff23ce300345fc99ef33a</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;cstr) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Range</type>
+      <name>nextInequalityConstraintRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>ae242fc235c4a1b43acba431e69de8c6e</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;cstr) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>Range</type>
+      <name>nextObjectiveRange_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a920ab6e4638407037bc366d2862e6536</anchor>
+      <arglist>(const constraint::abstract::LinearConstraint &amp;cstr) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>removeBounds_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a4b4c42c267539fa9d076ef390e0ebe0f</anchor>
+      <arglist>(const Range &amp;range) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateEqualityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a66d8d4f4c07525a3b31609914c7f7cc4</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateInequalityTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>ae0b438d27387878a5ee53fce98a258a7</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateBoundTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a1bc23b46fd135e2ed70f3a497eafee00</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>updateObjectiveTargetData</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>ab25127e9335c1db1d33f3aafdcef5c66</anchor>
+      <arglist>(scheme::internal::AssignmentTarget &amp;target) override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>applyImpactLogic</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a730ddd7af6f0e3540e99206bf3fb7b76</anchor>
+      <arglist>(ImpactFromChanges &amp;impact)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>printProblemData_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>acf73552aab70e65789d83b50027e49de</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>printDiagnostic_</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLeastSquareSolver.html</anchorfile>
+      <anchor>a58e9c36774b6666f097c9ce99607aa90</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSLSSolverFactory</name>
+    <filename>classtvm_1_1solver_1_1LexLSLSSolverFactory.html</filename>
+    <base>tvm::solver::abstract::LSSolverFactory</base>
+    <member kind="function">
+      <type></type>
+      <name>LexLSLSSolverFactory</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLSSolverFactory.html</anchorfile>
+      <anchor>accfe78ac0e551af0074a6a9d1037b612</anchor>
+      <arglist>(const LexLSLSSolverOptions &amp;options={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; abstract::LSSolverFactory &gt;</type>
+      <name>clone</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLSSolverFactory.html</anchorfile>
+      <anchor>a7ee43f5905ea751d862f820b9e4981c5</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; abstract::LeastSquareSolver &gt;</type>
+      <name>createSolver</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLSSolverFactory.html</anchorfile>
+      <anchor>a7048515a60df371e62040fdd8d018130</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSLSSolverOptions</name>
+    <filename>classtvm_1_1solver_1_1LexLSLSSolverOptions.html</filename>
+    <base>tvm::solver::LexLSSolverOptions</base>
+    <member kind="typedef">
+      <type>LexLSLSSolverFactory</type>
+      <name>Factory</name>
+      <anchorfile>classtvm_1_1solver_1_1LexLSLSSolverOptions.html</anchorfile>
+      <anchor>ae7fb85a2c93d487cc738808d70da98a5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>tvm::solver::LexLSSolverOptions</name>
+    <filename>classtvm_1_1solver_1_1LexLSSolverOptions.html</filename>
+  </compound>
   <compound kind="struct">
     <name>tvm::internal::RangeCounting::Limit</name>
     <filename>structtvm_1_1internal_1_1RangeCounting_1_1Limit.html</filename>
@@ -10054,6 +11139,18 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>LinearResolutionScheme&lt; HierarchicalLeastSquares &gt;</name>
+    <filename>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</filename>
+    <base>ResolutionScheme&lt; HierarchicalLeastSquares &gt;</base>
+    <member kind="function" protection="protected">
+      <type></type>
+      <name>LinearResolutionScheme</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</anchorfile>
+      <anchor>a019151cc7533d74bc20dbaa49940e7d2</anchor>
+      <arglist>(internal::SchemeAbilities abilities, double big=constant::big_number)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>LinearResolutionScheme&lt; WeightedLeastSquares &gt;</name>
     <filename>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</filename>
     <base>ResolutionScheme&lt; WeightedLeastSquares &gt;</base>
@@ -10550,6 +11647,31 @@
       <anchorfile>classtvm_1_1solver_1_1abstract_1_1LSSolverFactory.html</anchorfile>
       <anchor>a16f20ada8e2be7db1dfe20d6d19d27a2</anchor>
       <arglist>(const std::string &amp;solverName)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::solver::abstract::HierarchicalLeastSquareSolver::MarkedAssignment</name>
+    <filename>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1MarkedAssignment.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>MarkedAssignment</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1MarkedAssignment.html</anchorfile>
+      <anchor>abd5789fa9cbb6cd8bc54ea91030fc46e</anchor>
+      <arglist>(Args &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="variable">
+      <type>scheme::internal::Assignment</type>
+      <name>assignment</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1MarkedAssignment.html</anchorfile>
+      <anchor>aa62758b6983ddebbe8f4ecb17d54359b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>markedForRemoval</name>
+      <anchorfile>structtvm_1_1solver_1_1abstract_1_1HierarchicalLeastSquareSolver_1_1MarkedAssignment.html</anchorfile>
+      <anchor>a457971ccd711630ccc5c7f9b20ed3fa2</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -12120,6 +13242,10 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>tvm::graph::abstract::Outputs::Output</name>
+    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
+  </compound>
+  <compound kind="struct">
     <name>tvm::graph::internal::Log::Output</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Output.html</filename>
     <member kind="function">
@@ -12157,10 +13283,6 @@
       <anchor>a7d6a30adbe700862b885726b8afa51d8</anchor>
       <arglist></arglist>
     </member>
-  </compound>
-  <compound kind="struct">
-    <name>tvm::graph::abstract::Outputs::Output</name>
-    <filename>structtvm_1_1graph_1_1abstract_1_1Outputs_1_1Output.html</filename>
   </compound>
   <compound kind="struct">
     <name>tvm::graph::internal::Log::OutputDependency</name>
@@ -14226,6 +15348,53 @@
     </member>
     <member kind="function">
       <type>const Derived &amp;</type>
+      <name>derived</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>afe1e5a187ad7fe380b331839269c65d2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type></type>
+      <name>ResolutionScheme</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>aa9b9a4143fbff4f5654731c92333ce9b</anchor>
+      <arglist>(internal::SchemeAbilities abilities, double big=constant::big_number)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ResolutionScheme&lt; HierarchicalLeastSquares &gt;</name>
+    <filename>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</filename>
+    <base>tvm::scheme::internal::ResolutionSchemeBase</base>
+    <member kind="function">
+      <type>bool</type>
+      <name>solve</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>a73c637baa1e013c38687115fdfae7904</anchor>
+      <arglist>(Problem &amp;problem) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::unique_ptr&lt; internal::ProblemComputationData &gt;</type>
+      <name>createComputationData</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>a972d606a5d3e0920049d156d3ad8dd44</anchor>
+      <arglist>(const Problem &amp;problem) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>updateComputationData</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>abcbd65c0c5b58e50748cdb7d3fac059f</anchor>
+      <arglist>(const Problem &amp;problem, internal::ProblemComputationData *data) const</arglist>
+    </member>
+    <member kind="function">
+      <type>HierarchicalLeastSquares &amp;</type>
+      <name>derived</name>
+      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
+      <anchor>a136b3f1492abc048598b23aac81942d9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const HierarchicalLeastSquares &amp;</type>
       <name>derived</name>
       <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
       <anchor>afe1e5a187ad7fe380b331839269c65d2</anchor>
@@ -18530,6 +19699,8 @@
     <filename>namespacetvm_1_1scheme.html</filename>
     <namespace>tvm::scheme::abstract</namespace>
     <namespace>tvm::scheme::internal</namespace>
+    <class kind="class">tvm::scheme::HierarchicalLeastSquares</class>
+    <class kind="class">tvm::scheme::HierarchicalLeastSquaresOptions</class>
     <class kind="class">tvm::scheme::WeightedLeastSquares</class>
     <class kind="class">tvm::scheme::WeightedLeastSquaresOptions</class>
     <member kind="typedef">
@@ -18832,6 +20003,13 @@
     <namespace>tvm::solver::internal</namespace>
     <class kind="class">tvm::solver::DefaultLSSolverFactory</class>
     <class kind="class">tvm::solver::DefaultLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSHierarchicalLeastSquareSolver</class>
+    <class kind="class">tvm::solver::LexLSHLSSolverFactory</class>
+    <class kind="class">tvm::solver::LexLSHLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSLeastSquareSolver</class>
+    <class kind="class">tvm::solver::LexLSLSSolverFactory</class>
+    <class kind="class">tvm::solver::LexLSLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSSolverOptions</class>
     <class kind="class">tvm::solver::LSSOLLeastSquareSolver</class>
     <class kind="class">tvm::solver::LSSOLLSSolverFactory</class>
     <class kind="class">tvm::solver::LSSOLLSSolverOptions</class>
@@ -18845,6 +20023,8 @@
   <compound kind="namespace">
     <name>tvm::solver::abstract</name>
     <filename>namespacetvm_1_1solver_1_1abstract.html</filename>
+    <class kind="class">tvm::solver::abstract::HierarchicalLeastSquareSolver</class>
+    <class kind="class">tvm::solver::abstract::HLSSolverFactory</class>
     <class kind="class">tvm::solver::abstract::LeastSquareSolver</class>
     <class kind="class">tvm::solver::abstract::LSSolverFactory</class>
   </compound>
