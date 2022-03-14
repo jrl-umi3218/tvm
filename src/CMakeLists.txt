@@ -248,28 +248,34 @@ set(TVM_ROBOT_HEADERS
   ${TVM_INCLUDE_DIR}/utils/sch.h
 )
 
+set(TVM_HEADERS_INSTALL_EXCLUDE_PATTERN)
+
 if(TVM_WITH_ROBOT)
   list(APPEND TVM_SOURCES ${TVM_ROBOT_SOURCES})
   list(APPEND TVM_HEADERS ${TVM_ROBOT_HEADERS})
 endif()
 
-if(TVM_WITH_LSSOL)
-  list(APPEND TVM_SOURCES solver/LSSOLLeastSquareSolver.cpp)
-  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LSSOLLeastSquareSolver.h)
-endif()
-if(TVM_WITH_QLD)
-  list(APPEND TVM_SOURCES solver/QLDLeastSquareSolver.cpp)
-  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QLDLeastSquareSolver.h)
-endif()
-if(TVM_WITH_QUADPROG)
-  list(APPEND TVM_SOURCES solver/QuadprogLeastSquareSolver.cpp)
-  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/QuadprogLeastSquareSolver.h)
-endif()
+macro(tvm_handle_solver_option OPTION)
+  if(${OPTION})
+    foreach(SRC ${ARGN})
+      list(APPEND TVM_SOURCES ${SRC}.cpp)
+      list(APPEND TVM_HEADERS "${TVM_INCLUDE_DIR}/${SRC}.h")
+    endforeach()
+  else()
+    foreach(SRC ${ARGN})
+      list(APPEND TVM_HEADERS_INSTALL_EXCLUDE_PATTERN PATTERN "${SRC}.h" EXCLUDE)
+    endforeach()
+  endif()
+endmacro()
+
+tvm_handle_solver_option(TVM_WITH_LSSOL solver/LSSOLLeastSquareSolver)
+tvm_handle_solver_option(TVM_WITH_QLD solver/QLDLeastSquareSolver)
+tvm_handle_solver_option(TVM_WITH_QUADPROG solver/QuadprogLeastSquareSolver)
+tvm_handle_solver_option(TVM_WITH_LEXLS solver/LexLSHierarchicalLeastSquareSolver solver/LexLSLeastSquareSolver)
 if(TVM_WITH_LEXLS)
-  list(APPEND TVM_SOURCES solver/LexLSHierarchicalLeastSquareSolver.cpp)
-  list(APPEND TVM_SOURCES solver/LexLSLeastSquareSolver.cpp)
-  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSHierarchicalLeastSquareSolver.h)
-  list(APPEND TVM_HEADERS ${TVM_INCLUDE_DIR}/solver/LexLSLeastSquareSolver.h)
+  list(APPEND TVM_HEADERS "${TVM_INCLUDE_DIR}/solver/LexLSSolverOptions.h")
+else()
+  list(APPEND TVM_HEADERS_INSTALL_EXCLUDE_PATTERN PATTERN "solver/LexLSSolverOptions.h" EXCLUDE)
 endif()
 
 set(TVM_INCLUDE_BINARY_DIR "${PROJECT_BINARY_DIR}/include/")
@@ -326,14 +332,15 @@ install(TARGETS TVM
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-if(TVM_WITH_ROBOT)
-  install(DIRECTORY ${TVM_INCLUDE_DIR} DESTINATION ${INCLUDE_INSTALL_DIR}
-    PATTERN "supported_solvers.in.h" EXCLUDE)
-else()
-  install(DIRECTORY ${TVM_INCLUDE_DIR} DESTINATION ${INCLUDE_INSTALL_DIR}
-    PATTERN "supported_solvers.in.h" EXCLUDE
+if(NOT TVM_WITH_ROBOT)
+  list(APPEND TVM_HEADERS_INSTALL_EXCLUDE_PATTERN
     PATTERN "robot*" EXCLUDE
     PATTERN "utils/sch.h" EXCLUDE
     PATTERN Robot.h EXCLUDE)
 endif()
+
+install(DIRECTORY ${TVM_INCLUDE_DIR} DESTINATION ${INCLUDE_INSTALL_DIR}
+  PATTERN "supported_solvers.in.h" EXCLUDE
+  ${TVM_HEADERS_INSTALL_EXCLUDE_PATTERN})
+
 install(FILES "${TVM_INCLUDE_BINARY_DIR}/tvm/supported_solvers.h" DESTINATION ${INCLUDE_INSTALL_DIR}/tvm)
