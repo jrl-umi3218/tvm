@@ -77,7 +77,7 @@ private:
 
   std::vector<VariablePtr> addedVariables_;
   std::vector<VariablePtr> removedVariables_;
-  bool hiddenVariableChange_;
+  bool hiddenVariableChange_ = false;
 };
 
 inline void SolverEvents::addScalarWeightEvent(constraint::abstract::LinearConstraint * c)
