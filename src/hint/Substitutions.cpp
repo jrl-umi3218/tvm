@@ -160,7 +160,8 @@ const std::vector<VariablePtr> & Substitutions::otherVariables() const { return 
 
 VariableVector Substitutions::substitute(const VariablePtr & x) const
 {
-  auto it = std::find_if(variables_.begin(), variables_.end(), [&x](const VariablePtr & v) { return v->intersects(*x); });
+  auto it =
+      std::find_if(variables_.begin(), variables_.end(), [&x](const VariablePtr & v) { return v->intersects(*x); });
   if(it == variables_.end()) // no substitution of var
   {
     VariableVector v({x});

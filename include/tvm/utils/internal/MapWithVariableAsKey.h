@@ -66,7 +66,7 @@ inline typename Slicer::Type MapWithVariableAsKey<T, Slicer, tSize>::at(const ty
         }
         else
         {
-          Range r; 
+          Range r;
           if constexpr(tSize)
             r = it->first->tSubvariableRange().relativeRange(key->tSubvariableRange());
           else

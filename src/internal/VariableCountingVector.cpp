@@ -14,7 +14,7 @@ bool VariableCountingVector::add(VariablePtr v)
   const Space & start = v->spaceShift();
   const Space & dim = v->space();
   auto & counterPair = count_.insert({s.get(), {SpaceRangeCounting{}, 0}}).first->second;
-  //bool change = counterPair.first.add(v->subvariableRange());
+  // bool change = counterPair.first.add(v->subvariableRange());
   bool change = counterPair.first.add(start, dim);
   if(change)
     ++counterPair.second;
@@ -114,7 +114,9 @@ void VariableCountingVector::update() const
       {
         auto v = p.first;
         bool simple = p.second.second == mRanges.size();
-        if(mRanges.size() == 1 && ((v->isBasePrimitive() && rRanges[0].dim == v->size()) || (!v->isBasePrimitive() && tRanges[0].dim == v->size())))
+        if(mRanges.size() == 1
+           && ((v->isBasePrimitive() && rRanges[0].dim == v->size())
+               || (!v->isBasePrimitive() && tRanges[0].dim == v->size())))
         {
           assert(mRanges[0].start == 0);
           variables_.add(v->shared_from_this());
@@ -122,7 +124,7 @@ void VariableCountingVector::update() const
         }
         else
         {
-          for(size_t i=0; i<mRanges.size(); ++i)
+          for(size_t i = 0; i < mRanges.size(); ++i)
           {
             const auto & mr = mRanges[i];
             const auto & rr = rRanges[i];

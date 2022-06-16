@@ -5,8 +5,8 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
-#include <tvm/VariableVector.h>
 #include <tvm/Space.h>
+#include <tvm/VariableVector.h>
 #include <tvm/internal/RangeCounting.h>
 #include <tvm/utils/internal/map.h>
 
