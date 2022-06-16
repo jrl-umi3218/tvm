@@ -176,7 +176,7 @@ Range Variable::subvariableRange() const
 Range Variable::tSubvariableRange() const
 {
   if(isBasePrimitive())
-    return subvariableRange() - (shift_.rSize() - shift_.tSize());
+    return {subvariableRange().start - (shift_.rSize() - shift_.tSize()), space_.tSize()};
   else
     return subvariableRange();
 }
