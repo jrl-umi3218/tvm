@@ -117,12 +117,25 @@ inline void ProblemComputationData::setVariablesToSolution() { setVariablesToSol
 
 inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e)
 {
+  // By default, the event will be effectively added.
+  bool add = true;
+
+  // If this event is a task removal, it is useless to process other events that
+  // would be in the event queue for the same task. We remove those events from
+  // the queue.
   if(e.type() == ProblemDefinitionEvent::Type::TaskRemoval)
   {
     for(auto it = events_.c.begin(); it != events_.c.end();)
     {
-      if(it->emitter() == e.emitter())
+      if(it->emitter() == e.emitter() && it->type() != ProblemDefinitionEvent::Type::TaskRemoval)
       {
+        // In case the addition of the same task is in the event queue: since
+        // we are removing it, it is not necessary to add the removal event.
+        if(it->type() == ProblemDefinitionEvent::Type::TaskAddition)
+        {
+          assert(add && "The task was added twice");
+          add = false;
+        }
         it = events_.c.erase(it);
       }
       else
@@ -131,7 +144,10 @@ inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e)
       }
     }
   }
-  events_.push(e);
+  if(add)
+  {
+    events_.push(e);
+  }
 }
 
 [[nodiscard]] inline ProblemDefinitionEvent ProblemComputationData::popEvent()
