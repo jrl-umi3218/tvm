@@ -29,7 +29,7 @@ namespace tvm::internal
 class TVM_DLLAPI VariableCountingVector
 {
 public:
-  /** \param split If true, variable parts who do not appears with the same count
+  /** \param split If true, variable parts who do not appear with the same count
    * or were not added at the same time are separated.
    * For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will
    * yield a single variable (x) when split = false but two variables (x[0:3],
@@ -49,13 +49,7 @@ public:
 
   void set(const VectorConstRef & val);
 
-  /** Return the vector of variables resulting from the different add and remove.
-   *
-   * \warning This vector is not meant to be differentiated. This could cause
-   * troubles with non-Euclidean variables.
-   *
-   * \internal see comment in code.
-   */
+  /** Return the vector of variables resulting from the different add and remove. */
   const VariableVector & variables() const;
 
   /** Return a vector mirroring variables() where simple()[i] is \a true when

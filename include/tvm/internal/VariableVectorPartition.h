@@ -7,7 +7,7 @@
 
 namespace tvm::internal
 {
-/** An helper class to iterate over a container of VariablePtr \a c where the
+/** A helper class to iterate over a container of VariablePtr \a c where the
  * variables are split according to a given partition \a p expressed as a
  * VariableCountingVector. The iteration is made over \a c, but the iterator
  * points to (sub)variables in \a p.
