@@ -60,6 +60,7 @@ void FirstOrderProvider::removeVariable(VariablePtr v)
 {
   variables_.remove(*v);
   jacobian_.erase(v.get());
+  linear_.erase(v.get());
   removeVariable_(v);
 }
 
