@@ -1,5 +1,8 @@
 var NAVTREEINDEX7 =
 {
+"classtvm_1_1solver_1_1QuadprogLSSolverOptions.html":[3,0,2,13,19],
+"classtvm_1_1solver_1_1QuadprogLSSolverOptions.html#a193c5e72d6d0e377e13da0c8240dd3ad":[3,0,2,13,19,0],
+"classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html":[3,0,2,13,17],
 "classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html#a11e65e2f444e06d3756417fc9b03f724":[3,0,2,13,17,11],
 "classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html#a1957014fe536158c429ba51abdbd1e18":[3,0,2,13,17,12],
 "classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html#a1d8ec65b33572d7681ebe5f0b0717a64":[3,0,2,13,17,24],
@@ -246,8 +249,5 @@ var NAVTREEINDEX7 =
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a32fc6aa824e24892c9e726d423478868":[3,0,2,14,7,0,17],
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a3d87b04060ba8dd5490027b13155395f":[3,0,2,14,7,0,13],
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a4450839955cd384f981947deb4e288eb":[3,0,2,14,7,0,16],
-"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a4ec72e7cb10e2b4060bd3353a4f01cab":[3,0,2,14,7,0,11],
-"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a53ddadb1ba92654e368857bdd01c4529":[3,0,2,14,7,0,20],
-"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a594f571040c528834d2e95fba8750d8c":[3,0,2,14,7,0,6],
-"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a71a84bee9c0ea0d90ea4cc083ccba972":[3,0,2,14,7,0,9]
+"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a4ec72e7cb10e2b4060bd3353a4f01cab":[3,0,2,14,7,0,11]
 };

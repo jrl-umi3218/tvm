@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classtvm_1_1internal_1_1VariableCounti
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classtvm_1_1internal_1_1VariableCountingVector-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -157,7 +158,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">split</td><td>If true, variable parts who do not appears with the same count or were not added at the same time are separated. For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will yield a single variable (x) when split = false but two variables (x[0:3], x[4:7]) otherwise. Adding x[0:4] then x[3:7] will also yield a single variable if split = false but 3 variables (x[0:2], x[3:4] and x[5:7]) otherwise. </td></tr>
+    <tr><td class="paramname">split</td><td>If true, variable parts who do not appear with the same count or were not added at the same time are separated. For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will yield a single variable (x) when split = false but two variables (x[0:3], x[4:7]) otherwise. Adding x[0:4] then x[3:7] will also yield a single variable if split = false but 3 variables (x[0:2], x[3:4] and x[5:7]) otherwise. </td></tr>
   </table>
   </dd>
 </dl>
@@ -351,8 +352,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Return the vector of variables resulting from the different add and remove.</p>
-<dl class="section warning"><dt>Warning</dt><dd>This vector is not meant to be differentiated. This could cause troubles with non-Euclidean variables. </dd></dl>
+<p>Return the vector of variables resulting from the different add and remove. </p>
 
 </div>
 </div>

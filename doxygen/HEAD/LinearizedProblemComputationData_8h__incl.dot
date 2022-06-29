@@ -53,11 +53,6 @@ digraph "include/tvm/scheme/internal/LinearizedProblemComputationData.h"
   Node7 -> Node29 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node29 [label="tvm/utils/ProtoTask.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$ProtoTask_8h.html"];
   Node29 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node29 -> Node30 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node30 [label="tvm/utils/AffineExpr.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$AffineExpr_8h.html"];
-  Node30 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node30 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node30 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node6 -> Node61 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node61 [label="tvm/graph/CallGraph.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CallGraph_8h.html"];
@@ -107,6 +102,13 @@ digraph "include/tvm/scheme/internal/LinearizedProblemComputationData.h"
   Node58 [label="tvm/internal/VariableCounting\lVector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VariableCountingVector_8h.html"];
   Node58 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node58 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node58 -> Node34 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 [label="tvm/Space.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$Space_8h.html"];
+  Node34 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 -> Node24 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node58 -> Node49 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node58 -> Node59 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node59 [label="tvm/internal/RangeCounting.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$RangeCounting_8h.html"];

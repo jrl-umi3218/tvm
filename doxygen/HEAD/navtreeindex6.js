@@ -1,5 +1,8 @@
 var NAVTREEINDEX6 =
 {
+"classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#a8f5c41d9b5cc13bb43c20ef78a701a66":[3,0,2,12,1,24,0],
+"classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#aa9f7fd52985cf857b5a9b482007f32f0":[3,0,2,12,1,24,4],
+"classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#aadd50be0859c22263cb10590f4c850c1":[3,0,2,12,1,24,6],
 "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#abdd0beb3c2bb24191c72018922745da6":[3,0,2,12,1,24,3],
 "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#ac2b54dec91b9db12f82f3a7ec8c9c51f":[3,0,2,12,1,24,7],
 "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01GENERAL_01_4.html#ad505f6aee876bc71fadeffc24c64315e":[3,0,2,12,1,24,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX6 =
 "classtvm_1_1solver_1_1QuadprogLSSolverFactory.html":[3,0,2,13,18],
 "classtvm_1_1solver_1_1QuadprogLSSolverFactory.html#a6cc16212339951cc4c696ed563ebb900":[3,0,2,13,18,0],
 "classtvm_1_1solver_1_1QuadprogLSSolverFactory.html#a7d11f82ebe54a9fa18a5e3df579f8e76":[3,0,2,13,18,1],
-"classtvm_1_1solver_1_1QuadprogLSSolverFactory.html#ad1c07fab0f65837df1134da9bc2293f8":[3,0,2,13,18,2],
-"classtvm_1_1solver_1_1QuadprogLSSolverOptions.html":[3,0,2,13,19],
-"classtvm_1_1solver_1_1QuadprogLSSolverOptions.html#a193c5e72d6d0e377e13da0c8240dd3ad":[3,0,2,13,19,0],
-"classtvm_1_1solver_1_1QuadprogLeastSquareSolver.html":[3,0,2,13,17]
+"classtvm_1_1solver_1_1QuadprogLSSolverFactory.html#ad1c07fab0f65837df1134da9bc2293f8":[3,0,2,13,18,2]
 };

@@ -165,10 +165,10 @@ var hierarchy =
     [ "tvm::graph::internal::Log::InternalDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1InternalDependency.html", null ],
     [ "tvm::internal::MatrixProperties::Invertibility", "structtvm_1_1internal_1_1MatrixProperties_1_1Invertibility.html", null ],
     [ "tvm::internal::is_base< Base >", "structtvm_1_1internal_1_1is__base.html", null ],
+    [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html", null ],
     [ "iterator", null, [
       [ "tvm::graph::internal::Inputs::Iterator", "structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html", null ]
     ] ],
-    [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html", null ],
     [ "tvm::internal::KeepProperties< MatrixType, refOnProperties >", "classtvm_1_1internal_1_1KeepProperties.html", null ],
     [ "tvm::solver::abstract::LeastSquareSolver", "classtvm_1_1solver_1_1abstract_1_1LeastSquareSolver.html", [
       [ "tvm::solver::LexLSLeastSquareSolver", "classtvm_1_1solver_1_1LexLSLeastSquareSolver.html", null ],

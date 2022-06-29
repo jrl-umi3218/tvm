@@ -7,6 +7,8 @@ var classtvm_1_1Range =
     [ "end", "classtvm_1_1Range.html#a108c4f26f691639e8fe31a33d4ed9888", null ],
     [ "intersects", "classtvm_1_1Range.html#a2ddea2a88f03cae57d72e913fc440c10", null ],
     [ "operator!=", "classtvm_1_1Range.html#aa59f647c90c329982d3ae8c58696b3bc", null ],
+    [ "operator+", "classtvm_1_1Range.html#ad5c22286425a0cfc426b46528489197a", null ],
+    [ "operator-", "classtvm_1_1Range.html#ad428d411b0b30a65e555bf031f0a0419", null ],
     [ "operator==", "classtvm_1_1Range.html#a9580601c7733542244bf2be8c2d2272d", null ],
     [ "relativeRange", "classtvm_1_1Range.html#a0ba3fdb32eb9098776bbef80df43b2d1", null ],
     [ "dim", "classtvm_1_1Range.html#a252127b997a5428dff3735f52f48313d", null ],

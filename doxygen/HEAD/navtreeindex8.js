@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a53ddadb1ba92654e368857bdd01c4529":[3,0,2,14,7,0,20],
+"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a594f571040c528834d2e95fba8750d8c":[3,0,2,14,7,0,6],
+"classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a71a84bee9c0ea0d90ea4cc083ccba972":[3,0,2,14,7,0,9],
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a7932416dbbaf9db6855e1b8f98f5015a":[3,0,2,14,7,0,4],
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a7ddc3d1dad52778ed85c3b13963a0aa9":[3,0,2,14,7,0,5],
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a9e9319941e8e74bd8e312c1326f72576":[3,0,2,14,7,0,10],
@@ -90,8 +93,8 @@ var NAVTREEINDEX8 =
 "classtvm_1_1utils_1_1CheckOptions.html":[3,0,2,15,2],
 "classtvm_1_1utils_1_1LinearExpr.html":[3,0,2,15,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa715dc995e4c492fb70b7046afbe7e74":[3,0,2,15,3,2],
-"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,1],
+"classtvm_1_1utils_1_1LinearExpr.html#aa8b13db5c36b8e2d4a55544a74687e5f":[3,0,2,15,3,3],
 "classtvm_1_1utils_1_1LinearExpr.html#ab518500d32934cbf912c9f50c7fbcd19":[3,0,2,15,3,5],
 "classtvm_1_1utils_1_1LinearExpr.html#abda44d8407e3f1fabf7f43616e621ea0":[3,0,2,15,3,4],
 "classtvm_1_1utils_1_1LinearExpr.html#ace550799fdb22b967ce5f5bddd0aa4a0":[3,0,2,15,3,0],
@@ -236,8 +239,8 @@ var NAVTREEINDEX8 =
 "functions_enum.html":[3,3,4],
 "functions_eval.html":[3,3,5],
 "functions_f.html":[3,3,0,5],
-"functions_func.html":[3,3,1],
 "functions_func.html":[3,3,1,0],
+"functions_func.html":[3,3,1],
 "functions_func_0x7e.html":[3,3,1,24],
 "functions_func_b.html":[3,3,1,1],
 "functions_func_c.html":[3,3,1,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX8 =
 "functions_func_f.html":[3,3,1,5],
 "functions_func_g.html":[3,3,1,6],
 "functions_func_h.html":[3,3,1,7],
-"functions_func_i.html":[3,3,1,8],
-"functions_func_j.html":[3,3,1,9],
-"functions_func_k.html":[3,3,1,10],
-"functions_func_l.html":[3,3,1,11]
+"functions_func_i.html":[3,3,1,8]
 };

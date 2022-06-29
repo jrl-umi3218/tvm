@@ -50,6 +50,7 @@ digraph "include/tvm/internal/VariableVectorPartition.h"
   Node16 [label="tvm/internal/VariableCounting\lVector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VariableCountingVector_8h.html"];
   Node16 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node16 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node16 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node17 [label="tvm/VariableVector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VariableVector_8h.html"];
   Node17 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

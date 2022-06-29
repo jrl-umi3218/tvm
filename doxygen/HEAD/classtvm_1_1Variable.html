@@ -171,6 +171,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac1034f08b5a49a501058e51c2ed67085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d9167a14ecb5b4b633d9bb469895737"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtvm_1_1Range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1Variable.html#a6d9167a14ecb5b4b633d9bb469895737">subvariableRange</a> () const</td></tr>
 <tr class="separator:a6d9167a14ecb5b4b633d9bb469895737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecacb1b83a0746ec63c09967e48a6da7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtvm_1_1Range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1Variable.html#aecacb1b83a0746ec63c09967e48a6da7">tSubvariableRange</a> () const</td></tr>
+<tr class="separator:aecacb1b83a0746ec63c09967e48a6da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a033e727f7d37d5cc89853e721e002aaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1Variable.html#a033e727f7d37d5cc89853e721e002aaa">contains</a> (const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;v) const</td></tr>
 <tr class="separator:a033e727f7d37d5cc89853e721e002aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e5b334346dba64fb205e19f567c6473"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1Variable.html#a9e5b334346dba64fb205e19f567c6473">intersects</a> (const <a class="el" href="classtvm_1_1Variable.html">Variable</a> &amp;v) const</td></tr>
@@ -585,8 +587,35 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a41140d039d28b4ece9ec487372bfae59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41140d039d28b4ece9ec487372bfae59">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::CommaInitializer&lt; <a class="el" href="namespacetvm.html#a5ba6fca76794c352cd250591dab8309e">VectorRef</a> &gt; tvm::Variable::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper to initialize a variable like an <a class="el" href="namespaceEigen.html">Eigen</a> vector. </p>
+
+</div>
+</div>
 <a id="a353b8a0b9ff717e49f32a81bbb5c75e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a353b8a0b9ff717e49f32a81bbb5c75e0">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a353b8a0b9ff717e49f32a81bbb5c75e0">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -601,33 +630,6 @@ template&lt;typename Derived &gt; </div>
           <td>(</td>
           <td class="paramtype">const Eigen::DenseBase&lt; Derived &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Helper to initialize a variable like an <a class="el" href="namespaceEigen.html">Eigen</a> vector. </p>
-
-</div>
-</div>
-<a id="a41140d039d28b4ece9ec487372bfae59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41140d039d28b4ece9ec487372bfae59">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::CommaInitializer&lt; <a class="el" href="namespacetvm.html#a5ba6fca76794c352cd250591dab8309e">VectorRef</a> &gt; tvm::Variable::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -982,6 +984,24 @@ template&lt;int n&gt; </div>
       </table>
 </div><div class="memdoc">
 <p>If this variable is a subvariable, return the variable it is a subvariable of. Otherwise, return this variable. </p>
+
+</div>
+</div>
+<a id="aecacb1b83a0746ec63c09967e48a6da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecacb1b83a0746ec63c09967e48a6da7">&#9670;&nbsp;</a></span>tSubvariableRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtvm_1_1Range.html">Range</a> tvm::Variable::tSubvariableRange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Equivalent to dot(this)-&gt;subvariableRange (without having to create the derivative). </p>
 
 </div>
 </div>

@@ -128,6 +128,13 @@ digraph "include/tvm/ControlProblem.h"
   Node56 [label="tvm/internal/VariableCounting\lVector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$VariableCountingVector_8h.html"];
   Node56 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node56 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 -> Node32 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 [label="tvm/Space.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$Space_8h.html"];
+  Node32 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node56 -> Node47 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node56 -> Node57 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node57 [label="tvm/internal/RangeCounting.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$RangeCounting_8h.html"];
@@ -152,12 +159,6 @@ digraph "include/tvm/ControlProblem.h"
   Node79 [label="tvm/scheme/internal\l/SchemeAbilities.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$SchemeAbilities_8h.html"];
   Node79 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node79 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node79 -> Node80 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node80 [label="tvm/constraint/abstract\l/Constraint.h",height=0.2,width=0.4,color="red", fillcolor="white", style="filled",URL="$Constraint_8h.html"];
-  Node80 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node80 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node80 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node80 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node79 -> Node73 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node79 -> Node51 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node79 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

@@ -1750,6 +1750,7 @@
     <filename>VariableCountingVector_8h</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
+    <includes id="Space_8h" name="Space.h" local="no" imported="no">tvm/Space.h</includes>
     <includes id="VariableVector_8h" name="VariableVector.h" local="no" imported="no">tvm/VariableVector.h</includes>
     <includes id="RangeCounting_8h" name="RangeCounting.h" local="no" imported="no">tvm/internal/RangeCounting.h</includes>
     <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
@@ -7466,10 +7467,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="protected">
-      <type>utils::internal::MapWithVariableAsKey&lt; MatrixWithProperties, slice_matrix &gt;</type>
+      <type>utils::internal::MapWithVariableAsKey&lt; MatrixWithProperties, slice_matrix, true &gt;</type>
       <name>jacobian_</name>
       <anchorfile>classtvm_1_1internal_1_1FirstOrderProvider.html</anchorfile>
-      <anchor>a83d24e00a90df2b26cf11d4adb4bdc7f</anchor>
+      <anchor>a51ac9562dcc2ef8f3d6d08ca44d5d0ab</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="protected">
@@ -10795,10 +10796,10 @@
       <arglist>() override</arglist>
     </member>
     <member kind="function">
-      <type>const internal::VectorWithProperties &amp;</type>
+      <type>const tvm::internal::VectorWithProperties &amp;</type>
       <name>b</name>
       <anchorfile>classtvm_1_1function_1_1abstract_1_1LinearFunction.html</anchorfile>
-      <anchor>ace72da7b9d2d371d302e21ba67aa7b3f</anchor>
+      <anchor>ac98c9d11a8eeb5904e98caf9aab03ef9</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function" protection="protected">
@@ -10830,10 +10831,10 @@
       <arglist>()</arglist>
     </member>
     <member kind="variable" protection="protected">
-      <type>internal::VectorWithProperties</type>
+      <type>tvm::internal::VectorWithProperties</type>
       <name>b_</name>
       <anchorfile>classtvm_1_1function_1_1abstract_1_1LinearFunction.html</anchorfile>
-      <anchor>a7c36684ad2b244eefb7237dc03259188</anchor>
+      <anchor>af8d2f15e5b3c0babc758752d6f1da056</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -15165,6 +15166,20 @@
     </member>
     <member kind="function">
       <type>Range</type>
+      <name>operator+</name>
+      <anchorfile>classtvm_1_1Range.html</anchorfile>
+      <anchor>ad5c22286425a0cfc426b46528489197a</anchor>
+      <arglist>(int i) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Range</type>
+      <name>operator-</name>
+      <anchorfile>classtvm_1_1Range.html</anchorfile>
+      <anchor>ad428d411b0b30a65e555bf031f0a0419</anchor>
+      <arglist>(int i) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Range</type>
       <name>relativeRange</name>
       <anchorfile>classtvm_1_1Range.html</anchorfile>
       <anchor>a0ba3fdb32eb9098776bbef80df43b2d1</anchor>
@@ -17964,6 +17979,13 @@
       <name>subvariableRange</name>
       <anchorfile>classtvm_1_1Variable.html</anchorfile>
       <anchor>a6d9167a14ecb5b4b633d9bb469895737</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Range</type>
+      <name>tSubvariableRange</name>
+      <anchorfile>classtvm_1_1Variable.html</anchorfile>
+      <anchor>aecacb1b83a0746ec63c09967e48a6da7</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
