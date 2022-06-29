@@ -145,8 +145,13 @@ public:
    */
   bool isSuperVariableOf(const Variable & v) const;
   /** If this variable is a subvariable, return its range within its supevariable.
-   * If not, simply return [0, size()].*/
+   * If not, simply return [0, size()].
+   */
   Range subvariableRange() const;
+  /** Equivalent to dot(this)->subvariableRange (without having to create the
+   * derivative).
+   */
+  Range tSubvariableRange() const;
   /** Return true if \p v is a sub-part of this variable.
    *
    * To the difference of Variable::isSuperVariableOf, it is sufficient that

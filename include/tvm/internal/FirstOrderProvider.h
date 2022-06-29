@@ -182,7 +182,7 @@ protected:
 
   // cache
   Eigen::VectorXd value_;
-  utils::internal::MapWithVariableAsKey<MatrixWithProperties, slice_matrix> jacobian_;
+  utils::internal::MapWithVariableAsKey<MatrixWithProperties, slice_matrix, true> jacobian_;
 
 protected:
   /** Resize the function */

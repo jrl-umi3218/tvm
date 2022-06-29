@@ -173,6 +173,14 @@ Range Variable::subvariableRange() const
     return {static_cast<int>(value_.data() - superVariable_->value_.data()), size()};
 }
 
+Range Variable::tSubvariableRange() const
+{
+  if(isBasePrimitive())
+    return {subvariableRange().start - (shift_.rSize() - shift_.tSize()), space_.tSize()};
+  else
+    return subvariableRange();
+}
+
 bool Variable::contains(const Variable & v) const
 {
   return superVariable() == v.superVariable() && subvariableRange().contains(v.subvariableRange());

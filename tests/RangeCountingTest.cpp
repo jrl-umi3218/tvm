@@ -583,3 +583,39 @@ TEST_CASE("VariableVectorPartition")
   FAST_CHECK_EQ(*u[4], *y->subvariable(2, "yb", 3));
   FAST_CHECK_EQ(*u[5], *y->subvariable(3, "yc", 5));
 }
+
+TEST_CASE("Non-Euclidean variables in VariableCountingVector")
+{
+  VariableCountingVector vc;
+
+  VariablePtr x = Space(21, 27, 23).createVariable("x");
+
+  VariablePtr x1 = x->subvariable(Space(3, 3, 3), "x1", 0);
+  VariablePtr x2 = x->subvariable(Space(3, 4, 3), "x2", Space(3, 3, 3));
+  VariablePtr x3 = x->subvariable(Space(2, 2, 2), "x3", Space(6, 7, 6));
+  VariablePtr x4 = x->subvariable(Space(4, 6, 5), "x4", Space(8, 9, 8));
+  VariablePtr x5 = x->subvariable(Space(1, 1, 1), "x5", Space(12, 15, 13));
+  VariablePtr x6 = x->subvariable(Space(2, 2, 2), "x6", Space(13, 16, 14));
+  VariablePtr x7 = x->subvariable(Space(3, 4, 3), "x7", Space(15, 18, 16));
+  VariablePtr x8 = x->subvariable(Space(2, 4, 3), "x8", Space(18, 22, 19));
+  VariablePtr x9 = x->subvariable(Space(1, 1, 1), "x9", Space(20, 26, 22));
+
+  VariablePtr x12 = x->subvariable(Space(6, 7, 6), "x12", 0);
+  VariablePtr x234 = x->subvariable(Space(9, 12, 10), "x234", Space(3, 3, 3));
+  VariablePtr x456 = x->subvariable(Space(7, 9, 8), "x456", Space(8, 9, 8));
+  VariablePtr x678 = x->subvariable(Space(7, 10, 8), "x678", Space(13, 16, 14));
+  VariablePtr x789 = x->subvariable(Space(6, 9, 7), "x789", Space(15, 18, 16));
+
+  vc.add(x2);
+  vc.add(x678);
+  vc.add(x4);
+  vc.add(x234);
+  vc.add(x789);
+
+  auto v = vc.variables();
+  FAST_CHECK_EQ(v.numberOfVariables(), 2);
+
+  auto dv = dot(v);
+  FAST_CHECK_EQ(dv[0]->subvariableRange(), Range(3, 10));
+  FAST_CHECK_EQ(dv[1]->subvariableRange(), Range(14, 9));
+}

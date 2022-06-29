@@ -4,6 +4,8 @@
 #include <tvm/hint/internal/Substitutions.h>
 #include <tvm/scheme/internal/helpers.h>
 
+#include <numeric>
+
 namespace tvm
 {
 
@@ -28,15 +30,23 @@ bool isBound(const ConstraintPtr & c, const hint::internal::Substitutions & subs
   return isBound(c, subs.variables(), subs.variableSubstitutions());
 }
 
-bool TVM_DLLAPI isBound(const ConstraintPtr & c,
-                        const std::vector<VariablePtr> & x,
-                        const std::vector<std::shared_ptr<function::BasicLinearFunction>> & xsub)
+bool isBound(const ConstraintPtr & c,
+             const std::vector<VariablePtr> & x,
+             const std::vector<std::shared_ptr<function::BasicLinearFunction>> & xsub)
 {
   if(isBound(c))
   {
-    auto it = std::find(x.begin(), x.end(), c->variables()[0]);
+    const auto & cx = c->variables()[0];
+    auto it = std::find(x.begin(), x.end(), cx);
     if(it == x.end())
     {
+      // cx is not part of x, but part of it could be substituted. We check for that case.
+      if(std::find_if(x.begin(), x.end(), [&cx](const auto & v) { return cx->intersects(*v); }) != x.end())
+      {
+        // For now, we don't deal with subvariable substitution in bounds and demote c to a general constraint
+        // TODO proper variable substitution in bounds.
+        return false;
+      }
       // There is no substitution, this is a bound
       return true;
     }
@@ -62,17 +72,17 @@ bool TVM_DLLAPI isBound(const ConstraintPtr & c,
   }
 }
 
-bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
-                                 const hint::internal::Substitutions & subs,
-                                 constraint::Type targetConvention)
+bool canBeUsedAsBound(const ConstraintPtr & c,
+                      const hint::internal::Substitutions & subs,
+                      constraint::Type targetConvention)
 {
   return canBeUsedAsBound(c, subs.variables(), subs.variableSubstitutions(), targetConvention);
 }
 
-bool TVM_DLLAPI canBeUsedAsBound(const ConstraintPtr & c,
-                                 const std::vector<VariablePtr> & x,
-                                 const std::vector<std::shared_ptr<function::BasicLinearFunction>> & xsub,
-                                 constraint::Type targetConvention)
+bool canBeUsedAsBound(const ConstraintPtr & c,
+                      const std::vector<VariablePtr> & x,
+                      const std::vector<std::shared_ptr<function::BasicLinearFunction>> & xsub,
+                      constraint::Type targetConvention)
 {
   using constraint::Type;
   if(isBound(c, x, xsub))

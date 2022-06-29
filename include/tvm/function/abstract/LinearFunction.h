@@ -67,7 +67,7 @@ public:
   void updateValue();
   void updateVelocity();
   void resizeCache() override;
-  const internal::VectorWithProperties & b() const { return b_; }
+  const tvm::internal::VectorWithProperties & b() const { return b_; }
 
 protected:
   LinearFunction(int m);
@@ -75,7 +75,7 @@ protected:
   virtual void updateVelocity_();
   void setDerivativesToZero();
 
-  internal::VectorWithProperties b_;
+  tvm::internal::VectorWithProperties b_;
 };
 
 } // namespace abstract

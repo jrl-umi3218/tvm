@@ -11,8 +11,11 @@ namespace tvm::internal
 bool VariableCountingVector::add(VariablePtr v)
 {
   VariablePtr s = v->superVariable();
-  auto & counterPair = count_.insert({s.get(), {RangeCounting{}, 0}}).first->second;
-  bool change = counterPair.first.add(v->subvariableRange());
+  const Space & start = v->spaceShift();
+  const Space & dim = v->space();
+  auto & counterPair = count_.insert({s.get(), {SpaceRangeCounting{}, 0}}).first->second;
+  // bool change = counterPair.first.add(v->subvariableRange());
+  bool change = counterPair.first.add(start, dim);
   if(change)
     ++counterPair.second;
   upToDate_ = upToDate_ && !change;
@@ -28,8 +31,10 @@ void VariableCountingVector::add(const VariableVector & v)
 bool VariableCountingVector::remove(const Variable & v)
 {
   VariablePtr s = v.superVariable();
+  const Space & start = v.spaceShift();
+  const Space & dim = v.space();
   auto & counterPair = count_.at(s.get());
-  bool change = counterPair.first.remove(v.subvariableRange());
+  bool change = counterPair.first.remove(start, dim);
   if(change)
   {
     if(counterPair.first.empty())
@@ -97,31 +102,34 @@ void VariableCountingVector::update() const
     simple_.clear();
     for(const auto & p : count_)
     {
-      auto ranges = p.second.first.ranges(split_);
-      if(ranges.size() == 0)
+      auto mRanges = p.second.first.mSize_.ranges(split_);
+      auto rRanges = p.second.first.rSize_.ranges(split_);
+      auto tRanges = p.second.first.tSize_.ranges(split_);
+      assert(mRanges.size() == rRanges.size() && mRanges.size() == tRanges.size());
+      if(mRanges.size() == 0)
       {
         continue;
       }
       else
       {
         auto v = p.first;
-        bool simple = p.second.second == ranges.size();
-        if(ranges.size() == 1 && ranges[0].dim == v->size())
+        bool simple = p.second.second == mRanges.size();
+        if(mRanges.size() == 1
+           && ((v->isBasePrimitive() && rRanges[0].dim == v->size())
+               || (!v->isBasePrimitive() && tRanges[0].dim == v->size())))
         {
-          assert(ranges[0].start == 0);
+          assert(mRanges[0].start == 0);
           variables_.add(v->shared_from_this());
           simple_.push_back(simple);
         }
         else
         {
-          for(const auto & r : ranges)
+          for(size_t i = 0; i < mRanges.size(); ++i)
           {
-            // The following line make the assumption that all variables can be treated as euclidean:
-            // the dimension and the shift of the subvariable are defined with simple spaces.
-            // This is fine if the VariableVector is not differentiated afterwards.
-            // If this was really necessary to derive the vector, one could keep track of all the
-            // space dimensions with several RangeCounting (one per dimension).
-            variables_.add(v->subvariable(Space(r.dim), Space(r.start)));
+            const auto & mr = mRanges[i];
+            const auto & rr = rRanges[i];
+            const auto & tr = tRanges[i];
+            variables_.add(v->subvariable(Space(mr.dim, rr.dim, tr.dim), Space(mr.start, rr.start, tr.start)));
             simple_.push_back(simple);
           }
         }
@@ -129,5 +137,18 @@ void VariableCountingVector::update() const
     }
     upToDate_ = true;
   }
+}
+bool VariableCountingVector::SpaceRangeCounting::add(const Space & start, const Space & dim)
+{
+  rSize_.add({start.rSize(), dim.rSize()});
+  tSize_.add({start.tSize(), dim.tSize()});
+  return mSize_.add({start.size(), dim.size()});
+}
+
+bool VariableCountingVector::SpaceRangeCounting::remove(const Space & start, const Space & dim)
+{
+  rSize_.remove({start.rSize(), dim.rSize()});
+  tSize_.remove({start.tSize(), dim.tSize()});
+  return mSize_.remove({start.size(), dim.size()});
 }
 } // namespace tvm::internal

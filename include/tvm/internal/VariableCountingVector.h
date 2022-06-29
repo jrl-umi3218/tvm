@@ -5,6 +5,7 @@
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
+#include <tvm/Space.h>
 #include <tvm/VariableVector.h>
 #include <tvm/internal/RangeCounting.h>
 #include <tvm/utils/internal/map.h>
@@ -28,7 +29,7 @@ namespace tvm::internal
 class TVM_DLLAPI VariableCountingVector
 {
 public:
-  /** \param split If true, variable parts who do not appears with the same count
+  /** \param split If true, variable parts who do not appear with the same count
    * or were not added at the same time are separated.
    * For example, if x is a variable of size 8, adding x[0:3] then x[4:7] will
    * yield a single variable (x) when split = false but two variables (x[0:3],
@@ -48,13 +49,7 @@ public:
 
   void set(const VectorConstRef & val);
 
-  /** Return the vector of variables resulting from the different add and remove.
-   *
-   * \warning This vector is not meant to be differentiated. This could cause
-   * troubles with non-Euclidean variables.
-   *
-   * \internal see comment in code.
-   */
+  /** Return the vector of variables resulting from the different add and remove. */
   const VariableVector & variables() const;
 
   /** Return a vector mirroring variables() where simple()[i] is \a true when
@@ -76,9 +71,21 @@ public:
   bool isDisjointUnion();
 
 private:
+  struct SpaceRangeCounting
+  {
+    tvm::internal::RangeCounting mSize_;
+    tvm::internal::RangeCounting rSize_;
+    tvm::internal::RangeCounting tSize_;
+
+    bool add(const Space & start, const Space & dim);
+    bool remove(const Space & start, const Space & dim);
+    bool empty() const { return mSize_.empty(); }
+    int maxCount() const { return mSize_.maxCount(); }
+  };
+
   void update() const;
 
-  tvm::utils::internal::map<Variable *, std::pair<tvm::internal::RangeCounting, size_t>> count_;
+  tvm::utils::internal::map<Variable *, std::pair<SpaceRangeCounting, size_t>> count_;
   bool split_;
   mutable bool upToDate_ = false;
   mutable VariableVector variables_;

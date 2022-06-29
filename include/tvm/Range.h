@@ -42,6 +42,12 @@ public:
   /** Return true if both range intersects. */
   bool intersects(const Range & other) const { return this->contains(other.start) || other.contains(this->start); }
 
+  /** Shift start by \p i.*/
+  Range operator+(int i) const { return {this->start + i, this->dim}; }
+
+  /** Shift start by \p -i.*/
+  Range operator-(int i) const { return {this->start - i, this->dim}; }
+
   /** Return the range of other within this Range.
    *
    * e.g Range(3,8).relativeRange(5,2) returns Range(2,2)
@@ -49,7 +55,7 @@ public:
   Range relativeRange(const Range & other) const
   {
     assert(this->contains(other));
-    return {other.start - this->start, other.dim};
+    return other - this->start;
   }
 };
 

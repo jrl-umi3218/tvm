@@ -760,3 +760,36 @@ TEST_CASE("Subvariable contains")
     FAST_CHECK_UNARY(v30->intersects(*v30));
   }
 }
+
+TEST_CASE("Subvariable range")
+{
+  VariablePtr x = Space(6).createVariable("x");
+  VariablePtr y = Space(Space::Type::SE3).createVariable("y");
+
+  VariablePtr x1 = x->subvariable(Space(3), "x1");
+  VariablePtr x2 = x->subvariable(Space(3), "x2", Space(2));
+
+  VariablePtr y1 = y->subvariable(Space(Space::Type::SO3), "y1");
+  VariablePtr y2 = y->subvariable(Space(3), "y2", Space(Space::Type::SO3));
+
+  FAST_CHECK_EQ(x->subvariableRange(), Range(0, 6));
+  FAST_CHECK_EQ(x1->subvariableRange(), Range(0, 3));
+  FAST_CHECK_EQ(x2->subvariableRange(), Range(2, 3));
+  FAST_CHECK_EQ(y->subvariableRange(), Range(0, 7));
+  FAST_CHECK_EQ(y1->subvariableRange(), Range(0, 4));
+  FAST_CHECK_EQ(y2->subvariableRange(), Range(4, 3));
+
+  FAST_CHECK_EQ(dot(x)->subvariableRange(), Range(0, 6));
+  FAST_CHECK_EQ(dot(x1)->subvariableRange(), Range(0, 3));
+  FAST_CHECK_EQ(dot(x2)->subvariableRange(), Range(2, 3));
+  FAST_CHECK_EQ(dot(y)->subvariableRange(), Range(0, 6));
+  FAST_CHECK_EQ(dot(y1)->subvariableRange(), Range(0, 3));
+  FAST_CHECK_EQ(dot(y2)->subvariableRange(), Range(3, 3));
+
+  FAST_CHECK_EQ(x->tSubvariableRange(), dot(x)->subvariableRange());
+  FAST_CHECK_EQ(x1->tSubvariableRange(), dot(x1)->subvariableRange());
+  FAST_CHECK_EQ(x2->tSubvariableRange(), dot(x2)->subvariableRange());
+  FAST_CHECK_EQ(y->tSubvariableRange(), dot(y)->subvariableRange());
+  FAST_CHECK_EQ(y1->tSubvariableRange(), dot(y1)->subvariableRange());
+  FAST_CHECK_EQ(y2->tSubvariableRange(), dot(y2)->subvariableRange());
+}

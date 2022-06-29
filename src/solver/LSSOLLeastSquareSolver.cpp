@@ -35,6 +35,23 @@ LSSOLLeastSquareSolver::LSSOLLeastSquareSolver(const LSSOLLSSolverOptions & opti
   TVM_PROCESS_OPTION(printLevel, fp_)
   TVM_PROCESS_OPTION(rankTol, fp_)
   TVM_PROCESS_OPTION(warm, fp_)
+  ls_.forceMinSize(false);
+  fp_.forceMinSize(false);
+  if(!options.persistence())
+  {
+    ls_.persistence(true);
+    fp_.persistence(true);
+  }
+  if(!options.feasibilityMaxIter())
+  {
+    ls_.feasibilityMaxIter(4 * ls_.feasibilityMaxIter());
+    fp_.feasibilityMaxIter(4 * fp_.feasibilityMaxIter());
+  }
+  if(!options.optimalityMaxIter())
+  {
+    ls_.optimalityMaxIter(4 * ls_.optimalityMaxIter());
+    fp_.optimalityMaxIter(4 * fp_.optimalityMaxIter());
+  }
 }
 
 void LSSOLLeastSquareSolver::initializeBuild_(int nObj, int nEq, int nIneq, bool)

@@ -6,6 +6,7 @@
 
 #include <tvm/VariableVector.h>
 #include <tvm/constraint/abstract/Constraint.h>
+#include <tvm/internal/VariableVectorPartition.h>
 #include <tvm/scheme/internal/helpers.h>
 
 namespace tvm::scheme::internal
@@ -549,6 +550,11 @@ void Assignment::addAssignments(const VariableVector & variables,
   const auto & xs = substitutedVariables_; // substituted variables
   const auto & xc = source_->variables();  // variables of the source constraint
 
+  tvm::internal::VariableCountingVector partition(true);
+  partition.add(xc);
+  partition.add(xs);
+  tvm::internal::VariableVectorPartition xcp(xc, partition);
+
   addVectorAssignment(f1, v1, flip);
   if(f2)
   {
@@ -559,7 +565,7 @@ void Assignment::addAssignments(const VariableVector & variables,
   // For all variables that are substituted into but are not part of the source variables,
   // we set the corresponding matrix block to zero.
   VariableVector substitutedInto;
-  for(const auto & x : xc)
+  for(const auto & x : xcp)
   {
     int i = xs.indexOf(*x);
     if(i >= 0) // x needs to be substituted
@@ -579,7 +585,7 @@ void Assignment::addAssignments(const VariableVector & variables,
   // Each variable of xc needs to be either in variables or in xs.
   // In the former case, we create a normal copy assignment, in the latter we
   // need to carry out a substitution
-  for(const auto & x : xc)
+  for(const auto & x : xcp)
   {
     if(x->size() == 0)
       continue;

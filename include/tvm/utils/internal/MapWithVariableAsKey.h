@@ -30,8 +30,10 @@ struct slice_traits
  * the slice of \p t corresponding to \p r (non-const case)
  *  - \code static ConstType get(const T & t, const Range & r)\endcode, same
  * function for the constant case.
+ * \tparam tSize If \c false, use the range of the variable x. If \c true, use
+ * the size of the derivative.
  */
-template<typename T, typename Slicer = slice_traits<T>>
+template<typename T, typename Slicer = slice_traits<T>, bool tSize = false>
 class MapWithVariableAsKey : public tvm::utils::internal::map<const Variable * const, T>
 {
 public:
@@ -42,8 +44,8 @@ public:
   typename Slicer::ConstType at(const typename Base::key_type & key, with_sub) const;
 };
 
-template<typename T, typename Slicer>
-inline typename Slicer::Type MapWithVariableAsKey<T, Slicer>::at(const typename Base::key_type & key, with_sub)
+template<typename T, typename Slicer, bool tSize>
+inline typename Slicer::Type MapWithVariableAsKey<T, Slicer, tSize>::at(const typename Base::key_type & key, with_sub)
 {
   auto it = Base::find(key);
   if(it != Base::end())
@@ -64,7 +66,11 @@ inline typename Slicer::Type MapWithVariableAsKey<T, Slicer>::at(const typename 
         }
         else
         {
-          Range r = it->first->subvariableRange().relativeRange(key->subvariableRange());
+          Range r;
+          if constexpr(tSize)
+            r = it->first->tSubvariableRange().relativeRange(key->tSubvariableRange());
+          else
+            r = it->first->subvariableRange().relativeRange(key->subvariableRange());
           return Slicer::get(it->second, r);
         }
       }
@@ -74,9 +80,9 @@ inline typename Slicer::Type MapWithVariableAsKey<T, Slicer>::at(const typename 
   throw std::out_of_range("[MapWithVariableAsKey::at] Variable " + key->name() + " is not part of this map.");
 }
 
-template<typename T, typename Slicer>
-inline typename Slicer::ConstType MapWithVariableAsKey<T, Slicer>::at(const typename Base::key_type & key,
-                                                                      with_sub) const
+template<typename T, typename Slicer, bool tSize>
+inline typename Slicer::ConstType MapWithVariableAsKey<T, Slicer, tSize>::at(const typename Base::key_type & key,
+                                                                             with_sub) const
 {
   auto it = Base::find(key);
   if(it != Base::end())
@@ -97,7 +103,11 @@ inline typename Slicer::ConstType MapWithVariableAsKey<T, Slicer>::at(const type
         }
         else
         {
-          Range r = it->first->subvariableRange().relativeRange(key->subvariableRange());
+          Range r;
+          if constexpr(tSize)
+            r = it->first->tSubvariableRange().relativeRange(key->tSubvariableRange());
+          else
+            r = it->first->subvariableRange().relativeRange(key->subvariableRange());
           return Slicer::get(it->second, r);
         }
       }
