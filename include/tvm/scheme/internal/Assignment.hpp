@@ -194,7 +194,7 @@ inline void Assignment::addVectorAssignment(const From & f, To v, bool flip, boo
     const VectorRef & to = retrieveTarget(target_, v);
     const auto & from = retrieveSource(source_, f);
     auto w = createAssignment<Eigen::VectorXd, A>(from, to, flip);
-    bool b = !std::is_null_pointer_v<decltype(nullifyIfVecRef(f))>;
+    bool b(nullifyIfVecRef(f));
     vectorAssignments_.push_back({w, b, nullifyIfVecRef(f), nullifyIfVecRef(v)});
   }
   else
@@ -229,7 +229,7 @@ inline void Assignment::addVectorAssignment(const From & f,
     const VectorRef & to = retrieveTarget(target_, v);
     const auto & from = retrieveSource(source_, f);
     auto w = createMultiplicationAssignment<Eigen::VectorXd, A, INVERSE_DIAGONAL>(from, to, D, flip);
-    bool b = nullifyIfVecRef(f);
+    bool b(nullifyIfVecRef(f));
     vectorAssignments_.emplace_back(w, b, nullifyIfVecRef(f), nullifyIfVecRef(v));
   }
   else
