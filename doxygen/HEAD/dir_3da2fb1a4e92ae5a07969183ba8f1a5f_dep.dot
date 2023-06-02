@@ -11,6 +11,6 @@ digraph "include/tvm/requirements" {
   }
   }
   dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
-  dir_219f77fecb6dd5880825c8e25295d6cd->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000022_000005.html"];
-  dir_3da2fb1a4e92ae5a07969183ba8f1a5f->dir_219f77fecb6dd5880825c8e25295d6cd [headlabel="4", labeldistance=1.5 headhref="dir_000021_000022.html"];
+  dir_219f77fecb6dd5880825c8e25295d6cd->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000024_000007.html"];
+  dir_3da2fb1a4e92ae5a07969183ba8f1a5f->dir_219f77fecb6dd5880825c8e25295d6cd [headlabel="4", labeldistance=1.5 headhref="dir_000023_000024.html"];
 }

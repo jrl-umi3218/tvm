@@ -1,7 +1,8 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::utils::CheckOptions\l::CheckConfiguration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1utils_1_1CheckOptions_1_1CheckConfiguration.html"];
+  Node0 [label="tvm::task_dynamics\l::VelocityDamper::Config",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html",tooltip=" "];
 }

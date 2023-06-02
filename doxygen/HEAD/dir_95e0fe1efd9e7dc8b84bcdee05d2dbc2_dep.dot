@@ -12,10 +12,10 @@ digraph "include/tvm/function" {
   }
   dir_02c2fac6d932f25932ff780d6d7745ad [shape=box label="utils" fillcolor="white" style="filled" color="red" URL="dir_02c2fac6d932f25932ff780d6d7745ad.html"];
   dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
-  dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2->dir_fec7dc84670c4afde302fd470832673e [headlabel="1", labeldistance=1.5 headhref="dir_000012_000013.html"];
-  dir_fec7dc84670c4afde302fd470832673e->dir_02c2fac6d932f25932ff780d6d7745ad [headlabel="1", labeldistance=1.5 headhref="dir_000013_000031.html"];
-  dir_fec7dc84670c4afde302fd470832673e->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000013_000005.html"];
-  dir_02c2fac6d932f25932ff780d6d7745ad->dir_fec7dc84670c4afde302fd470832673e [headlabel="2", labeldistance=1.5 headhref="dir_000031_000013.html"];
-  dir_02c2fac6d932f25932ff780d6d7745ad->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="2", labeldistance=1.5 headhref="dir_000031_000005.html"];
-  dir_020a04e36825fdb5d137e6f4f382bacd->dir_02c2fac6d932f25932ff780d6d7745ad [headlabel="2", labeldistance=1.5 headhref="dir_000005_000031.html"];
+  dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2->dir_fec7dc84670c4afde302fd470832673e [headlabel="1", labeldistance=1.5 headhref="dir_000014_000015.html"];
+  dir_fec7dc84670c4afde302fd470832673e->dir_02c2fac6d932f25932ff780d6d7745ad [headlabel="1", labeldistance=1.5 headhref="dir_000015_000033.html"];
+  dir_fec7dc84670c4afde302fd470832673e->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000015_000007.html"];
+  dir_02c2fac6d932f25932ff780d6d7745ad->dir_fec7dc84670c4afde302fd470832673e [headlabel="2", labeldistance=1.5 headhref="dir_000033_000015.html"];
+  dir_02c2fac6d932f25932ff780d6d7745ad->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="2", labeldistance=1.5 headhref="dir_000033_000007.html"];
+  dir_020a04e36825fdb5d137e6f4f382bacd->dir_02c2fac6d932f25932ff780d6d7745ad [headlabel="2", labeldistance=1.5 headhref="dir_000007_000033.html"];
 }

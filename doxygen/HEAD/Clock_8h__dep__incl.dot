@@ -1,21 +1,22 @@
 digraph "include/tvm/Clock.h"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node10 [label="include/tvm/Clock.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
-  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node11 [label="include/tvm/Robot.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Robot_8h.html"];
-  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node12 [label="include/tvm/robot/CoMFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CoMFunction_8h.html"];
-  Node11 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node13 [label="include/tvm/robot/CoMInConvex\lFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CoMInConvexFunction_8h.html"];
-  Node11 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node14 [label="include/tvm/robot/internal\l/DynamicFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$DynamicFunction_8h.html"];
-  Node11 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node15 [label="include/tvm/robot/Joints\lSelector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$JointsSelector_8h.html"];
-  Node11 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node16 [label="include/tvm/robot/Posture\lFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$PostureFunction_8h.html"];
-  Node11 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node17 [label="include/tvm/robot/utils.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8h.html"];
-  Node10 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="include/tvm/Clock.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="include/tvm/Robot.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Robot_8h.html",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="include/tvm/robot/CoMFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CoMFunction_8h.html",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="include/tvm/robot/CoMInConvex\lFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$CoMInConvexFunction_8h.html",tooltip=" "];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="include/tvm/robot/internal\l/DynamicFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$DynamicFunction_8h.html",tooltip=" "];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="include/tvm/robot/Joints\lSelector.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$JointsSelector_8h.html",tooltip=" "];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="include/tvm/robot/Posture\lFunction.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$PostureFunction_8h.html",tooltip=" "];
+  Node2 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="include/tvm/robot/utils.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8h.html",tooltip=" "];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

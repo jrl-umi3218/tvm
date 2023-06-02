@@ -12,9 +12,9 @@ digraph "include/tvm/graph" {
   }
   }
   dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
-  dir_020a04e36825fdb5d137e6f4f382bacd->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000015.html"];
-  dir_020a04e36825fdb5d137e6f4f382bacd->dir_29d37a9e9a314fc20511f620f3501246 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000016.html"];
-  dir_29d37a9e9a314fc20511f620f3501246->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000016_000005.html"];
-  dir_29d37a9e9a314fc20511f620f3501246->dir_837d8a3d1902506d0e43b20c8e2d565a [headlabel="1", labeldistance=1.5 headhref="dir_000016_000017.html"];
-  dir_837d8a3d1902506d0e43b20c8e2d565a->dir_29d37a9e9a314fc20511f620f3501246 [headlabel="1", labeldistance=1.5 headhref="dir_000017_000016.html"];
+  dir_020a04e36825fdb5d137e6f4f382bacd->dir_df8c49de760ace615969b0dd6b4dc6c3 [headlabel="1", labeldistance=1.5 headhref="dir_000007_000017.html"];
+  dir_020a04e36825fdb5d137e6f4f382bacd->dir_29d37a9e9a314fc20511f620f3501246 [headlabel="1", labeldistance=1.5 headhref="dir_000007_000018.html"];
+  dir_29d37a9e9a314fc20511f620f3501246->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000018_000007.html"];
+  dir_29d37a9e9a314fc20511f620f3501246->dir_837d8a3d1902506d0e43b20c8e2d565a [headlabel="1", labeldistance=1.5 headhref="dir_000018_000019.html"];
+  dir_837d8a3d1902506d0e43b20c8e2d565a->dir_29d37a9e9a314fc20511f620f3501246 [headlabel="1", labeldistance=1.5 headhref="dir_000019_000018.html"];
 }

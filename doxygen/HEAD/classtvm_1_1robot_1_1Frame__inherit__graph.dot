@@ -1,14 +1,15 @@
 digraph "tvm::robot::Frame"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node0 [label="tvm::robot::Frame",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
-  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="tvm::graph::abstract\l::Node\< Frame \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1abstract_1_1Node.html"];
+  Node1 [label="tvm::robot::Frame",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="tvm::graph::internal\l::AbstractNode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1internal_1_1AbstractNode.html"];
+  Node2 [label="tvm::graph::abstract\l::Node\< Frame \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1abstract_1_1Node.html",tooltip=" "];
   Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="tvm::graph::internal\l::Inputs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1internal_1_1Inputs.html"];
-  Node4 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="tvm::graph::abstract\l::Outputs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1abstract_1_1Outputs.html"];
+  Node3 [label="tvm::graph::internal\l::AbstractNode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1internal_1_1AbstractNode.html",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="tvm::graph::internal\l::Inputs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1internal_1_1Inputs.html",tooltip=" "];
+  Node5 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="tvm::graph::abstract\l::Outputs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1graph_1_1abstract_1_1Outputs.html",tooltip=" "];
 }

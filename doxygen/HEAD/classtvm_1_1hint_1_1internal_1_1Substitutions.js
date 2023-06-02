@@ -4,7 +4,7 @@ var classtvm_1_1hint_1_1internal_1_1Substitutions =
     [ "additionalConstraints", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#a091bdd86f0ac4b0afe8c0a2c3160d6e5", null ],
     [ "additionalVariables", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#ac6aeb3867493231a19666ac12286cb63", null ],
     [ "finalize", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#aaa68e21a8db2bda962014d0538981cca", null ],
-    [ "getSubstitutionFor", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#af3f0bfa4811a31a9498dc4a64f2db996", null ],
+    [ "getSubstitutionFor", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#adb185c2430052132839bfc2e61c5b488", null ],
     [ "otherVariables", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#ae1d5d3b03510c23349768d720acdc493", null ],
     [ "remove", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#ab248abc1e6041667a90319cbec78d80b", null ],
     [ "substitute", "classtvm_1_1hint_1_1internal_1_1Substitutions.html#abce057acc7ae8f623343806ef23e9cf7", null ],

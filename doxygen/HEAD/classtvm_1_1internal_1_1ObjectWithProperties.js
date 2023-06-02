@@ -14,7 +14,7 @@ var classtvm_1_1internal_1_1ObjectWithProperties =
     [ "operator-=", "classtvm_1_1internal_1_1ObjectWithProperties.html#a4071b72e45c753252234af42ce013a53", null ],
     [ "operator/=", "classtvm_1_1internal_1_1ObjectWithProperties.html#ac2019512bdace713f5b1f516b2154663", null ],
     [ "operator=", "classtvm_1_1internal_1_1ObjectWithProperties.html#ad32641ea9cbfe99c17f4be6ad7554fde", null ],
-    [ "properties", "classtvm_1_1internal_1_1ObjectWithProperties.html#a012b5f30938e528f890c2ccc62981f98", null ],
     [ "properties", "classtvm_1_1internal_1_1ObjectWithProperties.html#ab48104f7adb850b5e5b1e384518a510e", null ],
+    [ "properties", "classtvm_1_1internal_1_1ObjectWithProperties.html#a012b5f30938e528f890c2ccc62981f98", null ],
     [ "properties", "classtvm_1_1internal_1_1ObjectWithProperties.html#adc3033aff4e51b7a33f1b212f367c64d", null ]
 ];

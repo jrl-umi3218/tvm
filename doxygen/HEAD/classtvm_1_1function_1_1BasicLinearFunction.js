@@ -8,7 +8,7 @@ var classtvm_1_1function_1_1BasicLinearFunction =
     [ "BasicLinearFunction", "classtvm_1_1function_1_1BasicLinearFunction.html#a51bfb5c5a9093e1c963690ed6fd24be9", null ],
     [ "BasicLinearFunction", "classtvm_1_1function_1_1BasicLinearFunction.html#a1201b8c94072ff552f38b4d459183f87", null ],
     [ "BasicLinearFunction", "classtvm_1_1function_1_1BasicLinearFunction.html#a80dfccbf9fa012e8b6062045f18f9b39", null ],
-    [ "A", "classtvm_1_1function_1_1BasicLinearFunction.html#a6d7b51e0ea0bf0ca6721deb060237826", null ],
     [ "A", "classtvm_1_1function_1_1BasicLinearFunction.html#af1739d669a0ee57554c87233fb092a8d", null ],
+    [ "A", "classtvm_1_1function_1_1BasicLinearFunction.html#a6d7b51e0ea0bf0ca6721deb060237826", null ],
     [ "b", "classtvm_1_1function_1_1BasicLinearFunction.html#a0e2c7d35eb74b36659d5bc280fc2fd90", null ]
 ];

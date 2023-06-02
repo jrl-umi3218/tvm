@@ -13,7 +13,7 @@ var classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent =
     [ "ProblemDefinitionEvent", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#aad4ad9e3c84e43353e07aa048e878fe5", null ],
     [ "ProblemDefinitionEvent", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#a2509e9576cf2b4d17f606721fa793edf", null ],
     [ "ProblemDefinitionEvent", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#ae84855532fa01c31797bc87941469df9", null ],
-    [ "emitter", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#ab552480335416d7c539769d3c00f16a0", null ],
+    [ "emitter", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#a10bf923d33997f38b87ca21657f67528", null ],
     [ "operator=", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#ab105b8db59ef26acaa2a67e3d7019dd3", null ],
     [ "operator=", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#aec15688b9be5bab333cd84b3f43e6d81", null ],
     [ "type", "classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html#ad6d62ed5e9d52e29029417570cdc3481", null ],

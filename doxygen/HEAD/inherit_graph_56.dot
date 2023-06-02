@@ -1,9 +1,8 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node172 [label="MatrixType",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node172 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="tvm::internal::ObjectWith\lProperties\< MatrixType,\l refOnProperties \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1internal_1_1ObjectWithProperties.html"];
+  Node0 [label="tvm::internal::MatrixProperties\l::Invertibility",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1internal_1_1MatrixProperties_1_1Invertibility.html",tooltip=" "];
 }

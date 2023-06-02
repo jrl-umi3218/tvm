@@ -17,7 +17,7 @@ var hierarchy =
     [ "tvm::utils::internal::BufferedMatrix", "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html", null ],
     [ "tvm::scheme::internal::CachedResult< MatrixType, Cache >", "classtvm_1_1scheme_1_1internal_1_1CachedResult.html", null ],
     [ "tvm::scheme::internal::CachedResult< MatrixType, true >", "classtvm_1_1scheme_1_1internal_1_1CachedResult_3_01MatrixType_00_01true_01_4.html", null ],
-    [ "tvm::scheme::internal::CachedResult< MatrixType, use_assign_cache< MatrixType, A, W, M, F >::value||use_product_cache< MatrixType, A, W, M, F >::value >", "classtvm_1_1scheme_1_1internal_1_1CachedResult.html", [
+    [ "tvm::scheme::internal::CachedResult< MatrixType, use_assign_cache< MatrixType, A, W, M, EXTERNAL >::value||use_product_cache< MatrixType, A, W, M, EXTERNAL >::value >", "classtvm_1_1scheme_1_1internal_1_1CachedResult.html", [
       [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, F >", "classtvm_1_1scheme_1_1internal_1_1CompiledAssignment.html", null ]
     ] ],
     [ "tvm::graph::CallGraph::Call", "structtvm_1_1graph_1_1CallGraph_1_1Call.html", null ],
@@ -36,16 +36,16 @@ var hierarchy =
     [ "tvm::scheme::internal::CompiledAssignmentWrapper< Eigen::MatrixXd >", "classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html", null ],
     [ "tvm::scheme::internal::CompiledAssignmentWrapper< Eigen::VectorXd >", "classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html", null ],
     [ "conditional_t", null, [
-      [ "tvm::requirements::abstract::SingleSolvingRequirement< double, Lightweight >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
+      [ "tvm::requirements::abstract::SingleSolvingRequirement< double, true >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
         [ "tvm::requirements::WeightBase< Lightweight >", "classtvm_1_1requirements_1_1WeightBase.html", null ]
       ] ],
-      [ "tvm::requirements::abstract::SingleSolvingRequirement< Eigen::VectorXd, Lightweight >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
+      [ "tvm::requirements::abstract::SingleSolvingRequirement< Eigen::VectorXd, true >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
         [ "tvm::requirements::AnisotropicWeightBase< Lightweight >", "classtvm_1_1requirements_1_1AnisotropicWeightBase.html", null ]
       ] ],
-      [ "tvm::requirements::abstract::SingleSolvingRequirement< int, Lightweight >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
+      [ "tvm::requirements::abstract::SingleSolvingRequirement< int, true >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
         [ "tvm::requirements::PriorityLevelBase< Lightweight >", "classtvm_1_1requirements_1_1PriorityLevelBase.html", null ]
       ] ],
-      [ "tvm::requirements::abstract::SingleSolvingRequirement< ViolationEvaluationType, Lightweight >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
+      [ "tvm::requirements::abstract::SingleSolvingRequirement< ViolationEvaluationType, true >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", [
         [ "tvm::requirements::ViolationEvaluationBase< Lightweight >", "classtvm_1_1requirements_1_1ViolationEvaluationBase.html", null ]
       ] ],
       [ "tvm::requirements::abstract::SingleSolvingRequirement< T, Lightweight >", "classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html", null ]
@@ -113,14 +113,6 @@ var hierarchy =
         ] ],
         [ "tvm::graph::abstract::Node< FirstOrderProvider >", "classtvm_1_1graph_1_1abstract_1_1Node.html", [
           [ "tvm::internal::FirstOrderProvider", "classtvm_1_1internal_1_1FirstOrderProvider.html", [
-            [ "tvm::graph::abstract::OutputSelector< Constraint, tvm::internal::FirstOrderProvider >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", [
-              [ "tvm::constraint::abstract::Constraint", "classtvm_1_1constraint_1_1abstract_1_1Constraint.html", [
-                [ "tvm::constraint::abstract::LinearConstraint", "classtvm_1_1constraint_1_1abstract_1_1LinearConstraint.html", [
-                  [ "tvm::constraint::BasicLinearConstraint", "classtvm_1_1constraint_1_1BasicLinearConstraint.html", null ],
-                  [ "tvm::constraint::internal::LinearizedTaskConstraint", "classtvm_1_1constraint_1_1internal_1_1LinearizedTaskConstraint.html", null ]
-                ] ]
-              ] ]
-            ] ],
             [ "tvm::function::abstract::Function", "classtvm_1_1function_1_1abstract_1_1Function.html", [
               [ "tvm::function::abstract::LinearFunction", "classtvm_1_1function_1_1abstract_1_1LinearFunction.html", [
                 [ "tvm::function::BasicLinearFunction", "classtvm_1_1function_1_1BasicLinearFunction.html", [
@@ -165,10 +157,10 @@ var hierarchy =
     [ "tvm::graph::internal::Log::InternalDependency", "structtvm_1_1graph_1_1internal_1_1Log_1_1InternalDependency.html", null ],
     [ "tvm::internal::MatrixProperties::Invertibility", "structtvm_1_1internal_1_1MatrixProperties_1_1Invertibility.html", null ],
     [ "tvm::internal::is_base< Base >", "structtvm_1_1internal_1_1is__base.html", null ],
-    [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html", null ],
     [ "iterator", null, [
       [ "tvm::graph::internal::Inputs::Iterator", "structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html", null ]
     ] ],
+    [ "tvm::internal::VariableVectorPartition< VarVector >::iterator", "classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html", null ],
     [ "tvm::internal::KeepProperties< MatrixType, refOnProperties >", "classtvm_1_1internal_1_1KeepProperties.html", null ],
     [ "tvm::solver::abstract::LeastSquareSolver", "classtvm_1_1solver_1_1abstract_1_1LeastSquareSolver.html", [
       [ "tvm::solver::LexLSLeastSquareSolver", "classtvm_1_1solver_1_1LexLSLeastSquareSolver.html", null ],
@@ -206,15 +198,19 @@ var hierarchy =
     [ "tvm::scheme::internal::MatrixMultBase< MatrixType, IDENTITY >", "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01IDENTITY_01_4.html", null ],
     [ "tvm::scheme::internal::MatrixMultBase< MatrixType, INVERSE_DIAGONAL >", "classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01INVERSE__DIAGONAL_01_4.html", null ],
     [ "tvm::internal::MatrixProperties", "classtvm_1_1internal_1_1MatrixProperties.html", null ],
-    [ "MatrixType", null, [
-      [ "tvm::internal::ObjectWithProperties< MatrixType, refOnProperties >", "classtvm_1_1internal_1_1ObjectWithProperties.html", null ]
-    ] ],
     [ "tvm::scheme::internal::NoArg", "classtvm_1_1scheme_1_1internal_1_1NoArg.html", null ],
     [ "tvm::utils::internal::NoConstant", "classtvm_1_1utils_1_1internal_1_1NoConstant.html", null ],
     [ "tvm::robot::CollisionFunction::CollisionData::ObjectData", "structtvm_1_1robot_1_1CollisionFunction_1_1CollisionData_1_1ObjectData.html", null ],
     [ "tvm::solver::internal::SolverEvents::Objective", "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html", null ],
+    [ "tvm::internal::ObjectWithProperties< MatrixType, refOnProperties >", "classtvm_1_1internal_1_1ObjectWithProperties.html", null ],
+    [ "tvm::internal::ObjectWithProperties< MatrixType, false >", "classtvm_1_1internal_1_1ObjectWithProperties.html", null ],
     [ "tvm::internal::ObjWithId", "classtvm_1_1internal_1_1ObjWithId.html", [
-      [ "tvm::constraint::abstract::Constraint", "classtvm_1_1constraint_1_1abstract_1_1Constraint.html", null ],
+      [ "tvm::constraint::abstract::Constraint", "classtvm_1_1constraint_1_1abstract_1_1Constraint.html", [
+        [ "tvm::constraint::abstract::LinearConstraint", "classtvm_1_1constraint_1_1abstract_1_1LinearConstraint.html", [
+          [ "tvm::constraint::BasicLinearConstraint", "classtvm_1_1constraint_1_1BasicLinearConstraint.html", null ],
+          [ "tvm::constraint::internal::LinearizedTaskConstraint", "classtvm_1_1constraint_1_1internal_1_1LinearizedTaskConstraint.html", null ]
+        ] ]
+      ] ],
       [ "tvm::scheme::internal::ResolutionSchemeBase", "classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html", [
         [ "tvm::scheme::abstract::ResolutionScheme< HierarchicalLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html", [
           [ "tvm::scheme::abstract::LinearResolutionScheme< HierarchicalLeastSquares >", "classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html", [
@@ -240,6 +236,10 @@ var hierarchy =
     [ "tvm::graph::abstract::Outputs", "classtvm_1_1graph_1_1abstract_1_1Outputs.html", [
       [ "tvm::Clock", "classtvm_1_1Clock.html", null ],
       [ "tvm::graph::internal::AbstractNode", "classtvm_1_1graph_1_1internal_1_1AbstractNode.html", null ]
+    ] ],
+    [ "tvm::graph::abstract::OutputSelector< OutputProvider, Base >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", null ],
+    [ "tvm::graph::abstract::OutputSelector< Constraint, tvm::internal::FirstOrderProvider >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", [
+      [ "tvm::constraint::abstract::Constraint", "classtvm_1_1constraint_1_1abstract_1_1Constraint.html", null ]
     ] ],
     [ "tvm::internal::PairElementToken", "classtvm_1_1internal_1_1PairElementToken.html", null ],
     [ "tvm::internal::PairElementTokenHandle", "classtvm_1_1internal_1_1PairElementTokenHandle.html", null ],
@@ -269,12 +269,6 @@ var hierarchy =
     [ "tvm::scheme::internal::SchemeAbilities", "classtvm_1_1scheme_1_1internal_1_1SchemeAbilities.html", null ],
     [ "tvm::graph::abstract::SelectorMembers< add >", "structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html", null ],
     [ "tvm::graph::abstract::SelectorMembers< false >", "structtvm_1_1graph_1_1abstract_1_1SelectorMembers_3_01false_01_4.html", null ],
-    [ "tvm::graph::abstract::SelectorMembers<!is_output_selector< Base >()>", "structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html", [
-      [ "tvm::graph::abstract::OutputSelector< OutputProvider, Base >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", null ]
-    ] ],
-    [ "tvm::graph::abstract::SelectorMembers<!is_output_selector< tvm::internal::FirstOrderProvider >()>", "structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html", [
-      [ "tvm::graph::abstract::OutputSelector< Constraint, tvm::internal::FirstOrderProvider >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", null ]
-    ] ],
     [ "tvm::function::abstract::Function::slice_jdot", "structtvm_1_1function_1_1abstract_1_1Function_1_1slice__jdot.html", null ],
     [ "tvm::internal::FirstOrderProvider::slice_linear", "structtvm_1_1internal_1_1FirstOrderProvider_1_1slice__linear.html", null ],
     [ "tvm::internal::FirstOrderProvider::slice_matrix", "structtvm_1_1internal_1_1FirstOrderProvider_1_1slice__matrix.html", null ],
@@ -287,7 +281,8 @@ var hierarchy =
       [ "tvm::requirements::SolvingRequirements", "classtvm_1_1requirements_1_1SolvingRequirements.html", null ]
     ] ],
     [ "tvm::event::Source", "classtvm_1_1event_1_1Source.html", null ],
-    [ "tvm::scheme::internal::SourceBase< MatrixType, F >", "classtvm_1_1scheme_1_1internal_1_1SourceBase.html", [
+    [ "tvm::scheme::internal::SourceBase< MatrixType, F >", "classtvm_1_1scheme_1_1internal_1_1SourceBase.html", null ],
+    [ "tvm::scheme::internal::SourceBase< MatrixType, EXTERNAL >", "classtvm_1_1scheme_1_1internal_1_1SourceBase.html", [
       [ "tvm::scheme::internal::CompiledAssignment< MatrixType, A, W, M, F >", "classtvm_1_1scheme_1_1internal_1_1CompiledAssignment.html", null ]
     ] ],
     [ "tvm::scheme::internal::SourceBase< MatrixType, ZERO >", "classtvm_1_1scheme_1_1internal_1_1SourceBase_3_01MatrixType_00_01ZERO_01_4.html", null ],
@@ -339,8 +334,8 @@ var hierarchy =
     [ "type", null, [
       [ "tvm::scheme::internal::ParseArg< N >", "classtvm_1_1scheme_1_1internal_1_1ParseArg.html", null ]
     ] ],
-    [ "tvm::graph::internal::AbstractNode::Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
     [ "tvm::graph::internal::Log::Update", "structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html", null ],
+    [ "tvm::graph::internal::AbstractNode::Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
     [ "tvm::utils::UpdatelessFunction", "classtvm_1_1utils_1_1UpdatelessFunction.html", null ],
     [ "tvm::ControlProblem::Updater", "classtvm_1_1ControlProblem_1_1Updater.html", null ],
     [ "tvm::diagnostic::internal::ValidVariableAccessor< T >", "structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html", null ],
@@ -371,8 +366,5 @@ var hierarchy =
     [ "tvm::scheme::internal::WeightMultBase< DIAGONAL >", "classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01DIAGONAL_01_4.html", null ],
     [ "tvm::scheme::internal::WeightMultBase< MINUS >", "classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01MINUS_01_4.html", null ],
     [ "tvm::scheme::internal::WeightMultBase< NONE >", "classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01NONE_01_4.html", null ],
-    [ "tvm::scheme::internal::WeightMultBase< SCALAR >", "classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01SCALAR_01_4.html", null ],
-    [ "Base", null, [
-      [ "tvm::graph::abstract::OutputSelector< OutputProvider, Base >", "classtvm_1_1graph_1_1abstract_1_1OutputSelector.html", null ]
-    ] ]
+    [ "tvm::scheme::internal::WeightMultBase< SCALAR >", "classtvm_1_1scheme_1_1internal_1_1WeightMultBase_3_01SCALAR_01_4.html", null ]
 ];

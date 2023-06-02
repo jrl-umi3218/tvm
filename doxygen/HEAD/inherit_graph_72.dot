@@ -1,7 +1,8 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::robot::Contact::Id",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1robot_1_1Contact_1_1Id.html"];
+  Node0 [label="tvm::robot::CollisionFunction\l::CollisionData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1robot_1_1CollisionFunction_1_1CollisionData.html",tooltip=" "];
 }

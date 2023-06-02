@@ -1,7 +1,12 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::utils::AffineExpr\l\< CstDerived, Derived \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1utils_1_1AffineExpr.html"];
+  Node41 [label="TDImpl",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node41 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::task_dynamics\l::Clamped\< TD, TDImpl\l \>::Impl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1task__dynamics_1_1Clamped_1_1Impl.html",tooltip=" "];
+  Node41 -> Node43 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node43 [label="tvm::task_dynamics\l::FeedForward\< TD, TDImpl\l \>::Impl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1task__dynamics_1_1FeedForward_1_1Impl.html",tooltip=" "];
 }

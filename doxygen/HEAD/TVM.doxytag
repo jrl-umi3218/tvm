@@ -3,37 +3,37 @@
   <compound kind="file">
     <name>concepts.dox</name>
     <path>/home/runner/work/tvm/tvm/doc/</path>
-    <filename>concepts_8dox</filename>
+    <filename>concepts_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>main.dox</name>
     <path>/home/runner/work/tvm/tvm/doc/</path>
-    <filename>main_8dox</filename>
+    <filename>main_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>FunctionWritingExample.dox</name>
     <path>/home/runner/work/tvm/tvm/examples/</path>
-    <filename>FunctionWritingExample_8dox</filename>
+    <filename>FunctionWritingExample_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>LeastSquaresExample.dox</name>
     <path>/home/runner/work/tvm/tvm/examples/</path>
-    <filename>LeastSquaresExample_8dox</filename>
+    <filename>LeastSquaresExample_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>ProblemWritingExample.dox</name>
     <path>/home/runner/work/tvm/tvm/examples/</path>
-    <filename>ProblemWritingExample_8dox</filename>
+    <filename>ProblemWritingExample_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>TaskDynamicsExample.dox</name>
     <path>/home/runner/work/tvm/tvm/examples/</path>
-    <filename>TaskDynamicsExample_8dox</filename>
+    <filename>TaskDynamicsExample_8dox.html</filename>
   </compound>
   <compound kind="file">
     <name>api.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>api_8h</filename>
+    <filename>api_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>TVM_DLLIMPORT</name>
@@ -73,7 +73,7 @@
   <compound kind="file">
     <name>Clock.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Clock_8h</filename>
+    <filename>Clock_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Outputs_8h" name="Outputs.h" local="no" imported="no">tvm/graph/abstract/Outputs.h</includes>
     <class kind="class">tvm::Clock</class>
@@ -82,7 +82,7 @@
   <compound kind="file">
     <name>Constraint.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/abstract/</path>
-    <filename>Constraint_8h</filename>
+    <filename>Constraint_8h.html</filename>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
     <includes id="RHSVectors_8h" name="RHSVectors.h" local="no" imported="no">tvm/constraint/internal/RHSVectors.h</includes>
     <includes id="OutputSelector_8h" name="OutputSelector.h" local="no" imported="no">tvm/graph/abstract/OutputSelector.h</includes>
@@ -95,7 +95,7 @@
   <compound kind="file">
     <name>LinearConstraint.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/abstract/</path>
-    <filename>LinearConstraint_8h</filename>
+    <filename>LinearConstraint_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Constraint_8h" name="Constraint.h" local="no" imported="no">tvm/constraint/abstract/Constraint.h</includes>
     <class kind="class">tvm::constraint::abstract::LinearConstraint</class>
@@ -106,7 +106,7 @@
   <compound kind="file">
     <name>BasicLinearConstraint.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/</path>
-    <filename>BasicLinearConstraint_8h</filename>
+    <filename>BasicLinearConstraint_8h.html</filename>
     <includes id="LinearConstraint_8h" name="LinearConstraint.h" local="no" imported="no">tvm/constraint/abstract/LinearConstraint.h</includes>
     <includes id="MatrixProperties_8h" name="MatrixProperties.h" local="no" imported="no">tvm/internal/MatrixProperties.h</includes>
     <class kind="class">tvm::constraint::BasicLinearConstraint</class>
@@ -116,7 +116,7 @@
   <compound kind="file">
     <name>enums.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/</path>
-    <filename>constraint_2enums_8h</filename>
+    <filename>constraint_2enums_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::constraint</namespace>
     <member kind="enumeration">
@@ -144,7 +144,7 @@
   <compound kind="file">
     <name>enums.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/event/</path>
-    <filename>event_2enums_8h</filename>
+    <filename>event_2enums_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::event</namespace>
     <member kind="enumeration">
@@ -159,7 +159,7 @@
   <compound kind="file">
     <name>enums.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>internal_2enums_8h</filename>
+    <filename>internal_2enums_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
     <member kind="define">
@@ -733,7 +733,7 @@
   <compound kind="file">
     <name>enums.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>robot_2enums_8h</filename>
+    <filename>robot_2enums_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::robot</namespace>
     <member kind="enumeration">
@@ -760,7 +760,7 @@
   <compound kind="file">
     <name>enums.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>task__dynamics_2enums_8h</filename>
+    <filename>task__dynamics_2enums_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::task_dynamics</namespace>
     <member kind="enumeration">
@@ -777,7 +777,7 @@
   <compound kind="file">
     <name>LinearizedTaskConstraint.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/internal/</path>
-    <filename>LinearizedTaskConstraint_8h</filename>
+    <filename>LinearizedTaskConstraint_8h.html</filename>
     <includes id="Task_8h" name="Task.h" local="no" imported="no">tvm/Task.h</includes>
     <includes id="LinearConstraint_8h" name="LinearConstraint.h" local="no" imported="no">tvm/constraint/abstract/LinearConstraint.h</includes>
     <includes id="ProtoTask_8h" name="ProtoTask.h" local="no" imported="no">tvm/utils/ProtoTask.h</includes>
@@ -789,7 +789,7 @@
   <compound kind="file">
     <name>RHSVectors.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/constraint/internal/</path>
-    <filename>RHSVectors_8h</filename>
+    <filename>RHSVectors_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
     <class kind="class">tvm::constraint::internal::RHSVectors</class>
@@ -800,7 +800,7 @@
   <compound kind="file">
     <name>ControlProblem.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>ControlProblem_8h</filename>
+    <filename>ControlProblem_8h.html</filename>
     <includes id="Task_8h" name="Task.h" local="no" imported="no">tvm/Task.h</includes>
     <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
     <includes id="SolvingRequirements_8h" name="SolvingRequirements.h" local="no" imported="no">tvm/requirements/SolvingRequirements.h</includes>
@@ -826,7 +826,7 @@
   <compound kind="file">
     <name>defs.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>defs_8h</filename>
+    <filename>defs_8h.html</filename>
     <namespace>tvm</namespace>
     <namespace>tvm::constraint</namespace>
     <namespace>tvm::constraint::abstract</namespace>
@@ -981,7 +981,7 @@
   <compound kind="file">
     <name>GraphProbe.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/</path>
-    <filename>GraphProbe_8h</filename>
+    <filename>GraphProbe_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="probe_8h" name="probe.h" local="no" imported="no">tvm/diagnostic/internal/probe.h</includes>
@@ -991,6 +991,7 @@
     <includes id="MatrixWithProperties_8h" name="MatrixWithProperties.h" local="no" imported="no">tvm/internal/MatrixWithProperties.h</includes>
     <class kind="class">tvm::diagnostic::GraphProbe</class>
     <class kind="struct">tvm::diagnostic::GraphProbe::ProbeNode</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::diagnostic</namespace>
     <member kind="function">
       <type>TVM_DLLAPI std::ostream &amp;</type>
@@ -1003,7 +1004,8 @@
   <compound kind="file">
     <name>details.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
-    <filename>details_8h</filename>
+    <filename>details_8h.html</filename>
+    <namespace>tvm</namespace>
     <namespace>tvm::diagnostic</namespace>
     <namespace>tvm::diagnostic::internal</namespace>
     <member kind="function">
@@ -1017,10 +1019,12 @@
   <compound kind="file">
     <name>probe.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
-    <filename>probe_8h</filename>
+    <filename>probe_8h.html</filename>
     <includes id="Log_8h" name="Log.h" local="no" imported="no">tvm/graph/internal/Log.h</includes>
     <class kind="struct">tvm::diagnostic::internal::PairHasher</class>
     <class kind="struct">std::hash&lt; tvm::graph::internal::Log::EnumValue &gt;</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::diagnostic</namespace>
     <namespace>tvm::diagnostic::internal</namespace>
     <namespace>std</namespace>
     <member kind="function">
@@ -1034,7 +1038,7 @@
   <compound kind="file">
     <name>traits.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/internal/</path>
-    <filename>diagnostic_2internal_2traits_8h</filename>
+    <filename>diagnostic_2internal_2traits_8h.html</filename>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor</class>
     <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
@@ -1047,6 +1051,8 @@
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const noexcept &gt;</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::diagnostic</namespace>
     <namespace>tvm::diagnostic::internal</namespace>
     <member kind="function">
       <type>std::function&lt; Eigen::MatrixXd(const ArgT &amp;)&gt;</type>
@@ -1059,14 +1065,15 @@
   <compound kind="file">
     <name>traits.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>internal_2traits_8h</filename>
+    <filename>internal_2traits_8h.html</filename>
     <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
   </compound>
   <compound kind="file">
     <name>matrix.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/diagnostic/</path>
-    <filename>matrix_8h</filename>
+    <filename>matrix_8h.html</filename>
     <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
+    <namespace>tvm</namespace>
     <namespace>tvm::diagnostic</namespace>
     <member kind="function">
       <type>bool</type>
@@ -1093,7 +1100,7 @@
   <compound kind="file">
     <name>Listener.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/event/</path>
-    <filename>Listener_8h</filename>
+    <filename>Listener_8h.html</filename>
     <includes id="Source_8h" name="Source.h" local="no" imported="no">tvm/event/Source.h</includes>
     <class kind="class">tvm::event::Listener</class>
     <namespace>tvm</namespace>
@@ -1102,7 +1109,7 @@
   <compound kind="file">
     <name>Source.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/event/</path>
-    <filename>Source_8h</filename>
+    <filename>Source_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="event_2enums_8h" name="enums.h" local="no" imported="no">tvm/event/enums.h</includes>
     <class kind="class">tvm::event::Source</class>
@@ -1112,7 +1119,7 @@
   <compound kind="file">
     <name>exceptions.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/exception/</path>
-    <filename>exceptions_8h</filename>
+    <filename>exceptions_8h.html</filename>
     <class kind="class">tvm::exception::Exception</class>
     <class kind="class">tvm::exception::DataException</class>
     <class kind="class">tvm::exception::UnusedOutput</class>
@@ -1127,7 +1134,7 @@
   <compound kind="file">
     <name>Function.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/function/abstract/</path>
-    <filename>Function_8h</filename>
+    <filename>Function_8h.html</filename>
     <includes id="FirstOrderProvider_8h" name="FirstOrderProvider.h" local="no" imported="no">tvm/internal/FirstOrderProvider.h</includes>
     <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
     <class kind="class">tvm::function::abstract::Function</class>
@@ -1139,7 +1146,7 @@
   <compound kind="file">
     <name>LinearFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/function/abstract/</path>
-    <filename>LinearFunction_8h</filename>
+    <filename>LinearFunction_8h.html</filename>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <class kind="class">tvm::function::abstract::LinearFunction</class>
     <namespace>tvm</namespace>
@@ -1149,7 +1156,7 @@
   <compound kind="file">
     <name>BasicLinearFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/function/</path>
-    <filename>BasicLinearFunction_8h</filename>
+    <filename>BasicLinearFunction_8h.html</filename>
     <includes id="LinearFunction_8h" name="LinearFunction.h" local="no" imported="no">tvm/function/abstract/LinearFunction.h</includes>
     <includes id="MatrixProperties_8h" name="MatrixProperties.h" local="no" imported="no">tvm/internal/MatrixProperties.h</includes>
     <includes id="VariableCountingVector_8h" name="VariableCountingVector.h" local="no" imported="no">tvm/internal/VariableCountingVector.h</includes>
@@ -1169,7 +1176,7 @@
   <compound kind="file">
     <name>IdentityFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/function/</path>
-    <filename>IdentityFunction_8h</filename>
+    <filename>IdentityFunction_8h.html</filename>
     <includes id="BasicLinearFunction_8h" name="BasicLinearFunction.h" local="no" imported="no">tvm/function/BasicLinearFunction.h</includes>
     <class kind="class">tvm::function::IdentityFunction</class>
     <namespace>tvm</namespace>
@@ -1178,7 +1185,7 @@
   <compound kind="file">
     <name>Plane.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/geometry/</path>
-    <filename>Plane_8h</filename>
+    <filename>Plane_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Node_8h" name="Node.h" local="no" imported="no">tvm/graph/abstract/Node.h</includes>
@@ -1196,7 +1203,7 @@
   <compound kind="file">
     <name>Node.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/abstract/</path>
-    <filename>Node_8h</filename>
+    <filename>Node_8h.html</filename>
     <includes id="AbstractNode_8h" name="AbstractNode.h" local="no" imported="no">tvm/graph/internal/AbstractNode.h</includes>
     <class kind="class">tvm::graph::abstract::Node</class>
     <namespace>tvm</namespace>
@@ -1206,7 +1213,7 @@
   <compound kind="file">
     <name>Outputs.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/abstract/</path>
-    <filename>Outputs_8h</filename>
+    <filename>Outputs_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="internal_2enums_8h" name="enums.h" local="no" imported="no">tvm/internal/enums.h</includes>
     <class kind="class">tvm::graph::abstract::Outputs</class>
@@ -1253,7 +1260,7 @@
   <compound kind="file">
     <name>OutputSelector.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/abstract/</path>
-    <filename>OutputSelector_8h</filename>
+    <filename>OutputSelector_8h.html</filename>
     <includes id="Outputs_8h" name="Outputs.h" local="no" imported="no">tvm/graph/abstract/Outputs.h</includes>
     <class kind="struct">tvm::graph::abstract::SelectorMembers</class>
     <class kind="struct">tvm::graph::abstract::SelectorMembers&lt; false &gt;</class>
@@ -1287,7 +1294,7 @@
   <compound kind="file">
     <name>CallGraph.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/</path>
-    <filename>CallGraph_8h</filename>
+    <filename>CallGraph_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="AbstractNode_8h" name="AbstractNode.h" local="no" imported="no">tvm/graph/internal/AbstractNode.h</includes>
     <includes id="DependencyGraph_8h" name="DependencyGraph.h" local="no" imported="no">tvm/graph/internal/DependencyGraph.h</includes>
@@ -1301,7 +1308,7 @@
   <compound kind="file">
     <name>AbstractNode.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/internal/</path>
-    <filename>AbstractNode_8h</filename>
+    <filename>AbstractNode_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Inputs_8h" name="Inputs.h" local="no" imported="no">tvm/graph/internal/Inputs.h</includes>
     <class kind="class">tvm::graph::abstract::Node</class>
@@ -1350,15 +1357,17 @@
   <compound kind="file">
     <name>DependencyGraph.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/internal/</path>
-    <filename>DependencyGraph_8h</filename>
+    <filename>DependencyGraph_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::graph::internal::DependencyGraph</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::graph</namespace>
     <namespace>tvm::graph::internal</namespace>
   </compound>
   <compound kind="file">
     <name>Inputs.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/internal/</path>
-    <filename>Inputs_8h</filename>
+    <filename>Inputs_8h.html</filename>
     <includes id="Outputs_8h" name="Outputs.h" local="no" imported="no">tvm/graph/abstract/Outputs.h</includes>
     <class kind="class">tvm::graph::internal::Inputs</class>
     <class kind="struct">tvm::graph::internal::Inputs::Iterator</class>
@@ -1369,7 +1378,7 @@
   <compound kind="file">
     <name>Log.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/internal/</path>
-    <filename>Log_8h</filename>
+    <filename>Log_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::graph::internal::Log</class>
     <class kind="struct">tvm::graph::internal::Log::EnumValue</class>
@@ -1416,7 +1425,7 @@
   <compound kind="file">
     <name>Logger.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/graph/internal/</path>
-    <filename>Logger_8h</filename>
+    <filename>Logger_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Log_8h" name="Log.h" local="no" imported="no">tvm/graph/internal/Log.h</includes>
     <class kind="class">tvm::graph::internal::Logger</class>
@@ -1435,7 +1444,7 @@
   <compound kind="file">
     <name>SubstitutionCalculator.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/abstract/</path>
-    <filename>SubstitutionCalculator_8h</filename>
+    <filename>SubstitutionCalculator_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="SubstitutionCalculatorImpl_8h" name="SubstitutionCalculatorImpl.h" local="no" imported="no">tvm/hint/abstract/SubstitutionCalculatorImpl.h</includes>
@@ -1447,7 +1456,7 @@
   <compound kind="file">
     <name>SubstitutionCalculatorImpl.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/abstract/</path>
-    <filename>SubstitutionCalculatorImpl_8h</filename>
+    <filename>SubstitutionCalculatorImpl_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Range_8h" name="Range.h" local="no" imported="no">tvm/Range.h</includes>
@@ -1460,7 +1469,7 @@
   <compound kind="file">
     <name>AutoCalculator.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/internal/</path>
-    <filename>AutoCalculator_8h</filename>
+    <filename>AutoCalculator_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="SubstitutionCalculator_8h" name="SubstitutionCalculator.h" local="no" imported="no">tvm/hint/abstract/SubstitutionCalculator.h</includes>
@@ -1472,7 +1481,7 @@
   <compound kind="file">
     <name>DiagonalCalculator.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/internal/</path>
-    <filename>DiagonalCalculator_8h</filename>
+    <filename>DiagonalCalculator_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="SubstitutionCalculator_8h" name="SubstitutionCalculator.h" local="no" imported="no">tvm/hint/abstract/SubstitutionCalculator.h</includes>
@@ -1486,7 +1495,7 @@
   <compound kind="file">
     <name>GenericCalculator.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/internal/</path>
-    <filename>GenericCalculator_8h</filename>
+    <filename>GenericCalculator_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="SubstitutionCalculator_8h" name="SubstitutionCalculator.h" local="no" imported="no">tvm/hint/abstract/SubstitutionCalculator.h</includes>
@@ -1501,7 +1510,7 @@
   <compound kind="file">
     <name>Substitutions.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/internal/</path>
-    <filename>Substitutions_8h</filename>
+    <filename>Substitutions_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="DependencyGraph_8h" name="DependencyGraph.h" local="no" imported="no">tvm/graph/internal/DependencyGraph.h</includes>
@@ -1515,7 +1524,7 @@
   <compound kind="file">
     <name>SubstitutionUnit.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/internal/</path>
-    <filename>SubstitutionUnit_8h</filename>
+    <filename>SubstitutionUnit_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Range_8h" name="Range.h" local="no" imported="no">tvm/Range.h</includes>
     <includes id="BasicLinearConstraint_8h" name="BasicLinearConstraint.h" local="no" imported="no">tvm/constraint/BasicLinearConstraint.h</includes>
@@ -1530,7 +1539,7 @@
   <compound kind="file">
     <name>Substitution.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/hint/</path>
-    <filename>Substitution_8h</filename>
+    <filename>Substitution_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="SubstitutionCalculator_8h" name="SubstitutionCalculator.h" local="no" imported="no">tvm/hint/abstract/SubstitutionCalculator.h</includes>
@@ -1543,15 +1552,16 @@
   <compound kind="file">
     <name>CallbackManager.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>CallbackManager_8h</filename>
+    <filename>CallbackManager_8h.html</filename>
     <includes id="PairElementToken_8h" name="PairElementToken.h" local="no" imported="no">tvm/internal/PairElementToken.h</includes>
     <class kind="class">tvm::internal::CallbackManager</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>FirstOrderProvider.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>FirstOrderProvider_8h</filename>
+    <filename>FirstOrderProvider_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="VariableVector_8h" name="VariableVector.h" local="no" imported="no">tvm/VariableVector.h</includes>
@@ -1561,12 +1571,13 @@
     <class kind="class">tvm::internal::FirstOrderProvider</class>
     <class kind="struct">tvm::internal::FirstOrderProvider::slice_linear</class>
     <class kind="struct">tvm::internal::FirstOrderProvider::slice_matrix</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>IdProvider.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>IdProvider_8h</filename>
+    <filename>IdProvider_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::internal::IdProvider</class>
     <namespace>tvm</namespace>
@@ -1575,7 +1586,7 @@
   <compound kind="file">
     <name>MatrixProperties.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>MatrixProperties_8h</filename>
+    <filename>MatrixProperties_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::internal::MatrixProperties</class>
     <class kind="struct">tvm::internal::MatrixProperties::Constness</class>
@@ -1628,7 +1639,7 @@
   <compound kind="file">
     <name>MatrixWithProperties.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>MatrixWithProperties_8h</filename>
+    <filename>MatrixWithProperties_8h.html</filename>
     <includes id="MatrixProperties_8h" name="MatrixProperties.h" local="no" imported="no">tvm/internal/MatrixProperties.h</includes>
     <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
     <class kind="class">tvm::internal::ObjectWithProperties</class>
@@ -1661,7 +1672,7 @@
   <compound kind="file">
     <name>meta.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>meta_8h</filename>
+    <filename>meta_8h.html</filename>
     <class kind="struct">tvm::internal::is_base</class>
     <class kind="class">tvm::internal::always_true</class>
     <class kind="class">tvm::internal::always_false</class>
@@ -1720,34 +1731,37 @@
   <compound kind="file">
     <name>ObjWithId.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>ObjWithId_8h</filename>
+    <filename>ObjWithId_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="IdProvider_8h" name="IdProvider.h" local="no" imported="no">tvm/internal/IdProvider.h</includes>
     <class kind="class">tvm::internal::ObjWithId</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>PairElementToken.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>PairElementToken_8h</filename>
+    <filename>PairElementToken_8h.html</filename>
     <class kind="class">tvm::internal::PairElementTokenHandle</class>
     <class kind="class">tvm::internal::PairElementToken</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>RangeCounting.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>RangeCounting_8h</filename>
+    <filename>RangeCounting_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Range_8h" name="Range.h" local="no" imported="no">tvm/Range.h</includes>
     <class kind="class">tvm::internal::RangeCounting</class>
     <class kind="struct">tvm::internal::RangeCounting::Limit</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>VariableCountingVector.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>VariableCountingVector_8h</filename>
+    <filename>VariableCountingVector_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Space_8h" name="Space.h" local="no" imported="no">tvm/Space.h</includes>
@@ -1755,22 +1769,24 @@
     <includes id="RangeCounting_8h" name="RangeCounting.h" local="no" imported="no">tvm/internal/RangeCounting.h</includes>
     <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
     <class kind="class">tvm::internal::VariableCountingVector</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>VariableVectorPartition.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/internal/</path>
-    <filename>VariableVectorPartition_8h</filename>
+    <filename>VariableVectorPartition_8h.html</filename>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="VariableCountingVector_8h" name="VariableCountingVector.h" local="no" imported="no">tvm/internal/VariableCountingVector.h</includes>
     <class kind="class">tvm::internal::VariableVectorPartition</class>
     <class kind="class">tvm::internal::VariableVectorPartition::iterator</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::internal</namespace>
   </compound>
   <compound kind="file">
     <name>LinearizedControlProblem.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>LinearizedControlProblem_8h</filename>
+    <filename>LinearizedControlProblem_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="ControlProblem_8h" name="ControlProblem.h" local="no" imported="no">tvm/ControlProblem.h</includes>
     <includes id="Substitution_8h" name="Substitution.h" local="no" imported="no">tvm/hint/Substitution.h</includes>
@@ -1782,7 +1798,7 @@
   <compound kind="file">
     <name>Range.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Range_8h</filename>
+    <filename>Range_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::Range</class>
     <namespace>tvm</namespace>
@@ -1790,7 +1806,7 @@
   <compound kind="file">
     <name>SingleSolvingRequirement.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/abstract/</path>
-    <filename>SingleSolvingRequirement_8h</filename>
+    <filename>SingleSolvingRequirement_8h.html</filename>
     <includes id="CallbackManager_8h" name="CallbackManager.h" local="no" imported="no">tvm/internal/CallbackManager.h</includes>
     <class kind="class">tvm::requirements::abstract::SingleSolvingRequirement</class>
     <namespace>tvm</namespace>
@@ -1807,7 +1823,7 @@
   <compound kind="file">
     <name>AnisotropicWeight.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/</path>
-    <filename>AnisotropicWeight_8h</filename>
+    <filename>AnisotropicWeight_8h.html</filename>
     <includes id="SingleSolvingRequirement_8h" name="SingleSolvingRequirement.h" local="no" imported="no">tvm/requirements/abstract/SingleSolvingRequirement.h</includes>
     <class kind="class">tvm::requirements::AnisotropicWeightBase</class>
     <namespace>tvm</namespace>
@@ -1823,7 +1839,7 @@
   <compound kind="file">
     <name>PriorityLevel.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/</path>
-    <filename>PriorityLevel_8h</filename>
+    <filename>PriorityLevel_8h.html</filename>
     <includes id="SingleSolvingRequirement_8h" name="SingleSolvingRequirement.h" local="no" imported="no">tvm/requirements/abstract/SingleSolvingRequirement.h</includes>
     <class kind="class">tvm::requirements::PriorityLevelBase</class>
     <namespace>tvm</namespace>
@@ -1839,7 +1855,7 @@
   <compound kind="file">
     <name>SolvingRequirements.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/</path>
-    <filename>SolvingRequirements_8h</filename>
+    <filename>SolvingRequirements_8h.html</filename>
     <includes id="AnisotropicWeight_8h" name="AnisotropicWeight.h" local="no" imported="no">tvm/requirements/AnisotropicWeight.h</includes>
     <includes id="PriorityLevel_8h" name="PriorityLevel.h" local="no" imported="no">tvm/requirements/PriorityLevel.h</includes>
     <includes id="ViolationEvaluation_8h" name="ViolationEvaluation.h" local="no" imported="no">tvm/requirements/ViolationEvaluation.h</includes>
@@ -1860,7 +1876,7 @@
   <compound kind="file">
     <name>ViolationEvaluation.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/</path>
-    <filename>ViolationEvaluation_8h</filename>
+    <filename>ViolationEvaluation_8h.html</filename>
     <includes id="SingleSolvingRequirement_8h" name="SingleSolvingRequirement.h" local="no" imported="no">tvm/requirements/abstract/SingleSolvingRequirement.h</includes>
     <class kind="class">tvm::requirements::ViolationEvaluationBase</class>
     <namespace>tvm</namespace>
@@ -1886,7 +1902,7 @@
   <compound kind="file">
     <name>Weight.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/requirements/</path>
-    <filename>Weight_8h</filename>
+    <filename>Weight_8h.html</filename>
     <includes id="SingleSolvingRequirement_8h" name="SingleSolvingRequirement.h" local="no" imported="no">tvm/requirements/abstract/SingleSolvingRequirement.h</includes>
     <class kind="class">tvm::requirements::WeightBase</class>
     <namespace>tvm</namespace>
@@ -1902,7 +1918,7 @@
   <compound kind="file">
     <name>Robot.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Robot_8h</filename>
+    <filename>Robot_8h.html</filename>
     <includes id="Clock_8h" name="Clock.h" local="no" imported="no">tvm/Clock.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="VariableVector_8h" name="VariableVector.h" local="no" imported="no">tvm/VariableVector.h</includes>
@@ -1913,7 +1929,7 @@
   <compound kind="file">
     <name>CollisionFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>CollisionFunction_8h</filename>
+    <filename>CollisionFunction_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
@@ -1927,7 +1943,7 @@
   <compound kind="file">
     <name>CoMFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>CoMFunction_8h</filename>
+    <filename>CoMFunction_8h.html</filename>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <class kind="class">tvm::robot::CoMFunction</class>
@@ -1937,7 +1953,7 @@
   <compound kind="file">
     <name>CoMInConvexFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>CoMInConvexFunction_8h</filename>
+    <filename>CoMInConvexFunction_8h.html</filename>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
     <includes id="Plane_8h" name="Plane.h" local="no" imported="no">tvm/geometry/Plane.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
@@ -1948,7 +1964,7 @@
   <compound kind="file">
     <name>Contact.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>Contact_8h</filename>
+    <filename>Contact_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Frame_8h" name="Frame.h" local="no" imported="no">tvm/robot/Frame.h</includes>
@@ -1975,7 +1991,7 @@
   <compound kind="file">
     <name>ConvexHull.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>ConvexHull_8h</filename>
+    <filename>ConvexHull_8h.html</filename>
     <includes id="Frame_8h" name="Frame.h" local="no" imported="no">tvm/robot/Frame.h</includes>
     <class kind="class">tvm::robot::ConvexHull</class>
     <namespace>tvm</namespace>
@@ -1991,7 +2007,7 @@
   <compound kind="file">
     <name>Frame.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>Frame_8h</filename>
+    <filename>Frame_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
@@ -2009,7 +2025,7 @@
   <compound kind="file">
     <name>DynamicFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/internal/</path>
-    <filename>DynamicFunction_8h</filename>
+    <filename>DynamicFunction_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
     <includes id="LinearFunction_8h" name="LinearFunction.h" local="no" imported="no">tvm/function/abstract/LinearFunction.h</includes>
@@ -2025,7 +2041,7 @@
   <compound kind="file">
     <name>FrictionCone.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/internal/</path>
-    <filename>FrictionCone_8h</filename>
+    <filename>FrictionCone_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <class kind="class">tvm::robot::internal::FrictionCone</class>
     <namespace>tvm</namespace>
@@ -2035,7 +2051,7 @@
   <compound kind="file">
     <name>GeometricContactFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/internal/</path>
-    <filename>GeometricContactFunction_8h</filename>
+    <filename>GeometricContactFunction_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <includes id="Contact_8h" name="Contact.h" local="no" imported="no">tvm/robot/Contact.h</includes>
@@ -2047,7 +2063,7 @@
   <compound kind="file">
     <name>JointsSelector.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>JointsSelector_8h</filename>
+    <filename>JointsSelector_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
@@ -2058,7 +2074,7 @@
   <compound kind="file">
     <name>OrientationFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>OrientationFunction_8h</filename>
+    <filename>OrientationFunction_8h.html</filename>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <includes id="Frame_8h" name="Frame.h" local="no" imported="no">tvm/robot/Frame.h</includes>
     <class kind="class">tvm::robot::OrientationFunction</class>
@@ -2068,7 +2084,7 @@
   <compound kind="file">
     <name>PositionFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>PositionFunction_8h</filename>
+    <filename>PositionFunction_8h.html</filename>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <includes id="Frame_8h" name="Frame.h" local="no" imported="no">tvm/robot/Frame.h</includes>
     <class kind="class">tvm::robot::PositionFunction</class>
@@ -2078,7 +2094,7 @@
   <compound kind="file">
     <name>PostureFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>PostureFunction_8h</filename>
+    <filename>PostureFunction_8h.html</filename>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <class kind="class">tvm::robot::PostureFunction</class>
@@ -2088,7 +2104,7 @@
   <compound kind="file">
     <name>utils.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/robot/</path>
-    <filename>utils_8h</filename>
+    <filename>utils_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Clock_8h" name="Clock.h" local="no" imported="no">tvm/Clock.h</includes>
     <includes id="Robot_8h" name="Robot.h" local="no" imported="no">tvm/Robot.h</includes>
@@ -2105,7 +2121,7 @@
   <compound kind="file">
     <name>ResolutionScheme.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/abstract/</path>
-    <filename>ResolutionScheme_8h</filename>
+    <filename>ResolutionScheme_8h.html</filename>
     <includes id="VariableVector_8h" name="VariableVector.h" local="no" imported="no">tvm/VariableVector.h</includes>
     <includes id="ProblemComputationData_8h" name="ProblemComputationData.h" local="no" imported="no">tvm/scheme/internal/ProblemComputationData.h</includes>
     <includes id="ResolutionSchemeBase_8h" name="ResolutionSchemeBase.h" local="no" imported="no">tvm/scheme/internal/ResolutionSchemeBase.h</includes>
@@ -2120,7 +2136,7 @@
   <compound kind="file">
     <name>HierarchicalLeastSquares.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/</path>
-    <filename>HierarchicalLeastSquares_8h</filename>
+    <filename>HierarchicalLeastSquares_8h.html</filename>
     <includes id="internal_2traits_8h" name="traits.h" local="no" imported="no">tvm/internal/traits.h</includes>
     <includes id="ResolutionScheme_8h" name="ResolutionScheme.h" local="no" imported="no">tvm/scheme/abstract/ResolutionScheme.h</includes>
     <includes id="Assignment_8h" name="Assignment.h" local="no" imported="no">tvm/scheme/internal/Assignment.h</includes>
@@ -2134,7 +2150,7 @@
   <compound kind="file">
     <name>Assignment.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>Assignment_8h</filename>
+    <filename>Assignment_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
@@ -2145,12 +2161,14 @@
     <includes id="CompiledAssignmentWrapper_8h" name="CompiledAssignmentWrapper.h" local="no" imported="no">tvm/scheme/internal/CompiledAssignmentWrapper.h</includes>
     <includes id="MatrixAssignment_8h" name="MatrixAssignment.h" local="no" imported="no">tvm/scheme/internal/MatrixAssignment.h</includes>
     <class kind="class">tvm::scheme::internal::Assignment</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::scheme</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
     <name>AssignmentTarget.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>AssignmentTarget_8h</filename>
+    <filename>AssignmentTarget_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
@@ -2171,7 +2189,7 @@
   <compound kind="file">
     <name>CompiledAssignment.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>CompiledAssignment_8h</filename>
+    <filename>CompiledAssignment_8h.html</filename>
     <includes id="memoryChecks_8h" name="memoryChecks.h" local="no" imported="no">tvm/utils/memoryChecks.h</includes>
     <class kind="class">tvm::scheme::internal::NoArg</class>
     <class kind="class">tvm::scheme::internal::ParseArg_</class>
@@ -2378,7 +2396,7 @@
   <compound kind="file">
     <name>CompiledAssignmentWrapper.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>CompiledAssignmentWrapper_8h</filename>
+    <filename>CompiledAssignmentWrapper_8h.html</filename>
     <includes id="CompiledAssignment_8h" name="CompiledAssignment.h" local="no" imported="no">tvm/scheme/internal/CompiledAssignment.h</includes>
     <class kind="class">tvm::scheme::internal::CompiledAssignmentWrapper</class>
     <namespace>tvm</namespace>
@@ -2388,7 +2406,7 @@
   <compound kind="file">
     <name>helpers.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>helpers_8h</filename>
+    <filename>helpers_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
@@ -2444,17 +2462,19 @@
   <compound kind="file">
     <name>LinearizedProblemComputationData.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>LinearizedProblemComputationData_8h</filename>
+    <filename>LinearizedProblemComputationData_8h.html</filename>
     <includes id="LinearizedControlProblem_8h" name="LinearizedControlProblem.h" local="no" imported="no">tvm/LinearizedControlProblem.h</includes>
     <includes id="ProblemComputationData_8h" name="ProblemComputationData.h" local="no" imported="no">tvm/scheme/internal/ProblemComputationData.h</includes>
     <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
     <class kind="class">tvm::scheme::internal::LinearizedProblemComputationData</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::scheme</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
     <name>MatrixAssignment.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>MatrixAssignment_8h</filename>
+    <filename>MatrixAssignment_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
@@ -2463,12 +2483,14 @@
     <class kind="class">tvm::scheme::internal::MatrixAssignment</class>
     <class kind="class">tvm::scheme::internal::VectorSubstitutionAssignement</class>
     <class kind="class">tvm::scheme::internal::VectorAssignment</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::scheme</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
     <name>ProblemComputationData.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>ProblemComputationData_8h</filename>
+    <filename>ProblemComputationData_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="VariableVector_8h" name="VariableVector.h" local="no" imported="no">tvm/VariableVector.h</includes>
@@ -2476,21 +2498,24 @@
     <includes id="ProblemDefinitionEvent_8h" name="ProblemDefinitionEvent.h" local="no" imported="no">tvm/scheme/internal/ProblemDefinitionEvent.h</includes>
     <class kind="class">tvm::scheme::internal::ProblemComputationData</class>
     <class kind="class">tvm::scheme::internal::ProblemComputationData::EventQueue</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::scheme</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
     <name>ProblemDefinitionEvent.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>ProblemDefinitionEvent_8h</filename>
+    <filename>ProblemDefinitionEvent_8h.html</filename>
     <class kind="class">tvm::scheme::internal::ProblemDefinitionEvent</class>
     <namespace>tvm</namespace>
     <namespace>tvm::hint</namespace>
+    <namespace>tvm::scheme</namespace>
     <namespace>tvm::scheme::internal</namespace>
   </compound>
   <compound kind="file">
     <name>ResolutionSchemeBase.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>ResolutionSchemeBase_8h</filename>
+    <filename>ResolutionSchemeBase_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="ObjWithId_8h" name="ObjWithId.h" local="no" imported="no">tvm/internal/ObjWithId.h</includes>
@@ -2510,7 +2535,7 @@
   <compound kind="file">
     <name>SchemeAbilities.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/internal/</path>
-    <filename>SchemeAbilities_8h</filename>
+    <filename>SchemeAbilities_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Constraint_8h" name="Constraint.h" local="no" imported="no">tvm/constraint/abstract/Constraint.h</includes>
@@ -2538,7 +2563,7 @@
   <compound kind="file">
     <name>WeightedLeastSquares.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/scheme/</path>
-    <filename>WeightedLeastSquares_8h</filename>
+    <filename>WeightedLeastSquares_8h.html</filename>
     <includes id="internal_2traits_8h" name="traits.h" local="no" imported="no">tvm/internal/traits.h</includes>
     <includes id="ResolutionScheme_8h" name="ResolutionScheme.h" local="no" imported="no">tvm/scheme/abstract/ResolutionScheme.h</includes>
     <includes id="Assignment_8h" name="Assignment.h" local="no" imported="no">tvm/scheme/internal/Assignment.h</includes>
@@ -2552,7 +2577,7 @@
   <compound kind="file">
     <name>HierarchicalLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/abstract/</path>
-    <filename>HierarchicalLeastSquareSolver_8h</filename>
+    <filename>HierarchicalLeastSquareSolver_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Substitutions_8h" name="Substitutions.h" local="no" imported="no">tvm/hint/internal/Substitutions.h</includes>
@@ -2571,7 +2596,7 @@
   <compound kind="file">
     <name>LeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/abstract/</path>
-    <filename>LeastSquareSolver_8h</filename>
+    <filename>LeastSquareSolver_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Substitutions_8h" name="Substitutions.h" local="no" imported="no">tvm/hint/internal/Substitutions.h</includes>
@@ -2590,16 +2615,17 @@
   <compound kind="file">
     <name>defaultLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>defaultLeastSquareSolver_8h</filename>
+    <filename>defaultLeastSquareSolver_8h.html</filename>
     <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::DefaultLSSolverOptions</class>
     <class kind="class">tvm::solver::DefaultLSSolverFactory</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::solver</namespace>
   </compound>
   <compound kind="file">
     <name>Option.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/internal/</path>
-    <filename>Option_8h</filename>
+    <filename>Option_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>TVM_ADD_OPTION_GET_SET</name>
@@ -2653,48 +2679,53 @@
   <compound kind="file">
     <name>SolverEvents.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/internal/</path>
-    <filename>SolverEvents_8h</filename>
+    <filename>SolverEvents_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::solver::internal::SolverEvents</class>
     <class kind="struct">tvm::solver::internal::SolverEvents::WeightEvent</class>
     <class kind="struct">tvm::solver::internal::SolverEvents::Objective</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::solver</namespace>
     <namespace>tvm::solver::internal</namespace>
   </compound>
   <compound kind="file">
     <name>LexLSHierarchicalLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>LexLSHierarchicalLeastSquareSolver_8h</filename>
+    <filename>LexLSHierarchicalLeastSquareSolver_8h.html</filename>
     <includes id="LexLSSolverOptions_8h" name="LexLSSolverOptions.h" local="no" imported="no">tvm/solver/LexLSSolverOptions.h</includes>
     <includes id="HierarchicalLeastSquareSolver_8h" name="HierarchicalLeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/HierarchicalLeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::LexLSHLSSolverOptions</class>
     <class kind="class">tvm::solver::LexLSHierarchicalLeastSquareSolver</class>
     <class kind="class">tvm::solver::LexLSHLSSolverFactory</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::solver</namespace>
   </compound>
   <compound kind="file">
     <name>LexLSLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>LexLSLeastSquareSolver_8h</filename>
+    <filename>LexLSLeastSquareSolver_8h.html</filename>
     <includes id="LexLSSolverOptions_8h" name="LexLSSolverOptions.h" local="no" imported="no">tvm/solver/LexLSSolverOptions.h</includes>
     <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::LexLSLSSolverOptions</class>
     <class kind="class">tvm::solver::LexLSLeastSquareSolver</class>
     <class kind="class">tvm::solver::LexLSLSSolverFactory</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::solver</namespace>
   </compound>
   <compound kind="file">
     <name>LexLSSolverOptions.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>LexLSSolverOptions_8h</filename>
+    <filename>LexLSSolverOptions_8h.html</filename>
     <includes id="Option_8h" name="Option.h" local="no" imported="no">tvm/solver/internal/Option.h</includes>
     <class kind="class">tvm::solver::LexLSSolverOptions</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::solver</namespace>
   </compound>
   <compound kind="file">
     <name>LSSOLLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>LSSOLLeastSquareSolver_8h</filename>
+    <filename>LSSOLLeastSquareSolver_8h.html</filename>
     <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::LSSOLLSSolverOptions</class>
     <class kind="class">tvm::solver::LSSOLLeastSquareSolver</class>
@@ -2705,7 +2736,7 @@
   <compound kind="file">
     <name>QLDLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>QLDLeastSquareSolver_8h</filename>
+    <filename>QLDLeastSquareSolver_8h.html</filename>
     <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::QLDLSSolverOptions</class>
     <class kind="class">tvm::solver::QLDLeastSquareSolver</class>
@@ -2716,7 +2747,7 @@
   <compound kind="file">
     <name>QuadprogLeastSquareSolver.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/solver/</path>
-    <filename>QuadprogLeastSquareSolver_8h</filename>
+    <filename>QuadprogLeastSquareSolver_8h.html</filename>
     <includes id="LeastSquareSolver_8h" name="LeastSquareSolver.h" local="no" imported="no">tvm/solver/abstract/LeastSquareSolver.h</includes>
     <class kind="class">tvm::solver::QuadprogLSSolverOptions</class>
     <class kind="class">tvm::solver::QuadprogLeastSquareSolver</class>
@@ -2727,7 +2758,7 @@
   <compound kind="file">
     <name>Space.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Space_8h</filename>
+    <filename>Space_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::Space</class>
@@ -2736,13 +2767,13 @@
   <compound kind="file">
     <name>supported_solvers.in.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>supported__solvers_8in_8h</filename>
+    <filename>supported__solvers_8in_8h.html</filename>
     <includes id="defaultLeastSquareSolver_8h" name="defaultLeastSquareSolver.h" local="no" imported="no">tvm/solver/defaultLeastSquareSolver.h</includes>
   </compound>
   <compound kind="file">
     <name>Task.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Task_8h</filename>
+    <filename>Task_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
@@ -2755,7 +2786,7 @@
   <compound kind="file">
     <name>TaskDynamics.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/abstract/</path>
-    <filename>TaskDynamics_8h</filename>
+    <filename>TaskDynamics_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Node_8h" name="Node.h" local="no" imported="no">tvm/graph/abstract/Node.h</includes>
     <includes id="TaskDynamicsImpl_8h" name="TaskDynamicsImpl.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamicsImpl.h</includes>
@@ -2789,7 +2820,7 @@
   <compound kind="file">
     <name>TaskDynamicsImpl.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/abstract/</path>
-    <filename>TaskDynamicsImpl_8h</filename>
+    <filename>TaskDynamicsImpl_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
     <includes id="Node_8h" name="Node.h" local="no" imported="no">tvm/graph/abstract/Node.h</includes>
@@ -2802,18 +2833,19 @@
   <compound kind="file">
     <name>Clamped.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>Clamped_8h</filename>
+    <filename>Clamped_8h.html</filename>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::Clamped</class>
     <class kind="class">tvm::task_dynamics::Clamped::Impl</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::task_dynamics</namespace>
   </compound>
   <compound kind="file">
     <name>Constant.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>Constant_8h</filename>
+    <filename>Constant_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::Constant</class>
     <class kind="class">tvm::task_dynamics::Constant::Impl</class>
@@ -2823,7 +2855,7 @@
   <compound kind="file">
     <name>FeedForward.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>FeedForward_8h</filename>
+    <filename>FeedForward_8h.html</filename>
     <includes id="Proportional_8h" name="Proportional.h" local="no" imported="no">tvm/task_dynamics/Proportional.h</includes>
     <includes id="ProportionalDerivative_8h" name="ProportionalDerivative.h" local="no" imported="no">tvm/task_dynamics/ProportionalDerivative.h</includes>
     <class kind="class">tvm::task_dynamics::FeedForward</class>
@@ -2848,7 +2880,7 @@
   <compound kind="file">
     <name>None.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>None_8h</filename>
+    <filename>None_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::None</class>
     <class kind="class">tvm::task_dynamics::None::Impl</class>
@@ -2858,7 +2890,7 @@
   <compound kind="file">
     <name>OneStepToZero.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>OneStepToZero_8h</filename>
+    <filename>OneStepToZero_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::OneStepToZero</class>
     <class kind="class">tvm::task_dynamics::OneStepToZero::Impl</class>
@@ -2868,7 +2900,7 @@
   <compound kind="file">
     <name>Proportional.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>Proportional_8h</filename>
+    <filename>Proportional_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::Proportional</class>
     <class kind="class">tvm::task_dynamics::Proportional::Impl</class>
@@ -2885,7 +2917,7 @@
   <compound kind="file">
     <name>ProportionalDerivative.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>ProportionalDerivative_8h</filename>
+    <filename>ProportionalDerivative_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::ProportionalDerivative</class>
     <class kind="class">tvm::task_dynamics::ProportionalDerivative::Impl</class>
@@ -2902,18 +2934,19 @@
   <compound kind="file">
     <name>Reference.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>Reference_8h</filename>
+    <filename>Reference_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::Reference</class>
     <class kind="class">tvm::task_dynamics::Reference::Impl</class>
     <class kind="class">tvm::task_dynamics::ReferenceVelocity</class>
     <class kind="class">tvm::task_dynamics::ReferenceAcceleration</class>
+    <namespace>tvm</namespace>
     <namespace>tvm::task_dynamics</namespace>
   </compound>
   <compound kind="file">
     <name>VelocityDamper.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/task_dynamics/</path>
-    <filename>VelocityDamper_8h</filename>
+    <filename>VelocityDamper_8h.html</filename>
     <includes id="TaskDynamics_8h" name="TaskDynamics.h" local="no" imported="no">tvm/task_dynamics/abstract/TaskDynamics.h</includes>
     <class kind="class">tvm::task_dynamics::VelocityDamper</class>
     <class kind="class">tvm::task_dynamics::VelocityDamper::Config</class>
@@ -2925,7 +2958,7 @@
   <compound kind="file">
     <name>AffineExpr.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>AffineExpr_8h</filename>
+    <filename>AffineExpr_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
@@ -2947,7 +2980,7 @@
   <compound kind="file">
     <name>checkFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>checkFunction_8h</filename>
+    <filename>checkFunction_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::utils::CheckOptions</class>
@@ -2965,7 +2998,7 @@
   <compound kind="file">
     <name>graph.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>graph_8h</filename>
+    <filename>graph_8h.html</filename>
     <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
     <includes id="Inputs_8h" name="Inputs.h" local="no" imported="no">tvm/graph/internal/Inputs.h</includes>
     <includes id="graphDetails_8h" name="graphDetails.h" local="no" imported="no">tvm/utils/internal/graphDetails.h</includes>
@@ -2982,7 +3015,7 @@
   <compound kind="file">
     <name>AffineExprDetail.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>AffineExprDetail_8h</filename>
+    <filename>AffineExprDetail_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <class kind="class">tvm::utils::internal::NoConstant</class>
@@ -3075,7 +3108,7 @@
   <compound kind="file">
     <name>AffineExprOperators.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>AffineExprOperators_8h</filename>
+    <filename>AffineExprOperators_8h.html</filename>
     <includes id="AffineExpr_8h" name="AffineExpr.h" local="no" imported="no">tvm/utils/AffineExpr.h</includes>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
@@ -3244,7 +3277,7 @@
   <compound kind="file">
     <name>BufferedMatrix.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>BufferedMatrix_8h</filename>
+    <filename>BufferedMatrix_8h.html</filename>
     <class kind="class">tvm::utils::internal::BufferedMatrix</class>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
@@ -3253,7 +3286,7 @@
   <compound kind="file">
     <name>graphDetails.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>graphDetails_8h</filename>
+    <filename>graphDetails_8h.html</filename>
     <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
     <includes id="Inputs_8h" name="Inputs.h" local="no" imported="no">tvm/graph/internal/Inputs.h</includes>
     <namespace>tvm</namespace>
@@ -3284,10 +3317,12 @@
   <compound kind="file">
     <name>map.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>map_8h</filename>
+    <filename>map_8h.html</filename>
     <class kind="class">tvm::utils::internal::IdLess</class>
     <class kind="class">tvm::utils::internal::IdEqual</class>
     <class kind="class">tvm::utils::internal::HashId</class>
+    <namespace>tvm</namespace>
+    <namespace>tvm::utils</namespace>
     <namespace>tvm::utils::internal</namespace>
     <member kind="typedef">
       <type>std::map&lt; KeyWithId, Value, IdLess&lt; KeyWithId &gt;, Allocator &gt;</type>
@@ -3307,14 +3342,14 @@
   <compound kind="file">
     <name>MapWithVariableAsKey.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>MapWithVariableAsKey_8h</filename>
+    <filename>MapWithVariableAsKey_8h.html</filename>
     <includes id="Variable_8h" name="Variable.h" local="no" imported="no">tvm/Variable.h</includes>
     <includes id="map_8h" name="map.h" local="no" imported="no">tvm/utils/internal/map.h</includes>
   </compound>
   <compound kind="file">
     <name>ProtoTaskDetails.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/internal/</path>
-    <filename>ProtoTaskDetails_8h</filename>
+    <filename>ProtoTaskDetails_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="constraint_2enums_8h" name="enums.h" local="no" imported="no">tvm/constraint/enums.h</includes>
@@ -3338,8 +3373,9 @@
   <compound kind="file">
     <name>memoryChecks.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>memoryChecks_8h</filename>
+    <filename>memoryChecks_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
+    <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
     <namespace>tvm::utils::internal</namespace>
     <member kind="define">
@@ -3423,7 +3459,7 @@
   <compound kind="file">
     <name>ProtoTask.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>ProtoTask_8h</filename>
+    <filename>ProtoTask_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="AffineExpr_8h" name="AffineExpr.h" local="no" imported="no">tvm/utils/AffineExpr.h</includes>
     <includes id="ProtoTaskDetails_8h" name="ProtoTaskDetails.h" local="no" imported="no">tvm/utils/internal/ProtoTaskDetails.h</includes>
@@ -3919,7 +3955,7 @@
   <compound kind="file">
     <name>sch.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>sch_8h</filename>
+    <filename>sch_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
@@ -3948,7 +3984,7 @@
   <compound kind="file">
     <name>UpdatelessFunction.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/utils/</path>
-    <filename>UpdatelessFunction_8h</filename>
+    <filename>UpdatelessFunction_8h.html</filename>
     <includes id="Function_8h" name="Function.h" local="no" imported="no">tvm/function/abstract/Function.h</includes>
     <includes id="CallGraph_8h" name="CallGraph.h" local="no" imported="no">tvm/graph/CallGraph.h</includes>
     <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
@@ -3959,7 +3995,7 @@
   <compound kind="file">
     <name>Variable.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>Variable_8h</filename>
+    <filename>Variable_8h.html</filename>
     <includes id="Range_8h" name="Range.h" local="no" imported="no">tvm/Range.h</includes>
     <includes id="Space_8h" name="Space.h" local="no" imported="no">tvm/Space.h</includes>
     <includes id="ObjWithId_8h" name="ObjWithId.h" local="no" imported="no">tvm/internal/ObjWithId.h</includes>
@@ -4018,7 +4054,7 @@
   <compound kind="file">
     <name>VariableVector.h</name>
     <path>/home/runner/work/tvm/tvm/include/tvm/</path>
-    <filename>VariableVector_8h</filename>
+    <filename>VariableVector_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="defs_8h" name="defs.h" local="no" imported="no">tvm/defs.h</includes>
     <includes id="MatrixWithProperties_8h" name="MatrixWithProperties.h" local="no" imported="no">tvm/internal/MatrixWithProperties.h</includes>
@@ -4183,7 +4219,7 @@
   <compound kind="class">
     <name>tvm::utils::AffineExpr</name>
     <filename>classtvm_1_1utils_1_1AffineExpr.html</filename>
-    <templarg>CstDerived</templarg>
+    <templarg></templarg>
     <templarg>Derived</templarg>
     <member kind="function">
       <type></type>
@@ -4288,7 +4324,7 @@
     <name>tvm::requirements::AnisotropicWeightBase</name>
     <filename>classtvm_1_1requirements_1_1AnisotropicWeightBase.html</filename>
     <templarg>Lightweight</templarg>
-    <base>SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;</base>
+    <base>SingleSolvingRequirement&lt; Eigen::VectorXd, true &gt;</base>
     <member kind="function">
       <type></type>
       <name>AnisotropicWeightBase</name>
@@ -5021,14 +5057,14 @@
       <type>Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt;</type>
       <name>get</name>
       <anchorfile>classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html</anchorfile>
-      <anchor>a8c6c66d3c899f41387e25fa62e437d08</anchor>
+      <anchor>a1d598e80747feecec6be128cd820e7bc</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt;</type>
       <name>get</name>
       <anchorfile>classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html</anchorfile>
-      <anchor>a78344857c727193490f2fb241153ec46</anchor>
+      <anchor>ad045f345b47165beed9a28e5e0b99f2c</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -5049,7 +5085,7 @@
   <compound kind="class">
     <name>tvm::scheme::internal::CachedResult</name>
     <filename>classtvm_1_1scheme_1_1internal_1_1CachedResult.html</filename>
-    <templarg>MatrixType</templarg>
+    <templarg></templarg>
     <templarg>Cache</templarg>
     <member kind="function">
       <type></type>
@@ -5100,7 +5136,7 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, F &gt;::value||use_product_cache&lt; MatrixType, A, W, M, F &gt;::value &gt;</name>
+    <name>CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, EXTERNAL &gt;::value||use_product_cache&lt; MatrixType, A, W, M, EXTERNAL &gt;::value &gt;</name>
     <filename>classtvm_1_1scheme_1_1internal_1_1CachedResult.html</filename>
     <member kind="function">
       <type></type>
@@ -5945,11 +5981,11 @@
     <templarg>W</templarg>
     <templarg>M</templarg>
     <templarg>F</templarg>
-    <base>CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, F &gt;::value||use_product_cache&lt; MatrixType, A, W, M, F &gt;::value &gt;</base>
+    <base>CachedResult&lt; MatrixType, use_assign_cache&lt; MatrixType, A, W, M, EXTERNAL &gt;::value||use_product_cache&lt; MatrixType, A, W, M, EXTERNAL &gt;::value &gt;</base>
     <base>tvm::scheme::internal::AssignBase</base>
     <base>tvm::scheme::internal::WeightMultBase</base>
     <base>tvm::scheme::internal::MatrixMultBase</base>
-    <base>tvm::scheme::internal::SourceBase</base>
+    <base>SourceBase&lt; MatrixType, EXTERNAL &gt;</base>
     <member kind="function">
       <type>std::enable_if&lt;!use_product_cache&lt; U, A, W, M, F &gt;::value &gt;::type</type>
       <name>run</name>
@@ -6158,7 +6194,7 @@
   <compound kind="class">
     <name>tvm::scheme::internal::CompiledAssignmentWrapper</name>
     <filename>classtvm_1_1scheme_1_1internal_1_1CompiledAssignmentWrapper.html</filename>
-    <templarg>MatrixType</templarg>
+    <templarg></templarg>
     <member kind="function">
       <type></type>
       <name>CompiledAssignmentWrapper</name>
@@ -6895,6 +6931,27 @@
     <name>tvm::exception::DataException</name>
     <filename>classtvm_1_1exception_1_1DataException.html</filename>
     <base>tvm::exception::Exception</base>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1DataException.html</anchorfile>
+      <anchor>afd6f053bccef9dd30a3a2162695b8516</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1DataException.html</anchorfile>
+      <anchor>adbecc954c569883fc6422e57c718a953</anchor>
+      <arglist>(const std::string &amp;what)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1DataException.html</anchorfile>
+      <anchor>a5782a0c2f97b0ed569c4605e190d2568</anchor>
+      <arglist>(const char *what)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::solver::DefaultLSSolverFactory</name>
@@ -7763,6 +7820,27 @@
     <name>tvm::exception::FunctionException</name>
     <filename>classtvm_1_1exception_1_1FunctionException.html</filename>
     <base>tvm::exception::Exception</base>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1FunctionException.html</anchorfile>
+      <anchor>afd6f053bccef9dd30a3a2162695b8516</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1FunctionException.html</anchorfile>
+      <anchor>adbecc954c569883fc6422e57c718a953</anchor>
+      <arglist>(const std::string &amp;what)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1FunctionException.html</anchorfile>
+      <anchor>a5782a0c2f97b0ed569c4605e190d2568</anchor>
+      <arglist>(const char *what)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::hint::internal::GenericCalculator</name>
@@ -10726,7 +10804,7 @@
   <compound kind="class">
     <name>tvm::utils::LinearExpr</name>
     <filename>classtvm_1_1utils_1_1LinearExpr.html</filename>
-    <templarg>Derived</templarg>
+    <templarg></templarg>
     <member kind="function">
       <type></type>
       <name>LinearExpr</name>
@@ -11129,7 +11207,7 @@
   <compound kind="class">
     <name>tvm::scheme::abstract::LinearResolutionScheme</name>
     <filename>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</filename>
-    <templarg>Derived</templarg>
+    <templarg></templarg>
     <base>tvm::scheme::abstract::ResolutionScheme</base>
     <member kind="function" protection="protected">
       <type></type>
@@ -12340,7 +12418,7 @@
   <compound kind="class">
     <name>tvm::graph::abstract::Node</name>
     <filename>classtvm_1_1graph_1_1abstract_1_1Node.html</filename>
-    <templarg>T</templarg>
+    <templarg></templarg>
     <base>tvm::graph::internal::AbstractNode</base>
     <member kind="function" protection="protected">
       <type>void</type>
@@ -12918,6 +12996,27 @@
     <name>tvm::exception::NotImplemented</name>
     <filename>classtvm_1_1exception_1_1NotImplemented.html</filename>
     <base>tvm::exception::Exception</base>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1NotImplemented.html</anchorfile>
+      <anchor>afd6f053bccef9dd30a3a2162695b8516</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1NotImplemented.html</anchorfile>
+      <anchor>adbecc954c569883fc6422e57c718a953</anchor>
+      <arglist>(const std::string &amp;what)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Exception</name>
+      <anchorfile>classtvm_1_1exception_1_1NotImplemented.html</anchorfile>
+      <anchor>a5782a0c2f97b0ed569c4605e190d2568</anchor>
+      <arglist>(const char *what)</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>tvm::robot::CollisionFunction::CollisionData::ObjectData</name>
@@ -12965,7 +13064,7 @@
   <compound kind="class">
     <name>tvm::internal::ObjectWithProperties</name>
     <filename>classtvm_1_1internal_1_1ObjectWithProperties.html</filename>
-    <templarg>MatrixType</templarg>
+    <templarg></templarg>
     <templarg>refOnProperties</templarg>
     <member kind="function">
       <type></type>
@@ -13029,6 +13128,129 @@
       <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
       <anchor>a39bc7caa142b1c2a5967174ca7aa1824</anchor>
       <arglist>(const T &amp;other)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator-=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a4071b72e45c753252234af42ce013a53</anchor>
+      <arglist>(const T &amp;other)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator*=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a3d1175019e5edd52e23e35986149c654</anchor>
+      <arglist>(const T &amp;other)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator/=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>ac2019512bdace713f5b1f516b2154663</anchor>
+      <arglist>(const T &amp;other)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>assignKeepProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>acb06bcf0625ea85985837df8da639141</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>const MatrixProperties &amp;</type>
+      <name>properties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a012b5f30938e528f890c2ccc62981f98</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>MatrixProperties &amp;</type>
+      <name>properties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>ab48104f7adb850b5e5b1e384518a510e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>properties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>adc3033aff4e51b7a33f1b212f367c64d</anchor>
+      <arglist>(const MatrixProperties &amp;p)</arglist>
+    </member>
+    <member kind="function">
+      <type>KeepProperties&lt; MatrixType, refOnProperties &gt;</type>
+      <name>keepProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a290f5be2be09e84692c8ed66bbe1cf3e</anchor>
+      <arglist>(bool keep)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ObjectWithProperties&lt; MatrixType, false &gt;</name>
+    <filename>classtvm_1_1internal_1_1ObjectWithProperties.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ObjectWithProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a0b37f141e0d0142ac4e1e0221b7f4178</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ObjectWithProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>ac7ff443357f77c963397e22fc94d17ae</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ObjectWithProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>af047c474968ed400362064c022902ab7</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other, tvm::internal::const_if_t&lt; MatrixProperties, !refOnProperties &gt; &amp;p)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ObjectWithProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>aff51930768562ed241aeb5fdb343c190</anchor>
+      <arglist>(const ObjectWithProperties&lt; OtherType &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ObjectWithProperties</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a289a6292ee3ae68acfe13af27f9bf159</anchor>
+      <arglist>(ObjectWithProperties&lt; OtherType &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>ad32641ea9cbfe99c17f4be6ad7554fde</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator+=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a79597cf56947e833df190ae566b596d1</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator+=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a39bc7caa142b1c2a5967174ca7aa1824</anchor>
+      <arglist>(const T &amp;other)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>ObjectWithProperties &amp;</type>
+      <name>operator-=</name>
+      <anchorfile>classtvm_1_1internal_1_1ObjectWithProperties.html</anchorfile>
+      <anchor>a96292b0cb24247f68d0433d3ffa8a914</anchor>
+      <arglist>(const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</arglist>
     </member>
     <member kind="function">
       <type>ObjectWithProperties &amp;</type>
@@ -13430,9 +13652,8 @@
   <compound kind="class">
     <name>tvm::graph::abstract::OutputSelector</name>
     <filename>classtvm_1_1graph_1_1abstract_1_1OutputSelector.html</filename>
-    <templarg>OutputProvider</templarg>
-    <templarg>Base</templarg>
-    <base protection="protected">SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;</base>
+    <templarg></templarg>
+    <templarg></templarg>
     <member kind="function">
       <type></type>
       <name>OutputSelector</name>
@@ -13500,8 +13721,6 @@
   <compound kind="class">
     <name>OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</name>
     <filename>classtvm_1_1graph_1_1abstract_1_1OutputSelector.html</filename>
-    <base>tvm::internal::FirstOrderProvider</base>
-    <base protection="protected">SelectorMembers&lt;!is_output_selector&lt; tvm::internal::FirstOrderProvider &gt;()&gt;</base>
     <member kind="function">
       <type></type>
       <name>OutputSelector</name>
@@ -14074,7 +14293,7 @@
     <name>tvm::requirements::PriorityLevelBase</name>
     <filename>classtvm_1_1requirements_1_1PriorityLevelBase.html</filename>
     <templarg>Lightweight</templarg>
-    <base>SingleSolvingRequirement&lt; int, Lightweight &gt;</base>
+    <base>SingleSolvingRequirement&lt; int, true &gt;</base>
     <member kind="function">
       <type></type>
       <name>PriorityLevelBase</name>
@@ -14347,10 +14566,10 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>void const  *</type>
+      <type>const void *</type>
       <name>emitter</name>
       <anchorfile>classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html</anchorfile>
-      <anchor>ab552480335416d7c539769d3c00f16a0</anchor>
+      <anchor>a10bf923d33997f38b87ca21657f67528</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -14601,7 +14820,7 @@
     <name>tvm::utils::ProtoTaskCommon</name>
     <filename>classtvm_1_1utils_1_1ProtoTaskCommon.html</filename>
     <templarg>T</templarg>
-    <templarg>FunT</templarg>
+    <templarg></templarg>
     <member kind="function">
       <type></type>
       <name>ProtoTaskCommon</name>
@@ -15308,7 +15527,7 @@
   <compound kind="struct">
     <name>tvm::utils::internal::RefSelector</name>
     <filename>structtvm_1_1utils_1_1internal_1_1RefSelector.html</filename>
-    <templarg>Derived</templarg>
+    <templarg></templarg>
     <member kind="typedef">
       <type>typename Eigen::internal::ref_selector&lt; Derived &gt;::type</type>
       <name>type</name>
@@ -15331,7 +15550,7 @@
   <compound kind="class">
     <name>tvm::scheme::abstract::ResolutionScheme</name>
     <filename>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</filename>
-    <templarg>Derived</templarg>
+    <templarg></templarg>
     <base>tvm::scheme::internal::ResolutionSchemeBase</base>
     <member kind="function">
       <type>bool</type>
@@ -15577,42 +15796,42 @@
       <type>Eigen::VectorXd &amp;</type>
       <name>l</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a4a7dfedce2b0af796effbd0a0002bc4d</anchor>
+      <anchor>ac7698d0f1058a19ac6c80e5725b77856</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>l</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a5887986365d5d9cbf60940fa5f685faf</anchor>
+      <anchor>a655c9421cec058caf10d144eb47b9073</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>u</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>adc2951c16457b43f892d294b13358223</anchor>
+      <anchor>a1252f9e31c67470a1e7ff7cf9ba43a74</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>u</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a4a95acec8c4e95f9d1bba897e3217da6</anchor>
+      <anchor>a2666d5f2d939d2f9587cd08cad67db20</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>e</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a44fd2f2268827789216a5a351129e5b8</anchor>
+      <anchor>ac56efef2b80ee032aecc107ef2fd9561</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>e</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a1806185352412636cf6b2dc2ebe90022</anchor>
+      <anchor>a5ee48ee1aee80088943d180917adecae</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -15929,45 +16148,9 @@
     <filename>structtvm_1_1graph_1_1abstract_1_1SelectorMembers_3_01false_01_4.html</filename>
   </compound>
   <compound kind="class">
-    <name>SelectorMembers&lt;!is_output_selector&lt; Base &gt;()&gt;</name>
-    <filename>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</filename>
-    <member kind="variable">
-      <type>std::vector&lt; bool &gt;</type>
-      <name>dynamicallyEnabled_</name>
-      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
-      <anchor>afb9aaff5b2ec6d854da3c825e1896198</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>locked_</name>
-      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
-      <anchor>a0c9eb868c9839d51c75cc7206c94edcb</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>SelectorMembers&lt;!is_output_selector&lt; tvm::internal::FirstOrderProvider &gt;()&gt;</name>
-    <filename>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</filename>
-    <member kind="variable">
-      <type>std::vector&lt; bool &gt;</type>
-      <name>dynamicallyEnabled_</name>
-      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
-      <anchor>afb9aaff5b2ec6d854da3c825e1896198</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>locked_</name>
-      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
-      <anchor>a0c9eb868c9839d51c75cc7206c94edcb</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
     <name>tvm::requirements::abstract::SingleSolvingRequirement</name>
     <filename>classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html</filename>
-    <templarg>T</templarg>
+    <templarg></templarg>
     <templarg>Lightweight</templarg>
     <member kind="function">
       <type>const T &amp;</type>
@@ -16034,7 +16217,7 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>SingleSolvingRequirement&lt; double, Lightweight &gt;</name>
+    <name>SingleSolvingRequirement&lt; double, true &gt;</name>
     <filename>classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html</filename>
     <member kind="function">
       <type>const double &amp;</type>
@@ -16101,7 +16284,7 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>SingleSolvingRequirement&lt; Eigen::VectorXd, Lightweight &gt;</name>
+    <name>SingleSolvingRequirement&lt; Eigen::VectorXd, true &gt;</name>
     <filename>classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html</filename>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
@@ -16168,7 +16351,7 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>SingleSolvingRequirement&lt; int, Lightweight &gt;</name>
+    <name>SingleSolvingRequirement&lt; int, true &gt;</name>
     <filename>classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html</filename>
     <member kind="function">
       <type>const int &amp;</type>
@@ -16235,7 +16418,7 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>SingleSolvingRequirement&lt; ViolationEvaluationType, Lightweight &gt;</name>
+    <name>SingleSolvingRequirement&lt; ViolationEvaluationType, true &gt;</name>
     <filename>classtvm_1_1requirements_1_1abstract_1_1SingleSolvingRequirement.html</filename>
     <member kind="function">
       <type>const ViolationEvaluationType &amp;</type>
@@ -16614,6 +16797,13 @@
       <anchor>aaf9f06b060cdafc6d41e801cdf143e5c</anchor>
       <arglist>(const SolvingRequirements &amp;req)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>SolvingRequirementsBase</name>
+      <anchorfile>classtvm_1_1requirements_1_1SolvingRequirementsWithCallbacks.html</anchorfile>
+      <anchor>abfe7d7f5a1b2112ef96501717d274440</anchor>
+      <arglist>(const Args &amp;... args)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::event::Source</name>
@@ -16645,6 +16835,38 @@
     <filename>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</filename>
     <templarg></templarg>
     <templarg>F</templarg>
+    <member kind="typedef">
+      <type>typename std::conditional&lt; F==CONSTANT, double, Eigen::Ref&lt; const MatrixType &gt; &gt;::type</type>
+      <name>SourceType</name>
+      <anchorfile>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</anchorfile>
+      <anchor>abdba30070c33b048825cd51e6aee6a6c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SourceBase</name>
+      <anchorfile>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</anchorfile>
+      <anchor>a554b96ce4db16ccaf30195c866ea1dc2</anchor>
+      <arglist>(const SourceType &amp;from)</arglist>
+    </member>
+    <member kind="function">
+      <type>const SourceType &amp;</type>
+      <name>from</name>
+      <anchorfile>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</anchorfile>
+      <anchor>a2629254e33031a6a56112e1208b96a31</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>from</name>
+      <anchorfile>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</anchorfile>
+      <anchor>a967d6c3947961a3085876ea0463b7a04</anchor>
+      <arglist>(const SourceType &amp;from)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>SourceBase&lt; MatrixType, EXTERNAL &gt;</name>
+    <filename>classtvm_1_1scheme_1_1internal_1_1SourceBase.html</filename>
     <member kind="typedef">
       <type>typename std::conditional&lt; F==CONSTANT, double, Eigen::Ref&lt; const MatrixType &gt; &gt;::type</type>
       <name>SourceType</name>
@@ -17158,10 +17380,10 @@
       <arglist>(const VariablePtr &amp;x) const</arglist>
     </member>
     <member kind="function">
-      <type>Substitution const  *</type>
+      <type>const Substitution *</type>
       <name>getSubstitutionFor</name>
       <anchorfile>classtvm_1_1hint_1_1internal_1_1Substitutions.html</anchorfile>
-      <anchor>af3f0bfa4811a31a9498dc4a64f2db996</anchor>
+      <anchor>adb185c2430052132839bfc2e61c5b488</anchor>
       <arglist>(const constraint::abstract::LinearConstraint &amp;cstr)</arglist>
     </member>
     <member kind="friend" protection="private">
@@ -17489,10 +17711,6 @@
     <base>tvm::exception::DataException</base>
   </compound>
   <compound kind="struct">
-    <name>tvm::graph::internal::AbstractNode::Update</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
-  </compound>
-  <compound kind="struct">
     <name>tvm::graph::internal::Log::Update</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html</filename>
     <member kind="function">
@@ -17537,6 +17755,10 @@
       <anchor>a9538295d7f3d19392fbacb07629cb067</anchor>
       <arglist></arglist>
     </member>
+  </compound>
+  <compound kind="struct">
+    <name>tvm::graph::internal::AbstractNode::Update</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
   </compound>
   <compound kind="class">
     <name>tvm::utils::UpdatelessFunction</name>
@@ -17696,7 +17918,7 @@
   <compound kind="struct">
     <name>tvm::diagnostic::internal::ValidVariableAccessor</name>
     <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVariableAccessor.html</filename>
-    <templarg>T</templarg>
+    <templarg></templarg>
     <member kind="typedef">
       <type>T</type>
       <name>ReturnT</name>
@@ -17747,7 +17969,7 @@
   <compound kind="struct">
     <name>tvm::diagnostic::internal::ValidVoidAccessor</name>
     <filename>structtvm_1_1diagnostic_1_1internal_1_1ValidVoidAccessor.html</filename>
-    <templarg>T</templarg>
+    <templarg></templarg>
     <member kind="typedef">
       <type>T</type>
       <name>ReturnT</name>
@@ -18575,7 +18797,7 @@
     <name>tvm::requirements::ViolationEvaluationBase</name>
     <filename>classtvm_1_1requirements_1_1ViolationEvaluationBase.html</filename>
     <templarg>Lightweight</templarg>
-    <base>SingleSolvingRequirement&lt; ViolationEvaluationType, Lightweight &gt;</base>
+    <base>SingleSolvingRequirement&lt; ViolationEvaluationType, true &gt;</base>
     <member kind="function">
       <type></type>
       <name>ViolationEvaluationBase</name>
@@ -18595,7 +18817,7 @@
     <name>tvm::requirements::WeightBase</name>
     <filename>classtvm_1_1requirements_1_1WeightBase.html</filename>
     <templarg>Lightweight</templarg>
-    <base>SingleSolvingRequirement&lt; double, Lightweight &gt;</base>
+    <base>SingleSolvingRequirement&lt; double, true &gt;</base>
     <member kind="function">
       <type></type>
       <name>WeightBase</name>
@@ -20676,7 +20898,7 @@
     <name>functionWritingExample</name>
     <title>How to create new TVM functions.</title>
     <filename>functionWritingExample</filename>
-    <docanchor file="functionWritingExample" title="Example file ">exampleFile</docanchor>
+    <docanchor file="functionWritingExample.html" title="Example file">exampleFile</docanchor>
   </compound>
   <compound kind="page">
     <name>leastSquaresExample</name>

@@ -13,8 +13,8 @@ var classtvm_1_1scheme_1_1internal_1_1Assignment =
     [ "onUpdatedSource", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#aff6a486f12b45e13387102d51b8d2e33", null ],
     [ "onUpdatedTarget", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a0fcb55f364d96ac5cad423415275cb9b", null ],
     [ "onUpdateWeights", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a086cf3b669da0cf7e6e4a445c9b7a001", null ],
-    [ "operator=", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a1397699b1e9750f8473bf81b0b49139f", null ],
     [ "operator=", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a1c5b050b149fe75ea543edf3f68c2017", null ],
+    [ "operator=", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a1397699b1e9750f8473bf81b0b49139f", null ],
     [ "run", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a674471286a013a2ae2bb468fec42fd7c", null ],
     [ "target", "classtvm_1_1scheme_1_1internal_1_1Assignment.html#a2e007e4b2c8d0e4177356ee793ae4699", null ]
 ];

@@ -1,9 +1,8 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node29 [label="type",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node29 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="tvm::scheme::internal\l::ParseArg\< N \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1ParseArg.html"];
+  Node0 [label="tvm::scheme::internal\l::MatrixMultBase\< MatrixType,\l INVERSE_DIAGONAL \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1MatrixMultBase_3_01MatrixType_00_01INVERSE__DIAGONAL_01_4.html",tooltip=" "];
 }
