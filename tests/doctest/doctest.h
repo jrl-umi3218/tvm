@@ -96,7 +96,7 @@
 // =================================================================================================
 
 #if DOCTEST_CLANG
-#  define DOCTEST_PRAGMA_TO_STR(x) _Pragma(#  x)
+#  define DOCTEST_PRAGMA_TO_STR(x) _Pragma(#x)
 #  define DOCTEST_CLANG_SUPPRESS_WARNING_PUSH _Pragma("clang diagnostic push")
 #  define DOCTEST_CLANG_SUPPRESS_WARNING(w) DOCTEST_PRAGMA_TO_STR(clang diagnostic ignored w)
 #  define DOCTEST_CLANG_SUPPRESS_WARNING_POP _Pragma("clang diagnostic pop")
@@ -110,7 +110,7 @@
 #endif // DOCTEST_CLANG
 
 #if DOCTEST_GCC
-#  define DOCTEST_PRAGMA_TO_STR(x) _Pragma(#  x)
+#  define DOCTEST_PRAGMA_TO_STR(x) _Pragma(#x)
 #  define DOCTEST_GCC_SUPPRESS_WARNING_PUSH _Pragma("GCC diagnostic push")
 #  define DOCTEST_GCC_SUPPRESS_WARNING(w) DOCTEST_PRAGMA_TO_STR(GCC diagnostic ignored w)
 #  define DOCTEST_GCC_SUPPRESS_WARNING_POP _Pragma("GCC diagnostic pop")
@@ -833,9 +833,9 @@ struct enable_if<true, TYPE>
     template<class T> struct remove_reference<T&>  { typedef T type; };
     template<class T> struct remove_reference<T&&> { typedef T type; };
 
-    template<typename T, typename U = T&&> U declval(int); 
+    template<typename T, typename U = T&&> U declval(int);
 
-    template<typename T> T declval(long); 
+    template<typename T> T declval(long);
 
     template<typename T> auto declval() DOCTEST_NOEXCEPT -> decltype(declval<T>(0)) ;
 
@@ -2263,7 +2263,7 @@ int registerReporter(const char * name, int priority, bool isReporter)
       mb_name * __VA_ARGS__;                                                                                  \
     })
 
-#  define DOCTEST_CAPTURE(x) DOCTEST_INFO(#  x " := ", x)
+#  define DOCTEST_CAPTURE(x) DOCTEST_INFO(#x " := ", x)
 
 #  define DOCTEST_ADD_AT_IMPL(type, file, line, mb, ...)                         \
     [&] {                                                                        \
@@ -5689,7 +5689,8 @@ DOCTEST_REGISTER_REPORTER("xml", 0, XmlReporter);
 
 void fulltext_log_assert_to_stream(std::ostream & s, const AssertData & rb)
 {
-  if((rb.m_at & (assertType::is_throws_as | assertType::is_throws_with)) == 0) //! OCLINT bitwise operator in conditional
+  if((rb.m_at & (assertType::is_throws_as | assertType::is_throws_with))
+     == 0) //! OCLINT bitwise operator in conditional
     s << Color::Cyan << assertString(rb.m_at) << "( " << rb.m_expr << " ) " << Color::None;
 
   if(rb.m_at & assertType::is_throws)

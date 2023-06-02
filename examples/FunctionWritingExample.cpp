@@ -60,8 +60,8 @@ void DotProduct::updateJDot()
 }
 } // namespace tvm::example
 
-#include <vector>
 #include <tvm/graph/abstract/OutputSelector.h>
+#include <vector>
 
 namespace tvm::example
 {

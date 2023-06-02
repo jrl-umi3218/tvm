@@ -11,7 +11,7 @@ TVM has typically three types of users:
  - the end-user, formulating the problem he/she want to solve. He/she does so my manipulating notions such as variables, functions, tasks and task dynamics, using the existing functions and task dynamics to do so,
  - the user adding robotics functionnality, typically new functions or tasks dynamics. He/she need to understand some of the internals of the library such as the update mechanism,
  - the user adding solving capability, such as a new resolution scheme, with a deeper knowledge of the internals.
- 
+
  The framework distinguishes two world: the task world and the optimization world. The end-user works in the tasks world. There, he/she creates variables, functions of them or their derivatives. A function is then associated with an equality or inequality goal and a prescribed dynamics to achieve this goal, forming a task. There is no differentiation between constraints and objectives at this point. The user can then add these tasks to a problem, completed by requirements on how to solve each task (level of priority, weight, ...).
  The problem can then be linearized and solved, all of which is not the concern of the end-user.
  The linearization makes the bridge to the second world. Here the tasks are turned into (linear) constraints, and a resolution scheme build the inputs to be passed to a numerical solver according to the tasks' accompanying requirements.

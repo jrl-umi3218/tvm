@@ -11,6 +11,8 @@
  * Use defaultLeastSquareSolver if you do not care to choose a particular solver
  */
 
+// clang-format off
+
 @TVM_USE_LSSOL@
 #ifdef TVM_USE_LSSOL
 #  include <tvm/solver/LSSOLLeastSquareSolver.h>
@@ -30,5 +32,7 @@
 #ifdef TVM_USE_LEXLS
 #  include <tvm/solver/LexLSLeastSquareSolver.h>
 #endif
+
+// clang-format on
 
 #include <tvm/solver/defaultLeastSquareSolver.h>

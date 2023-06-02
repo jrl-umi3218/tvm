@@ -12,7 +12,7 @@
  * Let's consider two variables \f$ x \f$ and \f$ y \f$ with the same size, and
  * let's define the function \f$ f(x,y) = x^T y \f$. The partial derivatives of
  * this function with respect to \f$ x \f$ and \f$ y \f$ are
- * 
+ *
  * \f$
  *    J_x = \frac{\partial f}{\partial x} = y^T \ \ \mbox{and}\ \ J_y = \frac{\partial f}{\partial y} = x^T \quad (1)
  * \f$
@@ -25,7 +25,7 @@
  * \f$
  *
  * Given a function \f$ g(q) \f$, with Jacobian matrix \f$ J \f$, we call
- * <em>normal acceleration</em> the term \f$ \gamma = \dot{J}\dot{q} \f$. It 
+ * <em>normal acceleration</em> the term \f$ \gamma = \dot{J}\dot{q} \f$. It
  * appears when computing the acceleration of \f$ g(q) \f$:
  * \f$ \ddot{g}(q) = J \ddot{q} + \dot{J}\dot{q} \f$ (\f$ J \ddot{q} \f$ is in
  * the tangent space to \f$ g(q(t)) \f$. <br>
@@ -41,7 +41,7 @@
  *    \dot{J}_x = \dot{y}^T \ \ \mbox{and}\ \ \dot{J}_y = \dot{x}^T \quad (4)
  * \f$
  *
- * 
+ *
  * Implementation outline
  * ======================
  *
@@ -55,7 +55,7 @@
  * A tvm::function::abstract::Function is meant to be a set of computation units
  * and pre-defines 5 outputs, accessible through 5 methods, as summarized in the
  * following table:
- * 
+ *
  * |          output id            |                mathematical meaning                 |        returned by        |        cache member (type)        |
  * | :---------------------------: | :-------------------------------------------------: | :-----------------------: | :-------------------------------: |
  * | \c Output::Value              | \f$ f(x_1, \ldots x_n) \f$                          | \c value()                | \c value_ (VectorXd)              |
@@ -63,7 +63,7 @@
  * | \c Output::Velocity           | \f$ \dot{f}(x_1, \ldots x_n) \f$                    | \c velocity()             | \c velocity_ (VectorXd)           |
  * | \c Output::NormalAcceleration | \f$ \sum \dot{J}_{x_i} \dot{x}_i \f$                | \c normalAcceleration(xi) | \c normalAcceleration_ (VectorXd) |
  * | \c Output::JDot               | \f$ \frac{d}{dt}\frac{\partial f}{\partial x_i} \f$ | \c JDot(xi)               | \c JDot_ (map of MatrixXd)        |
- * 
+ *
  * To avoid duplicated computations, the output values are cached. The update
  * of these cached values is done by <em>update methods</em> that will be
  * called when needed and in the correct order. The names of the pre-defined
@@ -95,7 +95,7 @@
  * The class is defined as follows
  * \dontinclude FunctionWritingExample.cpp
  * <pre>\skipline class
- * \until }; 
+ * \until };
  * </pre>
  *
  * With the \c SET_UPDATES macro, we are defining identifiers for the update
@@ -185,7 +185,7 @@
  *
  * Advanced example
  * ================
- * 
+ *
  * So far, we saw the implementation of a rather simple function, that only
  * depends on its variables. We present here an extension that requires a more
  * complexe use of the computation graph.
@@ -198,7 +198,7 @@
  * --------
  * Given two functions \f$ g \f$ and \f$ h \f$, we are considering the function
  * \f$ f = g^T h \f$.
- * 
+ *
  * We have that
  *
  * \f$
@@ -253,7 +253,7 @@
  * The creation of the graph is using the method \c processOutput described
  * below. The following table shows the dependency flow:
  *
- * |      outputs of g and h       |       update id      |          output of f          | 
+ * |      outputs of g and h       |       update id      |          output of f          |
  * | :---------------------------: | :------------------: | :---------------------------: |
  * | \c Output::Value              | \c Update::Value     | \c Output::Value              |
  * | \c Output::Value              | \c Update::Jacobian  | \c Output::Jacobian           |
@@ -281,10 +281,10 @@
  * \until updateNormalAcc
  * \until }
  * </pre>
- * 
+ *
  * The function \c processOutput has a bit of complexity to allow passing a
  * variable number of required outputs for \c g and \c h (which are thus inputs
- * of our function). 
+ * of our function).
  * Aside from this complexity, the implementation is quite straightforward: if
  * \c g and \c h provide both all the necessary outputs
  *  1. declare these outputs as inputs of our function with the method \c addInput
@@ -378,4 +378,3 @@
  *    differences.
  *
  */
- 

@@ -207,4 +207,3 @@
  * * [example/TaskDynamicsExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/TaskDynamicsExample.cpp)
  * * [Clamped composable task dynamic](https://github.com/jrl-umi3218/tvm/blob/master/include/tvm/task_dynamics/Clamped.h)
  */
-

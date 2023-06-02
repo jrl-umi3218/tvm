@@ -46,12 +46,12 @@
  * product). \f$ C \f$ is a matrix expressing the linearized Coulomb friction cone
  * (see e.g. [here](https://scaron.info/teaching/friction-cones.html)).
  * The two equality constraints are the Newton-Euler equations where the moments
- * are taken at the origin of the world frames. The forces \f$ f_i \f$ are 
+ * are taken at the origin of the world frames. The forces \f$ f_i \f$ are
  * expressed in the local contact frame and brought back in the world frame through
  * the \f$ R_i \f$.
  *
  * Note that
- * 
+ *
  * \f$
  *    \frac{1}{2} \sum_i \left\| f_i - f_i^{des} \right\|^2 + \frac{w}{2} \sum_i \left\| c - p_i \right\|^2 = \frac{1}{2}\left\| \begin{bmatrix} f_1 - f_1^{des} \\ f_2 - f_2^{des} \\ \vdots \\ c - p_1 \\ c - p_2 \\ \vdots \end{bmatrix} \right\|^2_W
  * \f$
@@ -59,7 +59,7 @@
  *
  * Implementation outline
  * ======================
- * 
+ *
  * Our main function will be \c leastSquares3points, and consist of 3 main steps
  *  1. Declaration of the problem data and variables
  *  2. Writing of the problem
@@ -128,4 +128,3 @@
  * [example/LeastSquaresExample.cpp](https://github.com/jrl-umi3218/tvm/blob/master/examples/LeastSquaresExample.cpp)
  *
  */
- 

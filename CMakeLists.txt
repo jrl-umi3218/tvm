@@ -21,9 +21,12 @@ set(DOXYGEN_DISTRIBUTE_GROUP_DOC YES)
 project(TVM CXX)
 
 if(NOT WIN32)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -pedantic")
+  set(CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-conversion -pedantic")
 else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_SILENCE_CXX17_NEGATORS_DEPRECATION_WARNING")
+  set(CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_SILENCE_CXX17_NEGATORS_DEPRECATION_WARNING"
+  )
 endif()
 
 option(TVM_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
@@ -32,28 +35,33 @@ set(USING_SOLVER FALSE)
 set(SOLVER_FLAGS "")
 set(SOLVER_LIBS "")
 
-# If we were given coverage options, we will only pass them to the core
-# library.
-set(GENERATE_COVERAGE FALSE CACHE BOOL "Generate coverage data")
+# If we were given coverage options, we will only pass them to the core library.
+set(GENERATE_COVERAGE
+    FALSE
+    CACHE BOOL "Generate coverage data")
 if("${CMAKE_CXX_FLAGS}" MATCHES "--coverage")
-  set(GENERATE_COVERAGE TRUE CACHE BOOL "Generate coverage data" FORCE)
+  set(GENERATE_COVERAGE
+      TRUE
+      CACHE BOOL "Generate coverage data" FORCE)
   string(REPLACE "--coverage" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  string(REPLACE "--coverage" "" CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
-  string(REPLACE "--coverage" "" CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS}")
+  string(REPLACE "--coverage" "" CMAKE_EXE_LINKER_FLAGS
+                 "${CMAKE_EXE_LINKER_FLAGS}")
+  string(REPLACE "--coverage" "" CMAKE_MODULE_LINKER_FLAGS
+                 "${CMAKE_MODULE_LINKER_FLAGS}")
 endif()
 
-#############################
-# - External dependencies - #
-#############################
+# ##############################################################################
+# * External dependencies - #
+# ##############################################################################
 
-#############
-# - Eigen - #
-#############
+# ##############################################################################
+# * Eigen - #
+# ##############################################################################
 add_project_dependency(Eigen3 REQUIRED)
 
-###################
-# - eigen-lssol - #
-###################
+# ##############################################################################
+# * eigen-lssol - #
+# ##############################################################################
 option(TVM_WITH_LSSOL "Build with LSSOL support" OFF)
 if(TVM_WITH_LSSOL)
   add_project_dependency(eigen-lssol REQUIRED)
@@ -64,9 +72,9 @@ else()
   set(TVM_USE_LSSOL "")
 endif()
 
-#################
-# - eigen-qld - #
-#################
+# ##############################################################################
+# * eigen-qld - #
+# ##############################################################################
 option(TVM_WITH_QLD "Build with QLD support" ON)
 if(TVM_WITH_QLD)
   add_project_dependency(eigen-qld REQUIRED)
@@ -77,9 +85,9 @@ else()
   set(TVM_USE_QLD "")
 endif()
 
-######################
-# - eigen-quadprog - #
-######################
+# ##############################################################################
+# * eigen-quadprog - #
+# ##############################################################################
 option(TVM_WITH_QUADPROG "Build with Quadprog support" OFF)
 if(TVM_WITH_QUADPROG)
   add_project_dependency(eigen-quadprog REQUIRED)
@@ -90,9 +98,9 @@ else()
   set(TVM_USE_QUADPROG "")
 endif()
 
-#############
-# - LexLS - #
-#############
+# ##############################################################################
+# * LexLS - #
+# ##############################################################################
 option(TVM_WITH_LEXLS "Build with LEXLS support" OFF)
 if(TVM_WITH_LEXLS)
   add_project_dependency(lexls REQUIRED)
@@ -103,42 +111,42 @@ else()
   set(TVM_USE_LEXLS "")
 endif()
 
-
-##########################
-# - Robotic components - #
-##########################
+# ##############################################################################
+# * Robotic components - #
+# ##############################################################################
 option(TVM_WITH_ROBOT "Build robots' related components" ON)
 if(TVM_WITH_ROBOT)
-  #############
-  # - RBDyn - #
-  #############
+  # ############################################################################
+  # * RBDyn - #
+  # ############################################################################
   add_project_dependency(RBDyn 1.2.1 REQUIRED)
   if(NOT TARGET RBDyn::Parsers)
     message(FATAL_ERROR "RBDyn must be built with parsers support")
   endif()
 
-  ################
-  # - sch-core - #
-  ################
+  # ############################################################################
+  # * sch-core - #
+  # ############################################################################
   add_project_dependency(sch-core REQUIRED)
 endif()
 
-#########################
+# ##############################################################################
 
 if(NOT USING_SOLVER)
-  message( FATAL_ERROR "You need to select at least one solver" )
+  message(FATAL_ERROR "You need to select at least one solver")
 endif()
 
 if(MSVC)
-  # For MSVC, set local environment variable to enable finding the built dll
-  # of the main library when launching ctest with RUN_TESTS
-  set(CMAKE_MSVCIDE_RUN_PATH "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
-  #increases that address capacity to avoid some link errors
+  # For MSVC, set local environment variable to enable finding the built dll of
+  # the main library when launching ctest with RUN_TESTS
+  set(CMAKE_MSVCIDE_RUN_PATH
+      "\$(SolutionDir)/src/\$(Configuration);${CMAKE_INSTALL_PREFIX}/bin")
+  # increases that address capacity to avoid some link errors
   add_definitions(/bigobj)
 endif(MSVC)
 
 # Grouping projects in solution folders
-set_property(GLOBAL PROPERTY USE_FOLDERS ON) 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_subdirectory(3rd-party)
 add_subdirectory(src)

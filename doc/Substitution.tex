@@ -46,7 +46,7 @@ A_{2,2} x_2 + \ldots + A_{2,k} x_k + B_2 y &= c_2 \label{eq:triang2}\\
 \vdots& \nonumber\\
 A_{k,k} x_k + B_k y &= c_k \label{eq:triangk}
 \end{align}
-Indeed, if $l\leq k$ variables, let's note them $x_1, \ldots x_l$, appears in exactly $l$ equations, that we can take to be the $l$ first ones, then these $l$ equations can be rewritten as one single equation $\tilde{A} \tilde{x} + \tilde{A}_{l+1} x_{l+1} + \ldots + \tilde{A}_k x_k + \tilde{B} y = \tilde{c}$, with 
+Indeed, if $l\leq k$ variables, let's note them $x_1, \ldots x_l$, appears in exactly $l$ equations, that we can take to be the $l$ first ones, then these $l$ equations can be rewritten as one single equation $\tilde{A} \tilde{x} + \tilde{A}_{l+1} x_{l+1} + \ldots + \tilde{A}_k x_k + \tilde{B} y = \tilde{c}$, with
 \begin{equation*}
 	\tilde{A} = \BIN A_{1,1} & \hdots & A_{1,k} \\ \vdots & \ddots & \vdots \\ A_{k,1} & \hdots & A_{k,k} \BOUT, \
 	\tilde{A_j} = \BIN A_{1,j} \\ \vdots \\ A_{l,j}\BOUT, \
@@ -79,27 +79,27 @@ where we want to pre-solve in $x$, using the first equation. We denote $r$ the r
 
 Let $A^\sharp$ be a generalized inverse of $A$, $N$ a basis of $\mathrm{null}(A)$, and $S$ a basis of $\mathrm{null}(A^T)$, and define $P = (I-A^T G^T) N^{+T}$. Using the tautology $P^T x = P^T x$, we have
 \begin{align*}
-  \mathrm{(\ref{eq:simple1})} &\Longleftrightarrow 
+  \mathrm{(\ref{eq:simple1})} &\Longleftrightarrow
 	\left\{\begin{array}{rcl}
 	  \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN -By + c \\ P^T x\BOUT
 	\end{array}\right.\\
-	&\Longleftrightarrow 
+	&\Longleftrightarrow
 	\left\{\begin{array}{rcl}
 	  \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN A \\ P^T\BOUT x \hspace{-5pt}&=&\hspace{-5pt} \BIN A^{\sharp} & N \\ S^T & 0 \BOUT \BIN -By + c \\ P^T x\BOUT
 	\end{array}\right.\\
-	&\Longleftrightarrow 
+	&\Longleftrightarrow
 	\left\{\begin{array}{rcl}
-	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c \\ 
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c \\
 		z \hspace{-5pt}&=&\hspace{-5pt} P^T x\\
 		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
 	\end{array}\right.\\
-	&\Longleftrightarrow 
+	&\Longleftrightarrow
 	\left\{\begin{array}{rcl}
-	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c, \quad z \in \mathbb{R}^{n-r} \\ 
+	  x \hspace{-5pt}&=&\hspace{-5pt}  -A^{\sharp}By + N z + A^{\sharp}c, \quad z \in \mathbb{R}^{n-r} \\
 		S^T By \hspace{-5pt}&=&\hspace{-5pt} S^T c
 	\end{array}\right.
 \end{align*}
-The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ spans $\mathbb{R}^{n-r}$. 
+The second equivalence uses the fact that the introduced matrix is invertible (see theorem~\ref{th:inverse}), the third that $A^{\sharp}A + NP^T = I$ (see theorem~\ref{th:NP}), and the last that $P$ is full rank, and so $P^T$ spans $\mathbb{R}^{n-r}$.
 
 Noting $M = -A^\sharp B$, and $u = A^\sharp c$, we thus have
 \begin{equation*}
@@ -148,14 +148,14 @@ Eq.~(\ref{eq:triang_l}) becomes
 Substituting $x_l$ in the $i^{\mathrm{th}}$ equation ($i<l$) yields
 \begin{equation*}
 \footnotesize
-  A_{i,i} x_i + \ldots + A_{i,l-1} x_{l-1} + (B_i^{(l)} + A_{i,l} M_l)y 
+  A_{i,i} x_i + \ldots + A_{i,l-1} x_{l-1} + (B_i^{(l)} + A_{i,l} M_l)y
 	+ \BIN\hspace{-1pt} Z_i^{(l)} \hspace{-7pt}-\hspace{-3pt} A_{i,l} A_l^\sharp Z_l^{(l)} &\hspace{-5pt} A_{i,l} N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
 	= \hspace{-3pt} c_i^{(l)} \hspace{-3pt}- A_{i,l} u_l
 \end{equation*}
 Likewise eq.~(\ref{eq:other_}) becomes
 \begin{equation*}
 \small
-  D_1 x_ 1+ \ldots + D_{l-1} x_{l-1} + (E^{(l)} + D_l M_l)y 
+  D_1 x_ 1+ \ldots + D_{l-1} x_{l-1} + (E^{(l)} + D_l M_l)y
 	+ \BIN\hspace{-1pt} H^{(l)} \hspace{-5pt}-\hspace{-3pt} D_l A_l^\sharp Z_l^{(l)} &\hspace{-5pt} D_l N_l\hspace{-1pt}\BOUT\hspace{-5pt} \BIN \hspace{-1pt}z^{(l)}\hspace{-1pt} \\ z_l \BOUT \hspace{-4pt}
 	= \hspace{-3pt} f^{(l)} \hspace{-3pt}- D_l u_l
 \end{equation*}
@@ -275,7 +275,7 @@ We have that $\mathrm{rank}(GA) = \mathrm{rank}(AG) =  \mathrm{rank}(A) =  r$, s
 Therefore, we have the rank factorizations
 \begin{align*}
  \exists N,P\in \mathbb{R}^{n \times n-r}, \quad \mathrm{rank}(N) = \mathrm{rank}(P) = n-r &&\ I-GA = N P^T\\
-  \exists T,S\in \mathbb{R}^{m \times m-r}, \quad \mathrm{rank}(T) = \mathrm{rank}(S) = m-r && I-AG = T S^T 
+  \exists T,S\in \mathbb{R}^{m \times m-r}, \quad \mathrm{rank}(T) = \mathrm{rank}(S) = m-r && I-AG = T S^T
 \end{align*}
 
 \begin{theorem}
@@ -286,9 +286,9 @@ Therefore, we have the rank factorizations
   Let's first prove $\Longrightarrow$.
 	\newline
 	$I-GA = N P^T \Longrightarrow A(I-GA) = A N P^T \Longrightarrow ANP^T=0$. Since $P^T$ is full rank, its range space is $\mathbb{R}^{n-r}$, so that $ANP^T=0 \Longrightarrow AN = 0$. $N$ is full rank so it is a basis of $\mathrm{null}(A)$.
-\newline	
+\newline
 	Since $N$ is full rank, $N^+ N = I$. Thus $I-GA = N P^T \Longrightarrow N^+(I-GA) = P^T \Longrightarrow P = (I-A^TG^T)N^{+T}$.
-	
+
 	Conversely, let's prove $\Longleftarrow$.
   \newline
 	$V_2$ is also a basis of $\mathrm{null}(A)$, so that there is an $n-r \times n-r$ invertible matrix $X$ such that $N = V_2 X$. Therefore $N^+ = X^{-1} V_2^T$ and $N P^T = V_2 V_2^T (I-GA) = I-GA$ where the last equality comes from Lemma~\ref{lemma:projection}.
@@ -319,7 +319,7 @@ An equivalent theorem can be made for $I-AG$:
 \begin{proof}
 	Let's show that
 	\begin{equation}
-		\BIN A & T \\ P^T  & -P^TGS^+ \BOUT \BIN G & N \\ S^T & 0 \BOUT = 
+		\BIN A & T \\ P^T  & -P^TGS^+ \BOUT \BIN G & N \\ S^T & 0 \BOUT =
 		\BIN AG + TS^T & AN \\ P^T G - P^TG S^{+T} S^T & P^T N \BOUT \label{eq:inverse}
 	\end{equation}
 	is the identity.
