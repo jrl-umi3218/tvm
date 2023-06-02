@@ -4,8 +4,8 @@ on:
   push:
     paths-ignore:
       # Changes to those files don't mandate running CI
-      - ".github/workflows/clang-format.yml"
-      - ".clang-format*"
+      - ".clang-format"
+      - "debian/**"
     branches:
       - '**'
   pull_request:
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-18.04, macos-latest, windows-latest]
+        os: [ubuntu-20.04, ubuntu-22.04, macos-latest, windows-latest]
         build-type: [Debug, RelWithDebInfo]
         compiler: [gcc, clang]
         with-robot: [ON, OFF]
@@ -29,7 +29,7 @@ jobs:
             compiler: clang
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
       with:
         submodules: recursive
     - name: Temporary APT mirrors cleanup
@@ -94,7 +94,7 @@ jobs:
         ./.github/workflows/scripts/test-usage.sh ${{ matrix.build-type }}
     - name: Upload documentation
       # Only run on master branch and for one configuration
-      if: matrix.os == 'ubuntu-18.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.with-robot == 'OFF'
+      if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.with-robot == 'OFF'
       uses: jrl-umi3218/github-actions/upload-documentation@master
       with:
         GH_USER: gergondet
