@@ -10,4 +10,4 @@ export DEB_CXXFLAGS_MAINT_APPEND=-DNDEBUG
 	dh $@ --parallel
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=OFF
+	dh_auto_configure -- -DTVM_WITH_LEXLS:BOOL=ON -DTVM_WITH_QUADPROG:BOOL=ON -DTVM_WITH_ROBOT:BOOL=OFF

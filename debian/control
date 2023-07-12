@@ -11,6 +11,7 @@ Build-Depends: debhelper (>= 9),
                doxygen,
                graphviz,
                libeigen-quadprog-dev,
+               liblexls-dev,
                libeigen-qld-dev
 
 Package: libtvm-dev
@@ -19,6 +20,7 @@ Architecture: any
 Depends: cmake,
          libeigen-quadprog-dev,
          libeigen-qld-dev,
+         liblexls-dev,
          libtvm (= ${binary:Version}),
          ${misc:Depends}
 Suggests: libtvm-doc
