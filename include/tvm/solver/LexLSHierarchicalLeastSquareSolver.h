@@ -53,7 +53,7 @@ protected:
   void updateInequalityTargetData(int lvl, scheme::internal::AssignmentTarget & target) override;
   void updateBoundTargetData(scheme::internal::AssignmentTarget & target) override;
 
-  void applyImpactLogic(ImpactFromChanges & impact);
+  void applyImpactLogic(ImpactFromChanges & impact) override;
 
   void printProblemData_() const override;
   void printDiagnostic_() const override;
