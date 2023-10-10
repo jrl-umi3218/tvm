@@ -13,6 +13,7 @@ on:
     - README.md
     - ".github/workflows/build.yml"
     - ".github/workflows/clang-format.yml"
+    - ".pre-commit-config.yaml"
     branches:
     - "**"
     tags:
