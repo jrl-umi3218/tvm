@@ -50,11 +50,13 @@ using namespace Eigen;
 // by expr where the xi are VariablePtr with value vi.
 // This tests in passing that the corresponding AffineExpr creation compiles
 // correctly.
-#define TEST_AFFINE_EXPR(expr, ...)                                                                               \
-  {                                                                                                               \
-    VectorXd res1, res2;                                                                                          \
-    {PP_ID(GENERATE(CREATE_VEC, EVAL_EIG, res1, expr, __VA_ARGS__))} {                                            \
-        PP_ID(GENERATE(CREATE_VAR, EVAL_AFF, res2, expr, __VA_ARGS__))} FAST_CHECK_UNARY((res1 - res2).isZero()); \
+#define TEST_AFFINE_EXPR(expr, ...)                                                                            \
+  {                                                                                                            \
+    VectorXd res1, res2;                                                                                       \
+    {                                                                                                          \
+      PP_ID(GENERATE(CREATE_VEC, EVAL_EIG, res1, expr, __VA_ARGS__))                                           \
+    }                                                                                                          \
+    {PP_ID(GENERATE(CREATE_VAR, EVAL_AFF, res2, expr, __VA_ARGS__))} FAST_CHECK_UNARY((res1 - res2).isZero()); \
   }
 
 TEST_CASE("Test AffineExpr compilation and validity")
