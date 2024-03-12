@@ -738,12 +738,8 @@ private:
   CompiledAssignment(const Eigen::Ref<MatrixType> & to) : to_(to) {}
 
 public:
-  void run()
-  { /* Do nothing */
-  }
-  void from(const Eigen::Ref<const MatrixType> &)
-  { /* Do nothing */
-  }
+  void run() { /* Do nothing */ }
+  void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to)
   {
     // We want to do to_ = to but there is no operator= for Eigen::Ref,
@@ -770,9 +766,7 @@ private:
 
 public:
   void run() { to_.setZero(); }
-  void from(const Eigen::Ref<const MatrixType> &)
-  { /* Do nothing */
-  }
+  void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to)
   {
     // We want to do to_ = to but there is no operator= for Eigen::Ref,
@@ -799,9 +793,7 @@ private:
 
 public:
   void run() { to_.array() = to_.array().min(0); }
-  void from(const Eigen::Ref<const MatrixType> &)
-  { /* Do nothing */
-  }
+  void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to) { new(&to_) Eigen::Ref<MatrixType>(to); }
 
 private:
@@ -823,9 +815,7 @@ private:
 
 public:
   void run() { to_.array() = to_.array().max(0); }
-  void from(const Eigen::Ref<const MatrixType> &)
-  { /* Do nothing */
-  }
+  void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to) { new(&to_) Eigen::Ref<MatrixType>(to); }
 
 private:
