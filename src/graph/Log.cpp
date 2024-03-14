@@ -492,9 +492,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
 
   // generate the dot code
   std::stringstream dot;
-  dot << "digraph \""
-      << "Update graph"
-      << "\"\n{\n";
+  dot << "digraph \"" << "Update graph" << "\"\n{\n";
   dot << "  rankdir=\"LR\";\n";
 
   // Process each node
@@ -549,8 +547,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
     dot << nodeName(o) << "->" << nodeName(u);
     if(oh[o] && uh[u])
     {
-      dot << " "
-          << "[color=orange]";
+      dot << " " << "[color=orange]";
     }
     dot << ";\n";
   }
@@ -563,8 +560,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
     dot << nodeName(u) << "->" << nodeName(o);
     if(oh[o] && uh[u])
     {
-      dot << " "
-          << "[color=orange]";
+      dot << " " << "[color=orange]";
     }
     dot << ";\n";
   }
@@ -577,8 +573,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
     dot << nodeName(from) << "->" << nodeName(to);
     if(uh[from] && uh[to])
     {
-      dot << " "
-          << "[color=orange]";
+      dot << " " << "[color=orange]";
     }
     dot << ";\n";
   }
@@ -592,8 +587,7 @@ std::string Log::generateDot(const std::vector<Log::Output> & outHighlight,
     dot << nodeName(from) << "->" << nodeName(to);
     if(oh[from] && oh[to])
     {
-      dot << " "
-          << "[color=orange]";
+      dot << " " << "[color=orange]";
     }
     dot << ";\n";
   }
