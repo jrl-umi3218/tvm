@@ -11,8 +11,8 @@ namespace tvm
 
 namespace task_dynamics
 {
-VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
-: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff)
+VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff, double m)
+: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff), m_(m)
 {
   if(di_ <= ds_)
   {
@@ -35,8 +35,10 @@ VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
 VelocityDamper::AnisotropicConfig::AnisotropicConfig(const VectorConstRef & di,
                                                      const VectorConstRef & ds,
                                                      const VectorConstRef & xsi,
-                                                     const std::optional<VectorConstRef> & xsiOff)
-: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
+                                                     const std::optional<VectorConstRef> & xsiOff,
+                                                     const std::optional<VectorConstRef> & m)
+: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0))), 
+m_(m.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
 {
   if(di_.size() != ds_.size() || di_.size() != xsi_.size() || di_.size() != xsiOff_.size())
   {
@@ -69,7 +71,8 @@ VelocityDamper::AnisotropicConfig::AnisotropicConfig(const Config & config)
 : AnisotropicConfig(Eigen::VectorXd::Constant(1, 1, config.di_),
                     Eigen::VectorXd::Constant(1, 1, config.ds_),
                     Eigen::VectorXd::Constant(1, 1, config.xsi_),
-                    Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
+                    Eigen::VectorXd::Constant(1, 1,config.xsiOff_),
+                    Eigen::VectorXd::Constant(1, 1,config.m_))
 {}
 
 VelocityDamper::VelocityDamper(const Config & config, double big) : VelocityDamper(AnisotropicConfig{config}, big) {}
@@ -202,6 +205,32 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
   }
 }
 
+VelocityDamper::Impl::Impl(FunctionPtr f,
+                           constraint::Type t,
+                           const Eigen::VectorXd & rhs,
+                           double dt,
+                           bool autoXsi,
+                           const Eigen::VectorXd & di,
+                           const Eigen::VectorXd & ds,
+                           const Eigen::VectorXd & xsi,
+                           double big,
+                           const Eigen::VectorXd & m)
+: TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
+  di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), 
+  a_(-(di_ - ds_).cwiseInverse()), big_(big), autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false), 
+  m_(resizeParameter(f, m, "amortization margin"))
+{
+  if(autoXsi)
+  {
+    axsi_.setOnes();
+    xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
+  }
+  else
+  {
+    axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
+  }
+}
+
 void VelocityDamper::Impl::updateValue()
 {
   if(type() == constraint::Type::LOWER_THAN)
@@ -210,8 +239,15 @@ void VelocityDamper::Impl::updateValue()
     updateValue_(-1);
     if(order() == Order::Two)
     {
-      value_ += function().velocity();
-      value_ /= dt_;
+      value_ += function().velocity(); // -xsi*(e_i-ds)/(di-ds) + dot{e}_i
+      if ((m_.array() < 1.0).all())
+      {
+        value_ /= dt_; // -xsi/dt * (e_i-ds)/(di-ds) + dot{e}_i/dt 
+      }
+      else // close loop second order
+      {
+        value_.array() *= 4 * m_.array() * m_.array() * axsi_.array(); // -4*M^2*xsi^2/(di-ds)^2 * (e_i-ds) + 4*M^2*xsi/(di-ds) * dot{e}_i
+      }
     }
     value_ = (d_.array() > di_.array()).select(big_, -value_);
   }
@@ -221,8 +257,15 @@ void VelocityDamper::Impl::updateValue()
     updateValue_(+1);
     if(order() == Order::Two)
     {
-      value_ -= function().velocity();
-      value_ /= dt_;
+      value_ -= function().velocity(); // -xsi*(e_i-ds)/(di-ds) - dot{e}_i
+      if ((m_.array() < 1.0).all())
+      {
+        value_ /= dt_; // -xsi/dt * (e_i-ds)/(di-ds) - dot{e}_i/dt
+      }
+      else // close loop second order
+      {
+        value_.array() *= 4 * m_.array() * m_.array() * axsi_.array(); // -4*M^2*xsi^2/(di-ds)^2 * (e_i-ds) - 4*M^2*xsi/(di-ds) * dot{e}_i
+      }
     }
     value_ = (d_.array() > di_.array()).select(-big_, value_);
   }
