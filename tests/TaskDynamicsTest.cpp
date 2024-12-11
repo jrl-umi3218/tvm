@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#ifdef __i386__
+#if defined __i386__ || defined __aarch64__
 #  define APPROX_I386(x) doctest::Approx(x)
 #else
 #  define APPROX_I386(x) x
