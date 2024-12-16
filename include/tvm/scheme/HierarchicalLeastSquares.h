@@ -14,12 +14,9 @@ namespace tvm
 namespace scheme
 {
 /** A set of options for HierarchicalLeastSquares. */
-class TVM_DLLAPI HierarchicalLeastSquaresOptions
-{
-  /** If \a true, a damping task is added after the last level
-   */
-  TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
-};
+class TVM_DLLAPI HierarchicalLeastSquaresOptions{/** If \a true, a damping task is added after the last level
+                                                  */
+                                                 TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)};
 
 /** This class implements the hierarchical least square scheme. */
 class TVM_DLLAPI HierarchicalLeastSquares : public abstract::LinearResolutionScheme<HierarchicalLeastSquares>

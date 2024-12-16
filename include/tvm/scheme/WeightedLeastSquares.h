@@ -14,18 +14,16 @@ namespace tvm
 namespace scheme
 {
 /** A set of options for WeightedLeastSquares. */
-class TVM_DLLAPI WeightedLeastSquaresOptions
-{
-  /** If \a true, a damping task is added when no constraint with level >=1 has been
-   * given.
-   */
-  TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
-  /**  The factor to emulate priority for priority levels >= 1.
-   * E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
-   * priority 2, the weighted least-squares problem will be assembled with weights
-   * \p scalarizationWeight * w1 and w2 for T1 and T2 respectively. */
-  TVM_ADD_NON_DEFAULT_OPTION(scalarizationWeight, 1000.)
-};
+class TVM_DLLAPI WeightedLeastSquaresOptions{
+    /** If \a true, a damping task is added when no constraint with level >=1 has been
+     * given.
+     */
+    TVM_ADD_NON_DEFAULT_OPTION(autoDamping, false)
+    /**  The factor to emulate priority for priority levels >= 1.
+     * E.g. if a task T1 has a weight w1 and priority 1, and a task T2 has a weight w2 and
+     * priority 2, the weighted least-squares problem will be assembled with weights
+     * \p scalarizationWeight * w1 and w2 for T1 and T2 respectively. */
+    TVM_ADD_NON_DEFAULT_OPTION(scalarizationWeight, 1000.)};
 
 /** This class implements the classic weighted least square scheme. */
 class TVM_DLLAPI WeightedLeastSquares : public abstract::LinearResolutionScheme<WeightedLeastSquares>

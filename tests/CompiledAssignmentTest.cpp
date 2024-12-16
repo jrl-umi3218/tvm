@@ -197,8 +197,8 @@ struct call_impl
 {
   static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
   {
-    return call_impl<MatrixType, A, W, M, F, Tuple, Total == 1 + sizeof...(N), Total, N..., sizeof...(N)>::call(
-        std::forward<Tuple>(t));
+    return call_impl < MatrixType, A, W, M, F, Tuple, Total == 1 + sizeof...(N), Total, N...,
+           sizeof...(N) > ::call(std::forward<Tuple>(t));
   }
 };
 
@@ -220,8 +220,8 @@ template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F
 CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
 {
   typedef typename std::decay<Tuple>::type ttype;
-  return detail::call_impl<MatrixType, A, W, M, F, Tuple, 0 == std::tuple_size<ttype>::value,
-                           std::tuple_size<ttype>::value>::call(std::forward<Tuple>(t));
+  return detail::call_impl < MatrixType, A, W, M, F, Tuple, 0 == std::tuple_size<ttype>::value,
+         std::tuple_size<ttype>::value > ::call(std::forward<Tuple>(t));
 }
 
 template<WeightMult W>

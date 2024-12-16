@@ -1007,7 +1007,7 @@ struct StringMaker<T *>
 template<typename R, typename C>
 struct StringMaker<R C::*>
 {
-  static String convert(R C::*p)
+  static String convert(R C::* p)
   {
     if(p)
       return detail::rawMemoryToString(p);
@@ -1159,8 +1159,7 @@ namespace detail
 #endif // DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING
 // clang-format on
 
-struct DOCTEST_INTERFACE TestFailureException
-{};
+struct DOCTEST_INTERFACE TestFailureException{};
 
 DOCTEST_INTERFACE bool checkIfShouldThrow(assertType::Enum at);
 
