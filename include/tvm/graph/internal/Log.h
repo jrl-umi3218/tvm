@@ -29,7 +29,7 @@ class Inputs;
  * members to compare.
  */
 template<typename ObjType, typename MemberType, typename... Args>
-bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::*member, Args &&... args)
+bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::* member, Args &&... args)
 {
   return (l.*member) < (r.*member) || ((l.*member == r.*member) && lexLess(l, r, std::forward<Args>(args)...));
 }
@@ -38,21 +38,21 @@ bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::*member, 
  * to compare.
  */
 template<typename ObjType, typename MemberType, typename... Args>
-bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::*member, Args &&... args)
+bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::* member, Args &&... args)
 {
   return (l.*member == r.*member) && eq(l, r, std::forward<Args>(args)...);
 }
 
 /** End of recursion. */
 template<typename ObjType, typename MemberType>
-bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::*member)
+bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::* member)
 {
   return (l.*member) < (r.*member);
 }
 
 /** End of recursion. */
 template<typename ObjType, typename MemberType>
-bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::*member)
+bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::* member)
 {
   return (l.*member) == (r.*member);
 }

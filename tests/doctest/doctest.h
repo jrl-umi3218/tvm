@@ -1007,7 +1007,7 @@ struct StringMaker<T *>
 template<typename R, typename C>
 struct StringMaker<R C::*>
 {
-  static String convert(R C::*p)
+  static String convert(R C::* p)
   {
     if(p)
       return detail::rawMemoryToString(p);
