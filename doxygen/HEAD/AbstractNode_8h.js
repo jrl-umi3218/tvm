@@ -1,6 +1,5 @@
 var AbstractNode_8h =
 [
-    [ "Node", "classtvm_1_1graph_1_1abstract_1_1Node.html", "classtvm_1_1graph_1_1abstract_1_1Node" ],
     [ "AbstractNode", "classtvm_1_1graph_1_1internal_1_1AbstractNode.html", "classtvm_1_1graph_1_1internal_1_1AbstractNode" ],
     [ "Update", "structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html", null ],
     [ "CLEAR_DISABLED_UPDATES", "AbstractNode_8h.html#a2af6eb7ce3d5fb8c61bb1b072d449820", null ],

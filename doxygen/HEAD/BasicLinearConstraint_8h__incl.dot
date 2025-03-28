@@ -133,16 +133,11 @@ digraph "include/tvm/constraint/BasicLinearConstraint.h"
   Node44 [label="algorithm",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node17 -> Node32 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node17 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 -> Node44 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 -> Node45 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node45 [label="sstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node7 -> Node46 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node46 [label="/home/runner/work/tvm\l/tvm/include/tvm/graph\l/internal/Logger.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node7 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 -> Node47 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node47 [label="initializer_list",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node45 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node45 [label="initializer_list",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node1 -> Node29 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

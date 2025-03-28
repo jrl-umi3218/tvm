@@ -4,5 +4,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::scheme::internal\l::ParseArg_\< N \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1ParseArg__.html",tooltip=" "];
+  Node205 [label="std::queue",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node205 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="tvm::scheme::internal\l::ProblemComputationData\l::EventQueue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1ProblemComputationData_1_1EventQueue.html",tooltip=" "];
 }

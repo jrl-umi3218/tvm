@@ -4,14 +4,14 @@ digraph "include/tvm/robot" {
   edge [ labelfontsize="10", labelfontname="Helvetica"];
   subgraph clusterdir_b4c7d8e826c599ba55146c099a14beb5 {
     graph [ bgcolor="#ddddee", pencolor="black", label="tvm" fontname="Helvetica", fontsize="10", URL="dir_b4c7d8e826c599ba55146c099a14beb5.html"]
+  dir_3b8bd83221002fa77b114cd1fe45d7df [shape=box label="geometry" URL="dir_3b8bd83221002fa77b114cd1fe45d7df.html"];
+  dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [shape=box label="function" fillcolor="white" style="filled" color="red" URL="dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2.html"];
   subgraph clusterdir_d042aebbf1171e016bcc9e6a6ed11000 {
     graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_d042aebbf1171e016bcc9e6a6ed11000.html"];
     dir_d042aebbf1171e016bcc9e6a6ed11000 [shape=plaintext label="robot"];
-    dir_32720b4c66db4709ceedb8a9ccec312a [shape=box label="internal" color="black" fillcolor="white" style="filled" URL="dir_32720b4c66db4709ceedb8a9ccec312a.html"];
+  dir_32720b4c66db4709ceedb8a9ccec312a [shape=box label="internal" fillcolor="white" style="filled" URL="dir_32720b4c66db4709ceedb8a9ccec312a.html"];
   }
   }
-  dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [shape=box label="function" fillcolor="white" style="filled" color="red" URL="dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2.html"];
-  dir_3b8bd83221002fa77b114cd1fe45d7df [shape=box label="geometry" URL="dir_3b8bd83221002fa77b114cd1fe45d7df.html"];
   dir_32720b4c66db4709ceedb8a9ccec312a->dir_95e0fe1efd9e7dc8b84bcdee05d2dbc2 [headlabel="2", labeldistance=1.5 headhref="dir_000025_000014.html"];
   dir_d042aebbf1171e016bcc9e6a6ed11000->dir_3b8bd83221002fa77b114cd1fe45d7df [headlabel="1", labeldistance=1.5 headhref="dir_000008_000016.html"];
 }

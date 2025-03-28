@@ -9,7 +9,16 @@ var namespacetvm_1_1task__dynamics =
     [ "Proportional", "classtvm_1_1task__dynamics_1_1Proportional.html", "classtvm_1_1task__dynamics_1_1Proportional" ],
     [ "ProportionalDerivative", "classtvm_1_1task__dynamics_1_1ProportionalDerivative.html", "classtvm_1_1task__dynamics_1_1ProportionalDerivative" ],
     [ "Reference", "classtvm_1_1task__dynamics_1_1Reference.html", "classtvm_1_1task__dynamics_1_1Reference" ],
-    [ "ReferenceAcceleration", "classtvm_1_1task__dynamics_1_1ReferenceAcceleration.html", "classtvm_1_1task__dynamics_1_1ReferenceAcceleration" ],
     [ "ReferenceVelocity", "classtvm_1_1task__dynamics_1_1ReferenceVelocity.html", "classtvm_1_1task__dynamics_1_1ReferenceVelocity" ],
-    [ "VelocityDamper", "classtvm_1_1task__dynamics_1_1VelocityDamper.html", "classtvm_1_1task__dynamics_1_1VelocityDamper" ]
+    [ "ReferenceAcceleration", "classtvm_1_1task__dynamics_1_1ReferenceAcceleration.html", "classtvm_1_1task__dynamics_1_1ReferenceAcceleration" ],
+    [ "VelocityDamper", "classtvm_1_1task__dynamics_1_1VelocityDamper.html", "classtvm_1_1task__dynamics_1_1VelocityDamper" ],
+    [ "FeedForwardP", "namespacetvm_1_1task__dynamics.html#abefacce58ac7386489ddd237a5fb0ecb", null ],
+    [ "FeedForwardPD", "namespacetvm_1_1task__dynamics.html#aef391d4ea376d9ddb35b3bcace52d51e", null ],
+    [ "P", "namespacetvm_1_1task__dynamics.html#a48db1a4191bee9b4313893cbc71c60d2", null ],
+    [ "PD", "namespacetvm_1_1task__dynamics.html#abbc550226fefd54eb4205711373370ee", null ],
+    [ "Order", "namespacetvm_1_1task__dynamics.html#a2104706f158c0b024e10716d3c176cad", [
+      [ "Zero", "namespacetvm_1_1task__dynamics.html#a2104706f158c0b024e10716d3c176cadad7ed4ee1df437474d005188535f74875", null ],
+      [ "One", "namespacetvm_1_1task__dynamics.html#a2104706f158c0b024e10716d3c176cada06c2cea18679d64399783748fa367bdd", null ],
+      [ "Two", "namespacetvm_1_1task__dynamics.html#a2104706f158c0b024e10716d3c176cadaaada29daee1d64ed0fe907043855cb7e", null ]
+    ] ]
 ];

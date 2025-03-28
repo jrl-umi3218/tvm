@@ -1,7 +1,6 @@
 var ProtoTask_8h =
 [
     [ "ProtoTaskCommon", "classtvm_1_1utils_1_1ProtoTaskCommon.html", "classtvm_1_1utils_1_1ProtoTaskCommon" ],
-    [ "ProtoTaskCommon", "classtvm_1_1utils_1_1ProtoTaskCommon.html", "classtvm_1_1utils_1_1ProtoTaskCommon" ],
     [ "ProtoTaskCommon< constraint::Type::DOUBLE_SIDED, FunT >", "classtvm_1_1utils_1_1ProtoTaskCommon_3_01constraint_1_1Type_1_1DOUBLE__SIDED_00_01FunT_01_4.html", "classtvm_1_1utils_1_1ProtoTaskCommon_3_01constraint_1_1Type_1_1DOUBLE__SIDED_00_01FunT_01_4" ],
     [ "TVM_ID", "ProtoTask_8h.html#ae1a920dc965c837bae948075e6fdaa8b", null ],
     [ "TVM_LIN", "ProtoTask_8h.html#a0297f6a53b0e2b16ebdd6b532a6da868", null ],

@@ -5,5 +5,5 @@ digraph "tvm::scheme::internal::WeightMultBase&lt; W &gt;"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="tvm::scheme::internal\l::WeightMultBase\< W \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="tvm::scheme::internal\l::CompiledAssignment\< W \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1CompiledAssignment.html",tooltip=" "];
+  Node2 [label="tvm::scheme::internal\l::CompiledAssignment\l\< MatrixType, A, W, M, F \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1scheme_1_1internal_1_1CompiledAssignment.html",tooltip=" "];
 }

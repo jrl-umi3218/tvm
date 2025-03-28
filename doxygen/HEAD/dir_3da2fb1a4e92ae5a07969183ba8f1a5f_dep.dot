@@ -4,13 +4,13 @@ digraph "include/tvm/requirements" {
   edge [ labelfontsize="10", labelfontname="Helvetica"];
   subgraph clusterdir_b4c7d8e826c599ba55146c099a14beb5 {
     graph [ bgcolor="#ddddee", pencolor="black", label="tvm" fontname="Helvetica", fontsize="10", URL="dir_b4c7d8e826c599ba55146c099a14beb5.html"]
+  dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
   subgraph clusterdir_3da2fb1a4e92ae5a07969183ba8f1a5f {
     graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_3da2fb1a4e92ae5a07969183ba8f1a5f.html"];
     dir_3da2fb1a4e92ae5a07969183ba8f1a5f [shape=plaintext label="requirements"];
-    dir_219f77fecb6dd5880825c8e25295d6cd [shape=box label="abstract" color="black" fillcolor="white" style="filled" URL="dir_219f77fecb6dd5880825c8e25295d6cd.html"];
+  dir_219f77fecb6dd5880825c8e25295d6cd [shape=box label="abstract" fillcolor="white" style="filled" URL="dir_219f77fecb6dd5880825c8e25295d6cd.html"];
   }
   }
-  dir_020a04e36825fdb5d137e6f4f382bacd [shape=box label="internal" URL="dir_020a04e36825fdb5d137e6f4f382bacd.html"];
   dir_219f77fecb6dd5880825c8e25295d6cd->dir_020a04e36825fdb5d137e6f4f382bacd [headlabel="1", labeldistance=1.5 headhref="dir_000024_000007.html"];
   dir_3da2fb1a4e92ae5a07969183ba8f1a5f->dir_219f77fecb6dd5880825c8e25295d6cd [headlabel="4", labeldistance=1.5 headhref="dir_000023_000024.html"];
 }

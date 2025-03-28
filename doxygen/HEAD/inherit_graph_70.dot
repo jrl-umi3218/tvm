@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::requirements::\lSolvingRequirementsBase\l\< Lightweight \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1requirements_1_1SolvingRequirementsBase.html",tooltip=" "];
+  Node0 [label="tvm::robot::Contact::Id",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1robot_1_1Contact_1_1Id.html",tooltip=" "];
 }

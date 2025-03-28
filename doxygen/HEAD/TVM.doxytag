@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile>
+<tagfile doxygen_version="1.9.1">
   <compound kind="file">
     <name>concepts.dox</name>
     <path>/home/runner/work/tvm/tvm/doc/</path>
@@ -1265,7 +1265,6 @@
     <class kind="struct">tvm::graph::abstract::SelectorMembers</class>
     <class kind="struct">tvm::graph::abstract::SelectorMembers&lt; false &gt;</class>
     <class kind="class">tvm::graph::abstract::OutputSelector</class>
-    <class kind="class">tvm::graph::abstract::OutputSelector</class>
     <namespace>tvm</namespace>
     <namespace>tvm::graph</namespace>
     <namespace>tvm::graph::abstract</namespace>
@@ -1311,7 +1310,6 @@
     <filename>AbstractNode_8h.html</filename>
     <includes id="api_8h" name="api.h" local="no" imported="no">tvm/api.h</includes>
     <includes id="Inputs_8h" name="Inputs.h" local="no" imported="no">tvm/graph/internal/Inputs.h</includes>
-    <class kind="class">tvm::graph::abstract::Node</class>
     <class kind="class">tvm::graph::internal::AbstractNode</class>
     <class kind="struct">tvm::graph::internal::AbstractNode::Update</class>
     <namespace>tvm</namespace>
@@ -1642,7 +1640,6 @@
     <filename>MatrixWithProperties_8h.html</filename>
     <includes id="MatrixProperties_8h" name="MatrixProperties.h" local="no" imported="no">tvm/internal/MatrixProperties.h</includes>
     <includes id="meta_8h" name="meta.h" local="no" imported="no">tvm/internal/meta.h</includes>
-    <class kind="class">tvm::internal::ObjectWithProperties</class>
     <class kind="class">tvm::internal::KeepProperties</class>
     <class kind="class">tvm::internal::ObjectWithProperties</class>
     <namespace>tvm</namespace>
@@ -3464,7 +3461,6 @@
     <includes id="AffineExpr_8h" name="AffineExpr.h" local="no" imported="no">tvm/utils/AffineExpr.h</includes>
     <includes id="ProtoTaskDetails_8h" name="ProtoTaskDetails.h" local="no" imported="no">tvm/utils/internal/ProtoTaskDetails.h</includes>
     <class kind="class">tvm::utils::ProtoTaskCommon</class>
-    <class kind="class">tvm::utils::ProtoTaskCommon</class>
     <class kind="class">tvm::utils::ProtoTaskCommon&lt; constraint::Type::DOUBLE_SIDED, FunT &gt;</class>
     <namespace>tvm</namespace>
     <namespace>tvm::utils</namespace>
@@ -5057,14 +5053,14 @@
       <type>Eigen::Map&lt; const Eigen::MatrixXd, Eigen::Aligned &gt;</type>
       <name>get</name>
       <anchorfile>classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html</anchorfile>
-      <anchor>a1d598e80747feecec6be128cd820e7bc</anchor>
+      <anchor>a8c6c66d3c899f41387e25fa62e437d08</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::MatrixXd, Eigen::Aligned &gt;</type>
       <name>get</name>
       <anchorfile>classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html</anchorfile>
-      <anchor>ad045f345b47165beed9a28e5e0b99f2c</anchor>
+      <anchor>a78344857c727193490f2fb241153ec46</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -9674,6 +9670,24 @@
       <arglist>(...)</arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>tvm::graph::internal::Inputs::Iterator</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Iterator</name>
+      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
+      <anchor>ae0575801e2a31a008828efc9071e9ee7</anchor>
+      <arglist>(inputs_t::iterator it, inputs_t::iterator end)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>operator bool</name>
+      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
+      <anchor>a103f60c2e1bd1b54ca3cc8e7cd0cfc91</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>tvm::internal::VariableVectorPartition::iterator</name>
     <filename>classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html</filename>
@@ -9710,24 +9724,6 @@
       <name>operator*</name>
       <anchorfile>classtvm_1_1internal_1_1VariableVectorPartition_1_1iterator.html</anchorfile>
       <anchor>accd710a180ed73b36e0c8c94f29d2541</anchor>
-      <arglist>()</arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>tvm::graph::internal::Inputs::Iterator</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Iterator</name>
-      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
-      <anchor>ae0575801e2a31a008828efc9071e9ee7</anchor>
-      <arglist>(inputs_t::iterator it, inputs_t::iterator end)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>operator bool</name>
-      <anchorfile>structtvm_1_1graph_1_1internal_1_1Inputs_1_1Iterator.html</anchorfile>
-      <anchor>a103f60c2e1bd1b54ca3cc8e7cd0cfc91</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -11220,7 +11216,7 @@
   <compound kind="class">
     <name>LinearResolutionScheme&lt; HierarchicalLeastSquares &gt;</name>
     <filename>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</filename>
-    <base>ResolutionScheme&lt; HierarchicalLeastSquares &gt;</base>
+    <base>tvm::scheme::abstract::ResolutionScheme</base>
     <member kind="function" protection="protected">
       <type></type>
       <name>LinearResolutionScheme</name>
@@ -11232,7 +11228,7 @@
   <compound kind="class">
     <name>LinearResolutionScheme&lt; WeightedLeastSquares &gt;</name>
     <filename>classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html</filename>
-    <base>ResolutionScheme&lt; WeightedLeastSquares &gt;</base>
+    <base>tvm::scheme::abstract::ResolutionScheme</base>
     <member kind="function" protection="protected">
       <type></type>
       <name>LinearResolutionScheme</name>
@@ -13654,6 +13650,7 @@
     <filename>classtvm_1_1graph_1_1abstract_1_1OutputSelector.html</filename>
     <templarg></templarg>
     <templarg></templarg>
+    <base protection="protected">SelectorMembers&lt;!is_output_selector&lt; OutputProvider &gt;()&gt;</base>
     <member kind="function">
       <type></type>
       <name>OutputSelector</name>
@@ -13721,6 +13718,8 @@
   <compound kind="class">
     <name>OutputSelector&lt; Constraint, tvm::internal::FirstOrderProvider &gt;</name>
     <filename>classtvm_1_1graph_1_1abstract_1_1OutputSelector.html</filename>
+    <base>tvm::internal::FirstOrderProvider</base>
+    <base protection="protected">tvm::graph::abstract::SelectorMembers</base>
     <member kind="function">
       <type></type>
       <name>OutputSelector</name>
@@ -14566,10 +14565,10 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>const void *</type>
+      <type>void const  *</type>
       <name>emitter</name>
       <anchorfile>classtvm_1_1scheme_1_1internal_1_1ProblemDefinitionEvent.html</anchorfile>
-      <anchor>a10bf923d33997f38b87ca21657f67528</anchor>
+      <anchor>ab552480335416d7c539769d3c00f16a0</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -15596,100 +15595,6 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>ResolutionScheme&lt; HierarchicalLeastSquares &gt;</name>
-    <filename>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</filename>
-    <base>tvm::scheme::internal::ResolutionSchemeBase</base>
-    <member kind="function">
-      <type>bool</type>
-      <name>solve</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a73c637baa1e013c38687115fdfae7904</anchor>
-      <arglist>(Problem &amp;problem) const</arglist>
-    </member>
-    <member kind="function">
-      <type>std::unique_ptr&lt; internal::ProblemComputationData &gt;</type>
-      <name>createComputationData</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a972d606a5d3e0920049d156d3ad8dd44</anchor>
-      <arglist>(const Problem &amp;problem) const</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateComputationData</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>abcbd65c0c5b58e50748cdb7d3fac059f</anchor>
-      <arglist>(const Problem &amp;problem, internal::ProblemComputationData *data) const</arglist>
-    </member>
-    <member kind="function">
-      <type>HierarchicalLeastSquares &amp;</type>
-      <name>derived</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a136b3f1492abc048598b23aac81942d9</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>const HierarchicalLeastSquares &amp;</type>
-      <name>derived</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>afe1e5a187ad7fe380b331839269c65d2</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" protection="protected">
-      <type></type>
-      <name>ResolutionScheme</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>aa9b9a4143fbff4f5654731c92333ce9b</anchor>
-      <arglist>(internal::SchemeAbilities abilities, double big=constant::big_number)</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>ResolutionScheme&lt; WeightedLeastSquares &gt;</name>
-    <filename>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</filename>
-    <base>tvm::scheme::internal::ResolutionSchemeBase</base>
-    <member kind="function">
-      <type>bool</type>
-      <name>solve</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a73c637baa1e013c38687115fdfae7904</anchor>
-      <arglist>(Problem &amp;problem) const</arglist>
-    </member>
-    <member kind="function">
-      <type>std::unique_ptr&lt; internal::ProblemComputationData &gt;</type>
-      <name>createComputationData</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a972d606a5d3e0920049d156d3ad8dd44</anchor>
-      <arglist>(const Problem &amp;problem) const</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateComputationData</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>abcbd65c0c5b58e50748cdb7d3fac059f</anchor>
-      <arglist>(const Problem &amp;problem, internal::ProblemComputationData *data) const</arglist>
-    </member>
-    <member kind="function">
-      <type>WeightedLeastSquares &amp;</type>
-      <name>derived</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>a136b3f1492abc048598b23aac81942d9</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>const WeightedLeastSquares &amp;</type>
-      <name>derived</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>afe1e5a187ad7fe380b331839269c65d2</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" protection="protected">
-      <type></type>
-      <name>ResolutionScheme</name>
-      <anchorfile>classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html</anchorfile>
-      <anchor>aa9b9a4143fbff4f5654731c92333ce9b</anchor>
-      <arglist>(internal::SchemeAbilities abilities, double big=constant::big_number)</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
     <name>tvm::scheme::internal::ResolutionSchemeBase</name>
     <filename>classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html</filename>
     <base>tvm::internal::ObjWithId</base>
@@ -15796,42 +15701,42 @@
       <type>Eigen::VectorXd &amp;</type>
       <name>l</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>ac7698d0f1058a19ac6c80e5725b77856</anchor>
+      <anchor>a4a7dfedce2b0af796effbd0a0002bc4d</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>l</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a655c9421cec058caf10d144eb47b9073</anchor>
+      <anchor>a5887986365d5d9cbf60940fa5f685faf</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>u</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a1252f9e31c67470a1e7ff7cf9ba43a74</anchor>
+      <anchor>adc2951c16457b43f892d294b13358223</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>u</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a2666d5f2d939d2f9587cd08cad67db20</anchor>
+      <anchor>a4a95acec8c4e95f9d1bba897e3217da6</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Eigen::VectorXd &amp;</type>
       <name>e</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>ac56efef2b80ee032aecc107ef2fd9561</anchor>
+      <anchor>a44fd2f2268827789216a5a351129e5b8</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const Eigen::VectorXd &amp;</type>
       <name>e</name>
       <anchorfile>classtvm_1_1constraint_1_1internal_1_1RHSVectors.html</anchorfile>
-      <anchor>a5ee48ee1aee80088943d180917adecae</anchor>
+      <anchor>a1806185352412636cf6b2dc2ebe90022</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -16146,6 +16051,24 @@
   <compound kind="struct">
     <name>tvm::graph::abstract::SelectorMembers&lt; false &gt;</name>
     <filename>structtvm_1_1graph_1_1abstract_1_1SelectorMembers_3_01false_01_4.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>SelectorMembers&lt;!is_output_selector&lt; OutputProvider &gt;()&gt;</name>
+    <filename>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; bool &gt;</type>
+      <name>dynamicallyEnabled_</name>
+      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
+      <anchor>afb9aaff5b2ec6d854da3c825e1896198</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>locked_</name>
+      <anchorfile>structtvm_1_1graph_1_1abstract_1_1SelectorMembers.html</anchorfile>
+      <anchor>a0c9eb868c9839d51c75cc7206c94edcb</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>tvm::requirements::abstract::SingleSolvingRequirement</name>
@@ -17380,10 +17303,10 @@
       <arglist>(const VariablePtr &amp;x) const</arglist>
     </member>
     <member kind="function">
-      <type>const Substitution *</type>
+      <type>Substitution const  *</type>
       <name>getSubstitutionFor</name>
       <anchorfile>classtvm_1_1hint_1_1internal_1_1Substitutions.html</anchorfile>
-      <anchor>adb185c2430052132839bfc2e61c5b488</anchor>
+      <anchor>af3f0bfa4811a31a9498dc4a64f2db996</anchor>
       <arglist>(const constraint::abstract::LinearConstraint &amp;cstr)</arglist>
     </member>
     <member kind="friend" protection="private">
@@ -17711,6 +17634,10 @@
     <base>tvm::exception::DataException</base>
   </compound>
   <compound kind="struct">
+    <name>tvm::graph::internal::AbstractNode::Update</name>
+    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
+  </compound>
+  <compound kind="struct">
     <name>tvm::graph::internal::Log::Update</name>
     <filename>structtvm_1_1graph_1_1internal_1_1Log_1_1Update.html</filename>
     <member kind="function">
@@ -17755,10 +17682,6 @@
       <anchor>a9538295d7f3d19392fbacb07629cb067</anchor>
       <arglist></arglist>
     </member>
-  </compound>
-  <compound kind="struct">
-    <name>tvm::graph::internal::AbstractNode::Update</name>
-    <filename>structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html</filename>
   </compound>
   <compound kind="class">
     <name>tvm::utils::UpdatelessFunction</name>
@@ -19140,6 +19063,7 @@
     <namespace>tvm::task_dynamics</namespace>
     <namespace>tvm::utils</namespace>
     <class kind="class">tvm::Clock</class>
+    <class kind="class">tvm::TaskWithRequirements</class>
     <class kind="class">tvm::ControlProblem</class>
     <class kind="class">tvm::LinearConstraintWithRequirements</class>
     <class kind="class">tvm::LinearizedControlProblem</class>
@@ -19147,7 +19071,6 @@
     <class kind="class">tvm::Robot</class>
     <class kind="class">tvm::Space</class>
     <class kind="class">tvm::Task</class>
-    <class kind="class">tvm::TaskWithRequirements</class>
     <class kind="class">tvm::Variable</class>
     <class kind="class">tvm::VariableVector</class>
     <member kind="typedef">
@@ -19468,18 +19391,18 @@
   <compound kind="namespace">
     <name>tvm::diagnostic::internal</name>
     <filename>namespacetvm_1_1diagnostic_1_1internal.html</filename>
+    <class kind="struct">tvm::diagnostic::internal::PairHasher</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor</class>
-    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const &gt;</class>
-    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const noexcept &gt;</class>
-    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</class>
-    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::ValidVariableAccessor</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const &gt;</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)() const noexcept &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)() const noexcept &gt;</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const &gt;</class>
     <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(T::*)(const Variable &amp;) const noexcept &gt;</class>
-    <class kind="struct">tvm::diagnostic::internal::PairHasher</class>
-    <class kind="struct">tvm::diagnostic::internal::ValidVariableAccessor</class>
-    <class kind="struct">tvm::diagnostic::internal::ValidVoidAccessor</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const &gt;</class>
+    <class kind="struct">tvm::diagnostic::internal::CheckAccessor&lt; T, U(Base::*)(const Variable &amp;) const noexcept &gt;</class>
     <member kind="function">
       <type>void</type>
       <name>registerDefault</name>
@@ -19519,14 +19442,14 @@
   <compound kind="namespace">
     <name>tvm::exception</name>
     <filename>namespacetvm_1_1exception.html</filename>
-    <class kind="class">tvm::exception::DataException</class>
-    <class kind="class">tvm::exception::DuplicateVariable</class>
     <class kind="class">tvm::exception::Exception</class>
+    <class kind="class">tvm::exception::DataException</class>
+    <class kind="class">tvm::exception::UnusedOutput</class>
     <class kind="class">tvm::exception::FunctionException</class>
+    <class kind="class">tvm::exception::UnimplementedOutput</class>
+    <class kind="class">tvm::exception::DuplicateVariable</class>
     <class kind="class">tvm::exception::NonExistingVariable</class>
     <class kind="class">tvm::exception::NotImplemented</class>
-    <class kind="class">tvm::exception::UnimplementedOutput</class>
-    <class kind="class">tvm::exception::UnusedOutput</class>
   </compound>
   <compound kind="namespace">
     <name>tvm::function</name>
@@ -19577,9 +19500,9 @@
     <filename>namespacetvm_1_1graph_1_1abstract.html</filename>
     <class kind="class">tvm::graph::abstract::Node</class>
     <class kind="class">tvm::graph::abstract::Outputs</class>
-    <class kind="class">tvm::graph::abstract::OutputSelector</class>
     <class kind="struct">tvm::graph::abstract::SelectorMembers</class>
     <class kind="struct">tvm::graph::abstract::SelectorMembers&lt; false &gt;</class>
+    <class kind="class">tvm::graph::abstract::OutputSelector</class>
     <member kind="function">
       <type>constexpr bool</type>
       <name>is_valid_output</name>
@@ -19699,18 +19622,18 @@
   <compound kind="namespace">
     <name>tvm::internal</name>
     <filename>namespacetvm_1_1internal.html</filename>
-    <class kind="class">tvm::internal::always_false</class>
-    <class kind="class">tvm::internal::always_true</class>
     <class kind="class">tvm::internal::CallbackManager</class>
     <class kind="class">tvm::internal::FirstOrderProvider</class>
     <class kind="class">tvm::internal::IdProvider</class>
-    <class kind="struct">tvm::internal::is_base</class>
-    <class kind="class">tvm::internal::KeepProperties</class>
     <class kind="class">tvm::internal::MatrixProperties</class>
     <class kind="class">tvm::internal::ObjectWithProperties</class>
+    <class kind="class">tvm::internal::KeepProperties</class>
+    <class kind="struct">tvm::internal::is_base</class>
+    <class kind="class">tvm::internal::always_true</class>
+    <class kind="class">tvm::internal::always_false</class>
     <class kind="class">tvm::internal::ObjWithId</class>
-    <class kind="class">tvm::internal::PairElementToken</class>
     <class kind="class">tvm::internal::PairElementTokenHandle</class>
+    <class kind="class">tvm::internal::PairElementToken</class>
     <class kind="class">tvm::internal::RangeCounting</class>
     <class kind="class">tvm::internal::VariableCountingVector</class>
     <class kind="class">tvm::internal::VariableVectorPartition</class>
@@ -19819,8 +19742,8 @@
     <namespace>tvm::requirements::abstract</namespace>
     <class kind="class">tvm::requirements::AnisotropicWeightBase</class>
     <class kind="class">tvm::requirements::PriorityLevelBase</class>
-    <class kind="class">tvm::requirements::SolvingRequirements</class>
     <class kind="class">tvm::requirements::SolvingRequirementsBase</class>
+    <class kind="class">tvm::requirements::SolvingRequirements</class>
     <class kind="class">tvm::requirements::SolvingRequirementsWithCallbacks</class>
     <class kind="class">tvm::requirements::ViolationEvaluationBase</class>
     <class kind="class">tvm::requirements::WeightBase</class>
@@ -19943,10 +19866,10 @@
     <filename>namespacetvm_1_1scheme.html</filename>
     <namespace>tvm::scheme::abstract</namespace>
     <namespace>tvm::scheme::internal</namespace>
-    <class kind="class">tvm::scheme::HierarchicalLeastSquares</class>
     <class kind="class">tvm::scheme::HierarchicalLeastSquaresOptions</class>
-    <class kind="class">tvm::scheme::WeightedLeastSquares</class>
+    <class kind="class">tvm::scheme::HierarchicalLeastSquares</class>
     <class kind="class">tvm::scheme::WeightedLeastSquaresOptions</class>
+    <class kind="class">tvm::scheme::WeightedLeastSquares</class>
     <member kind="typedef">
       <type>int</type>
       <name>identifier</name>
@@ -19958,63 +19881,63 @@
   <compound kind="namespace">
     <name>tvm::scheme::abstract</name>
     <filename>namespacetvm_1_1scheme_1_1abstract.html</filename>
-    <class kind="class">tvm::scheme::abstract::LinearResolutionScheme</class>
     <class kind="class">tvm::scheme::abstract::ResolutionScheme</class>
+    <class kind="class">tvm::scheme::abstract::LinearResolutionScheme</class>
   </compound>
   <compound kind="namespace">
     <name>tvm::scheme::internal</name>
     <filename>namespacetvm_1_1scheme_1_1internal.html</filename>
-    <class kind="class">tvm::scheme::internal::ArgCount</class>
-    <class kind="class">tvm::scheme::internal::ArgCount&lt; T &gt;</class>
-    <class kind="class">tvm::scheme::internal::AssignBase</class>
-    <class kind="class">tvm::scheme::internal::AssignBase&lt; ADD &gt;</class>
-    <class kind="class">tvm::scheme::internal::AssignBase&lt; COPY &gt;</class>
-    <class kind="class">tvm::scheme::internal::AssignBase&lt; MAX &gt;</class>
-    <class kind="class">tvm::scheme::internal::AssignBase&lt; MIN &gt;</class>
-    <class kind="class">tvm::scheme::internal::AssignBase&lt; SUB &gt;</class>
     <class kind="class">tvm::scheme::internal::Assignment</class>
     <class kind="class">tvm::scheme::internal::AssignmentTarget</class>
+    <class kind="class">tvm::scheme::internal::NoArg</class>
+    <class kind="class">tvm::scheme::internal::ParseArg_</class>
+    <class kind="class">tvm::scheme::internal::ParseNoArg_</class>
+    <class kind="class">tvm::scheme::internal::ParseArg</class>
+    <class kind="class">tvm::scheme::internal::hasNoArgCtor</class>
+    <class kind="class">tvm::scheme::internal::ArgCount</class>
+    <class kind="class">tvm::scheme::internal::ArgCount&lt; T &gt;</class>
     <class kind="class">tvm::scheme::internal::CachedResult</class>
     <class kind="class">tvm::scheme::internal::CachedResult&lt; MatrixType, true &gt;</class>
+    <class kind="class">tvm::scheme::internal::use_assign_cache</class>
+    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, MAX, W, GENERAL, EXTERNAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</class>
+    <class kind="class">tvm::scheme::internal::use_product_cache</class>
+    <class kind="class">tvm::scheme::internal::use_product_cache&lt; MatrixType, A, DIAGONAL, GENERAL, EXTERNAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::use_product_cache&lt; MatrixType, A, DIAGONAL, GENERAL, CONSTANT &gt;</class>
+    <class kind="class">tvm::scheme::internal::AssignBase</class>
+    <class kind="class">tvm::scheme::internal::AssignBase&lt; COPY &gt;</class>
+    <class kind="class">tvm::scheme::internal::AssignBase&lt; ADD &gt;</class>
+    <class kind="class">tvm::scheme::internal::AssignBase&lt; SUB &gt;</class>
+    <class kind="class">tvm::scheme::internal::AssignBase&lt; MIN &gt;</class>
+    <class kind="class">tvm::scheme::internal::AssignBase&lt; MAX &gt;</class>
+    <class kind="class">tvm::scheme::internal::WeightMultBase</class>
+    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</class>
+    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</class>
+    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; SCALAR &gt;</class>
+    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::MatrixMultBase</class>
+    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, IDENTITY &gt;</class>
+    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt;</class>
+    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, CUSTOM &gt;</class>
+    <class kind="class">tvm::scheme::internal::SourceBase</class>
+    <class kind="class">tvm::scheme::internal::SourceBase&lt; MatrixType, ZERO &gt;</class>
     <class kind="class">tvm::scheme::internal::CompiledAssignment</class>
     <class kind="class">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, A, W, M, ZERO &gt;</class>
     <class kind="class">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, COPY, W, M, ZERO &gt;</class>
-    <class kind="class">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MAX, W, M, ZERO &gt;</class>
     <class kind="class">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MIN, W, M, ZERO &gt;</class>
+    <class kind="class">tvm::scheme::internal::CompiledAssignment&lt; MatrixType, MAX, W, M, ZERO &gt;</class>
     <class kind="class">tvm::scheme::internal::CompiledAssignmentWrapper</class>
-    <class kind="class">tvm::scheme::internal::hasNoArgCtor</class>
-    <class kind="class">tvm::scheme::internal::LevelAbilities</class>
     <class kind="class">tvm::scheme::internal::LinearizedProblemComputationData</class>
     <class kind="class">tvm::scheme::internal::MatrixAssignment</class>
-    <class kind="class">tvm::scheme::internal::MatrixMultBase</class>
-    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, CUSTOM &gt;</class>
-    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, GENERAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, IDENTITY &gt;</class>
-    <class kind="class">tvm::scheme::internal::MatrixMultBase&lt; MatrixType, INVERSE_DIAGONAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::NoArg</class>
-    <class kind="class">tvm::scheme::internal::ParseArg</class>
-    <class kind="class">tvm::scheme::internal::ParseArg_</class>
-    <class kind="class">tvm::scheme::internal::ParseNoArg_</class>
+    <class kind="class">tvm::scheme::internal::VectorSubstitutionAssignement</class>
+    <class kind="class">tvm::scheme::internal::VectorAssignment</class>
     <class kind="class">tvm::scheme::internal::ProblemComputationData</class>
     <class kind="class">tvm::scheme::internal::ProblemDefinitionEvent</class>
     <class kind="class">tvm::scheme::internal::ResolutionSchemeBase</class>
+    <class kind="class">tvm::scheme::internal::LevelAbilities</class>
     <class kind="class">tvm::scheme::internal::SchemeAbilities</class>
-    <class kind="class">tvm::scheme::internal::SourceBase</class>
-    <class kind="class">tvm::scheme::internal::SourceBase&lt; MatrixType, ZERO &gt;</class>
-    <class kind="class">tvm::scheme::internal::use_assign_cache</class>
-    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, A, W, GENERAL, CONSTANT &gt;</class>
-    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, MAX, W, GENERAL, EXTERNAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::use_assign_cache&lt; MatrixType, MIN, W, GENERAL, EXTERNAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::use_product_cache</class>
-    <class kind="class">tvm::scheme::internal::use_product_cache&lt; MatrixType, A, DIAGONAL, GENERAL, CONSTANT &gt;</class>
-    <class kind="class">tvm::scheme::internal::use_product_cache&lt; MatrixType, A, DIAGONAL, GENERAL, EXTERNAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::VectorAssignment</class>
-    <class kind="class">tvm::scheme::internal::VectorSubstitutionAssignement</class>
-    <class kind="class">tvm::scheme::internal::WeightMultBase</class>
-    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; DIAGONAL &gt;</class>
-    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; MINUS &gt;</class>
-    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; NONE &gt;</class>
-    <class kind="class">tvm::scheme::internal::WeightMultBase&lt; SCALAR &gt;</class>
     <member kind="typedef">
       <type>typename std::conditional&lt; MatrixType::ColsAtCompileTime==1, std::true_type, std::false_type &gt;::type</type>
       <name>isVector</name>
@@ -20245,24 +20168,24 @@
     <filename>namespacetvm_1_1solver.html</filename>
     <namespace>tvm::solver::abstract</namespace>
     <namespace>tvm::solver::internal</namespace>
-    <class kind="class">tvm::solver::DefaultLSSolverFactory</class>
     <class kind="class">tvm::solver::DefaultLSSolverOptions</class>
+    <class kind="class">tvm::solver::DefaultLSSolverFactory</class>
+    <class kind="class">tvm::solver::LexLSHLSSolverOptions</class>
     <class kind="class">tvm::solver::LexLSHierarchicalLeastSquareSolver</class>
     <class kind="class">tvm::solver::LexLSHLSSolverFactory</class>
-    <class kind="class">tvm::solver::LexLSHLSSolverOptions</class>
+    <class kind="class">tvm::solver::LexLSLSSolverOptions</class>
     <class kind="class">tvm::solver::LexLSLeastSquareSolver</class>
     <class kind="class">tvm::solver::LexLSLSSolverFactory</class>
-    <class kind="class">tvm::solver::LexLSLSSolverOptions</class>
     <class kind="class">tvm::solver::LexLSSolverOptions</class>
+    <class kind="class">tvm::solver::LSSOLLSSolverOptions</class>
     <class kind="class">tvm::solver::LSSOLLeastSquareSolver</class>
     <class kind="class">tvm::solver::LSSOLLSSolverFactory</class>
-    <class kind="class">tvm::solver::LSSOLLSSolverOptions</class>
+    <class kind="class">tvm::solver::QLDLSSolverOptions</class>
     <class kind="class">tvm::solver::QLDLeastSquareSolver</class>
     <class kind="class">tvm::solver::QLDLSSolverFactory</class>
-    <class kind="class">tvm::solver::QLDLSSolverOptions</class>
+    <class kind="class">tvm::solver::QuadprogLSSolverOptions</class>
     <class kind="class">tvm::solver::QuadprogLeastSquareSolver</class>
     <class kind="class">tvm::solver::QuadprogLSSolverFactory</class>
-    <class kind="class">tvm::solver::QuadprogLSSolverOptions</class>
   </compound>
   <compound kind="namespace">
     <name>tvm::solver::abstract</name>
@@ -20289,8 +20212,8 @@
     <class kind="class">tvm::task_dynamics::Proportional</class>
     <class kind="class">tvm::task_dynamics::ProportionalDerivative</class>
     <class kind="class">tvm::task_dynamics::Reference</class>
-    <class kind="class">tvm::task_dynamics::ReferenceAcceleration</class>
     <class kind="class">tvm::task_dynamics::ReferenceVelocity</class>
+    <class kind="class">tvm::task_dynamics::ReferenceAcceleration</class>
     <class kind="class">tvm::task_dynamics::VelocityDamper</class>
     <member kind="typedef">
       <type>FeedForward&lt; ProportionalDerivative &gt;</type>
@@ -20341,9 +20264,9 @@
     <name>tvm::utils</name>
     <filename>namespacetvm_1_1utils.html</filename>
     <namespace>tvm::utils::internal</namespace>
+    <class kind="class">tvm::utils::LinearExpr</class>
     <class kind="class">tvm::utils::AffineExpr</class>
     <class kind="class">tvm::utils::CheckOptions</class>
-    <class kind="class">tvm::utils::LinearExpr</class>
     <class kind="class">tvm::utils::ProtoTaskCommon</class>
     <class kind="class">tvm::utils::ProtoTaskCommon&lt; constraint::Type::DOUBLE_SIDED, FunT &gt;</class>
     <class kind="class">tvm::utils::UpdatelessFunction</class>
@@ -20631,13 +20554,13 @@
   <compound kind="namespace">
     <name>tvm::utils::internal</name>
     <filename>namespacetvm_1_1utils_1_1internal.html</filename>
-    <class kind="class">tvm::utils::internal::BufferedMatrix</class>
-    <class kind="class">tvm::utils::internal::HashId</class>
-    <class kind="class">tvm::utils::internal::IdEqual</class>
-    <class kind="class">tvm::utils::internal::IdLess</class>
     <class kind="class">tvm::utils::internal::NoConstant</class>
     <class kind="struct">tvm::utils::internal::RefSelector</class>
     <class kind="struct">tvm::utils::internal::RefSelector&lt; NoConstant &gt;</class>
+    <class kind="class">tvm::utils::internal::BufferedMatrix</class>
+    <class kind="class">tvm::utils::internal::IdLess</class>
+    <class kind="class">tvm::utils::internal::IdEqual</class>
+    <class kind="class">tvm::utils::internal::HashId</class>
     <class kind="class">tvm::utils::internal::RHS</class>
     <member kind="typedef">
       <type>decltype(Eigen::MatrixXd::Identity())</type>
@@ -20897,32 +20820,32 @@
   <compound kind="page">
     <name>functionWritingExample</name>
     <title>How to create new TVM functions.</title>
-    <filename>functionWritingExample</filename>
+    <filename>functionWritingExample.html</filename>
     <docanchor file="functionWritingExample.html" title="Example file">exampleFile</docanchor>
   </compound>
   <compound kind="page">
     <name>leastSquaresExample</name>
     <title>A least-squares problem example</title>
-    <filename>leastSquaresExample</filename>
+    <filename>leastSquaresExample.html</filename>
   </compound>
   <compound kind="page">
     <name>problemWritingExample</name>
     <title>How to write a problem</title>
-    <filename>problemWritingExample</filename>
+    <filename>problemWritingExample.html</filename>
   </compound>
   <compound kind="page">
     <name>taskDynamicsExample</name>
     <title>How to create a new task dynamics</title>
-    <filename>taskDynamicsExample</filename>
+    <filename>taskDynamicsExample.html</filename>
   </compound>
   <compound kind="page">
     <name>concepts</name>
     <title>TVM concepts</title>
-    <filename>concepts</filename>
+    <filename>concepts.html</filename>
   </compound>
   <compound kind="page">
     <name>index</name>
     <title>The TVM library</title>
-    <filename>index</filename>
+    <filename>index.html</filename>
   </compound>
 </tagfile>

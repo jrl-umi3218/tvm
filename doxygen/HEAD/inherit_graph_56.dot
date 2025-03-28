@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::internal::MatrixProperties\l::Invertibility",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1internal_1_1MatrixProperties_1_1Invertibility.html",tooltip=" "];
+  Node0 [label="tvm::internal::PairElement\lTokenHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1internal_1_1PairElementTokenHandle.html",tooltip=" "];
 }

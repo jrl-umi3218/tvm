@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::solver::abstract\l::LeastSquareSolver::\lMarkedAssignment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html",tooltip=" "];
+  Node0 [label="tvm::solver::internal\l::SolverEvents::Objective",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html",tooltip=" "];
 }

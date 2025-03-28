@@ -1,11 +1,38 @@
 var namespacetvm_1_1utils_1_1internal =
 [
-    [ "BufferedMatrix", "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html", "classtvm_1_1utils_1_1internal_1_1BufferedMatrix" ],
-    [ "HashId", "classtvm_1_1utils_1_1internal_1_1HashId.html", "classtvm_1_1utils_1_1internal_1_1HashId" ],
-    [ "IdEqual", "classtvm_1_1utils_1_1internal_1_1IdEqual.html", "classtvm_1_1utils_1_1internal_1_1IdEqual" ],
-    [ "IdLess", "classtvm_1_1utils_1_1internal_1_1IdLess.html", "classtvm_1_1utils_1_1internal_1_1IdLess" ],
     [ "NoConstant", "classtvm_1_1utils_1_1internal_1_1NoConstant.html", "classtvm_1_1utils_1_1internal_1_1NoConstant" ],
     [ "RefSelector", "structtvm_1_1utils_1_1internal_1_1RefSelector.html", "structtvm_1_1utils_1_1internal_1_1RefSelector" ],
     [ "RefSelector< NoConstant >", "structtvm_1_1utils_1_1internal_1_1RefSelector_3_01NoConstant_01_4.html", "structtvm_1_1utils_1_1internal_1_1RefSelector_3_01NoConstant_01_4" ],
-    [ "RHS", "classtvm_1_1utils_1_1internal_1_1RHS.html", "classtvm_1_1utils_1_1internal_1_1RHS" ]
+    [ "BufferedMatrix", "classtvm_1_1utils_1_1internal_1_1BufferedMatrix.html", "classtvm_1_1utils_1_1internal_1_1BufferedMatrix" ],
+    [ "IdLess", "classtvm_1_1utils_1_1internal_1_1IdLess.html", "classtvm_1_1utils_1_1internal_1_1IdLess" ],
+    [ "IdEqual", "classtvm_1_1utils_1_1internal_1_1IdEqual.html", "classtvm_1_1utils_1_1internal_1_1IdEqual" ],
+    [ "HashId", "classtvm_1_1utils_1_1internal_1_1HashId.html", "classtvm_1_1utils_1_1internal_1_1HashId" ],
+    [ "RHS", "classtvm_1_1utils_1_1internal_1_1RHS.html", "classtvm_1_1utils_1_1internal_1_1RHS" ],
+    [ "AddConstantsRetType", "namespacetvm_1_1utils_1_1internal.html#a9405c2755b4621868748e6ef57646a15", null ],
+    [ "IdentityType", "namespacetvm_1_1utils_1_1internal.html#a0365b200643e704353a458f177382135", null ],
+    [ "map", "namespacetvm_1_1utils_1_1internal.html#ae2f662cc3cd29563a8f7b0a9d760a59a", null ],
+    [ "MinusIdentityType", "namespacetvm_1_1utils_1_1internal.html#a3285e6576eeb8aea8ef9aad32633b961", null ],
+    [ "MultIdentityType", "namespacetvm_1_1utils_1_1internal.html#a972d81ac8de59a505156ca04e184f2ec", null ],
+    [ "RefSelector_t", "namespacetvm_1_1utils_1_1internal.html#aa05965cff82275d2b7213670c1b63ff4", null ],
+    [ "unordered_map", "namespacetvm_1_1utils_1_1internal.html#a200ed602cb77bf2834e00aed365bbd36", null ],
+    [ "RHSType", "namespacetvm_1_1utils_1_1internal.html#abc830f391523910ef34e4594c2f98f54", [
+      [ "Zero", "namespacetvm_1_1utils_1_1internal.html#abc830f391523910ef34e4594c2f98f54ad7ed4ee1df437474d005188535f74875", null ],
+      [ "Double", "namespacetvm_1_1utils_1_1internal.html#abc830f391523910ef34e4594c2f98f54ad909d38d705ce75386dd86e611a82f5b", null ],
+      [ "Vector", "namespacetvm_1_1utils_1_1internal.html#abc830f391523910ef34e4594c2f98f54a57dea6f5039281b7fee517fc43bf3110", null ]
+    ] ],
+    [ "check_malloc_coherency", "namespacetvm_1_1utils_1_1internal.html#ab2872b8efc9c69d5277a3ae1e101a81d", null ],
+    [ "enforce_malloc_coherency", "namespacetvm_1_1utils_1_1internal.html#ad79f3dc0c8083fcf6d95edb448bef1d1", null ],
+    [ "is_malloc_allowed_", "namespacetvm_1_1utils_1_1internal.html#ac06f39b6f6e4c0774b434a2cb5877bc9", null ],
+    [ "operator*", "namespacetvm_1_1utils_1_1internal.html#a5dc2d1c292597817e4239ec5a7fefc97", null ],
+    [ "operator+", "namespacetvm_1_1utils_1_1internal.html#ab58b32650e0a7559e25ab8fea80d19f8", null ],
+    [ "operator+", "namespacetvm_1_1utils_1_1internal.html#a600bbbc181df0dc981d0addedb9dabfe", null ],
+    [ "operator+", "namespacetvm_1_1utils_1_1internal.html#a2cd6fa0b151fe4e24739df15014437da", null ],
+    [ "override_is_malloc_allowed_", "namespacetvm_1_1utils_1_1internal.html#a15aa654797b2ba0019f05ca6fc456f19", null ],
+    [ "parseSourcesAndOutputs", "namespacetvm_1_1utils_1_1internal.html#a1f7de31deb6c74c399f6492e5ca7d595", null ],
+    [ "parseSourcesAndOutputs", "namespacetvm_1_1utils_1_1internal.html#a7c60a66c02c99b2d38d05c90e31c3b74", null ],
+    [ "parseSourcesAndOutputs", "namespacetvm_1_1utils_1_1internal.html#ab011b26e01ceb7daae3301e972b317e5", null ],
+    [ "restore_is_malloc_allowed_", "namespacetvm_1_1utils_1_1internal.html#a266403b05dcae2080bd3cce46a75edea", null ],
+    [ "set_is_malloc_allowed_", "namespacetvm_1_1utils_1_1internal.html#aee90ba32b86c8d04e3fbef4aa14f70a9", null ],
+    [ "tuplePremult", "namespacetvm_1_1utils_1_1internal.html#a7a3de7863251546ec818c97434bc6007", null ],
+    [ "tupleUnaryMinus", "namespacetvm_1_1utils_1_1internal.html#a953b63ac3bf3b93a21e8fb0fe5ff0f11", null ]
 ];

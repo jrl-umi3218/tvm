@@ -8,9 +8,9 @@ digraph "tvm::solver::abstract::LSSolverFactory"
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="tvm::solver::DefaultLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1DefaultLSSolverFactory.html",tooltip=" "];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="tvm::solver::LexLSLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LexLSLSSolverFactory.html",tooltip=" "];
+  Node3 [label="tvm::solver::LSSOLLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LSSOLLSSolverFactory.html",tooltip=" "];
   Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="tvm::solver::LSSOLLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LSSOLLSSolverFactory.html",tooltip=" "];
+  Node4 [label="tvm::solver::LexLSLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LexLSLSSolverFactory.html",tooltip=" "];
   Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 [label="tvm::solver::QLDLSSolver\lFactory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1QLDLSSolverFactory.html",tooltip=" "];
   Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

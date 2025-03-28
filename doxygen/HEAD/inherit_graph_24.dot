@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="tvm::graph::CallGraph\l::Call",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1graph_1_1CallGraph_1_1Call.html",tooltip=" "];
+  Node0 [label="tvm::graph::internal\l::AbstractNode::Update",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtvm_1_1graph_1_1internal_1_1AbstractNode_1_1Update.html",tooltip=" "];
 }

@@ -6,9 +6,9 @@ digraph "tvm::solver::abstract::LeastSquareSolver"
   rankdir="LR";
   Node1 [label="tvm::solver::abstract\l::LeastSquareSolver",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="tvm::solver::LexLSLeastSquare\lSolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LexLSLeastSquareSolver.html",tooltip=" "];
+  Node2 [label="tvm::solver::LSSOLLeastSquare\lSolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LSSOLLeastSquareSolver.html",tooltip=" "];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="tvm::solver::LSSOLLeastSquare\lSolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LSSOLLeastSquareSolver.html",tooltip=" "];
+  Node3 [label="tvm::solver::LexLSLeastSquare\lSolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1LexLSLeastSquareSolver.html",tooltip=" "];
   Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 [label="tvm::solver::QLDLeastSquare\lSolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtvm_1_1solver_1_1QLDLeastSquareSolver.html",tooltip=" "];
   Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
