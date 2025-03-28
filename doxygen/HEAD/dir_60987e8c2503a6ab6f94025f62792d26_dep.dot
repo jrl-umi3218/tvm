@@ -1,9 +1,0 @@
-digraph "include/tvm/hint/abstract" {
-  compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
-  subgraph clusterdir_70f4842f3eba0a62b03727d95fc3dfc9 {
-    graph [ bgcolor="#ddddee", pencolor="black", label="hint" fontname="Helvetica", fontsize="10", URL="dir_70f4842f3eba0a62b03727d95fc3dfc9.html"]
-  dir_60987e8c2503a6ab6f94025f62792d26 [shape=box, label="abstract", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_60987e8c2503a6ab6f94025f62792d26.html"];
-  }
-}

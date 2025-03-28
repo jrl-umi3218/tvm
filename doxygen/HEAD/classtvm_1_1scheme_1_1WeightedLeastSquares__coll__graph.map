@@ -1,0 +1,9 @@
+<map id="tvm::scheme::WeightedLeastSquares" name="tvm::scheme::WeightedLeastSquares">
+<area shape="rect" id="node1" title=" " alt="" coords="1128,83,1339,125"/>
+<area shape="rect" id="node2" href="$classtvm_1_1scheme_1_1abstract_1_1LinearResolutionScheme.html" title=" " alt="" coords="815,20,1015,76"/>
+<area shape="rect" id="node3" href="$classtvm_1_1scheme_1_1abstract_1_1ResolutionScheme.html" title=" " alt="" coords="528,27,760,69"/>
+<area shape="rect" id="node4" href="$classtvm_1_1scheme_1_1internal_1_1ResolutionSchemeBase.html" title=" " alt="" coords="296,27,479,69"/>
+<area shape="rect" id="node5" href="$classtvm_1_1internal_1_1ObjWithId.html" title=" " alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node6" href="$classtvm_1_1scheme_1_1internal_1_1SchemeAbilities.html" title=" " alt="" coords="12,57,177,98"/>
+<area shape="rect" id="node7" href="$classtvm_1_1scheme_1_1WeightedLeastSquaresOptions.html" title=" " alt="" coords="809,101,1020,142"/>
+</map>

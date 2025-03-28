@@ -1,0 +1,11 @@
+<map id="include/tvm/utils/internal/ProtoTaskDetails.h" name="include/tvm/utils/internal/ProtoTaskDetails.h">
+<area shape="rect" id="node1" title=" " alt="" coords="180,5,365,47"/>
+<area shape="rect" id="node2" href="$ProtoTask_8h.html" title=" " alt="" coords="167,95,378,121"/>
+<area shape="rect" id="node3" href="$LinearizedTaskConstraint_8h.html" title=" " alt="" coords="5,244,260,285"/>
+<area shape="rect" id="node4" href="$ControlProblem_8h.html" title=" " alt="" coords="285,251,501,278"/>
+<area shape="rect" id="node9" href="$Task_8h.html" title=" " alt="" coords="201,169,345,196"/>
+<area shape="rect" id="node5" href="$LinearizedControlProblem_8h.html" title=" " alt="" coords="284,333,501,375"/>
+<area shape="rect" id="node6" href="$LinearizedProblemComputationData_8h.html" title=" " alt="" coords="292,423,493,479"/>
+<area shape="rect" id="node7" href="$HierarchicalLeastSquares_8h.html" title=" " alt="" coords="182,527,385,568"/>
+<area shape="rect" id="node8" href="$WeightedLeastSquares_8h.html" title=" " alt="" coords="409,527,595,568"/>
+</map>
