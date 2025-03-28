@@ -80,6 +80,7 @@ jobs:
           - path: jrl-umi3218/RBDyn
           - path: jrl-umi3218/Tasks
           - path: jrl-umi3218/mc_rtc_data
+            ref: ROSFree
       if: matrix.with-robot == 'ON'
     - name: Build and test
       uses: jrl-umi3218/github-actions/build-cmake-project@master
@@ -94,7 +95,7 @@ jobs:
         ./.github/workflows/scripts/test-usage.sh ${{ matrix.build-type }}
     - name: Upload documentation
       # Only run on master branch and for one configuration
-      if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.with-robot == 'OFF'
+      if: matrix.os == 'ubuntu-22.04' && matrix.build-type == 'RelWithDebInfo' && matrix.compiler == 'gcc' && github.ref == 'refs/heads/master' && matrix.with-robot == 'OFF'
       uses: jrl-umi3218/github-actions/upload-documentation@master
       with:
         GH_USER: gergondet
