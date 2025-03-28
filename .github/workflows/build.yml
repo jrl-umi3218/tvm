@@ -43,7 +43,7 @@ jobs:
         compiler: ${{ matrix.compiler }}
         build-type: ${{ matrix.build-type }}
         ubuntu: |
-          apt: libeigen3-dev doxygen doxygen-latex libboost-all-dev
+          apt: libeigen3-dev doxygen doxygen-latex graphviz libboost-all-dev
         macos: |
           cask: gfortran
           brew: eigen boost
