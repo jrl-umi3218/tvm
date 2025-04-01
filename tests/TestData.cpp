@@ -165,4 +165,4 @@ static void BM_CallGraph(benchmark::State & state)
 }
 BENCHMARK(BM_CallGraph);
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
