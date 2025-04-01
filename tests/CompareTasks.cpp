@@ -413,4 +413,4 @@ static void BM_TVM(benchmark::State & state)
 }
 BENCHMARK(BM_TVM)->Unit(benchmark::kMicrosecond); //->MinTime(10.0);
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
