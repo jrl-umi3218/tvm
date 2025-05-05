@@ -360,7 +360,7 @@ class WeightMultBase<NONE>
 public:
   static const bool useArg = false;
 
-  WeightMultBase(NoArg){};
+  WeightMultBase(NoArg) {};
 
   template<typename T>
   const T & applyWeightMult(const T & M)
@@ -376,7 +376,7 @@ class WeightMultBase<MINUS>
 public:
   static const bool useArg = false;
 
-  WeightMultBase(NoArg){};
+  WeightMultBase(NoArg) {};
 
   double applyWeightMult(const double & M) { return -M; }
 
@@ -408,7 +408,7 @@ template<>
 class WeightMultBase<SCALAR>
 {
 public:
-  WeightMultBase(const double & s) : s_(s){};
+  WeightMultBase(const double & s) : s_(s) {};
 
   template<typename T>
   decltype(double() * std::declval<T>()) applyWeightMult(const T & M)
