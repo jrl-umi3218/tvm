@@ -84,25 +84,28 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
           removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
           break;
         case EventType::TaskAddVariable: {
+          // Handles the case where a variable was added to the function after the problem has been created
+          // e.g calling addVariable in Function::updateJacobian
+
           auto & task = e.typedEmitter<EventType::TaskAddVariable>();
-          std::cout << "WeightedLeastSquares: Handling EventType::TaskAddVariable for function: "
-                    << task.task.function()->UpdateBaseName << std::endl;
-          std::cout << "The function has the following variables:" << std::endl;
-          for(const auto & var : task.task.function()->variables())
-          {
-            std::cout << var->name() << std::endl;
-            se.addVariable(var);
-          }
+          // XXX: Remove/re-add the task
+          removeTask(problem, memory, task, se);
+          addTask(problem, memory, task, se);
 
-          // removeTask(problem, memory, task, se);
-          // addTask(problem, memory, task, se);
+          // FIXME: Ideally we would want to only add the new variable,
+          // however the following seems to fail on matrixAssignment when subvariables are
+          // involved (even if they are not added directly)
+          //
+          // std::cout << "WeightedLeastSquares: Handling EventType::TaskAddVariable for function: "
+          //           << task.task.function()->UpdateBaseName << std::endl;
+          // std::cout << "The function has the following variables:" << std::endl;
 
-          // // XXX: how to get the actual added variable?
-          // // memory->addVariable(task.task.function()->variables());
           // for(const auto & var : task.task.function()->variables())
           // {
-          //   se.addVariable(var);
+          //   // std::cout << var->name() << std::endl;
+          //   // se.addVariable(var);
           // }
+
           break;
         }
         default:
