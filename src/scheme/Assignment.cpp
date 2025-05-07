@@ -84,6 +84,11 @@ void Assignment::onUpdatedTarget()
 
 void Assignment::onUpdatedMapping(const VariableVector & newVar, bool updateMatrixTarget)
 {
+  // std::cout << "Assignment::onUpdatedMapping newVar vector: " << std::endl;
+  // for(const auto &var : newVar)
+  // {
+  //   std::cout << "\t- newVar: " << var.get() << ", " << var->name() << std::endl;
+  // }
   for(auto & a : matrixAssignments_)
     a.updateMapping(newVar, target_, updateMatrixTarget);
   for(auto & a : matrixSubstitutionAssignments_)
@@ -417,6 +422,7 @@ void Assignment::processRequirements()
 
 void Assignment::addMatrixAssignment(Variable & x, MatrixFunction M, const Range & range, bool flip)
 {
+  std::cout << "Assignment::addMatrixAssignment for var " << &x << ", " << x.name() << std::endl;
   MatrixConstRef from = source_->jacobian(x);
   const MatrixRef & to = (target_.*M)(range.start, range.dim);
   auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);

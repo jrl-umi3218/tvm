@@ -167,7 +167,7 @@ void VariableVector::setZero()
 bool VariableVector::contains(const Variable & v) const
 {
   auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) {
-    std::cout << "VariableVector::constains: " << it->name() << std::endl;
+    // std::cout << "VariableVector::constains: " << it->name() << std::endl;
     return it->contains(v);
   });
   return it != variables_.end();

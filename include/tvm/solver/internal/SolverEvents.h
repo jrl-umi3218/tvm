@@ -140,7 +140,6 @@ inline void SolverEvents::removeObjective(LinearConstraintPtr o)
 
 inline void SolverEvents::addVariable(VariablePtr v)
 {
-  std::cout << "SolverEvents::addVariable " << v->name() << std::endl;
   if(!addIfPair(v, addedVariables_, removedVariables_))
     hiddenVariableChange_ = true;
 }
@@ -157,7 +156,13 @@ inline bool SolverEvents::addIfPair(T & c, std::vector<T> & addVec, std::vector<
   auto it = std::find(removeVec.begin(), removeVec.end(), c);
   bool notFound = it == removeVec.end();
   if(notFound)
-    addVec.push_back(c);
+  {
+    // Ensure that we add the variable only once
+    if(std::find(addVec.begin(), addVec.end(), c) == addVec.end())
+    {
+      addVec.push_back(c);
+    }
+  }
   else
     removeVec.erase(it);
   return notFound;

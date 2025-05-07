@@ -84,7 +84,7 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
 
   // Allow a FirstOrderProvider (task) to change its variables online
   auto addVariable = [this, t]() {
-    std::cout << "notify addVariable" << std::endl;
+    // std::cout << "notify addVariable" << std::endl;
     this->notify({EventType::TaskAddVariable, *t});
   };
   tokens.emplace_back(tr->task.function()->addVariableCallback().registerCallback(addVariable));
