@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "tvm/internal/CallbackManager.h"
+#include <iostream>
 #include <tvm/defs.h>
 
 #include <tvm/Variable.h>
@@ -18,6 +20,19 @@
 
 namespace tvm::internal
 {
+
+class AddVariableCallback : public internal::CallbackManager
+{
+public:
+  /** Default weight = 1*/
+  AddVariableCallback() : internal::CallbackManager() {}
+
+  void variableAdded(VariablePtr v)
+  {
+    std::cout << "AddVariableCallback: Calling callback for variable: " << v->name() << std::endl;
+    internal::CallbackManager::run();
+  }
+};
 
 /** Describes an entity that can provide a value and its jacobian
  *
@@ -70,6 +85,8 @@ public:
 
   /** Return the variables*/
   const VariableVector & variables() const;
+
+  AddVariableCallback & addVariableCallback() noexcept { return addVariableCallback_; }
 
 protected:
   struct slice_linear
@@ -191,6 +208,7 @@ protected:
   Space imageSpace_; // output space
   VariableVector variables_;
   utils::internal::MapWithVariableAsKey<bool, slice_linear> linear_;
+  AddVariableCallback addVariableCallback_;
 };
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }

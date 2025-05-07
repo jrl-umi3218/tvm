@@ -1,5 +1,6 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#include <iostream>
 #include <tvm/VariableVector.h>
 
 #include <tvm/Variable.h>
@@ -165,7 +166,10 @@ void VariableVector::setZero()
 
 bool VariableVector::contains(const Variable & v) const
 {
-  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) { return it->contains(v); });
+  auto it = find_if(variables_.begin(), variables_.end(), [&v](const VariablePtr & it) {
+    std::cout << "VariableVector::constains: " << it->name() << std::endl;
+    return it->contains(v);
+  });
   return it != variables_.end();
 }
 

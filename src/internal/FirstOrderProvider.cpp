@@ -45,6 +45,8 @@ void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
     linear_[v.get()] = linear;
 
     addVariable_(v);
+    std::cout << "variable added: " << v->name() << ", linear: " << linear << std::endl;
+    addVariableCallback_.variableAdded(v);
   }
 }
 

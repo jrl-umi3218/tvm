@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <iostream>
 #include <tvm/api.h>
 #include <tvm/defs.h>
 
@@ -139,6 +140,7 @@ inline void SolverEvents::removeObjective(LinearConstraintPtr o)
 
 inline void SolverEvents::addVariable(VariablePtr v)
 {
+  std::cout << "SolverEvents::addVariable " << v->name() << std::endl;
   if(!addIfPair(v, addedVariables_, removedVariables_))
     hiddenVariableChange_ = true;
 }

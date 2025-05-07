@@ -8,8 +8,6 @@
 #include <tvm/solver/internal/SolverEvents.h>
 #include <tvm/utils/internal/map.h>
 
-#include <iostream>
-
 namespace tvm
 {
 
@@ -85,6 +83,28 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         case EventType::TaskRemoval:
           removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
           break;
+        case EventType::TaskAddVariable: {
+          auto & task = e.typedEmitter<EventType::TaskAddVariable>();
+          std::cout << "WeightedLeastSquares: Handling EventType::TaskAddVariable for function: "
+                    << task.task.function()->UpdateBaseName << std::endl;
+          std::cout << "The function has the following variables:" << std::endl;
+          for(const auto & var : task.task.function()->variables())
+          {
+            std::cout << var->name() << std::endl;
+            se.addVariable(var);
+          }
+
+          // removeTask(problem, memory, task, se);
+          // addTask(problem, memory, task, se);
+
+          // // XXX: how to get the actual added variable?
+          // // memory->addVariable(task.task.function()->variables());
+          // for(const auto & var : task.task.function()->variables())
+          // {
+          //   se.addVariable(var);
+          // }
+          break;
+        }
         default:
           throw std::runtime_error("[WeightedLeastSquares::updateComputationData_] Unimplemented event handling.");
       }

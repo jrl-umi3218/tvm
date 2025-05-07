@@ -82,6 +82,13 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
   auto l2 = [this, t]() { this->notify({EventType::AnisotropicWeightChange, *t}); };
   tokens.emplace_back(tr->requirements.anisotropicWeight().registerCallback(l2));
 
+  // Allow a FirstOrderProvider (task) to change its variables online
+  auto addVariable = [this, t]() {
+    std::cout << "notify addVariable" << std::endl;
+    this->notify({EventType::TaskAddVariable, *t});
+  };
+  tokens.emplace_back(tr->task.function()->addVariableCallback().registerCallback(addVariable));
+
   callbackTokens_[t] = std::move(tokens);
 }
 
