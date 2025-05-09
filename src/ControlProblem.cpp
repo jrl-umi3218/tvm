@@ -82,12 +82,13 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
   auto l2 = [this, t]() { this->notify({EventType::AnisotropicWeightChange, *t}); };
   tokens.emplace_back(tr->requirements.anisotropicWeight().registerCallback(l2));
 
-  // Allow a FirstOrderProvider (task) to change its variables online
-  auto addVariable = [this, t]() {
+  // Allow a task's function to change its variables online
+  auto updateVars = [this, t]() {
     // std::cout << "notify addVariable" << std::endl;
-    this->notify({EventType::TaskAddVariable, *t});
+    this->notify({EventType::TaskUpdateVariables, *t});
   };
-  tokens.emplace_back(tr->task.function()->addVariableCallback().registerCallback(addVariable));
+  tokens.emplace_back(tr->task.function()->addVariableCallback().registerCallback(updateVars));
+  // TODO add also a callback for jacobian resize (in case of plane constraints)
 
   callbackTokens_[t] = std::move(tokens);
 }

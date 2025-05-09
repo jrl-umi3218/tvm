@@ -83,14 +83,23 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         case EventType::TaskRemoval:
           removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
           break;
-        case EventType::TaskAddVariable: {
-          // Handles the case where a variable was added to the function after the problem has been created
+        case EventType::TaskUpdateVariables: {
+          // Handles the case where a variable was added or removed to the function after the problem has been created
           // e.g calling addVariable in Function::updateJacobian
+          std::cout << "Firing task add variable event !" << std::endl;
+          auto & task = e.typedEmitter<EventType::TaskUpdateVariables>();
 
-          auto & task = e.typedEmitter<EventType::TaskAddVariable>();
-          // XXX: Remove/re-add the task
-          removeTask(problem, memory, task, se);
-          addTask(problem, memory, task, se);
+          // XXX remove re add is insufficient because it pulls the variables from the constraints in the problem,
+          // that were built when the task were added so do not hold any new variables.
+          // removeTask(problem, memory, task, se);
+          // addTask(problem, memory, task, se);
+
+          // Instead we call updateVariables on the task constraint which updates the variables of the constraint
+          // according to those of the function
+          static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(problem.constraint(task).get())
+              ->updateVariables();
+
+          resetComputationData(problem, memory);
 
           // FIXME: Ideally we would want to only add the new variable,
           // however the following seems to fail on matrixAssignment when subvariables are
@@ -135,6 +144,7 @@ void WeightedLeastSquares::resetComputationData(const LinearizedControlProblem &
 
 void WeightedLeastSquares::processProblem(const LinearizedControlProblem & problem, Memory * memory) const
 {
+  // std::cout << "WeightedLeastSquares processing problem" << std::endl;
   auto & solver = *memory->solver;
 
   const auto & constraints = problem.constraints();
@@ -149,14 +159,46 @@ void WeightedLeastSquares::processProblem(const LinearizedControlProblem & probl
   int nIneq = 0;
   int nObj = 0;
   int maxp = 0;
+
+  auto typelambda = [](auto type) {
+    switch(type)
+    {
+      case tvm::constraint::Type::EQUAL:
+        return "EQUAL";
+        break;
+      case tvm::constraint::Type::GREATER_THAN:
+        return "GREATER_THAN";
+        break;
+      case tvm::constraint::Type::LOWER_THAN:
+        return "LOWER_THAN";
+        break;
+      case tvm::constraint::Type::DOUBLE_SIDED:
+        return "DOUBLE_SIDED";
+        break;
+    }
+  };
+
+  // std::cout << "Processing constraints" << std::endl;
   for(const auto & c : constraints)
   {
+    // std::cout << "New constraint, type " << typelambda(c.constraint->type()) << ", jacobian size "
+    //           << c.constraint->tSize() << std::endl;
     // If the constraint is used for the substitutions, we skip it.
     if(subs.uses(c.constraint))
       continue;
     abilities_.check(c.constraint, c.requirements); // FIXME: should be done in a parent class
+    // XXX c.constraint is a first order provider from which we pull the variables
+    // It is a different instance than the function ! and so the variables are not the same directly
+    // for(const auto & xi :
+    //     static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(c.constraint.get())->functionVariables())
+    // {
+    //   std::cout << "function variable " << xi->name() << std::endl;
+    // }
     for(const auto & xi : c.constraint->variables())
+    {
+      // std::cout << "constraint variable " << xi->name() << std::endl;
       memory->addVariable(subs.substitute(xi));
+    }
 
     int p = c.requirements->priorityLevel().value();
     if(canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)

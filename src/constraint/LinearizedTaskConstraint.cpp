@@ -144,6 +144,81 @@ void LinearizedTaskConstraint::updateU2Kin() { uRef() = td2_->value(); }
 
 void LinearizedTaskConstraint::updateU2Dyn() { uRef() = td2_->value() - f_->normalAcceleration(); }
 
+void LinearizedTaskConstraint::updateVariables()
+{
+  // Update the variables of this first order provider from the underlying function variables
+  const auto functionVariables = f_->variables();
+  switch(td_->order())
+  {
+    case task_dynamics::Order::Zero: {
+
+      // removing the variables if they are not present anymore in the function
+      for(auto & taskVar : this->variables())
+      {
+        if(!functionVariables.contains(*taskVar.get()))
+        {
+          removeVariable(taskVar);
+        }
+      }
+
+      // adding the variables if they are not already present here but are in the function
+      for(auto & functionVar : functionVariables)
+      {
+        if(!f_->linearIn(*functionVar))
+          throw std::runtime_error("The function is not linear in " + functionVar->name());
+
+        if(!this->variables().contains(*functionVar.get()))
+        {
+          addVariable(functionVar, true);
+        }
+      }
+    }
+    break;
+    case task_dynamics::Order::One: {
+
+      // removing the variables if they are not present anymore in the function
+      for(auto & taskVar : this->variables())
+      {
+        if(!functionVariables.contains(*taskVar->primitive<1>().get()))
+        {
+          removeVariable(taskVar);
+        }
+      }
+
+      // adding the variables if they are not already present here but are in the function
+      for(auto & functionVar : functionVariables)
+      {
+        if(!this->variables().contains(*dot(functionVar).get()))
+        {
+          addVariable(dot(functionVar), true);
+        }
+      }
+    }
+    break;
+    case task_dynamics::Order::Two: {
+
+      // removing the variables if they are not present anymore in the function
+      for(auto & taskVar : this->variables())
+      {
+        if(!functionVariables.contains(*taskVar->primitive<2>().get()))
+        {
+          removeVariable(taskVar);
+        }
+      }
+
+      // adding the variables if they are not already present here but are in the function
+      for(auto & functionVar : functionVariables)
+      {
+        if(!this->variables().contains(*dot(functionVar, 2).get()))
+        {
+          addVariable(dot(functionVar, 2), true);
+        }
+      }
+    }
+    break;
+  }
+}
+
 tvm::internal::MatrixConstRefWithProperties LinearizedTaskConstraint::jacobian(const Variable & x) const
 {
   switch(td_->order())
