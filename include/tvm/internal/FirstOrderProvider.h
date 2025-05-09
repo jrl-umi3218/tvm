@@ -29,7 +29,7 @@ public:
 
   void variableAdded(VariablePtr v)
   {
-    std::cout << "AddVariableCallback: Calling callback for variable: " << v->name() << std::endl;
+    // std::cout << "AddVariableCallback: Calling callback for variable: " << v->name() << std::endl;
     internal::CallbackManager::run();
   }
 };
