@@ -147,13 +147,16 @@ void LinearizedTaskConstraint::updateU2Dyn() { uRef() = td2_->value() - f_->norm
 void LinearizedTaskConstraint::updateVariables()
 {
   // Update the variables of this first order provider from the underlying function variables
+
+  // Making copies before modifying the variable vectors
   const auto functionVariables = f_->variables();
+  const auto taskVariables = this->variables();
   switch(td_->order())
   {
     case task_dynamics::Order::Zero: {
 
       // removing the variables if they are not present anymore in the function
-      for(auto & taskVar : this->variables())
+      for(auto & taskVar : taskVariables)
       {
         if(!functionVariables.contains(*taskVar.get()))
         {
@@ -167,7 +170,7 @@ void LinearizedTaskConstraint::updateVariables()
         if(!f_->linearIn(*functionVar))
           throw std::runtime_error("The function is not linear in " + functionVar->name());
 
-        if(!this->variables().contains(*functionVar.get()))
+        if(!taskVariables.contains(*functionVar.get()))
         {
           addVariable(functionVar, true);
         }
@@ -177,7 +180,7 @@ void LinearizedTaskConstraint::updateVariables()
     case task_dynamics::Order::One: {
 
       // removing the variables if they are not present anymore in the function
-      for(auto & taskVar : this->variables())
+      for(auto & taskVar : taskVariables)
       {
         if(!functionVariables.contains(*taskVar->primitive<1>().get()))
         {
@@ -188,7 +191,7 @@ void LinearizedTaskConstraint::updateVariables()
       // adding the variables if they are not already present here but are in the function
       for(auto & functionVar : functionVariables)
       {
-        if(!this->variables().contains(*dot(functionVar).get()))
+        if(!taskVariables.contains(*dot(functionVar).get()))
         {
           addVariable(dot(functionVar), true);
         }
@@ -198,7 +201,7 @@ void LinearizedTaskConstraint::updateVariables()
     case task_dynamics::Order::Two: {
 
       // removing the variables if they are not present anymore in the function
-      for(auto & taskVar : this->variables())
+      for(auto & taskVar : taskVariables)
       {
         if(!functionVariables.contains(*taskVar->primitive<2>().get()))
         {
@@ -209,7 +212,7 @@ void LinearizedTaskConstraint::updateVariables()
       // adding the variables if they are not already present here but are in the function
       for(auto & functionVar : functionVariables)
       {
-        if(!this->variables().contains(*dot(functionVar, 2).get()))
+        if(!taskVariables.contains(*dot(functionVar, 2).get()))
         {
           addVariable(dot(functionVar, 2), true);
         }

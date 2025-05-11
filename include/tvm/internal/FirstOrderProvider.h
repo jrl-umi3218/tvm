@@ -21,15 +21,17 @@
 namespace tvm::internal
 {
 
-class AddVariableCallback : public internal::CallbackManager
+// A callback class to be fired when variables are added or removed.
+// This is to ensure the function variables are correctly synced to the tasks of the problem when the
+// functions add or remove variables themselves (for example with contacts).
+class UpdateVariableCallback : public internal::CallbackManager
 {
 public:
-  /** Default weight = 1*/
-  AddVariableCallback() : internal::CallbackManager() {}
+  UpdateVariableCallback() : internal::CallbackManager() {}
 
-  void variableAdded(VariablePtr v)
+  void variableUpdated(VariablePtr v)
   {
-    // std::cout << "AddVariableCallback: Calling callback for variable: " << v->name() << std::endl;
+    // std::cout << "UpdateVariableCallback: Calling callback for variable: " << v->name() << std::endl;
     internal::CallbackManager::run();
   }
 };
@@ -86,7 +88,7 @@ public:
   /** Return the variables*/
   const VariableVector & variables() const;
 
-  AddVariableCallback & addVariableCallback() noexcept { return addVariableCallback_; }
+  UpdateVariableCallback & updateVariableCallback() noexcept { return updateVariableCallback_; }
 
 protected:
   struct slice_linear
@@ -208,7 +210,7 @@ protected:
   Space imageSpace_; // output space
   VariableVector variables_;
   utils::internal::MapWithVariableAsKey<bool, slice_linear> linear_;
-  AddVariableCallback addVariableCallback_;
+  UpdateVariableCallback updateVariableCallback_;
 };
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }
