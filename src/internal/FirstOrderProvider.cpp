@@ -45,8 +45,7 @@ void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
     linear_[v.get()] = linear;
 
     addVariable_(v);
-    // std::cout << "variable added: " << v->name() << ", linear: " << linear << std::endl;
-    addVariableCallback_.variableAdded(v);
+    updateVariableCallback_.variableUpdated(v);
   }
 }
 
@@ -64,6 +63,7 @@ void FirstOrderProvider::removeVariable(VariablePtr v)
   jacobian_.erase(v.get());
   linear_.erase(v.get());
   removeVariable_(v);
+  updateVariableCallback_.variableUpdated(v);
 }
 
 void FirstOrderProvider::addVariable_(VariablePtr)

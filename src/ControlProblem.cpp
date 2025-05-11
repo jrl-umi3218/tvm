@@ -87,7 +87,7 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
     // std::cout << "notify addVariable" << std::endl;
     this->notify({EventType::TaskUpdateVariables, *t});
   };
-  tokens.emplace_back(tr->task.function()->addVariableCallback().registerCallback(updateVars));
+  tokens.emplace_back(tr->task.function()->updateVariableCallback().registerCallback(updateVars));
   // TODO add also a callback for jacobian resize (in case of plane constraints)
 
   callbackTokens_[t] = std::move(tokens);

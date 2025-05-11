@@ -46,6 +46,9 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
     Memory * memory = static_cast<Memory *>(data);
 
     // If some events require to rebuild the data, we skip all other events.
+    // FIXME this skipping breaks in case of new variables addition or removal (TaskUpdateVariables)
+    // because resetComputationData calls canBeUsedAsBound, which calls isBound, calling the variables vector
+    // of the constraint, which might not be synced with the function
     for(const auto & e : memory->events())
     {
       if(e.type() == EventType::SubstitutionAddition || e.type() == EventType::SubstitutionRemoval)
@@ -86,7 +89,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         case EventType::TaskUpdateVariables: {
           // Handles the case where a variable was added or removed to the function after the problem has been created
           // e.g calling addVariable in Function::updateJacobian
-          std::cout << "Firing task add variable event !" << std::endl;
+          std::cout << "Firing task update variable event !" << std::endl;
           auto & task = e.typedEmitter<EventType::TaskUpdateVariables>();
 
           // XXX remove re add is insufficient because it pulls the variables from the constraints in the problem,
@@ -99,6 +102,9 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
           static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(problem.constraint(task).get())
               ->updateVariables();
 
+          // FIXME Running this skips other events in the queue as it resets the memory events as well, so some variable
+          // updates are missing, but remove and add on the task do not rebuild enough, find the necessary steps in
+          // processProblem
           resetComputationData(problem, memory);
 
           // FIXME: Ideally we would want to only add the new variable,
@@ -201,6 +207,8 @@ void WeightedLeastSquares::processProblem(const LinearizedControlProblem & probl
     }
 
     int p = c.requirements->priorityLevel().value();
+    // FIXME this call can throw if a variable has been removed or added in the function, as checks call
+    // the constraint's variables, need to be sure that they are synced (or just call function variables?)
     if(canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED) && p == 0)
       bounds.push_back(c);
     else
