@@ -37,13 +37,20 @@ public:
                               const requirements::SolvingRequirements & req = {});
   template<constraint::Type T>
   TaskWithRequirementsPtr add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements & req = {});
-  void add(TaskWithRequirementsPtr tr);
-  void remove(const TaskWithRequirements & tr);
+  void add(TaskWithRequirementsPtr tr, bool notify = true);
+  void remove(const TaskWithRequirements & tr, bool notify = true);
 
   void add(const hint::Substitution & s);
   void remove(const hint::Substitution & s);
+  /**
+   * If the task's function has changed (added variables, etc), then we need to recreate
+   * the associated constraint
+   * */
+  void updateConstraint(const TaskWithRequirements & task);
+
   const hint::internal::Substitutions & substitutions() const;
   void removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr);
+
 
   /** Access to the variables of the problem.
    *

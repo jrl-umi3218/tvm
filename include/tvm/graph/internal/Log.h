@@ -23,6 +23,7 @@ class CallGraph;
 
 namespace internal
 {
+
 class Inputs;
 
 /** lexicographic comparison of two objects given an ordered list of the

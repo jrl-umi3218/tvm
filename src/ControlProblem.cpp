@@ -16,15 +16,18 @@ TaskWithRequirementsPtr ControlProblem::add(const Task & task, const requirement
   return tr;
 }
 
-void ControlProblem::add(TaskWithRequirementsPtr tr)
+void ControlProblem::add(TaskWithRequirementsPtr tr, bool notify)
 {
   tr_.push_back(tr);
   addCallBackToTask(tr);
-  notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
+  if(notify)
+  {
+    this->notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
+  }
   finalized_ = false;
 }
 
-void ControlProblem::remove(const TaskWithRequirements & tr)
+void ControlProblem::remove(const TaskWithRequirements & tr, bool notify)
 {
   auto it = std::find_if(tr_.begin(), tr_.end(), [&tr](const TaskWithRequirementsPtr & p) { return p.get() == &tr; });
   if(it == tr_.end())
@@ -32,7 +35,10 @@ void ControlProblem::remove(const TaskWithRequirements & tr)
     return;
   }
   tr_.erase(it);
-  notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
+  if(notify)
+  {
+    this->notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
+  }
   callbackTokens_.erase(&tr);
   finalized_ = false;
 }

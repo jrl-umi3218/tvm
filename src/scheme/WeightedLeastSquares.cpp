@@ -7,6 +7,9 @@
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
 #include <tvm/solver/internal/SolverEvents.h>
 #include <tvm/utils/internal/map.h>
+#include <tvm/graph/internal/Logger.h>
+
+using Logger = tvm::graph::internal::Logger;
 
 namespace tvm
 {
@@ -44,6 +47,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
   if(data->hasEvents())
   {
     Memory * memory = static_cast<Memory *>(data);
+    std::cout << "There are: " << memory->events().size() << " events" << std::endl;
 
     // If some events require to rebuild the data, we skip all other events.
     // FIXME this skipping breaks in case of new variables addition or removal (TaskUpdateVariables)
@@ -60,6 +64,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
     while(memory->hasEvents())
     {
       auto e = memory->popEvent();
+      std::cout << "Pop ProblemDefinitionEvent" << std::endl;
       switch(e.type())
       {
         case EventType::WeightChange: {
@@ -81,12 +86,19 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         }
         break;
         case EventType::TaskAddition:
+        {
+          std::cout << "EventType::TaskAddition" << std::endl;
           addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
+        }
           break;
         case EventType::TaskRemoval:
+          {
+          std::cout << "EventType::TaskRemoval" << std::endl;
           removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
+          }
           break;
         case EventType::TaskUpdateVariables: {
+          std::cout << "EventType::TaskUpdateVariables" << std::endl;
           // Handles the case where a variable was added or removed to the function after the problem has been created
           // e.g calling addVariable in Function::updateJacobian
           std::cout << "Firing task update variable event !" << std::endl;
@@ -99,13 +111,38 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
 
           // Instead we call updateVariables on the task constraint which updates the variables of the constraint
           // according to those of the function
-          static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(problem.constraint(task).get())
-              ->updateVariables();
+
+
+          std::cout << "remove task " << task.task.function()->UpdateBaseName << std::endl;
+          std::cout << "remove task " << Logger::logger().name(task.task.function().get()) << std::endl;
+          removeTask(problem, memory, task, se);
+          // Fully recreate the linearizedtaskconstraint from the task
+          {
+          auto cstr = problem.constraintNoThrow(task);
+          std::cout << "checking constraint variables before update: " << std::endl;
+          for(const auto & var : cstr->variables())
+          {
+            std::cout << "var: " << var->name() << std::endl;
+          }
+          const_cast<LinearizedControlProblem&>(problem).updateConstraint(task);
+          cstr = problem.constraintNoThrow(task);
+          std::cout << "checking constraint variables after update" << std::endl;
+          for(const auto & var : cstr->variables())
+          {
+            std::cout << "var: " << var->name() << std::endl;
+          }
+          }
+          // // XXX: do we need to then update it in memory?
+          //
+          // static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(problem.constraint(task).get())
+          //      ->updateVariables();
+          addTask(problem, memory, task, se);
+          const_cast<LinearizedControlProblem&>(problem).update();
 
           // FIXME Running this skips other events in the queue as it resets the memory events as well, so some variable
           // updates are missing, but remove and add on the task do not rebuild enough, find the necessary steps in
           // processProblem
-          resetComputationData(problem, memory);
+          // resetComputationData(problem, memory);
 
           // FIXME: Ideally we would want to only add the new variable,
           // however the following seems to fail on matrixAssignment when subvariables are
@@ -187,22 +224,22 @@ void WeightedLeastSquares::processProblem(const LinearizedControlProblem & probl
   // std::cout << "Processing constraints" << std::endl;
   for(const auto & c : constraints)
   {
-    // std::cout << "New constraint, type " << typelambda(c.constraint->type()) << ", jacobian size "
-    //           << c.constraint->tSize() << std::endl;
+    std::cout << "New constraint, type " << typelambda(c.constraint->type()) << ", jacobian size "
+              << c.constraint->tSize() << std::endl;
     // If the constraint is used for the substitutions, we skip it.
     if(subs.uses(c.constraint))
       continue;
     abilities_.check(c.constraint, c.requirements); // FIXME: should be done in a parent class
     // XXX c.constraint is a first order provider from which we pull the variables
     // It is a different instance than the function ! and so the variables are not the same directly
-    // for(const auto & xi :
-    //     static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(c.constraint.get())->functionVariables())
-    // {
-    //   std::cout << "function variable " << xi->name() << std::endl;
-    // }
+    for(const auto & xi :
+        static_cast<tvm::constraint::internal::LinearizedTaskConstraint *>(c.constraint.get())->functionVariables())
+    {
+      std::cout << "function variable " << xi->name() << std::endl;
+    }
     for(const auto & xi : c.constraint->variables())
     {
-      // std::cout << "constraint variable " << xi->name() << std::endl;
+      std::cout << "constraint variable " << xi->name() << std::endl;
       memory->addVariable(subs.substitute(xi));
     }
 
@@ -302,6 +339,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
   auto optc = problem.constraintWithRequirementsNoThrow(task);
   if(!optc)
     return;
+  std::cout << "addTask: " << &optc->get() << std::endl;
 
   // If there is really a task to be added, we need to record the mapping in memory
   auto c = optc->get();

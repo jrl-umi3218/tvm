@@ -1,5 +1,6 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#include <iostream>
 #include <tvm/internal/VariableCountingVector.h>
 
 #include <tvm/Variable.h>
@@ -30,6 +31,7 @@ void VariableCountingVector::add(const VariableVector & v)
 
 bool VariableCountingVector::remove(const Variable & v)
 {
+  std::cout << "VariableCountingVector removeVariable: " << v.name() << std::endl;
   VariablePtr s = v.superVariable();
   const Space & start = v.spaceShift();
   const Space & dim = v.space();
@@ -37,6 +39,7 @@ bool VariableCountingVector::remove(const Variable & v)
   bool change = counterPair.first.remove(start, dim);
   if(change)
   {
+    std::cout << "removed " << v.name() << std::endl;
     if(counterPair.first.empty())
     {
       counterPair.second = 0;
