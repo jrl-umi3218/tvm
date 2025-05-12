@@ -29,7 +29,7 @@ class UpdateVariableCallback : public internal::CallbackManager
 public:
   UpdateVariableCallback() : internal::CallbackManager() {}
 
-  void variableUpdated(VariablePtr v)
+  void variableUpdated(VariablePtr /* v */)
   {
     // std::cout << "UpdateVariableCallback: Calling callback for variable: " << v->name() << std::endl;
     internal::CallbackManager::run();

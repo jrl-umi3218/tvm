@@ -1,5 +1,6 @@
 /** Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#include <iostream>
 #include <tvm/LinearizedControlProblem.h>
 
 #include <tvm/constraint/internal/LinearizedTaskConstraint.h>
@@ -23,9 +24,9 @@ TaskWithRequirementsPtr LinearizedControlProblem::add(const Task & task, const r
   return tr;
 }
 
-void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
+void LinearizedControlProblem::add(TaskWithRequirementsPtr tr, bool notify)
 {
-  ControlProblem::add(tr);
+  ControlProblem::add(tr, notify);
 
   // FIXME A lot of work can be done here based on the properties of the task's jacobian.
   // In particular, we could detect bounds, pairs of tasks forming a double-sided constraints...
@@ -57,12 +58,13 @@ void LinearizedControlProblem::add(TaskWithRequirementsPtr tr)
   }
 }
 
-void LinearizedControlProblem::remove(const TaskWithRequirements & tr)
+void LinearizedControlProblem::remove(const TaskWithRequirements & tr, bool notify)
 {
-  ControlProblem::remove(tr);
+  ControlProblem::remove(tr, notify);
   auto it = constraints_.find(&tr);
   if(it == constraints_.end())
   {
+    std::cout << "LinearizedControlProblem constraint not found so not removed" << std::endl;
     return;
   }
   removeSubstitutionFor(*it->second.constraint);
@@ -83,6 +85,34 @@ void LinearizedControlProblem::remove(const hint::Substitution & s)
   notify({scheme::internal::ProblemDefinitionEvent::Type::SubstitutionRemoval, &s});
   needFinalize();
 }
+
+void LinearizedControlProblem::updateConstraint(const TaskWithRequirements & task)
+{
+  std::cout << "LinearizedControlProblem::updateConstraint" << std::endl;
+  // find the task
+  auto twr_it = std::find_if(tr_.begin(), tr_.end(),
+      [&](const auto & t) { return(t.get() == &task); }
+      );
+  if(twr_it != tr_.end())
+  {
+    std::cout << "task found, recreating the linearized task constraint" << std::endl;
+    auto twr = *twr_it;
+
+    auto cstr = constraints_.find(&task);
+    if(cstr != constraints_.end()) std::cout << "constraint before remove: " << &(*cstr) << std::endl;
+
+    remove(*twr, false);
+
+    cstr = constraints_.find(&task);
+    if(cstr != constraints_.end()) std::cout << "should not be here" << std::endl;
+
+    add(twr, false);
+
+    cstr = constraints_.find(&task);
+    if(cstr != constraints_.end()) std::cout << "constraint after remove: " << &(*cstr) << std::endl;
+  }
+}
+
 
 const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const { return substitutions_; }
 
@@ -149,7 +179,10 @@ std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>>
 {
   auto it = constraints_.find(&t);
   if(it != constraints_.end())
+  {
+    std::cout << "constraintWithRequirementsNoThrow constraint found do not recreate: " << &(*it) << std::endl;
     return it->second;
+  }
   else
     return {};
 }

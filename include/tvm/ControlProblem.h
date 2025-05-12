@@ -56,8 +56,8 @@ public:
                               const requirements::SolvingRequirements & req = {});
   template<constraint::Type T>
   TaskWithRequirementsPtr add(utils::LinearProtoTask<T> proto, const requirements::SolvingRequirements & req = {});
-  void add(TaskWithRequirementsPtr tr);
-  void remove(const TaskWithRequirements & tr);
+  void add(TaskWithRequirementsPtr tr, bool notify = true);
+  void remove(const TaskWithRequirements & tr, bool notify = true);
   const std::vector<TaskWithRequirementsPtr> & tasks() const;
 
   /** Number of tasks in the problem.*/

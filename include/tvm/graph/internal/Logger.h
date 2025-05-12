@@ -62,6 +62,14 @@ public:
   template<typename U>
   void logCall(U * node, void (U::*fn)());
 
+  template<typename U>
+  std::string name(U * node)
+  {
+    std::uintptr_t val = reinterpret_cast<std::uintptr_t>(node);
+    auto & types = log_.types_[val];
+    return types.back().name();
+  }
+
 private:
   Logger() = default;
 
