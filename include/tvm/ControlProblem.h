@@ -5,6 +5,7 @@
 #include <tvm/Task.h>
 #include <tvm/graph/CallGraph.h>
 #include <tvm/requirements/SolvingRequirements.h>
+#include <tvm/scheme/abstract/ResolutionScheme.h>
 #include <tvm/scheme/internal/ProblemComputationData.h>
 #include <tvm/scheme/internal/ProblemDefinitionEvent.h>
 #include <tvm/scheme/internal/ResolutionSchemeBase.h>
@@ -32,6 +33,9 @@ using TaskWithRequirementsPtr = std::shared_ptr<TaskWithRequirements>;
 class TVM_DLLAPI ControlProblem
 {
   friend class LinearizedControlProblem;
+  // for addEventsToComputationData
+  template<typename U>
+  friend class scheme::abstract::ResolutionScheme;
 
 public:
   ControlProblem() = default;
@@ -100,12 +104,22 @@ protected:
   virtual void finalize_() {}
 
   void needFinalize();
+  /**
+   * Request for an event to be handled by the resolution scheme
+   *
+   * \note The actual addition of events to the problem computation data is delayed until
+   * \ref addEventsToComputationData is called.
+   */
   void notify(const scheme::internal::ProblemDefinitionEvent & e);
 
   Updater updater_;
 
 private:
   void addCallBackToTask(TaskWithRequirementsPtr tr);
+  /**
+   * Add all events added by \ref notify to the resolution scheme's problem computation data
+   */
+  void addEventsToComputationData();
 
   // Note: we want to keep the tasks in the order they were introduced, mostly
   // for human understanding and debugging purposes, so that we take a
@@ -116,6 +130,7 @@ private:
 
   // Tokens to identify and keep callbacks alive
   tvm::utils::internal::map<TaskWithRequirements const *, std::vector<internal::PairElementToken>> callbackTokens_;
+  std::queue<scheme::internal::ProblemDefinitionEvent> eventsToProcess_;
 
   // Computation data for the resolution schemes
   std::map<scheme::identifier, std::unique_ptr<scheme::internal::ProblemComputationData>> computationData_;
