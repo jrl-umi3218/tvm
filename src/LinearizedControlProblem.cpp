@@ -88,31 +88,31 @@ void LinearizedControlProblem::remove(const hint::Substitution & s)
 
 void LinearizedControlProblem::updateConstraint(const TaskWithRequirements & task)
 {
-  std::cout << "LinearizedControlProblem::updateConstraint" << std::endl;
+  // std::cout << "LinearizedControlProblem::updateConstraint" << std::endl;
   // find the task
-  auto twr_it = std::find_if(tr_.begin(), tr_.end(),
-      [&](const auto & t) { return(t.get() == &task); }
-      );
+  auto twr_it = std::find_if(tr_.begin(), tr_.end(), [&](const auto & t) { return (t.get() == &task); });
   if(twr_it != tr_.end())
   {
-    std::cout << "task found, recreating the linearized task constraint" << std::endl;
+    // std::cout << "task found, recreating the linearized task constraint" << std::endl;
     auto twr = *twr_it;
 
     auto cstr = constraints_.find(&task);
-    if(cstr != constraints_.end()) std::cout << "constraint before remove: " << &(*cstr) << std::endl;
+    // if(cstr != constraints_.end())
+    //   std::cout << "constraint before remove: " << &(*cstr) << std::endl;
 
     remove(*twr, false);
 
     cstr = constraints_.find(&task);
-    if(cstr != constraints_.end()) std::cout << "should not be here" << std::endl;
+    // if(cstr != constraints_.end())
+    //   std::cout << "should not be here" << std::endl;
 
     add(twr, false);
 
     cstr = constraints_.find(&task);
-    if(cstr != constraints_.end()) std::cout << "constraint after remove: " << &(*cstr) << std::endl;
+    // if(cstr != constraints_.end())
+    //   std::cout << "constraint after remove: " << &(*cstr) << std::endl;
   }
 }
-
 
 const hint::internal::Substitutions & LinearizedControlProblem::substitutions() const { return substitutions_; }
 

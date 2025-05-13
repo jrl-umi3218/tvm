@@ -51,7 +51,6 @@ public:
   const hint::internal::Substitutions & substitutions() const;
   void removeSubstitutionFor(const constraint::abstract::LinearConstraint & cstr);
 
-
   /** Access to the variables of the problem.
    *
    * \note These are all the variables irrespective of any substitutions as

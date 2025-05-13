@@ -22,7 +22,8 @@ void ControlProblem::add(TaskWithRequirementsPtr tr, bool notify)
   addCallBackToTask(tr);
   if(notify)
   {
-    this->notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
+    this->notify(
+        scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskAddition, *tr));
   }
   finalized_ = false;
 }
@@ -37,7 +38,8 @@ void ControlProblem::remove(const TaskWithRequirements & tr, bool notify)
   tr_.erase(it);
   if(notify)
   {
-    this->notify(scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
+    this->notify(
+        scheme::internal::ProblemDefinitionEvent(scheme::internal::ProblemDefinitionEvent::Type::TaskRemoval, tr));
   }
   callbackTokens_.erase(&tr);
   finalized_ = false;
@@ -80,10 +82,10 @@ void ControlProblem::addEventsToComputationData()
 {
   while(!eventsToProcess_.empty())
   {
-    const auto & e = eventsToProcess_.back(); // Remove the front element
+    const auto & e = eventsToProcess_.front(); // Remove the front element
     for(auto & c : computationData_)
     {
-      std::cout << "adding event to computation data" << std::endl;
+      // std::cout << "adding event to computation data" << std::endl;
       c.second->addEvent(e);
     }
     eventsToProcess_.pop();

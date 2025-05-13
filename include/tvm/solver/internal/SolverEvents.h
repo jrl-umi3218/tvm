@@ -140,27 +140,28 @@ inline void SolverEvents::removeObjective(LinearConstraintPtr o)
 
 inline void SolverEvents::addVariable(VariablePtr v)
 {
-  std::cout << "SolverEvents::addVariable called" << std::endl;
-  if(!addIfPair(v, addedVariables_, removedVariables_)) {
-    std::cout << "SolverEvents:: addedVariables: " << std::endl;
-    for(const auto & var : addedVariables_)
-    {
-      std::cout << "var: " << var->name() << std::endl;
-    }
+  // std::cout << "SolverEvents::addVariable called" << std::endl;
+  if(!addIfPair(v, addedVariables_, removedVariables_))
+  {
+    // std::cout << "SolverEvents:: addedVariables: " << std::endl;
+    // for(const auto & var : addedVariables_)
+    // {
+    //   std::cout << "var: " << var->name() << std::endl;
+    // }
     hiddenVariableChange_ = true;
   }
 }
 
 inline void SolverEvents::removeVariable(VariablePtr v)
 {
-  std::cout << "SolverEvents::removeVariable called" << std::endl;
+  // std::cout << "SolverEvents::removeVariable called" << std::endl;
   if(!addIfPair(v, removedVariables_, addedVariables_))
   {
-    std::cout << "SolverEvents:: removedVariables: " << std::endl;
-    for(const auto & var : removedVariables_)
-    {
-      std::cout << "var: " << var->name() << std::endl;
-    }
+    // std::cout << "SolverEvents:: removedVariables: " << std::endl;
+    // for(const auto & var : removedVariables_)
+    // {
+    //   std::cout << "var: " << var->name() << std::endl;
+    // }
     hiddenVariableChange_ = true;
   }
 }
