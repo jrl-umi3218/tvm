@@ -13,9 +13,8 @@
 #  include <memory>
 #endif
 
-namespace
+namespace tvm::graph::internal
 {
-using namespace tvm::graph::internal;
 
 /** Replace the spaces in name by underscores*/
 std::string replaceSpaces(std::string name)
@@ -115,7 +114,7 @@ std::string demangle(const std::string & name, bool removeNamespace_ = false)
 /** Return a clean name from typeid by demangling it, replacing spaces and
  * optional replacing colons.
  */
-std::string clean(const std::string & name, bool replaceColons_ = true)
+std::string clean(const std::string & name, bool replaceColons_)
 {
   if(replaceColons_)
   {
@@ -248,7 +247,7 @@ const Log::Output & findOutput(const std::vector<Log::Output> & v, const Log::In
   throw std::runtime_error("Output not found");
 }
 
-} // anonymous namespace
+} // namespace tvm::graph::internal
 
 namespace tvm
 {

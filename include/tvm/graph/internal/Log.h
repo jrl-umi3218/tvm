@@ -24,6 +24,8 @@ class CallGraph;
 namespace internal
 {
 
+std::string TVM_DLLAPI clean(const std::string & name, bool replaceColons_ = true);
+
 class Inputs;
 
 /** lexicographic comparison of two objects given an ordered list of the
