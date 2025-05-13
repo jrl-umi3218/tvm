@@ -70,9 +70,23 @@ void ControlProblem::needFinalize() { finalized_ = false; }
 
 void ControlProblem::notify(const scheme::internal::ProblemDefinitionEvent & e)
 {
-  for(auto & c : computationData_)
+  // store events in the order they are received
+  // these events need to be added to the computationData_ event queue for each scheme later
+  // this addiditon is delayed to ensure that the computationData has been created before processing events
+  eventsToProcess_.push(e);
+}
+
+void ControlProblem::addEventsToComputationData()
+{
+  while(!eventsToProcess_.empty())
   {
-    c.second->addEvent(e);
+    const auto & e = eventsToProcess_.back(); // Remove the front element
+    for(auto & c : computationData_)
+    {
+      std::cout << "adding event to computation data" << std::endl;
+      c.second->addEvent(e);
+    }
+    eventsToProcess_.pop();
   }
 }
 
