@@ -102,11 +102,11 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
           removeTask(problem, memory, e.typedEmitter<EventType::TaskRemoval>(), se);
         }
         break;
-        case EventType::TaskUpdateVariables: {
+        case EventType::TaskUpdate: {
           // Handles the case where a variable was added or removed to the function after the problem has been created
           // e.g calling addVariable in Function::updateJacobian
           // std::cout << "Firing task update variable event !" << std::endl;
-          auto & task = e.typedEmitter<EventType::TaskUpdateVariables>();
+          auto & task = e.typedEmitter<EventType::TaskUpdate>();
 
           // XXX remove re add is insufficient because it pulls the variables from the constraints in the problem,
           // that were built when the task were added so do not hold any new variables.

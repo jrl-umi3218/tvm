@@ -21,17 +21,24 @@
 namespace tvm::internal
 {
 
-// A callback class to be fired when variables are added or removed.
-// This is to ensure the function variables are correctly synced to the tasks of the problem when the
-// functions add or remove variables themselves (for example with contacts).
-class UpdateVariableCallback : public internal::CallbackManager
+// A callback class to be fired when the task changes (variables or size change)
+// This is to ensure the function is correctly synced to the tasks of the problem when the
+// functions add or remove variables themselves (for example with contacts), or resize their space.
+class UpdateTaskCallback : public internal::CallbackManager
 {
 public:
-  UpdateVariableCallback() : internal::CallbackManager() {}
+  UpdateTaskCallback() : internal::CallbackManager() {}
 
   void variableUpdated(VariablePtr /* v */)
   {
-    // std::cout << "UpdateVariableCallback: Calling callback for variable: " << v->name() << std::endl;
+    // std::cout << "UpdateTaskCallback: Calling callback for variable: " << v->name() << std::endl;
+    internal::CallbackManager::run();
+  }
+
+  void taskResized(tvm::Space & /*imageSpace*/)
+  {
+    // std::cout << "UpdateTaskCallback: Calling callback to resize to size: " << imageSpace.size()
+    //           << " rsize: " << imageSpace.rSize() << " and tsize: " << imageSpace.tSize() << std::endl;
     internal::CallbackManager::run();
   }
 };
@@ -88,7 +95,7 @@ public:
   /** Return the variables*/
   const VariableVector & variables() const;
 
-  UpdateVariableCallback & updateVariableCallback() noexcept { return updateVariableCallback_; }
+  UpdateTaskCallback & updateTaskCallback() noexcept { return updateTaskCallback_; }
 
 protected:
   struct slice_linear
@@ -210,7 +217,7 @@ protected:
   Space imageSpace_; // output space
   VariableVector variables_;
   utils::internal::MapWithVariableAsKey<bool, slice_linear> linear_;
-  UpdateVariableCallback updateVariableCallback_;
+  UpdateTaskCallback updateTaskCallback_;
 };
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }

@@ -23,7 +23,7 @@ public:
     // From here this is a TaskWithRequirements
     WeightChange = 0,
     AnisotropicWeightChange,
-    TaskUpdateVariables,
+    TaskUpdate,
     TaskAddition,
     TaskRemoval,
     // From here this is a hint::Substitution

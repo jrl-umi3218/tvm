@@ -107,10 +107,9 @@ void ControlProblem::addCallBackToTask(TaskWithRequirementsPtr tr)
   // Allow a task's function to change its variables online
   auto updateVars = [this, t]() {
     // std::cout << "notify addVariable" << std::endl;
-    this->notify({EventType::TaskUpdateVariables, *t});
+    this->notify({EventType::TaskUpdate, *t});
   };
-  tokens.emplace_back(tr->task.function()->updateVariableCallback().registerCallback(updateVars));
-  // TODO add also a callback for jacobian resize (in case of plane constraints)
+  tokens.emplace_back(tr->task.function()->updateTaskCallback().registerCallback(updateVars));
 
   callbackTokens_[t] = std::move(tokens);
 }
