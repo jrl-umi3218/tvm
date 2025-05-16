@@ -1,5 +1,6 @@
 /* Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM */
 
+#include <iostream>
 #include <tvm/VariableVector.h>
 #include <tvm/scheme/internal/MatrixAssignment.h>
 
@@ -14,6 +15,8 @@ void MatrixAssignment::updateMapping(const VariableVector & newVar,
                                      const AssignmentTarget & target,
                                      bool updateMatrixTarget)
 {
+  // FIXME: x pointer becomes invalid when there is a SolverEvent::addVariable
+  // std::cout << "assignement var x: " << x << ", " << x->name() << std::endl;
   if(newVar.contains(*x))
   {
     Range newRange = x->getMappingIn(newVar);

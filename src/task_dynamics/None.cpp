@@ -33,7 +33,25 @@ None::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs)
   addInputDependency<Impl>(Update::UpdateValue, std::static_pointer_cast<LinearFunction>(f), LinearFunction::Output::B);
 }
 
-void None::Impl::updateValue() { value_ = rhs() - lf_->b(); }
+void None::Impl::updateValue()
+{
+  const auto & b = lf_->b();
+  if(rhs().size() != b.size())
+  {
+    if(rhs().isConstant(rhs()(0)))
+    {
+      value_ = Eigen::VectorXd::Constant(b.size(), rhs()(0)) - b;
+    }
+    else
+    {
+      throw std::runtime_error("Task dynamics None: can't resize a non constant rhs");
+    }
+  }
+  else
+  {
+    value_ = rhs() - b;
+  }
+}
 
 } // namespace task_dynamics
 
