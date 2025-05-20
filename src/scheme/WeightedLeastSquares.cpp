@@ -94,7 +94,9 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         break;
         case EventType::TaskAddition: {
           // std::cout << "Firing task addition event !" << std::endl;
-          addTask(problem, memory, e.typedEmitter<EventType::TaskAddition>(), se);
+          auto & task = e.typedEmitter<EventType::TaskUpdate>();
+          removeTask(problem, memory, task, se);
+          addTask(problem, memory, task, se);
         }
         break;
         case EventType::TaskRemoval: {
@@ -174,7 +176,6 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
 
     if(rebuildProblem)
     {
-      processProblem(problem, memory);
     }
   }
 }
