@@ -173,11 +173,7 @@ inline bool SolverEvents::addIfPair(T & c, std::vector<T> & addVec, std::vector<
   bool notFound = it == removeVec.end();
   if(notFound)
   {
-    // Ensure that we add the variable only once
-    if(std::find(addVec.begin(), addVec.end(), c) == addVec.end())
-    {
-      addVec.push_back(c);
-    }
+    addVec.push_back(c);
   }
   else
     removeVec.erase(it);
