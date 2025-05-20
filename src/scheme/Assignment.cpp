@@ -420,23 +420,22 @@ void Assignment::processRequirements()
   }
 }
 
-void Assignment::addMatrixAssignment(Variable & x, MatrixFunction M, const Range & range, bool flip)
+void Assignment::addMatrixAssignment(VariablePtr x, MatrixFunction M, const Range & range, bool flip)
 {
-  // std::cout << "Assignment::addMatrixAssignment for var " << &x << ", " << x.name() << std::endl;
-  MatrixConstRef from = source_->jacobian(x);
+  MatrixConstRef from = source_->jacobian(*x);
   const MatrixRef & to = (target_.*M)(range.start, range.dim);
   auto w = createAssignment<Eigen::MatrixXd, AssignType::COPY>(from, to, flip);
 
-  matrixAssignments_.push_back({w, &x, range, M});
+  matrixAssignments_.push_back({w, x, range, M});
 }
 
 void Assignment::addMatrixSubstitutionAssignments(const VariableVector & variables,
-                                                  Variable & x,
+                                                  VariablePtr x,
                                                   MatrixFunction M,
                                                   const function::BasicLinearFunction & sub,
                                                   bool flip)
 {
-  auto J = source_->jacobian(x);
+  auto J = source_->jacobian(*x);
   for(const auto & xi : sub.variables())
   {
     Range range = xi->getMappingIn(variables);
@@ -469,13 +468,13 @@ void Assignment::addMatrixSubstitutionAssignments(const VariableVector & variabl
     // - use CUSTOM multiplications
     // - in particular use the nullspace custom multiplication for variable z
     // when appropriate.
-    matrixSubstitutionAssignments_.push_back({w, xi.get(), range, M});
+    matrixSubstitutionAssignments_.push_back({w, xi, range, M});
   }
 }
 
 void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFunction & sub,
                                                   VectorFunction v,
-                                                  Variable & x,
+                                                  VariablePtr x,
                                                   bool flip)
 {
   bool useSource = !sub.b().properties().isConstant() || !sub.b().properties().isZero();
@@ -490,7 +489,7 @@ void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFun
 
     const VectorRef & to = (target_.*v)();
     const VectorConstRef & from = sub.b();
-    auto A = source_->jacobian(x);
+    auto A = source_->jacobian(*x);
 
     CompiledAssignmentWrapper<Eigen::VectorXd> w;
     if(A.properties().isIdentity())
@@ -518,12 +517,12 @@ void Assignment::addVectorSubstitutionAssignments(const function::BasicLinearFun
   }
 }
 
-void Assignment::addZeroAssignment(Variable & x, MatrixFunction M, const Range & range)
+void Assignment::addZeroAssignment(VariablePtr x, MatrixFunction M, const Range & range)
 {
   const MatrixRef & to = (target_.*M)(range.start, range.dim);
   auto w = CompiledAssignmentWrapper<Eigen::MatrixXd>::make<COPY, NONE, IDENTITY, ZERO>(to);
 
-  matrixAssignments_.push_back({w, &x, range, M});
+  matrixAssignments_.push_back({w, x, range, M});
 }
 
 void Assignment::addAssignments(const VariableVector & variables,
@@ -584,7 +583,7 @@ void Assignment::addAssignments(const VariableVector & variables,
     if(!xc.contains(*x))
     {
       Range cols = x->getMappingIn(variables);
-      addZeroAssignment(*x, M, cols);
+      addZeroAssignment(x, M, cols);
     }
   }
 
@@ -599,15 +598,15 @@ void Assignment::addAssignments(const VariableVector & variables,
     if(i >= 0) // x needs to be substituted
     {
       const auto & sub = *variableSubstitutions_[static_cast<int>(i)];
-      addMatrixSubstitutionAssignments(variables, *x, M, sub, flip);
-      addVectorSubstitutionAssignments(sub, v1, *x, flip);
+      addMatrixSubstitutionAssignments(variables, x, M, sub, flip);
+      addVectorSubstitutionAssignments(sub, v1, x, flip);
       if(f2)
-        addVectorSubstitutionAssignments(sub, v2, *x, flip);
+        addVectorSubstitutionAssignments(sub, v2, x, flip);
     }
     else // usual case
     {
       Range cols = x->getMappingIn(variables);
-      addMatrixAssignment(*x, M, cols, flip);
+      addMatrixAssignment(x, M, cols, flip);
     }
   }
 }

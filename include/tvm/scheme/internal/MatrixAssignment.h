@@ -25,7 +25,7 @@ public:
   using MatrixFunction = MatrixRef (AssignmentTarget::*)(int, int) const;
 
   CompiledAssignmentWrapper<Eigen::MatrixXd> assignment;
-  Variable * x = nullptr;
+  VariablePtr x;
   Range colRange;
   MatrixFunction getTargetMatrix;
 
