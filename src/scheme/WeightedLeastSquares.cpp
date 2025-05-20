@@ -174,9 +174,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
     memory->variables(); // update variable vector if needed
     memory->solver->process(se);
 
-    if(rebuildProblem)
-    {
-    }
+    if(rebuildProblem) {}
   }
 }
 
