@@ -94,7 +94,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
         break;
         case EventType::TaskAddition: {
           // std::cout << "Firing task addition event !" << std::endl;
-          auto & task = e.typedEmitter<EventType::TaskUpdate>();
+          auto & task = e.typedEmitter<EventType::TaskAddition>();
           removeTask(problem, memory, task, se);
           addTask(problem, memory, task, se);
         }
@@ -174,6 +174,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
     memory->variables(); // update variable vector if needed
     memory->solver->process(se);
 
+    // Do not run processProblem anymore, tasks and mappings should be handled by task events now
     if(rebuildProblem) {}
   }
 }
@@ -347,7 +348,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
   auto optc = problem.constraintWithRequirementsNoThrow(task);
   if(!optc)
     return;
-  std::cout << "addTask: " << &optc->get() << std::endl;
+  // std::cout << "addTask: " << &optc->get() << std::endl;
 
   // If there is really a task to be added, we need to record the mapping in memory
   auto c = optc->get();
