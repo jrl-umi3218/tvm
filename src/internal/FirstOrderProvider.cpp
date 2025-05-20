@@ -45,6 +45,7 @@ void FirstOrderProvider::addVariable(VariablePtr v, bool linear)
     linear_[v.get()] = linear;
 
     addVariable_(v);
+    updateTaskCallback_.variableUpdated(v);
   }
 }
 
@@ -62,6 +63,7 @@ void FirstOrderProvider::removeVariable(VariablePtr v)
   jacobian_.erase(v.get());
   linear_.erase(v.get());
   removeVariable_(v);
+  updateTaskCallback_.variableUpdated(v);
 }
 
 void FirstOrderProvider::addVariable_(VariablePtr)
@@ -92,6 +94,7 @@ void FirstOrderProvider::resize(int m)
   assert(imageSpace_.isEuclidean());
   imageSpace_ = Space(m);
   resizeCache();
+  updateTaskCallback_.taskResized(imageSpace_);
 }
 
 } // namespace internal

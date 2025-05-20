@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "tvm/internal/CallbackManager.h"
+#include <iostream>
 #include <tvm/defs.h>
 
 #include <tvm/Variable.h>
@@ -18,6 +20,28 @@
 
 namespace tvm::internal
 {
+
+// A callback class to be fired when the task changes (variables or size change)
+// This is to ensure the function is correctly synced to the tasks of the problem when the
+// functions add or remove variables themselves (for example with contacts), or resize their space.
+class UpdateTaskCallback : public internal::CallbackManager
+{
+public:
+  UpdateTaskCallback() : internal::CallbackManager() {}
+
+  void variableUpdated(VariablePtr /* v */)
+  {
+    // std::cout << "UpdateTaskCallback: Calling callback for variable: " << v->name() << std::endl;
+    internal::CallbackManager::run();
+  }
+
+  void taskResized(tvm::Space & /*imageSpace*/)
+  {
+    // std::cout << "UpdateTaskCallback: Calling callback to resize to size: " << imageSpace.size()
+    //           << " rsize: " << imageSpace.rSize() << " and tsize: " << imageSpace.tSize() << std::endl;
+    internal::CallbackManager::run();
+  }
+};
 
 /** Describes an entity that can provide a value and its jacobian
  *
@@ -70,6 +94,8 @@ public:
 
   /** Return the variables*/
   const VariableVector & variables() const;
+
+  UpdateTaskCallback & updateTaskCallback() noexcept { return updateTaskCallback_; }
 
 protected:
   struct slice_linear
@@ -191,6 +217,7 @@ protected:
   Space imageSpace_; // output space
   VariableVector variables_;
   utils::internal::MapWithVariableAsKey<bool, slice_linear> linear_;
+  UpdateTaskCallback updateTaskCallback_;
 };
 
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }
