@@ -326,6 +326,23 @@ void LeastSquareSolver::updateWeights(const internal::SolverEvents & se)
 
 bool LeastSquareSolver::updateVariables(const internal::SolverEvents & se)
 {
+  std::cout << "LeastSquareSolver::updateVariables" << std::endl;
+  if(se.addedVariables().size())
+  {
+    std::cout << "LeastSquareSolver::updateVariables: addedVariables contains" << std::endl;
+    for(const auto & var : se.addedVariables())
+    {
+      std::cout << "var: " << var->name() << ", ptr: " << var << std::endl;
+    }
+  }
+  if(se.removedVariables().size())
+  {
+    std::cout << "LeastSquareSolver::updateVariables: removedVariables contains" << std::endl;
+    for(const auto & var : se.removedVariables())
+    {
+      std::cout << "var: " << var->name() << ", ptr: " << var << std::endl;
+    }
+  }
   return (!(se.removedVariables().empty() && se.addedVariables().empty())) || se.hasHiddenVariableChange();
 }
 

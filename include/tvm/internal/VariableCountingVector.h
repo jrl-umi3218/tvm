@@ -85,7 +85,7 @@ private:
 
   void update() const;
 
-  tvm::utils::internal::map<Variable *, std::pair<SpaceRangeCounting, size_t>> count_;
+  tvm::utils::internal::map<VariablePtr, std::pair<SpaceRangeCounting, size_t>> count_;
   bool split_;
   mutable bool upToDate_ = false;
   mutable VariableVector variables_;

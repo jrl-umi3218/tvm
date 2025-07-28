@@ -20,7 +20,7 @@ bool isBound(const ConstraintPtr & c)
   const auto & vars = c->variables();
   if(vars.numberOfVariables() == 0)
     return false;
-  const auto & jac = c->jacobian(*vars[0]);
+  const auto & jac = c->jacobian(vars[0]);
   const auto & p = jac.properties();
   return (c->linearIn(*vars[0]) && vars.numberOfVariables() == 1 && p.isDiagonal() && p.isInvertible());
 }
