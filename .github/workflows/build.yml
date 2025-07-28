@@ -1,6 +1,7 @@
 name: CI of TVM
 
 on:
+  workflow_dispatch:
   push:
     paths-ignore:
       # Changes to those files don't mandate running CI
@@ -29,7 +30,7 @@ jobs:
             compiler: clang
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Temporary APT mirrors cleanup
@@ -45,8 +46,7 @@ jobs:
         ubuntu: |
           apt: libeigen3-dev doxygen doxygen-latex graphviz libboost-all-dev
         macos: |
-          cask: gfortran
-          brew: eigen boost
+          brew: eigen boost gcc
         windows: |
           github:
             - path: eigenteam/eigen-git-mirror

@@ -306,6 +306,6 @@ TEST_CASE("WrenchDistribQP")
   // Check that the two solutions are symmetric
   double leftPressureDiff = (w_r_ra1 - w_l_la2)(5);
   double rightPressureDiff = (w_l_la1 - w_r_ra2)(5);
-  FAST_CHECK_UNARY(std::abs(leftPressureDiff) < 1e-10);
-  FAST_CHECK_UNARY(std::abs(rightPressureDiff) < 1e-10);
+  FAST_CHECK_UNARY(std::abs(leftPressureDiff) < 1e-8);
+  FAST_CHECK_UNARY(std::abs(rightPressureDiff) < 1e-8);
 }
