@@ -1,6 +1,7 @@
 name: CI of TVM
 
 on:
+  workflow_dispatch:
   push:
     paths-ignore:
       # Changes to those files don't mandate running CI
