@@ -14,7 +14,7 @@ cp -r $tvm_dir/examples/*.cpp $project_dir/examples
 cp -r $tvm_dir/tests/doctest $project_dir/helpers
 
 cat > $project_dir/CMakeLists.txt << EOF
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_CXX_STANDARD 17)
 
