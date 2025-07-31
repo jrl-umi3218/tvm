@@ -228,7 +228,7 @@ void LeastSquareSolver::process(const internal::SolverEvents & se)
         [&](const auto & c) { return nextInequalityConstraintRange_(c); },
         [&](const auto & c) { return constraintSize(c); });
 
-  int dummy;
+  int dummy = 0;
   if(impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
     updateTargetRange(
         boundToAssignments_, dummy, [&](const auto & b) { return b.variables()[0]->getMappingIn(variables()); },
@@ -297,7 +297,7 @@ void LeastSquareSolver::updateWeights(const internal::SolverEvents & se)
 
   for(const auto & e : we)
   {
-    auto [c, scalar, vector] = e;
+    auto [c, p, scalar, vector] = e;
 
     // We might have change of weights on constraints that were not added yet (because process of
     // of weight arise before processing added constraints - if we'd process the weight after, we
@@ -331,7 +331,7 @@ bool LeastSquareSolver::updateVariables(const internal::SolverEvents & se)
 
 LeastSquareSolver::ImpactFromChanges LeastSquareSolver::processRemovedConstraints(const internal::SolverEvents & se)
 {
-  for(const auto & c : se.removedConstraints())
+  for(const auto & [c, _] : se.removedConstraints())
   {
     if(c->isEquality())
     {
@@ -387,7 +387,7 @@ LeastSquareSolver::ImpactFromChanges LeastSquareSolver::previewAddedConstraints(
   eqSize_ = nEq_;
   ineqSize_ = nIneq_;
   objSize_ = nObj_;
-  for(const auto & c : se.addedConstraints())
+  for(const auto & [c, _] : se.addedConstraints())
   {
     if(c->isEquality())
       nEq_ += constraintSize(*c);
@@ -406,7 +406,7 @@ LeastSquareSolver::ImpactFromChanges LeastSquareSolver::previewAddedConstraints(
 void LeastSquareSolver::processAddedConstraints(const internal::SolverEvents & se)
 {
   buildInProgress_ = true;
-  for(const auto & c : se.addedConstraints())
+  for(const auto & [c, _] : se.addedConstraints())
     addConstraint(c);
 
   for(const auto & b : se.addedBounds())

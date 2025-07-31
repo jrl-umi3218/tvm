@@ -4,6 +4,7 @@
 
 #include <tvm/api.h>
 #include <tvm/defs.h>
+#include <tvm/requirements/SolvingRequirements.h>
 
 #include <vector>
 
@@ -16,8 +17,21 @@ public:
   struct WeightEvent
   {
     constraint::abstract::LinearConstraint * c;
+    int priorityLevel;
     bool scalar;
     bool vector;
+  };
+
+  struct AddedConstraint
+  {
+    LinearConstraintPtr c;
+    SolvingRequirementsPtr req;
+  };
+
+  struct RemovedConstraint
+  {
+    LinearConstraintPtr c;
+    int priorityLevel;
   };
 
   struct Objective
@@ -27,11 +41,11 @@ public:
     double scalarizationWeight;
   };
 
-  void addScalarWeightEvent(constraint::abstract::LinearConstraint * c);
-  void addVectorWeightEvent(constraint::abstract::LinearConstraint * c);
+  void addScalarWeightEvent(constraint::abstract::LinearConstraint * c, int priorityLevel);
+  void addVectorWeightEvent(constraint::abstract::LinearConstraint * c, int priorityLevel);
 
-  void addConstraint(LinearConstraintPtr c);
-  void removeConstraint(LinearConstraintPtr c);
+  void addConstraint(LinearConstraintPtr c, SolvingRequirementsPtr r);
+  void removeConstraint(LinearConstraintPtr c, int priorityLevel);
   void addBound(LinearConstraintPtr c);
   void removeBound(LinearConstraintPtr c);
   void addObjective(const Objective & o);
@@ -41,10 +55,10 @@ public:
   void removeVariable(VariablePtr v);
 
   const std::vector<WeightEvent> & weightEvents() const { return weightEvents_; }
-  const std::vector<LinearConstraintPtr> & addedConstraints() const { return addedConstraints_; }
+  const std::vector<AddedConstraint> & addedConstraints() const { return addedConstraints_; }
   const std::vector<LinearConstraintPtr> & addedBounds() const { return addedBounds_; }
   const std::vector<Objective> & addedObjectives() const { return addedObjectives_; }
-  const std::vector<LinearConstraintPtr> & removedConstraints() const { return removedConstraints_; }
+  const std::vector<RemovedConstraint> & removedConstraints() const { return removedConstraints_; }
   const std::vector<LinearConstraintPtr> & removedBounds() const { return removedBounds_; }
   const std::vector<LinearConstraintPtr> & removedObjectives() const { return removedObjectives_; }
 
@@ -68,10 +82,10 @@ private:
    * change the data structure, or add one to speed up search.*/
   std::vector<WeightEvent> weightEvents_;
 
-  std::vector<LinearConstraintPtr> addedConstraints_;
+  std::vector<AddedConstraint> addedConstraints_;
   std::vector<LinearConstraintPtr> addedBounds_;
   std::vector<Objective> addedObjectives_;
-  std::vector<LinearConstraintPtr> removedConstraints_;
+  std::vector<RemovedConstraint> removedConstraints_;
   std::vector<LinearConstraintPtr> removedBounds_;
   std::vector<LinearConstraintPtr> removedObjectives_;
 
@@ -80,7 +94,7 @@ private:
   bool hiddenVariableChange_ = false;
 };
 
-inline void SolverEvents::addScalarWeightEvent(constraint::abstract::LinearConstraint * c)
+inline void SolverEvents::addScalarWeightEvent(constraint::abstract::LinearConstraint * c, int priorityLevel)
 {
   for(auto & e : weightEvents_)
   {
@@ -91,10 +105,10 @@ inline void SolverEvents::addScalarWeightEvent(constraint::abstract::LinearConst
     }
   }
 
-  weightEvents_.push_back({c, true, false});
+  weightEvents_.push_back({c, priorityLevel, true, false});
 }
 
-inline void SolverEvents::addVectorWeightEvent(constraint::abstract::LinearConstraint * c)
+inline void SolverEvents::addVectorWeightEvent(constraint::abstract::LinearConstraint * c, int priorityLevel)
 {
   for(auto & e : weightEvents_)
   {
@@ -105,14 +119,36 @@ inline void SolverEvents::addVectorWeightEvent(constraint::abstract::LinearConst
     }
   }
 
-  weightEvents_.push_back({c, false, true});
+  weightEvents_.push_back({c, priorityLevel, false, true});
 }
 
-inline void SolverEvents::addConstraint(LinearConstraintPtr c) { addIfPair(c, addedConstraints_, removedConstraints_); }
-
-inline void SolverEvents::removeConstraint(LinearConstraintPtr c)
+inline void SolverEvents::addConstraint(LinearConstraintPtr c, SolvingRequirementsPtr r)
 {
-  addIfPair(c, removedConstraints_, addedConstraints_);
+  auto it = std::find_if(removedConstraints_.begin(), removedConstraints_.end(), [&c, &r](const auto & it) {
+    return it.c == c && it.priorityLevel == r->priorityLevel().value();
+  });
+  if(it == removedConstraints_.end())
+  {
+    addedConstraints_.push_back({c, r});
+  }
+  else
+  {
+    removedConstraints_.erase(it);
+  }
+}
+
+inline void SolverEvents::removeConstraint(LinearConstraintPtr c, int prio)
+{
+  auto it = std::find_if(addedConstraints_.begin(), addedConstraints_.end(),
+                         [&c, &prio](const auto & it) { return it.c == c && it.req->priorityLevel().value() == prio; });
+  if(it == addedConstraints_.end())
+  {
+    removedConstraints_.push_back({c, prio});
+  }
+  else
+  {
+    addedConstraints_.erase(it);
+  }
 }
 
 inline void SolverEvents::addBound(LinearConstraintPtr b) { addIfPair(b, addedBounds_, removedBounds_); }
