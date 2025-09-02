@@ -396,7 +396,8 @@ public:
   }
 #else
   template<typename Derived, typename Lhs, typename Rhs>
-  decltype((-std::declval<Lhs>()) * std::declval<Rhs>()) applyWeightMult(const Eigen::ProductBase<Derived, Lhs, Rhs> & P)
+  decltype((-std::declval<Lhs>())
+           * std::declval<Rhs>()) applyWeightMult(const Eigen::ProductBase<Derived, Lhs, Rhs> & P)
   {
     return (-P.lhs()) * P.rhs();
   }
