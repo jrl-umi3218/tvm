@@ -20,7 +20,8 @@ namespace task_dynamics
  * For a lower bound tasks e>=0, we have, for e<=di:
  *  - first order: dot{e}_i* = -xsi * (e_i-ds)/(di-ds)
  *  - second order: ddot{e}_i* = -xsi/dt * (e_i-ds)/(di-ds) -dot{e}_i/dt
- *  - close loop second order: ddot{e}_i =  - lambda^2/4*M^2 * (e_i-d_s) - lambda * dot{e}_i with lambda = 4*M^2*xsi/(di-ds)
+ *  - close loop second order: ddot{e}_i =  - lambda^2/4*M^2 * (e_i-d_s) - lambda * dot{e}_i with lambda =
+ * 4*M^2*xsi/(di-ds)
  *
  * and for e>di:
  *   - first order: dot{e}* = big
@@ -43,7 +44,8 @@ namespace task_dynamics
  * \n This remark only applies when the automatic computation of xsi is
  * required.
  *
- * \attention To use the close loop second order you need to mention \p m_ >= 1.0, otherwise the classic second order equation will be used.
+ * \attention To use the close loop second order you need to mention \p m_ >= 1.0, otherwise the classic second order
+ * equation will be used.
  */
 class TVM_DLLAPI VelocityDamper : public abstract::TaskDynamics
 {
@@ -154,7 +156,7 @@ public:
          const Eigen::VectorXd & xsi,
          double big,
          const Eigen::VectorXd & m);
-    
+
     Impl(FunctionPtr f,
          constraint::Type t,
          const Eigen::VectorXd & rhs,
@@ -255,7 +257,8 @@ protected:
   {
     if(dt_ > 0)
     {
-      return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., dt_, autoXsi_, di_, ds_, xsi_, big_, m_, lambda_);
+      return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., dt_, autoXsi_, di_, ds_, xsi_, big_, m_,
+                                       lambda_);
     }
     return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., autoXsi_, di_, ds_, xsi_, big_);
   }
