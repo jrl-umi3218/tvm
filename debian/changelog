@@ -1,3 +1,9 @@
+tvm (0.9.3-1debian1) unstable; urgency=medium
+
+  * Upstream update
+
+ -- Arnaud TANGUY <arn.tanguy+ppa@gmail.com>  Fri, 21 Nov 2025 17:00:15 +0000
+
 tvm (0.9.2-1debian1) unstable; urgency=medium
 
   * Upstream update
