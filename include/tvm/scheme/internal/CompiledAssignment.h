@@ -793,7 +793,7 @@ private:
   CompiledAssignment(const Eigen::Ref<MatrixType> & to) : to_(to) {}
 
 public:
-  void run() { to_.array() = to_.array().min(0); }
+  void run() { to_.array() = to_.array().min(static_cast<typename MatrixType::Scalar>(0)); }
   void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to) { new(&to_) Eigen::Ref<MatrixType>(to); }
 
@@ -815,7 +815,7 @@ private:
   CompiledAssignment(const Eigen::Ref<MatrixType> & to) : to_(to) {}
 
 public:
-  void run() { to_.array() = to_.array().max(0); }
+  void run() { to_.array() = to_.array().max(static_cast<typename MatrixType::Scalar>(0)); }
   void from(const Eigen::Ref<const MatrixType> &) { /* Do nothing */ }
   void to(const Eigen::Ref<MatrixType> & to) { new(&to_) Eigen::Ref<MatrixType>(to); }
 
