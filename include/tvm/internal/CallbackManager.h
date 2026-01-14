@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <functional>
 #include <vector>
+#include <algorithm>
 
 namespace tvm::internal
 {
