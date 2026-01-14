@@ -4,6 +4,7 @@
 
 #include <tvm/internal/PairElementToken.h>
 
+#include <algorithm>
 #include <functional>
 #include <vector>
 
