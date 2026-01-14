@@ -4,9 +4,9 @@
 
 #include <tvm/internal/PairElementToken.h>
 
+#include <algorithm>
 #include <functional>
 #include <vector>
-#include <algorithm>
 
 namespace tvm::internal
 {
