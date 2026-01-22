@@ -2,7 +2,6 @@
  * Copyright 2017-2020 CNRS-AIST JRL and CNRS-UM LIRMM
  */
 
-// #include <iostream>
 #include <tvm/task_dynamics/VelocityDamper.h>
 
 #include <tvm/function/abstract/Function.h>
@@ -31,14 +30,6 @@ VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff, 
   {
     throw std::runtime_error("xsiOff should be positive.");
   }
-  // if(m_ < 1.0)
-  // {
-  //   throw std::runtime_error("m should be greater than or equal to 1.0.");
-  // }
-  // if(lambda_ < 0)
-  // {
-  //   throw std::runtime_error("lambda should be non-negative.");
-  // }
 }
 
 VelocityDamper::AnisotropicConfig::AnisotropicConfig(const VectorConstRef & di,
@@ -245,7 +236,6 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
   {
     axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
   }
-  // std::cout << "xsi=" << xsi << ", di=" << di << ", ds=" << ds << std::endl;
 }
 
 VelocityDamper::Impl::Impl(FunctionPtr f,
@@ -273,21 +263,18 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
   {
     axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
   }
-  // std::cout << "xsi=" << xsi << ", di=" << di << ", ds=" << ds << std::endl;
 }
 
 void VelocityDamper::Impl::updateValue()
 {
   bool useLambda = lambda_.array().all() >= 1.0;
   bool closeLoopSecondOrder = m_.array().all() >= 1.0;
-  // std::cout << "M=" << m_ << ", Lambda=" << lambda_ << ", closeLoopSecondOrder: " << closeLoopSecondOrder <<
-  // "useLambda:" << useLambda << std::endl;
+
   if(type() == constraint::Type::LOWER_THAN)
   {
     d_ = rhs() - function().value(); // turn f<=rhs into d = rhs-f >= 0
     if(!useLambda)
     {
-      // std::cout << "NOT Using lambda damping in TVM" << std::endl;
       updateValue_(-1);
       if(order() == Order::Two)
       {
@@ -322,19 +309,16 @@ void VelocityDamper::Impl::updateValue()
     d_ = function().value() - rhs(); // turn f>=rhs into d = f-rhs >= 0
     if(!useLambda)
     {
-      // std::cout << "NOT Using lambda damping in TVM" << std::endl;
       updateValue_(+1);
       if(order() == Order::Two)
       {
         value_ -= function().velocity(); // -xsi*(e_i-ds)/(di-ds) - dot{e}_i
         if(!closeLoopSecondOrder)
         {
-          // std::cout << "NOT Using close loop second order in TVM" << std::endl;
           value_ /= dt_; // -xsi/dt * (e_i-ds)/(di-ds) - dot{e}_i/dt
         }
         else // close loop second order
         {
-          // std::cout << "Using close loop second order in TVM" << std::endl;
           value_.array() *= 4 * m_.array() * m_.array()
                             * axsi_.array(); // -4*M^2*xsi^2/(di-ds)^2 * (e_i-ds) - 4*M^2*xsi/(di-ds) * dot{e}_i
         }
@@ -371,9 +355,7 @@ void VelocityDamper::Impl::updateValue_(double s)
     }
   }
   value_.array() = d_.array() - ds_.array();
-  // std::cout <<"d_=" << d_ << ", d_ - ds=" << value_<< std::endl;
   value_.array() *= axsi_.array();
-  // std::cout << "axsi_=" << axsi_ << ", e_dot=" << value_ << std::endl;
 }
 
 } // namespace task_dynamics
