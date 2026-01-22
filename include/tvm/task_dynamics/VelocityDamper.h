@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <tvm/defs.h>
 #include <tvm/task_dynamics/abstract/TaskDynamics.h>
 
 #include <optional>
