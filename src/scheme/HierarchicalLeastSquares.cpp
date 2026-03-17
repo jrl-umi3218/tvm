@@ -66,12 +66,12 @@ void HierarchicalLeastSquares::updateComputationData_(const LinearizedControlPro
     {
       case EventType::WeightChange: {
         const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::WeightChange>());
-        se.addScalarWeightEvent(c.constraint.get());
+        se.addScalarWeightEvent(c.constraint.get(), c.requirements->priorityLevel().value());
       }
       break;
       case EventType::AnisotropicWeightChange: {
         const auto & c = problem.constraintWithRequirements(e.typedEmitter<EventType::AnisotropicWeightChange>());
-        se.addVectorWeightEvent(c.constraint.get());
+        se.addVectorWeightEvent(c.constraint.get(), c.requirements->priorityLevel().value());
       }
       break;
       case EventType::TaskAddition:
@@ -134,7 +134,7 @@ void HierarchicalLeastSquares::processProblem(const LinearizedControlProblem & p
     }
     else
     {
-      if(static_cast<int>(p) >= nEq.size())
+      if(static_cast<size_t>(p) >= nEq.size())
       {
         nEq.resize(p + 1, 0);
         nIneq.resize(p + 1, 0);
@@ -195,7 +195,38 @@ void HierarchicalLeastSquares::addTask(const LinearizedControlProblem & problem,
                                        const TaskWithRequirements & task,
                                        solver::internal::SolverEvents & se) const
 {
-  throw std::runtime_error("[HierarchicalLeastSquares::addTask] non-implemented");
+  // We add a task that is not in the computation data. We get the constraint from problem.
+  // However this task might have been removed from problem after being added (but before
+  // the computation data have been updated). If this is the case, we skip the addition.
+  auto optc = problem.constraintWithRequirementsNoThrow(task);
+  if(!optc)
+    return;
+
+  // If there is really a task to be added, we need to record the mapping in memory
+  auto c = optc->get();
+  memory->addConstraint(task, c);
+  const auto & subs = problem.substitutions();
+
+  abilities_.check(c.constraint, c.requirements);
+  for(const auto & xi : c.constraint->variables())
+  {
+    auto s = subs.substitute(xi);
+    for(const auto & si : s)
+    {
+      if(memory->addVariable(si))
+        se.addVariable(si);
+    }
+  }
+
+  int p = task.requirements.priorityLevel().value();
+  if((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
+  {
+    se.addBound(c.constraint);
+  }
+  else
+  {
+    se.addConstraint(c.constraint, c.requirements);
+  }
 }
 
 void HierarchicalLeastSquares::removeTask(const LinearizedControlProblem & problem,
@@ -203,7 +234,40 @@ void HierarchicalLeastSquares::removeTask(const LinearizedControlProblem & probl
                                           const TaskWithRequirements & task,
                                           solver::internal::SolverEvents & se) const
 {
-  throw std::runtime_error("[HierarchicalLeastSquares::removeTask] non-implemented");
+  // We need to remove the constraint that was last added for the task.
+  // We get this info from memory. It the task is not present, it's because we
+  // skipped its addition in addTask before, so wee skip the removal as well.
+  auto optc = memory->constraintNoThrow(task);
+  if(!optc)
+    return;
+
+  const auto & c = optc->get();
+  const auto & subs = problem.substitutions();
+
+  if(subs.uses(c.constraint))
+    throw std::runtime_error(
+        "[WeightedLeastSquares::removeTask]: You cannot remove a constraint used for a substitution.");
+
+  for(const auto & xi : c.constraint->variables())
+  {
+    auto s = subs.substitute(xi);
+    for(const auto & si : s)
+    {
+      if(memory->removeVariable(si.get()))
+        se.removeVariable(si);
+    }
+  }
+
+  int p = task.requirements.priorityLevel().value();
+  if((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
+  {
+    se.removeBound(c.constraint);
+  }
+  else
+  {
+    se.removeConstraint(c.constraint, p);
+  }
+  memory->removeConstraint(task);
 }
 
 HierarchicalLeastSquares::Memory::Memory(int solverId,

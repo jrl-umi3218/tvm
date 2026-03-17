@@ -67,7 +67,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
             throw std::runtime_error(
                 "[WeightedLeastSquares::updateComputationData_] "
                 "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-          se.addScalarWeightEvent(c.constraint.get());
+          se.addScalarWeightEvent(c.constraint.get(), c.requirements->priorityLevel().value());
         }
         break;
         case EventType::AnisotropicWeightChange: {
@@ -76,7 +76,7 @@ void WeightedLeastSquares::updateComputationData_(const LinearizedControlProblem
             throw std::runtime_error(
                 "[WeightedLeastSquares::updateComputationData_] "
                 "WeightedLeastSquares does not allow to change the weight of a Task with priority 0.");
-          se.addVectorWeightEvent(c.constraint.get());
+          se.addVectorWeightEvent(c.constraint.get(), c.requirements->priorityLevel().value());
         }
         break;
         case EventType::TaskAddition:
@@ -255,7 +255,7 @@ void WeightedLeastSquares::addTask(const LinearizedControlProblem & problem,
   {
     if(p == 0)
     {
-      se.addConstraint(c.constraint);
+      se.addConstraint(c.constraint, c.requirements);
     }
     else
     {
@@ -303,7 +303,7 @@ void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
   {
     if(p == 0)
     {
-      se.removeConstraint(c.constraint);
+      se.removeConstraint(c.constraint, 0);
     }
     else
     {

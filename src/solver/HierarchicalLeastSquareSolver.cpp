@@ -99,7 +99,7 @@ void HierarchicalLeastSquareSolver::addConstraint(LinearConstraintPtr cstr, Solv
   int lvl = req->priorityLevel().value();
 
   assert(buildInProgress_ && "Attempting to add a constraint without calling startBuild first");
-  assert(lvl >= 0 && lvl < nEq_.size());
+  assert(lvl >= 0 && static_cast<size_t>(lvl) < nEq_.size());
 
   if(cstr->isEquality())
   {
@@ -173,12 +173,179 @@ int HierarchicalLeastSquareSolver::constraintSize(const constraint::abstract::Li
 
 void HierarchicalLeastSquareSolver::process(const internal::SolverEvents & se)
 {
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::process] Not implemented yet");
+  updateWeights(se);
+  auto impactRemove = processRemovedConstraints(se);
+  bool needMappingUpdate = updateVariables(se);
+  auto impactAdd = previewAddedConstraints(se);
+  auto impactResize = resize_(nEq_, nIneq_, boundToAssignments_.size() > 0 || se.addedBounds().size() > 0);
+
+  if(needMappingUpdate)
+  {
+    for(auto & a : assignments_)
+      a->assignment.onUpdatedMapping(variables(), false);
+  }
+
+  // Update the target ranges when needed.
+  // We could be much more fine grain as added constraints could be placed last,
+  // and not update existing constraints if only constraints are added but this
+  // makes things much more complex.
+  auto impact = impactRemove || impactAdd;
+  auto updateTargetRange = [](const auto & map, int & cumSize, auto rangeProvider, auto sizeProvider) {
+    for(const auto & ca : map)
+    {
+      Range r = rangeProvider(*ca.first);
+      for(auto & a : ca.second)
+        a->assignment.target().range().start = r.start;
+      cumSize += sizeProvider(*ca.first);
+    }
+  };
+
+  // We first reset all necessary size accumulators, as they can be used together for deciding ranges.
+  for(size_t i = 0; i < impact.equalityConstraints_.size(); ++i)
+  {
+    if(impact.equalityConstraints_[i])
+    {
+      eqSize_[i] = 0;
+    }
+    if(impact.inequalityConstraints_[i])
+    {
+      ineqSize_[i] = 0;
+    }
+  }
+
+  for(size_t i = 0; i < impact.equalityConstraints_.size(); ++i)
+  {
+    int lvl = static_cast<int>(i);
+    if(impact.equalityConstraints_[i])
+    {
+      updateTargetRange(
+          equalityConstraintToAssignments_[i], eqSize_[i],
+          [&](const auto & c) { return nextEqualityConstraintRange_(lvl, c); },
+          [&](const auto & c) { return constraintSize(c); });
+    }
+    if(impact.inequalityConstraints_[i])
+    {
+      updateTargetRange(
+          inequalityConstraintToAssignments_[i], ineqSize_[i],
+          [&](const auto & c) { return nextInequalityConstraintRange_(lvl, c); },
+          [&](const auto & c) { return constraintSize(c); });
+    }
+  }
+
+  int dummy = 0;
+  if(impact.bounds_ || needMappingUpdate) // needMappingUpdate because a variable might have been added or removed
+    updateTargetRange(
+        boundToAssignments_, dummy, [&](const auto & b) { return b.variables()[0]->getMappingIn(variables()); },
+        [](const auto &) { return 0; });
+
+  // Update the matrices and vectors of the target when needed
+  auto updateTargetData = [](const auto & map, auto updateFn) {
+    for(const auto & ca : map)
+    {
+      for(auto & a : ca.second)
+        updateFn(a->assignment.target());
+    }
+  };
+
+  impact.orAssign(impactResize); // There are case where no resize are necessary (e.g. a constraint was removed and
+  applyImpactLogic(impact);      // another added with same size) but the target need to change.
+  for(size_t i = 0; i < impact.equalityConstraints_.size(); ++i)
+  {
+    int lvl = static_cast<int>(i);
+    if(impact.equalityConstraints_[i])
+    {
+      updateTargetData(equalityConstraintToAssignments_[i],
+                       [&](auto & target) { updateEqualityTargetData(lvl, target); });
+    }
+    if(impact.inequalityConstraints_[i])
+    {
+      updateTargetData(inequalityConstraintToAssignments_[i],
+                       [&](auto & target) { updateInequalityTargetData(lvl, target); });
+    }
+  }
+
+  if(impact.bounds_)
+    updateTargetData(boundToAssignments_, [&](auto & target) { updateBoundTargetData(target); });
+
+  // Final update of the impacted mappings
+  if(needMappingUpdate)
+  {
+    for(auto & a : assignments_)
+      a->assignment.onUpdatedTarget(); // onUpdateTarget also takes into account the mapping change due to variable.
+  }
+  else
+  {
+    auto updateMapping = [](const auto & map) {
+      for(const auto & ca : map)
+      {
+        for(auto & a : ca.second)
+          a->assignment.onUpdatedTarget();
+      }
+    };
+
+    for(size_t i = 0; i < impact.equalityConstraints_.size(); ++i)
+    {
+      if(impact.equalityConstraints_[i])
+      {
+        updateMapping(equalityConstraintToAssignments_[i]);
+      }
+      if(impact.inequalityConstraints_[i])
+      {
+        updateMapping(inequalityConstraintToAssignments_[i]);
+      }
+    }
+    if(impact.bounds_)
+    {
+      updateMapping(boundToAssignments_);
+    }
+  }
+
+  processAddedConstraints(se);
 }
 
 void HierarchicalLeastSquareSolver::updateWeights(const internal::SolverEvents & se)
 {
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::updateWeights] Not implemented yet");
+  const auto & we = se.weightEvents();
+
+  for(const auto & e : we)
+  {
+    auto [c, priorityLevel, scalar, vector] = e;
+
+    if(priorityLevel >= static_cast<int>(nEq_.size()))
+    {
+      // This might happen for weight updates on constraints that were not added yet
+      continue;
+    }
+
+    // We might have change of weights on constraints that were not added yet (because process of
+    // of weight arise before processing added constraints - if we'd process the weight after, we
+    // could have change of weight on removed constraints). Therefore we need to ignore constraints
+    // that were not found in the map.
+    const auto & container = [&e, this]() -> decltype(auto) {
+      return e.c->isEquality() ? equalityConstraintToAssignments_[e.priorityLevel]
+                               : inequalityConstraintToAssignments_[e.priorityLevel];
+    }();
+    auto it = container.find(c);
+    if(it == container.end())
+    {
+      continue;
+    }
+    auto & assignments = it->second;
+
+    for(auto & a : assignments)
+    {
+      bool needReprocess = (scalar && !a->assignment.changeScalarWeightIsAllowed())
+                           || (vector && !a->assignment.changeVectorWeightIsAllowed());
+      if(needReprocess)
+      {
+        a->assignment = tvm::scheme::internal::Assignment::reprocess(a->assignment, variables(), substitutions());
+      }
+      else
+      {
+        a->assignment.onUpdateWeights(scalar, vector);
+      }
+    }
+  }
 }
 
 bool HierarchicalLeastSquareSolver::updateVariables(const internal::SolverEvents & se)
@@ -189,20 +356,91 @@ bool HierarchicalLeastSquareSolver::updateVariables(const internal::SolverEvents
 HierarchicalLeastSquareSolver::ImpactFromChanges HierarchicalLeastSquareSolver::processRemovedConstraints(
     const internal::SolverEvents & se)
 {
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::processRemovedConstraints] Not implemented yet");
-  return {0};
+  ImpactFromChanges impact{static_cast<int>(nEq_.size())};
+
+  for(const auto & [c, p] : se.removedConstraints())
+  {
+    if(static_cast<size_t>(p) >= nEq_.size())
+    {
+      continue;
+    }
+    // Note: we cannot bind impact.constraintType[p] because it's std::vector<bool>
+    const auto & [container, counter, imp] =
+        c->isEquality() ? std::tie(equalityConstraintToAssignments_[p], nEq_[p], impact.equalityConstraints_)
+                        : std::tie(inequalityConstraintToAssignments_[p], nIneq_[p], impact.inequalityConstraints_);
+    imp[p] = true;
+    counter -= constraintSize(*c);
+    const auto & assignments = container[c.get()];
+    for(auto & a : assignments)
+    {
+      a->markedForRemoval = true;
+    }
+    container.erase(c.get());
+  }
+
+  for(const auto & b : se.removedBounds())
+  {
+    impact.bounds_ = true;
+    const auto & assignments = boundToAssignments_[b.get()];
+    for(auto & a : assignments)
+      a->markedForRemoval = true;
+    boundToAssignments_.erase(b.get());
+  }
+
+  // clear assignments
+  auto it =
+      std::remove_if(assignments_.begin(), assignments_.end(), [](const auto & it) { return it->markedForRemoval; });
+  assignments_.erase(it, assignments_.end());
+
+  applyImpactLogic(impact);
+  return impact;
 }
 
 HierarchicalLeastSquareSolver::ImpactFromChanges HierarchicalLeastSquareSolver::previewAddedConstraints(
     const internal::SolverEvents & se)
 {
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::previewAddedConstraints] Not implemented yet");
-  return {0};
+  // When used as part of process, the following code will generate target ranges
+  // outside of the matrices bounds. It relies on the fact that the mapping of the
+  // assignment is updated after.
+  eqSize_ = nEq_;
+  ineqSize_ = nIneq_;
+  ImpactFromChanges impact{static_cast<int>(nEq_.size())};
+  for(const auto & [c, req] : se.addedConstraints())
+  {
+    auto p = req->priorityLevel().value();
+    if(static_cast<size_t>(p) >= nEq_.size())
+    {
+      continue;
+    }
+    if(c->isEquality())
+    {
+      nEq_[p] += constraintSize(*c);
+    }
+    else
+    {
+      nIneq_[p] += constraintSize(*c);
+    }
+  }
+  for(size_t i = 0; i < nEq_.size(); ++i)
+  {
+    impact.equalityConstraints_[i] = (nEq_[i] != eqSize_[i]);
+    impact.inequalityConstraints_[i] = (nIneq_[i] != ineqSize_[i]);
+  }
+
+  applyImpactLogic(impact);
+  return impact;
 }
 
 void HierarchicalLeastSquareSolver::processAddedConstraints(const internal::SolverEvents & se)
 {
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::processAddedConstraints] Not implemented yet");
+  buildInProgress_ = true;
+  for(const auto & [c, req] : se.addedConstraints())
+    addConstraint(c, req);
+
+  for(const auto & b : se.addedBounds())
+    addBound(b);
+
+  buildInProgress_ = false;
 }
 
 HierarchicalLeastSquareSolver::ImpactFromChanges::ImpactFromChanges(int nLvl)
