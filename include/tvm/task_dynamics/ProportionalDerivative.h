@@ -86,9 +86,7 @@ public:
      */
     template<typename T>
     const T & kp() const
-    {
-      return mpark::get<T>(kp_);
-    }
+    { return mpark::get<T>(kp_); }
     /** Get the current kp gain (non-const version).
      * \warning No check is made if you change the gain. It is your responsibility
      * to ensure that its values and its \a size are correct.
@@ -102,9 +100,7 @@ public:
      */
     template<typename T>
     T & kp()
-    {
-      return mpark::get<T>(kp_);
-    }
+    { return mpark::get<T>(kp_); }
 
     /** Get the current kv gain*/
     const Gain & kv() const { return kv_; }
@@ -114,9 +110,7 @@ public:
      */
     template<typename T>
     const T & kv() const
-    {
-      return mpark::get<T>(kv_);
-    }
+    { return mpark::get<T>(kv_); }
     /** Get the current kv gain (non-const version).
      * \warning No check is made if you change the gain. It is your responsibility
      * to ensure that its values and its \a size are correct.
@@ -130,9 +124,7 @@ public:
      */
     template<typename T>
     T & kv()
-    {
-      return mpark::get<T>(kv_);
-    }
+    { return mpark::get<T>(kv_); }
 
   private:
     void checkGainSize(double k) const;

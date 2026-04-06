@@ -49,18 +49,14 @@ struct is_base
  */
 template<typename T, template<typename...> class Base>
 constexpr bool derives_from()
-{
-  return decltype(is_base<Base>::check(std::declval<const T &>()))::value;
-}
+{ return decltype(is_base<Base>::check(std::declval<const T &>()))::value; }
 
 /** Check if class \t T derives from the non-templated class \t Base
  * This returns \a false if \t Base is not a class.
  */
 template<typename T, typename Base>
 constexpr bool derives_from()
-{
-  return std::is_base_of_v<Base, T>;
-}
+{ return std::is_base_of_v<Base, T>; }
 
 /** Used to enable a function for a list of types.
  *

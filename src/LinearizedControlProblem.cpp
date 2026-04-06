@@ -125,9 +125,7 @@ std::vector<LinearConstraintWithRequirements> LinearizedControlProblem::constrai
 }
 
 LinearConstraintPtr LinearizedControlProblem::constraint(const TaskWithRequirements & t) const
-{
-  return constraints_.at(&t).constraint;
-}
+{ return constraints_.at(&t).constraint; }
 
 LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(const TaskWithRequirements & t) const
 {
@@ -140,9 +138,7 @@ LinearConstraintPtr LinearizedControlProblem::constraintNoThrow(const TaskWithRe
 
 const LinearConstraintWithRequirements & LinearizedControlProblem::constraintWithRequirements(
     const TaskWithRequirements & t) const
-{
-  return constraints_.at(&t);
-}
+{ return constraints_.at(&t); }
 
 std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>>
     LinearizedControlProblem::constraintWithRequirementsNoThrow(const TaskWithRequirements & t) const
@@ -156,9 +152,7 @@ std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>>
 
 const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> &
     LinearizedControlProblem::constraintMap() const
-{
-  return constraints_;
-}
+{ return constraints_; }
 
 void LinearizedControlProblem::update_() { substitutions_.updateSubstitutions(); }
 

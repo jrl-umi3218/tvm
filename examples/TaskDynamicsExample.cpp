@@ -51,9 +51,7 @@ AdaptiveProportional::AdaptiveProportional(double a, double b, double c) : a_(a)
 std::unique_ptr<task_dynamics::abstract::TaskDynamicsImpl> AdaptiveProportional::impl_(FunctionPtr f,
                                                                                        constraint::Type t,
                                                                                        const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs, a_, b_, c_);
-}
+{ return std::make_unique<Impl>(f, t, rhs, a_, b_, c_); }
 
 task_dynamics::Order AdaptiveProportional::order_() const { return task_dynamics::Order::One; }
 

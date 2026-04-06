@@ -228,17 +228,13 @@ private:
 
 template<typename... Args>
 inline void HierarchicalLeastSquareSolver::addAssignement(Args &&... args)
-{
-  assignments_.emplace_back(new MarkedAssignment(std::forward<Args>(args)...));
-}
+{ assignments_.emplace_back(new MarkedAssignment(std::forward<Args>(args)...)); }
 
 template<typename Derived>
 inline bool HierarchicalLeastSquareSolver::ImpactFromChanges::willReallocate(const Eigen::DenseBase<Derived> & M,
                                                                              int rows,
                                                                              int cols)
-{
-  return M.rows() * M.cols() != rows * cols;
-}
+{ return M.rows() * M.cols() != rows * cols; }
 
 } // namespace abstract
 

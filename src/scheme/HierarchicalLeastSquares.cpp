@@ -194,17 +194,13 @@ void HierarchicalLeastSquares::addTask(const LinearizedControlProblem & problem,
                                        Memory * memory,
                                        const TaskWithRequirements & task,
                                        solver::internal::SolverEvents & se) const
-{
-  throw std::runtime_error("[HierarchicalLeastSquares::addTask] non-implemented");
-}
+{ throw std::runtime_error("[HierarchicalLeastSquares::addTask] non-implemented"); }
 
 void HierarchicalLeastSquares::removeTask(const LinearizedControlProblem & problem,
                                           Memory * memory,
                                           const TaskWithRequirements & task,
                                           solver::internal::SolverEvents & se) const
-{
-  throw std::runtime_error("[HierarchicalLeastSquares::removeTask] non-implemented");
-}
+{ throw std::runtime_error("[HierarchicalLeastSquares::removeTask] non-implemented"); }
 
 HierarchicalLeastSquares::Memory::Memory(int solverId,
                                          std::unique_ptr<solver::abstract::HierarchicalLeastSquareSolver> solver)
@@ -218,9 +214,7 @@ void HierarchicalLeastSquares::Memory::reset(std::unique_ptr<solver::abstract::H
 }
 
 void HierarchicalLeastSquares::Memory::setVariablesToSolution_(tvm::internal::VariableCountingVector & x)
-{
-  x.set(solver->result());
-}
+{ x.set(solver->result()); }
 
 } // namespace scheme
 

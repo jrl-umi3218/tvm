@@ -34,15 +34,11 @@ public:
   /** Add a mapping task -> constraint.*/
   void addConstraints(
       const tvm::utils::internal::map<TaskWithRequirements const *, LinearConstraintWithRequirements> & map)
-  {
-    task2Constraint_.insert(map.begin(), map.end());
-  }
+  { task2Constraint_.insert(map.begin(), map.end()); }
 
   /** Access the constraint corresponding to \p tr.*/
   const LinearConstraintWithRequirements & constraint(const TaskWithRequirements & tr) const
-  {
-    return task2Constraint_.at(&tr);
-  }
+  { return task2Constraint_.at(&tr); }
 
   /** Access the constraint corresponding to \p tr, and return it as a std::optional.*/
   std::optional<std::reference_wrapper<const LinearConstraintWithRequirements>> constraintNoThrow(

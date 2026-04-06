@@ -104,37 +104,27 @@ private:
 template<typename MatrixType>
 template<typename T>
 inline void CompiledAssignmentWrapper<MatrixType>::srun(void * ca)
-{
-  static_cast<T *>(ca)->run();
-}
+{ static_cast<T *>(ca)->run(); }
 
 template<typename MatrixType>
 template<typename T>
 inline void CompiledAssignmentWrapper<MatrixType>::sdelete(void * ca)
-{
-  delete static_cast<T *>(ca);
-}
+{ delete static_cast<T *>(ca); }
 
 template<typename MatrixType>
 template<typename T>
 inline void CompiledAssignmentWrapper<MatrixType>::sfrom(void * ca, const typename T::SourceType & f)
-{
-  static_cast<T *>(ca)->from(f);
-}
+{ static_cast<T *>(ca)->from(f); }
 
 template<typename MatrixType>
 template<typename T>
 inline void CompiledAssignmentWrapper<MatrixType>::sto(void * ca, const Eigen::Ref<MatrixType> & t)
-{
-  static_cast<T *>(ca)->to(t);
-}
+{ static_cast<T *>(ca)->to(t); }
 
 template<typename MatrixType>
 template<typename T>
 inline void * CompiledAssignmentWrapper<MatrixType>::sclone(void * ca)
-{
-  return new T(*static_cast<T *>(ca));
-}
+{ return new T(*static_cast<T *>(ca)); }
 
 template<typename MatrixType>
 template<AssignType A, WeightMult W, MatrixMult M, Source F, typename... Args>
@@ -192,9 +182,7 @@ inline CompiledAssignmentWrapper<MatrixType> & CompiledAssignmentWrapper<MatrixT
 
 template<typename MatrixType>
 inline void CompiledAssignmentWrapper<MatrixType>::run()
-{
-  run_(ca_.get());
-}
+{ run_(ca_.get()); }
 
 template<typename MatrixType>
 inline void CompiledAssignmentWrapper<MatrixType>::from(double d)
@@ -226,9 +214,7 @@ inline void CompiledAssignmentWrapper<MatrixType>::from(const Eigen::Ref<const M
 
 template<typename MatrixType>
 inline void CompiledAssignmentWrapper<MatrixType>::to(const Eigen::Ref<MatrixType> & t)
-{
-  to_(ca_.get(), t);
-}
+{ to_(ca_.get(), t); }
 
 } // namespace internal
 

@@ -132,24 +132,18 @@ template<constraint::Type T>
 TaskWithRequirementsPtr ControlProblem::add(utils::ProtoTask<T> proto,
                                             const task_dynamics::abstract::TaskDynamics & td,
                                             const requirements::SolvingRequirements & req)
-{
-  return add({proto, td}, req);
-}
+{ return add({proto, td}, req); }
 
 template<constraint::Type T>
 TaskWithRequirementsPtr ControlProblem::add(utils::LinearProtoTask<T> proto,
                                             const task_dynamics::abstract::TaskDynamics & td,
                                             const requirements::SolvingRequirements & req)
-{
-  return add({proto, td}, req);
-}
+{ return add({proto, td}, req); }
 
 template<constraint::Type T>
 TaskWithRequirementsPtr ControlProblem::add(utils::LinearProtoTask<T> proto,
                                             const requirements::SolvingRequirements & req)
-{
-  return add({proto, task_dynamics::None()}, req);
-}
+{ return add({proto, task_dynamics::None()}, req); }
 
 template<typename T, typename... Args>
 inline void ControlProblem::Updater::addInput(std::shared_ptr<T> source, Args... args)

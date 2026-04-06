@@ -68,9 +68,7 @@ void Frame::updateJacobian()
 void Frame::updateVelocity() { velocity_ = X_b_f_ * robot_->mbc().bodyVelW[bodyId_]; }
 
 void Frame::updateNormalAcceleration()
-{
-  normalAcceleration_ = X_b_f_ * jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB());
-}
+{ normalAcceleration_ = X_b_f_ * jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB()); }
 
 const std::string & Frame::body() const { return robot_->mb().body(bodyId_).name(); }
 

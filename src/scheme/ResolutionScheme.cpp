@@ -13,9 +13,7 @@ namespace internal
 
 ResolutionSchemeBase::ResolutionSchemeBase(SchemeAbilities abilities, double big)
 : abilities_(abilities), big_number_(big)
-{
-  assert(big > 0);
-}
+{ assert(big > 0); }
 
 double ResolutionSchemeBase::big_number() const { return big_number_; }
 

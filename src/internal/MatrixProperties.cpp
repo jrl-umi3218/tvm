@@ -91,14 +91,10 @@ Positiveness promote(Positiveness p, bool invertible)
 }
 
 bool deduceConstance(Shape shape)
-{
-  return shape == Shape::IDENTITY || shape == Shape::MINUS_IDENTITY || shape == Shape::ZERO;
-}
+{ return shape == Shape::IDENTITY || shape == Shape::MINUS_IDENTITY || shape == Shape::ZERO; }
 
 bool deduceSymmetry(Shape shape, Positiveness positiveness)
-{
-  return shape >= Shape::DIAGONAL || positiveness != Positiveness::NA;
-}
+{ return shape >= Shape::DIAGONAL || positiveness != Positiveness::NA; }
 
 bool deduceInvertibility(Shape shape, Positiveness positiveness)
 {
@@ -360,14 +356,10 @@ Shape operator*(const Shape & s1, const Shape & s2)
 }
 
 MatrixProperties operator-(const MatrixProperties & p)
-{
-  return {-p.shape(), -p.positiveness(), -p.constness(), -p.invertibility()};
-}
+{ return {-p.shape(), -p.positiveness(), -p.constness(), -p.invertibility()}; }
 
 MatrixProperties operator*(double d, const MatrixProperties & p)
-{
-  return {d * p.shape(), d * p.positiveness(), d * p.constness(), d * p.invertibility()};
-}
+{ return {d * p.shape(), d * p.positiveness(), d * p.constness(), d * p.invertibility()}; }
 
 MatrixProperties operator+(const MatrixProperties & p1, const MatrixProperties & p2)
 {

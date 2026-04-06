@@ -17,17 +17,13 @@ Constant::Constant() {}
 std::unique_ptr<abstract::TaskDynamicsImpl> Constant::impl_(FunctionPtr f,
                                                             constraint::Type t,
                                                             const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs);
-}
+{ return std::make_unique<Impl>(f, t, rhs); }
 
 Order Constant::order_() const { return Order::Zero; }
 
 Constant::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs)
 : TaskDynamicsImpl(Order::Zero, f, t, rhs)
-{
-  value_ = rhs;
-}
+{ value_ = rhs; }
 
 void Constant::Impl::updateValue() { value_ = rhs(); }
 

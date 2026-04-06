@@ -139,7 +139,5 @@ private:
 };
 
 inline PairElementTokenHandle::PairElementTokenHandle(PairElementToken & t) noexcept : token_(&t)
-{
-  assert(!t.isPaired() && "Input token is already paired.");
-}
+{ assert(!t.isPaired() && "Input token is already paired."); }
 } // namespace tvm::internal

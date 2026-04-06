@@ -107,22 +107,16 @@ template<constraint::Type T>
 TaskWithRequirementsPtr LinearizedControlProblem::add(utils::ProtoTask<T> proto,
                                                       const task_dynamics::abstract::TaskDynamics & td,
                                                       const requirements::SolvingRequirements & req)
-{
-  return add({proto, td}, req);
-}
+{ return add({proto, td}, req); }
 
 template<constraint::Type T>
 TaskWithRequirementsPtr LinearizedControlProblem::add(utils::LinearProtoTask<T> proto,
                                                       const task_dynamics::abstract::TaskDynamics & td,
                                                       const requirements::SolvingRequirements & req)
-{
-  return add({proto, td}, req);
-}
+{ return add({proto, td}, req); }
 
 template<constraint::Type T>
 TaskWithRequirementsPtr LinearizedControlProblem::add(utils::LinearProtoTask<T> proto,
                                                       const requirements::SolvingRequirements & req)
-{
-  return add({proto, task_dynamics::None()}, req);
-}
+{ return add({proto, task_dynamics::None()}, req); }
 } // namespace tvm

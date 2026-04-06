@@ -7,9 +7,7 @@
 namespace tvm::solver
 {
 std::unique_ptr<abstract::LSSolverFactory> DefaultLSSolverFactory::clone() const
-{
-  return std::make_unique<DefaultLSSolverFactory>(*this);
-}
+{ return std::make_unique<DefaultLSSolverFactory>(*this); }
 
 DefaultLSSolverFactory::DefaultLSSolverFactory(const DefaultLSSolverOptions & options)
 : LSSolverFactory("default"), options_(options)

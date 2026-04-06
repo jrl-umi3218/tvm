@@ -14,17 +14,13 @@ Reference::Reference(Order order, const FunctionPtr & ref) : refOrder_(order), r
 std::unique_ptr<abstract::TaskDynamicsImpl> Reference::impl_(FunctionPtr f,
                                                              constraint::Type t,
                                                              const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs, refOrder_, ref_);
-}
+{ return std::make_unique<Impl>(f, t, rhs, refOrder_, ref_); }
 
 Order Reference::order_() const { return refOrder_; }
 
 Reference::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, Order order, FunctionPtr ref)
 : TaskDynamicsImpl(order, f, t, rhs)
-{
-  setReference(ref);
-}
+{ setReference(ref); }
 
 void Reference::Impl::updateValue() { value_ = ref_->value(); }
 

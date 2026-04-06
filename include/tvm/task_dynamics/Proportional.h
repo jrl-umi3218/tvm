@@ -47,9 +47,7 @@ public:
      */
     template<typename T>
     const T & gain() const
-    {
-      return mpark::get<T>(kp_);
-    }
+    { return mpark::get<T>(kp_); }
     /** Get the current gain (non-const version).
      * \warning No check is made if you change the gain. It is your responsibility
      * to ensure that its values and its \a size are correct.
@@ -63,9 +61,7 @@ public:
      */
     template<typename T>
     T & gain()
-    {
-      return mpark::get<T>(kp_);
-    }
+    { return mpark::get<T>(kp_); }
 
   private:
     Gain kp_;

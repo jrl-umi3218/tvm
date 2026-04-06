@@ -101,9 +101,7 @@ inline const Eigen::VectorXd & Function::velocity() const { return velocity_; }
 inline const Eigen::VectorXd & Function::normalAcceleration() const { return normalAcceleration_; }
 
 inline MatrixConstRef Function::JDot(const Variable & x) const
-{
-  return JDot_.at(&x, tvm::utils::internal::with_sub{});
-}
+{ return JDot_.at(&x, tvm::utils::internal::with_sub{}); }
 
 } // namespace abstract
 

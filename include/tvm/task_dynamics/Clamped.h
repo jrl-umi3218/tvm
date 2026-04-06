@@ -108,9 +108,7 @@ protected:
   std::unique_ptr<abstract::TaskDynamicsImpl> impl_(FunctionPtr f,
                                                     constraint::Type t,
                                                     const Eigen::VectorXd & rhs) const override
-  {
-    return TD::template impl_<Impl>(f, t, rhs, min_, max_);
-  }
+  { return TD::template impl_<Impl>(f, t, rhs, min_, max_); }
 
   COMPOSABLE_TASK_DYNAMICS_DERIVED_FACTORY(TD, min_, max_)
 

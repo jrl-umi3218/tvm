@@ -52,9 +52,7 @@ public:
       // clang-format on
     }
     inline bool operator==(const Id & rhs) const
-    {
-      return (r1 == rhs.r1 && f1 == rhs.f1 && r2 == rhs.r2 && f2 == rhs.f2 && ambiguityId == rhs.ambiguityId);
-    }
+    { return (r1 == rhs.r1 && f1 == rhs.f1 && r2 == rhs.r2 && f2 == rhs.f2 && ambiguityId == rhs.ambiguityId); }
   };
 
   /** Allows to view a contact from one frame perspective */

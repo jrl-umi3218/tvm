@@ -45,18 +45,14 @@ struct DisabledUpdateInputDependency : public tvm::graph::abstract::Node<Disable
   SET_UPDATES(DisabledUpdateInputDependency, U0)
   DISABLE_UPDATES(Update::U0)
   DisabledUpdateInputDependency(std::shared_ptr<DisabledOutput> s)
-  {
-    addInputDependency(Update::U0, s, DisabledOutput::Output::O1);
-  }
+  { addInputDependency(Update::U0, s, DisabledOutput::Output::O1); }
 };
 
 struct DisabledOutputInputDependency : public tvm::graph::abstract::Node<DisabledOutputInputDependency>
 {
   SET_UPDATES(DisabledOutputInputDependency, U0)
   DisabledOutputInputDependency(std::shared_ptr<DisabledOutput> s)
-  {
-    addInputDependency(Update::U0, s, DisabledOutput::Output::O0);
-  }
+  { addInputDependency(Update::U0, s, DisabledOutput::Output::O0); }
 };
 
 #define TEST(T, ...)                                                     \

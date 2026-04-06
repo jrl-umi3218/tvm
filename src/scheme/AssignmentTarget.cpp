@@ -73,19 +73,13 @@ MatrixRef AssignmentTarget::A(int colStart, int colDim) const
 MatrixRef AssignmentTarget::Q() const { return Q_; }
 
 VectorRef AssignmentTarget::l() const
-{
-  return VectorRef(static_cast<VectorRef>(l_).segment(range_->start, range_->dim));
-}
+{ return VectorRef(static_cast<VectorRef>(l_).segment(range_->start, range_->dim)); }
 
 VectorRef AssignmentTarget::u() const
-{
-  return VectorRef(static_cast<VectorRef>(u_).segment(range_->start, range_->dim));
-}
+{ return VectorRef(static_cast<VectorRef>(u_).segment(range_->start, range_->dim)); }
 
 VectorRef AssignmentTarget::b() const
-{
-  return VectorRef(static_cast<VectorRef>(b_).segment(range_->start, range_->dim));
-}
+{ return VectorRef(static_cast<VectorRef>(b_).segment(range_->start, range_->dim)); }
 
 VectorRef AssignmentTarget::q() const { return q_; }
 

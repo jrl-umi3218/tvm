@@ -40,9 +40,7 @@ public:
 private:
   template<typename Derived>
   bool eq(const DenseBase<Derived> & other) const
-  {
-    return value_.isApprox(other, epsilon_);
-  }
+  { return value_.isApprox(other, epsilon_); }
 
   double epsilon_;
   const Ref<const MatrixXd> & value_;

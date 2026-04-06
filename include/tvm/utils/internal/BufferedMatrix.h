@@ -50,14 +50,10 @@ private:
 inline BufferedMatrix::BufferedMatrix(Eigen::DenseIndex m, Eigen::DenseIndex n) { resize(m, n); }
 
 inline Eigen::Map<const Eigen::MatrixXd, Eigen::Aligned> BufferedMatrix::get() const
-{
-  return Eigen::Map<const Eigen::MatrixXd, Eigen::Aligned>(buffer_.data(), m_, n_);
-}
+{ return Eigen::Map<const Eigen::MatrixXd, Eigen::Aligned>(buffer_.data(), m_, n_); }
 
 inline Eigen::Map<Eigen::MatrixXd, Eigen::Aligned> BufferedMatrix::get()
-{
-  return Eigen::Map<Eigen::MatrixXd, Eigen::Aligned>(buffer_.data(), m_, n_);
-}
+{ return Eigen::Map<Eigen::MatrixXd, Eigen::Aligned>(buffer_.data(), m_, n_); }
 
 inline void BufferedMatrix::resize(Eigen::DenseIndex m, Eigen::DenseIndex n)
 {

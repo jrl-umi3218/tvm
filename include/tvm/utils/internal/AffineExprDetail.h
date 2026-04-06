@@ -31,16 +31,12 @@ public:
 /** Adding an absent constant part with an existing constant part. */
 template<typename RhsType>
 inline const RhsType & operator+(const NoConstant &, const Eigen::MatrixBase<RhsType> & rhs)
-{
-  return rhs.derived();
-}
+{ return rhs.derived(); }
 
 /** Adding an existing constant part with an absent constant part. */
 template<typename LhsType>
 inline const LhsType & operator+(const Eigen::MatrixBase<LhsType> & lhs, const NoConstant &)
-{
-  return lhs.derived();
-}
+{ return lhs.derived(); }
 
 /** Adding two absent constant parts. */
 inline auto operator+(const NoConstant &, const NoConstant &) { return NoConstant(); }
@@ -48,9 +44,7 @@ inline auto operator+(const NoConstant &, const NoConstant &) { return NoConstan
 /** Overload for post-multiplying by NoConstant. In this case, we need to return NoConstant.*/
 template<typename MultType>
 inline NoConstant operator*(const MultType & /*m*/, const NoConstant &)
-{
-  return {};
-}
+{ return {}; }
 
 /** Shortcut to an internal Eigen type to store expressions or matrices.
  *
@@ -85,18 +79,14 @@ using AddConstantsRetType =
  */
 template<typename Tuple, size_t... Indices>
 auto tupleUnaryMinus(const Tuple & tuple, std::index_sequence<Indices...>)
-{
-  return std::make_tuple((-std::get<Indices>(tuple))...);
-}
+{ return std::make_tuple((-std::get<Indices>(tuple))...); }
 
 /** Premultiplication by m of each element i of the input tuple where the i's
  * are the elements given by the sequence of index.
  */
 template<typename MultType, typename Tuple, size_t... Indices>
 auto tuplePremult(const MultType & m, const Tuple & tuple, std::index_sequence<Indices...>)
-{
-  return std::make_tuple((m * std::get<Indices>(tuple))...);
-}
+{ return std::make_tuple((m * std::get<Indices>(tuple))...); }
 } // namespace internal
 } // namespace utils
 } // namespace tvm

@@ -80,22 +80,16 @@ public:
    */
   template<typename... Args>
   SolvingRequirementsBase(const Args &... args)
-  {
-    build(args...);
-  }
+  { build(args...); }
 
 private:
   template<typename T, typename Arg0, typename... Args>
   static constexpr bool check_args()
-  {
-    return std::is_same<T, Arg0>::value || check_args<T, Args...>();
-  }
+  { return std::is_same<T, Arg0>::value || check_args<T, Args...>(); }
 
   template<typename T>
   static constexpr bool check_args()
-  {
-    return false;
-  }
+  { return false; }
 
   ADD_REQUIREMENT(PriorityLevelBase, priorityLevel, priority_)
   ADD_REQUIREMENT(WeightBase, weight, weight_)

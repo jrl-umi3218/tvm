@@ -229,9 +229,7 @@ void Difference::updateJacobian()
 void Difference::updateVelocity() { velocity_ = f_->velocity() - g_->velocity(); }
 
 void Difference::updateNormalAcceleration()
-{
-  normalAcceleration_ = f_->normalAcceleration() - g_->normalAcceleration();
-}
+{ normalAcceleration_ = f_->normalAcceleration() - g_->normalAcceleration(); }
 
 void Difference::updateJDot()
 {

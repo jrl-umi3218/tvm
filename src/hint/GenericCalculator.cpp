@@ -20,9 +20,7 @@ std::unique_ptr<abstract::SubstitutionCalculatorImpl> GenericCalculator::impl_(
     const std::vector<LinearConstraintPtr> & cstr,
     const std::vector<VariablePtr> & x,
     int rank) const
-{
-  return std::unique_ptr<abstract::SubstitutionCalculatorImpl>(new GenericCalculator::Impl(cstr, x, rank));
-}
+{ return std::unique_ptr<abstract::SubstitutionCalculatorImpl>(new GenericCalculator::Impl(cstr, x, rank)); }
 
 GenericCalculator::Impl::Impl(const std::vector<LinearConstraintPtr> & cstr,
                               const std::vector<VariablePtr> & x,

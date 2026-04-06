@@ -92,13 +92,9 @@ protected:
         return {MatrixProperties::Constness(p.isConstant())};
     }
     static Type get(MatrixWithProperties & M, const Range & r)
-    {
-      return {M.middleCols(r.start, r.dim), M.properties()};
-    }
+    { return {M.middleCols(r.start, r.dim), M.properties()}; }
     static ConstType get(const MatrixWithProperties & M, const Range & r)
-    {
-      return {M.middleCols(r.start, r.dim), slice(M.properties())};
-    }
+    { return {M.middleCols(r.start, r.dim), slice(M.properties())}; }
   };
 
   /** Constructor for a function/constraint with value in \f$ \mathbb{R}^m \f$.
@@ -176,9 +172,7 @@ protected:
 
   /** Overload for VariableVector operations */
   inline void splitJacobian(const MatrixConstRef & J, const VariableVector & vars, bool keepProperties = false)
-  {
-    splitJacobian(J, vars.variables(), keepProperties);
-  }
+  { splitJacobian(J, vars.variables(), keepProperties); }
 
   // cache
   Eigen::VectorXd value_;
@@ -196,14 +190,10 @@ protected:
 inline const Eigen::VectorXd & FirstOrderProvider::value() const { return value_; }
 
 inline MatrixConstRefWithProperties FirstOrderProvider::jacobian(const Variable & x) const
-{
-  return jacobian_.at(&x, tvm::utils::internal::with_sub{});
-}
+{ return jacobian_.at(&x, tvm::utils::internal::with_sub{}); }
 
 inline bool FirstOrderProvider::linearIn(const Variable & x) const
-{
-  return linear_.at(&x, tvm::utils::internal::with_sub{});
-}
+{ return linear_.at(&x, tvm::utils::internal::with_sub{}); }
 
 inline const Space & FirstOrderProvider::imageSpace() const { return imageSpace_; }
 

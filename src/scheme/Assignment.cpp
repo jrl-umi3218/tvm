@@ -50,14 +50,10 @@ Assignment::Assignment(LinearConstraintPtr source,
 Assignment Assignment::reprocess(const Assignment & other,
                                  const VariableVector & variables,
                                  const hint::internal::Substitutions * const subs)
-{
-  return Assignment(other.source_, other.requirements_, other.target_, variables, subs, other.scalarizationWeight_);
-}
+{ return Assignment(other.source_, other.requirements_, other.target_, variables, subs, other.scalarizationWeight_); }
 
 Assignment Assignment::reprocess(const Assignment & other, const VariablePtr & x, bool first)
-{
-  return Assignment(other.source_, other.target_, x, first);
-}
+{ return Assignment(other.source_, other.target_, x, first); }
 
 AssignmentTarget & Assignment::target(IWontForgetToCallUpdates) { return target_; }
 
@@ -525,9 +521,7 @@ void Assignment::addAssignments(const VariableVector & variables,
                                 RHSFunction f,
                                 VectorFunction v,
                                 bool flip)
-{
-  addAssignments(variables, M, f, v, nullptr, nullptr, flip);
-}
+{ addAssignments(variables, M, f, v, nullptr, nullptr, flip); }
 
 void Assignment::addAssignments(const VariableVector & variables,
                                 MatrixFunction M,
@@ -535,9 +529,7 @@ void Assignment::addAssignments(const VariableVector & variables,
                                 VectorFunction v1,
                                 RHSFunction f2,
                                 VectorFunction v2)
-{
-  addAssignments(variables, M, f1, v1, f2, v2, false);
-}
+{ addAssignments(variables, M, f1, v1, f2, v2, false); }
 
 void Assignment::addAssignments(const VariableVector & variables,
                                 MatrixFunction M,

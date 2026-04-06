@@ -153,9 +153,7 @@ inline VectorConstRef retrieveSource(LinearConstraintPtr, const VectorConstRef &
  * source vector, where the argument is a method returning the vector.
  */
 inline VectorConstRef retrieveSource(LinearConstraintPtr s, const Assignment::RHSFunction & f)
-{
-  return (s.get()->*f)();
-}
+{ return (s.get()->*f)(); }
 
 /** Helper function for addVectorAssignment and addConstantAssignment
  * returning the Eigen::Ref to the target vector, where the argument is the

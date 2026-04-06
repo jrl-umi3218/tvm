@@ -120,14 +120,10 @@ void Variable::setZero() { value_.setZero(); }
 int Variable::derivativeNumber() const { return derivativeNumber_; }
 
 bool Variable::isDerivativeOf(const Variable & v) const
-{
-  return basePrimitive() == v.basePrimitive() && derivativeNumber_ > v.derivativeNumber();
-}
+{ return basePrimitive() == v.basePrimitive() && derivativeNumber_ > v.derivativeNumber(); }
 
 bool Variable::isPrimitiveOf(const Variable & v) const
-{
-  return basePrimitive() == v.basePrimitive() && derivativeNumber_ < v.derivativeNumber();
-}
+{ return basePrimitive() == v.basePrimitive() && derivativeNumber_ < v.derivativeNumber(); }
 
 bool Variable::isBasePrimitive() const { return derivativeNumber_ == 0; }
 
@@ -182,19 +178,13 @@ Range Variable::tSubvariableRange() const
 }
 
 bool Variable::contains(const Variable & v) const
-{
-  return superVariable() == v.superVariable() && subvariableRange().contains(v.subvariableRange());
-}
+{ return superVariable() == v.superVariable() && subvariableRange().contains(v.subvariableRange()); }
 
 bool Variable::intersects(const Variable & v) const
-{
-  return superVariable() == v.superVariable() && subvariableRange().intersects(v.subvariableRange());
-}
+{ return superVariable() == v.superVariable() && subvariableRange().intersects(v.subvariableRange()); }
 
 VariablePtr Variable::subvariable(Space space, std::string_view baseName, Space shift) const
-{
-  return subvariable(space, baseName, shift, false);
-}
+{ return subvariable(space, baseName, shift, false); }
 
 VariablePtr Variable::subvariable(Space space, Space shift) const { return subvariable(space, "", shift, true); }
 
@@ -214,9 +204,7 @@ Variable::Variable(const Space & s, std::string_view name)
 : name_(name), space_(s), shift_(0), memory_(new double[s.rSize()]),
   value_(Eigen::Map<Eigen::VectorXd>(memory_, s.rSize())), derivativeNumber_(0), primitive_(nullptr),
   superVariable_(nullptr), derivative_(nullptr), startIn_()
-{
-  value_.setZero();
-}
+{ value_.setZero(); }
 
 Variable::Variable(Variable * var, bool autoName)
 : space_(var->space_), shift_(var->shift_), memory_(var->isSubvariable() ? nullptr : new double[var->space_.tSize()]),

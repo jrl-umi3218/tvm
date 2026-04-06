@@ -86,9 +86,7 @@ inline const Eigen::VectorXd & TaskDynamicsImpl::rhs() const { return rhs_; }
 
 template<typename T>
 inline bool TaskDynamicsImpl::checkType() const
-{
-  return dynamic_cast<const T *>(this) != nullptr;
-}
+{ return dynamic_cast<const T *>(this) != nullptr; }
 
 } // namespace abstract
 

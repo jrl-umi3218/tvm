@@ -53,9 +53,7 @@ std::false_type is_output_selector_impl(...);
  */
 template<typename T>
 constexpr bool is_output_selector()
-{
-  return decltype(is_output_selector_impl(std::declval<const T &>()))::value;
-}
+{ return decltype(is_output_selector_impl(std::declval<const T &>()))::value; }
 
 /** This class adds to its template argument the capability to enable or
  * disable some of its outputs.

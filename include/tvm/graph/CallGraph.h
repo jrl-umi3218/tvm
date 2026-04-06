@@ -47,9 +47,7 @@ protected:
   struct CompareCall
   {
     bool operator()(const Call & c1, const Call & c2) const
-    {
-      return (c1.node < c2.node) || (c1.node == c2.node && c1.id < c2.id);
-    }
+    { return (c1.node < c2.node) || (c1.node == c2.node && c1.id < c2.id); }
   };
 
   /** An execution plan built from the graph */
