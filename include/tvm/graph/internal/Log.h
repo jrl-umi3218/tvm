@@ -30,32 +30,24 @@ class Inputs;
  */
 template<typename ObjType, typename MemberType, typename... Args>
 bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::* member, Args &&... args)
-{
-  return (l.*member) < (r.*member) || ((l.*member == r.*member) && lexLess(l, r, std::forward<Args>(args)...));
-}
+{ return (l.*member) < (r.*member) || ((l.*member == r.*member) && lexLess(l, r, std::forward<Args>(args)...)); }
 
 /** Equality comparison of two objects given an ordered list of the members
  * to compare.
  */
 template<typename ObjType, typename MemberType, typename... Args>
 bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::* member, Args &&... args)
-{
-  return (l.*member == r.*member) && eq(l, r, std::forward<Args>(args)...);
-}
+{ return (l.*member == r.*member) && eq(l, r, std::forward<Args>(args)...); }
 
 /** End of recursion. */
 template<typename ObjType, typename MemberType>
 bool lexLess(const ObjType & l, const ObjType & r, MemberType ObjType::* member)
-{
-  return (l.*member) < (r.*member);
-}
+{ return (l.*member) < (r.*member); }
 
 /** End of recursion. */
 template<typename ObjType, typename MemberType>
 bool eq(const ObjType & l, const ObjType & r, MemberType ObjType::* member)
-{
-  return (l.*member) == (r.*member);
-}
+{ return (l.*member) == (r.*member); }
 
 /** A data structure, used by Logger to log the inputs, outputs, updates and
  * dependencies that are declared at runtime.
@@ -102,13 +94,9 @@ public:
     std::uintptr_t function; // address of the update function
     Pointer owner;           // address of the instance registering the update
     bool operator<(const Update & other) const
-    {
-      return lexLess(*this, other, &Update::owner, &Update::id, &Update::function);
-    }
+    { return lexLess(*this, other, &Update::owner, &Update::id, &Update::function); }
     bool operator==(const Update & other) const
-    {
-      return eq(*this, other, &Update::owner, &Update::id, &Update::function);
-    }
+    { return eq(*this, other, &Update::owner, &Update::id, &Update::function); }
   };
 
   /** Description of an output. */
@@ -129,9 +117,7 @@ public:
     Pointer source;   // address of the instance providing the input
     Pointer owner;    // address of the instance registering the input
     bool operator<(const Input & other) const
-    {
-      return lexLess(*this, other, &Input::owner, &Input::id, &Input::source);
-    }
+    { return lexLess(*this, other, &Input::owner, &Input::id, &Input::source); }
     bool operator==(const Input & other) const { return eq(*this, other, &Input::owner, &Input::id, &Input::source); }
   };
 
@@ -161,13 +147,9 @@ public:
     EnumValue output; // the output
     Pointer owner;    // address of the instance registering the dependency
     bool operator<(const OutputDependency & other) const
-    {
-      return lexLess(*this, other, &OutputDependency::owner, &OutputDependency::update, &OutputDependency::output);
-    }
+    { return lexLess(*this, other, &OutputDependency::owner, &OutputDependency::update, &OutputDependency::output); }
     bool operator==(const OutputDependency & other) const
-    {
-      return eq(*this, other, &OutputDependency::owner, &OutputDependency::update, &OutputDependency::output);
-    }
+    { return eq(*this, other, &OutputDependency::owner, &OutputDependency::update, &OutputDependency::output); }
   };
 
   /** Description of an update->update dependency. */
@@ -177,13 +159,9 @@ public:
     EnumValue to;   // the depending update
     Pointer owner;  // address of the instance registering the dependency
     bool operator<(const InternalDependency & other) const
-    {
-      return lexLess(*this, other, &InternalDependency::owner, &InternalDependency::from, &InternalDependency::to);
-    }
+    { return lexLess(*this, other, &InternalDependency::owner, &InternalDependency::from, &InternalDependency::to); }
     bool operator==(const InternalDependency & other) const
-    {
-      return eq(*this, other, &InternalDependency::owner, &InternalDependency::from, &InternalDependency::to);
-    }
+    { return eq(*this, other, &InternalDependency::owner, &InternalDependency::from, &InternalDependency::to); }
   };
 
   /** Description of an input->output dependency. */
@@ -274,9 +252,7 @@ private:
 
 template<typename E>
 inline Log::EnumValue::EnumValue(E e) : type(typeid(e)), value(static_cast<int>(e))
-{
-  static_assert(std::is_enum<E>::value, "EnumValue can only be defined for enums.");
-}
+{ static_assert(std::is_enum<E>::value, "EnumValue can only be defined for enums."); }
 
 template<typename T>
 inline Log::Pointer::Pointer(T * p) : type(typeid(*p)), value(reinterpret_cast<std::uintptr_t>(p))

@@ -41,17 +41,13 @@ OneStepToZero::OneStepToZero(Order d, double dt) : d_(d), dt_(dt) { checkParam(d
 std::unique_ptr<abstract::TaskDynamicsImpl> OneStepToZero::impl_(FunctionPtr f,
                                                                  constraint::Type t,
                                                                  const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs, d_, dt_);
-}
+{ return std::make_unique<Impl>(f, t, rhs, d_, dt_); }
 
 Order OneStepToZero::order_() const { return d_; }
 
 OneStepToZero::Impl::Impl(FunctionPtr f, constraint::Type t, const Eigen::VectorXd & rhs, Order d, double dt)
 : TaskDynamicsImpl(d, f, t, rhs), dt_(dt)
-{
-  OneStepToZero::checkParam(d, dt);
-}
+{ OneStepToZero::checkParam(d, dt); }
 
 void OneStepToZero::Impl::updateValue()
 {

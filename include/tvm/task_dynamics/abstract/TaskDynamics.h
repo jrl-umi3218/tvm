@@ -63,9 +63,7 @@ protected:
   template<typename Derived, typename... Args>                                                         \
   std::unique_ptr<tvm::task_dynamics::abstract::TaskDynamicsImpl> impl_(                               \
       tvm::FunctionPtr f, tvm::constraint::Type t, const Eigen::VectorXd & rhs, Args &&... args) const \
-  {                                                                                                    \
-    return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., __VA_ARGS__);             \
-  }
+  { return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., __VA_ARGS__); }
 
 /** This macro can be used to define the derived factory required in
  * TaskDynamics implementation, \p Args are the arguments required by the derived
@@ -74,9 +72,7 @@ protected:
   template<typename Derived, typename... Args>                                                         \
   std::unique_ptr<tvm::task_dynamics::abstract::TaskDynamicsImpl> impl_(                               \
       tvm::FunctionPtr f, tvm::constraint::Type t, const Eigen::VectorXd & rhs, Args &&... args) const \
-  {                                                                                                    \
-    return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)...);                          \
-  }
+  { return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)...); }
 
 /** This macro can be used to define the derived factory required in composable
  * TaskDynamics implementation, \p Args are the arguments required by the derived
@@ -87,6 +83,4 @@ protected:
   template<typename Derived, typename... Args>                                                         \
   std::unique_ptr<tvm::task_dynamics::abstract::TaskDynamicsImpl> impl_(                               \
       tvm::FunctionPtr f, tvm::constraint::Type t, const Eigen::VectorXd & rhs, Args &&... args) const \
-  {                                                                                                    \
-    return T::template impl_<Derived>(f, t, rhs, std::forward<Args>(args)..., __VA_ARGS__);            \
-  }
+  { return T::template impl_<Derived>(f, t, rhs, std::forward<Args>(args)..., __VA_ARGS__); }

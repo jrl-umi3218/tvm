@@ -103,14 +103,10 @@ namespace tvm::diagnostic
 GraphProbe::GraphProbe(const graph::internal::Log & log) : log_(log) { internal::registerDefault(*this); }
 
 std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const graph::CallGraph * const g, bool verbose) const
-{
-  return listOutputVal(log_.subGraph(g).first, verbose);
-}
+{ return listOutputVal(log_.subGraph(g).first, verbose); }
 
 std::vector<GraphProbe::OutputVal> GraphProbe::listOutputVal(const GraphProbe::Output & o, bool verbose) const
-{
-  return listOutputVal(log_.subGraph(o).first, verbose);
-}
+{ return listOutputVal(log_.subGraph(o).first, verbose); }
 
 std::unique_ptr<GraphProbe::ProbeNode> GraphProbe::followUp(
     const Output & o,

@@ -909,9 +909,7 @@ struct StringMakerBase
 {
   template<typename T>
   static String convert(const DOCTEST_REF_WRAP(T))
-  {
-    return "{?}";
-  }
+  { return "{?}"; }
 };
 
 // Vector<int> and various type other than pointer or array.
@@ -942,9 +940,7 @@ struct filldata<const char[N]>
 
 template<typename T>
 void filloss(std::ostream * stream, const T & in)
-{
-  filldata<T>::fill(stream, in);
-}
+{ filldata<T>::fill(stream, in); }
 
 template<typename T, unsigned long N>
 void filloss(std::ostream * stream, const T (&in)[N])
@@ -977,15 +973,11 @@ DOCTEST_INTERFACE String rawMemoryToString(const void * object, unsigned size);
 
 template<typename T>
 String rawMemoryToString(const DOCTEST_REF_WRAP(T) object)
-{
-  return rawMemoryToString(&object, sizeof(object));
-}
+{ return rawMemoryToString(&object, sizeof(object)); }
 
 template<typename T>
 const char * type_to_string()
-{
-  return "<>";
-}
+{ return "<>"; }
 } // namespace detail
 
 template<typename T>
@@ -1017,9 +1009,7 @@ struct StringMaker<R C::*>
 
 template<typename T, typename detail::enable_if<!detail::is_enum<T>::value, bool>::type = true>
 String toString(const DOCTEST_REF_WRAP(T) value)
-{
-  return StringMaker<T>::convert(value);
-}
+{ return StringMaker<T>::convert(value); }
 
 #ifdef DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING
 DOCTEST_INTERFACE String toString(char * in);
@@ -1067,9 +1057,7 @@ public:
   explicit Approx(
       const T & value,
       typename detail::enable_if<std::is_constructible<double, T>::value>::type * = static_cast<T *>(nullptr))
-  {
-    *this = Approx(static_cast<double>(value));
-  }
+  { *this = Approx(static_cast<double>(value)); }
 #endif // DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS
 
   Approx & epsilon(double newEpsilon);
@@ -1306,9 +1294,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(4018) // 'expression' : signed/unsigned mismatch
 #  define DOCTEST_RELATIONAL_OP(name, op)                                                             \
     template<typename L, typename R>                                                                  \
     DOCTEST_COMPARISON_RETURN_TYPE name(const DOCTEST_REF_WRAP(L) lhs, const DOCTEST_REF_WRAP(R) rhs) \
-    {                                                                                                 \
-      return lhs op rhs;                                                                              \
-    }
+    { return lhs op rhs; }
 
 DOCTEST_RELATIONAL_OP(eq, ==)
 DOCTEST_RELATIONAL_OP(ne, !=)
@@ -1414,15 +1400,11 @@ struct DOCTEST_INTERFACE ExpressionDecomposer
   // for now... https://github.com/catchorg/Catch2/issues/870 https://github.com/catchorg/Catch2/issues/565
   template<typename L>
   Expression_lhs<const L> operator<<(const L && operand)
-  {
-    return Expression_lhs<const L>(doctest::detail::forward<const L>(operand), m_at);
-  }
+  { return Expression_lhs<const L>(doctest::detail::forward<const L>(operand), m_at); }
 
   template<typename L, typename enable_if<!doctest::detail::is_rvalue_reference<L>::value, void>::type * = nullptr>
   Expression_lhs<const L &> operator<<(const L & operand)
-  {
-    return Expression_lhs<const L &>(operand, m_at);
-  }
+  { return Expression_lhs<const L &>(operand, m_at); }
 };
 
 struct DOCTEST_INTERFACE TestSuite
@@ -1489,9 +1471,7 @@ DOCTEST_INTERFACE bool isDebuggerActive();
 
 template<typename T>
 int instantiationHelper(const T &)
-{
-  return 0;
-}
+{ return 0; }
 
 namespace binaryAssertComparison
 {
@@ -1688,9 +1668,7 @@ struct StringStreamBase
 {
   template<typename T>
   static void convert(std::ostream * s, const T & in)
-  {
-    *s << toString(in);
-  }
+  { *s << toString(in); }
 
   // always treat char* as a string in this context - no matter
   // if DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING is defined
@@ -1702,9 +1680,7 @@ struct StringStreamBase<true>
 {
   template<typename T>
   static void convert(std::ostream * s, const T & in)
-  {
-    *s << in;
-  }
+  { *s << in; }
 };
 
 template<typename T>
@@ -1713,9 +1689,7 @@ struct StringStream : public StringStreamBase<has_insertion_operator<T>::value>
 
 template<typename T>
 void toStream(std::ostream * s, const T & value)
-{
-  StringStream<T>::convert(s, value);
-}
+{ StringStream<T>::convert(s, value); }
 
 #  ifdef DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING
 DOCTEST_INTERFACE void toStream(std::ostream * s, char * in);
@@ -1793,9 +1767,7 @@ struct DOCTEST_INTERFACE MessageBuilder : public MessageData
   // kept here just for backwards-compatibility - the comma operator should be preferred now
   template<typename T>
   MessageBuilder & operator<<(const T & in)
-  {
-    return this->operator,(in);
-  }
+  { return this->operator,(in); }
 
   // the `,` operator has the lowest operator precedence - if `<<` is used by the user then
   // the `,` operator will be called last which is not what we want and thus the `*` operator
@@ -1803,9 +1775,7 @@ struct DOCTEST_INTERFACE MessageBuilder : public MessageData
   // an operator of the MessageBuilder class is called first before the rest of the parameters
   template<typename T>
   MessageBuilder & operator*(const T & in)
-  {
-    return this->operator,(in);
-  }
+  { return this->operator,(in); }
 
   bool log();
   void react();
@@ -1813,9 +1783,7 @@ struct DOCTEST_INTERFACE MessageBuilder : public MessageData
 
 template<typename L>
 ContextScope<L> MakeContextScope(const L & lambda)
-{
-  return ContextScope<L>(lambda);
-}
+{ return ContextScope<L>(lambda); }
 } // namespace detail
 
 #  define DOCTEST_DEFINE_DECORATOR(name, type, def)                                      \
@@ -1861,9 +1829,7 @@ namespace doctest
 #else  // DOCTEST_CONFIG_DISABLE
 template<typename T>
 int registerExceptionTranslator(String (*)(T))
-{
-  return 0;
-}
+{ return 0; }
 #endif // DOCTEST_CONFIG_DISABLE
 
 namespace detail
@@ -2011,9 +1977,7 @@ DOCTEST_INTERFACE void registerReporterImpl(const char * name, int prio, reporte
 
 template<typename Reporter>
 IReporter * reporterCreator(const ContextOptions & o)
-{
-  return new Reporter(o);
-}
+{ return new Reporter(o); }
 } // namespace detail
 
 template<typename Reporter>
@@ -2114,9 +2078,7 @@ int registerReporter(const char * name, int priority, bool isReporter)
 #  define DOCTEST_TYPE_TO_STRING_IMPL(...)            \
     template<>                                        \
     inline const char * type_to_string<__VA_ARGS__>() \
-    {                                                 \
-      return "<" #__VA_ARGS__ ">";                    \
-    }
+    { return "<" #__VA_ARGS__ ">"; }
 #  define DOCTEST_TYPE_TO_STRING(...)        \
     namespace doctest                        \
     {                                        \
@@ -2669,9 +2631,7 @@ namespace detail
 #    define DOCTEST_RELATIONAL_OP(name, op)                                   \
       template<typename L, typename R>                                        \
       bool name(const DOCTEST_REF_WRAP(L) lhs, const DOCTEST_REF_WRAP(R) rhs) \
-      {                                                                       \
-        return lhs op rhs;                                                    \
-      }
+      { return lhs op rhs; }
 
 DOCTEST_RELATIONAL_OP(eq, ==)
 DOCTEST_RELATIONAL_OP(ne, !=)
@@ -3393,14 +3353,10 @@ public:
   T operator++(int) DOCTEST_NOEXCEPT { return fetch_add(1); }
 
   T fetch_add(T arg, std::memory_order order = std::memory_order_seq_cst) DOCTEST_NOEXCEPT
-  {
-    return myAtomic().fetch_add(arg, order);
-  }
+  { return myAtomic().fetch_add(arg, order); }
 
   T fetch_sub(T arg, std::memory_order order = std::memory_order_seq_cst) DOCTEST_NOEXCEPT
-  {
-    return myAtomic().fetch_sub(arg, order);
-  }
+  { return myAtomic().fetch_sub(arg, order); }
 
   operator T() const DOCTEST_NOEXCEPT { return load(); }
 
@@ -6029,14 +5985,10 @@ struct ConsoleReporter : public IReporter
   }
 
   Color::Enum getSuccessOrFailColor(bool success, assertType::Enum at)
-  {
-    return success ? Color::BrightGreen : (at & assertType::is_warn) ? Color::Yellow : Color::Red;
-  }
+  { return success ? Color::BrightGreen : (at & assertType::is_warn) ? Color::Yellow : Color::Red; }
 
   void successOrFailColoredStringToStream(bool success, assertType::Enum at, const char * success_str = "SUCCESS")
-  {
-    s << getSuccessOrFailColor(success, at) << getSuccessOrFailString(success, at, success_str) << ": ";
-  }
+  { s << getSuccessOrFailColor(success, at) << getSuccessOrFailString(success, at, success_str) << ": "; }
 
   void log_contexts()
   {
@@ -7197,15 +7149,11 @@ IReporter::~IReporter() = default;
 
 int IReporter::get_num_active_contexts() { return detail::g_infoContexts.size(); }
 const IContextScope * const * IReporter::get_active_contexts()
-{
-  return get_num_active_contexts() ? &detail::g_infoContexts[0] : nullptr;
-}
+{ return get_num_active_contexts() ? &detail::g_infoContexts[0] : nullptr; }
 
 int IReporter::get_num_stringified_contexts() { return detail::g_cs->stringifiedContexts.size(); }
 const String * IReporter::get_stringified_contexts()
-{
-  return get_num_stringified_contexts() ? &detail::g_cs->stringifiedContexts[0] : nullptr;
-}
+{ return get_num_stringified_contexts() ? &detail::g_cs->stringifiedContexts[0] : nullptr; }
 
 namespace detail
 {

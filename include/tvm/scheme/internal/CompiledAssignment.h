@@ -96,9 +96,7 @@ class ParseArg_
 public:
   template<typename... Args>
   static typename std::tuple_element<N, std::tuple<Args...>>::type get(Args &&... args)
-  {
-    return std::get<N>(std::forward_as_tuple(args...));
-  }
+  { return std::get<N>(std::forward_as_tuple(args...)); }
 };
 
 /** Helper structure to get no argument in a function call.
@@ -109,9 +107,7 @@ class ParseNoArg_
 public:
   template<typename... Args>
   static NoArg get(Args &&...)
-  {
-    return {};
-  }
+  { return {}; }
 };
 
 /** A helper structure with a static \p get method to retrieve the N-th
@@ -176,9 +172,7 @@ public:
 
   template<typename T>
   const T & cache(const T & M)
-  {
-    return M;
-  }
+  { return M; }
 };
 
 /** Specialization for when a cache is needed.*/
@@ -269,15 +263,11 @@ class AssignBase<COPY>
 public:
   template<typename T, typename U>
   void assign(U & out, const T & in)
-  {
-    out.noalias() = in;
-  }
+  { out.noalias() = in; }
 
   template<typename U>
   void assign(U & out, double in)
-  {
-    out.setConstant(in);
-  }
+  { out.setConstant(in); }
 };
 
 template<>
@@ -286,15 +276,11 @@ class AssignBase<ADD>
 public:
   template<typename T, typename U>
   void assign(U & out, const T & in)
-  {
-    out.noalias() += in;
-  }
+  { out.noalias() += in; }
 
   template<typename U>
   void assign(U & out, double in)
-  {
-    out.array() += in;
-  }
+  { out.array() += in; }
 };
 
 template<>
@@ -303,15 +289,11 @@ class AssignBase<SUB>
 public:
   template<typename T, typename U>
   void assign(U & out, const T & in)
-  {
-    out.noalias() -= in;
-  }
+  { out.noalias() -= in; }
 
   template<typename U>
   void assign(U & out, double in)
-  {
-    out.array() -= in;
-  }
+  { out.array() -= in; }
 };
 
 template<>
@@ -320,15 +302,11 @@ class AssignBase<MIN>
 public:
   template<typename T, typename U>
   void assign(U & out, const T & in)
-  {
-    out.array() = out.array().min(in.array());
-  }
+  { out.array() = out.array().min(in.array()); }
 
   template<typename U>
   void assign(U & out, double in)
-  {
-    out.array() = out.array().min(in);
-  }
+  { out.array() = out.array().min(in); }
 };
 
 template<>
@@ -337,15 +315,11 @@ class AssignBase<MAX>
 public:
   template<typename T, typename U>
   void assign(U & out, const T & in)
-  {
-    out.array() = out.array().max(in.array());
-  }
+  { out.array() = out.array().max(in.array()); }
 
   template<typename U>
   void assign(U & out, double in)
-  {
-    out.array() = out.array().max(in);
-  }
+  { out.array() = out.array().max(in); }
 };
 
 /** Base class for the multiplication by a scalar*/
@@ -364,9 +338,7 @@ public:
 
   template<typename T>
   const T & applyWeightMult(const T & M)
-  {
-    return M;
-  }
+  { return M; }
 };
 
 /** Specialization for MINUS */
@@ -382,25 +354,19 @@ public:
 
   template<typename Derived>
   decltype(-std::declval<Eigen::MatrixBase<Derived>>()) applyWeightMult(const Eigen::MatrixBase<Derived> & M)
-  {
-    return -M;
-  }
+  { return -M; }
 
   /** We need this specialization because, oddly, -(A*B) relies on a temporary evaluation while (-A)*B does not*/
 #if EIGEN_VERSION_AT_LEAST(3, 2, 90)
   template<typename Lhs, typename Rhs, int Option>
   decltype(-(std::declval<Lhs>().lazyProduct(std::declval<Rhs>()))) applyWeightMult(
       const Eigen::Product<Lhs, Rhs, Option> & P)
-  {
-    return -(P.lhs().lazyProduct(P.rhs()));
-  }
+  { return -(P.lhs().lazyProduct(P.rhs())); }
 #else
   template<typename Derived, typename Lhs, typename Rhs>
   decltype((-std::declval<Lhs>())
            * std::declval<Rhs>()) applyWeightMult(const Eigen::ProductBase<Derived, Lhs, Rhs> & P)
-  {
-    return (-P.lhs()) * P.rhs();
-  }
+  { return (-P.lhs()) * P.rhs(); }
 #endif
 };
 
@@ -413,17 +379,13 @@ public:
 
   template<typename T>
   decltype(double() * std::declval<T>()) applyWeightMult(const T & M)
-  {
-    return s_ * M;
-  }
+  { return s_ * M; }
 
 #if EIGEN_VERSION_AT_LEAST(3, 2, 90)
   template<typename Lhs, typename Rhs, int Option>
   decltype(double() * (std::declval<Lhs>().lazyProduct(std::declval<Rhs>()))) applyWeightMult(
       const Eigen::Product<Lhs, Rhs, Option> & P)
-  {
-    return s_ * (P.lhs().lazyProduct(P.rhs()));
-  }
+  { return s_ * (P.lhs().lazyProduct(P.rhs())); }
 #endif
 
 private:
@@ -441,15 +403,11 @@ public:
   using ReturnType = decltype(std::declval<Eigen::Ref<const Eigen::VectorXd>>().asDiagonal() * std::declval<T>());
   template<typename T>
   ReturnType<T> applyWeightMult(const T & M)
-  {
-    return d_.asDiagonal() * M;
-  }
+  { return d_.asDiagonal() * M; }
 
   /** Diagonal * constant vector case*/
   decltype(double() * std::declval<Eigen::Ref<const Eigen::VectorXd>>()) applyWeightMult(const double & d)
-  {
-    return d * d_;
-  }
+  { return d * d_; }
 
 private:
   Eigen::Ref<const Eigen::VectorXd> d_;
@@ -469,9 +427,7 @@ public:
 
   template<typename T>
   const T & applyMatrixMult(const T & M)
-  {
-    return M;
-  }
+  { return M; }
 };
 
 /** Partial specialization for GENERAL*/
@@ -492,21 +448,15 @@ public:
 
   template<typename T>
   typename std::enable_if<isVector<MatrixType>::value, PreType<T>>::type applyMatrixMult(const T & M)
-  {
-    return M_ * M;
-  }
+  { return M_ * M; }
 
   template<typename T>
   typename std::enable_if<!isVector<MatrixType>::value, PostType<T>>::type applyMatrixMult(const T & M)
-  {
-    return M * M_;
-  }
+  { return M * M_; }
 
   template<typename U = MatrixType>
   typename std::enable_if<isVector<U>::value, ConstType>::type applyMatrixMult(const double & d)
-  {
-    return M_ * Eigen::VectorXd::Constant(M_.cols(), d);
-  }
+  { return M_ * Eigen::VectorXd::Constant(M_.cols(), d); }
 
   /** Cached version of applyMatrixMult*/
   template<typename T>
@@ -555,28 +505,20 @@ public:
 
   template<typename T>
   typename std::enable_if<isVector<MatrixType>::value, PreType<T>>::type applyMatrixMult(const T & M)
-  {
-    return M_.diagonal().cwiseInverse().asDiagonal() * M;
-  }
+  { return M_.diagonal().cwiseInverse().asDiagonal() * M; }
 
   template<typename T>
   typename std::enable_if<!isVector<MatrixType>::value, PostType<T>>::type applyMatrixMult(const T & M)
-  {
-    return M * M_.diagonal().cwiseInverse().asDiagonal();
-  }
+  { return M * M_.diagonal().cwiseInverse().asDiagonal(); }
 
   template<typename U = MatrixType>
   typename std::enable_if<isVector<U>::value, ConstType>::type applyMatrixMult(const double & d)
-  {
-    return M_.diagonal().cwiseInverse().asDiagonal() * Eigen::VectorXd::Constant(M_.cols(), d);
-  }
+  { return M_.diagonal().cwiseInverse().asDiagonal() * Eigen::VectorXd::Constant(M_.cols(), d); }
 
   /** Cached version of applyMatrixMult*/
   template<typename T>
   void applyMatrixMultCached(MatrixType & cache, const T & M)
-  {
-    cache.noalias() = applyMatrixMult(M);
-  }
+  { cache.noalias() = applyMatrixMult(M); }
 
 private:
   Eigen::Ref<const Eigen::MatrixXd> M_;
@@ -591,9 +533,7 @@ public:
 
   template<typename T>
   void applyMatrixMultCached(MatrixType & cache, const T & M)
-  {
-    mult_(cache, M);
-  }
+  { mult_(cache, M); }
 
 private:
   void (*mult_)(Eigen::Ref<MatrixType> out, const Eigen::Ref<const MatrixType> & in);
@@ -683,9 +623,7 @@ private:
   CompiledAssignment(const Eigen::Ref<MatrixType> & to, Args &&... args)
   : CBase(to), WBase(WParse::get(std::forward<Args>(args)...)), MBase(MParse::get(std::forward<Args>(args)...)),
     SBase(SParse::get(std::forward<Args>(args)...)), to_(to)
-  {
-    static_assert(!(isMatrix<MatrixType>::value && F == CONSTANT), "Constant source is only for vectors.");
-  }
+  { static_assert(!(isMatrix<MatrixType>::value && F == CONSTANT), "Constant source is only for vectors."); }
 
 public:
   template<typename U = MatrixType>

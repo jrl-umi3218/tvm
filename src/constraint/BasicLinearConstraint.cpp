@@ -102,9 +102,7 @@ BasicLinearConstraint::BasicLinearConstraint(const std::vector<MatrixConstRef> &
 }
 
 BasicLinearConstraint::BasicLinearConstraint(int m, VariablePtr x, Type ct, RHS cr) : LinearConstraint(ct, cr, m)
-{
-  addVariable(x, true);
-}
+{ addVariable(x, true); }
 
 BasicLinearConstraint::BasicLinearConstraint(int m, std::vector<VariablePtr> & x, Type ct, RHS cr)
 : LinearConstraint(ct, cr, m)

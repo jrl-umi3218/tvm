@@ -260,20 +260,14 @@ void LexLSHierarchicalLeastSquareSolver::removeBounds_(const Range & r)
 }
 
 void LexLSHierarchicalLeastSquareSolver::updateEqualityTargetData(int lvl, scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(A_[lvl], l_[lvl], u_[lvl]);
-}
+{ target.changeData(A_[lvl], l_[lvl], u_[lvl]); }
 
 void LexLSHierarchicalLeastSquareSolver::updateInequalityTargetData(int lvl,
                                                                     scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(A_[lvl], l_[lvl], u_[lvl]);
-}
+{ target.changeData(A_[lvl], l_[lvl], u_[lvl]); }
 
 void LexLSHierarchicalLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(VectorRef(xl_), xu_);
-}
+{ target.changeData(VectorRef(xl_), xu_); }
 
 void LexLSHierarchicalLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
 {
@@ -301,14 +295,10 @@ LexLSHLSSolverFactory::LexLSHLSSolverFactory(const LexLSHLSSolverOptions & optio
 {}
 
 std::unique_ptr<abstract::HLSSolverFactory> LexLSHLSSolverFactory::clone() const
-{
-  return std::make_unique<LexLSHLSSolverFactory>(*this);
-}
+{ return std::make_unique<LexLSHLSSolverFactory>(*this); }
 
 std::unique_ptr<abstract::HierarchicalLeastSquareSolver> LexLSHLSSolverFactory::createSolver() const
-{
-  return std::make_unique<LexLSHierarchicalLeastSquareSolver>(options_);
-}
+{ return std::make_unique<LexLSHierarchicalLeastSquareSolver>(options_); }
 } // namespace solver
 
 } // namespace tvm

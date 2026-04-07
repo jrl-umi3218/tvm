@@ -27,30 +27,22 @@ struct EigenApprox
 
   template<typename Other>
   bool operator==(const Eigen::EigenBase<Other> & other) const
-  {
-    return other.derived().isApprox(value_.derived());
-  }
+  { return other.derived().isApprox(value_.derived()); }
 
   const Eigen::EigenBase<Derived> & value_;
 };
 
 template<typename LHS, typename RHS>
 bool operator==(const Eigen::EigenBase<LHS> & lhs, const EigenApprox<RHS> & rhs)
-{
-  return rhs == lhs;
-}
+{ return rhs == lhs; }
 
 template<typename Derived>
 std::ostream & operator<<(std::ostream & os, const EigenApprox<Derived> & v)
-{
-  return os << v.value_.derived();
-}
+{ return os << v.value_.derived(); }
 
 template<typename Derived>
 auto makeApprox(const Eigen::EigenBase<Derived> & value)
-{
-  return EigenApprox<Derived>(value);
-}
+{ return EigenApprox<Derived>(value); }
 
 #  define APPROX_I386(x) makeApprox(x)
 #else

@@ -63,9 +63,7 @@ public:
    */
   VariableVectorPartition(const VarVector & v, const VariableCountingVector & partition)
   : var_(v), partition_(partition.variables())
-  {
-    assert(partition.split());
-  }
+  { assert(partition.split()); }
 
   class iterator
   {

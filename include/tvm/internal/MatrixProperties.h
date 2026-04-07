@@ -166,15 +166,11 @@ private:
   private:
     template<typename T, typename Arg0, typename... Args>
     static constexpr bool check_args()
-    {
-      return std::is_same<T, Arg0>::value || check_args<T, Args...>();
-    }
+    { return std::is_same<T, Arg0>::value || check_args<T, Args...>(); }
 
     template<typename T>
     static constexpr bool check_args()
-    {
-      return false;
-    }
+    { return false; }
   };
 
   void build(const Arguments & args, const std::pair<bool, bool> & checks);
@@ -241,25 +237,19 @@ inline bool MatrixProperties::isZero() const { return shape_ == Shape::ZERO; }
 inline bool MatrixProperties::isSymmetric() const { return symmetric_; }
 
 inline bool MatrixProperties::isPositiveSemiDefinite() const
-{
-  return positiveness_ == Positiveness::POSITIVE_SEMIDEFINITE || isPositiveDefinite() || isZero();
-}
+{ return positiveness_ == Positiveness::POSITIVE_SEMIDEFINITE || isPositiveDefinite() || isZero(); }
 
 inline bool MatrixProperties::isPositiveDefinite() const { return positiveness_ == Positiveness::POSITIVE_DEFINITE; }
 
 inline bool MatrixProperties::isNegativeSemidefinite() const
-{
-  return positiveness_ == Positiveness::NEGATIVE_SEMIDEFINITE || isNegativeDefinite() || isZero();
-}
+{ return positiveness_ == Positiveness::NEGATIVE_SEMIDEFINITE || isNegativeDefinite() || isZero(); }
 
 inline bool MatrixProperties::isNegativeDefinite() const { return positiveness_ == Positiveness::NEGATIVE_DEFINITE; }
 
 inline bool MatrixProperties::isIndefinite() const { return positiveness_ != Positiveness::NA; }
 
 inline bool MatrixProperties::isNonZeroIndefinite() const
-{
-  return positiveness_ == Positiveness::NON_ZERO_INDEFINITE || isPositiveDefinite() || isNegativeDefinite();
-}
+{ return positiveness_ == Positiveness::NON_ZERO_INDEFINITE || isPositiveDefinite() || isNegativeDefinite(); }
 
 } // namespace internal
 

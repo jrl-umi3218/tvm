@@ -258,16 +258,12 @@ void SubstitutionUnit::update()
 const std::vector<VariablePtr> & SubstitutionUnit::variables() const { return x_.variables(); }
 
 const std::vector<std::shared_ptr<function::BasicLinearFunction>> & SubstitutionUnit::variableSubstitutions() const
-{
-  return varSubstitutions_;
-}
+{ return varSubstitutions_; }
 
 const std::vector<VariablePtr> & SubstitutionUnit::additionalVariables() const { return z_.variables(); }
 
 const std::vector<std::shared_ptr<constraint::BasicLinearConstraint>> & SubstitutionUnit::additionalConstraints() const
-{
-  return remaining_;
-}
+{ return remaining_; }
 
 const std::vector<VariablePtr> & SubstitutionUnit::otherVariables() const { return y_.variables(); }
 

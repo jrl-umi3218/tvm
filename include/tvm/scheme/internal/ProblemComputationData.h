@@ -161,9 +161,7 @@ inline void ProblemComputationData::addEvent(const ProblemDefinitionEvent & e)
 inline bool ProblemComputationData::hasEvents() const { return !events_.empty(); }
 
 inline const ProblemComputationData::EventQueue::container_type & ProblemComputationData::events() const
-{
-  return events_.c;
-}
+{ return events_.c; }
 
 inline void ProblemComputationData::clearEvents() { events_ = {}; }
 

@@ -182,14 +182,10 @@ BetterKinematicLinearizedConstraint::BetterKinematicLinearizedConstraint(const s
 }
 
 Dummy<int(BetterLinearConstraint::Output::b)> BetterKinematicLinearizedConstraint::b() const
-{
-  return static_cast<int>(function_->value());
-}
+{ return static_cast<int>(function_->value()); }
 
 Dummy<int(BetterLinearConstraint::Output::A)> BetterKinematicLinearizedConstraint::A() const
-{
-  return static_cast<int>(function_->jacobian());
-}
+{ return static_cast<int>(function_->jacobian()); }
 
 BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::string & name,
                                                                      std::shared_ptr<FunctionMockup> function)
@@ -209,9 +205,7 @@ BetterDynamicLinearizedConstraint::BetterDynamicLinearizedConstraint(const std::
 }
 
 Dummy<int(BetterLinearConstraint::Output::A)> BetterDynamicLinearizedConstraint::A() const
-{
-  return static_cast<int>(function_->jacobian());
-}
+{ return static_cast<int>(function_->jacobian()); }
 
 void BetterDynamicLinearizedConstraint::updateb()
 {

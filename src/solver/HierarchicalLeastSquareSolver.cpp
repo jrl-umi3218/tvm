@@ -172,19 +172,13 @@ int HierarchicalLeastSquareSolver::constraintSize(const constraint::abstract::Li
 }
 
 void HierarchicalLeastSquareSolver::process(const internal::SolverEvents & se)
-{
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::process] Not implemented yet");
-}
+{ throw std::runtime_error("[HierarchicalLeastSquareSolver::process] Not implemented yet"); }
 
 void HierarchicalLeastSquareSolver::updateWeights(const internal::SolverEvents & se)
-{
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::updateWeights] Not implemented yet");
-}
+{ throw std::runtime_error("[HierarchicalLeastSquareSolver::updateWeights] Not implemented yet"); }
 
 bool HierarchicalLeastSquareSolver::updateVariables(const internal::SolverEvents & se)
-{
-  return (!se.removedVariables().empty() || !se.addedVariables().empty()) || se.hasHiddenVariableChange();
-}
+{ return (!se.removedVariables().empty() || !se.addedVariables().empty()) || se.hasHiddenVariableChange(); }
 
 HierarchicalLeastSquareSolver::ImpactFromChanges HierarchicalLeastSquareSolver::processRemovedConstraints(
     const internal::SolverEvents & se)
@@ -201,9 +195,7 @@ HierarchicalLeastSquareSolver::ImpactFromChanges HierarchicalLeastSquareSolver::
 }
 
 void HierarchicalLeastSquareSolver::processAddedConstraints(const internal::SolverEvents & se)
-{
-  throw std::runtime_error("[HierarchicalLeastSquareSolver::processAddedConstraints] Not implemented yet");
-}
+{ throw std::runtime_error("[HierarchicalLeastSquareSolver::processAddedConstraints] Not implemented yet"); }
 
 HierarchicalLeastSquareSolver::ImpactFromChanges::ImpactFromChanges(int nLvl)
 : equalityConstraints_(nLvl, false), inequalityConstraints_(nLvl, false)

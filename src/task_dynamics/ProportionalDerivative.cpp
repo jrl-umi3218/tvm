@@ -57,9 +57,7 @@ ProportionalDerivative::ProportionalDerivative(const Eigen::MatrixXd & kp)
 std::unique_ptr<abstract::TaskDynamicsImpl> ProportionalDerivative::impl_(FunctionPtr f,
                                                                           constraint::Type t,
                                                                           const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs, kp_, kv_);
-}
+{ return std::make_unique<Impl>(f, t, rhs, kp_, kv_); }
 
 Order ProportionalDerivative::order_() const { return Order::Two; }
 

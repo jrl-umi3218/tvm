@@ -15,9 +15,7 @@ namespace task_dynamics
 std::unique_ptr<abstract::TaskDynamicsImpl> None::impl_(FunctionPtr f,
                                                         constraint::Type t,
                                                         const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs);
-}
+{ return std::make_unique<Impl>(f, t, rhs); }
 
 Order None::order_() const { return Order::Zero; }
 

@@ -43,18 +43,14 @@ class TemplatedClassD3 : public TemplatedClassD1<int>
 // function accepting int and Eigen::MatrixXd
 template<typename T, enable_for_t<T, int, Eigen::MatrixXd> = 0>
 constexpr std::true_type testSimple(const T &)
-{
-  return {};
-}
+{ return {}; }
 // Fallback version
 constexpr std::false_type testSimple(...) { return {}; }
 
 // function accepting Eigen::MatrixBase, tvm::utils::LinearExpr, tvm::utils::AffineExpr
 template<typename T, enable_for_templated_t<T, Eigen::MatrixBase, TemplatedClass> = 0>
 constexpr std::true_type testTemplate(const T &)
-{
-  return {};
-}
+{ return {}; }
 // Fallback version
 constexpr std::false_type testTemplate(...) { return {}; }
 

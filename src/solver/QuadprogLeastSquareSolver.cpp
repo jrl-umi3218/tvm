@@ -216,20 +216,14 @@ bool QuadprogLeastSquareSolver::solve_()
 const Eigen::VectorXd & QuadprogLeastSquareSolver::result_() const { return qpd_.result(); }
 
 Range QuadprogLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_, cstr.size()};
-}
+{ return {eqSize_, cstr.size()}; }
 
 Range QuadprogLeastSquareSolver::nextInequalityConstraintRange_(
     const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {ineqSize_, constraintSize(cstr)};
-}
+{ return {ineqSize_, constraintSize(cstr)}; }
 
 Range QuadprogLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {objSize_, cstr.size()};
-}
+{ return {objSize_, cstr.size()}; }
 
 void QuadprogLeastSquareSolver::removeBounds_(const Range & range)
 {
@@ -238,24 +232,16 @@ void QuadprogLeastSquareSolver::removeBounds_(const Range & range)
 }
 
 void QuadprogLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(A_), b_);
-}
+{ target.changeData(MatrixRef(A_), b_); }
 
 void QuadprogLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(Aineq_), bineq_);
-}
+{ target.changeData(MatrixRef(Aineq_), bineq_); }
 
 void QuadprogLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(VectorRef(xl_), xu_);
-}
+{ target.changeData(VectorRef(xl_), xu_); }
 
 void QuadprogLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(D_), e_);
-}
+{ target.changeData(MatrixRef(D_), e_); }
 
 void QuadprogLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
 {
@@ -281,23 +267,17 @@ void QuadprogLeastSquareSolver::printProblemData_() const
 }
 
 void QuadprogLeastSquareSolver::printDiagnostic_() const
-{
-  std::cout << "Quadprog fail code = " << qpd_.fail() << " (0 is success)" << std::endl;
-}
+{ std::cout << "Quadprog fail code = " << qpd_.fail() << " (0 is success)" << std::endl; }
 
 std::unique_ptr<abstract::LSSolverFactory> QuadprogLSSolverFactory::clone() const
-{
-  return std::make_unique<QuadprogLSSolverFactory>(*this);
-}
+{ return std::make_unique<QuadprogLSSolverFactory>(*this); }
 
 QuadprogLSSolverFactory::QuadprogLSSolverFactory(const QuadprogLSSolverOptions & options)
 : LSSolverFactory("quadprog"), options_(options)
 {}
 
 std::unique_ptr<abstract::LeastSquareSolver> QuadprogLSSolverFactory::createSolver() const
-{
-  return std::make_unique<QuadprogLeastSquareSolver>(options_);
-}
+{ return std::make_unique<QuadprogLeastSquareSolver>(options_); }
 } // namespace solver
 
 } // namespace tvm

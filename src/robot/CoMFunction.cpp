@@ -40,9 +40,7 @@ void CoMFunction::updateVelocity() { velocity_ = jac_.velocity(robot_->mb(), rob
 void CoMFunction::updateJacobian() { splitJacobian(jac_.jacobian(robot_->mb(), robot_->mbc()), robot_->q()); }
 
 void CoMFunction::updateNormalAcceleration()
-{
-  normalAcceleration_ = jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB());
-}
+{ normalAcceleration_ = jac_.normalAcceleration(robot_->mb(), robot_->mbc(), robot_->normalAccB()); }
 
 void CoMFunction::updateJDot() { splitJacobian(jac_.jacobianDot(robot_->mb(), robot_->mbc()), robot_->q()); }
 

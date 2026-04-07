@@ -33,15 +33,11 @@ public:
 
   ProblemDefinitionEvent(Type type, const TaskWithRequirements & emitter)
   : type_(type), emitter_(static_cast<void const *>(&emitter))
-  {
-    assert(type <= Type::TaskRemoval);
-  }
+  { assert(type <= Type::TaskRemoval); }
 
   ProblemDefinitionEvent(Type type, hint::Substitution const * emitter)
   : type_(type), emitter_(static_cast<void const *>(emitter))
-  {
-    assert(type == Type::SubstitutionAddition || type == Type::SubstitutionRemoval);
-  }
+  { assert(type == Type::SubstitutionAddition || type == Type::SubstitutionRemoval); }
 
   ProblemDefinitionEvent(const ProblemDefinitionEvent &) = default;
   ProblemDefinitionEvent(ProblemDefinitionEvent &&) = default;
@@ -52,9 +48,7 @@ public:
   void const * emitter() const { return emitter_; }
   template<Type t>
   const auto & typedEmitter() const
-  {
-    return *static_cast<EmitterType<t> const *>(emitter_);
-  }
+  { return *static_cast<EmitterType<t> const *>(emitter_); }
 
 private:
   Type type_;

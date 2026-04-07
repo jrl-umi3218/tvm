@@ -133,9 +133,7 @@ inline Inputs::Iterator Inputs::getInput(T * source)
 
 template<typename T>
 inline Inputs::Iterator Inputs::getInput(const std::shared_ptr<T> & source)
-{
-  return getInput(source.get());
-}
+{ return getInput(source.get()); }
 
 } // namespace internal
 

@@ -322,14 +322,10 @@ inline Eigen::CommaInitializer<VectorRef> Variable::operator<<(double d) { retur
 
 template<typename Derived>
 inline Eigen::CommaInitializer<VectorRef> Variable::operator<<(const Eigen::DenseBase<Derived> & other)
-{
-  return {value_, other};
-}
+{ return {value_, other}; }
 
 inline bool operator==(const Variable & u, const Variable & v)
-{
-  return u.value_.data() == v.value_.data() && u.size() == v.size();
-}
+{ return u.value_.data() == v.value_.data() && u.size() == v.size(); }
 
 inline bool operator!=(const Variable & u, const Variable & v) { return !(u == v); }
 
@@ -344,14 +340,10 @@ inline Eigen::CommaInitializer<tvm::VectorRef> operator<<(tvm::VariablePtr && v,
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
 template<typename Derived>
 inline Eigen::CommaInitializer<tvm::VectorRef> operator<<(tvm::VariablePtr & v, const Eigen::DenseBase<Derived> & other)
-{
-  return *v.get() << other;
-}
+{ return *v.get() << other; }
 
 /** Helper to initialize a variable like an Eigen vector, with a coma separated list.*/
 template<typename Derived>
 inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(tvm::VariablePtr && v,
                                                            const Eigen::DenseBase<Derived> & other)
-{
-  return *v.get() << other;
-}
+{ return *v.get() << other; }

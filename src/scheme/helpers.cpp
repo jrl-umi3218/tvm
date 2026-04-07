@@ -26,9 +26,7 @@ bool isBound(const ConstraintPtr & c)
 }
 
 bool isBound(const ConstraintPtr & c, const hint::internal::Substitutions & subs)
-{
-  return isBound(c, subs.variables(), subs.variableSubstitutions());
-}
+{ return isBound(c, subs.variables(), subs.variableSubstitutions()); }
 
 bool isBound(const ConstraintPtr & c,
              const std::vector<VariablePtr> & x,
@@ -75,9 +73,7 @@ bool isBound(const ConstraintPtr & c,
 bool canBeUsedAsBound(const ConstraintPtr & c,
                       const hint::internal::Substitutions & subs,
                       constraint::Type targetConvention)
-{
-  return canBeUsedAsBound(c, subs.variables(), subs.variableSubstitutions(), targetConvention);
-}
+{ return canBeUsedAsBound(c, subs.variables(), subs.variableSubstitutions(), targetConvention); }
 
 bool canBeUsedAsBound(const ConstraintPtr & c,
                       const std::vector<VariablePtr> & x,

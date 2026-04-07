@@ -27,9 +27,7 @@ class LinearExpr
 public:
   /** General constructor */
   LinearExpr(const Eigen::MatrixBase<Derived> & matrix, const VariablePtr & v) : matrix_(matrix.derived()), var_(v)
-  {
-    assert(matrix.cols() == v->size());
-  }
+  { assert(matrix.cols() == v->size()); }
 
   /** Constructor for Identity linear expression */
   template<class T = Derived, typename std::enable_if_t<std::is_same_v<T, internal::IdentityType>, int> = 0>
@@ -82,9 +80,7 @@ public:
   template<class T = CstDerived, typename std::enable_if_t<!std::is_same_v<T, internal::NoConstant>, int> = 0>
   AffineExpr(const Eigen::MatrixBase<CstDerived> & constant, const LinearExpr<Derived> &... linear)
   : linear_(std::forward_as_tuple(linear...)), constant_(constant.derived())
-  {
-    EIGEN_STATIC_ASSERT_VECTOR_ONLY(CstDerived)
-  }
+  { EIGEN_STATIC_ASSERT_VECTOR_ONLY(CstDerived) }
 
   /** Construction from a tuple of LinearExpr, in the case of CstDerived == NoConstant (absent constant part).*/
   template<class T = CstDerived, typename std::enable_if_t<std::is_same_v<T, internal::NoConstant>, int> = 0>
@@ -96,9 +92,7 @@ public:
   template<class T = CstDerived, typename std::enable_if_t<!std::is_same_v<T, internal::NoConstant>, int> = 0>
   AffineExpr(const Eigen::MatrixBase<CstDerived> & constant, const std::tuple<LinearExpr<Derived>...> & linear)
   : linear_(linear), constant_(constant.derived())
-  {
-    EIGEN_STATIC_ASSERT_VECTOR_ONLY(CstDerived)
-  }
+  { EIGEN_STATIC_ASSERT_VECTOR_ONLY(CstDerived) }
 
   const std::tuple<LinearExpr<Derived>...> & linear() const { return linear_; }
   const CstDerived & constant() const { return constant_; }
@@ -123,9 +117,7 @@ private:
 template<typename CstDerived, typename... Derived>
 AffineExpr<CstDerived, Derived...> make_AffineExpr(const CstDerived & constant,
                                                    const std::tuple<LinearExpr<Derived>...> & linear)
-{
-  return {constant, linear};
-}
+{ return {constant, linear}; }
 } // namespace utils
 } // namespace tvm
 

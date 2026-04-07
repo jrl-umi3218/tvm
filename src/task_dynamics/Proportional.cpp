@@ -21,9 +21,7 @@ Proportional::Proportional(const Eigen::MatrixXd & kp) : kp_(kp) {}
 std::unique_ptr<abstract::TaskDynamicsImpl> Proportional::impl_(FunctionPtr f,
                                                                 constraint::Type t,
                                                                 const Eigen::VectorXd & rhs) const
-{
-  return std::make_unique<Impl>(f, t, rhs, kp_);
-}
+{ return std::make_unique<Impl>(f, t, rhs, kp_); }
 
 Order Proportional::order_() const { return Order::One; }
 

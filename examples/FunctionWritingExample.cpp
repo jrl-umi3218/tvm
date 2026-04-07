@@ -138,9 +138,7 @@ void FunctionDotProduct::updateJacobian()
 }
 
 void FunctionDotProduct::updateVelocity()
-{
-  velocity_ = g_->value().transpose() * h_->velocity() + g_->velocity().transpose() * h_->value();
-}
+{ velocity_ = g_->value().transpose() * h_->velocity() + g_->velocity().transpose() * h_->value(); }
 
 void FunctionDotProduct::updateNormalAcc()
 {

@@ -94,9 +94,7 @@ public:
    */
   template<typename EnumT>
   static constexpr bool OutputStaticallyEnabled(EnumT)
-  {
-    return true;
-  }
+  { return true; }
 
 protected:
   /** Used to avoid a dynamic cast when working on Outputs that may be tvm::data::Node */
@@ -137,9 +135,7 @@ constexpr bool is_valid_output(EnumT v)
 /** Check if all values of a given set are valid outputs for Outputs type T */
 template<typename T, typename EnumT, typename... Args>
 constexpr bool is_valid_output(EnumT v, Args... args)
-{
-  return is_valid_output<T>(v) && is_valid_output<T>(args...);
-}
+{ return is_valid_output<T>(v) && is_valid_output<T>(args...); }
 
 } // namespace abstract
 

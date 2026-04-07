@@ -76,9 +76,7 @@ template<typename Object>
 inline void parseSourcesAndOutputs(graph::CallGraph * g,
                                    std::shared_ptr<graph::internal::Inputs> user,
                                    std::shared_ptr<Object>)
-{
-  g->add(user);
-}
+{ g->add(user); }
 
 } // namespace internal
 

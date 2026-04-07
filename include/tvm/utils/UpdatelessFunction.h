@@ -298,21 +298,15 @@ inline tvm::internal::MatrixConstRefWithProperties UpdatelessFunction::JDot(cons
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues(const Eigen::VectorXd & v, Vals &&... vals) const
-{
-  parseValues_(0, v, std::forward<Vals>(vals)...);
-}
+{ parseValues_(0, v, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues(std::initializer_list<double> v, Vals &&... vals) const
-{
-  parseValues_(0, v, std::forward<Vals>(vals)...);
-}
+{ parseValues_(0, v, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues(Variable & x, Vals &&... vals) const
-{
-  parseValues_(x, std::forward<Vals>(vals)...);
-}
+{ parseValues_(x, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues_(int i, const Eigen::VectorXd & v, Vals &&... vals) const
@@ -323,9 +317,7 @@ inline void UpdatelessFunction::parseValues_(int i, const Eigen::VectorXd & v, V
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues_(int i, std::initializer_list<double> v, Vals &&... vals) const
-{
-  parseValues_(i, toVec(v), std::forward<Vals>(vals)...);
-}
+{ parseValues_(i, toVec(v), std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues_(Variable & x, const Eigen::VectorXd & v, Vals &&... vals) const
@@ -336,9 +328,7 @@ inline void UpdatelessFunction::parseValues_(Variable & x, const Eigen::VectorXd
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValues_(Variable & x, std::initializer_list<double> v, Vals &&... vals) const
-{
-  parseValues_(x, toVec(v), std::forward<Vals>(vals)...);
-}
+{ parseValues_(x, toVec(v), std::forward<Vals>(vals)...); }
 
 template<typename T>
 inline void UpdatelessFunction::parseValues_(T) const
@@ -350,21 +340,15 @@ inline void UpdatelessFunction::parseValues_(T) const
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities(const Eigen::VectorXd & v, Vals &&... vals) const
-{
-  parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities(std::initializer_list<double> v, Vals &&... vals) const
-{
-  parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(0, v, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities(Variable & x, Vals &&... vals) const
-{
-  parseValuesAndVelocities_(x, std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(x, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(int i,
@@ -382,27 +366,21 @@ inline void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                           const Eigen::VectorXd & val,
                                                           std::initializer_list<double> vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(i, val, toVec(vel), std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(i, val, toVec(vel), std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                           std::initializer_list<double> val,
                                                           const Eigen::VectorXd & vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(i, toVec(val), vel, std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(i, toVec(val), vel, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                           std::initializer_list<double> val,
                                                           std::initializer_list<double> vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(i, toVec(val), toVec(vel), std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(i, toVec(val), toVec(vel), std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
@@ -420,27 +398,21 @@ inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                           const Eigen::VectorXd & val,
                                                           std::initializer_list<double> vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(x, val, toVec(vel), std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(x, val, toVec(vel), std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                           std::initializer_list<double> val,
                                                           const Eigen::VectorXd & vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(x, toVec(val), vel, std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(x, toVec(val), vel, std::forward<Vals>(vals)...); }
 
 template<typename... Vals>
 inline void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                           std::initializer_list<double> val,
                                                           std::initializer_list<double> vel,
                                                           Vals &&... vals) const
-{
-  parseValuesAndVelocities_(x, toVec(val), toVec(vel), std::forward<Vals>(vals)...);
-}
+{ parseValuesAndVelocities_(x, toVec(val), toVec(vel), std::forward<Vals>(vals)...); }
 
 template<typename T>
 inline void UpdatelessFunction::parseValuesAndVelocities_(T) const

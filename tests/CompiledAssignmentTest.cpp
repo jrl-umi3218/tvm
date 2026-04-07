@@ -206,9 +206,7 @@ template<typename MatrixType, AssignType A, WeightMult W, MatrixMult M, Source F
 struct call_impl<MatrixType, A, W, M, F, Tuple, true, Total, N...>
 {
   static CompiledAssignmentWrapper<MatrixType> call(Tuple && t)
-  {
-    return CompiledAssignmentWrapper<MatrixType>::template make<A, W, M, F>(std::get<N>(std::forward<Tuple>(t))...);
-  }
+  { return CompiledAssignmentWrapper<MatrixType>::template make<A, W, M, F>(std::get<N>(std::forward<Tuple>(t))...); }
 };
 } // namespace detail
 
@@ -233,17 +231,13 @@ template<>
 struct WArg<SCALAR>
 {
   static std::tuple<const double &> get(const double & s, const Ref<const VectorXd> &)
-  {
-    return std::forward_as_tuple(s);
-  }
+  { return std::forward_as_tuple(s); }
 };
 template<>
 struct WArg<DIAGONAL>
 {
   static std::tuple<const Ref<const VectorXd> &> get(const double &, const Ref<const VectorXd> & w)
-  {
-    return std::forward_as_tuple(w);
-  }
+  { return std::forward_as_tuple(w); }
 };
 
 template<MatrixMult M, typename MatrixType>
@@ -255,42 +249,32 @@ template<typename MatrixType>
 struct MArg<GENERAL, MatrixType>
 {
   static std::tuple<const Ref<const MatrixXd> &> get(const Ref<const MatrixXd> & Mult, TFun<MatrixType>)
-  {
-    return std::forward_as_tuple(Mult);
-  }
+  { return std::forward_as_tuple(Mult); }
 };
 template<typename MatrixType>
 struct MArg<INVERSE_DIAGONAL, MatrixType>
 {
   static std::tuple<const Ref<const MatrixXd> &> get(const Ref<const MatrixXd> & Mult, TFun<MatrixType>)
-  {
-    return std::forward_as_tuple(Mult);
-  }
+  { return std::forward_as_tuple(Mult); }
 };
 template<typename MatrixType>
 struct MArg<CUSTOM, MatrixType>
 {
   static std::tuple<TFun<MatrixType>> get(const Ref<const MatrixXd> &, TFun<MatrixType> f)
-  {
-    return std::forward_as_tuple(f);
-  }
+  { return std::forward_as_tuple(f); }
 };
 
 template<Source F, typename MatrixType>
 struct SArg
 {
   static std::tuple<const Ref<const MatrixType> &> get(const Ref<const MatrixType> & from, double)
-  {
-    return std::forward_as_tuple(from);
-  }
+  { return std::forward_as_tuple(from); }
 };
 template<typename MatrixType>
 struct SArg<CONSTANT, MatrixType>
 {
   static std::tuple<double> get(const Ref<const MatrixType> &, double constant)
-  {
-    return std::forward_as_tuple(constant);
-  }
+  { return std::forward_as_tuple(constant); }
 };
 template<typename MatrixType>
 struct SArg<ZERO, MatrixType>
@@ -414,9 +398,7 @@ struct Test
   static void run(const U & from,
                   V & to,
                   typename std::enable_if<F == EXTERNAL || (V::ColsAtCompileTime == 1)>::type * = nullptr)
-  {
-    FAST_CHECK_UNARY(run_check(from, to));
-  }
+  { FAST_CHECK_UNARY(run_check(from, to)); }
 };
 
 template<AssignType A>

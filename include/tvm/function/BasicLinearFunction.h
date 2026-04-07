@@ -82,9 +82,7 @@ namespace internal
 {
 template<typename Tuple, size_t... Indices>
 void addVar(tvm::internal::VariableCountingVector & v, Tuple && tuple, std::index_sequence<Indices...>)
-{
-  (v.add(std::get<Indices>(std::forward<Tuple>(tuple)).variable()), ...);
-}
+{ (v.add(std::get<Indices>(std::forward<Tuple>(tuple)).variable()), ...); }
 } // namespace internal
 
 template<typename Derived>
@@ -179,15 +177,11 @@ inline void BasicLinearFunction::add(const Eigen::MatrixBase<Derived> & A, Varia
 
 template<typename Tuple, size_t... Indices>
 inline void BasicLinearFunction::add(Tuple && tuple, std::index_sequence<Indices...>)
-{
-  (add(std::get<Indices>(std::forward<Tuple>(tuple))), ...);
-}
+{ (add(std::get<Indices>(std::forward<Tuple>(tuple))), ...); }
 
 template<typename Derived>
 inline void BasicLinearFunction::add(const utils::LinearExpr<Derived> & lin)
-{
-  add(lin.matrix(), lin.variable());
-}
+{ add(lin.matrix(), lin.variable()); }
 
 } // namespace function
 

@@ -111,9 +111,7 @@ inline void SolverEvents::addVectorWeightEvent(constraint::abstract::LinearConst
 inline void SolverEvents::addConstraint(LinearConstraintPtr c) { addIfPair(c, addedConstraints_, removedConstraints_); }
 
 inline void SolverEvents::removeConstraint(LinearConstraintPtr c)
-{
-  addIfPair(c, removedConstraints_, addedConstraints_);
-}
+{ addIfPair(c, removedConstraints_, addedConstraints_); }
 
 inline void SolverEvents::addBound(LinearConstraintPtr b) { addIfPair(b, addedBounds_, removedBounds_); }
 

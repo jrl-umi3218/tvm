@@ -49,15 +49,11 @@ public:
 
   template<typename EnumT>
   void manualEnable(EnumT e)
-  {
-    enableOutput(e);
-  }
+  { enableOutput(e); }
 
   template<typename EnumT>
   void manualDisable(EnumT e)
-  {
-    disableOutput(e);
-  }
+  { disableOutput(e); }
 };
 
 class Provider6 : public OutputSelector<Provider6, Provider4>
@@ -66,9 +62,7 @@ public:
   SET_OUTPUTS(Provider6, O8, O9)
 
   Provider6()
-  {
-    disableOutput(Provider6::Output::O9, Provider4::Output::O5, Provider2::Output::O3, Provider1::Output::O1);
-  }
+  { disableOutput(Provider6::Output::O9, Provider4::Output::O5, Provider2::Output::O3, Provider1::Output::O1); }
 };
 
 TEST_CASE("Test outputs selector")

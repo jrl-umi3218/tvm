@@ -202,19 +202,13 @@ bool LexLSLeastSquareSolver::solve_()
 const Eigen::VectorXd & LexLSLeastSquareSolver::result_() const { return solver_.get_x(); }
 
 Range LexLSLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_ + ineqSize_, cstr.size()};
-}
+{ return {eqSize_ + ineqSize_, cstr.size()}; }
 
 Range LexLSLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_ + ineqSize_, cstr.size()};
-}
+{ return {eqSize_ + ineqSize_, cstr.size()}; }
 
 Range LexLSLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {objSize_, cstr.size()};
-}
+{ return {objSize_, cstr.size()}; }
 
 void LexLSLeastSquareSolver::removeBounds_(const Range & r)
 {
@@ -223,24 +217,16 @@ void LexLSLeastSquareSolver::removeBounds_(const Range & r)
 }
 
 void LexLSLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(A1_, l1_, u1_);
-}
+{ target.changeData(A1_, l1_, u1_); }
 
 void LexLSLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(A1_, l1_, u1_);
-}
+{ target.changeData(A1_, l1_, u1_); }
 
 void LexLSLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(VectorRef(xl_), xu_);
-}
+{ target.changeData(VectorRef(xl_), xu_); }
 
 void LexLSLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(A2_, l2_, u2_);
-}
+{ target.changeData(A2_, l2_, u2_); }
 
 void LexLSLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
 {
@@ -265,14 +251,10 @@ LexLSLSSolverFactory::LexLSLSSolverFactory(const LexLSLSSolverOptions & options)
 {}
 
 std::unique_ptr<abstract::LSSolverFactory> LexLSLSSolverFactory::clone() const
-{
-  return std::make_unique<LexLSLSSolverFactory>(*this);
-}
+{ return std::make_unique<LexLSLSSolverFactory>(*this); }
 
 std::unique_ptr<abstract::LeastSquareSolver> LexLSLSSolverFactory::createSolver() const
-{
-  return std::make_unique<LexLSLeastSquareSolver>(options_);
-}
+{ return std::make_unique<LexLSLeastSquareSolver>(options_); }
 } // namespace solver
 
 } // namespace tvm

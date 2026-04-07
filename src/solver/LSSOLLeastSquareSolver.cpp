@@ -163,19 +163,13 @@ const Eigen::VectorXd & LSSOLLeastSquareSolver::result_() const
 }
 
 Range LSSOLLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_ + ineqSize_, cstr.size()};
-}
+{ return {eqSize_ + ineqSize_, cstr.size()}; }
 
 Range LSSOLLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_ + ineqSize_, cstr.size()};
-}
+{ return {eqSize_ + ineqSize_, cstr.size()}; }
 
 Range LSSOLLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {objSize_, cstr.size()};
-}
+{ return {objSize_, cstr.size()}; }
 
 void LSSOLLeastSquareSolver::removeBounds_(const Range & r)
 {
@@ -184,24 +178,16 @@ void LSSOLLeastSquareSolver::removeBounds_(const Range & r)
 }
 
 void LSSOLLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(C_, cl_, cu_);
-}
+{ target.changeData(C_, cl_, cu_); }
 
 void LSSOLLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(C_, cl_, cu_);
-}
+{ target.changeData(C_, cl_, cu_); }
 
 void LSSOLLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(VectorRef(l_), u_);
-}
+{ target.changeData(VectorRef(l_), u_); }
 
 void LSSOLLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(A_), b_);
-}
+{ target.changeData(MatrixRef(A_), b_); }
 
 void LSSOLLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
 {
@@ -239,14 +225,10 @@ LSSOLLSSolverFactory::LSSOLLSSolverFactory(const LSSOLLSSolverOptions & options)
 {}
 
 std::unique_ptr<abstract::LSSolverFactory> LSSOLLSSolverFactory::clone() const
-{
-  return std::make_unique<LSSOLLSSolverFactory>(*this);
-}
+{ return std::make_unique<LSSOLLSSolverFactory>(*this); }
 
 std::unique_ptr<abstract::LeastSquareSolver> LSSOLLSSolverFactory::createSolver() const
-{
-  return std::make_unique<LSSOLLeastSquareSolver>(options_);
-}
+{ return std::make_unique<LSSOLLeastSquareSolver>(options_); }
 } // namespace solver
 
 } // namespace tvm

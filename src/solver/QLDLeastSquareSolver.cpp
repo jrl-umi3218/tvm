@@ -156,19 +156,13 @@ bool QLDLeastSquareSolver::solve_()
 const Eigen::VectorXd & QLDLeastSquareSolver::result_() const { return qld_.result(); }
 
 Range QLDLeastSquareSolver::nextEqualityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {eqSize_, cstr.size()};
-}
+{ return {eqSize_, cstr.size()}; }
 
 Range QLDLeastSquareSolver::nextInequalityConstraintRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {ineqSize_, constraintSize(cstr)};
-}
+{ return {ineqSize_, constraintSize(cstr)}; }
 
 Range QLDLeastSquareSolver::nextObjectiveRange_(const constraint::abstract::LinearConstraint & cstr) const
-{
-  return {objSize_, cstr.size()};
-}
+{ return {objSize_, cstr.size()}; }
 
 void QLDLeastSquareSolver::removeBounds_(const Range & range)
 {
@@ -177,24 +171,16 @@ void QLDLeastSquareSolver::removeBounds_(const Range & range)
 }
 
 void QLDLeastSquareSolver::updateEqualityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(A_), b_);
-}
+{ target.changeData(MatrixRef(A_), b_); }
 
 void QLDLeastSquareSolver::updateInequalityTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(Aineq_), bineq_);
-}
+{ target.changeData(MatrixRef(Aineq_), bineq_); }
 
 void QLDLeastSquareSolver::updateBoundTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(VectorRef(xl_), xu_);
-}
+{ target.changeData(VectorRef(xl_), xu_); }
 
 void QLDLeastSquareSolver::updateObjectiveTargetData(scheme::internal::AssignmentTarget & target)
-{
-  target.changeData(MatrixRef(D_), e_);
-}
+{ target.changeData(MatrixRef(D_), e_); }
 
 void QLDLeastSquareSolver::applyImpactLogic(ImpactFromChanges & impact)
 {
@@ -220,22 +206,16 @@ void QLDLeastSquareSolver::printProblemData_() const
 }
 
 void QLDLeastSquareSolver::printDiagnostic_() const
-{
-  std::cout << "QLD fail code = " << qld_.fail() << " (0 is success)" << std::endl;
-}
+{ std::cout << "QLD fail code = " << qld_.fail() << " (0 is success)" << std::endl; }
 
 std::unique_ptr<abstract::LSSolverFactory> QLDLSSolverFactory::clone() const
-{
-  return std::make_unique<QLDLSSolverFactory>(*this);
-}
+{ return std::make_unique<QLDLSSolverFactory>(*this); }
 
 QLDLSSolverFactory::QLDLSSolverFactory(const QLDLSSolverOptions & options) : LSSolverFactory("qld"), options_(options)
 {}
 
 std::unique_ptr<abstract::LeastSquareSolver> QLDLSSolverFactory::createSolver() const
-{
-  return std::make_unique<QLDLeastSquareSolver>(options_);
-}
+{ return std::make_unique<QLDLeastSquareSolver>(options_); }
 
 } // namespace solver
 

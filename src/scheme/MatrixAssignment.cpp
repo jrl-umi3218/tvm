@@ -6,9 +6,7 @@
 namespace tvm::scheme::internal
 {
 void MatrixAssignment::updateTarget(const AssignmentTarget & target)
-{
-  assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim));
-}
+{ assignment.to((target.*getTargetMatrix)(colRange.start, colRange.dim)); }
 
 void MatrixAssignment::updateMapping(const VariableVector & newVar,
                                      const AssignmentTarget & target,

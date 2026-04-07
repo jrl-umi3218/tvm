@@ -24,9 +24,7 @@ namespace utils
  */
 template<unsigned int N>
 constexpr unsigned int count_va_args(const char (&s)[N], unsigned int i = 0, unsigned int ret = 0)
-{
-  return s[i] == '\0' ? (i == 0 ? 0 : ret + 1) : count_va_args(s, i + 1, ret + (s[i] == ','));
-}
+{ return s[i] == '\0' ? (i == 0 ? 0 : ret + 1) : count_va_args(s, i + 1, ret + (s[i] == ',')); }
 /** Macro call to count_va_args */
 #define COUNT_VA_ARGS(...) tvm::utils::count_va_args("" #__VA_ARGS__)
 
@@ -149,22 +147,16 @@ static_assert(COUNT_VA_ARGS(1, 2, 3) == 3, "COUNT_VA_ARGS failed for 3 arguments
   static constexpr unsigned int EnumName##Size = EnumName##Parent::EnumName##Size + PP_ID(COUNT_VA_ARGS(__VA_ARGS__)); \
   using EnumName##Parent::EnumName##Name;                                                                              \
   static constexpr const char * EnumName##Name(EnumName##_ v)                                                          \
-  {                                                                                                                    \
-    return PP_ID(PP_MAP(ENUM_NAME, EnumName, __VA_ARGS__)) "INVALID";                                                  \
-  }                                                                                                                    \
+  { return PP_ID(PP_MAP(ENUM_NAME, EnumName, __VA_ARGS__)) "INVALID"; }                                                \
   using EnumName##Base = SelfT;                                                                                        \
   static constexpr auto EnumName##BaseName = #SelfT;
 
-#define DISABLE_SIGNALS(EnumName, ...)                                      \
-  bool is##EnumName##StaticallyEnabled(int v) const override                \
-  {                                                                         \
-    return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; \
-  }                                                                         \
-  template<typename EnumT>                                                  \
-  static constexpr bool EnumName##StaticallyEnabled(EnumT v)                \
-  {                                                                         \
-    return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; \
-  }
+#define DISABLE_SIGNALS(EnumName, ...)                                        \
+  bool is##EnumName##StaticallyEnabled(int v) const override                  \
+  { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; } \
+  template<typename EnumT>                                                    \
+  static constexpr bool EnumName##StaticallyEnabled(EnumT v)                  \
+  { return PP_ID(PP_MAP(DISABLE_SIGNALS_BODY, EnumName, __VA_ARGS__)) true; }
 
 #define DISABLE_SIGNALS_BODY(EnumT, name) static_cast<int>(v) == static_cast<int>(name) ? false:
 
@@ -172,9 +164,7 @@ static_assert(COUNT_VA_ARGS(1, 2, 3) == 3, "COUNT_VA_ARGS failed for 3 arguments
   bool is##EnumName##StaticallyEnabled(int) const override { return true; } \
   template<typename EnumT>                                                  \
   static constexpr bool EnumName##StaticallyEnabled(EnumT)                  \
-  {                                                                         \
-    return true;                                                            \
-  }
+  { return true; }
 
 } // namespace utils
 

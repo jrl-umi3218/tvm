@@ -257,9 +257,7 @@ void UpdatelessFunction::parseValues_(int i, std::initializer_list<double> v) co
 void UpdatelessFunction::parseValues_(Variable & x, const Eigen::VectorXd & v) const { assign(x, v, true); }
 
 void UpdatelessFunction::parseValues_(Variable & x, std::initializer_list<double> v) const
-{
-  parseValues_(x, toVec(v));
-}
+{ parseValues_(x, toVec(v)); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                    const Eigen::VectorXd & val,
@@ -299,23 +297,17 @@ void UpdatelessFunction::parseValuesAndVelocities_(int i,
 void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                    const Eigen::VectorXd & val,
                                                    std::initializer_list<double> vel) const
-{
-  parseValuesAndVelocities_(i, val, toVec(vel));
-}
+{ parseValuesAndVelocities_(i, val, toVec(vel)); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                    std::initializer_list<double> val,
                                                    const Eigen::VectorXd & vel) const
-{
-  parseValuesAndVelocities_(i, toVec(val), vel);
-}
+{ parseValuesAndVelocities_(i, toVec(val), vel); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(int i,
                                                    std::initializer_list<double> val,
                                                    std::initializer_list<double> vel) const
-{
-  parseValuesAndVelocities_(i, toVec(val), toVec(vel));
-}
+{ parseValuesAndVelocities_(i, toVec(val), toVec(vel)); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                    const Eigen::VectorXd & val,
@@ -328,23 +320,17 @@ void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
 void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                    const Eigen::VectorXd & val,
                                                    std::initializer_list<double> vel) const
-{
-  parseValuesAndVelocities_(x, val, toVec(vel));
-}
+{ parseValuesAndVelocities_(x, val, toVec(vel)); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                    std::initializer_list<double> val,
                                                    const Eigen::VectorXd & vel) const
-{
-  parseValuesAndVelocities_(x, toVec(val), vel);
-}
+{ parseValuesAndVelocities_(x, toVec(val), vel); }
 
 void UpdatelessFunction::parseValuesAndVelocities_(Variable & x,
                                                    std::initializer_list<double> val,
                                                    std::initializer_list<double> vel) const
-{
-  parseValuesAndVelocities_(x, toVec(val), toVec(vel));
-}
+{ parseValuesAndVelocities_(x, toVec(val), toVec(vel)); }
 
 } // namespace utils
 

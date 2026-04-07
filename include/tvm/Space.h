@@ -92,9 +92,7 @@ public:
   bool operator!=(const Space & other) const { return !operator==(other); }
 
   bool operator<=(const Space & other) const
-  {
-    return this->mSize_ <= other.mSize_ && this->rSize_ <= other.rSize_ && this->tSize_ <= other.tSize_;
-  }
+  { return this->mSize_ <= other.mSize_ && this->rSize_ <= other.rSize_ && this->tSize_ <= other.tSize_; }
 
   friend Space operator*(const Space & s1, const Space & s2)
   {

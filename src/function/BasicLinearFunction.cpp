@@ -16,9 +16,7 @@ BasicLinearFunction::BasicLinearFunction(const MatrixConstRef & A, VariablePtr x
 
 BasicLinearFunction::BasicLinearFunction(const std::vector<MatrixConstRef> & A, const std::vector<VariablePtr> & x)
 : BasicLinearFunction(A, x, Eigen::VectorXd::Zero(A.begin()->rows()))
-{
-  this->b_.properties({tvm::internal::MatrixProperties::Constness(true), tvm::internal::MatrixProperties::ZERO});
-}
+{ this->b_.properties({tvm::internal::MatrixProperties::Constness(true), tvm::internal::MatrixProperties::ZERO}); }
 
 BasicLinearFunction::BasicLinearFunction(const MatrixConstRef & A, VariablePtr x, const VectorConstRef & b)
 : BasicLinearFunction({A}, std::vector<VariablePtr>{x}, b)
