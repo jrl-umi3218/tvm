@@ -134,24 +134,20 @@ $(document).ready(function(){initNavTree('matrix_8h_source.html',''); initResiza
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> MatrixT, <span class="keyword">typename</span> MatrixOrMapType&gt;</div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacetvm_1_1diagnostic.html#a26408a038a2ffc9587058dd145c37632">   48</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespacetvm_1_1diagnostic.html#a2a21ee3aa1ec263172fa59bd0d4bd160">isInMatrix</a>(<span class="keyword">const</span> MatrixT &amp; A, Eigen::Index i, Eigen::Index j, MatrixOrMapType &amp; M)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacetvm_1_1diagnostic.html#a2a21ee3aa1ec263172fa59bd0d4bd160">isInMatrix</a>(&amp;A.coeff(i, j), M);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">   55</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">hasElemAbsInRange</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp; A,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                              <span class="keyword">typename</span> Derived::Scalar emin,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                              <span class="keyword">typename</span> Derived::Scalar emax)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">return</span> (A.array().abs() &gt;= emin &amp;&amp; A.array().abs() &lt;= emax).any();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace tvm::diagnostic</span></div>
-<div class="ttc" id="aclasstvm_1_1internal_1_1always__false_html"><div class="ttname"><a href="classtvm_1_1internal_1_1always__false.html">tvm::internal::always_false</a></div><div class="ttdef"><b>Definition:</b> meta.h:95</div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="namespacetvm_1_1diagnostic.html#a2a21ee3aa1ec263172fa59bd0d4bd160">isInMatrix</a>(&amp;A.coeff(i, j), M); }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">   53</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">hasElemAbsInRange</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp; A,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                              <span class="keyword">typename</span> Derived::Scalar emin,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                              <span class="keyword">typename</span> Derived::Scalar emax)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{ <span class="keywordflow">return</span> (A.array().abs() &gt;= emin &amp;&amp; A.array().abs() &lt;= emax).any(); }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace tvm::diagnostic</span></div>
+<div class="ttc" id="aclasstvm_1_1internal_1_1always__false_html"><div class="ttname"><a href="classtvm_1_1internal_1_1always__false.html">tvm::internal::always_false</a></div><div class="ttdef"><b>Definition:</b> meta.h:91</div></div>
 <div class="ttc" id="ameta_8h_html"><div class="ttname"><a href="meta_8h.html">meta.h</a></div></div>
 <div class="ttc" id="anamespacetvm_1_1diagnostic_html"><div class="ttname"><a href="namespacetvm_1_1diagnostic.html">tvm::diagnostic</a></div><div class="ttdef"><b>Definition:</b> GraphProbe.h:26</div></div>
 <div class="ttc" id="anamespacetvm_1_1diagnostic_html_a2a21ee3aa1ec263172fa59bd0d4bd160"><div class="ttname"><a href="namespacetvm_1_1diagnostic.html#a2a21ee3aa1ec263172fa59bd0d4bd160">tvm::diagnostic::isInMatrix</a></div><div class="ttdeci">bool isInMatrix(typename MatrixOrMapType::Scalar const *ptr, MatrixOrMapType &amp;M)</div><div class="ttdef"><b>Definition:</b> matrix.h:18</div></div>
-<div class="ttc" id="anamespacetvm_1_1diagnostic_html_a6bc3dc6b84828a42cd9f1dc98775636f"><div class="ttname"><a href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">tvm::diagnostic::hasElemAbsInRange</a></div><div class="ttdeci">bool hasElemAbsInRange(const Eigen::MatrixBase&lt; Derived &gt; &amp;A, typename Derived::Scalar emin, typename Derived::Scalar emax)</div><div class="ttdef"><b>Definition:</b> matrix.h:55</div></div>
+<div class="ttc" id="anamespacetvm_1_1diagnostic_html_a6bc3dc6b84828a42cd9f1dc98775636f"><div class="ttname"><a href="namespacetvm_1_1diagnostic.html#a6bc3dc6b84828a42cd9f1dc98775636f">tvm::diagnostic::hasElemAbsInRange</a></div><div class="ttdeci">bool hasElemAbsInRange(const Eigen::MatrixBase&lt; Derived &gt; &amp;A, typename Derived::Scalar emin, typename Derived::Scalar emax)</div><div class="ttdef"><b>Definition:</b> matrix.h:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->

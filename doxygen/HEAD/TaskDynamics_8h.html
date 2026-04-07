@@ -216,9 +216,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived, <span class="keyword">typename</span>... Args&gt;                                                         \</div>
 <div class="line">  std::unique_ptr&lt;tvm::task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(                               \</div>
 <div class="line">      <a class="code" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a> f, <a class="code" href="namespacetvm_1_1constraint.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd &amp; rhs, Args &amp;&amp;... args) <span class="keyword">const</span> \</div>
-<div class="line">  {                                                                                                    \</div>
-<div class="line">    return T::template impl_&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., __VA_ARGS__);            \</div>
-<div class="line">  }</div>
+<div class="line">  { <span class="keywordflow">return</span> T::template impl_&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., __VA_ARGS__); }</div>
 <div class="ttc" id="anamespacetvm_1_1constraint_html_ab6243a7da877a867f54ff7207959eb7c"><div class="ttname"><a href="namespacetvm_1_1constraint.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> enums.h:15</div></div>
 <div class="ttc" id="anamespacetvm_html_a42313833bbb66bf5318f67e0dca5936a"><div class="ttname"><a href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a></div><div class="ttdeci">std::shared_ptr&lt; function::abstract::Function &gt; FunctionPtr</div><div class="ttdef"><b>Definition:</b> defs.h:57</div></div>
 </div><!-- fragment --><p>This macro can be used to define the derived factory required in composable TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro variadic arguments are members of the class passed to the derived constructor, the first argument is the template argument representing the encapsulated TaskDynamic type </p>
@@ -243,9 +241,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived, <span class="keyword">typename</span>... Args&gt;                                                         \</div>
 <div class="line">  std::unique_ptr&lt;tvm::task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(                               \</div>
 <div class="line">      <a class="code" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a> f, <a class="code" href="namespacetvm_1_1constraint.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd &amp; rhs, Args &amp;&amp;... args) <span class="keyword">const</span> \</div>
-<div class="line">  {                                                                                                    \</div>
-<div class="line">    return std::make_unique&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., __VA_ARGS__);             \</div>
-<div class="line">  }</div>
+<div class="line">  { <span class="keywordflow">return</span> std::make_unique&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)..., __VA_ARGS__); }</div>
 </div><!-- fragment --><p>This macro can be used to define the derived factory required in TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, the macro arguments are members of the class passed to the derived constructor </p>
 
 </div>
@@ -267,9 +263,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Derived, <span class="keyword">typename</span>... Args&gt;                                                         \</div>
 <div class="line">  std::unique_ptr&lt;tvm::task_dynamics::abstract::TaskDynamicsImpl&gt; impl_(                               \</div>
 <div class="line">      <a class="code" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a> f, <a class="code" href="namespacetvm_1_1constraint.html#ab6243a7da877a867f54ff7207959eb7c">tvm::constraint::Type</a> t, <span class="keyword">const</span> Eigen::VectorXd &amp; rhs, Args &amp;&amp;... args) <span class="keyword">const</span> \</div>
-<div class="line">  {                                                                                                    \</div>
-<div class="line">    return std::make_unique&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)...);                          \</div>
-<div class="line">  }</div>
+<div class="line">  { <span class="keywordflow">return</span> std::make_unique&lt;Derived&gt;(f, t, rhs, std::forward&lt;Args&gt;(args)...); }</div>
 </div><!-- fragment --><p>This macro can be used to define the derived factory required in TaskDynamics implementation, <code>Args</code> are the arguments required by the derived class, this macro should be used when the class' constructor does not require parameters </p>
 
 </div>

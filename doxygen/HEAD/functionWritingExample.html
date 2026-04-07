@@ -162,7 +162,7 @@ Class declaration</h2>
 <div class="line">  Variable &amp; dx_;</div>
 <div class="line">  Variable &amp; dy_;</div>
 <div class="line">};</div>
-<div class="ttc" id="aAbstractNode_8h_html_abd38cd98a6567962387d6ebe5a27ce45"><div class="ttname"><a href="AbstractNode_8h.html#abd38cd98a6567962387d6ebe5a27ce45">SET_UPDATES</a></div><div class="ttdeci">#define SET_UPDATES(SelfT,...)</div><div class="ttdef"><b>Definition:</b> AbstractNode.h:140</div></div>
+<div class="ttc" id="aAbstractNode_8h_html_abd38cd98a6567962387d6ebe5a27ce45"><div class="ttname"><a href="AbstractNode_8h.html#abd38cd98a6567962387d6ebe5a27ce45">SET_UPDATES</a></div><div class="ttdeci">#define SET_UPDATES(SelfT,...)</div><div class="ttdef"><b>Definition:</b> AbstractNode.h:138</div></div>
 <div class="ttc" id="anamespacetvm_html_a024f10de786d6592dbd271d3df847835"><div class="ttname"><a href="namespacetvm.html#a024f10de786d6592dbd271d3df847835">tvm::VariablePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Variable &gt; VariablePtr</div><div class="ttdef"><b>Definition:</b> defs.h:65</div></div>
 </div><!-- fragment --></pre><p>With the <code>SET_UPDATES</code> macro, we are defining identifiers for the update methods. The first argument needs to be the class name, the other are the identifiers and can be chosen freely. <br  />
  <code>SET_UPDATES</code> is performing several tasks necessary for the computation graph machinery, including creating an enumeration class-like DotProduct::Update, whose elements are <code>Value</code>, <code>Jacobian</code>, <code>VelocityAndNormalAcc</code> and <code>JDot</code>.</p>
@@ -265,7 +265,7 @@ Class declaration</h2>
 <div class="line">  <a class="code" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> g_;</div>
 <div class="line">  <a class="code" href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">FunctionPtr</a> h_;</div>
 <div class="line">};</div>
-<div class="ttc" id="aOutputs_8h_html_af3c088e8f82f2660e01a45bb8eb92ebf"><div class="ttname"><a href="Outputs_8h.html#af3c088e8f82f2660e01a45bb8eb92ebf">DISABLE_OUTPUTS</a></div><div class="ttdeci">#define DISABLE_OUTPUTS(...)</div><div class="ttdef"><b>Definition:</b> Outputs.h:120</div></div>
+<div class="ttc" id="aOutputs_8h_html_af3c088e8f82f2660e01a45bb8eb92ebf"><div class="ttname"><a href="Outputs_8h.html#af3c088e8f82f2660e01a45bb8eb92ebf">DISABLE_OUTPUTS</a></div><div class="ttdeci">#define DISABLE_OUTPUTS(...)</div><div class="ttdef"><b>Definition:</b> Outputs.h:118</div></div>
 <div class="ttc" id="anamespacetvm_html_a42313833bbb66bf5318f67e0dca5936a"><div class="ttname"><a href="namespacetvm.html#a42313833bbb66bf5318f67e0dca5936a">tvm::FunctionPtr</a></div><div class="ttdeci">std::shared_ptr&lt; function::abstract::Function &gt; FunctionPtr</div><div class="ttdef"><b>Definition:</b> defs.h:57</div></div>
 </div><!-- fragment --></pre><p> There are two important differences with what we did before, both of which related to enabling/disabling outputs. Disabled outputs can not be used in the computation graph, and there are no need to implement update methods for them.</p>
 <p>First, the class does not derive directly from <a class="el" href="classtvm_1_1function_1_1abstract_1_1Function.html">tvm::function::abstract::Function</a> but from tvm::graph::abstract::OutputSelector&lt;function::abstract::Function&gt; (which in turn derives from <a class="el" href="classtvm_1_1function_1_1abstract_1_1Function.html">tvm::function::abstract::Function</a>). This allows to enable or disable outputs of the class <em>at runtime</em>: depending on the outputs available for functions \( g \) and \( h \), we might not be able to compute all the outputs of our function.</p>
@@ -349,9 +349,7 @@ Methods implementation</h2>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> FunctionDotProduct::updateVelocity()</div>
-<div class="line">{</div>
-<div class="line">  velocity_ = g_-&gt;value().transpose() * h_-&gt;velocity() + g_-&gt;velocity().transpose() * h_-&gt;value();</div>
-<div class="line">}</div>
+<div class="line">{ velocity_ = g_-&gt;value().transpose() * h_-&gt;velocity() + g_-&gt;velocity().transpose() * h_-&gt;value(); }</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> FunctionDotProduct::updateNormalAcc()</div>
 <div class="line">{</div>
