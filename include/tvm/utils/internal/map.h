@@ -15,9 +15,7 @@ class IdLess
 public:
   using T = typename std::decay<typename std::remove_pointer<ObjWithId>::type>::type;
   constexpr bool operator()(const T * const lhs, const T * const rhs) const
-  {
-    return lhs && rhs && lhs->id() < rhs->id();
-  }
+  { return lhs && rhs && lhs->id() < rhs->id(); }
 
   constexpr bool operator()(const T & lhs, const T & rhs) const
   {
