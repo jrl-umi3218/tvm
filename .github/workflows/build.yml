@@ -50,8 +50,8 @@ jobs:
           brew: eigen boost gcc
         windows: |
           github:
-            - path: eigenteam/eigen-git-mirror
-              ref: 3.3.7
+            - path: eigen-mirror/eigen
+              ref: 3.4.1
         options: -DPYTHON_BINDING:BOOL=OFF
         github: |
           - path: jrl-umi3218/eigen-qld

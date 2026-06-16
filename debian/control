@@ -1,6 +1,6 @@
 Source: tvm
 Priority: optional
-Maintainer: Pierre Gergondet <pierre.gergondet+ppa@gmail.com>
+Maintainer: Arnaud Tanguy <arn.tanguy+ppa@gmail.com>
 Standards-Version: 3.9.5
 Section: libs
 Homepage: https://github.com/jrl-umi3218/tvm
