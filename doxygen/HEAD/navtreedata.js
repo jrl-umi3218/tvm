@@ -76,8 +76,8 @@ var NAVTREEINDEX =
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a0cfdc0589de259e38a19b91690713d6f",
 "functionWritingExample.html",
 "memoryChecks_8h.html#ab2872b8efc9c69d5277a3ae1e101a81d",
-"namespacetvm_1_1utils_1_1internal.html#a266403b05dcae2080bd3cce46a75edea",
-"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html"
+"namespacetvm_1_1utils_1_1internal.html#a1f7de31deb6c74c399f6492e5ca7d595",
+"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a56a0ba1707d78f2b178ca8ecca142eeb"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,5 +1,7 @@
 var NAVTREEINDEX12 =
 {
+"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a56a0ba1707d78f2b178ca8ecca142eeb":[3,0,2,12,1,0,0,2],
+"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#ab5b58c4a7b957f782d2e0747c96ed62b":[3,0,2,12,1,0,0,1],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html":[3,0,2,12,1,0,1],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html#a5403ed8197e8a1d0ef1798b3f1cfe0b0":[3,0,2,12,1,0,1,2],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html#a9d337cc35a91b59052b754a3a61c743f":[3,0,2,12,1,0,1,1],

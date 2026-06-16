@@ -1,4 +1,6 @@
 var namespaceEigen =
 [
-    [ "internal", "namespaceEigen_1_1internal.html", "namespaceEigen_1_1internal" ]
+    [ "internal", "namespaceEigen_1_1internal.html", "namespaceEigen_1_1internal" ],
+    [ "qpgen1_", "/usr/local/share/doc/eigen-quadprog/doxygen-html/namespaceEigen.html#ad3bfb7eb46287440d2e75a2396a76c7f", null ],
+    [ "qpgen2_", "/usr/local/share/doc/eigen-quadprog/doxygen-html/namespaceEigen.html#a18071e8a41973e397737334385593da4", null ]
 ];
