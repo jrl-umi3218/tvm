@@ -19,6 +19,8 @@ namespace task_dynamics
  * For a lower bound tasks e>=0, we have, for e<=di:
  *  - first order: dot{e}_i* = -xsi * (e_i-ds)/(di-ds)
  *  - second order: ddot{e}_i* = -xsi/dt * (e_i-ds)/(di-ds) -dot{e}_i/dt
+ *  - close loop second order: ddot{e}_i =  - lambda^2/4*M^2 * (e_i-d_s) - lambda * dot{e}_i with lambda =
+ * 4*M^2*xsi/(di-ds)
  *
  * and for e>di:
  *   - first order: dot{e}* = big
@@ -40,6 +42,9 @@ namespace task_dynamics
  * different values for unrelated updates, because of history differences.
  * \n This remark only applies when the automatic computation of xsi is
  * required.
+ *
+ * \attention To use the close loop second order you need to mention \p m_ >= 1.0, otherwise the classic second order
+ * equation will be used.
  */
 class TVM_DLLAPI VelocityDamper : public abstract::TaskDynamics
 {
@@ -61,13 +66,17 @@ public:
      * \xi_{\mathrm{off}} \f$.
      * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
      * computation of \f$\xi\f$. Used only in the case xsi=0.
+     * \param m amortization margin \f$ M \f$. Used only in the close loop
+     * second order case and if M >= 1.
      */
-    Config(double di, double ds, double xsi, double xsiOff = 0);
+    Config(double di, double ds, double xsi, double xsiOff = 0, double m = 0, double lambda = 0);
 
     double di_;
     double ds_;
     double xsi_;
     double xsiOff_;
+    double m_;
+    double lambda_;
   };
 
   /** A structure grouping the parameters for an anisotropic velocity damper.
@@ -87,13 +96,17 @@ public:
      * \xi_{\mathrm{off}} \f$.
      * \param xsiOff offset \f$ \xi_{\mathrm{off}} \f$ used in the automatic
      * computation of \f$\xi\f$. Used only in the case xsi=0.
+     * \param m amortization margin \f$ M \f$. Used only in the close loop
+     * second order case and if M >= 1.
      *
      * All parameters must be of the same size
      */
     AnisotropicConfig(const VectorConstRef & di,
                       const VectorConstRef & ds,
                       const VectorConstRef & xsi,
-                      const std::optional<VectorConstRef> & xsiOff = std::nullopt);
+                      const std::optional<VectorConstRef> & xsiOff = std::nullopt,
+                      const std::optional<VectorConstRef> & m = std::nullopt,
+                      const std::optional<VectorConstRef> & lambda = std::nullopt);
 
     /** Construct from a non-anisotropic configuration
      *
@@ -105,6 +118,8 @@ public:
     Eigen::VectorXd ds_;
     Eigen::VectorXd xsi_;
     Eigen::VectorXd xsiOff_;
+    Eigen::VectorXd m_;
+    Eigen::VectorXd lambda_;
   };
 
   class TVM_DLLAPI Impl : public abstract::TaskDynamicsImpl
@@ -130,6 +145,29 @@ public:
          const Eigen::VectorXd & xsi,
          double big);
 
+    Impl(FunctionPtr f,
+         constraint::Type t,
+         const Eigen::VectorXd & rhs,
+         double dt,
+         bool autoXsi,
+         const Eigen::VectorXd & di,
+         const Eigen::VectorXd & ds,
+         const Eigen::VectorXd & xsi,
+         double big,
+         const Eigen::VectorXd & m);
+
+    Impl(FunctionPtr f,
+         constraint::Type t,
+         const Eigen::VectorXd & rhs,
+         double dt,
+         bool autoXsi,
+         const Eigen::VectorXd & di,
+         const Eigen::VectorXd & ds,
+         const Eigen::VectorXd & xsi,
+         double big,
+         const Eigen::VectorXd & m,
+         const Eigen::VectorXd & lambda);
+
     void updateValue() override;
 
     ~Impl() override = default;
@@ -149,6 +187,9 @@ public:
     Eigen::VectorXd d_;
     Eigen::VectorXd axsi_; // a * xsi = -xsi / (di - ds)
     std::vector<bool> active_;
+
+    Eigen::VectorXd m_;
+    Eigen::VectorXd lambda_;
   };
 
   /** \brief Velocity damper for first order dynamics.
@@ -215,7 +256,8 @@ protected:
   {
     if(dt_ > 0)
     {
-      return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., dt_, autoXsi_, di_, ds_, xsi_, big_);
+      return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., dt_, autoXsi_, di_, ds_, xsi_, big_, m_,
+                                       lambda_);
     }
     return std::make_unique<Derived>(f, t, rhs, std::forward<Args>(args)..., autoXsi_, di_, ds_, xsi_, big_);
   }
@@ -227,6 +269,8 @@ private:
   Eigen::VectorXd di_;
   double big_;
   bool autoXsi_;
+  Eigen::VectorXd m_;
+  Eigen::VectorXd lambda_;
 };
 
 } // namespace task_dynamics

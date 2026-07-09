@@ -11,8 +11,8 @@ namespace tvm
 
 namespace task_dynamics
 {
-VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
-: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff)
+VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff, double m, double lambda)
+: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff), m_(m), lambda_(lambda)
 {
   if(di_ <= ds_)
   {
@@ -35,8 +35,12 @@ VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
 VelocityDamper::AnisotropicConfig::AnisotropicConfig(const VectorConstRef & di,
                                                      const VectorConstRef & ds,
                                                      const VectorConstRef & xsi,
-                                                     const std::optional<VectorConstRef> & xsiOff)
-: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
+                                                     const std::optional<VectorConstRef> & xsiOff,
+                                                     const std::optional<VectorConstRef> & m,
+                                                     const std::optional<VectorConstRef> & lambda)
+: di_(di), ds_(ds), xsi_(xsi), xsiOff_(xsiOff.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0))),
+  m_(m.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0))),
+  lambda_(lambda.value_or(Eigen::VectorXd::Constant(di_.size(), 1, 0.0)))
 {
   if(di_.size() != ds_.size() || di_.size() != xsi_.size() || di_.size() != xsiOff_.size())
   {
@@ -69,14 +73,17 @@ VelocityDamper::AnisotropicConfig::AnisotropicConfig(const Config & config)
 : AnisotropicConfig(Eigen::VectorXd::Constant(1, 1, config.di_),
                     Eigen::VectorXd::Constant(1, 1, config.ds_),
                     Eigen::VectorXd::Constant(1, 1, config.xsi_),
-                    Eigen::VectorXd::Constant(1, 1, config.xsiOff_))
+                    Eigen::VectorXd::Constant(1, 1, config.xsiOff_),
+                    Eigen::VectorXd::Constant(1, 1, config.m_),
+                    Eigen::VectorXd::Constant(1, 1, config.lambda_))
 {}
 
 VelocityDamper::VelocityDamper(const Config & config, double big) : VelocityDamper(AnisotropicConfig{config}, big) {}
 
 VelocityDamper::VelocityDamper(const AnisotropicConfig & config, double big)
 : dt_(0), xsi_(0), ds_(config.ds_), di_(config.di_), big_(big),
-  autoXsi_(config.xsi_[0] == 0) // we have ensure they are either all 0 or all specified
+  autoXsi_(config.xsi_[0] == 0), // we have ensure they are either all 0 or all specified
+  m_(config.m_), lambda_(config.lambda_)
 {
   if(autoXsi_)
   {
@@ -98,7 +105,8 @@ VelocityDamper::VelocityDamper(double dt, const Config & config, double big)
 
 VelocityDamper::VelocityDamper(double dt, const AnisotropicConfig & config, double big)
 : dt_(dt), xsi_(0), ds_(config.ds_), di_(config.di_), big_(big),
-  autoXsi_(config.xsi_[0] == 0) // we have ensure they are either all 0 or all specified
+  autoXsi_(config.xsi_[0] == 0), // we have ensure they are either all 0 or all specified
+  m_(config.m_), lambda_(config.lambda_)
 {
   if(autoXsi_)
   {
@@ -124,7 +132,7 @@ std::unique_ptr<abstract::TaskDynamicsImpl> VelocityDamper::impl_(FunctionPtr f,
 {
   if(dt_ > 0)
   {
-    return std::make_unique<Impl>(f, t, rhs, dt_, autoXsi_, di_, ds_, xsi_, big_);
+    return std::make_unique<Impl>(f, t, rhs, dt_, autoXsi_, di_, ds_, xsi_, big_, m_, lambda_);
   }
   else
   {
@@ -164,7 +172,8 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
                            double big)
 : TaskDynamicsImpl(Order::One, f, t, rhs), dt_(0), ds_(resizeParameter(f, ds, "safety distance")),
   di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
-  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false)
+  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
+  m_(Eigen::VectorXd::Constant(f->size(), 1, 0.0)), lambda_(Eigen::VectorXd::Constant(f->size(), 1, 0.0))
 {
   if(autoXsi)
   {
@@ -189,7 +198,61 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
                            double big)
 : TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
   di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
-  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false)
+  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
+  m_(Eigen::VectorXd::Constant(f->size(), 1, 0.0)), lambda_(Eigen::VectorXd::Constant(f->size(), 1, 0.0))
+{
+  if(autoXsi)
+  {
+    axsi_.setOnes();
+    xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
+  }
+  else
+  {
+    axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
+  }
+}
+
+VelocityDamper::Impl::Impl(FunctionPtr f,
+                           constraint::Type t,
+                           const Eigen::VectorXd & rhs,
+                           double dt,
+                           bool autoXsi,
+                           const Eigen::VectorXd & di,
+                           const Eigen::VectorXd & ds,
+                           const Eigen::VectorXd & xsi,
+                           double big,
+                           const Eigen::VectorXd & m)
+: TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
+  di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
+  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
+  m_(resizeParameter(f, m, "amortization margin")), lambda_(Eigen::VectorXd::Constant(f->size(), 1, 0.0))
+{
+  if(autoXsi)
+  {
+    axsi_.setOnes();
+    xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
+  }
+  else
+  {
+    axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
+  }
+}
+
+VelocityDamper::Impl::Impl(FunctionPtr f,
+                           constraint::Type t,
+                           const Eigen::VectorXd & rhs,
+                           double dt,
+                           bool autoXsi,
+                           const Eigen::VectorXd & di,
+                           const Eigen::VectorXd & ds,
+                           const Eigen::VectorXd & xsi,
+                           double big,
+                           const Eigen::VectorXd & m,
+                           const Eigen::VectorXd & lambda)
+: TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
+  di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
+  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
+  m_(resizeParameter(f, m, "amortization margin")), lambda_(resizeParameter(f, lambda, "lambda"))
 {
   if(autoXsi)
   {
@@ -204,27 +267,72 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
 
 void VelocityDamper::Impl::updateValue()
 {
+  bool useLambda = lambda_.array().all() >= 1.0;
+  bool closeLoopSecondOrder = m_.array().all() >= 1.0;
+
   if(type() == constraint::Type::LOWER_THAN)
   {
     d_ = rhs() - function().value(); // turn f<=rhs into d = rhs-f >= 0
-    updateValue_(-1);
-    if(order() == Order::Two)
+    if(!useLambda)
     {
-      value_ += function().velocity();
-      value_ /= dt_;
+      updateValue_(-1);
+      if(order() == Order::Two)
+      {
+        value_ += function().velocity(); // -xsi*(e_i-ds)/(di-ds) + dot{e}_i
+        if(closeLoopSecondOrder)
+        {
+          value_.array() *= 4 * m_.array() * m_.array()
+                            * axsi_.array(); // -4*M^2*xsi^2/(di-ds)^2 * (e_i-ds) + 4*M^2*xsi/(di-ds) * dot{e}_i
+        }
+        else // close loop second order
+        {
+          value_ /= dt_; // -xsi/dt * (e_i-ds)/(di-ds) + dot{e}_i/dt
+        }
+      }
     }
-    value_ = (d_.array() > di_.array()).select(big_, -value_);
+    else
+    {
+      value_ = (-lambda_.array() * lambda_.array() * (d_.array() - ds_.array()) / (4 * m_.array() * m_.array()))
+               + (lambda_.array() * function().velocity().array());
+    }
+    if(!closeLoopSecondOrder) // If in close loop we apply the damping regardless the interaction distance
+    {
+      value_ = (d_.array() > di_.array()).select(big_, -value_);
+    }
+    else
+    {
+      value_ = -value_;
+    }
   }
   else
   {
     d_ = function().value() - rhs(); // turn f>=rhs into d = f-rhs >= 0
-    updateValue_(+1);
-    if(order() == Order::Two)
+    if(!useLambda)
     {
-      value_ -= function().velocity();
-      value_ /= dt_;
+      updateValue_(+1);
+      if(order() == Order::Two)
+      {
+        value_ -= function().velocity(); // -xsi*(e_i-ds)/(di-ds) - dot{e}_i
+        if(!closeLoopSecondOrder)
+        {
+          value_ /= dt_; // -xsi/dt * (e_i-ds)/(di-ds) - dot{e}_i/dt
+        }
+        else // close loop second order
+        {
+          value_.array() *= 4 * m_.array() * m_.array()
+                            * axsi_.array(); // -4*M^2*xsi^2/(di-ds)^2 * (e_i-ds) - 4*M^2*xsi/(di-ds) * dot{e}_i
+        }
+      }
     }
-    value_ = (d_.array() > di_.array()).select(-big_, value_);
+    else
+    {
+      value_ = (-lambda_.array() * lambda_.array() * (d_.array() - ds_.array()) / (4 * m_.array() * m_.array()))
+               - (lambda_.array() * function().velocity().array());
+    }
+    if(!closeLoopSecondOrder) // If in close loop we apply the damping regardless the interaction distance
+    {
+      value_ = (d_.array() > di_.array()).select(-big_, value_);
+    }
   }
 }
 
