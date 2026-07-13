@@ -25,8 +25,8 @@ TaskDynamicsImpl::TaskDynamicsImpl(Order order, FunctionPtr f, constraint::Type 
   if(!f->imageSpace().isEuclidean())
     throw std::runtime_error(
         "[TaskDynamicsImpl::TaskDynamicsImpl] Task dynamics are for function into a Euclidean space.");
-  setFunction(f);
   registerUpdates(Update::UpdateValue, &TaskDynamicsImpl::updateValue);
+  setFunction(f);
   addOutputDependency(Output::Value, Update::UpdateValue);
 }
 
