@@ -18,10 +18,6 @@ VelocityDamper::Config::Config(double di, double ds, double xsi, double xsiOff)
   {
     throw std::runtime_error("di must be greater than ds");
   }
-  if(ds_ < 0)
-  {
-    throw std::runtime_error("ds should be non-negative.");
-  }
   if(xsi_ < 0)
   {
     throw std::runtime_error("xsi should be non-negative.");
@@ -45,10 +41,6 @@ VelocityDamper::AnisotropicConfig::AnisotropicConfig(const VectorConstRef & di,
   if((di_.array() <= ds_.array()).any())
   {
     throw std::runtime_error("di must be greater than ds");
-  }
-  if((ds_.array() < 0).any())
-  {
-    throw std::runtime_error("ds should be non-negative.");
   }
   if((xsi_.array() < 0).any())
   {
