@@ -172,9 +172,13 @@ public:
   void updateU2Kin();
   /** Update the \p u vector, for dynamic, double-sided tasks.*/
   void updateU2Dyn();
+  /** Update the variables according to the function f_ variables */
+  void updateVariables();
 
   /** Return the jacobian matrix corresponding to \p x */
   tvm::internal::MatrixConstRefWithProperties jacobian(const Variable & x) const override;
+
+  const tvm::VariableVector & functionVariables() { return f_->variables(); }
 
 private:
   FunctionPtr f_;

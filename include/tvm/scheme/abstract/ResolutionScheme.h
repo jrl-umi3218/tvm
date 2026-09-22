@@ -73,6 +73,7 @@ inline bool ResolutionScheme<Derived>::solve(Problem & problem) const
 {
   auto data = getComputationData(problem, *this);
   problem.update();
+  problem.addEventsToComputationData();
   updateComputationData(problem, data);
   bool b = derived().solve_(problem, data);
   data->setVariablesToSolution();

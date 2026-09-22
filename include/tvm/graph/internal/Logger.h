@@ -4,6 +4,7 @@
 
 #include <tvm/api.h>
 
+#include <sstream>
 #include <tvm/graph/internal/Log.h>
 
 #include <algorithm>
@@ -61,6 +62,27 @@ public:
 
   template<typename U>
   void logCall(U * node, void (U::*fn)());
+
+  /**
+   * Return the name of a node previously registered with registerType
+   * If the node hasn't been registered, return its address.
+   */
+  template<typename U>
+  std::string typeName(U * node)
+  {
+    std::uintptr_t val = reinterpret_cast<std::uintptr_t>(node);
+    if(log_.types_.count(val) > 0)
+    {
+      auto & types = log_.types_[val];
+      return clean(types.back().name());
+    }
+    else
+    {
+      std::stringstream ss;
+      ss << "UnregisteredNodeType(" << node << ")";
+      return ss.str();
+    }
+  }
 
 private:
   Logger() = default;
