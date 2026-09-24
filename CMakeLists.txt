@@ -4,7 +4,7 @@ set(PROJECT_NAME TVM)
 set(PROJECT_DESCRIPTION "...")
 set(PROJECT_URL "https://github.com/jrl-umi3218/tvm")
 set(PROJECT_DEBUG_POSTFIX "_d")
-set(PROJECT_VERSION 0.9.6)
+set(PROJECT_VERSION 0.9.7)
 set(PROJECT_USE_KEYWORD_LINK_LIBRARIES TRUE)
 set(PROJECT_USE_CMAKE_EXPORT TRUE)
 
@@ -40,7 +40,11 @@ endif()
 include(${JRL_CMAKE_MODULES}/base.cmake)
 include(${JRL_CMAKE_MODULES}/msvc-specific.cmake)
 
-project(TVM CXX VERSION ${PROJECT_VERSION})
+project(
+  TVM
+  LANGUAGES CXX
+  HOMEPAGE_URL "https://github.com/jrl-umi3218/tvm"
+  VERSION ${PROJECT_VERSION})
 
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS
