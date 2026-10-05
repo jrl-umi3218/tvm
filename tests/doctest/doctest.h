@@ -2033,9 +2033,7 @@ int registerReporter(const char * name, int priority, bool isReporter)
     namespace                                                    \
     {                                                            \
     struct der : public base                                     \
-    {                                                            \
-      void f();                                                  \
-    };                                                           \
+    { void f(); };                                               \
     static void func()                                           \
     {                                                            \
       der v;                                                     \

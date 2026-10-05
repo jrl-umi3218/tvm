@@ -141,9 +141,7 @@ static_assert(COUNT_VA_ARGS(1, 2, 3) == 3, "COUNT_VA_ARGS failed for 3 arguments
   using EnumName##Parent = SelfT::EnumName##Base;                                                                      \
   PP_ID(DECLARE_ENUM(EnumName, __VA_ARGS__))                                                                           \
   struct EnumName : public EnumName##Parent::EnumName                                                                  \
-  {                                                                                                                    \
-    PP_ID(PP_MAP(DECLARE_STRUCT, EnumName, __VA_ARGS__))                                                               \
-  };                                                                                                                   \
+  { PP_ID(PP_MAP(DECLARE_STRUCT, EnumName, __VA_ARGS__)) };                                                            \
   static constexpr unsigned int EnumName##Size = EnumName##Parent::EnumName##Size + PP_ID(COUNT_VA_ARGS(__VA_ARGS__)); \
   using EnumName##Parent::EnumName##Name;                                                                              \
   static constexpr const char * EnumName##Name(EnumName##_ v)                                                          \

@@ -100,9 +100,7 @@ private:
 };
 
 class SolvingRequirements : public SolvingRequirementsBase<true>
-{
-  using SolvingRequirementsBase::SolvingRequirementsBase;
-};
+{ using SolvingRequirementsBase::SolvingRequirementsBase; };
 
 class SolvingRequirementsWithCallbacks : public SolvingRequirementsBase<false>
 {
