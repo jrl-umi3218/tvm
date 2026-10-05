@@ -12,6 +12,6 @@ enum class Type
 {
   CONTACT_NUMBER_CHANGED,
 };
-}
+} // namespace event
 
 } // namespace tvm

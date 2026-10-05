@@ -10,37 +10,25 @@
 #include <Eigen/Core>
 
 struct Derived : public tvm::graph::abstract::Outputs
-{
-  SET_OUTPUTS(Derived, O0, O1, O2)
-};
+{ SET_OUTPUTS(Derived, O0, O1, O2) };
 
 struct Derived2 : public Derived
-{
-  SET_OUTPUTS(Derived2, O3)
-};
+{ SET_OUTPUTS(Derived2, O3) };
 
 struct Derived3 : public Derived2
 {};
 
 struct Derived4 : public Derived3
-{
-  SET_OUTPUTS(Derived4, O4, O5, O6, O7, O8)
-};
+{ SET_OUTPUTS(Derived4, O4, O5, O6, O7, O8) };
 
 struct Derived5 : public Derived4
-{
-  DISABLE_OUTPUTS(Output::O4, Derived::Output::O0)
-};
+{ DISABLE_OUTPUTS(Output::O4, Derived::Output::O0) };
 
 struct Derived6 : public Derived5
-{
-  CLEAR_DISABLED_OUTPUTS()
-};
+{ CLEAR_DISABLED_OUTPUTS() };
 
 struct AnotherOutput : public tvm::graph::abstract::Outputs
-{
-  SET_OUTPUTS(AnotherOutput, O0, O1)
-};
+{ SET_OUTPUTS(AnotherOutput, O0, O1) };
 
 struct TestInputs : public tvm::graph::internal::Inputs
 {
