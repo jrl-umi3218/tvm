@@ -130,14 +130,14 @@ private:
    * to variable \p x to the block of matrix described by \p M and \p range.
    * \p flip indicates a sign change if \p true.
    */
-  void addMatrixAssignment(Variable & x, MatrixFunction M, const Range & range, bool flip);
+  void addMatrixAssignment(VariablePtr x, MatrixFunction M, const Range & range, bool flip);
 
   /** Creates the assignments due to substituting the variable \p x by the
    * linear expression given by \p sub. The target is given by \p M.
    * \p flip indicates a sign change if \p true.
    */
   void addMatrixSubstitutionAssignments(const VariableVector & variables,
-                                        Variable & x,
+                                        VariablePtr x,
                                         MatrixFunction M,
                                         const function::BasicLinearFunction & sub,
                                         bool flip);
@@ -169,7 +169,7 @@ private:
    */
   void addVectorSubstitutionAssignments(const function::BasicLinearFunction & sub,
                                         VectorFunction v,
-                                        Variable & x,
+                                        VariablePtr x,
                                         bool flip);
 
   /** Create a vector assignment where the source is a constant. The target
@@ -194,7 +194,7 @@ private:
    * and \p range. The variable \p x is simply stored in the corresponding
    * \p MatrixAssignment.
    */
-  void addZeroAssignment(Variable & x, MatrixFunction M, const Range & range);
+  void addZeroAssignment(VariablePtr x, MatrixFunction M, const Range & range);
 
   /** Calls addAssignments(const VariableVector& variables, MatrixFunction M,
    * RHSFunction f1, VectorFunction v1, RHSFunction f2, VectorFunction v2,
