@@ -13,12 +13,17 @@ on:
     branches:
       - '**'
 
+# cancel running workflows when pushing to the same branch/pr
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04 windows-latest]
+        os: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04, windows-latest]
         build-type: [Debug, RelWithDebInfo]
         compiler: [gcc, clang]
         with-robot: [ON, OFF]

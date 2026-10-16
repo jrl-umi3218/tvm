@@ -1,6 +1,10 @@
 name: "CI - Nix"
 on:
   push:
+    paths-ignore:
+      # Changes to those files don't mandate running CI
+      - ".clang-format"
+      - "debian/**"
     branches:
       - devel
       - master
@@ -10,6 +14,12 @@ on:
       - devel
       - master
       - main
+
+# cancel running workflows when pushing to the same branch/pr
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   nix:
     runs-on: "${{ matrix.os }}-latest"
