@@ -133,11 +133,7 @@ addbenchmark(TestData)
 if(TVM_WITH_ROBOT)
   find_package(Tasks QUIET)
   if(${Tasks_FOUND})
-    find_package(Boost REQUIRED COMPONENTS system timer)
     addbenchmark(CompareTasks)
-    if(NOT WIN32)
-      target_link_libraries(CompareTasks PUBLIC Boost::system)
-    endif()
     target_compile_options(
       CompareTasks
       PRIVATE -DJVRC_DESCRIPTION_PATH=\"${JVRC_DESCRIPTION_PATH}\"
