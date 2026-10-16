@@ -56,6 +56,7 @@ else()
 endif()
 
 option(TVM_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
+option(BUILD_TESTING "Build and run unit tests" ON)
 
 set(USING_SOLVER FALSE)
 set(SOLVER_FLAGS "")
@@ -79,6 +80,44 @@ endif()
 # ##############################################################################
 # * External dependencies - #
 # ##############################################################################
+
+# Try to find system mpark_variant first
+find_package(mpark_variant CONFIG QUIET)
+if(NOT mpark_variant_FOUND)
+  include(FetchContent)
+  FetchContent_Declare(
+    mpark_variant_proj
+    QUIET
+    GIT_REPOSITORY https://github.com/mpark/variant.git
+    GIT_TAG v1.4.0)
+  FetchContent_MakeAvailable(mpark_variant_proj)
+  # Alias target for compatibility if needed
+  if(NOT TARGET mpark_variant::mpark_variant AND TARGET mpark_variant)
+    add_library(mpark_variant::mpark_variant ALIAS mpark_variant)
+  endif()
+endif()
+
+# Try to find system google benchmark library
+find_package(benchmark CONFIG QUIET)
+if(NOT benchmark_FOUND)
+  include(FetchContent)
+
+  # Disable Google Benchmark's own tests to avoid needing GoogleTest
+  set(BENCHMARK_ENABLE_TESTING
+      OFF
+      CACHE BOOL "" FORCE)
+
+  FetchContent_Declare(
+    benchmark_proj
+    QUIET
+    GIT_REPOSITORY https://github.com/google/benchmark.git
+    GIT_TAG v1.10.0)
+  FetchContent_MakeAvailable(benchmark_proj)
+  # Alias target for compatibility if needed
+  if(NOT TARGET benchmark::benchmark AND TARGET benchmark)
+    add_library(benchmark::benchmark ALIAS benchmark)
+  endif()
+endif()
 
 # ##############################################################################
 # * Eigen - #
@@ -174,14 +213,13 @@ endif(MSVC)
 # Grouping projects in solution folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_subdirectory(3rd-party)
 add_subdirectory(src)
-if(${BUILD_TESTING})
-  set(TEST_FLAGS "")
-  option(TVM_THOROUGH_TESTING "Enable the most expansive tests." OFF)
-  if(TVM_THOROUGH_TESTING)
-    list(APPEND TEST_FLAGS "-DTVM_THOROUGH_TESTING")
-  endif()
-  add_subdirectory(tests)
-  add_subdirectory(examples)
+# if(BUILD_TESTING)
+set(TEST_FLAGS "")
+option(TVM_THOROUGH_TESTING "Enable the most expansive tests." OFF)
+if(TVM_THOROUGH_TESTING)
+  list(APPEND TEST_FLAGS "-DTVM_THOROUGH_TESTING")
 endif()
+add_subdirectory(tests)
+add_subdirectory(examples)
+# endif()

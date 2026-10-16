@@ -274,7 +274,7 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_link_libraries(TVM PUBLIC ${SOLVER_LIBS} tvm_3rd-party_mpark-variant)
+target_link_libraries(TVM PUBLIC ${SOLVER_LIBS} mpark_variant)
 target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
 if(TVM_WITH_ROBOT)
   target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers
