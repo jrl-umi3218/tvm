@@ -2,7 +2,7 @@ ci:
   autoupdate_schedule: quarterly
 exclude: |
   (?x)^(
-      3rd-party/mpark/.*|
+      3rd-party/.*|
       .*.svg|
   )$
 repos:

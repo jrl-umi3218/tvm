@@ -12,48 +12,20 @@
         mc-rtc-nix.overlays.ccache = inputs.ccache-trigger.value;
 
         flakoboros = {
-          packages = {
-            mpark-variant =
-              {
-                stdenv,
-                lib,
-                fetchFromGitHub,
-                cmake,
-              }:
-
-              stdenv.mkDerivation {
-                pname = "mpark-variant";
-                version = "v1.4.0";
-
-                src = fetchFromGitHub {
-                  owner = "mpark";
-                  repo = "variant";
-                  tag = "v1.4.0";
-                  hash = "sha256-RAIJTLFtvQFFyTapIwCHWT3IlyXMe8cEWdjRfHFp6D8=";
-                };
-
-                nativeBuildInputs = [
-                  cmake
-                ];
-
-                doCheck = true;
-
-                meta = with lib; {
-                  description = "C++17 `std::variant` for C++11/14/17";
-                  homepage = "https://github.com/mpark/variant";
-                  license = licenses.bsl11;
-                  platforms = platforms.all;
-                };
-              };
-          };
+          overrideAttrs.doxygen-awesome-css = { };
           overrideAttrs.tvm =
             { pkgs-final, drv-prev, ... }:
             {
               src = lib.cleanSource ./.;
-              cmakeFlages = [ (lib.cmakeBool "BUILD_TESTING" true) ];
+              cmakeFlags = (drv-prev.cmakeFlags or [ ]) ++ [
+                (lib.cmakeBool "BUILD_TESTING" true)
+                (lib.cmakeBool "BUILD_DOCUMENTATION" true)
+                "-DDOXYGEN_AWESOME_CSS_PATH=${pkgs-final.doxygen-awesome-css}/share/doxygen-awesome-css"
+              ];
               buildInputs = (drv-prev.buildInputs or [ ]) ++ [
+                pkgs-final.doxygen
                 pkgs-final.gbenchmark
-                pkgs-final.mpark-variant
+                pkgs-final.doxygen-awesome-css
               ];
             };
         };

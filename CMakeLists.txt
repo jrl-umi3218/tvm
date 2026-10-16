@@ -81,21 +81,9 @@ endif()
 # * External dependencies - #
 # ##############################################################################
 
-# Try to find system mpark_variant first
-find_package(mpark_variant CONFIG QUIET)
-if(NOT mpark_variant_FOUND)
-  include(FetchContent)
-  FetchContent_Declare(
-    mpark_variant_proj
-    QUIET
-    GIT_REPOSITORY https://github.com/mpark/variant.git
-    GIT_TAG v1.4.0)
-  FetchContent_MakeAvailable(mpark_variant_proj)
-  # Alias target for compatibility if needed
-  if(NOT TARGET mpark_variant::mpark_variant AND TARGET mpark_variant)
-    add_library(mpark_variant::mpark_variant ALIAS mpark_variant)
-  endif()
-endif()
+install(
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/include/tvm/mpark/variant.hpp
+  DESTINATION include/tvm/mpark)
 
 # Try to find system google benchmark library
 find_package(benchmark CONFIG QUIET)
@@ -117,6 +105,31 @@ if(NOT benchmark_FOUND)
   if(NOT TARGET benchmark::benchmark AND TARGET benchmark)
     add_library(benchmark::benchmark ALIAS benchmark)
   endif()
+endif()
+
+# Allow users or packagers (like Nix) to supply the path manually
+set(DOXYGEN_AWESOME_CSS_PATH
+    ""
+    CACHE PATH "Path to doxygen-awesome-css directory")
+
+if(DOXYGEN_AWESOME_CSS_PATH STREQUAL "")
+  message(
+    STATUS "DOXYGEN_AWESOME_CSS_PATH not provided. Fetching via FetchContent..."
+  )
+  include(FetchContent)
+  FetchContent_Declare(
+    doxygen_awesome_css
+    URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/heads/main.zip
+  )
+  FetchContent_MakeAvailable(doxygen_awesome_css)
+
+  # Point to the downloaded FetchContent directory
+  set(AWESOME_CSS_DIR "${doxygen_awesome_css_SOURCE_DIR}")
+else()
+  message(
+    STATUS
+      "Using user-provided doxygen-awesome-css at: ${DOXYGEN_AWESOME_CSS_PATH}")
+  set(AWESOME_CSS_DIR "${DOXYGEN_AWESOME_CSS_PATH}")
 endif()
 
 # ##############################################################################

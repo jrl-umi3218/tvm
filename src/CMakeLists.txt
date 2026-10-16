@@ -274,7 +274,8 @@ assign_source_group("sources" ${TVM_SOURCES})
 assign_source_group("headers" ${TVM_HEADERS})
 
 add_library(TVM SHARED ${TVM_SOURCES} ${TVM_HEADERS})
-target_link_libraries(TVM PUBLIC ${SOLVER_LIBS} mpark_variant)
+target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
+
 target_link_libraries(TVM PUBLIC ${SOLVER_LIBS})
 if(TVM_WITH_ROBOT)
   target_link_libraries(TVM PUBLIC RBDyn::RBDyn RBDyn::Parsers
@@ -283,6 +284,7 @@ endif()
 target_include_directories(
   TVM
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/3rd-party/include>
          $<BUILD_INTERFACE:${TVM_INCLUDE_BINARY_DIR}>
          $<INSTALL_INTERFACE:include>)
 set_target_properties(TVM PROPERTIES COMPILE_FLAGS

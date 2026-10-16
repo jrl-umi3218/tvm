@@ -11,7 +11,7 @@
 #include <tvm/graph/CallGraph.h>
 #include <tvm/internal/MatrixWithProperties.h>
 
-#include <mpark/variant.hpp>
+#include <tvm/mpark/variant.hpp>
 
 #include <Eigen/Core>
 
