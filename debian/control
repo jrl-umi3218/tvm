@@ -12,7 +12,8 @@ Build-Depends: debhelper (>= 9),
                graphviz,
                libeigen-quadprog-dev,
                liblexls-dev,
-               libeigen-qld-dev
+               libeigen-qld-dev,
+               libbenchmark-dev
 
 Package: libtvm-dev
 Section: libdevel

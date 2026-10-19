@@ -95,6 +95,12 @@ if(NOT benchmark_FOUND)
       OFF
       CACHE BOOL "" FORCE)
 
+  # Disable Google Benchmark's installation rules so it doesn't install .pc
+  # files, headers, etc.
+  set(BENCHMARK_ENABLE_INSTALL
+      OFF
+      CACHE BOOL "" FORCE)
+
   FetchContent_Declare(
     benchmark_proj
     QUIET
