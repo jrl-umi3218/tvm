@@ -5,6 +5,7 @@ on:
       # Changes to those files don't mandate running CI
       - ".clang-format"
       - "debian/**"
+      - ".mergify.yml"
     branches:
       - devel
       - master
