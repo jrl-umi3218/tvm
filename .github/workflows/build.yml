@@ -74,7 +74,7 @@ jobs:
         windows: |
           github:
             - path: leethomason/tinyxml2
-              ref: 7.1.0
+              ref: 11.0.0
             - path: jbeder/yaml-cpp
               ref: 29dcf92f870ee51cce8d68f8fcfe228942e8dfe1
         options: -DPYTHON_BINDING:BOOL=OFF
