@@ -7,7 +7,7 @@
 // std::variant is basically unusable in clang 6 + libstdc++ due to a bug
 // see, e.g. https://bugs.llvm.org/show_bug.cgi?id=33222
 // We use https://github.com/mpark/variant/ instead
-#include <mpark/variant.hpp>
+#include <tvm/mpark/variant.hpp>
 
 #include <tvm/defs.h>
 

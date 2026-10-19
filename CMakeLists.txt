@@ -56,6 +56,7 @@ else()
 endif()
 
 option(TVM_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
+option(BUILD_TESTING "Build and run unit tests" ON)
 
 set(USING_SOLVER FALSE)
 set(SOLVER_FLAGS "")
@@ -79,6 +80,57 @@ endif()
 # ##############################################################################
 # * External dependencies - #
 # ##############################################################################
+
+install(
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/include/tvm/mpark/variant.hpp
+  DESTINATION include/tvm/mpark)
+
+# Try to find system google benchmark library
+find_package(benchmark CONFIG QUIET)
+if(NOT benchmark_FOUND)
+  include(FetchContent)
+
+  # Disable Google Benchmark's own tests to avoid needing GoogleTest
+  set(BENCHMARK_ENABLE_TESTING
+      OFF
+      CACHE BOOL "" FORCE)
+
+  FetchContent_Declare(
+    benchmark_proj
+    QUIET
+    GIT_REPOSITORY https://github.com/google/benchmark.git
+    GIT_TAG v1.10.0)
+  FetchContent_MakeAvailable(benchmark_proj)
+  # Alias target for compatibility if needed
+  if(NOT TARGET benchmark::benchmark AND TARGET benchmark)
+    add_library(benchmark::benchmark ALIAS benchmark)
+  endif()
+endif()
+
+# Allow users or packagers (like Nix) to supply the path manually
+set(DOXYGEN_AWESOME_CSS_PATH
+    ""
+    CACHE PATH "Path to doxygen-awesome-css directory")
+
+if(DOXYGEN_AWESOME_CSS_PATH STREQUAL "")
+  message(
+    STATUS "DOXYGEN_AWESOME_CSS_PATH not provided. Fetching via FetchContent..."
+  )
+  include(FetchContent)
+  FetchContent_Declare(
+    doxygen_awesome_css
+    URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/heads/main.zip
+  )
+  FetchContent_MakeAvailable(doxygen_awesome_css)
+
+  # Point to the downloaded FetchContent directory
+  set(AWESOME_CSS_DIR "${doxygen_awesome_css_SOURCE_DIR}")
+else()
+  message(
+    STATUS
+      "Using user-provided doxygen-awesome-css at: ${DOXYGEN_AWESOME_CSS_PATH}")
+  set(AWESOME_CSS_DIR "${DOXYGEN_AWESOME_CSS_PATH}")
+endif()
 
 # ##############################################################################
 # * Eigen - #
@@ -174,14 +226,13 @@ endif(MSVC)
 # Grouping projects in solution folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_subdirectory(3rd-party)
 add_subdirectory(src)
-if(${BUILD_TESTING})
-  set(TEST_FLAGS "")
-  option(TVM_THOROUGH_TESTING "Enable the most expansive tests." OFF)
-  if(TVM_THOROUGH_TESTING)
-    list(APPEND TEST_FLAGS "-DTVM_THOROUGH_TESTING")
-  endif()
-  add_subdirectory(tests)
-  add_subdirectory(examples)
+# if(BUILD_TESTING)
+set(TEST_FLAGS "")
+option(TVM_THOROUGH_TESTING "Enable the most expansive tests." OFF)
+if(TVM_THOROUGH_TESTING)
+  list(APPEND TEST_FLAGS "-DTVM_THOROUGH_TESTING")
 endif()
+add_subdirectory(tests)
+add_subdirectory(examples)
+# endif()

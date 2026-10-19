@@ -147,9 +147,9 @@ void assign(AssignType A, Ref<MatrixXd> to)
   if(A == COPY)
     to.setZero();
   else if(A == MIN)
-    to.array() = to.array().min(0);
+    to.array() = to.array().min(0.0);
   else if(A == MAX)
-    to.array() = to.array().max(0);
+    to.array() = to.array().max(0.0);
 }
 
 // an example of free function. Here, we reverse the columns of in
