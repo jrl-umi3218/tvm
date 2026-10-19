@@ -1,3 +1,9 @@
+tvm (0.9.8-1debian1) unstable; urgency=medium
+
+  * New release: version 0.9.8
+
+ -- Arnaud TANGUY <arn.tanguy@gmail.com>  Mon, 19 Oct 2026 11:02:43 +0200
+
 tvm (0.9.7-1debian1) unstable; urgency=medium
 
   * New release: version 0.9.7
