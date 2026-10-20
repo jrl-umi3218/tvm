@@ -16,31 +16,31 @@ namespace task_dynamics
 
 /** A first or second order dynamic task implementing the so-called velocity
  * damper of Faverjon and Tournassoud.
- * For a lower bound tasks e>=0, we have, for e<=di:
- *  - first order: dot{e}_i* = -xsi * (e_i-ds)/(di-ds)
- *  - second order: ddot{e}_i* = -xsi/dt * (e_i-ds)/(di-ds) -dot{e}_i/dt
- *  - close loop second order: ddot{e}_i =  - lambda^2/4*M^2 * (e_i-d_s) - lambda * dot{e}_i with lambda =
- * 4*M^2*xsi/(di-ds)
+ * For a lower bound task \f$ e \ge 0 \f$, we have, for \f$ e \le di \f$:
+ *  - first order: \f$ \dot{e}_i^* = -\xi \frac{e_i-ds}{di-ds} \f$
+ *  - second order: \f$ \ddot{e}_i^* = -\frac{\xi}{dt} \frac{e_i-ds}{di-ds} - \frac{\dot{e}_i}{dt} \f$
+ *  - close loop second order: \f$ \ddot{e}_i = -\frac{\lambda^2}{4 M^2} (e_i-d_s) - \lambda \dot{e}_i \f$ with \f$
+ * \lambda = \frac{4 M^2 \xi}{di-ds} \f$
  *
- * and for e>di:
- *   - first order: dot{e}* = big
- *   - second order: ddot{e}* = big
+ * and for \f$ e > di \f$:
+ *    - first order: \f$ \dot{e}^* = \text{big} \f$
+ *    - second order: \f$ \ddot{e}^* = \text{big} \f$
  *
- * For upper bound tasks e <= 0 this is adapted to get the same behavior as
- * -e >= 0.
+ * For upper bound tasks \f$ e \le 0 \f$ this is adapted to get the same behavior as
+ * \f$ -e \ge 0 \f$.
  *
- * xsi can be computed automatically (see \p autoXsi parameter).
+ * \f$ \xi \f$ can be computed automatically (see \p autoXsi parameter).
  *
- * \attention For xsi to be computed automatically in the first order case,
- * the value of dot{e} is used.
+ * \attention For \f$ \xi \f$ to be computed automatically in the first order case,
+ * the value of \f$ \dot{e} \f$ is used.
  *
- * \attention To know when to compute xsi in automatic mode, the class keeps
+ * \attention To know when to compute \f$ \xi \f$ in automatic mode, the class keeps
  * data on the last iterations. Consequently if the velocity damper is
  * applied to a function \p f with variable \p x, its output value will be
  * the same if \p x keeps the same value \p x0 and velocity \p v0 between
  * two consecutive updates, but the same entries \p x0 and \p v0 \a may give
  * different values for unrelated updates, because of history differences.
- * \n This remark only applies when the automatic computation of xsi is
+ * \n This remark only applies when the automatic computation of \f$ \xi \f$ is
  * required.
  *
  * \attention To use the close loop second order you need to mention \p m_ >= 1.0, otherwise the classic second order
