@@ -187,57 +187,6 @@ VelocityDamper::Impl::Impl(FunctionPtr f,
                            const Eigen::VectorXd & di,
                            const Eigen::VectorXd & ds,
                            const Eigen::VectorXd & xsi,
-                           double big)
-: TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
-  di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
-  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
-  m_(Eigen::VectorXd::Constant(f->size(), 1, 0.0)), lambda_(Eigen::VectorXd::Constant(f->size(), 1, 0.0))
-{
-  if(autoXsi)
-  {
-    axsi_.setOnes();
-    xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
-  }
-  else
-  {
-    axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
-  }
-}
-
-VelocityDamper::Impl::Impl(FunctionPtr f,
-                           constraint::Type t,
-                           const Eigen::VectorXd & rhs,
-                           double dt,
-                           bool autoXsi,
-                           const Eigen::VectorXd & di,
-                           const Eigen::VectorXd & ds,
-                           const Eigen::VectorXd & xsi,
-                           double big,
-                           const Eigen::VectorXd & m)
-: TaskDynamicsImpl(Order::Two, f, t, rhs), dt_(dt), ds_(resizeParameter(f, ds, "safety distance")),
-  di_(resizeParameter(f, di, "interaction distance")), xsiOff_(0), a_(-(di_ - ds_).cwiseInverse()), big_(big),
-  autoXsi_(autoXsi), d_(f->size()), axsi_(f->size()), active_(f->size(), false),
-  m_(resizeParameter(f, m, "amortization margin")), lambda_(Eigen::VectorXd::Constant(f->size(), 1, 0.0))
-{
-  if(autoXsi)
-  {
-    axsi_.setOnes();
-    xsiOff_ = resizeParameter(f, xsi, "damping offset parameter");
-  }
-  else
-  {
-    axsi_ = a_.array() * resizeParameter(f, xsi, "damping parameter").array();
-  }
-}
-
-VelocityDamper::Impl::Impl(FunctionPtr f,
-                           constraint::Type t,
-                           const Eigen::VectorXd & rhs,
-                           double dt,
-                           bool autoXsi,
-                           const Eigen::VectorXd & di,
-                           const Eigen::VectorXd & ds,
-                           const Eigen::VectorXd & xsi,
                            double big,
                            const Eigen::VectorXd & m,
                            const Eigen::VectorXd & lambda)

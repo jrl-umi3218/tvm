@@ -143,27 +143,6 @@ public:
          const Eigen::VectorXd & di,
          const Eigen::VectorXd & ds,
          const Eigen::VectorXd & xsi,
-         double big);
-
-    Impl(FunctionPtr f,
-         constraint::Type t,
-         const Eigen::VectorXd & rhs,
-         double dt,
-         bool autoXsi,
-         const Eigen::VectorXd & di,
-         const Eigen::VectorXd & ds,
-         const Eigen::VectorXd & xsi,
-         double big,
-         const Eigen::VectorXd & m);
-
-    Impl(FunctionPtr f,
-         constraint::Type t,
-         const Eigen::VectorXd & rhs,
-         double dt,
-         bool autoXsi,
-         const Eigen::VectorXd & di,
-         const Eigen::VectorXd & ds,
-         const Eigen::VectorXd & xsi,
          double big,
          const Eigen::VectorXd & m,
          const Eigen::VectorXd & lambda);
