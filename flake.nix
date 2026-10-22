@@ -20,6 +20,7 @@
               cmakeFlags = (drv-prev.cmakeFlags or [ ]) ++ [
                 (lib.cmakeBool "BUILD_TESTING" true)
                 (lib.cmakeBool "BUILD_DOCUMENTATION" true)
+                (lib.cmakeBool "INSTALL_DOCUMENTATION" true)
                 "-DDOXYGEN_AWESOME_CSS_PATH=${pkgs-final.doxygen-awesome-css}/share/doxygen-awesome-css"
               ];
               buildInputs = (drv-prev.buildInputs or [ ]) ++ [

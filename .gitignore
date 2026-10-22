@@ -2,6 +2,7 @@ doc/*.aux
 doc/*.pdf
 doc/*.log
 build
+build/
 .cache/
 compile_commands.json
 
