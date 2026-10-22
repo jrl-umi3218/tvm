@@ -23,7 +23,7 @@
     jax: ["input/TeX","output/HTML-CSS"],
 });
 </script>
-<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen_awesome_css-src" rel="stylesheet" type="text/css"/>
@@ -167,20 +167,23 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:adfdd2313d0000fdedfa770d88cb8e9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud. For a lower bound tasks e&gt;=0, we have, for e&lt;=di:</p><ul>
-<li>first order: dot{e}_i* = -xsi * (e_i-ds)/(di-ds)</li>
-<li>second order: ddot{e}_i* = -xsi/dt * (e_i-ds)/(di-ds) -dot{e}_i/dt</li>
+<div class="textblock"><p>A first or second order dynamic task implementing the so-called velocity damper of Faverjon and Tournassoud. For a lower bound task \( e \ge 0 \), we have, for \( e \le di \):</p><ul>
+<li>first order: \( \dot{e}_i^* = -\xi \frac{e_i-ds}{di-ds} \)</li>
+<li>second order: \( \ddot{e}_i^* = -\frac{\xi}{dt} \frac{e_i-ds}{di-ds} - \frac{\dot{e}_i}{dt} \)</li>
+<li>close loop second order: \( \ddot{e}_i = -\frac{\lambda^2}{4 M^2} (e_i-d_s) - \lambda \dot{e}_i \) with \( \lambda = \frac{4 M^2 \xi}{di-ds} \)</li>
 </ul>
-<p>and for e&gt;di:</p><ul>
-<li>first order: dot{e}* = big</li>
-<li>second order: ddot{e}* = big</li>
+<p>and for \( e &gt; di \):</p><ul>
+<li>first order: \( \dot{e}^* = \text{big} \)</li>
+<li>second order: \( \ddot{e}^* = \text{big} \)</li>
 </ul>
-<p>For upper bound tasks e &lt;= 0 this is adapted to get the same behavior as -e &gt;= 0.</p>
-<p>xsi can be computed automatically (see <code>autoXsi</code> parameter).</p>
-<dl class="section attention"><dt>Attention</dt><dd>For xsi to be computed automatically in the first order case, the value of dot{e} is used.</dd>
+<p>For upper bound tasks \( e \le 0 \) this is adapted to get the same behavior as \( -e \ge 0 \).</p>
+<p>\( \xi \) can be computed automatically (see <code>autoXsi</code> parameter).</p>
+<dl class="section attention"><dt>Attention</dt><dd>For \( \xi \) to be computed automatically in the first order case, the value of \( \dot{e} \) is used.</dd>
 <dd>
-To know when to compute xsi in automatic mode, the class keeps data on the last iterations. Consequently if the velocity damper is applied to a function <code>f</code> with variable <code>x</code>, its output value will be the same if <code>x</code> keeps the same value <code>x0</code> and velocity <code>v0</code> between two consecutive updates, but the same entries <code>x0</code> and <code>v0</code> <em>may</em> give different values for unrelated updates, because of history differences. <br  />
- This remark only applies when the automatic computation of xsi is required. </dd></dl>
+To know when to compute \( \xi \) in automatic mode, the class keeps data on the last iterations. Consequently if the velocity damper is applied to a function <code>f</code> with variable <code>x</code>, its output value will be the same if <code>x</code> keeps the same value <code>x0</code> and velocity <code>v0</code> between two consecutive updates, but the same entries <code>x0</code> and <code>v0</code> <em>may</em> give different values for unrelated updates, because of history differences. <br  />
+ This remark only applies when the automatic computation of \( \xi \) is required.</dd>
+<dd>
+To use the close loop second order you need to mention <code>m_</code> &gt;= 1.0, otherwise the classic second order equation will be used. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae15e7f1b8b9ce3374fa40dee84e83da9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae15e7f1b8b9ce3374fa40dee84e83da9">&#9670;&nbsp;</a></span>VelocityDamper() <span class="overload">[1/4]</span></h2>

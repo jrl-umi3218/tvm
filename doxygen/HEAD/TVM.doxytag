@@ -4277,8 +4277,8 @@
       <type></type>
       <name>AnisotropicConfig</name>
       <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1AnisotropicConfig.html</anchorfile>
-      <anchor>afc7ecaa852a20424f3c041d1a4b1c242</anchor>
-      <arglist>(const VectorConstRef &amp;di, const VectorConstRef &amp;ds, const VectorConstRef &amp;xsi, const std::optional&lt; VectorConstRef &gt; &amp;xsiOff=std::nullopt)</arglist>
+      <anchor>a96fc9b20eb0db24bb09e0d9a0d6177ef</anchor>
+      <arglist>(const VectorConstRef &amp;di, const VectorConstRef &amp;ds, const VectorConstRef &amp;xsi, const std::optional&lt; VectorConstRef &gt; &amp;xsiOff=std::nullopt, const std::optional&lt; VectorConstRef &gt; &amp;m=std::nullopt, const std::optional&lt; VectorConstRef &gt; &amp;lambda=std::nullopt)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -4313,6 +4313,20 @@
       <name>xsiOff_</name>
       <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1AnisotropicConfig.html</anchorfile>
       <anchor>ae94f23415291566e03f10004d4b89162</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Eigen::VectorXd</type>
+      <name>m_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1AnisotropicConfig.html</anchorfile>
+      <anchor>a624a2f7468261c3df1dcf3e0bc059396</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Eigen::VectorXd</type>
+      <name>lambda_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1AnisotropicConfig.html</anchorfile>
+      <anchor>a2d4b38280d3cd9f643949247421228d3</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -6459,8 +6473,8 @@
       <type></type>
       <name>Config</name>
       <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html</anchorfile>
-      <anchor>af3a63bc3e9f55d47b1a9223d97314c41</anchor>
-      <arglist>(double di, double ds, double xsi, double xsiOff=0)</arglist>
+      <anchor>ad971abd5b59f6456088138f0eefbec10</anchor>
+      <arglist>(double di, double ds, double xsi, double xsiOff=0, double m=0, double lambda=0)</arglist>
     </member>
     <member kind="variable">
       <type>double</type>
@@ -6488,6 +6502,20 @@
       <name>xsiOff_</name>
       <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html</anchorfile>
       <anchor>ac87e5d78a69700e370e2ef300c84cbc3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>m_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html</anchorfile>
+      <anchor>ac43eede3aaa70319c51452a313ce9ea7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>lambda_</name>
+      <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html</anchorfile>
+      <anchor>ab7dd84acc004c1b84c6ca02501da0bcb</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -9409,8 +9437,8 @@
       <type></type>
       <name>Impl</name>
       <anchorfile>classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Impl.html</anchorfile>
-      <anchor>a57374af379369e0ff5f562fa5e935217</anchor>
-      <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs, double dt, bool autoXsi, const Eigen::VectorXd &amp;di, const Eigen::VectorXd &amp;ds, const Eigen::VectorXd &amp;xsi, double big)</arglist>
+      <anchor>a9b2050fa5e6db870a808f5dbb73ea73a</anchor>
+      <arglist>(FunctionPtr f, constraint::Type t, const Eigen::VectorXd &amp;rhs, double dt, bool autoXsi, const Eigen::VectorXd &amp;di, const Eigen::VectorXd &amp;ds, const Eigen::VectorXd &amp;xsi, double big, const Eigen::VectorXd &amp;m, const Eigen::VectorXd &amp;lambda)</arglist>
     </member>
     <member kind="function">
       <type>void</type>

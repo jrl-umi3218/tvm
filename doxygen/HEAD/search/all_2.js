@@ -80,7 +80,7 @@ var searchData=
   ['computationdatatype_198',['ComputationDataType',['../classtvm_1_1scheme_1_1HierarchicalLeastSquares.html#a3f76ef07a71500ba2c4b1f0d7a6cbfdb',1,'tvm::scheme::HierarchicalLeastSquares::ComputationDataType()'],['../classtvm_1_1scheme_1_1WeightedLeastSquares.html#a032bd2f6f711f812ee060a82896377a5',1,'tvm::scheme::WeightedLeastSquares::ComputationDataType()']]],
   ['comspeed_5f_199',['comSpeed_',['../classtvm_1_1robot_1_1CoMInConvexFunction.html#a56fce0ccaafe94c081932914bf971a89',1,'tvm::robot::CoMInConvexFunction']]],
   ['concepts_2edox_200',['concepts.dox',['../concepts_8dox.html',1,'']]],
-  ['config_201',['Config',['../classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#af3a63bc3e9f55d47b1a9223d97314c41',1,'tvm::task_dynamics::VelocityDamper::Config::Config()'],['../classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html',1,'tvm::task_dynamics::VelocityDamper::Config']]],
+  ['config_201',['Config',['../classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#ad971abd5b59f6456088138f0eefbec10',1,'tvm::task_dynamics::VelocityDamper::Config::Config()'],['../classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html',1,'tvm::task_dynamics::VelocityDamper::Config']]],
   ['configs_202',['configs',['../group__checkGroup.html#ga2920f041ad3baa276182ec9f33ad65ce',1,'tvm::utils::CheckOptions']]],
   ['const_5fif_203',['const_if',['../namespacetvm_1_1internal.html#ab907fabba6bd185ccf298e84772b5578',1,'tvm::internal']]],
   ['const_5fif_5ft_204',['const_if_t',['../namespacetvm_1_1internal.html#ab8937eb64e589293d91a7e24fc7e4a15',1,'tvm::internal']]],

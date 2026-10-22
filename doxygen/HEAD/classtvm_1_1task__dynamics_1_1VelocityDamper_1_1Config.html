@@ -23,7 +23,7 @@
     jax: ["input/TeX","output/HTML-CSS"],
 });
 </script>
-<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen_awesome_css-src" rel="stylesheet" type="text/css"/>
@@ -106,8 +106,8 @@ $(document).ready(function(){initNavTree('classtvm_1_1task__dynamics_1_1Velocity
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af3a63bc3e9f55d47b1a9223d97314c41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#af3a63bc3e9f55d47b1a9223d97314c41">Config</a> (double di, double ds, double xsi, double xsiOff=0)</td></tr>
-<tr class="separator:af3a63bc3e9f55d47b1a9223d97314c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad971abd5b59f6456088138f0eefbec10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#ad971abd5b59f6456088138f0eefbec10">Config</a> (double di, double ds, double xsi, double xsiOff=0, double m=0, double lambda=0)</td></tr>
+<tr class="separator:ad971abd5b59f6456088138f0eefbec10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -119,12 +119,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8b729669f846363c1d3ad28111c9a131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac87e5d78a69700e370e2ef300c84cbc3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#ac87e5d78a69700e370e2ef300c84cbc3">xsiOff_</a></td></tr>
 <tr class="separator:ac87e5d78a69700e370e2ef300c84cbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43eede3aaa70319c51452a313ce9ea7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#ac43eede3aaa70319c51452a313ce9ea7">m_</a></td></tr>
+<tr class="separator:ac43eede3aaa70319c51452a313ce9ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7dd84acc004c1b84c6ca02501da0bcb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper_1_1Config.html#ab7dd84acc004c1b84c6ca02501da0bcb">lambda_</a></td></tr>
+<tr class="separator:ab7dd84acc004c1b84c6ca02501da0bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A structure grouping the parameters of a velocity damper. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classtvm_1_1task__dynamics_1_1VelocityDamper.html">VelocityDamper</a>. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af3a63bc3e9f55d47b1a9223d97314c41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3a63bc3e9f55d47b1a9223d97314c41">&#9670;&nbsp;</a></span>Config()</h2>
+<a id="ad971abd5b59f6456088138f0eefbec10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad971abd5b59f6456088138f0eefbec10">&#9670;&nbsp;</a></span>Config()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +155,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xsiOff</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>xsiOff</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>m</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lambda</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -166,6 +182,7 @@ Public Attributes</h2></td></tr>
     <tr><td class="paramname">ds</td><td>safety distance \(d_s\). </td></tr>
     <tr><td class="paramname">xsi</td><td>damping parameter \(\xi \). If xsi = 0, the value will be computed automatically, otherwise, we need \(\xi &gt; 0\). In automatic mode, the value is recomputed each time the error value is at a distance to its bound lower or equal to <code>\di</code>  with the formula \( \xi = -\dfrac{d_i - d_s}{d^k - d_s} \dot{d}^k + \xi_{\mathrm{off}} \). </td></tr>
     <tr><td class="paramname">xsiOff</td><td>offset \( \xi_{\mathrm{off}} \) used in the automatic computation of \(\xi\). Used only in the case xsi=0. </td></tr>
+    <tr><td class="paramname">m</td><td>amortization margin \( M \). Used only in the close loop second order case and if M &gt;= 1. </td></tr>
   </table>
   </dd>
 </dl>
@@ -195,6 +212,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::ds_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7dd84acc004c1b84c6ca02501da0bcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7dd84acc004c1b84c6ca02501da0bcb">&#9670;&nbsp;</a></span>lambda_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::lambda_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac43eede3aaa70319c51452a313ce9ea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43eede3aaa70319c51452a313ce9ea7">&#9670;&nbsp;</a></span>m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tvm::task_dynamics::VelocityDamper::Config::m_</td>
         </tr>
       </table>
 </div><div class="memdoc">

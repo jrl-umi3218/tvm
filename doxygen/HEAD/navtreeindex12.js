@@ -1,5 +1,9 @@
 var NAVTREEINDEX12 =
 {
+"structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html#ad0341e83419b89abcb675e56cf7b9c76":[3,0,2,12,0,2,1,2],
+"structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html#ad77852e7bd7c600a48125d0fb3ddcaa2":[3,0,2,12,0,2,1,0],
+"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html":[3,0,2,12,1,0,0],
+"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a4d99a16aa16bb58a429e84358e799f6f":[3,0,2,12,1,0,0,0],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a56a0ba1707d78f2b178ca8ecca142eeb":[3,0,2,12,1,0,0,2],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#ab5b58c4a7b957f782d2e0747c96ed62b":[3,0,2,12,1,0,0,1],
 "structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1WeightEvent.html":[3,0,2,12,1,0,1],

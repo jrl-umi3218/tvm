@@ -74,10 +74,10 @@ var NAVTREEINDEX =
 "classtvm_1_1scheme_1_1internal_1_1MatrixAssignment.html#a6e4933b7fffdf347c6d1b1c58650e43d",
 "classtvm_1_1solver_1_1QLDLeastSquareSolver.html#ad17247c8c7d0295ad69e57f3c50cb8ef",
 "classtvm_1_1task__dynamics_1_1ProportionalDerivative_1_1Impl.html#a0cfdc0589de259e38a19b91690713d6f",
-"functionWritingExample.html",
-"memoryChecks_8h.html#ab2872b8efc9c69d5277a3ae1e101a81d",
-"namespacetvm_1_1utils_1_1internal.html#a1f7de31deb6c74c399f6492e5ca7d595",
-"structtvm_1_1solver_1_1internal_1_1SolverEvents_1_1Objective.html#a56a0ba1707d78f2b178ca8ecca142eeb"
+"event_2enums_8h_source.html",
+"memoryChecks_8h.html#a0a026f7bf5214d9250e5633ac57c38e9",
+"namespacetvm_1_1utils.html#afc5fd31d42639a483c599c87db2cea46",
+"structtvm_1_1solver_1_1abstract_1_1LeastSquareSolver_1_1MarkedAssignment.html#ad0341e83419b89abcb675e56cf7b9c76"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
