@@ -172,6 +172,16 @@ template<typename U, typename EnumU, typename S, typename EnumO>
 void Node<T>::addInputDependency(EnumU u, S * source, EnumO i)
 {
   static_assert(is_valid_output<S>(EnumO()), "Invalid output for this type of source.");
+
+  // Make sure we have a registered update
+  if(!updates_.count(static_cast<int>(u)))
+  {
+    std::stringstream ss;
+    ss << "Attempted to register an input dependency to " << U::UpdateBaseName << " for update " << U::UpdateName(u)
+       << " that has no corresponding registered update function. Consider calling registerUpdates first.";
+    throw std::runtime_error(ss.str());
+  }
+
   if(inputDependencies_.count(static_cast<int>(u)))
   {
     auto & inputDependency = inputDependencies_[static_cast<int>(u)];
